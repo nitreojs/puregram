@@ -1,0 +1,36 @@
+{
+  "name": "puregram",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitreojs/puregram.git"
+  },
+  "author": {
+    "name": "Alex (nitrojs)",
+    "email": "nitrojs@mail.ru"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "middleware-io": "^2.1.0",
+    "node-fetch": "^2.6.0"
+  },
+  "description": "",
+  "bugs": {
+    "url": "https://github.com/nitreojs/puregram/issues"
+  },
+  "homepage": "https://github.com/nitreojs/puregram#readme",
+  "keywords": [
+    "telegram",
+    "api",
+    "telegram-api"
+  ],
+  "typings": "./typings",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  },
+  "files": [
+    "src"
+  ]
+}

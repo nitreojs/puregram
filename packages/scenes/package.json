@@ -1,0 +1,26 @@
+{
+  "name": "@puregram/scenes",
+  "version": "1.0.0",
+  "description": "Scenes for the library puregram",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitreojs/puregram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nitreojs/puregram/issues"
+  },
+  "homepage": "https://github.com/nitreojs/puregram#readme",
+  "keywords": [
+    "puregram",
+    "scenes"
+  ],
+  "author": {
+    "name": "Alex (nitrojs)",
+    "email": "nitrojs@mail.ru"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  }
+}

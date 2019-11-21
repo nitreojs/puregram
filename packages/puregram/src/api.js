@@ -3,7 +3,7 @@ let fetch = require('node-fetch');
 class API {
   constructor(telegram) {
     this.telegram = telegram;
-    this.baseApiUrl = `https://api.telegram.org/bot${telegram.token}`;
+    this.baseApiUrl = this.telegram.baseApiUrl;
   }
 
   call(method, params) {

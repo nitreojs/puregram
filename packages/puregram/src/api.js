@@ -25,6 +25,10 @@ class API {
     let url = `${this.baseApiUrl}/${method}`;
 
     if (query) {
+      if (query.reply_markup) {
+        query.reply_markup = query.reply_markup.toJSON();
+      }
+
       url += `?${new URLSearchParams(query)}`;
     }
 
@@ -62,15 +66,9 @@ class API {
   }
 
   sendMessage(params = {}) {
-    let query = { ...params };
-
-    if (query.reply_markup !== undefined) {
-      query.reply_markup = query.reply_markup.toJSON()
-    }
-
     return this.request({
       method: 'sendMessage',
-      query,
+      query: params,
     });
   }
 
@@ -378,14 +376,6 @@ class API {
   }
 
   editMessageReplyMarkup(params = {}) {
-    let query = { ...params };
-
-    if (query.reply_markup !== undefined) {
-      query.reply_markup = query.reply_markup.toJSON();
-    }
-
-    console.log(query)
-
     return this.request({
       method: 'editMessageReplyMarkup',
       query: params,

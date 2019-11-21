@@ -203,17 +203,7 @@ class NewChatPhoto extends Context {
   async editMessageLiveLocation(params = {}) {
     let response = await this.telegram.api.editMessageLiveLocation({
       chat_id: this.chatId,
-      ...params,
-    });
-
-    return response !== true
-      ? new MessageContext(this.telegram, response)
-      : true;
-  }
-
-  async editMessageLiveLocation(params = {}) {
-    let response = await this.telegram.api.editMessageLiveLocation({
-      chat_id: this.chatId,
+      message_id: this.id,
       ...params,
     });
 

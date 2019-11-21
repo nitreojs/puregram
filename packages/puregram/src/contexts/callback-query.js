@@ -57,7 +57,7 @@ class CallbackQuery extends Context {
 
   answerCallbackQuery(text, params = {}) {
     return this.telegram.api.answerCallbackQuery({
-      id: this.id,
+      callback_query_id: this.id,
       text,
       ...params,
     });
@@ -75,7 +75,7 @@ class CallbackQuery extends Context {
 
   async reply(text, params = {}) {
     return this.send(text, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -92,7 +92,7 @@ class CallbackQuery extends Context {
 
   replyWithPhoto(photo, params = {}) {
     return this.sendPhoto(photo, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -109,7 +109,7 @@ class CallbackQuery extends Context {
 
   replyWithAudio(audio, params = {}) {
     return this.sendAudio(audio, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -126,7 +126,7 @@ class CallbackQuery extends Context {
 
   replyWithVideo(video, params = {}) {
     return this.sendVideo(video, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -143,7 +143,7 @@ class CallbackQuery extends Context {
 
   replyWithAnimation(animation, params = {}) {
     return this.sendAnimation(animation, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -160,7 +160,7 @@ class CallbackQuery extends Context {
 
   replyWithVideoNote(videoNote, params = {}) {
     return this.sendVideoNote(videoNote, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -177,7 +177,7 @@ class CallbackQuery extends Context {
 
   replyWithVoice(voice, params = {}) {
     return this.sendVoice(voice, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -194,7 +194,7 @@ class CallbackQuery extends Context {
 
   replyWithMediaGroup(mediaGroup, params = {}) {
     return this.sendMediaGroup(mediaGroup, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -211,7 +211,7 @@ class CallbackQuery extends Context {
 
   replyWithLocation(location, params = {}) {
     return this.sendLocation(location, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -219,17 +219,7 @@ class CallbackQuery extends Context {
   async editMessageLiveLocation(params = {}) {
     let response = await this.telegram.api.editMessageLiveLocation({
       chat_id: this.message.chatId,
-      ...params,
-    });
-
-    return response !== true
-      ? new MessageContext(this.telegram, response)
-      : true;
-  }
-
-  async editMessageLiveLocation(params = {}) {
-    let response = await this.telegram.api.editMessageLiveLocation({
-      chat_id: this.message.chatId,
+      message_id: this.message.id,
       ...params,
     });
 
@@ -250,7 +240,7 @@ class CallbackQuery extends Context {
 
   replyWithVenue(venue, params = {}) {
     return this.sendVenue(venue, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -267,7 +257,7 @@ class CallbackQuery extends Context {
 
   replyWithContact(contact, params = {}) {
     return this.sendContact(contact, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -294,7 +284,7 @@ class CallbackQuery extends Context {
 
   replyWithContact(poll, params = {}) {
     return this.sendPoll(poll, {
-      reply_to_message_id: this.id,
+      reply_to_message_id: this.message.id,
       ...params,
     });
   }
@@ -310,7 +300,7 @@ class CallbackQuery extends Context {
   async editMessageText(text, params = {}) {
     let response = await this.telegram.api.editMessageText({
       chat_id: this.message.chatId,
-      message_id: this.id,
+      message_id: this.message.id,
       text,
       ...params,
     });
@@ -323,7 +313,7 @@ class CallbackQuery extends Context {
   async editMessageCaption(caption, params = {}) {
     let response = await this.telegram.api.editMessageCaption({
       chat_id: this.message.chatId,
-      message_id: this.id,
+      message_id: this.message.id,
       caption,
       ...params,
     });
@@ -336,7 +326,7 @@ class CallbackQuery extends Context {
   async editMessageMedia(media, params = {}) {
     let response = await this.telegram.api.editMessageMedia({
       chat_id: this.message.chatId,
-      message_id: this.id,
+      message_id: this.message.id,
       media,
       ...params,
     });
@@ -349,7 +339,7 @@ class CallbackQuery extends Context {
   async editMessageReplyMarkup(replyMarkup, params = {}) {
     let response = await this.telegram.api.editMessageReplyMarkup({
       chat_id: this.message.chatId,
-      message_id: this.id,
+      message_id: this.message.id,
       reply_markup: replyMarkup,
       ...params,
     });
@@ -362,7 +352,7 @@ class CallbackQuery extends Context {
   deleteMessage(params = {}) {
     return this.telegram.api.deleteMessage({
       chat_id: this.message.chatId,
-      message_id: this.id,
+      message_id: this.message.id,
       ...params,
     });
   }

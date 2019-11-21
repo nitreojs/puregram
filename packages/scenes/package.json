@@ -15,12 +15,9 @@
     "puregram",
     "scenes"
   ],
-  "author": {
-    "name": "Alex (nitrojs)",
-    "email": "nitrojs@mail.ru"
-  },
+  "author": "nitrojs",
   "license": "MIT",
-  "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

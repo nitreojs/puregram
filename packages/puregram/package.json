@@ -6,10 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/nitreojs/puregram.git"
   },
-  "author": {
-    "name": "Alex (nitrojs)",
-    "email": "nitrojs@mail.ru"
-  },
+  "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
     "debug": "^4.1.1",
@@ -27,9 +24,6 @@
     "telegram-api"
   ],
   "typings": "./typings",
-  "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
-  },
   "files": [
     "src"
   ]

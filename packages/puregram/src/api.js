@@ -1,5 +1,7 @@
 let fetch = require('node-fetch');
 
+let APIError = require('./attachments/apierror');
+
 class API {
   constructor(telegram) {
     this.telegram = telegram;
@@ -46,7 +48,7 @@ class API {
     let json = await response.json();
 
     if (!json.ok) {
-      console.log(json);
+      throw new APIError(json.description);
     }
 
     return json.result;

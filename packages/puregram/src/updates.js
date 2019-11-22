@@ -29,6 +29,55 @@ let contexts = {
   successful_payment: Contexts.SuccessfulPayment,
 };
 
+let splitPath = (path) => (
+	path
+		.replace(/\[([^[\]]*)\]/g, '.$1.')
+		.split('.')
+		.filter(Boolean)
+);
+
+let getObjectValue = (source, selectors) => {
+	let link = source;
+
+	for (let selector of selectors) {
+		if (!link[selector]) {
+			return undefined;
+		}
+
+		link = link[selector];
+	}
+
+	return link;
+};
+
+let unifyCondition = (condition) => {
+	if (typeof condition === 'function') {
+		return condition;
+	}
+
+	if (condition instanceof RegExp) {
+		return (text) => (
+			condition.test(text)
+		);
+	}
+
+	if (Array.isArray(condition)) {
+		let arrayConditions = condition.map(unifyCondition);
+
+		return (value) => (
+			Array.isArray(value)
+				? arrayConditions.every((cond) => (
+					value.some((val) => cond(val))
+				))
+				: arrayConditions.some((cond) => (
+					cond(value)
+				))
+		);
+	}
+
+	return (value) => value === condition;
+};
+
 class Updates {
   constructor(telegram) {
     this.telegram = telegram;
@@ -171,6 +220,92 @@ class Updates {
 
     this.stackMiddleware = middlewareIo.compose(stack);
   }
+
+  hear(
+		hearConditions,
+		handler,
+	) {
+		let rawConditions = !Array.isArray(hearConditions)
+			? [hearConditions]
+			: hearConditions;
+
+		let hasConditions = rawConditions.every(Boolean);
+
+		if (!hasConditions) {
+			throw new Error('Condition should be not empty');
+		}
+
+		if (typeof handler !== 'function') {
+			throw new TypeError('Handler must be a function');
+		}
+
+		let textCondition = false;
+    let functionCondtion = false;
+
+		let conditions = rawConditions.map((condition) => {
+			if (typeof condition === 'object' && !(condition instanceof RegExp)) {
+				functionCondtion = true;
+
+				let entries = Object.entries(condition).map(([path, value]) => (
+					[splitPath(path), unifyCondition(value)]
+				));
+
+				return (text, context) => (
+					entries.every(([selectors, callback]) => {
+						let value = getObjectValue(context, selectors);
+
+						return callback(value, context);
+					})
+				);
+			}
+
+			if (typeof condition === 'function') {
+				functionCondtion = true;
+
+				return condition;
+			}
+
+			textCondition = true;
+
+			if (condition instanceof RegExp) {
+				return (text, context) => {
+					let passed = condition.test(text);
+
+					if (passed) {
+						context.$match = text.match(condition);
+					}
+
+					return passed;
+				};
+			}
+
+			let stringCondition = String(condition);
+
+			return (text) => text === stringCondition;
+		});
+
+		let needText = textCondition && functionCondtion === false;
+
+		this.hearStack.push((context, next) => {
+			let { text } = context;
+
+			if (needText && text === null) {
+				return next();
+			}
+
+			let hasSome = conditions.some((condition) => (
+				condition(text, context)
+			));
+
+			return hasSome
+				? handler(context, next)
+				: next();
+		});
+
+		this.reloadMiddleware();
+
+		return this;
+	}
 
   on(events, handler) {
     if (!Array.isArray(events)) {

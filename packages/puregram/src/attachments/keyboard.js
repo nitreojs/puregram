@@ -71,11 +71,6 @@ class Keyboard {
   static toJSON() {
     let { buttons, isResize, isOneTime, isSelective } = this;
 
-    this.buttons = [];
-    this.isResize = false;
-    this.isOneTime = false;
-    this.isSelective = false;
-
     return JSON.stringify({
       keyboard: buttons,
       resize_keyboard: isResize,

@@ -109,8 +109,6 @@ class InlineKeyboard {
   static toJSON() {
     let { buttons } = this;
 
-    this.buttons = [];
-
     return JSON.stringify({
       inline_keyboard: buttons,
     });

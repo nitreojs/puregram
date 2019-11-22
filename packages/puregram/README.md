@@ -25,8 +25,9 @@ let telegram = new Telegram({
 
 telegram.updates.on('message', context => context.send('Hi!'));
 
-telegram.updates.startPolling()
-  .then(() => console.log('Started polling'));
+telegram.updates.startPolling();
+
+console.log('Started polling');
 ```
 
 ## Community
@@ -36,3 +37,6 @@ telegram.updates.startPolling()
 * [@puregram/scenes](../scenes): Simple implementation of middleware-based scene management
 
 > If you want to add your module in the list, create a [new issue](https://github.com/nitreojs/puregram/issues/new) in the repository.
+
+## Thanks to
+Biggest thanks to [Negezor](https://github.com/negezor) for his [vk-io](https://github.com/negezor/vk-io) library that helped me with this package!

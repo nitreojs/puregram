@@ -21,7 +21,7 @@ class InlineKeyboard {
 
   static textButton({
     text,
-    payload = {},
+    payload,
   }) {
     if (typeof payload === 'object') {
       payload = JSON.stringify(payload);
@@ -36,7 +36,7 @@ class InlineKeyboard {
   static urlButton({
     text,
     url,
-    payload = {},
+    payload,
   }) {
     if (typeof payload === 'object') {
       payload = JSON.stringify(payload);
@@ -45,7 +45,7 @@ class InlineKeyboard {
     return {
       text,
       url,
-      callback_data: payload || null,
+      callback_data: payload,
     };
   }
 

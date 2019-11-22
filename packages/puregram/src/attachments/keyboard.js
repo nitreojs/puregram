@@ -51,9 +51,7 @@ class Keyboard {
   }
 
   static textButton(text) {
-    return {
-      text,
-    };
+    return { text };
   }
 
   static contactRequestButton(text) {

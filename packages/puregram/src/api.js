@@ -40,18 +40,22 @@ class API {
       headers.connection = 'keep-alive';
     }
 
-    let response = await fetch(url, {
-      method: httpMethod,
-      headers,
-    });
+    try {
+      let response = await fetch(url, {
+        method: httpMethod,
+        headers,
+      });
 
-    let json = await response.json();
+      let json = await response.json();
 
-    if (!json.ok) {
-      throw new APIError(json.description);
+      if (!json.ok) {
+        throw new APIError(json.description);
+      }
+
+      return json.result;
+    } catch (e) {
+      throw new Error(e);
     }
-
-    return json.result;
   }
 
   getMe() {

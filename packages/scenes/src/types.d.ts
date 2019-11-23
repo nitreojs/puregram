@@ -1,4 +1,4 @@
-import { MessageContext } from '../../puregram';
+import { MessageContext, CallbackQuery } from '../../puregram';
 
 import { SceneContext } from './contexts';
 

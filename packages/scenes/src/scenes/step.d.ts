@@ -1,4 +1,4 @@
-import { MessageContext } from '../../../puregram';
+import { MessageContext, CallbackQuery } from '../../../puregram';
 
 import IScene from './scene';
 
@@ -12,7 +12,7 @@ interface IStepSceneOptions<T> {
 	leaveHandler?: StepSceneHandler<T>;
 }
 
-export default class StepScene<T = MessageContext> implements IScene {
+export default class StepScene<T = MessageContext | CallbackQuery> implements IScene {
 	public slug: string;
 
 	private steps: StepSceneHandler<T>[];

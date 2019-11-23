@@ -1,4 +1,4 @@
-import { Context } from 'vk-io';
+import { Context } from '../../puregram';
 
 export type Middleware<T> = (context: T, next: Function) => any;
 

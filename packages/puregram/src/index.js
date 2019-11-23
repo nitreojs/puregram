@@ -4,6 +4,8 @@ let {
   Keyboard,
   InlineKeyboard,
   RemoveKeyboard,
+  KeyboardBuilder,
+  InlineKeyboardBuilder,
   Markdown,
   HTML,
 } = require('./attachments');
@@ -13,6 +15,8 @@ module.exports = {
   Keyboard,
   InlineKeyboard,
   RemoveKeyboard,
+  KeyboardBuilder,
+  InlineKeyboardBuilder,
   Markdown,
   HTML,
   MessageContext,

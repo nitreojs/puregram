@@ -5,6 +5,8 @@ import {
   Keyboard,
   InlineKeyboard,
   RemoveKeyboard,
+  KeyboardBuilder,
+  InlineKeyboardBuilder,
   Markdown,
   HTML,
 } from '../src/index';
@@ -14,6 +16,8 @@ export {
   Keyboard,
   InlineKeyboard,
   RemoveKeyboard,
+  KeyboardBuilder,
+  InlineKeyboardBuilder,
   Markdown,
   HTML,
   MessageContext,

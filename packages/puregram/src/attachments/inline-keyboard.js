@@ -14,9 +14,7 @@ class InlineKeyboard {
       inlineKeyboard.addRow(row);
     }
 
-    this.buttons = inlineKeyboard.buttons;
-
-    return this;
+    return inlineKeyboard;
   }
 
   static textButton({
@@ -106,7 +104,7 @@ class InlineKeyboard {
     return this;
   }
 
-  static toJSON() {
+  toJSON() {
     let { buttons } = this;
 
     return JSON.stringify({

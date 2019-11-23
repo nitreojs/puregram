@@ -17,24 +17,22 @@ class Keyboard {
       keyboard.addRow(row);
     }
 
-    this.buttons = keyboard.buttons;
-
-    return this;
+    return keyboard;
   }
 
-  static resize(resize = true) {
+  resize(resize = true) {
     this.isResize = resize;
 
     return this;
   }
 
-  static oneTime(oneTime = true) {
+  oneTime(oneTime = true) {
     this.isOneTime = oneTime;
 
     return this;
   }
 
-  static selective(selective = true) {
+  selective(selective = true) {
     this.isSelective = selective;
 
     return this;
@@ -68,7 +66,7 @@ class Keyboard {
     };
   }
 
-  static toJSON() {
+  toJSON() {
     let { buttons, isResize, isOneTime, isSelective } = this;
 
     return JSON.stringify({

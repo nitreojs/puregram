@@ -48,10 +48,8 @@ telegram.updates.on('message', sessionManager.middleware);
 telegram.updates.on('message', sceneManager.middleware);
 telegram.updates.on('message', sceneManager.middlewareIntercept);
 
-telegram.updates.on('message', async (context) => {
-  if (context.text === '/signup') {
-    await context.scene.enter('signup');
-  }
+telegram.updates.hear('/signup', async (context) => {
+  await context.scene.enter('signup');
 });
 
 telegram.updates.startPolling();

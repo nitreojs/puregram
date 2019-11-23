@@ -4,66 +4,66 @@ let telegram = new Telegram({
   token: process.env.TOKEN,
 });
 
-telegram.updates.on('message', (context) => {
-  if (context.text === '/keyboard') {
-    return context.send('There\'s your keyboard!', {
-      reply_markup: Keyboard.keyboard([
-        [
-          Keyboard.textButton('Button'),
-        ],
+telegram.updates.setHearFallbackHandler(
+  context => context.send('Enter either /keyboard or /inline.'),
+);
 
-        [
-          Keyboard.textButton('Another button'),
-          Keyboard.textButton('But there\'s more!'),
-        ],
+telegram.updates.hear('/keyboard', (context) => {
+  return context.send('There\'s your keyboard!', {
+    reply_markup: Keyboard.keyboard([
+      [
+        Keyboard.textButton('Button'),
+      ],
 
-        [
-          Keyboard.textButton('So'),
-          Keyboard.textButton('many'),
-          Keyboard.textButton('buttons!'),
-        ],
-      ]).resize(),
-    });
-  }
+      [
+        Keyboard.textButton('Another button'),
+        Keyboard.textButton('But there\'s more!'),
+      ],
 
-  if (context.text === '/inline') {
-    return context.send('There\'s your keyboard!', {
-      reply_markup: InlineKeyboard.keyboard([
-        [
-          InlineKeyboard.textButton({
-            text: 'Inline button!',
-          }),
-        ],
+      [
+        Keyboard.textButton('So'),
+        Keyboard.textButton('many'),
+        Keyboard.textButton('buttons!'),
+      ],
+    ]).resize(),
+  });
+});
 
-        [
-          InlineKeyboard.textButton({
-            text: 'And there\'s more!',
-          }),
+telegram.updates.hear('/inline', (context) => {
+  return context.send('There\'s your keyboard!', {
+    reply_markup: InlineKeyboard.keyboard([
+      [
+        InlineKeyboard.textButton({
+          text: 'Inline button!',
+        }),
+      ],
 
-          InlineKeyboard.textButton({
-            text: 'Payload button',
-            payload: { payload: true },
-          }),
-        ],
+      [
+        InlineKeyboard.textButton({
+          text: 'And there\'s more!',
+        }),
 
-        [
-          InlineKeyboard.textButton({
-            text: 'This',
-          }),
+        InlineKeyboard.textButton({
+          text: 'Payload button',
+          payload: { payload: true },
+        }),
+      ],
 
-          InlineKeyboard.textButton({
-            text: 'is',
-          }),
+      [
+        InlineKeyboard.textButton({
+          text: 'This',
+        }),
 
-          InlineKeyboard.textButton({
-            text: 'epic!',
-          }),
-        ],
-      ]),
-    });
-  }
+        InlineKeyboard.textButton({
+          text: 'is',
+        }),
 
-  return context.send('Enter either /keyboard or /inline.');
+        InlineKeyboard.textButton({
+          text: 'epic!',
+        }),
+      ],
+    ]),
+  });
 });
 
 telegram.updates.on('callback_query', (context) => {

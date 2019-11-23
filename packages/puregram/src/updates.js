@@ -240,11 +240,11 @@ class Updates {
 		}
 
 		let textCondition = false;
-    let functionCondtion = false;
+    let functionCondition = false;
 
 		let conditions = rawConditions.map((condition) => {
 			if (typeof condition === 'object' && !(condition instanceof RegExp)) {
-				functionCondtion = true;
+				functionCondition = true;
 
 				let entries = Object.entries(condition).map(([path, value]) => (
 					[splitPath(path), unifyCondition(value)]
@@ -260,7 +260,7 @@ class Updates {
 			}
 
 			if (typeof condition === 'function') {
-				functionCondtion = true;
+				functionCondition = true;
 
 				return condition;
 			}
@@ -284,7 +284,7 @@ class Updates {
 			return (text) => text === stringCondition;
 		});
 
-		let needText = textCondition && functionCondtion === false;
+		let needText = textCondition && functionCondition === false;
 
 		this.hearStack.push((context, next) => {
 			let { text } = context;

@@ -1,4 +1,6 @@
+import Context from '../src/contexts/context';
 import MessageContext from '../src/contexts/message';
+import CallbackQuery from '../src/contexts/callback-query';
 
 import {
   Telegram,
@@ -20,5 +22,8 @@ export {
   InlineKeyboardBuilder,
   Markdown,
   HTML,
+
+  Context,
   MessageContext,
+  CallbackQuery,
 };

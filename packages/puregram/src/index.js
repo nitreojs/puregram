@@ -1,5 +1,9 @@
 let Telegram = require('./telegram');
+
+let Context = require('./contexts/context');
 let MessageContext = require('./contexts/message');
+let CallbackQuery = require('./contexts/callback-query');
+
 let {
   Keyboard,
   InlineKeyboard,
@@ -19,5 +23,8 @@ module.exports = {
   InlineKeyboardBuilder,
   Markdown,
   HTML,
+
+  Context,
   MessageContext,
+  CallbackQuery,
 };

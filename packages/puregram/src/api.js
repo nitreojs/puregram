@@ -6,6 +6,7 @@ class API {
   constructor(telegram) {
     this.telegram = telegram;
     this.baseApiUrl = this.telegram.baseApiUrl;
+    this.agent = this.telegram.agent;
   }
 
   call(method, params) {
@@ -44,6 +45,7 @@ class API {
       let response = await fetch(url, {
         method: httpMethod,
         headers,
+        agent: this.agent,
       });
 
       let json = await response.json();

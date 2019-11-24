@@ -1,5 +1,6 @@
 import Types from './types';
 import { Interface } from 'readline';
+import { Agent } from 'https';
 
 type AllowArray<T> = T | Array<T>;
 
@@ -8,7 +9,7 @@ export interface ITelegramParams {
 
   apiUrl?: string;
 
-  https?: boolean;
+  agent?: Agent;
 }
 
 export interface IGetUpdatesParams {

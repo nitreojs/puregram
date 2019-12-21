@@ -20,6 +20,7 @@ let VoiceAttachment = require('../structures/voice');
 
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
+let EVENTS = require('../structures/events');
 
 let { filterPayload } = require('../utils');
 

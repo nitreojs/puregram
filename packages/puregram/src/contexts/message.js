@@ -20,24 +20,9 @@ let VoiceAttachment = require('../structures/voice');
 
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
+let EVENTS = require('../structures/events');
 
 let { filterPayload } = require('../utils');
-
-let EVENTS = [
-  ['newChatMembers', 'new_chat_members'],
-  ['leftChatMember', 'left_chat_member'],
-  ['newChatTitle', 'new_chat_title'],
-  ['newChatPhoto', 'new_chat_photo'],
-  ['deleteChatPhoto', 'delete_chat_photo'],
-  ['groupChatCreated', 'group_chat_created'],
-  ['supergroupChatCreated', 'supergroup_chat_created'],
-  ['channelChatCreated', 'channel_chat_created'],
-  ['migrateToChatId', 'migrate_to_chat_id'],
-  ['migrateFromChatId', 'migrate_from_chat_id'],
-  ['pinnedMessage', 'pinned_message'],
-  ['invoice', 'invoice'],
-  ['successfulPayment', 'successful_payment'],
-];
 
 class MessageContext extends Context {
   constructor(telegram, update) {
@@ -152,6 +137,10 @@ class MessageContext extends Context {
     return entities.map(
       e => new MessageEntity(e),
     );
+  }
+
+  get hasEntities() {
+    return this.entities.length !== 0;
   }
 
   get captionEntities() {
@@ -386,7 +375,7 @@ class MessageContext extends Context {
     return new MessageContext(this.telegram, response);
   }
 
-  async reply(text, params = {}) {
+  reply(text, params = {}) {
     return this.send(text, {
       reply_to_message_id: this.id,
       ...params,

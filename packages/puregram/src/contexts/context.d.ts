@@ -6,4 +6,4 @@ declare class Context {
   public is(types: AllowArray<string>): boolean;
 }
 
-module.exports = Context;
+export = Context;

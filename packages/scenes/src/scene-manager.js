@@ -22,6 +22,14 @@ class SceneManager {
     return this;
   }
 
+  addScenes(scenes) {
+    for (let scene of scenes) {
+      this.addScene(scene);
+    }
+
+    return this;
+  }
+
   get middleware() {
     return (context, next) => {
       context.scene = new SceneContext({

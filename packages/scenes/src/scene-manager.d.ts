@@ -14,6 +14,11 @@ declare class SceneManager {
 	 * Adds a scene to the shared list
 	 */
   public addScene(scene: IScene): this;
+
+  /**
+	 * Adds scenes to the shared list
+	 */
+  public addScenes(scenes: IScene[]): this;
   
   /**
 	 * Returns the middleware for embedding

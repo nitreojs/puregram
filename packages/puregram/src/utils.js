@@ -30,6 +30,8 @@ function formatChat(source) {
 function filterPayload(payload) {
   let filtered = {};
 
+  if (payload === null) return null;
+
   Object.keys(payload).forEach(
     (key) => {
       if (payload[key] !== undefined && payload[key] !== null) {

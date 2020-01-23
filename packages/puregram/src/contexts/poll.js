@@ -1,6 +1,7 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
+let MessageContext = require('./message');
 
 class Poll extends Context {
   constructor(telegram, update) {

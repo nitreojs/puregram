@@ -1,5 +1,5 @@
 let { oneLine } = require('common-tags');
-let { Telegram, HTML, Markdown } = require('puregram');
+let { Telegram, HTML, Markdown, MarkdownV2 } = require('puregram');
 
 let telegram = new Telegram({
   token: process.env.TOKEN,
@@ -40,6 +40,17 @@ telegram.updates.hear(/^html$/i, (context) => {
     `,
     { parse_mode: HTML },
   );
-})
+});
+
+telegram.updates.hear(/^markdown-v2$/i, (context) => {
+  return context.send(
+    oneLine`
+      Some ${MarkdownV2.bold('epic')} ${MarkdownV2.italic('markdown')}
+      ${MarkdownV2.code('right')} ${MarkdownV2.url('there', 'example.com')}!
+      ${MarkdownV2.strikethrough('Also,')} ${MarkdownV2.underline('MarkdownV2 support')}!
+    `,
+    { parse_mode: MarkdownV2 },
+  );
+});
 
 telegram.updates.startPolling();

@@ -19,14 +19,21 @@ class KeyboardBuilder {
 
 	locationRequestButton(text) {
 		return this.addWideButton({
-      text,
+      text: encodeURI(text),
       request_location: true,
 		});
-  }
+	}
+	
+	pollRequestButton(text, type) {
+		return this.addWideButton({
+			text: encodeURI(text),
+			request_poll: { type },
+		});
+	}
   
   contactRequestButton(text) {
 		return this.addWideButton({
-      text,
+      text: encodeURI(text),
       request_contact: true,
 		});
 	}

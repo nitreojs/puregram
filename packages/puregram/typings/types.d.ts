@@ -33,3 +33,9 @@ export type ReplyMarkup =
   | Keyboard
   | KeyboardBuilder
   | RemoveKeyboard;
+
+export type PollTypes =
+  | 'regular'
+  | 'quiz';
+
+export type KeyboardButtonPollTypes = PollTypes;

@@ -27,6 +27,10 @@ class MessageEntity {
     return this.payload.user || null;
   }
 
+  get language() {
+    return this.payload.language || null;
+  }
+
   [inspect.custom](depth, options) {
     let { name } = this.constructor;
 

@@ -54,17 +54,24 @@ class Keyboard {
 
   static contactRequestButton(text) {
     return {
-      text,
+      text: encodeURI(text),
       request_contact: true,
     };
   }
 
   static locationRequestButton(text) {
     return {
-      text,
+      text: encodeURI(text),
       request_location: true,
     };
   }
+	
+	static pollRequestButton(text, type) {
+		return {
+      text: encodeURI(text),
+      request_poll: { type }
+    };
+	}
 
   toJSON() {
     let { buttons, isResize, isOneTime, isSelective } = this;

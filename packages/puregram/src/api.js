@@ -32,7 +32,15 @@ class API {
         query.reply_markup = query.reply_markup.toJSON();
       }
 
-      url += `?${new URLSearchParams(query)}`;
+      url += '?';
+
+      for (let [key, value] of Object.entries(query)) {
+        url += `${key}=${
+          method === 'sendPoll' && Array.isArray(value)
+            ? JSON.stringify(value)
+            : value.toString()
+        }&`;
+      }
     }
 
     let headers = {};

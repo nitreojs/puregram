@@ -33,6 +33,27 @@ export interface IUser {
    * [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) of the user's language
    */
   languageCode?: string;
+
+  /**
+   * True, if the bot can be invited to groups.
+   * 
+   * Returned only in `getMe`.
+   */
+  canJoinGroups?: boolean;
+
+  /**
+   * True, if privacy mode is disabled for the bot.
+   * 
+   * Returned only in `getMe`.
+   */
+  canReadAllGroupMessages?: boolean;
+
+  /**
+   * True, if the bot supports inline queries.
+   * 
+   * Returned only in `getMe`.
+   */
+  supportsInlineQueries?: boolean;
 }
 
 /**
@@ -813,9 +834,37 @@ export interface IPoll {
   options: Array<IPollOption>;
 
   /**
+   * Total number of users that voted in the poll
+   */
+  totalVoterCount: number;
+
+  /**
    * True, if the poll is closed
    */
   isClosed: boolean;
+
+  /**
+   * True, if the poll is anonymous
+   */
+  isAnonymous: boolean;
+
+  /**
+   * Poll type, currently can be `regular` or `quiz`
+   */
+  type: Types.PollTypes;
+
+  /**
+   * True, if the poll allows multiple answers
+   */
+  allowsMultipleAnswers: boolean;
+
+  /**
+   * 0-based identifier of the correct answer option.
+   * Available only for polls in the quiz mode,
+   * which are closed or was sent (not forwarded)
+   * to the private chat with the bot.
+   */
+  correctOptionId?: number;
 }
 
 /**
@@ -914,6 +963,34 @@ export interface IUpdate {
    * which are sent by the bot
    */
   poll?: IPoll;
+
+  /**
+   * A user changed their answer
+   * in a non-anonymous poll.
+   * Bots receive new votes only
+   * in polls that were sent by
+   * the bot itself.
+   */
+  poll_answer?: IPollAnswer;
+}
+
+export interface IPollAnswer {
+  /**
+   * Unique poll identifier
+   */
+  pollId: number;
+  
+  /**
+   * The user, who changed the answer to the poll
+   */
+  user: User;
+
+  /**
+   * 0-based identifiers of answer options,
+   * chosen by the user.
+   * May be empty if the user retracted their vote.
+   */
+  optionIds: Array<number>;
 }
 
 /**

@@ -1,3 +1,5 @@
+import Types from '../../typings/types';
+
 interface IKeyboardOptions {
   /**
    * Text of the button.
@@ -20,6 +22,25 @@ interface IKeyboardOptions {
    * Available in private chats only
    */
   request_location?: boolean;
+
+  /**
+   * If specified, the user will be asked to create
+   * a poll and send it to the bot when the button
+   * is pressed. Available in private chats only
+   */
+  request_poll?: IKeyboardButtonPollType;
+}
+
+interface IKeyboardButtonPollType {
+  /**
+   * If `quiz` is passed, the user will be allowed to
+   * create only polls in the quiz mode.
+   * 
+   * If `regular` is passed, only regular polls will be allowed.
+   * 
+   * Otherwise, the user will be allowed to create a poll of any type.
+   */
+  type?: Types.KeyboardButtonPollTypes;
 }
 
 /**
@@ -85,6 +106,13 @@ declare class KeyboardBuilder {
    * If `true`, the user's current location will be sent when the button is pressed
    */
   public locationRequestButton(text: string): this;
+
+  /**
+   * If specified, the user will be asked to create a poll and
+   * send it to the bot when the button is pressed.
+   * Available in private chats only
+   */
+  public pollRequestButton(text: string, type?: Types.KeyboardButtonPollTypes): this;
 }
 
 export = KeyboardBuilder;

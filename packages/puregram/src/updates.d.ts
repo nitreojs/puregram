@@ -13,6 +13,7 @@ import CallbackQuery from './contexts/callback-query';
 import ShippingQuery from './contexts/shipping-query';
 import PreCheckoutQuery from './contexts/pre-checkout-query';
 import Poll from './contexts/poll';
+import PollAnswer from './contexts/poll-answer';
 
 import NewChatMembers from './contexts/new-chat-members';
 import LeftChatMember from './contexts/left-chat-member';
@@ -62,6 +63,7 @@ declare class Updates {
   public on(events: 'shipping_query', handler: Middleware<ShippingQuery>): this;
   public on(events: 'pre_checkout_query', handler: Middleware<PreCheckoutQuery>): this;
   public on(events: 'poll', handler: Middleware<Poll>): this;
+  public on(events: 'poll_answer', handler: Middleware<PollAnswer>): this;
 
   public on(events: 'new_chat_members', handler: Middleware<NewChatMembers>): this;
   public on(events: 'left_chat_member', handler: Middleware<LeftChatMember>): this;

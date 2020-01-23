@@ -52,7 +52,7 @@ class SuccessfulPayment extends Context {
     return new SuccessfulPaymentStructure(this.update.successful_payment);
   }
 
-  async send(text, params = {}) {
+  async send(text = '',params = {}) {
     let response = await this.telegram.api.sendMessage({
       chat_id: this.chatId || this.senderId,
       text,
@@ -63,7 +63,7 @@ class SuccessfulPayment extends Context {
   }
 
   async reply(text, params = {}) {
-    return this.send(text, {
+    return this.send(text = '',{
       reply_to_message_id: this.id,
       ...params,
     });

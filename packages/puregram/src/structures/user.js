@@ -31,6 +31,18 @@ class User {
     return this.payload.language_code || null;
   }
 
+  get canJoinGroups() {
+    return this.payload.can_join_groups || null;
+  }
+
+  get canReadAllGroupMessages() {
+    return this.payload.can_read_all_group_messages || null;
+  }
+
+  get supportsInlineQueries() {
+    return this.payload.supports_inline_queries || null;
+  }
+
   [inspect.custom](depth, options) {
     let { name } = this.constructor;
 

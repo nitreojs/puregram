@@ -13,6 +13,7 @@ let contexts = {
   chosen_inline_result: Contexts.ChosenInlineResult,
   pre_checkout_query: Contexts.PreCheckoutQuery,
   poll: Contexts.Poll,
+  poll_answer: Contexts.PollAnswer,
 
   new_chat_members: Contexts.NewChatMembers,
   left_chat_member: Contexts.LeftChatMember,

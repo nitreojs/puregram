@@ -28,6 +28,8 @@ function formatChat(source) {
 }
 
 function filterPayload(payload) {
+  if (payload === null) return null;
+
   let filtered = {};
 
   Object.keys(payload).forEach(

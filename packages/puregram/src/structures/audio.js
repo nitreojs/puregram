@@ -36,7 +36,7 @@ class AudioAttachment {
   }
 
   get thumb() {
-    let { thumb } = this.payload
+    let { thumb } = this.payload;
 
     return thumb ? new PhotoSize(thumb) : null;
   }

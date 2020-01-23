@@ -1,3 +1,9 @@
+import Keyboard from '../src/attachments/keyboard';
+import KeyboardBuilder from '../src/attachments/keyboard-builder';
+import InlineKeyboard from '../src/attachments/inline-keyboard';
+import InlineKeyboardBuilder from '../src/attachments/inline-keyboard-builder';
+import RemoveKeyboard from '../src/attachments/remove-keyboard';
+
 export type ChatTypes =
   | 'private' | 'group' | 'supergroup' | 'channel';
 
@@ -14,3 +20,16 @@ export type ContextPossibleTypes =
   | 'poll';
 
 export type ParseModes = 'HTML' | 'Markdown';
+
+export type AttachmentTypes =
+  | 'animation' | 'audio' | 'contact'
+  | 'document' | 'game' | 'location'
+  | 'poll' | 'sticker' | 'venue'
+  | 'video_note' | 'video' | 'voice';
+
+export type ReplyMarkup =
+  | InlineKeyboard
+  | InlineKeyboardBuilder
+  | Keyboard
+  | KeyboardBuilder
+  | RemoveKeyboard;

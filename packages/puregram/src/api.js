@@ -531,6 +531,13 @@ class API {
       method: 'getWebhookInfo',
     });
   }
+
+  setChatAdministratorCustomTitle(params = {}) {
+    return this.request({
+      method: 'setChatAdministratorCustomTitle',
+      query: params,
+    })
+  }
 }
 
 module.exports = API;

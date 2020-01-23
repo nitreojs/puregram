@@ -51,6 +51,10 @@ class Chat {
     return this.payload.permissions || null;
   }
 
+  get slowModeDelay() {
+    return this.payload.slow_mode_delay || null;
+  }
+
   get stickerSetName() {
     return this.payload.sticker_set_name || null;
   }
@@ -74,6 +78,7 @@ class Chat {
       inviteLink: this.inviteLink,
       pinnedMessage: this.pinnedMessage,
       permissions: this.permissions,
+      slowModeDelay: this.slowModeDelay,
       stickerSetName: this.stickerSetName,
       canSetStickerSet: this.canSetStickerSet,
     };

@@ -15,6 +15,10 @@ class AnimationAttachment {
     return this.payload.file_id;
   }
 
+  get fileUniqueId() {
+    return this.payload.file_unique_id;
+  }
+
   get width() {
     return this.payload.width;
   }

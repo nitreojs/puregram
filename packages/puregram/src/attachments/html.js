@@ -21,6 +21,18 @@ class HTML {
     return `<i>${text}</i>`;
   }
 
+  static underline(text) {
+    text = replaceSymbols(text);
+
+    return `<u>${text}</u>`;
+  }
+
+  static strikethrough(text) {
+    text = replaceSymbols(text);
+
+    return `<strike>${text}</strike>`;
+  }
+
   static url(text, link) {
     text = replaceSymbols(text);
 

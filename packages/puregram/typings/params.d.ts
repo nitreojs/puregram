@@ -60,17 +60,50 @@ export interface IGetUpdatesParams {
 }
 
 export interface ISendMessageParams {
+  /**
+   * Unique identifier for the target chat
+   * or username of the target channel
+   * (in the format `@channelusername`)
+   */
   chat_id: string | number;
 
+  /**
+   * Text of the message to be sent
+   */
   text: string;
 
+  /**
+   * Send [Markdown](https://core.telegram.org/bots/api#markdown-style)
+   * or [HTML](https://core.telegram.org/bots/api#html-style),
+   * if you want Telegram apps to show **bold**, _italic_,
+   * `fixed-width text` or [inline URLs](https://core.telegram.org/bots/api#sendmessage)
+   * in your bot's message.
+   */
   parse_mode?: Types.ParseModes;
 
+  /**
+   * Disables link previews for links in this message
+   */
   disable_web_page_preview?: boolean;
 
+  /**
+   * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages).
+   * Users will receive a notification with no sound.
+   */
   disable_notification?: boolean;
 
+  /**
+   * If the message is a reply,
+   * ID of the original message
+   */
   reply_to_message_id?: number;
 
+  /**
+   * Additional interface options.
+   * A JSON-serialized object for
+   * an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating),
+   * [custom reply keyboard](https://core.telegram.org/bots#keyboards),
+   * instructions to remove reply keyboard or to force a reply from the user.
+   */
   reply_markup?: Types.ReplyMarkup;
 }

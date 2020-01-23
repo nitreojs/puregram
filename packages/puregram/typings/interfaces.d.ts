@@ -76,12 +76,15 @@ export interface IChat {
   lastName?: string;
 
   /**
-   * Chat photo. Returned only in `getChat`.
+   * Chat photo.
+   * 
+   * Returned only in `getChat`.
    */
   photo?: IChatPhoto;
 
   /**
    * Description, for groups, supergroups and channel chats.
+   * 
    * Returned only in `getChat`.
    */
   description?: string;
@@ -90,30 +93,45 @@ export interface IChat {
    * Chat invite link, for groups, supergroups and channel chats.
    * Each administrator in a chat generates their own invite links,
    * so the bot must first generate the link using
-   * exportChatInviteLink. Returned only in `getChat`.
+   * exportChatInviteLink.
+   * 
+   * Returned only in `getChat`.
    */
   inviteLink?: string;
 
   /**
    * Pinned message, for groups, supergroups and channels.
+   * 
    * Returned only in `getChat`.
    */
   pinnedMessage?: IMessage;
 
   /**
    * Default chat member permissions, for groups and supergroups.
+   * 
    * Returned only in `getChat`.
    */
   permissions?: ChatPermissions;
 
   /**
+   * For supergroups,
+   * the minimum allowed delay between consecutive messages
+   * sent by each unpriviledged user.
+   * 
+   * Returned only in `getChat`.
+   */
+  slowModeDelay?: number;
+
+  /**
    * For supergroups, name of group sticker set.
+   * 
    * Returned only in `getChat`.
    */
   stickerSetName?: string;
 
   /**
    * True, if the bot can change the group sticker set.
+   * 
    * Returned only in `getChat`.
    */
   canSetStickerSet?: boolean;
@@ -393,6 +411,14 @@ export interface IPhotoSize {
   fileId: string;
 
   /**
+   * Unique identifier for this file,
+   * which is supposed to be the same
+   * over time and for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  fileUniqueId: string;
+
+  /**
    * Photo width
    */
   width: number;
@@ -417,6 +443,14 @@ export interface IAudio {
    * Identifier for this file
    */
   fileId: string;
+
+  /**
+   * Unique identifier for this file,
+   * which is supposed to be the same
+   * over time and for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  fileUniqueId: string;
 
   /**
    * Duration of the audio in seconds as defined by sender
@@ -462,6 +496,14 @@ export interface IDocument {
   fileId: string;
 
   /**
+   * Unique identifier for this file,
+   * which is supposed to be the same
+   * over time and for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  fileUniqueId: string;
+
+  /**
    * Document thumbnail as defined by sender
    */
   thumb?: IPhotoSize;
@@ -490,6 +532,14 @@ export interface IVideo {
    * Identifier for this file
    */
   fileId: string;
+
+  /**
+   * Unique identifier for this file,
+   * which is supposed to be the same
+   * over time and for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  fileUniqueId: string;
 
   /**
    * Video width as defined by sender
@@ -531,6 +581,14 @@ export interface IAnimation {
    * Identifier for this file
    */
   fileId: string;
+
+  /**
+   * Unique identifier for this file,
+   * which is supposed to be the same
+   * over time and for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  fileUniqueId: string;
 
   /**
    * Video width as defined by sender
@@ -578,6 +636,14 @@ export interface IVoice {
   fileId: string;
 
   /**
+   * Unique identifier for this file,
+   * which is supposed to be the same
+   * over time and for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  fileUniqueId: string;
+
+  /**
    * Duration of the audio in seconds as defined by sender
    */
   duration: number;
@@ -602,6 +668,14 @@ export interface IVideoNote {
    * Identifier for this file
    */
   fileId: string;
+
+  /**
+   * Unique identifier for this file,
+   * which is supposed to be the same
+   * over time and for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  fileUniqueId: string;
 
   /**
    * Video width and height (diameter of the video message)
@@ -840,4 +914,39 @@ export interface IUpdate {
    * which are sent by the bot
    */
   poll?: IPoll;
+}
+
+/**
+ * This object represents a chat photo.
+ */
+export interface IChatPhoto {
+  /**
+   * File identifier of small (160x160) chat photo.
+   * This file_id can be used only for photo
+   * download and only for as long as the photo is not changed.
+   */
+  small_file_id: string;
+
+  /**
+   * Unique file identifier of small (160x160) chat photo,
+   * which is supposed to be the same over time and
+   * for different bots.
+   * Can't be used to download or reuse the file.
+   */
+  small_file_unique_id: string;
+
+  /**
+   * File identifier of big (640x640) chat photo.
+   * This file_id can be used only for photo download
+   * and only for as long as the photo is not changed.
+   */
+  big_file_id: string;
+
+  /**
+   * Unique file identifier of big (640x640) chat photo,
+   * which is supposed to be the same over time and for
+   * different bots.
+   * Can't be used to download or reuse the file.
+   */
+  big_file_unique_id: string;
 }

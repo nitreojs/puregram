@@ -1,5 +1,17 @@
-declare class HTML {
-  public [Symbol.toStringTag](): 'HTML';
+interface IPreParams {
+  /**
+   * Code's programming language
+   */
+  language?: string;
+
+  /**
+   * The code to format
+   */
+  code: string;
+}
+
+declare class MarkdownV2 {
+  public [Symbol.toStringTag](): 'MarkdownV2';
 
   /**
    * Format text into bold
@@ -39,9 +51,9 @@ declare class HTML {
   /**
    * Format text into preformatted text
    */
-  public static pre(code: string): string;
+  public static pre(params: IPreParams): string;
 
-  public static get parseMode(): 'HTML';
+  public static get parseMode(): 'MarkdownV2';
 }
 
-export = HTML;
+export = MarkdownV2;

@@ -28,17 +28,21 @@ class API {
     let url = `${this.baseApiUrl}/${method}`;
 
     if (query) {
-      if (query.reply_markup) {
-        query.reply_markup = query.reply_markup.toJSON();
+      if ('reply_markup' in query) {
+        query.reply_markup = typeof query.reply_markup === 'string'
+          ? query.reply_markup
+          : query.reply_markup.toJSON();
       }
 
       url += '?';
 
       for (let [key, value] of Object.entries(query)) {
         url += `${key}=${
-          method === 'sendPoll' && Array.isArray(value)
-            ? JSON.stringify(value)
-            : value.toString()
+          encodeURI(
+            method === 'sendPoll' && Array.isArray(value)
+              ? JSON.stringify(value)
+              : value.toString()
+          )
         }&`;
       }
     }

@@ -10,6 +10,7 @@ import {
   KeyboardBuilder,
   InlineKeyboardBuilder,
   Markdown,
+  MarkdownV2,
   HTML,
 } from '../src/index';
 
@@ -21,6 +22,7 @@ export {
   KeyboardBuilder,
   InlineKeyboardBuilder,
   Markdown,
+  MarkdownV2,
   HTML,
 
   Context,

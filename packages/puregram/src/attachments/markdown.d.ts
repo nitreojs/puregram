@@ -43,6 +43,21 @@ declare class Markdown {
    */
   public static pre(params: IPreParams): string;
 
+  /**
+   * Format brackets
+   */
+  public static brackets(text: string): string;
+
+  /**
+   * Format curly braces
+   */
+  public static curlyBraces(text: string): string;
+
+  /**
+   * Format square braces
+   */
+  public static squareBraces(text: string): string;
+
   public static get parseMode(): 'Markdown';
 }
 

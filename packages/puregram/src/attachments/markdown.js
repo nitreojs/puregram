@@ -30,6 +30,18 @@ class Markdown {
     return `\`\`\`${language}\n${code}\n\`\`\``;
   }
 
+  static brackets(text) {
+    return `\\(${text}\\)`
+  }
+
+  static curlyBraces(text) {
+    return `\\{${text}\\}`
+  }
+
+  static squareBraces(text) {
+    return `\\[${text}\\]`
+  }
+
   static get parseMode() {
     return 'Markdown';
   }

@@ -359,6 +359,12 @@ class PinnedMessageContext extends Context {
     return new MessageContext(this.telegram, response);
   }
 
+  sendDice(chatId = this.chatId) {
+    return this.telegram.api.sendDice({
+      chat_id: chatId
+    });
+  }
+
   [inspect.custom](depth, options) {
     let { name } = this.constructor;
 

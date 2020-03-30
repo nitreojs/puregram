@@ -550,6 +550,13 @@ class API {
       query: params,
     })
   }
+
+  sendDice(params = {}) {
+    return this.request({
+      method: 'sendDice',
+      query: params
+    })
+  }
 }
 
 module.exports = API;

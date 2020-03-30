@@ -52,6 +52,12 @@ class Invoice extends Context {
     return new InvoiceStructure(this.update.invoice);
   }
 
+  sendDice(chatId = this.senderId) {
+    return this.telegram.api.sendDice({
+      chat_id: chatId
+    });
+  }
+
   [inspect.custom](depth, options) {
     let { name } = this.constructor;
 

@@ -50,6 +50,12 @@ class MigrateFromChatId extends Context {
     return this.update.migrate_from_chat_id;
   }
 
+  sendDice(chatId = this.senderId) {
+    return this.telegram.api.sendDice({
+      chat_id: chatId
+    });
+  }
+
   [inspect.custom](depth, options) {
     let { name } = this.constructor;
 

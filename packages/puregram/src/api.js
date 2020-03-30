@@ -255,10 +255,12 @@ class API {
     });
   }
 
-  exportChatInviteLink(params = {}) {
+  exportChatInviteLink(chat) {
     return this.request({
       method: 'exportChatInviteLink',
-      query: params,
+      query: {
+        chat_id: chat
+      },
     });
   }
 
@@ -432,7 +434,7 @@ class API {
     });
   }
 
-  uploadStickerFile(params) {
+  uploadStickerFile(params = {}) {
     return this.request({
       method: 'uploadStickerFile',
       query: params,
@@ -467,6 +469,13 @@ class API {
         sticker,
       },
     });
+  }
+
+  setStickerSetThumb(params = {}) {
+    return this.request({
+      method: 'setStickerSetThumb',
+      query: params
+    })
   }
 
   answerInlineQuery(params = {}) {

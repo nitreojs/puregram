@@ -21,8 +21,8 @@ class API {
   }
 
   async $request({
+    type = 'query',
     method,
-    httpMethod = 'GET',
     query,
   }) {
     let url = `${this.baseApiUrl}/${method}`;
@@ -34,20 +34,24 @@ class API {
           : query.reply_markup.toJSON();
       }
 
-      url += '?';
-
-      for (let [key, value] of Object.entries(query)) {
-        url += `${key}=${
-          encodeURI(
-            method === 'sendPoll' && Array.isArray(value)
-              ? JSON.stringify(value)
-              : value.toString()
-          )
-        }&`;
+      if (type === 'url') {
+        url += '?';
+  
+        for (let [key, value] of Object.entries(query)) {
+          url += `${key}=${
+            encodeURI(
+              method === 'sendPoll' && Array.isArray(value)
+                ? JSON.stringify(value)
+                : value.toString()
+            )
+          }&`;
+        }
       }
     }
 
-    let headers = {};
+    let headers = {
+      'Content-Type': 'application/json'
+    };
 
     if (method === 'getUpdates') {
       headers.connection = 'keep-alive';
@@ -55,9 +59,10 @@ class API {
 
     try {
       let response = await fetch(url, {
-        method: httpMethod,
+        method: 'POST',
         headers,
-        agent: this.agent,
+        body: type === 'query' ? JSON.stringify(query) : null,
+        agent: this.agent
       });
 
       let json = await response.json();
@@ -80,6 +85,7 @@ class API {
 
   getUpdates(params = {}) {
     return this.request({
+      type: 'url',
       method: 'getUpdates',
       query: params,
     });
@@ -428,9 +434,7 @@ class API {
   getStickerSet(name) {
     return this.request({
       method: 'getStickerSet',
-      query: {
-        name,
-      },
+      query: { name },
     });
   }
 

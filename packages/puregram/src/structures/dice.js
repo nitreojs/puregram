@@ -1,6 +1,6 @@
 let { inspect } = require('util');
 
-class Chat {
+class Dice {
   constructor(payload) {
     this.payload = payload;
   }
@@ -13,7 +13,7 @@ class Chat {
     let { name } = this.constructor;
 
     let payloadToInspect = {
-      id: this.id,
+      value: this.value,
     };
 
     let payload = inspect(payloadToInspect, { ...options, compact: false });
@@ -22,4 +22,4 @@ class Chat {
   }
 }
 
-module.exports = Chat;
+module.exports = Dice;

@@ -20,6 +20,7 @@ let VoiceAttachment = require('../structures/voice');
 
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
+let Dice = require('../structures/dice');
 let EVENTS = require('../structures/events');
 
 let { filterPayload } = require('../utils');
@@ -141,6 +142,14 @@ class MessageContext extends Context {
 
   get hasEntities() {
     return this.entities.length !== 0;
+  }
+
+  get dice() {
+    let { dice } = this.update;
+
+    if (!dice) return null;
+
+    return new Dice(dice);
   }
 
   get captionEntities() {
@@ -669,10 +678,20 @@ class MessageContext extends Context {
     return new MessageContext(this.telegram, response);
   }
 
-  sendDice(chatId = this.chatId) {
-    return this.telegram.api.sendDice({
+  async sendDice(chatId = this.chatId) {
+    let response = await this.telegram.api.sendDice({
       chat_id: chatId
     });
+
+    return new MessageContext(this.telegram, response);
+  }
+
+  getMyCommands() {
+    return this.telegram.api.getMyCommands();
+  }
+
+  setMyCommands() {
+    return this.telegram.api.setMyCommands();
   }
 
   [inspect.custom](depth, options) {
@@ -680,7 +699,7 @@ class MessageContext extends Context {
 
     let payloadToInspect = {
       id: this.id,
-      from:this.from,
+      from: this.from,
       senderId: this.senderId,
       date: this.date,
       chat: this.chat,
@@ -700,6 +719,7 @@ class MessageContext extends Context {
       text: this.text,
       entities: this.entities,
       captionEntities: this.captionEntities,
+      dice: this.dice,
       attachments: this.attachments,
       caption: this.caption,
       contact: this.contact,

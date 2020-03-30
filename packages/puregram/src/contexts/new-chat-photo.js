@@ -358,10 +358,20 @@ class NewChatPhoto extends Context {
     );
   }
 
-  sendDice(chatId = this.chatId) {
-    return this.telegram.api.sendDice({
+  async sendDice(chatId = this.chatId) {
+    let response = await this.telegram.api.sendDice({
       chat_id: chatId
     });
+
+    return new MessageContext(this.telegram, response);
+  }
+
+  getMyCommands() {
+    return this.telegram.api.getMyCommands();
+  }
+
+  setMyCommands() {
+    return this.telegram.api.setMyCommands();
   }
 
   [inspect.custom](depth, options) {

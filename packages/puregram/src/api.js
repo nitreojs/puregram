@@ -557,6 +557,19 @@ class API {
       query: params
     })
   }
+
+  getMyCommands() {
+    return this.request({
+      method: 'getMyCommands'
+    })
+  }
+
+  setMyCommands(commands) {
+    return this.request({
+      method: 'setMyCommands',
+      query: { commands }
+    })
+  }
 }
 
 module.exports = API;

@@ -40,3 +40,6 @@ console.log('Started polling');
 
 ## Thanks to
 Biggest thanks to [Negezor](https://github.com/negezor) for his [vk-io](https://github.com/negezor/vk-io) library that helped me with this package!
+
+### VK chat
+> https://vk.me/join/AJQ1d7n35xXnfBxIB21zACP3

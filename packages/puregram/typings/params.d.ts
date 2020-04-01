@@ -752,7 +752,7 @@ export interface ISendLocationParams {
  * On success, if the edited message was sent by the bot,
  * the edited `Message` is returned, otherwise `True` is returned.
  */
-export interface editMessageLiveLocation {
+export interface IEditMessageLiveLocationParams {
   /**
    * Required if `inline_message_id` is not specified.
    * 

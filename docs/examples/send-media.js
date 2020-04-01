@@ -42,4 +42,7 @@ telegram.updates.hear(
   }
 );
 
+//      You can use any API method that can work with media
+// using any of these methods (URL, stream, path or buffer).
+
 telegram.updates.startPolling();

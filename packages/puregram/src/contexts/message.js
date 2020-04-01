@@ -385,7 +385,7 @@ class MessageContext extends Context {
   }
 
   reply(text, params = {}) {
-    return this.send(text = '',{
+    return this.send(text, {
       reply_to_message_id: this.id,
       ...params,
     });
@@ -534,9 +534,9 @@ class MessageContext extends Context {
       ...params,
     });
 
-    return response !== true
-      ? new MessageContext(this.telegram, response)
-      : true;
+    return response === true
+      ? true
+      : new MessageContext(this.telegram, response);
   }
 
   async sendVenue(venue, params = {}) {
@@ -616,9 +616,9 @@ class MessageContext extends Context {
       ...params,
     });
 
-    return response !== true
-      ? new MessageContext(this.telegram, response)
-      : true;
+    return response === true
+      ? true
+      : new MessageContext(this.telegram, response);
   }
 
   async editMessageCaption(caption, params = {}) {
@@ -629,9 +629,9 @@ class MessageContext extends Context {
       ...params,
     });
 
-    return response !== true
-      ? new MessageContext(this.telegram, response)
-      : true;
+    return response === true
+      ? true
+      : new MessageContext(this.telegram, response);
   }
 
   async editMessageMedia(media, params = {}) {
@@ -642,9 +642,9 @@ class MessageContext extends Context {
       ...params,
     });
 
-    return response !== true
-      ? new MessageContext(this.telegram, response)
-      : true;
+    return response === true
+      ? true
+      : new MessageContext(this.telegram, response);
   }
 
   async editMessageReplyMarkup(replyMarkup, params = {}) {
@@ -655,9 +655,9 @@ class MessageContext extends Context {
       ...params,
     });
 
-    return response !== true
-      ? new MessageContext(this.telegram, response)
-      : true;
+    return response === true
+      ? true
+      : new MessageContext(this.telegram, response);
   }
 
   deleteMessage(params = {}) {

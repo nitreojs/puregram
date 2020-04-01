@@ -1,4 +1,7 @@
 let fetch = require('node-fetch');
+let FormData = require('form-data');
+let { Readable } = require('stream');
+let fs = require('fs');
 
 let APIError = require('./attachments/apierror');
 
@@ -58,10 +61,18 @@ class API {
     }
 
     try {
+      let body = null;
+
+      if (query instanceof FormData) {
+        body = query;
+      } else if (type === 'query') {
+        body = JSON.stringify(query);
+      }
+
       let response = await fetch(url, {
         method: 'POST',
-        headers,
-        body: type === 'query' ? JSON.stringify(query) : null,
+        headers: body instanceof FormData ? null : headers,
+        body,
         agent: this.agent
       });
 
@@ -106,58 +117,90 @@ class API {
   }
 
   sendPhoto(params = {}) {
-    return this.request({
+    let { photo } = params;
+
+    return getResponse(photo, {
       method: 'sendPhoto',
-      query: params,
+      key: 'photo',
+      params,
+      telegram: this.telegram
     });
   }
 
   sendAudio(params = {}) {
-    return this.request({
+    let { audio } = params;
+
+    return getResponse(audio, {
       method: 'sendAudio',
-      query: params,
+      key: 'audio',
+      params,
+      telegram: this.telegram
     });
   }
 
   sendDocument(params = {}) {
-    return this.request({
+    let { document } = params;
+
+    return getResponse(document, {
       method: 'sendDocument',
-      query: params,
+      key: 'document',
+      params,
+      telegram: this.telegram
     });
   }
   
   sendVideo(params = {}) {
-    return this.request({
+    let { video } = params;
+
+    return getResponse(video, {
       method: 'sendVideo',
-      query: params,
+      key: 'video',
+      params,
+      telegram: this.telegram
     });
   }
 
   sendAnimation(params = {}) {
-    return this.request({
+    let { animation } = params;
+
+    return getResponse(animation, {
       method: 'sendAnimation',
-      query: params,
+      key: 'animation',
+      params,
+      telegram: this.telegram
     });
   }
 
   sendVoice(params = {}) {
-    return this.request({
+    let { voice } = params;
+
+    return getResponse(voice, {
       method: 'sendVoice',
-      query: params,
+      key: 'voice',
+      params,
+      telegram: this.telegram
     });
   }
 
   sendVideoNote(params = {}) {
-    return this.request({
+    let { videoNote } = params;
+
+    return getResponse(videoNote, {
       method: 'sendVideoNote',
-      query: params,
+      key: 'videonote',
+      params,
+      telegram: this.telegram
     });
   }
 
   sendMediaGroup(params = {}) {
-    return this.request({
+    let { media } = params;
+
+    return getResponse(media, {
       method: 'sendMediaGroup',
-      query: params,
+      key: 'media',
+      params,
+      telegram: this.telegram
     });
   }
 
@@ -220,9 +263,7 @@ class API {
   getFile(id) {
     return this.request({
       method: 'getFile',
-      query: {
-        file_id: id,
-      },
+      query: { file_id: id },
     });
   }
 
@@ -583,6 +624,50 @@ class API {
       query: { commands }
     })
   }
+}
+
+async function getResponse(value, { method, key, params, telegram }) {
+  let response = null;
+  let form = null;
+
+  if (value instanceof Readable) {
+    form = new FormData();
+
+    form.append(key, value);
+  } else if (Buffer.isBuffer(value)) {
+    form = new FormData();
+
+    form.append(key, value, { filename: key + this.chatId });
+  } else if (typeof value === 'string' && !value.startsWith('http')) {
+    form = new FormData();
+
+    let stream = fs.createReadStream(value);
+    form.append(key, stream);
+  }
+
+  if (form && key in params) {
+    let { [key]: _, ...tempParams } = params;
+
+    params = tempParams;
+  }
+
+  if (form) {
+    for (let [fKey, fValue] of Object.entries(params)) {
+      form.append(fKey, fValue);
+    }
+
+    response = await telegram.api.request({
+      method,
+      query: form
+    });
+  } else {
+    response = await telegram.api.request({
+      method,
+      query: params
+    });
+  }
+
+  return response;
 }
 
 module.exports = API;

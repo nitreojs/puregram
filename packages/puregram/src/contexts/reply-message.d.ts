@@ -175,7 +175,7 @@ declare class ReplyMessage extends Context {
    * 
    * On success, the sent `Message` is returned.
    */
-  public sendPhoto(photo: string, params: Params.ISendPhotoParams): Promise<MessageContext>;
+  public sendPhoto(photo: Interfaces.IInputFile | string, params: Params.ISendPhotoParams): Promise<MessageContext>;
 
   public replyWithPhoto(photo: string, params: Params.ISendPhotoParams): Promise<MessageContext>;
 
@@ -191,7 +191,7 @@ declare class ReplyMessage extends Context {
    * 
    * For sending voice messages, use the `sendVoice` method instead.
    */
-  public sendAudio(audio: string, params: Params.ISendAudioParams): Promise<MessageContext>;
+  public sendAudio(audio: Interfaces.IInputFile | string, params: Params.ISendAudioParams): Promise<MessageContext>;
 
   public replyWithAudio(audio: string, params: Params.ISendAudioParams): Promise<MessageContext>;
 
@@ -205,7 +205,7 @@ declare class ReplyMessage extends Context {
    * Bots can currently send video files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  public sendVideo(video: string, params: Params.ISendVideoParams): Promise<MessageContext>;
+  public sendVideo(video: Interfaces.IInputFile | string, params: Params.ISendVideoParams): Promise<MessageContext>;
 
   public replyWithVideo(video: string, params: Params.ISendVideoParams): Promise<MessageContext>;
 
@@ -218,7 +218,7 @@ declare class ReplyMessage extends Context {
    * Bots can currently send animation files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  public sendAnimation(animation: string, params: Params.ISendAnimationParams): Promise<MessageContext>;
+  public sendAnimation(animation: Interfaces.IInputFile | string, params: Params.ISendAnimationParams): Promise<MessageContext>;
 
   public replyWithAnimation(animation: string, params: Params.ISendAnimationParams): Promise<MessageContext>;
 
@@ -229,7 +229,7 @@ declare class ReplyMessage extends Context {
    * 
    * On success, the sent `Message` is returned.
    */
-  public sendVideoNote(videoNote: string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
+  public sendVideoNote(videoNote: Interfaces.IInputFile | string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
 
   public replyWithVideoNote(videoNote: string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
 
@@ -244,7 +244,7 @@ declare class ReplyMessage extends Context {
    * Bots can currently send voice messages of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  public sendVoice(voice: string, params: Params.ISendVoiceParams): Promise<MessageContext>;
+  public sendVoice(voice: Interfaces.IInputFile | string, params: Params.ISendVoiceParams): Promise<MessageContext>;
 
   public replyWithVoice(voice: string, params: Params.ISendVoiceParams): Promise<MessageContext>;
 
@@ -253,7 +253,7 @@ declare class ReplyMessage extends Context {
    * 
    * On success, an `Array<Message>` is returned.
    */
-  public sendMediaGroup(mediaGroup: string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public sendMediaGroup(mediaGroup: Interfaces.IInputFile | string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
   public replyWithMediaGroup(mediaGroup: string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 

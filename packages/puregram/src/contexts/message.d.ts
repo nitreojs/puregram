@@ -403,9 +403,9 @@ declare class MessageContext extends Context {
    * 
    * On success, the sent `Message` is returned.
    */
-  public sendPhoto(photo: string, params: Params.ISendPhotoParams): Promise<MessageContext>;
+  public sendPhoto(photo: Interfaces.IInputFile | string, params: Params.ISendPhotoParams): Promise<MessageContext>;
 
-  public replyWithPhoto(photo: string, params: Params.ISendPhotoParams): Promise<MessageContext>;
+  public replyWithPhoto(photo: Interfaces.IInputFile | string, params: Params.ISendPhotoParams): Promise<MessageContext>;
 
   /**
    * Use this method to send audio files,
@@ -419,9 +419,9 @@ declare class MessageContext extends Context {
    * 
    * For sending voice messages, use the `sendVoice` method instead.
    */
-  public sendAudio(audio: string, params: Params.ISendAudioParams): Promise<MessageContext>;
+  public sendAudio(audio: Interfaces.IInputFile | string, params: Params.ISendAudioParams): Promise<MessageContext>;
 
-  public replyWithAudio(audio: string, params: Params.ISendAudioParams): Promise<MessageContext>;
+  public replyWithAudio(audio: Interfaces.IInputFile | string, params: Params.ISendAudioParams): Promise<MessageContext>;
 
   /**
    * Use this method to send video files,
@@ -433,9 +433,9 @@ declare class MessageContext extends Context {
    * Bots can currently send video files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  public sendVideo(video: string, params: Params.ISendVideoParams): Promise<MessageContext>;
+  public sendVideo(video: Interfaces.IInputFile | string, params: Params.ISendVideoParams): Promise<MessageContext>;
 
-  public replyWithVideo(video: string, params: Params.ISendVideoParams): Promise<MessageContext>;
+  public replyWithVideo(video: Interfaces.IInputFile | string, params: Params.ISendVideoParams): Promise<MessageContext>;
 
   /**
    * Use this method to send animation files
@@ -446,9 +446,9 @@ declare class MessageContext extends Context {
    * Bots can currently send animation files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  public sendAnimation(animation: string, params: Params.ISendAnimationParams): Promise<MessageContext>;
+  public sendAnimation(animation: Interfaces.IInputFile | string, params: Params.ISendAnimationParams): Promise<MessageContext>;
 
-  public replyWithAnimation(animation: string, params: Params.ISendAnimationParams): Promise<MessageContext>;
+  public replyWithAnimation(animation: Interfaces.IInputFile | string, params: Params.ISendAnimationParams): Promise<MessageContext>;
 
   /**
    * As of v.4.0, Telegram clients support rounded square mp4 videos
@@ -457,9 +457,9 @@ declare class MessageContext extends Context {
    * 
    * On success, the sent `Message` is returned.
    */
-  public sendVideoNote(videoNote: string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
+  public sendVideoNote(videoNote: Interfaces.IInputFile | string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
 
-  public replyWithVideoNote(videoNote: string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
+  public replyWithVideoNote(videoNote: Interfaces.IInputFile | string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
 
   /**
    * Use this method to send audio files,
@@ -472,18 +472,18 @@ declare class MessageContext extends Context {
    * Bots can currently send voice messages of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  public sendVoice(voice: string, params: Params.ISendVoiceParams): Promise<MessageContext>;
+  public sendVoice(voice: Interfaces.IInputFile | string, params: Params.ISendVoiceParams): Promise<MessageContext>;
 
-  public replyWithVoice(voice: string, params: Params.ISendVoiceParams): Promise<MessageContext>;
+  public replyWithVoice(voice: Interfaces.IInputFile | string, params: Params.ISendVoiceParams): Promise<MessageContext>;
 
   /**
    * Use this method to send a group of photos or videos as an album.
    * 
    * On success, an `Array<Message>` is returned.
    */
-  public sendMediaGroup(mediaGroup: string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public sendMediaGroup(mediaGroup: Interfaces.IInputFile | string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
-  public replyWithMediaGroup(mediaGroup: string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public replyWithMediaGroup(mediaGroup: Interfaces.IInputFile | string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
   /**
    * Use this method to send point on the map.

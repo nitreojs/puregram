@@ -74,7 +74,7 @@ class CallbackQuery extends Context {
   }
 
   async reply(text, params = {}) {
-    return this.send(text = '',{
+    return this.send(text, {
       reply_to_message_id: this.message.id,
       ...params,
     });

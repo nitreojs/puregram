@@ -612,13 +612,6 @@ class MessageContext extends Context {
     return new Poll(response);
   }
 
-  replyWithContact(poll, params = {}) {
-    return this.sendPoll(poll, {
-      reply_to_message_id: this.id,
-      ...params,
-    });
-  }
-
   async sendChatAction(action, params = {}) {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId,

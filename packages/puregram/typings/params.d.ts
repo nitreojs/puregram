@@ -1956,7 +1956,7 @@ export interface IAnswerInlineQueryParams {
   /**
    * A JSON-serialized array of results for the inline query
    */
-  result: Array<Interfaces.InlineQueryResult>;
+  results: Array<Interfaces.InlineQueryResult>;
 
   /**
    * The maximum amount of time in seconds that the result

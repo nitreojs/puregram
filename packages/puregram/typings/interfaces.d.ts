@@ -3833,3 +3833,7 @@ export interface IInlineQueryResultVoice {
    */
   voice_duration?: number;
 }
+
+export interface IDice {
+  value: number;
+}

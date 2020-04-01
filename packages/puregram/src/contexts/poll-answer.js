@@ -1,7 +1,6 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
-let MessageContext = require('./message');
 
 let User = require('../structures/user');
 

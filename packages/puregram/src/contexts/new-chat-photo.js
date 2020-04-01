@@ -48,6 +48,12 @@ class NewChatPhoto extends Context {
     return this.chat.type;
   }
 
+  get eventPhoto() {
+    return this.update.new_chat_photo.map(
+      member => new PhotoSize(member),
+    );
+  }
+
   async send(text = '',params = {}) {
     let response = await this.telegram.api.sendMessage({
       chat_id: this.chatId || this.senderId,

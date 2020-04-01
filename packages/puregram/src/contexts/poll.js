@@ -1,7 +1,6 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
-let MessageContext = require('./message');
 
 class Poll extends Context {
   constructor(telegram, update) {
@@ -22,8 +21,28 @@ class Poll extends Context {
     return this.update.options;
   }
 
+  get totalVoterCount() {
+    return this.update.total_voter_count;
+  }
+
   get isClosed() {
     return this.update.is_closed;
+  }
+
+  get isAnonymous() {
+    return this.update.is_anonymous;
+  }
+
+  get type() {
+    return this.update.type;
+  }
+
+  get allowsMultipleAnswers() {
+    return this.update.allows_multiple_answers;
+  }
+
+  get correctOptionId() {
+    return this.update.correct_option_id || null;
   }
 
   [inspect.custom](depth, options) {
@@ -33,7 +52,12 @@ class Poll extends Context {
       id: this.id,
       question: this.question,
       options: this.options,
+      totalVoterCount: this.totalVoterCount,
       isClosed: this.isClosed,
+      isAnonymous: this.isAnonymous,
+      type: this.type,
+      allowsMultipleAnswers: this.allowsMultipleAnswers,
+      correctOptionId: this.correctOptionId
     };
 
     let payload = inspect(payloadToInspect, { ...options, compact: false });

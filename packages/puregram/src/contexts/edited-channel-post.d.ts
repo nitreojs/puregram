@@ -1,392 +1,157 @@
-import Params from '../../typings/params';
-import Types from '../../typings/types';
-import Interfaces from '../../typings/interfaces';
-
+import Params from "../../typings/params";
+import Interfaces from "../../typings/interfaces";
+import MessageContext from './message';
 import Context from './context';
-
-type Attachment =
-  | Interfaces.IAudio
-  | Interfaces.IDocument
-  | Interfaces.IAnimation
-  | Interfaces.IGame
-  | Interfaces.IPhotoSize
-  | Interfaces.ISticker
-  | Interfaces.IVideo
-  | Interfaces.IVoice
-  | Interfaces.IVideoNote
-  | Interfaces.IContact
-  | Interfaces.ILocation
-  | Interfaces.IVenue
-  | Interfaces.IPoll;
 
 type MessageOrTrue = MessageContext | true;
 
-declare class MessageContext extends Context {
+declare class EditedChannelPost extends Context {
   public constructor(telegram: Params.ITelegramParams, update: object);
 
-  /**
-   * Unique message identifier inside this chat
-   */
-  public id: number;
+  public id: string;
 
-  /**
-   * Sender, empty for messages sent to channels
-   */
-  public from: User;
+  public from?: Interfaces.IUser;
 
-  /**
-   * Sender's unique id
-   */
-  public senderId: number;
+  public senderId?: number;
 
-  /**
-   * Is message sent by bot?
-   */
-  public isOutbox: boolean;
+  public chat?: Interfaces.IChat;
 
-  /**
-   * Date the message was sent in Unix time
-   */
-  public date: number;
+  public chatId?: number;
 
-  /**
-   * Conversation the message belongs to
-   */
-  public chat: Interfaces.IChat;
+  public chatType?: Types.ChatTypes;
 
-  /**
-   * Chat's id
-   */
-  public chatId: number;
+  public forwardFrom?: User;
 
-  /**
-   * Chat's type
-   */
-  public chatType: Types.ChatTypes;
+  public forwardFromChat?: User;
 
-  /**
-   * For forwarded messages, sender of the original message
-   */
-  public forwardFrom?: Interfaces.IUser;
-
-  /**
-   * For messages forwarded from channels, information about the original channel
-   */
-  public forwardFromChat?: Interfaces.IUser;
-
-  /**
-   * For messages forwarded from channels, identifier of the original message in the channel
-   */
   public forwardFromMessageId?: number;
 
-  /**
-   * For messages forwarded from channels, signature of the post author if present
-   */
   public forwardSignature?: string;
 
-  /**
-   * Sender's name for messages forwarded from users
-   * who disallow adding a link to their account in forwarded messages
-   */
   public forwardSenderName?: string;
 
-  /**
-   * For forwarded messages, date the original message was sent in Unix time
-   */
   public forwardDate?: number;
 
-  /**
-   * Is message a forwarded one?
-   */
   public isForward: boolean;
 
-  /**
-   * For replies, the original message.
-   * Note that the Message object in this field will not contain further
-   * `reply_to_message` fields even if it itself is a reply.
-   */
-  public replyMessage?: Interfaces.IMessage;
+  public replyMessage?: ReplyMessageContext;
 
-  /**
-   * Date the message was last edited in Unix time
-   */
   public editDate?: number;
 
-  /**
-   * The unique identifier of a media message group this message belongs to
-   */
   public mediaGroupId?: string;
 
-  /**
-   * Signature of the post author for messages in channels
-   */
   public authorSignature?: string;
 
-  /**
-   * For text messages, the actual UTF-8 text of the message, 0-4096 characters
-   */
   public text?: string;
 
-  /**
-   * For text messages, special entities like usernames,
-   * URLs, bot commands, etc. that appear in the text
-   */
-  public entities?: Array<Interfaces.IMessageEntity>;
+  public entities?: Array<MessageEntity>;
 
-  /**
-   * Does message have any entities?
-   */
   public hasEntities: boolean;
 
-  /**
-   * For messages with a caption, special entities like usernames,
-   * URLs, bot commands, etc. that appear in the caption
-   */
-  public captionEntities?: Array<Interfaces.IMessageEntity>;
+  public captionEntities?: Array<MessageEntity>;
 
-  /**
-   * Message is an audio file, information about the file
-   */
-  public audio?: Interfaces.IAudio;
+  public audio?: Audio;
 
-  /**
-   * Message is a general file, information about the file
-   */
-  public document?: Interfaces.IDocument;
+  public document?: Document;
 
-  /**
-   * Message is an animation, information about the animation.
-   * For backward compatibility, when this field is set, the `document` field will also be set
-   */
-  public animation?: Interfaces.IAnimation;
+  public animation?: Animation;
 
-  /**
-   * Message is a game, information about the game
-   */
-  public game?: Interfaces.IGame;
+  public game?: Game;
 
-  /**
-   * Message is a photo, available sizes of the photo
-   */
-  public photo?: Array<Interfaces.IPhotoSize>;
+  public photo?: Array<PhotoSize>;
 
-  /**
-   * Message is a sticker, information about the sticker
-   */
-  public sticker?: Interfaces.ISticker;
+  public sticker?: Sticker;
 
-  /**
-   * Message is a video, information about the video
-   */
-  public video?: Interfaces.IVideo;
+  public video?: Video;
 
-  /**
-   * Message is a voice message, information about the file
-   */
-  public voice?: Interfaces.IVoice;
+  public voice?: Voice;
 
-  /**
-   * Message is a video note, information about the video message
-   */
-  public videoNote?: Interfaces.IVideoNote;
+  public videoNote?: VideoNote;
 
-  /**
-   * Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
-   */
   public caption?: string;
 
-  /**
-   * Message is a shared contact, information about the contact
-   */
-  public contact?: Interfaces.IContact;
+  public contact?: Contact;
 
-  /**
-   * Message is a shared location, information about the location
-   */
-  public location?: Interfaces.ILocation;
+  public location?: Location;
 
-  /**
-   * Message is a venue, information about the venue
-   */
-  public venue?: Interfaces.IVenue;
+  public venue?: Venue;
 
-  /**
-   * Message is a native poll, information about the poll
-   */
-  public poll?: Interfaces.IPoll;
+  public poll?: Poll;
 
-  /**
-   * Message is a dice with random value from `1` to `6`
-   */
-  public dice?: Interfaces.IDice;
+  public dice?: Dice;
 
-  /**
-   * 
-   */
   public attachments: Array<Attachment>;
 
-  /**
-   * Checks for the presence of attachments
-   */
   public hasAttachments(type?: Types.AttachmentTypes): boolean;
 
-  /**
-   * Returns the attachments
-   */
-  public getAttachments(type: 'audio'): Array<Interfaces.IAudio>;
+  public getAttachments(type: 'audio'): Array<Audio>;
 
-  public getAttachments(type: 'document'): Array<Interfaces.IDocument>;
+  public getAttachments(type: 'document'): Array<Document>;
 
-  public getAttachments(type: 'animation'): Array<Interfaces.IAnimation>;
+  public getAttachments(type: 'animation'): Array<Animation>;
 
-  public getAttachments(type: 'game'): Array<Interfaces.IGame>;
+  public getAttachments(type: 'game'): Array<Game>;
 
-  public getAttachments(type: 'photo'): Array<Array<Interfaces.IPhotoSize>>;
+  public getAttachments(type: 'photo'): Array<Array<PhotoSize>>;
 
-  public getAttachments(type: 'sticker'): Array<Interfaces.ISticker>;
+  public getAttachments(type: 'sticker'): Array<Sticker>;
 
-  public getAttachments(type: 'video'): Array<Interfaces.IVideo>;
+  public getAttachments(type: 'video'): Array<Video>;
 
-  public getAttachments(type: 'voice'): Array<Interfaces.IVoice>;
+  public getAttachments(type: 'voice'): Array<Voice>;
 
-  public getAttachments(type: 'video_note' | 'videoNote'): Array<Interfaces.IVideoNote>;
+  public getAttachments(type: 'video_note' | 'videoNote'): Array<VideoNote>;
 
-  public getAttachments(type: 'contact'): Array<Interfaces.IContact>;
+  public getAttachments(type: 'contact'): Array<Contact>;
 
-  public getAttachments(type: 'location'): Array<Interfaces.ILocation>;
+  public getAttachments(type: 'location'): Array<Location>;
 
-  public getAttachments(type: 'venue'): Array<Interfaces.IVenue>;
+  public getAttachments(type: 'venue'): Array<Venue>;
 
-  public getAttachments(type: 'poll'): Array<Interfaces.IPoll>;
+  public getAttachments(type: 'poll'): Array<Poll>;
 
   public getAttachments(type?: Types.AttachmentTypes): boolean;
 
-  /**
-   * New members that were added to the group or supergroup
-   * and information about them (the bot itself may be one of these members)
-   */
-  public newChatMembers?: Array<Interfaces.IUser>;
+  public newChatMembers?: Array<User>;
 
-  /**
-   * A member was removed from the group,
-   * information about them (this member may be the bot itself)
-   */
-  public leftChatMember?: Interfaces.IUser;
+  public leftChatMember?: User;
 
-  /**
-   * A chat title was changed to this value
-   */
   public newChatTitle?: string;
 
-  /**
-   * A chat photo was change to this value
-   */
-  public newChatPhoto?: Array<Interfaces.IPhotoSize>;
+  public newChatPhoto?: Array<PhotoSize>;
 
-  /**
-   * Service message: the chat photo was deleted
-   */
   public deleteChatPhoto?: true;
 
-  /**
-   * Service message: the group has been created
-   */
   public groupChatCreated?: true;
 
-  /**
-   * Service message: the supergroup has been created.
-   * This field can‘t be received in a message coming through updates,
-   * because bot can’t be a member of a supergroup when it is created.
-   * It can only be found in `reply_to_message` if someone replies to
-   * a very first message in a directly created supergroup.
-   */
   public supergroupChatCreated?: true;
 
-  /**
-   * Service message: the channel has been created.
-   * This field can‘t be received in a message coming through updates,
-   * because bot can’t be a member of a channel when it is created.
-   * It can only be found in `reply_to_message` if someone replies to
-   * a very first message in a channel.
-   */
   public channelChatCreated?: true;
 
-  /**
-   * The group has been migrated to a supergroup with the specified identifier.
-   * This number may be greater than 32 bits and some programming languages
-   * may have difficulty/silent defects in interpreting it.
-   * But it is smaller than 52 bits,
-   * so a signed 64 bit integer or double-precision float type are
-   * safe for storing this identifier.
-   */
   public migrateToChatId?: number;
 
-  /**
-   * The supergroup has been migrated from a group with the specified identifier.
-   * This number may be greater than 32 bits and some programming languages
-   * may have difficulty/silent defects in interpreting it.
-   * But it is smaller than 52 bits, so a signed 64 bit integer or
-   * double-precision float type are safe for storing this identifier.
-   */
   public migrateFromChatId?: number;
 
-  /**
-   * Specified message was pinned.
-   * Note that the `Message` object in this field will not contain further
-   * `reply_to_message` fields even if it is itself a reply.
-   */
-  public pinnedMessage?: Interfaces.IMessage;
+  public pinnedMessage?: MessageContext;
 
-  /**
-   * Message is an invoice for a payment, information about the invoice
-   */
-  public invoice?: Interfaces.IInvoice;
+  public invoice?: Invoice;
 
-  /**
-   * Message is a service message about a successful payment,
-   * information about the payment
-   */
-  public successfulPayment?: Interfaces.ISuccessfulPayment;
+  public successfulPayment?: SuccessfulPayment;
 
-  /**
-   * The domain name of the website on which the user has logged in
-   */
   public connectedWebsite?: string;
 
-  /**
-   * Telegram Passport data
-   */
-  public passportData?: Interfaces.IPassportData;
+  public passportData?: PassportData;
 
-  /**
-   * Inline keyboard attached to the message.
-   * `login_url` buttons are represented as ordinary `url` buttons.
-   */
-  public replyMarkup?: Interfaces.IInlineKeyboardMarkup;
+  public replyMarkup?: InlineKeyboardMarkup;
 
-  /**
-   * Is this an event?
-   */
   public isEvent: boolean;
 
-  /**
-   * Event type
-   */
   public eventType?: string;
 
-  /**
-   * Does the message have text?
-   */
   public hasText: boolean;
 
-  /**
-   * Does the message have forward messages?
-   */
   public hasForward: boolean;
 
-  /**
-   * Is this message sent to the private messages?
-   */
   public isPM: boolean;
 
   /**
@@ -642,4 +407,4 @@ declare class MessageContext extends Context {
   public stopMessageLiveLocation(params: Params.IStopMessageLiveLocationParams): Promise<MessageOrTrue>;
 }
 
-export = MessageContext;
+export = EditedChannelPost;

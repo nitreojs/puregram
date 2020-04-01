@@ -53,3 +53,5 @@ class VideoNoteAttachment {
     return `${options.stylize(name, 'special')} <${options.stylize(this.fileId, 'string')}> ${payload}`;
   }
 }
+
+module.exports = VideoNoteAttachment;

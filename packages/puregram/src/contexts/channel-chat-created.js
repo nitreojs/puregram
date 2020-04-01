@@ -218,6 +218,18 @@ class ChannelChatCreated extends Context {
       : true;
   }
 
+  async stopMessageLiveLocation(params = {}) {
+    let response = await this.telegram.api.stopMessageLiveLocation({
+      chat_id: this.chatId,
+      message_id: this.id,
+      ...params,
+    });
+
+    return response === true
+      ? true
+      : new MessageContext(this.telegram, response);
+  }
+
   async sendVenue(venue, params = {}) {
     let response = await this.telegram.api.sendVenue({
       chat_id: this.chatId,
@@ -260,6 +272,13 @@ class ChannelChatCreated extends Context {
     });
 
     return new MessageContext(this.telegram, response);
+  }
+
+  replyWithPoll(poll, params = {}) {
+    return this.sendPoll(poll, {
+      reply_to_message_id: this.id,
+      ...params,
+    });
   }
 
   async stopPoll(id, params = {}) {

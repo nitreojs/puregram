@@ -1,12 +1,12 @@
 import API from './api';
 import Updates from './updates';
-import { ITelegramParams } from '../typings/params';
+import Params from '../typings/params';
 
 declare class Telegram {
   public api: API;
   public updates: Updates;
 
-  constructor(params: ITelegramParams);
+  constructor(params: Params.ITelegramParams);
 }
 
 export = Telegram;

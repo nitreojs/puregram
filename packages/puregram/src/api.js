@@ -629,6 +629,7 @@ class API {
 async function getResponse(value, { method, key, params, telegram }) {
   let response = null;
   let form = null;
+  let isPath = fs.existsSync(value);
 
   if (value instanceof Readable) {
     form = new FormData();
@@ -638,14 +639,14 @@ async function getResponse(value, { method, key, params, telegram }) {
     form = new FormData();
 
     form.append(key, value, { filename: key + this.chatId });
-  } else if (typeof value === 'string' && !value.startsWith('http')) {
+  } else if (typeof value === 'string' && !value.startsWith('http') && isPath) {
     form = new FormData();
 
     let stream = fs.createReadStream(value);
     form.append(key, stream);
   }
 
-  if (form && key in params) {
+  if (form && key in params && !isPath) {
     let { [key]: _, ...tempParams } = params;
 
     params = tempParams;

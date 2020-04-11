@@ -308,10 +308,17 @@ class CallbackQuery extends Context {
     });
   }
 
-  async sendChatAction(action, params = {}) {
+  sendChatAction(action, params = {}) {
     return this.telegram.api.sendChatAction({
       chat_id: this.message.chatId,
       action,
+      ...params,
+    });
+  }
+
+  getUserProfilePhotos(params = {}) {
+    return this.telegram.api.getUserProfilePhotos({
+      user_id: this.message.chatId,
       ...params,
     });
   }

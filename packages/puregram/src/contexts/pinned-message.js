@@ -300,10 +300,17 @@ class PinnedMessageContext extends Context {
     });
   }
 
-  async sendChatAction(action, params = {}) {
+  sendChatAction(action, params = {}) {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId,
       action,
+      ...params,
+    });
+  }
+
+  getUserProfilePhotos(params = {}) {
+    return this.telegram.api.getUserProfilePhotos({
+      user_id: this.chatId,
       ...params,
     });
   }

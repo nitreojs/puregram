@@ -9,7 +9,7 @@ type Attachment =
   | Interfaces.IDocument
   | Interfaces.IAnimation
   | Interfaces.IGame
-  | Interfaces.IPhotoSize
+  | Interfaces.PhotoAttachment
   | Interfaces.ISticker
   | Interfaces.IVideo
   | Interfaces.IVoice
@@ -168,7 +168,7 @@ declare class MessageContext extends Context {
   /**
    * Message is a photo, available sizes of the photo
    */
-  public photo?: Array<Interfaces.IPhotoSize>;
+  public photo?: Interfaces.PhotoAttachment;
 
   /**
    * Message is a sticker, information about the sticker
@@ -241,7 +241,7 @@ declare class MessageContext extends Context {
 
   public getAttachments(type: 'game'): Array<Interfaces.IGame>;
 
-  public getAttachments(type: 'photo'): Array<Array<Interfaces.IPhotoSize>>;
+  public getAttachments(type: 'photo'): Interfaces.PhotoAttachment;
 
   public getAttachments(type: 'sticker'): Array<Interfaces.ISticker>;
 
@@ -281,7 +281,7 @@ declare class MessageContext extends Context {
   /**
    * A chat photo was change to this value
    */
-  public newChatPhoto?: Array<Interfaces.IPhotoSize>;
+  public newChatPhoto?: Interfaces.PhotoAttachment;
 
   /**
    * Service message: the chat photo was deleted
@@ -538,6 +538,13 @@ declare class MessageContext extends Context {
    * Returns `True` on success.
    */
   public sendChatAction(action: Types.ChatActions, params: Params.ISendChatActionParams): Promise<true>;
+
+  /**
+   * Use this method to get a list of profile pictures for a user.
+   * 
+   * Returns a `UserProfilePhotos` object.
+   */
+  public getUserProfilePhotos(params?: Params.IGetUserProfilePhotosParams): Promise<Interfaces.IUserProfilePhotos>;
 
   /**
    * Use this method to edit text and game messages.

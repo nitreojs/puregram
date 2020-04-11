@@ -6,6 +6,8 @@ let MessageContext = require('./message');
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
 let PhotoSize = require('../structures/photo-size');
+let PhotoAttachment = require('../structures/photo');
+let UserProfilePhotos = require('../structures/user-profile-photos');
 
 class NewChatPhoto extends Context {
   constructor(telegram, update) {
@@ -49,8 +51,10 @@ class NewChatPhoto extends Context {
   }
 
   get eventPhoto() {
-    return this.update.new_chat_photo.map(
-      member => new PhotoSize(member),
+    return new PhotoAttachment(
+      ...this.update.new_chat_photo.map(
+        member => new PhotoSize(member),
+      )
     );
   }
 
@@ -307,11 +311,13 @@ class NewChatPhoto extends Context {
     });
   }
 
-  getUserProfilePhotos(params = {}) {
-    return this.telegram.api.getUserProfilePhotos({
-      user_id: this.chatId,
-      ...params,
-    });
+  async getUserProfilePhotos(params = {}) {
+    return new UserProfilePhotos(
+      await this.telegram.api.getUserProfilePhotos({
+        user_id: this.chatId,
+        ...params,
+      })
+    );
   }
 
   async editMessageText(text, params = {}) {
@@ -385,8 +391,10 @@ class NewChatPhoto extends Context {
   }
 
   get eventPhoto() {
-    return this.update.new_chat_photo.map(
-      e => new PhotoSize(e),
+    return new PhotoAttachment(
+      ...this.update.new_chat_photo.map(
+        e => new PhotoSize(e),
+      )
     );
   }
 

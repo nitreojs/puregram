@@ -65,7 +65,7 @@ declare class ReplyMessage extends Context {
 
   public game?: Game;
 
-  public photo?: Array<Interfaces.IPhotoSize>;
+  public photo?: Interfaces.PhotoAttachment;
 
   public sticker?: Sticker;
 
@@ -99,7 +99,7 @@ declare class ReplyMessage extends Context {
 
   public getAttachments(type: 'game'): Array<Interfaces.IGame>;
 
-  public getAttachments(type: 'photo'): Array<Array<Interfaces.IPhotoSize>>;
+  public getAttachments(type: 'photo'): Interfaces.PhotoAttachment;
 
   public getAttachments(type: 'sticker'): Array<Interfaces.ISticker>;
 
@@ -125,7 +125,7 @@ declare class ReplyMessage extends Context {
 
   public newChatTitle?: string;
 
-  public newChatPhoto?: Array<Interfaces.IPhotoSize>;
+  public newChatPhoto?: Interfaces.PhotoAttachment;
 
   public deleteChatPhoto?: true;
 

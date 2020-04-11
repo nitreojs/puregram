@@ -34,7 +34,7 @@ class AnimationAttachment {
   get thumb() {
     let { thumb } = this.payload;
 
-    return thumb ? new PhotoSize(thumb): null;
+    return thumb ? new PhotoSize(thumb) : null;
   }
 
   get fileName() {

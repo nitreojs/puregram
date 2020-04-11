@@ -64,7 +64,7 @@ declare class ChannelPost extends Context {
 
   public game?: Game;
 
-  public photo?: Array<PhotoSize>;
+  public photo?: Interfaces.PhotoAttachment;
 
   public sticker?: Sticker;
 
@@ -309,6 +309,13 @@ declare class ChannelPost extends Context {
    * Returns `True` on success.
    */
   public sendChatAction(action: Types.ChatActions, params: Params.ISendChatActionParams): Promise<true>;
+
+  /**
+   * Use this method to get a list of profile pictures for a user.
+   * 
+   * Returns a `UserProfilePhotos` object.
+   */
+  public getUserProfilePhotos(params?: Params.IGetUserProfilePhotosParams): Promise<Interfaces.IUserProfilePhotos>;
 
   /**
    * Use this method to edit text and game messages.

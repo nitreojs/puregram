@@ -316,11 +316,13 @@ class CallbackQuery extends Context {
     });
   }
 
-  getUserProfilePhotos(params = {}) {
-    return this.telegram.api.getUserProfilePhotos({
-      user_id: this.message.chatId,
-      ...params,
-    });
+  async getUserProfilePhotos(params = {}) {
+    return new UserProfilePhotos(
+      await this.telegram.api.getUserProfilePhotos({
+        user_id: this.message.chatId,
+        ...params,
+      })
+    );
   }
 
   async editMessageText(text, params = {}) {

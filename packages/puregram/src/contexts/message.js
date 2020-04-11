@@ -17,6 +17,8 @@ let VenueAttachment = require('../structures/venue');
 let VideoNoteAttachment = require('../structures/video-note');
 let VideoAttachment = require('../structures/video');
 let VoiceAttachment = require('../structures/voice');
+let PhotoAttachment = require('../structures/photo');
+let UserProfilePhotos = require('../structures/user-profile-photos');
 
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
@@ -191,8 +193,10 @@ class MessageContext extends Context {
 
     if (!photo) return null;
 
-    return photo.map(
-      e => new PhotoSize(e),
+    return new PhotoAttachment(
+      ...photo.map(
+        e => new PhotoSize(e),
+      )
     );
   }
 
@@ -620,11 +624,13 @@ class MessageContext extends Context {
     });
   }
 
-  getUserProfilePhotos(params = {}) {
-    return this.telegram.api.getUserProfilePhotos({
-      user_id: this.chatId,
-      ...params,
-    });
+  async getUserProfilePhotos(params = {}) {
+    return new UserProfilePhotos(
+      await this.telegram.api.getUserProfilePhotos({
+        user_id: this.chatId,
+        ...params,
+      })
+    );
   }
 
   async editMessageText(text, params = {}) {

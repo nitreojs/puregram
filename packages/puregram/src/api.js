@@ -253,7 +253,7 @@ class API {
     });
   }
 
-  getUserProfilePhotos(params = {}) {
+  async getUserProfilePhotos(params = {}) {
     return this.request({
       method: 'getUserProfilePhotos',
       query: params,

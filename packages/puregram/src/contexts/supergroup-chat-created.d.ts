@@ -175,6 +175,13 @@ declare class SupergroupChatCreated extends Context {
   public sendChatAction(action: Types.ChatActions, params: Params.ISendChatActionParams): Promise<true>;
 
   /**
+   * Use this method to get a list of profile pictures for a user.
+   * 
+   * Returns a `UserProfilePhotos` object.
+   */
+  public getUserProfilePhotos(params?: Params.IGetUserProfilePhotosParams): Promise<Interfaces.IUserProfilePhotos>;
+
+  /**
    * Use this method to edit text and game messages.
    * 
    * On success, if edited message is sent by the bot,

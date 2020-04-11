@@ -6,6 +6,7 @@ let MessageContext = require('./message');
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
 let SuccessfulPaymentStructure = require('../structures/successful-payment');
+let UserProfilePhotos = require('../structures/user-profile-photos');
 
 class SuccessfulPayment extends Context {
   constructor(telegram, update) {
@@ -305,11 +306,13 @@ class SuccessfulPayment extends Context {
     });
   }
 
-  getUserProfilePhotos(params = {}) {
-    return this.telegram.api.getUserProfilePhotos({
-      user_id: this.chatId,
-      ...params,
-    });
+  async getUserProfilePhotos(params = {}) {
+    return new UserProfilePhotos(
+      await this.telegram.api.getUserProfilePhotos({
+        user_id: this.chatId,
+        ...params,
+      })
+    );
   }
 
   async editMessageText(text, params = {}) {

@@ -20,7 +20,7 @@ declare class NewChatPhoto extends Context {
 
   public chatType?: Types.ChatTypes;
 
-  public eventPhoto: Array<Interfaces.IPhotoSize>;
+  public eventPhoto: Interfaces.PhotoAttachment;
 
   /**
    * Use this method to send text messages.
@@ -171,6 +171,13 @@ declare class NewChatPhoto extends Context {
    * Returns `True` on success.
    */
   public sendChatAction(action: Types.ChatActions, params: Params.ISendChatActionParams): Promise<true>;
+
+  /**
+   * Use this method to get a list of profile pictures for a user.
+   * 
+   * Returns a `UserProfilePhotos` object.
+   */
+  public getUserProfilePhotos(params?: Params.IGetUserProfilePhotosParams): Promise<Interfaces.IUserProfilePhotos>;
 
   /**
    * Use this method to edit text and game messages.

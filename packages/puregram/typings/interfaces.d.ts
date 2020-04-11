@@ -339,7 +339,7 @@ export interface IMessage {
   /**
    * A chat photo was change to this value
    */
-  newChatPhoto?: Array<IPhotoSize>;
+  newChatPhoto?: PhotoAttachment;
 
   /**
    * Service message: the chat photo was deleted
@@ -1410,7 +1410,7 @@ export interface IUserProfilePhotos {
   /**
    * Requested profile pictures (in up to 4 sizes each)
    */
-  photos: Array<Array<IPhotoSize>>;
+  photos: Array<PhotoAttachment>;
 }
 
 /**
@@ -3880,4 +3880,21 @@ export interface IGame {
    * Animation that will be displayed in the game message in chats
    */
   animation?: IAnimation;
+}
+
+export class PhotoAttachment extends Array {
+  /**
+   * Biggest photo
+   */
+  big: IPhotoSize;
+
+  /**
+   * Smallest photo
+   */
+  small: IPhotoSize;
+
+  /**
+   * Medium sized photo
+   */
+  medium: IPhotoSize;
 }

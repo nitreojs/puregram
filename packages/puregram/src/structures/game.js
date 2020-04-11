@@ -3,6 +3,7 @@ let { inspect } = require('util');
 let PhotoSize = require('./photo-size');
 let AnimationAttachment = require('./animation');
 let MessageEntity = require('./message-entity');
+let PhotoAttachment = require('../structures/photo');
 
 class Game {
   constructor(payload) {
@@ -26,8 +27,10 @@ class Game {
 
     if (!photo) return null;
 
-    return photo.map(
-      e => new PhotoSize(e),
+    return new PhotoAttachment(
+      ...photo.map(
+        e => new PhotoSize(e),
+      )
     );
   }
 

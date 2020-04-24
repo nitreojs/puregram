@@ -9,14 +9,33 @@ let telegram = new Telegram({
 let filePath = process.env.FILE_PATH;
 let photoUrl = process.env.PHOTO_URL;
 
+telegram.updates.hear(
+  '/mediaGroup',
+  async (context) => {
+    if (context.hasAttachments('photo')) {
+      // context.getAttachments('photo')
+      // returns Array<PhotoAttachment>
+      let { fileId } = context.getAttachments('photo')[0].big;
+
+      let media = new Array(5).fill(null)
+        .map(
+          (_, index) => ({
+            type: 'photo',
+            media: fileId,
+            caption: `This album is sent via sendMediaGroup (index: ${index})`
+          })
+        );
+
+      await context.sendMediaGroup(media);
+    }
+  }
+);
+
 telegram.updates.on(
   'message',
   async (context, next) => {
-    if (context.hasAttachments()) {
-      //             expecting attachment to be a photo
-      // because there is no attachment type for photos
-
-      let { fileId } = context.attachments[0][0];
+    if (context.hasAttachments('photo')) {
+      let { fileId } = context.getAttachments('photo').big;
 
       await context.sendPhoto(fileId, { caption: 'This photo is sent using file ID' });
     }

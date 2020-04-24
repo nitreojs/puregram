@@ -288,9 +288,7 @@ class Updates {
 		let needText = textCondition && functionCondition === false;
 
 		this.hearStack.push((context, next) => {
-      let { text, caption } = context;
-
-      if (!text) text = caption;
+      let text = context.text || context.caption;
 
 			if (needText && text === null) {
 				return next();

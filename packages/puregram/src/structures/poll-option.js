@@ -1,34 +1,24 @@
 let { inspect } = require('util');
 
-class Dice {
+class PollOption {
   constructor(payload) {
     this.payload = payload;
   }
 
-  get emoji() {
-    return this.payload.emoji;
+  get text() {
+    return this.payload.text;
   }
 
-  get value() {
-    return this.payload.value;
-  }
-
-  get isDice() {
-    return this.emoji === '🎲';
-  }
-
-  get isDarts() {
-    return this.emoji === '🎯';
+  get voterCount() {
+    return this.payload.voter_count;
   }
 
   [inspect.custom](depth, options) {
     let { name } = this.constructor;
 
     let payloadToInspect = {
-      value: this.value,
-      emoji: this.emoji,
-      isDice: this.isDice,
-      isDarts: this.isDarts
+      text: this.text,
+      voterCount: this.voterCount
     };
 
     let payload = inspect(payloadToInspect, { ...options, compact: false });
@@ -37,4 +27,4 @@ class Dice {
   }
 }
 
-module.exports = Dice;
+module.exports = PollOption

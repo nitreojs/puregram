@@ -293,7 +293,7 @@ export interface IMessage {
    * The unique identifier of a media message group
    * this message belongs to
    */
-  mediaGroupId?: string;
+  mediaId?: string;
 
   /**
    * Signature of the post author for messages in channels
@@ -3836,9 +3836,28 @@ export interface IInlineQueryResultVoice {
 
 export interface IDice {
   /**
+   * Emoji on which the dice throw animation is based
+   */
+  emoji: Types.DiceEmojis;
+
+  /**
    * Message is a dice with random value from `1` to `6`
    */
   value: number;
+
+  /**
+   * Is current object actually a dice?
+   * 
+   * Checks if `dice.emoji` is `'🎲'`.
+   */
+  isDice: boolean;
+
+  /**
+   * Is current object actually a `darts`?
+   * 
+   * Checks if `dice.emoji` is `'🎯'`.
+   */
+  isDarts: boolean;
 }
 
 /**

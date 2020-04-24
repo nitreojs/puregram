@@ -1,6 +1,7 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
+let MessageEntity = require('../structures/message-entity');
 
 class Poll extends Context {
   constructor(telegram, update) {
@@ -45,6 +46,28 @@ class Poll extends Context {
     return this.update.correct_option_id || null;
   }
 
+  get explanation() {
+    return this.update.explanation || null;
+  }
+
+  get explanationEntities() {
+    let { explanation_entities } = this.update;
+
+    if (!explanation_entities) return null;
+
+    return explanation_entities.map(
+      e => new MessageEntity(e),
+    );
+  }
+
+  get openPeriod() {
+    return this.update.open_period || null;
+  }
+
+  get closePeriod() {
+    return this.update.close_period || null;
+  }
+
   [inspect.custom](depth, options) {
     let { name } = this.constructor;
 
@@ -57,7 +80,11 @@ class Poll extends Context {
       isAnonymous: this.isAnonymous,
       type: this.type,
       allowsMultipleAnswers: this.allowsMultipleAnswers,
-      correctOptionId: this.correctOptionId
+      correctOptionId: this.correctOptionId,
+      explanation: this.explanation,
+      explanationEntities: this.explanationEntities,
+      openPeriod: this.openPeriod,
+      closePeriod: this.closePeriod
     };
 
     let payload = inspect(payloadToInspect, { ...options, compact: false });

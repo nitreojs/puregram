@@ -21,7 +21,7 @@ export type ContextPossibleTypes =
   | 'callback_query'      | 'shipping_query' | 'pre_checkout_query'
   | 'poll';
 
-export type ParseModes = 'HTML' | 'Markdown';
+export type ParseModes = 'HTML' | 'Markdown' | 'MarkdownV2';
 
 export type AttachmentTypes =
   | 'animation'  | 'audio'   | 'contact'
@@ -103,3 +103,5 @@ export type PassportElementTranslationFilesErrors =
   | 'passport'          | 'driver_license'        | 'identity_card'
   | 'internal_passport' | 'utility_bill'          | 'bank_statement'
   | 'rental_agreement'  | 'passport_registration' | 'temporary_registration';
+
+export type DiceEmojis = '🎲' | '🎯';

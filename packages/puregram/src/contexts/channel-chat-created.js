@@ -173,18 +173,18 @@ class ChannelChatCreated extends Context {
     });
   }
 
-  async sendMediaGroup(mediaGroup, params = {}) {
+  async sendMediaGroup(media, params = {}) {
     let response = await this.telegram.api.sendMediaGroup({
       chat_id: this.chatId,
-      media_group: mediaGroup,
+      media,
       ...params,
     });
 
     return new MessageContext(this.telegram, response);
   }
 
-  replyWithMediaGroup(mediaGroup, params = {}) {
-    return this.sendMediaGroup(mediaGroup, {
+  replyWithMediaGroup(media, params = {}) {
+    return this.sendMediaGroup(media, {
       reply_to_message_id: this.id,
       ...params,
     });

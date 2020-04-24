@@ -23,6 +23,14 @@ declare class Poll extends Context {
   public allowsMultipleAnswers: boolean;
 
   public correctOptionId?: number;
+
+  public explanation?: string;
+
+  public explanationEntities?: Array<Interfaces.IMessageEntity>;
+
+  public openPeriod?: number;
+
+  public closePeriod?: number;
 }
 
 export = Poll;

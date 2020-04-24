@@ -101,7 +101,7 @@ class Updates {
 
 		return this;
   }
-  
+
   use(...middlewares) {
     middlewares.forEach((middleware) => {
       if (typeof middleware !== 'function') {

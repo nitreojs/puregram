@@ -44,7 +44,7 @@ declare class ChannelPost extends Context {
 
   public editDate?: number;
 
-  public mediaGroupId?: string;
+  public mediaId?: string;
 
   public authorSignature?: string;
 
@@ -252,9 +252,9 @@ declare class ChannelPost extends Context {
    * 
    * On success, an `Array<Message>` is returned.
    */
-  public sendMediaGroup(mediaGroup: Interfaces.IInputFile | string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public sendMediaGroup(media: Array<Interfaces.IInputMediaPhoto | Interfaces.IInputMediaVideo>, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
-  public replyWithMediaGroup(mediaGroup: string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public replyWithMediaGroup(media: string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
   /**
    * Use this method to send point on the map.

@@ -115,7 +115,7 @@ declare class MessageContext extends Context {
   /**
    * The unique identifier of a media message group this message belongs to
    */
-  public mediaGroupId?: string;
+  public mediaId?: string;
 
   /**
    * Signature of the post author for messages in channels
@@ -481,9 +481,9 @@ declare class MessageContext extends Context {
    * 
    * On success, an `Array<Message>` is returned.
    */
-  public sendMediaGroup(mediaGroup: Interfaces.IInputFile | string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public sendMediaGroup(media: Array<Interfaces.IInputMediaPhoto | Interfaces.IInputMediaVideo>, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
-  public replyWithMediaGroup(mediaGroup: Interfaces.IInputFile | string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public replyWithMediaGroup(media: Interfaces.IInputFile | string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
   /**
    * Use this method to send point on the map.

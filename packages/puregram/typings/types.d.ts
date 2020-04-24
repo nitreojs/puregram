@@ -27,7 +27,8 @@ export type AttachmentTypes =
   | 'animation'  | 'audio'   | 'contact'
   | 'document'   | 'game'    | 'location'
   | 'poll'       | 'sticker' | 'venue'
-  | 'video_note' | 'video'   | 'voice';
+  | 'video_note' | 'video'   | 'voice'
+  | 'photo';
 
 export type ReplyMarkup =
   | InlineKeyboard

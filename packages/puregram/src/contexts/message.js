@@ -120,7 +120,7 @@ class MessageContext extends Context {
     return this.update.edit_date || null;
   }
 
-  get mediaId() {
+  get mediaGroupId() {
     return this.update.media_group_id || null;
   }
 
@@ -739,7 +739,7 @@ class MessageContext extends Context {
       isForward: this.isForward,
       replyMessage: this.replyMessage,
       editDate: this.editDate,
-      mediaId: this.mediaId,
+      mediaGroupId: this.mediaGroupId,
       authorSignature: this.authorSignature,
       text: this.text,
       entities: this.entities,

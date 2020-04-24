@@ -84,7 +84,7 @@ class ReplyMessageContext {
     return this.context.edit_date || null;
   }
 
-  get mediaId() {
+  get mediaGroupId() {
     return this.context.media_group_id || null;
   }
 
@@ -258,7 +258,7 @@ class ReplyMessageContext {
       forwardDate: this.forwardDate,
       replyMessage: this.replyMessage,
       editDate: this.editDate,
-      mediaId: this.mediaId,
+      mediaGroupId: this.mediaGroupId,
       authorSignature: this.authorSignature,
       text: this.text,
       entities: this.entities,

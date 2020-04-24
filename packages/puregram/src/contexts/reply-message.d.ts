@@ -45,7 +45,7 @@ declare class ReplyMessage extends Context {
 
   public editDate?: number;
 
-  public mediaId?: string;
+  public mediaGroupId?: string;
 
   public authorSignature?: string;
 

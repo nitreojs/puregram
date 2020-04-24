@@ -115,7 +115,7 @@ declare class MessageContext extends Context {
   /**
    * The unique identifier of a media message group this message belongs to
    */
-  public mediaId?: string;
+  public mediaGroupId?: string;
 
   /**
    * Signature of the post author for messages in channels

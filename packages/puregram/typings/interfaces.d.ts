@@ -293,7 +293,7 @@ export interface IMessage {
    * The unique identifier of a media message group
    * this message belongs to
    */
-  mediaId?: string;
+  mediaGroupId?: string;
 
   /**
    * Signature of the post author for messages in channels

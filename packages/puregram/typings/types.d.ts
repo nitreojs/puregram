@@ -105,4 +105,5 @@ export type PassportElementTranslationFilesErrors =
   | 'internal_passport' | 'utility_bill'          | 'bank_statement'
   | 'rental_agreement'  | 'passport_registration' | 'temporary_registration';
 
-export type DiceEmojis = '🎲' | '🎯';
+export type DiceEmojis =  '🎲' | '🎯' | '🏀';
+export type DiceTypes = 'dice' | 'darts' | 'ball';

@@ -1,5 +1,11 @@
 let { inspect } = require('util');
 
+let emojiTypes = {
+  '🎲': 'dice',
+  '🎯': 'darts',
+  '🏀': 'ball'
+};
+
 class Dice {
   constructor(payload) {
     this.payload = payload;
@@ -13,12 +19,8 @@ class Dice {
     return this.payload.value;
   }
 
-  get isDice() {
-    return this.emoji === '🎲';
-  }
-
-  get isDarts() {
-    return this.emoji === '🎯';
+  get type() {
+    return emojiTypes[this.emoji];
   }
 
   [inspect.custom](depth, options) {
@@ -27,8 +29,7 @@ class Dice {
     let payloadToInspect = {
       value: this.value,
       emoji: this.emoji,
-      isDice: this.isDice,
-      isDarts: this.isDarts
+      type: this.type
     };
 
     let payload = inspect(payloadToInspect, { ...options, compact: false });

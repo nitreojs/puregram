@@ -4,7 +4,7 @@ class APIError extends Error {
 
     this.message = message;
     this.name = 'APIError';
-    
+
     Error.captureStackTrace(this);
   }
 }

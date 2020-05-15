@@ -4,11 +4,11 @@ class InlineKeyboardBuilder {
     this.currentRow = [];
   }
 
-	get [Symbol.toStringTag]() {
-		return 'InlineKeyboardBuilder';
-	}
+  get [Symbol.toStringTag]() {
+    return 'InlineKeyboardBuilder';
+  }
 
-	textButton({
+  textButton({
     text,
     payload = {},
   }) {
@@ -16,12 +16,12 @@ class InlineKeyboardBuilder {
       payload = JSON.stringify(payload);
     }
 
-		return this.addButton({
+    return this.addButton({
       text,
       callback_data: payload,
-		});
+    });
   }
-  
+
   urlButton({
     text,
     url,
@@ -85,43 +85,43 @@ class InlineKeyboardBuilder {
     });
   }
 
-	row() {
-		if (this.currentRow.length === 0) {
-			return this;
-		}
+  row() {
+    if (this.currentRow.length === 0) {
+      return this;
+    }
 
-		this.rows.push(this.currentRow);
+    this.rows.push(this.currentRow);
 
-		this.currentRow = [];
+    this.currentRow = [];
 
-		return this;
-	}
+    return this;
+  }
 
-	addButton(button) {
-		this.currentRow.push(button);
+  addButton(button) {
+    this.currentRow.push(button);
 
-		return this;
-	}
+    return this;
+  }
 
-	addWideButton(button) {
-		if (this.currentRow.length !== 0) {
-			this.row();
-		}
+  addWideButton(button) {
+    if (this.currentRow.length !== 0) {
+      this.row();
+    }
 
-		this.addButton(button);
+    this.addButton(button);
 
-		return this.row();
-	}
+    return this.row();
+  }
 
-	toJSON() {
-		let buttons = this.currentRow.length !== 0
-			? [...this.rows, this.currentRow]
+  toJSON() {
+    let buttons = this.currentRow.length !== 0
+      ? [...this.rows, this.currentRow]
       : this.rows;
 
-		return JSON.stringify({
+    return JSON.stringify({
       inline_keyboard: buttons,
     });
-	}
+  }
 }
 
 module.exports = InlineKeyboardBuilder;

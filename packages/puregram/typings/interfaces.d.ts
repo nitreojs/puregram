@@ -37,21 +37,21 @@ export interface IUser {
 
   /**
    * True, if the bot can be invited to groups.
-   * 
+   *
    * Returned only in `getMe`.
    */
   canJoinGroups?: boolean;
 
   /**
    * True, if privacy mode is disabled for the bot.
-   * 
+   *
    * Returned only in `getMe`.
    */
   canReadAllGroupMessages?: boolean;
 
   /**
    * True, if the bot supports inline queries.
-   * 
+   *
    * Returned only in `getMe`.
    */
   supportsInlineQueries?: boolean;
@@ -99,14 +99,14 @@ export interface IChat {
 
   /**
    * Chat photo.
-   * 
+   *
    * Returned only in `getChat`.
    */
   photo?: IChatPhoto;
 
   /**
    * Description, for groups, supergroups and channel chats.
-   * 
+   *
    * Returned only in `getChat`.
    */
   description?: string;
@@ -116,21 +116,21 @@ export interface IChat {
    * Each administrator in a chat generates their own invite links,
    * so the bot must first generate the link using
    * exportChatInviteLink.
-   * 
+   *
    * Returned only in `getChat`.
    */
   inviteLink?: string;
 
   /**
    * Pinned message, for groups, supergroups and channels.
-   * 
+   *
    * Returned only in `getChat`.
    */
   pinnedMessage?: IMessage;
 
   /**
    * Default chat member permissions, for groups and supergroups.
-   * 
+   *
    * Returned only in `getChat`.
    */
   permissions?: IChatPermissions;
@@ -139,21 +139,21 @@ export interface IChat {
    * For supergroups,
    * the minimum allowed delay between consecutive messages
    * sent by each unpriviledged user.
-   * 
+   *
    * Returned only in `getChat`.
    */
   slowModeDelay?: number;
 
   /**
    * For supergroups, name of group sticker set.
-   * 
+   *
    * Returned only in `getChat`.
    */
   stickerSetName?: string;
 
   /**
    * True, if the bot can change the group sticker set.
-   * 
+   *
    * Returned only in `getChat`.
    */
   canSetStickerSet?: boolean;
@@ -197,7 +197,7 @@ export interface IChatPermissions {
 
   /**
    * `True`, if the user is allowed to change the chat title, photo and other settings.
-   * 
+   *
    * Ignored in public supergroups
    */
   can_change_info?: boolean;
@@ -209,7 +209,7 @@ export interface IChatPermissions {
 
   /**
    * `True`, if the user is allowed to pin messages.
-   * 
+   *
    * Ignored in public supergroups
    */
   can_pin_messages?: boolean;
@@ -431,7 +431,7 @@ export interface IMessage {
 
   /**
    * Inline keyboard attached to the message.
-   * 
+   *
    * `login_url` buttons are represented as ordinary `url` buttons.
    */
   replyMarkup?: IInlineKeyboardMarkup;
@@ -459,7 +459,7 @@ export interface ICallbackGame {
 
 /**
  * This object represents one button of an inline keyboard.
- * 
+ *
  * You **must** use exactly one of the optional fields.
  */
 interface IInlineKeyboardButton {
@@ -602,7 +602,7 @@ export interface ILoginUrl {
    * If the user refuses to provide authorization data,
    * the original URL without information about the user will be opened.
    * The data added is the same as described in [Receiving authorization data](https://core.telegram.org/widgets/login#receiving-authorization-data).
-   * 
+   *
    * **NOTE**: You **must** always check the hash of the received data to verify the authentication
    * and the integrity of the data as described in [Checking authorization](https://core.telegram.org/widgets/login#checking-authorization).
    */
@@ -682,7 +682,7 @@ export interface IEncryptedPassportElement {
    * Base64-encoded encrypted Telegram Passport element data provided by the user,
    * available for `personal_details`, `passport`, `driver_license`,
    * `identity_card`, `internal_passport` and `address` types
-   * 
+   *
    * Can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api#encryptedcredentials).
    */
   data?: string;
@@ -701,7 +701,7 @@ export interface IEncryptedPassportElement {
    * Array of encrypted files with documents provided by the user,
    * available for `utility_bill`, `bank_statement`, `rental_agreement`,
    * `passport_registration` and `temporary_registration` types.
-   * 
+   *
    * Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api#encryptedcredentials).
    */
   files?: Array<IPassportFile>;
@@ -709,7 +709,7 @@ export interface IEncryptedPassportElement {
   /**
    * Encrypted file with the front side of the document, provided by the user.
    * Available for `passport`, `driver_license`, `identity_card` and `internal_passport`.
-   * 
+   *
    * The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api#encryptedcredentials).
    */
   front_side?: IPassportFile;
@@ -717,7 +717,7 @@ export interface IEncryptedPassportElement {
   /**
    * Encrypted file with the reverse side of the document, provided by the user.
    * Available for `driver_license` and `identity_card`.
-   * 
+   *
    * The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api#encryptedcredentials).
    */
   reverse_side?: IPassportFile;
@@ -725,7 +725,7 @@ export interface IEncryptedPassportElement {
   /**
    * Encrypted file with the selfie of the user holding a document, provided by the user;
    * available for `passport`, `driver_license`, `identity_card` and `internal_passport`.
-   * 
+   *
    * The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api#encryptedcredentials).
    */
   selfie?: IPassportFile;
@@ -735,7 +735,7 @@ export interface IEncryptedPassportElement {
    * Available if requested for `passport`, `driver_license`, `identity_card`, `internal_passport`,
    * `utility_bill`, `bank_statement`, `rental_agreement`, `passport_registration`
    * and `temporary_registration` types.
-   * 
+   *
    * Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api#encryptedcredentials).
    */
   translation?: Array<IPassportFile>;
@@ -918,7 +918,7 @@ export interface IInvoice {
 export interface IMessageEntity {
   /**
    * Type of the entity.
-   * 
+   *
    * Can be `mention` (`@username`), `hashtag`, `cashtag`,
    * `bot_command`, `url`, `email`, `phone_number`,
    * `bold` (bold text), `italic` (italic text),
@@ -1415,7 +1415,7 @@ export interface IUserProfilePhotos {
 
 /**
  * This object represents an incoming update.
- * 
+ *
  * At most **one** of the optional parameters can be present in any given update.
  */
 export interface IUpdate {
@@ -1576,13 +1576,13 @@ export interface IShippingQuery {
 
 /**
  * This object represents an incoming callback query from a callback button in an inline keyboard.
- * 
+ *
  * If the button that originated the query was attached to a message sent by the bot,
  * the field `message` will be present.
- * 
+ *
  * If the button was attached to a message sent via the bot (in inline mode),
  * the field `inline_message_id` will be present.
- * 
+ *
  * Exactly one of the fields `data` or `game_short_name` will be present.
  */
 export interface ICallbackQuery {
@@ -1765,7 +1765,7 @@ export interface IInputMediaPhoto {
 
   /**
    * File to send.
-   * 
+   *
    * Pass a `file_id` to send a file that exists on the Telegram servers (recommended),
    * pass an HTTP URL for Telegram to get a file from the Internet,
    * or pass `attach://<file_attach_name>` to upload a new one using `multipart/form-data`
@@ -1793,7 +1793,7 @@ export interface IInputMediaVideo {
 
   /**
    * File to send.
-   * 
+   *
    * Pass a `file_id` to send a file that exists on the Telegram servers (recommended),
    * pass an HTTP URL for Telegram to get a file from the Internet,
    * or pass `attach://<file_attach_name>` to upload a new one using `multipart/form-data`
@@ -1846,7 +1846,7 @@ export interface IInputMediaVideo {
 
 /**
  * This object represents a file ready to be downloaded.
- * 
+ *
  * The file can be downloaded via the link `https://api.telegram.org/file/bot<token>/<file_path>`.
  * It is guaranteed that the link will be valid for at least **1 hour**.
  * When the link expires, a new one can be requested by calling `getFile`.
@@ -1921,7 +1921,7 @@ export interface IInputMediaAudio {
 
   /**
    * File to send.
-   * 
+   *
    * Pass a `file_id` to send a file that exists on the Telegram servers (recommended),
    * pass an HTTP URL for Telegram to get a file from the Internet,
    * or pass `attach://<file_attach_name>` to upload a new one using `multipart/form-data`
@@ -1978,7 +1978,7 @@ export interface IInputMediaAnimation {
 
   /**
    * File to send.
-   * 
+   *
    * Pass a `file_id` to send a file that exists on the Telegram servers (recommended),
    * pass an HTTP URL for Telegram to get a file from the Internet,
    * or pass `attach://<file_attach_name>` to upload a new one using `multipart/form-data`
@@ -2035,7 +2035,7 @@ export interface IInputMediaDocument {
 
   /**
    * File to send.
-   * 
+   *
    * Pass a `file_id` to send a file that exists on the Telegram servers (recommended),
    * pass an HTTP URL for Telegram to get a file from the Internet,
    * or pass `attach://<file_attach_name>` to upload a new one using `multipart/form-data`
@@ -2160,7 +2160,7 @@ export interface ISticker {
 export interface IMaskPosition {
   /**
    * The part of the face relative to which the mask should be placed.
-   * 
+   *
    * One of `forehead`, `eyes`, `mouth`, or `chin`.
    */
   point: Types.MaskPositions;
@@ -3741,7 +3741,7 @@ export interface IInlineQueryResultVideo {
 
   /**
    * Content of the message to be sent instead of the video.
-   * 
+   *
    * This field is **required** if `InlineQueryResultVideo` is used to send an HTML-page as a result
    * (e.g., a YouTube video).
    */
@@ -3809,7 +3809,7 @@ export interface IInlineQueryResultVoice {
 
   /**
    * Content of the message to be sent instead of the video.
-   * 
+   *
    * This field is **required** if `InlineQueryResultVideo` is used to send an HTML-page as a result
    * (e.g., a YouTube video).
    */
@@ -3846,23 +3846,14 @@ export interface IDice {
   value: number;
 
   /**
-   * Is current object actually a dice?
-   * 
-   * Checks if `dice.emoji` is `'🎲'`.
+   * Dice type (based on dice emoji)
    */
-  isDice: boolean;
-
-  /**
-   * Is current object actually a `darts`?
-   * 
-   * Checks if `dice.emoji` is `'🎯'`.
-   */
-  isDarts: boolean;
+  type: Types.DiceTypes;
 }
 
 /**
  * This object represents a game.
- * 
+ *
  * Use BotFather to create and edit games, their short names will act as unique identifiers.
  */
 export interface IGame {
@@ -3885,7 +3876,7 @@ export interface IGame {
    * Brief description of the game or high scores included in the game message.
    * Can be automatically edited to include current high scores for the game
    * when the bot calls `setGameScore`, or manually edited using `editMessageText`.
-   * 
+   *
    * 0-4096 characters.
    */
   text?: string;

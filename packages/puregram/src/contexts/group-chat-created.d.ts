@@ -24,7 +24,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to send text messages.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public send(text: string, params: Params.ISendMessageParams): Promise<MessageContext>;
@@ -33,7 +33,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to send photos.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendPhoto(photo: Interfaces.IInputFile | string, params: Params.ISendPhotoParams): Promise<MessageContext>;
@@ -44,12 +44,12 @@ declare class GroupChatCreated extends Context {
    * Use this method to send audio files,
    * if you want Telegram clients to display them in the music player.
    * Your audio must be in the .MP3 or .M4A format.
-   * 
+   *
    * On success, the sent `Message` is returned.
-   * 
+   *
    * Bots can currently send audio files of up to 50 MB in size,
    * this limit may be changed in the future.
-   * 
+   *
    * For sending voice messages, use the `sendVoice` method instead.
    */
   public sendAudio(audio: Interfaces.IInputFile | string, params: Params.ISendAudioParams): Promise<MessageContext>;
@@ -60,9 +60,9 @@ declare class GroupChatCreated extends Context {
    * Use this method to send video files,
    * Telegram clients support mp4 videos
    * (other formats may be sent as `Document`).
-   * 
+   *
    * On success, the sent `Message` is returned.
-   * 
+   *
    * Bots can currently send video files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
@@ -73,9 +73,9 @@ declare class GroupChatCreated extends Context {
   /**
    * Use this method to send animation files
    * (GIF or H.264/MPEG-4 AVC video without sound).
-   * 
+   *
    * On success, the sent `Message` is returned.
-   * 
+   *
    * Bots can currently send animation files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
@@ -87,7 +87,7 @@ declare class GroupChatCreated extends Context {
    * As of v.4.0, Telegram clients support rounded square mp4 videos
    * of up to 1 minute long.
    * Use this method to send video messages.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendVideoNote(videoNote: Interfaces.IInputFile | string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
@@ -99,9 +99,9 @@ declare class GroupChatCreated extends Context {
    * if you want Telegram clients to display the file as a playable voice message.
    * For this to work, your audio must be in an .OGG file encoded with OPUS
    * (other formats may be sent as `Audio` or `Document`).
-   * 
+   *
    * On success, the sent `Message` is returned.
-   * 
+   *
    * Bots can currently send voice messages of up to 50 MB in size,
    * this limit may be changed in the future.
    */
@@ -111,7 +111,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to send a group of photos or videos as an album.
-   * 
+   *
    * On success, an `Array<Message>` is returned.
    */
   public sendMediaGroup(media: Array<Interfaces.IInputMediaPhoto | Interfaces.IInputMediaVideo>, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
@@ -120,7 +120,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to send point on the map.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendLocation(location: string, params: Params.ISendLocationParams): Promise<MessageContext>;
@@ -129,7 +129,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to send information about a venue.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendVenue(venue: string, params: Params.ISendVenueParams): Promise<MessageContext>;
@@ -138,7 +138,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to send phone contacts.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendContact(contact: string, params: Params.ISendContactParams): Promise<MessageContext>;
@@ -147,7 +147,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to send a native poll.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendPoll(poll: string, params: Params.ISendPollParams): Promise<MessageContext>;
@@ -156,7 +156,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to stop a poll which was sent by the bot.
-   * 
+   *
    * On success, the stopped `Poll` with the final results is returned.
    */
   public stopPoll(id: string, params: Params.IStopPollParams): Promise<MessageContext>;
@@ -167,21 +167,21 @@ declare class GroupChatCreated extends Context {
    * The status is set for 5 seconds or less
    * (when a message arrives from your bot,
    * Telegram clients clear its typing status).
-   * 
+   *
    * Returns `True` on success.
    */
   public sendChatAction(action: Types.ChatActions, params: Params.ISendChatActionParams): Promise<true>;
 
   /**
    * Use this method to get a list of profile pictures for a user.
-   * 
+   *
    * Returns a `UserProfilePhotos` object.
    */
   public getUserProfilePhotos(params?: Params.IGetUserProfilePhotosParams): Promise<Interfaces.IUserProfilePhotos>;
 
   /**
    * Use this method to edit text and game messages.
-   * 
+   *
    * On success, if edited message is sent by the bot,
    * the edited `Message` is returned,
    * otherwise `True` is returned.
@@ -190,7 +190,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to edit captions of messages.
-   * 
+   *
    * On success, if edited message is sent by the bot,
    * the edited `Message` is returned,
    * otherwise `True` is returned.
@@ -205,7 +205,7 @@ declare class GroupChatCreated extends Context {
    * Otherwise, message type can be changed arbitrarily.
    * When inline message is edited, new file can't be uploaded.
    * Use previously uploaded file via its `file_id` or specify a `URL`.
-   * 
+   *
    * On success, if the edited message was sent by the bot,
    * the edited `Message` is returned,
    * otherwise `True` is returned.
@@ -214,7 +214,7 @@ declare class GroupChatCreated extends Context {
 
   /**
    * Use this method to edit only the reply markup of messages.
-   * 
+   *
    * On success, if edited message is sent by the bot,
    * the edited `Message` is returned,
    * otherwise `True` is returned.
@@ -229,35 +229,35 @@ declare class GroupChatCreated extends Context {
    * - Bots granted can_post_messages permissions can delete outgoing messages in channels.
    * - If the bot is an administrator of a group, it can delete any message there.
    * - If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
-   * 
+   *
    * Returns `True` on success.
    */
   public deleteMessage(params: Params.IDeleteMessageParams): Promise<true>;
 
   /**
    * Use this method to send static .WEBP or animated .TGS stickers.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendSticker(sticker: Interfaces.IInputFile | string, params: Params.ISendStickerParams): Promise<MessageContext>;
 
   /**
    * Use this method to send a dice, which will have a random value from `1` to `6`.
-   * 
+   *
    * On success, the sent `Message` is returned.
    */
   public sendDice(params: Params.ISendDiceParams): Promise<MessageContext>;
 
   /**
    * Use this method to get the current list of the bot's commands.
-   * 
+   *
    * Returns `Array<BotCommand>` on success.
    */
   public getMyCommands(): Promise<Array<Interfaces.IBotCommand>>;
 
   /**
    * Use this method to change the list of the bot's commands.
-   * 
+   *
    * Returns `True` on success.
    */
   public setMyCommands(commands: Array<Interfaces.IBotCommand>): Promise<true>;
@@ -266,7 +266,7 @@ declare class GroupChatCreated extends Context {
    * Use this method to edit live location messages.
    * A location can be edited until its live_period expires
    * or editing is explicitly disabled by a call to `stopMessageLiveLocation`.
-   * 
+   *
    * On success, if the edited message was sent by the bot,
    * the edited `Message` is returned, otherwise `True` is returned.
    */
@@ -275,7 +275,7 @@ declare class GroupChatCreated extends Context {
   /**
    * Use this method to stop updating a live location message
    * before live_period expires.
-   * 
+   *
    * On success, if the message was sent by the bot,
    * the sent `Message` is returned, otherwise `True` is returned.
    */

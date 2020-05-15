@@ -95,8 +95,8 @@ declare class InlineKeyboardBuilder {
   public get [Symbol.toStringTag](): 'InlineKeyboardBuilder';
 
   /**
-	 * Saves the current row of buttons in the general rows
-	 */
+   * Saves the current row of buttons in the general rows
+   */
   public row(): this;
 
   /**

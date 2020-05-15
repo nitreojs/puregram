@@ -61,7 +61,7 @@ export interface IGetUpdatesParams {
 
 /**
  * Use this method to send text messages.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendMessageParams {
@@ -115,7 +115,7 @@ export interface ISendMessageParams {
 
 /**
  * Use this method to forward messages of any kind.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface IForwardMessageParams {
@@ -146,7 +146,7 @@ export interface IForwardMessageParams {
 
 /**
  * Use this method to send photos.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendPhotoParams {
@@ -159,7 +159,7 @@ export interface ISendPhotoParams {
 
   /**
    * Photo to send.
-   * 
+   *
    * Pass a `file_id` as String to send a photo that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get a photo from the Internet,
    * or upload a new photo using `multipart/form-data`.
@@ -203,12 +203,12 @@ export interface ISendPhotoParams {
  * Use this method to send audio files,
  * if you want Telegram clients to display them in the music player.
  * Your audio must be in the .MP3 or .M4A format.
- * 
+ *
  * On success, the sent `Message` is returned.
- * 
+ *
  * Bots can currently send audio files of up to 50 MB in size,
  * this limit may be changed in the future.
- * 
+ *
  * For sending voice messages, use the `sendVoice` method instead.
  */
 export interface ISendAudioParams {
@@ -221,7 +221,7 @@ export interface ISendAudioParams {
 
   /**
    * Audio file to send.
-   * 
+   *
    * Pass a `file_id` as String to send an audio file that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get an audio file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -285,9 +285,9 @@ export interface ISendAudioParams {
 
 /**
  * Use this method to send general files.
- * 
+ *
  * On success, the sent `Message` is returned.
- * 
+ *
  * Bots can currently send files of any type of up to 50 MB in size,
  * this limit may be changed in the future.
  */
@@ -301,7 +301,7 @@ export interface ISendDocumentParams {
 
   /**
    * File to send.
-   * 
+   *
    * Pass a `file_id` as String to send a file that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get a file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -357,9 +357,9 @@ export interface ISendDocumentParams {
  * Use this method to send video files,
  * Telegram clients support mp4 videos
  * (other formats may be sent as `Document`).
- * 
+ *
  * On success, the sent `Message` is returned.
- * 
+ *
  * Bots can currently send video files of up to 50 MB in size,
  * this limit may be changed in the future.
  */
@@ -373,7 +373,7 @@ export interface ISendVideoParams {
 
   /**
    * Video file to send.
-   * 
+   *
    * Pass a `file_id` as String to send an audio file that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get an audio file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -448,9 +448,9 @@ export interface ISendVideoParams {
 /**
  * Use this method to send animation files
  * (GIF or H.264/MPEG-4 AVC video without sound).
- * 
+ *
  * On success, the sent `Message` is returned.
- * 
+ *
  * Bots can currently send animation files of up to 50 MB in size,
  * this limit may be changed in the future.
  */
@@ -464,7 +464,7 @@ export interface ISendAnimationParams {
 
   /**
    * Animation to send.
-   * 
+   *
    * Pass a `file_id` as String to send an audio file that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get an audio file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -541,9 +541,9 @@ export interface ISendAnimationParams {
  * if you want Telegram clients to display the file as a playable voice message.
  * For this to work, your audio must be in an .OGG file encoded with OPUS
  * (other formats may be sent as `Audio` or `Document`).
- * 
+ *
  * On success, the sent `Message` is returned.
- * 
+ *
  * Bots can currently send voice messages of up to 50 MB in size,
  * this limit may be changed in the future.
  */
@@ -557,7 +557,7 @@ export interface ISendVoiceParams {
 
   /**
    * Voice to send.
-   * 
+   *
    * Pass a `file_id` as String to send an audio file that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get an audio file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -611,7 +611,7 @@ export interface ISendVoiceParams {
  * As of v.4.0, Telegram clients support rounded square mp4 videos
  * of up to 1 minute long.
  * Use this method to send video messages.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendVideoNoteParams {
@@ -624,7 +624,7 @@ export interface ISendVideoNoteParams {
 
   /**
    * Video note to send.
-   * 
+   *
    * Pass a `file_id` as String to send an audio file that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get an audio file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -668,7 +668,7 @@ export interface ISendVideoNoteParams {
 
 /**
  * Use this method to send a group of photos or videos as an album.
- * 
+ *
  * On success, an `Array<Message>` is returned.
  */
 export interface ISendMediaGroupParams {
@@ -698,7 +698,7 @@ export interface ISendMediaGroupParams {
 
 /**
  * Use this method to send point on the map.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendLocationParams {
@@ -748,14 +748,14 @@ export interface ISendLocationParams {
  * Use this method to edit live location messages.
  * A location can be edited until its live_period expires
  * or editing is explicitly disabled by a call to `stopMessageLiveLocation`.
- * 
+ *
  * On success, if the edited message was sent by the bot,
  * the edited `Message` is returned, otherwise `True` is returned.
  */
 export interface IEditMessageLiveLocationParams {
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    * or username of the target channel
    * (in the format `@channelusername`)
@@ -764,14 +764,14 @@ export interface IEditMessageLiveLocationParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the message to edit
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -798,14 +798,14 @@ export interface IEditMessageLiveLocationParams {
 /**
  * Use this method to stop updating a live location message
  * before live_period expires.
- * 
+ *
  * On success, if the message was sent by the bot,
  * the sent `Message` is returned, otherwise `True` is returned.
  */
 export interface IStopMessageLiveLocationParams {
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    * or username of the target channel
    * (in the format `@channelusername`)
@@ -814,14 +814,14 @@ export interface IStopMessageLiveLocationParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the message to edit
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -837,7 +837,7 @@ export interface IStopMessageLiveLocationParams {
 
 /**
  * Use this method to send information about a venue.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendVenueParams {
@@ -875,7 +875,7 @@ export interface ISendVenueParams {
 
   /**
    * Foursquare type of the venue, if known.
-   * 
+   *
    * For example, `arts_entertainment/default`, `arts_entertainment/aquarium` or `food/icecream`.
    */
   foursquare_type: string;
@@ -902,7 +902,7 @@ export interface ISendVenueParams {
 
 /**
  * Use this method to send phone contacts.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendContactParams {
@@ -955,7 +955,7 @@ export interface ISendContactParams {
 
 /**
  * Use this method to send a native poll.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendPollParams {
@@ -1049,7 +1049,7 @@ export interface ISendPollParams {
 
 /**
  * Use this method to send a dice, which will have a random value from `1` to `6`.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendDiceParams {
@@ -1062,7 +1062,7 @@ export interface ISendDiceParams {
 
   /**
    * Emoji on which the dice throw animation is based.
-   * Currently, must be one of `🎲` or `🎯`.
+   * Currently, must be one of `🎲`, `🎯` or `🏀`.
    * Defauts to `🎲`
    */
   emoji: Types.DiceEmojis;
@@ -1093,7 +1093,7 @@ export interface ISendDiceParams {
  * The status is set for 5 seconds or less
  * (when a message arrives from your bot,
  * Telegram clients clear its typing status).
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISendChatActionParams {
@@ -1106,7 +1106,7 @@ export interface ISendChatActionParams {
 
   /**
    * Type of action to broadcast.
-   * 
+   *
    * Choose one, depending on what the user is about to receive:
    * - `typing` for **text messages**;
    * - `upload_photo` for **photos**;
@@ -1121,7 +1121,7 @@ export interface ISendChatActionParams {
 
 /**
  * Use this method to get a list of profile pictures for a user.
- * 
+ *
  * Returns a `UserProfilePhotos` object.
  */
 export interface IGetUserProfilePhotosParams {
@@ -1151,7 +1151,7 @@ export interface IGetUserProfilePhotosParams {
  * on their own using invite links, etc., unless unbanned first.
  * The bot must be an administrator in the chat for this to work
  * and must have the appropriate admin rights.
- * 
+ *
  * Returns `True` on success.
  */
 export interface IKickChatMemberParams {
@@ -1180,7 +1180,7 @@ export interface IKickChatMemberParams {
  * The user will not return to the group or channel automatically,
  * but will be able to join via link, etc.
  * The bot must be an administrator for this to work.
- * 
+ *
  * Returns `True` on success.
  */
 export interface IUnbanChatMemberParams {
@@ -1202,7 +1202,7 @@ export interface IUnbanChatMemberParams {
  * The bot must be an administrator in the supergroup
  * for this to work and must have the appropriate admin rights.
  * Pass `True` for all permissions to lift restrictions from a user.
- * 
+ *
  * Returns `True` on success.
  */
 export interface IRestrictChatMemberParams {
@@ -1236,7 +1236,7 @@ export interface IRestrictChatMemberParams {
  * The bot must be an administrator in the chat for this to work
  * and must have the appropriate admin rights.
  * Pass `False` for all boolean parameters to demote a user.
- * 
+ *
  * Returns `True` on success.
  */
 export interface IPromoteChatMemberParams {
@@ -1298,7 +1298,7 @@ export interface IPromoteChatMemberParams {
 /**
  * Use this method to set a custom title for an administrator
  * in a supergroup promoted by the bot.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetChatAdministratorCustomTitleParams {
@@ -1325,7 +1325,7 @@ export interface ISetChatAdministratorCustomTitleParams {
  * Use this method to set default chat permissions for all members.
  * The bot must be an administrator in the group or a supergroup
  * for this to work and must have the `can_restrict_members` admin rights.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetChatPermissionsParams {
@@ -1347,7 +1347,7 @@ export interface ISetChatPermissionsParams {
  * Photos can't be changed for private chats.
  * The bot must be an administrator in the chat for this
  * to work and must have the appropriate admin rights.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetChatPhotoParams {
@@ -1369,7 +1369,7 @@ export interface ISetChatPhotoParams {
  * Titles can't be changed for private chats.
  * The bot must be an administrator in the chat for this
  * to work and must have the appropriate admin rights.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetChatTitleParams {
@@ -1390,7 +1390,7 @@ export interface ISetChatTitleParams {
  * Use this method to change the description of a group, a supergroup or a channel.
  * The bot must be an administrator in the chat for this
  * to work and must have the appropriate admin rights.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetChatDescriptionParams {
@@ -1412,7 +1412,7 @@ export interface ISetChatDescriptionParams {
  * The bot must be an administrator in the chat for this
  * to work and must have the `can_pin_messages` admin right
  * in the supergroup or `can_edit_messages` admin right in the channel.
- * 
+ *
  * Returns `True` on success.
  */
 export interface IPinChatMessageParams {
@@ -1437,7 +1437,7 @@ export interface IPinChatMessageParams {
 
 /**
  * Use this method to get information about a member of a chat.
- * 
+ *
  * Returns a `ChatMember` object on success.
  */
 export interface IGetChatMemberParams {
@@ -1460,7 +1460,7 @@ export interface IGetChatMemberParams {
  * to work and must have the appropriate admin rights.
  * Use the field `can_set_sticker_set` optionally returned in
  * `getChat` requests to check if the bot can use this method.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetChatStickerSetParams {
@@ -1485,7 +1485,7 @@ export interface IAnswerCallbackQueryParams {
 
   /**
    * Text of the notification.
-   * 
+   *
    * If not specified, nothing will be shown to the user, 0-200 characters
    */
   text?: string;
@@ -1502,7 +1502,7 @@ export interface IAnswerCallbackQueryParams {
    * If you have created a `Game` and accepted the conditions via @Botfather,
    * specify the URL that opens your game – note that this will only work if the query
    * comes from a `callback_game` button.
-   * 
+   *
    * Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
    */
   url?: string;
@@ -1517,7 +1517,7 @@ export interface IAnswerCallbackQueryParams {
 
 /**
  * Use this method to edit text and game messages.
- * 
+ *
  * On success, if edited message is sent by the bot,
  * the edited `Message` is returned,
  * otherwise `True` is returned.
@@ -1525,7 +1525,7 @@ export interface IAnswerCallbackQueryParams {
 export interface IEditMessageTextParams {
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    * or username of the target channel
    * (in the format `@channelusername`)
@@ -1534,14 +1534,14 @@ export interface IEditMessageTextParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the message to edit
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -1573,7 +1573,7 @@ export interface IEditMessageTextParams {
 
 /**
  * Use this method to edit captions of messages.
- * 
+ *
  * On success, if edited message is sent by the bot,
  * the edited `Message` is returned,
  * otherwise `True` is returned.
@@ -1581,7 +1581,7 @@ export interface IEditMessageTextParams {
 export interface IEditMessageCaptionParams {
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    * or username of the target channel
    * (in the format `@channelusername`)
@@ -1590,14 +1590,14 @@ export interface IEditMessageCaptionParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the message to edit
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -1630,7 +1630,7 @@ export interface IEditMessageCaptionParams {
  * Otherwise, message type can be changed arbitrarily.
  * When inline message is edited, new file can't be uploaded.
  * Use previously uploaded file via its `file_id` or specify a `URL`.
- * 
+ *
  * On success, if the edited message was sent by the bot,
  * the edited `Message` is returned,
  * otherwise `True` is returned.
@@ -1638,7 +1638,7 @@ export interface IEditMessageCaptionParams {
 export interface IEditMessageMediaParams {
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    * or username of the target channel
    * (in the format `@channelusername`)
@@ -1647,14 +1647,14 @@ export interface IEditMessageMediaParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the message to edit
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -1672,7 +1672,7 @@ export interface IEditMessageMediaParams {
 
 /**
  * Use this method to edit only the reply markup of messages.
- * 
+ *
  * On success, if edited message is sent by the bot,
  * the edited `Message` is returned,
  * otherwise `True` is returned.
@@ -1680,7 +1680,7 @@ export interface IEditMessageMediaParams {
 export interface IEditMessageReplyMarkupParams {
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    * or username of the target channel
    * (in the format `@channelusername`)
@@ -1689,14 +1689,14 @@ export interface IEditMessageReplyMarkupParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the message to edit
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -1709,7 +1709,7 @@ export interface IEditMessageReplyMarkupParams {
 
 /**
  * Use this method to stop a poll which was sent by the bot.
- * 
+ *
  * On success, the stopped `Poll` with the final results is returned.
  */
 export interface IStopPollParams {
@@ -1739,7 +1739,7 @@ export interface IStopPollParams {
  * - Bots granted can_post_messages permissions can delete outgoing messages in channels.
  * - If the bot is an administrator of a group, it can delete any message there.
  * - If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
- * 
+ *
  * Returns `True` on success.
  */
 export interface IDeleteMessageParams {
@@ -1758,7 +1758,7 @@ export interface IDeleteMessageParams {
 
 /**
  * Use this method to send static .WEBP or animated .TGS stickers.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendStickerParams {
@@ -1771,7 +1771,7 @@ export interface ISendStickerParams {
 
   /**
    * Sticker to send.
-   * 
+   *
    * Pass a `file_id` as String to send a file that exists on the Telegram servers (recommended),
    * pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -1804,7 +1804,7 @@ export interface ISendStickerParams {
  * Use this method to upload a .PNG file with a sticker for later use
  * in `createNewStickerSet` and `addStickerToSet` methods
  * (can be used multiple times).
- * 
+ *
  * Returns the uploaded `File` on success.
  */
 export interface IUploadStickerFileParams {
@@ -1824,7 +1824,7 @@ export interface IUploadStickerFileParams {
  * Use this method to create a new sticker set owned by a user.
  * The bot will be able to edit the sticker set thus created.
  * You must use exactly one of the fields `png_sticker` or `tgs_sticker`.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ICreateNewStickerSetParams {
@@ -1850,7 +1850,7 @@ export interface ICreateNewStickerSetParams {
   /**
    * **PNG** image with the sticker, must be up to 512 kilobytes in size,
    * dimensions must not exceed 512px, and either width or height must be exactly 512px.
-   * 
+   *
    * Pass a `file_id` as a String to send a file that already exists on the Telegram servers,
    * pass an HTTP URL as a String for Telegram to get a file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -1884,7 +1884,7 @@ export interface ICreateNewStickerSetParams {
  * Animated stickers can be added to animated sticker sets and only to them.
  * Animated sticker sets can have up to 50 stickers.
  * Static sticker sets can have up to 120 stickers.
- * 
+ *
  * Returns `True` on success.
  */
 export interface IAddStickerToSetParams {
@@ -1901,7 +1901,7 @@ export interface IAddStickerToSetParams {
   /**
    * **PNG** image with the sticker, must be up to 512 kilobytes in size,
    * dimensions must not exceed 512px, and either width or height must be exactly 512px.
-   * 
+   *
    * Pass a `file_id` as a String to send a file that already exists on the Telegram servers,
    * pass an HTTP URL as a String for Telegram to get a file from the Internet,
    * or upload a new one using `multipart/form-data`.
@@ -1926,7 +1926,7 @@ export interface IAddStickerToSetParams {
 
 /**
  * Use this method to move a sticker in a set created by the bot to a specific position.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetStickerPositionInSetParams {
@@ -1944,7 +1944,7 @@ export interface ISetStickerPositionInSetParams {
 /**
  * Use this method to set the thumbnail of a sticker set.
  * Animated thumbnails can be set for animated sticker sets only.
- * 
+ *
  * Returns `True` on success.
  */
 export interface ISetStickerSetThumbParams {
@@ -1962,11 +1962,11 @@ export interface ISetStickerSetThumbParams {
    * A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px,
    * or a TGS animation with the thumbnail up to 32 kilobytes in size;
    * see https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements.
-   * 
+   *
    * Pass a `file_id` as a String to send a file that already exists on the Telegram servers,
    * pass an HTTP URL as a String for Telegram to get a file from the Internet,
    * or upload a new one using `multipart/form-data`.
-   * 
+   *
    * Animated sticker set thumbnail can't be uploaded via HTTP URL.
    */
   thumb?: Interfaces.IInputFile | string;
@@ -1974,9 +1974,9 @@ export interface ISetStickerSetThumbParams {
 
 /**
  * Use this method to send answers to an inline query.
- * 
+ *
  * On success, `True` is returned.
- * 
+ *
  * No more than **50** results per query are allowed.
  */
 export interface IAnswerInlineQueryParams {
@@ -2025,7 +2025,7 @@ export interface IAnswerInlineQueryParams {
 
 /**
  * Use this method to send invoices.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendInvoiceParams {
@@ -2166,7 +2166,7 @@ export interface ISendInvoiceParams {
  * and the parameter `is_flexible` was specified,
  * the Bot API will send an Update with a `shipping_query` field to the bot.
  * Use this method to reply to shipping queries.
- * 
+ *
  * On success, `True` is returned.
  */
 export type AnswerShippingQueryParams =
@@ -2188,7 +2188,7 @@ export interface IAnswerShippingQuerySuccessParams {
 
   /**
    * Required if `ok` is `True`.
-   * 
+   *
    * A JSON-serialized array of available shipping options.
    */
   shipping_options: Array<Interfaces.IShippingOption>;
@@ -2209,10 +2209,10 @@ export interface IAnswerShippingQueryErrorParams {
 
   /**
    * Required if `ok` is `False`.
-   * 
+   *
    * Error message in human readable form that explains why it is impossible to complete the order
    * (e.g. `Sorry, delivery to your desired address is unavailable`).
-   * 
+   *
    * Telegram will display this message to the user.
    */
   error_message?: string;
@@ -2223,13 +2223,13 @@ export interface IAnswerShippingQueryErrorParams {
  * the Bot API sends the final confirmation in the form of an `Update`
  * with the field `pre_checkout_query`.
  * Use this method to respond to such pre-checkout queries.
- * 
+ *
  * *puregram creator's note*: Bot API will trigger the `pre_checkout_query`
  * event and you need to handle it within 10 seconds using
  * `telegram.updates.on('pre_checkout_query', handler)`.
- * 
+ *
  * On success, `True` is returned.
- * 
+ *
  * **Note**: The Bot API must receive an answer within 10 seconds
  * after the pre-checkout query was sent.
  */
@@ -2266,7 +2266,7 @@ export interface IAnswerPreCheckoutQueryErrorParams {
 
   /**
    * Required if `ok` is `False`.
-   * 
+   *
    * Error message in human readable form that explains the reason
    * for failure to proceed with the checkout
    * (e.g. `Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!`).
@@ -2281,9 +2281,9 @@ export interface IAnswerPreCheckoutQueryErrorParams {
  * The user will not be able to re-submit their Passport to you
  * until the errors are fixed
  * (the contents of the field for which you returned the error must change).
- * 
+ *
  * Returns `True` on success.
- * 
+ *
  * Use this if the data submitted by the user doesn't satisfy the standards
  * your service requires for any reason.
  * For example, if a birthday date seems invalid,
@@ -2305,7 +2305,7 @@ export interface ISetPassportDataErrorsParams {
 
 /**
  * Use this method to send a game.
- * 
+ *
  * On success, the sent `Message` is returned.
  */
 export interface ISendGameParams {
@@ -2344,11 +2344,11 @@ export interface ISendGameParams {
 
 /**
  * Use this method to set the score of the specified user in a game.
- * 
+ *
  * On success, if the message was sent by the bot,
  * returns the edited `Message`,
  * otherwise returns `True`.
- * 
+ *
  * Returns an error, if the new score is not greater than the user's current score
  * in the chat and force is `False`.
  */
@@ -2377,21 +2377,21 @@ export interface ISetGameScoreParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    */
   chat_id?: number;
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the sent message
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -2401,7 +2401,7 @@ export interface ISetGameScoreParams {
  * Use this method to get data for high score tables.
  * Will return the score of the specified user and several
  * of his neighbors in a game.
- * 
+ *
  * On success, returns an `Array<GameHighScore>` objects.
  */
 export interface IGetGameHighScoresParams {
@@ -2412,21 +2412,21 @@ export interface IGetGameHighScoresParams {
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Unique identifier for the target chat
    */
   chat_id?: number;
 
   /**
    * Required if `inline_message_id` is not specified.
-   * 
+   *
    * Identifier of the sent message
    */
   message_id?: number;
 
   /**
    * Required if `chat_id` and `message_id` are not specified.
-   * 
+   *
    * Identifier of the inline message
    */
   inline_message_id?: string;
@@ -2439,13 +2439,13 @@ export interface IGetGameHighScoresParams {
  * request to the specified url, containing a JSON-serialized `Update`.
  * In case of an unsuccessful request, we will give up after a reasonable
  * amount of attempts.
- * 
+ *
  * Returns `True` on success.
- * 
+ *
  * If you'd like to make sure that the Webhook request comes from Telegram,
  * we recommend using a secret path in the URL,
  * e.g. `https://www.example.com/<token>`
- * 
+ *
  * *Since nobody else knows your bot‘s token, you can be pretty sure it’s us*.
  */
 export interface ISetWebhookParams {

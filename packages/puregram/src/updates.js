@@ -31,52 +31,52 @@ let contexts = {
 };
 
 let splitPath = (path) => (
-	path
-		.replace(/\[([^[\]]*)\]/g, '.$1.')
-		.split('.')
-		.filter(Boolean)
+  path
+    .replace(/\[([^[\]]*)\]/g, '.$1.')
+    .split('.')
+    .filter(Boolean)
 );
 
 let getObjectValue = (source, selectors) => {
-	let link = source;
+  let link = source;
 
-	for (let selector of selectors) {
-		if (!link[selector]) {
-			return undefined;
-		}
+  for (let selector of selectors) {
+    if (!link[selector]) {
+      return undefined;
+    }
 
-		link = link[selector];
-	}
+    link = link[selector];
+  }
 
-	return link;
+  return link;
 };
 
 let unifyCondition = (condition) => {
-	if (typeof condition === 'function') {
-		return condition;
-	}
+  if (typeof condition === 'function') {
+    return condition;
+  }
 
-	if (condition instanceof RegExp) {
-		return (text) => (
-			condition.test(text)
-		);
-	}
+  if (condition instanceof RegExp) {
+    return (text) => (
+      condition.test(text)
+    );
+  }
 
-	if (Array.isArray(condition)) {
-		let arrayConditions = condition.map(unifyCondition);
+  if (Array.isArray(condition)) {
+    let arrayConditions = condition.map(unifyCondition);
 
-		return (value) => (
-			Array.isArray(value)
-				? arrayConditions.every((cond) => (
-					value.some((val) => cond(val))
-				))
-				: arrayConditions.some((cond) => (
-					cond(value)
-				))
-		);
-	}
+    return (value) => (
+      Array.isArray(value)
+        ? arrayConditions.every((cond) => (
+          value.some((val) => cond(val))
+        ))
+        : arrayConditions.some((cond) => (
+          cond(value)
+        ))
+    );
+  }
 
-	return (value) => value === condition;
+  return (value) => value === condition;
 };
 
 class Updates {
@@ -97,9 +97,9 @@ class Updates {
   }
 
   setHearFallbackHandler(handler) {
-		this.hearFallbackHandler = handler;
+    this.hearFallbackHandler = handler;
 
-		return this;
+    return this;
   }
 
   use(...middlewares) {
@@ -223,90 +223,90 @@ class Updates {
   }
 
   hear(
-		hearConditions,
-		handler,
-	) {
-		let rawConditions = !Array.isArray(hearConditions)
-			? [hearConditions]
-			: hearConditions;
+    hearConditions,
+    handler,
+  ) {
+    let rawConditions = !Array.isArray(hearConditions)
+      ? [hearConditions]
+      : hearConditions;
 
-		let hasConditions = rawConditions.every(Boolean);
+    let hasConditions = rawConditions.every(Boolean);
 
-		if (!hasConditions) {
-			throw new Error('Condition should be not empty');
-		}
+    if (!hasConditions) {
+      throw new Error('Condition should be not empty');
+    }
 
-		if (typeof handler !== 'function') {
-			throw new TypeError('Handler must be a function');
-		}
+    if (typeof handler !== 'function') {
+      throw new TypeError('Handler must be a function');
+    }
 
-		let textCondition = false;
+    let textCondition = false;
     let functionCondition = false;
 
-		let conditions = rawConditions.map((condition) => {
-			if (typeof condition === 'object' && !(condition instanceof RegExp)) {
-				functionCondition = true;
+    let conditions = rawConditions.map((condition) => {
+      if (typeof condition === 'object' && !(condition instanceof RegExp)) {
+        functionCondition = true;
 
-				let entries = Object.entries(condition).map(([path, value]) => (
-					[splitPath(path), unifyCondition(value)]
-				));
+        let entries = Object.entries(condition).map(([path, value]) => (
+          [splitPath(path), unifyCondition(value)]
+        ));
 
-				return (text, context) => (
-					entries.every(([selectors, callback]) => {
-						let value = getObjectValue(context, selectors);
+        return (text, context) => (
+          entries.every(([selectors, callback]) => {
+            let value = getObjectValue(context, selectors);
 
-						return callback(value, context);
-					})
-				);
-			}
+            return callback(value, context);
+          })
+        );
+      }
 
-			if (typeof condition === 'function') {
-				functionCondition = true;
+      if (typeof condition === 'function') {
+        functionCondition = true;
 
-				return condition;
-			}
+        return condition;
+      }
 
-			textCondition = true;
+      textCondition = true;
 
-			if (condition instanceof RegExp) {
-				return (text, context) => {
-					let passed = condition.test(text);
+      if (condition instanceof RegExp) {
+        return (text, context) => {
+          let passed = condition.test(text);
 
-					if (passed) {
-						context.$match = text.match(condition);
-					}
+          if (passed) {
+            context.$match = text.match(condition);
+          }
 
-					return passed;
-				};
-			}
+          return passed;
+        };
+      }
 
-			let stringCondition = String(condition);
+      let stringCondition = String(condition);
 
-			return (text) => text === stringCondition;
-		});
+      return (text) => text === stringCondition;
+    });
 
-		let needText = textCondition && functionCondition === false;
+    let needText = textCondition && functionCondition === false;
 
-		this.hearStack.push((context, next) => {
+    this.hearStack.push((context, next) => {
       let text = context.text || context.caption;
 
-			if (needText && text === null) {
-				return next();
-			}
+      if (needText && text === null) {
+        return next();
+      }
 
-			let hasSome = conditions.some((condition) => (
-				condition(text, context)
-			));
+      let hasSome = conditions.some((condition) => (
+        condition(text, context)
+      ));
 
-			return hasSome
-				? handler(context, next)
-				: next();
-		});
+      return hasSome
+        ? handler(context, next)
+        : next();
+    });
 
-		this.reloadMiddleware();
+    this.reloadMiddleware();
 
-		return this;
-	}
+    return this;
+  }
 
   on(events, handler) {
     if (!Array.isArray(events)) {
@@ -315,7 +315,7 @@ class Updates {
 
     events = events.filter(Boolean);
 
-    if (!events) {
+    if (events.length === 0) {
       throw new Error('No events found');
     }
 

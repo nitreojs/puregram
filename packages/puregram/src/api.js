@@ -39,7 +39,7 @@ class API {
 
       if (type === 'url') {
         url += '?';
-  
+
         for (let [key, value] of Object.entries(query)) {
           url += `${key}=${
             encodeURI(
@@ -60,32 +60,28 @@ class API {
       headers.connection = 'keep-alive';
     }
 
-    try {
-      let body = null;
+    let body = null;
 
-      if (query instanceof FormData) {
-        body = query;
-      } else if (type === 'query') {
-        body = JSON.stringify(query);
-      }
-
-      let response = await fetch(url, {
-        method: 'POST',
-        headers: body instanceof FormData ? null : headers,
-        body,
-        agent: this.agent
-      });
-
-      let json = await response.json();
-
-      if (!json.ok) {
-        throw new APIError(json.description);
-      }
-
-      return json.result;
-    } catch (e) {
-      throw new Error(e);
+    if (query instanceof FormData) {
+      body = query;
+    } else if (type === 'query') {
+      body = JSON.stringify(query);
     }
+
+    let response = await fetch(url, {
+      method: 'POST',
+      headers: body instanceof FormData ? null : headers,
+      body,
+      agent: this.agent
+    });
+
+    let json = await response.json();
+
+    if (!json.ok) {
+      throw new APIError(json.description);
+    }
+
+    return json.result;
   }
 
   getMe() {

@@ -7,97 +7,97 @@ class KeyboardBuilder {
     this.currentRow = [];
   }
 
-	get [Symbol.toStringTag]() {
-		return 'KeyboardBuilder';
-	}
+  get [Symbol.toStringTag]() {
+    return 'KeyboardBuilder';
+  }
 
-	textButton(text) {
-		return this.addButton({
+  textButton(text) {
+    return this.addButton({
       text,
-		});
-	}
+    });
+  }
 
-	locationRequestButton(text) {
-		return this.addWideButton({
+  locationRequestButton(text) {
+    return this.addWideButton({
       text: encodeURI(text),
       request_location: true,
-		});
-	}
-	
-	pollRequestButton(text, type) {
-		return this.addWideButton({
-			text: encodeURI(text),
-			request_poll: { type },
-		});
-	}
-  
+    });
+  }
+
+  pollRequestButton(text, type) {
+    return this.addWideButton({
+      text: encodeURI(text),
+      request_poll: { type },
+    });
+  }
+
   contactRequestButton(text) {
-		return this.addWideButton({
+    return this.addWideButton({
       text: encodeURI(text),
       request_contact: true,
-		});
-	}
-
-	row() {
-		if (this.currentRow.length === 0) {
-			return this;
-		}
-
-		this.rows.push(this.currentRow);
-
-		this.currentRow = [];
-
-		return this;
-	}
-
-	oneTime(enabled = true) {
-		this.isOneTime = enabled;
-
-		return this;
+    });
   }
-  
+
+  row() {
+    if (this.currentRow.length === 0) {
+      return this;
+    }
+
+    this.rows.push(this.currentRow);
+
+    this.currentRow = [];
+
+    return this;
+  }
+
+  oneTime(enabled = true) {
+    this.isOneTime = enabled;
+
+    return this;
+  }
+
   resize(enabled = true) {
-		this.isResize = enabled;
+    this.isResize = enabled;
 
-		return this;
+    return this;
   }
-  
+
   selective(enabled = true) {
-		this.isSelective = enabled;
+    this.isSelective = enabled;
 
-		return this;
-	}
+    return this;
+  }
 
-	addButton(button) {
-		this.currentRow.push(button);
+  addButton(button) {
+    this.currentRow.push(button);
 
-		return this;
-	}
+    return this;
+  }
 
-	addWideButton(button) {
-		if (this.currentRow.length !== 0) {
-			this.row();
-		}
+  addWideButton(button) {
+    if (this.currentRow.length !== 0) {
+      this.row();
+    }
 
-		this.addButton(button);
+    this.addButton(button);
 
-		return this.row();
-	}
+    return this.row();
+  }
 
-	toJSON() {
-		let buttons = this.currentRow.length !== 0
-			? [...this.rows, this.currentRow]
+  toJSON() {
+    let buttons = this.currentRow.length !== 0
+      ? [...this.rows, this.currentRow]
       : this.rows;
-      
+
     let { isResize, isOneTime, isSelective } = this;
 
-		return JSON.stringify({
+    return JSON.stringify({
       keyboard: buttons,
       resize_keyboard: isResize,
       one_time_keyboard: isOneTime,
       selective: isSelective,
     });
-	}
+  }
 }
 
 module.exports = KeyboardBuilder;

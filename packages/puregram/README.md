@@ -20,7 +20,7 @@ npm i puregram
 let { Telegram } = require('puregram');
 
 let telegram = new Telegram({
-	token: process.env.TOKEN,
+  token: process.env.TOKEN,
 });
 
 telegram.updates.on('message', context => context.send('Hi!'));

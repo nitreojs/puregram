@@ -35,7 +35,7 @@ type EventTypes = Types.ContextPossibleTypes | string;
 type AllowArray<T> = T | Array<T>;
 
 type HearObjectCondition<T extends Record<string, any>> = {
-	[P in keyof T]: AllowArray<HearCondition<T[P], T>>;
+  [P in keyof T]: AllowArray<HearCondition<T[P], T>>;
 };
 
 declare class Updates {
@@ -45,7 +45,8 @@ declare class Updates {
   public stopPolling(): void;
   public use(middleware: Middleware<Context>): this;
   public setHearFallbackHandler(handler: Middleware<MessageContext>): this;
-  public hear<>(
+
+  public hear(
     hearConditions: (
       AllowArray<HearCondition<string | null, MessageContext>> |
       AllowArray<HearObjectCondition<MessageContext>>
@@ -53,33 +54,33 @@ declare class Updates {
     handler: Middleware<MessageContext>,
   ): this;
 
-  public on(events: 'message', handler: Middleware<MessageContext>): this;
-  public on(events: 'edited_message', handler: Middleware<EditedMessageContext>): this;
-  public on(events: 'channel_post', handler: Middleware<ChannelPostContext>): this;
-  public on(events: 'edited_channel_post', handler: Middleware<EditedChannelPostContext>): this;
-  public on(events: 'inline_query', handler: Middleware<InlineQuery>): this;
-  public on(events: 'chosen_inline_result', handler: Middleware<ChosenInlineResult>): this;
-  public on(events: 'callback_query', handler: Middleware<CallbackQuery>): this;
-  public on(events: 'shipping_query', handler: Middleware<ShippingQuery>): this;
-  public on(events: 'pre_checkout_query', handler: Middleware<PreCheckoutQuery>): this;
-  public on(events: 'poll', handler: Middleware<Poll>): this;
-  public on(events: 'poll_answer', handler: Middleware<PollAnswer>): this;
+  public on(events: 'message',                 handler: Middleware<MessageContext>): this;
+  public on(events: 'edited_message',          handler: Middleware<EditedMessageContext>): this;
+  public on(events: 'channel_post',            handler: Middleware<ChannelPostContext>): this;
+  public on(events: 'edited_channel_post',     handler: Middleware<EditedChannelPostContext>): this;
+  public on(events: 'inline_query',            handler: Middleware<InlineQuery>): this;
+  public on(events: 'chosen_inline_result',    handler: Middleware<ChosenInlineResult>): this;
+  public on(events: 'callback_query',          handler: Middleware<CallbackQuery>): this;
+  public on(events: 'shipping_query',          handler: Middleware<ShippingQuery>): this;
+  public on(events: 'pre_checkout_query',      handler: Middleware<PreCheckoutQuery>): this;
+  public on(events: 'poll',                    handler: Middleware<Poll>): this;
+  public on(events: 'poll_answer',             handler: Middleware<PollAnswer>): this;
 
-  public on(events: 'new_chat_members', handler: Middleware<NewChatMembers>): this;
-  public on(events: 'left_chat_member', handler: Middleware<LeftChatMember>): this;
-  public on(events: 'new_chat_title', handler: Middleware<NewChatTitle>): this;
-  public on(events: 'new_chat_photo', handler: Middleware<NewChatPhoto>): this;
-  public on(events: 'delete_chat_photo', handler: Middleware<DeleteChatPhoto>): this;
-  public on(events: 'group_chat_created', handler: Middleware<GroupChatCreated>): this;
+  public on(events: 'new_chat_members',        handler: Middleware<NewChatMembers>): this;
+  public on(events: 'left_chat_member',        handler: Middleware<LeftChatMember>): this;
+  public on(events: 'new_chat_title',          handler: Middleware<NewChatTitle>): this;
+  public on(events: 'new_chat_photo',          handler: Middleware<NewChatPhoto>): this;
+  public on(events: 'delete_chat_photo',       handler: Middleware<DeleteChatPhoto>): this;
+  public on(events: 'group_chat_created',      handler: Middleware<GroupChatCreated>): this;
   public on(events: 'supergroup_chat_created', handler: Middleware<SupergroupChatCreated>): this;
-  public on(events: 'channel_chat_created', handler: Middleware<ChannelChatCreated>): this;
-  public on(events: 'pinned_message', handler: Middleware<PinnedMessageContext>): this;
-  public on(events: 'migrate_to_chat_id', handler: Middleware<MigrateToChatIdContext>): this;
-  public on(events: 'migrate_from_chat_id', handler: Middleware<MigrateFromChatIdContext>): this;
-  public on(events: 'invoice', handler: Middleware<InvoiceContext>): this;
-  public on(events: 'successful_payment', handler: Middleware<SuccessfulPaymentContext>): this;
+  public on(events: 'channel_chat_created',    handler: Middleware<ChannelChatCreated>): this;
+  public on(events: 'pinned_message',          handler: Middleware<PinnedMessageContext>): this;
+  public on(events: 'migrate_to_chat_id',      handler: Middleware<MigrateToChatIdContext>): this;
+  public on(events: 'migrate_from_chat_id',    handler: Middleware<MigrateFromChatIdContext>): this;
+  public on(events: 'invoice',                 handler: Middleware<InvoiceContext>): this;
+  public on(events: 'successful_payment',      handler: Middleware<SuccessfulPaymentContext>): this;
 
-  public on(events: AllowArray<EventTypes>, handler: Middleware<Context>): this;
+  public on(events: AllowArray<EventTypes>,    handler: Middleware<Context>): this;
 }
 
 export = Updates;

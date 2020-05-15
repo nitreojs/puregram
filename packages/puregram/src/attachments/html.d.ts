@@ -5,7 +5,7 @@ declare class HTML {
    * Format text into bold
    */
   public static bold(text: string): string;
-  
+
   /**
    * Format text into italic
    */

@@ -29,7 +29,7 @@ telegram.updates.on(
 
     // Ignore if this is not an animated dice message
     // or if it is but it's not `dice`
-    if (!context.dice || !context.dice.isDice) {
+    if (!context.dice || context.dice.type !== 'dice') {
       return next();
     }
 

@@ -154,7 +154,7 @@ class MessageContext extends Context {
       payload = JSON.parse(payload);
     }
 
-    return payload
+    return payload;
   }
 
   get entities() {

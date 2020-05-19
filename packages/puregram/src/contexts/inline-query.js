@@ -38,6 +38,12 @@ class InlineQuery extends Context {
   }
 
   answerInlineQuery(results, params = {}) {
+    for (let result of results) {
+      if (result.reply_markup) {
+        result.reply_markup = JSON.parse(result.reply_markup.toJSON());
+      }
+    }
+
     return this.telegram.api.answerInlineQuery({
       inline_query_id: this.id,
       results: JSON.stringify(results),

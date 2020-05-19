@@ -27,6 +27,16 @@ let EVENTS = require('../structures/events');
 
 let { filterPayload } = require('../utils');
 
+function isParseable(source) {
+  try {
+    JSON.parse(source);
+
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 class MessageContext extends Context {
   constructor(telegram, update) {
     super(telegram, 'message');
@@ -130,6 +140,21 @@ class MessageContext extends Context {
 
   get text() {
     return this.update.text || null;
+  }
+
+  get startPayload() {
+    if (!this.text.startsWith('/start')) return null;
+    if (this.text === '/start') return null;
+
+    let payload = this.text.split(' ')[1];
+
+    if (!Number.isNaN(+payload)) {
+      payload = Number.parseInt(payload);
+    } else if (isParseable(payload)) {
+      payload = JSON.parse(payload);
+    }
+
+    return payload
   }
 
   get entities() {

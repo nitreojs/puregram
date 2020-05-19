@@ -32,7 +32,7 @@ declare class MessageContext extends Context {
   /**
    * Sender, empty for messages sent to channels
    */
-  public from: User;
+  public from: Interfaces.IUser;
 
   /**
    * Sender's unique id
@@ -126,6 +126,11 @@ declare class MessageContext extends Context {
    * For text messages, the actual UTF-8 text of the message, 0-4096 characters
    */
   public text?: string;
+
+  /**
+   * [Deep-linking](https://core.telegram.org/bots#deep-linking) payload
+   */
+  public startPayload?: string | number | object;
 
   /**
    * For text messages, special entities like usernames,

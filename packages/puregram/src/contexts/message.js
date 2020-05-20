@@ -144,6 +144,7 @@ class MessageContext extends Context {
   }
 
   get startPayload() {
+    if (!this.text) return null;
     if (!this.text.startsWith('/start')) return null;
     if (this.text === '/start') return null;
 

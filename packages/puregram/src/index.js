@@ -13,6 +13,7 @@ let {
   MarkdownV2,
   Markdown,
   HTML,
+  APIError
 } = require('./attachments');
 
 module.exports = {
@@ -29,4 +30,5 @@ module.exports = {
   Context,
   MessageContext,
   CallbackQuery,
+  APIError
 };

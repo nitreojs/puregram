@@ -6,6 +6,7 @@ import InlineKeyboardBuilder from './inline-keyboard-builder';
 import Markdown from './markdown';
 import MarkdownV2 from './markdown-v2';
 import HTML from './html';
+import APIError from './apierror';
 
 export = {
   Keyboard,
@@ -16,4 +17,5 @@ export = {
   Markdown,
   MarkdownV2,
   HTML,
+  APIError
 };

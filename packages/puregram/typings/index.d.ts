@@ -12,6 +12,7 @@ import {
   Markdown,
   MarkdownV2,
   HTML,
+  APIError
 } from '../src/index';
 
 export {
@@ -28,4 +29,5 @@ export {
   Context,
   MessageContext,
   CallbackQuery,
+  APIError
 };

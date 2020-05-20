@@ -6,6 +6,7 @@ let InlineKeyboardBuilder = require('./inline-keyboard-builder');
 let Markdown = require('./markdown');
 let MarkdownV2 = require('./markdown-v2');
 let HTML = require('./html');
+let APIError = require('./apierror');
 
 module.exports = {
   Keyboard,
@@ -16,4 +17,5 @@ module.exports = {
   Markdown,
   MarkdownV2,
   HTML,
+  APIError
 };

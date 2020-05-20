@@ -362,7 +362,19 @@ class ChannelPostContext extends Context {
   }
 
   get isPM() {
-    return this.chatId === this.senderId;
+    return this.chatType === 'private';
+  }
+
+  get isGroup() {
+    return this.chatType === 'group';
+  }
+
+  get isChannel() {
+    return this.chatType === 'channel';
+  }
+
+  get isSupergroup() {
+    return this.chatType === 'supergroup';
   }
 
   async send(text = '',params = {}) {

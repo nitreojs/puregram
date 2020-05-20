@@ -21,7 +21,8 @@ telegram.updates.hear(
   (context) => context.send(
     stripIndents`
       This is an <b>inline</b> bot which allows you to <b>get your ID</b> in Telegram.
-      Just type \`@${botData.username}\` and <b>click</b> on inline cell!
+
+      Just type <pre>@${botData.username}</pre> and <b>click</b> on inline cell!
     `,
     { parse_mode: 'HTML' }
   )

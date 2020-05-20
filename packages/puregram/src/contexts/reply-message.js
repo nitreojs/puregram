@@ -40,6 +40,26 @@ class ReplyMessageContext {
     return this.chat.id;
   }
 
+  get chatType() {
+    return this.chat.type;
+  }
+
+  get isPM() {
+    return this.chatType === 'private';
+  }
+
+  get isGroup() {
+    return this.chatType === 'group';
+  }
+
+  get isChannel() {
+    return this.chatType === 'channel';
+  }
+
+  get isSupergroup() {
+    return this.chatType === 'supergroup';
+  }
+
   get forwardFrom() {
     let { forward_from: forwardFrom } = this.context;
 
@@ -151,7 +171,7 @@ class ReplyMessageContext {
   get location() {
     return this.context.location || null;
   }
-  
+
   get venue() {
     return this.context.venue || null;
   }

@@ -124,7 +124,7 @@ class Updates {
     this.isStarted = true;
 
     try {
-      this.startFetchLoop();
+      return this.startFetchLoop();
     } catch (e) {
       this.isStarted = false;
 

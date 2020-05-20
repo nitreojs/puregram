@@ -20,6 +20,14 @@ declare class GroupChatCreated extends Context {
 
   public chatType?: Types.ChatTypes;
 
+  public isPM: boolean;
+
+  public isGroup: boolean;
+
+  public isChannel: boolean;
+
+  public isSupergroup: boolean;
+
   public eventCreated: boolean;
 
   /**
@@ -38,7 +46,7 @@ declare class GroupChatCreated extends Context {
    */
   public sendPhoto(photo: Interfaces.IInputFile | string, params: Params.ISendPhotoParams): Promise<MessageContext>;
 
-  public replyWithPhoto(photo: string, params: Params.ISendPhotoParams): Promise<MessageContext>;
+  public replyWithPhoto(photo: Interfaces.IInputFile | string, params: Params.ISendPhotoParams): Promise<MessageContext>;
 
   /**
    * Use this method to send audio files,
@@ -54,7 +62,7 @@ declare class GroupChatCreated extends Context {
    */
   public sendAudio(audio: Interfaces.IInputFile | string, params: Params.ISendAudioParams): Promise<MessageContext>;
 
-  public replyWithAudio(audio: string, params: Params.ISendAudioParams): Promise<MessageContext>;
+  public replyWithAudio(audio: Interfaces.IInputFile | string, params: Params.ISendAudioParams): Promise<MessageContext>;
 
   /**
    * Use this method to send video files,
@@ -68,7 +76,7 @@ declare class GroupChatCreated extends Context {
    */
   public sendVideo(video: Interfaces.IInputFile | string, params: Params.ISendVideoParams): Promise<MessageContext>;
 
-  public replyWithVideo(video: string, params: Params.ISendVideoParams): Promise<MessageContext>;
+  public replyWithVideo(video: Interfaces.IInputFile | string, params: Params.ISendVideoParams): Promise<MessageContext>;
 
   /**
    * Use this method to send animation files
@@ -81,7 +89,7 @@ declare class GroupChatCreated extends Context {
    */
   public sendAnimation(animation: Interfaces.IInputFile | string, params: Params.ISendAnimationParams): Promise<MessageContext>;
 
-  public replyWithAnimation(animation: string, params: Params.ISendAnimationParams): Promise<MessageContext>;
+  public replyWithAnimation(animation: Interfaces.IInputFile | string, params: Params.ISendAnimationParams): Promise<MessageContext>;
 
   /**
    * As of v.4.0, Telegram clients support rounded square mp4 videos
@@ -92,7 +100,7 @@ declare class GroupChatCreated extends Context {
    */
   public sendVideoNote(videoNote: Interfaces.IInputFile | string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
 
-  public replyWithVideoNote(videoNote: string, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
+  public replyWithVideoNote(videoNote: Interfaces.IInputFile, params: Params.ISendVideoNoteParams): Promise<MessageContext>;
 
   /**
    * Use this method to send audio files,
@@ -107,7 +115,7 @@ declare class GroupChatCreated extends Context {
    */
   public sendVoice(voice: Interfaces.IInputFile | string, params: Params.ISendVoiceParams): Promise<MessageContext>;
 
-  public replyWithVoice(voice: string, params: Params.ISendVoiceParams): Promise<MessageContext>;
+  public replyWithVoice(voice: Interfaces.IInputFile | string, params: Params.ISendVoiceParams): Promise<MessageContext>;
 
   /**
    * Use this method to send a group of photos or videos as an album.
@@ -116,43 +124,43 @@ declare class GroupChatCreated extends Context {
    */
   public sendMediaGroup(media: Array<Interfaces.IInputMediaPhoto | Interfaces.IInputMediaVideo>, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
-  public replyWithMediaGroup(media: string, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
+  public replyWithMediaGroup(media: Array<Interfaces.IInputMediaPhoto | Interfaces.IInputMediaVideo>, params: Params.ISendMediaGroupParams): Promise<MessageContext>;
 
   /**
    * Use this method to send point on the map.
    *
    * On success, the sent `Message` is returned.
    */
-  public sendLocation(location: string, params: Params.ISendLocationParams): Promise<MessageContext>;
+  public sendLocation(location: Params.ISendLocationParams, params?: Params.ISendLocationParams): Promise<MessageContext>;
 
-  public replyWithLocation(location: string, params: Params.ISendLocationParams): Promise<MessageContext>;
+  public replyWithLocation(location: Params.ISendLocationParams, params: Params.ISendLocationParams): Promise<MessageContext>;
 
   /**
    * Use this method to send information about a venue.
    *
    * On success, the sent `Message` is returned.
    */
-  public sendVenue(venue: string, params: Params.ISendVenueParams): Promise<MessageContext>;
+  public sendVenue(venue: Params.ISendVenueParams, params?: Params.ISendVenueParams): Promise<MessageContext>;
 
-  public replyWithVenue(venue: string, params: Params.ISendVenueParams): Promise<MessageContext>;
+  public replyWithVenue(venue: Params.ISendVenueParams, params?: Params.ISendVenueParams): Promise<MessageContext>;
 
   /**
    * Use this method to send phone contacts.
    *
    * On success, the sent `Message` is returned.
    */
-  public sendContact(contact: string, params: Params.ISendContactParams): Promise<MessageContext>;
+  public sendContact(contact: Params.ISendContactParams, params?: Params.ISendContactParams): Promise<MessageContext>;
 
-  public replyWithContact(contact: string, params: Params.ISendContactParams): Promise<MessageContext>;
+  public replyWithContact(contact: Params.ISendContactParams, params?: Params.ISendContactParams): Promise<MessageContext>;
 
   /**
    * Use this method to send a native poll.
    *
    * On success, the sent `Message` is returned.
    */
-  public sendPoll(poll: string, params: Params.ISendPollParams): Promise<MessageContext>;
+  public sendPoll(poll: Params.ISendPollParams, params?: Params.ISendPollParams): Promise<MessageContext>;
 
-  public replyWithPoll(poll: string, params: Params.ISendPollParams): Promise<MessageContext>;
+  public replyWithPoll(poll: Params.ISendPollParams, params?: Params.ISendPollParams): Promise<MessageContext>;
 
   /**
    * Use this method to stop a poll which was sent by the bot.
@@ -170,7 +178,7 @@ declare class GroupChatCreated extends Context {
    *
    * Returns `True` on success.
    */
-  public sendChatAction(action: Types.ChatActions, params: Params.ISendChatActionParams): Promise<true>;
+  public sendChatAction(action: Types.ChatActions, params?: Params.ISendChatActionParams): Promise<true>;
 
   /**
    * Use this method to get a list of profile pictures for a user.

@@ -50,6 +50,22 @@ class ChannelChatCreated extends Context {
     return this.chat.type;
   }
 
+  get isPM() {
+    return this.chatType === 'private';
+  }
+
+  get isGroup() {
+    return this.chatType === 'group';
+  }
+
+  get isChannel() {
+    return this.chatType === 'channel';
+  }
+
+  get isSupergroup() {
+    return this.chatType === 'supergroup';
+  }
+
   get eventCreated() {
     return this.update.channel_chat_created;
   }
@@ -193,7 +209,7 @@ class ChannelChatCreated extends Context {
   async sendLocation(location, params = {}) {
     let response = await this.telegram.api.sendLocation({
       chat_id: this.chatId,
-      location,
+      ...location,
       ...params,
     });
 
@@ -234,7 +250,7 @@ class ChannelChatCreated extends Context {
   async sendVenue(venue, params = {}) {
     let response = await this.telegram.api.sendVenue({
       chat_id: this.chatId,
-      venue,
+      ...venue,
       ...params,
     });
 
@@ -251,7 +267,7 @@ class ChannelChatCreated extends Context {
   async sendContact(contact, params = {}) {
     let response = await this.telegram.api.sendContact({
       chat_id: this.chatId,
-      contact,
+      ...contact,
       ...params,
     });
 
@@ -268,7 +284,7 @@ class ChannelChatCreated extends Context {
   async sendPoll(poll, params = {}) {
     let response = await this.telegram.api.sendPoll({
       chat_id: this.chatId,
-      poll,
+      ...poll,
       ...params,
     });
 

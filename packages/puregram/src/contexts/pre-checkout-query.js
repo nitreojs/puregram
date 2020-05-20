@@ -32,7 +32,7 @@ class PreCheckoutQuery extends Context {
   get totalAmount() {
     return this.update.total_amount;
   }
-  
+
   get invoicePayload() {
     return this.update.invoice_payload;
   }

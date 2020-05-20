@@ -516,8 +516,8 @@ class ChannelPostContext extends Context {
   async sendLocation(location, params = {}) {
     let response = await this.telegram.api.sendLocation({
       chat_id: this.chatId,
-      location,
-      ...params,
+      ...location,
+      ...params
     });
 
     return new MessageContext(this.telegram, response);
@@ -557,7 +557,7 @@ class ChannelPostContext extends Context {
   async sendVenue(venue, params = {}) {
     let response = await this.telegram.api.sendVenue({
       chat_id: this.chatId,
-      venue,
+      ...venue,
       ...params,
     });
 
@@ -574,7 +574,7 @@ class ChannelPostContext extends Context {
   async sendContact(contact, params = {}) {
     let response = await this.telegram.api.sendContact({
       chat_id: this.chatId,
-      contact,
+      ...contact,
       ...params,
     });
 
@@ -591,7 +591,7 @@ class ChannelPostContext extends Context {
   async sendPoll(poll, params = {}) {
     let response = await this.telegram.api.sendPoll({
       chat_id: this.chatId,
-      poll,
+      ...poll,
       ...params,
     });
 

@@ -52,9 +52,10 @@ class Invoice extends Context {
     return new InvoiceStructure(this.update.invoice);
   }
 
-  async sendDice(chatId = this.chatId) {
+  async sendDice(params = {}) {
     let response = await this.telegram.api.sendDice({
-      chat_id: chatId
+      chat_id: this.chatId,
+      ...params
     });
 
     return new MessageContext(this.telegram, response);

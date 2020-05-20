@@ -384,9 +384,10 @@ class DeleteChatPhoto extends Context {
     return new MessageContext(this.telegram, response);
   }
 
-  async sendDice(chatId = this.chatId) {
+  async sendDice(params = {}) {
     let response = await this.telegram.api.sendDice({
-      chat_id: chatId
+      chat_id: this.chatId,
+      ...params
     });
 
     return new MessageContext(this.telegram, response);

@@ -33,8 +33,8 @@ telegram.updates.startPolling().then(
 ## Community
 ### Packages that may be useful to you
 
-* [@puregram/session](../session): Simple implementation of the sessions
-* [@puregram/scenes](../scenes): Simple implementation of middleware-based scene management
+* [@puregram/session](https://github.com/nitreojs/puregram/tree/master/packages/session): Simple implementation of the sessions
+* [@puregram/scenes](https://github.com/nitreojs/puregram/tree/master/packages/scenes): Simple implementation of middleware-based scene management
 
 > If you want to add your module in the list, create a [new issue](https://github.com/nitreojs/puregram/issues/new) in the repository.
 
@@ -43,6 +43,7 @@ telegram.updates.startPolling().then(
 * [QiwiBot](https://t.me/qiwionebot) - helps to work with [QIWI](https://qiwi.com) wallet
 * [Magnit X](https://t.me/magnitxbot) - saves your money on payments in [Magnit](https://magnit.ru) shop
 * [Telegram Anonym Chat](https://t.me/ruanon_bot) - anonymous chat with other people in Telegram
+* [Get My ID](https://t.me/receive_my_id_bot) - bot from [example (get-id-bot.js)](https://github.com/nitreojs/puregram/blob/master/docs/examples/get-id-bot.js)
 
 If you want to see your bot here — PM [me](https://t.me/nitrojs) _(I will add up to 10 bots here)_
 

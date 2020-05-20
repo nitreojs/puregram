@@ -1,12 +1,15 @@
 /**
  * Bot that handles start value
  * https://core.telegram.org/bots#deep-linking
- *
  */
 
 let { stripIndents } = require('common-tags');
-let { Telegram } = require('../../packages/puregram');
+let { Telegram } = require('puregram');
 
+/*
+ * We will be using this as bot's data
+ * (see 50 line)
+ */
 let data = null;
 
 let telegram = new Telegram({
@@ -50,6 +53,6 @@ telegram.updates.startPolling().then(
     data = botInfo;
 
     console.log('Started polling, fetched bot info:');
-    console.log(`Info: ${botInfo.first_name} (@${botInfo.username})`)
+    console.log(`Info: ${botInfo.first_name} (@${botInfo.username})`);
   }
 ).catch(console.error);

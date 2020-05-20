@@ -41,7 +41,7 @@ type HearObjectCondition<T extends Record<string, any>> = {
 declare class Updates {
   constructor(telegram: Params.ITelegramParams);
 
-  public startPolling(): void;
+  public startPolling(): Promise<void>;
   public stopPolling(): void;
   public use(middleware: Middleware<Context>): this;
   public setHearFallbackHandler(handler: Middleware<MessageContext>): this;

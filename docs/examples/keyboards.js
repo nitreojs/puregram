@@ -3,42 +3,39 @@ let {
   Keyboard,
   KeyboardBuilder,
   InlineKeyboard,
-  InlineKeyboardBuilder,
+  InlineKeyboardBuilder
 } = require('puregram');
 
 let telegram = new Telegram({
-  token: process.env.TOKEN,
+  token: process.env.TOKEN
 });
 
 telegram.updates.setHearFallbackHandler(
   context => context.send(
-    'Enter either /keyboard, /keyboardbuilder, /inline or /inlinebuilder.',
-  ),
+    'Enter either /keyboard, /keyboardbuilder, /inline or /inlinebuilder.'
+  )
 );
 
-telegram.updates.hear('/keyboard', (context) => {
-  return context.send('There\'s your keyboard!', {
+telegram.updates.hear('/keyboard', (context) => context.send('There\'s your keyboard!', {
     reply_markup: Keyboard.keyboard([
       [
-        Keyboard.textButton('Button'),
+        Keyboard.textButton('Button')
       ],
 
       [
         Keyboard.textButton('Another button'),
-        Keyboard.textButton('But there\'s more!'),
+        Keyboard.textButton('But there\'s more!')
       ],
 
       [
         Keyboard.textButton('So'),
         Keyboard.textButton('many'),
-        Keyboard.textButton('buttons!'),
+        Keyboard.textButton('buttons!')
       ],
-    ]).resize(),
-  });
-});
+    ]).resize()
+  }));
 
-telegram.updates.hear('/keyboardbuilder', (context) => {
-  return context.send('There\'s your keyboard!', {
+telegram.updates.hear('/keyboardbuilder', (context) => context.send('There\'s your keyboard!', {
     reply_markup: new KeyboardBuilder()
       .textButton('Button')
       .row()
@@ -48,17 +45,15 @@ telegram.updates.hear('/keyboardbuilder', (context) => {
       .textButton('So')
       .textButton('many')
       .textButton('buttons!')
-      .resize(),
-  });
-});
+      .resize()
+  }));
 
-telegram.updates.hear('/inline', (context) => {
-  return context.send('There\'s your keyboard!', {
+telegram.updates.hear('/inline', (context) => context.send('There\'s your keyboard!', {
     reply_markup: InlineKeyboard.keyboard([
       [
         InlineKeyboard.textButton({
           text: 'Inline button!',
-        }),
+        })
       ],
 
       [
@@ -69,7 +64,7 @@ telegram.updates.hear('/inline', (context) => {
         InlineKeyboard.textButton({
           text: 'Payload button',
           payload: { payload: true },
-        }),
+        })
       ],
 
       [
@@ -83,14 +78,12 @@ telegram.updates.hear('/inline', (context) => {
 
         InlineKeyboard.textButton({
           text: 'epic!',
-        }),
-      ],
-    ]),
-  });
-});
+        })
+      ]
+    ])
+  }));
 
-telegram.updates.hear('/inlinebuilder', (context) => {
-  return context.send('There\'s your keyboard!', {
+telegram.updates.hear('/inlinebuilder', (context) => context.send('There\'s your keyboard!', {
     reply_markup: new InlineKeyboardBuilder()
       .textButton({ text: 'Inline button!' })
       .row()
@@ -102,12 +95,11 @@ telegram.updates.hear('/inlinebuilder', (context) => {
       .row()
       .textButton({ text: 'This' })
       .textButton({ text: 'is' })
-      .textButton({ text: 'epic!' }),
-  });
-});
+      .textButton({ text: 'epic!' })
+  }));
 
-telegram.updates.on('callback_query', (context) => {
-  return context.answerCallbackQuery('You just clicked the inline button!');
-});
+telegram.updates.on('callback_query', (context) => context.answerCallbackQuery('You just clicked the inline button!'));
 
-telegram.updates.startPolling();
+telegram.updates.startPolling().then(
+  () => console.log('Started polling')
+).catch(console.error);

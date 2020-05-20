@@ -3,7 +3,7 @@ let fs = require('fs');
 let fetch = require('node-fetch');
 
 let telegram = new Telegram({
-  token: process.env.TOKEN,
+  token: process.env.TOKEN
 });
 
 let filePath = process.env.FILE_PATH;
@@ -13,8 +13,11 @@ telegram.updates.hear(
   '/mediaGroup',
   async (context) => {
     if (context.hasAttachments('photo')) {
-      // context.getAttachments('photo')
-      // returns Array<PhotoAttachment>
+
+      /*
+       * Context.getAttachments('photo')
+       * returns Array<PhotoAttachment>
+       */
       let { fileId } = context.getAttachments('photo')[0].big;
 
       let media = new Array(5).fill(null)
@@ -77,7 +80,11 @@ telegram.updates.hear(
   }
 );
 
-//      You can use any API method that can work with media
-// using any of these methods (URL, stream, path or buffer).
+/*
+ * You can use any API method that can work with media
+ * using any of these methods (URL, stream, path or buffer).
+ */
 
-telegram.updates.startPolling();
+telegram.updates.startPolling().then(
+  () => console.log('Started polling')
+).catch(console.error);

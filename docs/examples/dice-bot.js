@@ -7,7 +7,7 @@ let telegram = new Telegram({
 });
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 let ratings = [
@@ -17,30 +17,39 @@ let ratings = [
   '<b>Yikes!</b>\nAh, I thought it was <b>1</b>. Nevermind.',
   '<b>Try again!</b>\nThe best score is <b>1</b>. You need to get it!',
   '<b>That\'s bruh.</b>'
-]
+];
 
 telegram.updates.on(
   'message',
   async (context, next) => {
-    // If the message was sent in chat
-    // then ignore the message,
-    // we want to answer only in Private Messages
+
+    /**
+     * If the message was sent in chat
+     * then ignore the message,
+     * we want to answer only in Private Messages
+     */
+
     if (!context.isPM) return next();
 
-    // Ignore if this is not an animated dice message
-    // or if it is but it's not `dice`
+    /**
+     * Ignore if this is not an animated dice message
+     * or if it is but it's not `dice`
+     */
     if (!context.dice || context.dice.type !== 'dice') {
       return next();
     }
 
-    // Now we know that this message is
-    // an animated dice and it's `dice` and not like `darts`
+    /**
+     * Now we know that this message is
+     * an animated dice and it's `dice` and not like `darts`
+     */
 
     let { value } = context.dice;
     let rating = ratings[value - 1];
 
     await sleep(3000);
-    await context.reply(rating, { parse_mode: 'HTML' });
+
+    return context.reply(rating, { parse_mode: 'HTML' });
   }
 );
 
@@ -55,4 +64,6 @@ telegram.updates.hear(
   }
 );
 
-telegram.updates.startPolling();
+telegram.updates.startPolling().then(
+  () => console.log('Started polling')
+).catch(console.error);

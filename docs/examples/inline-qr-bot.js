@@ -6,8 +6,10 @@ let telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-// Function that generates URL by size and data
-// thanks to goqr.me!
+/*
+ * Function that generates URL by size and data
+ * thanks to goqr.me!
+ */
 function generateUrl({ size, data }) {
   return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&format=jpeg&margin=25&data=${encodeURIComponent(data)}`;
 }
@@ -25,8 +27,11 @@ let exampleUrls = generateUrls('Example');
 telegram.updates.on(
   'inline_query',
   async (context) => {
-    // If the query is empty (''),
-    // then we can send example QR codes
+
+    /*
+     * If the query is empty (''),
+     * then we can send example QR codes
+     */
     if (!context.query) {
       return context.answerInlineQuery([
         {
@@ -38,8 +43,10 @@ telegram.updates.on(
       ]);
     }
 
-    // Now we know, the context.query is NOT empty
-    // so we can generate QR code according to context.query
+    /*
+     * Now we know, the context.query is NOT empty
+     * so we can generate QR code according to context.query
+     */
 
     let [photoUrl, thumbUrl] = generateUrls(context.query);
 
@@ -59,8 +66,10 @@ telegram.updates.on(
       is_personal: true
     };
 
-    await context.answerInlineQuery(results, params);
+    return context.answerInlineQuery(results, params);
   }
 );
 
-telegram.updates.startPolling();
+telegram.updates.startPolling().then(
+  () => console.log('Started polling')
+).catch(console.error);

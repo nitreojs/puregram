@@ -1,4 +1,4 @@
-// code by Negezor (https://github.com/negezor)
+// Code by Negezor (https://github.com/negezor)
 
 let { Telegram } = require('puregram');
 
@@ -6,7 +6,7 @@ let { SessionManager } = require('@puregram/session');
 let { SceneManager, StepScene } = require('@puregram/scenes');
 
 let telegram = new Telegram({
-	token: process.env.TOKEN,
+  token: process.env.TOKEN
 });
 
 let sessionManager = new SessionManager();
@@ -52,4 +52,6 @@ telegram.updates.hear('/signup', async (context) => {
   await context.scene.enter('signup');
 });
 
-telegram.updates.startPolling();
+telegram.updates.startPolling().then(
+  () => console.log('Started polling')
+).catch(console.error);

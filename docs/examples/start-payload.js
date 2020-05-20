@@ -8,7 +8,7 @@ let { Telegram } = require('puregram');
 
 /*
  * We will be using this as bot's data
- * (see 50 line)
+ * (see line 50)
  */
 let data = null;
 
@@ -48,11 +48,9 @@ telegram.updates.hear(
 
 telegram.updates.startPolling().then(
   async () => {
-    let botInfo = await telegram.api.getMe();
-
-    data = botInfo;
+    data = await telegram.api.getMe();
 
     console.log('Started polling, fetched bot info:');
-    console.log(`Info: ${botInfo.first_name} (@${botInfo.username})`);
+    console.log(`Info: ${data.first_name} (@${data.username})`);
   }
 ).catch(console.error);

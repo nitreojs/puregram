@@ -1,9 +1,12 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
+let MessageContext = require('./message');
 
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
+let Poll = require('../structures/poll');
+let UserProfilePhotos = require('../structures/user-profile-photos');
 
 class MigrateToChatId extends Context {
   constructor(telegram, update) {

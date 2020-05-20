@@ -1,5 +1,7 @@
-import Params from "../../typings/params";
-import Interfaces from "../../typings/interfaces";
+import Params from '../../typings/params';
+import Interfaces from '../../typings/interfaces';
+import Types from '../../typings/types';
+
 import MessageContext from './message';
 import Context from './context';
 

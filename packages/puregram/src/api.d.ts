@@ -1,12 +1,8 @@
 import Params from '../typings/params';
 import Interfaces from '../typings/interfaces';
-import Responses from '../typings/responses';
 import Telegram from './telegram';
 
-// STRUCTURES
-import User from './structures/user';
-
-type MessageOrTrue = Interfaces.IMessage | true;
+type MessageOrTrue = object | true;
 
 declare class API {
   constructor(telegram: Telegram);
@@ -18,35 +14,35 @@ declare class API {
    *
    * Returns basic information about the bot in form of a `User` object.
    */
-  getMe(): Promise<User>;
+  getMe(): Promise<object>;
 
   /**
    * Use this method to receive incoming updates using long polling.
    *
    * An Array of `Update` objects is returned.
    */
-  getUpdates(params?: Params.IGetUpdatesParams): Promise<Array<Interfaces.IUpdate>>;
+  getUpdates(params?: Params.IGetUpdatesParams): Promise<object>;
 
   /**
    * Use this method to send text messages.
    *
    * On success, the sent `Message` is returned.
    */
-  sendMessage(params?: Params.ISendMessageParams): Promise<Interfaces.IMessage>;
+  sendMessage(params?: Params.ISendMessageParams): Promise<object>;
 
   /**
    * Use this method to forward messages of any kind.
    *
    * On success, the sent `Message` is returned.
    */
-  forwardMessage(params?: Params.IForwardMessageParams): Promise<Interfaces.IMessage>;
+  forwardMessage(params?: Params.IForwardMessageParams): Promise<object>;
 
   /**
    * Use this method to send photos.
    *
    * On success, the sent `Message` is returned.
    */
-  sendPhoto(params?: Params.ISendPhotoParams): Promise<Interfaces.IMessage>;
+  sendPhoto(params?: Params.ISendPhotoParams): Promise<object>;
 
   /**
    * Use this method to send audio files,
@@ -60,7 +56,7 @@ declare class API {
    *
    * For sending voice messages, use the `sendVoice` method instead.
    */
-  sendAudio(params?: Params.ISendAudioParams): Promise<Interfaces.IMessage>;
+  sendAudio(params?: Params.ISendAudioParams): Promise<object>;
 
   /**
    * Use this method to send general files.
@@ -70,7 +66,7 @@ declare class API {
    * Bots can currently send files of any type of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  sendDocument(params?: Params.ISendDocumentParams): Promise<Interfaces.IMessage>;
+  sendDocument(params?: Params.ISendDocumentParams): Promise<object>;
 
   /**
    * Use this method to send video files,
@@ -82,7 +78,7 @@ declare class API {
    * Bots can currently send video files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  sendVideo(params?: Params.ISendVideoParams): Promise<Interfaces.IMessage>;
+  sendVideo(params?: Params.ISendVideoParams): Promise<object>;
 
   /**
    * Use this method to send animation files
@@ -93,7 +89,7 @@ declare class API {
    * Bots can currently send animation files of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  sendAnimation(params?: Params.ISendAnimationParams): Promise<Interfaces.IMessage>;
+  sendAnimation(params?: Params.ISendAnimationParams): Promise<object>;
 
   /**
    * Use this method to send audio files,
@@ -106,7 +102,7 @@ declare class API {
    * Bots can currently send voice messages of up to 50 MB in size,
    * this limit may be changed in the future.
    */
-  sendVoice(params?: Params.ISendVoiceParams): Promise<Interfaces.IMessage>;
+  sendVoice(params?: Params.ISendVoiceParams): Promise<object>;
 
   /**
    * As of v.4.0, Telegram clients support rounded square mp4 videos
@@ -115,21 +111,21 @@ declare class API {
    *
    * On success, the sent `Message` is returned.
    */
-  sendVideoNote(params?: Params.ISendVideoNoteParams): Promise<Interfaces.IMessage>;
+  sendVideoNote(params?: Params.ISendVideoNoteParams): Promise<object>;
 
   /**
    * Use this method to send a group of photos or videos as an album.
    *
    * On success, an `Array<Message>` is returned.
    */
-  sendMediaGroup(params?: Params.ISendMediaGroupParams): Promise<Array<Interfaces.IMessage>>;
+  sendMediaGroup(params?: Params.ISendMediaGroupParams): Promise<Array<object>>;
 
   /**
    * Use this method to send point on the map.
    *
    * On success, the sent `Message` is returned.
    */
-  sendLocation(params?: Params.ISendLocationParams): Promise<Interfaces.IMessage>;
+  sendLocation(params?: Params.ISendLocationParams): Promise<object>;
 
   /**
    * Use this method to edit live location messages.
@@ -155,28 +151,28 @@ declare class API {
    *
    * On success, the sent `Message` is returned.
    */
-  sendVenue(params?: Params.ISendVenueParams): Promise<Interfaces.IMessage>;
+  sendVenue(params?: Params.ISendVenueParams): Promise<object>;
 
   /**
    * Use this method to send phone contacts.
    *
    * On success, the sent `Message` is returned.
    */
-  sendContact(params?: Params.ISendContactParams): Promise<Interfaces.IMessage>;
+  sendContact(params?: Params.ISendContactParams): Promise<object>;
 
   /**
    * Use this method to send a native poll.
    *
    * On success, the sent `Message` is returned.
    */
-  sendPoll(params?: Params.ISendPollParams): Promise<Interfaces.IMessage>;
+  sendPoll(params?: Params.ISendPollParams): Promise<object>;
 
   /**
    * Use this method to send a dice, which will have a random value from `1` to `6`.
    *
    * On success, the sent `Message` is returned.
    */
-  sendDice(params?: Params.ISendDiceParams): Promise<Interfaces.IMessage>;
+  sendDice(params?: Params.ISendDiceParams): Promise<object>;
 
   /**
    * Use this method when you need to tell the user that
@@ -194,7 +190,7 @@ declare class API {
    *
    * Returns a `UserProfilePhotos` object.
    */
-  getUserProfilePhotos(params?: Params.IGetUserProfilePhotosParams): Promise<Interfaces.IUserProfilePhotos>;
+  getUserProfilePhotos(params?: Params.IGetUserProfilePhotosParams): Promise<object>;
 
   /**
    * Use this method to get basic info about a file and
@@ -203,7 +199,7 @@ declare class API {
    *
    * On success, a `File` object is returned.
    */
-  getFile(id: string): Promise<Interfaces.IFile>;
+  getFile(id: string): Promise<object>;
 
   /**
    * Use this method to kick a user from a group, a supergroup or a channel.
@@ -347,7 +343,7 @@ declare class API {
    *
    * Returns a `Chat` object on success.
    */
-  getChat(chat: number | string): Promise<Interfaces.IChat>;
+  getChat(chat: number | string): Promise<object>;
 
   /**
    * Use this method to get a list of administrators in a chat.
@@ -358,7 +354,7 @@ declare class API {
    * If the chat is a group or a supergroup and no administrators were appointed,
    * only the creator will be returned.
    */
-  getChatAdministrators(chat: number | string): Promise<Array<Interfaces.IChatMember>>;
+  getChatAdministrators(chat: number | string): Promise<object>;
 
   /**
    * Use this method to get the number of members in a chat.
@@ -372,7 +368,7 @@ declare class API {
    *
    * Returns a `ChatMember` object on success.
    */
-  getChatMember(params?: Params.IGetChatMemberParams): Promise<Interfaces.IChatMember>;
+  getChatMember(params?: Params.IGetChatMemberParams): Promise<object>;
 
   /**
    * Use this method to set a new group sticker set for a supergroup.
@@ -418,7 +414,7 @@ declare class API {
    *
    * Returns `Array<BotCommand>` on success.
    */
-  getMyCommands(): Promise<Array<Interfaces.IBotCommand>>;
+  getMyCommands(): Promise<object>;
 
   /**
    * Use this method to edit text and game messages.
@@ -467,7 +463,7 @@ declare class API {
    *
    * On success, the stopped `Poll` with the final results is returned.
    */
-  stopPoll(params?: Params.IStopPollParams): Promise<Interfaces.IPoll>;
+  stopPoll(params?: Params.IStopPollParams): Promise<object>;
 
   /**
    * Use this method to delete a message, including service messages, with the following limitations:
@@ -487,14 +483,14 @@ declare class API {
    *
    * On success, the sent `Message` is returned.
    */
-  sendSticker(params?: Parms.ISendStickerParams): Promise<Interfaces.IMessage>;
+  sendSticker(params?: Parms.ISendStickerParams): Promise<object>;
 
   /**
    * Use this method to get a sticker set.
    *
    * On success, a `StickerSet` object is returned.
    */
-  getStickerSet(name: string): Promise<Interfaces.IStickerSet>;
+  getStickerSet(name: string): Promise<object>;
 
   /**
    * Use this method to upload a .PNG file with a sticker for later use
@@ -503,7 +499,7 @@ declare class API {
    *
    * Returns the uploaded `File` on success.
    */
-  uploadStickerFile(params?: Params.IUploadStickerFileParams): Promise<Interfaces.IFile>;
+  uploadStickerFile(params?: Params.IUploadStickerFileParams): Promise<object>;
 
   /**
    * Use this method to create a new sticker set owned by a user.
@@ -561,7 +557,7 @@ declare class API {
    *
    * On success, the sent `Message` is returned.
    */
-  sendInvoice(params?: Params.ISendInvoiceParams): Promise<Interfaces.IMessage>;
+  sendInvoice(params?: Params.ISendInvoiceParams): Promise<object>;
 
   /**
    * If you sent an invoice requesting a shipping address
@@ -613,7 +609,7 @@ declare class API {
    *
    * On success, the sent `Message` is returned.
    */
-  sendGame(params?: Params.ISendGameParams): Promise<Interfaces.IMessage>;
+  sendGame(params?: Params.ISendGameParams): Promise<object>;
 
   /**
    * Use this method to set the score of the specified user in a game.
@@ -634,7 +630,7 @@ declare class API {
    *
    * On success, returns an `Array<GameHighScore>` objects.
    */
-  getGameHighScores(params?: Params.IGetGameHighScoresParams): Promise<Array<Interfaces.IGameHighScore>>;
+  getGameHighScores(params?: Params.IGetGameHighScoresParams): Promise<object>;
 
   /**
    * Use this method to specify a url and receive incoming updates
@@ -670,7 +666,7 @@ declare class API {
    * If the bot is using `getUpdates`,
    * will return an object with the `url` field empty.
    */
-  getWebhookInfo(): Promise<Interfaces.IWebhookInfo>;
+  getWebhookInfo(): Promise<object>;
 }
 
 export = API;

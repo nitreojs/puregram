@@ -4,6 +4,7 @@ let { Readable } = require('stream');
 let fs = require('fs');
 
 let APIError = require('./attachments/apierror');
+let User = require('./structures/user');
 
 class API {
   constructor(telegram) {
@@ -144,7 +145,7 @@ class API {
       telegram: this.telegram
     });
   }
-  
+
   sendVideo(params = {}) {
     let { video } = params;
 

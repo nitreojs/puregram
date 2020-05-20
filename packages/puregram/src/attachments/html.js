@@ -36,13 +36,13 @@ class HTML {
   static url(text, link) {
     text = replaceSymbols(text);
 
-    return `<a href="${link}">${text}</a>`;
+    return `<a href='${link}'>${text}</a>`;
   }
 
   static mention(text, id) {
     text = replaceSymbols(text);
 
-    return `<a href="tg://user?id=${id}">${text}</a>`;
+    return `<a href='tg://user?id=${id}'>${text}</a>`;
   }
 
   static code(text) {
@@ -52,7 +52,7 @@ class HTML {
   }
 
   static pre(code) {
-    text = replaceSymbols(text);
+    code = replaceSymbols(code);
 
     return `<pre>${code}</pre>`;
   }

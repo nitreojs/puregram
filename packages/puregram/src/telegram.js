@@ -10,7 +10,7 @@ class Telegram {
     agent = new https.Agent({
       keepAlive: true,
       keepAliveMsecs: 1000,
-    }),
+    })
   }) {
     this.token = token;
     this.baseApiUrl = `${apiUrl}${this.token}`;

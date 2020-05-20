@@ -107,3 +107,19 @@ export type PassportElementTranslationFilesErrors =
 
 export type DiceEmojis =  '🎲' | '🎯' | '🏀';
 export type DiceTypes = 'dice' | 'darts' | 'ball';
+
+export type Attachments =
+  | Interfaces.PhotoAttachment
+  | Interfaces.IAudio
+  | Interfaces.IDocument
+  | Interfaces.IAnimation
+  | Interfaces.IGame
+  | Array<Interfaces.IPhotoSize>
+  | Interfaces.ISticker
+  | Interfaces.IVideo
+  | Interfaces.IVoice
+  | Interfaces.IVideoNote
+  | Interfaces.IContact
+  | Interfaces.ILocation
+  | Interfaces.IVenue
+  | Interfaces.IPoll;

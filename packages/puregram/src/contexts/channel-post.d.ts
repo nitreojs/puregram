@@ -1,5 +1,5 @@
-import Params from "../../typings/params";
-import Interfaces from "../../typings/interfaces";
+import Params from '../../typings/params';
+import Interfaces from '../../typings/interfaces';
 import Types from '../../typings/types';
 import MessageContext from './message';
 import ReplyMessageContext from './reply-message';
@@ -26,9 +26,9 @@ declare class ChannelPost extends Context {
 
   public chatType?: Types.ChatTypes;
 
-  public forwardFrom?: User;
+  public forwardFrom?: Interfaces.IUser;
 
-  public forwardFromChat?: User;
+  public forwardFromChat?: Interfaces.IUser;
 
   public forwardFromMessageId?: number;
 
@@ -50,81 +50,81 @@ declare class ChannelPost extends Context {
 
   public text?: string;
 
-  public entities?: Array<MessageEntity>;
+  public entities?: Array<Interfaces.IMessage>;
 
   public hasEntities: boolean;
 
-  public captionEntities?: Array<MessageEntity>;
+  public captionEntities?: Array<Interfaces.IMessage>;
 
-  public audio?: Audio;
+  public audio?: Interfaces.IAudio;
 
-  public document?: Document;
+  public document?: Interfaces.IDocument;
 
-  public animation?: Animation;
+  public animation?: Interfaces.IAnimation;
 
-  public game?: Game;
+  public game?: Interfaces.IGame;
 
   public photo?: Interfaces.PhotoAttachment;
 
-  public sticker?: Sticker;
+  public sticker?: Interfaces.ISticker;
 
-  public video?: Video;
+  public video?: Interfaces.IVideo;
 
-  public voice?: Voice;
+  public voice?: Interfaces.IVoice;
 
-  public videoNote?: VideoNote;
+  public videoNote?: Interfaces.IVideoNote;
 
   public caption?: string;
 
-  public contact?: Contact;
+  public contact?: Interfaces.IContact;
 
-  public location?: Location;
+  public location?: Interfaces.ILocation;
 
-  public venue?: Venue;
+  public venue?: Interfaces.IVenue;
 
-  public poll?: Poll;
+  public poll?: Interfaces.IPoll;
 
-  public dice?: Dice;
+  public dice?: Interfaces.IDice;
 
-  public attachments: Array<Attachment>;
+  public attachments: Array<Types.Attachments>;
 
   public hasAttachments(type?: Types.AttachmentTypes): boolean;
 
-  public getAttachments(type: 'audio'): Array<Audio>;
+  public getAttachments(type: 'audio'): Array<Interfaces.IAudio>;
 
-  public getAttachments(type: 'document'): Array<Document>;
+  public getAttachments(type: 'document'): Array<Interfaces.IDocument>;
 
-  public getAttachments(type: 'animation'): Array<Animation>;
+  public getAttachments(type: 'animation'): Array<Interfaces.IAnimation>;
 
-  public getAttachments(type: 'game'): Array<Game>;
+  public getAttachments(type: 'game'): Array<Interfaces.IGame>;
 
-  public getAttachments(type: 'photo'): Array<Array<PhotoSize>>;
+  public getAttachments(type: 'photo'): Array<Array<Interfaces.IPhotoSize>>;
 
-  public getAttachments(type: 'sticker'): Array<Sticker>;
+  public getAttachments(type: 'sticker'): Array<Interfaces.ISticker>;
 
-  public getAttachments(type: 'video'): Array<Video>;
+  public getAttachments(type: 'video'): Array<Interfaces.IVideo>;
 
-  public getAttachments(type: 'voice'): Array<Voice>;
+  public getAttachments(type: 'voice'): Array<Interfaces.IVoice>;
 
-  public getAttachments(type: 'video_note' | 'videoNote'): Array<VideoNote>;
+  public getAttachments(type: 'video_note' | 'videoNote'): Array<Interfaces.IVideoNote>;
 
-  public getAttachments(type: 'contact'): Array<Contact>;
+  public getAttachments(type: 'contact'): Array<Interfaces.IContact>;
 
-  public getAttachments(type: 'location'): Array<Location>;
+  public getAttachments(type: 'location'): Array<Interfaces.ILocation>;
 
-  public getAttachments(type: 'venue'): Array<Venue>;
+  public getAttachments(type: 'venue'): Array<Interfaces.IVenue>;
 
-  public getAttachments(type: 'poll'): Array<Poll>;
+  public getAttachments(type: 'poll'): Array<Interfaces.IPoll>;
 
   public getAttachments(type?: Types.AttachmentTypes): boolean;
 
-  public newChatMembers?: Array<User>;
+  public newChatMembers?: Array<Interfaces.IUser>;
 
-  public leftChatMember?: User;
+  public leftChatMember?: Interfaces.IUser;
 
   public newChatTitle?: string;
 
-  public newChatPhoto?: Array<PhotoSize>;
+  public newChatPhoto?: Array<Interfaces.IPhotoSize>;
 
   public deleteChatPhoto?: true;
 
@@ -140,15 +140,15 @@ declare class ChannelPost extends Context {
 
   public pinnedMessage?: MessageContext;
 
-  public invoice?: Invoice;
+  public invoice?: Interfaces.IInvoice;
 
-  public successfulPayment?: SuccessfulPayment;
+  public successfulPayment?: Interfaces.ISuccessfulPayment;
 
   public connectedWebsite?: string;
 
-  public passportData?: PassportData;
+  public passportData?: Interfaces.IPassportData;
 
-  public replyMarkup?: InlineKeyboardMarkup;
+  public replyMarkup?: Interfaces.IInlineKeyboardMarkup;
 
   public isEvent: boolean;
 

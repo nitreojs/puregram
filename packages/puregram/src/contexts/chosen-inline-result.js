@@ -1,8 +1,11 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
+let MessageContext = require('./message');
 
 let User = require('../structures/user');
+let Poll = require('../structures/poll');
+let UserProfilePhotos = require('../structures/user-profile-photos');
 
 let { filterPayload } = require('../utils');
 
@@ -273,13 +276,6 @@ class ChosenInlineResult extends Context {
     });
 
     return new Poll(response);
-  }
-
-  replyWithContact(poll, params = {}) {
-    return this.sendPoll(poll, {
-      reply_to_message_id: this.id,
-      ...params,
-    });
   }
 
   sendChatAction(action, params = {}) {

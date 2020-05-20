@@ -116,7 +116,7 @@ class Updates {
     return this;
   }
 
-  startPolling() {
+  async startPolling() {
     if (this.isStarted) {
       throw new Error('Polling is already started');
     }
@@ -124,7 +124,7 @@ class Updates {
     this.isStarted = true;
 
     try {
-      return this.startFetchLoop();
+      this.startFetchLoop();
     } catch (e) {
       this.isStarted = false;
 
@@ -137,12 +137,8 @@ class Updates {
   }
 
   async startFetchLoop() {
-    try {
-      while (this.isStarted) {
-        await this.fetchUpdates();
-      }
-    } catch (e) {
-      throw e;
+    while (this.isStarted) {
+      await this.fetchUpdates();
     }
   }
 

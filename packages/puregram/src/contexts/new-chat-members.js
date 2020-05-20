@@ -5,6 +5,7 @@ let MessageContext = require('./message');
 
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
+let Poll = require('../structures/poll');
 let UserProfilePhotos = require('../structures/user-profile-photos');
 
 class NewChatMembers extends Context {
@@ -306,13 +307,6 @@ class NewChatMembers extends Context {
     });
 
     return new Poll(response);
-  }
-
-  replyWithContact(poll, params = {}) {
-    return this.sendPoll(poll, {
-      reply_to_message_id: this.id,
-      ...params,
-    });
   }
 
   sendChatAction(action, params = {}) {

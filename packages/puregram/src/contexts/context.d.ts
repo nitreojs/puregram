@@ -1,4 +1,4 @@
-import { ITelegramParams, AllowArray } from "../../typings/params";
+import { ITelegramParams, AllowArray } from '../../typings/params';
 
 declare class Context {
   public constructor(telegram: ITelegramParams, type: string);

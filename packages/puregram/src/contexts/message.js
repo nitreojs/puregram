@@ -23,6 +23,7 @@ let UserProfilePhotos = require('../structures/user-profile-photos');
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
 let Dice = require('../structures/dice');
+let Poll = require('../structures/poll');
 let EVENTS = require('../structures/events');
 
 let { filterPayload } = require('../utils');

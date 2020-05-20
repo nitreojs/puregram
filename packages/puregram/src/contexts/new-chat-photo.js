@@ -5,6 +5,7 @@ let MessageContext = require('./message');
 
 let User = require('../structures/user');
 let Chat = require('../structures/chat');
+let Poll = require('../structures/poll');
 let PhotoSize = require('../structures/photo-size');
 let PhotoAttachment = require('../structures/photo');
 let UserProfilePhotos = require('../structures/user-profile-photos');
@@ -312,13 +313,6 @@ class NewChatPhoto extends Context {
     return new Poll(response);
   }
 
-  replyWithContact(poll, params = {}) {
-    return this.sendPoll(poll, {
-      reply_to_message_id: this.id,
-      ...params,
-    });
-  }
-
   sendChatAction(action, params = {}) {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId,
@@ -404,14 +398,6 @@ class NewChatPhoto extends Context {
     });
 
     return new MessageContext(this.telegram, response);
-  }
-
-  get eventPhoto() {
-    return new PhotoAttachment(
-      ...this.update.new_chat_photo.map(
-        e => new PhotoSize(e),
-      )
-    );
   }
 
   async sendDice(params = {}) {

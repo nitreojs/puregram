@@ -53,6 +53,9 @@ class User {
       lastName: this.lastName,
       username: this.username,
       languageCode: this.languageCode,
+      canJoinGroups: this.canJoinGroups,
+      canReadAllGroupMessages: this.canReadAllGroupMessages,
+      supportsInlineQueries: this.supportsInlineQueries
     };
 
     payloadToInspect = filterPayload(payloadToInspect);

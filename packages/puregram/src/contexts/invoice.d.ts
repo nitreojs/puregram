@@ -1,5 +1,5 @@
-import Params from "../../typings/params";
-import Interfaces from "../../typings/interfaces";
+import Params from '../../typings/params';
+import Interfaces from '../../typings/interfaces';
 import MessageContext from './message';
 import InvoiceStructure from '../structures/invoice';
 import Context from './context';

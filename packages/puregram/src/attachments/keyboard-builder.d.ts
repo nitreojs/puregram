@@ -1,6 +1,6 @@
 import Types from '../../typings/types';
 
-interface IKeyboardOptions {
+export interface IKeyboardOptions {
   /**
    * Text of the button.
    * If none of the optional fields are used,
@@ -31,7 +31,7 @@ interface IKeyboardOptions {
   request_poll?: IKeyboardButtonPollType;
 }
 
-interface IKeyboardButtonPollType {
+export interface IKeyboardButtonPollType {
   /**
    * If `quiz` is passed, the user will be allowed to
    * create only polls in the quiz mode.

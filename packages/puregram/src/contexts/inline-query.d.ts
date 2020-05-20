@@ -1,9 +1,6 @@
-import Params from "../../typings/params";
-import Interfaces from "../../typings/interfaces";
-import MessageContext from './message';
+import Params from '../../typings/params';
+import Interfaces from '../../typings/interfaces';
 import Context from './context';
-
-type MessageOrTrue = MessageContext | true;
 
 declare class InlineQuery extends Context {
   public constructor(telegram: Params.ITelegramParams, update: object);

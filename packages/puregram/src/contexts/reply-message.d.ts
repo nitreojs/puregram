@@ -1,16 +1,11 @@
-import Params from "../../typings/params";
-import Interfaces from "../../typings/interfaces";
+import Params from '../../typings/params';
+import Interfaces from '../../typings/interfaces';
+import Types from '../../typings/types';
+
 import MessageContext from './message';
 import Context from './context';
 
 type MessageOrTrue = MessageContext | true;
-
-type Attachment =
-  | Audio   | Document  | Animation
-  | Game    | PhotoSize | Sticker
-  | Video   | Voice     | VideoNote
-  | Contact | Location  | Venue
-  | Poll;
 
 declare class ReplyMessage extends Context {
   public constructor(telegram: Params.ITelegramParams, update: object);
@@ -27,9 +22,9 @@ declare class ReplyMessage extends Context {
 
   public chatType?: Types.ChatTypes;
 
-  public forwardFrom?: User;
+  public forwardFrom?: Interfaces.IUser;
 
-  public forwardFromChat?: User;
+  public forwardFromChat?: Interfaces.IUser;
 
   public forwardFromMessageId?: number;
 
@@ -57,37 +52,37 @@ declare class ReplyMessage extends Context {
 
   public captionEntities?: Array<Interfaces.IMessageEntity>;
 
-  public audio?: Audio;
+  public audio?: Interfaces.IAudio;
 
-  public document?: Document;
+  public document?: Interfaces.IDocument;
 
-  public animation?: Animation;
+  public animation?: Interfaces.IAnimation;
 
-  public game?: Game;
+  public game?: Interfaces.IGame;
 
   public photo?: Interfaces.PhotoAttachment;
 
-  public sticker?: Sticker;
+  public sticker?: Interfaces.ISticker;
 
-  public video?: Video;
+  public video?: Interfaces.IVideo;
 
-  public voice?: Voice;
+  public voice?: Interfaces.IVoice;
 
-  public videoNote?: VideoNote;
+  public videoNote?: Interfaces.IVideoNote;
 
   public caption?: string;
 
-  public contact?: Contact;
+  public contact?: Interfaces.IContact;
 
-  public location?: Location;
+  public location?: Interfaces.ILocation;
 
-  public venue?: Venue;
+  public venue?: Interfaces.IVenue;
 
-  public poll?: Poll;
+  public poll?: Interfaces.IPoll;
 
-  public dice?: Dice;
+  public dice?: Interfaces.IDice;
 
-  public attachments: Array<Attachment>;
+  public attachments: Array<Types.Attachments>;
 
   public hasAttachments(type?: Types.AttachmentTypes): boolean;
 
@@ -121,7 +116,7 @@ declare class ReplyMessage extends Context {
 
   public newChatMembers?: Array<Interfaces.IUser>;
 
-  public leftChatMember?: User;
+  public leftChatMember?: Interfaces.IUser;
 
   public newChatTitle?: string;
 

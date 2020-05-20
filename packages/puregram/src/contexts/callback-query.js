@@ -7,6 +7,9 @@ let User = require('../structures/user');
 
 let { filterPayload } = require('../utils');
 
+let Poll = require('../structures/poll');
+let UserProfilePhotos = require('../structures/user-profile-photos');
+
 class CallbackQuery extends Context {
   constructor(telegram, update) {
     super(telegram, 'callback_query');
@@ -299,13 +302,6 @@ class CallbackQuery extends Context {
     });
 
     return new Poll(response);
-  }
-
-  replyWithContact(poll, params = {}) {
-    return this.sendPoll(poll, {
-      reply_to_message_id: this.message.id,
-      ...params,
-    });
   }
 
   sendChatAction(action, params = {}) {

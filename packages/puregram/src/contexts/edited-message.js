@@ -1,6 +1,7 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
+let MessageContext = require('./message');
 let ReplyMessageContext = require('./reply-message');
 
 let AnimationAttachment = require('../structures/animation');
@@ -599,13 +600,6 @@ class EditedMessageContext extends Context {
   }
 
   replyWithPoll(poll, params = {}) {
-    return this.sendPoll(poll, {
-      reply_to_message_id: this.id,
-      ...params,
-    });
-  }
-
-  replyWithContact(poll, params = {}) {
     return this.sendPoll(poll, {
       reply_to_message_id: this.id,
       ...params,

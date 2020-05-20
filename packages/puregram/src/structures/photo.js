@@ -5,7 +5,7 @@ class PhotoAttachment extends Array {
     super(...sizes);
 
     this.sizes = sizes;
-    
+
     this.sorted = this.sort(
       (a, b) => (b.width * b.height) - (a.width * a.height)
     );

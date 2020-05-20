@@ -1,5 +1,5 @@
-import Params from "../../typings/params";
-import Interfaces from "../../typings/interfaces";
+import Params from '../../typings/params';
+import Interfaces from '../../typings/interfaces';
 import Context from './context';
 import Types from '../../typings/types';
 

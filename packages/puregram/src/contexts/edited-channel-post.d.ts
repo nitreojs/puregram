@@ -154,6 +154,12 @@ declare class EditedChannelPost extends Context {
 
   public isPM: boolean;
 
+  public isGroup: boolean;
+
+  public isChannel: boolean;
+
+  public isSupergroup: boolean;
+
   /**
    * Use this method to send text messages.
    *

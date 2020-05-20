@@ -395,6 +395,21 @@ declare class MessageContext extends Context {
   public isPM: boolean;
 
   /**
+   * Is this message sent to the group?
+   */
+  public isGroup: boolean;
+
+  /**
+   * Is this message sent to the channel?
+   */
+  public isChannel: boolean;
+
+  /**
+   * Is this message sent to the supergroup?
+   */
+  public isSupergroup: boolean;
+
+  /**
    * Use this method to send text messages.
    *
    * On success, the sent `Message` is returned.

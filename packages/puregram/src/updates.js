@@ -3,6 +3,8 @@ let debug = require('debug')('puregram:updates');
 
 let Contexts = require('./contexts');
 
+let User = require('./structures/user');
+
 let contexts = {
   message: Contexts.Message,
   edited_message: Contexts.EditedMessage,
@@ -122,6 +124,14 @@ class Updates {
     }
 
     this.isStarted = true;
+
+    // Fetching bot data
+    let data = await this.api.getMe();
+
+    this.telegram.bot = new User(data);
+
+    debug('Fetched bot data');
+    debug(this.telegram.bot);
 
     try {
       this.startFetchLoop();

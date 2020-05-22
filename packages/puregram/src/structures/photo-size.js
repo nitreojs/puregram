@@ -9,6 +9,10 @@ class PhotoSize {
     return this.payload.file_id;
   }
 
+  get fileUniqueId() {
+    return this.payload.file_unique_id;
+  }
+
   get width() {
     return this.payload.width;
   }
@@ -30,6 +34,7 @@ class PhotoSize {
 
     let payloadToInspect = {
       fileId: this.fileId,
+      fileUniqueId: this.fileUniqueId,
       width: this.width,
       height: this.height,
       fileSize: this.fileSize,

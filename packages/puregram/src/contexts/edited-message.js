@@ -719,10 +719,10 @@ class EditedMessageContext extends Context {
 
     let payloadToInspect = {
       id: this.id,
-      from: filterPayload(this.from),
+      from: this.from,
       senderId: this.senderId,
       date: this.date,
-      chat: filterPayload(this.chat),
+      chat: this.chat,
       chatId: this.chatId,
       chatType: this.chatType,
       forwardFrom: this.forwardFrom,

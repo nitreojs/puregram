@@ -96,7 +96,7 @@ declare class ReplyMessage extends Context {
 
   public getAttachments(type: 'game'): Array<Interfaces.IGame>;
 
-  public getAttachments(type: 'photo'): Interfaces.PhotoAttachment;
+  public getAttachments(type: 'photo'): Array<Interfaces.PhotoAttachment>;
 
   public getAttachments(type: 'sticker'): Array<Interfaces.ISticker>;
 

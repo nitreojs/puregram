@@ -83,6 +83,22 @@ class MessageContext extends Context {
     return this.chat.type;
   }
 
+  get isPM() {
+    return this.chatType === 'private';
+  }
+
+  get isGroup() {
+    return this.chatType === 'group';
+  }
+
+  get isChannel() {
+    return this.chatType === 'channel';
+  }
+
+  get isSupergroup() {
+    return this.chatType === 'supergroup';
+  }
+
   get forwardFrom() {
     let { forward_from } = this.update;
 
@@ -399,22 +415,6 @@ class MessageContext extends Context {
 
   get hasForward() {
     return this.forwardFrom !== null;
-  }
-
-  get isPM() {
-    return this.chatType === 'private';
-  }
-
-  get isGroup() {
-    return this.chatType === 'group';
-  }
-
-  get isChannel() {
-    return this.chatType === 'channel';
-  }
-
-  get isSupergroup() {
-    return this.chatType === 'supergroup';
   }
 
   async send(text = '', params = {}) {

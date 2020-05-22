@@ -2479,4 +2479,10 @@ export interface ISetWebhookParams {
   allowed_updates?: Array<Types.ContextPossibleTypes>
 }
 
+export interface ITokenizeParams {
+  text: string;
 
+  entities: Array<Interfaces.IMessageEntity>;
+
+  parseMode: Types.ParseModes;
+}

@@ -3,7 +3,7 @@ let MarkdownV2 = require('./attachments/markdown-v2');
 let HTML = require('./attachments/html');
 
 class Utils {
-  static tokenize({ text, entities, parseMode } = {}) {
+  tokenize({ text, entities, parseMode } = {}) {
     if (!entities.length) return text;
 
     let parseModes = {

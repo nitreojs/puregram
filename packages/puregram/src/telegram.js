@@ -23,7 +23,7 @@ class Telegram {
 
     this.api = new API(this);
     this.updates = new Updates(this);
-    this.utils = Utils;
+    this.utils = new Utils();
   }
 }
 

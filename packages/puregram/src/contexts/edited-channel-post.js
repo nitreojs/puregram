@@ -153,7 +153,7 @@ class EditedChannelPostContext extends Context {
   }
 
   get hasEntities() {
-    return this.entities && this.captionEntities;
+    return Boolean(this.entities || this.captionEntities);
   }
 
   get audio() {

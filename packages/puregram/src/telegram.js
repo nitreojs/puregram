@@ -2,6 +2,7 @@ let https = require('https');
 
 let API = require('./api');
 let Updates = require('./updates');
+let Utils = require('./telegram-utils');
 
 class Telegram {
   constructor({
@@ -22,6 +23,7 @@ class Telegram {
 
     this.api = new API(this);
     this.updates = new Updates(this);
+    this.utils = Utils;
   }
 }
 

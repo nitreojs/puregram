@@ -3,7 +3,7 @@
 Puregram is a powerful Node.js package that allows you to work with Telegram API 🚀
 
 ## Installation
-> **[Node.js](https://nodejs.org/) 8.0.0 or newer is required**  
+> **[Node.js](https://nodejs.org/) 8.0.0 or newer is required**
 
 ### Yarn
 ```
@@ -20,13 +20,13 @@ npm i puregram
 let { Telegram } = require('puregram');
 
 let telegram = new Telegram({
-  token: process.env.TOKEN,
+  token: process.env.TOKEN
 });
 
 telegram.updates.on('message', context => context.send('Hi!'));
 
 telegram.updates.startPolling().then(
-  () => console.log('Started polling')
+  () => console.log(`Started polling ${telegram.bot.data}!`)
 );
 ```
 

@@ -10,19 +10,13 @@ let telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-/*
- * We will be using this as bot's data
- * (see line 60)
- */
-let botData = {};
-
 telegram.updates.hear(
   /^\/start$/i,
   (context) => context.send(
     stripIndents`
       This is an <b>inline</b> bot which allows you to <b>get your ID</b> in Telegram.
 
-      Just type <code>@${botData.username}</code> and <b>click</b> on inline cell!
+      Just type <code>@${telegram.bot.username}</code> and <b>click</b> on inline cell!
     `,
     { parse_mode: 'HTML' }
   )
@@ -58,9 +52,5 @@ telegram.updates.on(
 )
 
 telegram.updates.startPolling().then(
-  async () => {
-    botData = await telegram.api.getMe();
-
-    console.log('Started polling!');
-  }
+  () => console.log('Started polling!')
 ).catch(console.error);

@@ -6,12 +6,6 @@
 let { stripIndents } = require('common-tags');
 let { Telegram } = require('puregram');
 
-/*
- * We will be using this as bot's data
- * (see line 50)
- */
-let data = null;
-
 let telegram = new Telegram({
   token: process.env.TOKEN
 });
@@ -39,7 +33,7 @@ telegram.updates.hear(
       <i>Nobody invited you to this bot! :(</i>
       But you can invite everyone you want!
 
-      Share this link to anyone you want to invite: t.me/${data.username}?start=${context.senderId}
+      Share this link to anyone you want to invite: t.me/${telegram.bot.username}?start=${context.senderId}
     `
 
     return context.send(message, { parse_mode: 'HTML' });
@@ -47,10 +41,8 @@ telegram.updates.hear(
 );
 
 telegram.updates.startPolling().then(
-  async () => {
-    data = await telegram.api.getMe();
-
+  () => {
     console.log('Started polling, fetched bot info:');
-    console.log(`Info: ${data.first_name} (@${data.username})`);
+    console.log(`Info: ${telegram.bot.firstName} (@${telegram.bot.username})`);
   }
 ).catch(console.error);

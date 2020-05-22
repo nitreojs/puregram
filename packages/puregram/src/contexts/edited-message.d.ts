@@ -53,6 +53,8 @@ declare class EditedMessage extends Context {
 
   public captionEntities?: Array<Interfaces.IMessageEntity>;
 
+  public $match: RegExpMatchArray;
+
   public audio?: Interfaces.IAudio;
 
   public document?: Interfaces.IDocument;

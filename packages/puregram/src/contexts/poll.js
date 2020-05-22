@@ -56,7 +56,7 @@ class Poll extends Context {
     if (!explanation_entities) return null;
 
     return explanation_entities.map(
-      e => new MessageEntity(e),
+      e => new MessageEntity(e)
     );
   }
 

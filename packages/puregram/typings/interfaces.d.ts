@@ -256,7 +256,7 @@ export interface IMessage {
    * identifier of the original message in the channel
    */
   forwardFromMessageId?: number;
-  
+
   /**
    * For messages forwarded from channels,
    * signature of the post author if present
@@ -301,9 +301,19 @@ export interface IMessage {
   authorSignature?: string;
 
   /**
+   * Regexp match
+   */
+  $match: RegExpMatchArray;
+
+  /**
    * For text messages, the actual UTF-8 text of the message, 0-4096 characters.
    */
   text?: string;
+
+  /**
+   * [Deep-linking](https://core.telegram.org/bots#deep-linking) payload
+   */
+  startPayload?: string | number | object;
 
   /**
    * For text messages, special entities like usernames,

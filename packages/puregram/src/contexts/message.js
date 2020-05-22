@@ -169,10 +169,6 @@ class MessageContext extends Context {
     );
   }
 
-  get hasEntities() {
-    return this.entities.length !== 0;
-  }
-
   get dice() {
     let { dice } = this.update;
 
@@ -189,6 +185,10 @@ class MessageContext extends Context {
     return caption_entities.map(
       e => new MessageEntity(e),
     );
+  }
+
+  get hasEntities() {
+    return this.entities && this.captionEntities;
   }
 
   get audio() {
@@ -222,7 +222,7 @@ class MessageContext extends Context {
 
     return new PhotoAttachment(
       ...photo.map(
-        e => new PhotoSize(e),
+        e => new PhotoSize(e)
       )
     );
   }
@@ -266,7 +266,7 @@ class MessageContext extends Context {
 
     return location ? new LocationAttachment(location) : null;
   }
-  
+
   get venue() {
     let { venue } = this.update;
 

@@ -128,6 +128,10 @@ class ReplyMessageContext {
     return this.context.caption_entities || null;
   }
 
+  get hasEntities() {
+    return this.entities && this.captionEntities;
+  }
+
   get audio() {
     return this.context.audio || null;
   }

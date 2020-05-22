@@ -4,7 +4,6 @@ let { Readable } = require('stream');
 let fs = require('fs');
 
 let APIError = require('./attachments/apierror');
-let User = require('./structures/user');
 
 class API {
   constructor(telegram) {
@@ -644,6 +643,7 @@ async function getResponse(value, { method, key, params, telegram }) {
   }
 
   if (form && key in params && !isPath) {
+    // eslint-disable-next-line no-unused-vars
     let { [key]: _, ...tempParams } = params;
 
     params = tempParams;

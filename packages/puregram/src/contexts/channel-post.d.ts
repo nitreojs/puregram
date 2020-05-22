@@ -54,7 +54,9 @@ declare class ChannelPost extends Context {
 
   public hasEntities: boolean;
 
-  public captionEntities?: Array<Interfaces.IMessage>;
+  public captionEntities?: Array<Interfaces.IMessageEntity>;
+
+  public $match: RegExpMatchArray;
 
   public audio?: Interfaces.IAudio;
 

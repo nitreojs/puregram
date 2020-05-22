@@ -139,6 +139,11 @@ declare class MessageContext extends Context {
   public entities?: Array<Interfaces.IMessageEntity>;
 
   /**
+   * Regexp match
+   */
+  public $match: RegExpMatchArray;
+
+  /**
    * Does message have any entities?
    */
   public hasEntities: boolean;

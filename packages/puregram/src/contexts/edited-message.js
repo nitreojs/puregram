@@ -152,6 +152,10 @@ class EditedMessageContext extends Context {
     );
   }
 
+  get hasEntities() {
+    return this.entities && this.captionEntities;
+  }
+
   get audio() {
     let { audio } = this.update;
 

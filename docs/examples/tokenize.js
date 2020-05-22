@@ -1,6 +1,6 @@
 // This is an example how to work with `telegram.utils.tokenize` method
 
-let { Telegram } = require('../../packages/puregram');
+let { Telegram } = require('puregram');
 
 let telegram = new Telegram({
   token: process.env.TOKEN

@@ -1,15 +1,16 @@
 let { inspect } = require('util');
 
-let MessageContext = require('./message');
+let MessageContext = require('../contexts/message');
 
-let User = require('../structures/user');
-let Chat = require('../structures/chat');
-let Poll = require('../structures/poll');
-let UserProfilePhotos = require('../structures/user-profile-photos');
+let User = require('./user');
+let Chat = require('./chat');
+let Poll = require('./poll');
+let UserProfilePhotos = require('./user-profile-photos');
+let ForwardMessage = require('../structures/forward-message');
 
 let { filterPayload } = require('../utils');
 
-class ReplyMessageContext {
+class ReplyMessage {
   constructor(context) {
     this.context = context;
   }
@@ -30,7 +31,7 @@ class ReplyMessageContext {
     return this.from ? this.from.id : null;
   }
 
-  get date() {
+  get createdAt() {
     return this.context.date || null;
   }
 
@@ -64,8 +65,14 @@ class ReplyMessageContext {
     return this.chatType === 'supergroup';
   }
 
+  get forward() {
+    if (this.update.forward_date) return new ForwardMessage(this.update);
+
+    return null;
+  }
+
   get forwardFrom() {
-    let { forward_from: forwardFrom } = this.context;
+    let { forward_from: forwardFrom } = this.update;
 
     if (!forwardFrom) return null;
 
@@ -73,7 +80,7 @@ class ReplyMessageContext {
   }
 
   get forwardFromChat() {
-    let { forward_from_chat: forwardFromChat } = this.context;
+    let { forward_from_chat: forwardFromChat } = this.update;
 
     if (!forwardFromChat) return null;
 
@@ -81,19 +88,19 @@ class ReplyMessageContext {
   }
 
   get forwardFromMessageId() {
-    return this.context.forward_from_message_id || null;
+    return this.update.forward_from_message_id || null;
   }
 
   get forwardSignature() {
-    return this.context.forward_signature || null;
+    return this.update.forward_signature || null;
   }
 
   get forwardSenderName() {
-    return this.context.forward_sender_name || null;
+    return this.update.forward_sender_name || null;
   }
 
   get forwardDate() {
-    return this.context.forward_date || null;
+    return this.update.forward_date || null;
   }
 
   get replyMessage() {
@@ -101,7 +108,7 @@ class ReplyMessageContext {
 
     if (!replyMessage) return null;
 
-    return new ReplyMessageContext(replyMessage);
+    return new ReplyMessage(replyMessage);
   }
 
   get editDate() {
@@ -601,15 +608,10 @@ class ReplyMessageContext {
       id: this.id,
       from: this.from,
       senderId: this.senderId,
-      date: this.date,
+      createdAt: this.createdAt,
       chat: this.chat,
       chatId: this.chatId,
-      forwardFrom: this.forwardFrom,
-      forwardFromChat: this.forwardFromChat,
-      forwardFromMessageId: this.forwardFromMessageId,
-      forwardSignature: this.forwardSignature,
-      forwardSenderName: this.forwardSenderName,
-      forwardDate: this.forwardDate,
+      forward: this.forward,
       replyMessage: this.replyMessage,
       editDate: this.editDate,
       mediaGroupId: this.mediaGroupId,
@@ -657,4 +659,4 @@ class ReplyMessageContext {
   }
 }
 
-module.exports = ReplyMessageContext;
+module.exports = ReplyMessage;

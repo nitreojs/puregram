@@ -16,7 +16,7 @@ declare class SupergroupChatCreated extends Context {
 
   public senderId?: number;
 
-  public date?: number;
+  public createdAt?: number;
 
   public chat?: Interfaces.IChat;
 

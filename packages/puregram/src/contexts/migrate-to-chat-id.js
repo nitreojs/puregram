@@ -31,7 +31,7 @@ class MigrateToChatId extends Context {
     return this.from ? this.from.id : null;
   }
 
-  get date() {
+  get createdAt() {
     return this.update.date || null;
   }
 
@@ -307,13 +307,6 @@ class MigrateToChatId extends Context {
     return new Poll(response);
   }
 
-  replyWithContact(poll, params = {}) {
-    return this.sendPoll(poll, {
-      reply_to_message_id: this.id,
-      ...params,
-    });
-  }
-
   sendChatAction(action, params = {}) {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId,
@@ -425,7 +418,7 @@ class MigrateToChatId extends Context {
       id: this.id,
       from: this.from,
       senderId: this.senderId,
-      date: this.date,
+      createdAt: this.createdAt,
       chat: this.chat,
       chatId: this.chatId,
       chatType: this.chatType,

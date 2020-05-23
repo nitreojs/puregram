@@ -32,7 +32,7 @@ class PinnedMessageContext extends Context {
     return this.from ? this.from.id : null;
   }
 
-  get date() {
+  get createdAt() {
     return this.update.date || null;
   }
 
@@ -422,7 +422,7 @@ class PinnedMessageContext extends Context {
       id: this.id,
       from: this.from,
       senderId: this.senderId,
-      date: this.date,
+      createdAt: this.createdAt,
       chat: this.chat,
       chatId: this.chatId,
       chatType: this.chatType,

@@ -2,7 +2,9 @@ import Params from '../../typings/params';
 import Interfaces from '../../typings/interfaces';
 import Types from '../../typings/types';
 
-import ReplyMessageContext from './reply-message';
+import ReplyMessage from '../structures/reply-message';
+import ForwardMessage from '../structures/forward-message';
+
 import MessageContext from './message';
 import Context from './context';
 
@@ -23,21 +25,45 @@ declare class EditedChannelPost extends Context {
 
   public chatType?: Types.ChatTypes;
 
+  public forward?: ForwardMessage;
+
+  /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.from` instead
+   */
   public forwardFrom?: Interfaces.IUser;
 
-  public forwardFromChat?: Interfaces.IUser;
+  /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.chat` instead
+   */
+  public forwardFromChat?: Interfaces.IChat;
 
+  /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.messageId` instead
+   */
   public forwardFromMessageId?: number;
 
+  /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.signature` instead
+   */
   public forwardSignature?: string;
 
+  /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.senderName` instead
+   */
   public forwardSenderName?: string;
 
+  /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.createdAt` instead
+   */
   public forwardDate?: number;
 
-  public isForward: boolean;
-
-  public replyMessage?: ReplyMessageContext;
+  public replyMessage?: ReplyMessage;
 
   public editDate?: number;
 
@@ -155,7 +181,7 @@ declare class EditedChannelPost extends Context {
 
   public hasText: boolean;
 
-  public hasForward: boolean;
+  public isForward: boolean;
 
   public isPM: boolean;
 

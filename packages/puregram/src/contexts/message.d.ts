@@ -3,6 +3,7 @@ import Types from '../../typings/types';
 import Interfaces from '../../typings/interfaces';
 
 import Context from './context';
+import ForwardMessage from '../structures/forward-message';
 
 type Attachment =
   | Interfaces.IAudio
@@ -47,7 +48,7 @@ declare class MessageContext extends Context {
   /**
    * Date the message was sent in Unix time
    */
-  public date: number;
+  public createdAt: number;
 
   /**
    * Conversation the message belongs to
@@ -65,40 +66,58 @@ declare class MessageContext extends Context {
   public chatType: Types.ChatTypes;
 
   /**
+   * Information about forwarded message
+   */
+  public forward?: ForwardMessage;
+
+  /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.from` instead
+   *
    * For forwarded messages, sender of the original message
    */
   public forwardFrom?: Interfaces.IUser;
 
   /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.chat` instead
+   *
    * For messages forwarded from channels, information about the original channel
    */
-  public forwardFromChat?: Interfaces.IUser;
+  public forwardFromChat?: Interfaces.IChat;
 
   /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.messageId` instead
+   *
    * For messages forwarded from channels, identifier of the original message in the channel
    */
   public forwardFromMessageId?: number;
 
   /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.signature` instead
+   *
    * For messages forwarded from channels, signature of the post author if present
    */
   public forwardSignature?: string;
 
   /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.senderName` instead
+   *
    * Sender's name for messages forwarded from users
    * who disallow adding a link to their account in forwarded messages
    */
   public forwardSenderName?: string;
 
   /**
+   * DEPRECATED, will be removed in v2.
+   * Use `context.forward.createdAt` instead
+   *
    * For forwarded messages, date the original message was sent in Unix time
    */
   public forwardDate?: number;
-
-  /**
-   * Is message a forwarded one?
-   */
-  public isForward: boolean;
 
   /**
    * For replies, the original message.
@@ -392,7 +411,7 @@ declare class MessageContext extends Context {
   /**
    * Does the message have forward messages?
    */
-  public hasForward: boolean;
+  public isForward: boolean;
 
   /**
    * Is this message sent to the private messages?

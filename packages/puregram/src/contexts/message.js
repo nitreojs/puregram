@@ -1,7 +1,7 @@
 let { inspect } = require('util');
 
 let Context = require('./context');
-let ReplyMessageContext = require('./reply-message');
+let ReplyMessage = require('../structures/reply-message');
 
 let AnimationAttachment = require('../structures/animation');
 let AudioAttachment = require('../structures/audio');
@@ -25,6 +25,7 @@ let Chat = require('../structures/chat');
 let Dice = require('../structures/dice');
 let Poll = require('../structures/poll');
 let EVENTS = require('../structures/events');
+let ForwardMessage = require('../structures/forward-message');
 
 let { filterPayload } = require('../utils');
 
@@ -65,7 +66,7 @@ class MessageContext extends Context {
     return this.from
   }
 
-  get date() {
+  get createdAt() {
     return this.update.date || null;
   }
 
@@ -99,12 +100,18 @@ class MessageContext extends Context {
     return this.chatType === 'supergroup';
   }
 
+  get forward() {
+    if (this.update.forward_date) return new ForwardMessage(this.update);
+
+    return null;
+  }
+
   get forwardFrom() {
-    let { forward_from } = this.update;
+    let { forward_from: forwardFrom } = this.update;
 
-    if (!forward_from) return null;
+    if (!forwardFrom) return null;
 
-    return new User(forward_from);
+    return new User(forwardFrom);
   }
 
   get forwardFromChat() {
@@ -131,16 +138,12 @@ class MessageContext extends Context {
     return this.update.forward_date || null;
   }
 
-  get isForward() {
-    return this.forwardFrom !== null;
-  }
-
   get replyMessage() {
     let { reply_to_message: replyMessage } = this.update;
 
     if (!replyMessage) return null;
 
-    return new ReplyMessageContext(replyMessage);
+    return new ReplyMessage(replyMessage);
   }
 
   get editDate() {
@@ -413,8 +416,8 @@ class MessageContext extends Context {
     return this.text !== null;
   }
 
-  get hasForward() {
-    return this.forwardFrom !== null;
+  get isForward() {
+    return this.forward !== null;
   }
 
   async send(text = '', params = {}) {
@@ -766,17 +769,11 @@ class MessageContext extends Context {
       id: this.id,
       from: this.from,
       senderId: this.senderId,
-      date: this.date,
+      createdAt: this.createdAt,
       chat: this.chat,
       chatId: this.chatId,
       chatType: this.chatType,
-      forwardFrom: this.forwardFrom,
-      forwardFromChat: this.forwardFromChat,
-      forwardFromMessageId: this.forwardFromMessageId,
-      forwardSignature: this.forwardSignature,
-      forwardSenderName: this.forwardSenderName,
-      forwardDate: this.forwardDate,
-      isForward: this.isForward,
+      forward: this.forward,
       replyMessage: this.replyMessage,
       editDate: this.editDate,
       mediaGroupId: this.mediaGroupId,

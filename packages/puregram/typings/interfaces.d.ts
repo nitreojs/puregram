@@ -232,7 +232,7 @@ export interface IMessage {
   /**
    * Date the message was sent in Unix time
    */
-  date: number;
+  createdAt: number;
 
   /**
    * Conversation the message belongs to

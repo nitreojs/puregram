@@ -42,9 +42,10 @@ telegram.updates.startPolling().then(
 
 * [QiwiBot](https://t.me/qiwionebot) - helps to work with [QIWI](https://qiwi.com) wallet
 * [Magnit X](https://t.me/magnitxbot) - saves your money on payments in [Magnit](https://magnit.ru) shop
-* [Telegram Anonym Chat](https://t.me/ruanon_bot) - anonymous chat with other people in Telegram
+* [Telegram Anonym Chat](https://t.me/RuAnon_bot) - anonymous chat with other people in Telegram
 * [Get My ID](https://t.me/receive_my_id_bot) - bot from [example (get-id-bot.js)](https://github.com/nitreojs/puregram/blob/master/docs/examples/get-id-bot.js)
 * [Brawl Stars](https://t.me/BrawlStarsInlineBot) - bot to get user's or club's statistics in Brawl Stars
+* [Message Payload Bot](https://t.me/MessagePayloadBot) - bot to get all message's payload
 
 If you want to see your bot here — PM [me](https://t.me/nitrojs) _(I will add up to 10 bots here)_
 

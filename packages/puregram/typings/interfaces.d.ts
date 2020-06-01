@@ -522,7 +522,7 @@ interface IInlineKeyboardButton {
 interface ITextButtonParams {
   text: string;
 
-  params?: object;
+  payload?: object;
 }
 
 interface IUrlButtonParams {
@@ -2115,13 +2115,13 @@ export interface ISticker {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  fileId: string;
 
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots.
    * Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  fileUniqueId: string;
 
   /**
    * Sticker width
@@ -2136,7 +2136,7 @@ export interface ISticker {
   /**
    * `True`, if the sticker is animated
    */
-  is_animated: boolean;
+  isAnimated: boolean;
 
   /**
    * Sticker thumbnail in the .WEBP or .JPG format
@@ -2151,17 +2151,17 @@ export interface ISticker {
   /**
    * Name of the sticker set to which the sticker belongs
    */
-  set_name?: string;
+  setName?: string;
 
   /**
    * For mask stickers, the position where the mask should be placed
    */
-  mask_position?: IMaskPosition;
+  maskPosition?: IMaskPosition;
 
   /**
    * File size
    */
-  file_size?: number;
+  fileSize?: number;
 }
 
 /**

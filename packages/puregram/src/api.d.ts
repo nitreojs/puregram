@@ -400,7 +400,7 @@ declare class API {
    *
    * On success, `True` is returned.
    */
-  answerCallbackQuery(params?: Params.IAnswerCallbackQueryParams): Promise<true>;
+  answerCallbackQuery(text: string, params?: Params.IAnswerCallbackQueryParams): Promise<true>;
 
   /**
    * Use this method to change the list of the bot's commands.

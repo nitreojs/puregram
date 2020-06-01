@@ -50,7 +50,7 @@ interface IInlineKeyboardOptions {
 interface ITextButtonParams {
   text: string;
 
-  params?: object;
+  payload?: object;
 }
 
 interface IUrlButtonParams {

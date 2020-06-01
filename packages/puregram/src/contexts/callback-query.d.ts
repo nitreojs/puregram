@@ -12,19 +12,29 @@ declare class CallbackQuery extends Context {
 
   public id: string;
 
-  public from?: Interfaces.IUser;
+  public from: Interfaces.IUser;
 
   public senderId?: number;
 
-  public message?: Interfaces.IMessage;
+  public message?: MessageContext;
 
-  public inline_message_id?: string;
+  public inlineMessageId?: string;
 
-  public chat_instance: string;
+  public chatInstance: string;
 
-  public data?: string;
+  public payload?: string | object;
 
-  public game_short_name?: string;
+  public gameShortName?: string;
+
+  /**
+   * Use this method to send answers to callback queries
+   * sent from inline keyboards.
+   * The answer will be displayed to the user as a notification
+   * at the top of the chat screen or as an alert.
+   *
+   * On success, `True` is returned.
+   */
+  answerCallbackQuery(text: string, params?: Params.IAnswerCallbackQueryParams): Promise<true>;
 
   /**
    * Use this method to send text messages.

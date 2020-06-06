@@ -146,6 +146,14 @@ class MessageContext extends Context {
     return new ReplyMessage(replyMessage);
   }
 
+  get viaBot() {
+    let { via_bot: viaBot } = this.update;
+
+    if (!viaBot) return null;
+
+    return new User(viaBot);
+  }
+
   get editDate() {
     return this.update.edit_date || null;
   }

@@ -70,8 +70,8 @@ export type MaskPositions =
   | 'mouth'    | 'chin';
 
 export type DocumentTypes = 'application/pdf' | 'application/zip';
-
 export type VideoTypes = 'text/html' | 'video/mp4';
+export type MimeTypes = 'image/jpeg' | 'image/gif' | 'video/mp4';
 
 export type PassportElementDataErrors =
   | 'personal_details' | 'passport'          | 'driver_license'

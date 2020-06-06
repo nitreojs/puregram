@@ -127,6 +127,11 @@ declare class MessageContext extends Context {
   public replyMessage?: Interfaces.IMessage;
 
   /**
+   * Bot through which the message was sent
+   */
+  public viaBot?: Interfaces.IUser;
+
+  /**
    * Date the message was last edited in Unix time
    */
   public editDate?: number;

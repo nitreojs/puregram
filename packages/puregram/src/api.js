@@ -642,7 +642,7 @@ async function getResponse(value, { method, key, params, telegram }) {
     form.append(key, stream);
   }
 
-  if (form && key in params && !isPath) {
+  if (form && key in params) {
     // eslint-disable-next-line no-unused-vars
     let { [key]: _, ...tempParams } = params;
 
@@ -651,7 +651,18 @@ async function getResponse(value, { method, key, params, telegram }) {
 
   if (form) {
     for (let [fKey, fValue] of Object.entries(params)) {
-      form.append(fKey, fValue);
+      let afValue = fValue;
+
+      if (typeof fValue === 'boolean') {
+        afValue = JSON.stringify(fValue);
+      }
+
+      // Is keyboard
+      if (fValue.toJSON) {
+        afValue = fValue.toJSON();
+      }
+
+      form.append(fKey, afValue);
     }
 
     response = await telegram.api.request({

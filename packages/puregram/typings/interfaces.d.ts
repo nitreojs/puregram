@@ -285,6 +285,11 @@ export interface IMessage {
   replyMessage?: IMessage;
 
   /**
+   * Bot through which the message was sent
+   */
+  viaBot?: IUser;
+
+  /**
    * Date the message was last edited in Unix time
    */
   editDate?: number;
@@ -3396,6 +3401,12 @@ export interface IInlineQueryResultGif {
   thumb_url: string;
 
   /**
+   * MIME type of the thumbnail,
+   * must be one of `image/jpeg`, `image/gif`, or `video/mp4`. Defaults to `image/jpeg`
+   */
+  thumb_mime_type?: Types.MimeTypes;
+
+  /**
    * A valid URL for the GIF file. File size must not exceed 1MB
    */
   gif_url: string;
@@ -3530,6 +3541,12 @@ export interface IInlineQueryResultMpeg4Gif {
    * URL of the static thumbnail (jpeg or gif) for the result
    */
   thumb_url: string;
+
+  /**
+   * MIME type of the thumbnail,
+   * must be one of `image/jpeg`, `image/gif`, or `video/mp4`. Defaults to `image/jpeg`
+   */
+  thumb_mime_type?: Types.MimeTypes;
 
   /**
    * Title for the result

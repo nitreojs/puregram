@@ -68,12 +68,18 @@ class API {
       body = JSON.stringify(query);
     }
 
-    let response = await fetch(url, {
-      method: 'POST',
-      headers: body instanceof FormData ? null : headers,
-      body,
-      agent: this.agent
-    });
+    let response = null;
+
+    try {
+      response = await fetch(url, {
+        method: 'POST',
+        headers: body instanceof FormData ? null : headers,
+        body,
+        agent: this.agent
+      });
+    } catch (e) {
+      throw e;
+    }
 
     let json = await response.json();
 

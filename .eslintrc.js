@@ -214,6 +214,7 @@ module.exports = {
         'no-use-before-define': 'off',
         'no-useless-backreference': 'error',
         'no-useless-call': 'error',
+        'no-useless-catch': 'off',
         'no-useless-computed-key': 'error',
         'no-useless-concat': 'error',
         'no-useless-constructor': 'error',

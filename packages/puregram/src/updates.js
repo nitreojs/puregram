@@ -138,6 +138,9 @@ class Updates {
     } catch (e) {
       this.isStarted = false;
 
+      debug('startPolling error');
+      debug(e);
+
       throw e;
     }
   }
@@ -148,7 +151,15 @@ class Updates {
 
   async startFetchLoop() {
     while (this.isStarted) {
-      await this.fetchUpdates();
+      try {
+        await this.fetchUpdates();
+      } catch (e) {
+        debug('startFetchLoop error');
+        debug(e);
+
+        this.stopPolling();
+        await this.startPolling();
+      }
     }
   }
 

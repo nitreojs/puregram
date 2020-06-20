@@ -248,6 +248,8 @@ class EditedChannelPostContext extends Context {
   }
 
   get attachments() {
+    if (this.newAttachments) return this.newAttachments;
+
     let attachments = [];
 
     if (this.audio) attachments.push(this.audio);
@@ -265,6 +267,10 @@ class EditedChannelPostContext extends Context {
     if (this.poll) attachments.push(this.poll);
 
     return attachments;
+  }
+
+  set attachments(newAttachments) {
+    this.newAttachments = newAttachments;
   }
 
   hasAttachments(type = null) {

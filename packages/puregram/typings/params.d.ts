@@ -10,6 +10,14 @@ export interface ITelegramParams {
   apiUrl?: string;
 
   agent?: Agent;
+
+  /**
+   * Should puregram merge all events with
+   * the same `mediaGroupId` into one event?
+   * 
+   * Example: [merge-events.js](https://github.com/nitreojs/puregram/blob/master/docs/examples/merge-events.js)
+   */
+  mergeEvents?: boolean;
 }
 
 export interface IGetUpdatesParams {

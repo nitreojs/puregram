@@ -172,18 +172,26 @@ class Updates {
 
     if (!updates.length) return;
 
-    updates.forEach(
-      async (update) => {
-        try {
-          await this.pollingHandler(update);
-        } catch (e) {
-          console.error('Handle polling update error:', e);
+    if (this.telegram.mergeEvents) {
+      try {
+        await this.mergePollingHandler(updates);
+      } catch (e) {
+        console.error('Handle polling update merging error:', e);
+      }
+    } else {
+      updates.forEach(
+        async (update) => {
+          try {
+            await this.pollingHandler(update);
+          } catch (e) {
+            console.error('Handle polling update error:', e);
+          }
         }
-      },
-    );
+      );
+    }
   }
 
-  async pollingHandler(update) {
+  async pollingHandler(update, merging = false) {
     this.offset = update.update_id + 1 || this.offset;
 
     let type = Object.keys(update).slice(1)[0];
@@ -217,7 +225,73 @@ class Updates {
       debug(context);
     }
 
-    return this.dispatchMiddleware(context);
+    if (!merging) return this.dispatchMiddleware(context);
+
+    return context;
+  }
+
+  async mergePollingHandler(updates) {
+    // eslint-cringe-code-linter-enable
+
+    const kContexts = await Promise.all(
+      updates.map(
+        update => this.pollingHandler(update, true)
+      )
+    );
+
+    const fContexts = kContexts.filter(
+      xContext => xContext.mediaGroupId
+    );
+
+    if (!fContexts.length) {
+      return updates.forEach(
+        async (update) => {
+          try {
+            await this.pollingHandler(update);
+          } catch (e) {
+            console.error('Handle polling update error:', e);
+          }
+        }
+      );
+    }
+
+    const mediaGroupIds = {};
+
+    fContexts.forEach(
+      (update) => {
+        if (!mediaGroupIds[update.mediaGroupId]) {
+          mediaGroupIds[update.mediaGroupId] = [];
+        }
+
+        mediaGroupIds[update.mediaGroupId].push(
+          update
+        );
+      }
+    );
+
+    const actualContexts = [];
+
+    //         Array<Context>
+    for (const arrayOfContexts of Object.values(mediaGroupIds)) {
+      let mainContext = arrayOfContexts[0];
+
+      arrayOfContexts.slice(1).forEach(
+        (context) => {
+          mainContext.attachments = [
+            ...mainContext.attachments,
+            ...context.attachments
+          ];
+        }
+      )
+
+      actualContexts.push(mainContext);
+    }
+
+    return actualContexts.forEach(
+      context => this.dispatchMiddleware(context)
+    );
+
+    // eslint-cringe-code-linter-disable
   }
 
   dispatchMiddleware(context) {

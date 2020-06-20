@@ -11,11 +11,13 @@ class Telegram {
     agent = new https.Agent({
       keepAlive: true,
       keepAliveMsecs: 1000,
-    })
+    }),
+    mergeEvents = false
   }) {
     this.token = token;
     this.baseApiUrl = `${apiUrl}${this.token}`;
     this.agent = agent;
+    this.mergeEvents = mergeEvents;
 
     if (this.baseApiUrl.startsWith('http://')) {
       this.agent = null;

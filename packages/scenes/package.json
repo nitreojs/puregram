@@ -1,23 +1,23 @@
 {
   "name": "@puregram/scenes",
-  "version": "1.0.0-rc.1",
+  "version": "2.0.0",
   "description": "Scenes for the library puregram",
-  "main": "src/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nitreojs/puregram.git"
+  "main": "lib/index",
+  "engines": {
+    "node": ">=12.0.0"
   },
-  "bugs": {
-    "url": "https://github.com/nitreojs/puregram/issues"
-  },
-  "homepage": "https://github.com/nitreojs/puregram#readme",
   "keywords": [
     "puregram",
+    "telegram",
     "scenes"
+  ],
+  "files": [
+    "lib"
   ],
   "author": "nitrojs",
   "license": "MIT",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "peerDependencies": {
+    "puregram": "^2.0.0",
+    "@puregram/session": "^2.0.0"
   }
 }

@@ -1,9 +1,9 @@
 # @puregram/session
 
-Puregram session - simple implementation of the sessions ⚙️
+`@puregram/session` is the simple implementation of sessions for `puregram` package
 
 ## Installation
-> **[Node.js](https://nodejs.org/) 8.0.0 or newer is required**  
+> **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
 
 ### Yarn
 ```
@@ -16,35 +16,30 @@ npm i @puregram/session
 ```
 
 ## Example usage
-```js
-let { Telegram } = require('puregram');
+```ts
+import { Telegram, MessageContext } from 'puregram';
+import { SessionManager, SessionInterface } from '@puregram/session';
+import { HearManager } from '@puregram/hear';
 
-let { SessionManager } = require('@puregram/session');
-
-let telegram = new Telegram({
-	token: process.env.TOKEN,
+const telegram: Telegram = new Telegram({
+  token: process.env.TOKEN
 });
 
-let sessionManager = new SessionManager();
+const sessionManager: SessionManager = new SessionManager();
+const hearManager: HearManager<MessageContext> = new HearManager<MessageContext>();
 
 telegram.updates.on('message', sessionManager.middleware);
+telegram.updates.on('message', hearManager.middleware);
 
-telegram.updates.on('message', async (context) => {
-  if (context.text !== '/counter') return;
+hearManager.hear(/^\/counter$/i, async (context: MessageContext & SessionInterface) => {
+  const { session } = context;
 
-  let { session } = context;
+  if (!session.counter) session.counter = 0;
 
-	if (!session.counter) {
-		session.counter = 0;
-	}
+  session.counter += 1;
 
-	session.counter += 1;
-
-	await context.send(`You turned to the bot (${session.counter}) times`);
+  await context.send(`You called the bot ${session.counter} times!`);
 });
 
-telegram.updates.start().catch(console.error);
+telegram.updates.startPolling().catch(console.error);
 ```
-
-## Implementation
-Implementation by [Negezor](https://github.com/negezor)

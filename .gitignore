@@ -44,8 +44,9 @@ jspm_packages/
 # TypeScript cache
 *.tsbuildinfo
 
-# Optional npm cache directory
+# Optional directories
 .npm
+.idea
 
 # Optional eslint cache
 .eslintcache
@@ -83,3 +84,6 @@ jspm_packages/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Other
+packages/**/lib

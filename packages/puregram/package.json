@@ -1,32 +1,32 @@
 {
   "name": "puregram",
-  "version": "1.1.9-rc.8",
-  "main": "src/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nitreojs/puregram.git"
-  },
+  "type": "module",
+  "version": "2.0.0",
+  "description": "Powerful Node.js package written on TypeScript that allows you to work with Telegram API",
+  "main": "lib/index",
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
+    "abort-controller": "^3.0.0",
     "debug": "^4.1.1",
     "form-data": "^3.0.0",
-    "middleware-io": "^2.1.0",
+    "inspectable": "^1.0.0",
+    "middleware-io": "^2.5.0",
     "node-fetch": "^2.6.0"
   },
-  "description": "",
-  "bugs": {
-    "url": "https://github.com/nitreojs/puregram/issues"
-  },
-  "homepage": "https://github.com/nitreojs/puregram#readme",
   "keywords": [
     "telegram",
     "api",
-    "telegram-api"
+    "sdk",
+    "node",
+    "js",
+    "bot"
   ],
-  "typings": "./typings",
   "files": [
-    "src",
-    "typings"
-  ]
+    "lib"
+  ],
+  "devDependencies": {
+    "@types/debug": "^4.1.5",
+    "@types/node-fetch": "^2.5.7"
+  }
 }

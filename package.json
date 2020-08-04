@@ -5,17 +5,27 @@
     "packages/*"
   ],
   "engines": {
-    "node": ">=10.0.0"
-  },
-  "dependencies": {
-    "debug": "^4.1.1",
-    "middleware-io": "^2.1.0",
-    "node-fetch": "^2.6.0"
+    "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.34.0",
-    "@typescript-eslint/parser": "^2.34.0",
-    "common-tags": "^1.8.0",
-    "eslint": "^7.0.0"
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^26.0.8",
+    "@types/node-fetch": "^2.5.7",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "babel-jest": "^26.2.1",
+    "cheerio": "^1.0.0-rc.3",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.2.1",
+    "ts-jest": "^26.1.4",
+    "typedoc": "^0.17.8",
+    "ts-node": "github:TypeStrong/ts-node#master",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "prepare": "yarn run test",
+    "test": "jest --config jest.config.js"
   }
 }

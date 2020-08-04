@@ -1,9 +1,9 @@
 # @puregram/scenes
 
-Puregram scenes - simple implementation of middleware-based scene management 🎬
+`@puregram/scenes` is the simple implementation of middleware-based scene management for `puregram` package
 
 ## Installation
-> **[Node.js](https://nodejs.org/) 8.0.0 or newer is required**  
+> **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
 
 ### Yarn
 ```
@@ -16,24 +16,40 @@ npm i @puregram/scenes
 ```
 
 ## Example usage
-```js
-let { Telegram } = require('puregram');
+```ts
+import { Telegram, MessageContext } from 'puregram';
 
-// Session implementation can be any
-let { SessionManager } = require('@puregram/session');
-let { SceneManager, StepScene } = require('@puregram/scenes');
+// @puregram/scenes requires @puregram/session
+import { SessionManager } from '@puregram/session';
+import { SceneManager, StepScene, StepContext } from '@puregram/scenes';
 
-let telegram = new Telegram({
-	token: process.env.TOKEN,
+// We will also use @puregram/hear package
+import { HearManager } from '@puregram/hear';
+
+const telegram: Telegram = new Telegram({
+  token: process.env.TOKEN
 });
 
-let sessionManager = new SessionManager();
-let sceneManager = new SceneManager();
+const sessionManager: SessionManager = new SessionManager();
+const sceneManager: SceneManager = new SceneManager();
+const hearManager: HearManager<MessageContext & StepContext> = new HearManager<MessageContext>();
 
-sceneManager.addScene(
-  new StepScene('signup', [
-    (context) => {
-      if (context.scene.step.firstTime || !context.text) {
+telegram.updates.on('message', sessionManager.middleware);
+
+telegram.updates.on('message', sceneManager.middleware);
+telegram.updates.on('message', sceneManager.middlewareIntercept); // Default scene entry handler
+
+// Initializing hearManager after sceneManager because we need to handle scenes
+telegram.updates.on('message', hearManager.middleware);
+
+hearManager.hear(/^\/signup$/i, (context: MessageContext & StepContext) => (
+  context.scene.enter('signup')
+));
+
+sceneManager.addScenes([
+  new StepScene<MessageContext & StepContext>('signup', [
+    async (context: MessageContext & StepContext) => {
+      if (context.scene.step.firstTime || !context.hasText) {
         return context.send('What\'s your name?');
       }
 
@@ -41,39 +57,27 @@ sceneManager.addScene(
 
       return context.scene.step.next();
     },
-    (context) => {
-      if (context.scene.step.firstTime || !context.text) {
+
+    async (context: MessageContext & StepContext) => {
+      if (context.scene.step.firstTime || !context.hasText) {
         return context.send('How old are you?');
       }
 
-      context.scene.state.age = Number(context.text);
+      context.scene.state.age = Number.parseInt(context.text!, 10);
 
       return context.scene.step.next();
     },
-    async (context) => {
-      let { firstName, age } = context.scene.state;
 
-      await context.send(`👤 ${firstName} ${age} ages`);
+    async (context: MessageContext & StepContext) => {
+      const { firstName, age } = context.scene.state;
 
-      await context.scene.leave();
+      await context.send(`You are ${firstName} ${age} years old!`);
+
+      // Automatic exit, since this is the last scene
+      return context.scene.step.next();
     }
   ])
-);
+]);
 
-telegram.updates.on('message', sessionManager.middleware);
-telegram.updates.on('message', sceneManager.middleware);
-
-// You can set default handler to your messages
-// telegram.updates.on('message', sceneManager.middlewareIntercept);
-
-telegram.updates.on('message', (context) => {
-  if (context.text === '/signup') {
-    return context.scene.enter('signup');
-  }
-});
-
-telegram.updates.start().catch(console.error);
+telegram.updates.startPolling().catch(console.error);
 ```
-
-## Implementation
-Implementation by [Negezor](https://github.com/negezor)

@@ -2,8 +2,8 @@
 
 `puregram` is a powerful Node.js package that allows you to easily interact with [Telegram API](https://core.telegram.org/bots/api) 🚀
 
-| [Examples](../../docs/examples) |
-| ------------------------------- |
+| [Examples](https://github.com/nitreojs/puregram/tree/master/docs/examples) |
+| -------------------------------------------------------------------------- |
 
 ## Features
 

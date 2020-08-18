@@ -18,7 +18,7 @@ export class Photo extends Attachment {
 
     this.sorted = [...this.payload].sort(
       (first: PhotoSize, second: PhotoSize) => (
-        (second.width * second.height) - (first.width - first.height)
+        (second.width * second.height) - (first.width * first.height)
       )
     );
   }

@@ -3,6 +3,9 @@ import {
   TelegramMessage
 } from '../interfaces';
 
+import {
+  InlineKeyboard,                                         InlineKeyboardBuilder                                 } from '../common/keyboards';
+
 export interface EditMessageLiveLocationParams {
   /**
    * Required if `inline_message_id` is not specified.
@@ -30,7 +33,9 @@ export interface EditMessageLiveLocationParams {
   longitude: number;
 
   /** A JSON-serialized object for a new inline keyboard */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
+    | InlineKeyboard
+    | InlineKeyboardBuilder;
 }
 
 /**

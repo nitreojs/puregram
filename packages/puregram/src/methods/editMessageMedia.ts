@@ -4,6 +4,9 @@ import {
   TelegramMessage
 } from '../interfaces';
 
+import {
+  InlineKeyboard,                                         InlineKeyboardBuilder                                 } from '../common/keyboards';
+
 export interface EditMessageMediaParams {
   /**
    * Required if `inline_message_id` is not specified.
@@ -28,7 +31,9 @@ export interface EditMessageMediaParams {
   media: InputMediaUnion;
 
   /** A JSON-serialized object for a new inline keyboard */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
+    | InlineKeyboard
+    | InlineKeyboardBuilder;
 }
 
 /**

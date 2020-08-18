@@ -110,6 +110,7 @@ export class Telegram {
 
     try {
       debug(`[${method}] HTTP ->`);
+      debug(`[${method}] Params: ${body}`);
 
       const response: Response = await fetch(url, {
         agent: this.options.agent,

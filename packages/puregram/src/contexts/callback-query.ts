@@ -56,8 +56,10 @@ class CallbackQueryContext extends Context {
   }
 }
 
+class TempCallbackQueryContext extends CallbackQueryContext {}
+
 interface CallbackQueryContext extends CallbackQuery { }
-applyMixins(CallbackQueryContext, [CallbackQuery]);
+applyMixins(TempCallbackQueryContext, [CallbackQuery, CallbackQueryContext]);
 
 inspectable(CallbackQueryContext, {
   serialize(query: CallbackQueryContext) {
@@ -76,4 +78,4 @@ inspectable(CallbackQueryContext, {
   }
 });
 
-export { CallbackQueryContext };
+export { TempCallbackQueryContext as CallbackQueryContext };

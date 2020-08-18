@@ -71,14 +71,14 @@ describe('Keyboards', (): void => {
           inline_keyboard: [
             [
               {
-                text: 'This%20is%20an%20inline%20button',
+                text: 'This is an inline button',
                 callback_data: 'Some string payload'
               }
             ],
 
             [
               {
-                text: 'One%20more%20inline%20button',
+                text: 'One more inline button',
                 callback_data: '{"foo":"bar"}'
               }
             ]
@@ -106,14 +106,14 @@ describe('Keyboards', (): void => {
           inline_keyboard: [
             [
               {
-                text: 'This%20is%20an%20inline%20button',
+                text: 'This is an inline button',
                 callback_data: 'Some string payload'
               }
             ],
 
             [
               {
-                text: 'One%20more%20inline%20button',
+                text: 'One more inline button',
                 callback_data: '{"foo":"bar"}'
               }
             ]
@@ -140,12 +140,12 @@ describe('Keyboards', (): void => {
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
             [
-              { text: 'Some%20keyboard%20button' },
-              { text: 'One%20more%20keyboard%20button' }
+              { text: 'Some keyboard button' },
+              { text: 'One more keyboard button' }
             ],
 
             [
-              { text: 'Button%20in%20a%20different%20row' }
+              { text: 'Button in a different row' }
             ]
           ],
           one_time_keyboard: false,
@@ -165,7 +165,7 @@ describe('Keyboards', (): void => {
           keyboard: [
             [
               {
-                text: 'Request%20contact%20button',
+                text: 'Request contact button',
                 request_contact: true
               }
             ]
@@ -187,7 +187,7 @@ describe('Keyboards', (): void => {
           keyboard: [
             [
               {
-                text: 'Request%20poll%20button',
+                text: 'Request poll button',
                 request_poll: { type: 'quiz' }
               }
             ]
@@ -215,12 +215,12 @@ describe('Keyboards', (): void => {
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
             [
-              { text: 'Some%20keyboard%20button' },
-              { text: 'One%20more%20keyboard%20button' }
+              { text: 'Some keyboard button' },
+              { text: 'One more keyboard button' }
             ],
 
             [
-              { text: 'Button%20in%20a%20different%20row' }
+              { text: 'Button in a different row' }
             ]
           ],
           one_time_keyboard: true,
@@ -240,7 +240,7 @@ describe('Keyboards', (): void => {
           keyboard: [
             [
               {
-                text: 'Request%20contact%20button',
+                text: 'Request contact button',
                 request_contact: true
               },
             ]
@@ -262,7 +262,7 @@ describe('Keyboards', (): void => {
           keyboard: [
             [
               {
-                text: 'Request%20poll%20button',
+                text: 'Request poll button',
                 request_poll: { type: 'regular' }
               },
             ]

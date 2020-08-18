@@ -26,6 +26,8 @@ const telegram: Telegram = new Telegram({
 
 const hearManager: HearManager = new HearManager<MessageContext>();
 
+telegram.updates.on('message', hearManager.middleware);
+
 hearManager.hear(/^hello$/i, async (context: MessageContext) => {
   await context.send('Hello, World!');
 });

@@ -63,7 +63,7 @@ export class Keyboard {
    * it will be sent as a message when the button is pressed
    */
   public static textButton(text: string): KeyboardTextButton {
-    return { text: encodeURI(text) };
+    return { text };
   }
 
   /**
@@ -74,7 +74,7 @@ export class Keyboard {
    */
   public static requestContactButton(text: string): KeyboardRequestContactButton {
     return {
-      text: encodeURI(text),
+      text,
       request_contact: true
     };
   }
@@ -86,7 +86,7 @@ export class Keyboard {
    */
   public static requestLocationButton(text: string): KeyboardRequestLocationButton {
     return {
-      text: encodeURI(text),
+      text,
       request_location: true
     };
   }
@@ -99,7 +99,7 @@ export class Keyboard {
    */
   public static requestPollButton(text: string, type?: PollType): KeyboardRequestPollButton {
     return {
-      text: encodeURI(text),
+      text,
       request_poll: { type }
     };
   }

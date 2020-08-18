@@ -84,7 +84,7 @@ export class InlineKeyboard {
     }
 
     return {
-      text: encodeURI(params.text),
+      text: params.text,
       callback_data: params.payload || ''
     };
   }
@@ -96,7 +96,7 @@ export class InlineKeyboard {
     }
 
     return {
-      text: encodeURI(params.text),
+      text: params.text,
       url: params.url,
       callback_data: params.payload || ''
     };
@@ -107,8 +107,8 @@ export class InlineKeyboard {
     params: SwitchToCurrentChatButtonParams
   ): InlineKeyboardSwitchToCurrentChatButton {
     return {
-      text: encodeURI(params.text),
-      switch_inline_query_current_chat: encodeURI(params.query)
+      text: params.text,
+      switch_inline_query_current_chat: params.query
     };
   }
 
@@ -117,15 +117,15 @@ export class InlineKeyboard {
     params: SwitchToChatButtonParams
   ): InlineKeyboardSwitchToChatButton {
     return {
-      text: encodeURI(params.text),
-      switch_inline_query: encodeURI(params.query)
+      text: params.text,
+      switch_inline_query: params.query
     };
   }
 
   /** Generates game button */
   public static gameButton(params: GameButtonParams): InlineKeyboardGameButton {
     return {
-      text: encodeURI(params.text),
+      text: params.text,
       callback_game: params.game
     };
   }
@@ -134,7 +134,7 @@ export class InlineKeyboard {
   public static payButton(params: PayButtonParams): InlineKeyboardPayButton {
     return {
       pay: true,
-      text: encodeURI(params.text)
+      text: params.text
     };
   }
 
@@ -142,7 +142,7 @@ export class InlineKeyboard {
   public static loginButton(params: LoginButtonParams): InlineKeyboardLoginButton {
     return {
       login_url: params.loginUrl,
-      text: encodeURI(params.text)
+      text: params.text
     };
   }
 

@@ -65,7 +65,7 @@ export class InlineKeyboardBuilder {
     }
 
     return this.addButton({
-      text: encodeURI(params.text),
+      text: params.text,
       callback_data: params.payload
     });
   }
@@ -77,7 +77,7 @@ export class InlineKeyboardBuilder {
     }
 
     return this.addButton({
-      text: encodeURI(params.text),
+      text: params.text,
       url: params.url,
       callback_data: params.payload || ''
     });
@@ -86,23 +86,23 @@ export class InlineKeyboardBuilder {
   /** Generates button that will switch to current chat and type the query */
   public switchToCurrentChatButton(params: SwitchToCurrentChatButtonParams): this {
     return this.addButton({
-      text: encodeURI(params.text),
-      switch_inline_query_current_chat: encodeURI(params.query)
+      text: params.text,
+      switch_inline_query_current_chat: params.query
     });
   }
 
   /** Generates button that will prompt user to select one of their chats */
   public switchToChatButton(params: SwitchToChatButtonParams): this {
     return this.addButton({
-      text: encodeURI(params.text),
-      switch_inline_query: encodeURI(params.query)
+      text: params.text,
+      switch_inline_query: params.query
     });
   }
 
   /** Generates game button */
   public gameButton(params: GameButtonParams): this {
     return this.addWideButton({
-      text: encodeURI(params.text),
+      text: params.text,
       callback_game: params.game
     });
   }
@@ -111,7 +111,7 @@ export class InlineKeyboardBuilder {
   public payButton(params: PayButtonParams): this {
     return this.addWideButton({
       pay: true,
-      text: encodeURI(params.text)
+      text: params.text
     });
   }
 
@@ -119,7 +119,7 @@ export class InlineKeyboardBuilder {
   public loginButton(params: LoginButtonParams): this {
     return this.addButton({
       login_url: params.loginUrl,
-      text: encodeURI(params.text)
+      text: params.text
     });
   }
 

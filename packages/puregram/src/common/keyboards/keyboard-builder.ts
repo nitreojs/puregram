@@ -29,9 +29,7 @@ export class KeyboardBuilder {
    * it will be sent as a message when the button is pressed
    */
   public textButton(text: string): this {
-    return this.addButton({
-      text: encodeURI(text)
-    });
+    return this.addButton({ text });
   }
 
   /**
@@ -41,7 +39,7 @@ export class KeyboardBuilder {
    */
   public requestLocationButton(text: string): this {
     return this.addWideButton({
-      text: encodeURI(text),
+      text,
       request_location: true
     });
   }
@@ -54,7 +52,7 @@ export class KeyboardBuilder {
    */
   public requestPollButton(text: string, type?: PollType): this {
     return this.addWideButton({
-      text: encodeURI(text),
+      text,
       request_poll: { type }
     });
   }
@@ -67,7 +65,7 @@ export class KeyboardBuilder {
    */
   public requestContactButton(text: string): this {
     return this.addWideButton({
-      text: encodeURI(text),
+      text,
       request_contact: true
     });
   }

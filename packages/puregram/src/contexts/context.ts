@@ -19,7 +19,9 @@ export class Context {
     return this.constructor.name;
   }
 
-  public is(rawTypes: AllowArray<UpdateName>): boolean {
+  public is(
+    rawTypes: AllowArray<UpdateName | string>
+  ): boolean {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes];

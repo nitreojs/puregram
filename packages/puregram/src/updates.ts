@@ -355,7 +355,7 @@ export class Updates {
   ): this;
 
   public on<T = {}>(
-    rawOnEvents: AllowArray<UpdateName>,
+    rawOnEvents: AllowArray<UpdateName | string>,
     rawHandlers: AllowArray<Middleware<Context & T>>
   ): this {
     const onEvents = Array.isArray(rawOnEvents)

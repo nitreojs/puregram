@@ -235,123 +235,127 @@ export class Updates {
 
   /** Subscribe to events */
   public on<T = {}>(
-    events: AllowArray<'message'>,
+    events: 'message',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'edited_message'>,
+    events: 'edited_message',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'channel_post'>,
+    events: 'channel_post',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'edited_channel_post'>,
+    events: 'edited_channel_post',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'inline_query'>,
+    events: 'inline_query',
     handlers: AllowArray<Middleware<InlineQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'chosen_inline_result'>,
+    events: 'chosen_inline_result',
     handlers: AllowArray<Middleware<ChosenInlineResultContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'callback_query'>,
+    events: 'callback_query',
     handlers: AllowArray<Middleware<CallbackQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'shipping_query'>,
+    events: 'shipping_query',
     handlers: AllowArray<Middleware<ShippingQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'pre_checkout_query'>,
+    events: 'pre_checkout_query',
     handlers: AllowArray<Middleware<PreCheckoutQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'poll'>,
+    events: 'poll',
     handlers: AllowArray<Middleware<PollContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'poll_answer'>,
+    events: 'poll_answer',
     handlers: AllowArray<Middleware<PollAnswerContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'new_chat_members'>,
+    events: 'new_chat_members',
     handlers: AllowArray<Middleware<NewChatMembersContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'left_chat_member'>,
+    events: 'left_chat_member',
     handlers: AllowArray<Middleware<LeftChatMemberContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'new_chat_title'>,
+    events: 'new_chat_title',
     handlers: AllowArray<Middleware<NewChatTitleContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'new_chat_photo'>,
+    events: 'new_chat_photo',
     handlers: AllowArray<Middleware<NewChatPhotoContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'delete_chat_photo'>,
+    events: 'delete_chat_photo',
     handlers: AllowArray<Middleware<DeleteChatPhotoContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'group_chat_created'>,
+    events: 'group_chat_created',
     handlers: AllowArray<Middleware<GroupChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'supergroup_chat_created'>,
+    events: 'supergroup_chat_created',
     handlers: AllowArray<Middleware<SupergroupChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'channel_chat_created'>,
+    events: 'channel_chat_created',
     handlers: AllowArray<Middleware<ChannelChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'pinned_message'>,
+    events: 'pinned_message',
     handlers: AllowArray<Middleware<PinnedMessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'migrate_to_chat_id'>,
+    events: 'migrate_to_chat_id',
     handlers: AllowArray<Middleware<MigrateToChatIdContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'migrate_from_chat_id'>,
+    events: 'migrate_from_chat_id',
     handlers: AllowArray<Middleware<MigrateFromChatIdContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'invoice'>,
+    events: 'invoice',
     handlers: AllowArray<Middleware<InvoiceContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<'successful_payment'>,
+    events: 'successful_payment',
     handlers: AllowArray<Middleware<SuccessfulPaymentContext & T>>
+  ): this;
+
+  public on<T = {}>(                                        events: AllowArray<UpdateName | string>,
+    handlers: AllowArray<Middleware<Context & T>>
   ): this;
 
   public on<T = {}>(

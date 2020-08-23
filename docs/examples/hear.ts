@@ -110,5 +110,12 @@ hearManager.hear(
   )
 );
 
+// Triggered when no other hears triggered
+hearManager.onFallback(
+  (context: MessageContext) => (
+    context.send('Command not found.')
+  )
+);
+
 telegram.updates.startPolling().catch(console.log);
 

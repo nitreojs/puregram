@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable';
 import { Context } from './context';
 import { Telegram } from '../telegram';
 import { Message } from '../updates/message';
-import { AttachmentType as AttachmentTypeEnum } from '../enums';
+import {AttachmentType as AttachmentTypeEnum, Entity} from '../enums';
 
 import {
   InputMediaPhoto,
@@ -139,7 +139,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any entities (with specified type) */
-  public hasEntities(type?: EntityType): boolean {
+  public hasEntities(type?: EntityType | Entity): boolean {
     if (type === undefined) return this.entities.length !== 0;
 
     return this.entities.some(
@@ -153,7 +153,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any caption entities (with specified type) */
-  public hasCaptionEntities(type?: EntityType): boolean {
+  public hasCaptionEntities(type?: EntityType | Entity): boolean {
     if (type === undefined) return this.captionEntities.length !== 0;
 
     return this.captionEntities.some(

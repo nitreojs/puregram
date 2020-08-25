@@ -27,17 +27,15 @@ class InlineQueryContext extends Context {
   }
 
   /** Answers to inline query */
-  public async answerInlineQuery(
+  public answerInlineQuery(
     results: InlineQueryResultUnion[],
     params?: Partial<AnswerInlineQueryParams>
   ): Promise<true> {
-    const response = await this.telegram.api.answerInlineQuery({
+    return this.telegram.api.answerInlineQuery({
       ...params,
       inline_query_id: this.id,
       results
     });
-
-    return response;
   }
 }
 

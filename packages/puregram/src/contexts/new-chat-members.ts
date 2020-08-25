@@ -32,7 +32,6 @@ import {
   SendPollParams,
   StopPollParams,
   SendChatActionParams,
-  GetUserProfilePhotosParams,
   SendStickerParams,
   SendDiceParams,
   EditMessageLiveLocationParams,
@@ -54,11 +53,10 @@ import {
 
 import { Message } from '../updates/message';
 import { Poll } from '../updates/';
-import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 
 class NewChatMembersContext extends Context {
-  private payload: TelegramMessage;
+  private readonly payload: TelegramMessage;
 
   constructor(telegram: Telegram, update: TelegramMessage) {
     super(telegram, 'new_chat_members');
@@ -488,18 +486,6 @@ class NewChatMembersContext extends Context {
       chat_id: this.chatId || this.senderId || 0,
       action
     });
-  }
-
-  /** Gets user's profile photos */
-  public async getUserProfilePhotos(
-    params?: Partial<GetUserProfilePhotosParams>
-  ): Promise<UserProfilePhotos> {
-    const response = await this.telegram.api.getUserProfilePhotos({
-      ...params,
-      user_id: this.chatId || this.senderId || 0
-    });
-
-    return new UserProfilePhotos(response);
   }
 
   /** Deletes current message */

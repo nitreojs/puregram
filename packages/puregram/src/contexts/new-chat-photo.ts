@@ -32,7 +32,6 @@ import {
   SendPollParams,
   StopPollParams,
   SendChatActionParams,
-  GetUserProfilePhotosParams,
   SendStickerParams,
   SendDiceParams,
   EditMessageLiveLocationParams,
@@ -54,12 +53,11 @@ import {
 
 import { Message } from '../updates/message';
 import { Poll } from '../updates/';
-import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 import { PhotoSize } from '../common/structures/photo-size';
 
 class NewChatPhotoContext extends Context {
-  private payload: TelegramMessage;
+  private readonly payload: TelegramMessage;
 
   constructor(telegram: Telegram, update: TelegramMessage) {
     super(telegram, 'new_chat_photo');

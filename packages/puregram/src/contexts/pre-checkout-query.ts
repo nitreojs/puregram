@@ -33,7 +33,6 @@ import {
   SendPollParams,
   StopPollParams,
   SendChatActionParams,
-  GetUserProfilePhotosParams,
   SendStickerParams,
   SendDiceParams
 } from '../methods';
@@ -48,7 +47,6 @@ import {
 
 import { Message } from '../updates/message';
 import { Poll } from '../updates/';
-import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 
 class PreCheckoutQueryContext extends Context {
@@ -252,18 +250,6 @@ class PreCheckoutQueryContext extends Context {
     });
   }
 
-  /** Gets user's profile photos */
-  public async getUserProfilePhotos(
-    params?: Partial<GetUserProfilePhotosParams>
-  ): Promise<UserProfilePhotos> {
-    const response = await this.telegram.api.getUserProfilePhotos({
-      ...params,
-      user_id: this.senderId
-    });
-
-    return new UserProfilePhotos(response);
-  }
-
   /** Sends sticker */
   public async sendSticker(
     sticker: TelegramInputFile,
@@ -299,17 +285,6 @@ class PreCheckoutQueryContext extends Context {
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
     );
-  }
-
-  /** Sets commands */
-  public async setMyCommands(
-    commands: TelegramBotCommand[]
-  ): Promise<true> {
-    const response = await this.telegram.api.setMyCommands({
-      commands
-    });
-
-    return response;
   }
 }
 

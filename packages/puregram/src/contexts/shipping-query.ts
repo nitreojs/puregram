@@ -34,7 +34,6 @@ import {
   SendPollParams,
   StopPollParams,
   SendChatActionParams,
-  GetUserProfilePhotosParams,
   SendStickerParams,
   SendDiceParams
 } from '../methods';
@@ -49,7 +48,6 @@ import {
 
 import { Message } from '../updates/message';
 import { Poll } from '../updates/';
-import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 
 class ShippingQueryContext extends Context {

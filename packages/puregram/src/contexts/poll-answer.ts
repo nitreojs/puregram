@@ -33,7 +33,6 @@ import {
   SendPollParams,
   StopPollParams,
   SendChatActionParams,
-  GetUserProfilePhotosParams,
   SendStickerParams,
   SendDiceParams
 } from '../methods';
@@ -46,7 +45,6 @@ import {
   DiceEmoji
 } from '../types';
 
-import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 
 class PollAnswerContext extends Context {

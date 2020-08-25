@@ -9,7 +9,7 @@
 
 * 100% Telegram API coverage
 * Works with JavaScript and TypeScript
-* Typings
+* Has **57** tests and all of them passes every build
 
 ## Installation
 > **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
@@ -21,7 +21,7 @@ yarn add puregram
 
 ### NPM
 ```
-npm i puregram
+npm i -S puregram
 ```
 
 ## Example usage

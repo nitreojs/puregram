@@ -440,10 +440,10 @@ context.replyWithVoice(voiceUrl) // => Promise<MessageContext>
 
 **Отправляет сообщение с альбомом в данный диалог**
 
-|   Параметр   |                    Тип                  |
-| :----------: | :-------------------------------------: |
-| `mediaGroup` | `(InputMediaPhoto | InputMediaVideo)[]` |
-| `params?`    | `Partial<SendMediaGroupParams>`         |
+|   Параметр   |                            Тип                          |
+| :----------: | :-----------------------------------------------------: |
+| `mediaGroup` | <code>(InputMediaPhoto &#124; InputMediaVideo)[]</code> |
+| `params?`    | `Partial<SendMediaGroupParams>`                         |
 
 ```ts
 context.sendMediaGroup(mediaGroup) // => Promise<Message[]>
@@ -453,10 +453,10 @@ context.sendMediaGroup(mediaGroup) // => Promise<Message[]>
 
 **Отправляет сообщение с альбомом в данный диалог, попутно отвечая на пришедшее**
 
-|   Параметр   |                    Тип                  |
-| :----------: | :-------------------------------------: |
-| `mediaGroup` | `(InputMediaPhoto | InputMediaVideo)[]` |
-| `params?`    | `Partial<SendMediaGroupParams>`         |
+|   Параметр   |                            Тип                          |
+| :----------: | :-----------------------------------------------------: |
+| `mediaGroup` | <code>(InputMediaPhoto &#124; InputMediaVideo)[]</code> |
+| `params?`    | `Partial<SendMediaGroupParams>`                         |
 
 ```ts
 context.replyWithMediaGroup(mediaGroup) // => Promise<Message[]>

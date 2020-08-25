@@ -7,4 +7,6 @@
 
 ### Навигация
 
+- [Базовый контекст `Context`](context.md)
 - [Контекст `MessageContext`](message.md)
+- [Контекст `CallbackQueryContext`](callback-query.md)

@@ -488,18 +488,6 @@ class SuccessfulPaymentContext extends Context {
     });
   }
 
-  /** Gets user's profile photos */
-  public async getUserProfilePhotos(
-    params?: Partial<GetUserProfilePhotosParams>
-  ): Promise<UserProfilePhotos> {
-    const response = await this.telegram.api.getUserProfilePhotos({
-      ...params,
-      user_id: this.chatId || this.senderId || 0
-    });
-
-    return new UserProfilePhotos(response);
-  }
-
   /** Deletes current message */
   public deleteMessage(): Promise<true> {
     return this.telegram.api.deleteMessage({
@@ -543,17 +531,6 @@ class SuccessfulPaymentContext extends Context {
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
     );
-  }
-
-  /** Sets commands */
-  public async setMyCommands(
-    commands: TelegramBotCommand[]
-  ): Promise<true> {
-    const response = await this.telegram.api.setMyCommands({
-      commands
-    });
-
-    return response;
   }
 
   // Edit methods

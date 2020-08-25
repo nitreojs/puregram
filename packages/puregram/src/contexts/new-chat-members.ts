@@ -547,17 +547,6 @@ class NewChatMembersContext extends Context {
     );
   }
 
-  /** Sets commands */
-  public async setMyCommands(
-    commands: TelegramBotCommand[]
-  ): Promise<true> {
-    const response = await this.telegram.api.setMyCommands({
-      commands
-    });
-
-    return response;
-  }
-
   // Edit methods
 
   /** Edits current message text */

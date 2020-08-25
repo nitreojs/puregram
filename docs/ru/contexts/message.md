@@ -241,12 +241,10 @@ _◬ НЛО прилетело и опубликовало эту надпись
 * [`replyWithPoll`](#replywithpollparams)
 * [`stopPoll`](#stoppollmessageid-params)
 * [`sendChatAction`](#sendchatactionaction-params)
-* [`getUserProfilePhotos`](#getuserprofilephotosparams)
 * [`deleteMessage`](#deletemessage)
 * [`sendSticker`](#sendstickersticker-params)
 * [`sendDice`](#senddiceemoji-params)
 * [`getMyCommands`](#getmycommands)
-* [`setMyCommands`](#setmycommandscommands)
 * [`editMessageText`](#editmessagetexttext-params)
 * [`editMessageCaption`](#editmessagecaptioncaption-params)
 * [`editMessageMedia`](#editmessagemediamedia-params)
@@ -616,18 +614,6 @@ context.stopMessageLiveLocation(params) // => Promise<true | MessageContext>
 context.sendChatAction('typing') // => Promise<true>
 ```
 
-### `getUserProfilePhotos(params?)`
-
-**Получает фотографии профиля у пользователя**
-
-| Параметр  |                   Тип                 |
-| :-------: | :-----------------------------------: |
-| `params`  | `Partial<GetUserProfilePhotosParams>` |
-
-```ts
-context.getUserProfilePhotos() // => Promise<UserProfilePhotos>
-```
-
 ### `deleteMessage()`
 
 **Удаляет сообщение**
@@ -668,18 +654,6 @@ context.sendDice('🎲') // => Promise<MessageContext>
 
 ```ts
 context.getMyCommands() // => Promise<BotCommand[]>
-```
-
-### `setMyCommands(commands)`
-
-**Устанавливает новый список команд**
-
-|  Параметр  |           Тип          |
-| :--------: | :--------------------: |
-| `commands` | `TelegramBotCommand[]` |
-
-```ts
-context.setMyCommands(commands) // => Promise<MessageContext>
 ```
 
 ### `editMessageText(text, params?)`

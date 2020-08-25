@@ -33,7 +33,7 @@ const context: MessageContext = new MessageContext(telegram, update);
 | `telegram` | `Telegram`        | Инстанция `Telegram`              |
 | `update`   | `TelegramMessage` | [Объект события][TelegramMessage] |
 
-[TelegramMessage]: https://core.telegram.org/bots/api#telegrammessage
+[TelegramMessage]: https://core.telegram.org/bots/api#message
 
 ## Методы и геттеры контекста
 
@@ -63,8 +63,6 @@ const context: MessageContext = new MessageContext(telegram, update);
 
 **Возвращает ID отправителя сообщения**
 
-_Может быть `undefined`_
-
 ```ts
 context.senderId // => number | undefined
 ```
@@ -73,8 +71,6 @@ context.senderId // => number | undefined
 
 **Возвращает ID диалога**
 
-_Может быть `undefined`_
-
 ```ts
 context.chatId // => number | undefined
 ```
@@ -82,8 +78,6 @@ context.chatId // => number | undefined
 ### `chatType`
 
 **Возвращает тип диалога: `private`, `group`, `supergroup`, `channel`**
-
-_Может быть `undefined`_ 
 
 ```ts
 context.chatType // => ChatType | undefined
@@ -124,8 +118,6 @@ context.isChannel // => boolean
 ### `startPayload`
 
 **Возвращает payload значение при старте разговора с ботом**
-
-_Может быть `undefined`_
 
 ```ts
 context.startPayload // => string | number | Record<string, any> | undefined

@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable';
 import { Context } from './context';
 import { Telegram } from '../telegram';
 import { Message } from '../updates/message';
-import {AttachmentType as AttachmentTypeEnum, Entity} from '../enums';
+import { AttachmentType as AttachmentTypeEnum, Entity } from '../enums';
 
 import {
   InputMediaPhoto,

@@ -1,5 +1,3 @@
-import {Readable} from 'stream';
-
 export const applyMixins = (derivedCtor: any, baseCtors: any[]): void => {
   for (const baseCtor of baseCtors) {
     for (const name of Object.getOwnPropertyNames(baseCtor.prototype)) {

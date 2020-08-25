@@ -36,7 +36,6 @@ import {
   SendPollParams,
   StopPollParams,
   SendChatActionParams,
-  GetUserProfilePhotosParams,
   SendStickerParams,
   SendDiceParams
 } from '../methods';
@@ -44,7 +43,6 @@ import {
 import { Poll } from '../updates/';
 import { Message } from '../updates/message';
 import { ChosenInlineResult } from '../updates/chosen-inline-result';
-import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 import { Telegram } from '../telegram';
 import { MessageContext } from './message';
@@ -290,6 +288,7 @@ class ChosenInlineResultContext extends Context {
       (command: TelegramBotCommand) => new BotCommand(command)
     );
   }
+}
 
 interface ChosenInlineResultContext extends ChosenInlineResult { }
 applyMixins(ChosenInlineResultContext, [ChosenInlineResult]);

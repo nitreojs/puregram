@@ -54,7 +54,7 @@ import {
   StopPollParams
 } from '../methods';
 
-import { Poll } from '../updates/index';
+import { Poll } from '../updates/';
 import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 import { MessageEntity } from '../common/structures/message-entity';

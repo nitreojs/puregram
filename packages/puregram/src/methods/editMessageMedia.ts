@@ -5,7 +5,9 @@ import {
 } from '../interfaces';
 
 import {
-  InlineKeyboard,                                         InlineKeyboardBuilder                                 } from '../common/keyboards';
+  InlineKeyboard,
+  InlineKeyboardBuilder
+} from '../common/keyboards';
 
 export interface EditMessageMediaParams {
   /**

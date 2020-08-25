@@ -4,7 +4,7 @@ import { Context } from './context';
 import { TelegramPoll } from '../interfaces';
 import { Telegram } from '../telegram';
 import { filterPayload, applyMixins } from '../utils/helpers';
-import { Poll } from '../updates/index';
+import { Poll } from '../updates/';
 
 class PollContext extends Context {
   public payload: TelegramPoll;

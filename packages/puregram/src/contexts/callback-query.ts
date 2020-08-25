@@ -1,14 +1,15 @@
+// eslint-disable-next-line max-classes-per-file
 import { inspectable } from 'inspectable';
 
 import { Context } from './context';
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers';
-import { CallbackQuery } from '../updates/callback-query';
+import { CallbackQuery } from '../updates/';
 import { TelegramCallbackQuery } from '../interfaces';
 import { Telegram } from '../telegram';
 import { MessageContext } from './message';
 import { AnswerCallbackQueryParams } from '../methods';
 
-/** Called when `callback_query` event occures */
+/** Called when `callback_query` event occurs */
 class CallbackQueryContext extends Context {
   public payload: TelegramCallbackQuery;
 

@@ -8,7 +8,7 @@ import {
   PollAnswer,
   Message,
   Poll
-} from '../updates/index';
+} from '../updates/';
 
 import {
   InputMediaPhoto,

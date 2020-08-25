@@ -46,8 +46,8 @@ export class Telegram {
       params: Record<string, any> = {}
     ) => {
       const mediaMethod: [ApiMethod, ApiMethodKey] | undefined = mediaMethods.find(
-        ([mediaMethod]) => (
-          method === mediaMethod
+        ([currentMediaMethod]) => (
+          method === currentMediaMethod
         )
       );
 
@@ -112,18 +112,24 @@ export class Telegram {
       debug(`[${method}] HTTP ->`);
       debug(`[${method}] Params: ${body}`);
 
-      const response: Response = await fetch(url, {
-        agent: this.options.agent,
-        compress: false,
-        method: 'POST',
-        signal: controller.signal,
-        headers,
-        body
-      });
+      let response: Response | undefined;
 
-      debug(`[${method}] <- HTTP ${response.status}`);
+      try {
+        response = await fetch(url, {
+          agent: this.options.agent,
+          compress: false,
+          method: 'POST',
+          signal: controller.signal,
+          headers,
+          body
+        });
+      } catch (e) {
+        debug(e);
+      }
 
-      const json: ApiResponseUnion = await response.json();
+      debug(`[${method}] <- HTTP ${response!.status}`);
+
+      const json: ApiResponseUnion = await response!.json();
 
       debug(`[${method}] Request response:`);
       debug(json);

@@ -1,7 +1,7 @@
 import { Agent } from 'https';
 
 import { TelegramOptions } from '../interfaces';
-import { Message } from '../updates/index';
+import { Message } from '../updates/';
 
 import {
   ApiMethod,

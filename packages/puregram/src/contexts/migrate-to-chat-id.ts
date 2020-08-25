@@ -52,7 +52,7 @@ import {
 } from '../types';
 
 import { Message } from '../updates/message';
-import { Poll } from '../updates/index';
+import { Poll } from '../updates/';
 import { UserProfilePhotos } from '../common/structures/user-profile-photos';
 import { BotCommand } from '../common/structures/bot-command';
 

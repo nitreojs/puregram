@@ -1,5 +1,12 @@
 import { inspectable } from 'inspectable';
-import { Middleware, compose, noopNext, NextMiddleware } from 'middleware-io';
+
+import {
+  Middleware,
+  compose,
+  noopNext,
+  NextMiddleware
+} from 'middleware-io';
+
 import createDebug from 'debug';
 
 import { Telegram } from './telegram';
@@ -354,7 +361,8 @@ export class Updates {
     handlers: AllowArray<Middleware<SuccessfulPaymentContext & T>>
   ): this;
 
-  public on<T = {}>(                                        events: AllowArray<UpdateName | string>,
+  public on<T = {}>(
+    events: AllowArray<UpdateName | string>,
     handlers: AllowArray<Middleware<Context & T>>
   ): this;
 
@@ -514,7 +522,7 @@ export class Updates {
 
     debug(context);
 
-    return this.dispatchMiddleware(context);
+    this.dispatchMiddleware(context);
   }
 }
 

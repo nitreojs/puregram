@@ -41,7 +41,7 @@ import {
   SendDiceParams
 } from '../methods';
 
-import { Poll } from '../updates/index';
+import { Poll } from '../updates/';
 import { Message } from '../updates/message';
 import { ChosenInlineResult } from '../updates/chosen-inline-result';
 import { UserProfilePhotos } from '../common/structures/user-profile-photos';

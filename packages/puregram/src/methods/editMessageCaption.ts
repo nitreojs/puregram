@@ -6,7 +6,9 @@ import {
 import { ParseMode } from '../types';
 
 import {
-  InlineKeyboard,                                         InlineKeyboardBuilder                                 } from '../common/keyboards';
+  InlineKeyboard,
+  InlineKeyboardBuilder
+} from '../common/keyboards';
 
 export interface EditMessageCaptionParams {
   /**

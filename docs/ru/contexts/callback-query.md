@@ -1,6 +1,6 @@
 # `CallbackQueryContext`
 
-Контекст, наследуемый от классов `CallbackQuery` и `Context`.
+Контекст, наследуемый от классов `CallbackQuery` и [`Context`](context.md).
 
 **Вызывается, когда пользователь нажимает на инлайн-кнопку.**
 

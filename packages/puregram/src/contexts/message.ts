@@ -618,7 +618,7 @@ class MessageContext extends Context {
   ): Promise<UserProfilePhotos> {
     const response = await this.telegram.api.getUserProfilePhotos({
       ...params,
-      user_id: this.chatId || this.senderId || 0
+      user_id: this.senderId || 0
     });
 
     return new UserProfilePhotos(response);

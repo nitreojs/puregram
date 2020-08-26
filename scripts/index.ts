@@ -1,9 +1,4 @@
-// @ts-ignore
-import { stripIndents } from 'common-tags';
-
-// # Functions that work with strings
-
-const camelizeFirst = (source: string): string => (
+export const camelizeFirst = (source: string): string => (
   source[0].toUpperCase() + source.slice(1)
 );
 
@@ -15,9 +10,15 @@ const camelizeFirst = (source: string): string => (
  * camelize('foo bar-baz')
  * // FooBarBaz
  */
-const camelize = (source: string): string => (
+export const camelize = (source: string): string => (
   source.split(/[\s-]/).map(camelizeFirst).join('')
 );
+
+export const camelizeSmall = (source: string): string => {
+  const value: string = camelize(source);
+
+  return value[0].toLowerCase() + value.slice(1);
+};
 
 /**
  * @example
@@ -27,7 +28,7 @@ const camelize = (source: string): string => (
  * dasherize('This is epic')
  * // this-is-epic
  */
-const dasherize = (rawSource: string): string => {
+export const dasherize = (rawSource: string): string => {
   const source = rawSource.split(' ').join('-');
   const match: RegExpMatchArray | null = source.match(/[A-Z]/g);
 
@@ -50,7 +51,7 @@ const dasherize = (rawSource: string): string => {
 
 // # Utilities
 
-enum Token {
+export enum Token {
   BACKTICK = '`',
   CODE_START = '<code>',
   CODE_END = '</code>',
@@ -60,7 +61,7 @@ enum Token {
   PRE = '```'
 }
 
-const tokenize = (rawSource: string | string[], token: Token, language: string = ''): string => {
+export const tokenize = (rawSource: string | string[], token: Token, language: string = ''): string => {
   const source: string = (
     Array.isArray(rawSource)
       ? rawSource.join(' ')
@@ -78,7 +79,7 @@ const tokenize = (rawSource: string | string[], token: Token, language: string =
   return leftToken + leftAddition + source + rightAddition + rightToken;
 };
 
-const calculateLongestStrings = (matrix: string[][]): number[] => {
+export const calculateLongestStrings = (matrix: string[][]): number[] => {
   const lengths: number[] = [];
 
   for (const row of matrix) {
@@ -94,7 +95,7 @@ const calculateLongestStrings = (matrix: string[][]): number[] => {
   );
 };
 
-const createTableSeparator = (lengths: number[]): string => {
+export const createTableSeparator = (lengths: number[]): string => {
   const amount: number = lengths.length;
   let result: string = '';
 
@@ -109,13 +110,23 @@ const createTableSeparator = (lengths: number[]): string => {
   return result;
 };
 
-const createTableRow = (elements: string[], lengths: number[]): string => {
+export const createTableRow = (elements: string[], lengths: number[], center: boolean = false): string => {
   let result: string = '';
 
   for (const [index, element] of elements.entries()) {
     const length: number = lengths[index];
 
-    result += `| ${element}${' '.repeat(length - element.length)}`;
+    let leftSpaces: number = 1;
+    let rightSpaces: number = length - element.length;
+
+    if (center) {
+      const value: number = (leftSpaces + rightSpaces) / 2;
+
+      leftSpaces = Math.floor(value);
+      rightSpaces = Math.ceil(value);
+    }
+
+    result += `|${' '.repeat(leftSpaces)}${element}${' '.repeat(rightSpaces)}`;
   }
 
   result += '|';
@@ -123,7 +134,7 @@ const createTableRow = (elements: string[], lengths: number[]): string => {
   return result;
 };
 
-const generateAnchor = (element: string): string => (
+export const generateAnchor = (element: string): string => (
   `#${
     element.toLowerCase()
       .split(' ')
@@ -144,7 +155,7 @@ const generateAnchor = (element: string): string => (
  * header(3, 'Foo bar baz')
  * // # Foo bar baz
  */
-const header = (level: number = 1, text: string): string => (
+export const header = (level: number = 1, text: string): string => (
   `${'#'.repeat(level)} ${text}`
 );
 
@@ -156,7 +167,7 @@ const header = (level: number = 1, text: string): string => (
  * header(1, code('InlineQueryContext'))
  * // # `InlineQueryContext`
  */
-const code = (...args: string[]): string => (
+export const code = (...args: string[]): string => (
   tokenize(
     args.map(
       (element: string): string => element.replace(/\|/g, '&#124;')
@@ -175,32 +186,32 @@ const code = (...args: string[]): string => (
  * bold('Triggered when new message occurs.')
  * // **Triggered when new message occurs**
  */
-const bold = (...args: string[]): string => tokenize(args, Token.BOLD);
+export const bold = (...args: string[]): string => tokenize(args, Token.BOLD);
 
 /**
  * @example
  * italic('May be', code('undefined'))
  * // _May be `undefined`_
  */
-const italic = (...args: string[]): string => tokenize(args, Token.ITALIC);
+export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC);
 
 /**
  * @example
  * pre('ts', 'import { Telegram } from "puregram";')
  */
-const pre = (language: string = '', ...args: string[]): string => tokenize(args, Token.PRE, language);
+export const pre = (language: string = '', ...args: string[]): string => tokenize(args, Token.PRE, language);
 
 /**
  * @example
  * link(code('Context'), 'context.md')
  * // [`Context`](context.md)
  */
-const link = (text: string, source: string): string => `[${text}](${source})`;
+export const link = (text: string, source: string): string => `[${text}](${source})`;
 
-const table = (rawMatrix: string[][]): string => {
+export const table = (rawMatrix: string[][]): string => {
   const [head, ...matrix] = rawMatrix;
-  const lengths: number[] = calculateLongestStrings(matrix);
-  const headRow: string = createTableRow(head, lengths);
+  const lengths: number[] = calculateLongestStrings([[...head], ...matrix]);
+  const headRow: string = createTableRow(head, lengths, true);
   const separator: string = createTableSeparator(lengths);
   const rows: string[] = [headRow, separator];
 
@@ -211,72 +222,8 @@ const table = (rawMatrix: string[][]): string => {
   return rows.join('\n');
 };
 
-const list = (elements: string[], token: '*' | '-' | '='): string => (
+export const list = (elements: string[], token: '*' | '-' | '=' = '*'): string => (
   elements.map(
     (element: string): string => `${token} ${element}`
   ).join('\n')
 );
-
-table(
-  [
-    ['Параметр', 'Тип'],
-    [code('media'), code('InputMediaUnion')],
-    [code('length'), code('number')]
-  ]
-);
-
-interface GenerateHeaderOptions {
-  context: string;
-
-  description: string;
-
-  triggersOn?: string;
-
-  content: string[][];
-}
-
-const generate = (options: GenerateHeaderOptions): string => {
-  const {
-    context,
-    description,
-    triggersOn,
-    content
-  } = options;
-
-  const actualTriggers: string = (
-    triggersOn
-      ? bold(triggersOn)
-      : ''
-  );
-
-  const actualToC: string = content.map(
-    ([element]: string[]): string => (
-      `* ${
-        link(
-          bold(element),
-          generateAnchor(element)
-        )
-      }`
-    )
-  ).join('\n');
-
-  const actualContent: string = content.map(
-    ([element, kContent]: string[]): string => (
-      `${header(2, element)}\n\n${kContent}`
-    )
-  ).join('\n\n');
-
-  return stripIndents`
-    ${header(1, code(context))}
-    
-    ${description}
-    
-    ${actualTriggers}
-    
-    ${header(2, 'Table of Contents')}
-    
-    ${actualToC}
-    
-    ${actualContent}
-  `;
-};

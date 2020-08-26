@@ -8,7 +8,7 @@
 import { NewChatTitleContext } from 'puregram';
 ```
 
-## Table of Contents
+## Содержание
 
 * [**События, вызывающие контекст**](#события-вызывающие-контекст)
 * [**Constructor**](#constructor)
@@ -34,7 +34,7 @@ const context: NewChatTitleContext = new NewChatTitleContext(telegram, update);
 
 ## Методы и геттеры контекста
 
-### Table of Contents
+### Содержание
 
 * [`id`](#id)
 * [`from`](#from)

@@ -60,7 +60,7 @@ const generateAttachments = (path: string): string => {
   );
 
   const gettersResult: string = stripIndents`
-    ${header(3, 'Table of Contents')}
+    ${header(3, 'Содержание')}
     
     ${
       getters.map(

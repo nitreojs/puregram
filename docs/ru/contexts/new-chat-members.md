@@ -10,7 +10,7 @@ _Бот может быть одним из них!_
 import { NewChatMembersContext } from 'puregram';
 ```
 
-## Table of Contents
+## Содержание
 
 * [**События, вызывающие контекст**](#события-вызывающие-контекст)
 * [**Constructor**](#constructor)
@@ -36,7 +36,7 @@ const context: NewChatMembersContext = new NewChatMembersContext(telegram, updat
 
 ## Методы и геттеры контекста
 
-### Table of Contents
+### Содержание
 
 * [`id`](#id)
 * [`from`](#from)

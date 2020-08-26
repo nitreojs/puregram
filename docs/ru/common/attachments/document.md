@@ -18,7 +18,7 @@ const document: Document = new Document(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`thumb`](#thumb)
 * [`fileName`](#filename)

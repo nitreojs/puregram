@@ -18,7 +18,7 @@ const photo: Photo = new Photo(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`sizes`](#sizes)
 * [`bigSize`](#bigsize)

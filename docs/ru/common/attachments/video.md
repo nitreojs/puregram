@@ -18,7 +18,7 @@ const video: Video = new Video(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`width`](#width)
 * [`height`](#height)

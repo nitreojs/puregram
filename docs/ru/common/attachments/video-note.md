@@ -18,7 +18,7 @@ const videoNote: VideoNote = new VideoNote(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`length`](#length)
 * [`duration`](#duration)

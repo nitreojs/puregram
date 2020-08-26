@@ -18,7 +18,7 @@ const audio: Audio = new Audio(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`duration`](#duration)
 * [`performer`](#performer)

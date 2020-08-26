@@ -8,7 +8,7 @@
 import { PollAnswerContext } from 'puregram';
 ```
 
-## Table of Contents
+## Содержание
 
 * [**События, вызывающие контекст**](#события-вызывающие-контекст)
 * [**Constructor**](#constructor)

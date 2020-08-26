@@ -8,7 +8,7 @@
 import { CallbackQueryContext } from 'puregram';
 ```
 
-## Table of Contents
+## Содержание
 
 * [**События, вызывающие контекст**](#события-вызывающие-контекст)
 * [**Constructor**](#constructor)
@@ -34,7 +34,7 @@ const context: CallbackQueryContext = new CallbackQueryContext(telegram, update)
 
 ## Методы и геттеры контекста
 
-### Table of Contents
+### Содержание
 
 * [`message`](#message)
 * [`queryPayload`](#querypayload)

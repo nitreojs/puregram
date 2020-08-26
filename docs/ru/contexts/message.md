@@ -8,7 +8,7 @@
 import { MessageContext } from 'puregram';
 ```
 
-## Table of Contents
+## Содержание
 
 * [**События, вызывающие контекст**](#события-вызывающие-контекст)
 * [**Constructor**](#constructor)
@@ -37,7 +37,7 @@ const context: MessageContext = new MessageContext(telegram, update);
 
 ## Методы и геттеры контекста
 
-### Table of Contents
+### Содержание
 
 * [`senderId`](#senderid)
 * [`chatId`](#chatid)

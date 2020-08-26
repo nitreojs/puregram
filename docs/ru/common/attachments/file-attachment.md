@@ -18,7 +18,7 @@ const fileAttachment: FileAttachment<T> = new FileAttachment<T>(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`fileId`](#fileid)
 * [`fileUniqueId`](#fileuniqueid)

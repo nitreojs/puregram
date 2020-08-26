@@ -18,7 +18,7 @@ const voice: Voice = new Voice(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`duration`](#duration)
 * [`mimeType`](#mimetype)

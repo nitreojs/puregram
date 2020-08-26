@@ -10,7 +10,7 @@ _Важно: у вас должен быть включён `/setinlinefeedback`
 import { ChosenInlineResultContext } from 'puregram';
 ```
 
-## Table of Contents
+## Содержание
 
 * [**События, вызывающие контекст**](#события-вызывающие-контекст)
 * [**Constructor**](#constructor)
@@ -35,7 +35,7 @@ const context: ChosenInlineResultContext = new ChosenInlineResultContext(telegra
 
 ## Контекстуальные методы
 
-### Table of Contents
+### Содержание
 
 * [`send`](#sendtext-params)
 * [`sendPhoto`](#sendphotophoto-params)

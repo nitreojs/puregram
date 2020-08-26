@@ -18,7 +18,7 @@ const sticker: Sticker = new Sticker(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`width`](#width)
 * [`height`](#height)

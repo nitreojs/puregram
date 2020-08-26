@@ -18,7 +18,7 @@ const animation: Animation = new Animation(payload);
 
 ## Геттеры класса
 
-### Table of Contents
+### Содержание
 
 * [`width`](#width)
 * [`height`](#height)

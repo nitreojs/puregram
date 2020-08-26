@@ -34,7 +34,7 @@ const context: CallbackQueryContext = new CallbackQueryContext(telegram, update)
 
 ## Методы и геттеры контекста
 
-### Table of contents
+### Table of Contents
 
 * [`message`](#message)
 * [`queryPayload`](#querypayload)

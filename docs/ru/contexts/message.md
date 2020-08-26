@@ -37,7 +37,7 @@ const context: MessageContext = new MessageContext(telegram, update);
 
 ## Методы и геттеры контекста
 
-### Table of contents
+### Table of Contents
 
 * [`senderId`](#senderid)
 * [`chatId`](#chatid)
@@ -215,7 +215,7 @@ _◬ НЛО прилетело и опубликовало эту надпись
 * [`replyWithVideo`](#replywithvideovideo-params)
 * [`sendAnimation`](#sendanimationanimation-params)
 * [`replyWithAnimation`](#replywithanimationanimation-params)
-* [`semdVideoNote`](#sendvideonotevideonote-params)
+* [`sendVideoNote`](#sendvideonotevideonote-params)
 * [`replyWithVideoNote`](#replywithvideonotevideonote-params)
 * [`sendVoice`](#sendvoicevoice-params)
 * [`replyWithVoice`](#replywithvoicevoice-params)

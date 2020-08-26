@@ -8,5 +8,5 @@
 
 * [Вложения](attachments/README.md)
 * [Клавиатуры](keyboards/README.md)
-* [Reply markup](reply_markup/README.md)
+* [Reply markup](reply-markup/README.md)
 * [Структуры](structures/README.md)

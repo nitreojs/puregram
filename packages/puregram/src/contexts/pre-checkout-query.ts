@@ -34,7 +34,7 @@ import {
   StopPollParams,
   SendChatActionParams,
   SendStickerParams,
-  SendDiceParams
+  SendDiceParams, AnswerPreCheckoutQueryParams
 } from '../methods';
 
 import { MessageContext } from './message';
@@ -56,6 +56,16 @@ class PreCheckoutQueryContext extends Context {
     super(telegram, 'pre_checkout_query');
 
     this.payload = update;
+  }
+
+  /** Answers to pre-checkout query */
+  public async answerPreCheckoutQuery(
+    params: Omit<AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>
+  ): Promise<true> {
+    return this.telegram.api.answerPreCheckoutQuery({
+      ...params,
+      pre_checkout_query_id: this.id
+    });
   }
 
   /** Sends message to current chat */

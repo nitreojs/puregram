@@ -38,7 +38,7 @@ import {
   EditMessageTextParams,
   EditMessageCaptionParams,
   EditMessageMediaParams,
-  EditMessageReplyMarkupParams
+  EditMessageReplyMarkupParams, SendInvoiceParams
 } from '../methods';
 
 import { MessageContext } from './message';
@@ -354,6 +354,16 @@ class SupergroupChatCreatedContext extends Context {
       ...params,
       reply_to_message_id: this.id
     });
+  }
+
+  /** Sends invoice to current user */
+  public async sendInvoice(params: SendInvoiceParams): Promise<MessageContext> {
+    const response = await this.telegram.api.sendInvoice({
+      ...params,
+      chat_id: this.chatId || this.senderId || 0
+    });
+
+    return new MessageContext(this.telegram, response);
   }
 
   /** Edits current message live location */

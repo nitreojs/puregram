@@ -24,4 +24,4 @@ export type ApiMethod = keyof ApiMethods;
 export type ApiMethodKey = AttachmentType | 'media';
 
 // https://stackoverflow.com/a/53742583
-export type PickPartial<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>;
+export type Optional<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>;

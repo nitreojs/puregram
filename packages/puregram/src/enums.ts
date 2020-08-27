@@ -26,3 +26,27 @@ export enum EntityType {
   TEXT_LINK = 'text_link',
   TEXT_MENTION = 'text_mention'
 }
+
+export enum UpdateType {
+  CALLBACK_QUERY = 'callback_query',
+  CHANNEL_CHAT_CREATED = 'channel_chat_created',
+  CHOSEN_INLINE_RESULT = 'chosen_inline_result',
+  DELETE_CHAT_PHOTO = 'delete_chat_photo',
+  GROUP_CHAT_CREATED = 'group_chat_created',
+  INLINE_QUERY = 'inline_query',
+  INVOICE = 'invoice',
+  LEFT_CHAT_MEMBER = 'left_chat_member',
+  MESSAGE = 'message',
+  MIGRATE_FROM_CHAT_ID = 'migrate_from_chat_id',
+  MIGRATE_FROM_TO_ID = 'migrate_from_TO_id',
+  NEW_CHAT_MEMBERS = 'new_chat_members',
+  NEW_CHAT_PHOTO = 'new_chat_photo',
+  NEW_CHAT_TITLE = 'new_chat_title',
+  PINNED_MESSAGE = 'pinned_message',
+  POLL = 'poll',
+  POLL_ANSWER = 'poll_answer',
+  PRE_CHECKOUT_QUERY = 'pre_checkout_query',
+  SHIPPING_QUERY = 'shipping_query',
+  SUCCESSFUL_PAYMENT = 'successful_payment',
+  SUPERGROUP_CHAT_CREATED = 'supergroup_chat_created'
+}

@@ -35,6 +35,7 @@ const context: PreCheckoutQueryContext = new PreCheckoutQueryContext(telegram, u
 
 ### Table of contents
 
+* [`answerPreCheckoutQuery`](#answerprecheckoutquery-params)
 * [`send`](#sendtext-params)
 * [`sendPhoto`](#sendphotophoto-params)
 * [`sendAudio`](#sendaudioaudio-params)
@@ -54,6 +55,18 @@ const context: PreCheckoutQueryContext = new PreCheckoutQueryContext(telegram, u
 * [`getMyCommands`](#getmycommands)
 
 ---
+
+### `answerPreCheckoutQuery(params)`
+
+**Отвечает на pre-checkout query.**
+
+| Параметр |              Тип               |
+| :------: | :----------------------------: |
+| `params` | `AnswerPreCheckoutQueryParams` |
+
+```ts
+context.answerPreCheckoutQuery(params) // => Promise<true>
+```
 
 ### `send(text, params?)`
 

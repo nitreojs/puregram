@@ -223,6 +223,7 @@ _◬ НЛО прилетело и опубликовало эту надпись
 * [`replyWithMediaGroup`](#replywithmediagroupmediagroup-params)
 * [`sendLocation`](#sendlocationlatitude-longitude-params)
 * [`replyWithLocation`](#replywithlocationlatitude-longitude-params)
+* [`sendInvoice`](#sendinvoiceinvoice)
 * [`editMessageLiveLocation`](#editmessagelivelocationparams)
 * [`stopMessageLiveLocation`](#stopmessagelivelocationparams)
 * [`sendVenue`](#sendvenueparams)
@@ -483,6 +484,18 @@ context.replyWithLocation(0, 0) // => Promise<MessageContext>
 ```
 
 _Указанная локация - [Остров Ноль](https://ru.wikipedia.org/wiki/%D0%9E%D1%81%D1%82%D1%80%D0%BE%D0%B2_%D0%9D%D0%BE%D0%BB%D1%8C)_
+
+### `sendInvoice(invoice)`
+
+**Отправляет `invoice` пользователю.**
+
+| Параметр  |         Тип         |
+| :-------: | :-----------------: |
+| `invoice` | `SendInvoiceParams` |
+
+```ts
+context.sendInvoice(invoice) // => Promise<MessageContext>
+```
 
 ### `sendVenue(params)`
 

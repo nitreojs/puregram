@@ -53,6 +53,8 @@ import {
   MessageEventName
 } from './types';
 
+import { UpdateType } from './enums';
+
 const debug = createDebug('puregram:updates');
 
 const rawEvents: [UpdateName, Constructor<any>][] = [
@@ -242,132 +244,132 @@ export class Updates {
 
   /** Subscribe to events */
   public on<T = {}>(
-    events: 'message',
+    events: UpdateType.MESSAGE | 'message',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'edited_message',
+    events: UpdateType.EDITED_MESSAGE | 'edited_message',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'channel_post',
+    events: UpdateType.CHANNEL_POST | 'channel_post',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'edited_channel_post',
+    events: UpdateType.EDITED_CHANNEL_POST | 'edited_channel_post',
     handlers: AllowArray<Middleware<MessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'inline_query',
+    events: UpdateType.INLINE_QUERY | 'inline_query',
     handlers: AllowArray<Middleware<InlineQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'chosen_inline_result',
+    events: UpdateType.CHOSEN_INLINE_RESULT | 'chosen_inline_result',
     handlers: AllowArray<Middleware<ChosenInlineResultContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'callback_query',
+    events: UpdateType.CALLBACK_QUERY | 'callback_query',
     handlers: AllowArray<Middleware<CallbackQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'shipping_query',
+    events: UpdateType.SHIPPING_QUERY | 'shipping_query',
     handlers: AllowArray<Middleware<ShippingQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'pre_checkout_query',
+    events: UpdateType.PRE_CHECKOUT_QUERY | 'pre_checkout_query',
     handlers: AllowArray<Middleware<PreCheckoutQueryContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'poll',
+    events: UpdateType.POLL | 'poll',
     handlers: AllowArray<Middleware<PollContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'poll_answer',
+    events: UpdateType.POLL_ANSWER | 'poll_answer',
     handlers: AllowArray<Middleware<PollAnswerContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'new_chat_members',
+    events: UpdateType.NEW_CHAT_MEMBERS | 'new_chat_members',
     handlers: AllowArray<Middleware<NewChatMembersContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'left_chat_member',
+    events: UpdateType.LEFT_CHAT_MEMBER | 'left_chat_member',
     handlers: AllowArray<Middleware<LeftChatMemberContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'new_chat_title',
+    events: UpdateType.NEW_CHAT_TITLE | 'new_chat_title',
     handlers: AllowArray<Middleware<NewChatTitleContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'new_chat_photo',
+    events: UpdateType.NEW_CHAT_PHOTO | 'new_chat_photo',
     handlers: AllowArray<Middleware<NewChatPhotoContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'delete_chat_photo',
+    events: UpdateType.DELETE_CHAT_PHOTO | 'delete_chat_photo',
     handlers: AllowArray<Middleware<DeleteChatPhotoContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'group_chat_created',
+    events: UpdateType.GROUP_CHAT_CREATED | 'group_chat_created',
     handlers: AllowArray<Middleware<GroupChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'supergroup_chat_created',
+    events: UpdateType.SUPERGROUP_CHAT_CREATED | 'supergroup_chat_created',
     handlers: AllowArray<Middleware<SupergroupChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'channel_chat_created',
+    events: UpdateType.CHANNEL_CHAT_CREATED | 'channel_chat_created',
     handlers: AllowArray<Middleware<ChannelChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'pinned_message',
+    events: UpdateType.PINNED_MESSAGE | 'pinned_message',
     handlers: AllowArray<Middleware<PinnedMessageContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'migrate_to_chat_id',
+    events: UpdateType.MIGRATE_FROM_TO_ID | 'migrate_to_chat_id',
     handlers: AllowArray<Middleware<MigrateToChatIdContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'migrate_from_chat_id',
+    events: UpdateType.MIGRATE_FROM_CHAT_ID | 'migrate_from_chat_id',
     handlers: AllowArray<Middleware<MigrateFromChatIdContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'invoice',
+    events: UpdateType.INVOICE | 'invoice',
     handlers: AllowArray<Middleware<InvoiceContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: 'successful_payment',
+    events: UpdateType.SUCCESSFUL_PAYMENT | 'successful_payment',
     handlers: AllowArray<Middleware<SuccessfulPaymentContext & T>>
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<UpdateName | string>,
+    events: AllowArray<UpdateName | UpdateType |  string>,
     handlers: AllowArray<Middleware<Context & T>>
   ): this;
 
   public on<T = {}>(
-    rawOnEvents: AllowArray<UpdateName | string>,
+    rawOnEvents: AllowArray<UpdateName | UpdateType | string>,
     rawHandlers: AllowArray<Middleware<Context & T>>
   ): this {
     const onEvents = Array.isArray(rawOnEvents)

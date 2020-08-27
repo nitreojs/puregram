@@ -2,8 +2,12 @@ import { inspectable } from 'inspectable';
 
 import { Context } from './context';
 import { Telegram } from '../telegram';
-import { Message } from '../updates/message';
-import { AttachmentType as AttachmentTypeEnum, Entity } from '../enums';
+import { Message } from '../updates/';
+
+import {
+  AttachmentType as AttachmentTypeEnum,
+  EntityType as EntityTypeEnum
+} from '../enums';
 
 import {
   InputMediaPhoto,
@@ -23,6 +27,7 @@ import {
   DiceEmoji,
   EntityType,
   MessageEventName,
+  PickPartial,
   TelegramInputFile
 } from '../types';
 
@@ -36,7 +41,6 @@ import {
   EditMessageTextParams,
   SendAnimationParams,
   SendAudioParams,
-  SendChatActionParams,
   SendContactParams,
   SendDiceParams, SendInvoiceParams,
   SendLocationParams,
@@ -137,7 +141,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any entities (with specified type) */
-  public hasEntities(type?: EntityType | Entity): boolean {
+  public hasEntities(type?: EntityTypeEnum | EntityType): boolean {
     if (type === undefined) return this.entities.length !== 0;
 
     return this.entities.some(
@@ -151,7 +155,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any caption entities (with specified type) */
-  public hasCaptionEntities(type?: EntityType | Entity): boolean {
+  public hasCaptionEntities(type?: EntityTypeEnum | EntityType): boolean {
     if (type === undefined) return this.captionEntities.length !== 0;
 
     return this.captionEntities.some(
@@ -259,7 +263,7 @@ class MessageContext extends Context {
   /** Sends message to current chat */
   public async send(
     text: string,
-    params?: Partial<SendMessageParams>
+    params?: PickPartial<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendMessage({
       ...params,
@@ -273,7 +277,7 @@ class MessageContext extends Context {
   /** Replies to current message */
   public reply(
     text: string,
-    params?: Partial<SendMessageParams>
+    params?: PickPartial<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
     return this.send(text, {
       ...params,
@@ -284,7 +288,7 @@ class MessageContext extends Context {
   /** Sends photo to current chat */
   public async sendPhoto(
     photo: TelegramInputFile,
-    params?: Partial<SendPhotoParams>
+    params?: PickPartial<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPhoto({
       ...params,
@@ -298,7 +302,7 @@ class MessageContext extends Context {
   /** Replies to current message with photo */
   public replyWithPhoto(
     photo: TelegramInputFile,
-    params?: Partial<SendPhotoParams>
+    params?: PickPartial<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     return this.sendPhoto(photo, {
       ...params,
@@ -309,7 +313,7 @@ class MessageContext extends Context {
   /** Sends audio to current chat */
   public async sendAudio(
     audio: TelegramInputFile,
-    params?: Partial<SendAudioParams>
+    params?: PickPartial<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAudio({
       ...params,
@@ -323,7 +327,7 @@ class MessageContext extends Context {
   /** Replies to current message with audio */
   public replyWithAudio(
     audio: TelegramInputFile,
-    params?: Partial<SendAudioParams>
+    params?: PickPartial<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     return this.sendAudio(audio, {
       ...params,
@@ -334,7 +338,7 @@ class MessageContext extends Context {
   /** Sends video to current chat */
   public async sendVideo(
     video: TelegramInputFile,
-    params?: Partial<SendVideoParams>
+    params?: PickPartial<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideo({
       ...params,
@@ -348,7 +352,7 @@ class MessageContext extends Context {
   /** Replies to current message with video */
   public replyWithVideo(
     video: TelegramInputFile,
-    params?: Partial<SendVideoParams>
+    params?: PickPartial<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     return this.sendVideo(video, {
       ...params,
@@ -359,7 +363,7 @@ class MessageContext extends Context {
   /** Sends animation to current chat */
   public async sendAnimation(
     animation: TelegramInputFile,
-    params?: Partial<SendAnimationParams>
+    params?: PickPartial<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAnimation({
       ...params,
@@ -373,7 +377,7 @@ class MessageContext extends Context {
   /** Replies to current message with animation */
   public replyWithAnimation(
     animation: TelegramInputFile,
-    params?: Partial<SendAnimationParams>
+    params?: PickPartial<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     return this.sendAnimation(animation, {
       ...params,
@@ -384,7 +388,7 @@ class MessageContext extends Context {
   /** Sends video note to current chat */
   public async sendVideoNote(
     videoNote: TelegramInputFile,
-    params?: Partial<SendVideoNoteParams>
+    params?: PickPartial<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideoNote({
       ...params,
@@ -398,7 +402,7 @@ class MessageContext extends Context {
   /** Replies to current message with video note */
   public replyWithVideoNote(
     videoNote: TelegramInputFile,
-    params?: Partial<SendVideoNoteParams>
+    params?: PickPartial<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     return this.sendVideoNote(videoNote, {
       ...params,
@@ -409,7 +413,7 @@ class MessageContext extends Context {
   /** Sends voice to current chat */
   public async sendVoice(
     voice: TelegramInputFile,
-    params?: Partial<SendVoiceParams>
+    params?: PickPartial<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVoice({
       ...params,
@@ -423,7 +427,7 @@ class MessageContext extends Context {
   /** Replies to current message with voice */
   public replyWithVoice(
     voice: TelegramInputFile,
-    params?: Partial<SendVoiceParams>
+    params?: PickPartial<SendVoiceParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendVoice(voice, {
       ...params,
@@ -434,7 +438,7 @@ class MessageContext extends Context {
   /** Sends media group to current chat */
   public async sendMediaGroup(
     mediaGroup: (InputMediaPhoto | InputMediaVideo)[],
-    params?: Partial<SendMediaGroupParams>
+    params?: PickPartial<SendMediaGroupParams, 'chat_id' | 'media'>
   ): Promise<Message[]> {
     const response = await this.telegram.api.sendMediaGroup({
       ...params,
@@ -450,7 +454,7 @@ class MessageContext extends Context {
   /** Replies to current message with media group */
   public replyWithMediaGroup(
     mediaGroup: (InputMediaPhoto | InputMediaVideo)[],
-    params?: Partial<SendMediaGroupParams>
+    params?: PickPartial<SendMediaGroupParams, 'chat_id' | 'media'>
   ): Promise<Message[]> {
     return this.sendMediaGroup(mediaGroup, {
       ...params,
@@ -462,7 +466,7 @@ class MessageContext extends Context {
   public async sendLocation(
     latitude: number,
     longitude: number,
-    params?: Partial<SendLocationParams>
+    params?: PickPartial<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendLocation({
       ...params,
@@ -478,7 +482,7 @@ class MessageContext extends Context {
   public replyWithLocation(
     latitude: number,
     longitude: number,
-    params?: Partial<SendLocationParams>
+    params?: PickPartial<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
   ): Promise<MessageContext> {
     return this.sendLocation(latitude, longitude, {
       ...params,
@@ -487,7 +491,9 @@ class MessageContext extends Context {
   }
 
   /** Sends invoice to current user */
-  public async sendInvoice(params: SendInvoiceParams): Promise<MessageContext> {
+  public async sendInvoice(
+    params: PickPartial<SendInvoiceParams, 'chat_id'>
+  ): Promise<MessageContext> {
     const response = await this.telegram.api.sendInvoice({
       ...params,
       chat_id: this.chatId || this.senderId || 0
@@ -530,7 +536,7 @@ class MessageContext extends Context {
 
   /** Sends venue to current chat */
   public async sendVenue(
-    params: SendVenueParams
+    params: PickPartial<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVenue({
       ...params,
@@ -542,7 +548,7 @@ class MessageContext extends Context {
 
   /** Replies to current message with venue */
   public replyWithVenue(
-    params: SendVenueParams
+    params: PickPartial<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendVenue({
       ...params,
@@ -552,7 +558,7 @@ class MessageContext extends Context {
 
   /** Sends contact to current chat */
   public async sendContact(
-    params: SendContactParams
+    params: PickPartial<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendContact({
       ...params,
@@ -564,7 +570,7 @@ class MessageContext extends Context {
 
   /** Replies to current message with contact */
   public replyWithContact(
-    params: SendContactParams
+    params: PickPartial<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendContact({
       ...params,
@@ -574,7 +580,7 @@ class MessageContext extends Context {
 
   /** Sends poll to current chat */
   public async sendPoll(
-    params: SendPollParams
+    params: PickPartial<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPoll({
       ...params,
@@ -586,7 +592,7 @@ class MessageContext extends Context {
 
   /** Replies to current message with poll */
   public replyWithPoll(
-    params: SendPollParams
+    params: PickPartial<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendPoll({
       ...params,
@@ -609,12 +615,8 @@ class MessageContext extends Context {
   }
 
   /** Sends chat action to current chat */
-  public sendChatAction(
-    action: ChatAction,
-    params?: SendChatActionParams
-  ): Promise<true> {
+  public sendChatAction(action: ChatAction): Promise<true> {
     return this.telegram.api.sendChatAction({
-      ...params,
       chat_id: this.chatId || this.senderId || 0,
       action
     });
@@ -631,7 +633,7 @@ class MessageContext extends Context {
   /** Sends sticker */
   public async sendSticker(
     sticker: TelegramInputFile,
-    params?: Partial<SendStickerParams>
+    params?: PickPartial<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendSticker({
       ...params,

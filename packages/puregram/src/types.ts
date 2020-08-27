@@ -22,3 +22,6 @@ export type InlineQueryType = 'article' | 'photo' | 'gif' | 'mpeg4_gif' | 'video
 export type PassportElementSource = 'data' | 'front_side' | 'reverse_side' | 'selfie' | 'file' | 'files' | 'translation_file' | 'translation_files' | 'unspecified';
 export type ApiMethod = keyof ApiMethods;
 export type ApiMethodKey = AttachmentType | 'media';
+
+// https://stackoverflow.com/a/53742583
+export type PickPartial<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>;

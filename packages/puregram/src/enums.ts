@@ -9,7 +9,7 @@ export enum AttachmentType {
   VOICE = 'voice'
 }
 
-export enum Entity {
+export enum EntityType {
   MENTION = 'mention',
   HASHTAG = 'hashtag',
   CASHTAG = 'cashtag',

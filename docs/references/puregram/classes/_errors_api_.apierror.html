@@ -86,10 +86,10 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_errors_api_.apierror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="_errors_api_.apierror.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited">
@@ -116,26 +116,34 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new APIError<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_errors_telegram_.erroroptions.html" class="tsd-signature-type">ErrorOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_errors_api_.apierror.html" class="tsd-signature-type">APIError</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">new APIError<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>error_code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_errors_api_.apierror.html" class="tsd-signature-type">APIError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#constructor">constructor</a></p>
+								<p>Inherited from <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/8acc6d9/packages/puregram/src/errors/api.ts#L3">home/storage/puregram/packages/puregram/src/errors/api.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/7f07072/packages/puregram/src/errors/telegram.ts#L12">js/packages/puregram/packages/puregram/src/errors/telegram.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>params: <a href="../interfaces/_errors_telegram_.erroroptions.html" class="tsd-signature-type">ErrorOptions</a></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>error_code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>error_<wbr>code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_errors_api_.apierror.html" class="tsd-signature-type">APIError</a></h4>
@@ -152,7 +160,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#code">code</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/8acc6d9/packages/puregram/src/errors/telegram.ts#L9">home/storage/puregram/packages/puregram/src/errors/telegram.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/7f07072/packages/puregram/src/errors/telegram.ts#L9">js/packages/puregram/packages/puregram/src/errors/telegram.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -168,7 +176,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#message">message</a></p>
 						<ul>
-							<li>Defined in usr/lib/node_modules/typescript/lib/lib.es5.d.ts:974</li>
+							<li>Defined in .nvm/versions/node/v14.6.0/lib/node_modules/typescript/lib/lib.es5.d.ts:974</li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +187,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#name">name</a></p>
 						<ul>
-							<li>Defined in usr/lib/node_modules/typescript/lib/lib.es5.d.ts:973</li>
+							<li>Defined in .nvm/versions/node/v14.6.0/lib/node_modules/typescript/lib/lib.es5.d.ts:973</li>
 						</ul>
 					</aside>
 				</section>
@@ -191,7 +199,7 @@
 						<p>Inherited from <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#stack">stack</a></p>
 						<p>Overrides Error.stack</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/8acc6d9/packages/puregram/src/errors/telegram.ts#L12">home/storage/puregram/packages/puregram/src/errors/telegram.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/7f07072/packages/puregram/src/errors/telegram.ts#L12">js/packages/puregram/packages/puregram/src/errors/telegram.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -214,7 +222,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#_symbol_tostringtag_">[Symbol.toStringTag]</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/8acc6d9/packages/puregram/src/errors/telegram.ts#L23">home/storage/puregram/packages/puregram/src/errors/telegram.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/7f07072/packages/puregram/src/errors/telegram.ts#L23">js/packages/puregram/packages/puregram/src/errors/telegram.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -235,7 +243,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_errors_telegram_.telegramerror.html">TelegramError</a>.<a href="_errors_telegram_.telegramerror.html#tojson">toJSON</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/8acc6d9/packages/puregram/src/errors/telegram.ts#L27">home/storage/puregram/packages/puregram/src/errors/telegram.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/nitreojs/puregram/blob/7f07072/packages/puregram/src/errors/telegram.ts#L27">js/packages/puregram/packages/puregram/src/errors/telegram.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -262,7 +270,7 @@
 					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="_errors_api_.apierror.html" class="tsd-kind-icon">APIError</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 								<a href="_errors_api_.apierror.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
@@ -305,13 +313,13 @@
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-			</ul>
-			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

@@ -118,15 +118,15 @@ class MessageContext extends Context {
     return this.chatType === 'channel';
   }
 
-  public get startPayload(): string | number | Record<string, any> | undefined {
+  public get startPayload(): any {
     if (!this.hasText) return undefined;
     if (!this.text!.startsWith('/start') || this.text === '/start') {
       return undefined;
     }
 
-    let payload: string | number | Record<string, any> = this.text!.split(' ')[1];
+    let payload: any = this.text!.split(' ')[1];
 
-    if (!Number.isNaN(payload)) {
+    if (!Number.isNaN(+payload)) {
       payload = Number.parseInt(payload, 10);
     } else if (isParseable(payload)) {
       payload = JSON.parse(payload);

@@ -30,6 +30,7 @@ export interface ApiMethods {
   getStickerSet: api.getStickerSet;
   getUpdates: api.getUpdates;
   getUserProfilePhotos: api.getUserProfilePhotos;
+  getWebhookInfo: api.getWebhookInfo;
   kickChatMember: api.kickChatMember;
   leaveChat: api.leaveChat;
   pinChatMessage: api.pinChatMessage;

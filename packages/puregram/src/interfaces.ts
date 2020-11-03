@@ -1,4 +1,5 @@
 import { Agent } from 'https';
+import { UpdateName } from './types';
 
 import {
   ChatType,
@@ -114,6 +115,22 @@ export interface TelegramChatPermissions {
   can_invite_users?: boolean;
 
   can_pin_messages?: boolean;
+}
+
+export interface TelegramWebhookInfo {
+  url: string;
+
+  has_custom_certificate: boolean;
+
+  pending_update_count: number;
+
+  last_error_date?: number;
+
+  last_error_message?: string;
+
+  max_connections?: number;
+
+  allowed_updates?: UpdateName[];
 }
 
 export type TelegramChatUnion = TelegramChatPrivate

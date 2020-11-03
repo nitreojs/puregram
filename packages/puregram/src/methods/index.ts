@@ -27,6 +27,7 @@ export * from './getMyCommands';
 export * from './getStickerSet';
 export * from './getUpdates';
 export * from './getUserProfilePhotos';
+export * from './getWebhookInfo';
 export * from './kickChatMember';
 export * from './leaveChat';
 export * from './pinChatMessage';

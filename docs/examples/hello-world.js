@@ -1,10 +1,10 @@
-import { Telegram, MessageContext } from '../../packages/puregram';
+import { Telegram } from 'puregram';
 
-const telegram: Telegram = new Telegram({
+const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-telegram.updates.on('message', (context: MessageContext) => {
+telegram.updates.on('message', (context) => {
   if (context.text && /hello/i.test(context.text)) {
     return context.send('Hello, World!');
   }
@@ -12,6 +12,4 @@ telegram.updates.on('message', (context: MessageContext) => {
 
 telegram.updates.startPolling().then(
   () => console.log(`Started polling @${telegram.bot.username}`)
-).catch(
-  (e: Error) => console.log(e)
-);
+).catch(console.error);

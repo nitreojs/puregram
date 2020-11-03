@@ -25,9 +25,9 @@ import { Keyboard } from 'puregram';
 
 **Создаёт клавиатуру из заданных кнопок.**
 
-| Параметр |                      Тип                       |
-| :------: | :--------------------------------------------: |
-| `rows`   | `(KeyboardOptions &#124; KeyboardOptions[])[]` |
+| Параметр |                    Тип                    |
+| :------: | :---------------------------------------: |
+| `rows`   | `(KeyboardOptions | KeyboardOptions[])[]` |
 
 ```ts
 Keyboard.keyboard(rows) // => Keyboard

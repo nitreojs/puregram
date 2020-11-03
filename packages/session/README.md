@@ -16,22 +16,22 @@ npm i @puregram/session
 ```
 
 ## Example usage
-```ts
-import { Telegram, MessageContext } from 'puregram';
-import { SessionManager, SessionInterface } from '@puregram/session';
+```js
+import { Telegram } from 'puregram';
+import { SessionManager } from '@puregram/session';
 import { HearManager } from '@puregram/hear';
 
-const telegram: Telegram = new Telegram({
+const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-const sessionManager: SessionManager = new SessionManager();
-const hearManager: HearManager<MessageContext> = new HearManager<MessageContext>();
+const sessionManager = new SessionManager();
+const hearManager = new HearManager();
 
 telegram.updates.on('message', sessionManager.middleware);
 telegram.updates.on('message', hearManager.middleware);
 
-hearManager.hear(/^\/counter$/i, async (context: MessageContext & SessionInterface) => {
+hearManager.hear(/^\/counter$/i, async (context) => {
   const { session } = context;
 
   if (!session.counter) session.counter = 0;

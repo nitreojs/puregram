@@ -7,7 +7,7 @@
 
 ## Features
 
-* 100% Telegram API coverage
+* 100% [Telegram Bot API](https://core.telegram.org/bots/api) coverage
 * Works with JavaScript and TypeScript
 * Has **57** tests and all of them passes every build
 
@@ -26,14 +26,14 @@ npm i -S puregram
 
 ## Example usage
 
-```ts
-import { Telegram, MessageContext } from 'puregram';
+```js
+import { Telegram } from 'puregram';
 
-const telegram: Telegram = new Telegram({
+const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-telegram.updates.on('message', (context: MessageContext) => {
+telegram.updates.on('message', (context) => {
   context.send('Hi!');
 });
 
@@ -44,3 +44,4 @@ telegram.updates.startPolling().catch(console.error);
 Biggest thanks to [Negezor](https://github.com/negezor) for his [vk-io](https://github.com/negezor/vk-io) library that helped me with this package!
 
 ### [Telegram chat](https://t.me/puregram_chat)
+### [Telegram channel](https://t.me/puregram_channel)

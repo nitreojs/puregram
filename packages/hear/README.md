@@ -16,20 +16,20 @@ npm i @puregram/hear
 ```
 
 ## Example usage
-```ts
-import { Telegram, MessageContext } from 'puregram';
+```js
+import { Telegram } from 'puregram';
 import { HearManager } from '@puregram/hear';
 
-const telegram: Telegram = new Telegram({
+const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-const hearManager: HearManager = new HearManager<MessageContext>();
+const hearManager = new HearManager();
 
 telegram.updates.on('message', hearManager.middleware);
 
-hearManager.hear(/^hello$/i, async (context: MessageContext) => {
-  await context.send('Hello, World!');
+hearManager.hear(/^hello$/i, async (context) => {
+  context.send('Hello, World!');
 });
 
 telegram.updates.startPolling().catch(console.error);

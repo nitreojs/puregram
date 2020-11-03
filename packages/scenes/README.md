@@ -16,23 +16,23 @@ npm i @puregram/scenes
 ```
 
 ## Example usage
-```ts
-import { Telegram, MessageContext } from 'puregram';
+```js
+import { Telegram } from 'puregram';
 
 // @puregram/scenes requires @puregram/session
 import { SessionManager } from '@puregram/session';
-import { SceneManager, StepScene, StepContext } from '@puregram/scenes';
+import { SceneManager, StepScene } from '@puregram/scenes';
 
 // We will also use @puregram/hear package
 import { HearManager } from '@puregram/hear';
 
-const telegram: Telegram = new Telegram({
+const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-const sessionManager: SessionManager = new SessionManager();
-const sceneManager: SceneManager = new SceneManager();
-const hearManager: HearManager<MessageContext & StepContext> = new HearManager<MessageContext>();
+const sessionManager = new SessionManager();
+const sceneManager = new SceneManager();
+const hearManager = new HearManager();
 
 telegram.updates.on('message', sessionManager.middleware);
 
@@ -42,13 +42,13 @@ telegram.updates.on('message', sceneManager.middlewareIntercept); // Default sce
 // Initializing hearManager after sceneManager because we need to handle scenes
 telegram.updates.on('message', hearManager.middleware);
 
-hearManager.hear(/^\/signup$/i, (context: MessageContext & StepContext) => (
+hearManager.hear(/^\/signup$/i, (context) => (
   context.scene.enter('signup')
 ));
 
 sceneManager.addScenes([
-  new StepScene<MessageContext & StepContext>('signup', [
-    async (context: MessageContext & StepContext) => {
+  new StepScene('signup', [
+    async (context) => {
       if (context.scene.step.firstTime || !context.hasText) {
         return context.send('What\'s your name?');
       }
@@ -58,7 +58,7 @@ sceneManager.addScenes([
       return context.scene.step.next();
     },
 
-    async (context: MessageContext & StepContext) => {
+    async (context) => {
       if (context.scene.step.firstTime || !context.hasText) {
         return context.send('How old are you?');
       }
@@ -68,7 +68,7 @@ sceneManager.addScenes([
       return context.scene.step.next();
     },
 
-    async (context: MessageContext & StepContext) => {
+    async (context) => {
       const { firstName, age } = context.scene.state;
 
       await context.send(`You are ${firstName} ${age} years old!`);

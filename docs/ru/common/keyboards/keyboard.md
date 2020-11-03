@@ -25,9 +25,9 @@ import { Keyboard } from 'puregram';
 
 **Создаёт клавиатуру из заданных кнопок.**
 
-| Параметр |                    Тип                    |
-| :------: | :---------------------------------------: |
-| `rows`   | `(KeyboardOptions | KeyboardOptions[])[]` |
+| Параметр |                            Тип                            |
+| :------: | :-------------------------------------------------------: |
+| `rows`   | <code>(TelegramInlineKeyboardButton &#124; TelegramInlineKeyboardButton[])[]</code> |
 
 ```ts
 Keyboard.keyboard(rows) // => Keyboard

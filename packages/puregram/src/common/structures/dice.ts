@@ -21,7 +21,10 @@ export class Dice {
   }
 
   /**
-   * Value of the dice, 1-6 for `🎲` and `🎯` base emoji, 1-5 for `🏀` base emoji
+   * Value of the dice,
+   * `1-6` for `🎲` and `🎯` base emoji,
+   * `1-5` for `🏀` base emoji,
+   * `1-64` for `🎰` base emoji
    */
   public get value(): number {
     return this.payload.value;

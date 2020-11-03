@@ -22,7 +22,7 @@ import { ChannelChatCreatedContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: ChannelChatCreatedContext = new ChannelChatCreatedContext(telegram, update);
+const context = new ChannelChatCreatedContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

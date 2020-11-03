@@ -29,11 +29,11 @@ const generateAttachments = (path: string): string => {
         : ''
     }.
     
-    ${pre('ts', `import { ${name} } from 'puregram';`)}
+    ${pre('js', `import { ${name} } from 'puregram';`)}
     
     ${header(2, 'Constructor')}
     
-    ${pre('ts', `const ${variable}: ${name} = new ${name}(payload);`)}
+    ${pre('js', `const ${variable} = new ${name}(payload);`)}
     
     ${
       table(
@@ -43,51 +43,53 @@ const generateAttachments = (path: string): string => {
         ]
       )
     }
-    
-    ${header(2, 'Геттеры класса')}
   `;
 
   // cringe
 
   const getterRe: string = '(?:public\\sget\\s(.+?)\\(\\):\\s(.+?)\\s{)';
 
-  const rawGetters: RegExpMatchArray = data.match(new RegExp(getterRe, 'gi'))!;
+  const rawGetters: RegExpMatchArray | null = data.match(new RegExp(getterRe, 'gi'));
 
-  const getters: [string, string][] = rawGetters.map(
-    (element: string) => element.match(new RegExp(getterRe, 'i'))!
-  ).map(
-    (element: string[]) => [element[1], element[2]]
-  );
-
-  const gettersResult: string = stripIndents`
-    ${header(3, 'Содержание')}
-    
-    ${
-      getters.map(
-        ([getter]: [string, string]) => `* ${link(code(getter), generateAnchor(getter))}`
-      ).join('\n')
-    }
-    
-    ---
-    
-    ${
-      getters.map(
-        ([getter, type]: [string, string]) => stripIndents`
-          ${header(3, code(getter))}
-          
-          ${bold('')}
-          
-          ${pre('ts', `${variable}.${getter} // => ${type}`)}
-        `
-      ).join('\n\n')
-    }
-  `;
-
-  result += `\n\n${gettersResult}\n`;
+  if (rawGetters !== null) {
+    const getters: [string, string][] = rawGetters.map(
+      (element: string) => element.match(new RegExp(getterRe, 'i'))!
+    ).map(
+      (element: string[]) => [element[1], element[2]]
+    );
+  
+    const gettersResult: string = stripIndents`
+      ${header(2, 'Геттеры класса')}
+  
+      ${header(3, 'Содержание')}
+      
+      ${
+        getters.map(
+          ([getter]: [string, string]) => `* ${link(code(getter), generateAnchor(getter))}`
+        ).join('\n')
+      }
+      
+      ---
+      
+      ${
+        getters.map(
+          ([getter, type]: [string, string]) => stripIndents`
+            ${header(3, code(getter))}
+            
+            ${bold('')}
+            
+            ${pre('ts', `${variable}.${getter} // => ${type}`)}
+          `
+        ).join('\n\n')
+      }
+    `;
+  
+    result += `\n\n${gettersResult}\n`;
+  }
 
   fs.writeFileSync(`${__dirname}/../docs/ru/${path}.md`, result);
 
   return result;
 };
 
-// generateAttachments('common/attachments/*');
+generateAttachments('common/keyboards/force-reply');

@@ -9,7 +9,7 @@ import { Video } from 'puregram';
 ## Constructor
 
 ```ts
-const video: Video = new Video(payload);
+const video = new Video(payload);
 ```
 
 | Параметр  |                             Тип                             |

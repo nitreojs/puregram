@@ -9,7 +9,7 @@ import { VideoNote } from 'puregram';
 ## Constructor
 
 ```ts
-const videoNote: VideoNote = new VideoNote(payload);
+const videoNote = new VideoNote(payload);
 ```
 
 | Параметр  |                                 Тип                                 |

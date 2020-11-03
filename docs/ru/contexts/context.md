@@ -10,7 +10,7 @@ import { Context } from 'puregram';
 ## Constructor
 
 ```ts
-const context: Context = new Context(telegram, updateName);
+const context = new Context(telegram, updateName);
 ```
 
 |   Параметр   |     Тип      |       Описание       |

@@ -9,7 +9,7 @@ import { FileAttachment } from 'puregram';
 ## Constructor
 
 ```ts
-const fileAttachment: FileAttachment<T> = new FileAttachment<T>(payload);
+const fileAttachment = new FileAttachment<T>(payload);
 ```
 
 | Параметр |              Тип               |

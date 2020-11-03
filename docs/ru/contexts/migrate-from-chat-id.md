@@ -22,7 +22,7 @@ import { MigrateFromChatIdContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: MigrateFromChatIdContext = new MigrateFromChatIdContext(telegram, update);
+const context = new MigrateFromChatIdContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

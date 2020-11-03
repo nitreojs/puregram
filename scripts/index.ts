@@ -153,7 +153,7 @@ export const generateAnchor = (element: string): string => (
  * // # Test
  *
  * header(3, 'Foo bar baz')
- * // # Foo bar baz
+ * // ### Foo bar baz
  */
 export const header = (level: number = 1, text: string): string => (
   `${'#'.repeat(level)} ${text}`
@@ -210,14 +210,18 @@ export const link = (text: string, source: string): string => `[${text}](${sourc
 
 export const table = (rawMatrix: string[][]): string => {
   const [head, ...matrix] = rawMatrix;
+
   const lengths: number[] = calculateLongestStrings([[...head], ...matrix]);
   const headRow: string = createTableRow(head, lengths, true);
   const separator: string = createTableSeparator(lengths);
+
   const rows: string[] = [headRow, separator];
 
   for (const row of matrix) {
     rows.push(createTableRow(row, lengths));
   }
+
+  // "&#124;" instead of "|"
 
   return rows.join('\n');
 };

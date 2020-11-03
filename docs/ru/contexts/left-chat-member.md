@@ -22,7 +22,7 @@ import { LeftChatMemberContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: LeftChatMemberContext = new LeftChatMemberContext(telegram, update);
+const context = new LeftChatMemberContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

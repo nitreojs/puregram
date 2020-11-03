@@ -21,7 +21,7 @@ import { PollAnswerContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: PollAnswerContext = new PollAnswerContext(telegram, update);
+const context = new PollAnswerContext(telegram, update);
 ```
 
 |  Параметр  |          Тип         |                Описание              |

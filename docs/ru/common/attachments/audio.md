@@ -9,7 +9,7 @@ import { Audio } from 'puregram';
 ## Constructor
 
 ```ts
-const audio: Audio = new Audio(payload);
+const audio = new Audio(payload);
 ```
 
 | Параметр  |                             Тип                             |

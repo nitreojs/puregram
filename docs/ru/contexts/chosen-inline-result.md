@@ -23,7 +23,7 @@ import { ChosenInlineResultContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: ChosenInlineResultContext = new ChosenInlineResultContext(telegram, update);
+const context = new ChosenInlineResultContext(telegram, update);
 ```
 
 |  Параметр  |              Тип             |                   Описание                   |

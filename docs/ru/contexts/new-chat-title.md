@@ -22,7 +22,7 @@ import { NewChatTitleContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: NewChatTitleContext = new NewChatTitleContext(telegram, update);
+const context = new NewChatTitleContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

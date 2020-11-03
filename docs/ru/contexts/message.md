@@ -25,7 +25,7 @@ import { MessageContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: MessageContext = new MessageContext(telegram, update);
+const context = new MessageContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

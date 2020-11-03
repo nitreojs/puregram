@@ -9,7 +9,7 @@ import { Sticker } from 'puregram';
 ## Constructor
 
 ```ts
-const sticker: Sticker = new Sticker(payload);
+const sticker = new Sticker(payload);
 ```
 
 | Параметр  |                               Тип                               |

@@ -9,7 +9,7 @@ import { Document } from 'puregram';
 ## Constructor
 
 ```ts
-const document: Document = new Document(payload);
+const document = new Document(payload);
 ```
 
 | Параметр  |                                Тип                                |

@@ -21,7 +21,7 @@ import { InlineQueryContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: InlineQueryContext = new InlineQueryContext(telegram, update);
+const context = new InlineQueryContext(telegram, update);
 ```
 
 |  Параметр  |          Тип          |                Описание               |

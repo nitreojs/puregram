@@ -9,7 +9,7 @@ import { Photo } from 'puregram';
 ## Constructor
 
 ```ts
-const photo: Photo = new Photo(payload);
+const photo = new Photo(payload);
 ```
 
 | Параметр  |                             Тип                             |

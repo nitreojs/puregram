@@ -22,7 +22,7 @@ import { CallbackQueryContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: CallbackQueryContext = new CallbackQueryContext(telegram, update);
+const context = new CallbackQueryContext(telegram, update);
 ```
 
 |  Параметр  |           Тип           |                 Описание                |

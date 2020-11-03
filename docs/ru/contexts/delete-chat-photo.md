@@ -22,7 +22,7 @@ import { DeleteChatPhotoContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: DeleteChatPhotoContext = new DeleteChatPhotoContext(telegram, update);
+const context = new DeleteChatPhotoContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

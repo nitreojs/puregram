@@ -22,7 +22,7 @@ import { InvoiceContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: InvoiceContext = new InvoiceContext(telegram, update);
+const context = new InvoiceContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

@@ -9,7 +9,7 @@ import { Animation } from 'puregram';
 ## Constructor
 
 ```ts
-const animation: Animation = new Animation(payload);
+const animation = new Animation(payload);
 ```
 
 | Параметр  |                                 Тип                                 |

@@ -22,7 +22,7 @@ import { SuccessfulPayment } from 'puregram';
 ## Constructor
 
 ```ts
-const context: SuccessfulPayment = new SuccessfulPayment(telegram, update);
+const context = new SuccessfulPayment(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

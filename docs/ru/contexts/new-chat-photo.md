@@ -22,7 +22,7 @@ import { NewChatPhotoContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: NewChatPhotoContext = new NewChatPhotoContext(telegram, update);
+const context = new NewChatPhotoContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

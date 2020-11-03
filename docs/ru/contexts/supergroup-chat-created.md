@@ -22,7 +22,7 @@ import { SupergroupChatCreatedContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: SupergroupChatCreatedContext = new SupergroupChatCreatedContext(telegram, update);
+const context = new SupergroupChatCreatedContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

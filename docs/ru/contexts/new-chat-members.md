@@ -24,7 +24,7 @@ import { NewChatMembersContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: NewChatMembersContext = new NewChatMembersContext(telegram, update);
+const context = new NewChatMembersContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

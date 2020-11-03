@@ -21,7 +21,7 @@ import { ShippingQueryContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: ShippingQueryContext = new ShippingQueryContext(telegram, update);
+const context = new ShippingQueryContext(telegram, update);
 ```
 
 |  Параметр  |            Тип          |                  Описание               |

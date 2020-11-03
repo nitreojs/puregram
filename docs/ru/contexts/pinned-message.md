@@ -22,7 +22,7 @@ import { PinnedMessageContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: PinnedMessageContext = new PinnedMessageContext(telegram, update);
+const context = new PinnedMessageContext(telegram, update);
 ```
 
 |  Параметр  |        Тип        |              Описание             |

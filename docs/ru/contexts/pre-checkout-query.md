@@ -21,7 +21,7 @@ import { PreCheckoutQueryContext } from 'puregram';
 ## Constructor
 
 ```ts
-const context: PreCheckoutQueryContext = new PreCheckoutQueryContext(telegram, update);
+const context = new PreCheckoutQueryContext(telegram, update);
 ```
 
 |  Параметр  |             Тип            |                   Описание                 |

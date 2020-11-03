@@ -66,28 +66,28 @@ sceneManager.addScenes([
           [
             InlineKeyboard.textButton({
               text: 'Male',
-	      payload: { sex: 'male' }
-	    }),
+              payload: { sex: 'male' }
+            }),
 
-	    InlineKeyboard.textButton({
+	          InlineKeyboard.textButton({
               text: 'Female',
-	      payload: { sex: 'female' }
-	    })
-	  ],
+              payload: { sex: 'female' }
+            })
+	        ],
 
-	  [
-            InlineKeyboard.textButton({
-              text: 'Prefer not to say',
-	      payload: { sex: 'android' }
-	    })
-	  ]
-	]);
+          [
+                  InlineKeyboard.textButton({
+                    text: 'Prefer not to say',
+              payload: { sex: 'android' }
+            })
+          ]
+        ]);
 
         return context.send(
           'Welcome. Please tell me, ' +
           'are you a man or a woman.',
-	  { reply_markup: keyboard }
-	);
+          { reply_markup: keyboard }
+        );
       }
 
       if (!context.is('callback_query')) {
@@ -104,7 +104,8 @@ sceneManager.addScenes([
     async (context: HearManagerType) => {
       const sex: Sex = context.scene.state.sex;
 
-      const phrase: string = {                                  male: 'Ayy bro! How ya doin\'?',
+      const phrase: string = {
+        male: 'Ayy bro! How ya doin\'?',
         female: 'Hello, mam, you are welcome.',
         android: 'So you are android? 01100100100101.'
       }[sex];

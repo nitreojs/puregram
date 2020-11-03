@@ -2,7 +2,7 @@
 
 ### Navigation
 
-* [Hear package usage](hear.ts)
-* [Hello world](hello-world.ts)
-* [Keyboards example](keyboards.ts)
-* [Scenes package usage](scenes.ts)
+* [Hear package usage](hear.js)
+* [Hello world](hello-world.js)
+* [Keyboards example](keyboards.js)
+* [Scenes package usage](scenes.js)

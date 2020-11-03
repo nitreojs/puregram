@@ -6,12 +6,21 @@
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^26.0.8",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
     "abort-controller": "^3.0.0",
+    "babel-jest": "^26.2.1",
     "debug": "^4.1.1",
+    "eslint": "^7.4.0",
+    "eslint-plugin-import": "^2.22.0",
     "form-data": "^3.0.0",
     "inspectable": "^1.0.0",
+    "jest": "^26.2.1",
     "middleware-io": "^2.5.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "ts-jest": "^26.1.4",
+    "ts-node": "github:TypeStrong/ts-node#master"
   },
   "keywords": [
     "telegram",
@@ -26,6 +35,7 @@
   ],
   "devDependencies": {
     "@types/debug": "^4.1.5",
+    "@types/jest": "^26.0.15",
     "@types/node-fetch": "^2.5.7"
   }
 }

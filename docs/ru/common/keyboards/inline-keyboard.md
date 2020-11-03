@@ -1,6 +1,6 @@
 # `InlineKeyboard`
 
-**.**
+**Класс клавиатуры, присоединяемой к сообщению.**
 
 ```js
 import { InlineKeyboard } from 'puregram';

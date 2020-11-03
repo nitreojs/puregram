@@ -59,7 +59,7 @@ context.queryPayload // => Record<string, any> | string | undefined
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`answerCallbackQuery`](#answercallbackqueryparams)
 

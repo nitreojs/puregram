@@ -203,7 +203,7 @@ _◬ НЛО прилетело и опубликовало эту надпись
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`send`](#sendtext-params)
 * [`reply`](#replytext-params)

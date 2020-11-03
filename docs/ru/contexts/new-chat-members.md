@@ -151,7 +151,7 @@ context.eventMembers // => User[]
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`send`](#sendtext-params)
 * [`reply`](#replytext-params)

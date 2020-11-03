@@ -33,7 +33,7 @@ const context: PollAnswerContext = new PollAnswerContext(telegram, update);
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`send`](#sendtext-params)
 * [`sendPhoto`](#sendphotophoto-params)

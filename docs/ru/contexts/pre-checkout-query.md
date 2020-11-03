@@ -33,7 +33,7 @@ const context: PreCheckoutQueryContext = new PreCheckoutQueryContext(telegram, u
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`answerPreCheckoutQuery`](#answerprecheckoutquery-params)
 * [`send`](#sendtext-params)

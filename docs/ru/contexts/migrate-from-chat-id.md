@@ -149,7 +149,7 @@ context.eventId // => number
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`send`](#sendtext-params)
 * [`reply`](#replytext-params)

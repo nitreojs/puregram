@@ -33,7 +33,7 @@ const context: InlineQueryContext = new InlineQueryContext(telegram, update);
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`answerInlineQuery`](#answerinlinequeryresults-params)
 

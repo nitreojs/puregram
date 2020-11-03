@@ -33,7 +33,7 @@ const context: ShippingQueryContext = new ShippingQueryContext(telegram, update)
 
 ## Контекстуальные методы
 
-### Table of contents
+### Содержание
 
 * [`send`](#sendtext-params)
 * [`sendPhoto`](#sendphotophoto-params)

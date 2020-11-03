@@ -16,7 +16,7 @@
   ],
   "author": "nitrojs",
   "license": "MIT",
-  "peerDependencies": {
+  "dependencies": {
     "puregram": "^2.0.0",
     "@puregram/session": "^2.0.0"
   }

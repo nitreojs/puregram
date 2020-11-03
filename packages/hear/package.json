@@ -16,10 +16,9 @@
   ],
   "author": "nitrojs",
   "license": "MIT",
-  "peerDependencies": {
-    "puregram": "^2.0.0"
-  },
   "dependencies": {
-    "middleware-io": "^2.5.0"
+    "puregram": "^2.0.0",
+    "middleware-io": "^2.5.0",
+    "ts-node": "github:TypeStrong/ts-node#master"
   }
 }

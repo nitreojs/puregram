@@ -6,12 +6,12 @@
 > **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
 
 ### Yarn
-```
+```bash
 yarn add @puregram/scenes
 ```
 
 ### NPM
-```
+```bash
 npm i @puregram/scenes
 ```
 
@@ -42,9 +42,7 @@ telegram.updates.on('message', sceneManager.middlewareIntercept); // Default sce
 // Initializing hearManager after sceneManager because we need to handle scenes
 telegram.updates.on('message', hearManager.middleware);
 
-hearManager.hear(/^\/signup$/i, (context) => (
-  context.scene.enter('signup')
-));
+hearManager.hear(/^\/signup$/i, (context) => context.scene.enter('signup'));
 
 sceneManager.addScenes([
   new StepScene('signup', [
@@ -63,7 +61,7 @@ sceneManager.addScenes([
         return context.send('How old are you?');
       }
 
-      context.scene.state.age = Number.parseInt(context.text!, 10);
+      context.scene.state.age = Number.parseInt(context.text, 10);
 
       return context.scene.step.next();
     },

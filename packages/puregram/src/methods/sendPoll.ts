@@ -1,4 +1,4 @@
-import { PollType, ParseMode } from '../types';
+import { PollType, ParseMode, MessageEntities } from '../types';
 
 import {
   TelegramMessage,
@@ -12,7 +12,7 @@ export interface SendPollParams {
    */
   chat_id: number | string;
 
-  /** Poll question, 1-255 characters */
+  /** Poll question, `1-300` characters */
   question: string;
 
   /**
@@ -50,6 +50,12 @@ export interface SendPollParams {
   explanation_parse_mode?: ParseMode;
 
   /**
+   * List of special entities that appear in message text,
+   * which can be specified instead of `parse_mode`
+   */
+  explanation_entities?: MessageEntities;
+
+  /**
    * Amount of time in seconds the poll will be active after creation, `5-600`.
    * Can't be used together with `close_date`.
    */
@@ -76,6 +82,12 @@ export interface SendPollParams {
 
   /** If the message is a reply, ID of the original message */
   reply_to_message_id?: number;
+
+  /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options.

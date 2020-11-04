@@ -1,7 +1,9 @@
 import {
   TelegramMessage,
   InputMediaPhoto,
-  InputMediaVideo
+  InputMediaVideo,
+  InputMediaAudio,
+  InputMediaDocument
 } from '../interfaces';
 
 export interface SendMediaGroupParams {
@@ -11,11 +13,8 @@ export interface SendMediaGroupParams {
    */
   chat_id: number | string;
 
-  /**
-   * A JSON-serialized array describing photos and videos to be sent,
-   * must include 2-10 items
-   */
-  media: (InputMediaPhoto | InputMediaVideo)[];
+  /** A JSON-serialized array describing messages to be sent, must include `2-10` items */
+  media: (InputMediaAudio | InputMediaDocument | InputMediaPhoto | InputMediaVideo)[];
 
   /**
    * Sends the message silently. Users will receive a notification with
@@ -25,6 +24,12 @@ export interface SendMediaGroupParams {
 
   /** If the message is a reply, ID of the original message */
   reply_to_message_id?: number;
+
+  /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 }
 
 /**

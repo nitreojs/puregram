@@ -28,6 +28,15 @@ export interface SendVenueParams {
   /** Foursquare type of the venue, if known */
   foursquare_type?: string;
 
+  /** Google Places identifier of the venue */
+  google_place_id?: string;
+
+  /**
+   * Google Places type of the venue.
+   * (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+   */
+  google_place_type?: string;
+
   /**
    * Sends the message silently. Users will receive a notification with
    * no sound.
@@ -36,6 +45,12 @@ export interface SendVenueParams {
 
   /** If the message is a reply, ID of the original message */
   reply_to_message_id?: number;
+
+  /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options.

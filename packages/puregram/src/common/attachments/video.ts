@@ -32,6 +32,11 @@ export class Video extends FileAttachment<TelegramVideo> {
     return new PhotoSize(thumb);
   }
 
+  /** Original filename as defined by sender */
+  public get fileName(): string | undefined {
+    return this.payload.file_name;
+  }
+
   /** Mime type of a file as defined by sender */
   public get mimeType(): string | undefined {
     return this.payload.mime_type;
@@ -52,6 +57,7 @@ inspectable(Video, {
       height: video.height,
       duration: video.duration,
       thumb: video.thumb,
+      fileName: video.fileName,
       mimeType: video.mimeType,
       fileSize: video.fileSize
     };

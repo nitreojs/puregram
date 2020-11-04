@@ -17,6 +17,12 @@ export interface SetWebhookParams {
   certificate?: TelegramInputFile;
 
   /**
+   * The fixed IP address which will be used to send webhook request
+   * instead of the IP address resolved through DNS
+   */
+  ip_address?: string;
+
+  /**
    * Maximum allowed number of simultaneous HTTPS connections to the webhook
    * for update delivery, 1-100.
    * Use lower values to limit the load on your bot's server, and higher values
@@ -39,6 +45,9 @@ export interface SetWebhookParams {
    * period of time.
    */
   allowed_updates?: UpdateName[];
+
+  /** Pass `true` to drop all pending updates */
+  drop_pending_updates?: boolean;
 }
 
 /**

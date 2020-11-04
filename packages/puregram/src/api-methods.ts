@@ -6,6 +6,8 @@ export interface ApiMethods {
   answerInlineQuery: api.answerInlineQuery;
   answerPreCheckoutQuery: api.answerPreCheckoutQuery;
   answerShippingQuery: api.answerShippingQuery;
+  close: api.close;
+  copyMessage: api.copyMessage;
   createNewStickerSet: api.createNewStickerSet;
   deleteChatPhoto: api.deleteChatPhoto;
   deleteChatStickerSet: api.deleteChatStickerSet;
@@ -33,6 +35,7 @@ export interface ApiMethods {
   getWebhookInfo: api.getWebhookInfo;
   kickChatMember: api.kickChatMember;
   leaveChat: api.leaveChat;
+  logOut: api.logOut;
   pinChatMessage: api.pinChatMessage;
   promoteChatMember: api.promoteChatMember;
   restrictChatMember: api.restrictChatMember;

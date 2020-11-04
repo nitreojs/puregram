@@ -1,6 +1,7 @@
 import {
   TelegramInputFile,
-  ParseMode
+  ParseMode,
+  MessageEntities
 } from '../types';
 
 import {
@@ -32,6 +33,12 @@ export interface SendVideoParams {
 
   /** Mode for parsing entities in the document caption */
   parse_mode?: ParseMode;
+
+  /**
+   * List of special entities that appear in message text,
+   * which can be specified instead of `parse_mode`
+   */
+  caption_entities?: MessageEntities;
 
   /**
    * Thumbnail of the video sent;

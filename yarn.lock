@@ -3667,6 +3667,27 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+puregram@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/puregram/-/puregram-2.0.1.tgz#4ff8afba4d76528640b96b549e5ef292c744f870"
+  integrity sha512-889FF6xmOFfwtOKiPn08P3ZvC4jmUcj6LgGweE9kyQxOKD60GE2ZZZQJyc0xtudBByBH+gO3DIFwihgFwVWJ2Q==
+  dependencies:
+    "@types/jest" "^26.0.8"
+    "@typescript-eslint/eslint-plugin" "^3.6.0"
+    "@typescript-eslint/parser" "^3.6.0"
+    abort-controller "^3.0.0"
+    babel-jest "^26.2.1"
+    debug "^4.1.1"
+    eslint "^7.4.0"
+    eslint-plugin-import "^2.22.0"
+    form-data "^3.0.0"
+    inspectable "^1.0.0"
+    jest "^26.2.1"
+    middleware-io "^2.5.0"
+    node-fetch "^2.6.1"
+    ts-jest "^26.1.4"
+    ts-node "github:TypeStrong/ts-node#master"
+
 qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"

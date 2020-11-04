@@ -35,6 +35,7 @@ import {
 } from '../common/attachments';
 
 import { filterPayload } from '../utils/helpers';
+import { ProximityAlertTriggered } from '../common/structures/proximity-alert-triggered';
 
 /** This object represents a message. */
 export class Message {
@@ -60,6 +61,20 @@ export class Message {
     if (!from) return undefined;
 
     return new User(from);
+  }
+
+  /**
+   * Sender of the message, sent on behalf of a chat.
+   * The channel itself for channel messages.
+   * The supergroup itself for messages from anonymous group administrators.
+   * The linked channel for messages automatically forwarded to the discussion group
+   */
+  public get senderChat(): Chat | undefined {
+    const { sender_chat } = this.payload;
+
+    if (!sender_chat) return undefined;
+
+    return new Chat(sender_chat);
   }
 
   /** Date the message was sent in Unix time */
@@ -129,7 +144,10 @@ export class Message {
     return this.payload.media_group_id;
   }
 
-  /** Signature of the post author for messages in channels */
+  /**
+   * Signature of the post author for messages in channels,
+   * or the custom title of an anonymous group administrator
+   */
   public get authorSignature(): string | undefined {
     return this.payload.author_signature;
   }
@@ -469,6 +487,19 @@ export class Message {
   }
 
   /**
+   * Service message.
+   * A user in the chat triggered another user's proximity alert
+   * while sharing Live Location.
+   */
+  public get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
+    const { proximity_alert_triggered } = this.payload;
+
+    if (!proximity_alert_triggered) return undefined;
+
+    return new ProximityAlertTriggered(proximity_alert_triggered);
+  }
+
+  /**
    * Inline keyboard attached to the message.
    *
    * `login_url` buttons are represented as ordinary `url` buttons.
@@ -487,6 +518,7 @@ inspectable(Message, {
     const payload = {
       id: message.id,
       from: message.from,
+      senderChat: message.senderChat,
       createdAt: message.createdAt,
       chat: message.chat,
       forwardMessage: message.forwardMessage,

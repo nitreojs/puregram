@@ -32,6 +32,11 @@ export class ChatMember {
     return this.payload.custom_title;
   }
 
+  /** Owner and administrators only. `true`, if the user's presence in the chat is hidden */
+  public get isAnonymous(): boolean | undefined {
+    return this.payload.is_anonymous;
+  }
+
   /**
    * Restricted and kicked only.
    * Date when restrictions will be lifted for this user;
@@ -176,6 +181,7 @@ inspectable(ChatMember, {
       user: member.user,
       status: member.status,
       customTitle: member.customTitle,
+      isAnonymous: member.isAnonymous,
       untilDate: member.untilDate,
       canBeEdited: member.canBeEdited,
       canPostMessages: member.canPostMessages,

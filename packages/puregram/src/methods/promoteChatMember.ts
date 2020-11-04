@@ -8,6 +8,9 @@ export interface PromoteChatMemberParams {
   /** Unique identifier of the target user */
   user_id: number;
 
+  /** Pass `true`, if the administrator's presence in the chat is hidden */
+  is_anonymous?: boolean;
+
   /**
    * Pass `true`, if the administrator can change chat title,
    * photo and other settings

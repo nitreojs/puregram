@@ -3,7 +3,7 @@ import {
   TelegramInlineKeyboardMarkup
 } from '../interfaces';
 
-import { ParseMode } from '../types';
+import { MessageEntities, ParseMode } from '../types';
 
 import {
   InlineKeyboard,
@@ -35,6 +35,12 @@ export interface EditMessageCaptionParams {
 
   /** Mode for parsing entities in the message text */
   parse_mode?: ParseMode;
+
+  /**
+   * List of special entities that appear in message text,
+   * which can be specified instead of `parse_mode`
+   */
+  caption_entities?: MessageEntities;
 
   /** Disables link previews for links in this message */
   disable_web_page_preview?: boolean;

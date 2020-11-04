@@ -7,6 +7,9 @@ export interface UnbanChatMemberParams {
 
   /** Unique identifier of the target user */
   user_id: number;
+
+  /** Do nothing if the user is not banned */
+  only_if_banned?: boolean;
 }
 
 /**

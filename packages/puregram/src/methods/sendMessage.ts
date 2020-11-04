@@ -1,4 +1,4 @@
-import { ParseMode } from '../types';
+import { ParseMode, MessageEntities } from '../types';
 
 import {
   ReplyMarkupUnion,
@@ -20,6 +20,12 @@ export interface SendMessageParams {
   /** Mode for parsing entities in the message text */
   parse_mode?: ParseMode;
 
+  /**
+   * List of special entities that appear in message text,
+   * which can be specified instead of `parse_mode`
+   */
+  entities?: MessageEntities;
+
   /** Disables link previews for links in this message */
   disable_web_page_preview?: boolean;
 
@@ -31,6 +37,12 @@ export interface SendMessageParams {
 
   /** If the message is a reply, ID of the original message */
   reply_to_message_id?: number;
+
+  /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options. A JSON-serialized object for an inline

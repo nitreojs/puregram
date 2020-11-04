@@ -34,6 +34,24 @@ export interface EditMessageLiveLocationParams {
   /** Longitude of new location */
   longitude: number;
 
+  /**
+   * The radius of uncertainty for the location, measured in meters; `0-1500`
+   */
+  horizontal_accuracy?: number;
+
+  /**
+   * For live locations, a direction in which the user is moving, in degrees.
+   * Must be between `1` and `360` if specified.
+   */
+  heading?: number;
+
+  /**
+   * For live locations, a maximum distance for proximity alerts about approaching another chat member,
+   * in meters.
+   * Must be between `1` and `100000` if specified.
+   */
+  proximity_alert_radius?: number;
+
   /** A JSON-serialized object for a new inline keyboard */
   reply_markup?: TelegramInlineKeyboardMarkup
     | InlineKeyboard

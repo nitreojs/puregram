@@ -23,7 +23,7 @@ export class Poll {
     return this.payload.id;
   }
 
-  /** Poll question, 1-255 characters */
+  /** Poll question, `1-300` characters */
   public get question(): string {
     return this.payload.question;
   }

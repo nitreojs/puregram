@@ -1,6 +1,7 @@
 import {
   TelegramInputFile,
-  ParseMode
+  ParseMode,
+  MessageEntities
 } from '../types';
 
 import {
@@ -31,6 +32,12 @@ export interface SendVoiceParams {
   parse_mode?: ParseMode;
 
   /**
+   * List of special entities that appear in message text,
+   * which can be specified instead of `parse_mode`
+   */
+  caption_entities?: MessageEntities;
+
+  /**
    * Sends the message silently. Users will receive a notification with
    * no sound.
    */
@@ -38,6 +45,12 @@ export interface SendVoiceParams {
 
   /** If the message is a reply, ID of the original message */
   reply_to_message_id?: number;
+
+  /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options.

@@ -127,7 +127,7 @@ export class Telegram {
         debug(e);
       }
 
-      debug(`[${method}] <- HTTP ${response!.status}`);
+      debug(`[${method}] <- HTTP ${response?.status ?? '[not set]'}`);
 
       const json: ApiResponseUnion = await response!.json();
 

@@ -26,6 +26,11 @@ export class Audio extends FileAttachment<TelegramAudio> {
     return this.payload.title;
   }
 
+  /** Original filename as defined by sender */
+  public get fileName(): string | undefined {
+    return this.payload.file_name;
+  }
+
   /** MIME type of the file as defined by sender */
   public get mimeType(): string | undefined {
     return this.payload.mime_type;
@@ -54,6 +59,7 @@ inspectable(Audio, {
       duration: audio.duration,
       performer: audio.performer,
       title: audio.title,
+      fileName: audio.fileName,
       mimeType: audio.mimeType,
       fileSize: audio.fileSize,
       thumb: audio.thumb

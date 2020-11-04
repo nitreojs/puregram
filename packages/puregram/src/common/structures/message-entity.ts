@@ -10,6 +10,21 @@ import {
 import { EntityType } from '../../types';
 import { User } from './user';
 import { filterPayload } from '../../utils/helpers';
+import { TelegramUser } from '../../interfaces';
+
+interface MessageEntityJSON {
+  type: EntityType;
+
+  offset: number;
+
+  length: number;
+
+  url?: string;
+
+  user?: TelegramUser;
+
+  language?: string;
+}
 
 /**
  * This object represents one special entity in a text message.
@@ -71,6 +86,17 @@ export class MessageEntity {
   /** For `pre` only, the programming language of the entity text */
   public get language(): string | undefined {
     return (this.payload as TelegramMessageEntityPre).language;
+  }
+
+  public toJSON(): MessageEntityJSON {
+    return {
+      type: this.type,
+      offset: this.offset,
+      length: this.length,
+      url: this.url,
+      user: this.user ? this.user.toJSON() : undefined,
+      language: this.language
+    };
   }
 }
 

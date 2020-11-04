@@ -13,6 +13,7 @@ import { Message } from '../../updates/message';
 import { ChatPhoto } from './chat-photo';
 import { ChatPermissions } from './chat-permissions';
 import { filterPayload } from '../../utils/helpers';
+import { ChatLocation } from './chat-location';
 
 /** This object represents a chat. */
 export class Chat {
@@ -79,6 +80,43 @@ export class Chat {
     if (!photo) return undefined;
 
     return new ChatPhoto(photo);
+  }
+
+  /**
+   * Bio of the other party in a private chat.
+   * 
+   * Returned only in `getChat`.
+   */
+  public get bio(): string | undefined {
+    return this.payload.bio;
+  }
+
+  /**
+   * Unique identifier for the linked chat,
+   * i.e. the discussion group identifier for a channel and vice versa;
+   * for supergroups and channel chats.
+   * This identifier may be greater than 32 bits and some programming languages
+   * may have difficulty/silent defects in interpreting it.
+   * But it is smaller than 52 bits, so a signed 64 bit integer or double-precision
+   * float type are safe for storing this identifier.
+   * 
+   * Returned only in `getChat`.
+   */
+  public get linkedChatId(): number | undefined {
+    return this.payload.linked_chat_id;
+  }
+
+  /**
+   * For supergroups, the location to which the supergroup is connected
+   * 
+   * Returned only in `getChat`.
+   */
+  public get location(): ChatLocation | undefined {
+    const { location } = this.payload;
+
+    if (!location) return undefined;
+
+    return new ChatLocation(location);
   }
 
   /**

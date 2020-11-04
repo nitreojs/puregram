@@ -1,5 +1,5 @@
 import { Agent } from 'https';
-import { UpdateName } from './types';
+import { UpdateName, MessageEntities } from './types';
 
 import {
   ChatType,
@@ -124,6 +124,8 @@ export interface TelegramWebhookInfo {
 
   pending_update_count: number;
 
+  ip_address?: string;
+
   last_error_date?: number;
 
   last_error_message?: string;
@@ -131,6 +133,12 @@ export interface TelegramWebhookInfo {
   max_connections?: number;
 
   allowed_updates?: UpdateName[];
+}
+
+export interface TelegramChatLocation {
+  location: TelegramLocation;
+
+  address: string;
 }
 
 export type TelegramChatUnion = TelegramChatPrivate
@@ -144,6 +152,12 @@ interface TelegramChatBase {
   type: ChatType;
 
   photo?: TelegramChatPhoto;
+
+  bio?: string;
+
+  linked_chat_id?: number;
+
+  location?: TelegramChatLocation;
 
   can_set_sticker_set?: boolean;
 }
@@ -241,6 +255,8 @@ export interface TelegramMessage {
   message_id: number;
 
   from?: TelegramUser;
+
+  sender_chat?: TelegramChatUnion;
 
   date: number;
 
@@ -340,6 +356,8 @@ export interface TelegramMessage {
 
   passport_data?: TelegramPassportData;
 
+  proximity_alert_triggered?: TelegramProximityAlertTriggered;
+
   reply_markup?: TelegramInlineKeyboardMarkup;
 }
 
@@ -398,6 +416,8 @@ export interface TelegramAudio extends TelegramAttachment {
 
   title?: string;
 
+  file_name?: string;
+
   mime_type?: string;
 
   file_size?: number;
@@ -451,6 +471,8 @@ export interface TelegramVideo extends TelegramAttachment {
   duration: number;
 
   thumb?: TelegramPhotoSize;
+
+  file_name?: string;
 
   mime_type?: string;
 
@@ -545,6 +567,14 @@ export interface TelegramLocation {
   longitude: number;
 
   latitude: number;
+
+  horizontal_accuracy?: number;
+
+  live_period?: number;
+
+  heading?: number;
+
+  proximity_alert_radius?: number;
 }
 
 export interface TelegramVenue {
@@ -557,6 +587,10 @@ export interface TelegramVenue {
   foursquare_id?: string;
 
   foursquare_type?: string;
+
+  google_place_id?: string;
+
+  google_place_type?: string;
 }
 
 export interface TelegramInvoice {
@@ -1088,6 +1122,12 @@ export interface InputMedia {
 
   /** Mode for parsing entities in the media caption */
   parse_mode?: ParseMode;
+
+  /**
+   * List of special entities that appear in the caption,
+   * which can be specified instead of `parse_mode`
+   */
+  caption_entities?: MessageEntities;
 }
 
 export interface InputMediaPhoto extends InputMedia {
@@ -1176,6 +1216,12 @@ export interface InputMediaDocument extends InputMedia {
   type: 'document';
 
   /**
+   * List of special entities that appear in the caption,
+   * which can be specified instead of `parse_mode`
+   */
+  caption_entities?: TelegramMessageEntity[];
+
+  /**
    * Thumbnail of the video sent;
    * can be ignored if thumbnail generation for the file is supporte
    * server-side. The thumbnail should be in **JPEG** format and less than
@@ -1186,6 +1232,13 @@ export interface InputMediaDocument extends InputMedia {
    * uploaded using `multipart/form-data` under `<file_attach_name>`.
    */
   thumb?: TelegramInputFile;
+
+  /**
+   * Disables automatic server-side content type detection
+   * for files uploaded using `multipart/form-data`.
+   * Always `true`, if the document is sent as part of an album.
+   */
+  disable_content_type_detection?: boolean;
 }
 
 export type InputMediaUnion = InputMediaPhoto
@@ -1216,6 +1269,8 @@ export interface TelegramChatMember {
   status: ChatMemberStatus;
 
   custom_title?: string;
+
+  is_anonymous?: boolean;
 
   until_date?: number;
 
@@ -1274,6 +1329,8 @@ export interface TelegramInlineQueryResult {
   type: InlineQueryType;
 
   id: string;
+
+  caption_entities?: MessageEntities;
 }
 
 export interface TelegramInlineQueryResultArticle extends TelegramInlineQueryResult {
@@ -1493,7 +1550,13 @@ export interface TelegramInlineQueryResultLocation extends TelegramInlineQueryRe
 
   title: string;
 
+  horizontal_accuracy?: number;
+
   live_period?: number;
+
+  heading?: number;
+
+  proximity_alert_radius?: number;
 
   reply_markup?: TelegramInlineKeyboardMarkup;
 
@@ -1522,6 +1585,10 @@ export interface TelegramInlineQueryResultVenue extends TelegramInlineQueryResul
   foursquare_id?: string;
 
   foursquare_type?: string;
+
+  google_place_id?: string;
+
+  google_place_type?: string;
 
   reply_markup?: TelegramInlineKeyboardMarkup;
 
@@ -1716,6 +1783,8 @@ export interface TelegramInputTextMessageContent {
   parse_mode?: ParseMode;
 
   disable_web_page_preview?: boolean;
+
+  entities?: MessageEntities;
 }
 
 export interface TelegramInputLocationMessageContent {
@@ -1723,7 +1792,13 @@ export interface TelegramInputLocationMessageContent {
 
   longitude: number;
 
+  horizontal_accuracy?: number;
+
   live_period?: number;
+
+  heading?: number;
+
+  proximity_alert_radius?: number;
 }
 
 export interface TelegramInputVenueMessageContent {
@@ -1738,6 +1813,10 @@ export interface TelegramInputVenueMessageContent {
   foursquare_id?: string;
 
   foursquare_type?: string;
+
+  google_place_id?: string;
+
+  google_place_type?: string;
 }
 
 export interface TelegramInputContactMessageContent {
@@ -2029,4 +2108,16 @@ export interface InlineKeyboardPayButton {
   text: string;
 
   pay: true;
+}
+
+export interface TelegramProximityAlertTriggered {
+  traveler: TelegramUser;
+
+  watcher: TelegramUser;
+
+  distance: number;
+}
+
+export interface TelegramMessageId {
+  message_id: number;
 }

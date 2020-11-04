@@ -26,6 +26,12 @@ export interface SendGameParams {
   reply_to_message_id?: number;
 
   /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
+
+  /**
    * A JSON-serialized object for an inline keyboard.
    * If empty, one 'Play game_title' button will be shown.
    * If not empty, the first button must launch the game.

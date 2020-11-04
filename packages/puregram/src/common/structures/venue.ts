@@ -44,6 +44,19 @@ export class Venue {
   public get foursquareType(): string | undefined {
     return this.payload.foursquare_type;
   }
+
+  /** Google Places identifier of the venue */
+  public get googlePlaceId(): string | undefined {
+    return this.payload.google_place_id;
+  }
+
+  /**
+   * Google Places type of the venue.
+   * (See [supported types](https://developers.google.com/places/web-service/supported_types).)
+   */
+  public get googlePlaceType(): string | undefined {
+    return this.payload.google_place_type;
+  }
 }
 
 inspectable(Venue, {
@@ -53,7 +66,9 @@ inspectable(Venue, {
       title: venue.title,
       address: venue.address,
       foursquareId: venue.foursquareId,
-      foursquareType: venue.foursquareType
+      foursquareType: venue.foursquareType,
+      googlePlaceId: venue.googlePlaceId,
+      googlePlaceType: venue.googlePlaceType
     };
 
     return filterPayload(payload);

@@ -49,6 +49,12 @@ export interface SendVideoNoteParams {
   reply_to_message_id?: number;
 
   /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
+
+  /**
    * Additional interface options.
    * A JSON-serialized object for an inline keyboard, custom reply keyboard,
    * instructions to remove reply keyboard or to force a reply from the user.

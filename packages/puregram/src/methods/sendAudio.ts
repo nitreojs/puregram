@@ -5,7 +5,8 @@ import {
 
 import {
   TelegramInputFile,
-  ParseMode
+  ParseMode,
+  MessageEntities
 } from '../types';
 
 export interface SendAudioParams {
@@ -29,6 +30,12 @@ export interface SendAudioParams {
 
   /** Mode for parsing entities in the audio caption */
   parse_mode?: ParseMode;
+
+  /**
+   * List of special entities that appear in message text,
+   * which can be specified instead of `parse_mode`
+   */
+  caption_entities?: MessageEntities;
 
   /** Duration of the audio in seconds */
   duration?: number;
@@ -59,6 +66,12 @@ export interface SendAudioParams {
 
   /** If the message is a reply, ID of the original message */
   reply_to_message_id?: number;
+
+  /**
+   * Pass `true`, if the message should be sent even if
+   * the specified replied-to message is not found
+   */
+  allow_sending_without_reply?: boolean;
 
   /**
    * Additional interface options.

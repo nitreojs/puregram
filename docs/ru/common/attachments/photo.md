@@ -12,9 +12,9 @@ import { Photo } from 'puregram';
 const photo = new Photo(payload);
 ```
 
-| Параметр  |                             Тип                             |
-| :-------: | :---------------------------------------------------------: |
-| `payload` | [`TelegramPhoto`](https://core.telegram.org/bots/api#photo) |
+| Параметр  |                                  Тип                                  |
+| :-------: | :-------------------------------------------------------------------: |
+| `payload` | [`TelegramPhotoSize`](https://core.telegram.org/bots/api#photosize)[] |
 
 ## Геттеры класса
 

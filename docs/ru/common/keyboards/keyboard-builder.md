@@ -6,10 +6,30 @@
 import { KeyboardBuilder } from 'puregram';
 ```
 
+## Содержание
+
+* [**Constructor**](#constructor)
+* [**Пример использования**](#пример-использования)
+* [**Методы и геттеры класса**](#методы-и-геттеры-класса)
+
 ## Constructor
 
 ```ts
 const builder = new KeyboardBuilder();
+```
+
+## Пример использования
+
+```js
+const keyboard = new KeyboardBuilder()
+  .textButton('Some text')
+  .row()
+  .textButton('Some more text')
+  .textButton('Another text');
+
+context.send('Take the keyboard!', {
+  reply_markup: keyboard
+});
 ```
 
 ## Методы и геттеры класса

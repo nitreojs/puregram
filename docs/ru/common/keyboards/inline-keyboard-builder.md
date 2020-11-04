@@ -6,10 +6,39 @@
 import { InlineKeyboardBuilder } from 'puregram';
 ```
 
+## Содержание
+
+* [**Constructor**](#constructor)
+* [**Пример использования**](#пример-использования)
+* [**Методы и геттеры класса**](#методы-и-геттеры-класса)
+
 ## Constructor
 
 ```ts
 const builder = new InlineKeyboardBuilder();
+```
+
+## Пример использования
+
+```js
+const keyboard = new InlineKeyboardBuilder()
+  .textButton({
+    text: 'Some text',
+    payload: 'some-payload'
+  })
+  .row()
+  .textButton({
+    text: 'Some more text',
+    payload: 'some-more-payload'
+  })
+  .textButton({
+    text: 'Another text',
+    payload: 'another-payload'
+  });
+
+context.send('Take the keyboard, built using inline keyboard builder!', {
+  reply_markup: keyboard
+});
 ```
 
 ## Методы и геттеры класса

@@ -6,6 +6,38 @@
 import { InlineKeyboard } from 'puregram';
 ```
 
+## Содержание
+
+* [**Пример использования**](#пример-использования)
+* [**Методы и геттеры класса**](#методы-и-геттеры-класса)
+
+## Пример использования
+
+```js
+const keyboard = InlineKeyboard.keyboard([
+  [
+    InlineKeyboard.textButton({
+      text: 'Some text',
+      payload: 'some-payload'
+    })
+  ],
+  [
+    InlineKeyboard.textButton({
+      text: 'Some more text',
+      payload: 'some-more-payload'
+    }),
+    InlineKeyboard.textButton({
+      text: 'Another text',
+      payload: 'another-payload'
+    })
+  ]
+]);
+
+context.send('Take the inline keyboard!', {
+  reply_markup: keyboard
+});
+```
+
 ## Методы и геттеры класса
 
 ### Содержание

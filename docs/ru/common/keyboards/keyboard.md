@@ -6,6 +6,29 @@
 import { Keyboard } from 'puregram';
 ```
 
+## Содержание
+
+* [**Пример использования**](#пример-использования)
+* [**Методы и геттеры класса**](#методы-и-геттеры-класса)
+
+## Пример использования
+
+```js
+const keyboard = Keyboard.keyboard([
+  [
+    Keyboard.textButton('Some text')
+  ],
+  [
+    Keyboard.textButton('Some more text'),
+    Keyboard.textButton('Another text')
+  ]
+]);
+
+context.send('Take the keyboard!', {
+  reply_markup: keyboard
+});
+```
+
 ## Методы и геттеры класса
 
 ### Содержание
@@ -25,8 +48,8 @@ import { Keyboard } from 'puregram';
 
 **Создаёт клавиатуру из заданных кнопок.**
 
-| Параметр |                            Тип                            |
-| :------: | :-------------------------------------------------------: |
+| Параметр |                                         Тип                                         |
+| :------: | :---------------------------------------------------------------------------------: |
 | `rows`   | <code>(TelegramInlineKeyboardButton &#124; TelegramInlineKeyboardButton[])[]</code> |
 
 ```ts

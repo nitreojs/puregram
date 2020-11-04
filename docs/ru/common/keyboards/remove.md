@@ -6,10 +6,26 @@
 import { RemoveKeyboard } from 'puregram';
 ```
 
+## Содержание
+
+* [**Constructor**](#constructor)
+* [**Пример использования**](#пример-использования)
+* [**Методы и геттеры класса**](#методы-и-геттеры-класса)
+
 ## Constructor
 
 ```js
 const keyboard = new RemoveKeyboard();
+```
+
+## Пример использования
+
+```js
+const keyboard = new RemoveKeyboard();
+
+context.send('Removing the keyboard...', {
+  reply_markup: keyboard
+});
 ```
 
 ## Методы и геттеры класса

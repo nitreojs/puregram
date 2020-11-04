@@ -31,7 +31,7 @@ const audio = new Audio(payload);
 
 ### `duration`
 
-**Возвращает длительность трека в секундах.**
+**Возвращает длительность трека в секундах**
 
 ```ts
 audio.duration // => number
@@ -39,7 +39,7 @@ audio.duration // => number
 
 ### `performer`
 
-**Возвращает исполнителя трека.**
+**Возвращает исполнителя трека**
 
 ```ts
 audio.performer // => string | undefined
@@ -47,7 +47,7 @@ audio.performer // => string | undefined
 
 ### `title`
 
-**Возвращает название трека.**
+**Возвращает название трека**
 
 ```ts
 audio.title // => string | undefined
@@ -55,7 +55,7 @@ audio.title // => string | undefined
 
 ### `mimeType`
 
-**Возвращает MIME тип трека.**
+**Возвращает MIME тип трека**
 
 ```ts
 audio.mimeType // => string | undefined
@@ -63,7 +63,7 @@ audio.mimeType // => string | undefined
 
 ### `fileSize`
 
-**Возвращает вес файла.**
+**Возвращает вес файла**
 
 ```ts
 audio.fileSize // => number | undefined
@@ -71,7 +71,7 @@ audio.fileSize // => number | undefined
 
 ### `thumb`
 
-**Возвращает обложку аудио-вложения.**
+**Возвращает обложку аудио-вложения**
 
 ```ts
 audio.thumb // => PhotoSize | undefined

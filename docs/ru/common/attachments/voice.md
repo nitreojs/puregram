@@ -28,7 +28,7 @@ const voice = new Voice(payload);
 
 ### `duration`
 
-**Возвращает длительность голосового сообщения в секундах.**
+**Возвращает длительность голосового сообщения в секундах**
 
 ```ts
 voice.duration // => number
@@ -36,7 +36,7 @@ voice.duration // => number
 
 ### `mimeType`
 
-**Возвращает MIME тип голосового сообщения.**
+**Возвращает MIME тип голосового сообщения**
 
 ```ts
 voice.mimeType // => string | undefined
@@ -44,7 +44,7 @@ voice.mimeType // => string | undefined
 
 ### `fileSize`
 
-**Возвращает вес файла.**
+**Возвращает вес файла**
 
 ```ts
 voice.fileSize // => number | undefined

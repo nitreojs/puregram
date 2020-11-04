@@ -58,7 +58,7 @@ const context = new PreCheckoutQueryContext(telegram, update);
 
 ### `answerPreCheckoutQuery(params)`
 
-**Отвечает на pre-checkout query.**
+**Отвечает на pre-checkout query**
 
 | Параметр |              Тип               |
 | :------: | :----------------------------: |

@@ -32,7 +32,7 @@ const animation = new Animation(payload);
 
 ### `width`
 
-**Возвращает ширину анимации.**
+**Возвращает ширину анимации**
 
 ```ts
 animation.width // => number
@@ -40,7 +40,7 @@ animation.width // => number
 
 ### `height`
 
-**Возвращает высоту анимации.**
+**Возвращает высоту анимации**
 
 ```ts
 animation.height // => number
@@ -48,7 +48,7 @@ animation.height // => number
 
 ### `duration`
 
-**Возвращает длину анимации в секундах.**
+**Возвращает длину анимации в секундах**
 
 ```ts
 animation.duration // => number
@@ -56,7 +56,7 @@ animation.duration // => number
 
 ### `thumb`
 
-**Возвращает обложку анимации.**
+**Возвращает обложку анимации**
 
 ```ts
 animation.thumbnail // => PhotoSize | undefined
@@ -64,7 +64,7 @@ animation.thumbnail // => PhotoSize | undefined
 
 ### `fileName`
 
-**Возвращает название файла анимации.**
+**Возвращает название файла анимации**
 
 ```ts
 animation.fileName // => string | undefined
@@ -72,7 +72,7 @@ animation.fileName // => string | undefined
 
 ### `mimeType`
 
-**Возвращает MIME тип файла.**
+**Возвращает MIME тип файла**
 
 ```ts
 animation.mimeType // => string | undefined
@@ -80,7 +80,7 @@ animation.mimeType // => string | undefined
 
 ### `fileSize`
 
-**Возвращает вес файла.**
+**Возвращает вес файла**
 
 ```ts
 animation.fileSize // => number | undefined

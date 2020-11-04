@@ -33,7 +33,7 @@ const sticker = new Sticker(payload);
 
 ### `width`
 
-**Возвращает ширину стикера.**
+**Возвращает ширину стикера**
 
 ```ts
 sticker.width // => number
@@ -41,7 +41,7 @@ sticker.width // => number
 
 ### `height`
 
-**Возвращает высоту стикера.**
+**Возвращает высоту стикера**
 
 ```ts
 sticker.height // => number
@@ -57,7 +57,7 @@ sticker.isAnimated // => boolean
 
 ### `thumb`
 
-**Возвращает обложку стикера.**
+**Возвращает обложку стикера**
 
 ```ts
 sticker.thumb // => PhotoSize | undefined
@@ -65,7 +65,7 @@ sticker.thumb // => PhotoSize | undefined
 
 ### `emoji`
 
-**Возвращает смайлик, с которым ассоциируется этот стикер.**
+**Возвращает смайлик, с которым ассоциируется этот стикер**
 
 ```ts
 sticker.emoji // => string | undefined
@@ -73,7 +73,7 @@ sticker.emoji // => string | undefined
 
 ### `setName`
 
-**Возвращает название стикер-пака, в котором находится данный стикер.**
+**Возвращает название стикер-пака, в котором находится данный стикер**
 
 ```ts
 sticker.setName // => string | undefined
@@ -81,7 +81,7 @@ sticker.setName // => string | undefined
 
 ### `maskPosition`
 
-**Если стикер является `mask-sticker`, возвращается позиция маски.**
+**Если стикер является `mask-sticker`, возвращается позиция маски**
 
 ```ts
 sticker.maskPosition // => MaskPosition | undefined
@@ -89,7 +89,7 @@ sticker.maskPosition // => MaskPosition | undefined
 
 ### `fileSize`
 
-**Возвращает вес файла.**
+**Возвращает вес файла**
 
 ```ts
 sticker.fileSize // => number | undefined

@@ -141,7 +141,7 @@ context.isChannel // => boolean
 
 ### `eventMember`
 
-**Возвращает пользователя, который вышел из чата.**
+**Возвращает пользователя, который вышел из чата**
 
 ```ts
 context.eventMember // => User

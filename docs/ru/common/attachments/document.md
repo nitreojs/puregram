@@ -29,7 +29,7 @@ const document = new Document(payload);
 
 ### `thumb`
 
-**Возвращает обложку документа.**
+**Возвращает обложку документа**
 
 ```ts
 document.thumb // => PhotoSize | undefined
@@ -37,7 +37,7 @@ document.thumb // => PhotoSize | undefined
 
 ### `fileName`
 
-**Возвращает название файла.**
+**Возвращает название файла**
 
 ```ts
 document.fileName // => string | undefined
@@ -45,7 +45,7 @@ document.fileName // => string | undefined
 
 ### `mimeType`
 
-**Возвращает MIME тип документа.**
+**Возвращает MIME тип документа**
 
 ```ts
 document.mimeType // => string | undefined
@@ -53,7 +53,7 @@ document.mimeType // => string | undefined
 
 ### `fileSize`
 
-**Возвращает вес файла.**
+**Возвращает вес файла**
 
 ```ts
 document.fileSize // => number | undefined

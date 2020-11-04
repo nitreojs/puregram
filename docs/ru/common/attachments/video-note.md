@@ -29,7 +29,7 @@ const videoNote = new VideoNote(payload);
 
 ### `length`
 
-**Возвращает диаметр (ширина * высота) видео-заметки.**
+**Возвращает диаметр (ширина * высота) видео-заметки**
 
 ```ts
 videoNote.length // => number
@@ -37,7 +37,7 @@ videoNote.length // => number
 
 ### `duration`
 
-**Возвращает длительность видео-заметки в секундах.**
+**Возвращает длительность видео-заметки в секундах**
 
 ```ts
 videoNote.duration // => number
@@ -45,7 +45,7 @@ videoNote.duration // => number
 
 ### `thumb`
 
-**Возвращает обложку видео-заметки.**
+**Возвращает обложку видео-заметки**
 
 ```ts
 videoNote.thumb // => PhotoSize | undefined
@@ -53,7 +53,7 @@ videoNote.thumb // => PhotoSize | undefined
 
 ### `fileSize`
 
-**Возвращает вес файла.**
+**Возвращает вес файла**
 
 ```ts
 videoNote.fileSize // => number | undefined

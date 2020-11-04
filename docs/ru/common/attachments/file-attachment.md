@@ -27,7 +27,7 @@ const fileAttachment = new FileAttachment<T>(payload);
 
 ### `fileId`
 
-**Возвращает `fileId` вложения.**
+**Возвращает `fileId` вложения**
 
 ```ts
 fileAttachment.fileId // => string
@@ -35,7 +35,7 @@ fileAttachment.fileId // => string
 
 ### `fileUniqueId`
 
-**Возвращает `fileUniqueId` вложения.**
+**Возвращает `fileUniqueId` вложения**
 
 ```ts
 fileAttachment.fileUniqueId // => string

@@ -43,7 +43,7 @@ const context = new CallbackQueryContext(telegram, update);
 
 ### `message`
 
-**Возвращает контекст того сообщения, у которого была нажата инлайн-кнопка.**
+**Возвращает контекст того сообщения, у которого была нажата инлайн-кнопка**
 
 ```ts
 context.message // => MessageContext | undefined
@@ -67,7 +67,7 @@ context.queryPayload // => Record<string, any> | string | undefined
 
 ### `answerCallbackQuery(params?)`
 
-**Отсылает пользователю индикатор в виде "уведомления" или окошка.**
+**Отсылает пользователю индикатор в виде "уведомления" или окошка**
 
 | Параметр  |                 Тип                  |
 | :-------: | :----------------------------------: |

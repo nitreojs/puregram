@@ -141,7 +141,7 @@ context.isChannel // => boolean
 
 ### `eventPayment`
 
-**Возвращает пришедший `SuccessfulPayment`.**
+**Возвращает пришедший `SuccessfulPayment`**
 
 ```ts
 context.eventPayment // => SuccessfulPayment
@@ -433,7 +433,7 @@ _Указанная локация - [Остров Ноль](https://ru.wikipedi
 
 ### `sendInvoice(invoice)`
 
-**Отправляет `invoice` пользователю.**
+**Отправляет `invoice` пользователю**
 
 | Параметр  |         Тип         |
 | :-------: | :-----------------: |

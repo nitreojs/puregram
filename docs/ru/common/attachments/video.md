@@ -31,7 +31,7 @@ const video = new Video(payload);
 
 ### `width`
 
-**Возвращает ширину видео.**
+**Возвращает ширину видео**
 
 ```ts
 video.width // => number
@@ -39,7 +39,7 @@ video.width // => number
 
 ### `height`
 
-**Возвращает высоту видео.**
+**Возвращает высоту видео**
 
 ```ts
 video.height // => number
@@ -47,7 +47,7 @@ video.height // => number
 
 ### `duration`
 
-**Возвращает длительность видео в секундах.**
+**Возвращает длительность видео в секундах**
 
 ```ts
 video.duration // => number
@@ -55,7 +55,7 @@ video.duration // => number
 
 ### `thumb`
 
-**Возвращает обложку видео.**
+**Возвращает обложку видео**
 
 ```ts
 video.thumb // => PhotoSize | undefined
@@ -63,7 +63,7 @@ video.thumb // => PhotoSize | undefined
 
 ### `mimeType`
 
-**Возвращает MIME тип видео.**
+**Возвращает MIME тип видео**
 
 ```ts
 video.mimeType // => string | undefined
@@ -71,7 +71,7 @@ video.mimeType // => string | undefined
 
 ### `fileSize`
 
-**Возвращает вес файла.**
+**Возвращает вес файла**
 
 ```ts
 video.fileSize // => number | undefined

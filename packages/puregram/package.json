@@ -22,6 +22,9 @@
     "ts-jest": "^26.1.4",
     "ts-node": "github:TypeStrong/ts-node#master"
   },
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
   "keywords": [
     "telegram",
     "api",

@@ -17,6 +17,6 @@
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
-    "puregram": "^2.0.0"
+    "puregram": "^2.0.2"
   }
 }

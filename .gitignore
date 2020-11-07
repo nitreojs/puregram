@@ -87,3 +87,4 @@ jspm_packages/
 
 # Other
 packages/**/lib
+.vscode/

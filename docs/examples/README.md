@@ -6,3 +6,4 @@
 * [Hello world](hello-world.js)
 * [Keyboards example](keyboards.js)
 * [Scenes package usage](scenes.js)
+* [Utils package usage](utils.js)

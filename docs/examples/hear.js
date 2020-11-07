@@ -89,7 +89,7 @@ hearManager.onFallback(
   (context) => context.send('Command not found.')
 );
 
-telegram.updates.startPolling(
+telegram.updates.startPolling().then(
   () => console.log(`Started polling @${telegram.bot.username}`)
 ).catch(console.error);
 

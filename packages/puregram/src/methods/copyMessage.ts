@@ -1,5 +1,5 @@
 import { ReplyMarkupUnion, TelegramMessageId } from '../interfaces';
-import { ParseMode } from '../types';
+import { MessageEntities, ParseMode } from '../types';
 
 export interface CopyMessageParams {
   /**
@@ -35,6 +35,12 @@ export interface CopyMessageParams {
 
   /** If the message is a reply, ID of the original message */
   reply_to_message_id?: number;
+  
+  /**
+   * List of special entities that appear in the caption,
+   * which can be specified instead of `parse_mode`
+   */
+  caption_entities?: MessageEntities;
 
   /**
    * Pass `true`, if the message should be sent even if

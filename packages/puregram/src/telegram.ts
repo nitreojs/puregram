@@ -38,7 +38,7 @@ interface UploadMediaParams {
 
 /** Telegram class */
 export class Telegram {
-  public options: TelegramOptions = defaultOptions;
+  public options: TelegramOptions = { ...defaultOptions };
 
   /** API */
   public readonly api: ApiMethods = new Proxy<ApiMethods>({} as ApiMethods, {

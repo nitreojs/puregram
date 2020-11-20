@@ -48,6 +48,8 @@ const context = new MessageContext(telegram, update);
 * [`isChannel`](#ischannel)
 * [`startPayload`](#startpayload)
 * [`hasText`](#hastext)
+* [`hasDice`](#hasdice)
+* [`hasAuthorSignature`](#hasauthorsignature)
 * [`hasEntities`](#hasentitiestype-entitytype)
 * [`hasCaption`](#hascaption)
 * [`hasCaptionEntities`](#hascaptionentitiestype-entitytype)
@@ -56,6 +58,7 @@ const context = new MessageContext(telegram, update);
 * [`getAttachments`](#getattachmentstype-attachmenttype)
 * [`isForward`](#isforward)
 * [`hasReplyMessage`](#hasreplymessage)
+* [`hasViaBot`](#hasviabot)
 
 ---
 
@@ -115,14 +118,6 @@ context.isSupergroup // => boolean
 context.isChannel // => boolean
 ```
 
-### `hasDice`
-
-**Имеет ли сообщение объект dice?**
-
-```ts
-context.hasDice // => boolean
-```
-
 ### `startPayload`
 
 **Возвращает payload значение при старте разговора с ботом**
@@ -137,6 +132,14 @@ context.startPayload // => string | number | Record<string, any> | undefined
 
 ```ts
 context.hasText // => boolean
+```
+
+### `hasDice`
+
+**Имеет ли сообщение объект dice?**
+
+```ts
+context.hasDice // => boolean
 ```
 
 ### `hasAuthorSignature`

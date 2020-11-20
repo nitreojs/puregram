@@ -115,6 +115,14 @@ context.isSupergroup // => boolean
 context.isChannel // => boolean
 ```
 
+### `hasDice`
+
+**Имеет ли сообщение объект dice?**
+
+```ts
+context.hasDice // => boolean
+```
+
 ### `startPayload`
 
 **Возвращает payload значение при старте разговора с ботом**
@@ -129,6 +137,14 @@ context.startPayload // => string | number | Record<string, any> | undefined
 
 ```ts
 context.hasText // => boolean
+```
+
+### `hasAuthorSignature`
+
+**Имеет ли сообщение свойство `authorSignature`?**
+
+```ts
+context.hasAuthorSignature // => boolean
 ```
 
 ### `hasEntities(type?: EntityType)`
@@ -197,6 +213,14 @@ context.isForward // => boolean
 
 ```ts
 context.hasReplyMessage // => boolean
+```
+
+### `hasViaBot`
+
+**Имеет ли сообщение свойство `viaBot`?**
+
+```ts
+context.hasViaBot // => boolean
 ```
 
 _◬ НЛО прилетело и опубликовало эту надпись здесь._

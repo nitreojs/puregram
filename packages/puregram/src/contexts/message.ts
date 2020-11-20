@@ -118,6 +118,11 @@ class MessageContext extends Context {
     return this.chatType === 'channel';
   }
 
+  /** Checks if the message has `dice` property */
+  public get hasDice(): boolean {
+    return this.dice !== undefined;
+  }
+
   public get startPayload(): any {
     if (!this.hasText) return undefined;
     if (!this.text!.startsWith('/start') || this.text === '/start') {
@@ -138,6 +143,11 @@ class MessageContext extends Context {
   /** Checks if the message has `text` property */
   public get hasText(): boolean {
     return this.text !== undefined;
+  }
+
+  /** Checks if the message has `author_signature` property */
+  public get hasAuthorSignature(): boolean {
+    return this.authorSignature !== undefined;
   }
 
   /** Checks if there are any entities (with specified type) */
@@ -258,6 +268,11 @@ class MessageContext extends Context {
   /** Does this message have reply message? */
   public get hasReplyMessage(): boolean {
     return this.replyMessage !== undefined;
+  }
+
+  /** Checks if the sent message has `via_bot` property */
+  public get hasViaBot(): boolean {
+    return this.viaBot !== undefined;
   }
 
   /** Sends message to current chat */

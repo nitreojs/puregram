@@ -34,7 +34,7 @@ class CallbackQueryContext extends Context {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  public get queryPayload(): Record<string, any> | string | undefined {
+  public get queryPayload(): any {
     const { data } = this.payload;
 
     if (data === undefined) return undefined;

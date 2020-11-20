@@ -54,7 +54,7 @@ context.message // => MessageContext | undefined
 **Возвращает данные, которые были переданы в качестве `payload` у кнопки**
 
 ```ts
-context.queryPayload // => Record<string, any> | string | undefined
+context.queryPayload // => any
 ```
 
 ## Контекстуальные методы

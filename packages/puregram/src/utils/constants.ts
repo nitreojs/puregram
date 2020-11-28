@@ -56,5 +56,6 @@ export const mediaMethods: [ApiMethod, AttachmentType | 'media'][] = [
   ['sendAnimation', 'animation'],
   ['sendVoice', 'voice'],
   ['sendVideoNote', 'video_note'],
-  ['sendMediaGroup', 'media']
+  ['sendMediaGroup', 'media'],
+  ['editMessageMedia', 'media']
 ];

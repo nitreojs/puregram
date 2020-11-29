@@ -464,7 +464,8 @@ export class Updates {
 
   private async fetchUpdates(): Promise<void> {
     const params: Partial<GetUpdatesParams> = {
-      timeout: 15
+      timeout: 15,
+      allowed_updates: this.telegram.options.allowedUpdates!
     };
 
     if (this.offset) params.offset = this.offset;

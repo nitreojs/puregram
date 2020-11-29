@@ -18,6 +18,7 @@ export const defaultOptions: TelegramOptions = {
     keepAlive: true,
     keepAliveMsecs: 30000
   }),
+  allowedUpdates: [],
 
   apiWait: 3000,
   apiBaseUrl: 'https://api.telegram.org/bot',
@@ -26,7 +27,7 @@ export const defaultOptions: TelegramOptions = {
   apiHeaders: {
     connection: 'keep-alive',
     'User-Agent': `puregram/${version} (+https://github.com/nitreojs/puregram)`
-  }
+  },
 };
 
 export const events: [

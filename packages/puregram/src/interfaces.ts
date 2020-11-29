@@ -26,20 +26,28 @@ import {
 } from './common/keyboards';
 
 export interface TelegramOptions {
+  /** Bot's token */
   token?: string;
 
+  /** Agent, used in requests */
   agent?: Agent;
 
-  mergeEvents?: boolean;
+  /** List of the update types you want your bot to receive */
+  allowedUpdates?: UpdateName[];
 
+  /** URL which will be used to send requests to: `https://api.telegram.org/bot` */
   apiBaseUrl?: string;
 
+  /** Maximum amount of library's retries */
   apiRetryLimit?: number;
 
+  /** How much will library wait for API to answer before aborting the request? */
   apiTimeout?: number;
 
+  /** Headers of requests */
   apiHeaders?: Record<string, string>;
 
+  /** How much will library wait before retrying to get updates? */
   apiWait?: number;
 }
 

@@ -14,7 +14,7 @@ export const applyMixins = (derivedCtor: any, baseCtors: any[]): void => {
   }
 };
 
-export const isPlainObject = (object: object): boolean => (
+const isPlainObject = (object: object): boolean => (
   Object.prototype.toString.call(object) === '[object Object]'
 );
 

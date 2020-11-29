@@ -45,6 +45,7 @@ telegram.updates.startPolling().catch(console.error);
 - [**@puregram/hear**](https://github.com/nitreojs/puregram/tree/master/packages/hear): Simple implementation of hear system
 - [**@puregram/scenes**](https://github.com/nitreojs/puregram/tree/master/packages/scenes): Simple implementation of middleware-based scene management
 - [**@puregram/session**](https://github.com/nitreojs/puregram/tree/master/packages/session): Simple implementation of sessions
+- [**@puregram/utils**](https://github.com/nitreojs/puregram/tree/master/packages/utils): _Almost_ useful utilities
 
 ## Thanks to
 Biggest thanks to [Negezor](https://github.com/negezor) for his [vk-io](https://github.com/negezor/vk-io) library that helped me with this package!

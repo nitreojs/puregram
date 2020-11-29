@@ -14,6 +14,7 @@ import { User } from './common/structures/user';
 import { APIError } from './errors';
 import { ApiMethod, ApiMethodKey } from './types';
 import { ApiMethods } from './api-methods';
+import { isPlainObject } from './utils/helpers';
 
 const debug = createDebug('puregram:api');
 
@@ -181,7 +182,7 @@ export class Telegram {
       for (let [dataKey, dataValue] of Object.entries(contextData)) {
         if (typeof dataValue === 'boolean') dataValue = String(dataValue);
         if (dataValue.toJSON) dataValue = dataValue.toJSON();
-        if (Object.prototype.toString.call(dataValue) === '[object Object]') dataValue = JSON.stringify(dataValue);
+        if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);
 
         form.append(dataKey, dataValue);
       }

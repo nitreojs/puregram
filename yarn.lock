@@ -2146,9 +2146,9 @@ has@^1.0.3:
     function-bind "^1.1.1"
 
 highlight.js@^10.0.0:
-  version "10.3.2"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.3.2.tgz#135fd3619a00c3cbb8b4cd6dbc78d56bfcbc46f1"
-  integrity sha512-3jRT7OUYsVsKvukNKZCtnvRcFyCJqSEIuIMsEybAXRiFSwpt65qjPd/Pr+UOdYt7WJlt+lj3+ypUsHiySBp/Jw==
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.4.1.tgz#d48fbcf4a9971c4361b3f95f302747afe19dbad0"
+  integrity sha512-yR5lWvNz7c85OhVAEAeFhVCc/GV4C30Fjzc/rCP0aCWzc1UUOPUk55dK/qdwTZHBvMZo+eZ2jpk62ndX/xMFlg==
 
 hosted-git-info@^2.1.4:
   version "2.8.8"
@@ -3666,6 +3666,27 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+puregram@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/puregram/-/puregram-2.0.2.tgz#74f8371fe2115d7dbe3dbc46087d506e33786fbd"
+  integrity sha512-B027QuyQMPsj0cEjO4DTeBcYiFcCCqsRNSf3iSXcoY2C4eR4qIjPBtRuQ/I6a3/rhCkPHUk5T+F7oNYJ5Wy6XA==
+  dependencies:
+    "@types/jest" "^26.0.8"
+    "@typescript-eslint/eslint-plugin" "^3.6.0"
+    "@typescript-eslint/parser" "^3.6.0"
+    abort-controller "^3.0.0"
+    babel-jest "^26.2.1"
+    debug "^4.1.1"
+    eslint "^7.4.0"
+    eslint-plugin-import "^2.22.0"
+    form-data "^3.0.0"
+    inspectable "^1.0.0"
+    jest "^26.2.1"
+    middleware-io "^2.5.0"
+    node-fetch "^2.6.1"
+    ts-jest "^26.1.4"
+    ts-node "github:TypeStrong/ts-node#master"
 
 qs@~6.5.2:
   version "6.5.2"

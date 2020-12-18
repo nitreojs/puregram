@@ -181,7 +181,7 @@ export class Telegram {
 
       for (let [dataKey, dataValue] of Object.entries(contextData)) {
         if (typeof dataValue === 'boolean') dataValue = String(dataValue);
-        if (dataValue.toJSON) dataValue = dataValue.toJSON();
+        if (dataValue.toJSON) dataValue = JSON.stringify(dataValue.toJSON());
         if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);
 
         form.append(dataKey, dataValue);

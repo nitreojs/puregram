@@ -2129,3 +2129,7 @@ export interface TelegramProximityAlertTriggered {
 export interface TelegramMessageId {
   message_id: number;
 }
+
+export interface StartPollingOptions {
+  updateOffset?: number;
+}

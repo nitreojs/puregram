@@ -44,7 +44,8 @@ import { delay } from './utils/helpers';
 
 import {
   TelegramUpdate,
-  TelegramMessage
+  TelegramMessage,
+  StartPollingOptions
 } from './interfaces';
 
 import {
@@ -414,7 +415,7 @@ export class Updates {
   }
 
   /** Start polling */
-  public async startPolling(): Promise<void> {
+  public async startPolling(options: StartPollingOptions = {}): Promise<void> {
     if (this.isStarted) {
       throw new Error('Polling is already started');
     }
@@ -433,7 +434,7 @@ export class Updates {
     this.isStarted = true;
 
     try {
-      this.startFetchLoop();
+      this.startFetchLoop(options);
     } catch (e) {
       this.isStarted = false;
 
@@ -441,10 +442,10 @@ export class Updates {
     }
   }
 
-  private async startFetchLoop(): Promise<void> {
+  private async startFetchLoop(options: StartPollingOptions): Promise<void> {
     while (this.isStarted) {
       try {
-        await this.fetchUpdates();
+        await this.fetchUpdates(options);
       } catch (e) {
         debug('startFetchLoop:', e);
 
@@ -462,13 +463,14 @@ export class Updates {
     }
   }
 
-  private async fetchUpdates(): Promise<void> {
+  private async fetchUpdates(options: StartPollingOptions): Promise<void> {
     const params: Partial<GetUpdatesParams> = {
       timeout: 15,
       allowed_updates: this.telegram.options.allowedUpdates!
     };
 
     if (this.offset) params.offset = this.offset;
+    if (options.updateOffset) params.offset = options.updateOffset;
 
     const updates: TelegramUpdate[] = await this.telegram.api.getUpdates(params);
 

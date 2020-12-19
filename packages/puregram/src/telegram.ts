@@ -86,10 +86,11 @@ export class Telegram {
   /** Call API `method` with `params` */
   public async callApi(
     method: ApiMethod,
-    params: Record<string, any> | FormData
+    params: Record<string, any> | FormData,
+    formDataParams?: Record<string, any>
   ): Promise<any> {
     const url: string = `${this.options.apiBaseUrl}${this.options.token}/${method}`;
-    let body: string | FormData = JSON.stringify(params);
+    const body: string | FormData = params instanceof FormData ? params : JSON.stringify(params);
 
     // request
     const headers: Record<string, string> = {
@@ -99,8 +100,6 @@ export class Telegram {
 
     if (params instanceof FormData) {
       Object.assign(headers, params.getHeaders());
-
-      body = params;
     }
 
     const controller: AbortController = new AbortController();
@@ -111,7 +110,12 @@ export class Telegram {
 
     try {
       debug(`[${method}] HTTP ->`);
-      debug(`[${method}] Params: ${body}`);
+
+      if (formDataParams !== undefined) {
+        debug(`[${method}] FormData params: ${JSON.stringify(formDataParams)}`);
+      } else {
+        debug(`[${method}] Params: ${body}`);
+      }
 
       let response: Response | undefined;
 
@@ -130,14 +134,16 @@ export class Telegram {
 
       debug(`[${method}] <- HTTP ${response?.status ?? '[not set]'}`);
 
-      const json: ApiResponseUnion = await response!.json();
+      if (response !== undefined) {
+        const json: ApiResponseUnion = await response!.json();
 
-      debug(`[${method}] Request response:`);
-      debug(json);
-
-      if (json.ok) return json.result;
-
-      throw new APIError(json);
+        debug(`[${method}] Request response:`);
+        debug(json);
+  
+        if (json.ok) return json.result;
+  
+        throw new APIError(json);
+      }
     } finally {
       clearTimeout(timeout);
     }
@@ -151,23 +157,26 @@ export class Telegram {
 
     const { method, key, value } = options;
     let { contextData = {} } = options;
+    const formData: Record<string, any> = {};
 
     let form: FormData | undefined = new FormData();
     const isPath: boolean = fs.existsSync(value.toString());
 
     if (value instanceof Readable || Buffer.isBuffer(value)) {
-      if (value instanceof Readable) debug('value::Readable');
-      else debug('value::Buffer');
+      if (value instanceof Readable) debug('[uploadMedia::value] Readable');
+      else debug('[uploadMedia::value] Buffer');
 
       form.append(key, value, { filename: key + contextData.chat_id });
+      formData[key] = value instanceof Readable ? '<ReadableStream>' : '<Buffer>';
     } else if (isPath) {
-      debug('value::string [path] => Readable');
+      debug('[uploadMedia::value] string [path] => Readable');
 
       const stream: NodeJS.ReadableStream = fs.createReadStream(value as string);
 
       form.append(key, stream);
+      formData[key] = '<ReadableStream>';
     } else {
-      debug('value::string [URL?]');
+      debug('[uploadMedia::value] string [URL / fileId]');
 
       form = undefined;
     }
@@ -185,9 +194,10 @@ export class Telegram {
         if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);
 
         form.append(dataKey, dataValue);
+        formData[dataKey] = dataValue;
       }
 
-      return this.callApi(method, form);
+      return this.callApi(method, form, formData);
     }
 
     contextData[key] = value;

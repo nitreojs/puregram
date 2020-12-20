@@ -365,7 +365,7 @@ export class Updates {
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<UpdateName | UpdateType |  string>,
+    events: AllowArray<UpdateName | UpdateType | string>,
     handlers: AllowArray<Middleware<Context & T>>
   ): this;
 

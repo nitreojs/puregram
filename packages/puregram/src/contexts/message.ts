@@ -200,6 +200,8 @@ class MessageContext extends Context {
   }
 
   /** Gets attachments */
+  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[];
+
   public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): Animation[];
 
   public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): Audio[];
@@ -215,8 +217,8 @@ class MessageContext extends Context {
   public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNote[];
 
   public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): Voice[];
-
-  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[] {
+  
+  public getAttachments(type?: any): Attachment[] {
     if (type === undefined) return this.attachments;
 
     return this.attachments.filter(

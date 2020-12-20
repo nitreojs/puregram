@@ -37,7 +37,9 @@ import {
   EditMessageTextParams,
   EditMessageCaptionParams,
   EditMessageMediaParams,
-  EditMessageReplyMarkupParams, SendInvoiceParams
+  EditMessageReplyMarkupParams,
+  SendInvoiceParams,
+  SendDocumentParams
 } from '../methods';
 
 import { MessageContext } from './message';
@@ -170,6 +172,31 @@ class GroupChatCreatedContext extends Context {
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     return this.sendPhoto(photo, {
+      ...params,
+      reply_to_message_id: this.id
+    });
+  }
+
+  /** Sends document to current chat */
+  public async sendDocument(
+    document: TelegramInputFile,
+    params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
+  ): Promise<MessageContext> {
+    const response = await this.telegram.api.sendDocument({
+      ...params,
+      chat_id: this.chatId || this.senderId || 0,
+      document
+    });
+
+    return new MessageContext(this.telegram, response);
+  }
+
+  /** Replies to current message with document */
+  public replyWithDocument(
+    document: TelegramInputFile,
+    params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
+  ): Promise<MessageContext> {
+    return this.sendDocument(document, {
       ...params,
       reply_to_message_id: this.id
     });

@@ -7,7 +7,12 @@ import {
   applyMixins
 } from '../utils/helpers';
 
-import { PreCheckoutQuery, Message, Poll } from '../updates/';
+import {
+  PreCheckoutQuery,
+  Message,
+  Poll
+} from '../updates/';
+
 import { Telegram } from '../telegram';
 
 import {
@@ -35,7 +40,8 @@ import {
   SendStickerParams,
   SendDiceParams,
   AnswerPreCheckoutQueryParams,
-  SendChatActionParams
+  SendChatActionParams,
+  SendDocumentParams
 } from '../methods';
 
 import { MessageContext } from './message';
@@ -91,6 +97,20 @@ class PreCheckoutQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       photo
+    });
+
+    return new MessageContext(this.telegram, response);
+  }
+
+  /** Sends document to current chat */
+  public async sendDocument(
+    document: TelegramInputFile,
+    params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
+  ): Promise<MessageContext> {
+    const response = await this.telegram.api.sendDocument({
+      ...params,
+      chat_id: this.senderId,
+      document
     });
 
     return new MessageContext(this.telegram, response);

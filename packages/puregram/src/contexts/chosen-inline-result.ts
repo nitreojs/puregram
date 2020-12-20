@@ -38,7 +38,8 @@ import {
   StopPollParams,
   SendStickerParams,
   SendDiceParams,
-  SendChatActionParams
+  SendChatActionParams,
+  SendDocumentParams
 } from '../methods';
 
 import { Poll, Message, ChosenInlineResult } from '../updates/';
@@ -82,6 +83,20 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       photo
+    });
+
+    return new MessageContext(this.telegram, response);
+  }
+
+  /** Sends document to current chat */
+  public async sendDocument(
+    document: TelegramInputFile,
+    params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
+  ): Promise<MessageContext> {
+    const response = await this.telegram.api.sendDocument({
+      ...params,
+      chat_id: this.senderId,
+      document
     });
 
     return new MessageContext(this.telegram, response);

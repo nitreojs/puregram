@@ -8,7 +8,7 @@ import { FileAttachment } from './file-attachment';
  * This object represents a general file (as opposed to photos, voice messages
  * and audio files).
  */
-export class Document extends FileAttachment<TelegramDocument> {
+export class DocumentAttachment extends FileAttachment<TelegramDocument> {
   public attachmentType: 'document' = 'document';
 
   /** Document thumbnail as defined by sender */
@@ -36,8 +36,8 @@ export class Document extends FileAttachment<TelegramDocument> {
   }
 }
 
-inspectable(Document, {
-  serialize(document: Document) {
+inspectable(DocumentAttachment, {
+  serialize(document: DocumentAttachment) {
     return {
       fileId: document.fileId,
       fileUniqueId: document.fileUniqueId,

@@ -1,7 +1,7 @@
 import { inspectable } from 'inspectable';
 
 import { TelegramStickerSet, TelegramSticker } from '../../interfaces';
-import { Sticker } from '../attachments';
+import { StickerAttachment } from '../attachments';
 import { PhotoSize } from './photo-size';
 import { filterPayload } from '../../utils/helpers';
 
@@ -37,13 +37,13 @@ export class StickerSet {
   }
 
   /** List of all set stickers */
-  public get stickers(): Sticker[] {
+  public get stickers(): StickerAttachment[] {
     const { stickers } = this.payload;
 
     if (!stickers.length) return [];
 
     return stickers.map(
-      (sticker: TelegramSticker) => new Sticker(sticker)
+      (sticker: TelegramSticker) => new StickerAttachment(sticker)
     );
   }
 

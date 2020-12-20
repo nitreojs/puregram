@@ -8,7 +8,7 @@ import { FileAttachment } from './file-attachment';
  * This object represents an animation file
  * (GIF or H.264/MPEG-4 AVC video without sound).
  */
-export class Animation extends FileAttachment<TelegramAnimation> {
+export class AnimationAttachment extends FileAttachment<TelegramAnimation> {
   public attachmentType: 'animation' = 'animation';
 
   /** Video width as defined by sender */
@@ -51,8 +51,8 @@ export class Animation extends FileAttachment<TelegramAnimation> {
   }
 }
 
-inspectable(Animation, {
-  serialize(animation: Animation) {
+inspectable(AnimationAttachment, {
+  serialize(animation: AnimationAttachment) {
     return {
       fileId: animation.fileId,
       fileUniqueId: animation.fileUniqueId,

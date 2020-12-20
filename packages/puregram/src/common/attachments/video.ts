@@ -5,7 +5,7 @@ import { PhotoSize } from '../structures/photo-size';
 import { FileAttachment } from './file-attachment';
 
 /** This object represents a video file. */
-export class Video extends FileAttachment<TelegramVideo> {
+export class VideoAttachment extends FileAttachment<TelegramVideo> {
   public attachmentType: 'video' = 'video';
 
   /** Video width as defined by sender */
@@ -48,8 +48,8 @@ export class Video extends FileAttachment<TelegramVideo> {
   }
 }
 
-inspectable(Video, {
-  serialize(video: Video) {
+inspectable(VideoAttachment, {
+  serialize(video: VideoAttachment) {
     return {
       fileId: video.fileId,
       fileUniqueId: video.fileUniqueId,

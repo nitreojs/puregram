@@ -5,7 +5,7 @@ import { PhotoSize } from '../structures/photo-size';
 import { FileAttachment } from './file-attachment';
 
 /** This object represents a video message. */
-export class VideoNote extends FileAttachment<TelegramVideoNote> {
+export class VideoNoteAttachment extends FileAttachment<TelegramVideoNote> {
   public attachmentType: 'video_note' = 'video_note';
 
   /**
@@ -36,8 +36,8 @@ export class VideoNote extends FileAttachment<TelegramVideoNote> {
   }
 }
 
-inspectable(VideoNote, {
-  serialize(videoNote: VideoNote) {
+inspectable(VideoNoteAttachment, {
+  serialize(videoNote: VideoNoteAttachment) {
     return {
       fileId: videoNote.fileId,
       fileUniqueId: videoNote.fileUniqueId,

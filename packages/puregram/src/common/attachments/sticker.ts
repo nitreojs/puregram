@@ -6,7 +6,7 @@ import { MaskPosition } from '../structures/mask-position';
 import { FileAttachment } from './file-attachment';
 
 /** This object represents a sticker. */
-export class Sticker extends FileAttachment<TelegramSticker> {
+export class StickerAttachment extends FileAttachment<TelegramSticker> {
   public attachmentType: 'sticker' = 'sticker';
 
   /** Sticker width */
@@ -58,8 +58,8 @@ export class Sticker extends FileAttachment<TelegramSticker> {
   }
 }
 
-inspectable(Sticker, {
-  serialize(sticker: Sticker) {
+inspectable(StickerAttachment, {
+  serialize(sticker: StickerAttachment) {
     return {
       fileId: sticker.fileId,
       fileUniqueId: sticker.fileUniqueId,

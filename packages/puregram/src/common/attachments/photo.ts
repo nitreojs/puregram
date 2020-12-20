@@ -4,7 +4,7 @@ import { PhotoSize } from '../structures/photo-size';
 import { Attachment } from './attachment';
 
 /** This object represents a photo file with it's sizes */
-export class Photo extends Attachment {
+export class PhotoAttachment extends Attachment {
   private readonly payload: PhotoSize[];
 
   private readonly sorted: PhotoSize[];
@@ -44,8 +44,8 @@ export class Photo extends Attachment {
   }
 }
 
-inspectable(Photo, {
-  serialize(photo: Photo) {
+inspectable(PhotoAttachment, {
+  serialize(photo: PhotoAttachment) {
     return {
       sizes: photo.sizes,
       bigSize: photo.bigSize,

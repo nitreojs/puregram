@@ -8,7 +8,7 @@ import { FileAttachment } from './file-attachment';
  * This object represents an audio file to be treated as music by the Telegram
  * clients.
  */
-export class Audio extends FileAttachment<TelegramAudio> {
+export class AudioAttachment extends FileAttachment<TelegramAudio> {
   public attachmentType: 'audio' = 'audio';
 
   /** Duration of the audio in seconds as defined by sender */
@@ -51,8 +51,8 @@ export class Audio extends FileAttachment<TelegramAudio> {
   }
 }
 
-inspectable(Audio, {
-  serialize(audio: Audio) {
+inspectable(AudioAttachment, {
+  serialize(audio: AudioAttachment) {
     return {
       fileId: audio.fileId,
       fileUniqueId: audio.fileUniqueId,

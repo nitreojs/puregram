@@ -25,13 +25,13 @@ import { PassportData } from '../common/structures/passport-data';
 import { InlineKeyboardMarkup } from '../common/structures/inline-keyboard-markup';
 
 import {
-  Animation,
-  Audio,
-  Document,
-  Video,
-  VideoNote,
-  Sticker,
-  Voice
+  AnimationAttachment,
+  AudioAttachment,
+  DocumentAttachment,
+  VideoAttachment,
+  VideoNoteAttachment,
+  StickerAttachment,
+  VoiceAttachment
 } from '../common/attachments';
 
 import { filterPayload } from '../utils/helpers';
@@ -188,30 +188,30 @@ export class Message {
    * Message is an animation, information about the animation. For backward
    * compatibility, when this field is set, the `document` field will also be set
    */
-  public get animation(): Animation | undefined {
+  public get animation(): AnimationAttachment | undefined {
     const { animation } = this.payload;
 
     if (!animation) return undefined;
 
-    return new Animation(animation);
+    return new AnimationAttachment(animation);
   }
 
   /** Message is an audio file, information about the file */
-  public get audio(): Audio | undefined {
+  public get audio(): AudioAttachment | undefined {
     const { audio } = this.payload;
 
     if (!audio) return undefined;
 
-    return new Audio(audio);
+    return new AudioAttachment(audio);
   }
 
   /** Message is a general file, information about the file */
-  public get document(): Document | undefined {
+  public get document(): DocumentAttachment | undefined {
     const { document } = this.payload;
 
     if (!document) return undefined;
 
-    return new Document(document);
+    return new DocumentAttachment(document);
   }
 
   /** Message is a photo, available sizes of the photo */
@@ -226,39 +226,39 @@ export class Message {
   }
 
   /** Message is a sticker, information about the sticker */
-  public get sticker(): Sticker | undefined {
+  public get sticker(): StickerAttachment | undefined {
     const { sticker } = this.payload;
 
     if (!sticker) return undefined;
 
-    return new Sticker(sticker);
+    return new StickerAttachment(sticker);
   }
 
   /** Message is a video, information about the video */
-  public get video(): Video | undefined {
+  public get video(): VideoAttachment | undefined {
     const { video } = this.payload;
 
     if (!video) return undefined;
 
-    return new Video(video);
+    return new VideoAttachment(video);
   }
 
   /** Message is a video note, information about the video message */
-  public get videoNote(): VideoNote | undefined {
+  public get videoNote(): VideoNoteAttachment | undefined {
     const { video_note } = this.payload;
 
     if (!video_note) return undefined;
 
-    return new VideoNote(video_note);
+    return new VideoNoteAttachment(video_note);
   }
 
   /** Message is a voice message, information about the file */
-  public get voice(): Voice | undefined {
+  public get voice(): VoiceAttachment | undefined {
     const { voice } = this.payload;
 
     if (!voice) return undefined;
 
-    return new Voice(voice);
+    return new VoiceAttachment(voice);
   }
 
   /**

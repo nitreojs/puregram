@@ -1,9 +1,14 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramGame, TelegramPhotoSize, TelegramMessageEntity } from '../../interfaces';
+import {
+  TelegramGame,
+  TelegramPhotoSize,
+  TelegramMessageEntity
+} from '../../interfaces';
+
 import { PhotoSize } from './photo-size';
 import { MessageEntity } from './message-entity';
-import { Animation } from '../attachments';
+import { AnimationAttachment } from '../attachments';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents a game. */
@@ -67,12 +72,12 @@ export class Game {
    * Animation that will be displayed in the game message in chats.
    * Upload via BotFather
    */
-  public animation(): Animation | undefined {
+  public animation(): AnimationAttachment | undefined {
     const { animation } = this.payload;
 
     if (!animation) return undefined;
 
-    return new Animation(animation);
+    return new AnimationAttachment(animation);
   }
 }
 

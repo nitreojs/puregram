@@ -4,7 +4,7 @@ import { TelegramVoice } from '../../interfaces';
 import { FileAttachment } from './file-attachment';
 
 /** This object represents a voice note. */
-export class Voice extends FileAttachment<TelegramVoice> {
+export class VoiceAttachment extends FileAttachment<TelegramVoice> {
   public attachmentType: 'voice' = 'voice';
 
   /** Duration of the audio in seconds as defined by sender */
@@ -23,8 +23,8 @@ export class Voice extends FileAttachment<TelegramVoice> {
   }
 }
 
-inspectable(Voice, {
-  serialize(voice: Voice) {
+inspectable(VoiceAttachment, {
+  serialize(voice: VoiceAttachment) {
     return {
       fileId: voice.fileId,
       fileUniqueId: voice.fileUniqueId,

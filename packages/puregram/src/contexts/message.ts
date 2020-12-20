@@ -68,15 +68,15 @@ import { BotCommand } from '../common/structures/bot-command';
 import { MessageEntity } from '../common/structures/message-entity';
 
 import {
-  Animation,
+  AnimationAttachment,
   Attachment,
-  Audio,
-  Document,
-  Photo,
-  Sticker,
-  Video,
-  VideoNote,
-  Voice
+  AudioAttachment,
+  DocumentAttachment,
+  PhotoAttachment,
+  StickerAttachment,
+  VideoAttachment,
+  VideoNoteAttachment,
+  VoiceAttachment
 } from '../common/attachments';
 
 /** Called when `message` event occurs */
@@ -186,7 +186,7 @@ class MessageContext extends Context {
     if (this.audio) attachments.push(this.audio);
     if (this.document) attachments.push(this.document);
     if (this.animation) attachments.push(this.animation);
-    if (this.photo) attachments.push(new Photo(this.photo));
+    if (this.photo) attachments.push(new PhotoAttachment(this.photo));
     if (this.sticker) attachments.push(this.sticker);
     if (this.video) attachments.push(this.video);
     if (this.voice) attachments.push(this.voice);
@@ -208,21 +208,21 @@ class MessageContext extends Context {
   /** Gets attachments */
   public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): Animation[];
+  public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): Audio[];
+  public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): Document[];
+  public getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): DocumentAttachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): Photo[];
+  public getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): PhotoAttachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): Sticker[];
+  public getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): StickerAttachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): Video[];
+  public getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): VideoAttachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNote[];
+  public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[];
 
-  public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): Voice[];
+  public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[];
   
   public getAttachments(type?: any): Attachment[] {
     if (type === undefined) return this.attachments;

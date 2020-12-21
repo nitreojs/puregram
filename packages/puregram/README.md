@@ -1,5 +1,5 @@
 <p align='center'>
-  <img src='https://raw.githubusercontent.com/nitreojs/puregram/master/docs/logo.png' />
+  <img src='https://github.com/nitreojs/puregram/blob/master/docs/logo.png' />
 </p>
 
 <p align='center'>

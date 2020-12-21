@@ -12,7 +12,7 @@ import {
   pre,
   generateAnchor,
   bold
-} from './index';
+} from './doc-methods';
 
 const generateAttachments = (path: string): string => {
   const data: string = fs.readFileSync(`${__dirname}/../packages/puregram/src/${path}.ts`).toString();

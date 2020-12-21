@@ -4,7 +4,7 @@ import { resolve } from 'path';
 import fs from 'fs';
 
 import { generateDocumentation, ClassInfo } from './parse-ast';
-import { table, generateAnchor } from '../doc-methods';
+import { table, generateAnchor, camelizeSmall } from '../doc-methods';
 
 const generateStructureReference = (rawPath: string, fileName: string) => {
   const path: string = resolve(rawPath);
@@ -25,14 +25,14 @@ const generateStructureReference = (rawPath: string, fileName: string) => {
   let result: string = stripIndents`
     # \`${classInfo.name}\`
 
-    ${classInfo.comment || ''}
+    **${classInfo.comment || '...'}**
 
     \`\`\`ts
     import { ${classInfo.name} } from 'puregram';
     \`\`\`
   `;
 
-  const className: string = classInfo.name![0].toLowerCase() + classInfo.name!.slice(1);
+  const className: string = camelizeSmall(classInfo.name!);
 
   if (classInfo.constructorArguments !== undefined) {
     result += '\n\n' + stripIndents`

@@ -28,6 +28,7 @@
   },
   "scripts": {
     "prepare": "yarn run test",
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js",
+    "generate-reference": "ts-node scripts/parse-ast/generate-structure-reference"
   }
 }

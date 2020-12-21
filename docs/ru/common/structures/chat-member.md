@@ -51,6 +51,8 @@ const chatMember = new ChatMember(payload);
 chatMember.user // => User
 ```
 
+References: [`User`](./user.md)
+
 ### `status`
 
 **Статус пользователя**

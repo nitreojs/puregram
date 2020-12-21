@@ -38,3 +38,5 @@ userProfilePhotos.totalCount // => number
 ```ts
 userProfilePhotos.photos // => PhotoSize[][]
 ```
+
+References: [`PhotoSize`](./photo-size.md)

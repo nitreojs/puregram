@@ -36,6 +36,8 @@ const venue = new Venue(payload);
 venue.location // => Location | undefined
 ```
 
+References: [`Location`](./location.md)
+
 ### `title`
 
 **Название места**

@@ -68,6 +68,8 @@ successfulPayment.shippingOptionId // => string | undefined
 successfulPayment.orderInfo // => OrderInfo | undefined
 ```
 
+References: [`OrderInfo`](./order-info.md)
+
 ### `telegramPaymentChargeId`
 
 **Telegram payment ID**

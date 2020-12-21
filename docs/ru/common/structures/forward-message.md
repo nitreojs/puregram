@@ -47,6 +47,8 @@ message.id // => number | undefined
 message.from // => User
 ```
 
+References: [`User`](./user.md)
+
 ### `chat`
 
 **Информация про оригинальный канал**
@@ -56,6 +58,8 @@ message.from // => User
 ```ts
 message.chat // => Chat | undefined
 ```
+
+References: [`Chat`](./chat.md)
 
 ### `signature`
 

@@ -76,6 +76,8 @@ encryptedPassportElement.email // => string | undefined
 encryptedPassportElement.files // => PassportFile[]
 ```
 
+References: [`PassportFile`](./passport-file.md)
+
 ### `frontSide`
 
 **Зашифрованный файл с лицевой стороной документа**
@@ -83,6 +85,8 @@ encryptedPassportElement.files // => PassportFile[]
 ```ts
 encryptedPassportElement.frontSide // => PassportFile | undefined
 ```
+
+References: [`PassportFile`](./passport-file.md)
 
 ### `reverseSide`
 
@@ -92,6 +96,8 @@ encryptedPassportElement.frontSide // => PassportFile | undefined
 encryptedPassportElement.reverseSide // => PassportFile | undefined
 ```
 
+References: [`PassportFile`](./passport-file.md)
+
 ### `selfie`
 
 **Зашифрованный файл с селфи пользователя, держащего в руках документ**
@@ -100,6 +106,8 @@ encryptedPassportElement.reverseSide // => PassportFile | undefined
 encryptedPassportElement.selfie // => PassportFile | undefined
 ```
 
+References: [`PassportFile`](./passport-file.md)
+
 ### `translation`
 
 **Массив зашифрованных файлов с переведенными документами**
@@ -107,6 +115,8 @@ encryptedPassportElement.selfie // => PassportFile | undefined
 ```ts
 encryptedPassportElement.translation // => PassportFile[]
 ```
+
+References: [`PassportFile`](./passport-file.md)
 
 ### `hash`
 

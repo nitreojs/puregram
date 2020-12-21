@@ -74,3 +74,5 @@ stickerSet.stickers // => StickerAttachment[]
 ```ts
 stickerSet.thumb // => PhotoSize | undefined
 ```
+
+References: [`PhotoSize`](./photo-size.md)

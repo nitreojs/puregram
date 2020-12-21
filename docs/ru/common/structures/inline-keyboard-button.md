@@ -53,6 +53,8 @@ button.url // => string | undefined
 button.loginUrl // => LoginUrl | undefined
 ```
 
+References: [`LoginUrl`](./login-url.md)
+
 ### `callbackData`
 
 **Полезный `payload`, отправляемый по нажатии на кнопку**

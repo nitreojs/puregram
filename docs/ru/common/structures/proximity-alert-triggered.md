@@ -32,6 +32,8 @@ const proximityAlertTriggered = new ProximityAlertTriggered(payload);
 proximityAlertTriggered.traveler // => User
 ```
 
+References: [`User`](./user.md)
+
 ### `watcher`
 
 **Пользователь, установивший предупреждение**
@@ -39,6 +41,8 @@ proximityAlertTriggered.traveler // => User
 ```ts
 proximityAlertTriggered.watcher // => User
 ```
+
+References: [`User`](./user.md)
 
 ### `distance`
 

@@ -60,6 +60,8 @@ poll.question // => string
 poll.options // => PollOption[]
 ```
 
+References: [`PollOption`](./poll-option.md)
+
 ### `totalVoterCount`
 
 **Кол-во проголосовавших пользователей**
@@ -129,6 +131,8 @@ poll.explanation // => string | undefined
 ```ts
 poll.explanationEntities // => MessageEntity[]
 ```
+
+References: [`MessageEntity`](./message-entity.md)
 
 ### `openPeriod`
 

@@ -50,6 +50,8 @@ game.description // => string
 game.photo // => PhotoSize[]
 ```
 
+References: [`PhotoSize`](./photo-size.md)
+
 ### `text`
 
 **Описание игры или топов, которые будут отображены в игровом сообщении**
@@ -67,3 +69,5 @@ game.text // => string | undefined
 ```ts
 game.textEntities // => MessageEntity[]
 ```
+
+References: [`MessageEntity`](./message-entity.md)

@@ -73,6 +73,8 @@ messageEntity.url // => string | undefined
 messageEntity.user // => User | undefined
 ```
 
+References: [`User`](./user.md)
+
 ### `language`
 
 **Язык программирования, указанный для этого `entity`**

@@ -106,6 +106,8 @@ chat.lastName // => string | undefined
 chat.photo // => ChatPhoto | undefined
 ```
 
+References: [`ChatPhoto`](./chat-photo.md)
+
 ### `bio`
 
 **Описание человека**
@@ -138,6 +140,8 @@ chat.linkedChatId // => number | undefined
 ```ts
 chat.location // => ChatLocation | undefined
 ```
+
+References: [`ChatLocation`](./chat-location.md)
 
 ### `description`
 
@@ -181,6 +185,8 @@ chat.pinnedMessage // => Message | undefined
 ```ts
 chat.permissions // => ChatPermissions | undefined
 ```
+
+References: [`ChatPermissions`](./chat-permissions.md)
 
 ### `slowModeDelay`
 

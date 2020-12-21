@@ -43,6 +43,8 @@ pollAnswer.pollId // => string
 pollAnswer.user // => User
 ```
 
+References: [`User`](./user.md)
+
 ### `senderId`
 
 **ID отправителя опроса**

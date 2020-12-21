@@ -31,6 +31,8 @@ const passportData = new PassportData(payload);
 passportData.data // => EncryptedPassportElement[]
 ```
 
+References: [`EncryptedPassportElement`](./encrypted-passport-element.md)
+
 ### `credentials`
 
 **Зашифрованные документы, необходимые для дешифровки**
@@ -38,3 +40,5 @@ passportData.data // => EncryptedPassportElement[]
 ```ts
 passportData.credentials // => EncryptedCredentials
 ```
+
+References: [`EncryptedCredentials`](./encrypted-credentials.md)

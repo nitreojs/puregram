@@ -29,3 +29,5 @@ const markup = new InlineKeyboardMarkup(payload);
 ```ts
 inlineKeyboardMarkup.inlineKeyboard // => InlineKeyboardButton[][]
 ```
+
+References: [`InlineKeyboardButton`](./inlin-keyboard-button.md)

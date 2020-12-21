@@ -33,6 +33,8 @@ const chatLocation = new ChatLocation(payload);
 chatLocation.location // => Location
 ```
 
+References: [`Location`](./location.md)
+
 ### `address`
 
 **Адрес локации**

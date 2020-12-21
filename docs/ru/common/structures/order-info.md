@@ -56,3 +56,5 @@ orderInfo.email // => string | undefined
 ```ts
 orderInfo.shippingAddress // => ShippingAddress | undefined
 ```
+
+References: [`ShippingAddress`](./shipping-address.md)

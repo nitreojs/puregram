@@ -1,27 +1,44 @@
-# puregram
+<p align='center'>
+  <img src='https://raw.githubusercontent.com/nitreojs/puregram/master/docs/logo.png' />
+</p>
 
-`puregram` is a powerful Node.js package that allows you to easily interact with [Telegram API](https://core.telegram.org/bots/api) 🚀
+<p align='center'>
+  <b>Powerful</b>
+  <a href='nodejs.org'>Node.js</a>
+  package that allows you to
+  <b>easily</b>
+  interact with
+  <a src='https://core.telegram.org/bots/api'>Telegram API</a>
+  🚀
+</p>
 
-| [🤖 Examples](https://github.com/nitreojs/puregram/tree/master/docs/examples) | [📖 Documentation](https://github.com/nitreojs/puregram/tree/master/docs) |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+<table align='center'>
+  <tr>
+    <th>
+      <a href='https://github.com/nitreojs/puregram/tree/master/docs/examples'>
+        🤖 Examples
+      </a>
+    </th>
+    <th>
+      <a href='https://github.com/nitreojs/puregram/tree/master/docs'>
+        📖 Documentation
+      </a>
+    </th>
+  </tr>
+</table>
 
 ## Features
 
-* 100% [Telegram Bot API](https://core.telegram.org/bots/api) coverage
+* 100% [**Telegram Bot API**](https://core.telegram.org/bots/api) coverage
 * Works with JavaScript and TypeScript
 * Has **57** tests and all of them passes every build
 
 ## Installation
 > **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
 
-### Yarn
-```bash
-yarn add puregram
-```
-
-### NPM
-```bash
-npm i -S puregram
+```sh
+$ yarn add puregram
+$ npm i -S puregram
 ```
 
 ## Example usage
@@ -33,10 +50,24 @@ const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
-telegram.updates.on('message', (context) => context.send('Hi!'));
+telegram.updates.on(
+  'message',
+  (context) => context.send('Hello, World!')
+);
+
+telegram.updates.on(
+  'callback_query',
+  (context) => (
+    context.message.editMessageText('*You just clicked the inline button!*', {
+      parse_mode: 'Markdown'
+    })
+  )
+);
 
 telegram.updates.startPolling().catch(console.error);
 ```
+
+[🤖 Click to see more examples!](https://github.com/nitreojs/puregram/tree/master/docs/examples)
 
 ## Community
 

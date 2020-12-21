@@ -20,8 +20,8 @@
     "eslint-plugin-import": "^2.22.0",
     "jest": "^26.2.1",
     "ts-jest": "^26.1.4",
-    "typedoc": "^0.17.8",
     "ts-node": "github:TypeStrong/ts-node#master",
+    "typedoc": "^0.17.8",
     "typescript": "^3.9.7"
   },
   "scripts": {

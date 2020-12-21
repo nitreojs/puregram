@@ -76,3 +76,5 @@ audio.fileSize // => number | undefined
 ```ts
 audio.thumb // => PhotoSize | undefined
 ```
+
+References: [`PhotoSize`](../structures/photo-size.md)

@@ -62,6 +62,8 @@ animation.duration // => number
 animation.thumbnail // => PhotoSize | undefined
 ```
 
+References: [`PhotoSize`](../structures/photo-size.md)
+
 ### `fileName`
 
 **Возвращает название файла анимации**

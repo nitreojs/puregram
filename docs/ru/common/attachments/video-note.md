@@ -51,6 +51,8 @@ videoNote.duration // => number
 videoNote.thumb // => PhotoSize | undefined
 ```
 
+References: [`PhotoSize`](../structures/photo-size.md)
+
 ### `fileSize`
 
 **Возвращает вес файла**

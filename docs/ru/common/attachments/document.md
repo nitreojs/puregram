@@ -35,6 +35,8 @@ const document = new Document(payload);
 document.thumb // => PhotoSize | undefined
 ```
 
+References: [`PhotoSize`](../structures/photo-size.md)
+
 ### `fileName`
 
 **Возвращает название файла**

@@ -63,6 +63,8 @@ sticker.isAnimated // => boolean
 sticker.thumb // => PhotoSize | undefined
 ```
 
+References: [`PhotoSize`](../structures/photo-size.md)
+
 ### `emoji`
 
 **Возвращает смайлик, с которым ассоциируется этот стикер**
@@ -86,6 +88,8 @@ sticker.setName // => string | undefined
 ```ts
 sticker.maskPosition // => MaskPosition | undefined
 ```
+
+References: [`MaskPosition`](../structures/mask-position.md)
 
 ### `fileSize`
 

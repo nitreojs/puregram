@@ -35,6 +35,8 @@ const photo = new Photo(payload);
 photo.sizes // => PhotoSize[]
 ```
 
+References: [`PhotoSize`](../structures/photo-size.md)
+
 ### `bigSize`
 
 **Возвращает самый большой размер фотографии**
@@ -42,6 +44,8 @@ photo.sizes // => PhotoSize[]
 ```ts
 photo.bigSize // => PhotoSize
 ```
+
+References: [`PhotoSize`](../structures/photo-size.md)
 
 ### `mediumSize`
 
@@ -51,6 +55,8 @@ photo.bigSize // => PhotoSize
 photo.mediumSize // => PhotoSize
 ```
 
+References: [`PhotoSize`](../structures/photo-size.md)
+
 ### `smallSize`
 
 **Возвращает самый маленький размер фотографии**
@@ -58,3 +64,5 @@ photo.mediumSize // => PhotoSize
 ```ts
 photo.smallSize // => PhotoSize
 ```
+
+References: [`PhotoSize`](../structures/photo-size.md)

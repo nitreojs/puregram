@@ -61,6 +61,8 @@ video.duration // => number
 video.thumb // => PhotoSize | undefined
 ```
 
+References: [`PhotoSize`](../structures/photo-size.md)
+
 ### `mimeType`
 
 **Возвращает MIME тип видео**

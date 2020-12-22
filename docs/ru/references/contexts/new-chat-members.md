@@ -385,7 +385,7 @@ context.replyWithVoice(voiceUrl) // => Promise<MessageContext>
 | `params?`    | `Partial<SendMediaGroupParams>`                         |
 
 ```ts
-context.sendMediaGroup(mediaGroup) // => Promise<Message[]>
+context.sendMediaGroup(mediaGroup) // => Promise<MessageContext[]>
 ```
 
 ### `replyWithMediaGroup(mediaGroup, params?)`
@@ -398,7 +398,7 @@ context.sendMediaGroup(mediaGroup) // => Promise<Message[]>
 | `params?`    | `Partial<SendMediaGroupParams>`                         |
 
 ```ts
-context.replyWithMediaGroup(mediaGroup) // => Promise<Message[]>
+context.replyWithMediaGroup(mediaGroup) // => Promise<MessageContext[]>
 ```
 
 ### `sendLocation(latitude, longitude, params?)`

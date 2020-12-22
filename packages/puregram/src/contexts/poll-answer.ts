@@ -172,9 +172,9 @@ class PollAnswerContext extends Context {
 
   /** Sends media group to current chat */
   public async sendMediaGroup(
-    mediaGroup: (InputMediaPhoto | InputMediaVideo)[],
+    mediaGroup: SendMediaGroupParams['media'],
     params?: Partial<SendMediaGroupParams>
-  ): Promise<Message[]> {
+  ): Promise<MessageContext[]> {
     const response = await this.telegram.api.sendMediaGroup({
       ...params,
       chat_id: this.senderId,
@@ -182,7 +182,7 @@ class PollAnswerContext extends Context {
     });
 
     return response.map(
-      (message: TelegramMessage) => new Message(message)
+      (message: TelegramMessage) => new MessageContext(this.telegram, message)
     );
   }
 

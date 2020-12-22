@@ -156,7 +156,7 @@ context.sendVoice(voiceUrl) // => Promise<MessageContext>
 | `params?`    | `Partial<SendMediaGroupParams>`                         |
 
 ```ts
-context.sendMediaGroup(mediaGroup) // => Promise<Message[]>
+context.sendMediaGroup(mediaGroup) // => Promise<MessageContext[]>
 ```
 
 ### `sendLocation(latitude, longitude, params?)`

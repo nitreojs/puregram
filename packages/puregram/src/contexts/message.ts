@@ -485,9 +485,9 @@ class MessageContext extends Context {
 
   /** Sends media group to current chat */
   public async sendMediaGroup(
-    mediaGroup: (InputMediaPhoto | InputMediaVideo)[],
+    mediaGroup: SendMediaGroupParams['media'],
     params?: Optional<SendMediaGroupParams, 'chat_id' | 'media'>
-  ): Promise<Message[]> {
+  ): Promise<MessageContext[]> {
     const response = await this.telegram.api.sendMediaGroup({
       ...params,
       chat_id: this.chatId || this.senderId || 0,
@@ -495,15 +495,15 @@ class MessageContext extends Context {
     });
 
     return response.map(
-      (message: TelegramMessage) => new Message(message)
+      (message: TelegramMessage) => new MessageContext(this.telegram, message)
     );
   }
 
   /** Replies to current message with media group */
   public replyWithMediaGroup(
-    mediaGroup: (InputMediaPhoto | InputMediaVideo)[],
+    mediaGroup: SendMediaGroupParams['media'],
     params?: Optional<SendMediaGroupParams, 'chat_id' | 'media'>
-  ): Promise<Message[]> {
+  ): Promise<MessageContext[]> {
     return this.sendMediaGroup(mediaGroup, {
       ...params,
       reply_to_message_id: this.id

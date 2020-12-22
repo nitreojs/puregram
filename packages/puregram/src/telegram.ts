@@ -5,6 +5,7 @@ import fetch, { Response } from 'node-fetch';
 import FormData from 'form-data';
 import fs from 'fs';
 import createDebug from 'debug';
+import crypto from 'crypto';
 
 import { TelegramOptions, ApiResponseUnion } from './interfaces';
 import { defaultOptions, mediaMethods } from './utils/constants';
@@ -14,11 +15,12 @@ import { User } from './common/structures/user';
 import { APIError } from './errors';
 import { ApiMethod, ApiMethodKey } from './types';
 import { ApiMethods } from './api-methods';
+import { AllowArray } from '../../hear/src/types';
 import { isPlainObject } from './utils/helpers';
 
 const debug = createDebug('puregram:api');
 
-interface UploadMediaParams {
+interface MediaValue {
   /** URL, path, stream or buffer */
   value: string | Buffer | NodeJS.ReadableStream | Record<string, any>;
 
@@ -29,12 +31,23 @@ interface UploadMediaParams {
    * `sendVideo` - `video` etc.
    */
   key: ApiMethodKey;
+}
+
+interface UploadMediaParams {
+  /** URL, path, stream or buffer */
+  values: AllowArray<MediaValue>;
 
   /** API method */
   method: ApiMethod;
 
   /** Some more data to pass into form-data */
   contextData?: Record<string, any>;
+}
+
+interface BuildFormDataResponse {
+  form: FormData;
+  keys: string[];
+  values: MediaValue[];
 }
 
 /** Telegram class */
@@ -53,10 +66,36 @@ export class Telegram {
       );
 
       if (mediaMethod !== undefined) {
+        let values: MediaValue[] = [];
+        const value = params[mediaMethod[1]];
+
+        if (Array.isArray(value)) {
+          // [ { type: 'photo', media: './photo.png', ... } ]
+          values = value.map(
+            (element: { type: MediaValue['key'], media: MediaValue['value'] }) => {
+              const { type, media, ...other } = element;
+
+              return { key: type, value: media, ...other };
+            }
+          );
+        } else if (typeof value === 'string') {
+          // './photo.png'
+          values = [{ key: mediaMethod[1], value: params[mediaMethod[1]], ...params }];
+        } else if (value instanceof Readable || Buffer.isBuffer(value)) {
+          // Readable | Buffer
+          const { [mediaMethod[1]]: _, ...other } = params;
+          
+          values = [{ key: mediaMethod[1], value, ...other }];
+        } else if (isPlainObject(value)) {
+          // { type: 'photo', media: './photo.png', ... }
+          const { type, media, ...other } = value;
+
+          values = [{ key: type, value: media, ...other }];
+        }
+
         return this.uploadMedia({
           method: mediaMethod[0],
-          key: mediaMethod[1],
-          value: params[mediaMethod[1]],
+          values,
           contextData: params
         });
       }
@@ -86,8 +125,7 @@ export class Telegram {
   /** Call API `method` with `params` */
   public async callApi(
     method: ApiMethod,
-    params: Record<string, any> | FormData,
-    formDataParams?: Record<string, any>
+    params: Record<string, any> | FormData
   ): Promise<any> {
     const url: string = `${this.options.apiBaseUrl}${this.options.token}/${method}`;
     const body: string | FormData = params instanceof FormData ? params : JSON.stringify(params);
@@ -110,12 +148,7 @@ export class Telegram {
 
     try {
       debug(`[${method}] HTTP ->`);
-
-      if (formDataParams !== undefined) {
-        debug(`[${method}] FormData params: ${JSON.stringify(formDataParams)}`);
-      } else {
-        debug(`[${method}] Params: ${body}`);
-      }
+      debug(`[${method}] Params: ${body}`);
 
       let response: Response | undefined;
 
@@ -149,60 +182,106 @@ export class Telegram {
     }
   }
 
+  private async buildFormData(options: UploadMediaParams): Promise<BuildFormDataResponse> {
+    let { values, contextData = {} } = options;
+
+    if (!Array.isArray(values)) {
+      values = [values];
+    }
+
+    const form: FormData = new FormData();
+    const keys: string[] = [];
+
+    const tasks: Promise<void>[] = values.map(
+      async (media: MediaValue, index: number) => {
+        const { value, key } = media
+
+        let formValue: any;
+
+        const isPath: boolean = typeof value === 'string' && fs.existsSync(value.toString());
+        const attachmentId: string = crypto.randomBytes(8).toString('hex');
+        const formKey: string = `${key}:${attachmentId}`;
+
+        if (isPath) {
+          // string, path
+          formValue = fs.createReadStream(value as string);
+
+          form.append(formKey, formValue);
+          keys.push(formKey);
+        } else if (value instanceof Readable || Buffer.isBuffer(value)) {
+          // Readable | Buffer
+          formValue = value;
+
+          form.append(formKey, formValue, { filename: `${key}${index}_${contextData.chat_id}` });
+          keys.push(formKey);
+        } else {
+          // string, URL | fileId
+          formValue = value;
+
+          form.append(key, formValue);
+        }
+      }
+    );
+
+    await Promise.all(tasks);
+
+    return { form, keys, values };
+  }
+
   /** Upload any media via URL / Buffer / Stream / path to file */
-  public uploadMedia(options: UploadMediaParams): Promise<any> {
-    // options. value  is      string |      buffer | stream
+  public async uploadMedia(options: UploadMediaParams): Promise<any> {
+    // options. values is     (string |      buffer | stream)[]
     // options.   key  is     'photo' |     'audio' |     'video' | whatever
     // options.method  is 'sendPhoto' | 'sendAudio' | 'sendVideo' | whatever
 
-    const { method, key, value } = options;
+    const { method } = options;
     let { contextData = {} } = options;
-    const formData: Record<string, any> = {};
 
-    let form: FormData | undefined = new FormData();
-    const isPath: boolean = fs.existsSync(value.toString());
+    const { form, keys, values }: BuildFormDataResponse = await this.buildFormData(options);
+    const key: string | undefined = keys[0];
 
-    if (value instanceof Readable || Buffer.isBuffer(value)) {
-      if (value instanceof Readable) debug('[uploadMedia::value] Readable');
-      else debug('[uploadMedia::value] Buffer');
+    if (method === 'sendMediaGroup' || method === 'editMessageMedia') {
+      let mediaValue: AllowArray<Record<string, any>> = keys.map(
+        (key: string, index: number) => {
+          const { key: _, value: __, ...valueContext }: MediaValue = values[index];
 
-      form.append(key, value, { filename: key + contextData.chat_id });
-      formData[key] = value instanceof Readable ? '<ReadableStream>' : '<Buffer>';
-    } else if (isPath) {
-      debug('[uploadMedia::value] string [path] => Readable');
+          return {
+            type: key.split(':')[0],
+            media: `attach://${key}`,
+            ...valueContext
+          };
+        }
+      );
 
-      const stream: NodeJS.ReadableStream = fs.createReadStream(value as string);
+      if (method === 'editMessageMedia') mediaValue = (<Record<string, any>[]>mediaValue)[0];
 
-      form.append(key, stream);
-      formData[key] = '<ReadableStream>';
-    } else {
-      debug('[uploadMedia::value] string [URL / fileId]');
-
-      form = undefined;
+      form.append('media', JSON.stringify(mediaValue));
+    } else if (key !== undefined) {
+      form.append(key.split(':')[0], `attach://${key}`);
     }
 
-    if (form !== undefined) {
-      if (key in contextData) {
-        const { [key]: _, ...tempContextData } = contextData;
+    // hack: remove 'media', 'photo', 'video' etc. keys from contextData
+    let { media: _, ...tempContextData } = contextData;
 
+    for (const tempValue of values) {
+      if (tempValue.key in tempContextData) {
+        const { [tempValue.key]: _, ...tempContextData } = contextData;
+  
         contextData = tempContextData;
       }
-
-      for (let [dataKey, dataValue] of Object.entries(contextData)) {
-        if (typeof dataValue === 'boolean') dataValue = String(dataValue);
-        if (dataValue.toJSON) dataValue = JSON.stringify(dataValue.toJSON());
-        if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);
-
-        form.append(dataKey, dataValue);
-        formData[dataKey] = dataValue;
-      }
-
-      return this.callApi(method, form, formData);
     }
 
-    contextData[key] = value;
+    contextData = tempContextData;
 
-    return this.callApi(method, contextData);
+    for (let [dataKey, dataValue] of Object.entries(contextData)) {
+      if (typeof dataValue === 'boolean') dataValue = String(dataValue);
+      if (dataValue.toJSON) dataValue = JSON.stringify(dataValue.toJSON());
+      if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);
+
+      form.append(dataKey, dataValue);
+    }
+
+    return this.callApi(method, form);
   }
 }
 

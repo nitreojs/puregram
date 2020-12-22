@@ -1123,7 +1123,7 @@ export interface InputMedia {
    * Internet, or pass `attach://<file_attach_name>` to upload a new one
    * using `multipart/form-data` under `<file_attach_name>` name.
    */
-  media: string;
+  media: TelegramInputFile;
 
   /** Caption of the media to be sent, 0-1024 characters after entities parsing */
   caption?: string;

@@ -24,6 +24,16 @@
         📖 Documentation
       </a>
     </th>
+    <th>
+      <a href='https://t.me/puregram_chat'>
+        💬 Chat
+      </a>
+    </th>
+    <th>
+      <a href='https://t.me/puregram_channel'>
+        💬 Channel
+      </a>
+    </th>
   </tr>
 </table>
 
@@ -80,8 +90,3 @@ telegram.updates.startPolling().catch(console.error);
 
 ## Thanks to
 Biggest thanks to [Negezor](https://github.com/negezor) for his [vk-io](https://github.com/negezor/vk-io) library that helped me with this package!
-
-## Social
-
-- [**Official Telegram chat**](https://t.me/puregram_chat)
-- [**Official Telegram channel**](https://t.me/puregram_channel)

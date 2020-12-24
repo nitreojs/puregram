@@ -15,8 +15,9 @@ import { User } from './common/structures/user';
 import { APIError } from './errors';
 import { ApiMethod, ApiMethodKey } from './types';
 import { ApiMethods } from './api-methods';
-import { AllowArray } from '../../hear/src/types';
 import { isPlainObject } from './utils/helpers';
+
+type AllowArray<T> = T | T[];
 
 const debug = createDebug('puregram:api');
 

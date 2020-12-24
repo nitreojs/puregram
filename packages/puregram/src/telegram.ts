@@ -21,6 +21,8 @@ type AllowArray<T> = T | T[];
 
 const debug = createDebug('puregram:api');
 
+const isURL: RegExp = /^https?:\/\//i;
+
 interface MediaValue {
   /** URL, path, stream or buffer */
   value: string | Buffer | NodeJS.ReadableStream | Record<string, any>;
@@ -220,6 +222,10 @@ export class Telegram {
           formValue = value;
 
           form.append(key, formValue);
+
+          if (options.method === 'sendMediaGroup') {
+            keys.push(formKey);
+          }
         }
       }
     );
@@ -244,11 +250,11 @@ export class Telegram {
     if (method === 'sendMediaGroup' || method === 'editMessageMedia') {
       let mediaValue: AllowArray<Record<string, any>> = keys.map(
         (key: string, index: number) => {
-          const { key: _, value: __, ...valueContext }: MediaValue = values[index];
+          const { key: _, value: elementValue, ...valueContext }: MediaValue = values[index];
 
           return {
             type: key.split(':')[0],
-            media: `attach://${key}`,
+            media: isURL.test(elementValue.toString()) ? elementValue : `attach://${key}`,
             ...valueContext
           };
         }

@@ -51,7 +51,7 @@ $ yarn add puregram
 $ npm i -S puregram
 ```
 
-## Example usage
+## Polling example
 
 ```js
 import { Telegram } from 'puregram';
@@ -60,11 +60,13 @@ const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
+// Message received
 telegram.updates.on(
   'message',
   (context) => context.send('Hello, World!')
 );
 
+// Inline button pressed
 telegram.updates.on(
   'callback_query',
   (context) => (
@@ -77,7 +79,33 @@ telegram.updates.on(
 telegram.updates.startPolling().catch(console.error);
 ```
 
-[🤖 Click to see more examples!](https://github.com/nitreojs/puregram/tree/master/docs/examples)
+## Webhook example (express)
+
+```js
+import express from 'express';
+import { Telegram } from 'puregram';
+
+const telegram = new Telegram({
+  token: process.env.TOKEN
+});
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(telegram.updates.getWebhookMiddleware());
+
+telegram.updates.on(
+  'message',
+  (context) => context.send('Hello, World!')
+);
+
+telegram.updates.startPolling().catch(console.error);
+
+// Available ports: 80, 88, 443, 8443
+app.listen(443, () => console.log('Webhook started handling!'));
+```
+
+[**🤖 Click to see more examples!**](https://github.com/nitreojs/puregram/tree/master/docs/examples)
 
 ## Community
 

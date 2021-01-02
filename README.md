@@ -91,7 +91,7 @@ const telegram = new Telegram({
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json()); // could be body-parser
 app.use(telegram.updates.getWebhookMiddleware());
 
 telegram.updates.on(

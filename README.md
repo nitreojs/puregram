@@ -99,8 +99,6 @@ telegram.updates.on(
   (context) => context.send('Hello, World!')
 );
 
-telegram.updates.startPolling().catch(console.error);
-
 // Available ports: 80, 88, 443, 8443
 app.listen(443, () => console.log('Webhook started handling!'));
 ```

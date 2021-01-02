@@ -1,8 +1,8 @@
-const http = require('http');
+import http from 'http';
 // or
-const https = require('https');
+import https from 'https';
 
-const { Telegram } = require('puregram');
+import { Telegram } from 'puregram';
 
 const telegram = new Telegram({ token: process.env.TOKEN });
 const server = http.createServer(telegram.updates.getWebhookMiddleware());

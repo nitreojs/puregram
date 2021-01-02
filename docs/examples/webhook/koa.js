@@ -1,7 +1,7 @@
-const Koa = require('koa');
-const koaBody = require('koa-body');
+import Koa from 'koa';
+import koaBody from 'koa-body';
 
-const { Telegram } = require('puregram');
+import { Telegram } from 'puregram';
 
 const telegram = new Telegram({ token: process.env.TOKEN });
 const app = new Koa();

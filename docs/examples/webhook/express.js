@@ -1,7 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const { Telegram } = require('puregram');
+import { Telegram } from 'puregram';
 
 const telegram = new Telegram({ token: process.env.TOKEN });
 const app = express();

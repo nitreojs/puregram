@@ -5,14 +5,9 @@
 ## Installation
 > **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
 
-### Yarn
-```bash
-yarn add @puregram/hear
-```
-
-### NPM
-```bash
-npm i @puregram/hear
+```sh
+$ yarn add @puregram/hear
+$ npm i -S @puregram/hear
 ```
 
 ## Example usage

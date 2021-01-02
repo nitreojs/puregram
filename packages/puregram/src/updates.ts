@@ -1,4 +1,5 @@
 import { inspectable } from 'inspectable';
+import http from 'http';
 
 import {
   Middleware,
@@ -40,7 +41,7 @@ import { GetUpdatesParams } from './methods';
 import { Composer } from './common/structures/composer';
 import { User } from './common/structures/user';
 
-import { delay } from './utils/helpers';
+import { delay, parseRequestJSON } from './utils/helpers';
 
 import {
   TelegramUpdate,
@@ -479,7 +480,7 @@ export class Updates {
     updates.forEach(
       async (update: TelegramUpdate) => {
         try {
-          await this.pollingHandler(update);
+          await this.updateHandler(update);
         } catch (e) {
           debug('fetchUpdates:', e);
         }
@@ -487,16 +488,14 @@ export class Updates {
     );
   }
 
-  private async pollingHandler(
+  public async updateHandler(
     update: TelegramUpdate & Partial<
       Pick<TelegramMessage, MessageEventName>
     >
   ): Promise<void> {
     this.offset = update.update_id + 1;
 
-    const type: UpdateName = (
-      Object.keys(update) as UpdateName[]
-    )[1];
+    const type: UpdateName = (Object.keys(update) as UpdateName[])[1];
 
     let UpdateContext: ContextConstructor = events[type];
 
@@ -506,18 +505,20 @@ export class Updates {
       return;
     }
 
-    let context: Context & ({
+    let context: Context & {
       isEvent?: boolean,
       eventType?: MessageEventName
-    }) = new UpdateContext(
+    } = new UpdateContext(
       this.telegram,
       update[type]
     );
+    
+    const isEvent: boolean = context.isEvent === true && context.eventType !== undefined;
 
-    debug('is event?', (context.isEvent && context.eventType !== undefined));
+    debug('is event?', isEvent);
 
-    if (context.isEvent && context.eventType !== undefined) {
-      UpdateContext = events[context.eventType];
+    if (isEvent) {
+      UpdateContext = events[context.eventType!];
 
       context = new UpdateContext(
         this.telegram,
@@ -528,6 +529,55 @@ export class Updates {
     debug(context);
 
     this.dispatchMiddleware(context);
+  }
+
+  public getKoaMiddleware(): Function {
+    return async (context: any): Promise<void> => {
+      const update: any = context.request.body;
+
+      if (update === undefined) {
+        context.status = 500;
+
+        throw new Error('request.body is undefined. Are you sure you parsed it (e.g. via koa-body)?');
+      }
+
+      context.status = 200;
+      context.set('connection', 'keep-alive');
+
+      setImmediate(() => this.updateHandler(update));
+    };
+  }
+
+  public getWebhookMiddleware(): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
+    return async (req: http.IncomingMessage, res: http.ServerResponse): Promise<void> => {
+      if (req.method !== 'POST') {
+        return;
+      }
+
+      const reqBody = (req as typeof req & { body: string | Record<string, any>; }).body;
+
+      let update: any;
+
+      try {
+        update = typeof reqBody !== 'object' ? await parseRequestJSON(req) : reqBody;
+      } catch (error) {
+        debug(error);
+
+        return;
+      }
+
+      if (update === undefined) {
+        res.writeHead(500);
+        res.end();
+  
+        throw new Error('req.body is undefined. Are you sure you parsed it (e.g. via body-parser)?');
+      }
+
+      res.writeHead(200);
+      res.end();
+
+      setImmediate(() => this.updateHandler(update));
+    }
   }
 }
 

@@ -28,16 +28,15 @@
     "lib"
   ],
   "devDependencies": {
+    "@types/debug": "^4.1.5",
+    "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
-    "@types/debug": "^4.1.5",
-    "@types/jest": "^26.0.15",
-    "@types/node-fetch": "^2.5.7",
+    "babel-jest": "^26.2.1",
     "eslint": "^7.4.0",
     "eslint-plugin-import": "^2.22.0",
-    "ts-jest": "^26.1.4",
-    "ts-node": "github:TypeStrong/ts-node#master",
     "jest": "^26.2.1",
-    "babel-jest": "^26.2.1"
+    "ts-jest": "^26.1.4",
+    "ts-node": "github:TypeStrong/ts-node#master"
   }
 }

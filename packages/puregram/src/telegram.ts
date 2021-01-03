@@ -197,13 +197,15 @@ export class Telegram {
 
     const tasks: Promise<void>[] = values.map(
       async (media: MediaValue, index: number) => {
-        const { value, key } = media
+        const { value, key } = media;
 
         let formValue: any;
 
         const isPath: boolean = typeof value === 'string' && fs.existsSync(value.toString());
         const attachmentId: string = crypto.randomBytes(8).toString('hex');
         const formKey: string = `${key}:${attachmentId}`;
+
+        console.log({ isPath, formKey });
 
         if (isPath) {
           // string, path
@@ -220,6 +222,8 @@ export class Telegram {
         } else {
           // string, URL | fileId
           formValue = value;
+
+          console.log('URL or fileId', formValue);
 
           form.append(key, formValue);
 

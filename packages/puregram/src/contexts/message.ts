@@ -32,7 +32,8 @@ import {
   EntityType,
   MessageEventName,
   Optional,
-  TelegramInputFile
+  TelegramInputFile,
+  UpdateName
 } from '../types';
 
 import { events } from '../utils/constants';
@@ -83,8 +84,8 @@ import {
 class MessageContext extends Context {
   public payload: TelegramMessage;
 
-  constructor(telegram: Telegram, update: TelegramMessage) {
-    super(telegram, 'message');
+  constructor(telegram: Telegram, update: TelegramMessage, type: UpdateName = 'message') {
+    super(telegram, type);
 
     this.payload = update;
   }

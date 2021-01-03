@@ -499,6 +499,8 @@ export class Updates {
 
     let UpdateContext: ContextConstructor = events[type];
 
+    debug('event type:', type);
+
     if (!UpdateContext) {
       debug(`Unsupported context type ${type}`);
 
@@ -508,11 +510,8 @@ export class Updates {
     let context: Context & {
       isEvent?: boolean,
       eventType?: MessageEventName
-    } = new UpdateContext(
-      this.telegram,
-      update[type]
-    );
-    
+    } = new UpdateContext(this.telegram, update[type], type);
+
     const isEvent: boolean = context.isEvent === true && context.eventType !== undefined;
 
     debug('is event?', isEvent);

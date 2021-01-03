@@ -221,10 +221,14 @@ export class Telegram {
           // string, URL | fileId
           formValue = value;
 
+          const isUrl: boolean = isURL.test(value as string);
+
           form.append(key, formValue);
 
           if (options.method === 'sendMediaGroup') {
             keys.push(formKey);
+          } else {
+            keys.push(`${isUrl ? 'url' : 'fileId'}:${value as string}`);
           }
         }
       }
@@ -250,11 +254,15 @@ export class Telegram {
     if (method === 'sendMediaGroup' || method === 'editMessageMedia') {
       let mediaValue: AllowArray<Record<string, any>> = keys.map(
         (key: string, index: number) => {
-          const { key: _, value: elementValue, ...valueContext }: MediaValue = values[index];
+          const { key: elementKey, value: elementValue, ...valueContext }: MediaValue = values[index];
+          const [keyType]: string[] = key.split(':');
+
+          const isUrl: boolean = keyType === 'url';
+          const isFileId: boolean = keyType === 'fileId';
 
           return {
-            type: key.split(':')[0],
-            media: isURL.test(elementValue.toString()) ? elementValue : `attach://${key}`,
+            type: (isUrl || isFileId) ? elementKey : keyType,
+            media: (isUrl || isFileId) ? elementValue : `attach://${key}`,
             ...valueContext
           };
         }

@@ -421,6 +421,10 @@ export class Updates {
       throw new Error('Polling is already started');
     }
 
+    if (!this.telegram.options.token) {
+      debug('Bot token is not set. Perhaps you forgot to set it?');
+    }
+
     debug('Fetching bot data...');
 
     const bot: User = new User(

@@ -205,8 +205,6 @@ export class Telegram {
         const attachmentId: string = crypto.randomBytes(8).toString('hex');
         const formKey: string = `${key}:${attachmentId}`;
 
-        console.log({ isPath, formKey });
-
         if (isPath) {
           // string, path
           formValue = fs.createReadStream(value as string);
@@ -222,8 +220,6 @@ export class Telegram {
         } else {
           // string, URL | fileId
           formValue = value;
-
-          console.log('URL or fileId', formValue);
 
           form.append(key, formValue);
 

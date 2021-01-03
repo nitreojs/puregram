@@ -499,7 +499,7 @@ export class Updates {
 
     let UpdateContext: ContextConstructor = events[type];
 
-    debug('event type:', type);
+    debug('Event type:', type);
 
     if (!UpdateContext) {
       debug(`Unsupported context type ${type}`);
@@ -514,15 +514,12 @@ export class Updates {
 
     const isEvent: boolean = context.isEvent === true && context.eventType !== undefined;
 
-    debug('is event?', isEvent);
+    debug('Is event?', isEvent);
 
     if (isEvent) {
       UpdateContext = events[context.eventType!];
 
-      context = new UpdateContext(
-        this.telegram,
-        update.message
-      );
+      context = new UpdateContext(this.telegram, update.message);
     }
 
     debug(context);
@@ -558,7 +555,7 @@ export class Updates {
       let update: any;
 
       try {
-        update = typeof reqBody !== 'object' ? await parseRequestJSON(req) : reqBody;
+        update = typeof reqBody === 'object' ? reqBody : await parseRequestJSON(req);
       } catch (error) {
         debug(error);
 

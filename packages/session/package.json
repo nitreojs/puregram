@@ -21,5 +21,6 @@
   "license": "MIT",
   "dependencies": {
     "puregram": "^2.0.0"
-  }
+  },
+  "types": "./lib/index.d.ts"
 }

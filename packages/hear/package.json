@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "puregram": "^2.0.0",
-    "middleware-io": "^2.5.0",
-    "ts-node": "github:TypeStrong/ts-node#master"
-  }
+    "middleware-io": "^2.5.0"
+  },
+  "types": "./lib/index.d.ts"
 }

@@ -34,8 +34,8 @@ export class SuccessfulPayment {
   }
 
   /** Bot specified invoice payload */
-  public get invoicePayload(): string {
-    return this.payload.invoice_payload;
+  public get invoicePayload(): any {
+    return JSON.stringify(this.payload.invoice_payload);
   }
 
   /** Identifier of the shipping option chosen by the user */

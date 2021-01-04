@@ -40,7 +40,8 @@ import {
   SendStickerParams,
   SendDiceParams,
   SendChatActionParams,
-  SendDocumentParams
+  SendDocumentParams,
+  AnswerShippingQueryParams
 } from '../methods';
 
 import { MessageContext } from './message';
@@ -304,6 +305,16 @@ class ShippingQueryContext extends Context {
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
     );
+  }
+
+  /** Replies to shipping queries */
+  public async answerShippingQuery(
+    params: Optional<AnswerShippingQueryParams, 'shipping_query_id'>
+  ): Promise<true> {
+    return this.telegram.api.answerShippingQuery({
+      ...params,
+      shipping_query_id: this.id
+    });
   }
 }
 

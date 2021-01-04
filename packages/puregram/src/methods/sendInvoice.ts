@@ -24,7 +24,7 @@ export interface SendInvoiceParams {
    * Bot-defined invoice payload, 1-128 bytes.
    * This will not be displayed to the user, use for your internal processes.
    */
-  payload: string;
+  payload: any;
 
   /**
    * Payments provider token, obtained via Botfather

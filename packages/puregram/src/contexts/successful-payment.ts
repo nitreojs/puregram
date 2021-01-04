@@ -52,7 +52,7 @@ import {
   Optional
 } from '../types';
 
-import { Message, Poll } from '../updates/';
+import { Poll } from '../updates/';
 import { BotCommand } from '../common/structures/bot-command';
 import { SuccessfulPayment } from '../common/structures/successful-payment';
 

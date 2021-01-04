@@ -10,9 +10,7 @@ import {
 } from '../enums';
 
 import {
-  InputMediaPhoto,
   InputMediaUnion,
-  InputMediaVideo,
   TelegramBotCommand,
   TelegramInlineKeyboardMarkup,
   TelegramMessage

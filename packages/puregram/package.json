@@ -39,5 +39,17 @@
     "jest": "^26.2.1",
     "ts-jest": "^26.1.4",
     "ts-node": "github:TypeStrong/ts-node#master"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitreojs/puregram.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nitreojs/puregram/issues"
+  },
+  "homepage": "https://github.com/nitreojs/puregram#readme"
 }

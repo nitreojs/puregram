@@ -22,5 +22,12 @@
   "dependencies": {
     "puregram": "^2.0.0"
   },
-  "types": "./lib/index.d.ts"
+  "types": "./lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram/tree/master/packages/utils"
+  }
 }

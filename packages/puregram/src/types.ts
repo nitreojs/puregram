@@ -4,6 +4,8 @@ import { TelegramUpdate, TelegramMessageEntity } from './interfaces';
 import { ApiMethods } from './api-methods';
 import { MessageEntity } from './common/structures/message-entity';
 
+export type AllowArray<T> = T | T[];
+
 export type ParseMode = 'HTML' | 'Markdown' | 'MarkdownV2';
 export type ChatType = 'private' | 'group' | 'supergroup' | 'channel';
 export type EntityType = 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'code' | 'pre' | 'text_link' | 'text_mention';
@@ -14,6 +16,7 @@ export type EncryptedPassportElementType = 'personal_details' | 'passport' | 'dr
 export type MessageEventName = 'new_chat_members' | 'left_chat_member' | 'new_chat_title' | 'new_chat_photo' | 'delete_chat_photo' | 'group_chat_created' | 'supergroup_chat_created' | 'channel_chat_created' | 'migrate_to_chat_id' | 'migrate_from_chat_id' | 'pinned_message' | 'invoice' | 'successful_payment' | 'location';
 export type UpdateName = Exclude<keyof TelegramUpdate, 'update_id'> | MessageEventName;
 export type AttachmentType = 'animation' | 'audio' | 'document' | 'photo' | 'sticker' | 'video' | 'video_note' | 'voice';
+export type MediaAttachmentType = AttachmentType | 'media' | 'png_sticker' | 'tgs_sticker' | 'thumb';
 export type Constructor<T = {}> = new (...args: any[]) => T;
 export type InputMediaType = 'photo' | 'video' | 'animation' | 'audio' | 'document';
 export type TelegramInputFile = string | Record<string, any> | Buffer | Readable;

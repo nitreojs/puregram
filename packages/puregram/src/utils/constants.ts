@@ -4,8 +4,9 @@ import { TelegramOptions } from '../interfaces';
 import { Message } from '../updates/';
 
 import {
+  AllowArray,
   ApiMethod,
-  AttachmentType,
+  MediaAttachmentType,
   MessageEventName
 } from '../types';
 
@@ -49,14 +50,24 @@ export const events: [
   ['successfulPayment', 'successful_payment'],
 ];
 
-export const mediaMethods: [ApiMethod, AttachmentType | 'media'][] = [
+export const mediaMethods: [ApiMethod, AllowArray<MediaAttachmentType>][] = [
+  // send*
   ['sendPhoto', 'photo'],
   ['sendAudio', 'audio'],
   ['sendDocument', 'document'],
   ['sendVideo', 'video'],
   ['sendAnimation', 'animation'],
   ['sendVoice', 'voice'],
+  ['sendSticker', 'sticker'],
   ['sendVideoNote', 'video_note'],
   ['sendMediaGroup', 'media'],
+
+  // Stickers
+  ['uploadStickerFile', 'png_sticker'],
+  ['createNewStickerSet', ['png_sticker', 'tgs_sticker']],
+  ['addStickerToSet', ['png_sticker', 'tgs_sticker']],
+  ['setStickerSetThumb', 'thumb'],
+
+  // edit*
   ['editMessageMedia', 'media']
 ];

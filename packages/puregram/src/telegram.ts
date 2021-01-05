@@ -13,7 +13,7 @@ import { defaultOptions, mediaMethods } from './utils/constants';
 import { Updates } from './updates';
 import { User } from './common/structures/user';
 import { APIError } from './errors';
-import { ApiMethod, ApiMethodKey } from './types';
+import { ApiMethod, MediaAttachmentType } from './types';
 import { ApiMethods } from './api-methods';
 import { isPlainObject } from './utils/helpers';
 
@@ -33,7 +33,7 @@ interface MediaValue {
    * For example, `sendPhoto` method has got `photo` key,
    * `sendVideo` - `video` etc.
    */
-  key: ApiMethodKey;
+  key: MediaAttachmentType;
 }
 
 interface UploadMediaParams {
@@ -62,7 +62,7 @@ export class Telegram {
     get: (_target: ApiMethods, method: ApiMethod) => (
       params: Record<string, any> = {}
     ) => {
-      const mediaMethod: [ApiMethod, ApiMethodKey] | undefined = mediaMethods.find(
+      const mediaMethod: [ApiMethod, AllowArray<MediaAttachmentType>] | undefined = mediaMethods.find(
         ([currentMediaMethod]) => (
           method === currentMediaMethod
         )
@@ -70,7 +70,16 @@ export class Telegram {
 
       if (mediaMethod !== undefined) {
         let values: MediaValue[] = [];
-        const value = params[mediaMethod[1]];
+        let value: any;
+
+        if (Array.isArray(mediaMethod[1])) {
+          value = mediaMethod[1].find((value) => params[value] !== undefined);
+          // TODO: handle every value, not just determine which one is in use
+        } else {
+          value = params[mediaMethod[1]];
+        }
+
+        const mediaMethodKey: MediaAttachmentType = (mediaMethod[1] as MediaAttachmentType);
 
         if (Array.isArray(value)) {
           // [ { type: 'photo', media: './photo.png', ... } ]
@@ -83,12 +92,12 @@ export class Telegram {
           );
         } else if (typeof value === 'string') {
           // './photo.png'
-          values = [{ key: mediaMethod[1], value: params[mediaMethod[1]], ...params }];
+          values = [{ key: mediaMethodKey, value, ...params }];
         } else if (value instanceof Readable || Buffer.isBuffer(value)) {
           // Readable | Buffer
-          const { [mediaMethod[1]]: _, ...other } = params;
+          const { [mediaMethodKey]: _, ...other } = params;
           
-          values = [{ key: mediaMethod[1], value, ...other }];
+          values = [{ key: mediaMethodKey, value, ...other }];
         } else if (isPlainObject(value)) {
           // { type: 'photo', media: './photo.png', ... }
           const { type, media, ...other } = value;
@@ -186,7 +195,7 @@ export class Telegram {
   }
 
   private async buildFormData(options: UploadMediaParams): Promise<BuildFormDataResponse> {
-    let { values, contextData = {} } = options;
+    let { values, contextData = {}, method } = options;
 
     if (!Array.isArray(values)) {
       values = [values];
@@ -209,11 +218,15 @@ export class Telegram {
           // string, path
           formValue = fs.createReadStream(value as string);
 
+          debug(`[${method}] FormData: ${formKey}=${formValue}`);
+
           form.append(formKey, formValue);
           keys.push(formKey);
         } else if (value instanceof Readable || Buffer.isBuffer(value)) {
           // Readable | Buffer
           formValue = value;
+
+          debug(`[${method}] FormData: ${formKey}=${JSON.stringify(formValue)}`);
 
           form.append(formKey, formValue, { filename: `${key}${index}_${contextData.chat_id}` });
           keys.push(formKey);
@@ -223,9 +236,11 @@ export class Telegram {
 
           const isUrl: boolean = isURL.test(value as string);
 
+          debug(`[${method}] FormData: ${key}=${formValue}`);
+
           form.append(key, formValue);
 
-          if (options.method === 'sendMediaGroup') {
+          if (method === 'sendMediaGroup') {
             keys.push(formKey);
           } else {
             keys.push(`${isUrl ? 'url' : 'fileId'}:${value as string}`);

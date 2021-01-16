@@ -110,16 +110,16 @@ export const replaceChars = (source: string, chars: string[] | string): string =
 
 // https://github.com/negezor/vk-io/blob/c4db32cdd15e17e398e88fb780bbbbe0e8b61856/packages/vk-io/src/updates/helpers.ts
 export const parseRequestJSON = async (req: http.IncomingMessage): Promise<Record<string, any>> => {
-	const chunks = [];
-	let totalSize = 0;
+  const chunks = [];
+  let totalSize = 0;
 
-	for await (const chunk of req) {
-		totalSize += chunk.length;
+  for await (const chunk of req) {
+    totalSize += chunk.length;
 
-		chunks.push(chunk);
-	}
+    chunks.push(chunk);
+  }
 
-	return JSON.parse(
-		Buffer.concat(chunks, totalSize).toString('utf8')
-	);
+  return JSON.parse(
+    Buffer.concat(chunks, totalSize).toString('utf8')
+  );
 };

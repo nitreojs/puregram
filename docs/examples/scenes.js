@@ -46,11 +46,11 @@ sceneManager.addScenes([
               payload: { sex: 'male' }
             }),
 
-	          InlineKeyboard.textButton({
+            InlineKeyboard.textButton({
               text: 'Female',
               payload: { sex: 'female' }
             })
-	        ],
+          ],
 
           [
             InlineKeyboard.textButton({

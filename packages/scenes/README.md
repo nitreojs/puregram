@@ -5,14 +5,9 @@
 ## Installation
 > **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
 
-### Yarn
-```bash
-yarn add @puregram/scenes
-```
-
-### NPM
-```bash
-npm i @puregram/scenes
+```sh
+$ yarn add @puregram/scenes
+$ npm i -S @puregram/scenes
 ```
 
 ## Example usage

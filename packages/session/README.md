@@ -5,14 +5,9 @@
 ## Installation
 > **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
 
-### Yarn
-```bash
-yarn add @puregram/session
-```
-
-### NPM
-```bash
-npm i @puregram/session
+```sh
+$ yarn add @puregram/session
+$ npm i -S @puregram/session
 ```
 
 ## Example usage

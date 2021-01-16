@@ -1,8 +1,9 @@
 import { inspectable } from 'inspectable';
 
+import { PhotoSize } from './photo-size';
+
 import { TelegramStickerSet, TelegramSticker } from '../../interfaces';
 import { StickerAttachment } from '../attachments';
-import { PhotoSize } from './photo-size';
 import { filterPayload } from '../../utils/helpers';
 
 export class StickerSet {

@@ -1,5 +1,9 @@
 import { inspectable } from 'inspectable';
 
+import { ChatPhoto } from './chat-photo';
+import { ChatPermissions } from './chat-permissions';
+import { ChatLocation } from './chat-location';
+
 import {
   TelegramChatUnion,
   TelegramChatPrivate,
@@ -10,10 +14,7 @@ import {
 
 import { ChatType } from '../../types';
 import { Message } from '../../updates/message';
-import { ChatPhoto } from './chat-photo';
-import { ChatPermissions } from './chat-permissions';
 import { filterPayload } from '../../utils/helpers';
-import { ChatLocation } from './chat-location';
 
 /** This object represents a chat. */
 export class Chat {

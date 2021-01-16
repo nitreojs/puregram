@@ -1,8 +1,12 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramPassportData, TelegramEncryptedPassportElementUnion } from '../../interfaces';
 import { EncryptedPassportElement } from './encrypted-passport-element';
 import { EncryptedCredentials } from './encrypted-credentials';
+
+import {
+  TelegramPassportData,
+  TelegramEncryptedPassportElementUnion
+} from '../../interfaces';
 
 /**
  * Contains information about Telegram Passport data shared with the bot by the

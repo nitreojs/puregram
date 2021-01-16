@@ -1,5 +1,7 @@
 import { inspectable } from 'inspectable';
 
+import { PassportFile } from './passport-file';
+
 import {
   TelegramEncryptedPassportElementUnion,
   TelegramEncryptedPassportElementPersonalDetails,
@@ -19,7 +21,6 @@ import {
 } from '../../interfaces';
 
 import { EncryptedPassportElementType } from '../../types';
-import { PassportFile } from './passport-file';
 import { filterPayload } from '../../utils/helpers';
 
 /**

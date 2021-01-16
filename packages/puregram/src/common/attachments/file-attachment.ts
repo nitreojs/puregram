@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable';
 
 import { Attachment } from './attachment';
+
 import { TelegramAttachment } from '../../interfaces';
 import { AttachmentType } from '../../types';
 

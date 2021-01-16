@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramPollAnswer } from '../../interfaces';
 import { User } from './user';
+
+import { TelegramPollAnswer } from '../../interfaces';
 
 /** This object represents an answer of a user in a non-anonymous poll. */
 export class PollAnswer {

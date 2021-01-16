@@ -1,8 +1,9 @@
 import { inspectable } from 'inspectable';
 
+import { Message } from './message';
+
 import { TelegramCallbackQuery } from '../interfaces';
 import { User } from '../common/structures/user';
-import { Message } from './message';
 import { filterPayload } from '../utils/helpers';
 
 /**

@@ -1,13 +1,14 @@
 import { inspectable } from 'inspectable';
 
+import { PhotoSize } from './photo-size';
+import { MessageEntity } from './message-entity';
+
 import {
   TelegramGame,
   TelegramPhotoSize,
   TelegramMessageEntity
 } from '../../interfaces';
 
-import { PhotoSize } from './photo-size';
-import { MessageEntity } from './message-entity';
 import { AnimationAttachment } from '../attachments';
 import { filterPayload } from '../../utils/helpers';
 

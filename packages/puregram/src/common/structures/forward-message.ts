@@ -1,8 +1,9 @@
 import { inspectable } from 'inspectable';
 
-import { ForwardMessagePayload } from '../../interfaces';
 import { User } from './user';
 import { Chat } from './chat';
+
+import { ForwardMessagePayload } from '../../interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents a forwarded message. */

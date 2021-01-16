@@ -1,8 +1,9 @@
 import { inspectable } from 'inspectable';
 
+import { FileAttachment } from './file-attachment';
+
 import { TelegramAudio } from '../../interfaces';
 import { PhotoSize } from '../structures/photo-size';
-import { FileAttachment } from './file-attachment';
 
 /**
  * This object represents an audio file to be treated as music by the Telegram

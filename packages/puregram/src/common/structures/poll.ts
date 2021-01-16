@@ -1,9 +1,10 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../interfaces';
-import { PollType } from '../../types';
 import { MessageEntity } from './message-entity';
 import { PollOption } from './poll-option';
+
+import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../interfaces';
+import { PollType } from '../../types';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object contains information about a poll. */

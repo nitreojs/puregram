@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable';
 
 import { Context } from './context';
+import { MessageContext } from './message';
 
 import {
   filterPayload,
@@ -8,8 +9,6 @@ import {
 } from '../utils/helpers';
 
 import {
-  InputMediaPhoto,
-  InputMediaVideo,
   TelegramBotCommand,
   TelegramChosenInlineResult,
   TelegramMessage
@@ -42,10 +41,9 @@ import {
   SendDocumentParams
 } from '../methods';
 
-import { Poll, Message, ChosenInlineResult } from '../updates/';
+import { Poll, ChosenInlineResult } from '../updates/';
 import { BotCommand } from '../common/structures/bot-command';
 import { Telegram } from '../telegram';
-import { MessageContext } from './message';
 
 /**
  * The result of an inline query that was chosen by

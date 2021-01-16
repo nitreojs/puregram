@@ -1,8 +1,9 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramInlineKeyboardButton } from '../../interfaces';
 import { LoginUrl } from './login-url';
 import { CallbackGame } from './callback-game';
+
+import { TelegramInlineKeyboardButton } from '../../interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 export class InlineKeyboardButton {

@@ -1,7 +1,12 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramInlineKeyboardMarkup, TelegramInlineKeyboardButton } from '../../interfaces';
 import { InlineKeyboardButton } from './inline-keyboard-button';
+
+import {
+  TelegramInlineKeyboardMarkup,
+  TelegramInlineKeyboardButton
+} from '../../interfaces';
+
 
 export class InlineKeyboardMarkup {
   private payload: TelegramInlineKeyboardMarkup;

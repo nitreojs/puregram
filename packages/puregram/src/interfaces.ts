@@ -1,5 +1,4 @@
 import { Agent } from 'https';
-import { UpdateName, MessageEntities } from './types';
 
 import {
   ChatType,
@@ -13,7 +12,9 @@ import {
   TelegramInputFile,
   ChatMemberStatus,
   InlineQueryType,
-  PassportElementSource
+  PassportElementSource,
+  UpdateName,
+  MessageEntities
 } from './types';
 
 import {

@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable';
 
-import { PhotoSize } from '../structures/photo-size';
 import { Attachment } from './attachment';
+
+import { PhotoSize } from '../structures/photo-size';
 
 /** This object represents a photo file with it's sizes */
 export class PhotoAttachment extends Attachment {

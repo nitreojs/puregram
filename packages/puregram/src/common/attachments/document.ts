@@ -1,8 +1,9 @@
 import { inspectable } from 'inspectable';
 
+import { FileAttachment } from './file-attachment';
+
 import { TelegramDocument } from '../../interfaces';
 import { PhotoSize } from '../structures/photo-size';
-import { FileAttachment } from './file-attachment';
 
 /**
  * This object represents a general file (as opposed to photos, voice messages

@@ -25,7 +25,6 @@ export type ChatMemberStatus = 'creator' | 'administrator' | 'member' | 'restric
 export type InlineQueryType = 'article' | 'photo' | 'gif' | 'mpeg4_gif' | 'video' | 'audio' | 'voice' | 'document' | 'location' | 'venue' | 'contact' | 'game' | 'sticker';
 export type PassportElementSource = 'data' | 'front_side' | 'reverse_side' | 'selfie' | 'file' | 'files' | 'translation_file' | 'translation_files' | 'unspecified';
 export type ApiMethod = keyof ApiMethods;
-export type ApiMethodKey = AttachmentType | 'media';
 export type MessageEntities = (TelegramMessageEntity | MessageEntity)[];
 
 // https://stackoverflow.com/a/53742583

@@ -1,5 +1,7 @@
 import { inspectable } from 'inspectable';
 
+import { User } from './user';
+
 import {
   TelegramMessageEntityUnion,
   TelegramMessageEntityTextLink,
@@ -8,7 +10,6 @@ import {
 } from '../../interfaces';
 
 import { EntityType } from '../../types';
-import { User } from './user';
 import { filterPayload } from '../../utils/helpers';
 import { TelegramUser } from '../../interfaces';
 

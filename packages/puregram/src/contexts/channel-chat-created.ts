@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable';
 
 import { Context } from './context';
+import { MessageContext } from './message';
 
 import { User } from '../common/structures/user';
 import { Chat } from '../common/structures/chat';
@@ -8,8 +9,6 @@ import { Chat } from '../common/structures/chat';
 import { Telegram } from '../telegram';
 
 import {
-  InputMediaPhoto,
-  InputMediaVideo,
   TelegramBotCommand,
   TelegramMessage,
   InputMediaUnion,
@@ -37,10 +36,10 @@ import {
   EditMessageTextParams,
   EditMessageCaptionParams,
   EditMessageMediaParams,
-  EditMessageReplyMarkupParams, SendInvoiceParams, SendDocumentParams
+  EditMessageReplyMarkupParams,
+  SendInvoiceParams,
+  SendDocumentParams
 } from '../methods';
-
-import { MessageContext } from './message';
 
 import {
   TelegramInputFile,
@@ -50,7 +49,6 @@ import {
   Optional
 } from '../types';
 
-import { Message } from '../updates/message';
 import { Poll } from '../updates/';
 import { BotCommand } from '../common/structures/bot-command';
 

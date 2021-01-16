@@ -1,18 +1,17 @@
 import { inspectable } from 'inspectable';
 
 import { Context } from './context';
+import { MessageContext } from './message';
+
 import { applyMixins } from '../utils/helpers';
 import { Telegram } from '../telegram';
 
 import {
   PollAnswer,
-  Message,
   Poll
 } from '../updates/';
 
 import {
-  InputMediaPhoto,
-  InputMediaVideo,
   TelegramBotCommand,
   TelegramPollAnswer,
   TelegramMessage
@@ -37,8 +36,6 @@ import {
   SendChatActionParams,
   SendDocumentParams
 } from '../methods';
-
-import { MessageContext } from './message';
 
 import {
   TelegramInputFile,

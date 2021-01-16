@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable';
 
 import { Context } from './context';
+import { MessageContext } from './message';
 
 import {
   filterPayload,
@@ -15,8 +16,6 @@ import {
 
 import {
   TelegramShippingQuery,
-  InputMediaPhoto,
-  InputMediaVideo,
   TelegramBotCommand,
   TelegramMessage
 } from '../interfaces';
@@ -43,8 +42,6 @@ import {
   SendDocumentParams,
   AnswerShippingQueryParams
 } from '../methods';
-
-import { MessageContext } from './message';
 
 import {
   TelegramInputFile,

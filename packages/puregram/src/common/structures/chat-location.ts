@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramChatLocation } from '../../interfaces';
 import { Location } from './location';
+
+import { TelegramChatLocation } from '../../interfaces';
 
 export class ChatLocation {
   private payload: TelegramChatLocation;

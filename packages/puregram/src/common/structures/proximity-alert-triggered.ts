@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramProximityAlertTriggered } from '../../interfaces';
 import { User } from './user';
+
+import { TelegramProximityAlertTriggered } from '../../interfaces';
 
 /**
  * This object represents the content of a service message,

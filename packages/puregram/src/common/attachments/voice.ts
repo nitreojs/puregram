@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramVoice } from '../../interfaces';
 import { FileAttachment } from './file-attachment';
+
+import { TelegramVoice } from '../../interfaces';
 
 /** This object represents a voice note. */
 export class VoiceAttachment extends FileAttachment<TelegramVoice> {

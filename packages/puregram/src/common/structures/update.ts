@@ -1,5 +1,8 @@
 import { inspectable } from 'inspectable';
 
+import { Poll } from './poll';
+import { PollAnswer } from './poll-answer';
+
 import { TelegramUpdate } from '../../interfaces';
 
 import {
@@ -11,8 +14,6 @@ import {
   PreCheckoutQuery
 } from '../../updates/';
 
-import { Poll } from './poll';
-import { PollAnswer } from './poll-answer';
 import { filterPayload } from '../../utils/helpers';
 
 /**

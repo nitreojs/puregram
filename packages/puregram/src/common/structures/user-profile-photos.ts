@@ -1,8 +1,8 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramUserProfilePhotos, TelegramPhotoSize } from '../../interfaces';
-
 import { PhotoSize } from './photo-size';
+
+import { TelegramUserProfilePhotos, TelegramPhotoSize } from '../../interfaces';
 
 /** This object represent a user's profile pictures. */
 export class UserProfilePhotos {

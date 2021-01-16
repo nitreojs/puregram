@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramSuccessfulPayment } from '../../interfaces';
 import { OrderInfo } from './order-info';
+
+import { TelegramSuccessfulPayment } from '../../interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object contains basic information about a successful payment. */

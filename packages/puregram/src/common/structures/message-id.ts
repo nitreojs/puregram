@@ -1,4 +1,5 @@
 import { inspectable } from 'inspectable';
+
 import { TelegramMessageId } from '../../interfaces';
 
 /** This object represents a unique message identifier. */

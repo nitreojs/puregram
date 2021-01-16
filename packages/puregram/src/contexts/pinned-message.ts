@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable';
 
 import { Context } from './context';
+import { MessageContext } from './message';
 
 import { User } from '../common/structures/user';
 import { Chat } from '../common/structures/chat';
@@ -8,8 +9,6 @@ import { Chat } from '../common/structures/chat';
 import { Telegram } from '../telegram';
 
 import {
-  InputMediaPhoto,
-  InputMediaVideo,
   TelegramBotCommand,
   TelegramMessage,
   InputMediaUnion,
@@ -42,8 +41,6 @@ import {
   SendDocumentParams
 } from '../methods';
 
-import { MessageContext } from './message';
-
 import {
   TelegramInputFile,
   ChatAction,
@@ -52,7 +49,7 @@ import {
   Optional
 } from '../types';
 
-import { Message, Poll } from '../updates/';
+import { Poll } from '../updates/';
 import { BotCommand } from '../common/structures/bot-command';
 
 class PinnedMessageContext extends Context {

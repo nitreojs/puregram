@@ -9,7 +9,7 @@ const hearManager = new HearManager();
 telegram.updates.on('message', hearManager.middleware);
 
 hearManager.hear(/^\/payments$/i, (context) => {
-  // Sending a invoice to user
+  // Sending an invoice to user
 
   return context.sendInvoice({
     title: 'Product name',

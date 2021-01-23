@@ -10,7 +10,7 @@ telegram.updates.on('message', (context) => {
     .row()
     .textButton('Two buttons')
     .textButton('In one row')
-    .resize();
+    .resize(); // keyboard will be much smaller
 
   return context.send('Sending you a keyboard, generated using `KeyboardBuilder`!', {
     reply_markup: keyboard,

@@ -20,7 +20,9 @@
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
-    "@puregram/session": "^2.0.0",
+    "@puregram/session": "^2.0.0"
+  },
+  "peerDependencies": {
     "puregram": "^2.0.0"
   },
   "types": "./lib/index.d.ts",

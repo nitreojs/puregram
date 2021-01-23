@@ -19,7 +19,7 @@
   ],
   "author": "nitrojs",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "puregram": "^2.0.0"
   },
   "types": "./lib/index.d.ts",

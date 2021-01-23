@@ -112,15 +112,15 @@ export class HearManager<C extends Context> {
     this.composer.use(
       (context: C & T, next: NextMiddleware): MiddlewareReturn => {
         // @ts-expect-error
-        const { text } = context;
+        const { text, caption } = context;
 
-        if (needText && text === undefined) {
+        if (needText && text === undefined && caption === undefined) {
           return next();
         }
 
         const hasSome = conditions.some(
           (condition: Function): boolean => (
-            condition(text, context)
+            condition(text ?? caption, context)
           )
         );
 

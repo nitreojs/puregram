@@ -95,6 +95,9 @@ const generateStructureReference = (rawPath: string, fileName: string) => {
 }
 
 const processArgs: string[] = process.argv.slice(2); // e.g. ['chat.ts']
-const [fileName, extension]: string[] = processArgs[0].split('.');
 
-generateStructureReference(`${__dirname}/../../packages/puregram/src/common/structures/${fileName}.ts`, fileName);
+for (const file of processArgs) {
+  const [fileName, extension]: string[] = file.split('.');
+
+  generateStructureReference(`${__dirname}/../../packages/puregram/src/common/structures/${fileName}.ts`, fileName);
+}

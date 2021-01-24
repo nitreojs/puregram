@@ -1,6 +1,6 @@
 {
   "name": "@puregram/utils",
-  "version": "1.0.0",
+  "version": "1.0.1-rc.1",
   "description": "Useful utilities for puregram package",
   "main": "lib/index",
   "engines": {

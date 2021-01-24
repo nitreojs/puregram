@@ -228,7 +228,10 @@ export class Telegram {
 
           debug(`[${method}] FormData: ${formKey}=${JSON.stringify(formValue)}`);
 
-          form.append(formKey, formValue, { filename: `${key}${index}_${contextData.chat_id}` });
+          form.append(formKey, formValue, {
+            filename: contextData.filename ?? `${key}${index}_${contextData.chat_id}`
+          });
+          
           keys.push(formKey);
         } else {
           // string, URL | fileId

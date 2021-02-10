@@ -4,8 +4,16 @@ import {
   MarkdownV2
 } from '../src';
 
-describe('Reply markup', (): void => {
+describe('Parse mode', (): void => {
   describe('HTML', (): void => {
+    describe('#HTML.raw()', (): void => {
+      it('should raw-ify text properly', (): void => {
+        const text: string = HTML.raw('some <b>text</b> that <i>should be</i> escaped');
+
+        expect(text).toEqual('some &lt;b&gt;text&lt;/b&gt; that &lt;i&gt;should be&lt;/i&gt; escaped');
+      });
+    });
+
     describe('#HTML.bold()', (): void => {
       it('should parse bold text properly', (): void => {
         const text: string = HTML.bold('bold text');
@@ -136,6 +144,14 @@ describe('Reply markup', (): void => {
   });
 
   describe('Markdown', (): void => {
+    describe('#Markdown.raw()', (): void => {
+      it('should raw-ify text properly', (): void => {
+        const text: string = Markdown.raw('some *text* that _should be_ escaped');
+
+        expect(text).toEqual('some \\*text\\* that \\_should be\\_ escaped');
+      });
+    });
+
     describe('#Markdown.bold()', (): void => {
       it('should parse bold text properly', (): void => {
         const text: string = Markdown.bold('bold text');
@@ -232,6 +248,14 @@ describe('Reply markup', (): void => {
   });
 
   describe('MarkdownV2', (): void => {
+    describe('#MarkdownV2.raw()', (): void => {
+      it('should raw-ify text properly', (): void => {
+        const text: string = MarkdownV2.raw('some *text* ~that~ _should be_ `escaped`');
+
+        expect(text).toEqual('some \\*text\\* \\~that\\~ \\_should be\\_ \\`escaped\\`');
+      });
+    });
+
     describe('#MarkdownV2.bold()', (): void => {
       it('should parse bold text properly', (): void => {
         const text: string = MarkdownV2.bold('bold *text');

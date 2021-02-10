@@ -8,6 +8,11 @@ export class Markdown {
     return this.constructor.name;
   }
 
+  /** Escape all the danger characters */
+  public static raw(source: string): string {
+    return replaceChars(source, ['*', '_', '[', ']', '`']);
+  }
+
   /** Bold text */
   public static bold(source: string): string {
     return `*${replaceChars(source, '*')}*`;

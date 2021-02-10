@@ -13,6 +13,11 @@ export class HTML {
     return this.constructor.name;
   }
 
+  /** Escape all the danger characters */
+  public static raw(source: string): string {
+    return escapeHtml(source);
+  }
+
   /** Bold text */
   public static bold(source: string): string {
     return `<b>${escapeHtml(source)}</b>`;

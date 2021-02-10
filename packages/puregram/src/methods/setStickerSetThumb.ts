@@ -17,6 +17,8 @@ export interface SetStickerSetThumbParams {
    * Animated sticker set thumbnail can't be uploaded via HTTP URL.
    */
   thumb?: TelegramInputFile;
+
+  [key: string]: any;
 }
 
 /**

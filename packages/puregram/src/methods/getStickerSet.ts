@@ -3,6 +3,8 @@ import { TelegramStickerSet } from '../interfaces';
 export interface GetStickerSetParams {
   /** Name of the sticker set */
   name: string;
+
+  [key: string]: any;
 }
 
 /**

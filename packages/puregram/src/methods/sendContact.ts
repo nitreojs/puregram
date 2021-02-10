@@ -43,6 +43,8 @@ export interface SendContactParams {
    * instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: ReplyMarkupUnion;
+
+  [key: string]: any;
 }
 
 /**

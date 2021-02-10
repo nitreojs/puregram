@@ -7,6 +7,8 @@ export interface SetChatStickerSetParams {
 
   /** Name of the sticker set to be set as the group sticker set */
   sticker_set_name: string;
+
+  [key: string]: any;
 }
 
 /**

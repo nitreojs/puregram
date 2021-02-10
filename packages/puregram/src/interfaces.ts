@@ -76,6 +76,8 @@ export interface TelegramUpdate {
   poll?: TelegramPoll;
 
   poll_answer?: TelegramPollAnswer;
+
+  [key: string]: any;
 }
 
 export interface TelegramUser {
@@ -96,6 +98,8 @@ export interface TelegramUser {
   can_read_all_group_messages?: boolean;
 
   supports_inline_queries?: boolean;
+
+  [key: string]: any;
 }
 
 export interface TelegramChatPhoto {
@@ -106,6 +110,8 @@ export interface TelegramChatPhoto {
   big_file_id: string;
 
   big_file_unique_id: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramChatPermissions {
@@ -124,6 +130,8 @@ export interface TelegramChatPermissions {
   can_invite_users?: boolean;
 
   can_pin_messages?: boolean;
+
+  [key: string]: any;
 }
 
 export interface TelegramWebhookInfo {
@@ -142,12 +150,16 @@ export interface TelegramWebhookInfo {
   max_connections?: number;
 
   allowed_updates?: UpdateName[];
+
+  [key: string]: any;
 }
 
 export interface TelegramChatLocation {
   location: TelegramLocation;
 
   address: string;
+
+  [key: string]: any;
 }
 
 export type TelegramChatUnion = TelegramChatPrivate
@@ -179,6 +191,8 @@ export interface TelegramChatPrivate extends TelegramChatBase {
   first_name: string;
 
   last_name?: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramChatGroup extends TelegramChatBase {
@@ -193,6 +207,8 @@ export interface TelegramChatGroup extends TelegramChatBase {
   pinned_message?: TelegramMessage;
 
   permissions?: TelegramChatPermissions;
+
+  [key: string]: any;
 }
 
 export interface TelegramChatSupergroup extends TelegramChatBase {
@@ -213,6 +229,8 @@ export interface TelegramChatSupergroup extends TelegramChatBase {
   slow_mode_delay?: number;
 
   sticker_set_name?: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramChatChannel extends TelegramChatBase {
@@ -227,6 +245,8 @@ export interface TelegramChatChannel extends TelegramChatBase {
   invite_link?: string;
 
   pinned_message?: TelegramMessage;
+
+  [key: string]: any;
 }
 
 export type TelegramMessageEntityUnion = TelegramMessageEntity
@@ -240,24 +260,32 @@ export interface TelegramMessageEntity {
   offset: number;
 
   length: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramMessageEntityTextLink extends TelegramMessageEntity {
   type: 'text_link';
 
   url: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramMessageEntityTextMention extends TelegramMessageEntity {
   type: 'text_mention';
 
   user: TelegramUser;
+
+  [key: string]: any;
 }
 
 export interface TelegramMessageEntityPre extends TelegramMessageEntity {
   type: 'pre';
 
   language: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramMessage {
@@ -368,6 +396,8 @@ export interface TelegramMessage {
   proximity_alert_triggered?: TelegramProximityAlertTriggered;
 
   reply_markup?: TelegramInlineKeyboardMarkup;
+
+  [key: string]: any;
 }
 
 export interface ForwardMessagePayload {
@@ -382,6 +412,8 @@ export interface ForwardMessagePayload {
   sender_name?: string;
 
   date: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramPhotoSize {
@@ -394,12 +426,16 @@ export interface TelegramPhotoSize {
   height: number;
 
   file_size?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramAttachment {
   file_id: string;
 
   file_unique_id: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramAnimation extends TelegramAttachment {
@@ -416,6 +452,8 @@ export interface TelegramAnimation extends TelegramAttachment {
   mime_type?: string;
 
   file_size?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramAudio extends TelegramAttachment {
@@ -432,6 +470,8 @@ export interface TelegramAudio extends TelegramAttachment {
   file_size?: number;
 
   thumb?: TelegramPhotoSize;
+
+  [key: string]: any;
 }
 
 export interface TelegramDocument extends TelegramAttachment {
@@ -442,6 +482,8 @@ export interface TelegramDocument extends TelegramAttachment {
   mime_type?: string;
 
   file_size?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramMaskPosition {
@@ -452,6 +494,8 @@ export interface TelegramMaskPosition {
   y_shift: number;
 
   scale: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramSticker extends TelegramAttachment {
@@ -470,6 +514,8 @@ export interface TelegramSticker extends TelegramAttachment {
   mask_position?: TelegramMaskPosition;
 
   file_size?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramVideo extends TelegramAttachment {
@@ -486,6 +532,8 @@ export interface TelegramVideo extends TelegramAttachment {
   mime_type?: string;
 
   file_size?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramVideoNote extends TelegramAttachment {
@@ -496,6 +544,8 @@ export interface TelegramVideoNote extends TelegramAttachment {
   thumb?: TelegramPhotoSize;
 
   file_size?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramVoice extends TelegramAttachment {
@@ -504,6 +554,8 @@ export interface TelegramVoice extends TelegramAttachment {
   mime_type?: string;
 
   file_size?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramContact {
@@ -516,12 +568,16 @@ export interface TelegramContact {
   user_id?: number;
 
   vcard?: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramDice {
   emoji: DiceEmoji;
 
   value: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramGame {
@@ -536,12 +592,16 @@ export interface TelegramGame {
   text_entities?: TelegramMessageEntity[];
 
   animation?: TelegramAnimation;
+
+  [key: string]: any;
 }
 
 export interface TelegramPollOption {
   text: string;
 
   voter_count: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramPoll {
@@ -570,6 +630,8 @@ export interface TelegramPoll {
   open_period?: number;
 
   close_date?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramLocation {
@@ -584,6 +646,8 @@ export interface TelegramLocation {
   heading?: number;
 
   proximity_alert_radius?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramVenue {
@@ -600,6 +664,8 @@ export interface TelegramVenue {
   google_place_id?: string;
 
   google_place_type?: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramInvoice {
@@ -612,6 +678,8 @@ export interface TelegramInvoice {
   currency: string;
 
   total_amount: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramShippingAddress {
@@ -626,6 +694,8 @@ export interface TelegramShippingAddress {
   street_line2: string;
 
   post_code: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramOrderInfo {
@@ -636,6 +706,8 @@ export interface TelegramOrderInfo {
   email?: string;
 
   shipping_address?: TelegramShippingAddress;
+
+  [key: string]: any;
 }
 
 export interface TelegramSuccessfulPayment {
@@ -652,6 +724,8 @@ export interface TelegramSuccessfulPayment {
   telegram_payment_charge_id: string;
 
   provider_payment_charge_id: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportFile {
@@ -662,6 +736,8 @@ export interface TelegramPassportFile {
   file_size: number;
 
   file_date: number;
+
+  [key: string]: any;
 }
 
 export type TelegramEncryptedPassportElementUnion = TelegramEncryptedPassportElementPersonalDetails
@@ -682,6 +758,8 @@ export interface TelegramEncryptedPassportElement {
   type: EncryptedPassportElementType;
 
   hash: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramEncryptedPassportElementPersonalDetails
@@ -701,6 +779,8 @@ export interface TelegramEncryptedPassportElementPassport extends TelegramEncryp
   selfie: TelegramPassportFile;
 
   translation: TelegramPassportFile[];
+
+  [key: string]: any;
 }
 
 export interface TelegramEncryptedPassportElementDriverLicense
@@ -750,6 +830,8 @@ export interface TelegramEncryptedPassportElementAddress extends TelegramEncrypt
   type: 'address';
 
   data: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramEncryptedPassportElementUtilityBill
@@ -808,6 +890,8 @@ export interface TelegramEncryptedPassportElementEmail extends TelegramEncrypted
   type: 'email';
 
   email: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramEncryptedCredentials {
@@ -816,12 +900,16 @@ export interface TelegramEncryptedCredentials {
   hash: string;
 
   secret: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportData {
   data: TelegramEncryptedPassportElementUnion[];
 
   credentials: TelegramEncryptedCredentials;
+
+  [key: string]: any;
 }
 
 export interface TelegramLoginUrl {
@@ -832,6 +920,8 @@ export interface TelegramLoginUrl {
   bot_username?: string;
 
   request_write_access?: boolean;
+
+  [key: string]: any;
 }
 
 export interface TelegramCallbackGame { }
@@ -852,10 +942,14 @@ export interface TelegramInlineKeyboardButton {
   callback_game?: TelegramCallbackGame;
 
   pay?: boolean;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineKeyboardMarkup {
   inline_keyboard: TelegramInlineKeyboardButton[][];
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQuery {
@@ -868,6 +962,8 @@ export interface TelegramInlineQuery {
   query: string;
 
   offset: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramChosenInlineResult {
@@ -880,6 +976,8 @@ export interface TelegramChosenInlineResult {
   inline_message_id?: string;
 
   query: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramCallbackQuery {
@@ -896,6 +994,8 @@ export interface TelegramCallbackQuery {
   data?: string;
 
   game_short_name?: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramShippingQuery {
@@ -906,6 +1006,8 @@ export interface TelegramShippingQuery {
   invoice_payload: string;
 
   shipping_address: TelegramShippingAddress;
+
+  [key: string]: any;
 }
 
 export interface TelegramPreCheckoutQuery {
@@ -922,6 +1024,8 @@ export interface TelegramPreCheckoutQuery {
   shipping_option_id?: string;
 
   order_info?: TelegramOrderInfo;
+
+  [key: string]: any;
 }
 
 export interface TelegramPollAnswer {
@@ -930,6 +1034,8 @@ export interface TelegramPollAnswer {
   user: TelegramUser;
 
   option_ids: number[];
+
+  [key: string]: any;
 }
 
 /**
@@ -944,6 +1050,8 @@ export interface TelegramKeyboardButtonPollType {
    * Otherwise, the user will be allowed to create a poll of any type.
    */
   type: PollType;
+
+  [key: string]: any;
 }
 
 /**
@@ -976,6 +1084,8 @@ export interface TelegramKeyboardButton {
    * the bot when the button is pressed. Available in private chats only
    */
   request_poll?: TelegramKeyboardButtonPollType;
+
+  [key: string]: any;
 }
 
 /** This object represents a custom keyboard with reply options */
@@ -1022,6 +1132,8 @@ export interface TelegramReplyKeyboardMarkup {
    * @default false
    */
   selective?: boolean;
+
+  [key: string]: any;
 }
 
 /**
@@ -1055,6 +1167,8 @@ export interface TelegramReplyKeyboardRemove {
    * the keyboard with poll options to users who haven't voted yet.
    */
   selective?: boolean;
+
+  [key: string]: any;
 }
 
 /**
@@ -1081,6 +1195,8 @@ export interface TelegramForceReply {
    *          sender of the original message.
    */
   selective?: boolean;
+
+  [key: string]: any;
 }
 
 /** Inline keyboard or keyboard or keyboard remove or force reply */
@@ -1137,10 +1253,14 @@ export interface InputMedia {
    * which can be specified instead of `parse_mode`
    */
   caption_entities?: MessageEntities;
+
+  [key: string]: any;
 }
 
 export interface InputMediaPhoto extends InputMedia {
   type: 'photo';
+
+  [key: string]: any;
 }
 
 export interface InputMediaVideo extends InputMedia {
@@ -1169,6 +1289,8 @@ export interface InputMediaVideo extends InputMedia {
 
   /** Pass `true`, if the uploaded video is suitable for streaming */
   supports_streaming?: boolean;
+
+  [key: string]: any;
 }
 
 export interface InputMediaAnimation extends InputMedia {
@@ -1194,6 +1316,8 @@ export interface InputMediaAnimation extends InputMedia {
 
   /** Animation duration */
   duration?: number;
+
+  [key: string]: any;
 }
 
 export interface InputMediaAudio extends InputMedia {
@@ -1219,6 +1343,8 @@ export interface InputMediaAudio extends InputMedia {
 
   /** Title of the audio */
   title?: string;
+
+  [key: string]: any;
 }
 
 export interface InputMediaDocument extends InputMedia {
@@ -1248,6 +1374,8 @@ export interface InputMediaDocument extends InputMedia {
    * Always `true`, if the document is sent as part of an album.
    */
   disable_content_type_detection?: boolean;
+
+  [key: string]: any;
 }
 
 export type InputMediaUnion = InputMediaPhoto
@@ -1260,6 +1388,8 @@ export interface TelegramUserProfilePhotos {
   total_count: number;
 
   photos: TelegramPhotoSize[][];
+
+  [key: string]: any;
 }
 
 export interface TelegramFile {
@@ -1270,6 +1400,8 @@ export interface TelegramFile {
   file_size?: number;
 
   file_path?: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramChatMember {
@@ -1312,12 +1444,16 @@ export interface TelegramChatMember {
   can_send_other_messages?: boolean;
 
   can_add_web_page_previews?: boolean;
+
+  [key: string]: any;
 }
 
 export interface TelegramBotCommand {
   command: string;
 
   description: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramStickerSet {
@@ -1332,6 +1468,8 @@ export interface TelegramStickerSet {
   stickers: TelegramSticker[];
 
   thumb?: TelegramPhotoSize;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResult {
@@ -1340,6 +1478,8 @@ export interface TelegramInlineQueryResult {
   id: string;
 
   caption_entities?: MessageEntities;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultArticle extends TelegramInlineQueryResult {
@@ -1364,6 +1504,8 @@ export interface TelegramInlineQueryResultArticle extends TelegramInlineQueryRes
   thumb_width?: number;
 
   thumb_height?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultPhoto extends TelegramInlineQueryResult {
@@ -1390,6 +1532,8 @@ export interface TelegramInlineQueryResultPhoto extends TelegramInlineQueryResul
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultGif extends TelegramInlineQueryResult {
@@ -1418,6 +1562,8 @@ export interface TelegramInlineQueryResultGif extends TelegramInlineQueryResult 
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultMpeg4Gif extends TelegramInlineQueryResult {
@@ -1446,6 +1592,8 @@ export interface TelegramInlineQueryResultMpeg4Gif extends TelegramInlineQueryRe
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultVideo extends TelegramInlineQueryResult {
@@ -1476,6 +1624,8 @@ export interface TelegramInlineQueryResultVideo extends TelegramInlineQueryResul
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultAudio extends TelegramInlineQueryResult {
@@ -1498,6 +1648,8 @@ export interface TelegramInlineQueryResultAudio extends TelegramInlineQueryResul
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultVoice extends TelegramInlineQueryResult {
@@ -1518,6 +1670,8 @@ export interface TelegramInlineQueryResultVoice extends TelegramInlineQueryResul
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultDocument extends TelegramInlineQueryResult {
@@ -1546,6 +1700,8 @@ export interface TelegramInlineQueryResultDocument extends TelegramInlineQueryRe
   thumb_width?: number;
 
   thumb_height?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultLocation extends TelegramInlineQueryResult {
@@ -1576,6 +1732,8 @@ export interface TelegramInlineQueryResultLocation extends TelegramInlineQueryRe
   thumb_width?: number;
 
   thumb_height?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultVenue extends TelegramInlineQueryResult {
@@ -1608,6 +1766,8 @@ export interface TelegramInlineQueryResultVenue extends TelegramInlineQueryResul
   thumb_width?: number;
 
   thumb_height?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultContact extends TelegramInlineQueryResult {
@@ -1632,6 +1792,8 @@ export interface TelegramInlineQueryResultContact extends TelegramInlineQueryRes
   thumb_width?: number;
 
   thumb_height?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultGame extends TelegramInlineQueryResult {
@@ -1642,6 +1804,8 @@ export interface TelegramInlineQueryResultGame extends TelegramInlineQueryResult
   game_short_name: string;
 
   reply_markup?: TelegramInlineKeyboardMarkup;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedPhoto extends TelegramInlineQueryResult {
@@ -1662,6 +1826,8 @@ export interface TelegramInlineQueryResultCachedPhoto extends TelegramInlineQuer
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedGif extends TelegramInlineQueryResult {
@@ -1680,6 +1846,8 @@ export interface TelegramInlineQueryResultCachedGif extends TelegramInlineQueryR
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedMpeg4Gif extends TelegramInlineQueryResult {
@@ -1698,6 +1866,8 @@ export interface TelegramInlineQueryResultCachedMpeg4Gif extends TelegramInlineQ
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedSticker extends TelegramInlineQueryResult {
@@ -1710,6 +1880,8 @@ export interface TelegramInlineQueryResultCachedSticker extends TelegramInlineQu
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedDocument extends TelegramInlineQueryResult {
@@ -1730,6 +1902,8 @@ export interface TelegramInlineQueryResultCachedDocument extends TelegramInlineQ
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedVideo extends TelegramInlineQueryResult {
@@ -1750,6 +1924,8 @@ export interface TelegramInlineQueryResultCachedVideo extends TelegramInlineQuer
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedVoice extends TelegramInlineQueryResult {
@@ -1768,6 +1944,8 @@ export interface TelegramInlineQueryResultCachedVoice extends TelegramInlineQuer
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInlineQueryResultCachedAudio extends TelegramInlineQueryResult {
@@ -1784,6 +1962,8 @@ export interface TelegramInlineQueryResultCachedAudio extends TelegramInlineQuer
   reply_markup?: TelegramInlineKeyboardMarkup;
 
   input_message_content?: InputMessageContentUnion;
+
+  [key: string]: any;
 }
 
 export interface TelegramInputTextMessageContent {
@@ -1794,6 +1974,8 @@ export interface TelegramInputTextMessageContent {
   disable_web_page_preview?: boolean;
 
   entities?: MessageEntities;
+
+  [key: string]: any;
 }
 
 export interface TelegramInputLocationMessageContent {
@@ -1808,6 +1990,8 @@ export interface TelegramInputLocationMessageContent {
   heading?: number;
 
   proximity_alert_radius?: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramInputVenueMessageContent {
@@ -1826,6 +2010,8 @@ export interface TelegramInputVenueMessageContent {
   google_place_id?: string;
 
   google_place_type?: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramInputContactMessageContent {
@@ -1836,6 +2022,8 @@ export interface TelegramInputContactMessageContent {
   last_name?: string;
 
   vcard?: string;
+
+  [key: string]: any;
 }
 
 export type InputMessageContentUnion = TelegramInputTextMessageContent
@@ -1868,6 +2056,8 @@ export interface TelegramLabeledPrice {
   label: string;
 
   amount: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramShippingOption {
@@ -1876,6 +2066,8 @@ export interface TelegramShippingOption {
   title: string;
 
   prices: TelegramLabeledPrice[];
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementError {
@@ -1884,6 +2076,8 @@ export interface TelegramPassportElementError {
   type: EncryptedPassportElementType;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorDataField extends TelegramPassportElementError {
@@ -1896,6 +2090,8 @@ export interface TelegramPassportElementErrorDataField extends TelegramPassportE
   data_hash: string;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorFrontSide extends TelegramPassportElementError {
@@ -1906,6 +2102,8 @@ export interface TelegramPassportElementErrorFrontSide extends TelegramPassportE
   file_hash: string;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorReverseSide extends TelegramPassportElementError {
@@ -1916,6 +2114,8 @@ export interface TelegramPassportElementErrorReverseSide extends TelegramPasspor
   file_hash: string;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorSelfie extends TelegramPassportElementError {
@@ -1926,6 +2126,8 @@ export interface TelegramPassportElementErrorSelfie extends TelegramPassportElem
   file_hash: string;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorFile extends TelegramPassportElementError {
@@ -1936,6 +2138,8 @@ export interface TelegramPassportElementErrorFile extends TelegramPassportElemen
   file_hash: string;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorFiles extends TelegramPassportElementError {
@@ -1946,6 +2150,8 @@ export interface TelegramPassportElementErrorFiles extends TelegramPassportEleme
   file_hashes: string[];
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorTranslationFile extends TelegramPassportElementError {
@@ -1956,6 +2162,8 @@ export interface TelegramPassportElementErrorTranslationFile extends TelegramPas
   file_hash: string;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorTranslationFiles extends TelegramPassportElementError {
@@ -1966,6 +2174,8 @@ export interface TelegramPassportElementErrorTranslationFiles extends TelegramPa
   file_hashes: string[];
 
   message: string;
+
+  [key: string]: any;
 }
 
 export interface TelegramPassportElementErrorUnspecified {
@@ -1976,6 +2186,8 @@ export interface TelegramPassportElementErrorUnspecified {
   element_hash: string;
 
   message: string;
+
+  [key: string]: any;
 }
 
 export type PassportElementErrorUnion = TelegramPassportElementErrorDataField
@@ -1994,32 +2206,44 @@ export interface TelegramGameHighScore {
   user: TelegramUser;
 
   score: number;
+
+  [key: string]: any;
 }
 
 export interface KeyboardTextButton {
   text: string;
+
+  [key: string]: any;
 }
 
 export interface KeyboardRequestContactButton {
   text: string;
 
   request_contact: true;
+
+  [key: string]: any;
 }
 
 export interface KeyboardRequestLocationButton {
   text: string;
 
   request_location: true;
+
+  [key: string]: any;
 }
 
 export interface KeyboardRequestPollButton {
   text: string;
 
   request_poll: KeyboardPollButton;
+
+  [key: string]: any;
 }
 
 export interface KeyboardPollButton {
   type?: PollType;
+
+  [key: string]: any;
 }
 
 export interface KeyboardOptions {
@@ -2051,6 +2275,8 @@ export interface KeyboardOptions {
    * is pressed. Available in private chats only
    */
   request_poll?: KeyboardButtonPollType;
+
+  [key: string]: any;
 }
 
 export interface KeyboardButtonPollType {
@@ -2063,6 +2289,8 @@ export interface KeyboardButtonPollType {
    * Otherwise, the user will be allowed to create a poll of any type.
    */
   type?: PollType;
+
+  [key: string]: any;
 }
 
 export interface KeyboardJSON {
@@ -2073,12 +2301,16 @@ export interface KeyboardJSON {
   one_time_keyboard: boolean;
 
   selective: boolean;
+
+  [key: string]: any;
 }
 
 export interface InlineKeyboardTextButton {
   text: string;
 
   callback_data: string;
+
+  [key: string]: any;
 }
 
 export interface InlineKeyboardUrlButton {
@@ -2087,36 +2319,48 @@ export interface InlineKeyboardUrlButton {
   url: string;
 
   callback_data: string;
+
+  [key: string]: any;
 }
 
 export interface InlineKeyboardSwitchToCurrentChatButton {
   text: string;
 
   switch_inline_query_current_chat: string;
+
+  [key: string]: any;
 }
 
 export interface InlineKeyboardSwitchToChatButton {
   text: string;
 
   switch_inline_query: string;
+
+  [key: string]: any;
 }
 
 export interface InlineKeyboardGameButton {
   text: string;
 
   callback_game: TelegramCallbackGame;
+
+  [key: string]: any;
 }
 
 export interface InlineKeyboardLoginButton {
   text: string;
 
   login_url: TelegramLoginUrl;
+
+  [key: string]: any;
 }
 
 export interface InlineKeyboardPayButton {
   text: string;
 
   pay: true;
+
+  [key: string]: any;
 }
 
 export interface TelegramProximityAlertTriggered {
@@ -2125,10 +2369,14 @@ export interface TelegramProximityAlertTriggered {
   watcher: TelegramUser;
 
   distance: number;
+
+  [key: string]: any;
 }
 
 export interface TelegramMessageId {
   message_id: number;
+
+  [key: string]: any;
 }
 
 export interface StartPollingOptions {

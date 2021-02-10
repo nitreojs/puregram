@@ -9,6 +9,8 @@ export interface SetChatPhotoParams {
 
   /** New chat photo, uploaded using `multipart/form-data` */
   photo: TelegramInputFile;
+
+  [key: string]: any;
 }
 
 /**

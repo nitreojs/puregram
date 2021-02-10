@@ -7,6 +7,8 @@ export interface DeleteMessageParams {
 
   /** Identifier of the original message with the poll */
   message_id: number;
+
+  [key: string]: any;
 }
 
 /**

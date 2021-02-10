@@ -37,6 +37,8 @@ export interface SendGameParams {
    * If not empty, the first button must launch the game.
    */
   reply_markup?: TelegramInlineKeyboardMarkup;
+
+  [key: string]: any;
 }
 
 /**

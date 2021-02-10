@@ -10,6 +10,8 @@ export interface UnpinChatMessageParams {
    * If not specified, the most recent pinned message (by sending date) will be unpinned.
    */
   message_id?: number;
+
+  [key: string]: any;
 }
 
 /**

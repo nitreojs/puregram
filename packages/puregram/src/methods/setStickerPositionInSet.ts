@@ -4,6 +4,8 @@ export interface SetStickerPositionInSetParams {
 
   /** New sticker position in the set, 0-based */
   position: number;
+
+  [key: string]: any;
 }
 
 /**

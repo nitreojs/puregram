@@ -6,6 +6,8 @@ export interface GetChatAdministratorsParams {
    * (in the format `@channelusername`)
    */
   chat_id: number | string;
+
+  [key: string]: any;
 }
 
 /**

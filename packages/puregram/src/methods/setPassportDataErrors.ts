@@ -10,6 +10,8 @@ export interface SetPassportDataErrorsParams {
    * A JSON-serialized array describing the errors
    */
   errors: PassportElementErrorUnion[];
+
+  [key: string]: any;
 }
 
 /**

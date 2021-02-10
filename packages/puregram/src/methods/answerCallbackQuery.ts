@@ -32,6 +32,8 @@ export interface AnswerCallbackQueryParams {
    * starting in version `3.14`. Defaults to `0`.
    */
   cache_time?: number;
+
+  [key: string]: any;
 }
 
 /**

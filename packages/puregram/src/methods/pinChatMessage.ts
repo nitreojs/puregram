@@ -14,6 +14,8 @@ export interface PinChatMessageParams {
    * in channels.
    */
   disable_notification?: boolean;
+
+  [key: string]: any;
 }
 
 /**

@@ -3,6 +3,8 @@ import { TelegramFile } from '../interfaces';
 export interface GetFileParams {
   /** File identifier to get info about */
   file_id: string;
+
+  [key: string]: any;
 }
 
 /**

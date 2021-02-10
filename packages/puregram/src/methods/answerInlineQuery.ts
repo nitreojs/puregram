@@ -45,6 +45,8 @@ export interface AnswerInlineQueryParams {
    * `_` and `-` are allowed.
    */
   switch_pm_parameter?: string;
+
+  [key: string]: any;
 }
 
 /**

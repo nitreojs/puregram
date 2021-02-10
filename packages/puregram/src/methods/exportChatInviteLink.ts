@@ -4,6 +4,8 @@ export interface ExportChatInviteLinkParams {
    * (in the format `@channelusername`)
    */
   chat_id: number | string;
+
+  [key: string]: any;
 }
 
 /**

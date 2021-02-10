@@ -49,6 +49,8 @@ export interface PromoteChatMemberParams {
    * by him)
    */
   can_promote_members?: boolean;
+
+  [key: string]: any;
 }
 
 /**

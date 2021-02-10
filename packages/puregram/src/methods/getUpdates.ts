@@ -47,6 +47,8 @@ export interface GetUpdatesParams {
    * period of time.
    */
   allowed_updates: UpdateName[];
+
+  [key: string]: any;
 }
 
 /**

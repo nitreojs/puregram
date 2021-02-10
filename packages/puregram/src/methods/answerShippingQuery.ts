@@ -27,6 +27,8 @@ export interface AnswerShippingQueryParams {
    * Telegram will display this message to the user.
    */
   error_message?: string;
+
+  [key: string]: any;
 }
 
 /**

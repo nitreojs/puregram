@@ -15,6 +15,8 @@ export interface StopPollParams {
 
   /** A JSON-serialized object for a new inline keyboard */
   reply_markup?: TelegramInlineKeyboardMarkup;
+
+  [key: string]: any;
 }
 
 /**

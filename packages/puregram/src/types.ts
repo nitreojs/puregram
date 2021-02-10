@@ -27,5 +27,17 @@ export type PassportElementSource = 'data' | 'front_side' | 'reverse_side' | 'se
 export type ApiMethod = keyof ApiMethods;
 export type MessageEntities = (TelegramMessageEntity | MessageEntity)[];
 
-// https://stackoverflow.com/a/53742583
-export type Optional<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>;
+// https://stackoverflow.com/questions/58216298/how-to-omit-keystring-any-from-a-type-in-typescript
+// Used when you have { foo: string; bar: number; [key: string]: any }-like interface
+// but you need to make `foo` non-required parameter and ignore [key: string]: any
+export type KnownKeys<T> = {
+  [K in keyof T]: string extends K
+    ? never
+    : number extends K
+      ? never
+      : K
+} extends { [_ in keyof T]: infer U }
+  ? U
+  : never;
+
+export type Optional<T, K extends keyof T> = Pick<T, Exclude<KnownKeys<T>, K>> & Partial<Pick<T, K>>;

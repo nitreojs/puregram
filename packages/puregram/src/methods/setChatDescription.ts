@@ -7,6 +7,8 @@ export interface SetChatDescriptionParams {
 
   /** New chat description, 0-255 characters */
   description: string;
+
+  [key: string]: any;
 }
 
 /**

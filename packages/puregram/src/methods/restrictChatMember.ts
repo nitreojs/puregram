@@ -19,6 +19,8 @@ export interface RestrictChatMemberParams {
    * from the current time, they are considered to be restricted **forever**
    */
   until_date?: number;
+
+  [key: string]: any;
 }
 
 /**

@@ -62,7 +62,7 @@ class PreCheckoutQueryContext extends Context {
 
   /** Answers to pre-checkout query */
   public async answerPreCheckoutQuery(
-    params: Omit<AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>
+    params: Optional<AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>
   ): Promise<true> {
     return this.telegram.api.answerPreCheckoutQuery({
       ...params,

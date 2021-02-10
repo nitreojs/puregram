@@ -16,6 +16,8 @@ export interface GetUserProfilePhotosParams {
    * Defaults to `100`.
    */
   limit?: number;
+
+  [key: string]: any;
 }
 
 /**

@@ -48,6 +48,8 @@ export interface SetWebhookParams {
 
   /** Pass `true` to drop all pending updates */
   drop_pending_updates?: boolean;
+
+  [key: string]: any;
 }
 
 /**

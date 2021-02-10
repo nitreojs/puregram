@@ -21,6 +21,8 @@ export interface ForwardMessageParams {
 
   /** Message identifier in the chat specified in from_chat_id */
   message_id: number;
+
+  [key: string]: any;
 }
 
 /**

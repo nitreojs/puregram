@@ -4,6 +4,8 @@ export interface UnpinAllChatMessagesParams {
    * (in the format `@channelusername`)
    */
   chat_id: number | string;
+
+  [key: string]: any;
 }
 
 /**

@@ -26,6 +26,8 @@ export interface SendChatActionParams {
    * * `record_video_note` or `upload_video_note` for video notes.
    */
   action: ChatAction;
+
+  [key: string]: any;
 }
 
 /**

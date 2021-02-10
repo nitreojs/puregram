@@ -6,6 +6,8 @@ export interface setMyCommandsParams {
    * bot's commands. At most `100` commands can be specified.
    */
   commands: TelegramBotCommand[];
+
+  [key: string]: any;
 }
 
 /**

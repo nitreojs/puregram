@@ -50,6 +50,8 @@ export interface SendMessageParams {
    * to force a reply from the user.
    */
   reply_markup?: ReplyMarkupUnion;
+
+  [key: string]: any;
 }
 
 /**

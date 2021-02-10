@@ -9,6 +9,8 @@ export interface SetChatPermissionsParams {
 
   /** New default chat permissions */
   permissions: TelegramChatPermissions;
+
+  [key: string]: any;
 }
 
 /**

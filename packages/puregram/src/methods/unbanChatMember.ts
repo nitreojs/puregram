@@ -10,6 +10,8 @@ export interface UnbanChatMemberParams {
 
   /** Do nothing if the user is not banned */
   only_if_banned?: boolean;
+
+  [key: string]: any;
 }
 
 /**

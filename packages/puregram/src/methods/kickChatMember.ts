@@ -14,6 +14,8 @@ export interface KickChatMemberParams {
    * from the current time they are considered to be banned **forever**
    */
   until_date?: number;
+
+  [key: string]: any;
 }
 
 /**

@@ -13,6 +13,8 @@ export interface SetChatAdministratorCustomTitleParams {
    * 0-16 characters, emoji are not allowed
    */
   custom_title: string;
+
+  [key: string]: any;
 }
 
 /**

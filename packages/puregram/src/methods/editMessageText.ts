@@ -49,6 +49,8 @@ export interface EditMessageTextParams {
   reply_markup?: TelegramInlineKeyboardMarkup
     | InlineKeyboard
     | InlineKeyboardBuilder;
+
+  [key: string]: any;
 }
 
 /**

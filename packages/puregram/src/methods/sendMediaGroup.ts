@@ -30,6 +30,8 @@ export interface SendMediaGroupParams {
    * the specified replied-to message is not found
    */
   allow_sending_without_reply?: boolean;
+
+  [key: string]: any;
 }
 
 /**

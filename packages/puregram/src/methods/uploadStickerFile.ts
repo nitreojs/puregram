@@ -11,6 +11,8 @@ export interface UploadStickerFileParams {
    * be exactly 512px.
    */
   png_sticker: TelegramInputFile;
+
+  [key: string]: any;
 }
 
 /**

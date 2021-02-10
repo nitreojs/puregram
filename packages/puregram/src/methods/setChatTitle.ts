@@ -7,6 +7,8 @@ export interface SetChatTitleParams {
 
   /** New chat title, 1-255 characters */
   title: string;
+
+  [key: string]: any;
 }
 
 /**

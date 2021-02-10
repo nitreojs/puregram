@@ -136,6 +136,8 @@ export interface SendInvoiceParams {
    * If not empty, the first button must be a Pay button.
    */
   reply_markup?: TelegramInlineKeyboardMarkup;
+
+  [key: string]: any;
 }
 
 /**

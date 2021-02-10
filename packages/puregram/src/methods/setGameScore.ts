@@ -40,6 +40,8 @@ export interface SetGameScoreParams {
    * Identifier of the inline message
    */
   inline_message_id?: string;
+
+  [key: string]: any;
 }
 
 /**

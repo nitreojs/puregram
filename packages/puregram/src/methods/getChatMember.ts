@@ -9,6 +9,8 @@ export interface GetChatMemberParams {
 
   /** Unique identifier of the target user */
   user_id: number;
+
+  [key: string]: any;
 }
 
 /**

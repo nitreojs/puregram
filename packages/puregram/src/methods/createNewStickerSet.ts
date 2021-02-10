@@ -41,6 +41,8 @@ export interface CreateNewStickerSetParams {
    * on faces
    */
   mask_position?: TelegramMaskPosition;
+
+  [key: string]: any;
 }
 
 /**

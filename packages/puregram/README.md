@@ -41,7 +41,6 @@
 
 * 100% [**Telegram Bot API**](https://core.telegram.org/bots/api) coverage
 * Works with JavaScript and TypeScript
-* Has **57** tests and all of them passes every build
 
 ## Installation
 > **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**

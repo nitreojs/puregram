@@ -18,6 +18,20 @@ telegram.updates.on('message', (context) => {
     .textButton({
       text: 'In one row',
       payload: 'Payload is required'
+    })
+    .row()
+    .urlButton({
+      text: 'Some URL button',
+      url: 'https://example.com'
+    })
+    .row()
+    .switchToCurrentChatButton({
+      text: 'Switch to current chat button',
+      query: 'Foo bar baz'
+    })
+    .switchToChatButton({
+      text: 'Switch to chat button',
+      query: 'Test tost'
     });
 
   return context.send('Sending you an inline-keyboard using `InlineKeyboardBuilder`!', {

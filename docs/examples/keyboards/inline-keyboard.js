@@ -23,6 +23,25 @@ telegram.updates.on('message', (context) => {
         text: 'In one row',
         payload: 'Payload is required'
       })
+    ],
+
+    [
+      InlineKeyboard.urlButton({
+        text: 'Some URL button',
+        url: 'https://example.com'
+      })
+    ],
+
+    [
+      InlineKeyboard.switchToCurrentChatButton({
+        text: 'Switch to current chat button',
+        query: 'Foo bar baz'
+      }),
+
+      InlineKeyboard.switchToChatButton({
+        text: 'Switch to chat button',
+        query: 'Test tost'
+      })
     ]
   ]);
 

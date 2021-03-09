@@ -57,6 +57,17 @@ export class ChatMember {
 
   /**
    * Administrators only.
+   * `true`, if the administrator can access the chat event log, chat statistics,
+   * message statistics in channels, see channel members, see anonymous administrators 
+   * in supergroups and ignore slow mode.
+   * Implied by any other administrator privilege
+   */
+  public get canManageChat(): boolean | undefined {
+    return this.payload.can_manage_chat;
+  }
+
+  /**
+   * Administrators only.
    * `true`, if the administrator can post in the channel;
    * channels only
    */
@@ -79,6 +90,14 @@ export class ChatMember {
    */
   public get canDeleteMessages(): boolean | undefined {
     return this.payload.can_delete_messages;
+  }
+
+  /**
+   * Administrators only.
+   * `true`, if the administrator can manage voice chats
+   */
+  public get canManageVoiceChats(): boolean | undefined {
+    return this.payload.can_manage_voice_chats;
   }
 
   /**
@@ -184,9 +203,11 @@ inspectable(ChatMember, {
       isAnonymous: member.isAnonymous,
       untilDate: member.untilDate,
       canBeEdited: member.canBeEdited,
+      canManageChat: member.canManageChat,
       canPostMessages: member.canPostMessages,
       canEditMessages: member.canEditMessages,
       canDeleteMessages: member.canDeleteMessages,
+      canManageVoiceChats: member.canManageVoiceChats,
       canRestrictMembers: member.canRestrictMembers,
       canPromoteMembers: member.canPromoteMembers,
       canChangeInfo: member.canChangeInfo,

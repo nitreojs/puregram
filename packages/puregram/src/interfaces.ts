@@ -77,6 +77,10 @@ export interface TelegramUpdate {
 
   poll_answer?: TelegramPollAnswer;
 
+  my_chat_member?: TelegramChatMemberUpdated;
+
+  chat_member?: TelegramChatMemberUpdated;
+
   [key: string]: any;
 }
 
@@ -361,6 +365,12 @@ export interface TelegramMessage {
 
   location?: TelegramLocation;
 
+  voice_chat_started?: TelegramVoiceChatStarted;
+
+  voice_chat_ended?: TelegramVoiceChatEnded;
+
+  voice_chat_participants_invited?: TelegramVoiceChatParticipantsInvited;
+
   // Events
 
   new_chat_members?: TelegramUser[];
@@ -378,6 +388,8 @@ export interface TelegramMessage {
   supergroup_chat_created?: true;
 
   channel_chat_created?: true;
+
+  message_auto_delete_timer_changed?: TelegramMessageAutoDeleteTimerChanged;
 
   migrate_to_chat_id?: number;
 
@@ -1417,11 +1429,15 @@ export interface TelegramChatMember {
 
   can_be_edited?: boolean;
 
+  can_manage_chat?: boolean;
+
   can_post_messages?: boolean;
 
   can_edit_messages?: boolean;
 
   can_delete_messages?: boolean;
+
+  can_manage_voice_chats?: boolean;
 
   can_restrict_members?: boolean;
 
@@ -2381,4 +2397,46 @@ export interface TelegramMessageId {
 
 export interface StartPollingOptions {
   updateOffset?: number;
+}
+
+export interface TelegramChatInviteLink {
+  invite_link: string;
+
+  creator: TelegramUser;
+
+  is_primary: boolean;
+
+  is_revoked: boolean;
+
+  expire_date?: number;
+
+  member_limit?: number;
+}
+
+export interface TelegramChatMemberUpdated {
+  chat: TelegramChatUnion;
+
+  from: TelegramUser;
+
+  date: number;
+
+  old_chat_member: TelegramChatMember;
+
+  new_chat_member: TelegramChatMember;
+
+  invite_link?: TelegramChatInviteLink;
+}
+
+export interface TelegramVoiceChatStarted {}
+
+export interface TelegramVoiceChatEnded {
+  duration: number;
+}
+
+export interface TelegramVoiceChatParticipantsInvited {
+  users?: TelegramUser[];
+}
+
+export interface TelegramMessageAutoDeleteTimerChanged {
+  message_auto_delete_time: number;
 }

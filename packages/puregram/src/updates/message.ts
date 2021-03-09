@@ -23,6 +23,11 @@ import { Dice } from '../common/structures/dice';
 import { SuccessfulPayment } from '../common/structures/successful-payment';
 import { PassportData } from '../common/structures/passport-data';
 import { InlineKeyboardMarkup } from '../common/structures/inline-keyboard-markup';
+import { MessageAutoDeleteTimerChanged } from '../common/structures/message-auto-delete-timer-changed';
+import { VoiceChatEnded } from '../common/structures/voice-chat-ended';
+import { VoiceChatParticipantsInvited } from '../common/structures/voice-chat-participants-invited';
+import { VoiceChatStarted } from '../common/structures/voice-chat-started';
+import { ProximityAlertTriggered } from '../common/structures/proximity-alert-triggered';
 
 import {
   AnimationAttachment,
@@ -35,7 +40,6 @@ import {
 } from '../common/attachments';
 
 import { filterPayload } from '../utils/helpers';
-import { ProximityAlertTriggered } from '../common/structures/proximity-alert-triggered';
 
 /** This object represents a message. */
 export class Message {
@@ -406,6 +410,15 @@ export class Message {
     return this.payload.supergroup_chat_created;
   }
 
+  /** Service message: auto-delete timer settings changed in the chat */
+  public get messageAutoDeleteTimerChanged(): MessageAutoDeleteTimerChanged | undefined {
+    const { message_auto_delete_timer_changed } = this.payload;
+
+    if (!message_auto_delete_timer_changed) return;
+
+    return new MessageAutoDeleteTimerChanged(message_auto_delete_timer_changed);
+  }
+
   /**
    * Service message: the channel has been created. This field can't be
    * received in a message coming through updates, because bot can't be a
@@ -499,6 +512,33 @@ export class Message {
     return new ProximityAlertTriggered(proximity_alert_triggered);
   }
 
+  /** Service message: voice chat started */
+  public get voiceChatStarted(): VoiceChatStarted | undefined {
+    const { voice_chat_started } = this.payload;
+
+    if (!voice_chat_started) return;
+
+    return new VoiceChatStarted(voice_chat_started);
+  }
+
+  /** Service message: voice chat ended */
+  public get voiceChatEnded(): VoiceChatEnded | undefined {
+    const { voice_chat_Ended } = this.payload;
+
+    if (!voice_chat_Ended) return;
+
+    return new VoiceChatEnded(voice_chat_Ended);
+  }
+
+  /** Service message: new participants invited to a voice chat */
+  public get voiceChatParticipantsInvited(): VoiceChatParticipantsInvited | undefined {
+    const { voice_chat_participants_invited } = this.payload;
+
+    if (!voice_chat_participants_invited) return;
+
+    return new VoiceChatParticipantsInvited(voice_chat_participants_invited);
+  }
+
   /**
    * Inline keyboard attached to the message.
    *
@@ -569,6 +609,9 @@ inspectable(Message, {
       successfulPayment: message.successfulPayment,
       connectedWebsite: message.connectedWebsite,
       passportData: message.passportData,
+      voiceChatStarted: message.voiceChatStarted,
+      voiceChatEnded: message.voiceChatEnded,
+      voiceChatParticipantsInvited: message.voiceChatParticipantsInvited,
       replyMarkup: message.replyMarkup
     };
 

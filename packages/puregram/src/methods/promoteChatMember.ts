@@ -12,6 +12,14 @@ export interface PromoteChatMemberParams {
   is_anonymous?: boolean;
 
   /**
+   * Pass `true`, if the administrator can access the chat event log, chat statistics,
+   * message statistics in channels, see channel members, see anonymous administrator
+   * in supergroups and ignore slow mode.
+   * Implied by any other administrator privilege
+   */
+  can_manage_chat?: boolean;
+
+  /**
    * Pass `true`, if the administrator can change chat title,
    * photo and other settings
    */
@@ -30,6 +38,9 @@ export interface PromoteChatMemberParams {
 
   /** Pass `true`, if the administrator can delete messages of other users */
   can_delete_messages?: boolean;
+
+  /** Pass `true`, if the administrator can manage voice chats, supergroups only */
+  can_manage_voice_chats?: boolean;
 
   /** Pass `true`, if the administrator can invite new users to the chat */
   can_invite_users?: boolean;

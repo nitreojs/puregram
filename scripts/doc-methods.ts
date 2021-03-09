@@ -226,7 +226,7 @@ export const table = (rawMatrix: string[][]): string => {
   return rows.join('\n');
 };
 
-export const list = (elements: string[], token: '*' | '-' | '=' = '*'): string => (
+export const list = (token: '*' | '-' | '=' = '*', ...elements: string[]): string => (
   elements.map(
     (element: string): string => `${token} ${element}`
   ).join('\n')

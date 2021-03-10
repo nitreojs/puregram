@@ -1,14 +1,14 @@
 import { inspectable } from 'inspectable';
 
-import { Context } from './context';
-
-import { Telegram } from '../telegram';
-import { Message } from '../updates/';
+import { MessageContext } from './message';
 
 import {
-  AttachmentType as AttachmentTypeEnum,
-  EntityType as EntityTypeEnum
-} from '../enums';
+  BotCommand,
+  Chat,
+  Poll,
+  User,
+  VoiceChatStarted
+} from '../common/structures';
 
 import {
   InputMediaUnion,
@@ -18,80 +18,83 @@ import {
 } from '../interfaces';
 
 import {
-  applyMixins,
-  filterPayload,
-  isParseable
-} from '../utils/helpers';
-
-import {
-  AttachmentType,
-  ChatAction,
-  ChatType,
-  DiceEmoji,
-  EntityType,
-  MessageEventName,
-  Optional,
-  TelegramInputFile,
-  UpdateName
-} from '../types';
-
-import { events } from '../utils/constants';
-
-import {
-  EditMessageCaptionParams,
-  EditMessageLiveLocationParams,
-  EditMessageMediaParams,
-  EditMessageReplyMarkupParams,
-  EditMessageTextParams,
-  SendAnimationParams,
-  SendAudioParams,
-  SendContactParams,
-  SendDiceParams,
-  SendDocumentParams,
-  SendInvoiceParams,
-  SendLocationParams,
-  SendMediaGroupParams,
   SendMessageParams,
   SendPhotoParams,
-  SendPollParams,
-  SendStickerParams,
-  SendVenueParams,
-  SendVideoNoteParams,
+  SendDocumentParams,
+  SendAudioParams,
   SendVideoParams,
+  SendAnimationParams,
+  SendVideoNoteParams,
   SendVoiceParams,
+  SendMediaGroupParams,
+  SendLocationParams,
+  SendInvoiceParams,
+  EditMessageLiveLocationParams,
   StopMessageLiveLocationParams,
-  StopPollParams
+  SendVenueParams,
+  SendContactParams,
+  SendPollParams,
+  StopPollParams,
+  SendStickerParams,
+  SendDiceParams,
+  EditMessageTextParams,
+  EditMessageCaptionParams,
+  EditMessageMediaParams,
+  EditMessageReplyMarkupParams
 } from '../methods';
 
-import { Poll } from '../updates/';
-import { BotCommand } from '../common/structures/bot-command';
-import { MessageEntity } from '../common/structures/message-entity';
+import { Telegram } from '../telegram';
 
 import {
-  AnimationAttachment,
-  Attachment,
-  AudioAttachment,
-  DocumentAttachment,
-  PhotoAttachment,
-  StickerAttachment,
-  VideoAttachment,
-  VideoNoteAttachment,
-  VoiceAttachment
-} from '../common/attachments';
+  ChatType,
+  Optional,
+  TelegramInputFile,
+  ChatAction,
+  DiceEmoji
+} from '../types';
 
-/** Called when `message` event occurs */
-class MessageContext extends Context {
+import { Context } from './context';
+
+class VoiceChatStartedContext extends Context {
   public payload: TelegramMessage;
 
-  constructor(telegram: Telegram, update: TelegramMessage, type: UpdateName = 'message') {
-    super(telegram, type);
+  constructor(telegram: Telegram, payload: TelegramMessage) {
+    super(telegram, 'voice_chat_started');
 
-    this.payload = update;
+    this.payload = payload;
+  }
+
+  /** Unique message identifier inside this chat */
+  public get id(): number {
+    return this.payload.message_id;
+  }
+
+  /** Sender, empty for messages sent to channels */
+  public get from(): User | undefined {
+    const { from } = this.payload;
+
+    if (!from) return undefined;
+
+    return new User(from);
   }
 
   /** Sender's ID */
   public get senderId(): number | undefined {
     return this.from?.id;
+  }
+
+  /** Date the message was sent in Unix time */
+  public get createdAt(): number {
+    return this.payload.date;
+  }
+
+  /** Conversation the message belongs to */
+  public get chat(): Chat | undefined {
+    const { chat } = this.payload;
+
+    if (!chat) return undefined;
+
+    return new Chat(chat);
   }
 
   /** Chat ID */
@@ -124,168 +127,9 @@ class MessageContext extends Context {
     return this.chatType === 'channel';
   }
 
-  /** Checks if the message has `dice` property */
-  public get hasDice(): boolean {
-    return this.dice !== undefined;
-  }
-
-  public get startPayload(): any {
-    if (!this.hasText) return undefined;
-    if (!this.text!.startsWith('/start') || this.text === '/start') {
-      return undefined;
-    }
-
-    let payload: any = this.text!.split(' ')[1];
-
-    if (!Number.isNaN(+payload)) {
-      payload = Number.parseInt(payload, 10);
-    } else if (isParseable(payload)) {
-      payload = JSON.parse(payload);
-    }
-
-    return payload;
-  }
-
-  /** Checks if the message has `text` property */
-  public get hasText(): boolean {
-    return this.text !== undefined;
-  }
-
-  /** Checks if the message has `author_signature` property */
-  public get hasAuthorSignature(): boolean {
-    return this.authorSignature !== undefined;
-  }
-
-  /** Checks if there are any entities (with specified type) */
-  public hasEntities(type?: EntityTypeEnum | EntityType): boolean {
-    if (type === undefined) return this.entities.length !== 0;
-
-    return this.entities.some(
-      (entity: MessageEntity) => entity.type === type
-    );
-  }
-
-  /** Checks if the message has `caption` property */
-  public get hasCaption(): boolean {
-    return this.caption !== undefined;
-  }
-
-  /** Checks if there are any caption entities (with specified type) */
-  public hasCaptionEntities(type?: EntityTypeEnum | EntityType): boolean {
-    if (type === undefined) return this.captionEntities.length !== 0;
-
-    return this.captionEntities.some(
-      (entity: MessageEntity) => entity.type === type
-    );
-  }
-
-  /** Message attachments */
-  public get attachments(): Attachment[] {
-    const attachments: Attachment[] = [];
-
-    if (this.audio) attachments.push(this.audio);
-    if (this.document) attachments.push(this.document);
-    if (this.animation) attachments.push(this.animation);
-    if (this.photo) attachments.push(new PhotoAttachment(this.photo));
-    if (this.sticker) attachments.push(this.sticker);
-    if (this.video) attachments.push(this.video);
-    if (this.voice) attachments.push(this.voice);
-    if (this.videoNote) attachments.push(this.videoNote);
-    if (this.venue) attachments.push(this.venue);
-
-    return attachments;
-  }
-
-  /** Checks if there are attachments */
-  public hasAttachments(type?: AttachmentType | AttachmentTypeEnum): boolean {
-    if (type === undefined) return this.attachments.length > 0;
-
-    return this.attachments.some(
-      (attachment: Attachment) => attachment.attachmentType === type
-    );
-  }
-
-  /** Gets attachments */
-  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): DocumentAttachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): PhotoAttachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): StickerAttachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): VideoAttachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[];
-
-  public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[];
-  
-  public getAttachments(type?: any): Attachment[] {
-    if (type === undefined) return this.attachments;
-
-    return this.attachments.filter(
-      (attachment: Attachment) => attachment.attachmentType === type
-    );
-  }
-
-  /** Is this message an event? */
-  public get isEvent(): boolean {
-    return events.some(
-      (event) => Boolean(
-        this[
-          event[0] as keyof Message
-        ]
-      )
-    );
-  }
-
-  /** Event type */
-  public get eventType(): MessageEventName | undefined {
-    if (!this.isEvent) return undefined;
-
-    const value: (
-      [keyof Message, MessageEventName] | undefined
-    ) = events.find(
-      (event) => {
-        const tValue = this[
-          event[0] as keyof Message
-        ];
-
-        if (Array.isArray(tValue)) {
-          return tValue.length !== 0;
-        }
-
-        return tValue !== undefined;
-      }
-    );
-
-    if (value === undefined) return undefined;
-
-    return value[1];
-  }
-
-  /** Is this message a forwarded one? */
-  public get isForward(): boolean {
-    return this.forwardMessage !== undefined;
-  }
-
-  /** Does this message have reply message? */
-  public get hasReplyMessage(): boolean {
-    return this.replyMessage !== undefined;
-  }
-
-  /** Checks if the sent message has `via_bot` property */
-  public get hasViaBot(): boolean {
-    return this.viaBot !== undefined;
-  }
-
-  /** Does this message have start payload? */
-  public get hasStartPayload(): boolean {
-    return this.startPayload !== undefined;
+  /** Message auto delete timer */
+  public get voiceChatStarted(): VoiceChatStarted {
+    return new VoiceChatStarted(this.payload.voice_chat_started!);
   }
 
   /** Sends message to current chat */
@@ -480,7 +324,7 @@ class MessageContext extends Context {
   /** Replies to current message with voice */
   public replyWithVoice(
     voice: TelegramInputFile,
-    params?: Optional<SendVoiceParams, 'chat_id'>
+    params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     return this.sendVoice(voice, {
       ...params,
@@ -491,7 +335,7 @@ class MessageContext extends Context {
   /** Sends media group to current chat */
   public async sendMediaGroup(
     mediaGroup: SendMediaGroupParams['media'],
-    params?: Optional<SendMediaGroupParams, 'chat_id' | 'media'>
+    params?: Partial<SendMediaGroupParams>
   ): Promise<MessageContext[]> {
     const response = await this.telegram.api.sendMediaGroup({
       ...params,
@@ -507,7 +351,7 @@ class MessageContext extends Context {
   /** Replies to current message with media group */
   public replyWithMediaGroup(
     mediaGroup: SendMediaGroupParams['media'],
-    params?: Optional<SendMediaGroupParams, 'chat_id' | 'media'>
+    params?: Partial<SendMediaGroupParams>
   ): Promise<MessageContext[]> {
     return this.sendMediaGroup(mediaGroup, {
       ...params,
@@ -544,9 +388,7 @@ class MessageContext extends Context {
   }
 
   /** Sends invoice to current user */
-  public async sendInvoice(
-    params: Optional<SendInvoiceParams, 'chat_id'>
-  ): Promise<MessageContext> {
+  public async sendInvoice(params: SendInvoiceParams): Promise<MessageContext> {
     const response = await this.telegram.api.sendInvoice({
       ...params,
       chat_id: this.chatId || this.senderId || 0
@@ -799,36 +641,19 @@ class MessageContext extends Context {
   }
 }
 
-interface MessageContext extends Message { }
-applyMixins(MessageContext, [Message]);
-
-inspectable(MessageContext, {
-  serialize(message: MessageContext) {
-    const payload = {
-      id: message.id,
-      from: message.from,
-      createdAt: message.createdAt,
-      chat: message.chat,
-      forwardMessage: message.forwardMessage,
-      replyMessage: message.replyMessage,
-      viaBot: message.viaBot,
-      updatedAt: message.updatedAt,
-      mediaGroupId: message.mediaGroupId,
-      authorSignature: message.authorSignature,
-      text: message.text,
-      entities: message.entities,
-      captionEntities: message.captionEntities,
-      dice: message.dice,
-      attachments: message.attachments,
-      caption: message.caption,
-      contact: message.contact,
-      location: message.location,
-      venue: message.venue,
-      poll: message.poll,
+inspectable(VoiceChatStartedContext, {
+  serialize(context: VoiceChatStartedContext) {
+    return {
+      id: context.id,
+      from: context.from,
+      senderId: context.senderId,
+      createdAt: context.createdAt,
+      chat: context.chat,
+      chatId: context.chatId,
+      chatType: context.chatType,
+      voiceChatStarted: context.voiceChatStarted
     };
-
-    return filterPayload(payload);
   }
 });
 
-export { MessageContext };
+export { VoiceChatStartedContext };

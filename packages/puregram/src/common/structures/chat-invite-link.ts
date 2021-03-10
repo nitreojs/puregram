@@ -7,10 +7,10 @@ import { User } from './user';
 
 /** Represents an invite link for a chat. */
 export class ChatInviteLink {
-  private options: TelegramChatInviteLink;
+  public payload: TelegramChatInviteLink;
 
   constructor(options: TelegramChatInviteLink) {
-    this.options = options;
+    this.payload = options;
   }
 
   public get [Symbol.toStringTag](): string {
@@ -22,27 +22,27 @@ export class ChatInviteLink {
    * then the second part of the link will be replaced with `…`.
    */
   public get link(): string {
-    return this.options.invite_link;
+    return this.payload.invite_link;
   }
 
   /** Creator of the link */
   public get creator(): User {
-    return new User(this.options.creator);
+    return new User(this.payload.creator);
   }
 
   /** `true`, if the link is primary */
   public get isPrimary(): boolean {
-    return this.options.is_primary;
+    return this.payload.is_primary;
   }
 
   /** `true`, if the link is revoked */
   public get isRevoked(): boolean {
-    return this.options.is_revoked;
+    return this.payload.is_revoked;
   }
 
   /** Point in time (Unix timestamp) when the link will expire or has been expired */
   public get expireDate(): number | undefined {
-    return this.options.expire_date;
+    return this.payload.expire_date;
   }
 
   /**
@@ -51,7 +51,7 @@ export class ChatInviteLink {
    * `1-99999`
    */
   public get memberLimit(): number | undefined {
-    return this.options.member_limit;
+    return this.payload.member_limit;
   }
 }
 

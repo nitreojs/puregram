@@ -4,10 +4,10 @@ import { TelegramVoiceChatEnded } from '../../interfaces';
 
 /** This object represents a service message about a voice chat ended in the chat. */
 export class VoiceChatEnded {
-  private options: TelegramVoiceChatEnded;
+  public payload: TelegramVoiceChatEnded;
 
   constructor(options: TelegramVoiceChatEnded) {
-    this.options = options;
+    this.payload = options;
   }
 
   public get [Symbol.toStringTag](): string {
@@ -16,7 +16,7 @@ export class VoiceChatEnded {
 
   /** Voice chat duration; in seconds */
   public get duration(): number {
-    return this.options.duration;
+    return this.payload.duration;
   }
 }
 

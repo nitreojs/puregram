@@ -8,12 +8,14 @@ export interface ApiMethods {
   answerShippingQuery: api.answerShippingQuery;
   close: api.close;
   copyMessage: api.copyMessage;
+  createChatInviteLink: api.createChatInviteLink;
   createNewStickerSet: api.createNewStickerSet;
   deleteChatPhoto: api.deleteChatPhoto;
   deleteChatStickerSet: api.deleteChatStickerSet;
   deleteMessage: api.deleteMessage;
   deleteStickerFromSet: api.deleteStickerFromSet;
   deleteWebhook: api.deleteWebhook;
+  editChatInviteLink: api.editChatInviteLink;
   editMessageCaption: api.editMessageCaption;
   editMessageLiveLocation: api.editMessageLiveLocation;
   editMessageMedia: api.editMessageMedia;
@@ -39,6 +41,7 @@ export interface ApiMethods {
   pinChatMessage: api.pinChatMessage;
   promoteChatMember: api.promoteChatMember;
   restrictChatMember: api.restrictChatMember;
+  revokeChatInviteLink: api.revokeChatInviteLink;
   sendAnimation: api.sendAnimation;
   sendAudio: api.sendAudio;
   sendChatAction: api.sendChatAction;

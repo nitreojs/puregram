@@ -21,3 +21,8 @@ export * from './new-chat-title';
 export * from './pinned-message';
 export * from './successful-payment';
 export * from './supergroup-chat-created';
+export * from './chat-member';
+export * from './message-auto-delete-timer-changed';
+export * from './voice-chat-started';
+export * from './voice-chat-ended';
+export * from './voice-chat-participants-invited';

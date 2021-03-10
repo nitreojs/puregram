@@ -7,7 +7,7 @@ import { ChatMemberStatus } from '../../types';
 import { filterPayload } from '../../utils/helpers';
 
 export class ChatMember {
-  private payload: TelegramChatMember;
+  public payload: TelegramChatMember;
 
   constructor(payload: TelegramChatMember) {
     this.payload = payload;

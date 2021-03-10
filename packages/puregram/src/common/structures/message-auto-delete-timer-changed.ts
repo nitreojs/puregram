@@ -3,10 +3,10 @@ import { TelegramMessageAutoDeleteTimerChanged } from '../../interfaces';
 
 /** This object represents a service message about a change in auto-delete timer settings */
 export class MessageAutoDeleteTimerChanged {
-  private options: TelegramMessageAutoDeleteTimerChanged;
+  public payload: TelegramMessageAutoDeleteTimerChanged;
 
   constructor(options: TelegramMessageAutoDeleteTimerChanged) {
-    this.options = options;
+    this.payload = options;
   }
 
   public get [Symbol.toStringTag](): string {
@@ -15,7 +15,7 @@ export class MessageAutoDeleteTimerChanged {
 
   /** New auto-delete time for messages in the chat */
   public get messageAutoDeleteTime(): number {
-    return this.options.message_auto_delete_time;
+    return this.payload.message_auto_delete_time;
   }
 }
 

@@ -48,8 +48,14 @@ export enum UpdateType {
   PINNED_MESSAGE = 'pinned_message',
   POLL = 'poll',
   POLL_ANSWER = 'poll_answer',
+  CHAT_MEMBER = 'chat_member',
+  MY_CHAT_MEMBER = 'my_chat_member',
   PRE_CHECKOUT_QUERY = 'pre_checkout_query',
   SHIPPING_QUERY = 'shipping_query',
   SUCCESSFUL_PAYMENT = 'successful_payment',
-  SUPERGROUP_CHAT_CREATED = 'supergroup_chat_created'
+  SUPERGROUP_CHAT_CREATED = 'supergroup_chat_created',
+  MESSAGE_AUTO_DELETE_TIMER_CHANGED = 'message_auto_delete_timer_changed',
+  VOICE_CHAT_STARTED = 'voice_chat_started',
+  VOICE_CHAT_ENDED = 'voice_chat_ended',
+  VOICE_CHAT_PARTICIPANTS_INVITED = 'voice_chat_participants_invited',
 }

@@ -48,6 +48,10 @@ export const events: [
   ['pinnedMessage', 'pinned_message'],
   ['invoice', 'invoice'],
   ['successfulPayment', 'successful_payment'],
+  ['messageAutoDeleteTimerChanged', 'message_auto_delete_timer_changed'],
+  ['voiceChatStarted', 'voice_chat_started'],
+  ['voiceChatEnded', 'voice_chat_ended'],
+  ['voiceChatParticipantsInvited', 'voice_chat_participants_invited'],
 ];
 
 export const mediaMethods: [ApiMethod, AllowArray<MediaAttachmentType>][] = [

@@ -7,10 +7,10 @@ import { TelegramVoiceChatStarted } from '../../interfaces';
  * Currently holds no information.
  */
 export class VoiceChatStarted {
-  private options: TelegramVoiceChatStarted;
+  public payload: TelegramVoiceChatStarted;
 
   constructor(options: TelegramVoiceChatStarted) {
-    this.options = options;
+    this.payload = options;
   }
 
   public get [Symbol.toStringTag](): string {

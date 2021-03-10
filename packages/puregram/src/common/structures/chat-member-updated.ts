@@ -10,10 +10,10 @@ import { User } from './user';
 
 /** This object represents changes in the status of a chat member. */
 export class ChatMemberUpdated {
-  private options: TelegramChatMemberUpdated;
+  public payload: TelegramChatMemberUpdated;
 
   constructor(options: TelegramChatMemberUpdated) {
-    this.options = options;
+    this.payload = options;
   }
 
   public get [Symbol.toStringTag](): string {
@@ -22,27 +22,27 @@ export class ChatMemberUpdated {
 
   /** Chat the user belongs to */
   public get chat(): Chat {
-    return new Chat(this.options.chat);
+    return new Chat(this.payload.chat);
   }
 
   /** Performer of the action, which resulted in the change */
   public get from(): User {
-    return new User(this.options.from);
+    return new User(this.payload.from);
   }
 
   /** Date the change was done in Unix time */
   public get date(): number {
-    return this.options.date;
+    return this.payload.date;
   }
 
   /** Previous information about the chat member */
   public get oldChatMember(): ChatMember {
-    return new ChatMember(this.options.old_chat_member);
+    return new ChatMember(this.payload.old_chat_member);
   }
 
   /** New information about the chat member */
   public get newChatMember(): ChatMember {
-    return new ChatMember(this.options.new_chat_member);
+    return new ChatMember(this.payload.new_chat_member);
   }
 
   /**
@@ -50,7 +50,7 @@ export class ChatMemberUpdated {
    * for joining by invite link events only.
    */
   public get inviteLink(): ChatInviteLink | undefined {
-    const { invite_link } = this.options;
+    const { invite_link } = this.payload;
 
     if (!invite_link) return;
 
@@ -66,7 +66,7 @@ inspectable(ChatMemberUpdated, {
       date: member.date,
       oldChatMember: member.oldChatMember,
       newChatMember: member.newChatMember,
-      inviteLinnk: member.inviteLink
+      inviteLink: member.inviteLink
     };
 
     return filterPayload(payload);

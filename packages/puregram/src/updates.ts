@@ -34,7 +34,12 @@ import {
   PinnedMessageContext,
   InvoiceContext,
   SuccessfulPaymentContext,
-  NewChatMembersContext
+  NewChatMembersContext,
+  ChatMemberContext,
+  MessageAutoDeleteTimerChangedContext,
+  VoiceChatStartedContext,
+  VoiceChatEndedContext,
+  VoiceChatParticipantsInvitedContext
 } from './contexts';
 
 import { GetUpdatesParams } from './methods';
@@ -116,6 +121,16 @@ const rawEvents: [UpdateName, Constructor<any>][] = [
   ],
 
   [
+    'chat_member',
+    ChatMemberContext
+  ],
+
+  [
+    'my_chat_member',
+    ChatMemberContext
+  ],
+
+  [
     'new_chat_members',
     NewChatMembersContext
   ],
@@ -183,6 +198,26 @@ const rawEvents: [UpdateName, Constructor<any>][] = [
   [
     'successful_payment',
     SuccessfulPaymentContext
+  ],
+
+  [
+    'message_auto_delete_timer_changed',
+    MessageAutoDeleteTimerChangedContext
+  ],
+
+  [
+    'voice_chat_started',
+    VoiceChatStartedContext
+  ],
+
+  [
+    'voice_chat_ended',
+    VoiceChatEndedContext
+  ],
+
+  [
+    'voice_chat_participants_invited',
+    VoiceChatParticipantsInvitedContext
   ]
 ];
 
@@ -301,6 +336,16 @@ export class Updates {
   ): this;
 
   public on<T = {}>(
+    events: UpdateType.CHAT_MEMBER | 'chat_member',
+    handlers: AllowArray<Middleware<ChatMemberContext & T>>
+  ): this;
+
+  public on<T = {}>(
+    events: UpdateType.MY_CHAT_MEMBER | 'my_chat_member',
+    handlers: AllowArray<Middleware<ChatMemberContext & T>>
+  ): this;
+
+  public on<T = {}>(
     events: UpdateType.NEW_CHAT_MEMBERS | 'new_chat_members',
     handlers: AllowArray<Middleware<NewChatMembersContext & T>>
   ): this;
@@ -363,6 +408,26 @@ export class Updates {
   public on<T = {}>(
     events: UpdateType.SUCCESSFUL_PAYMENT | 'successful_payment',
     handlers: AllowArray<Middleware<SuccessfulPaymentContext & T>>
+  ): this;
+
+  public on<T = {}>(
+    events: UpdateType.MESSAGE_AUTO_DELETE_TIMER_CHANGED | 'message_auto_delete_timer_changed',
+    handlers: AllowArray<Middleware<MessageAutoDeleteTimerChangedContext & T>>
+  ): this;
+
+  public on<T = {}>(
+    events: UpdateType.VOICE_CHAT_STARTED | 'voice_chat_started',
+    handlers: AllowArray<Middleware<VoiceChatStartedContext & T>>
+  ): this;
+
+  public on<T = {}>(
+    events: UpdateType.VOICE_CHAT_ENDED | 'voice_chat_ended',
+    handlers: AllowArray<Middleware<VoiceChatEndedContext & T>>
+  ): this;
+
+  public on<T = {}>(
+    events: UpdateType.VOICE_CHAT_PARTICIPANTS_INVITED | 'voice_chat_participants_invited',
+    handlers: AllowArray<Middleware<VoiceChatParticipantsInvitedContext & T>>
   ): this;
 
   public on<T = {}>(
@@ -510,6 +575,8 @@ export class Updates {
 
       return;
     }
+
+    debug('Update payload:', update[type]);
 
     let context: Context & {
       isEvent?: boolean,

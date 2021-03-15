@@ -1,6 +1,6 @@
 {
   "name": "puregram",
-  "version": "2.0.5-rc.1",
+  "version": "2.0.5-rc.2",
   "description": "Powerful Node.js package written on TypeScript that allows you to work with Telegram API",
   "main": "lib/index",
   "author": "nitrojs",

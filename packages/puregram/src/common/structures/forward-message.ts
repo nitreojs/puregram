@@ -27,8 +27,12 @@ export class ForwardMessage {
   }
 
   /** For forwarded messages, sender of the original message */
-  public get from(): User {
-    return new User(this.payload.from!);
+  public get from(): User | undefined {
+    const { from } = this.payload;
+
+    if (!from) return undefined;
+
+    return new User(from);
   }
 
   /**

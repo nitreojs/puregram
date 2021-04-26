@@ -40,6 +40,7 @@ import {
 } from '../common/attachments';
 
 import { filterPayload } from '../utils/helpers';
+import { VoiceChatScheduled } from '../common/structures';
 
 /** This object represents a message. */
 export class Message {
@@ -510,6 +511,15 @@ export class Message {
     if (!proximity_alert_triggered) return undefined;
 
     return new ProximityAlertTriggered(proximity_alert_triggered);
+  }
+
+  /** Service message: voice chat scheduled */
+  public get voiceChatScheduled(): VoiceChatScheduled | undefined {
+    const { voice_chat_scheduled } = this.payload;
+
+    if (!voice_chat_scheduled) return;
+
+    return new VoiceChatScheduled(voice_chat_scheduled);
   }
 
   /** Service message: voice chat started */

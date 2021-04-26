@@ -13,7 +13,7 @@ export type MaskPositionPoint = 'forehead' | 'eyes' | 'mouth' | 'chin';
 export type DiceEmoji = '🎲' | '🎯' | '🏀' | '🎰' | '⚽️' | '🎳';
 export type PollType = 'regular' | 'quiz';
 export type EncryptedPassportElementType = 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration' | 'phone_number' | 'email';
-export type MessageEventName = 'new_chat_members' | 'left_chat_member' | 'new_chat_title' | 'new_chat_photo' | 'delete_chat_photo' | 'group_chat_created' | 'supergroup_chat_created' | 'channel_chat_created' | 'migrate_to_chat_id' | 'migrate_from_chat_id' | 'pinned_message' | 'invoice' | 'successful_payment' | 'location' | 'message_auto_delete_timer_changed' | 'voice_chat_started' | 'voice_chat_ended' | 'voice_chat_participants_invited';
+export type MessageEventName = 'new_chat_members' | 'left_chat_member' | 'new_chat_title' | 'new_chat_photo' | 'delete_chat_photo' | 'group_chat_created' | 'supergroup_chat_created' | 'channel_chat_created' | 'migrate_to_chat_id' | 'migrate_from_chat_id' | 'pinned_message' | 'invoice' | 'successful_payment' | 'location' | 'message_auto_delete_timer_changed' | 'voice_chat_scheduled' | 'voice_chat_started' | 'voice_chat_ended' | 'voice_chat_participants_invited';
 export type UpdateName = Exclude<keyof TelegramUpdate, 'update_id'> | MessageEventName;
 export type AttachmentType = 'animation' | 'audio' | 'document' | 'photo' | 'sticker' | 'video' | 'video_note' | 'voice';
 export type MediaAttachmentType = AttachmentType | 'media' | 'png_sticker' | 'tgs_sticker' | 'thumb';
@@ -26,6 +26,7 @@ export type InlineQueryType = 'article' | 'photo' | 'gif' | 'mpeg4_gif' | 'video
 export type PassportElementSource = 'data' | 'front_side' | 'reverse_side' | 'selfie' | 'file' | 'files' | 'translation_file' | 'translation_files' | 'unspecified';
 export type ApiMethod = keyof ApiMethods;
 export type MessageEntities = (TelegramMessageEntity | MessageEntity)[];
+export type InlineQueryChatType = 'sender' | 'private' | 'group' | 'supergroup' | 'channel';
 
 // https://stackoverflow.com/questions/58216298/how-to-omit-keystring-any-from-a-type-in-typescript
 // Used when you have { foo: string; bar: number; [key: string]: any }-like interface

@@ -127,7 +127,7 @@ class VoiceChatParticipantsInvitedContext extends Context {
     return this.chatType === 'channel';
   }
 
-  /** Message auto delete timer */
+  /** Service message: new participants invited to a voice chat */
   public get voiceChatParticipantsInvited(): VoiceChatParticipantsInvited {
     return new VoiceChatParticipantsInvited(this.payload.voice_chat_participants_invited!);
   }

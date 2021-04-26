@@ -26,3 +26,4 @@ export * from './message-auto-delete-timer-changed';
 export * from './voice-chat-started';
 export * from './voice-chat-ended';
 export * from './voice-chat-participants-invited';
+export * from './voice-chat-scheduled';

@@ -127,7 +127,7 @@ class VoiceChatEndedContext extends Context {
     return this.chatType === 'channel';
   }
 
-  /** Message auto delete timer */
+  /** Service message: voice chat ended */
   public get voiceChatEnded(): VoiceChatEnded {
     return new VoiceChatEnded(this.payload.voice_chat_ended!);
   }

@@ -1,13 +1,11 @@
 import { inspectable } from 'inspectable';
 
-import { MessageContext } from './message';
-
 import {
   BotCommand,
   Chat,
   Poll,
   User,
-  VoiceChatStarted
+  VoiceChatScheduled
 } from '../common/structures';
 
 import {
@@ -18,48 +16,49 @@ import {
 } from '../interfaces';
 
 import {
+  EditMessageCaptionParams,
+  EditMessageLiveLocationParams,
+  EditMessageMediaParams,
+  EditMessageReplyMarkupParams,
+  EditMessageTextParams,
+  SendAnimationParams,
+  SendAudioParams,
+  SendContactParams,
+  SendDiceParams,
+  SendDocumentParams,
+  SendInvoiceParams,
+  SendLocationParams,
+  SendMediaGroupParams,
   SendMessageParams,
   SendPhotoParams,
-  SendDocumentParams,
-  SendAudioParams,
-  SendVideoParams,
-  SendAnimationParams,
-  SendVideoNoteParams,
-  SendVoiceParams,
-  SendMediaGroupParams,
-  SendLocationParams,
-  SendInvoiceParams,
-  EditMessageLiveLocationParams,
-  StopMessageLiveLocationParams,
-  SendVenueParams,
-  SendContactParams,
   SendPollParams,
-  StopPollParams,
   SendStickerParams,
-  SendDiceParams,
-  EditMessageTextParams,
-  EditMessageCaptionParams,
-  EditMessageMediaParams,
-  EditMessageReplyMarkupParams
+  SendVenueParams,
+  SendVideoNoteParams,
+  SendVideoParams,
+  SendVoiceParams,
+  StopMessageLiveLocationParams,
+  StopPollParams
 } from '../methods';
 
 import { Telegram } from '../telegram';
 
 import {
-  ChatType,
-  Optional,
-  TelegramInputFile,
   ChatAction,
-  DiceEmoji
+  ChatType,
+  DiceEmoji,
+  Optional,
+  TelegramInputFile
 } from '../types';
 
 import { Context } from './context';
+import { MessageContext } from './message';
 
-class VoiceChatStartedContext extends Context {
+class VoiceChatScheduledContext extends Context {
   public payload: TelegramMessage;
 
   constructor(telegram: Telegram, payload: TelegramMessage) {
-    super(telegram, 'voice_chat_started');
+    super(telegram, 'voice_chat_scheduled');
 
     this.payload = payload;
   }
@@ -127,9 +126,9 @@ class VoiceChatStartedContext extends Context {
     return this.chatType === 'channel';
   }
 
-  /** Service message: voice chat started */
-  public get voiceChatStarted(): VoiceChatStarted {
-    return new VoiceChatStarted(this.payload.voice_chat_started!);
+  /** Service message: voice chat scheduled */
+  public get voiceChatScheduled(): VoiceChatScheduled {
+    return new VoiceChatScheduled(this.payload.voice_chat_scheduled!);
   }
 
   /** Sends message to current chat */
@@ -641,8 +640,8 @@ class VoiceChatStartedContext extends Context {
   }
 }
 
-inspectable(VoiceChatStartedContext, {
-  serialize(context: VoiceChatStartedContext) {
+inspectable(VoiceChatScheduledContext, {
+  serialize(context: VoiceChatScheduledContext) {
     return {
       id: context.id,
       from: context.from,
@@ -651,9 +650,9 @@ inspectable(VoiceChatStartedContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      voiceChatStarted: context.voiceChatStarted
+      VoiceChatScheduled: context.voiceChatScheduled
     };
   }
 });
 
-export { VoiceChatStartedContext };
+export { VoiceChatScheduledContext };

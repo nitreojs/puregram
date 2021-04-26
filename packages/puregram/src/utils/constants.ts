@@ -49,6 +49,7 @@ export const events: [
   ['invoice', 'invoice'],
   ['successfulPayment', 'successful_payment'],
   ['messageAutoDeleteTimerChanged', 'message_auto_delete_timer_changed'],
+  ['voiceChatScheduled', 'voice_chat_scheduled'],
   ['voiceChatStarted', 'voice_chat_started'],
   ['voiceChatEnded', 'voice_chat_ended'],
   ['voiceChatParticipantsInvited', 'voice_chat_participants_invited'],

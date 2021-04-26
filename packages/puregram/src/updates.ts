@@ -39,7 +39,8 @@ import {
   MessageAutoDeleteTimerChangedContext,
   VoiceChatStartedContext,
   VoiceChatEndedContext,
-  VoiceChatParticipantsInvitedContext
+  VoiceChatParticipantsInvitedContext,
+  VoiceChatScheduledContext
 } from './contexts';
 
 import { GetUpdatesParams } from './methods';
@@ -203,6 +204,11 @@ const rawEvents: [UpdateName, Constructor<any>][] = [
   [
     'message_auto_delete_timer_changed',
     MessageAutoDeleteTimerChangedContext
+  ],
+
+  [
+    'voice_chat_scheduled',
+    VoiceChatScheduledContext
   ],
 
   [
@@ -413,6 +419,11 @@ export class Updates {
   public on<T = {}>(
     events: UpdateType.MESSAGE_AUTO_DELETE_TIMER_CHANGED | 'message_auto_delete_timer_changed',
     handlers: AllowArray<Middleware<MessageAutoDeleteTimerChangedContext & T>>
+  ): this;
+
+  public on<T = {}>(
+    events: UpdateType.VOICE_CHAT_SCHEDULED | 'voice_chat_scheduled',
+    handlers: AllowArray<Middleware<VoiceChatScheduledContext & T>>
   ): this;
 
   public on<T = {}>(

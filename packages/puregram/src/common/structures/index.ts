@@ -42,3 +42,4 @@ export * from './chat-invite-link';
 export * from './voice-chat-started';
 export * from './voice-chat-ended';
 export * from './voice-chat-participants-invited';
+export * from './voice-chat-scheduled';

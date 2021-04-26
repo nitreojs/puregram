@@ -14,7 +14,8 @@ import {
   InlineQueryType,
   PassportElementSource,
   UpdateName,
-  MessageEntities
+  MessageEntities,
+  InlineQueryChatType
 } from './types';
 
 import {
@@ -364,6 +365,8 @@ export interface TelegramMessage {
   venue?: TelegramVenue;
 
   location?: TelegramLocation;
+
+  voice_chat_scheduled?: TelegramVoiceChatScheduled;
 
   voice_chat_started?: TelegramVoiceChatStarted;
 
@@ -969,11 +972,13 @@ export interface TelegramInlineQuery {
 
   from: TelegramUser;
 
-  location?: TelegramLocation;
-
   query: string;
 
   offset: string;
+
+  chat_type?: InlineQueryChatType;
+
+  location?: TelegramLocation;
 
   [key: string]: any;
 }
@@ -2042,10 +2047,55 @@ export interface TelegramInputContactMessageContent {
   [key: string]: any;
 }
 
+export interface TelegramInputInvoiceMessageContent {
+  title: string;
+
+  description: string;
+  
+  payload: string;
+
+  provider_token: string;
+
+  currency: string;
+
+  prices: TelegramLabeledPrice[];
+
+  max_tip_amount?: number;
+
+  suggested_tip_amounts?: number[];
+
+  provider_data?: string;
+
+  photo_url?: string;
+
+  photo_size?: number;
+
+  photo_width?: number;
+
+  photo_height?: number;
+
+  need_name?: boolean;
+
+  need_phone_number?: boolean;
+
+  need_email?: boolean;
+
+  need_shipping_address?: boolean;
+
+  send_phone_number_to_provider?: boolean;
+
+  send_email_to_provider?: boolean;
+
+  is_flexible?: boolean;
+
+  [key: string]: any;
+}
+
 export type InputMessageContentUnion = TelegramInputTextMessageContent
   | TelegramInputLocationMessageContent
   | TelegramInputVenueMessageContent
-  | TelegramInputContactMessageContent;
+  | TelegramInputContactMessageContent
+  | TelegramInputInvoiceMessageContent;
 
 export type InlineQueryResultUnion = TelegramInlineQueryResultCachedAudio
   | TelegramInlineQueryResultCachedDocument
@@ -2439,4 +2489,8 @@ export interface TelegramVoiceChatParticipantsInvited {
 
 export interface TelegramMessageAutoDeleteTimerChanged {
   message_auto_delete_time: number;
+}
+
+export interface TelegramVoiceChatScheduled {
+  start_date: number;
 }

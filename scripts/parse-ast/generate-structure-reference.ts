@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import ts from 'typescript';
 import { stripIndents } from 'common-tags';
 import { resolve } from 'path';
 import fs from 'fs';

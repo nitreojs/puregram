@@ -1,19 +1,32 @@
+/**
+ * ```ts
+ * camelizeFirst('fooBar')
+ * // FooBar
+ * ```
+ */
 export const camelizeFirst = (source: string): string => (
   source[0].toUpperCase() + source.slice(1)
 );
 
 /**
- * @example
+ * ```ts
  * camelize('foo-bar')
  * // FooBar
  *
  * camelize('foo bar-baz')
  * // FooBarBaz
+ * ```
  */
 export const camelize = (source: string): string => (
-  source.split(/[\s-]/).map(camelizeFirst).join('')
+  source.split(/[\s-_]/).map(camelizeFirst).join('')
 );
 
+/**
+ * ```ts
+ * camelizeSmall('FOO_BAR')
+ * // fooBar
+ * ```
+ */
 export const camelizeSmall = (source: string): string => {
   const value: string = camelize(source);
 
@@ -21,15 +34,16 @@ export const camelizeSmall = (source: string): string => {
 };
 
 /**
- * @example
+ * ```ts
  * dasherize('FooBarBaz')
  * // foo-bar-baz
  *
  * dasherize('This is epic')
  * // this-is-epic
+ * ```
  */
 export const dasherize = (rawSource: string): string => {
-  const source = rawSource.split(' ').join('-');
+  const source: string = rawSource.split(' ').join('-');
   const match: RegExpMatchArray | null = source.match(/[A-Z]/g);
 
   if (match === null) return source;
@@ -148,24 +162,38 @@ export const generateAnchor = (element: string): string => (
 // # Markdown shit
 
 /**
- * @example
- * header(1, 'Test')
- * // # Test
- *
- * header(3, 'Foo bar baz')
- * // ### Foo bar baz
+ * ```ts
+ * header(1, 'Test') // # Test
+ * ```
+ * 
+ * # Test
+ * 
+ * ---
+ * 
+ * ```ts
+ * header(3, 'Foo bar baz') // ### Foo bar baz
+ * ```
+ * 
+ * ### Foo bar baz
  */
 export const header = (level: number = 1, text: string): string => (
   `${'#'.repeat(level)} ${text}`
 );
 
 /**
- * @example
- * code('MessageContext')
- * // `MessageContext`
- *
- * header(1, code('InlineQueryContext'))
- * // # `InlineQueryContext`
+ * ```ts
+ * code('MessageContext') // `MessageContext`
+ * ```
+ * 
+ * `MessageContext`
+ * 
+ * ---
+ * 
+ * ```ts
+ * header(2, code('InlineQueryContext')) // ## `InlineQueryContext`
+ * ```
+ * 
+ * ## `InlineQueryContext`
  */
 export const code = (...args: string[]): string => (
   tokenize(
@@ -182,32 +210,54 @@ export const code = (...args: string[]): string => (
 );
 
 /**
- * @example
- * bold('Triggered when new message occurs.')
- * // **Triggered when new message occurs**
+ * ```ts
+ * bold('Triggered when new message occurs.') // **Triggered when new message occurs**
+ * ```
+ * 
+ * **Triggered when new message occurs**
  */
 export const bold = (...args: string[]): string => tokenize(args, Token.BOLD);
 
 /**
- * @example
- * italic('May be', code('undefined'))
- * // _May be `undefined`_
+ * ```ts
+ * italic('May be', code('undefined')) // _May be `undefined`_
+ * ```
+ * 
+ * _May be `undefined`_
  */
 export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC);
 
 /**
- * @example
+ * ```ts
  * pre('ts', 'import { Telegram } from "puregram";')
+ * // ```ts
+ * // import { Telegram } from "puregram";
+ * // ```
+ * ```
+ * 
+ * ```ts
+ * import { Telegram } from "puregram";
+ * ```
  */
 export const pre = (language: string = '', ...args: string[]): string => tokenize(args, Token.PRE, language);
 
 /**
- * @example
- * link(code('Context'), 'context.md')
- * // [`Context`](context.md)
+ * ```ts
+ * link(code('Context'), 'context.md') // [`Context`](context.md)
+ * ```
+ * 
+ * [`Context`](context.md)
  */
 export const link = (text: string, source: string): string => `[${text}](${source})`;
 
+/**
+ * ```ts
+ * table([
+ *   ['Header 1', 'Header 2'],
+ *   [bold('Value 1'), code('Value 2')]
+ * ])
+ * ```
+ */
 export const table = (rawMatrix: string[][]): string => {
   const [head, ...matrix] = rawMatrix;
 
@@ -221,7 +271,7 @@ export const table = (rawMatrix: string[][]): string => {
     rows.push(createTableRow(row, lengths));
   }
 
-  // "&#124;" instead of "|"
+  /// TODO: "&#124;" instead of "|"
 
   return rows.join('\n');
 };

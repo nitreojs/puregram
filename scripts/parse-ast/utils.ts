@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 const keywordsAndKinds: Record<number, string> = {
   [ts.SyntaxKind.StringKeyword]: 'string',

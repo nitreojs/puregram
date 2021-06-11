@@ -257,9 +257,10 @@ class MethodService {
       const fields: string[] = MethodService.generateFields(kMethod.arguments, 'Interfaces')
         .map(tab);
       
-      // just some little hacks over there, nothing special, scroll away
-      fields.push('');
-      fields.push(tab('[key: string]: any;'));
+      /// just some little hacks over there, nothing special, scroll away
+      /// disabled due to Optional<T, K extends keyof T> type :/
+      // fields.push('');
+      // fields.push(tab('[key: string]: any;'));
 
       const mInterface: string = `export interface ${mInterfaceName} {\n${fields.join('\n')}\n}`;
       const mType: string = `export type ${kMethod.name} = (params: ${mInterfaceName}) => Promise<${mReturnType}>;`;

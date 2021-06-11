@@ -245,6 +245,15 @@ class MethodService {
     if (kMethod.arguments) {
       const mInterfaceName: string = kMethod.name[0].toUpperCase() + kMethod.name.slice(1) + 'Params';
 
+      if (kMethod.name === 'sendDocument') {
+        kMethod.arguments.push({
+          type: 'string',
+          name: 'filename',
+          description: 'Name that will be used as a file name in the sent message',
+          required: false
+        });
+      }
+
       const fields: string[] = MethodService.generateFields(kMethod.arguments, 'Interfaces')
         .map(tab);
       
@@ -280,7 +289,7 @@ class MethodService {
         );
       }
 
-      if (returnType.includes('Interfaces.TelegramInputFile')) { // kinda hacky btw but who cares
+      if (returnType.includes('Interfaces.TelegramInputFile')) { // kinda hacky btw but you didnt see it 👀
         returnType = TypeResolver.resolve(
           { type: 'reference', reference: 'InputFile', is_internal: true } as SchemaObjectReference,
           addition

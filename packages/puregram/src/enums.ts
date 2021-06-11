@@ -58,5 +58,5 @@ export enum UpdateType {
   VOICE_CHAT_SCHEDULED = 'voice_chat_scheduled',
   VOICE_CHAT_STARTED = 'voice_chat_started',
   VOICE_CHAT_ENDED = 'voice_chat_ended',
-  VOICE_CHAT_PARTICIPANTS_INVITED = 'voice_chat_participants_invited',
+  VOICE_CHAT_PARTICIPANTS_INVITED = 'voice_chat_participants_invited'
 }

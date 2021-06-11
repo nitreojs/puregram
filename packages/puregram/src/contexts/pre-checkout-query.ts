@@ -19,7 +19,8 @@ import {
   TelegramBotCommand,
   TelegramPreCheckoutQuery,
   TelegramMessage,
-  InputFile
+  InputFile,
+  TelegramUpdate
 } from '../telegram-interfaces';
 
 import {
@@ -47,13 +48,25 @@ import { Optional } from '../types';
 
 import { BotCommand } from '../common/structures/bot-command';
 
+interface PreCheckoutQueryContextOptions {
+  telegram: Telegram;
+  update: TelegramUpdate;
+  payload: TelegramPreCheckoutQuery;
+  updateId: number;
+}
+
 class PreCheckoutQueryContext extends Context {
   public payload: TelegramPreCheckoutQuery;
 
-  constructor(telegram: Telegram, update: TelegramPreCheckoutQuery) {
-    super(telegram, 'pre_checkout_query');
+  constructor(options: PreCheckoutQueryContextOptions) {
+    super({
+      telegram: options.telegram,
+      updateType: 'pre_checkout_query',
+      updateId: options.updateId,
+      update: options.update
+    });
 
-    this.payload = update;
+    this.payload = options.payload;
   }
 
   /** Answers to pre-checkout query */
@@ -77,7 +90,10 @@ class PreCheckoutQueryContext extends Context {
       text
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends photo to current chat */
@@ -91,7 +107,10 @@ class PreCheckoutQueryContext extends Context {
       photo
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends document to current chat */
@@ -105,7 +124,10 @@ class PreCheckoutQueryContext extends Context {
       document
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends audio to current chat */
@@ -119,7 +141,10 @@ class PreCheckoutQueryContext extends Context {
       audio
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends video to current chat */
@@ -133,7 +158,10 @@ class PreCheckoutQueryContext extends Context {
       video
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends animation to current chat */
@@ -147,7 +175,10 @@ class PreCheckoutQueryContext extends Context {
       animation
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends video note to current chat */
@@ -161,7 +192,10 @@ class PreCheckoutQueryContext extends Context {
       video_note: videoNote
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends voice to current chat */
@@ -175,7 +209,10 @@ class PreCheckoutQueryContext extends Context {
       voice
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends media group to current chat */
@@ -190,7 +227,10 @@ class PreCheckoutQueryContext extends Context {
     });
 
     return response.map(
-      (message: TelegramMessage) => new MessageContext(this.telegram, message)
+      (message: TelegramMessage) => new MessageContext({
+        telegram: this.telegram,
+        payload: message
+      })
     );
   }
 
@@ -207,7 +247,10 @@ class PreCheckoutQueryContext extends Context {
       longitude
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends venue to current chat */
@@ -219,7 +262,10 @@ class PreCheckoutQueryContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends contact to current chat */
@@ -231,7 +277,10 @@ class PreCheckoutQueryContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends poll to current chat */
@@ -243,7 +292,10 @@ class PreCheckoutQueryContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Stops poll in current chat */
@@ -283,7 +335,10 @@ class PreCheckoutQueryContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends dice */
@@ -297,7 +352,10 @@ class PreCheckoutQueryContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Gets commands */

@@ -12,7 +12,8 @@ import {
   TelegramBotCommand,
   TelegramChosenInlineResult,
   TelegramMessage,
-  InputFile
+  InputFile,
+  TelegramUpdate
 } from '../telegram-interfaces';
 
 import { Optional } from '../types';
@@ -41,6 +42,13 @@ import { Poll, ChosenInlineResult } from '../updates/';
 import { BotCommand } from '../common/structures/bot-command';
 import { Telegram } from '../telegram';
 
+interface ChosenInlineResultContextOptions {
+  telegram: Telegram;
+  update: TelegramUpdate;
+  payload: TelegramChosenInlineResult;
+  updateId: number;
+}
+
 /**
  * The result of an inline query that was chosen by
  * a user and sent to their chat partner
@@ -48,10 +56,15 @@ import { Telegram } from '../telegram';
 class ChosenInlineResultContext extends Context {
   public payload: TelegramChosenInlineResult;
 
-  constructor(telegram: Telegram, update: TelegramChosenInlineResult) {
-    super(telegram, 'chosen_inline_result');
+  constructor(options: ChosenInlineResultContextOptions) {
+    super({
+      telegram: options.telegram,
+      updateType: 'chosen_inline_result',
+      updateId: options.updateId,
+      update: options.update
+    });
 
-    this.payload = update;
+    this.payload = options.payload;
   }
 
   /** Sends message to current chat */
@@ -65,7 +78,10 @@ class ChosenInlineResultContext extends Context {
       text
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends photo to current chat */
@@ -79,7 +95,10 @@ class ChosenInlineResultContext extends Context {
       photo
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends document to current chat */
@@ -93,7 +112,10 @@ class ChosenInlineResultContext extends Context {
       document
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends audio to current chat */
@@ -107,7 +129,10 @@ class ChosenInlineResultContext extends Context {
       audio
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends video to current chat */
@@ -121,7 +146,10 @@ class ChosenInlineResultContext extends Context {
       video
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends animation to current chat */
@@ -135,7 +163,10 @@ class ChosenInlineResultContext extends Context {
       animation
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends video note to current chat */
@@ -149,7 +180,10 @@ class ChosenInlineResultContext extends Context {
       video_note: videoNote
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends voice to current chat */
@@ -163,7 +197,10 @@ class ChosenInlineResultContext extends Context {
       voice
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends media group to current chat */
@@ -178,7 +215,10 @@ class ChosenInlineResultContext extends Context {
     });
 
     return response.map(
-      (message: TelegramMessage) => new MessageContext(this.telegram, message)
+      (message: TelegramMessage) => new MessageContext({
+        telegram: this.telegram,
+        payload: message
+      })
     );
   }
 
@@ -195,7 +235,10 @@ class ChosenInlineResultContext extends Context {
       longitude
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends venue to current chat */
@@ -207,7 +250,10 @@ class ChosenInlineResultContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends contact to current chat */
@@ -219,7 +265,10 @@ class ChosenInlineResultContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends poll to current chat */
@@ -231,7 +280,10 @@ class ChosenInlineResultContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Stops poll in current chat */
@@ -271,7 +323,10 @@ class ChosenInlineResultContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends dice */
@@ -285,7 +340,10 @@ class ChosenInlineResultContext extends Context {
       chat_id: this.senderId
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Gets commands */

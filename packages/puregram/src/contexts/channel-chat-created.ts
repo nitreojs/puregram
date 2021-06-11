@@ -14,7 +14,8 @@ import {
   TelegramInputMedia,
   TelegramInlineKeyboardMarkup,
   TelegramChat,
-  InputFile
+  InputFile,
+  TelegramUpdate
 } from '../telegram-interfaces';
 
 import {
@@ -49,13 +50,25 @@ import { Optional } from '../types';
 import { Poll } from '../updates/';
 import { BotCommand } from '../common/structures/bot-command';
 
+interface ChannelChatCreatedContextOptions {
+  telegram: Telegram;
+  update: TelegramUpdate;
+  payload: TelegramMessage;
+  updateId: number;
+}
+
 class ChannelChatCreatedContext extends Context {
-  private readonly payload: TelegramMessage;
+  public payload: TelegramMessage;
 
-  constructor(telegram: Telegram, update: TelegramMessage) {
-    super(telegram, 'channel_chat_created');
+  constructor(options: ChannelChatCreatedContextOptions) {
+    super({
+      telegram: options.telegram,
+      updateType: 'channel_chat_created',
+      updateId: options.updateId,
+      update: options.update
+    });
 
-    this.payload = update;
+    this.payload = options.payload;
   }
 
   /** Unique message identifier inside this chat */
@@ -132,7 +145,10 @@ class ChannelChatCreatedContext extends Context {
       text
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message */
@@ -157,7 +173,10 @@ class ChannelChatCreatedContext extends Context {
       photo
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with photo */
@@ -182,7 +201,10 @@ class ChannelChatCreatedContext extends Context {
       document
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with document */
@@ -207,7 +229,10 @@ class ChannelChatCreatedContext extends Context {
       audio
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with audio */
@@ -232,7 +257,10 @@ class ChannelChatCreatedContext extends Context {
       video
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with video */
@@ -257,7 +285,10 @@ class ChannelChatCreatedContext extends Context {
       animation
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with animation */
@@ -282,7 +313,10 @@ class ChannelChatCreatedContext extends Context {
       video_note: videoNote
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with video note */
@@ -307,7 +341,10 @@ class ChannelChatCreatedContext extends Context {
       voice
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with voice */
@@ -333,7 +370,10 @@ class ChannelChatCreatedContext extends Context {
     });
 
     return response.map(
-      (message: TelegramMessage) => new MessageContext(this.telegram, message)
+      (message: TelegramMessage) => new MessageContext({
+        telegram: this.telegram,
+        payload: message
+      })
     );
   }
 
@@ -361,7 +401,10 @@ class ChannelChatCreatedContext extends Context {
       longitude
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with location */
@@ -383,7 +426,10 @@ class ChannelChatCreatedContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message live location */
@@ -400,7 +446,10 @@ class ChannelChatCreatedContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Stops current message live location */
@@ -415,7 +464,10 @@ class ChannelChatCreatedContext extends Context {
 
     if (response === true) return true;
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends venue to current chat */
@@ -427,7 +479,10 @@ class ChannelChatCreatedContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with venue */
@@ -449,7 +504,10 @@ class ChannelChatCreatedContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with contact */
@@ -471,7 +529,10 @@ class ChannelChatCreatedContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with poll */
@@ -525,7 +586,10 @@ class ChannelChatCreatedContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends dice */
@@ -539,7 +603,10 @@ class ChannelChatCreatedContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Gets commands */
@@ -569,7 +636,10 @@ class ChannelChatCreatedContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message caption */
@@ -588,7 +658,10 @@ class ChannelChatCreatedContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message media */
@@ -607,7 +680,10 @@ class ChannelChatCreatedContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message reply markup */
@@ -626,7 +702,10 @@ class ChannelChatCreatedContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 }
 

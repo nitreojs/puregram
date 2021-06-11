@@ -11,19 +11,32 @@ import { InlineQuery } from '../updates/inline-query';
 
 import {
   TelegramInlineQuery,
-  TelegramInlineQueryResult
+  TelegramInlineQueryResult,
+  TelegramUpdate
 } from '../telegram-interfaces';
 
 import { Telegram } from '../telegram';
 import { AnswerInlineQueryParams } from '../methods';
 
+interface InlineQueryContextOptions {
+  telegram: Telegram;
+  update: TelegramUpdate;
+  payload: TelegramInlineQuery;
+  updateId: number;
+}
+
 class InlineQueryContext extends Context {
   public payload: TelegramInlineQuery;
 
-  constructor(telegram: Telegram, update: TelegramInlineQuery) {
-    super(telegram, 'inline_query');
+  constructor(options: InlineQueryContextOptions) {
+    super({
+      telegram: options.telegram,
+      updateType: 'inline_query',
+      updateId: options.updateId,
+      update: options.update
+    });
 
-    this.payload = update;
+    this.payload = options.payload;
   }
 
   /** Answers to inline query */

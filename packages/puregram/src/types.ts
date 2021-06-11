@@ -18,9 +18,9 @@ export type KnownKeys<T> = {
     ? never
     : number extends K
       ? never
-      : K
+      : T[K]
 } extends { [_ in keyof T]: infer U }
   ? U
   : never;
 
-export type Optional<T, K extends keyof T> = Pick<T, Exclude<KnownKeys<T>, K>> & Partial<Pick<T, K>>;
+export type Optional<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>;

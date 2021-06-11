@@ -2,18 +2,30 @@ import { inspectable } from 'inspectable';
 
 import { Context } from './context';
 
-import { TelegramPoll } from '../telegram-interfaces';
+import { TelegramPoll, TelegramUpdate } from '../telegram-interfaces';
 import { Telegram } from '../telegram';
 import { filterPayload, applyMixins } from '../utils/helpers';
 import { Poll } from '../updates/';
 
+interface PollContextOptions {
+  telegram: Telegram;
+  update: TelegramUpdate;
+  payload: TelegramPoll;
+  updateId: number;
+}
+
 class PollContext extends Context {
   public payload: TelegramPoll;
 
-  constructor(telegram: Telegram, update: TelegramPoll) {
-    super(telegram, 'poll');
+  constructor(options: PollContextOptions) {
+    super({
+      telegram: options.telegram,
+      updateType: 'poll',
+      updateId: options.updateId,
+      update: options.update
+    });
 
-    this.payload = update;
+    this.payload = options.payload;
   }
 }
 

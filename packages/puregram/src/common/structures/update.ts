@@ -23,7 +23,7 @@ import { filterPayload } from '../../utils/helpers';
  * update.
  */
 export class Update {
-  private readonly payload: TelegramUpdate;
+  private payload: TelegramUpdate;
 
   constructor(payload: TelegramUpdate) {
     this.payload = payload;

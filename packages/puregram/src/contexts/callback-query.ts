@@ -6,18 +6,30 @@ import { MessageContext } from './message';
 
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers';
 import { CallbackQuery } from '../updates/';
-import { TelegramCallbackQuery } from '../telegram-interfaces';
+import { TelegramCallbackQuery, TelegramUpdate } from '../telegram-interfaces';
 import { Telegram } from '../telegram';
 import { AnswerCallbackQueryParams } from '../methods';
+
+interface CallbackQueryContextOptions {
+  telegram: Telegram;
+  update: TelegramUpdate;
+  payload: TelegramCallbackQuery;
+  updateId: number;
+}
 
 /** Called when `callback_query` event occurs */
 class CallbackQueryContext extends Context {
   public payload: TelegramCallbackQuery;
 
-  constructor(telegram: Telegram, update: TelegramCallbackQuery) {
-    super(telegram, 'callback_query');
+  constructor(options: CallbackQueryContextOptions) {
+    super({
+      telegram: options.telegram,
+      updateType: 'callback_query',
+      updateId: options.updateId,
+      update: options.update
+    });
 
-    this.payload = update;
+    this.payload = options.payload;
   }
 
   /**
@@ -28,7 +40,12 @@ class CallbackQueryContext extends Context {
   public get message(): MessageContext | undefined {
     if (this.payload.message === undefined) return undefined;
 
-    return new MessageContext(this.telegram, this.payload.message);
+    return new MessageContext({
+      telegram: this.telegram,
+      update: this.update,
+      payload: this.payload.message,
+      updateId: this.update?.update_id
+    });
   }
 
   /**

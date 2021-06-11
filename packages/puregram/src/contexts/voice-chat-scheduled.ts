@@ -14,7 +14,8 @@ import {
   TelegramInlineKeyboardMarkup,
   TelegramMessage,
   TelegramChat,
-  InputFile
+  InputFile,
+  TelegramUpdate
 } from '../telegram-interfaces';
 
 import {
@@ -51,13 +52,25 @@ import { Optional } from '../types';
 import { Context } from './context';
 import { MessageContext } from './message';
 
+interface DeleteChatPhotoContextOptions {
+  telegram: Telegram;
+  update: TelegramUpdate;
+  payload: TelegramMessage;
+  updateId: number;
+}
+
 class VoiceChatScheduledContext extends Context {
   public payload: TelegramMessage;
+  
+  constructor(options: DeleteChatPhotoContextOptions) {
+    super({
+      telegram: options.telegram,
+      updateType: 'voice_chat_scheduled',
+      updateId: options.updateId,
+      update: options.update
+    });
 
-  constructor(telegram: Telegram, payload: TelegramMessage) {
-    super(telegram, 'voice_chat_scheduled');
-
-    this.payload = payload;
+    this.payload = options.payload;
   }
 
   /** Unique message identifier inside this chat */
@@ -139,7 +152,10 @@ class VoiceChatScheduledContext extends Context {
       text
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message */
@@ -164,7 +180,10 @@ class VoiceChatScheduledContext extends Context {
       photo
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with photo */
@@ -189,7 +208,10 @@ class VoiceChatScheduledContext extends Context {
       document
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with document */
@@ -214,7 +236,10 @@ class VoiceChatScheduledContext extends Context {
       audio
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with audio */
@@ -239,7 +264,10 @@ class VoiceChatScheduledContext extends Context {
       video
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with video */
@@ -264,7 +292,10 @@ class VoiceChatScheduledContext extends Context {
       animation
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with animation */
@@ -289,7 +320,10 @@ class VoiceChatScheduledContext extends Context {
       video_note: videoNote
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with video note */
@@ -314,7 +348,10 @@ class VoiceChatScheduledContext extends Context {
       voice
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with voice */
@@ -340,7 +377,10 @@ class VoiceChatScheduledContext extends Context {
     });
 
     return response.map(
-      (message: TelegramMessage) => new MessageContext(this.telegram, message)
+      (message: TelegramMessage) => new MessageContext({
+        telegram: this.telegram,
+        payload: message
+      })
     );
   }
 
@@ -368,7 +408,10 @@ class VoiceChatScheduledContext extends Context {
       longitude
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with location */
@@ -390,7 +433,10 @@ class VoiceChatScheduledContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message live location */
@@ -407,7 +453,10 @@ class VoiceChatScheduledContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Stops current message live location */
@@ -422,7 +471,10 @@ class VoiceChatScheduledContext extends Context {
 
     if (response === true) return true;
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends venue to current chat */
@@ -434,7 +486,10 @@ class VoiceChatScheduledContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with venue */
@@ -456,7 +511,10 @@ class VoiceChatScheduledContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with contact */
@@ -478,7 +536,10 @@ class VoiceChatScheduledContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Replies to current message with poll */
@@ -532,7 +593,10 @@ class VoiceChatScheduledContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Sends dice */
@@ -546,7 +610,10 @@ class VoiceChatScheduledContext extends Context {
       chat_id: this.chatId || this.senderId || 0
     });
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Gets commands */
@@ -576,7 +643,10 @@ class VoiceChatScheduledContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message caption */
@@ -595,7 +665,10 @@ class VoiceChatScheduledContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message media */
@@ -614,7 +687,10 @@ class VoiceChatScheduledContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 
   /** Edits current message reply markup */
@@ -633,7 +709,10 @@ class VoiceChatScheduledContext extends Context {
       return true;
     }
 
-    return new MessageContext(this.telegram, response);
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    });
   }
 }
 

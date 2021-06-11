@@ -569,11 +569,7 @@ export class Updates {
     );
   }
 
-  public async updateHandler(
-    update: TelegramUpdate & Partial<
-      Pick<TelegramMessage, MessageEventName>
-    >
-  ): Promise<void> {
+  public async updateHandler(update: TelegramUpdate): Promise<void> {
     this.offset = update.update_id + 1;
 
     const type: UpdateName = (Object.keys(update) as UpdateName[])[1];
@@ -590,10 +586,13 @@ export class Updates {
 
     debug('Update payload:', update[type]);
 
-    let context: Context & {
-      isEvent?: boolean,
-      eventType?: MessageEventName
-    } = new UpdateContext(this.telegram, update[type], type);
+    let context: Context & { isEvent?: boolean, eventType?: MessageEventName } = new UpdateContext({
+      telegram: this.telegram,
+      update,
+      payload: update[type],
+      type,
+      updateId: update.update_id
+    });
 
     const isEvent: boolean = context.isEvent === true && context.eventType !== undefined;
 
@@ -602,7 +601,13 @@ export class Updates {
     if (isEvent) {
       UpdateContext = events[context.eventType!];
 
-      context = new UpdateContext(this.telegram, update.message);
+      context = new UpdateContext({
+        telegram: this.telegram,
+        update,
+        payload: update.message,
+        type: context.eventType!,
+        updateId: update.update_id
+      });
     }
 
     debug(context);

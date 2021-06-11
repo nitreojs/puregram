@@ -6,7 +6,7 @@ import { PhotoSize } from '../structures/photo-size';
 
 /** This object represents a photo file with it's sizes */
 export class PhotoAttachment extends Attachment {
-  private readonly payload: PhotoSize[];
+  private payload: PhotoSize[];
 
   private readonly sorted: PhotoSize[];
 

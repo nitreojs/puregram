@@ -1,8 +1,4 @@
-import {
-  HTML,
-  Markdown,
-  MarkdownV2
-} from '../src';
+import { HTML, Markdown, MarkdownV2 } from '../src';
 
 describe('Parse mode', (): void => {
   describe('HTML', (): void => {

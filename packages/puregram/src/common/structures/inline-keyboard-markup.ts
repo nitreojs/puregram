@@ -5,7 +5,7 @@ import { InlineKeyboardButton } from './inline-keyboard-button';
 import {
   TelegramInlineKeyboardMarkup,
   TelegramInlineKeyboardButton
-} from '../../interfaces';
+} from '../../telegram-interfaces';
 
 
 export class InlineKeyboardMarkup {

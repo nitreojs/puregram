@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramInvoice } from '../../interfaces';
+import { TelegramInvoice } from '../../telegram-interfaces';
 
 /** This object contains basic information about an invoice. */
 export class Invoice {

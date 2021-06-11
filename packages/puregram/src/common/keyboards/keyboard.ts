@@ -1,19 +1,14 @@
 import { inspectable } from 'inspectable';
 
-import { PollType } from '../../types';
-
 import {
-  KeyboardOptions,
-  KeyboardTextButton,
-  KeyboardRequestContactButton,
-  KeyboardRequestLocationButton,
-  KeyboardRequestPollButton,
-  KeyboardJSON
-} from '../../interfaces';
+  TelegramKeyboardButton,
+  TelegramPoll,
+  TelegramReplyKeyboardMarkup
+} from '../../telegram-interfaces';
 
 /** Keyboard */
 export class Keyboard {
-  private buttons: KeyboardOptions[][] = [];
+  private buttons: TelegramKeyboardButton[][] = [];
 
   private isResized: boolean = false;
 
@@ -26,7 +21,7 @@ export class Keyboard {
   }
 
   /** Assembles a builder of buttons */
-  public static keyboard(rows: (KeyboardOptions | KeyboardOptions[])[]): Keyboard {
+  public static keyboard(rows: (TelegramKeyboardButton | TelegramKeyboardButton[])[]): Keyboard {
     const keyboard: Keyboard = new Keyboard();
 
     for (const row of rows) {
@@ -62,7 +57,7 @@ export class Keyboard {
    * If none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
-  public static textButton(text: string): KeyboardTextButton {
+  public static textButton(text: string): TelegramKeyboardButton {
     return { text };
   }
 
@@ -72,7 +67,7 @@ export class Keyboard {
    *
    * Available in private chats only
    */
-  public static requestContactButton(text: string): KeyboardRequestContactButton {
+  public static requestContactButton(text: string): TelegramKeyboardButton {
     return {
       text,
       request_contact: true
@@ -84,7 +79,7 @@ export class Keyboard {
    *
    * Available in private chats only
    */
-  public static requestLocationButton(text: string): KeyboardRequestLocationButton {
+  public static requestLocationButton(text: string): TelegramKeyboardButton {
     return {
       text,
       request_location: true
@@ -97,14 +92,14 @@ export class Keyboard {
    *
    * Available in private chats only
    */
-  public static requestPollButton(text: string, type?: PollType): KeyboardRequestPollButton {
+  public static requestPollButton(text: string, type?: TelegramPoll['type']): TelegramKeyboardButton {
     return {
       text,
       request_poll: { type }
     };
   }
 
-  private addRow(row: KeyboardOptions[] | KeyboardOptions): this {
+  private addRow(row: TelegramKeyboardButton[] | TelegramKeyboardButton): this {
     if (!Array.isArray(row)) row = [row];
 
     this.buttons.push(row);
@@ -112,7 +107,7 @@ export class Keyboard {
     return this;
   }
 
-  public toJSON(): KeyboardJSON {
+  public toJSON(): TelegramReplyKeyboardMarkup {
     return {
       keyboard: this.buttons,
       resize_keyboard: this.isResized,

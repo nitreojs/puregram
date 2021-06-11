@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramCallbackGame } from '../../interfaces';
+import { TelegramCallbackGame } from '../../telegram-interfaces';
 
 /** A placeholder, currently holds no information. */
 export class CallbackGame {

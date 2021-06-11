@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramVoiceChatEnded } from '../../interfaces';
+import { TelegramVoiceChatEnded } from '../../telegram-interfaces';
 
 /** This object represents a service message about a voice chat ended in the chat. */
 export class VoiceChatEnded {

@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramVoiceChatParticipantsInvited } from '../../interfaces';
+import { TelegramVoiceChatParticipantsInvited } from '../../telegram-interfaces';
 import { User } from './user';
 
 /** This object represents a service message about new members invited to a voice chat. */

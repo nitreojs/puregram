@@ -52,8 +52,9 @@ import { delay, parseRequestJSON } from './utils/helpers';
 import {
   TelegramUpdate,
   TelegramMessage,
-  StartPollingOptions
-} from './interfaces';
+} from './telegram-interfaces';
+
+import { StartPollingOptions } from './interfaces';
 
 import {
   Constructor,
@@ -442,12 +443,12 @@ export class Updates {
   ): this;
 
   public on<T = {}>(
-    events: AllowArray<UpdateName | UpdateType | string>,
+    events: AllowArray<string>,
     handlers: AllowArray<Middleware<Context & T>>
   ): this;
 
   public on<T = {}>(
-    rawOnEvents: AllowArray<UpdateName | UpdateType | string>,
+    rawOnEvents: AllowArray<string>,
     rawHandlers: AllowArray<Middleware<Context & T>>
   ): this {
     const onEvents = Array.isArray(rawOnEvents)

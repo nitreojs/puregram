@@ -2,25 +2,8 @@ import { inspectable } from 'inspectable';
 
 import { PassportFile } from './passport-file';
 
-import {
-  TelegramEncryptedPassportElementUnion,
-  TelegramEncryptedPassportElementPersonalDetails,
-  TelegramEncryptedPassportElementPassport,
-  TelegramEncryptedPassportElementDriverLicense,
-  TelegramEncryptedPassportElementIdentityCard,
-  TelegramEncryptedPassportElementInternalPassport,
-  TelegramEncryptedPassportElementAddress,
-  TelegramEncryptedPassportElementPhoneNumber,
-  TelegramEncryptedPassportElementEmail,
-  TelegramEncryptedPassportElementUtilityBill,
-  TelegramEncryptedPassportElementBankStatement,
-  TelegramEncryptedPassportElementRentalAgreement,
-  TelegramEncryptedPassportElementPassportRegistration,
-  TelegramEncryptedPassportElementTemporaryRegistration,
-  TelegramPassportFile
-} from '../../interfaces';
+import { TelegramEncryptedPassportElement, TelegramPassportFile } from '../../telegram-interfaces';
 
-import { EncryptedPassportElementType } from '../../types';
 import { filterPayload } from '../../utils/helpers';
 
 /**
@@ -28,9 +11,9 @@ import { filterPayload } from '../../utils/helpers';
  * shared with the bot by the user.
  */
 export class EncryptedPassportElement {
-  private payload: TelegramEncryptedPassportElementUnion;
+  private payload: TelegramEncryptedPassportElement;
 
-  constructor(payload: TelegramEncryptedPassportElementUnion) {
+  constructor(payload: TelegramEncryptedPassportElement) {
     this.payload = payload;
   }
 
@@ -44,7 +27,7 @@ export class EncryptedPassportElement {
    * `bank_statement`, `rental_agreement`, `passport_registration`,
    * `temporary_registration`, `phone_number`, `email`.
    */
-  public get type(): EncryptedPassportElementType {
+  public get type(): TelegramEncryptedPassportElement['type'] {
     return this.payload.type;
   }
 
@@ -56,24 +39,17 @@ export class EncryptedPassportElement {
    * `EncryptedCredentials`.
    */
   public get data(): string | undefined {
-    return (this.payload as (
-      TelegramEncryptedPassportElementPersonalDetails
-      | TelegramEncryptedPassportElementPassport
-      | TelegramEncryptedPassportElementDriverLicense
-      | TelegramEncryptedPassportElementIdentityCard
-      | TelegramEncryptedPassportElementInternalPassport
-      | TelegramEncryptedPassportElementAddress
-    )).data;
+    return this.payload.data;
   }
 
   /** User's verified phone number, available only for `phone_number` type */
   public get phoneNumber(): string | undefined {
-    return (this.payload as TelegramEncryptedPassportElementPhoneNumber).phone_number;
+    return this.payload.phone_number;
   }
 
   /** User's verified email address, available only for `email` type */
   public get email(): string | undefined {
-    return (this.payload as TelegramEncryptedPassportElementEmail).email;
+    return this.payload.email;
   }
 
   /**
@@ -83,13 +59,7 @@ export class EncryptedPassportElement {
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
   public get files(): PassportFile[] {
-    const { files } = this.payload as (
-      TelegramEncryptedPassportElementUtilityBill
-      | TelegramEncryptedPassportElementBankStatement
-      | TelegramEncryptedPassportElementRentalAgreement
-      | TelegramEncryptedPassportElementPassportRegistration
-      | TelegramEncryptedPassportElementTemporaryRegistration
-    );
+    const { files } = this.payload;
 
     if (!files) return [];
 
@@ -105,12 +75,7 @@ export class EncryptedPassportElement {
    * accompanying `EncryptedCredentials`.
    */
   public get frontSide(): PassportFile | undefined {
-    const { front_side } = this.payload as (
-      TelegramEncryptedPassportElementPassport
-      | TelegramEncryptedPassportElementDriverLicense
-      | TelegramEncryptedPassportElementIdentityCard
-      | TelegramEncryptedPassportElementInternalPassport
-    );
+    const { front_side } = this.payload;
 
     if (!front_side) return undefined;
 
@@ -123,10 +88,7 @@ export class EncryptedPassportElement {
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
   public get reverseSide(): PassportFile | undefined {
-    const { reverse_side } = this.payload as (
-      TelegramEncryptedPassportElementDriverLicense
-      | TelegramEncryptedPassportElementIdentityCard
-    );
+    const { reverse_side } = this.payload;
 
     if (!reverse_side) return undefined;
 
@@ -140,12 +102,7 @@ export class EncryptedPassportElement {
    * accompanying `EncryptedCredentials`.
    */
   public get selfie(): PassportFile | undefined {
-    const { selfie } = this.payload as (
-      TelegramEncryptedPassportElementPassport
-      | TelegramEncryptedPassportElementDriverLicense
-      | TelegramEncryptedPassportElementIdentityCard
-      | TelegramEncryptedPassportElementInternalPassport
-    );
+    const { selfie } = this.payload;
 
     if (!selfie) return undefined;
 
@@ -161,17 +118,7 @@ export class EncryptedPassportElement {
    * `EncryptedCredentials`.
    */
   public get translation(): PassportFile[] {
-    const { translation } = this.payload as (
-      TelegramEncryptedPassportElementPassport
-      | TelegramEncryptedPassportElementDriverLicense
-      | TelegramEncryptedPassportElementIdentityCard
-      | TelegramEncryptedPassportElementInternalPassport
-      | TelegramEncryptedPassportElementUtilityBill
-      | TelegramEncryptedPassportElementBankStatement
-      | TelegramEncryptedPassportElementRentalAgreement
-      | TelegramEncryptedPassportElementPassportRegistration
-      | TelegramEncryptedPassportElementTemporaryRegistration
-    );
+    const { translation } = this.payload;
 
     if (!translation) return [];
 

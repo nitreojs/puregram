@@ -1,7 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramMaskPosition } from '../../interfaces';
-import { MaskPositionPoint } from '../../types';
+import { TelegramMaskPosition } from '../../telegram-interfaces';
 
 /**
  * This object describes the position on faces where a mask should be placed
@@ -22,7 +21,7 @@ export class MaskPosition {
    * The part of the face relative to which the mask should be placed.
    * One of `forehead`, `eyes`, `mouth`, or `chin`.
    */
-  public get point(): MaskPositionPoint {
+  public get point(): TelegramMaskPosition['point'] {
     return this.payload.point;
   }
 

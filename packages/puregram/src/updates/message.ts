@@ -2,11 +2,10 @@ import { inspectable } from 'inspectable';
 
 import {
   TelegramMessage,
-  ForwardMessagePayload,
   TelegramMessageEntity,
   TelegramPhotoSize,
   TelegramUser
-} from '../interfaces';
+} from '../telegram-interfaces';
 
 import { User } from '../common/structures/user';
 import { Chat } from '../common/structures/chat';
@@ -98,27 +97,11 @@ export class Message {
 
   /** Forwarded message if there is any */
   public get forwardMessage(): ForwardMessage | undefined {
-    const {
-      forward_date,
-      forward_from,
-      forward_from_chat,
-      forward_from_message_id,
-      forward_sender_name,
-      forward_signature
-    } = this.payload;
+    const { forward_date } = this.payload;
 
     if (!forward_date) return undefined;
 
-    const forwardPayload: ForwardMessagePayload = {
-      date: forward_date,
-      from: forward_from,
-      from_chat: forward_from_chat,
-      from_message_id: forward_from_message_id,
-      sender_name: forward_sender_name,
-      signature: forward_signature
-    };
-
-    return new ForwardMessage(forwardPayload);
+    return new ForwardMessage(this.payload);
   }
 
   /** For replies, the original message */

@@ -11,9 +11,11 @@ import { Telegram } from '../telegram';
 import {
   TelegramBotCommand,
   TelegramMessage,
-  InputMediaUnion,
-  TelegramInlineKeyboardMarkup
-} from '../interfaces';
+  TelegramInputMedia,
+  TelegramInlineKeyboardMarkup,
+  TelegramChat,
+  InputFile
+} from '../telegram-interfaces';
 
 import {
   SendMessageParams,
@@ -38,16 +40,11 @@ import {
   EditMessageMediaParams,
   EditMessageReplyMarkupParams,
   SendInvoiceParams,
-  SendDocumentParams
+  SendDocumentParams,
+  SendChatActionParams
 } from '../methods';
 
-import {
-  TelegramInputFile,
-  ChatAction,
-  DiceEmoji,
-  ChatType,
-  Optional
-} from '../types';
+import { Optional } from '../types';
 
 import { Poll } from '../updates/';
 import { BotCommand } from '../common/structures/bot-command';
@@ -100,7 +97,7 @@ class GroupChatCreatedContext extends Context {
   }
 
   /** Chat type */
-  public get chatType(): ChatType | undefined {
+  public get chatType(): TelegramChat['type'] | undefined {
     return this.chat?.type;
   }
 
@@ -151,7 +148,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends photo to current chat */
   public async sendPhoto(
-    photo: TelegramInputFile,
+    photo: InputFile,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPhoto({
@@ -165,7 +162,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Replies to current message with photo */
   public replyWithPhoto(
-    photo: TelegramInputFile,
+    photo: InputFile,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     return this.sendPhoto(photo, {
@@ -176,7 +173,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends document to current chat */
   public async sendDocument(
-    document: TelegramInputFile,
+    document: InputFile,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDocument({
@@ -190,7 +187,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Replies to current message with document */
   public replyWithDocument(
-    document: TelegramInputFile,
+    document: InputFile,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
     return this.sendDocument(document, {
@@ -201,7 +198,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends audio to current chat */
   public async sendAudio(
-    audio: TelegramInputFile,
+    audio: InputFile,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAudio({
@@ -215,7 +212,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Replies to current message with audio */
   public replyWithAudio(
-    audio: TelegramInputFile,
+    audio: InputFile,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     return this.sendAudio(audio, {
@@ -226,7 +223,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends video to current chat */
   public async sendVideo(
-    video: TelegramInputFile,
+    video: InputFile,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideo({
@@ -240,7 +237,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Replies to current message with video */
   public replyWithVideo(
-    video: TelegramInputFile,
+    video: InputFile,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     return this.sendVideo(video, {
@@ -251,7 +248,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends animation to current chat */
   public async sendAnimation(
-    animation: TelegramInputFile,
+    animation: InputFile,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAnimation({
@@ -265,7 +262,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Replies to current message with animation */
   public replyWithAnimation(
-    animation: TelegramInputFile,
+    animation: InputFile,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     return this.sendAnimation(animation, {
@@ -276,7 +273,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends video note to current chat */
   public async sendVideoNote(
-    videoNote: TelegramInputFile,
+    videoNote: InputFile,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideoNote({
@@ -290,7 +287,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Replies to current message with video note */
   public replyWithVideoNote(
-    videoNote: TelegramInputFile,
+    videoNote: InputFile,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     return this.sendVideoNote(videoNote, {
@@ -301,7 +298,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends voice to current chat */
   public async sendVoice(
-    voice: TelegramInputFile,
+    voice: InputFile,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVoice({
@@ -315,7 +312,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Replies to current message with voice */
   public replyWithVoice(
-    voice: TelegramInputFile,
+    voice: InputFile,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     return this.sendVoice(voice, {
@@ -502,7 +499,7 @@ class GroupChatCreatedContext extends Context {
   }
 
   /** Sends chat action to current chat */
-  public sendChatAction(action: ChatAction): Promise<true> {
+  public sendChatAction(action: SendChatActionParams['action']): Promise<true> {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
       action
@@ -519,7 +516,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends sticker */
   public async sendSticker(
-    sticker: TelegramInputFile,
+    sticker: InputFile,
     params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendSticker({
@@ -533,7 +530,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Sends dice */
   public async sendDice(
-    emoji: DiceEmoji,
+    emoji: SendDiceParams['emoji'],
     params?: Partial<SendDiceParams>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDice({
@@ -596,7 +593,7 @@ class GroupChatCreatedContext extends Context {
 
   /** Edits current message media */
   public async editMessageMedia(
-    media: InputMediaUnion,
+    media: TelegramInputMedia,
     params?: Partial<EditMessageMediaParams>
   ): Promise<true | MessageContext> {
     const response = await this.telegram.api.editMessageMedia({

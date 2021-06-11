@@ -2,17 +2,10 @@ import { inspectable } from 'inspectable';
 
 import {
   TelegramInlineKeyboardButton,
-  InlineKeyboardTextButton,
-  InlineKeyboardUrlButton,
-  InlineKeyboardSwitchToCurrentChatButton,
-  InlineKeyboardSwitchToChatButton,
-  InlineKeyboardGameButton,
   TelegramCallbackGame,
-  InlineKeyboardPayButton,
-  InlineKeyboardLoginButton,
   TelegramLoginUrl,
   TelegramInlineKeyboardMarkup
-} from '../../interfaces';
+} from '../../telegram-interfaces';
 
 interface TextButtonParams {
   text: string;
@@ -78,7 +71,7 @@ export class InlineKeyboard {
   }
 
   /** Generates text button */
-  public static textButton(params: TextButtonParams): InlineKeyboardTextButton {
+  public static textButton(params: TextButtonParams): TelegramInlineKeyboardButton {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload);
     }
@@ -90,7 +83,7 @@ export class InlineKeyboard {
   }
 
   /** Generates URL button */
-  public static urlButton(params: UrlButtonParams): InlineKeyboardUrlButton {
+  public static urlButton(params: UrlButtonParams): TelegramInlineKeyboardButton {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload);
     }
@@ -105,7 +98,7 @@ export class InlineKeyboard {
   /** Generates button that will switch to current chat and type the query */
   public static switchToCurrentChatButton(
     params: SwitchToCurrentChatButtonParams
-  ): InlineKeyboardSwitchToCurrentChatButton {
+  ): TelegramInlineKeyboardButton {
     return {
       text: params.text,
       switch_inline_query_current_chat: params.query
@@ -115,7 +108,7 @@ export class InlineKeyboard {
   /** Generates button that will prompt user to select one of their chats */
   public static switchToChatButton(
     params: SwitchToChatButtonParams
-  ): InlineKeyboardSwitchToChatButton {
+  ): TelegramInlineKeyboardButton {
     return {
       text: params.text,
       switch_inline_query: params.query
@@ -123,7 +116,7 @@ export class InlineKeyboard {
   }
 
   /** Generates game button */
-  public static gameButton(params: GameButtonParams): InlineKeyboardGameButton {
+  public static gameButton(params: GameButtonParams): TelegramInlineKeyboardButton {
     return {
       text: params.text,
       callback_game: params.game
@@ -131,7 +124,7 @@ export class InlineKeyboard {
   }
 
   /** Generates pay button */
-  public static payButton(params: PayButtonParams): InlineKeyboardPayButton {
+  public static payButton(params: PayButtonParams): TelegramInlineKeyboardButton {
     return {
       pay: true,
       text: params.text
@@ -139,7 +132,7 @@ export class InlineKeyboard {
   }
 
   /** Generates login button */
-  public static loginButton(params: LoginButtonParams): InlineKeyboardLoginButton {
+  public static loginButton(params: LoginButtonParams): TelegramInlineKeyboardButton {
     return {
       login_url: params.loginUrl,
       text: params.text

@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramVoiceChatScheduled } from '../../interfaces';
+import { TelegramVoiceChatScheduled } from '../../telegram-interfaces';
 
 /**
  * This object represents a service message about a voice chat scheduled in the chat

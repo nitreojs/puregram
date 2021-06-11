@@ -6,7 +6,7 @@ import { MessageContext } from './message';
 
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers';
 import { CallbackQuery } from '../updates/';
-import { TelegramCallbackQuery } from '../interfaces';
+import { TelegramCallbackQuery } from '../telegram-interfaces';
 import { Telegram } from '../telegram';
 import { AnswerCallbackQueryParams } from '../methods';
 

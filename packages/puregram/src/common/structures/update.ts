@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable';
 import { Poll } from './poll';
 import { PollAnswer } from './poll-answer';
 
-import { TelegramUpdate } from '../../interfaces';
+import { TelegramUpdate } from '../../telegram-interfaces';
 
 import {
   Message,

@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramChatMemberUpdated } from '../../interfaces';
+import { TelegramChatMemberUpdated } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 import { Chat } from './chat';

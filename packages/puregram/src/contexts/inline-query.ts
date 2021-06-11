@@ -11,8 +11,8 @@ import { InlineQuery } from '../updates/inline-query';
 
 import {
   TelegramInlineQuery,
-  InlineQueryResultUnion
-} from '../interfaces';
+  TelegramInlineQueryResult
+} from '../telegram-interfaces';
 
 import { Telegram } from '../telegram';
 import { AnswerInlineQueryParams } from '../methods';
@@ -28,7 +28,7 @@ class InlineQueryContext extends Context {
 
   /** Answers to inline query */
   public answerInlineQuery(
-    results: InlineQueryResultUnion[],
+    results: TelegramInlineQueryResult[],
     params?: Partial<AnswerInlineQueryParams>
   ): Promise<true> {
     return this.telegram.api.answerInlineQuery({

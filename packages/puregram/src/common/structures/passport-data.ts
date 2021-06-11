@@ -3,10 +3,7 @@ import { inspectable } from 'inspectable';
 import { EncryptedPassportElement } from './encrypted-passport-element';
 import { EncryptedCredentials } from './encrypted-credentials';
 
-import {
-  TelegramPassportData,
-  TelegramEncryptedPassportElementUnion
-} from '../../interfaces';
+import { TelegramPassportData, TelegramEncryptedPassportElement } from '../../telegram-interfaces';
 
 /**
  * Contains information about Telegram Passport data shared with the bot by the
@@ -33,7 +30,7 @@ export class PassportData {
     if (!data) return [];
 
     return data.map(
-      (element: TelegramEncryptedPassportElementUnion) => (
+      (element: TelegramEncryptedPassportElement) => (
         new EncryptedPassportElement(element)
       )
     );

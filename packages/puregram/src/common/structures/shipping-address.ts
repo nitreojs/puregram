@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramShippingAddress } from '../../interfaces';
+import { TelegramShippingAddress } from '../../telegram-interfaces';
 
 /** This object represents a shipping address. */
 export class ShippingAddress {

@@ -445,9 +445,13 @@ class GenerationService {
     `;
   }
 
-  public static generateApiMethods(methods: ServiceResultMethod[]): string {
+  public static generateApiMethods(methods: SchemaMethod[]): string {
     const fields: string[] = methods.map(
-      (method) => `${method.name}: api.${method.name};`
+      (method) => {
+        const description: string = InterfaceService.generateDescription(method.description, 2, method.documentation_link);
+
+        return `${description}\n${tab(method.name)}: api.${method.name};`;
+      }
     ).map(tab);
 
     const content: string = `import * as api from './methods';\n\nexport interface ApiMethods {\n${fields.join('\n')}\n}`;
@@ -571,7 +575,7 @@ async function generate() {
 
   /// api-methods.ts
   let amContent: string = GenerationService.generate([], header);
-  amContent += '\n\n' + GenerationService.generateApiMethods(items.methods);
+  amContent += '\n\n' + GenerationService.generateApiMethods(methods);
 
   await writeFile(`${mainPath}/api-methods.ts`, amContent);
 

@@ -3,14 +3,14 @@ import { inspectable } from 'inspectable';
 import { User } from './user';
 import { Chat } from './chat';
 
-import { ForwardMessagePayload } from '../../interfaces';
+import { TelegramMessage } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents a forwarded message. */
 export class ForwardMessage {
-  private payload: ForwardMessagePayload;
+  private payload: TelegramMessage;
 
-  constructor(payload: ForwardMessagePayload) {
+  constructor(payload: TelegramMessage) {
     this.payload = payload;
   }
 
@@ -23,16 +23,16 @@ export class ForwardMessage {
    * in the channel
    */
   public get id(): number | undefined {
-    return this.payload.from_message_id;
+    return this.payload.forward_from_message_id;
   }
 
   /** For forwarded messages, sender of the original message */
   public get from(): User | undefined {
-    const { from } = this.payload;
+    const { forward_from } = this.payload;
 
-    if (!from) return undefined;
+    if (!forward_from) return undefined;
 
-    return new User(from);
+    return new User(forward_from);
   }
 
   /**
@@ -40,11 +40,11 @@ export class ForwardMessage {
    * channel
    */
   public get chat(): Chat | undefined {
-    const { from_chat } = this.payload;
+    const { forward_from_chat } = this.payload;
 
-    if (!from_chat) return undefined;
+    if (!forward_from_chat) return undefined;
 
-    return new Chat(from_chat);
+    return new Chat(forward_from_chat);
   }
 
   /**
@@ -52,7 +52,7 @@ export class ForwardMessage {
    * if present
    */
   public get signature(): string | undefined {
-    return this.payload.signature;
+    return this.payload.forward_signature;
   }
 
   /**
@@ -60,14 +60,14 @@ export class ForwardMessage {
    * to their account in forwarded messages
    */
   public get senderName(): string | undefined {
-    return this.payload.sender_name;
+    return this.payload.forward_sender_name;
   }
 
   /**
    * For forwarded messages, date the original message was sent in Unix time
    */
   public get createdAt(): number {
-    return this.payload.date;
+    return this.payload.forward_date!;
   }
 }
 

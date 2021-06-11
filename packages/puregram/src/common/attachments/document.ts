@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable';
 
 import { FileAttachment } from './file-attachment';
 
-import { TelegramDocument } from '../../interfaces';
+import { TelegramDocument } from '../../telegram-interfaces';
 import { PhotoSize } from '../structures/photo-size';
 
 /**

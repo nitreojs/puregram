@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramLocation } from '../../interfaces';
+import { TelegramLocation } from '../../telegram-interfaces';
 
 /** This object represents a point on the map. */
 export class Location {

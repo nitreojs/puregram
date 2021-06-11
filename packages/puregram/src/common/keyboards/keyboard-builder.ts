@@ -1,17 +1,16 @@
 import { inspectable } from 'inspectable';
 
-import { PollType } from '../../types';
-
 import {
-  KeyboardOptions,
-  KeyboardJSON
-} from '../../interfaces';
+  TelegramKeyboardButton,
+  TelegramPoll,
+  TelegramReplyKeyboardMarkup
+} from '../../telegram-interfaces';
 
 /** Keyboard builder */
 export class KeyboardBuilder {
-  private rows: KeyboardOptions[][] = [];
+  private rows: TelegramKeyboardButton[][] = [];
 
-  private currentRow: KeyboardOptions[] = [];
+  private currentRow: TelegramKeyboardButton[] = [];
 
   private isOneTime: boolean = false;
 
@@ -50,7 +49,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  public requestPollButton(text: string, type?: PollType): this {
+  public requestPollButton(text: string, type?: TelegramPoll['type']): this {
     return this.addWideButton({
       text,
       request_poll: { type }
@@ -103,13 +102,13 @@ export class KeyboardBuilder {
     return this;
   }
 
-  private addButton(button: KeyboardOptions): this {
+  private addButton(button: TelegramKeyboardButton): this {
     this.currentRow.push(button);
 
     return this;
   }
 
-  private addWideButton(button: KeyboardOptions): this {
+  private addWideButton(button: TelegramKeyboardButton): this {
     if (this.currentRow.length !== 0) this.row();
 
     this.addButton(button);
@@ -117,7 +116,7 @@ export class KeyboardBuilder {
     return this.row();
   }
 
-  public toJSON(): KeyboardJSON {
+  public toJSON(): TelegramReplyKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
       : this.rows;

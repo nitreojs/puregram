@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramPollOption } from '../../interfaces';
+import { TelegramPollOption } from '../../telegram-interfaces';
 
 /** This object contains information about one answer option in a poll. */
 export class PollOption {

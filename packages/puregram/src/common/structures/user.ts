@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramUser } from '../../interfaces';
+import { TelegramUser } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents a Telegram user or bot. */

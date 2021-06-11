@@ -9,11 +9,13 @@ import {
 } from '../common/structures';
 
 import {
-  InputMediaUnion,
+  TelegramInputMedia,
   TelegramBotCommand,
   TelegramInlineKeyboardMarkup,
-  TelegramMessage
-} from '../interfaces';
+  TelegramMessage,
+  TelegramChat,
+  InputFile
+} from '../telegram-interfaces';
 
 import {
   EditMessageCaptionParams,
@@ -23,6 +25,7 @@ import {
   EditMessageTextParams,
   SendAnimationParams,
   SendAudioParams,
+  SendChatActionParams,
   SendContactParams,
   SendDiceParams,
   SendDocumentParams,
@@ -43,13 +46,7 @@ import {
 
 import { Telegram } from '../telegram';
 
-import {
-  ChatAction,
-  ChatType,
-  DiceEmoji,
-  Optional,
-  TelegramInputFile
-} from '../types';
+import { Optional } from '../types';
 
 import { Context } from './context';
 import { MessageContext } from './message';
@@ -102,7 +99,7 @@ class VoiceChatScheduledContext extends Context {
   }
 
   /** Chat type */
-  public get chatType(): ChatType | undefined {
+  public get chatType(): TelegramChat['type'] | undefined {
     return this.chat?.type;
   }
 
@@ -158,7 +155,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends photo to current chat */
   public async sendPhoto(
-    photo: TelegramInputFile,
+    photo: InputFile,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPhoto({
@@ -172,7 +169,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Replies to current message with photo */
   public replyWithPhoto(
-    photo: TelegramInputFile,
+    photo: InputFile,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     return this.sendPhoto(photo, {
@@ -183,7 +180,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends document to current chat */
   public async sendDocument(
-    document: TelegramInputFile,
+    document: InputFile,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDocument({
@@ -197,7 +194,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Replies to current message with document */
   public replyWithDocument(
-    document: TelegramInputFile,
+    document: InputFile,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
     return this.sendDocument(document, {
@@ -208,7 +205,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends audio to current chat */
   public async sendAudio(
-    audio: TelegramInputFile,
+    audio: InputFile,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAudio({
@@ -222,7 +219,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Replies to current message with audio */
   public replyWithAudio(
-    audio: TelegramInputFile,
+    audio: InputFile,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     return this.sendAudio(audio, {
@@ -233,7 +230,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends video to current chat */
   public async sendVideo(
-    video: TelegramInputFile,
+    video: InputFile,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideo({
@@ -247,7 +244,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Replies to current message with video */
   public replyWithVideo(
-    video: TelegramInputFile,
+    video: InputFile,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     return this.sendVideo(video, {
@@ -258,7 +255,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends animation to current chat */
   public async sendAnimation(
-    animation: TelegramInputFile,
+    animation: InputFile,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAnimation({
@@ -272,7 +269,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Replies to current message with animation */
   public replyWithAnimation(
-    animation: TelegramInputFile,
+    animation: InputFile,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     return this.sendAnimation(animation, {
@@ -283,7 +280,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends video note to current chat */
   public async sendVideoNote(
-    videoNote: TelegramInputFile,
+    videoNote: InputFile,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideoNote({
@@ -297,7 +294,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Replies to current message with video note */
   public replyWithVideoNote(
-    videoNote: TelegramInputFile,
+    videoNote: InputFile,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     return this.sendVideoNote(videoNote, {
@@ -308,7 +305,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends voice to current chat */
   public async sendVoice(
-    voice: TelegramInputFile,
+    voice: InputFile,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVoice({
@@ -322,7 +319,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Replies to current message with voice */
   public replyWithVoice(
-    voice: TelegramInputFile,
+    voice: InputFile,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     return this.sendVoice(voice, {
@@ -509,7 +506,7 @@ class VoiceChatScheduledContext extends Context {
   }
 
   /** Sends chat action to current chat */
-  public sendChatAction(action: ChatAction): Promise<true> {
+  public sendChatAction(action: SendChatActionParams['action']): Promise<true> {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
       action
@@ -526,7 +523,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends sticker */
   public async sendSticker(
-    sticker: TelegramInputFile,
+    sticker: InputFile,
     params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendSticker({
@@ -540,7 +537,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Sends dice */
   public async sendDice(
-    emoji: DiceEmoji,
+    emoji: SendDiceParams['emoji'],
     params?: Partial<SendDiceParams>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDice({
@@ -603,7 +600,7 @@ class VoiceChatScheduledContext extends Context {
 
   /** Edits current message media */
   public async editMessageMedia(
-    media: InputMediaUnion,
+    media: TelegramInputMedia,
     params?: Partial<EditMessageMediaParams>
   ): Promise<true | MessageContext> {
     const response = await this.telegram.api.editMessageMedia({

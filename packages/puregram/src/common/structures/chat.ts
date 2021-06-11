@@ -4,23 +4,15 @@ import { ChatPhoto } from './chat-photo';
 import { ChatPermissions } from './chat-permissions';
 import { ChatLocation } from './chat-location';
 
-import {
-  TelegramChatUnion,
-  TelegramChatPrivate,
-  TelegramChatGroup,
-  TelegramChatSupergroup,
-  TelegramChatChannel
-} from '../../interfaces';
-
-import { ChatType } from '../../types';
 import { Message } from '../../updates/message';
 import { filterPayload } from '../../utils/helpers';
+import { TelegramChat } from '../../telegram-interfaces';
 
 /** This object represents a chat. */
 export class Chat {
-  private payload: TelegramChatUnion;
+  private payload: TelegramChat;
 
-  constructor(payload: TelegramChatUnion) {
+  constructor(payload: TelegramChat) {
     this.payload = payload;
   }
 
@@ -42,32 +34,28 @@ export class Chat {
   /**
    * Type of chat, can be either `private`, `group`, `supergroup` or `channel`
    */
-  public get type(): ChatType {
+  public get type(): TelegramChat['type'] {
     return this.payload.type;
   }
 
   /** Title, for supergroups, channels and group chats */
   public get title(): string | undefined {
-    return (this.payload as TelegramChatGroup | TelegramChatSupergroup | TelegramChatChannel).title;
+    return this.payload.title;
   }
 
   /** Username, for private chats, supergroups and channels if available */
   public get username(): string | undefined {
-    return (this.payload as (
-      TelegramChatPrivate
-      | TelegramChatSupergroup
-      | TelegramChatChannel
-    )).username;
+    return this.payload.username;
   }
 
   /** First name of the other party in a private chat */
   public get firstName(): string | undefined {
-    return (this.payload as TelegramChatPrivate).first_name;
+    return this.payload.first_name;
   }
 
   /** Last name of the other party in a private chat */
   public get lastName(): string | undefined {
-    return (this.payload as TelegramChatPrivate).last_name;
+    return this.payload.last_name;
   }
 
   /**
@@ -126,11 +114,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get description(): string | undefined {
-    return (this.payload as (
-      TelegramChatGroup
-      | TelegramChatSupergroup
-      | TelegramChatChannel
-    )).description;
+    return this.payload.description;
   }
 
   /**
@@ -141,11 +125,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get inviteLink(): string | undefined {
-    return (this.payload as (
-      TelegramChatGroup
-      | TelegramChatSupergroup
-      | TelegramChatChannel
-    )).invite_link;
+    return this.payload.invite_link;
   }
 
   /**
@@ -154,11 +134,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get pinnedMessage(): Message | undefined {
-    const { pinned_message } = this.payload as (
-      TelegramChatGroup
-      | TelegramChatSupergroup
-      | TelegramChatChannel
-    );
+    const { pinned_message } = this.payload;
 
     if (!pinned_message) return undefined;
 
@@ -171,7 +147,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get permissions(): ChatPermissions | undefined {
-    const { permissions } = this.payload as TelegramChatGroup | TelegramChatSupergroup;
+    const { permissions } = this.payload;
 
     if (!permissions) return undefined;
 
@@ -185,7 +161,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get slowModeDelay(): number | undefined {
-    return (this.payload as TelegramChatSupergroup).slow_mode_delay;
+    return this.payload.slow_mode_delay;
   }
 
   /**
@@ -194,7 +170,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get stickerSetName(): string | undefined {
-    return (this.payload as TelegramChatSupergroup).sticker_set_name;
+    return this.payload.sticker_set_name;
   }
 
   /**

@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable';
 
 import { PhotoSize } from './photo-size';
 
-import { TelegramStickerSet, TelegramSticker } from '../../interfaces';
+import { TelegramStickerSet, TelegramSticker } from '../../telegram-interfaces';
 import { StickerAttachment } from '../attachments';
 import { filterPayload } from '../../utils/helpers';
 

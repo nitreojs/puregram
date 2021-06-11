@@ -1,7 +1,4 @@
-import {
-  Context,
-  Telegram
-} from '../src';
+import { Context, Telegram } from '../src';
 
 const telegram: Telegram = new Telegram();
 

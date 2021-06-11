@@ -2,19 +2,11 @@ import { inspectable } from 'inspectable';
 
 import { User } from './user';
 
-import {
-  TelegramMessageEntityUnion,
-  TelegramMessageEntityTextLink,
-  TelegramMessageEntityTextMention,
-  TelegramMessageEntityPre
-} from '../../interfaces';
-
-import { EntityType } from '../../types';
 import { filterPayload } from '../../utils/helpers';
-import { TelegramUser } from '../../interfaces';
+import { TelegramMessageEntity, TelegramUser } from '../../telegram-interfaces';
 
 interface MessageEntityJSON {
-  type: EntityType;
+  type: TelegramMessageEntity['type'];
 
   offset: number;
 
@@ -32,9 +24,9 @@ interface MessageEntityJSON {
  * For example, hashtags, usernames, URLs, etc.
  */
 export class MessageEntity {
-  private payload: TelegramMessageEntityUnion;
+  private payload: TelegramMessageEntity;
 
-  constructor(payload: TelegramMessageEntityUnion) {
+  constructor(payload: TelegramMessageEntity) {
     this.payload = payload;
   }
 
@@ -54,7 +46,7 @@ export class MessageEntity {
    * block`), `text_link` (for clickable text URLs), `text_mention`
    * (for users without usernames)
    */
-  public get type(): EntityType {
+  public get type(): TelegramMessageEntity['type'] {
     return this.payload.type;
   }
 
@@ -72,12 +64,12 @@ export class MessageEntity {
    * For `text_link` only, url that will be opened after user taps on the text
    */
   public get url(): string | undefined {
-    return (this.payload as TelegramMessageEntityTextLink).url;
+    return this.payload.url;
   }
 
   /** For `text_mention` only, the mentioned user */
   public get user(): User | undefined {
-    const { user } = this.payload as TelegramMessageEntityTextMention;
+    const { user } = this.payload;
 
     if (!user) return undefined;
 
@@ -86,7 +78,7 @@ export class MessageEntity {
 
   /** For `pre` only, the programming language of the entity text */
   public get language(): string | undefined {
-    return (this.payload as TelegramMessageEntityPre).language;
+    return this.payload.language;
   }
 
   public toJSON(): MessageEntityJSON {

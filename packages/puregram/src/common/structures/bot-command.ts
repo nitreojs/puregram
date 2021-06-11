@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramBotCommand } from '../../interfaces';
+import { TelegramBotCommand } from '../../telegram-interfaces';
 
 export class BotCommand {
   private payload: TelegramBotCommand;

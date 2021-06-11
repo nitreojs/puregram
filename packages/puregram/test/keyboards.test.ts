@@ -10,8 +10,8 @@ import {
 import {
   TelegramInlineKeyboardMarkup,
   TelegramForceReply,
-  KeyboardJSON
-} from '../src/interfaces';
+  TelegramReplyKeyboardMarkup
+} from '../src/telegram-interfaces';
 
 describe('Keyboards', (): void => {
   describe('ForceReply', (): void => {
@@ -38,12 +38,12 @@ describe('Keyboards', (): void => {
         expect(selectiveKeyboard.toJSON()).not.toEqual({
           force_reply: true,
           selective: false
-        } as TelegramForceReply);
+        });
 
         expect(nonSelectiveKeyboard.toJSON()).not.toEqual({
           force_reply: true,
           selective: true
-        } as TelegramForceReply);
+        });
       });
     });
   });
@@ -83,7 +83,7 @@ describe('Keyboards', (): void => {
               }
             ]
           ]
-        } as TelegramInlineKeyboardMarkup);
+        });
       });
     });
   });
@@ -118,7 +118,7 @@ describe('Keyboards', (): void => {
               }
             ]
           ]
-        } as TelegramInlineKeyboardMarkup);
+        });
       });
     });
   });
@@ -151,7 +151,7 @@ describe('Keyboards', (): void => {
           one_time_keyboard: false,
           resize_keyboard: true,
           selective: true
-        } as KeyboardJSON);
+        });
       });
 
       it('should return valid JSON [request contact]', (): void => {
@@ -173,7 +173,7 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: false
-        } as KeyboardJSON);
+        });
       });
 
       it('should return valid JSON [request poll]', (): void => {
@@ -195,7 +195,7 @@ describe('Keyboards', (): void => {
           one_time_keyboard: false,
           resize_keyboard: false,
           selective: false
-        } as KeyboardJSON);
+        });
       });
     });
   });
@@ -226,7 +226,7 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: true
-        } as KeyboardJSON);
+        });
       });
 
       it('should return valid JSON [request contact]', (): void => {
@@ -248,7 +248,7 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: true
-        } as KeyboardJSON);
+        });
       });
 
       it('should return valid JSON [request poll]', (): void => {
@@ -270,7 +270,7 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: true
-        } as KeyboardJSON);
+        });
       });
     });
   });

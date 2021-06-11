@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable';
 
 import { FileAttachment } from './file-attachment';
 
-import { TelegramVideo } from '../../interfaces';
+import { TelegramVideo } from '../../telegram-interfaces';
 import { PhotoSize } from '../structures/photo-size';
 
 /** This object represents a video file. */

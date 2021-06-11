@@ -2,8 +2,7 @@ import { inspectable } from 'inspectable';
 
 import { User } from './user';
 
-import { TelegramChatMember } from '../../interfaces';
-import { ChatMemberStatus } from '../../types';
+import { TelegramChatMember } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 export class ChatMember {
@@ -23,7 +22,7 @@ export class ChatMember {
   }
 
   /** The member's status in the chat */
-  public get status(): ChatMemberStatus {
+  public get status(): TelegramChatMember['status'] {
     return this.payload.status;
   }
 

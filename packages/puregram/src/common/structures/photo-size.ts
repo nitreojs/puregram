@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramPhotoSize } from '../../interfaces';
+import { TelegramPhotoSize } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents one size of a photo or a file / sticker thumbnail */

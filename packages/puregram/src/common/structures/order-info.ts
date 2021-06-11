@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable';
 
 import { ShippingAddress } from './shipping-address';
 
-import { TelegramOrderInfo } from '../../interfaces';
+import { TelegramOrderInfo } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents information about an order. */

@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramShippingQuery } from '../interfaces';
+import { TelegramShippingQuery } from '../telegram-interfaces';
 import { User } from '../common/structures/user';
 import { ShippingAddress } from '../common/structures/shipping-address';
 

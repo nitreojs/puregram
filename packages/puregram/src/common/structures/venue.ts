@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable';
 
 import { Location } from './location';
 
-import { TelegramVenue } from '../../interfaces';
+import { TelegramVenue } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents a venue. */

@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable';
 
-import { TelegramContact } from '../../interfaces';
+import { TelegramContact } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object represents a phone contact. */

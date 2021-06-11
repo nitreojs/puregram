@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable';
 
 import { FileAttachment } from './file-attachment';
 
-import { TelegramVideoNote } from '../../interfaces';
+import { TelegramVideoNote } from '../../telegram-interfaces';
 import { PhotoSize } from '../structures/photo-size';
 
 /** This object represents a video message. */

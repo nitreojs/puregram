@@ -1,7 +1,7 @@
 import { inspectable } from 'inspectable';
+import { SendDiceParams } from '../../methods';
 
-import { TelegramDice } from '../../interfaces';
-import { DiceEmoji } from '../../types';
+import { TelegramDice } from '../../telegram-interfaces';
 
 /** This object represents an animated emoji that displays a random value. */
 export class Dice {
@@ -16,8 +16,8 @@ export class Dice {
   }
 
   /** Emoji on which the dice throw animation is based */
-  public get emoji(): DiceEmoji {
-    return this.payload.emoji;
+  public get emoji(): SendDiceParams['emoji'] {
+    return this.payload.emoji! as SendDiceParams['emoji'];
   }
 
   /**

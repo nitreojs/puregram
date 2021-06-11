@@ -2,7 +2,6 @@ import { inspectable } from 'inspectable';
 
 import { Attachment } from './attachment';
 
-import { TelegramAttachment } from '../../interfaces';
 import { AttachmentType } from '../../types';
 
 export interface DefaultAttachment {
@@ -12,9 +11,7 @@ export interface DefaultAttachment {
 }
 
 /** Attachment with `fileId` and `fileUniqueId` properties */
-export class FileAttachment<
-  T extends TelegramAttachment = DefaultAttachment
-> extends Attachment {
+export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> extends Attachment {
   protected payload: T;
 
   public attachmentType?: AttachmentType;

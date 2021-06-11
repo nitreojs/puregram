@@ -11,15 +11,11 @@ import {
 import {
   TelegramBotCommand,
   TelegramChosenInlineResult,
-  TelegramMessage
-} from '../interfaces';
+  TelegramMessage,
+  InputFile
+} from '../telegram-interfaces';
 
-import {
-  TelegramInputFile,
-  ChatAction,
-  DiceEmoji,
-  Optional
-} from '../types';
+import { Optional } from '../types';
 
 import {
   SendMessageParams,
@@ -74,7 +70,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends photo to current chat */
   public async sendPhoto(
-    photo: TelegramInputFile,
+    photo: InputFile,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPhoto({
@@ -88,7 +84,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends document to current chat */
   public async sendDocument(
-    document: TelegramInputFile,
+    document: InputFile,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDocument({
@@ -102,7 +98,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends audio to current chat */
   public async sendAudio(
-    audio: TelegramInputFile,
+    audio: InputFile,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAudio({
@@ -116,7 +112,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends video to current chat */
   public async sendVideo(
-    video: TelegramInputFile,
+    video: InputFile,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideo({
@@ -130,7 +126,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends animation to current chat */
   public async sendAnimation(
-    animation: TelegramInputFile,
+    animation: InputFile,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAnimation({
@@ -144,7 +140,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends video note to current chat */
   public async sendVideoNote(
-    videoNote: TelegramInputFile,
+    videoNote: InputFile,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideoNote({
@@ -158,7 +154,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends voice to current chat */
   public async sendVoice(
-    voice: TelegramInputFile,
+    voice: InputFile,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVoice({
@@ -254,8 +250,8 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends chat action to current chat */
   public sendChatAction(
-    action: ChatAction,
-    params?: SendChatActionParams
+    action: SendChatActionParams['action'],
+    params?: Optional<SendChatActionParams, 'chat_id'>
   ): Promise<true> {
     return this.telegram.api.sendChatAction({
       ...params,
@@ -266,7 +262,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends sticker */
   public async sendSticker(
-    sticker: TelegramInputFile,
+    sticker: InputFile,
     params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendSticker({
@@ -280,7 +276,7 @@ class ChosenInlineResultContext extends Context {
 
   /** Sends dice */
   public async sendDice(
-    emoji: DiceEmoji,
+    emoji: SendDiceParams['emoji'],
     params?: Partial<SendDiceParams>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDice({

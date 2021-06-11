@@ -3,8 +3,7 @@ import { inspectable } from 'inspectable';
 import { MessageEntity } from './message-entity';
 import { PollOption } from './poll-option';
 
-import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../interfaces';
-import { PollType } from '../../types';
+import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../telegram-interfaces';
 import { filterPayload } from '../../utils/helpers';
 
 /** This object contains information about a poll. */
@@ -52,7 +51,7 @@ export class Poll {
   }
 
   /** Poll type, currently can be `regular` or `quiz` */
-  public get type(): PollType {
+  public get type(): TelegramPoll['type'] {
     return this.payload.type;
   }
 

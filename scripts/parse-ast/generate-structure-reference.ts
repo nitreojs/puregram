@@ -1,7 +1,8 @@
 import ts from 'typescript';
+import fs from 'fs';
+
 import { stripIndents } from 'common-tags';
 import { resolve } from 'path';
-import fs from 'fs';
 
 import { generateDocumentation, ClassInfo } from './parse-ast';
 import { table, generateAnchor, camelizeSmall } from '../doc-methods';

@@ -175,6 +175,8 @@ export class Telegram {
         });
       } catch (e) {
         debug(e);
+
+        /// TODO: request is invalid, what to do?
       }
 
       debug(`[${method}] <- HTTP ${response?.status ?? '[not set]'}`);
@@ -268,6 +270,10 @@ export class Telegram {
 
     const { form, keys, values }: BuildFormDataResponse = await this.buildFormData(options);
     const key: string | undefined = keys[0];
+
+    if (values.length === 0 || values === undefined) {
+      throw new Error('Expected `uploadMedia` to contain at least one value');
+    }
 
     if (method === 'sendMediaGroup' || method === 'editMessageMedia') {
       let mediaValue: AllowArray<Record<string, any>> = keys.map(

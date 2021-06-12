@@ -38,7 +38,8 @@
     "eslint-plugin-import": "^2.22.0",
     "jest": "^26.2.1",
     "ts-jest": "^26.1.4",
-    "ts-node": "github:TypeStrong/ts-node#master"
+    "ts-node": "github:TypeStrong/ts-node#master",
+    "typescript": "^4.3.2"
   },
   "directories": {
     "lib": "lib",

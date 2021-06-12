@@ -16,7 +16,9 @@ export type Known<T> = {
 }
 
 /** Might be used to reveal actual object's type */
-export type Id<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
+export type Id<T> = T extends infer O
+  ? { [K in keyof O]: O[K] }
+  : never
 
 export type Optional<T, K extends keyof Known<T>> =
   /** We pick every field but `K` and leave them as is */

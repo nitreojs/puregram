@@ -256,7 +256,15 @@ export const link = (text: string, source: string): string => `[${text}](${sourc
  *   ['Header 1', 'Header 2'],
  *   [bold('Value 1'), code('Value 2')]
  * ])
+ * 
+ * // |  Header 1   | Header 2  |
+ * // | :---------: | :-------: |
+ * // | **Value 1** | `Value 2` |
  * ```
+ * 
+ * |  Header 1   | Header 2  |
+ * | :---------: | :-------: |
+ * | **Value 1** | `Value 2` |
  */
 export const table = (rawMatrix: string[][]): string => {
   const [head, ...matrix] = rawMatrix;
@@ -276,6 +284,24 @@ export const table = (rawMatrix: string[][]): string => {
   return rows.join('\n');
 };
 
+/**
+ * ```ts
+ * const elements = [
+ *   'Ask something',
+ *   'Answer something',
+ *   `I don't know, ${bold('Pizza 🍕')}?`
+ * ];
+ * 
+ * list('*', ...elements)
+ * // * Ask something
+ * // * Answer something
+ * // * I don't know, **Pizza 🍕**?
+ * ```
+ * 
+ * * Ask something
+ * * Answer something
+ * * I don't know, **Pizza 🍕**?
+ */
 export const list = (token: '*' | '-' | '=' = '*', ...elements: string[]): string => (
   elements.map(
     (element: string): string => `${token} ${element}`

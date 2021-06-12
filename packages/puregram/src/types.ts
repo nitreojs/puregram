@@ -11,11 +11,16 @@ export type Constructor<T = {}> = new (...args: any[]) => T;
 export type ApiMethod = keyof ApiMethods;
 
 /** Removes `[key: string]: any;` from interface */
-export type Known<T> = { [K in keyof T as (string extends K ? never : number extends K ? never : K)]: T[K] }
+export type Known<T> = {
+  [K in keyof T as (string extends K ? never : number extends K ? never : K)]: T[K];
+}
+
+/** Might be used to reveal actual object's type */
+export type Id<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
 
 export type Optional<T, K extends keyof Known<T>> =
   /** We pick every field but `K` and leave them as is */
-  Pick<Known<T>, Exclude<keyof Known<T>, K>>
+  & Pick<Known<T>, Exclude<keyof Known<T>, K>>
   /** Then, we take our `K` fields and mark them as optional */
   & { [P in K]?: Known<T>[P]; }
   /** Lastly, we add `[key: string]: any;` */

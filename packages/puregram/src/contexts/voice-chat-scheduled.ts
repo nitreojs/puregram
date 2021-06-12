@@ -52,7 +52,7 @@ import { Optional } from '../types';
 import { Context } from './context';
 import { MessageContext } from './message';
 
-interface DeleteChatPhotoContextOptions {
+interface VoiceChatScheduledContextOptions {
   telegram: Telegram;
   update: TelegramUpdate;
   payload: TelegramMessage;
@@ -62,7 +62,7 @@ interface DeleteChatPhotoContextOptions {
 class VoiceChatScheduledContext extends Context {
   public payload: TelegramMessage;
   
-  constructor(options: DeleteChatPhotoContextOptions) {
+  constructor(options: VoiceChatScheduledContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'voice_chat_scheduled',

@@ -7,7 +7,7 @@ import { Message } from '../updates/';
 
 import {
   AttachmentType as AttachmentTypeEnum,
-  EntityType as EntityTypeEnum
+  EntityType
 } from '../enums';
 
 import {
@@ -169,7 +169,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any entities (with specified type) */
-  public hasEntities(type?: EntityTypeEnum | MessageEntity['type']): boolean {
+  public hasEntities(type?: EntityType | MessageEntity['type']): boolean {
     if (type === undefined) return this.entities.length !== 0;
 
     return this.entities.some(
@@ -183,7 +183,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any caption entities (with specified type) */
-  public hasCaptionEntities(type?: EntityTypeEnum | MessageEntity['type']): boolean {
+  public hasCaptionEntities(type?: EntityType | MessageEntity['type']): boolean {
     if (type === undefined) return this.captionEntities.length !== 0;
 
     return this.captionEntities.some(

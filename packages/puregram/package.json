@@ -15,7 +15,8 @@
   },
   "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "tsc --project tsconfig.json"
+    "clear-lib": "rm -rf lib/",
+    "build": "yarn clear-lib && tsc --project tsconfig.json"
   },
   "keywords": [
     "telegram",

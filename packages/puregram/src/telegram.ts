@@ -307,9 +307,10 @@ export class Telegram {
     contextData = tempContextData;
 
     for (let [dataKey, dataValue] of Object.entries(contextData)) {
-      if (typeof dataValue === 'boolean') dataValue = String(dataValue);
-      if (dataValue.toJSON) dataValue = JSON.stringify(dataValue.toJSON());
-      if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);
+      if (Array.isArray(dataValue)) dataValue = dataValue.join(',');             // [1, 2, 3] -> '1,2,3'
+      if (typeof dataValue === 'boolean') dataValue = String(dataValue);         // true -> 'true'
+      if ('toJSON' in dataValue) dataValue = JSON.stringify(dataValue.toJSON()); // SomeClass { test: true } -> '{"test":true}'
+      if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);       // { foo: 'bar' } -> '{"foo":"bar"}'
 
       form.append(dataKey, dataValue);
     }

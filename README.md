@@ -8,7 +8,7 @@
   package that allows you to
   <b>easily</b>
   interact with
-  <a src='https://core.telegram.org/bots/api'>Telegram Bot API</a>
+  <a href='https://core.telegram.org/bots/api'>Telegram Bot API</a>
   🚀
 </p>
 

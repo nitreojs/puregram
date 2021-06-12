@@ -10,17 +10,13 @@ export type MediaAttachmentType = AttachmentType | 'media' | 'png_sticker' | 'tg
 export type Constructor<T = {}> = new (...args: any[]) => T;
 export type ApiMethod = keyof ApiMethods;
 
-// https://stackoverflow.com/questions/58216298/how-to-omit-keystring-any-from-a-type-in-typescript
-// Used when you have { foo: string; bar: number; [key: string]: any }-like interface
-// but you need to make `foo` non-required parameter and ignore [key: string]: any
-export type KnownKeys<T> = {
-  [K in keyof T]: string extends K
-    ? never
-    : number extends K
-      ? never
-      : T[K]
-} extends { [_ in keyof T]: infer U }
-  ? U
-  : never;
+/** Removes `[key: string]: any;` from interface */
+export type Known<T> = { [K in keyof T as (string extends K ? never : number extends K ? never : K)]: T[K] }
 
-export type Optional<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & Partial<Pick<T, K>>;
+export type Optional<T, K extends keyof Known<T>> =
+  /** We pick every field but `K` and leave them as is */
+  Pick<Known<T>, Exclude<keyof Known<T>, K>>
+  /** Then, we take our `K` fields and mark them as optional */
+  & { [P in K]?: Known<T>[P]; }
+  /** Lastly, we add `[key: string]: any;` */
+  & { [key: string]: any; }

@@ -3,154 +3,9 @@ import { stripIndent, stripIndents } from 'common-tags';
 import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
 
+import * as Types from './types';
+
 const SCHEMA_URL: string = 'https://ark0f.github.io/tg-bot-api/custom.min.json';
-
-///           TYPES           ///
-
-type SchemaType = 'integer' | 'string' | 'bool' | 'reference' | 'array' | 'float' | 'any_of';
-type SchemaInterfaceType = 'any_of' | 'properties';
-
-interface SchemaResponse {
-  version: SchemaVersion;
-  recent_changes: SchemaRecentChanges;
-  methods: SchemaMethod[];
-  objects: SchemaInterface[];
-}
-
-interface SchemaVersion {
-  major: number;
-  minor: number;
-  patch: number;
-}
-
-interface SchemaRecentChanges {
-  year: number;
-  month: number;
-  day: number;
-}
-
-interface SchemaMethod {
-  name: string;
-  description: string;
-  arguments?: SchemaObject[];
-  multipart_only: boolean;
-  return_type: SchemaReturnType;
-  documentation_link: string;
-}
-
-type SchemaObject =
-  | SchemaObjectReference
-  | SchemaObjectInteger
-  | SchemaObjectBool
-  | SchemaObjectFloat
-  | SchemaObjectAnyOf
-  | SchemaObjectString
-  | SchemaObjectArray;
-
-interface SchemaObjectBase {
-  name: string;
-  description: string;
-  required: boolean;
-  type: SchemaType;
-}
-
-interface SchemaObjectReference extends SchemaObjectBase {
-  type: 'reference';
-  reference: string;
-
-  // Is this reference internal (manually created)
-  // so we don't need to add 'Telegram' before it?
-  is_internal?: true;
-}
-
-interface SchemaObjectInteger extends SchemaObjectBase {
-  type: 'integer';
-  default?: number;
-  min?: number;
-  max?: number;
-}
-
-interface SchemaObjectBool extends SchemaObjectBase {
-  type: 'bool';
-  default?: boolean;
-}
-
-interface SchemaObjectFloat extends SchemaObjectBase {
-  type: 'float';
-}
-
-interface SchemaObjectAnyOf extends SchemaObjectBase {
-  type: 'any_of';
-  any_of: SchemaReturnType[];
-}
-
-interface SchemaObjectString extends SchemaObjectBase {
-  type: 'string';
-  default?: string;
-  enumeration?: string[];
-}
-
-interface SchemaObjectArray extends SchemaObjectBase {
-  type: 'array';
-  array: SchemaReturnType;
-}
-
-type SchemaReturnType =
-  | ReturnTypeReference
-  | ReturnTypeArray
-  | ReturnTypeAnyOf
-  | ReturnTypeBool
-  | ReturnTypeInteger
-  | ReturnTypeString;
-
-interface ReturnTypeReference {
-  type: 'reference';
-  reference: string;
-}
-  
-interface ReturnTypeArray {
-  type: 'array';
-  array: SchemaReturnType;
-}
-
-interface ReturnTypeAnyOf {
-  type: 'any_of';
-  any_of: SchemaReturnType[];
-}
-
-interface ReturnTypeBool {
-  type: 'bool';
-  default: boolean;
-}
-
-interface ReturnTypeInteger {
-  type: 'integer';
-}
-
-interface ReturnTypeString {
-  type: 'string';
-}
-
-type SchemaInterface =
-  | SchemaInterfaceAnyOf
-  | SchemaInterfaceProperties;
-
-interface SchemaInterfaceBase {
-  name: string;
-  description: string;
-  documentation_link: string;
-  type?: SchemaInterfaceType;
-}
-
-interface SchemaInterfaceAnyOf extends SchemaInterfaceBase {
-  type: 'any_of';
-  any_of: SchemaObject[];
-}
-
-interface SchemaInterfaceProperties extends SchemaInterfaceBase {
-  type: 'properties';
-  properties: SchemaObject[];
-}
 
 
 ///           SERVICES           ///
@@ -169,7 +24,7 @@ interface ServiceResultMethod extends ServiceResult {
 }
 
 class InterfaceService {
-  public static generate(kInterface: SchemaInterface): ServiceResultInterface {
+  public static generate(kInterface: Types.SchemaInterface): ServiceResultInterface {
     if (kInterface.type === 'any_of') {
       console.log(kInterface);
 
@@ -220,7 +75,7 @@ class InterfaceService {
     return `/**\n${parts.map(part => `${spaces} * ${part}`).join('\n')}\n${spaces} */`;
   }
 
-  public static generateFields(properties: SchemaObject[]): string[] {
+  public static generateFields(properties: Types.SchemaObject[]): string[] {
     const fields: string[] = [];
 
     for (const field of properties) {
@@ -235,11 +90,11 @@ class InterfaceService {
 }
 
 class MethodService {
-  public static generate(kMethod: SchemaMethod): ServiceResultMethod {
+  public static generate(kMethod: Types.SchemaMethod): ServiceResultMethod {
     /// TODO: simplify
 
     const mTypeDescription: string = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link);
-    const mReturnType: string = TypeResolver.resolve(kMethod.return_type as SchemaObject, 'Interfaces');
+    const mReturnType: string = TypeResolver.resolve(kMethod.return_type as Types.SchemaObject, 'Interfaces');
     let content = `${mTypeDescription}\nexport type ${kMethod.name} = () => Promise<${mReturnType}>;`;
 
     if (kMethod.arguments) {
@@ -274,7 +129,7 @@ class MethodService {
     };
   }
 
-  public static generateFields(properties: SchemaObject[], addition?: string): string[] {
+  public static generateFields(properties: Types.SchemaObject[], addition?: string): string[] {
     const fields: string[] = [];
 
     for (const field of properties) {
@@ -284,14 +139,14 @@ class MethodService {
 
       if (field.name === 'reply_markup') {
         returnType = TypeResolver.resolve(
-          { type: 'reference', reference: 'ReplyMarkupUnion', is_internal: true } as SchemaObjectReference,
+          { type: 'reference', reference: 'ReplyMarkupUnion', is_internal: true } as Types.SchemaObjectReference,
           addition
         );
       }
 
       if (returnType.includes('Interfaces.TelegramInputFile')) { // kinda hacky btw but you didnt see it 👀
         returnType = TypeResolver.resolve(
-          { type: 'reference', reference: 'InputFile', is_internal: true } as SchemaObjectReference,
+          { type: 'reference', reference: 'InputFile', is_internal: true } as Types.SchemaObjectReference,
           addition
         );
       }
@@ -306,7 +161,7 @@ class MethodService {
 }
 
 class TypeService {
-  public static generate(kType: SchemaInterfaceAnyOf): ServiceResult {
+  public static generate(kType: Types.SchemaInterfaceAnyOf): ServiceResult {
     const name: string = `Telegram${kType.name}`;
     const types: string[] = kType.any_of.map(TypeResolver.resolve);
 
@@ -322,7 +177,7 @@ class TypeService {
 
 class TypeResolver {
   public static resolve(
-    object: SchemaObject,
+    object: Types.SchemaObject,
     additionToReference?: string | number // allowing to do [].map(TypeResolver.resolve)
   ): string {
     if (object.type === 'string') {
@@ -380,7 +235,7 @@ class TypeResolver {
 }
 
 class SchemaService {
-  public static isType(schema: SchemaInterface): schema is SchemaInterfaceAnyOf {
+  public static isType(schema: Types.SchemaInterface): schema is Types.SchemaInterfaceAnyOf {
     return schema.type === 'any_of';
   }
 }
@@ -445,7 +300,7 @@ class GenerationService {
     `;
   }
 
-  public static generateApiMethods(methods: SchemaMethod[]): string {
+  public static generateApiMethods(methods: Types.SchemaMethod[]): string {
     const fields: string[] = methods.map(
       (method) => {
         const description: string = InterfaceService.generateDescription(method.description, 2, method.documentation_link);
@@ -468,7 +323,7 @@ const tab = (source: string): string => `  ${source}`;
 
 async function generate() {
   const response: Response = await fetch(SCHEMA_URL);
-  const json: SchemaResponse = await response.json();
+  const json: Types.SchemaResponse = await response.json();
 
   const { version, objects: interfaces, methods, recent_changes } = json;
 

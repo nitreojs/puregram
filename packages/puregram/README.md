@@ -171,9 +171,9 @@ _List of supported updates will be somewhere here when it's done_
 
 #### Manual updates handling
 
-_Will be available in 2.0.8-rc.2 and later: currently does not return `Context`_
+_Available from 2.0.8-rc.2 and later_
 
-If you want to handle updates by yourself, you can use `Updates.updateHandler` method, which takes one argument and this argument is raw Telegram update:
+If you want to handle updates by yourself, you can use `Updates.handleUpdate` method, which takes one argument and this argument is raw Telegram update:
 
 ```js
 /** Let's pretend I am polling updates manually... */
@@ -183,7 +183,7 @@ const update = await getUpdate(...);
 let context;
 
 try {
-  context = await bot.updates.updateHandler(update);
+  context = await bot.updates.handleUpdate(update);
 } catch (error) {
   console.log('Update is not supported', update);
 }

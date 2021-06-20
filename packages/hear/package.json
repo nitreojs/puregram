@@ -25,5 +25,10 @@
   "peerDependencies": {
     "puregram": "^2.0.0"
   },
-  "types": "./lib/index.d.ts"
+  "types": "./lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitreojs/puregram.git",
+    "directory": "packages/hear"
+  }
 }

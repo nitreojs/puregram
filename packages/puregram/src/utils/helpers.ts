@@ -16,20 +16,15 @@ export const applyMixins = (derivedCtor: any, baseCtors: any[]): void => {
   }
 };
 
-export const isPlainObject = (object: object): boolean => (
+export const isPlainObject = (object: object): object is Record<string, any> => (
   Object.prototype.toString.call(object) === '[object Object]'
 );
 
-export const filterPayload = (
-  payload: Record<string, any>
-): Record<string, any> => {
+export const filterPayload = (payload: Record<string, any>): Record<string, any> => {
   const filteredPayload: Record<string, any> = {};
 
   for (const [key, value] of Object.entries(payload)) {
-    const notEmpty = (
-      value !== undefined
-      && value !== null
-    );
+    const notEmpty = value !== undefined && value !== null;
 
     const isEmptyArray = (
       Array.isArray(value)
@@ -51,17 +46,15 @@ export const filterPayload = (
 export const isParseable = (source: string): boolean => {
   try {
     JSON.parse(source);
-
-    return true;
   } catch (e) {
     return false;
   }
+
+  return true;
 };
 
 export const delay = (delayed: number): Promise<void> => (
-  new Promise((resolve): void => {
-    setTimeout(resolve, delayed);
-  })
+  new Promise(resolve => setTimeout(resolve, delayed))
 );
 
 export const useLazyLoad = <T>(fn: () => T): () => T => {

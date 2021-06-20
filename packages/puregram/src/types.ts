@@ -13,12 +13,12 @@ export type ApiMethod = keyof ApiMethods;
 /** Removes `[key: string]: any;` from interface */
 export type Known<T> = {
   [K in keyof T as (string extends K ? never : number extends K ? never : K)]: T[K];
-}
+};
 
 /** Might be used to reveal actual object's type */
 export type Id<T> = T extends infer O
   ? { [K in keyof O]: O[K] }
-  : never
+  : never;
 
 export type Optional<T, K extends keyof Known<T>> =
   /** We pick every field but `K` and leave them as is */
@@ -26,4 +26,4 @@ export type Optional<T, K extends keyof Known<T>> =
   /** Then, we take our `K` fields and mark them as optional */
   & { [P in K]?: Known<T>[P]; }
   /** Lastly, we add `[key: string]: any;` */
-  & { [key: string]: any; }
+  & { [key: string]: any; };

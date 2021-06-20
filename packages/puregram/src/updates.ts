@@ -561,7 +561,7 @@ export class Updates {
     updates.forEach(
       async (update: TelegramUpdate) => {
         try {
-          await this.updateHandler(update);
+          await this.handleUpdate(update);
         } catch (e) {
           debug('fetchUpdates:', e);
         }
@@ -569,7 +569,7 @@ export class Updates {
     );
   }
 
-  public async updateHandler(update: TelegramUpdate): Promise<void> {
+  public async handleUpdate(update: TelegramUpdate): Promise<Context | undefined> {
     this.offset = update.update_id + 1;
 
     const type: UpdateName = (Object.keys(update) as UpdateName[])[1];
@@ -613,6 +613,8 @@ export class Updates {
     debug(context);
 
     this.dispatchMiddleware(context);
+
+    return context;
   }
 
   public getKoaMiddleware(): Function {
@@ -628,7 +630,7 @@ export class Updates {
       context.status = 200;
       context.set('connection', 'keep-alive');
 
-      setImmediate(() => this.updateHandler(update));
+      setImmediate(() => this.handleUpdate(update));
     };
   }
 
@@ -660,7 +662,7 @@ export class Updates {
       res.writeHead(200);
       res.end();
 
-      setImmediate(() => this.updateHandler(update));
+      setImmediate(() => this.handleUpdate(update));
     }
   }
 }

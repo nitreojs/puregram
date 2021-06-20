@@ -292,14 +292,14 @@ export class Telegram {
         }
       );
 
-      if (method === 'editMessageMedia') mediaValue = (<Record<string, any>[]>mediaValue)[0];
+      if (method === 'editMessageMedia') mediaValue = (mediaValue as Record<string, any>[])[0];
 
       form.append('media', JSON.stringify(mediaValue));
     } else if (key !== undefined) {
       form.append(key.split(':')[0], `attach://${key}`);
     }
 
-    // hack: remove 'media', 'photo', 'video' etc. keys from contextData
+    // hack: remove 'media' key from `contextData`
     let { media: _, ...tempContextData } = contextData;
 
     for (const tempValue of values) {

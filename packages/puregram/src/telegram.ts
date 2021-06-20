@@ -162,22 +162,14 @@ export class Telegram {
       debug(`[${method}] HTTP ->`);
       debug(`[${method}] Params: ${body}`);
 
-      let response: Response | undefined;
-
-      try {
-        response = await fetch(url, {
-          agent: this.options.agent,
-          compress: false,
-          method: 'POST',
-          signal: controller.signal,
-          headers,
-          body
-        });
-      } catch (e) {
-        debug(e);
-
-        /// TODO: request is invalid, what to do?
-      }
+      const response: Response = await fetch(url, {
+        agent: this.options.agent,
+        compress: false,
+        method: 'POST',
+        signal: controller.signal,
+        headers,
+        body
+      });
 
       debug(`[${method}] <- HTTP ${response?.status ?? '[not set]'}`);
 

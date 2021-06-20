@@ -1,40 +1,68 @@
-# @puregram/session
+<div align='center'>
+  <img src='https://i.imgur.com/ZzjmE8i.png' />
+</div>
 
-`@puregram/session` is the simple implementation of sessions for `puregram` package
+<br />
 
-## Installation
-> **[Node.js](https://nodejs.org/) 12.0.0 or newer is required**
+<div align='center'>
+  <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='#typescript-usage'><b>TypeScript usage</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='https://t.me/puregram_chat'><b>Chat</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='https://t.me/puregram_channel'><b>Channel</b></a>
+</div>
 
-```sh
-$ yarn add @puregram/session
-$ npm i -S @puregram/session
-```
+## @puregram/session
 
-## Example usage
+_Simple implementation of sessions for `puregram` package_
+
+### Introduction
+
+With `@puregram/session` you can set up your own session for each active user and store some data in it
+
+### Example
 ```js
-import { Telegram } from 'puregram';
-import { SessionManager } from '@puregram/session';
-import { HearManager } from '@puregram/hear';
+const { Telegram } = require('puregram');
+const { SessionManager } = require('@puregram/session');
 
 const telegram = new Telegram({
   token: process.env.TOKEN
 });
 
 const sessionManager = new SessionManager();
-const hearManager = new HearManager();
 
 telegram.updates.on('message', sessionManager.middleware);
-telegram.updates.on('message', hearManager.middleware);
 
-hearManager.hear(/^\/counter$/i, async (context) => {
+telegram.updates.on('message', (context) => {
   const { session } = context;
 
   if (!session.counter) session.counter = 0;
 
   session.counter += 1;
 
-  await context.send(`You called the bot ${session.counter} times!`);
+  return context.send(`You called the bot ${session.counter} times!`);
 });
 
-telegram.updates.startPolling().catch(console.error);
+telegram.updates.startPolling();
+```
+
+### Installation
+
+```sh
+$ yarn add @puregram/session
+$ npm i -S @puregram/session
+```
+
+---
+
+## TypeScript usage
+
+You can extend `getStorageKey`'s `ContextInterface` by providing extra data interface into `SessionManager<T>`:
+
+```ts
+import { SessionManager } from '@puregram/session';
+
+const manager = new SessionManager<{ test: boolean }>();
 ```

@@ -42,9 +42,7 @@
 ```js
 const { Telegram } = require('puregram');
 
-const bot = new Telegram({
-  token: process.env.TOKEN
-});
+const bot = Telegram.fromToken(process.env.TOKEN);
 
 bot.updates.on('message', context => context.reply('Hey!'));
 bot.updates.on('callback_query', context => context.answerCallbackQuery());
@@ -121,6 +119,12 @@ const { Telegram } = require('puregram');
 const bot = new Telegram({
   token: '123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11'
 });
+```
+
+You can also initialize it via `Telegram.fromToken`:
+
+```js
+const bot = Telegram.fromToken('123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11');
 ```
 
 Now, we want to [get updates][getting-updates] from the bot. **How can we do it?**
@@ -417,7 +421,7 @@ Every update in `puregram` is handled by a special context, which is detected vi
 
 Every context _(except for manually created ones and some that were created after methods like `sendMessage`)_ will have `updateId` and `update` properties.
 
-|  Property  | Required |                                  Description                                  |
+| Property   | Required | Description                                                                   |
 | ---------- | -------- | ----------------------------------------------------------------------------- |
 | `updateId` | _No_     | Unique update ID. Used as an offset when getting new updates                  |
 | `update`   | _No_     | Update object. Current context was created via `this.update[this.updateType]` |
@@ -573,7 +577,7 @@ If you want to inspect out- and ingoing requests made by `puregram`, you will ne
 
 #### How to enable `DEBUG`
 
-|    Type   |      Example (Unix)      |                   Description                   |
+| Type      | Example (Unix)           | Description                                     |
 | --------- | ------------------------ | ----------------------------------------------- |
 | `api`     | `DEBUG=puregram:api`     | Enables debugging API out- and ingoing requests |
 | `updates` | `DEBUG=puregram:updates` | Enables debugging ingoing updates               |

@@ -49,11 +49,7 @@ import { User } from './common/structures/user';
 
 import { delay, parseRequestJSON } from './utils/helpers';
 
-import {
-  TelegramUpdate,
-  TelegramMessage,
-} from './telegram-interfaces';
-
+import { TelegramUpdate, TelegramUser } from './telegram-interfaces';
 import { StartPollingOptions } from './interfaces';
 
 import {
@@ -490,6 +486,7 @@ export class Updates {
   /** Stop polling */
   public stopPolling(): void {
     this.isStarted = false;
+    this.retries = 0;
   }
 
   /** Start polling */
@@ -499,49 +496,65 @@ export class Updates {
     }
 
     if (!this.telegram.options.token) {
-      debug('Bot token is not set. Perhaps you forgot to set it?');
+      throw new TypeError('Token is not set. Perhaps you forgot to set it?');
     }
 
-    debug('Fetching bot data...');
+    if (!this.telegram.bot) {
+      debug('Fetching bot data...');
 
-    const bot: User = new User(
-      await this.telegram.api.getMe()
-    );
+      let me!: TelegramUser;
 
-    this.telegram.bot = bot;
-
-    debug('Telegram bot data fetched.');
-    debug(bot);
+      try {
+        me = await this.telegram.api.getMe();
+      } catch (error) {
+        debug('Unable to fetch bot info, stopping right away');
+  
+        return this.stopPolling();
+      }
+  
+      const bot: User = new User(me);
+  
+      this.telegram.bot = bot;
+  
+      debug('Bot data fetched successfully:');
+      debug(bot);
+    }
 
     this.isStarted = true;
 
     try {
       this.startFetchLoop(options);
-    } catch (e) {
+    } catch (error) {
       this.isStarted = false;
 
-      throw e;
+      throw error;
     }
   }
 
   private async startFetchLoop(options: StartPollingOptions): Promise<void> {
-    while (this.isStarted) {
-      try {
+    try {
+      while (this.isStarted) {
         await this.fetchUpdates(options);
-      } catch (e) {
-        debug('startFetchLoop:', e);
-
-        if (this.retries === this.telegram.options.apiRetryLimit) {
-          return;
-        }
-
-        this.retries += 1;
-
-        await delay(this.telegram.options.apiWait!);
-
-        this.stopPolling();
-        this.startPolling();
       }
+    } catch (error) {
+      debug(error);
+
+      if (this.retries === this.telegram.options.apiRetryLimit) {
+        debug(`Tried to reconnect ${this.retries} times, but it didn't work, cya next time`);
+
+        return;
+      }
+
+      this.retries += 1;
+
+      debug(`Trying to reconnect, ${this.retries}/${this.telegram.options.apiRetryLimit} try`);
+
+      await delay(this.telegram.options.apiWait!);
+
+      // not this.stopPolling() because it resets this.retries
+      this.isStarted = false;
+
+      this.startPolling();
     }
   }
 
@@ -556,14 +569,26 @@ export class Updates {
 
     const updates: TelegramUpdate[] = await this.telegram.api.getUpdates(params);
 
-    if (!updates.length) return;
+    if (!updates) {
+      /// Something is wrong with the internet connection I can feel it...
+
+      debug('`fetchUpdates` error: unable to get updates');
+
+      this.stopPolling();
+      this.startPolling();
+
+      return;
+    }
+
+    if (!updates || !updates.length) return;
 
     updates.forEach(
       async (update: TelegramUpdate) => {
         try {
           await this.handleUpdate(update);
-        } catch (e) {
-          debug('fetchUpdates:', e);
+        } catch (error) {
+          debug('`fetchUpdates` error:');
+          debug(error);
         }
       }
     );
@@ -579,12 +604,13 @@ export class Updates {
     debug('Event type:', type);
 
     if (!UpdateContext) {
-      debug(`Unsupported context type ${type}`);
+      debug(`Unsupported context type \`${type}\``);
 
       return;
     }
 
-    debug('Update payload:', update[type]);
+    debug('Update payload:');
+    debug(update[type]);
 
     let context: Context & { isEvent?: boolean, eventType?: MessageEventName } = new UpdateContext({
       telegram: this.telegram,

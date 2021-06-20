@@ -582,7 +582,7 @@ If you want to inspect out- and ingoing requests made by `puregram`, you will ne
 ##### cmd
 
 ```cmd
-> set DEBUG=puregram:* & node index
+> set "DEBUG=puregram:*" & node index
 ```
 
 ##### PowerShell

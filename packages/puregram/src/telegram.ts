@@ -123,10 +123,11 @@ export class Telegram {
   public bot!: User;
 
   constructor(token: string);
-  constructor(options: Partial<TelegramOptions>);
-  constructor(data: Partial<TelegramOptions> | string = {}) {
+  constructor(token: string, options?: Partial<TelegramOptions>);
+  constructor(options?: Partial<TelegramOptions>);
+  constructor(data: Partial<TelegramOptions> | string = {}, options: Partial<TelegramOptions> = {}) {
     if (typeof data === 'string') {
-      this.setOptions({ token: data });
+      this.setOptions({ token: data, ...options });
     } else {
       this.setOptions(data);
     }

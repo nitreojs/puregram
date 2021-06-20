@@ -9,8 +9,8 @@
     "abort-controller": "^3.0.0",
     "debug": "^4.1.1",
     "form-data": "^3.0.0",
-    "inspectable": "^1.0.0",
-    "middleware-io": "^2.5.0",
+    "inspectable": "^1.2.0",
+    "middleware-io": "^2.8.0",
     "node-fetch": "^2.6.1"
   },
   "types": "./lib/index.d.ts",
@@ -31,8 +31,8 @@
   ],
   "devDependencies": {
     "@types/debug": "^4.1.5",
-    "@types/node-fetch": "^2.5.7",
-    "typescript": "^4.3.2"
+    "@types/node-fetch": "^2.5.10",
+    "typescript": "^4.3.4"
   },
   "directories": {
     "lib": "lib",

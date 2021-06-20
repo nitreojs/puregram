@@ -7,12 +7,6 @@ import {
   RemoveKeyboard
 } from '../src';
 
-import {
-  TelegramInlineKeyboardMarkup,
-  TelegramForceReply,
-  TelegramReplyKeyboardMarkup
-} from '../src/telegram-interfaces';
-
 describe('Keyboards', (): void => {
   describe('ForceReply', (): void => {
     describe('#<ForceReply>.toJSON()', (): void => {

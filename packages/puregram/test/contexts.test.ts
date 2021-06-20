@@ -4,7 +4,10 @@ const telegram: Telegram = new Telegram();
 
 describe('Contexts', (): void => {
   describe('Context', (): void => {
-    const context: Context = new Context(telegram, 'message');
+    const context: Context = new Context({
+      telegram,
+      updateType: 'message'
+    });
 
     describe('#<Context>.is', (): void => {
       it('should return true when the context coincides with the input', (): void => {

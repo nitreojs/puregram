@@ -119,15 +119,19 @@ export class Telegram {
   /** Updates */
   public updates: Updates = new Updates(this);
 
-  /** Bot */
+  /** Bot data */
   public bot!: User;
 
-  /** Constructor */
-  public constructor(options: Partial<TelegramOptions> = {}) {
-    this.setOptions(options);
+  constructor(token: string);
+  constructor(options: Partial<TelegramOptions>);
+  constructor(data: Partial<TelegramOptions> | string = {}) {
+    if (typeof data === 'string') {
+      this.setOptions({ token: data });
+    } else {
+      this.setOptions(data);
+    }
   }
 
-  /** Set options */
   public setOptions(options: Partial<TelegramOptions>): this {
     Object.assign(this.options, options);
 

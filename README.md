@@ -14,8 +14,7 @@
   with
   <a href='https://core.telegram.org/bots/api'>Telegram Bot API</a>
   via
-  <a href='https://nodejs.org'>Node.js</a>
-  <i>(or <a href='https://www.typescriptlang.org'>TypeScript</a>)</i>
+  <a href='https://nodejs.org'>Node.js</a>/<a href='https://www.typescriptlang.org'>TypeScript</a>
   😎👍
 </p>
 

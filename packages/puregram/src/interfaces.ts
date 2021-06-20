@@ -16,13 +16,13 @@ export interface TelegramOptions {
   /** Maximum amount of library's retries */
   apiRetryLimit?: number;
 
-  /** How much will library wait for API to answer before aborting the request? */
+  /** How much will library wait for API to answer before aborting the request? In milliseconds */
   apiTimeout?: number;
 
   /** Headers of requests */
   apiHeaders?: Record<string, string>;
 
-  /** How much will library wait before retrying to get updates? */
+  /** How much will library wait before retrying to get updates? In milliseconds */
   apiWait?: number;
 }
 

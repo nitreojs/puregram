@@ -122,15 +122,15 @@ export class Telegram {
   /** Bot data */
   public bot!: User;
 
-  constructor(token: string);
-  constructor(token: string, options?: Partial<TelegramOptions>);
-  constructor(options?: Partial<TelegramOptions>);
-  constructor(data: Partial<TelegramOptions> | string = {}, options: Partial<TelegramOptions> = {}) {
-    if (typeof data === 'string') {
-      this.setOptions({ token: data, ...options });
-    } else {
-      this.setOptions(data);
-    }
+  constructor(options: Partial<TelegramOptions> = {}) {
+    this.setOptions(options);
+  }
+
+  public static fromToken(token: string, options: Partial<TelegramOptions> = {}): Telegram {
+    return new Telegram({
+      token,
+      ...options
+    });
   }
 
   public setOptions(options: Partial<TelegramOptions>): this {

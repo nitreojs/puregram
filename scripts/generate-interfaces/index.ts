@@ -318,14 +318,67 @@ class GenerationService {
 
 ///           GENERATION           ///
 
+export interface InterfacesData {
+  interfaces: ServiceResultInterface[];
+  types: ServiceResult[];
+  methods: ServiceResultMethod[];
+}
+
+export type GenerateDataType = InterfacesData & { time: number };
+
 const pad = (number: number): string => String(number).padStart(2, '0');
 const tab = (source: string): string => `  ${source}`;
 
-async function generate() {
+export async function getJson(): Promise<Types.SchemaResponse> {
   const response: Response = await fetch(SCHEMA_URL);
   const json: Types.SchemaResponse = await response.json();
 
-  const { version, objects: interfaces, methods, recent_changes } = json;
+  return json;
+}
+
+export async function generate(): Promise<GenerateDataType> {
+  const { objects: interfaces, methods } = await getJson();
+
+  const _generation_start = Date.now();
+
+  const items: InterfacesData = {
+    interfaces: [],
+    types: [],
+    methods: []
+  };
+
+  for (const kInterface of interfaces) {
+    if (SchemaService.isType(kInterface)) {
+      const result: ServiceResult = TypeService.generate(kInterface);
+
+      items.types.push(result);
+
+      continue;
+    }
+
+    const result: ServiceResultInterface = InterfaceService.generate(kInterface);
+
+    items.interfaces.push(result);
+  }
+
+  for (const kMethod of methods) {
+    const result: ServiceResultMethod = MethodService.generate(kMethod);
+
+    items.methods.push(result);
+  }
+
+  const _generation_end = Date.now();
+
+  const data: GenerateDataType = {
+    ...items,
+    time: _generation_end - _generation_start
+  };
+
+  return data;
+}
+
+async function _generate(generateFiles: boolean = true) {
+  const { version, methods, recent_changes } = await getJson();
 
   const date = new Date();
 
@@ -335,11 +388,7 @@ async function generate() {
 
   const _generation_start = Date.now();
 
-  const items = {
-    interfaces: [] as ServiceResultInterface[],
-    types: [] as ServiceResult[],
-    methods: [] as ServiceResultMethod[]
-  } as const;
+  const items = await generate();
 
   const header = stripIndents`
     /// AUTO-GENERATED FILE
@@ -355,40 +404,32 @@ async function generate() {
   console.log();
 
 
-  /// INTERFACES & TYPES ----------
+  /// INTERFACES ----------
 
-  console.log(`[Interfaces & types (${interfaces.length})]`);
+  console.log(`[Interfaces (${items.interfaces.length})]`);
 
-  for (const kInterface of interfaces) {
-    if (SchemaService.isType(kInterface)) {
-      const result: ServiceResult = TypeService.generate(kInterface);
+  for (const kInterface of items.interfaces) {
+    console.log(`- ${kInterface.name} (${kInterface.fields} fields)`);
+  }
 
-      items.types.push(result);
+  console.log();
 
-      console.log(`- ${result.name}`);
+  /// TYPES ----------
 
-      continue;
-    }
+  console.log(`[Types (${items.types.length})]`);
 
-    const result: ServiceResultInterface = InterfaceService.generate(kInterface);
-
-    items.interfaces.push(result);
-
-    console.log(`- ${result.name} (${result.fields} fields)`);
+  for (const kType of items.types) {
+    console.log(`- ${kType.name}`);
   }
 
   console.log();
 
   /// METHODS ----------
 
-  console.log(`[Methods (${methods.length})]`);
+  console.log(`[Methods (${items.methods.length})]`);
 
-  for (const kMethod of methods) {
-    const result: ServiceResultMethod = MethodService.generate(kMethod);
-
-    items.methods.push(result);
-
-    console.log(`- ${result.name}(${result.hasParams ? 'params' : ''})`);
+  for (const kMethod of items.methods) {
+    console.log(`- ${kMethod.name}(${kMethod.hasParams ? 'params' : ''})`);
   }
 
   console.log();
@@ -398,49 +439,52 @@ async function generate() {
 
   /// FILES GENERATION ----------
 
-  const mainPath: string = resolve(`${__dirname}/../../packages/puregram/src/`);
+  if (generateFiles) {
+    const mainPath: string = resolve(`${__dirname}/../../packages/puregram/src/`);
 
-  /// interfaces.ts
-  let iHeader: string = GenerationService.loadString(header) +
-    GenerationService.generateInterfacesImports();
-
-  let iContent: string = GenerationService.loadString(
-    GenerationService.generate(items.interfaces, iHeader)
-  );
-
-  iContent += GenerationService.loadString(
-    GenerationService.generateAdditionalTypes()
-  );
-
-  iContent += GenerationService.generate(items.types);
-
-  await writeFile(`${mainPath}/telegram-interfaces.ts`, iContent);
-
-  console.log(`- telegram-interfaces.ts: ${items.interfaces.length} interfaces, ${items.types.length} types, ${iContent.split('\n').length} lines`);
-
-  /// methods.ts
-  let mHeader: string = GenerationService.loadString(header) +
-    GenerationService.generateMethodsImports();
+    /// interfaces.ts
+    let iHeader: string = GenerationService.loadString(header) +
+      GenerationService.generateInterfacesImports();
   
-  let mContent: string = GenerationService.generate(items.methods, mHeader);
-
-  await writeFile(`${mainPath}/methods.ts`, mContent);
-
-  console.log(`- methods.ts: ${items.methods.length} methods, ${mContent.split('\n').length} lines`);
-
-  /// api-methods.ts
-  let amContent: string = GenerationService.generate([], header);
-  amContent += '\n\n' + GenerationService.generateApiMethods(methods);
-
-  await writeFile(`${mainPath}/api-methods.ts`, amContent);
-
-  console.log(`- api-methods.ts: ${amContent.split('\n').length} lines`);
+    let iContent: string = GenerationService.loadString(
+      GenerationService.generate(items.interfaces, iHeader)
+    );
+  
+    iContent += GenerationService.loadString(
+      GenerationService.generateAdditionalTypes()
+    );
+  
+    iContent += GenerationService.generate(items.types);
+  
+    await writeFile(`${mainPath}/telegram-interfaces.ts`, iContent);
+  
+    console.log(`- telegram-interfaces.ts: ${items.interfaces.length} interfaces, ${items.types.length} types, ${iContent.split('\n').length} lines`);
+  
+    /// methods.ts
+    let mHeader: string = GenerationService.loadString(header) +
+      GenerationService.generateMethodsImports();
+    
+    let mContent: string = GenerationService.generate(items.methods, mHeader);
+  
+    await writeFile(`${mainPath}/methods.ts`, mContent);
+  
+    console.log(`- methods.ts: ${items.methods.length} methods, ${mContent.split('\n').length} lines`);
+  
+    /// api-methods.ts
+    let amContent: string = GenerationService.generate([], header);
+    amContent += '\n\n' + GenerationService.generateApiMethods(methods);
+  
+    await writeFile(`${mainPath}/api-methods.ts`, amContent);
+  
+    console.log(`- api-methods.ts: ${amContent.split('\n').length} lines`);
+  }
 
   const _generation_end = Date.now();
 
   console.log(`Time: ${_generation_end - _generation_start}ms`);
+  console.log(`Generation time: ${items.time}ms`);
 
   return 0;
 }
 
-generate().catch(console.error);
+_generate(false).catch(console.error);

@@ -10,25 +10,16 @@ import {
 
 import createDebug from 'debug';
 
-import { Telegram } from './telegram';
-
 import * as Contexts from './contexts';
 
+import { Telegram } from './telegram';
 import { GetUpdatesParams } from './methods';
 import { Composer } from './common/structures/composer';
 import { User } from './common/structures/user';
-
 import { delay, parseRequestJSON } from './utils/helpers';
-
 import { TelegramUpdate, TelegramUser } from './telegram-interfaces';
 import { StartPollingOptions } from './interfaces';
-
-import {
-  Constructor,
-  UpdateName,
-  MessageEventName
-} from './types';
-
+import { Constructor, UpdateName, MessageEventName } from './types';
 import { UpdateType } from './enums';
 
 const debug = createDebug('puregram:updates');

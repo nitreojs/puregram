@@ -1,7 +1,6 @@
 import { inspectable } from 'inspectable';
 
 import { TelegramChosenInlineResult } from '../telegram-interfaces';
-
 import { User } from '../common/structures/user';
 import { Location } from '../common/structures/location';
 import { filterPayload } from '../utils/helpers';

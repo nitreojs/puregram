@@ -67,7 +67,11 @@ export interface ApiResponseError {
 }
 
 export interface StartPollingOptions {
-  updateOffset?: number;
+  /** Identifier of the first update to be returned */
+  offset?: number;
+
+  /** Timeout in seconds for long polling */
+  timeout?: number;
 }
 
 export type ApiResponseUnion = ApiResponseOk | ApiResponseError;

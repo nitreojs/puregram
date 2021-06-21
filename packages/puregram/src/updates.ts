@@ -545,7 +545,7 @@ export class Updates {
         if (this.telegram.options.apiRetryLimit === 0) {
           return debug('`apiRetryLimit` is set to 0, not trying to reconnect');
         }
-        
+
         return debug(`Tried to reconnect ${this.retries} times, but it didn't work, cya next time`);
       } else {
         this.retries += 1;
@@ -569,7 +569,8 @@ export class Updates {
     };
 
     if (this.offset) params.offset = this.offset;
-    if (options.updateOffset) params.offset = options.updateOffset;
+    if (options.offset) params.offset = options.offset;
+    if (options.timeout) params.timeout = options.timeout;
 
     const updates: TelegramUpdate[] = await this.telegram.api.getUpdates(params);
 
@@ -584,7 +585,7 @@ export class Updates {
       return;
     }
 
-    if (!updates || !updates.length) return;
+    if (!updates.length) return;
 
     updates.forEach(
       async (update: TelegramUpdate) => {

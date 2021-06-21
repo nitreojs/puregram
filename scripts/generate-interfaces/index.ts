@@ -326,8 +326,8 @@ export interface InterfacesData {
 
 export type GenerateDataType = InterfacesData & { time: number };
 
-const pad = (number: number): string => String(number).padStart(2, '0');
-const tab = (source: string): string => `  ${source}`;
+export const pad = (number: number): string => String(number).padStart(2, '0');
+export const tab = (source: string): string => `  ${source}`;
 
 export async function getJson(): Promise<Types.SchemaResponse> {
   const response: Response = await fetch(SCHEMA_URL);
@@ -377,18 +377,12 @@ export async function generate(): Promise<GenerateDataType> {
   return data;
 }
 
-async function _generate(generateFiles: boolean = true) {
-  const { version, methods, recent_changes } = await getJson();
-
+export function generateHeader(version: Types.SchemaVersion, recentChanges: Types.SchemaRecentChanges): string {
   const date = new Date();
 
   const apiVersion: string = `v${version.major}.${version.minor}.${version.patch}`;
-  const apiUpdateDate: string = `${pad(recent_changes.day)}.${pad(recent_changes.month)}.${recent_changes.year}`;
+  const apiUpdateDate: string = `${pad(recentChanges.day)}.${pad(recentChanges.month)}.${recentChanges.year}`;
   const generationDate: string = `${pad(date.getDate())}.${pad(date.getMonth())}.${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())} MSK`;
-
-  const _generation_start = Date.now();
-
-  const items = await generate();
 
   const header = stripIndents`
     /// AUTO-GENERATED FILE
@@ -398,6 +392,17 @@ async function _generate(generateFiles: boolean = true) {
     /// Based on Bot API ${apiVersion}, ${apiUpdateDate}
     /// Generation date: ${generationDate}
   `;
+
+  return header;
+}
+
+async function _generate(generateFiles: boolean = true) {
+  const { version, recent_changes, methods } = await getJson();
+
+  const _generation_start = Date.now();
+
+  const items = await generate();
+  const header = generateHeader(version, recent_changes);
 
   console.log('[Header]');
   console.log(header);
@@ -487,4 +492,4 @@ async function _generate(generateFiles: boolean = true) {
   return 0;
 }
 
-_generate(false).catch(console.error);
+_generate().catch(console.error);

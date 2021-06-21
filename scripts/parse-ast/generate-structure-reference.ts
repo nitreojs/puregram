@@ -4,7 +4,7 @@ import fs from 'fs';
 import { stripIndents } from 'common-tags';
 import { resolve } from 'path';
 
-import { generateDocumentation, ClassInfo } from './parse-ast';
+import { generateClassInfo, ClassInfo } from './parse-ast';
 import { table, generateAnchor, camelizeSmall } from '../doc-methods';
 
 const generateStructureReference = (rawPath: string, fileName: string) => {
@@ -12,7 +12,7 @@ const generateStructureReference = (rawPath: string, fileName: string) => {
 
   console.log(`[I] Path resolved: ${path}`);
 
-  const classInfo: ClassInfo | undefined = generateDocumentation([path], {
+  const classInfo: ClassInfo | undefined = generateClassInfo([path], {
     target: ts.ScriptTarget.ES5,
     module: ts.ModuleKind.CommonJS
   });

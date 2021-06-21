@@ -54,7 +54,7 @@ interface PropertyInfo {
 
 let checker: ts.TypeChecker;
 
-export function generateDocumentation(
+export function generateClassInfo(
   fileNames: string[],
   options: ts.CompilerOptions
 ): ClassInfo | undefined {

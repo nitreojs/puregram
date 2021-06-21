@@ -539,15 +539,19 @@ export class Updates {
     } catch (error) {
       debug(error);
 
-      if (this.retries === this.telegram.options.apiRetryLimit) {
-        debug(`Tried to reconnect ${this.retries} times, but it didn't work, cya next time`);
+      if (this.telegram.options.apiRetryLimit === -1) {
+        debug('Trying to reconnect...');
+      } else if (this.retries === this.telegram.options.apiRetryLimit) {
+        if (this.telegram.options.apiRetryLimit === 0) {
+          return debug('`apiRetryLimit` is set to 0, not trying to reconnect');
+        }
+        
+        return debug(`Tried to reconnect ${this.retries} times, but it didn't work, cya next time`);
+      } else {
+        this.retries += 1;
 
-        return;
+        debug(`Trying to reconnect, ${this.retries}/${this.telegram.options.apiRetryLimit} try`);
       }
-
-      this.retries += 1;
-
-      debug(`Trying to reconnect, ${this.retries}/${this.telegram.options.apiRetryLimit} try`);
 
       await delay(this.telegram.options.apiWait!);
 

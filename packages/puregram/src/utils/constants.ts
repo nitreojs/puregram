@@ -23,7 +23,7 @@ export const defaultOptions: TelegramOptions = {
 
   apiWait: 3000,
   apiBaseUrl: 'https://api.telegram.org/bot',
-  apiRetryLimit: 3,
+  apiRetryLimit: -1,
   apiTimeout: 30000,
   apiHeaders: {
     connection: 'keep-alive',

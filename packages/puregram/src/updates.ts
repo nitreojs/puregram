@@ -12,36 +12,7 @@ import createDebug from 'debug';
 
 import { Telegram } from './telegram';
 
-import {
-  Context,
-  MessageContext,
-  CallbackQueryContext,
-  InlineQueryContext,
-  ChosenInlineResultContext,
-  ShippingQueryContext,
-  PreCheckoutQueryContext,
-  PollContext,
-  PollAnswerContext,
-  LeftChatMemberContext,
-  NewChatTitleContext,
-  NewChatPhotoContext,
-  DeleteChatPhotoContext,
-  GroupChatCreatedContext,
-  SupergroupChatCreatedContext,
-  ChannelChatCreatedContext,
-  MigrateToChatIdContext,
-  MigrateFromChatIdContext,
-  PinnedMessageContext,
-  InvoiceContext,
-  SuccessfulPaymentContext,
-  NewChatMembersContext,
-  ChatMemberContext,
-  MessageAutoDeleteTimerChangedContext,
-  VoiceChatStartedContext,
-  VoiceChatEndedContext,
-  VoiceChatParticipantsInvitedContext,
-  VoiceChatScheduledContext
-} from './contexts';
+import * as Contexts from './contexts';
 
 import { GetUpdatesParams } from './methods';
 import { Composer } from './common/structures/composer';
@@ -63,168 +34,41 @@ import { UpdateType } from './enums';
 const debug = createDebug('puregram:updates');
 
 const rawEvents: [UpdateName, Constructor<any>][] = [
-  [
-    'message',
-    MessageContext
-  ],
-
-  [
-    'edited_message',
-    MessageContext
-  ],
-
-  [
-    'channel_post',
-    MessageContext
-  ],
-
-  [
-    'edited_channel_post',
-    MessageContext
-  ],
-
-  [
-    'inline_query',
-    InlineQueryContext
-  ],
-
-  [
-    'chosen_inline_result',
-    ChosenInlineResultContext
-  ],
-
-  [
-    'callback_query',
-    CallbackQueryContext
-  ],
-
-  [
-    'shipping_query',
-    ShippingQueryContext
-  ],
-
-  [
-    'pre_checkout_query',
-    PreCheckoutQueryContext
-  ],
-
-  [
-    'poll',
-    PollContext
-  ],
-
-  [
-    'poll_answer',
-    PollAnswerContext
-  ],
-
-  [
-    'chat_member',
-    ChatMemberContext
-  ],
-
-  [
-    'my_chat_member',
-    ChatMemberContext
-  ],
-
-  [
-    'new_chat_members',
-    NewChatMembersContext
-  ],
-
-  [
-    'left_chat_member',
-    LeftChatMemberContext
-  ],
-
-  [
-    'new_chat_title',
-    NewChatTitleContext
-  ],
-
-  [
-    'new_chat_photo',
-    NewChatPhotoContext
-  ],
-
-  [
-    'new_chat_title',
-    NewChatTitleContext
-  ],
-
-  [
-    'delete_chat_photo',
-    DeleteChatPhotoContext
-  ],
-
-  [
-    'group_chat_created',
-    GroupChatCreatedContext
-  ],
-
-  [
-    'supergroup_chat_created',
-    SupergroupChatCreatedContext
-  ],
-
-  [
-    'channel_chat_created',
-    ChannelChatCreatedContext
-  ],
-
-  [
-    'migrate_to_chat_id',
-    MigrateToChatIdContext
-  ],
-
-  [
-    'migrate_from_chat_id',
-    MigrateFromChatIdContext
-  ],
-
-  [
-    'pinned_message',
-    PinnedMessageContext
-  ],
-
-  [
-    'invoice',
-    InvoiceContext
-  ],
-
-  [
-    'successful_payment',
-    SuccessfulPaymentContext
-  ],
-
-  [
-    'message_auto_delete_timer_changed',
-    MessageAutoDeleteTimerChangedContext
-  ],
-
-  [
-    'voice_chat_scheduled',
-    VoiceChatScheduledContext
-  ],
-
-  [
-    'voice_chat_started',
-    VoiceChatStartedContext
-  ],
-
-  [
-    'voice_chat_ended',
-    VoiceChatEndedContext
-  ],
-
-  [
-    'voice_chat_participants_invited',
-    VoiceChatParticipantsInvitedContext
-  ]
+  ['message', Contexts.MessageContext],
+  ['edited_message', Contexts.MessageContext],
+  ['channel_post', Contexts.MessageContext],
+  ['edited_channel_post', Contexts.MessageContext],
+  ['inline_query', Contexts.InlineQueryContext],
+  ['chosen_inline_result', Contexts.ChosenInlineResultContext],
+  ['callback_query', Contexts.CallbackQueryContext],
+  ['shipping_query', Contexts.ShippingQueryContext],
+  ['pre_checkout_query', Contexts.PreCheckoutQueryContext],
+  ['poll', Contexts.PollContext],
+  ['poll_answer', Contexts.PollAnswerContext],
+  ['chat_member', Contexts.ChatMemberContext],
+  ['my_chat_member', Contexts.ChatMemberContext],
+  ['new_chat_members', Contexts.NewChatMembersContext],
+  ['left_chat_member', Contexts.LeftChatMemberContext],
+  ['new_chat_title', Contexts.NewChatTitleContext],
+  ['new_chat_photo', Contexts.NewChatPhotoContext],
+  ['new_chat_title', Contexts.NewChatTitleContext],
+  ['delete_chat_photo', Contexts.DeleteChatPhotoContext],
+  ['group_chat_created', Contexts.GroupChatCreatedContext],
+  ['supergroup_chat_created', Contexts.SupergroupChatCreatedContext],
+  ['channel_chat_created', Contexts.ChannelChatCreatedContext],
+  ['migrate_to_chat_id', Contexts.MigrateToChatIdContext],
+  ['migrate_from_chat_id', Contexts.MigrateFromChatIdContext],
+  ['pinned_message', Contexts.PinnedMessageContext],
+  ['invoice', Contexts.InvoiceContext],
+  ['successful_payment', Contexts.SuccessfulPaymentContext],
+  ['message_auto_delete_timer_changed', Contexts.MessageAutoDeleteTimerChangedContext],
+  ['voice_chat_scheduled', Contexts.VoiceChatScheduledContext],
+  ['voice_chat_started', Contexts.VoiceChatStartedContext],
+  ['voice_chat_ended', Contexts.VoiceChatEndedContext],
+  ['voice_chat_participants_invited', Contexts.VoiceChatParticipantsInvitedContext]
 ];
 
-type ContextConstructor = Constructor<Context>;
+type ContextConstructor = Constructor<Contexts.Context>;
 type AllowArray<T> = T | T[];
 
 function makeContexts(): Record<string, ContextConstructor> {
@@ -251,14 +95,14 @@ export class Updates {
 
   private retries: number = 0;
 
-  private composer: Composer<Context> = Composer.builder<Context>()
+  private composer: Composer<Contexts.Context> = Composer.builder<Contexts.Context>()
     .caught(
-      (_context: Context, error: Error) => (
+      (_context: Contexts.Context, error: Error) => (
         console.error(error)
       )
     );
 
-  private composed!: Middleware<Context>;
+  private composed!: Middleware<Contexts.Context>;
 
   /** Constructor */
   constructor(telegram: Telegram) {
@@ -271,7 +115,7 @@ export class Updates {
     return this.constructor.name;
   }
 
-  public use<T = {}>(middleware: Middleware<Context & T>): this {
+  public use<T = {}>(middleware: Middleware<Contexts.Context & T>): this {
     if (typeof middleware !== 'function') {
       throw new TypeError('Middleware must be function');
     }
@@ -285,167 +129,167 @@ export class Updates {
   /** Subscribe to events */
   public on<T = {}>(
     events: UpdateType.MESSAGE | 'message',
-    handlers: AllowArray<Middleware<MessageContext & T>>
+    handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.EDITED_MESSAGE | 'edited_message',
-    handlers: AllowArray<Middleware<MessageContext & T>>
+    handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.CHANNEL_POST | 'channel_post',
-    handlers: AllowArray<Middleware<MessageContext & T>>
+    handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.EDITED_CHANNEL_POST | 'edited_channel_post',
-    handlers: AllowArray<Middleware<MessageContext & T>>
+    handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.INLINE_QUERY | 'inline_query',
-    handlers: AllowArray<Middleware<InlineQueryContext & T>>
+    handlers: AllowArray<Middleware<Contexts.InlineQueryContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.CHOSEN_INLINE_RESULT | 'chosen_inline_result',
-    handlers: AllowArray<Middleware<ChosenInlineResultContext & T>>
+    handlers: AllowArray<Middleware<Contexts.ChosenInlineResultContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.CALLBACK_QUERY | 'callback_query',
-    handlers: AllowArray<Middleware<CallbackQueryContext & T>>
+    handlers: AllowArray<Middleware<Contexts.CallbackQueryContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.SHIPPING_QUERY | 'shipping_query',
-    handlers: AllowArray<Middleware<ShippingQueryContext & T>>
+    handlers: AllowArray<Middleware<Contexts.ShippingQueryContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.PRE_CHECKOUT_QUERY | 'pre_checkout_query',
-    handlers: AllowArray<Middleware<PreCheckoutQueryContext & T>>
+    handlers: AllowArray<Middleware<Contexts.PreCheckoutQueryContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.POLL | 'poll',
-    handlers: AllowArray<Middleware<PollContext & T>>
+    handlers: AllowArray<Middleware<Contexts.PollContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.POLL_ANSWER | 'poll_answer',
-    handlers: AllowArray<Middleware<PollAnswerContext & T>>
+    handlers: AllowArray<Middleware<Contexts.PollAnswerContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.CHAT_MEMBER | 'chat_member',
-    handlers: AllowArray<Middleware<ChatMemberContext & T>>
+    handlers: AllowArray<Middleware<Contexts.ChatMemberContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.MY_CHAT_MEMBER | 'my_chat_member',
-    handlers: AllowArray<Middleware<ChatMemberContext & T>>
+    handlers: AllowArray<Middleware<Contexts.ChatMemberContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.NEW_CHAT_MEMBERS | 'new_chat_members',
-    handlers: AllowArray<Middleware<NewChatMembersContext & T>>
+    handlers: AllowArray<Middleware<Contexts.NewChatMembersContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.LEFT_CHAT_MEMBER | 'left_chat_member',
-    handlers: AllowArray<Middleware<LeftChatMemberContext & T>>
+    handlers: AllowArray<Middleware<Contexts.LeftChatMemberContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.NEW_CHAT_TITLE | 'new_chat_title',
-    handlers: AllowArray<Middleware<NewChatTitleContext & T>>
+    handlers: AllowArray<Middleware<Contexts.NewChatTitleContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.NEW_CHAT_PHOTO | 'new_chat_photo',
-    handlers: AllowArray<Middleware<NewChatPhotoContext & T>>
+    handlers: AllowArray<Middleware<Contexts.NewChatPhotoContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.DELETE_CHAT_PHOTO | 'delete_chat_photo',
-    handlers: AllowArray<Middleware<DeleteChatPhotoContext & T>>
+    handlers: AllowArray<Middleware<Contexts.DeleteChatPhotoContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.GROUP_CHAT_CREATED | 'group_chat_created',
-    handlers: AllowArray<Middleware<GroupChatCreatedContext & T>>
+    handlers: AllowArray<Middleware<Contexts.GroupChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.SUPERGROUP_CHAT_CREATED | 'supergroup_chat_created',
-    handlers: AllowArray<Middleware<SupergroupChatCreatedContext & T>>
+    handlers: AllowArray<Middleware<Contexts.SupergroupChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.CHANNEL_CHAT_CREATED | 'channel_chat_created',
-    handlers: AllowArray<Middleware<ChannelChatCreatedContext & T>>
+    handlers: AllowArray<Middleware<Contexts.ChannelChatCreatedContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.PINNED_MESSAGE | 'pinned_message',
-    handlers: AllowArray<Middleware<PinnedMessageContext & T>>
+    handlers: AllowArray<Middleware<Contexts.PinnedMessageContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.MIGRATE_FROM_TO_ID | 'migrate_to_chat_id',
-    handlers: AllowArray<Middleware<MigrateToChatIdContext & T>>
+    handlers: AllowArray<Middleware<Contexts.MigrateToChatIdContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.MIGRATE_FROM_CHAT_ID | 'migrate_from_chat_id',
-    handlers: AllowArray<Middleware<MigrateFromChatIdContext & T>>
+    handlers: AllowArray<Middleware<Contexts.MigrateFromChatIdContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.INVOICE | 'invoice',
-    handlers: AllowArray<Middleware<InvoiceContext & T>>
+    handlers: AllowArray<Middleware<Contexts.InvoiceContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.SUCCESSFUL_PAYMENT | 'successful_payment',
-    handlers: AllowArray<Middleware<SuccessfulPaymentContext & T>>
+    handlers: AllowArray<Middleware<Contexts.SuccessfulPaymentContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.MESSAGE_AUTO_DELETE_TIMER_CHANGED | 'message_auto_delete_timer_changed',
-    handlers: AllowArray<Middleware<MessageAutoDeleteTimerChangedContext & T>>
+    handlers: AllowArray<Middleware<Contexts.MessageAutoDeleteTimerChangedContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.VOICE_CHAT_SCHEDULED | 'voice_chat_scheduled',
-    handlers: AllowArray<Middleware<VoiceChatScheduledContext & T>>
+    handlers: AllowArray<Middleware<Contexts.VoiceChatScheduledContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.VOICE_CHAT_STARTED | 'voice_chat_started',
-    handlers: AllowArray<Middleware<VoiceChatStartedContext & T>>
+    handlers: AllowArray<Middleware<Contexts.VoiceChatStartedContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.VOICE_CHAT_ENDED | 'voice_chat_ended',
-    handlers: AllowArray<Middleware<VoiceChatEndedContext & T>>
+    handlers: AllowArray<Middleware<Contexts.VoiceChatEndedContext & T>>
   ): this;
 
   public on<T = {}>(
     events: UpdateType.VOICE_CHAT_PARTICIPANTS_INVITED | 'voice_chat_participants_invited',
-    handlers: AllowArray<Middleware<VoiceChatParticipantsInvitedContext & T>>
+    handlers: AllowArray<Middleware<Contexts.VoiceChatParticipantsInvitedContext & T>>
   ): this;
 
   public on<T = {}>(
     events: AllowArray<string>,
-    handlers: AllowArray<Middleware<Context & T>>
+    handlers: AllowArray<Middleware<Contexts.Context & T>>
   ): this;
 
   public on<T = {}>(
     rawOnEvents: AllowArray<string>,
-    rawHandlers: AllowArray<Middleware<Context & T>>
+    rawHandlers: AllowArray<Middleware<Contexts.Context & T>>
   ): this {
     const onEvents = Array.isArray(rawOnEvents)
       ? rawOnEvents
@@ -466,7 +310,7 @@ export class Updates {
     }
 
     return this.use(
-      (context: Context & T, next: NextMiddleware): unknown => (
+      (context: Contexts.Context & T, next: NextMiddleware): unknown => (
         context.is(onEvents)
           ? handler(context, next)
           : next()
@@ -475,7 +319,7 @@ export class Updates {
   }
 
   /** Calls up the middleware chain */
-  public dispatchMiddleware(context: Context): Promise<void> {
+  public dispatchMiddleware(context: Contexts.Context): Promise<void> {
     return this.composed(context, noopNext) as Promise<void>;
   }
 
@@ -599,7 +443,7 @@ export class Updates {
     );
   }
 
-  public async handleUpdate(update: TelegramUpdate): Promise<Context | undefined> {
+  public async handleUpdate(update: TelegramUpdate): Promise<Contexts.Context | undefined> {
     this.offset = update.update_id + 1;
 
     const type: UpdateName = (Object.keys(update) as UpdateName[])[1];
@@ -617,7 +461,7 @@ export class Updates {
     debug('Update payload:');
     debug(update[type]);
 
-    let context: Context & { isEvent?: boolean, eventType?: MessageEventName } = new UpdateContext({
+    let context: Contexts.Context & { isEvent?: boolean, eventType?: MessageEventName } = new UpdateContext({
       telegram: this.telegram,
       update,
       payload: update[type],

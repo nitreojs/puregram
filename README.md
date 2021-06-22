@@ -613,11 +613,13 @@ These packages are created by the `puregram` community _(and not only)_ and are 
 - [`@puregram/scenes`][@scenes]: Simple implementation of middleware-based scene management
 - [`@puregram/session`][@session]: Simple implementation of sessions
 - [`@puregram/utils`][@utils]: _Almost_ useful utilities
+- [`@puregram/prompt`][@prompt]: Basic prompt system implementation
 
 [@hear]: https://github.com/nitreojs/puregram/tree/master/packages/hear
 [@scenes]: https://github.com/nitreojs/puregram/tree/master/packages/scenes
 [@session]: https://github.com/nitreojs/puregram/tree/master/packages/session
 [@utils]: https://github.com/nitreojs/puregram/tree/master/packages/utils
+[@prompt]: https://github.com/nitreojs/puregram/tree/master/packages/prompt
 
 ### Non-official ones
 

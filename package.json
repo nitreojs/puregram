@@ -14,7 +14,6 @@
     "@types/node-fetch": "^2.5.10",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
-    "babel-jest": "^27.0.2",
     "cheerio": "^1.0.0-rc.10",
     "common-tags": "^1.8.0",
     "eslint": "^7.29.0",

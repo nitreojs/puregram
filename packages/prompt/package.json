@@ -31,6 +31,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nitreojs/puregram.git",
-    "directory": "packages/ask"
+    "directory": "packages/i18n"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@puregram/hear",
   "version": "2.0.2-rc.1",
-  "description": "Hear method for Updates class for the library puregram",
+  "description": "_Simple implementation of hearing messages system for puregram",
   "main": "lib/index",
   "engines": {
     "node": ">=12.0.0"

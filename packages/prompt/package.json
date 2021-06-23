@@ -1,7 +1,7 @@
 {
   "name": "@puregram/prompt",
   "version": "1.1.0",
-  "description": "",
+  "description": "Basic prompt system implemetation for puregram",
   "main": "lib/index",
   "engines": {
     "node": ">=12.0.0"
@@ -13,7 +13,7 @@
   "keywords": [
     "puregram",
     "telegram",
-    "ask"
+    "prompt"
   ],
   "files": [
     "lib"

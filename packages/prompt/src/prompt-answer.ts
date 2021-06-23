@@ -6,12 +6,20 @@ import { filterPayload } from './utils';
 
 export class PromptAnswer {
   constructor(
-    public context: MessageContext & Types.PromptContext,
+    public context: Types.PromptMessageContext,
     private params: Types.PromptAnswerParams = {}
   ) {}
 
-  public get time(): number | undefined {
-    return this.params.time;
+  public get promptedAt(): number | undefined {
+    return this.params.promptedAt;
+  }
+
+  public get promptedWithin(): number | undefined {
+    return this.params.promptedWithin;
+  }
+
+  public get answeredAt(): number | undefined {
+    return this.params.answeredAt;
   }
 
   public get text(): string | undefined {
@@ -31,7 +39,9 @@ inspectable(PromptAnswer, {
   serialize(answer: PromptAnswer) {
     return filterPayload({
       context: answer.context,
-      time: answer.time,
+      promptedAt: answer.promptedAt,
+      promptedWithin: answer.promptedWithin,
+      answeredAt: answer.answeredAt,
       text: answer.text,
       caption: answer.caption,
       attachments: answer.attachments

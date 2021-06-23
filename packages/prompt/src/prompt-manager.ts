@@ -1,6 +1,4 @@
 import { Middleware } from 'middleware-io';
-import { MessageContext } from 'puregram';
-import { Optional } from 'puregram/lib/types';
 import { inspectable } from 'inspectable';
 
 import * as Types from './types';
@@ -8,19 +6,37 @@ import { PromptQuestion } from './prompt-question';
 import { PromptAnswer } from './prompt-answer';
 
 export class PromptManager {
-  private questions: Map<number, PromptQuestion> = new Map();
+  public questions: Map<number, PromptQuestion> = new Map();
 
-  public get middleware(): Middleware<MessageContext & Types.PromptContext> {
-    return async (context: MessageContext & Types.PromptContext, next) => {
+  public get middleware(): Middleware<Types.PromptMessageContext> {
+    return async (context: Types.PromptMessageContext, next) => {
       if (!context.is('message')) {
         return;
       }
 
       const id: number = context.senderId!;
+      const now: number = Date.now();
 
       if (this.questions.has(id)) {
         const question: PromptQuestion = this.questions.get(id)!;
-        const answer: PromptAnswer = new PromptAnswer(context, { time: Date.now() - question.start });
+
+        const answer: PromptAnswer = new PromptAnswer(context, {
+          promptedAt: question.promptedAt,
+          promptedWithin: now - question.promptedAt,
+          answeredAt: now
+        });
+
+        const validate: Types.PromptValidate = question.validate ?? (() => true);
+
+        if (!validate(answer)) {
+          if (question.onValidationFail) {
+            await question.onValidationFail(context, answer);
+          } else {
+            await context.send(question.requestText, question.requestParams);
+          }
+
+          return;
+        }
 
         question.resolve(answer);
         this.questions.delete(id);
@@ -28,24 +44,33 @@ export class PromptManager {
         return;
       }
 
-      context.prompt = async (text: string, params: Optional<Types.PromptParamsType, 'chat_id' | 'text'> = {}) => {
+      context.prompt = async (text: string, params: Types.PromptParamsType = {}) => {
         if (!text) {
           throw new TypeError('Missing `text` parameter');
         }
 
-        await context.send(text, params);
+        const { validate, onValidationFail, ...sendParams } = params;
+
+        await context.send(text, sendParams);
 
         return new Promise((resolve) => {
           const question: PromptQuestion = new PromptQuestion({
             resolve,
-            start: Date.now()
+            promptedAt: Date.now(),
+            request: {
+              text,
+              params
+            },
+
+            validate,
+            onValidationFail
           });
 
           this.questions.set(id, question);
         });
       };
 
-      context.promptReply = (text: string, params: Optional<Types.PromptParamsType, 'chat_id' | 'text'> = {}) => (
+      context.promptReply = (text: string, params: Types.PromptParamsType = {}) => (
         context.prompt(text, { ...params, reply_to_message_id: context.id })
       );
 

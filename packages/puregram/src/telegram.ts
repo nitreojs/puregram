@@ -310,8 +310,6 @@ export class Telegram {
     contextData = tempContextData;
 
     for (let [dataKey, dataValue] of Object.entries(contextData)) {
-      console.log(dataValue, isEmptyValue(dataValue), isPrimitiveValue(dataValue), parsePrimitiveValue(dataValue));
-      
       if (isEmptyValue(dataValue)) continue;
 
       if (isPrimitiveValue(dataValue)) dataValue = parsePrimitiveValue(dataValue);

@@ -15,7 +15,7 @@ import { User } from './common/structures/user';
 import { APIError } from './errors';
 import { ApiMethod, MediaAttachmentType } from './types';
 import { ApiMethods } from './api-methods';
-import { isPlainObject } from './utils/helpers';
+import { isEmptyValue, isPlainObject, isPrimitiveValue, parsePrimitiveValue } from './utils/helpers';
 
 type AllowArray<T> = T | T[];
 
@@ -310,10 +310,14 @@ export class Telegram {
     contextData = tempContextData;
 
     for (let [dataKey, dataValue] of Object.entries(contextData)) {
-      if (Array.isArray(dataValue)) dataValue = dataValue.join(',');             // [1, 2, 3] -> '1,2,3'
-      if (typeof dataValue === 'boolean') dataValue = String(dataValue);         // true -> 'true'
-      if ('toJSON' in dataValue) dataValue = JSON.stringify(dataValue.toJSON()); // SomeClass { test: true } -> '{"test":true}'
-      if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);       // { foo: 'bar' } -> '{"foo":"bar"}'
+      console.log(dataValue, isEmptyValue(dataValue), isPrimitiveValue(dataValue), parsePrimitiveValue(dataValue));
+      
+      if (isEmptyValue(dataValue)) continue;
+
+      if (isPrimitiveValue(dataValue)) dataValue = parsePrimitiveValue(dataValue);
+      else if (Array.isArray(dataValue)) dataValue = dataValue.join(',');
+      else if ('toJSON' in dataValue) dataValue = JSON.stringify(dataValue.toJSON());
+      else if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue);
 
       form.append(dataKey, dataValue);
     }

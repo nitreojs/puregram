@@ -116,3 +116,37 @@ export const parseRequestJSON = async (req: http.IncomingMessage): Promise<Recor
     Buffer.concat(chunks, totalSize).toString('utf8')
   );
 };
+
+export const isPrimitiveValue = (value: any): value is string | number | bigint | boolean | symbol => {
+  const is: boolean = (
+    typeof value === 'string'  ||
+    typeof value === 'number'  || 
+    typeof value === 'bigint'  ||
+    typeof value === 'boolean' ||
+    typeof value === 'symbol'
+  );
+
+  return is;
+};
+
+export const isEmptyValue = (value: any): value is undefined | null => {
+  return value === undefined || value === null;
+};
+
+export const parsePrimitiveValue = (value: string | number | bigint | boolean | symbol): any => {
+  if (typeof value === 'string' || typeof value === 'number') {
+    return value;
+  }
+
+  if (typeof value === 'boolean') {
+    return String(value);
+  }
+
+  if (typeof value === 'bigint') {
+    return value.toString();
+  }
+
+  if (typeof value === 'symbol') {
+    return value.toString();
+  }
+}

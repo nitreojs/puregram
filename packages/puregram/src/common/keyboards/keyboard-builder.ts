@@ -13,10 +13,9 @@ export class KeyboardBuilder {
   private currentRow: TelegramKeyboardButton[] = [];
 
   private isOneTime: boolean = false;
-
   private isResized: boolean = false;
-
   private isSelective: boolean = false;
+  private placeholder?: string;
 
   public get [Symbol.toStringTag]() {
     return this.constructor.name;
@@ -102,6 +101,13 @@ export class KeyboardBuilder {
     return this;
   }
 
+  /** The placeholder to be shown in the input field when the keyboard is active */
+  public setPlaceholder(placeholder: string): this {
+    this.placeholder = placeholder;
+
+    return this;
+  }
+
   private addButton(button: TelegramKeyboardButton): this {
     this.currentRow.push(button);
 
@@ -123,8 +129,9 @@ export class KeyboardBuilder {
 
     return {
       keyboard: buttons,
-      one_time_keyboard: this.isOneTime,
       resize_keyboard: this.isResized,
+      one_time_keyboard: this.isOneTime,
+      input_field_placeholder: this.placeholder,
       selective: this.isSelective
     };
   }

@@ -11,10 +11,9 @@ export class Keyboard {
   private buttons: TelegramKeyboardButton[][] = [];
 
   private isResized: boolean = false;
-
   private isOneTime: boolean = false;
-
   private isSelective: boolean = false;
+  private placeholder?: string;
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name;
@@ -48,6 +47,13 @@ export class Keyboard {
   /** Use this parameter if you want to show the keyboard to specific users only */
   public selective(selective: boolean = true): this {
     this.isSelective = selective;
+
+    return this;
+  }
+
+  /** The placeholder to be shown in the input field when the keyboard is active */
+  public setPlaceholder(placeholder: string): this {
+    this.placeholder = placeholder;
 
     return this;
   }
@@ -112,6 +118,7 @@ export class Keyboard {
       keyboard: this.buttons,
       resize_keyboard: this.isResized,
       one_time_keyboard: this.isOneTime,
+      input_field_placeholder: this.placeholder,
       selective: this.isSelective
     };
   }

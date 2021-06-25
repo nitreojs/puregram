@@ -610,6 +610,8 @@ Yeah, there are.
 | **Russian 🇷🇺** | [puregram chat [ru]](https://t.me/puregram_chat_ru) |
 | **English 🇬🇧** | [puregram chat [en]](https://t.me/puregram_chat_en) |
 
+There is also a [puregram chats](https://t.me/puregram_chats) channel, which has list of every officially supported `puregram` chat.
+
 ---
 
 ## Community

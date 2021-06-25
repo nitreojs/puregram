@@ -11,7 +11,7 @@ export class PromptManager {
   public get middleware(): Middleware<Types.PromptMessageContext> {
     return async (context: Types.PromptMessageContext, next) => {
       if (!context.is('message')) {
-        return;
+        return next();
       }
 
       const id: number = context.senderId!;
@@ -74,7 +74,7 @@ export class PromptManager {
         context.prompt(text, { ...params, reply_to_message_id: context.id })
       );
 
-      await next();
+      return next();
     };
   }
 }

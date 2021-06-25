@@ -11,9 +11,9 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#list-of-methods--getters'><b>Methods & getters</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram_chat'><b>Chat</b></a>
-  <span>&nbsp;•&nbsp;</span>
   <a href='https://t.me/puregram_channel'><b>Channel</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='https://github.com/nitreojs/puregram#faq'><b>FAQ</b></a>
 </div>
 
 ## @puregram/scenes

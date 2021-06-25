@@ -25,9 +25,9 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>TypeScript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram_chat'><b>Chat</b></a>
-  <span>&nbsp;•&nbsp;</span>
   <a href='https://t.me/puregram_channel'><b>Channel</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='#faq'><b>FAQ</b></a>
 </div>
 
 ## Introduction
@@ -600,6 +600,15 @@ If you want to inspect out- and ingoing requests made by `puregram`, you will ne
 ```sh
 $ DEBUG=puregram:* node index
 ```
+
+### Are there some chats?
+
+Yeah, there are.
+
+| Language      | Link                                                |
+| ------------- | --------------------------------------------------- |
+| **Russian 🇷🇺** | [puregram chat [ru]](https://t.me/puregram_chat_ru) |
+| **English 🇬🇧** | [puregram chat [en]](https://t.me/puregram_chat_en) |
 
 ---
 

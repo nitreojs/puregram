@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 25.05.2021 20:13:09 MSK
+/// Generation date: 25.05.2021 20:23:46 MSK
 
 import * as Interfaces from './telegram-interfaces';
 
@@ -37,7 +37,7 @@ export interface GetUpdatesParams {
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#getupdates)
  */
-export type getUpdates = (params: GetUpdatesParams) => Promise<Interfaces.TelegramUpdate[]>;
+export type getUpdates = (params?: GetUpdatesParams) => Promise<Interfaces.TelegramUpdate[]>;
 
 export interface SetWebhookParams {
   /**
@@ -96,7 +96,7 @@ export interface DeleteWebhookParams {
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#deletewebhook)
  */
-export type deleteWebhook = (params: DeleteWebhookParams) => Promise<true>;
+export type deleteWebhook = (params?: DeleteWebhookParams) => Promise<true>;
 
 /**
  * Use this method to get current webhook status. Requires no parameters. On success, returns a [WebhookInfo](https://core.telegram.org/bots/api/#webhookinfo) object. If the bot is using [getUpdates](https://core.telegram.org/bots/api/#getupdates), will return an object with the *url* field empty.
@@ -858,7 +858,7 @@ export interface StopMessageLiveLocationParams {
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#stopmessagelivelocation)
  */
-export type stopMessageLiveLocation = (params: StopMessageLiveLocationParams) => Promise<Interfaces.TelegramMessage | true>;
+export type stopMessageLiveLocation = (params?: StopMessageLiveLocationParams) => Promise<Interfaces.TelegramMessage | true>;
 
 export interface SendVenueParams {
   /**
@@ -1830,7 +1830,7 @@ export interface DeleteMyCommandsParams {
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#deletemycommands)
  */
-export type deleteMyCommands = (params: DeleteMyCommandsParams) => Promise<true>;
+export type deleteMyCommands = (params?: DeleteMyCommandsParams) => Promise<true>;
 
 export interface GetMyCommandsParams {
   /**
@@ -1852,7 +1852,7 @@ export interface GetMyCommandsParams {
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#getmycommands)
  */
-export type getMyCommands = (params: GetMyCommandsParams) => Promise<Interfaces.TelegramBotCommand[]>;
+export type getMyCommands = (params?: GetMyCommandsParams) => Promise<Interfaces.TelegramBotCommand[]>;
 
 export interface EditMessageTextParams {
   /**
@@ -1940,7 +1940,7 @@ export interface EditMessageCaptionParams {
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#editmessagecaption)
  */
-export type editMessageCaption = (params: EditMessageCaptionParams) => Promise<Interfaces.TelegramMessage | true>;
+export type editMessageCaption = (params?: EditMessageCaptionParams) => Promise<Interfaces.TelegramMessage | true>;
 
 export interface EditMessageMediaParams {
   /**
@@ -2004,7 +2004,7 @@ export interface EditMessageReplyMarkupParams {
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#editmessagereplymarkup)
  */
-export type editMessageReplyMarkup = (params: EditMessageReplyMarkupParams) => Promise<Interfaces.TelegramMessage | true>;
+export type editMessageReplyMarkup = (params?: EditMessageReplyMarkupParams) => Promise<Interfaces.TelegramMessage | true>;
 
 export interface StopPollParams {
   /**

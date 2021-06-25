@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 25.05.2021 20:13:09 MSK
+/// Generation date: 25.05.2021 20:23:46 MSK
 
 import { Readable } from 'stream'; // for Interfaces.InputFile
 

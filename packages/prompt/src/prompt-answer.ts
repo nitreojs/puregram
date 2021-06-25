@@ -29,10 +29,6 @@ export class PromptAnswer {
   public get caption(): string | undefined {
     return this.context.caption;
   }
-
-  public get attachments(): Attachment[] {
-    return this.context.attachments;
-  }
 }
 
 inspectable(PromptAnswer, {
@@ -43,8 +39,7 @@ inspectable(PromptAnswer, {
       promptedWithin: answer.promptedWithin,
       answeredAt: answer.answeredAt,
       text: answer.text,
-      caption: answer.caption,
-      attachments: answer.attachments
+      caption: answer.caption
     });
   }
 });

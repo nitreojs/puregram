@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v5.2.0, 26.04.2021
-/// Generation date: 12.05.2021 14:43:32 MSK
+/// Based on Bot API v5.3.0, 25.06.2021
+/// Generation date: 25.05.2021 20:13:09 MSK
 
 import * as Interfaces from './telegram-interfaces';
 
@@ -1166,7 +1166,7 @@ export interface GetFileParams {
  */
 export type getFile = (params: GetFileParams) => Promise<Interfaces.TelegramFile>;
 
-export interface KickChatMemberParams {
+export interface BanChatMemberParams {
   /**
    * Unique identifier for the target group or username of the target supergroup or channel (in the format `@channelusername`)
    */
@@ -1188,13 +1188,13 @@ export interface KickChatMemberParams {
 }
 
 /**
- * Use this method to kick a user from a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api/#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+ * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api/#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
  * 
  * ---
  * 
- * [**Documentation**](https://core.telegram.org/bots/api/#kickchatmember)
+ * [**Documentation**](https://core.telegram.org/bots/api/#banchatmember)
  */
-export type kickChatMember = (params: KickChatMemberParams) => Promise<true>;
+export type banChatMember = (params: BanChatMemberParams) => Promise<true>;
 
 export interface UnbanChatMemberParams {
   /**
@@ -1214,7 +1214,7 @@ export interface UnbanChatMemberParams {
 }
 
 /**
- * Use this method to unban a previously kicked user in a supergroup or channel. The user will **not** return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be **removed** from the chat. If you don't want this, use the parameter *only\_if\_banned*. Returns *True* on success.
+ * Use this method to unban a previously banned user in a supergroup or channel. The user will **not** return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be **removed** from the chat. If you don't want this, use the parameter *only\_if\_banned*. Returns *True* on success.
  * 
  * ---
  * 
@@ -1666,7 +1666,7 @@ export interface GetChatAdministratorsParams {
  */
 export type getChatAdministrators = (params: GetChatAdministratorsParams) => Promise<Interfaces.TelegramChatMember[]>;
 
-export interface GetChatMembersCountParams {
+export interface GetChatMemberCountParams {
   /**
    * Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)
    */
@@ -1680,9 +1680,9 @@ export interface GetChatMembersCountParams {
  * 
  * ---
  * 
- * [**Documentation**](https://core.telegram.org/bots/api/#getchatmemberscount)
+ * [**Documentation**](https://core.telegram.org/bots/api/#getchatmembercount)
  */
-export type getChatMembersCount = (params: GetChatMembersCountParams) => Promise<number>;
+export type getChatMemberCount = (params: GetChatMemberCountParams) => Promise<number>;
 
 export interface GetChatMemberParams {
   /**
@@ -1789,12 +1789,20 @@ export interface SetMyCommandsParams {
    * A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
    */
   commands: Interfaces.TelegramBotCommand[];
+  /**
+   * A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to [BotCommandScopeDefault](https://core.telegram.org/bots/api/#botcommandscopedefault).
+   */
+  scope?: Interfaces.TelegramBotCommandScope;
+  /**
+   * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   */
+  language_code?: string;
 
   [key: string]: any;
 }
 
 /**
- * Use this method to change the list of the bot's commands. Returns *True* on success.
+ * Use this method to change the list of the bot's commands. See [https://core.telegram.org/bots#commands](https://core.telegram.org/bots#commands) for more details about bot commands. Returns *True* on success.
  * 
  * ---
  * 
@@ -1802,14 +1810,49 @@ export interface SetMyCommandsParams {
  */
 export type setMyCommands = (params: SetMyCommandsParams) => Promise<true>;
 
+export interface DeleteMyCommandsParams {
+  /**
+   * A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to [BotCommandScopeDefault](https://core.telegram.org/bots/api/#botcommandscopedefault).
+   */
+  scope?: Interfaces.TelegramBotCommandScope;
+  /**
+   * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   */
+  language_code?: string;
+
+  [key: string]: any;
+}
+
 /**
- * Use this method to get the current list of the bot's commands. Requires no parameters. Returns Array of [BotCommand](https://core.telegram.org/bots/api/#botcommand) on success.
+ * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, [higher level commands](https://core.telegram.org/bots/api/#determining-list-of-commands) will be shown to affected users. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#deletemycommands)
+ */
+export type deleteMyCommands = (params: DeleteMyCommandsParams) => Promise<true>;
+
+export interface GetMyCommandsParams {
+  /**
+   * A JSON-serialized object, describing scope of users. Defaults to [BotCommandScopeDefault](https://core.telegram.org/bots/api/#botcommandscopedefault).
+   */
+  scope?: Interfaces.TelegramBotCommandScope;
+  /**
+   * A two-letter ISO 639-1 language code or an empty string
+   */
+  language_code?: string;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of [BotCommand](https://core.telegram.org/bots/api/#botcommand) on success. If commands aren't set, an empty list is returned.
  * 
  * ---
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#getmycommands)
  */
-export type getMyCommands = () => Promise<Interfaces.TelegramBotCommand[]>;
+export type getMyCommands = (params: GetMyCommandsParams) => Promise<Interfaces.TelegramBotCommand[]>;
 
 export interface EditMessageTextParams {
   /**

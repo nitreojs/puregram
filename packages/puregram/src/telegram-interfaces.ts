@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v5.2.0, 26.04.2021
-/// Generation date: 12.05.2021 14:43:32 MSK
+/// Based on Bot API v5.3.0, 25.06.2021
+/// Generation date: 25.05.2021 20:13:09 MSK
 
 import { Readable } from 'stream'; // for Interfaces.InputFile
 
@@ -1113,6 +1113,10 @@ export interface TelegramReplyKeyboardMarkup {
    */
   one_time_keyboard?: boolean;
   /**
+   * *Optional*. The placeholder to be shown in the input field when the keyboard is active; 1-64 characters
+   */
+  input_field_placeholder?: string;
+  /**
    * *Optional*. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.  
    * 
    * *Example:* A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
@@ -1311,6 +1315,10 @@ export interface TelegramForceReply {
    */
   force_reply: boolean;
   /**
+   * *Optional*. The placeholder to be shown in the input field when the reply is active; 1-64 characters
+   */
+  input_field_placeholder?: string;
+  /**
    * *Optional*. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.
    */
   selective?: boolean;
@@ -1375,97 +1383,201 @@ export interface TelegramChatInviteLink {
 }
 
 /**
- * This object contains information about one member of a chat.
+ * Represents a [chat member](https://core.telegram.org/bots/api/#chatmember) that owns the chat and has all administrator privileges.
  */
-export interface TelegramChatMember {
+export interface TelegramChatMemberOwner {
+  /**
+   * The member's status in the chat, always “creator”
+   */
+  status: string;
   /**
    * Information about the user
    */
   user: TelegramUser;
   /**
-   * The member's status in the chat. Can be “creator”, “administrator”, “member”, “restricted”, “left” or “kicked”
+   * Custom title for this user
    */
-  status: 'creator' | 'administrator' | 'member' | 'restricted' | 'left' | 'kicked';
+  custom_title: string;
   /**
-   * *Optional*. Owner and administrators only. Custom title for this user
+   * True, if the user's presence in the chat is hidden
    */
-  custom_title?: string;
+  is_anonymous: boolean;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents a [chat member](https://core.telegram.org/bots/api/#chatmember) that has some additional privileges.
+ */
+export interface TelegramChatMemberAdministrator {
   /**
-   * *Optional*. Owner and administrators only. True, if the user's presence in the chat is hidden
+   * The member's status in the chat, always “administrator”
    */
-  is_anonymous?: boolean;
+  status: string;
   /**
-   * *Optional*. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
+   * Information about the user
    */
-  can_be_edited?: boolean;
+  user: TelegramUser;
   /**
-   * *Optional*. Administrators only. True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * True, if the bot is allowed to edit administrator privileges of that user
    */
-  can_manage_chat?: boolean;
+  can_be_edited: boolean;
   /**
-   * *Optional*. Administrators only. True, if the administrator can post in the channel; channels only
+   * Custom title for this user
    */
-  can_post_messages?: boolean;
+  custom_title: string;
   /**
-   * *Optional*. Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only
+   * True, if the user's presence in the chat is hidden
    */
-  can_edit_messages?: boolean;
+  is_anonymous: boolean;
   /**
-   * *Optional*. Administrators only. True, if the administrator can delete messages of other users
+   * True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
-  can_delete_messages?: boolean;
+  can_manage_chat: boolean;
   /**
-   * *Optional*. Administrators only. True, if the administrator can manage voice chats
+   * True, if the administrator can post in the channel; channels only
    */
-  can_manage_voice_chats?: boolean;
+  can_post_messages: boolean;
   /**
-   * *Optional*. Administrators only. True, if the administrator can restrict, ban or unban chat members
+   * True, if the administrator can edit messages of other users and can pin messages; channels only
    */
-  can_restrict_members?: boolean;
+  can_edit_messages: boolean;
   /**
-   * *Optional*. Administrators only. True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+   * True, if the administrator can delete messages of other users
    */
-  can_promote_members?: boolean;
+  can_delete_messages: boolean;
   /**
-   * *Optional*. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings
+   * True, if the administrator can manage voice chats
    */
-  can_change_info?: boolean;
+  can_manage_voice_chats: boolean;
   /**
-   * *Optional*. Administrators and restricted only. True, if the user is allowed to invite new users to the chat
+   * True, if the administrator can restrict, ban or unban chat members
    */
-  can_invite_users?: boolean;
+  can_restrict_members: boolean;
   /**
-   * *Optional*. Administrators and restricted only. True, if the user is allowed to pin messages; groups and supergroups only
+   * True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    */
-  can_pin_messages?: boolean;
+  can_promote_members: boolean;
   /**
-   * *Optional*. Restricted only. True, if the user is a member of the chat at the moment of the request
+   * True, if the user is allowed to change the chat title, photo and other settings
    */
-  is_member?: boolean;
+  can_change_info: boolean;
   /**
-   * *Optional*. Restricted only. True, if the user is allowed to send text messages, contacts, locations and venues
+   * True, if the user is allowed to invite new users to the chat
    */
-  can_send_messages?: boolean;
+  can_invite_users: boolean;
   /**
-   * *Optional*. Restricted only. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
+   * True, if the user is allowed to pin messages; groups and supergroups only
    */
-  can_send_media_messages?: boolean;
+  can_pin_messages: boolean;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents a [chat member](https://core.telegram.org/bots/api/#chatmember) that has no additional privileges or restrictions.
+ */
+export interface TelegramChatMemberMember {
   /**
-   * *Optional*. Restricted only. True, if the user is allowed to send polls
+   * The member's status in the chat, always “member”
    */
-  can_send_polls?: boolean;
+  status: string;
   /**
-   * *Optional*. Restricted only. True, if the user is allowed to send animations, games, stickers and use inline bots
+   * Information about the user
    */
-  can_send_other_messages?: boolean;
+  user: TelegramUser;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents a [chat member](https://core.telegram.org/bots/api/#chatmember) that is under certain restrictions in the chat. Supergroups only.
+ */
+export interface TelegramChatMemberRestricted {
   /**
-   * *Optional*. Restricted only. True, if the user is allowed to add web page previews to their messages
+   * The member's status in the chat, always “restricted”
    */
-  can_add_web_page_previews?: boolean;
+  status: string;
   /**
-   * *Optional*. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
+   * Information about the user
    */
-  until_date?: number;
+  user: TelegramUser;
+  /**
+   * True, if the user is a member of the chat at the moment of the request
+   */
+  is_member: boolean;
+  /**
+   * True, if the user is allowed to change the chat title, photo and other settings
+   */
+  can_change_info: boolean;
+  /**
+   * True, if the user is allowed to invite new users to the chat
+   */
+  can_invite_users: boolean;
+  /**
+   * True, if the user is allowed to pin messages; groups and supergroups only
+   */
+  can_pin_messages: boolean;
+  /**
+   * True, if the user is allowed to send text messages, contacts, locations and venues
+   */
+  can_send_messages: boolean;
+  /**
+   * True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
+   */
+  can_send_media_messages: boolean;
+  /**
+   * True, if the user is allowed to send polls
+   */
+  can_send_polls: boolean;
+  /**
+   * True, if the user is allowed to send animations, games, stickers and use inline bots
+   */
+  can_send_other_messages: boolean;
+  /**
+   * True, if the user is allowed to add web page previews to their messages
+   */
+  can_add_web_page_previews: boolean;
+  /**
+   * Date when restrictions will be lifted for this user; unix time
+   */
+  until_date: number;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents a [chat member](https://core.telegram.org/bots/api/#chatmember) that isn't currently a member of the chat, but may join it themselves.
+ */
+export interface TelegramChatMemberLeft {
+  /**
+   * The member's status in the chat, always “left”
+   */
+  status: string;
+  /**
+   * Information about the user
+   */
+  user: TelegramUser;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents a [chat member](https://core.telegram.org/bots/api/#chatmember) that was banned in the chat and can't return to the chat or view chat messages.
+ */
+export interface TelegramChatMemberBanned {
+  /**
+   * The member's status in the chat, always “kicked”
+   */
+  status: string;
+  /**
+   * Information about the user
+   */
+  user: TelegramUser;
+  /**
+   * Date when restrictions will be lifted for this user; unix time
+   */
+  until_date: number;
 
   [key: string]: any;
 }
@@ -1570,6 +1682,106 @@ export interface TelegramBotCommand {
    * Description of the command, 3-256 characters.
    */
   description: string;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents the default [scope](https://core.telegram.org/bots/api/#botcommandscope) of bot commands. Default commands are used if no commands with a [narrower scope](https://core.telegram.org/bots/api/#determining-list-of-commands) are specified for the user.
+ */
+export interface TelegramBotCommandScopeDefault {
+  /**
+   * Scope type, must be *default*
+   */
+  type: 'default';
+
+  [key: string]: any;
+}
+
+/**
+ * Represents the [scope](https://core.telegram.org/bots/api/#botcommandscope) of bot commands, covering all private chats.
+ */
+export interface TelegramBotCommandScopeAllPrivateChats {
+  /**
+   * Scope type, must be *all\_private\_chats*
+   */
+  type: 'all_private_chats';
+
+  [key: string]: any;
+}
+
+/**
+ * Represents the [scope](https://core.telegram.org/bots/api/#botcommandscope) of bot commands, covering all group and supergroup chats.
+ */
+export interface TelegramBotCommandScopeAllGroupChats {
+  /**
+   * Scope type, must be *all\_group\_chats*
+   */
+  type: 'all_group_chats';
+
+  [key: string]: any;
+}
+
+/**
+ * Represents the [scope](https://core.telegram.org/bots/api/#botcommandscope) of bot commands, covering all group and supergroup chat administrators.
+ */
+export interface TelegramBotCommandScopeAllChatAdministrators {
+  /**
+   * Scope type, must be *all\_chat\_administrators*
+   */
+  type: 'all_chat_administrators';
+
+  [key: string]: any;
+}
+
+/**
+ * Represents the [scope](https://core.telegram.org/bots/api/#botcommandscope) of bot commands, covering a specific chat.
+ */
+export interface TelegramBotCommandScopeChat {
+  /**
+   * Scope type, must be *chat*
+   */
+  type: 'chat';
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents the [scope](https://core.telegram.org/bots/api/#botcommandscope) of bot commands, covering all administrators of a specific group or supergroup chat.
+ */
+export interface TelegramBotCommandScopeChatAdministrators {
+  /**
+   * Scope type, must be *chat\_administrators*
+   */
+  type: 'chat_administrators';
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string;
+
+  [key: string]: any;
+}
+
+/**
+ * Represents the [scope](https://core.telegram.org/bots/api/#botcommandscope) of bot commands, covering a specific member of a group or supergroup chat.
+ */
+export interface TelegramBotCommandScopeChatMember {
+  /**
+   * Scope type, must be *chat\_member*
+   */
+  type: 'chat_member';
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string;
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
 
   [key: string]: any;
 }
@@ -3811,6 +4023,29 @@ export type InputFile =
   | Record<string, any>
   | Buffer
   | Readable;
+
+/**
+ * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
+ */
+export type TelegramChatMember =
+  | TelegramChatMemberOwner
+  | TelegramChatMemberAdministrator
+  | TelegramChatMemberMember
+  | TelegramChatMemberRestricted
+  | TelegramChatMemberLeft
+  | TelegramChatMemberBanned;
+
+/**
+ * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
+ */
+export type TelegramBotCommandScope =
+  | TelegramBotCommandScopeDefault
+  | TelegramBotCommandScopeAllPrivateChats
+  | TelegramBotCommandScopeAllGroupChats
+  | TelegramBotCommandScopeAllChatAdministrators
+  | TelegramBotCommandScopeChat
+  | TelegramBotCommandScopeChatAdministrators
+  | TelegramBotCommandScopeChatMember;
 
 /**
  * This object represents the content of a media message to be sent. It should be one of

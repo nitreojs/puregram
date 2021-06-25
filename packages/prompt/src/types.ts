@@ -1,14 +1,15 @@
-import { MessageContext } from 'puregram';
+import { MessageContext, CallbackQueryContext } from 'puregram';
 import { Id, Optional } from 'puregram/lib/types';
 import { SendMessageParams } from 'puregram/lib/methods';
 
 import { PromptAnswer } from './prompt-answer';
 
-export type PromptMessageContext = MessageContext & PromptContext;
+export type PromptMessageContext = (MessageContext & PromptContext) | (CallbackQueryContext & PromptContext);
 
 export type PromptParamsType = Id<PromptParams & Optional<SendMessageParams, 'chat_id' | 'text'>>;
 export type PromptValidate = (answer: PromptAnswer) => boolean;
-export type PromptOnValidation = (context: MessageContext, answer: PromptAnswer) => any;
+export type PromptOnValidation = (context: MessageContext | CallbackQueryContext, answer: PromptAnswer) => any;
+export type Prompt = (text: string, params?: PromptParamsType) => Promise<PromptAnswer>;
 
 export interface PromptParams {
   validate?: PromptValidate;
@@ -34,7 +35,7 @@ export interface PromptAnswerParams {
 
 export interface PromptContext {
   /** Sends message with provided `text` and waits the answer */
-  prompt: (text: string, params?: PromptParamsType) => Promise<PromptAnswer>;
+  prompt: Prompt;
   /** Same as `prompt`, but it replies to current message */
-  promptReply: (text: string, params?: PromptParamsType) => Promise<PromptAnswer>;
+  promptReply: Prompt;
 }

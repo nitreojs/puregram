@@ -1,5 +1,6 @@
 import { Middleware } from 'middleware-io';
 import { inspectable } from 'inspectable';
+import { CallbackQueryContext, MessageContext } from 'puregram';
 
 import * as Types from './types';
 import { PromptQuestion } from './prompt-question';
@@ -10,7 +11,7 @@ export class PromptManager {
 
   public get middleware(): Middleware<Types.PromptMessageContext> {
     return async (context: Types.PromptMessageContext, next) => {
-      if (!context.is(['message', 'edited_message', 'channel_post', 'edited_channel_post'])) {
+      if (!context.is(['message', 'edited_message', 'channel_post', 'edited_channel_post', 'callback_query'])) {
         return next();
       }
 
@@ -32,7 +33,11 @@ export class PromptManager {
           if (question.onValidationFail) {
             await question.onValidationFail(context, answer);
           } else {
-            await context.send(question.requestText, question.requestParams);
+            if (context instanceof MessageContext) {
+              await context.send(question.requestText, question.requestParams);
+            } else {
+              await context.message!.send(question.requestText, question.requestParams);
+            }
           }
 
           return;
@@ -51,7 +56,11 @@ export class PromptManager {
 
         const { validate, onValidationFail, ...sendParams } = params;
 
-        await context.send(text, sendParams);
+        if (context instanceof MessageContext) {
+          await context.send(text, sendParams);
+        } else {
+          await context.message!.send(text, sendParams);
+        }
 
         return new Promise((resolve) => {
           const question: PromptQuestion = new PromptQuestion({
@@ -71,7 +80,12 @@ export class PromptManager {
       };
 
       context.promptReply = (text: string, params: Types.PromptParamsType = {}) => (
-        context.prompt(text, { ...params, reply_to_message_id: context.id })
+        context.prompt(text, {
+          ...params,
+          reply_to_message_id: context.is('callback_query')
+            ? (context as CallbackQueryContext).message!.id
+            : (context as MessageContext).id
+        })
       );
 
       return next();

@@ -1,5 +1,5 @@
-import { Attachment, MessageContext } from 'puregram';
 import { inspectable } from 'inspectable';
+import { MessageContext } from 'puregram';
 
 import * as Types from './types';
 import { filterPayload } from './utils';
@@ -23,11 +23,15 @@ export class PromptAnswer {
   }
 
   public get text(): string | undefined {
-    return this.context.text;
+    return this.context instanceof MessageContext
+      ? this.context.text
+      : this.context.message!.text;
   }
 
   public get caption(): string | undefined {
-    return this.context.caption;
+    return this.context instanceof MessageContext
+      ? this.context.caption
+      : this.context.message!.caption;
   }
 }
 

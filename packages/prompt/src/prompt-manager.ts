@@ -10,7 +10,7 @@ export class PromptManager {
 
   public get middleware(): Middleware<Types.PromptMessageContext> {
     return async (context: Types.PromptMessageContext, next) => {
-      if (!context.is('message')) {
+      if (!context.is(['message', 'edited_message', 'channel_post', 'edited_channel_post'])) {
         return next();
       }
 

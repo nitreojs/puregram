@@ -382,7 +382,7 @@ export function generateHeader(version: Types.SchemaVersion, recentChanges: Type
 
   const apiVersion: string = `v${version.major}.${version.minor}.${version.patch}`;
   const apiUpdateDate: string = `${pad(recentChanges.day)}.${pad(recentChanges.month)}.${recentChanges.year}`;
-  const generationDate: string = `${pad(date.getDate())}.${pad(date.getMonth())}.${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())} MSK`;
+  const generationDate: string = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())} MSK`;
 
   const header = stripIndents`
     /// AUTO-GENERATED FILE

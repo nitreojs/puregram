@@ -529,8 +529,8 @@ interface ExtraData {
 bot.updates.use((context, next) => {
   const user = await getUser(context.senderId);
 
-  bot.name = user.name;
-  bot.id = user.id;
+  context.name = user.name;
+  context.id = user.id;
 
   return next();
 });

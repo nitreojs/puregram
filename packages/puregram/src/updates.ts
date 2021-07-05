@@ -12,15 +12,17 @@ import createDebug from 'debug';
 
 import * as Contexts from './contexts';
 
-import { Telegram } from './telegram';
-import { GetUpdatesParams } from './methods';
 import { Composer } from './common/structures/composer';
 import { User } from './common/structures/user';
+
+import { Telegram } from './telegram';
+import { GetUpdatesParams } from './methods';
 import { delay, parseRequestJSON } from './utils/helpers';
 import { TelegramUpdate, TelegramUser } from './telegram-interfaces';
 import { StartPollingOptions } from './interfaces';
 import { Constructor, UpdateName, MessageEventName } from './types';
 import { UpdateType } from './enums';
+import { TelegramError } from './errors';
 
 const debug = createDebug('puregram:updates');
 
@@ -342,9 +344,12 @@ export class Updates {
       try {
         me = await this.telegram.api.getMe();
       } catch (error) {
-        debug('Unable to fetch bot info, stopping right away');
-  
-        return this.stopPolling();
+        debug('Unable to fetch bot info, perhaps no internet connection?');
+
+        throw new TelegramError({
+          error_code: -1,
+          description: 'Unable to fetch bot data from the start'
+        });
       }
   
       const bot: User = new User(me);

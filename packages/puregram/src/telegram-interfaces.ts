@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 25.05.2021 20:23:46 MSK
+/// Generation date: 05.07.2021 20:49:57 MSK
 
 import { Readable } from 'stream'; // for Interfaces.InputFile
 
@@ -1389,19 +1389,19 @@ export interface TelegramChatMemberOwner {
   /**
    * The member's status in the chat, always “creator”
    */
-  status: string;
+  status: 'creator';
   /**
    * Information about the user
    */
   user: TelegramUser;
   /**
-   * Custom title for this user
-   */
-  custom_title: string;
-  /**
    * True, if the user's presence in the chat is hidden
    */
   is_anonymous: boolean;
+  /**
+   * *Optional*. Custom title for this user
+   */
+  custom_title?: string;
 
   [key: string]: any;
 }
@@ -1413,7 +1413,7 @@ export interface TelegramChatMemberAdministrator {
   /**
    * The member's status in the chat, always “administrator”
    */
-  status: string;
+  status: 'administrator';
   /**
    * Information about the user
    */
@@ -1423,10 +1423,6 @@ export interface TelegramChatMemberAdministrator {
    */
   can_be_edited: boolean;
   /**
-   * Custom title for this user
-   */
-  custom_title: string;
-  /**
    * True, if the user's presence in the chat is hidden
    */
   is_anonymous: boolean;
@@ -1434,14 +1430,6 @@ export interface TelegramChatMemberAdministrator {
    * True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat: boolean;
-  /**
-   * True, if the administrator can post in the channel; channels only
-   */
-  can_post_messages: boolean;
-  /**
-   * True, if the administrator can edit messages of other users and can pin messages; channels only
-   */
-  can_edit_messages: boolean;
   /**
    * True, if the administrator can delete messages of other users
    */
@@ -1467,9 +1455,21 @@ export interface TelegramChatMemberAdministrator {
    */
   can_invite_users: boolean;
   /**
-   * True, if the user is allowed to pin messages; groups and supergroups only
+   * *Optional*. True, if the administrator can post in the channel; channels only
    */
-  can_pin_messages: boolean;
+  can_post_messages?: boolean;
+  /**
+   * *Optional*. True, if the administrator can edit messages of other users and can pin messages; channels only
+   */
+  can_edit_messages?: boolean;
+  /**
+   * *Optional*. True, if the user is allowed to pin messages; groups and supergroups only
+   */
+  can_pin_messages?: boolean;
+  /**
+   * *Optional*. Custom title for this user
+   */
+  custom_title?: string;
 
   [key: string]: any;
 }
@@ -1481,7 +1481,7 @@ export interface TelegramChatMemberMember {
   /**
    * The member's status in the chat, always “member”
    */
-  status: string;
+  status: 'member';
   /**
    * Information about the user
    */
@@ -1497,7 +1497,7 @@ export interface TelegramChatMemberRestricted {
   /**
    * The member's status in the chat, always “restricted”
    */
-  status: string;
+  status: 'restricted';
   /**
    * Information about the user
    */
@@ -1515,7 +1515,7 @@ export interface TelegramChatMemberRestricted {
    */
   can_invite_users: boolean;
   /**
-   * True, if the user is allowed to pin messages; groups and supergroups only
+   * True, if the user is allowed to pin messages
    */
   can_pin_messages: boolean;
   /**
@@ -1553,7 +1553,7 @@ export interface TelegramChatMemberLeft {
   /**
    * The member's status in the chat, always “left”
    */
-  status: string;
+  status: 'left';
   /**
    * Information about the user
    */
@@ -1569,7 +1569,7 @@ export interface TelegramChatMemberBanned {
   /**
    * The member's status in the chat, always “kicked”
    */
-  status: string;
+  status: 'kicked';
   /**
    * Information about the user
    */

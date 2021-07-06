@@ -14,7 +14,7 @@
   with
   <a href='https://core.telegram.org/bots/api'>Telegram Bot API</a>
   via
-  <a href='https://nodejs.org'>Node.js</a>/<a href='https://www.typescriptlang.org'>TypeScript</a>
+  <a href='https://nodejs.org'>Node.js</a>
   😎👍
 </p>
 
@@ -23,7 +23,7 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='https://github.com/nitreojs/puregram/tree/master/docs/examples'><b>Examples</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#typescript-usage'><b>TypeScript usage</b></a>
+  <a href='#typescript-usage'><b>TypeScript</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='https://t.me/puregram_channel'><b>Channel</b></a>
   <span>&nbsp;•&nbsp;</span>

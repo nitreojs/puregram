@@ -363,7 +363,7 @@ export class Updates {
     this.isStarted = true;
 
     try {
-      return this.startFetchLoop(options);
+      this.startFetchLoop(options);
     } catch (error) {
       this.isStarted = false;
 

@@ -1,5 +1,7 @@
 import { Agent } from 'https';
 
+import { TelegramResponseParameters } from './telegram-interfaces';
+
 export interface TelegramOptions {
   /** Bot's token */
   token?: string;
@@ -63,7 +65,7 @@ export interface ApiResponseError {
 
   error_code: number;
 
-  parameters?: any;
+  parameters?: TelegramResponseParameters;
 }
 
 export interface StartPollingOptions {

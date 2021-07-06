@@ -2,9 +2,11 @@ import fetch, { Response } from 'node-fetch';
 import { stripIndent, stripIndents } from 'common-tags';
 import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
+import { readFile } from 'fs/promises';
 
 import * as Types from './types';
 
+// const SCHEMA_URL: string = `${__dirname}/custom.min.json`;
 const SCHEMA_URL: string = 'https://ark0f.github.io/tg-bot-api/custom.min.json';
 
 
@@ -117,7 +119,8 @@ class MethodService {
       fields.push(tab('[key: string]: any;'));
 
       const mInterface: string = `export interface ${mInterfaceName} {\n${fields.join('\n')}\n}`;
-      const mType: string = `export type ${kMethod.name} = (params: ${mInterfaceName}) => Promise<${mReturnType}>;`;
+      const mParamsNotRequired: string = kMethod.arguments.every(argument => !argument.required) ? '?' : '';
+      const mType: string = `export type ${kMethod.name} = (params${mParamsNotRequired}: ${mInterfaceName}) => Promise<${mReturnType}>;`;
 
       content = `${mInterface}\n\n${mTypeDescription}\n${mType}`;
     }
@@ -329,9 +332,16 @@ export type GenerateDataType = InterfacesData & { time: number };
 export const pad = (number: number): string => String(number).padStart(2, '0');
 export const tab = (source: string): string => `  ${source}`;
 
-export async function getJson(): Promise<Types.SchemaResponse> {
-  const response: Response = await fetch(SCHEMA_URL);
-  const json: Types.SchemaResponse = await response.json();
+export async function getJson(fromFile: boolean = false): Promise<Types.SchemaResponse> {
+  let json: Types.SchemaResponse;
+
+  if (fromFile) {
+    const response = (await readFile(SCHEMA_URL)).toString();
+    json = JSON.parse(response);
+  } else {
+    const response: Response = await fetch(SCHEMA_URL);
+    json = await response.json();
+  }
 
   return json;
 }

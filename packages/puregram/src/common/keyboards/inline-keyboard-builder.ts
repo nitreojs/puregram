@@ -150,6 +150,18 @@ export class InlineKeyboardBuilder {
     return this.row();
   }
 
+  /**
+   * Clone current builder to new instance
+   */
+  public clone(): InlineKeyboardBuilder {
+    const builder = new InlineKeyboardBuilder();
+
+    builder.rows = [...this.rows];
+    builder.currentRow = [...this.currentRow];
+
+    return builder;
+  }
+
   public toJSON(): TelegramInlineKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]

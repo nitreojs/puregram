@@ -122,6 +122,26 @@ export class KeyboardBuilder {
     return this.row();
   }
 
+  /**
+   * Clone current builder to new instance
+   */
+  public clone(): KeyboardBuilder {
+    const builder = new KeyboardBuilder();
+
+    builder.oneTime(this.isOneTime);
+    builder.resize(this.isResized);
+    builder.selective(this.isSelective);
+
+    if (this.placeholder) {
+      builder.setPlaceholder(this.placeholder);
+    }
+
+    builder.rows = [...this.rows];
+    builder.currentRow = [...this.currentRow];
+
+    return builder;
+  }
+
   public toJSON(): TelegramReplyKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]

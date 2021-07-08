@@ -58,7 +58,7 @@ export class InlineKeyboardBuilder {
     return this.constructor.name;
   }
 
-  /** Generates text button */
+  /** Generate text button */
   public textButton(params: TextButtonParams): this {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload);
@@ -70,7 +70,7 @@ export class InlineKeyboardBuilder {
     });
   }
 
-  /** Generates URL button */
+  /** Generate URL button */
   public urlButton(params: UrlButtonParams): this {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload);
@@ -83,7 +83,7 @@ export class InlineKeyboardBuilder {
     });
   }
 
-  /** Generates button that will switch to current chat and type the query */
+  /** Generate button that will switch to current chat and type the query */
   public switchToCurrentChatButton(params: SwitchToCurrentChatButtonParams): this {
     return this.addButton({
       text: params.text,
@@ -91,7 +91,7 @@ export class InlineKeyboardBuilder {
     });
   }
 
-  /** Generates button that will prompt user to select one of their chats */
+  /** Generate button that will prompt user to select one of their chats */
   public switchToChatButton(params: SwitchToChatButtonParams): this {
     return this.addButton({
       text: params.text,
@@ -99,7 +99,7 @@ export class InlineKeyboardBuilder {
     });
   }
 
-  /** Generates game button */
+  /** Generate game button */
   public gameButton(params: GameButtonParams): this {
     return this.addWideButton({
       text: params.text,
@@ -107,7 +107,7 @@ export class InlineKeyboardBuilder {
     });
   }
 
-  /** Generates pay button */
+  /** Generate pay button */
   public payButton(params: PayButtonParams): this {
     return this.addWideButton({
       pay: true,
@@ -115,7 +115,7 @@ export class InlineKeyboardBuilder {
     });
   }
 
-  /** Generates login button */
+  /** Generate login button */
   public loginButton(params: LoginButtonParams): this {
     return this.addButton({
       login_url: params.loginUrl,
@@ -123,6 +123,7 @@ export class InlineKeyboardBuilder {
     });
   }
 
+  /** Save current row of buttons in the general rows */
   public row(): this {
     if (this.currentRow.length === 0) {
       return this;
@@ -150,9 +151,7 @@ export class InlineKeyboardBuilder {
     return this.row();
   }
 
-  /**
-   * Clone current builder to new instance
-   */
+  /** Clone current builder to new instance */
   public clone(): InlineKeyboardBuilder {
     const builder = new InlineKeyboardBuilder();
 

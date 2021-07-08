@@ -10,6 +10,7 @@ interface RemoveKeyboardJSON {
 export class RemoveKeyboard {
   private isSelective: boolean = false;
 
+  /** Use this parameter if you want to show the keyboard to specific users only */
   public selective(selective: boolean = true): this {
     this.isSelective = selective;
 

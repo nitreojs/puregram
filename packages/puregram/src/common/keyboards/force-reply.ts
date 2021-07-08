@@ -7,12 +7,14 @@ export class ForceReply {
   private isSelective: boolean = false;
   private placeholder?: string;
 
+  /** Use this parameter if you want to show the keyboard to specific users only */
   public selective(selective: boolean = true): this {
     this.isSelective = selective;
 
     return this;
   }
 
+  /** The placeholder to be shown in the input field when the keyboard is active */
   public setPlaceholder(placeholder: string): this {
     this.placeholder = placeholder;
 

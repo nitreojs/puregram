@@ -19,7 +19,7 @@ export class Keyboard {
     return this.constructor.name;
   }
 
-  /** Assembles a builder of buttons */
+  /** Assemble a builder of buttons */
   public static keyboard(rows: (TelegramKeyboardButton | TelegramKeyboardButton[])[]): Keyboard {
     const keyboard: Keyboard = new Keyboard();
 

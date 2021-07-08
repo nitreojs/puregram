@@ -22,7 +22,7 @@ export class KeyboardBuilder {
   }
 
   /**
-   * Generates text button.
+   * Generate text button.
    * If none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
@@ -68,7 +68,7 @@ export class KeyboardBuilder {
     });
   }
 
-  /** Saves the current row of buttons in the general rows */
+  /** Save current row of buttons in the general rows */
   public row(): this {
     if (this.currentRow.length === 0) {
       return this;
@@ -122,9 +122,7 @@ export class KeyboardBuilder {
     return this.row();
   }
 
-  /**
-   * Clone current builder to new instance
-   */
+  /** Clone current builder to new instance */
   public clone(): KeyboardBuilder {
     const builder = new KeyboardBuilder();
 

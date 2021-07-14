@@ -38,7 +38,7 @@ export type SchemaObject =
   | SchemaObjectString
   | SchemaObjectArray;
 
-  export interface SchemaObjectBase {
+export interface SchemaObjectBase {
   name: string;
   description: string;
   required: boolean;
@@ -72,7 +72,7 @@ export interface SchemaObjectFloat extends SchemaObjectBase {
 
 export interface SchemaObjectAnyOf extends SchemaObjectBase {
   type: 'any_of';
-  any_of: SchemaReturnType[];
+  any_of: SchemaObject[];
 }
 
 export interface SchemaObjectString extends SchemaObjectBase {
@@ -83,7 +83,7 @@ export interface SchemaObjectString extends SchemaObjectBase {
 
 export interface SchemaObjectArray extends SchemaObjectBase {
   type: 'array';
-  array: SchemaReturnType;
+  array: SchemaObject;
 }
 
 export type SchemaReturnType =

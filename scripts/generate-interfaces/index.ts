@@ -141,10 +141,28 @@ class MethodService {
       let returnType: string = TypeResolver.resolve(field, addition);
 
       if (field.name === 'reply_markup') {
-        returnType = TypeResolver.resolve(
-          { type: 'reference', reference: 'ReplyMarkupUnion', is_internal: true } as Types.SchemaObjectReference,
-          addition
-        );
+        const object = {
+          type: 'reference',
+          reference: 'ReplyMarkupUnion',
+          is_internal: true
+        } as Types.SchemaObjectReference;
+
+        returnType = TypeResolver.resolve(object, addition);
+      }
+      
+      if (field.name === 'entities' || field.name === 'caption_entities') {
+        const array = {
+          type: 'array',
+          array: {
+            type: 'reference',
+            reference: 'MessageEntity',
+            is_internal: true
+          }
+        } as Types.SchemaObjectArray;
+
+        returnType = TypeResolver.resolve(array);
+        
+        console.log(field, returnType);
       }
 
       if (returnType.includes('Interfaces.TelegramInputFile')) { // kinda hacky btw but you didnt see it 👀
@@ -200,7 +218,6 @@ class TypeResolver {
     }
 
     if (object.type === 'array') {
-      // @ts-expect-error
       return TypeResolver.resolve(object.array, additionToReference) + '[]';
     }
 
@@ -214,7 +231,6 @@ class TypeResolver {
 
     if (object.type === 'any_of') {
       const types: string[] = object.any_of.map(
-        // @ts-expect-error
         (value) => TypeResolver.resolve(value, additionToReference)
       );
 
@@ -278,6 +294,7 @@ class GenerationService {
   public static generateMethodsImports(): string {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces';
+      import { MessageEntity } from './common/structures';
     `;
   }
 

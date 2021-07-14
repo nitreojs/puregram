@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 05.07.2021 20:49:57 MSK
+/// Generation date: 14.07.2021 12:09:20 MSK
 
 import { Readable } from 'stream'; // for Interfaces.InputFile
 
@@ -1539,7 +1539,7 @@ export interface TelegramChatMemberRestricted {
    */
   can_add_web_page_previews: boolean;
   /**
-   * Date when restrictions will be lifted for this user; unix time
+   * Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever
    */
   until_date: number;
 
@@ -1575,7 +1575,7 @@ export interface TelegramChatMemberBanned {
    */
   user: TelegramUser;
   /**
-   * Date when restrictions will be lifted for this user; unix time
+   * Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever
    */
   until_date: number;
 

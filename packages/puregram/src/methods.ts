@@ -3,9 +3,10 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 05.07.2021 20:49:57 MSK
+/// Generation date: 14.07.2021 12:09:20 MSK
 
 import * as Interfaces from './telegram-interfaces';
+import { MessageEntity } from './common/structures';
 
 export interface GetUpdatesParams {
   /**
@@ -150,7 +151,7 @@ export interface SendMessageParams {
   /**
    * List of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
-  entities?: Interfaces.TelegramMessageEntity[];
+  entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Disables link previews for links in this message
    */
@@ -238,7 +239,7 @@ export interface CopyMessageParams {
   /**
    * List of special entities that appear in the new caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -288,7 +289,7 @@ export interface SendPhotoParams {
   /**
    * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -338,7 +339,7 @@ export interface SendAudioParams {
   /**
    * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Duration of the audio in seconds
    */
@@ -410,7 +411,7 @@ export interface SendDocumentParams {
   /**
    * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Disables automatic server-side content type detection for files uploaded using multipart/form-data
    */
@@ -484,7 +485,7 @@ export interface SendVideoParams {
   /**
    * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Pass *True*, if the uploaded video is suitable for streaming
    */
@@ -554,7 +555,7 @@ export interface SendAnimationParams {
   /**
    * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -604,7 +605,7 @@ export interface SendVoiceParams {
   /**
    * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Duration of the voice message in seconds
    */
@@ -1878,7 +1879,7 @@ export interface EditMessageTextParams {
   /**
    * List of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
-  entities?: Interfaces.TelegramMessageEntity[];
+  entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * Disables link previews for links in this message
    */
@@ -1924,7 +1925,7 @@ export interface EditMessageCaptionParams {
   /**
    * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: Interfaces.TelegramMessageEntity[];
+  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
    */

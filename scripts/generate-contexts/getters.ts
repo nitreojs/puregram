@@ -181,7 +181,10 @@ export const MESSAGE_CONTEXT_GETTERS: Types.Getter[] = [
       Look [here](https://core.telegram.org/bots#deep-linking) for more.
     `,
     code: stripIndent`
-      if (!this.hasText) return undefined;
+      if (!this.hasText) {
+        return undefined;
+      }
+
       if (!this.text!.startsWith('/start') || this.text === '/start') {
         return undefined;
       }
@@ -213,7 +216,7 @@ export const MESSAGE_CONTEXT_GETTERS: Types.Getter[] = [
     returnType: 'boolean',
     code: stripIndent`
       return events.some(
-        event => Boolean(this[event[0] as keyof Message])
+        event => Boolean(this[event[0] as keyof Updates.Message])
       );
     `
   },
@@ -221,11 +224,11 @@ export const MESSAGE_CONTEXT_GETTERS: Types.Getter[] = [
   {
     name: 'eventType',
     description: 'Event type',
-    returnType: 'MessageEventName | undefined',
+    returnType: 'Types.MessageEventName | undefined',
     code: stripIndent`
       if (!this.isEvent) return undefined;
 
-      const value: [keyof Message, MessageEventName] | undefined = events.find(
+      const value: [keyof Updates.Message, Types.MessageEventName] | undefined = events.find(
         (event) => {
           const tValue = this[event[0] as keyof Message];
 
@@ -240,6 +243,27 @@ export const MESSAGE_CONTEXT_GETTERS: Types.Getter[] = [
       if (value === undefined) return undefined;
 
       return value[1];
+    `
+  },
+  
+  {
+    name: 'attachments',
+    description: 'This messages attachments',
+    returnType: 'Structures.Attachment[]',
+    code: stripIndent`
+      const attachments: Structures.Attachment[] = [];
+
+      if (this.audio) attachments.push(this.audio);
+      if (this.document) attachments.push(this.document);
+      if (this.animation) attachments.push(this.animation);
+      if (this.photo) attachments.push(new PhotoAttachment(this.photo));
+      if (this.sticker) attachments.push(this.sticker);
+      if (this.video) attachments.push(this.video);
+      if (this.voice) attachments.push(this.voice);
+      if (this.videoNote) attachments.push(this.videoNote);
+      if (this.venue) attachments.push(this.venue);
+
+      return attachments;
     `
   }
 ];

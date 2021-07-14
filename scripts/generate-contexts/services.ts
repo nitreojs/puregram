@@ -67,18 +67,21 @@ export class ContextService {
 
       import * as Interfaces from '../telegram-interfaces';
       import * as Types from '../types';
+      import * as Attachments from '../common/attachments';
+      import * as Structures from '../common/structures';
+      import * as Updates from '../updates/';
     `;
   }
 
   public static generateOptions(data: Types.ContextData): string {
     const customType: string = data.hasCustomType
-      ? `\n${TextService.tab('type: Types.UpdateName;', 4)}`
+      ? `\n${TextService.tab(`type${data.isCustomTypeRequired ? '' : '?'}: Types.UpdateName;`, 4)}`
       : '';
 
     return stripIndent`
       interface ${data.name}Options {
         telegram: Telegram;
-        update: Interfaces.TelegramUpdate;
+        update?: Interfaces.TelegramUpdate;
         payload: Interfaces.${data.payload};
         updateId${TextService.optional(!data.isUpdateIdRequired ?? true)}: number;${customType}
       }
@@ -86,17 +89,13 @@ export class ContextService {
   }
 
   public static generateConstructor(data: Types.ContextData): string {
-    const customType: string = data.hasCustomType
-      ? `,\n${TextService.tab('type: options.type;', 4)}`
-      : '';
-
     return stripIndent`
       constructor(options: ${data.name}Options) {
         super({
           telegram: options.telegram,
-          updateType: '${data.updateType}',
+          updateType: ${data.hasCustomType ? 'options.type ?? ' : ''}'${data.updateType}',
           updateId: options.updateId,
-          update: options.update${customType}
+          update: options.update
         });
     
         this.payload = options.payload;
@@ -232,7 +231,7 @@ export class GettersService {
     return GETTERS.find(getter => getter.name === name);
   }
 
-  public static load(getters: Types.Getter[]): string[] {
-    return getters.map(getter => getter.name)
+  public static load(...getters: Types.Getter[][]): string[] {
+    return getters.map(getter => getter.map(element => element.name)).flat();
   }
 }

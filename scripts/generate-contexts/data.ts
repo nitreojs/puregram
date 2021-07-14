@@ -13,7 +13,7 @@ export default [
     isCustomTypeRequired: false,
     isUpdateIdRequired: false,
 
-    getters: [...GettersService.load(Getters.MessageContext)],
+    getters: GettersService.load(Getters.MessageContext),
     methods: [],
 
     fields: ['id', 'from', 'chat', 'createdAt']

@@ -151,16 +151,29 @@ class MethodService {
       }
       
       if (field.name === 'entities' || field.name === 'caption_entities') {
-        const array = {
-          type: 'array',
-          array: {
-            type: 'reference',
-            reference: 'MessageEntity',
-            is_internal: true
-          }
-        } as Types.SchemaObjectArray;
+        const union = {
+          type: 'any_of',
+          any_of: [
+            {
+              type: 'array',
+              array: {
+                type: 'reference',
+                reference: 'MessageEntity',
+                is_internal: true
+              }
+            },
+            {
+              type: 'array',
+              array: {
+                type: 'reference',
+                reference: 'Interfaces.TelegramMessageEntity', // another hack ¯\_(ツ)_/¯
+                is_internal: true
+              }
+            }
+          ]
+        } as Types.SchemaObjectAnyOf;
 
-        returnType = TypeResolver.resolve(array);
+        returnType = TypeResolver.resolve(union);
         
         console.log(field, returnType);
       }
@@ -201,6 +214,8 @@ class TypeResolver {
     object: Types.SchemaObject,
     additionToReference?: string | number // allowing to do [].map(TypeResolver.resolve)
   ): string {
+    /// TODO: add `addition` check for every SchemaObject
+
     if (object.type === 'string') {
       if (object.enumeration) {
         return object.enumeration.map(value => `'${value}'`).join(' | ');

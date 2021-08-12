@@ -1,4 +1,4 @@
-<!-- Inspired by prisma.io & Telegraf docs -->
+puregram<!-- Inspired by prisma.io & Telegraf docs -->
 
 <div align='center'>
   <img src='https://i.imgur.com/ZzjmE8i.png' />

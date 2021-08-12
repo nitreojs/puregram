@@ -1,4 +1,4 @@
-puregram<!-- Inspired by prisma.io & Telegraf docs -->
+<!-- Inspired by prisma.io & Telegraf docs -->
 
 <div align='center'>
   <img src='https://i.imgur.com/ZzjmE8i.png' />
@@ -25,7 +25,7 @@ puregram<!-- Inspired by prisma.io & Telegraf docs -->
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>TypeScript</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram_channel'><b>Channel</b></a>
+  <a href='https://t.me/puregram'><b>Channel</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#faq'><b>FAQ</b></a>
 </div>

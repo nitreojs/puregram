@@ -1,4 +1,4 @@
-puregram<div align='center'>
+<div align='center'>
   <img src='https://i.imgur.com/ZzjmE8i.png' />
 </div>
 
@@ -9,7 +9,7 @@ puregram<div align='center'>
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>TypeScript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram_channel'><b>Channel</b></a>
+  <a href='https://t.me/puregram'><b>Channel</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='https://github.com/nitreojs/puregram#faq'><b>FAQ</b></a>
 </div>

@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "abort-controller": "^3.0.0",
-    "debug": "^4.1.1",
+    "debug": "^4.3.2",
     "form-data": "^3.0.0",
     "inspectable": "^1.2.0",
     "middleware-io": "^2.8.0",
@@ -31,9 +31,9 @@
     "lib"
   ],
   "devDependencies": {
-    "@types/debug": "^4.1.5",
-    "@types/node-fetch": "^2.5.10",
-    "typescript": "^4.3.4"
+    "@types/debug": "^4.1.7",
+    "@types/node-fetch": "^2.5.12",
+    "typescript": "^4.4.2"
   },
   "directories": {
     "lib": "lib",

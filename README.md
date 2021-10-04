@@ -25,7 +25,7 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>TypeScript</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram_channel'><b>Channel</b></a>
+  <a href='https://t.me/puregram'><b>Channel</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#faq'><b>FAQ</b></a>
 </div>

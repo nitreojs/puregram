@@ -610,6 +610,7 @@ inspectable(Message, {
       voiceChatStarted: message.voiceChatStarted,
       voiceChatEnded: message.voiceChatEnded,
       voiceChatParticipantsInvited: message.voiceChatParticipantsInvited,
+      
       replyMarkup: message.replyMarkup
     };
 

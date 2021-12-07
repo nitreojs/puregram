@@ -903,6 +903,7 @@ inspectable(MessageContext, {
       location: message.location,
       venue: message.venue,
       poll: message.poll,
+      replyMarkup: message.replyMarkup
     };
 
     return filterPayload(payload);

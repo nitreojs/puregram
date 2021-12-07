@@ -1,8 +1,7 @@
 import fetch, { Response } from 'node-fetch';
 import { stripIndent, stripIndents } from 'common-tags';
-import { writeFile } from 'fs/promises';
+import { writeFile, readFile } from 'fs/promises';
 import { resolve } from 'path';
-import { readFile } from 'fs/promises';
 
 import * as Types from './types';
 

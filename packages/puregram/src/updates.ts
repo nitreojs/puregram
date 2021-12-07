@@ -277,6 +277,11 @@ export class Updates {
   ): this;
 
   public on<T = {}>(
+    events: UpdateType.CHAT_JOIN_REQUEST | 'chat_join_request',
+    handlers: AllowArray<Middleware<Contexts.ChatJoinRequestContext & T>>
+  ): this;
+
+  public on<T = {}>(
     events: AllowArray<string>,
     handlers: AllowArray<Middleware<Contexts.Context & T>>
   ): this;

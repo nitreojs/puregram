@@ -58,7 +58,8 @@ const rawEvents: [UpdateName, Constructor<any>][] = [
   ['voice_chat_scheduled', Contexts.VoiceChatScheduledContext],
   ['voice_chat_started', Contexts.VoiceChatStartedContext],
   ['voice_chat_ended', Contexts.VoiceChatEndedContext],
-  ['voice_chat_participants_invited', Contexts.VoiceChatParticipantsInvitedContext]
+  ['voice_chat_participants_invited', Contexts.VoiceChatParticipantsInvitedContext],
+  ['chat_join_request', Contexts.ChatJoinRequestContext]
 ];
 
 type ContextConstructor = Constructor<Contexts.Context>;

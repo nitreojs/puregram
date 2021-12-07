@@ -9,6 +9,7 @@ export * from './poll';
 export * from './poll-answer';
 
 export * from './channel-chat-created';
+export * from './chat-join-request';
 export * from './delete-chat-photo';
 export * from './group-chat-created';
 export * from './invoice';

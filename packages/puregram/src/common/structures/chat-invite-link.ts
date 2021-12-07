@@ -30,6 +30,11 @@ export class ChatInviteLink {
     return new User(this.payload.creator);
   }
 
+  /** Invite link name */
+  public get name(): string | undefined {
+    return this.payload.name;
+  }
+
   /** `true`, if the link is primary */
   public get isPrimary(): boolean {
     return this.payload.is_primary;
@@ -53,6 +58,16 @@ export class ChatInviteLink {
   public get memberLimit(): number | undefined {
     return this.payload.member_limit;
   }
+
+  /** `true`, if users joining the chat via the link need to be approved by chat administrators */
+  public get createsJoinRequest(): boolean {
+    return this.payload.creates_join_request;
+  }
+
+  /** Number of pending join requests created using this link */
+  public get pendingJoinRequestCount(): number | undefined {
+    return this.payload.pending_join_request_count;
+  }
 }
 
 inspectable(ChatInviteLink, {
@@ -63,7 +78,9 @@ inspectable(ChatInviteLink, {
       isPrimary: link.isPrimary,
       isRevoked: link.isRevoked,
       expireDate: link.expireDate,
-      memberLimit: link.memberLimit
+      memberLimit: link.memberLimit,
+      createsJoinRequest: link.createsJoinRequest,
+      pendingJoinRequestCount: link.pendingJoinRequestCount
     };
 
     return filterPayload(payload);

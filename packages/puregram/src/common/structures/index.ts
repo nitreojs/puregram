@@ -1,5 +1,7 @@
 export * from './bot-command';
 export * from './callback-game';
+export * from './chat-invite-link';
+export * from './chat-join-request';
 export * from './chat-location';
 export * from './chat-member';
 export * from './chat-permissions';

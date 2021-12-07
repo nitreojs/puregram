@@ -89,3 +89,4 @@ jspm_packages/
 packages/**/lib
 .vscode/
 scripts/generate-interfaces/*.json
+.DS_Store

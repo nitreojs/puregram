@@ -218,8 +218,6 @@ class MessageContext extends Context {
   }
 
   /** Gets attachments */
-  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[];
-
   public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[];
 
   public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[];
@@ -235,6 +233,8 @@ class MessageContext extends Context {
   public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[];
 
   public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[];
+  
+  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[];
   
   public getAttachments(type?: any): Attachment[] {
     if (type === undefined) return this.attachments;

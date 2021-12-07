@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 14.07.2021 12:09:20 MSK
+/// Based on Bot API v5.5.0, 07.12.2021
+/// Generation date: 07.12.2021 18:32:29 MSK
 
 import * as api from './methods';
 
@@ -43,7 +43,7 @@ export interface ApiMethods {
    */
   getWebhookInfo: api.getWebhookInfo;
   /**
-   * A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a [User](https://core.telegram.org/bots/api/#user) object.
+   * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a [User](https://core.telegram.org/bots/api/#user) object.
    * 
    * ---
    * 
@@ -173,7 +173,7 @@ export interface ApiMethods {
    */
   editMessageLiveLocation: api.editMessageLiveLocation;
   /**
-   * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message was sent by the bot, the sent [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
    * 
    * ---
    * 
@@ -241,7 +241,7 @@ export interface ApiMethods {
    */
   getFile: api.getFile;
   /**
-   * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api/#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+   * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api/#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
    * 
    * ---
    * 
@@ -257,7 +257,7 @@ export interface ApiMethods {
    */
   unbanChatMember: api.unbanChatMember;
   /**
-   * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass *True* for all permissions to lift restrictions from a user. Returns *True* on success.
+   * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass *True* for all permissions to lift restrictions from a user. Returns *True* on success.
    * 
    * ---
    * 
@@ -265,7 +265,7 @@ export interface ApiMethods {
    */
   restrictChatMember: api.restrictChatMember;
   /**
-   * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass *False* for all boolean parameters to demote a user. Returns *True* on success.
+   * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass *False* for all boolean parameters to demote a user. Returns *True* on success.
    * 
    * ---
    * 
@@ -281,7 +281,23 @@ export interface ApiMethods {
    */
   setChatAdministratorCustomTitle: api.setChatAdministratorCustomTitle;
   /**
-   * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the *can\_restrict\_members* admin rights. Returns *True* on success.
+   * Use this method to ban a channel chat in a supergroup or a channel. The owner of the chat will not be able to send messages and join live streams on behalf of the chat, unless it is [unbanned](https://core.telegram.org/bots/api/#unbanchatsenderchat) first. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#banchatsenderchat)
+   */
+  banChatSenderChat: api.banChatSenderChat;
+  /**
+   * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#unbanchatsenderchat)
+   */
+  unbanChatSenderChat: api.unbanChatSenderChat;
+  /**
+   * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the *can\_restrict\_members* administrator rights. Returns *True* on success.
    * 
    * ---
    * 
@@ -289,7 +305,7 @@ export interface ApiMethods {
    */
   setChatPermissions: api.setChatPermissions;
   /**
-   * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as *String* on success.
+   * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as *String* on success.
    * 
    * ---
    * 
@@ -297,7 +313,7 @@ export interface ApiMethods {
    */
   exportChatInviteLink: api.exportChatInviteLink;
   /**
-   * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. The link can be revoked using the method [revokeChatInviteLink](https://core.telegram.org/bots/api/#revokechatinvitelink). Returns the new invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
+   * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method [revokeChatInviteLink](https://core.telegram.org/bots/api/#revokechatinvitelink). Returns the new invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
    * 
    * ---
    * 
@@ -305,7 +321,7 @@ export interface ApiMethods {
    */
   createChatInviteLink: api.createChatInviteLink;
   /**
-   * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the edited invite link as a [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
+   * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the edited invite link as a [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
    * 
    * ---
    * 
@@ -313,7 +329,7 @@ export interface ApiMethods {
    */
   editChatInviteLink: api.editChatInviteLink;
   /**
-   * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the revoked invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
+   * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
    * 
    * ---
    * 
@@ -321,7 +337,23 @@ export interface ApiMethods {
    */
   revokeChatInviteLink: api.revokeChatInviteLink;
   /**
-   * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+   * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the *can\_invite\_users* administrator right. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#approvechatjoinrequest)
+   */
+  approveChatJoinRequest: api.approveChatJoinRequest;
+  /**
+   * Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the *can\_invite\_users* administrator right. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#declinechatjoinrequest)
+   */
+  declineChatJoinRequest: api.declineChatJoinRequest;
+  /**
+   * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
    * 
    * ---
    * 
@@ -329,7 +361,7 @@ export interface ApiMethods {
    */
   setChatPhoto: api.setChatPhoto;
   /**
-   * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+   * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
    * 
    * ---
    * 
@@ -337,7 +369,7 @@ export interface ApiMethods {
    */
   deleteChatPhoto: api.deleteChatPhoto;
   /**
-   * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+   * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
    * 
    * ---
    * 
@@ -345,7 +377,7 @@ export interface ApiMethods {
    */
   setChatTitle: api.setChatTitle;
   /**
-   * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+   * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
    * 
    * ---
    * 
@@ -353,7 +385,7 @@ export interface ApiMethods {
    */
   setChatDescription: api.setChatDescription;
   /**
-   * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' admin right in a supergroup or 'can\_edit\_messages' admin right in a channel. Returns *True* on success.
+   * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
    * 
    * ---
    * 
@@ -361,7 +393,7 @@ export interface ApiMethods {
    */
   pinChatMessage: api.pinChatMessage;
   /**
-   * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' admin right in a supergroup or 'can\_edit\_messages' admin right in a channel. Returns *True* on success.
+   * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
    * 
    * ---
    * 
@@ -369,7 +401,7 @@ export interface ApiMethods {
    */
   unpinChatMessage: api.unpinChatMessage;
   /**
-   * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' admin right in a supergroup or 'can\_edit\_messages' admin right in a channel. Returns *True* on success.
+   * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
    * 
    * ---
    * 
@@ -417,7 +449,7 @@ export interface ApiMethods {
    */
   getChatMember: api.getChatMember;
   /**
-   * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
+   * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
    * 
    * ---
    * 
@@ -425,7 +457,7 @@ export interface ApiMethods {
    */
   setChatStickerSet: api.setChatStickerSet;
   /**
-   * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
+   * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
    * 
    * ---
    * 
@@ -483,7 +515,7 @@ export interface ApiMethods {
    */
   editMessageCaption: api.editMessageCaption;
   /**
-   * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded. Use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message was sent by the bot, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
    * 
    * ---
    * 
@@ -499,7 +531,7 @@ export interface ApiMethods {
    */
   editMessageReplyMarkup: api.editMessageReplyMarkup;
   /**
-   * Use this method to stop a poll which was sent by the bot. On success, the stopped [Poll](https://core.telegram.org/bots/api/#poll) with the final results is returned.
+   * Use this method to stop a poll which was sent by the bot. On success, the stopped [Poll](https://core.telegram.org/bots/api/#poll) is returned.
    * 
    * ---
    * 
@@ -604,7 +636,7 @@ export interface ApiMethods {
    */
   sendInvoice: api.sendInvoice;
   /**
-   * If you sent an invoice requesting a shipping address and the parameter *is\_flexible* was specified, the Bot API will send an [Update](https://core.telegram.org/bots/api/#update) with a *shipping\_query* field to the bot. Use this method to reply to shipping queries. On success, True is returned.
+   * If you sent an invoice requesting a shipping address and the parameter *is\_flexible* was specified, the Bot API will send an [Update](https://core.telegram.org/bots/api/#update) with a *shipping\_query* field to the bot. Use this method to reply to shipping queries. On success, *True* is returned.
    * 
    * ---
    * 
@@ -612,7 +644,7 @@ export interface ApiMethods {
    */
   answerShippingQuery: api.answerShippingQuery;
   /**
-   * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an [Update](https://core.telegram.org/bots/api/#update) with the field *pre\_checkout\_query*. Use this method to respond to such pre-checkout queries. On success, True is returned. **Note:** The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
+   * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an [Update](https://core.telegram.org/bots/api/#update) with the field *pre\_checkout\_query*. Use this method to respond to such pre-checkout queries. On success, *True* is returned. **Note:** The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
    * 
    * ---
    * 
@@ -638,7 +670,7 @@ export interface ApiMethods {
    */
   sendGame: api.sendGame;
   /**
-   * Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns the edited [Message](https://core.telegram.org/bots/api/#message), otherwise returns *True*. Returns an error, if the new score is not greater than the user's current score in the chat and *force* is *False*.
+   * Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned. Returns an error, if the new score is not greater than the user's current score in the chat and *force* is *False*.
    * 
    * ---
    * 

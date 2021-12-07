@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 14.07.2021 12:09:20 MSK
+/// Based on Bot API v5.5.0, 07.12.2021
+/// Generation date: 07.12.2021 18:32:29 MSK
 
 import * as Interfaces from './telegram-interfaces';
 import { MessageEntity } from './common/structures';
@@ -109,7 +109,7 @@ export type deleteWebhook = (params?: DeleteWebhookParams) => Promise<true>;
 export type getWebhookInfo = () => Promise<Interfaces.TelegramWebhookInfo>;
 
 /**
- * A simple method for testing your bot's auth token. Requires no parameters. Returns basic information about the bot in form of a [User](https://core.telegram.org/bots/api/#user) object.
+ * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a [User](https://core.telegram.org/bots/api/#user) object.
  * 
  * ---
  * 
@@ -149,7 +149,7 @@ export interface SendMessageParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in message text, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
   entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -237,7 +237,7 @@ export interface CopyMessageParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the new caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -287,7 +287,7 @@ export interface SendPhotoParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -337,7 +337,7 @@ export interface SendAudioParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -353,7 +353,7 @@ export interface SendAudioParams {
    */
   title?: string;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -397,7 +397,7 @@ export interface SendDocumentParams {
    */
   document: Interfaces.InputFile;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -409,7 +409,7 @@ export interface SendDocumentParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -471,7 +471,7 @@ export interface SendVideoParams {
    */
   height?: number;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -483,7 +483,7 @@ export interface SendVideoParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -541,7 +541,7 @@ export interface SendAnimationParams {
    */
   height?: number;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -553,7 +553,7 @@ export interface SendAnimationParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -603,7 +603,7 @@ export interface SendVoiceParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -657,7 +657,7 @@ export interface SendVideoNoteParams {
    */
   length?: number;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -853,7 +853,7 @@ export interface StopMessageLiveLocationParams {
 }
 
 /**
- * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message was sent by the bot, the sent [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+ * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
  * 
  * ---
  * 
@@ -991,7 +991,7 @@ export interface SendPollParams {
    */
   options: string[];
   /**
-   * True, if the poll needs to be anonymous, defaults to *True*
+   * *True*, if the poll needs to be anonymous, defaults to *True*
    */
   is_anonymous?: true;
   /**
@@ -999,7 +999,7 @@ export interface SendPollParams {
    */
   type?: 'quiz' | 'regular';
   /**
-   * True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to *False*
+   * *True*, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to *False*
    */
   allows_multiple_answers?: boolean;
   /**
@@ -1015,7 +1015,7 @@ export interface SendPollParams {
    */
   explanation_parse_mode?: string;
   /**
-   * List of special entities that appear in the poll explanation, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead of *parse\_mode*
    */
   explanation_entities?: Interfaces.TelegramMessageEntity[];
   /**
@@ -1103,7 +1103,7 @@ export interface SendChatActionParams {
    */
   chat_id: number | string;
   /**
-   * Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](https://core.telegram.org/bots/api/#sendmessage), *upload\_photo* for [photos](https://core.telegram.org/bots/api/#sendphoto), *record\_video* or *upload\_video* for [videos](https://core.telegram.org/bots/api/#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](https://core.telegram.org/bots/api/#sendvoice), *upload\_document* for [general files](https://core.telegram.org/bots/api/#senddocument), *find\_location* for [location data](https://core.telegram.org/bots/api/#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](https://core.telegram.org/bots/api/#sendvideonote).
+   * Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](https://core.telegram.org/bots/api/#sendmessage), *upload\_photo* for [photos](https://core.telegram.org/bots/api/#sendphoto), *record\_video* or *upload\_video* for [videos](https://core.telegram.org/bots/api/#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](https://core.telegram.org/bots/api/#sendvoice), *upload\_document* for [general files](https://core.telegram.org/bots/api/#senddocument), *choose\_sticker* for [stickers](https://core.telegram.org/bots/api/#sendsticker), *find\_location* for [location data](https://core.telegram.org/bots/api/#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](https://core.telegram.org/bots/api/#sendvideonote).
    */
   action: string;
 
@@ -1189,7 +1189,7 @@ export interface BanChatMemberParams {
 }
 
 /**
- * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api/#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+ * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless [unbanned](https://core.telegram.org/bots/api/#unbanchatmember) first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
  * 
  * ---
  * 
@@ -1245,7 +1245,7 @@ export interface RestrictChatMemberParams {
 }
 
 /**
- * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass *True* for all permissions to lift restrictions from a user. Returns *True* on success.
+ * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass *True* for all permissions to lift restrictions from a user. Returns *True* on success.
  * 
  * ---
  * 
@@ -1267,43 +1267,43 @@ export interface PromoteChatMemberParams {
    */
   is_anonymous?: boolean;
   /**
-   * Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * Pass *True*, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat?: boolean;
   /**
-   * Pass True, if the administrator can create channel posts, channels only
+   * Pass *True*, if the administrator can create channel posts, channels only
    */
   can_post_messages?: boolean;
   /**
-   * Pass True, if the administrator can edit messages of other users and can pin messages, channels only
+   * Pass *True*, if the administrator can edit messages of other users and can pin messages, channels only
    */
   can_edit_messages?: boolean;
   /**
-   * Pass True, if the administrator can delete messages of other users
+   * Pass *True*, if the administrator can delete messages of other users
    */
   can_delete_messages?: boolean;
   /**
-   * Pass True, if the administrator can manage voice chats
+   * Pass *True*, if the administrator can manage voice chats
    */
   can_manage_voice_chats?: boolean;
   /**
-   * Pass True, if the administrator can restrict, ban or unban chat members
+   * Pass *True*, if the administrator can restrict, ban or unban chat members
    */
   can_restrict_members?: boolean;
   /**
-   * Pass True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
+   * Pass *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
    */
   can_promote_members?: boolean;
   /**
-   * Pass True, if the administrator can change chat title, photo and other settings
+   * Pass *True*, if the administrator can change chat title, photo and other settings
    */
   can_change_info?: boolean;
   /**
-   * Pass True, if the administrator can invite new users to the chat
+   * Pass *True*, if the administrator can invite new users to the chat
    */
   can_invite_users?: boolean;
   /**
-   * Pass True, if the administrator can pin messages, supergroups only
+   * Pass *True*, if the administrator can pin messages, supergroups only
    */
   can_pin_messages?: boolean;
 
@@ -1311,7 +1311,7 @@ export interface PromoteChatMemberParams {
 }
 
 /**
- * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass *False* for all boolean parameters to demote a user. Returns *True* on success.
+ * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass *False* for all boolean parameters to demote a user. Returns *True* on success.
  * 
  * ---
  * 
@@ -1345,13 +1345,61 @@ export interface SetChatAdministratorCustomTitleParams {
  */
 export type setChatAdministratorCustomTitle = (params: SetChatAdministratorCustomTitleParams) => Promise<true>;
 
+export interface BanChatSenderChatParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string;
+  /**
+   * Unique identifier of the target sender chat
+   */
+  sender_chat_id: number;
+  /**
+   * Date when the sender chat will be unbanned, unix time. If the chat is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever.
+   */
+  until_date?: number;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to ban a channel chat in a supergroup or a channel. The owner of the chat will not be able to send messages and join live streams on behalf of the chat, unless it is [unbanned](https://core.telegram.org/bots/api/#unbanchatsenderchat) first. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#banchatsenderchat)
+ */
+export type banChatSenderChat = (params: BanChatSenderChatParams) => Promise<true>;
+
+export interface UnbanChatSenderChatParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string;
+  /**
+   * Unique identifier of the target sender chat
+   */
+  sender_chat_id: number;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#unbanchatsenderchat)
+ */
+export type unbanChatSenderChat = (params: UnbanChatSenderChatParams) => Promise<true>;
+
 export interface SetChatPermissionsParams {
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
   chat_id: number | string;
   /**
-   * New default chat permissions
+   * A JSON-serialized object for new default chat permissions
    */
   permissions: Interfaces.TelegramChatPermissions;
 
@@ -1359,7 +1407,7 @@ export interface SetChatPermissionsParams {
 }
 
 /**
- * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the *can\_restrict\_members* admin rights. Returns *True* on success.
+ * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the *can\_restrict\_members* administrator rights. Returns *True* on success.
  * 
  * ---
  * 
@@ -1377,7 +1425,7 @@ export interface ExportChatInviteLinkParams {
 }
 
 /**
- * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the new invite link as *String* on success.
+ * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as *String* on success.
  * 
  * ---
  * 
@@ -1391,6 +1439,10 @@ export interface CreateChatInviteLinkParams {
    */
   chat_id: number | string;
   /**
+   * Invite link name; 0-32 characters
+   */
+  name?: string;
+  /**
    * Point in time (Unix timestamp) when the link will expire
    */
   expire_date?: number;
@@ -1398,12 +1450,16 @@ export interface CreateChatInviteLinkParams {
    * Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
   member_limit?: number;
+  /**
+   * *True*, if users joining the chat via the link need to be approved by chat administrators. If *True*, *member\_limit* can't be specified
+   */
+  creates_join_request?: boolean;
 
   [key: string]: any;
 }
 
 /**
- * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. The link can be revoked using the method [revokeChatInviteLink](https://core.telegram.org/bots/api/#revokechatinvitelink). Returns the new invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
+ * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method [revokeChatInviteLink](https://core.telegram.org/bots/api/#revokechatinvitelink). Returns the new invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
  * 
  * ---
  * 
@@ -1421,6 +1477,10 @@ export interface EditChatInviteLinkParams {
    */
   invite_link: string;
   /**
+   * Invite link name; 0-32 characters
+   */
+  name?: string;
+  /**
    * Point in time (Unix timestamp) when the link will expire
    */
   expire_date?: number;
@@ -1428,12 +1488,16 @@ export interface EditChatInviteLinkParams {
    * Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
   member_limit?: number;
+  /**
+   * *True*, if users joining the chat via the link need to be approved by chat administrators. If *True*, *member\_limit* can't be specified
+   */
+  creates_join_request?: boolean;
 
   [key: string]: any;
 }
 
 /**
- * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the edited invite link as a [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
+ * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the edited invite link as a [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
  * 
  * ---
  * 
@@ -1455,13 +1519,57 @@ export interface RevokeChatInviteLinkParams {
 }
 
 /**
- * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns the revoked invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
+ * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the revoked invite link as [ChatInviteLink](https://core.telegram.org/bots/api/#chatinvitelink) object.
  * 
  * ---
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#revokechatinvitelink)
  */
 export type revokeChatInviteLink = (params: RevokeChatInviteLinkParams) => Promise<Interfaces.TelegramChatInviteLink>;
+
+export interface ApproveChatJoinRequestParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string;
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the *can\_invite\_users* administrator right. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#approvechatjoinrequest)
+ */
+export type approveChatJoinRequest = (params: ApproveChatJoinRequestParams) => Promise<true>;
+
+export interface DeclineChatJoinRequestParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string;
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the *can\_invite\_users* administrator right. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#declinechatjoinrequest)
+ */
+export type declineChatJoinRequest = (params: DeclineChatJoinRequestParams) => Promise<true>;
 
 export interface SetChatPhotoParams {
   /**
@@ -1477,7 +1585,7 @@ export interface SetChatPhotoParams {
 }
 
 /**
- * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+ * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
  * 
  * ---
  * 
@@ -1495,7 +1603,7 @@ export interface DeleteChatPhotoParams {
 }
 
 /**
- * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+ * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
  * 
  * ---
  * 
@@ -1517,7 +1625,7 @@ export interface SetChatTitleParams {
 }
 
 /**
- * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+ * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
  * 
  * ---
  * 
@@ -1539,7 +1647,7 @@ export interface SetChatDescriptionParams {
 }
 
 /**
- * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns *True* on success.
+ * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
  * 
  * ---
  * 
@@ -1565,7 +1673,7 @@ export interface PinChatMessageParams {
 }
 
 /**
- * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' admin right in a supergroup or 'can\_edit\_messages' admin right in a channel. Returns *True* on success.
+ * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
  * 
  * ---
  * 
@@ -1587,7 +1695,7 @@ export interface UnpinChatMessageParams {
 }
 
 /**
- * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' admin right in a supergroup or 'can\_edit\_messages' admin right in a channel. Returns *True* on success.
+ * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
  * 
  * ---
  * 
@@ -1605,7 +1713,7 @@ export interface UnpinAllChatMessagesParams {
 }
 
 /**
- * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' admin right in a supergroup or 'can\_edit\_messages' admin right in a channel. Returns *True* on success.
+ * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can\_pin\_messages' administrator right in a supergroup or 'can\_edit\_messages' administrator right in a channel. Returns *True* on success.
  * 
  * ---
  * 
@@ -1721,7 +1829,7 @@ export interface SetChatStickerSetParams {
 }
 
 /**
- * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
+ * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
  * 
  * ---
  * 
@@ -1739,7 +1847,7 @@ export interface DeleteChatStickerSetParams {
 }
 
 /**
- * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
+ * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field *can\_set\_sticker\_set* optionally returned in [getChat](https://core.telegram.org/bots/api/#getchat) requests to check if the bot can use this method. Returns *True* on success.
  * 
  * ---
  * 
@@ -1757,7 +1865,7 @@ export interface AnswerCallbackQueryParams {
    */
   text?: string;
   /**
-   * If *true*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *false*.
+   * If *True*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *false*.
    */
   show_alert?: boolean;
   /**
@@ -1877,7 +1985,7 @@ export interface EditMessageTextParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in message text, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
   entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -1923,7 +2031,7 @@ export interface EditMessageCaptionParams {
    */
   parse_mode?: string;
   /**
-   * List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[];
   /**
@@ -1969,7 +2077,7 @@ export interface EditMessageMediaParams {
 }
 
 /**
- * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded. Use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message was sent by the bot, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+ * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
  * 
  * ---
  * 
@@ -2025,7 +2133,7 @@ export interface StopPollParams {
 }
 
 /**
- * Use this method to stop a poll which was sent by the bot. On success, the stopped [Poll](https://core.telegram.org/bots/api/#poll) with the final results is returned.
+ * Use this method to stop a poll which was sent by the bot. On success, the stopped [Poll](https://core.telegram.org/bots/api/#poll) is returned.
  * 
  * ---
  * 
@@ -2147,7 +2255,7 @@ export interface CreateNewStickerSetParams {
    */
   user_id: number;
   /**
-   * Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., *animals*). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in *“\_by\_<bot username>”*. *<bot\_username>* is case insensitive. 1-64 characters.
+   * Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., *animals*). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in *“\_by\_\<bot username\>”*. *\<bot\_username\>* is case insensitive. 1-64 characters.
    */
   name: string;
   /**
@@ -2319,7 +2427,7 @@ export interface AnswerInlineQueryParams {
   /**
    * [Deep-linking](/bots#deep-linking) parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.  
    * 
-   * *Example:* An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once done, the bot can offer a [*switch\_inline*](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
+   * *Example:* An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a [*switch\_inline*](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
    */
   switch_pm_parameter?: string;
 
@@ -2460,11 +2568,11 @@ export interface AnswerShippingQueryParams {
    */
   shipping_query_id: string;
   /**
-   * Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
+   * Specify *True* if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
    */
   ok: boolean;
   /**
-   * Required if *ok* is True. A JSON-serialized array of available shipping options.
+   * Required if *ok* is *True*. A JSON-serialized array of available shipping options.
    */
   shipping_options?: Interfaces.TelegramShippingOption[];
   /**
@@ -2476,7 +2584,7 @@ export interface AnswerShippingQueryParams {
 }
 
 /**
- * If you sent an invoice requesting a shipping address and the parameter *is\_flexible* was specified, the Bot API will send an [Update](https://core.telegram.org/bots/api/#update) with a *shipping\_query* field to the bot. Use this method to reply to shipping queries. On success, True is returned.
+ * If you sent an invoice requesting a shipping address and the parameter *is\_flexible* was specified, the Bot API will send an [Update](https://core.telegram.org/bots/api/#update) with a *shipping\_query* field to the bot. Use this method to reply to shipping queries. On success, *True* is returned.
  * 
  * ---
  * 
@@ -2502,7 +2610,7 @@ export interface AnswerPreCheckoutQueryParams {
 }
 
 /**
- * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an [Update](https://core.telegram.org/bots/api/#update) with the field *pre\_checkout\_query*. Use this method to respond to such pre-checkout queries. On success, True is returned. **Note:** The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
+ * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an [Update](https://core.telegram.org/bots/api/#update) with the field *pre\_checkout\_query*. Use this method to respond to such pre-checkout queries. On success, *True* is returned. **Note:** The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
  * 
  * ---
  * 
@@ -2582,11 +2690,11 @@ export interface SetGameScoreParams {
    */
   score: number;
   /**
-   * Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+   * Pass *True*, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
    */
   force?: boolean;
   /**
-   * Pass True, if the game message should not be automatically edited to include the current scoreboard
+   * Pass *True*, if the game message should not be automatically edited to include the current scoreboard
    */
   disable_edit_message?: boolean;
   /**
@@ -2606,7 +2714,7 @@ export interface SetGameScoreParams {
 }
 
 /**
- * Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns the edited [Message](https://core.telegram.org/bots/api/#message), otherwise returns *True*. Returns an error, if the new score is not greater than the user's current score in the chat and *force* is *False*.
+ * Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned. Returns an error, if the new score is not greater than the user's current score in the chat and *force* is *False*.
  * 
  * ---
  * 

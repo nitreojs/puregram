@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v5.3.0, 25.06.2021
-/// Generation date: 14.07.2021 12:09:20 MSK
+/// Based on Bot API v5.5.0, 07.12.2021
+/// Generation date: 07.12.2021 18:32:29 MSK
 
 import { Readable } from 'stream'; // for Interfaces.InputFile
 
@@ -77,6 +77,10 @@ export interface TelegramUpdate {
    * *Optional*. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat\_member” in the list of *allowed\_updates* to receive these updates.
    */
   chat_member?: TelegramChatMemberUpdated;
+  /**
+   * *Optional*. A request to join the chat has been sent. The bot must have the *can\_invite\_users* administrator right in the chat to receive these updates.
+   */
+  chat_join_request?: TelegramChatJoinRequest;
 
   [key: string]: any;
 }
@@ -90,7 +94,7 @@ export interface TelegramWebhookInfo {
    */
   url: string;
   /**
-   * True, if a custom certificate was provided for webhook certificate checks
+   * *True*, if a custom certificate was provided for webhook certificate checks
    */
   has_custom_certificate: boolean;
   /**
@@ -130,7 +134,7 @@ export interface TelegramUser {
    */
   id: number;
   /**
-   * True, if this user is a bot
+   * *True*, if this user is a bot
    */
   is_bot: boolean;
   /**
@@ -150,15 +154,15 @@ export interface TelegramUser {
    */
   language_code?: string;
   /**
-   * *Optional*. True, if the bot can be invited to groups. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
+   * *Optional*. *True*, if the bot can be invited to groups. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
   can_join_groups?: boolean;
   /**
-   * *Optional*. True, if [privacy mode](https://core.telegram.org/bots#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
+   * *Optional*. *True*, if [privacy mode](https://core.telegram.org/bots#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
   can_read_all_group_messages?: boolean;
   /**
-   * *Optional*. True, if the bot supports inline queries. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
+   * *Optional*. *True*, if the bot supports inline queries. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
   supports_inline_queries?: boolean;
 
@@ -202,6 +206,10 @@ export interface TelegramChat {
    */
   bio?: string;
   /**
+   * *Optional*. True, if privacy settings of the other party in the private chat allows to use `tg://user?id=<user_id>` links only in chats with the user. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  has_private_forwards?: boolean;
+  /**
    * *Optional*. Description, for groups, supergroups and channel chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   description?: string;
@@ -218,7 +226,7 @@ export interface TelegramChat {
    */
   permissions?: TelegramChatPermissions;
   /**
-   * *Optional*. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   * *Optional*. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   slow_mode_delay?: number;
   /**
@@ -226,11 +234,15 @@ export interface TelegramChat {
    */
   message_auto_delete_time?: number;
   /**
+   * *Optional*. True, if messages from the chat can't be forwarded to other chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  has_protected_content?: boolean;
+  /**
    * *Optional*. For supergroups, name of group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   sticker_set_name?: string;
   /**
-   * *Optional*. True, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   * *Optional*. *True*, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   can_set_sticker_set?: boolean;
   /**
@@ -294,6 +306,10 @@ export interface TelegramMessage {
    */
   forward_date?: number;
   /**
+   * *Optional*. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+   */
+  is_automatic_forward?: boolean;
+  /**
    * *Optional*. For replies, the original message. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
    */
   reply_to_message?: TelegramMessage;
@@ -305,6 +321,10 @@ export interface TelegramMessage {
    * *Optional*. Date the message was last edited in Unix time
    */
   edit_date?: number;
+  /**
+   * *Optional*. True, if the message can't be forwarded
+   */
+  has_protected_content?: boolean;
   /**
    * *Optional*. The unique identifier of a media message group this message belongs to
    */
@@ -542,7 +562,7 @@ export interface TelegramPhotoSize {
    */
   height: number;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
 
@@ -586,7 +606,7 @@ export interface TelegramAnimation {
    */
   mime_type?: string;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
 
@@ -626,7 +646,7 @@ export interface TelegramAudio {
    */
   mime_type?: string;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
   /**
@@ -662,7 +682,7 @@ export interface TelegramDocument {
    */
   mime_type?: string;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
 
@@ -706,7 +726,7 @@ export interface TelegramVideo {
    */
   mime_type?: string;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
 
@@ -738,7 +758,7 @@ export interface TelegramVideoNote {
    */
   thumb?: TelegramPhotoSize;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
 
@@ -766,7 +786,7 @@ export interface TelegramVoice {
    */
   mime_type?: string;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
 
@@ -874,11 +894,11 @@ export interface TelegramPoll {
    */
   total_voter_count: number;
   /**
-   * True, if the poll is closed
+   * *True*, if the poll is closed
    */
   is_closed: boolean;
   /**
-   * True, if the poll is anonymous
+   * *True*, if the poll is anonymous
    */
   is_anonymous: boolean;
   /**
@@ -886,7 +906,7 @@ export interface TelegramPoll {
    */
   type: 'regular' | 'quiz';
   /**
-   * True, if the poll allows multiple answers
+   * *True*, if the poll allows multiple answers
    */
   allows_multiple_answers: boolean;
   /**
@@ -930,7 +950,7 @@ export interface TelegramLocation {
    */
   horizontal_accuracy?: number;
   /**
-   * *Optional*. Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only.
+   * *Optional*. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
    */
   live_period?: number;
   /**
@@ -1006,7 +1026,7 @@ export interface TelegramProximityAlertTriggered {
  */
 export interface TelegramMessageAutoDeleteTimerChanged {
   /**
-   * New auto-delete time for messages in the chat
+   * New auto-delete time for messages in the chat; in seconds
    */
   message_auto_delete_time: number;
 
@@ -1035,7 +1055,7 @@ export interface TelegramVoiceChatStarted { }
  */
 export interface TelegramVoiceChatEnded {
   /**
-   * Voice chat duration; in seconds
+   * Voice chat duration in seconds
    */
   duration: number;
 
@@ -1085,7 +1105,7 @@ export interface TelegramFile {
    */
   file_unique_id: string;
   /**
-   * *Optional*. File size, if known
+   * *Optional*. File size in bytes, if known
    */
   file_size?: number;
   /**
@@ -1201,7 +1221,7 @@ export interface TelegramInlineKeyboardButton {
    */
   text: string;
   /**
-   * *Optional*. HTTP or tg:// url to be opened when button is pressed
+   * *Optional*. HTTP or tg:// url to be opened when the button is pressed. Links `tg://user?id=<user_id>` can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings.
    */
   url?: string;
   /**
@@ -1231,9 +1251,9 @@ export interface TelegramInlineKeyboardButton {
    */
   callback_game?: TelegramCallbackGame;
   /**
-   * *Optional*. Specify True, to send a [Pay button](https://core.telegram.org/bots/api/#payments).  
+   * *Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api/#payments).  
    * 
-   * **NOTE:** This type of button **must** always be the first button in the first row.
+   * **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages.
    */
   pay?: boolean;
 
@@ -1263,7 +1283,7 @@ export interface TelegramLoginUrl {
    */
   bot_username?: string;
   /**
-   * *Optional*. Pass True to request the permission for your bot to send messages to the user.
+   * *Optional*. Pass *True* to request the permission for your bot to send messages to the user.
    */
   request_write_access?: boolean;
 
@@ -1363,13 +1383,21 @@ export interface TelegramChatInviteLink {
    */
   creator: TelegramUser;
   /**
-   * True, if the link is primary
+   * *True*, if users joining the chat via the link need to be approved by chat administrators
+   */
+  creates_join_request: boolean;
+  /**
+   * *True*, if the link is primary
    */
   is_primary: boolean;
   /**
-   * True, if the link is revoked
+   * *True*, if the link is revoked
    */
   is_revoked: boolean;
+  /**
+   * *Optional*. Invite link name
+   */
+  name?: string;
   /**
    * *Optional*. Point in time (Unix timestamp) when the link will expire or has been expired
    */
@@ -1378,6 +1406,10 @@ export interface TelegramChatInviteLink {
    * *Optional*. Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
   member_limit?: number;
+  /**
+   * *Optional*. Number of pending join requests created using this link
+   */
+  pending_join_request_count?: number;
 
   [key: string]: any;
 }
@@ -1395,7 +1427,7 @@ export interface TelegramChatMemberOwner {
    */
   user: TelegramUser;
   /**
-   * True, if the user's presence in the chat is hidden
+   * *True*, if the user's presence in the chat is hidden
    */
   is_anonymous: boolean;
   /**
@@ -1419,51 +1451,51 @@ export interface TelegramChatMemberAdministrator {
    */
   user: TelegramUser;
   /**
-   * True, if the bot is allowed to edit administrator privileges of that user
+   * *True*, if the bot is allowed to edit administrator privileges of that user
    */
   can_be_edited: boolean;
   /**
-   * True, if the user's presence in the chat is hidden
+   * *True*, if the user's presence in the chat is hidden
    */
   is_anonymous: boolean;
   /**
-   * True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * *True*, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat: boolean;
   /**
-   * True, if the administrator can delete messages of other users
+   * *True*, if the administrator can delete messages of other users
    */
   can_delete_messages: boolean;
   /**
-   * True, if the administrator can manage voice chats
+   * *True*, if the administrator can manage voice chats
    */
   can_manage_voice_chats: boolean;
   /**
-   * True, if the administrator can restrict, ban or unban chat members
+   * *True*, if the administrator can restrict, ban or unban chat members
    */
   can_restrict_members: boolean;
   /**
-   * True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+   * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    */
   can_promote_members: boolean;
   /**
-   * True, if the user is allowed to change the chat title, photo and other settings
+   * *True*, if the user is allowed to change the chat title, photo and other settings
    */
   can_change_info: boolean;
   /**
-   * True, if the user is allowed to invite new users to the chat
+   * *True*, if the user is allowed to invite new users to the chat
    */
   can_invite_users: boolean;
   /**
-   * *Optional*. True, if the administrator can post in the channel; channels only
+   * *Optional*. *True*, if the administrator can post in the channel; channels only
    */
   can_post_messages?: boolean;
   /**
-   * *Optional*. True, if the administrator can edit messages of other users and can pin messages; channels only
+   * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; channels only
    */
   can_edit_messages?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to pin messages; groups and supergroups only
+   * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
    */
   can_pin_messages?: boolean;
   /**
@@ -1503,39 +1535,39 @@ export interface TelegramChatMemberRestricted {
    */
   user: TelegramUser;
   /**
-   * True, if the user is a member of the chat at the moment of the request
+   * *True*, if the user is a member of the chat at the moment of the request
    */
   is_member: boolean;
   /**
-   * True, if the user is allowed to change the chat title, photo and other settings
+   * *True*, if the user is allowed to change the chat title, photo and other settings
    */
   can_change_info: boolean;
   /**
-   * True, if the user is allowed to invite new users to the chat
+   * *True*, if the user is allowed to invite new users to the chat
    */
   can_invite_users: boolean;
   /**
-   * True, if the user is allowed to pin messages
+   * *True*, if the user is allowed to pin messages
    */
   can_pin_messages: boolean;
   /**
-   * True, if the user is allowed to send text messages, contacts, locations and venues
+   * *True*, if the user is allowed to send text messages, contacts, locations and venues
    */
   can_send_messages: boolean;
   /**
-   * True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
+   * *True*, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
    */
   can_send_media_messages: boolean;
   /**
-   * True, if the user is allowed to send polls
+   * *True*, if the user is allowed to send polls
    */
   can_send_polls: boolean;
   /**
-   * True, if the user is allowed to send animations, games, stickers and use inline bots
+   * *True*, if the user is allowed to send animations, games, stickers and use inline bots
    */
   can_send_other_messages: boolean;
   /**
-   * True, if the user is allowed to add web page previews to their messages
+   * *True*, if the user is allowed to add web page previews to their messages
    */
   can_add_web_page_previews: boolean;
   /**
@@ -1615,39 +1647,67 @@ export interface TelegramChatMemberUpdated {
 }
 
 /**
+ * Represents a join request sent to a chat.
+ */
+export interface TelegramChatJoinRequest {
+  /**
+   * Chat to which the request was sent
+   */
+  chat: TelegramChat;
+  /**
+   * User that sent the join request
+   */
+  from: TelegramUser;
+  /**
+   * Date the request was sent in Unix time
+   */
+  date: number;
+  /**
+   * *Optional*. Bio of the user.
+   */
+  bio?: string;
+  /**
+   * *Optional*. Chat invite link that was used by the user to send the join request
+   */
+  invite_link?: TelegramChatInviteLink;
+
+  [key: string]: any;
+}
+
+/**
  * Describes actions that a non-administrator user is allowed to take in a chat.
  */
 export interface TelegramChatPermissions {
   /**
-   * *Optional*. True, if the user is allowed to send text messages, contacts, locations and venues
+   * *Optional*. *True*, if the user is allowed to send text messages, contacts, locations and venues
    */
   can_send_messages?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can\_send\_messages
+   * *Optional*. *True*, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can\_send\_messages
    */
   can_send_media_messages?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to send polls, implies can\_send\_messages
+   * *Optional*. *True*, if the user is allowed to send polls, implies can\_send\_messages
    */
   can_send_polls?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to send animations, games, stickers and use inline bots, implies can\_send\_media\_messages
+   * *Optional*. *True*, if the user is allowed to send animations, games, stickers and use inline bots, implies can\_send\_media\_messages
    */
   can_send_other_messages?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to add web page previews to their messages, implies can\_send\_media\_messages
+   * *Optional*. *True*, if the user is allowed to add web page previews to their messages, implies can\_send\_media\_messages
    */
   can_add_web_page_previews?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
+   * *Optional*. *True*, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
    */
   can_change_info?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to invite new users to the chat
+   * *Optional*. *True*, if the user is allowed to invite new users to the chat
    */
   can_invite_users?: boolean;
   /**
-   * *Optional*. True, if the user is allowed to pin messages. Ignored in public supergroups
+   * *Optional*. *True*, if the user is allowed to pin messages. Ignored in public supergroups
    */
   can_pin_messages?: boolean;
 
@@ -1811,7 +1871,7 @@ export interface TelegramInputMediaPhoto {
    */
   type: 'photo';
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: string;
   /**
@@ -1839,11 +1899,11 @@ export interface TelegramInputMediaVideo {
    */
   type: 'video';
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: string;
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: TelegramInputFile | string;
   /**
@@ -1867,7 +1927,7 @@ export interface TelegramInputMediaVideo {
    */
   height?: number;
   /**
-   * *Optional*. Video duration
+   * *Optional*. Video duration in seconds
    */
   duration?: number;
   /**
@@ -1887,11 +1947,11 @@ export interface TelegramInputMediaAnimation {
    */
   type: 'animation';
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: string;
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: TelegramInputFile | string;
   /**
@@ -1915,7 +1975,7 @@ export interface TelegramInputMediaAnimation {
    */
   height?: number;
   /**
-   * *Optional*. Animation duration
+   * *Optional*. Animation duration in seconds
    */
   duration?: number;
 
@@ -1931,11 +1991,11 @@ export interface TelegramInputMediaAudio {
    */
   type: 'audio';
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: string;
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: TelegramInputFile | string;
   /**
@@ -1975,11 +2035,11 @@ export interface TelegramInputMediaDocument {
    */
   type: 'document';
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: string;
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: TelegramInputFile | string;
   /**
@@ -1995,7 +2055,7 @@ export interface TelegramInputMediaDocument {
    */
   caption_entities?: TelegramMessageEntity[];
   /**
-   * *Optional*. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always true, if the document is sent as part of an album.
+   * *Optional*. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always *True*, if the document is sent as part of an album.
    */
   disable_content_type_detection?: boolean;
 
@@ -2048,7 +2108,7 @@ export interface TelegramSticker {
    */
   mask_position?: TelegramMaskPosition;
   /**
-   * *Optional*. File size
+   * *Optional*. File size in bytes
    */
   file_size?: number;
 
@@ -2208,7 +2268,7 @@ export interface TelegramInlineQueryResultPhoto {
    */
   id: string;
   /**
-   * A valid URL of the photo. Photo must be in **jpeg** format. Photo size must not exceed 5MB
+   * A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB
    */
   photo_url: string;
   /**
@@ -2280,7 +2340,7 @@ export interface TelegramInlineQueryResultGif {
    */
   gif_height?: number;
   /**
-   * *Optional*. Duration of the GIF
+   * *Optional*. Duration of the GIF in seconds
    */
   gif_duration?: number;
   /**
@@ -2344,7 +2404,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
    */
   mpeg4_height?: number;
   /**
-   * *Optional*. Video duration
+   * *Optional*. Video duration in seconds
    */
   mpeg4_duration?: number;
   /**
@@ -2406,7 +2466,7 @@ export interface TelegramInlineQueryResultVideo {
    */
   mime_type: 'text/html' | 'video/mp4';
   /**
-   * URL of the thumbnail (jpeg only) for the video
+   * URL of the thumbnail (JPEG only) for the video
    */
   thumb_url: string;
   /**
@@ -2602,7 +2662,7 @@ export interface TelegramInlineQueryResultDocument {
    */
   input_message_content?: TelegramInputMessageContent;
   /**
-   * *Optional*. URL of the thumbnail (jpeg only) for the file
+   * *Optional*. URL of the thumbnail (JPEG only) for the file
    */
   thumb_url?: string;
   /**
@@ -3650,7 +3710,7 @@ export interface TelegramPassportFile {
    */
   file_unique_id: string;
   /**
-   * File size
+   * File size in bytes
    */
   file_size: number;
   /**

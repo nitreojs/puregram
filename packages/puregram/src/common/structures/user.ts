@@ -17,7 +17,7 @@ export class User {
 
   /** Unique identifier for this user or bot */
   public get id(): number {
-    return this.payload.id;
+    return Number(this.payload.id);
   }
 
   /** `true`, if this user is a bot */

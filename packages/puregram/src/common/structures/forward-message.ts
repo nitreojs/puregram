@@ -69,6 +69,11 @@ export class ForwardMessage {
   public get createdAt(): number {
     return this.payload.forward_date!;
   }
+
+  /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
+  public get isAutomatic(): boolean | undefined {
+    return this.payload.is_automatic_forward;
+  }
 }
 
 inspectable(ForwardMessage, {
@@ -79,7 +84,8 @@ inspectable(ForwardMessage, {
       chat: message.chat,
       signature: message.signature,
       senderName: message.senderName,
-      createdAt: message.createdAt
+      createdAt: message.createdAt,
+      isAutomatic: message.isAutomatic
     };
 
     return filterPayload(payload);

@@ -127,6 +127,11 @@ export class Message {
     return this.payload.edit_date;
   }
 
+  /** `true`, if the message can't be forwarded */
+  public get hasProtectedContent(): true | undefined {
+    return this.payload.has_protected_content as true | undefined;
+  }
+
   /** The unique identifier of a media message group this message belongs to */
   public get mediaGroupId(): string | undefined {
     return this.payload.media_group_id;

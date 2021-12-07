@@ -88,3 +88,4 @@ jspm_packages/
 # Other
 packages/**/lib
 .vscode/
+scripts/generate-interfaces/*.json

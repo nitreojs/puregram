@@ -173,8 +173,6 @@ class MethodService {
         } as Types.SchemaObjectAnyOf;
 
         returnType = TypeResolver.resolve(union);
-        
-        console.log(field, returnType);
       }
 
       if (returnType.includes('Interfaces.TelegramInputFile')) { // kinda hacky btw but you didnt see it 👀
@@ -232,7 +230,13 @@ class TypeResolver {
     }
 
     if (object.type === 'array') {
-      return TypeResolver.resolve(object.array, additionToReference) + '[]';
+      const value: string = TypeResolver.resolve(object.array, additionToReference);
+
+      if (object.array.type === 'any_of') {
+        return `(${value})[]`;
+      }
+
+      return `${value}[]`;
     }
 
     if (object.type === 'bool') {

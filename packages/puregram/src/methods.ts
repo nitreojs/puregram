@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v5.5.0, 07.12.2021
-/// Generation date: 07.12.2021 18:32:29 MSK
+/// Generation date: 08.12.2021 11:40:59 MSK
 
 import * as Interfaces from './telegram-interfaces';
 import { MessageEntity } from './common/structures';
@@ -697,7 +697,7 @@ export interface SendMediaGroupParams {
   /**
    * A JSON-serialized array describing messages to be sent, must include 2-10 items
    */
-  media: Interfaces.TelegramInputMediaAudio | Interfaces.TelegramInputMediaDocument | Interfaces.TelegramInputMediaPhoto | Interfaces.TelegramInputMediaVideo[];
+  media: (Interfaces.TelegramInputMediaAudio | Interfaces.TelegramInputMediaDocument | Interfaces.TelegramInputMediaPhoto | Interfaces.TelegramInputMediaVideo)[];
   /**
    * Sends messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */

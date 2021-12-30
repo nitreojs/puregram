@@ -172,6 +172,10 @@ export interface SendMessageParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the forwarded message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -202,6 +206,10 @@ export interface ForwardMessageParams {
    * Message identifier in the chat specified in *from\_chat\_id*
    */
   message_id: number;
+  /**
+   * Protects the contents of the forwarded message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -256,6 +264,10 @@ export interface CopyMessageParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the forwarded message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -306,6 +318,10 @@ export interface SendPhotoParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -372,6 +388,10 @@ export interface SendAudioParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -436,6 +456,10 @@ export interface SendDocumentParams {
    * Name that will be used as a file name in the sent message
    */
   filename?: string;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -506,6 +530,10 @@ export interface SendVideoParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -572,6 +600,10 @@ export interface SendAnimationParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -626,6 +658,10 @@ export interface SendVoiceParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -676,6 +712,10 @@ export interface SendVideoNoteParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -710,6 +750,10 @@ export interface SendMediaGroupParams {
    * Pass *True*, if the message should be sent even if the specified replied-to message is not found
    */
   allow_sending_without_reply?: boolean;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -768,6 +812,10 @@ export interface SendLocationParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -914,6 +962,10 @@ export interface SendVenueParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -964,6 +1016,10 @@ export interface SendContactParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -1046,6 +1102,10 @@ export interface SendPollParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -1084,6 +1144,10 @@ export interface SendDiceParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -2196,6 +2260,10 @@ export interface SendStickerParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -2549,6 +2617,10 @@ export interface SendInvoiceParams {
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -2667,6 +2739,10 @@ export interface SendGameParams {
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Play game\_title' button will be shown. If not empty, the first button must launch the game.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
 
   [key: string]: any;
 }

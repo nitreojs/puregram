@@ -66,6 +66,20 @@ describe('Parse mode', (): void => {
       });
     });
 
+    describe('#HTML.spoiler()', (): void => {
+      it('should parse spoilered text properly', (): void => {
+        const text: string = HTML.spoiler('spoilered text');
+
+        expect(text).toEqual('<span class="tg-spoiler">spoilered text</span>');
+      });
+
+      it('should escape characters', (): void => {
+        const text: string = HTML.spoiler('spoilered text with <tag> and "phrase"');
+
+        expect(text).toEqual('<span class="tg-spoiler">spoilered text with &lt;tag&gt; and &quot;phrase&quot;</span>');
+      });
+    });
+
     describe('#HTML.url()', (): void => {
       it('should parse url properly', (): void => {
         const text: string = HTML.url('url text', 'example.com');
@@ -281,6 +295,14 @@ describe('Parse mode', (): void => {
         const text: string = MarkdownV2.strikethrough('strikethrough ~text');
 
         expect(text).toEqual('~strikethrough \\~text~');
+      });
+    });
+
+    describe('#MarkdownV2.spoiler()', (): void => {
+      it('should parse spoilered text properly', (): void => {
+        const text: string = MarkdownV2.spoiler('spoilered |text');
+
+        expect(text).toEqual('||spoilered \\|text||');
       });
     });
 

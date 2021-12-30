@@ -38,6 +38,11 @@ export class HTML {
     return `<s>${escapeHtml(source)}</s>`;
   }
 
+  /** Spoilered text */
+  public static spoiler(source: string): string {
+    return `<span class="tg-spoiler">${escapeHtml(source)}</span>`;
+  }
+
   /** URL with text */
   public static url(source: string, link: string): string {
     return `<a href="${link}">${escapeHtml(source)}</a>`;

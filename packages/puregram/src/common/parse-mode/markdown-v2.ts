@@ -33,6 +33,11 @@ export class MarkdownV2 {
     return `~${replaceChars(source, '~')}~`;
   }
 
+  /** Spoilered text */
+  public static spoiler(source: string): string {
+    return `||${source.replace(/\|/g, '\\|')}||`;
+  }
+
   /** URL with text */
   public static url(source: string, link: string): string {
     return `[${replaceChars(source, ']')}](${replaceChars(link, '\\)')})`;

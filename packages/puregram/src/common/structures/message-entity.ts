@@ -42,8 +42,8 @@ export class MessageEntity {
    * (`https://telegram.org`), `email` (`do-not-reply@telegram.org`),
    * `phone_number` (`+1-212-555-0123`), `bold` (**bold text**), `italic`
    * (_italic text_), `underline` (underlined text), `strikethrough`
-   * (~~strikethrough text~~), `code` (`monowidth string`), `pre` (`monowidth
-   * block`), `text_link` (for clickable text URLs), `text_mention`
+   * (~~strikethrough text~~), “spoiler” (spoiler message), `code` (`monowidth string`),
+   * `pre` (`monowidth block`), `text_link` (for clickable text URLs), `text_mention`
    * (for users without usernames)
    */
   public get type(): TelegramMessageEntity['type'] {

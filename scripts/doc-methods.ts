@@ -6,7 +6,7 @@
  */
 export const camelizeFirst = (source: string): string => (
   source[0].toUpperCase() + source.slice(1)
-);
+)
 
 /**
  * ```ts
@@ -19,7 +19,7 @@ export const camelizeFirst = (source: string): string => (
  */
 export const camelize = (source: string): string => (
   source.split(/[\s-_]/).map(camelizeFirst).join('')
-);
+)
 
 /**
  * ```ts
@@ -28,10 +28,10 @@ export const camelize = (source: string): string => (
  * ```
  */
 export const camelizeSmall = (source: string): string => {
-  const value: string = camelize(source);
+  const value: string = camelize(source)
 
-  return value[0].toLowerCase() + value.slice(1);
-};
+  return value[0].toLowerCase() + value.slice(1)
+}
 
 /**
  * ```ts
@@ -43,25 +43,25 @@ export const camelizeSmall = (source: string): string => {
  * ```
  */
 export const dasherize = (rawSource: string): string => {
-  const source: string = rawSource.split(' ').join('-');
-  const match: RegExpMatchArray | null = source.match(/[A-Z]/g);
+  const source: string = rawSource.split(' ').join('-')
+  const match: RegExpMatchArray | null = source.match(/[A-Z]/g)
 
-  if (match === null) return source;
+  if (match === null) return source
 
-  const upperCases: RegExpMatchArray = match;
-  const upperAmount: number = upperCases.length;
-  const result: string[] = source.split('');
+  const upperCases: RegExpMatchArray = match
+  const upperAmount: number = upperCases.length
+  const result: string[] = source.split('')
 
   for (let i: number = 0; i < upperAmount; i += 1) {
-    const charIndex: number = result.indexOf(upperCases[i]);
+    const charIndex: number = result.indexOf(upperCases[i])
 
-    result[charIndex] = result[charIndex].toLowerCase();
+    result[charIndex] = result[charIndex].toLowerCase()
 
-    if (i !== 0) result.splice(charIndex, 0, '-');
+    if (i !== 0) result.splice(charIndex, 0, '-')
   }
 
-  return result.join('');
-};
+  return result.join('')
+}
 
 // # Utilities
 
@@ -80,84 +80,83 @@ export const tokenize = (rawSource: string | string[], token: Token, language: s
     Array.isArray(rawSource)
       ? rawSource.join(' ')
       : rawSource
-  );
+  )
 
-  const leftAddition: string = (language ? language + Token.NEWLINE : '');
-  const rightAddition: string = (language ? '\n' : '');
+  const leftAddition: string = (language ? language + Token.NEWLINE : '')
+  const rightAddition: string = (language ? '\n' : '')
 
-  const leftToken: Token = token;
-  let rightToken: Token = token;
+  const leftToken: Token = token
+  let rightToken: Token = token
 
-  if (leftToken === Token.CODE_START) rightToken = Token.CODE_END;
+  if (leftToken === Token.CODE_START) rightToken = Token.CODE_END
 
-  return leftToken + leftAddition + source + rightAddition + rightToken;
-};
+  return leftToken + leftAddition + source + rightAddition + rightToken
+}
 
 export const calculateLongestStrings = (matrix: string[][]): number[] => {
-  const lengths: number[] = [];
+  const lengths: number[] = []
 
   for (const row of matrix) {
     for (const [elementIndex, element] of row.entries()) {
       if (element.length > (lengths[elementIndex] ?? 0)) {
-        lengths[elementIndex] = element.length;
+        lengths[elementIndex] = element.length
       }
     }
   }
 
   return lengths.map(
     (element: number) => element + 1
-  );
-};
+  )
+}
 
 export const createTableSeparator = (lengths: number[]): string => {
-  const amount: number = lengths.length;
-  let result: string = '';
+  const amount: number = lengths.length
+  let result: string = ''
 
   for (let i: number = 0; i < amount; i += 1) {
-    const length: number = lengths[i];
+    const length: number = lengths[i]
 
-    result += `| :${'-'.repeat(length - 3)}: `;
+    result += `| :${'-'.repeat(length - 3)}: `
   }
 
-  result += '|';
+  result += '|'
 
-  return result;
-};
+  return result
+}
 
 export const createTableRow = (elements: string[], lengths: number[], center: boolean = false): string => {
-  let result: string = '';
+  let result: string = ''
 
   for (const [index, element] of elements.entries()) {
-    const length: number = lengths[index];
+    const length: number = lengths[index]
 
-    let leftSpaces: number = 1;
-    let rightSpaces: number = length - element.length;
+    let leftSpaces: number = 1
+    let rightSpaces: number = length - element.length
 
     if (center) {
-      const value: number = (leftSpaces + rightSpaces) / 2;
+      const value: number = (leftSpaces + rightSpaces) / 2
 
-      leftSpaces = Math.floor(value);
-      rightSpaces = Math.ceil(value);
+      leftSpaces = Math.floor(value)
+      rightSpaces = Math.ceil(value)
     }
 
-    result += `|${' '.repeat(leftSpaces)}${element}${' '.repeat(rightSpaces)}`;
+    result += `|${' '.repeat(leftSpaces)}${element}${' '.repeat(rightSpaces)}`
   }
 
-  result += '|';
+  result += '|'
 
-  return result;
-};
+  return result
+}
 
 export const generateAnchor = (element: string): string => (
-  `#${
-    element.toLowerCase()
-      .split(' ')
-      .map(
-        (kElement: string) => kElement.replace(/,/g, '')
-      )
-      .join('-')
+  `#${element.toLowerCase()
+    .split(' ')
+    .map(
+      (kElement: string) => kElement.replace(/,/g, '')
+    )
+    .join('-')
   }`
-);
+)
 
 // # Markdown shit
 
@@ -178,7 +177,7 @@ export const generateAnchor = (element: string): string => (
  */
 export const header = (level: number = 1, text: string): string => (
   `${'#'.repeat(level)} ${text}`
-);
+)
 
 /**
  * ```ts
@@ -207,7 +206,7 @@ export const code = (...args: string[]): string => (
       ) ? Token.CODE_START : Token.BACKTICK
     )
   )
-);
+)
 
 /**
  * ```ts
@@ -216,7 +215,7 @@ export const code = (...args: string[]): string => (
  * 
  * **Triggered when new message occurs**
  */
-export const bold = (...args: string[]): string => tokenize(args, Token.BOLD);
+export const bold = (...args: string[]): string => tokenize(args, Token.BOLD)
 
 /**
  * ```ts
@@ -225,7 +224,7 @@ export const bold = (...args: string[]): string => tokenize(args, Token.BOLD);
  * 
  * _May be `undefined`_
  */
-export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC);
+export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC)
 
 /**
  * ```ts
@@ -239,7 +238,7 @@ export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC
  * import { Telegram } from "puregram";
  * ```
  */
-export const pre = (language: string = '', ...args: string[]): string => tokenize(args, Token.PRE, language);
+export const pre = (language: string = '', ...args: string[]): string => tokenize(args, Token.PRE, language)
 
 /**
  * ```ts
@@ -248,7 +247,7 @@ export const pre = (language: string = '', ...args: string[]): string => tokeniz
  * 
  * [`Context`](context.md)
  */
-export const link = (text: string, source: string): string => `[${text}](${source})`;
+export const link = (text: string, source: string): string => `[${text}](${source})`
 
 /**
  * ```ts
@@ -267,22 +266,22 @@ export const link = (text: string, source: string): string => `[${text}](${sourc
  * | **Value 1** | `Value 2` |
  */
 export const table = (rawMatrix: string[][]): string => {
-  const [head, ...matrix] = rawMatrix;
+  const [head, ...matrix] = rawMatrix
 
-  const lengths: number[] = calculateLongestStrings([[...head], ...matrix]);
-  const headRow: string = createTableRow(head, lengths, true);
-  const separator: string = createTableSeparator(lengths);
+  const lengths: number[] = calculateLongestStrings([[...head], ...matrix])
+  const headRow: string = createTableRow(head, lengths, true)
+  const separator: string = createTableSeparator(lengths)
 
-  const rows: string[] = [headRow, separator];
+  const rows: string[] = [headRow, separator]
 
   for (const row of matrix) {
-    rows.push(createTableRow(row, lengths));
+    rows.push(createTableRow(row, lengths))
   }
 
   /// TODO: "&#124;" instead of "|"
 
-  return rows.join('\n');
-};
+  return rows.join('\n')
+}
 
 /**
  * ```ts
@@ -306,4 +305,4 @@ export const list = (token: '*' | '-' | '=' = '*', ...elements: string[]): strin
   elements.map(
     (element: string): string => `${token} ${element}`
   ).join('\n')
-);
+)

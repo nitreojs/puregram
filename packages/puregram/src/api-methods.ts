@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v5.5.0, 07.12.2021
-/// Generation date: 08.12.2021 11:40:59 MSK
+/// Based on Bot API v6.0.0, 16.04.2022
+/// Generation date: 16.04.2022 18:19:03 MSK
 
 import * as api from './methods';
 
@@ -281,7 +281,7 @@ export interface ApiMethods {
    */
   setChatAdministratorCustomTitle: api.setChatAdministratorCustomTitle;
   /**
-   * Use this method to ban a channel chat in a supergroup or a channel. The owner of the chat will not be able to send messages and join live streams on behalf of the chat, unless it is [unbanned](https://core.telegram.org/bots/api/#unbanchatsenderchat) first. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns *True* on success.
+   * Use this method to ban a channel chat in a supergroup or a channel. Until the chat is [unbanned](https://core.telegram.org/bots/api/#unbanchatsenderchat), the owner of the banned chat won't be able to send messages on behalf of **any of their channels**. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns *True* on success.
    * 
    * ---
    * 
@@ -499,6 +499,38 @@ export interface ApiMethods {
    */
   getMyCommands: api.getMyCommands;
   /**
+   * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setchatmenubutton)
+   */
+  setChatMenuButton: api.setChatMenuButton;
+  /**
+   * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns [MenuButton](https://core.telegram.org/bots/api/#menubutton) on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getchatmenubutton)
+   */
+  getChatMenuButton: api.getChatMenuButton;
+  /**
+   * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setmydefaultadministratorrights)
+   */
+  setMyDefaultAdministratorRights: api.setMyDefaultAdministratorRights;
+  /**
+   * Use this method to get the current default administrator rights of the bot. Returns [ChatAdministratorRights](https://core.telegram.org/bots/api/#chatadministratorrights) on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getmydefaultadministratorrights)
+   */
+  getMyDefaultAdministratorRights: api.getMyDefaultAdministratorRights;
+  /**
    * Use this method to edit text and [game](https://core.telegram.org/bots/api/#games) messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
    * 
    * ---
@@ -555,7 +587,7 @@ export interface ApiMethods {
    */
   deleteMessage: api.deleteMessage;
   /**
-   * Use this method to send static .WEBP or [animated](https://telegram.org/blog/animated-stickers) .TGS stickers. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
+   * Use this method to send static .WEBP, [animated](https://telegram.org/blog/animated-stickers) .TGS, or [video](https://telegram.org/blog/video-stickers-better-reactions) .WEBM stickers. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
    * 
    * ---
    * 
@@ -579,7 +611,7 @@ export interface ApiMethods {
    */
   uploadStickerFile: api.uploadStickerFile;
   /**
-   * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You **must** use exactly one of the fields *png\_sticker* or *tgs\_sticker*. Returns *True* on success.
+   * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Returns *True* on success.
    * 
    * ---
    * 
@@ -587,7 +619,7 @@ export interface ApiMethods {
    */
   createNewStickerSet: api.createNewStickerSet;
   /**
-   * Use this method to add a new sticker to a set created by the bot. You **must** use exactly one of the fields *png\_sticker* or *tgs\_sticker*. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
+   * Use this method to add a new sticker to a set created by the bot. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
    * 
    * ---
    * 
@@ -611,7 +643,7 @@ export interface ApiMethods {
    */
   deleteStickerFromSet: api.deleteStickerFromSet;
   /**
-   * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Returns *True* on success.
+   * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Video thumbnails can be set only for video sticker sets only. Returns *True* on success.
    * 
    * ---
    * 
@@ -627,6 +659,14 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#answerinlinequery)
    */
   answerInlineQuery: api.answerInlineQuery;
+  /**
+   * Use this method to set the result of an interaction with a [Web App](/bots/webapps) and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a [SentWebAppMessage](https://core.telegram.org/bots/api/#sentwebappmessage) object is returned.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#answerwebappquery)
+   */
+  answerWebAppQuery: api.answerWebAppQuery;
   /**
    * Use this method to send invoices. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
    * 

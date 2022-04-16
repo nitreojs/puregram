@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v5.5.0, 07.12.2021
-/// Generation date: 08.12.2021 11:40:59 MSK
+/// Based on Bot API v6.0.0, 16.04.2022
+/// Generation date: 16.04.2022 18:19:03 MSK
 
 import * as Interfaces from './telegram-interfaces';
 import { MessageEntity } from './common/structures';
@@ -161,6 +161,10 @@ export interface SendMessageParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -172,10 +176,6 @@ export interface SendMessageParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the forwarded message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -203,13 +203,13 @@ export interface ForwardMessageParams {
    */
   disable_notification?: boolean;
   /**
-   * Message identifier in the chat specified in *from\_chat\_id*
-   */
-  message_id: number;
-  /**
    * Protects the contents of the forwarded message from forwarding and saving
    */
   protect_content?: boolean;
+  /**
+   * Message identifier in the chat specified in *from\_chat\_id*
+   */
+  message_id: number;
 
   [key: string]: any;
 }
@@ -253,6 +253,10 @@ export interface CopyMessageParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -264,10 +268,6 @@ export interface CopyMessageParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the forwarded message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -307,6 +307,10 @@ export interface SendPhotoParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -318,10 +322,6 @@ export interface SendPhotoParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -369,13 +369,17 @@ export interface SendAudioParams {
    */
   title?: string;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
   disable_notification?: boolean;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
   /**
    * If the message is a reply, ID of the original message
    */
@@ -388,10 +392,6 @@ export interface SendAudioParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -417,7 +417,7 @@ export interface SendDocumentParams {
    */
   document: Interfaces.InputFile;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -441,6 +441,10 @@ export interface SendDocumentParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -456,10 +460,6 @@ export interface SendDocumentParams {
    * Name that will be used as a file name in the sent message
    */
   filename?: string;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -495,7 +495,7 @@ export interface SendVideoParams {
    */
   height?: number;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -519,6 +519,10 @@ export interface SendVideoParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -530,10 +534,6 @@ export interface SendVideoParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -569,7 +569,7 @@ export interface SendAnimationParams {
    */
   height?: number;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
@@ -589,6 +589,10 @@ export interface SendAnimationParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -600,10 +604,6 @@ export interface SendAnimationParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -647,6 +647,10 @@ export interface SendVoiceParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -658,10 +662,6 @@ export interface SendVoiceParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -693,13 +693,17 @@ export interface SendVideoNoteParams {
    */
   length?: number;
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: Interfaces.InputFile;
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
   disable_notification?: boolean;
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
   /**
    * If the message is a reply, ID of the original message
    */
@@ -712,10 +716,6 @@ export interface SendVideoNoteParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -743,6 +743,10 @@ export interface SendMediaGroupParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent messages from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the messages are a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -750,10 +754,6 @@ export interface SendMediaGroupParams {
    * Pass *True*, if the message should be sent even if the specified replied-to message is not found
    */
   allow_sending_without_reply?: boolean;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -801,6 +801,10 @@ export interface SendLocationParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -812,10 +816,6 @@ export interface SendLocationParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -951,6 +951,10 @@ export interface SendVenueParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -962,10 +966,6 @@ export interface SendVenueParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -1005,6 +1005,10 @@ export interface SendContactParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -1016,10 +1020,6 @@ export interface SendContactParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -1091,6 +1091,10 @@ export interface SendPollParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -1102,10 +1106,6 @@ export interface SendPollParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -1133,6 +1133,10 @@ export interface SendDiceParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -1144,10 +1148,6 @@ export interface SendDiceParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -1263,7 +1263,7 @@ export type banChatMember = (params: BanChatMemberParams) => Promise<true>;
 
 export interface UnbanChatMemberParams {
   /**
-   * Unique identifier for the target group or username of the target supergroup or channel (in the format `@username`)
+   * Unique identifier for the target group or username of the target supergroup or channel (in the format `@channelusername`)
    */
   chat_id: number | string;
   /**
@@ -1347,9 +1347,9 @@ export interface PromoteChatMemberParams {
    */
   can_delete_messages?: boolean;
   /**
-   * Pass *True*, if the administrator can manage voice chats
+   * Pass *True*, if the administrator can manage video chats
    */
-  can_manage_voice_chats?: boolean;
+  can_manage_video_chats?: boolean;
   /**
    * Pass *True*, if the administrator can restrict, ban or unban chat members
    */
@@ -1418,16 +1418,12 @@ export interface BanChatSenderChatParams {
    * Unique identifier of the target sender chat
    */
   sender_chat_id: number;
-  /**
-   * Date when the sender chat will be unbanned, unix time. If the chat is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever.
-   */
-  until_date?: number;
 
   [key: string]: any;
 }
 
 /**
- * Use this method to ban a channel chat in a supergroup or a channel. The owner of the chat will not be able to send messages and join live streams on behalf of the chat, unless it is [unbanned](https://core.telegram.org/bots/api/#unbanchatsenderchat) first. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns *True* on success.
+ * Use this method to ban a channel chat in a supergroup or a channel. Until the chat is [unbanned](https://core.telegram.org/bots/api/#unbanchatsenderchat), the owner of the banned chat won't be able to send messages on behalf of **any of their channels**. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns *True* on success.
  * 
  * ---
  * 
@@ -2027,6 +2023,86 @@ export interface GetMyCommandsParams {
  */
 export type getMyCommands = (params?: GetMyCommandsParams) => Promise<Interfaces.TelegramBotCommand[]>;
 
+export interface SetChatMenuButtonParams {
+  /**
+   * Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+   */
+  chat_id?: number;
+  /**
+   * A JSON-serialized object for the new bot's menu button. Defaults to [MenuButtonDefault](https://core.telegram.org/bots/api/#menubuttondefault)
+   */
+  menu_button?: Interfaces.TelegramMenuButton;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setchatmenubutton)
+ */
+export type setChatMenuButton = (params?: SetChatMenuButtonParams) => Promise<true>;
+
+export interface GetChatMenuButtonParams {
+  /**
+   * Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
+   */
+  chat_id?: number;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns [MenuButton](https://core.telegram.org/bots/api/#menubutton) on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#getchatmenubutton)
+ */
+export type getChatMenuButton = (params?: GetChatMenuButtonParams) => Promise<Interfaces.TelegramMenuButton>;
+
+export interface SetMyDefaultAdministratorRightsParams {
+  /**
+   * A JSON-serialized object describing new default administrator rights. If not specified, the default administrator rights will be cleared.
+   */
+  rights?: Interfaces.TelegramChatAdministratorRights;
+  /**
+   * Pass *True* to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
+   */
+  for_channels?: boolean;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setmydefaultadministratorrights)
+ */
+export type setMyDefaultAdministratorRights = (params?: SetMyDefaultAdministratorRightsParams) => Promise<true>;
+
+export interface GetMyDefaultAdministratorRightsParams {
+  /**
+   * Pass *True* to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+   */
+  for_channels?: boolean;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to get the current default administrator rights of the bot. Returns [ChatAdministratorRights](https://core.telegram.org/bots/api/#chatadministratorrights) on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#getmydefaultadministratorrights)
+ */
+export type getMyDefaultAdministratorRights = (params?: GetMyDefaultAdministratorRightsParams) => Promise<Interfaces.TelegramChatAdministratorRights>;
+
 export interface EditMessageTextParams {
   /**
    * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
@@ -2249,6 +2325,10 @@ export interface SendStickerParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -2260,16 +2340,12 @@ export interface SendStickerParams {
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
 
 /**
- * Use this method to send static .WEBP or [animated](https://telegram.org/blog/animated-stickers) .TGS stickers. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
+ * Use this method to send static .WEBP, [animated](https://telegram.org/blog/animated-stickers) .TGS, or [video](https://telegram.org/blog/video-stickers-better-reactions) .WEBM stickers. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
  * 
  * ---
  * 
@@ -2323,7 +2399,7 @@ export interface CreateNewStickerSetParams {
    */
   user_id: number;
   /**
-   * Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., *animals*). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in *“\_by\_\<bot username\>”*. *\<bot\_username\>* is case insensitive. 1-64 characters.
+   * Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., *animals*). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in `"_by_<bot_username>"`. `<bot_username>` is case insensitive. 1-64 characters.
    */
   name: string;
   /**
@@ -2335,9 +2411,13 @@ export interface CreateNewStickerSetParams {
    */
   png_sticker?: Interfaces.InputFile;
   /**
-   * **TGS** animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/animated\_stickers#technical-requirements](https://core.telegram.org/animated_stickers#technical-requirements) for technical requirements
+   * **TGS** animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for technical requirements
    */
   tgs_sticker?: Interfaces.InputFile;
+  /**
+   * **WEBM** video with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for technical requirements
+   */
+  webm_sticker?: Interfaces.InputFile;
   /**
    * One or more emoji corresponding to the sticker
    */
@@ -2355,7 +2435,7 @@ export interface CreateNewStickerSetParams {
 }
 
 /**
- * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You **must** use exactly one of the fields *png\_sticker* or *tgs\_sticker*. Returns *True* on success.
+ * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Returns *True* on success.
  * 
  * ---
  * 
@@ -2377,9 +2457,13 @@ export interface AddStickerToSetParams {
    */
   png_sticker?: Interfaces.InputFile;
   /**
-   * **TGS** animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/animated\_stickers#technical-requirements](https://core.telegram.org/animated_stickers#technical-requirements) for technical requirements
+   * **TGS** animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for technical requirements
    */
   tgs_sticker?: Interfaces.InputFile;
+  /**
+   * **WEBM** video with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for technical requirements
+   */
+  webm_sticker?: Interfaces.InputFile;
   /**
    * One or more emoji corresponding to the sticker
    */
@@ -2393,7 +2477,7 @@ export interface AddStickerToSetParams {
 }
 
 /**
- * Use this method to add a new sticker to a set created by the bot. You **must** use exactly one of the fields *png\_sticker* or *tgs\_sticker*. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
+ * Use this method to add a new sticker to a set created by the bot. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
  * 
  * ---
  * 
@@ -2451,7 +2535,7 @@ export interface SetStickerSetThumbParams {
    */
   user_id: number;
   /**
-   * A **PNG** image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a **TGS** animation with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/animated\_stickers#technical-requirements](https://core.telegram.org/animated_stickers#technical-requirements) for animated sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Animated sticker set thumbnail can't be uploaded via HTTP URL.
+   * A **PNG** image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a **TGS** animation with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements, or a **WEBM** video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Animated sticker set thumbnails can't be uploaded via HTTP URL.
    */
   thumb?: Interfaces.InputFile;
 
@@ -2459,7 +2543,7 @@ export interface SetStickerSetThumbParams {
 }
 
 /**
- * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Returns *True* on success.
+ * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Video thumbnails can be set only for video sticker sets only. Returns *True* on success.
  * 
  * ---
  * 
@@ -2511,6 +2595,28 @@ export interface AnswerInlineQueryParams {
  * [**Documentation**](https://core.telegram.org/bots/api/#answerinlinequery)
  */
 export type answerInlineQuery = (params: AnswerInlineQueryParams) => Promise<true>;
+
+export interface AnswerWebAppQueryParams {
+  /**
+   * Unique identifier for the query to be answered
+   */
+  web_app_query_id: string;
+  /**
+   * A JSON-serialized object describing the message to be sent
+   */
+  result: Interfaces.TelegramInlineQueryResult;
+
+  [key: string]: any;
+}
+
+/**
+ * Use this method to set the result of an interaction with a [Web App](/bots/webapps) and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a [SentWebAppMessage](https://core.telegram.org/bots/api/#sentwebappmessage) object is returned.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#answerwebappquery)
+ */
+export type answerWebAppQuery = (params: AnswerWebAppQueryParams) => Promise<Interfaces.TelegramSentWebAppMessage>;
 
 export interface SendInvoiceParams {
   /**
@@ -2606,6 +2712,10 @@ export interface SendInvoiceParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -2617,10 +2727,6 @@ export interface SendInvoiceParams {
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }
@@ -2728,6 +2834,10 @@ export interface SendGameParams {
    */
   disable_notification?: boolean;
   /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+  /**
    * If the message is a reply, ID of the original message
    */
   reply_to_message_id?: number;
@@ -2739,10 +2849,6 @@ export interface SendGameParams {
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Play game\_title' button will be shown. If not empty, the first button must launch the game.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion;
-  /**
-   * Protects the contents of the sent message from forwarding and saving
-   */
-  protect_content?: boolean;
 
   [key: string]: any;
 }

@@ -1,15 +1,15 @@
 import {
   StepContext,
   StepSceneHandler
-} from '../scenes';
+} from '../scenes'
 
 export interface StepContextOptions {
-  context: StepContext;
+  context: StepContext
 
-  steps: StepSceneHandler[];
+  steps: StepSceneHandler[]
 }
 
 export interface StepContextGoOptions {
   /** Logging into a handler without executing it */
-  silent?: boolean;
+  silent?: boolean
 }

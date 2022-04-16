@@ -1,34 +1,34 @@
-import { MessageContext } from 'puregram';
+import { MessageContext } from 'puregram'
 
-import { SceneInterface } from './scene';
+import { SceneInterface } from './scene'
 
-import { StepSceneContext } from '../contexts';
-import { LastAction } from '../contexts';
+import { StepSceneContext } from '../contexts'
+import { LastAction } from '../contexts'
 
 import {
   StepSceneHandler,
   StepContext,
   StepSceneOptions
-} from './step.types';
+} from './step.types'
 
 export class StepScene<T = MessageContext> implements SceneInterface {
-  public slug: string;
+  public slug: string
 
-  private readonly steps: StepSceneHandler<T>[];
+  private readonly steps: StepSceneHandler<T>[]
 
-  private readonly onEnterHandler: NonNullable<StepSceneOptions<T>['enterHandler']>;
+  private readonly onEnterHandler: NonNullable<StepSceneOptions<T>['enterHandler']>
 
-  private readonly onLeaveHandler: NonNullable<StepSceneOptions<T>['leaveHandler']>;
+  private readonly onLeaveHandler: NonNullable<StepSceneOptions<T>['leaveHandler']>
 
   public constructor(slug: string, rawOptions: StepSceneOptions<T> | StepSceneHandler<T>[]) {
     const options: StepSceneOptions<T> = Array.isArray(rawOptions)
       ? { steps: rawOptions }
-      : rawOptions;
+      : rawOptions
 
-    this.slug = slug;
-    this.steps = options.steps;
-    this.onEnterHandler = options.enterHandler || ((): void => {});
-    this.onLeaveHandler = options.leaveHandler || ((): void => {});
+    this.slug = slug
+    this.steps = options.steps
+    this.onEnterHandler = options.enterHandler || ((): void => { })
+    this.onLeaveHandler = options.leaveHandler || ((): void => { })
   }
 
   public async enterHandler(context: StepContext & T): Promise<void> {
@@ -37,16 +37,16 @@ export class StepScene<T = MessageContext> implements SceneInterface {
 
       // @ts-expect-error
       steps: this.steps
-    });
+    })
 
-    await this.onEnterHandler(context);
+    await this.onEnterHandler(context)
 
     if (context.scene.lastAction !== LastAction.LEAVE) {
-      await context.scene.step.reenter();
+      await context.scene.step.reenter()
     }
   }
 
   public leaveHandler(context: StepContext & T): Promise<unknown> {
-    return Promise.resolve(this.onLeaveHandler(context));
+    return Promise.resolve(this.onLeaveHandler(context))
   }
 }

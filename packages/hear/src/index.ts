@@ -1,3 +1,3 @@
-export * from './types';
+export * from './types'
 
-export { HearManager } from './hear-manager';
+export { HearManager } from './hear-manager'

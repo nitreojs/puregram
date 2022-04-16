@@ -1,7 +1,7 @@
-export { SessionStorage } from './storage';
+export { SessionStorage } from './storage'
 
 export {
   MemoryStorage,
   MemoryStorageOptions,
   MemoryStoreLike
-} from './memory';
+} from './memory'

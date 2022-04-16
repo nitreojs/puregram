@@ -3,33 +3,33 @@ export const splitPath = (path: string): string[] => (
     .replace(/\[([^[\]]*)]/g, '.$1.')
     .split('.')
     .filter(Boolean)
-);
+)
 
 export const getObjectValue = (source: Record<string, any>, selectors: string[]): any => {
-  let link: Record<string, any> = source;
+  let link: Record<string, any> = source
 
   for (const selector of selectors) {
-    if (!link[selector]) return undefined;
+    if (!link[selector]) return undefined
 
-    link = link[selector];
+    link = link[selector]
   }
 
-  return link;
-};
+  return link
+}
 
 export const unifyCondition = (condition: unknown): Function => {
   if (typeof condition === 'function') {
-    return condition;
+    return condition
   }
 
   if (condition instanceof RegExp) {
     return (text: string | undefined): boolean => (
       condition.test(text!)
-    );
+    )
   }
 
   if (Array.isArray(condition)) {
-    const arrayConditions: Function[] = condition.map(unifyCondition);
+    const arrayConditions: Function[] = condition.map(unifyCondition)
 
     return (value: string | undefined): boolean => (
       Array.isArray(value)
@@ -43,8 +43,8 @@ export const unifyCondition = (condition: unknown): Function => {
         : arrayConditions.some(
           (cond: Function): boolean => cond(value)
         )
-    );
+    )
   }
 
-  return (value: string | undefined): boolean => value === condition;
-};
+  return (value: string | undefined): boolean => value === condition
+}

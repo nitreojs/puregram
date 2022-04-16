@@ -1,4 +1,4 @@
-import { SessionContext } from '../types';
+import { SessionContext } from '../types'
 
 import {
   SceneContextOptions,
@@ -6,131 +6,131 @@ import {
   SceneContextLeaveOptions,
 
   LastAction
-} from './scene.types';
+} from './scene.types'
 
-import { SceneInterface } from '../scenes';
+import { SceneInterface } from '../scenes'
 
 export class SceneContext {
   /** Lazy session for submodules */
-  public session!: SessionContext;
+  public session!: SessionContext
 
   /** Base namespace for user input */
-  public state!: Record<string, any>;
+  public state!: Record<string, any>
 
   /** Is the scene cancelled? Used in `leaveHandler()` */
   public cancelled = false;
 
   public lastAction: LastAction = LastAction.NONE;
 
-  private readonly context: SceneContextOptions['context'];
+  private readonly context: SceneContextOptions['context']
 
-  private repository: SceneContextOptions['repository'];
+  private repository: SceneContextOptions['repository']
 
   /** Controlled behavior leave */
   public leaving = false;
 
   public constructor(options: SceneContextOptions) {
-    this.context = options.context;
-    this.repository = options.repository;
+    this.context = options.context
+    this.repository = options.repository
 
-    this.updateSession();
+    this.updateSession()
   }
 
   /** Returns current scene */
   public get current(): SceneInterface | undefined {
-    return this.repository.get(this.session.current);
+    return this.repository.get(this.session.current)
   }
 
   /** Enter to scene */
   public async enter(slug: string, options: SceneContextEnterOptions = {}): Promise<void> {
-    const scene = this.repository.strictGet(slug);
+    const scene = this.repository.strictGet(slug)
 
-    const isCurrent: boolean = this.current?.slug === scene.slug;
+    const isCurrent: boolean = this.current?.slug === scene.slug
 
     if (!isCurrent) {
       if (!this.leaving) {
         await this.leave({
           silent: options.silent
-        });
+        })
       }
 
       if (this.leaving) {
-        this.leaving = false;
+        this.leaving = false
 
-        this.reset();
+        this.reset()
       }
     }
 
-    this.lastAction = LastAction.ENTER;
+    this.lastAction = LastAction.ENTER
 
-    this.session.current = scene.slug;
+    this.session.current = scene.slug
 
-    Object.assign(this.state, options.state || {});
+    Object.assign(this.state, options.state || {})
 
-    if (options.silent) return;
+    if (options.silent) return
 
-    await scene.enterHandler(this.context);
+    await scene.enterHandler(this.context)
   }
 
   /** Reenter to current scene */
   public async reenter(): Promise<void> {
-    const { current } = this;
+    const { current } = this
 
     if (!current) {
-      throw new Error('There is no active scene to enter');
+      throw new Error('There is no active scene to enter')
     }
 
-    await this.enter(current.slug);
+    await this.enter(current.slug)
   }
 
   /** Leave from current scene */
   public async leave(options: SceneContextLeaveOptions = {}): Promise<void> {
-    const { current } = this;
+    const { current } = this
 
-    if (!current) return;
+    if (!current) return
 
-    this.leaving = true;
-    this.lastAction = LastAction.LEAVE;
+    this.leaving = true
+    this.lastAction = LastAction.LEAVE
 
     if (!options.silent) {
-      this.cancelled = options.cancelled ?? false;
+      this.cancelled = options.cancelled ?? false
 
-      await current.leaveHandler(this.context);
+      await current.leaveHandler(this.context)
     }
 
-    if (this.leaving) this.reset();
+    if (this.leaving) this.reset()
 
-    this.leaving = false;
-    this.cancelled = false;
+    this.leaving = false
+    this.cancelled = false
   }
 
   /** Reset state/session */
   public reset(): void {
-    delete this.context.session.__scene;
+    delete this.context.session.__scene
 
-    this.updateSession();
+    this.updateSession()
   }
 
   /** Updates session and state is lazy */
   private updateSession(): void {
     this.session = new Proxy(this.context.session.__scene || {}, {
       set: (target, prop, value): boolean => {
-        target[prop] = value;
+        target[prop] = value
 
-        this.context.session.__scene = target;
+        this.context.session.__scene = target
 
-        return true;
+        return true
       }
-    });
+    })
 
     this.state = new Proxy(this.session.state || {}, {
       set: (target, prop, value): boolean => {
-        target[prop] = value;
+        target[prop] = value
 
-        this.session.state = target;
+        this.session.state = target
 
-        return true;
+        return true
       }
-    });
+    })
   }
 }

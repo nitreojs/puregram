@@ -1,39 +1,39 @@
-import { Context, Composer } from 'puregram';
+import { Context, Composer } from 'puregram'
 
 import {
   Middleware,
   MiddlewareReturn,
   NextMiddleware,
   skipMiddleware
-} from 'middleware-io';
+} from 'middleware-io'
 
-import { HearConditions } from './types';
+import { HearConditions } from './types'
 
 import {
   getObjectValue,
   unifyCondition,
   splitPath
-} from './helpers';
+} from './helpers'
 
 export class HearManager<C extends Context> {
   private composer = Composer.builder<C>();
 
   private fallbackHandler: Middleware<C> = skipMiddleware;
 
-  private composed!: Middleware<C>;
+  private composed!: Middleware<C>
 
   constructor() {
-    this.recompose();
+    this.recompose()
   }
 
   public get length(): number {
-    return this.composer.length;
+    return this.composer.length
   }
 
   public get middleware(): Middleware<C> {
     return (context: C, next: NextMiddleware): unknown => (
       this.composed(context, next)
-    );
+    )
   }
 
   public hear<T = {}>(
@@ -42,112 +42,112 @@ export class HearManager<C extends Context> {
   ): this {
     const rawConditions = !Array.isArray(hearConditions)
       ? [hearConditions]
-      : hearConditions;
+      : hearConditions
 
-    const hasConditions = rawConditions.every(Boolean);
+    const hasConditions = rawConditions.every(Boolean)
 
     if (!hasConditions) {
-      throw new Error('Condition should be not empty');
+      throw new Error('Condition should be not empty')
     }
 
     if (typeof handler !== 'function') {
-      throw new TypeError('Handler must be a function');
+      throw new TypeError('Handler must be a function')
     }
 
-    let textCondition = false;
-    let functionCondition = false;
+    let textCondition = false
+    let functionCondition = false
 
     const conditions = rawConditions.map(
       (condition): Function => {
         if (typeof condition === 'object' && !(condition instanceof RegExp)) {
-          functionCondition = true;
+          functionCondition = true
 
           const entries = Object.entries(condition)
             .map(
               ([path, value]): [string[], Function] => (
                 [splitPath(path), unifyCondition(value)]
               )
-            );
+            )
 
           return (text: string | undefined, context: C): boolean => (
             entries.every(
               ([selectors, callback]: [string[], Function]): boolean => {
-                const value: any = getObjectValue(context, selectors);
+                const value: any = getObjectValue(context, selectors)
 
-                return callback(value, context);
+                return callback(value, context)
               }
             )
-          );
+          )
         }
 
         if (typeof condition === 'function') {
-          functionCondition = true;
+          functionCondition = true
 
-          return condition;
+          return condition
         }
 
-        textCondition = true;
+        textCondition = true
 
         if (condition instanceof RegExp) {
           return (text: string | undefined, context: C): boolean => {
-            const passed: boolean = condition.test(text!);
+            const passed: boolean = condition.test(text!)
 
             // @ts-expect-error
-            if (passed) context.$match = text!.match(condition)!;
+            if (passed) context.$match = text!.match(condition)!
 
-            return passed;
-          };
+            return passed
+          }
         }
 
-        const stringCondition: string = String(condition);
+        const stringCondition: string = String(condition)
 
         return (text: string | undefined): boolean => (
           text === stringCondition
-        );
+        )
       }
-    );
+    )
 
-    const needText = textCondition && !functionCondition;
+    const needText = textCondition && !functionCondition
 
     this.composer.use(
       (context: C & T, next: NextMiddleware): MiddlewareReturn => {
         // @ts-expect-error
-        const { text, caption } = context;
+        const { text, caption } = context
 
         if (needText && text === undefined && caption === undefined) {
-          return next();
+          return next()
         }
 
         const hasSome = conditions.some(
           (condition: Function): boolean => (
             condition(text ?? caption, context)
           )
-        );
+        )
 
         return hasSome
           ? handler(context, next)
-          : next();
+          : next()
       }
-    );
+    )
 
-    this.recompose();
+    this.recompose()
 
-    return this;
+    return this
   }
 
   /** A handler that is called when handlers are not found */
   public onFallback(handler: Middleware<C>): this {
     // @ts-ignore
-    this.fallbackHandler = handler;
+    this.fallbackHandler = handler
 
-    this.recompose();
+    this.recompose()
 
-    return this;
+    return this
   }
 
   private recompose(): void {
     this.composed = this.composer.clone()
       .use(this.fallbackHandler)
-      .compose();
+      .compose()
   }
 }

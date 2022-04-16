@@ -1,15 +1,15 @@
-import { Context } from 'puregram';
+import { Context } from 'puregram'
 
-import { SceneContext } from './contexts';
+import { SceneContext } from './contexts'
 
-export type Middleware<T> = (context: T, next: Function) => unknown;
+export type Middleware<T> = (context: T, next: Function) => unknown
 
 export interface SessionContext {
-  [key: string]: any;
+  [key: string]: any
 }
 
 export interface ContextInterface extends Context {
-  scene: SceneContext;
+  scene: SceneContext
 
-  [key: string]: any;
+  [key: string]: any
 }

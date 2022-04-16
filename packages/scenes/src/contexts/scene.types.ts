@@ -1,26 +1,26 @@
-import { ContextInterface } from '../types';
-import { SceneRepository } from '../scene-manager.types';
+import { ContextInterface } from '../types'
+import { SceneRepository } from '../scene-manager.types'
 
 export interface SceneContextOptions {
-  context: ContextInterface;
+  context: ContextInterface
 
-  repository: SceneRepository;
+  repository: SceneRepository
 }
 
 export interface SceneContextEnterOptions {
   /** Logging into a handler without executing it */
-  silent?: boolean;
+  silent?: boolean
 
   /** The standard state for the scene */
-  state?: Record<string, unknown>;
+  state?: Record<string, unknown>
 }
 
 export interface SceneContextLeaveOptions {
   /** Logging into a handler without executing it */
-  silent?: boolean;
+  silent?: boolean
 
   /** Cancelled scene */
-  cancelled?: boolean;
+  cancelled?: boolean
 }
 
 export enum LastAction {

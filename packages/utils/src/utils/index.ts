@@ -1,1 +1,1 @@
-export * from './get-casino-values';
+export * from './get-casino-values'

@@ -1,5 +1,5 @@
-export * from './prompt-question';
-export * from './prompt-answer';
-export * from './prompt-manager';
+export * from './prompt-question'
+export * from './prompt-answer'
+export * from './prompt-manager'
 
-export { PromptContext } from './types';
+export { PromptContext } from './types'

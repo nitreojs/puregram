@@ -1,39 +1,39 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { User } from './user';
+import { User } from './user'
 
-import { TelegramChatMember } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { TelegramChatMember } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
 export class ChatMember {
-  public payload: TelegramChatMember;
+  public payload: TelegramChatMember
 
   constructor(payload: TelegramChatMember) {
-    this.payload = payload;
+    this.payload = payload
   }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Information about the user */
   public get user(): User {
-    return new User(this.payload.user);
+    return new User(this.payload.user)
   }
 
   /** The member's status in the chat */
   public get status(): TelegramChatMember['status'] {
-    return this.payload.status;
+    return this.payload.status
   }
 
   /** Owner and administrators only. Custom title for this user */
   public get customTitle(): string | undefined {
-    return this.payload.custom_title;
+    return this.payload.custom_title
   }
 
   /** Owner and administrators only. `true`, if the user's presence in the chat is hidden */
   public get isAnonymous(): boolean | undefined {
-    return this.payload.is_anonymous;
+    return this.payload.is_anonymous
   }
 
   /**
@@ -42,7 +42,7 @@ export class ChatMember {
    * unix time
    */
   public get untilDate(): number | undefined {
-    return this.payload.until_date;
+    return this.payload.until_date
   }
 
   /**
@@ -51,7 +51,7 @@ export class ChatMember {
    * user
    */
   public get canBeEdited(): boolean | undefined {
-    return this.payload.can_be_edited;
+    return this.payload.can_be_edited
   }
 
   /**
@@ -62,7 +62,7 @@ export class ChatMember {
    * Implied by any other administrator privilege
    */
   public get canManageChat(): boolean | undefined {
-    return this.payload.can_manage_chat;
+    return this.payload.can_manage_chat
   }
 
   /**
@@ -71,7 +71,7 @@ export class ChatMember {
    * channels only
    */
   public get canPostMessages(): boolean | undefined {
-    return this.payload.can_post_messages;
+    return this.payload.can_post_messages
   }
 
   /**
@@ -80,7 +80,7 @@ export class ChatMember {
    * and can pin messages; channels only
    */
   public get canEditMessages(): boolean | undefined {
-    return this.payload.can_edit_messages;
+    return this.payload.can_edit_messages
   }
 
   /**
@@ -88,15 +88,15 @@ export class ChatMember {
    * `true`, if the administrator can delete messages of other users
    */
   public get canDeleteMessages(): boolean | undefined {
-    return this.payload.can_delete_messages;
+    return this.payload.can_delete_messages
   }
 
   /**
    * Administrators only.
-   * `true`, if the administrator can manage voice chats
+   * `true`, if the administrator can manage video chats
    */
-  public get canManageVoiceChats(): boolean | undefined {
-    return this.payload.can_manage_voice_chats;
+  public get canManageVideoChats(): boolean | undefined {
+    return this.payload.can_manage_video_chats
   }
 
   /**
@@ -104,7 +104,7 @@ export class ChatMember {
    * `true`, if the administrator can restrict, ban or unban chat members
    */
   public get canRestrictMembers(): boolean | undefined {
-    return this.payload.can_restrict_members;
+    return this.payload.can_restrict_members
   }
 
   /**
@@ -115,7 +115,7 @@ export class ChatMember {
    * the user)
    */
   public get canPromoteMembers(): boolean | undefined {
-    return this.payload.can_promote_members;
+    return this.payload.can_promote_members
   }
 
   /**
@@ -124,7 +124,7 @@ export class ChatMember {
    * photo and other settings
    */
   public get canChangeInfo(): boolean | undefined {
-    return this.payload.can_change_info;
+    return this.payload.can_change_info
   }
 
   /**
@@ -132,7 +132,7 @@ export class ChatMember {
    * `true`, if the user is allowed to invite new users to the chat
    */
   public get canInviteUsers(): boolean | undefined {
-    return this.payload.can_invite_users;
+    return this.payload.can_invite_users
   }
 
   /**
@@ -141,7 +141,7 @@ export class ChatMember {
    * groups and supergroups only
    */
   public get canPinMessages(): boolean | undefined {
-    return this.payload.can_pin_messages;
+    return this.payload.can_pin_messages
   }
 
   /**
@@ -149,7 +149,7 @@ export class ChatMember {
    * `true`, if the user is a member of the chat at the moment of the request
    */
   public get isMember(): boolean | undefined {
-    return this.payload.is_member;
+    return this.payload.is_member
   }
 
   /**
@@ -158,7 +158,7 @@ export class ChatMember {
    * contacts, locations and venues
    */
   public get canSendMessages(): boolean | undefined {
-    return this.payload.can_send_messages;
+    return this.payload.can_send_messages
   }
 
   /**
@@ -167,12 +167,12 @@ export class ChatMember {
    * photos, videos, video notes and voice notes
    */
   public get canSendMediaMessages(): boolean | undefined {
-    return this.payload.can_send_media_messages;
+    return this.payload.can_send_media_messages
   }
 
   /** Restricted only. `true`, if the user is allowed to send polls */
   public get canSendPolls(): boolean | undefined {
-    return this.payload.can_send_polls;
+    return this.payload.can_send_polls
   }
 
   /**
@@ -181,7 +181,7 @@ export class ChatMember {
    * stickers and use inline bots
    */
   public get canSendOtherMessages(): boolean | undefined {
-    return this.payload.can_send_other_messages;
+    return this.payload.can_send_other_messages
   }
 
   /**
@@ -189,7 +189,7 @@ export class ChatMember {
    * `true`, if the user is allowed to add web page previews to their messages
    */
   public get canAddWebPagePreviews(): boolean | undefined {
-    return this.payload.can_add_web_page_previews;
+    return this.payload.can_add_web_page_previews
   }
 }
 
@@ -206,7 +206,7 @@ inspectable(ChatMember, {
       canPostMessages: member.canPostMessages,
       canEditMessages: member.canEditMessages,
       canDeleteMessages: member.canDeleteMessages,
-      canManageVoiceChats: member.canManageVoiceChats,
+      canManageVideoChats: member.canManageVideoChats,
       canRestrictMembers: member.canRestrictMembers,
       canPromoteMembers: member.canPromoteMembers,
       canChangeInfo: member.canChangeInfo,
@@ -216,8 +216,8 @@ inspectable(ChatMember, {
       canSendMessages: member.canSendMessages,
       canSendOtherMessages: member.canSendOtherMessages,
       canAddWebPagePreviews: member.canAddWebPagePreviews
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

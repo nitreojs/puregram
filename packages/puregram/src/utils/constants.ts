@@ -1,17 +1,17 @@
-import { Agent } from 'https';
+import { Agent } from 'https'
 
-import { TelegramOptions } from '../interfaces';
-import { Message } from '../updates/';
+import { TelegramOptions } from '../interfaces'
+import { Message } from '../updates/'
 
 import {
   AllowArray,
   ApiMethod,
   MediaAttachmentType,
   MessageEventName
-} from '../types';
+} from '../types'
 
 // @ts-expect-error
-import { version } from '../../package.json';
+import { version } from '../../package.json'
 
 export const defaultOptions: TelegramOptions = {
   token: undefined,
@@ -29,31 +29,32 @@ export const defaultOptions: TelegramOptions = {
     connection: 'keep-alive',
     'User-Agent': `puregram/${version} (+https://github.com/nitreojs/puregram)`
   },
-};
+}
 
 export const events: [
   keyof Message,
   MessageEventName
 ][] = [
-  ['newChatMembers', 'new_chat_members'],
-  ['leftChatMember', 'left_chat_member'],
-  ['newChatTitle', 'new_chat_title'],
-  ['newChatPhoto', 'new_chat_photo'],
-  ['deleteChatPhoto', 'delete_chat_photo'],
-  ['groupChatCreated', 'group_chat_created'],
-  ['supergroupChatCreated', 'supergroup_chat_created'],
-  ['channelChatCreated', 'channel_chat_created'],
-  ['migrateToChatId', 'migrate_to_chat_id'],
-  ['migrateFromChatId', 'migrate_from_chat_id'],
-  ['pinnedMessage', 'pinned_message'],
-  ['invoice', 'invoice'],
-  ['successfulPayment', 'successful_payment'],
-  ['messageAutoDeleteTimerChanged', 'message_auto_delete_timer_changed'],
-  ['voiceChatScheduled', 'voice_chat_scheduled'],
-  ['voiceChatStarted', 'voice_chat_started'],
-  ['voiceChatEnded', 'voice_chat_ended'],
-  ['voiceChatParticipantsInvited', 'voice_chat_participants_invited'],
-];
+    ['newChatMembers', 'new_chat_members'],
+    ['leftChatMember', 'left_chat_member'],
+    ['newChatTitle', 'new_chat_title'],
+    ['newChatPhoto', 'new_chat_photo'],
+    ['deleteChatPhoto', 'delete_chat_photo'],
+    ['groupChatCreated', 'group_chat_created'],
+    ['supergroupChatCreated', 'supergroup_chat_created'],
+    ['channelChatCreated', 'channel_chat_created'],
+    ['migrateToChatId', 'migrate_to_chat_id'],
+    ['migrateFromChatId', 'migrate_from_chat_id'],
+    ['pinnedMessage', 'pinned_message'],
+    ['invoice', 'invoice'],
+    ['successfulPayment', 'successful_payment'],
+    ['messageAutoDeleteTimerChanged', 'message_auto_delete_timer_changed'],
+    ['videoChatScheduled', 'video_chat_scheduled'],
+    ['videoChatStarted', 'video_chat_started'],
+    ['videoChatEnded', 'video_chat_ended'],
+    ['videoChatParticipantsInvited', 'video_chat_participants_invited'],
+    ['webAppData', 'web_app_data']
+  ]
 
 export const mediaMethods: [ApiMethod, AllowArray<MediaAttachmentType>][] = [
   // send*
@@ -75,4 +76,4 @@ export const mediaMethods: [ApiMethod, AllowArray<MediaAttachmentType>][] = [
 
   // edit*
   ['editMessageMedia', 'media']
-];
+]

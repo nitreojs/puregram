@@ -1,10 +1,10 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
 import {
   TelegramKeyboardButton,
   TelegramPoll,
   TelegramReplyKeyboardMarkup
-} from '../../telegram-interfaces';
+} from '../../telegram-interfaces'
 
 /** Keyboard */
 export class Keyboard {
@@ -13,49 +13,49 @@ export class Keyboard {
   private isResized: boolean = false;
   private isOneTime: boolean = false;
   private isSelective: boolean = false;
-  private placeholder?: string;
+  private placeholder?: string
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Assemble a builder of buttons */
   public static keyboard(rows: (TelegramKeyboardButton | TelegramKeyboardButton[])[]): Keyboard {
-    const keyboard: Keyboard = new Keyboard();
+    const keyboard: Keyboard = new Keyboard()
 
     for (const row of rows) {
-      keyboard.addRow(row);
+      keyboard.addRow(row)
     }
 
-    return keyboard;
+    return keyboard
   }
 
   /** Resize the keyboard */
   public resize(resize: boolean = true): this {
-    this.isResized = resize;
+    this.isResized = resize
 
-    return this;
+    return this
   }
 
   /** When pressed, the keyboard will disappear */
   public oneTime(oneTime: boolean = true): this {
-    this.isOneTime = oneTime;
+    this.isOneTime = oneTime
 
-    return this;
+    return this
   }
 
   /** Use this parameter if you want to show the keyboard to specific users only */
   public selective(selective: boolean = true): this {
-    this.isSelective = selective;
+    this.isSelective = selective
 
-    return this;
+    return this
   }
 
   /** The placeholder to be shown in the input field when the keyboard is active */
   public setPlaceholder(placeholder: string): this {
-    this.placeholder = placeholder;
+    this.placeholder = placeholder
 
-    return this;
+    return this
   }
 
   /**
@@ -64,7 +64,7 @@ export class Keyboard {
    * it will be sent as a message when the button is pressed
    */
   public static textButton(text: string): TelegramKeyboardButton {
-    return { text };
+    return { text }
   }
 
   /**
@@ -77,7 +77,7 @@ export class Keyboard {
     return {
       text,
       request_contact: true
-    };
+    }
   }
 
   /**
@@ -89,7 +89,7 @@ export class Keyboard {
     return {
       text,
       request_location: true
-    };
+    }
   }
 
   /**
@@ -102,15 +102,28 @@ export class Keyboard {
     return {
       text,
       request_poll: { type }
-    };
+    }
+  }
+
+  /**
+   * The described Web App will be launched when the button is pressed.
+   * The Web App will be able to send a `web_app_data` service message.
+   * 
+   * Available in private chats only.
+   */
+  public static webAppButton(text: string, url: string): TelegramKeyboardButton {
+    return {
+      text,
+      web_app: { url }
+    }
   }
 
   private addRow(row: TelegramKeyboardButton[] | TelegramKeyboardButton): this {
-    if (!Array.isArray(row)) row = [row];
+    if (!Array.isArray(row)) row = [row]
 
-    this.buttons.push(row);
+    this.buttons.push(row)
 
-    return this;
+    return this
   }
 
   public toJSON(): TelegramReplyKeyboardMarkup {
@@ -120,16 +133,16 @@ export class Keyboard {
       one_time_keyboard: this.isOneTime,
       input_field_placeholder: this.placeholder,
       selective: this.isSelective
-    };
+    }
   }
 
   public toString(): string {
-    return JSON.stringify(this);
+    return JSON.stringify(this)
   }
 }
 
 inspectable(Keyboard, {
   serialize(keyboard: Keyboard) {
-    return keyboard.toJSON();
+    return keyboard.toJSON()
   }
-});
+})

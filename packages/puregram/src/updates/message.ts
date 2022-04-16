@@ -1,32 +1,34 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
 import {
   TelegramMessage,
   TelegramMessageEntity,
   TelegramPhotoSize,
   TelegramUser
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
-import { User } from '../common/structures/user';
-import { Chat } from '../common/structures/chat';
-import { ForwardMessage } from '../common/structures/forward-message';
-import { MessageEntity } from '../common/structures/message-entity';
-import { PhotoSize } from '../common/structures/photo-size';
-import { Contact } from '../common/structures/contact';
-import { Game } from '../common/structures/game';
-import { Poll } from '../common/structures/poll';
-import { Venue } from '../common/structures/venue';
-import { Location } from '../common/structures/location';
-import { Invoice } from '../common/structures/invoice';
-import { Dice } from '../common/structures/dice';
-import { SuccessfulPayment } from '../common/structures/successful-payment';
-import { PassportData } from '../common/structures/passport-data';
-import { InlineKeyboardMarkup } from '../common/structures/inline-keyboard-markup';
-import { MessageAutoDeleteTimerChanged } from '../common/structures/message-auto-delete-timer-changed';
-import { VoiceChatEnded } from '../common/structures/voice-chat-ended';
-import { VoiceChatParticipantsInvited } from '../common/structures/voice-chat-participants-invited';
-import { VoiceChatStarted } from '../common/structures/voice-chat-started';
-import { ProximityAlertTriggered } from '../common/structures/proximity-alert-triggered';
+import { User } from '../common/structures/user'
+import { Chat } from '../common/structures/chat'
+import { ForwardMessage } from '../common/structures/forward-message'
+import { MessageEntity } from '../common/structures/message-entity'
+import { PhotoSize } from '../common/structures/photo-size'
+import { Contact } from '../common/structures/contact'
+import { Game } from '../common/structures/game'
+import { Poll } from '../common/structures/poll'
+import { Venue } from '../common/structures/venue'
+import { Location } from '../common/structures/location'
+import { Invoice } from '../common/structures/invoice'
+import { Dice } from '../common/structures/dice'
+import { SuccessfulPayment } from '../common/structures/successful-payment'
+import { PassportData } from '../common/structures/passport-data'
+import { InlineKeyboardMarkup } from '../common/structures/inline-keyboard-markup'
+import { MessageAutoDeleteTimerChanged } from '../common/structures/message-auto-delete-timer-changed'
+import { VideoChatEnded } from '../common/structures/video-chat-ended'
+import { VideoChatParticipantsInvited } from '../common/structures/video-chat-participants-invited'
+import { VideoChatStarted } from '../common/structures/video-chat-started'
+import { VideoChatScheduled } from '../common/structures/video-chat-scheduled'
+import { ProximityAlertTriggered } from '../common/structures/proximity-alert-triggered'
+import { WebAppData } from '../common/structures/web-app-data'
 
 import {
   AnimationAttachment,
@@ -36,35 +38,34 @@ import {
   VideoNoteAttachment,
   StickerAttachment,
   VoiceAttachment
-} from '../common/attachments';
+} from '../common/attachments'
 
-import { filterPayload } from '../utils/helpers';
-import { VoiceChatScheduled } from '../common/structures';
+import { filterPayload } from '../utils/helpers'
 
 /** This object represents a message. */
 export class Message {
-  public payload: TelegramMessage;
+  public payload: TelegramMessage
 
   constructor(payload: TelegramMessage) {
-    this.payload = payload;
+    this.payload = payload
   }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Unique message identifier inside this chat */
   public get id(): number {
-    return this.payload.message_id;
+    return this.payload.message_id
   }
 
   /** Sender, empty for messages sent to channels */
   public get from(): User | undefined {
-    const { from } = this.payload;
+    const { from } = this.payload
 
-    if (!from) return undefined;
+    if (!from) return undefined
 
-    return new User(from);
+    return new User(from)
   }
 
   /**
@@ -74,67 +75,67 @@ export class Message {
    * The linked channel for messages automatically forwarded to the discussion group
    */
   public get senderChat(): Chat | undefined {
-    const { sender_chat } = this.payload;
+    const { sender_chat } = this.payload
 
-    if (!sender_chat) return undefined;
+    if (!sender_chat) return undefined
 
-    return new Chat(sender_chat);
+    return new Chat(sender_chat)
   }
 
   /** Date the message was sent in Unix time */
   public get createdAt(): number {
-    return this.payload.date;
+    return this.payload.date
   }
 
   /** Conversation the message belongs to */
   public get chat(): Chat | undefined {
-    const { chat } = this.payload;
+    const { chat } = this.payload
 
-    if (!chat) return undefined;
+    if (!chat) return undefined
 
-    return new Chat(chat);
+    return new Chat(chat)
   }
 
   /** Forwarded message if there is any */
   public get forwardMessage(): ForwardMessage | undefined {
-    const { forward_date } = this.payload;
+    const { forward_date } = this.payload
 
-    if (!forward_date) return undefined;
+    if (!forward_date) return undefined
 
-    return new ForwardMessage(this.payload);
+    return new ForwardMessage(this.payload)
   }
 
   /** For replies, the original message */
   public get replyMessage(): Omit<Message, 'replyMessage'> | undefined {
-    const { reply_to_message } = this.payload;
+    const { reply_to_message } = this.payload
 
-    if (!reply_to_message) return undefined;
+    if (!reply_to_message) return undefined
 
-    return new Message(reply_to_message);
+    return new Message(reply_to_message)
   }
 
   /** Bot through which the message was sent */
   public get viaBot(): User | undefined {
-    const { via_bot } = this.payload;
+    const { via_bot } = this.payload
 
-    if (!via_bot) return undefined;
+    if (!via_bot) return undefined
 
-    return new User(via_bot);
+    return new User(via_bot)
   }
 
   /** Date the message was last edited in Unix time */
   public get updatedAt(): number | undefined {
-    return this.payload.edit_date;
+    return this.payload.edit_date
   }
 
   /** `true`, if the message can't be forwarded */
   public get hasProtectedContent(): true | undefined {
-    return this.payload.has_protected_content as true | undefined;
+    return this.payload.has_protected_content as true | undefined
   }
 
   /** The unique identifier of a media message group this message belongs to */
   public get mediaGroupId(): string | undefined {
-    return this.payload.media_group_id;
+    return this.payload.media_group_id
   }
 
   /**
@@ -142,14 +143,14 @@ export class Message {
    * or the custom title of an anonymous group administrator
    */
   public get authorSignature(): string | undefined {
-    return this.payload.author_signature;
+    return this.payload.author_signature
   }
 
   /**
    * For text messages, the actual UTF-8 text of the message, 0-4096 characters
    */
   public get text(): string | undefined {
-    return this.payload.text;
+    return this.payload.text
   }
 
   /**
@@ -157,13 +158,13 @@ export class Message {
    * etc. that appear in the text
    */
   public get entities(): MessageEntity[] {
-    const { entities } = this.payload;
+    const { entities } = this.payload
 
-    if (!entities) return [];
+    if (!entities) return []
 
     return entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)
-    );
+    )
   }
 
   /**
@@ -182,76 +183,76 @@ export class Message {
    * compatibility, when this field is set, the `document` field will also be set
    */
   public get animation(): AnimationAttachment | undefined {
-    const { animation } = this.payload;
+    const { animation } = this.payload
 
-    if (!animation) return undefined;
+    if (!animation) return undefined
 
-    return new AnimationAttachment(animation);
+    return new AnimationAttachment(animation)
   }
 
   /** Message is an audio file, information about the file */
   public get audio(): AudioAttachment | undefined {
-    const { audio } = this.payload;
+    const { audio } = this.payload
 
-    if (!audio) return undefined;
+    if (!audio) return undefined
 
-    return new AudioAttachment(audio);
+    return new AudioAttachment(audio)
   }
 
   /** Message is a general file, information about the file */
   public get document(): DocumentAttachment | undefined {
-    const { document } = this.payload;
+    const { document } = this.payload
 
-    if (!document) return undefined;
+    if (!document) return undefined
 
-    return new DocumentAttachment(document);
+    return new DocumentAttachment(document)
   }
 
   /** Message is a photo, available sizes of the photo */
   public get photo(): PhotoSize[] | undefined {
-    const { photo } = this.payload;
+    const { photo } = this.payload
 
-    if (!photo) return undefined;
+    if (!photo) return undefined
 
     return photo.map(
       (size: TelegramPhotoSize) => new PhotoSize(size)
-    );
+    )
   }
 
   /** Message is a sticker, information about the sticker */
   public get sticker(): StickerAttachment | undefined {
-    const { sticker } = this.payload;
+    const { sticker } = this.payload
 
-    if (!sticker) return undefined;
+    if (!sticker) return undefined
 
-    return new StickerAttachment(sticker);
+    return new StickerAttachment(sticker)
   }
 
   /** Message is a video, information about the video */
   public get video(): VideoAttachment | undefined {
-    const { video } = this.payload;
+    const { video } = this.payload
 
-    if (!video) return undefined;
+    if (!video) return undefined
 
-    return new VideoAttachment(video);
+    return new VideoAttachment(video)
   }
 
   /** Message is a video note, information about the video message */
   public get videoNote(): VideoNoteAttachment | undefined {
-    const { video_note } = this.payload;
+    const { video_note } = this.payload
 
-    if (!video_note) return undefined;
+    if (!video_note) return undefined
 
-    return new VideoNoteAttachment(video_note);
+    return new VideoNoteAttachment(video_note)
   }
 
   /** Message is a voice message, information about the file */
   public get voice(): VoiceAttachment | undefined {
-    const { voice } = this.payload;
+    const { voice } = this.payload
 
-    if (!voice) return undefined;
+    if (!voice) return undefined
 
-    return new VoiceAttachment(voice);
+    return new VoiceAttachment(voice)
   }
 
   /**
@@ -259,7 +260,7 @@ export class Message {
    * 0-1024 characters
    */
   public get caption(): string | undefined {
-    return this.payload.caption;
+    return this.payload.caption
   }
 
   /**
@@ -267,49 +268,49 @@ export class Message {
    * commands, etc. that appear in the caption
    */
   public get captionEntities(): MessageEntity[] {
-    const { caption_entities } = this.payload;
+    const { caption_entities } = this.payload
 
-    if (!caption_entities) return [];
+    if (!caption_entities) return []
 
     return caption_entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)
-    );
+    )
   }
 
   /** Message is a shared contact, information about the contact */
   public get contact(): Contact | undefined {
-    const { contact } = this.payload;
+    const { contact } = this.payload
 
-    if (!contact) return undefined;
+    if (!contact) return undefined
 
-    return new Contact(contact);
+    return new Contact(contact)
   }
 
   /** Message is a dice with random value from 1 to 6 */
   public get dice(): Dice | undefined {
-    const { dice } = this.payload;
+    const { dice } = this.payload
 
-    if (!dice) return undefined;
+    if (!dice) return undefined
 
-    return new Dice(dice);
+    return new Dice(dice)
   }
 
   /** Message is a game, information about the game */
   public get game(): Game | undefined {
-    const { game } = this.payload;
+    const { game } = this.payload
 
-    if (!game) return undefined;
+    if (!game) return undefined
 
-    return new Game(game);
+    return new Game(game)
   }
 
   /** Message is a native poll, information about the poll */
   public get poll(): Poll | undefined {
-    const { poll } = this.payload;
+    const { poll } = this.payload
 
-    if (!poll) return undefined;
+    if (!poll) return undefined
 
-    return new Poll(poll);
+    return new Poll(poll)
   }
 
   /**
@@ -318,20 +319,20 @@ export class Message {
    * the `location` field will also be set
    */
   public get venue(): Venue | undefined {
-    const { venue } = this.payload;
+    const { venue } = this.payload
 
-    if (!venue) return undefined;
+    if (!venue) return undefined
 
-    return new Venue(venue);
+    return new Venue(venue)
   }
 
   /** Message is a shared location, information about the location */
   public get location(): Location | undefined {
-    const { location } = this.payload;
+    const { location } = this.payload
 
-    if (!location) return undefined;
+    if (!location) return undefined
 
-    return new Location(location);
+    return new Location(location)
   }
 
   // Events
@@ -341,13 +342,13 @@ export class Message {
    * about them (the bot itself may be one of these members)
    */
   public get newChatMembers(): User[] {
-    const { new_chat_members } = this.payload;
+    const { new_chat_members } = this.payload
 
-    if (!new_chat_members) return [];
+    if (!new_chat_members) return []
 
     return new_chat_members.map(
       (member: TelegramUser) => new User(member)
-    );
+    )
   }
 
   /**
@@ -355,37 +356,37 @@ export class Message {
    * may be the bot itself)
    */
   public get leftChatMember(): User | undefined {
-    const { left_chat_member } = this.payload;
+    const { left_chat_member } = this.payload
 
-    if (!left_chat_member) return undefined;
+    if (!left_chat_member) return undefined
 
-    return new User(left_chat_member);
+    return new User(left_chat_member)
   }
 
   /** A chat title was changed to this value */
   public get newChatTitle(): string | undefined {
-    return this.payload.new_chat_title;
+    return this.payload.new_chat_title
   }
 
   /** A chat photo was change to this value */
   public get newChatPhoto(): PhotoSize[] {
-    const { new_chat_photo } = this.payload;
+    const { new_chat_photo } = this.payload
 
-    if (!new_chat_photo) return [];
+    if (!new_chat_photo) return []
 
     return new_chat_photo.map(
       (size: TelegramPhotoSize) => new PhotoSize(size)
-    );
+    )
   }
 
   /** Service message: the chat photo was deleted */
   public get deleteChatPhoto(): boolean | undefined {
-    return this.payload.delete_chat_photo;
+    return this.payload.delete_chat_photo
   }
 
   /** Service message: the group has been created */
   public get groupChatCreated(): boolean | undefined {
-    return this.payload.group_chat_created;
+    return this.payload.group_chat_created
   }
 
   /**
@@ -396,16 +397,16 @@ export class Message {
    * directly created supergroup.
    */
   public get supergroupChatCreated(): boolean | undefined {
-    return this.payload.supergroup_chat_created;
+    return this.payload.supergroup_chat_created
   }
 
   /** Service message: auto-delete timer settings changed in the chat */
   public get messageAutoDeleteTimerChanged(): MessageAutoDeleteTimerChanged | undefined {
-    const { message_auto_delete_timer_changed } = this.payload;
+    const { message_auto_delete_timer_changed } = this.payload
 
-    if (!message_auto_delete_timer_changed) return;
+    if (!message_auto_delete_timer_changed) return
 
-    return new MessageAutoDeleteTimerChanged(message_auto_delete_timer_changed);
+    return new MessageAutoDeleteTimerChanged(message_auto_delete_timer_changed)
   }
 
   /**
@@ -415,7 +416,7 @@ export class Message {
    * `replyMessage` if someone replies to a very first message in a channel.
    */
   public get channelChatCreated(): boolean | undefined {
-    return this.payload.channel_chat_created;
+    return this.payload.channel_chat_created
   }
 
   /**
@@ -426,7 +427,7 @@ export class Message {
    * safe for storing this identifier.
    */
   public get migrateToChatId(): number | undefined {
-    return this.payload.migrate_to_chat_id;
+    return this.payload.migrate_to_chat_id
   }
 
   /**
@@ -437,7 +438,7 @@ export class Message {
    * type are safe for storing this identifier.
    */
   public get migrateFromChatId(): number | undefined {
-    return this.payload.migrate_from_chat_id;
+    return this.payload.migrate_from_chat_id
   }
 
   /**
@@ -446,20 +447,20 @@ export class Message {
    * reply.
    */
   public get pinnedMessage(): Omit<Message, 'replyMessage'> | undefined {
-    const { pinned_message } = this.payload;
+    const { pinned_message } = this.payload
 
-    if (!pinned_message) return undefined;
+    if (!pinned_message) return undefined
 
-    return new Message(pinned_message);
+    return new Message(pinned_message)
   }
 
   /** Message is an invoice for a payment, information about the invoice */
   public get invoice(): Invoice | undefined {
-    const { invoice } = this.payload;
+    const { invoice } = this.payload
 
-    if (!invoice) return undefined;
+    if (!invoice) return undefined
 
-    return new Invoice(invoice);
+    return new Invoice(invoice)
   }
 
   /**
@@ -467,25 +468,25 @@ export class Message {
    * information about the payment.
    */
   public get successfulPayment(): SuccessfulPayment | undefined {
-    const { successful_payment } = this.payload;
+    const { successful_payment } = this.payload
 
-    if (!successful_payment) return undefined;
+    if (!successful_payment) return undefined
 
-    return new SuccessfulPayment(successful_payment);
+    return new SuccessfulPayment(successful_payment)
   }
 
   /** The domain name of the website on which the user has logged in. */
   public get connectedWebsite(): string | undefined {
-    return this.payload.connected_website;
+    return this.payload.connected_website
   }
 
   /** Telegram Passport data */
   public get passportData(): PassportData | undefined {
-    const { passport_data } = this.payload;
+    const { passport_data } = this.payload
 
-    if (!passport_data) return undefined;
+    if (!passport_data) return undefined
 
-    return new PassportData(passport_data);
+    return new PassportData(passport_data)
   }
 
   /**
@@ -494,47 +495,56 @@ export class Message {
    * while sharing Live Location.
    */
   public get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
-    const { proximity_alert_triggered } = this.payload;
+    const { proximity_alert_triggered } = this.payload
 
-    if (!proximity_alert_triggered) return undefined;
+    if (!proximity_alert_triggered) return undefined
 
-    return new ProximityAlertTriggered(proximity_alert_triggered);
+    return new ProximityAlertTriggered(proximity_alert_triggered)
   }
 
-  /** Service message: voice chat scheduled */
-  public get voiceChatScheduled(): VoiceChatScheduled | undefined {
-    const { voice_chat_scheduled } = this.payload;
+  /** Service message: video chat scheduled */
+  public get videoChatScheduled(): VideoChatScheduled | undefined {
+    const { video_chat_scheduled } = this.payload
 
-    if (!voice_chat_scheduled) return;
+    if (!video_chat_scheduled) return
 
-    return new VoiceChatScheduled(voice_chat_scheduled);
+    return new VideoChatScheduled(video_chat_scheduled)
   }
 
-  /** Service message: voice chat started */
-  public get voiceChatStarted(): VoiceChatStarted | undefined {
-    const { voice_chat_started } = this.payload;
+  /** Service message: video chat started */
+  public get videoChatStarted(): VideoChatStarted | undefined {
+    const { video_chat_started } = this.payload
 
-    if (!voice_chat_started) return;
+    if (!video_chat_started) return
 
-    return new VoiceChatStarted(voice_chat_started);
+    return new VideoChatStarted(video_chat_started)
   }
 
-  /** Service message: voice chat ended */
-  public get voiceChatEnded(): VoiceChatEnded | undefined {
-    const { voice_chat_Ended } = this.payload;
+  /** Service message: video chat ended */
+  public get videoChatEnded(): VideoChatEnded | undefined {
+    const { video_chat_ended } = this.payload
 
-    if (!voice_chat_Ended) return;
+    if (!video_chat_ended) return
 
-    return new VoiceChatEnded(voice_chat_Ended);
+    return new VideoChatEnded(video_chat_ended)
   }
 
-  /** Service message: new participants invited to a voice chat */
-  public get voiceChatParticipantsInvited(): VoiceChatParticipantsInvited | undefined {
-    const { voice_chat_participants_invited } = this.payload;
+  /** Service message: new participants invited to a video chat */
+  public get videoChatParticipantsInvited(): VideoChatParticipantsInvited | undefined {
+    const { video_chat_participants_invited } = this.payload
 
-    if (!voice_chat_participants_invited) return;
+    if (!video_chat_participants_invited) return
 
-    return new VoiceChatParticipantsInvited(voice_chat_participants_invited);
+    return new VideoChatParticipantsInvited(video_chat_participants_invited)
+  }
+
+  /** Service message: data sent by a Web App */
+  public get webAppData(): WebAppData | undefined {
+    const { web_app_data } = this.payload
+
+    if (!web_app_data) return
+
+    return new WebAppData(web_app_data)
   }
 
   /**
@@ -543,11 +553,11 @@ export class Message {
    * `login_url` buttons are represented as ordinary `url` buttons.
    */
   public get replyMarkup(): InlineKeyboardMarkup | undefined {
-    const { reply_markup } = this.payload;
+    const { reply_markup } = this.payload
 
-    if (!reply_markup) return undefined;
+    if (!reply_markup) return undefined
 
-    return new InlineKeyboardMarkup(reply_markup);
+    return new InlineKeyboardMarkup(reply_markup)
   }
 }
 
@@ -607,13 +617,13 @@ inspectable(Message, {
       successfulPayment: message.successfulPayment,
       connectedWebsite: message.connectedWebsite,
       passportData: message.passportData,
-      voiceChatStarted: message.voiceChatStarted,
-      voiceChatEnded: message.voiceChatEnded,
-      voiceChatParticipantsInvited: message.voiceChatParticipantsInvited,
-      
-      replyMarkup: message.replyMarkup
-    };
+      videoChatStarted: message.videoChatStarted,
+      videoChatEnded: message.videoChatEnded,
+      videoChatParticipantsInvited: message.videoChatParticipantsInvited,
 
-    return filterPayload(payload);
+      replyMarkup: message.replyMarkup
+    }
+
+    return filterPayload(payload)
   }
-});
+})

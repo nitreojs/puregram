@@ -1,52 +1,58 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
 import {
   TelegramInlineKeyboardButton,
   TelegramCallbackGame,
   TelegramLoginUrl,
   TelegramInlineKeyboardMarkup
-} from '../../telegram-interfaces';
+} from '../../telegram-interfaces'
 
 interface TextButtonParams {
-  text: string;
+  text: string
 
-  payload: Record<string, any> | string;
+  payload: Record<string, any> | string
 }
 
 interface UrlButtonParams {
-  text: string;
+  text: string
 
-  url: string;
+  url: string
 
-  payload?: Record<string, any> | string;
+  payload?: Record<string, any> | string
+}
+
+interface WebAppButtonParams {
+  text: string
+
+  url: string
 }
 
 interface SwitchToCurrentChatButtonParams {
-  text: string;
+  text: string
 
-  query: string;
+  query: string
 }
 
 interface SwitchToChatButtonParams {
-  text: string;
+  text: string
 
-  query: string;
+  query: string
 }
 
 interface GameButtonParams {
-  text: string;
+  text: string
 
-  game: TelegramCallbackGame;
+  game: TelegramCallbackGame
 }
 
 interface PayButtonParams {
-  text: string;
+  text: string
 }
 
 interface LoginButtonParams {
-  text: string;
+  text: string
 
-  loginUrl: TelegramLoginUrl;
+  loginUrl: TelegramLoginUrl
 }
 
 export class InlineKeyboardBuilder {
@@ -55,32 +61,40 @@ export class InlineKeyboardBuilder {
   private currentRow: TelegramInlineKeyboardButton[] = [];
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Generate text button */
   public textButton(params: TextButtonParams): this {
     if (typeof params.payload === 'object') {
-      params.payload = JSON.stringify(params.payload);
+      params.payload = JSON.stringify(params.payload)
     }
 
     return this.addButton({
       text: params.text,
       callback_data: params.payload
-    });
+    })
   }
 
   /** Generate URL button */
   public urlButton(params: UrlButtonParams): this {
     if (typeof params.payload === 'object') {
-      params.payload = JSON.stringify(params.payload);
+      params.payload = JSON.stringify(params.payload)
     }
 
     return this.addButton({
       text: params.text,
       url: params.url,
       callback_data: params.payload || ''
-    });
+    })
+  }
+
+  /** Generate Web App button */
+  public webAppButton(params: WebAppButtonParams): this {
+    return this.addButton({
+      text: params.text,
+      web_app: { url: params.url }
+    })
   }
 
   /** Generate button that will switch to current chat and type the query */
@@ -88,7 +102,7 @@ export class InlineKeyboardBuilder {
     return this.addButton({
       text: params.text,
       switch_inline_query_current_chat: params.query
-    });
+    })
   }
 
   /** Generate button that will prompt user to select one of their chats */
@@ -96,7 +110,7 @@ export class InlineKeyboardBuilder {
     return this.addButton({
       text: params.text,
       switch_inline_query: params.query
-    });
+    })
   }
 
   /** Generate game button */
@@ -104,7 +118,7 @@ export class InlineKeyboardBuilder {
     return this.addWideButton({
       text: params.text,
       callback_game: params.game
-    });
+    })
   }
 
   /** Generate pay button */
@@ -112,7 +126,7 @@ export class InlineKeyboardBuilder {
     return this.addWideButton({
       pay: true,
       text: params.text
-    });
+    })
   }
 
   /** Generate login button */
@@ -120,64 +134,64 @@ export class InlineKeyboardBuilder {
     return this.addButton({
       login_url: params.loginUrl,
       text: params.text
-    });
+    })
   }
 
   /** Save current row of buttons in the general rows */
   public row(): this {
     if (this.currentRow.length === 0) {
-      return this;
+      return this
     }
 
-    this.rows.push(this.currentRow);
-    this.currentRow = [];
+    this.rows.push(this.currentRow)
+    this.currentRow = []
 
-    return this;
+    return this
   }
 
   private addButton(button: TelegramInlineKeyboardButton): this {
-    this.currentRow.push(button);
+    this.currentRow.push(button)
 
-    return this;
+    return this
   }
 
   private addWideButton(button: TelegramInlineKeyboardButton): this {
     if (this.currentRow.length !== 0) {
-      this.row();
+      this.row()
     }
 
-    this.addButton(button);
+    this.addButton(button)
 
-    return this.row();
+    return this.row()
   }
 
   /** Clone current builder to new instance */
   public clone(): InlineKeyboardBuilder {
-    const builder = new InlineKeyboardBuilder();
+    const builder = new InlineKeyboardBuilder()
 
-    builder.rows = [...this.rows];
-    builder.currentRow = [...this.currentRow];
+    builder.rows = [...this.rows]
+    builder.currentRow = [...this.currentRow]
 
-    return builder;
+    return builder
   }
 
   public toJSON(): TelegramInlineKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
-      : this.rows;
+      : this.rows
 
     return {
       inline_keyboard: buttons
-    };
+    }
   }
 
   public toString(): string {
-    return JSON.stringify(this);
+    return JSON.stringify(this)
   }
 }
 
 inspectable(InlineKeyboardBuilder, {
   serialize(builder: InlineKeyboardBuilder) {
-    return builder.toJSON();
+    return builder.toJSON()
   }
-});
+})

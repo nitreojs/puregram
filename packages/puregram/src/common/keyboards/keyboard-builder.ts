@@ -1,10 +1,10 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
 import {
   TelegramKeyboardButton,
   TelegramPoll,
   TelegramReplyKeyboardMarkup
-} from '../../telegram-interfaces';
+} from '../../telegram-interfaces'
 
 /** Keyboard builder */
 export class KeyboardBuilder {
@@ -15,10 +15,10 @@ export class KeyboardBuilder {
   private isOneTime: boolean = false;
   private isResized: boolean = false;
   private isSelective: boolean = false;
-  private placeholder?: string;
+  private placeholder?: string
 
   public get [Symbol.toStringTag]() {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -27,7 +27,7 @@ export class KeyboardBuilder {
    * it will be sent as a message when the button is pressed
    */
   public textButton(text: string): this {
-    return this.addButton({ text });
+    return this.addButton({ text })
   }
 
   /**
@@ -39,7 +39,7 @@ export class KeyboardBuilder {
     return this.addWideButton({
       text,
       request_location: true
-    });
+    })
   }
 
   /**
@@ -52,7 +52,7 @@ export class KeyboardBuilder {
     return this.addWideButton({
       text,
       request_poll: { type }
-    });
+    })
   }
 
   /**
@@ -65,85 +65,98 @@ export class KeyboardBuilder {
     return this.addWideButton({
       text,
       request_contact: true
-    });
+    })
+  }
+
+  /**
+   * The described Web App will be launched when the button is pressed.
+   * The Web App will be able to send a `web_app_data` service message.
+   * 
+   * Available in private chats only.
+   */
+  public webAppButton(text: string, url: string): this {
+    return this.addWideButton({
+      text,
+      web_app: { url }
+    })
   }
 
   /** Save current row of buttons in the general rows */
   public row(): this {
     if (this.currentRow.length === 0) {
-      return this;
+      return this
     }
 
-    this.rows.push(this.currentRow);
-    this.currentRow = [];
+    this.rows.push(this.currentRow)
+    this.currentRow = []
 
-    return this;
+    return this
   }
 
   /** When pressed, the keyboard will disappear */
   public oneTime(oneTime: boolean = true): this {
-    this.isOneTime = oneTime;
+    this.isOneTime = oneTime
 
-    return this;
+    return this
   }
 
   /** Resize the keyboard */
   public resize(resize: boolean = true): this {
-    this.isResized = resize;
+    this.isResized = resize
 
-    return this;
+    return this
   }
 
   /** Use this parameter if you want to show the keyboard to specific users only */
   public selective(selective: boolean = true): this {
-    this.isSelective = selective;
+    this.isSelective = selective
 
-    return this;
+    return this
   }
 
   /** The placeholder to be shown in the input field when the keyboard is active */
   public setPlaceholder(placeholder: string): this {
-    this.placeholder = placeholder;
+    this.placeholder = placeholder
 
-    return this;
+    return this
   }
 
   private addButton(button: TelegramKeyboardButton): this {
-    this.currentRow.push(button);
+    this.currentRow.push(button)
 
-    return this;
+    return this
   }
 
   private addWideButton(button: TelegramKeyboardButton): this {
-    if (this.currentRow.length !== 0) this.row();
+    if (this.currentRow.length !== 0) this.row()
 
-    this.addButton(button);
+    this.addButton(button)
 
-    return this.row();
+    return this.row()
   }
 
   /** Clone current builder to new instance */
   public clone(): KeyboardBuilder {
-    const builder = new KeyboardBuilder();
+    const builder = new KeyboardBuilder()
 
-    builder.oneTime(this.isOneTime);
-    builder.resize(this.isResized);
-    builder.selective(this.isSelective);
+    builder.oneTime(this.isOneTime)
+    builder.resize(this.isResized)
+    builder.selective(this.isSelective)
 
     if (this.placeholder) {
-      builder.setPlaceholder(this.placeholder);
+      builder.setPlaceholder(this.placeholder)
     }
 
-    builder.rows = [...this.rows];
-    builder.currentRow = [...this.currentRow];
+    builder.rows = [...this.rows]
+    builder.currentRow = [...this.currentRow]
 
-    return builder;
+    return builder
   }
 
   public toJSON(): TelegramReplyKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
-      : this.rows;
+      : this.rows
 
     return {
       keyboard: buttons,
@@ -151,16 +164,16 @@ export class KeyboardBuilder {
       one_time_keyboard: this.isOneTime,
       input_field_placeholder: this.placeholder,
       selective: this.isSelective
-    };
+    }
   }
 
   public toString(): string {
-    return JSON.stringify(this);
+    return JSON.stringify(this)
   }
 }
 
 inspectable(KeyboardBuilder, {
   serialize(builder: KeyboardBuilder) {
-    return builder.toJSON();
+    return builder.toJSON()
   }
-});
+})

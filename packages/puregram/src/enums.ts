@@ -55,9 +55,10 @@ export enum UpdateType {
   SUCCESSFUL_PAYMENT = 'successful_payment',
   SUPERGROUP_CHAT_CREATED = 'supergroup_chat_created',
   MESSAGE_AUTO_DELETE_TIMER_CHANGED = 'message_auto_delete_timer_changed',
-  VOICE_CHAT_SCHEDULED = 'voice_chat_scheduled',
-  VOICE_CHAT_STARTED = 'voice_chat_started',
-  VOICE_CHAT_ENDED = 'voice_chat_ended',
-  VOICE_CHAT_PARTICIPANTS_INVITED = 'voice_chat_participants_invited',
+  VIDEO_CHAT_SCHEDULED = 'video_chat_scheduled',
+  VIDEO_CHAT_STARTED = 'video_chat_started',
+  VIDEO_CHAT_ENDED = 'video_chat_ended',
+  VIDEO_CHAT_PARTICIPANTS_INVITED = 'video_chat_participants_invited',
+  WEB_APP_DATA = 'web_app_data',
   CHAT_JOIN_REQUEST = 'chat_join_request'
 }

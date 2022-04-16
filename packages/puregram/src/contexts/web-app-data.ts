@@ -1,24 +1,5 @@
 import { inspectable } from 'inspectable'
-
-import { MessageContext } from './message'
-
-import {
-  BotCommand,
-  Chat,
-  Poll,
-  User,
-  VideoChatParticipantsInvited
-} from '../common/structures'
-
-import {
-  TelegramInputMedia,
-  TelegramBotCommand,
-  TelegramInlineKeyboardMarkup,
-  TelegramMessage,
-  TelegramChat,
-  InputFile,
-  TelegramUpdate
-} from '../telegram-interfaces'
+import { BotCommand, Chat, Poll, User } from '../common/structures'
 
 import {
   SendMessageParams,
@@ -38,35 +19,46 @@ import {
   SendContactParams,
   SendPollParams,
   StopPollParams,
+  SendChatActionParams,
   SendStickerParams,
   SendDiceParams,
   EditMessageTextParams,
   EditMessageCaptionParams,
   EditMessageMediaParams,
-  EditMessageReplyMarkupParams,
-  SendChatActionParams
+  EditMessageReplyMarkupParams
 } from '../methods'
 
 import { Telegram } from '../telegram'
 
+import {
+  InputFile,
+  TelegramBotCommand,
+  TelegramChat,
+  TelegramInlineKeyboardMarkup,
+  TelegramInputMedia,
+  TelegramMessage,
+  TelegramUpdate
+} from '../telegram-interfaces'
+
 import { Optional } from '../types'
 
 import { Context } from './context'
+import { MessageContext } from './message'
 
-interface VideoChatParticipantsInvitedContextOptions {
+interface WebAppDataContextOptions {
   telegram: Telegram
   update: TelegramUpdate
   payload: TelegramMessage
   updateId: number
 }
 
-class VideoChatParticipantsInvitedContext extends Context {
+class WebAppDataContext extends Context {
   public payload: TelegramMessage
 
-  constructor(options: VideoChatParticipantsInvitedContextOptions) {
+  constructor(options: WebAppDataContextOptions) {
     super({
       telegram: options.telegram,
-      updateType: 'video_chat_participants_invited',
+      updateType: 'web_app_data',
       updateId: options.updateId,
       update: options.update
     })
@@ -137,9 +129,17 @@ class VideoChatParticipantsInvitedContext extends Context {
     return this.chatType === 'channel'
   }
 
-  /** Service message: new participants invited to a video chat */
-  public get videoChatParticipantsInvited(): VideoChatParticipantsInvited {
-    return new VideoChatParticipantsInvited(this.payload.video_chat_participants_invited!)
+  /** The data. Be aware that a bad client can send arbitrary data in this field. */
+  public get data(): string {
+    return this.payload.web_app_data!.data
+  }
+
+  /**
+   * Text of the `web_app` keyboard button, from which the Web App was opened.
+   * Be aware that a bad client can send arbitrary data in this field.
+   */
+  public get buttonText(): string {
+    return this.payload.web_app_data!.button_text
   }
 
   /** Sends message to current chat */
@@ -717,8 +717,8 @@ class VideoChatParticipantsInvitedContext extends Context {
   }
 }
 
-inspectable(VideoChatParticipantsInvitedContext, {
-  serialize(context: VideoChatParticipantsInvitedContext) {
+inspectable(WebAppDataContext, {
+  serialize(context: WebAppDataContext) {
     return {
       id: context.id,
       from: context.from,
@@ -727,9 +727,10 @@ inspectable(VideoChatParticipantsInvitedContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      videoChatParticipantsInvited: context.videoChatParticipantsInvited
+      data: context.data,
+      buttonText: context.buttonText
     }
   }
 })
 
-export { VideoChatParticipantsInvitedContext }
+export { WebAppDataContext }

@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { FileAttachment } from './file-attachment';
+import { FileAttachment } from './file-attachment'
 
-import { TelegramSticker } from '../../telegram-interfaces';
-import { PhotoSize } from '../structures/photo-size';
-import { MaskPosition } from '../structures/mask-position';
+import { PhotoSize } from '../structures/photo-size'
+
+import { TelegramSticker } from '../../telegram-interfaces'
+import { MaskPosition } from '../structures/mask-position'
 
 /** This object represents a sticker. */
 export class StickerAttachment extends FileAttachment<TelegramSticker> {
@@ -12,50 +13,55 @@ export class StickerAttachment extends FileAttachment<TelegramSticker> {
 
   /** Sticker width */
   public get width(): number {
-    return this.payload.width;
+    return this.payload.width
   }
 
   /** Sticker height */
   public get height(): number {
-    return this.payload.height;
+    return this.payload.height
   }
 
   /** `true`, if the sticker is animated */
   public get isAnimated(): boolean {
-    return this.payload.is_animated;
+    return this.payload.is_animated
+  }
+
+  /** `true`, if the sticker is a video sticker */
+  public get isVideo(): boolean {
+    return this.payload.is_video
   }
 
   /** Sticker thumbnail in the .WEBP or .JPG format */
   public get thumb(): PhotoSize | undefined {
-    const { thumb } = this.payload;
+    const { thumb } = this.payload
 
-    if (!thumb) return undefined;
+    if (!thumb) return undefined
 
-    return new PhotoSize(thumb);
+    return new PhotoSize(thumb)
   }
 
   /** Emoji associated with the sticker */
   public get emoji(): string | undefined {
-    return this.payload.emoji;
+    return this.payload.emoji
   }
 
   /** Name of the sticker set to which the sticker belongs */
   public get setName(): string | undefined {
-    return this.payload.set_name;
+    return this.payload.set_name
   }
 
   /** For mask stickers, the position where the mask should be placed */
   public get maskPosition(): MaskPosition | undefined {
-    const { mask_position } = this.payload;
+    const { mask_position } = this.payload
 
-    if (!mask_position) return undefined;
+    if (!mask_position) return undefined
 
-    return new MaskPosition(mask_position);
+    return new MaskPosition(mask_position)
   }
 
   /** File size */
   public get fileSize(): number | undefined {
-    return this.payload.file_size;
+    return this.payload.file_size
   }
 }
 
@@ -72,6 +78,6 @@ inspectable(StickerAttachment, {
       setName: sticker.setName,
       maskPosition: sticker.maskPosition,
       fileSize: sticker.fileSize
-    };
+    }
   }
-});
+})

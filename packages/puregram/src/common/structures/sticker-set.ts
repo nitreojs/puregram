@@ -1,60 +1,66 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { PhotoSize } from './photo-size';
+import { PhotoSize } from './photo-size'
 
-import { TelegramStickerSet, TelegramSticker } from '../../telegram-interfaces';
-import { StickerAttachment } from '../attachments';
-import { filterPayload } from '../../utils/helpers';
+import { StickerAttachment } from '../attachments'
+
+import { TelegramStickerSet, TelegramSticker } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
 export class StickerSet {
-  private payload: TelegramStickerSet;
+  private payload: TelegramStickerSet
 
   constructor(payload: TelegramStickerSet) {
-    this.payload = payload;
+    this.payload = payload
   }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Sticker set name */
   public get name(): string {
-    return this.payload.name;
+    return this.payload.name
   }
 
   /** Sticker set title */
   public get title(): string {
-    return this.payload.title;
+    return this.payload.title
   }
 
   /** `true`, if the sticker set contains animated stickers */
   public get isAnimated(): boolean {
-    return this.payload.is_animated;
+    return this.payload.is_animated
+  }
+
+  /** `true`, if the sticker set contains video stickers */
+  public get isVideo(): boolean {
+    return this.payload.is_video
   }
 
   /** `true`, if the sticker set contains masks */
   public get containsMasks(): boolean {
-    return this.payload.contains_masks;
+    return this.payload.contains_masks
   }
 
   /** List of all set stickers */
   public get stickers(): StickerAttachment[] {
-    const { stickers } = this.payload;
+    const { stickers } = this.payload
 
-    if (!stickers.length) return [];
+    if (!stickers.length) return []
 
     return stickers.map(
       (sticker: TelegramSticker) => new StickerAttachment(sticker)
-    );
+    )
   }
 
   /** Sticker set thumbnail in the .WEBP or .TGS format */
   public get thumb(): PhotoSize | undefined {
-    const { thumb } = this.payload;
+    const { thumb } = this.payload
 
-    if (!thumb) return undefined;
+    if (!thumb) return undefined
 
-    return new PhotoSize(thumb);
+    return new PhotoSize(thumb)
   }
 }
 
@@ -67,8 +73,8 @@ inspectable(StickerSet, {
       containsMasks: set.containsMasks,
       stickers: set.stickers,
       thumb: set.thumb
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

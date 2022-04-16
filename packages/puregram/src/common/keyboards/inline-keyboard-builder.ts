@@ -9,13 +9,11 @@ import {
 
 interface TextButtonParams {
   text: string
-
   payload: Record<string, any> | string
 }
 
 interface UrlButtonParams {
   text: string
-
   url: string
 
   payload?: Record<string, any> | string
@@ -23,25 +21,21 @@ interface UrlButtonParams {
 
 interface WebAppButtonParams {
   text: string
-
   url: string
 }
 
 interface SwitchToCurrentChatButtonParams {
   text: string
-
   query: string
 }
 
 interface SwitchToChatButtonParams {
   text: string
-
   query: string
 }
 
 interface GameButtonParams {
   text: string
-
   game: TelegramCallbackGame
 }
 
@@ -51,14 +45,12 @@ interface PayButtonParams {
 
 interface LoginButtonParams {
   text: string
-
   loginUrl: TelegramLoginUrl
 }
 
 export class InlineKeyboardBuilder {
-  private rows: TelegramInlineKeyboardButton[][] = [];
-
-  private currentRow: TelegramInlineKeyboardButton[] = [];
+  private rows: TelegramInlineKeyboardButton[][] = []
+  private currentRow: TelegramInlineKeyboardButton[] = []
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

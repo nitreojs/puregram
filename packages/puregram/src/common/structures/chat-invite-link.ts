@@ -1,20 +1,16 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramChatInviteLink } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { TelegramChatInviteLink } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
-import { User } from './user';
+import { User } from './user'
 
 /** Represents an invite link for a chat. */
 export class ChatInviteLink {
-  public payload: TelegramChatInviteLink;
-
-  constructor(options: TelegramChatInviteLink) {
-    this.payload = options;
-  }
+  constructor(public payload: TelegramChatInviteLink) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -22,32 +18,32 @@ export class ChatInviteLink {
    * then the second part of the link will be replaced with `…`.
    */
   public get link(): string {
-    return this.payload.invite_link;
+    return this.payload.invite_link
   }
 
   /** Creator of the link */
   public get creator(): User {
-    return new User(this.payload.creator);
+    return new User(this.payload.creator)
   }
 
   /** Invite link name */
   public get name(): string | undefined {
-    return this.payload.name;
+    return this.payload.name
   }
 
   /** `true`, if the link is primary */
   public get isPrimary(): boolean {
-    return this.payload.is_primary;
+    return this.payload.is_primary
   }
 
   /** `true`, if the link is revoked */
   public get isRevoked(): boolean {
-    return this.payload.is_revoked;
+    return this.payload.is_revoked
   }
 
   /** Point in time (Unix timestamp) when the link will expire or has been expired */
   public get expireDate(): number | undefined {
-    return this.payload.expire_date;
+    return this.payload.expire_date
   }
 
   /**
@@ -56,17 +52,17 @@ export class ChatInviteLink {
    * `1-99999`
    */
   public get memberLimit(): number | undefined {
-    return this.payload.member_limit;
+    return this.payload.member_limit
   }
 
   /** `true`, if users joining the chat via the link need to be approved by chat administrators */
   public get createsJoinRequest(): boolean {
-    return this.payload.creates_join_request;
+    return this.payload.creates_join_request
   }
 
   /** Number of pending join requests created using this link */
   public get pendingJoinRequestCount(): number | undefined {
-    return this.payload.pending_join_request_count;
+    return this.payload.pending_join_request_count
   }
 }
 
@@ -81,8 +77,8 @@ inspectable(ChatInviteLink, {
       memberLimit: link.memberLimit,
       createsJoinRequest: link.createsJoinRequest,
       pendingJoinRequestCount: link.pendingJoinRequestCount
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

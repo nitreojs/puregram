@@ -1,27 +1,23 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramPollOption } from '../../telegram-interfaces';
+import { TelegramPollOption } from '../../telegram-interfaces'
 
 /** This object contains information about one answer option in a poll. */
 export class PollOption {
-  private payload: TelegramPollOption;
-
-  constructor(payload: TelegramPollOption) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramPollOption) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Option text, 1-100 characters */
   public get text(): string {
-    return this.payload.text;
+    return this.payload.text
   }
 
   /** Number of users that voted for this option */
   public get voterCount(): number {
-    return this.payload.voter_count;
+    return this.payload.voter_count
   }
 }
 
@@ -30,6 +26,6 @@ inspectable(PollOption, {
     return {
       text: option.text,
       voterCount: option.voterCount
-    };
+    }
   }
-});
+})

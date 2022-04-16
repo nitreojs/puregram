@@ -7,11 +7,7 @@ import { WebAppInfo } from './web-app-info'
 
 /** This object describes the bot's menu button in a private chat. */
 export class MenuButton {
-  private payload: TelegramMenuButton
-
-  constructor(payload: TelegramMenuButton) {
-    this.payload = payload
-  }
+  constructor(private payload: TelegramMenuButton) { }
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

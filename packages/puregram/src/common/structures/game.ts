@@ -1,48 +1,44 @@
-import { inspectable } from 'inspectable';
-
-import { PhotoSize } from './photo-size';
-import { MessageEntity } from './message-entity';
+import { inspectable } from 'inspectable'
 
 import {
   TelegramGame,
   TelegramPhotoSize,
   TelegramMessageEntity
-} from '../../telegram-interfaces';
+} from '../../telegram-interfaces'
 
-import { AnimationAttachment } from '../attachments';
-import { filterPayload } from '../../utils/helpers';
+import { AnimationAttachment } from '../attachments'
+import { filterPayload } from '../../utils/helpers'
+
+import { PhotoSize } from './photo-size'
+import { MessageEntity } from './message-entity'
 
 /** This object represents a game. */
 export class Game {
-  private payload: TelegramGame;
-
-  constructor(payload: TelegramGame) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramGame) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Title of the game */
   public get title(): string {
-    return this.payload.title;
+    return this.payload.title
   }
 
   /** Description of the game */
   public get description(): string {
-    return this.payload.description;
+    return this.payload.description
   }
 
   /** Photo that will be displayed in the game message in chats. */
   public get photo(): PhotoSize[] {
-    const { photo } = this.payload;
+    const { photo } = this.payload
 
-    if (!photo) return [];
+    if (!photo) return []
 
     return photo.map(
       (photoElement: TelegramPhotoSize) => new PhotoSize(photoElement)
-    );
+    )
   }
 
   /**
@@ -52,7 +48,7 @@ export class Game {
    * `editMessageText`. 0-4096 characters.
    */
   public get text(): string | undefined {
-    return this.payload.text;
+    return this.payload.text
   }
 
   /**
@@ -60,13 +56,13 @@ export class Game {
    * commands, etc.
    */
   public get textEntities(): MessageEntity[] {
-    const { text_entities } = this.payload;
+    const { text_entities } = this.payload
 
-    if (!text_entities) return [];
+    if (!text_entities) return []
 
     return text_entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)
-    );
+    )
   }
 
   /**
@@ -74,11 +70,11 @@ export class Game {
    * Upload via BotFather
    */
   public animation(): AnimationAttachment | undefined {
-    const { animation } = this.payload;
+    const { animation } = this.payload
 
-    if (!animation) return undefined;
+    if (!animation) return undefined
 
-    return new AnimationAttachment(animation);
+    return new AnimationAttachment(animation)
   }
 }
 
@@ -91,8 +87,8 @@ inspectable(Game, {
       text: game.text,
       textEntities: game.textEntities,
       animation: game.animation
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

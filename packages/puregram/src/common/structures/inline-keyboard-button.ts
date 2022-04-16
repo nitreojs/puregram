@@ -1,30 +1,26 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { LoginUrl } from './login-url';
-import { CallbackGame } from './callback-game';
+import { TelegramInlineKeyboardButton } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
-import { TelegramInlineKeyboardButton } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { LoginUrl } from './login-url'
+import { CallbackGame } from './callback-game'
 
 export class InlineKeyboardButton {
-  private payload: TelegramInlineKeyboardButton;
-
-  constructor(payload: TelegramInlineKeyboardButton) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramInlineKeyboardButton) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Label text on the button */
   public get text(): string {
-    return this.payload.text;
+    return this.payload.text
   }
 
   /** HTTP or tg:// url to be opened when button is pressed */
   public get url(): string | undefined {
-    return this.payload.url;
+    return this.payload.url
   }
 
   /**
@@ -32,11 +28,11 @@ export class InlineKeyboardButton {
    * Can be used as a replacement for the Telegram Login Widget.
    */
   public get loginUrl(): LoginUrl | undefined {
-    const { login_url } = this.payload;
+    const { login_url } = this.payload
 
-    if (!login_url) return undefined;
+    if (!login_url) return undefined
 
-    return new LoginUrl(login_url);
+    return new LoginUrl(login_url)
   }
 
   /**
@@ -44,7 +40,7 @@ export class InlineKeyboardButton {
    * 1-64 bytes
    */
   public get callbackData(): string | undefined {
-    return this.payload.callback_data;
+    return this.payload.callback_data
   }
 
   /**
@@ -60,7 +56,7 @@ export class InlineKeyboardButton {
    * chat selection screen.
    */
   public get switchInlineQuery(): string | undefined {
-    return this.payload.switch_inline_query;
+    return this.payload.switch_inline_query
   }
 
   /**
@@ -72,7 +68,7 @@ export class InlineKeyboardButton {
    * the same chat – good for selecting something from multiple options.
    */
   public get switchInlineQueryCurrentChat(): string | undefined {
-    return this.payload.switch_inline_query_current_chat;
+    return this.payload.switch_inline_query_current_chat
   }
 
   /**
@@ -83,11 +79,11 @@ export class InlineKeyboardButton {
    * first row.
    */
   public get callbackGame(): CallbackGame | undefined {
-    const { callback_game } = this.payload;
+    const { callback_game } = this.payload
 
-    if (!callback_game) return undefined;
+    if (!callback_game) return undefined
 
-    return new CallbackGame(callback_game);
+    return new CallbackGame(callback_game)
   }
 
   /**
@@ -96,7 +92,7 @@ export class InlineKeyboardButton {
    * **NOTE**: This type of button **must** always be the first button in the first row.
    */
   public get pay(): boolean | undefined {
-    return this.payload.pay;
+    return this.payload.pay
   }
 }
 
@@ -111,8 +107,8 @@ inspectable(InlineKeyboardButton, {
       switchInlineQueryCurrentChat: button.switchInlineQueryCurrentChat,
       callbackGame: button.callbackGame,
       pay: button.pay
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

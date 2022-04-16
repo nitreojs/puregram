@@ -1,12 +1,9 @@
-import { inspectable } from 'inspectable';
-
-import { Context } from './context';
-import { MessageContext } from './message';
+import { inspectable } from 'inspectable'
 
 import {
   filterPayload,
   applyMixins
-} from '../utils/helpers';
+} from '../utils/helpers'
 
 import {
   TelegramBotCommand,
@@ -14,9 +11,9 @@ import {
   TelegramMessage,
   InputFile,
   TelegramUpdate
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
-import { Optional } from '../types';
+import { Optional } from '../types'
 
 import {
   SendMessageParams,
@@ -36,17 +33,20 @@ import {
   SendDiceParams,
   SendChatActionParams,
   SendDocumentParams
-} from '../methods';
+} from '../methods'
 
-import { Poll, ChosenInlineResult } from '../updates/';
-import { BotCommand } from '../common/structures/bot-command';
-import { Telegram } from '../telegram';
+import { Poll, ChosenInlineResult } from '../updates/'
+import { BotCommand } from '../common/structures/bot-command'
+import { Telegram } from '../telegram'
+
+import { Context } from './context'
+import { MessageContext } from './message'
 
 interface ChosenInlineResultContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramChosenInlineResult;
-  updateId: number;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramChosenInlineResult
+  updateId: number
 }
 
 /**
@@ -54,7 +54,7 @@ interface ChosenInlineResultContextOptions {
  * a user and sent to their chat partner
  */
 class ChosenInlineResultContext extends Context {
-  public payload: TelegramChosenInlineResult;
+  public payload: TelegramChosenInlineResult
 
   constructor(options: ChosenInlineResultContextOptions) {
     super({
@@ -62,9 +62,9 @@ class ChosenInlineResultContext extends Context {
       updateType: 'chosen_inline_result',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /** Sends message to current chat */
@@ -76,12 +76,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       text
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends photo to current chat */
@@ -93,12 +93,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       photo
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends document to current chat */
@@ -110,12 +110,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       document
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends audio to current chat */
@@ -127,12 +127,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       audio
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video to current chat */
@@ -144,12 +144,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       video
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends animation to current chat */
@@ -161,12 +161,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       animation
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video note to current chat */
@@ -178,12 +178,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       video_note: videoNote
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends voice to current chat */
@@ -195,12 +195,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       voice
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends media group to current chat */
@@ -212,14 +212,14 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       media: mediaGroup
-    });
+    })
 
     return response.map(
       (message: TelegramMessage) => new MessageContext({
         telegram: this.telegram,
         payload: message
       })
-    );
+    )
   }
 
   /** Sends location to current chat */
@@ -233,12 +233,12 @@ class ChosenInlineResultContext extends Context {
       chat_id: this.senderId,
       latitude,
       longitude
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends venue to current chat */
@@ -248,12 +248,12 @@ class ChosenInlineResultContext extends Context {
     const response = await this.telegram.api.sendVenue({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends contact to current chat */
@@ -263,12 +263,12 @@ class ChosenInlineResultContext extends Context {
     const response = await this.telegram.api.sendContact({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends poll to current chat */
@@ -278,12 +278,12 @@ class ChosenInlineResultContext extends Context {
     const response = await this.telegram.api.sendPoll({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Stops poll in current chat */
@@ -295,9 +295,9 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       message_id: messageId
-    });
+    })
 
-    return new Poll(response);
+    return new Poll(response)
   }
 
   /** Sends chat action to current chat */
@@ -309,7 +309,7 @@ class ChosenInlineResultContext extends Context {
       ...params,
       chat_id: this.senderId,
       action
-    });
+    })
   }
 
   /** Sends sticker */
@@ -321,12 +321,12 @@ class ChosenInlineResultContext extends Context {
       ...params,
       sticker,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends dice */
@@ -338,26 +338,26 @@ class ChosenInlineResultContext extends Context {
       ...params,
       emoji,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Gets commands */
   public async getMyCommands(): Promise<BotCommand[]> {
-    const response = await this.telegram.api.getMyCommands();
+    const response = await this.telegram.api.getMyCommands()
 
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
-    );
+    )
   }
 }
 
 interface ChosenInlineResultContext extends ChosenInlineResult { }
-applyMixins(ChosenInlineResultContext, [ChosenInlineResult]);
+applyMixins(ChosenInlineResultContext, [ChosenInlineResult])
 
 inspectable(ChosenInlineResultContext, {
   serialize(result: ChosenInlineResultContext) {
@@ -368,10 +368,10 @@ inspectable(ChosenInlineResultContext, {
       location: result.location,
       inlineMessageId: result.inlineMessageId,
       query: result.query
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})
 
-export { ChosenInlineResultContext };
+export { ChosenInlineResultContext }

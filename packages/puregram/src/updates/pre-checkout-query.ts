@@ -1,39 +1,35 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramPreCheckoutQuery } from '../telegram-interfaces';
-import { User } from '../common/structures/user';
-import { OrderInfo } from '../common/structures/order-info';
-import { filterPayload } from '../utils/helpers';
+import { TelegramPreCheckoutQuery } from '../telegram-interfaces'
+import { User } from '../common/structures/user'
+import { OrderInfo } from '../common/structures/order-info'
+import { filterPayload } from '../utils/helpers'
 
 export class PreCheckoutQuery {
-  public payload: TelegramPreCheckoutQuery;
-
-  constructor(payload: TelegramPreCheckoutQuery) {
-    this.payload = payload;
-  }
+  constructor(public payload: TelegramPreCheckoutQuery) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Unique query identifier */
   public get id(): string {
-    return this.payload.id;
+    return this.payload.id
   }
 
   /** User who sent the query */
   public get from(): User {
-    return new User(this.payload.from);
+    return new User(this.payload.from)
   }
 
   /** Sender ID */
   public get senderId(): number {
-    return this.from.id;
+    return this.from.id
   }
 
   /** Three-letter ISO 4217 currency code */
   public get currency(): string {
-    return this.payload.currency;
+    return this.payload.currency
   }
 
   /**
@@ -45,26 +41,26 @@ export class PreCheckoutQuery {
    * (2 for the majority of currencies).
    */
   public get totalAmount(): number {
-    return this.payload.total_amount;
+    return this.payload.total_amount
   }
 
   /** Bot specified invoice payload */
   public get invoicePayload(): string {
-    return this.payload.invoice_payload;
+    return this.payload.invoice_payload
   }
 
   /** Identifier of the shipping option chosen by the user */
   public get shippingOptionId(): string | undefined {
-    return this.payload.shipping_option_id;
+    return this.payload.shipping_option_id
   }
 
   /** Order info provided by the user */
   public get orderInfo(): OrderInfo | undefined {
-    const { order_info } = this.payload;
+    const { order_info } = this.payload
 
-    if (!order_info) return undefined;
+    if (!order_info) return undefined
 
-    return new OrderInfo(order_info);
+    return new OrderInfo(order_info)
   }
 }
 
@@ -79,8 +75,8 @@ inspectable(PreCheckoutQuery, {
       invoicePayload: query.invoicePayload,
       shippingOptionId: query.shippingOptionId,
       orderInfo: query.orderInfo
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

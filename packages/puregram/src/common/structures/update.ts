@@ -1,9 +1,6 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Poll } from './poll';
-import { PollAnswer } from './poll-answer';
-
-import { TelegramUpdate } from '../../telegram-interfaces';
+import { TelegramUpdate } from '../../telegram-interfaces'
 
 import {
   Message,
@@ -12,9 +9,12 @@ import {
   CallbackQuery,
   ShippingQuery,
   PreCheckoutQuery
-} from '../../updates/';
+} from '../../updates/'
 
-import { filterPayload } from '../../utils/helpers';
+import { filterPayload } from '../../utils/helpers'
+
+import { Poll } from './poll'
+import { PollAnswer } from './poll-answer'
 
 /**
  * This object represents an incoming update.
@@ -23,14 +23,10 @@ import { filterPayload } from '../../utils/helpers';
  * update.
  */
 export class Update {
-  private payload: TelegramUpdate;
-
-  constructor(payload: TelegramUpdate) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramUpdate) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -43,54 +39,54 @@ export class Update {
    * be chosen randomly instead of sequentially.
    */
   public get id(): number {
-    return this.payload.update_id;
+    return this.payload.update_id
   }
 
   /**
    * New incoming message of any kind — text, photo, sticker, etc.
    */
   public get message(): Message | undefined {
-    const { message } = this.payload;
+    const { message } = this.payload
 
-    if (!message) return undefined;
+    if (!message) return undefined
 
-    return new Message(message);
+    return new Message(message)
   }
 
   /** New version of a message that is known to the bot and was edited */
   public get editedMessage(): Message | undefined {
-    const { edited_message } = this.payload;
+    const { edited_message } = this.payload
 
-    if (!edited_message) return undefined;
+    if (!edited_message) return undefined
 
-    return new Message(edited_message);
+    return new Message(edited_message)
   }
 
   /** New incoming channel post of any kind — text, photo, sticker, etc. */
   public get channelPost(): Message | undefined {
-    const { channel_post } = this.payload;
+    const { channel_post } = this.payload
 
-    if (!channel_post) return undefined;
+    if (!channel_post) return undefined
 
-    return new Message(channel_post);
+    return new Message(channel_post)
   }
 
   /** New version of a channel post that is known to the bot and was edited */
   public get editedChannelPost(): Message | undefined {
-    const { edited_channel_post } = this.payload;
+    const { edited_channel_post } = this.payload
 
-    if (!edited_channel_post) return undefined;
+    if (!edited_channel_post) return undefined
 
-    return new Message(edited_channel_post);
+    return new Message(edited_channel_post)
   }
 
   /** New incoming inline query */
   public get inlineQuery(): InlineQuery | undefined {
-    const { inline_query } = this.payload;
+    const { inline_query } = this.payload
 
-    if (!inline_query) return undefined;
+    if (!inline_query) return undefined
 
-    return new InlineQuery(inline_query);
+    return new InlineQuery(inline_query)
   }
 
   /**
@@ -99,40 +95,40 @@ export class Update {
    * details on how to enable these updates for your bot.
    */
   public get chosenInlineResult(): ChosenInlineResult | undefined {
-    const { chosen_inline_result } = this.payload;
+    const { chosen_inline_result } = this.payload
 
-    if (!chosen_inline_result) return undefined;
+    if (!chosen_inline_result) return undefined
 
-    return new ChosenInlineResult(chosen_inline_result);
+    return new ChosenInlineResult(chosen_inline_result)
   }
 
   /** New incoming callback query */
   public get callbackQuery(): CallbackQuery | undefined {
-    const { callback_query } = this.payload;
+    const { callback_query } = this.payload
 
-    if (!callback_query) return undefined;
+    if (!callback_query) return undefined
 
-    return new CallbackQuery(callback_query);
+    return new CallbackQuery(callback_query)
   }
 
   /** New incoming shipping query. Only for invoices with flexible price */
   public get shippingQuery(): ShippingQuery | undefined {
-    const { shipping_query } = this.payload;
+    const { shipping_query } = this.payload
 
-    if (!shipping_query) return undefined;
+    if (!shipping_query) return undefined
 
-    return new ShippingQuery(shipping_query);
+    return new ShippingQuery(shipping_query)
   }
 
   /**
    * New incoming pre-checkout query. Contains full information about checkout
    */
   public get preCheckoutQuery(): PreCheckoutQuery | undefined {
-    const { pre_checkout_query } = this.payload;
+    const { pre_checkout_query } = this.payload
 
-    if (!pre_checkout_query) return undefined;
+    if (!pre_checkout_query) return undefined
 
-    return new PreCheckoutQuery(pre_checkout_query);
+    return new PreCheckoutQuery(pre_checkout_query)
   }
 
   /**
@@ -140,11 +136,11 @@ export class Update {
    * which are sent by the bot
    */
   public get poll(): Poll | undefined {
-    const { poll } = this.payload;
+    const { poll } = this.payload
 
-    if (!poll) return undefined;
+    if (!poll) return undefined
 
-    return new Poll(poll);
+    return new Poll(poll)
   }
 
   /**
@@ -152,11 +148,11 @@ export class Update {
    * votes only in polls that were sent by the bot itself.
    */
   public get pollAnswer(): PollAnswer | undefined {
-    const { poll_answer } = this.payload;
+    const { poll_answer } = this.payload
 
-    if (!poll_answer) return undefined;
+    if (!poll_answer) return undefined
 
-    return new PollAnswer(poll_answer);
+    return new PollAnswer(poll_answer)
   }
 }
 
@@ -175,8 +171,8 @@ inspectable(Update, {
       preCheckoutQuery: update.preCheckoutQuery,
       poll: update.poll,
       pollAnswer: update.pollAnswer
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

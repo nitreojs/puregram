@@ -1,20 +1,16 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramMaskPosition } from '../../telegram-interfaces';
+import { TelegramMaskPosition } from '../../telegram-interfaces'
 
 /**
  * This object describes the position on faces where a mask should be placed
  * by default.
  */
 export class MaskPosition {
-  private payload: TelegramMaskPosition;
-
-  constructor(payload: TelegramMaskPosition) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramMaskPosition) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -22,7 +18,7 @@ export class MaskPosition {
    * One of `forehead`, `eyes`, `mouth`, or `chin`.
    */
   public get point(): TelegramMaskPosition['point'] {
-    return this.payload.point;
+    return this.payload.point
   }
 
   /**
@@ -31,7 +27,7 @@ export class MaskPosition {
    * the left of the default mask position.
    */
   public get xShift(): number {
-    return this.payload.x_shift;
+    return this.payload.x_shift
   }
 
   /**
@@ -40,12 +36,12 @@ export class MaskPosition {
    * default mask position.
    */
   public get yShift(): number {
-    return this.payload.y_shift;
+    return this.payload.y_shift
   }
 
   /** Mask scaling coefficient. For example, `2.0` means double size. */
   public get scale(): number {
-    return this.payload.scale;
+    return this.payload.scale
   }
 }
 
@@ -56,6 +52,6 @@ inspectable(MaskPosition, {
       xShift: position.xShift,
       yShift: position.yShift,
       scale: position.scale
-    };
+    }
   }
-});
+})

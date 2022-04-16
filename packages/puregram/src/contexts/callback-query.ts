@@ -1,25 +1,28 @@
 // eslint-disable-next-line max-classes-per-file
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Context } from './context';
-import { MessageContext } from './message';
+import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
-import { applyMixins, filterPayload, isParseable } from '../utils/helpers';
-import { CallbackQuery } from '../updates/';
-import { TelegramCallbackQuery, TelegramUpdate } from '../telegram-interfaces';
-import { Telegram } from '../telegram';
-import { AnswerCallbackQueryParams } from '../methods';
+import { CallbackQuery } from '../updates/'
+
+import { TelegramCallbackQuery, TelegramUpdate } from '../telegram-interfaces'
+
+import { Telegram } from '../telegram'
+import { AnswerCallbackQueryParams } from '../methods'
+
+import { Context } from './context'
+import { MessageContext } from './message'
 
 interface CallbackQueryContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramCallbackQuery;
-  updateId: number;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramCallbackQuery
+  updateId: number
 }
 
 /** Called when `callback_query` event occurs */
 class CallbackQueryContext extends Context {
-  public payload: TelegramCallbackQuery;
+  public payload: TelegramCallbackQuery
 
   constructor(options: CallbackQueryContextOptions) {
     super({
@@ -27,9 +30,9 @@ class CallbackQueryContext extends Context {
       updateType: 'callback_query',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /**
@@ -38,14 +41,14 @@ class CallbackQueryContext extends Context {
    * if the message is too old
    */
   public get message(): MessageContext | undefined {
-    if (this.payload.message === undefined) return undefined;
+    if (this.payload.message === undefined) return undefined
 
     return new MessageContext({
       telegram: this.telegram,
       update: this.update,
       payload: this.payload.message,
       updateId: this.update?.update_id
-    });
+    })
   }
 
   /**
@@ -53,15 +56,15 @@ class CallbackQueryContext extends Context {
    * Be aware that a bad client can send arbitrary data in this field.
    */
   public get queryPayload(): any {
-    const { data } = this.payload;
+    const { data } = this.payload
 
-    if (data === undefined) return undefined;
+    if (data === undefined) return undefined
 
     if (isParseable(data)) {
-      return JSON.parse(data);
+      return JSON.parse(data)
     }
 
-    return data;
+    return data
   }
 
   /** Answers to current callback query */
@@ -71,14 +74,14 @@ class CallbackQueryContext extends Context {
     return this.telegram.api.answerCallbackQuery({
       ...params,
       callback_query_id: this.id
-    });
+    })
   }
 }
 
-class TempCallbackQueryContext extends CallbackQueryContext {}
+class TempCallbackQueryContext extends CallbackQueryContext { }
 
 interface CallbackQueryContext extends CallbackQuery { }
-applyMixins(TempCallbackQueryContext, [CallbackQuery, CallbackQueryContext]);
+applyMixins(TempCallbackQueryContext, [CallbackQuery, CallbackQueryContext])
 
 inspectable(CallbackQueryContext, {
   serialize(query: CallbackQueryContext) {
@@ -91,10 +94,10 @@ inspectable(CallbackQueryContext, {
       chatInstance: query.chatInstance,
       queryPayload: query.queryPayload,
       gameShortName: query.gameShortName
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})
 
-export { TempCallbackQueryContext as CallbackQueryContext };
+export { TempCallbackQueryContext as CallbackQueryContext }

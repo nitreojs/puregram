@@ -1,24 +1,20 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramBotCommand } from '../../telegram-interfaces';
+import { TelegramBotCommand } from '../../telegram-interfaces'
 
 export class BotCommand {
-  private payload: TelegramBotCommand;
-
-  constructor(payload: TelegramBotCommand) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramBotCommand) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   public get command(): string {
-    return this.payload.command;
+    return this.payload.command
   }
 
   public get description(): string {
-    return this.payload.description;
+    return this.payload.description
   }
 }
 
@@ -27,6 +23,6 @@ inspectable(BotCommand, {
     return {
       command: command.command,
       description: command.description
-    };
+    }
   }
-});
+})

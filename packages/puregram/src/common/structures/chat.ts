@@ -1,23 +1,19 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { ChatPhoto } from './chat-photo';
-import { ChatPermissions } from './chat-permissions';
-import { ChatLocation } from './chat-location';
+import { Message } from '../../updates/message'
+import { filterPayload } from '../../utils/helpers'
+import { TelegramChat } from '../../telegram-interfaces'
 
-import { Message } from '../../updates/message';
-import { filterPayload } from '../../utils/helpers';
-import { TelegramChat } from '../../telegram-interfaces';
+import { ChatPhoto } from './chat-photo'
+import { ChatPermissions } from './chat-permissions'
+import { ChatLocation } from './chat-location'
 
 /** This object represents a chat. */
 export class Chat {
-  private payload: TelegramChat;
-
-  constructor(payload: TelegramChat) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramChat) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -28,34 +24,34 @@ export class Chat {
    * this identifier.
    */
   public get id(): number {
-    return this.payload.id;
+    return this.payload.id
   }
 
   /**
    * Type of chat, can be either `private`, `group`, `supergroup` or `channel`
    */
   public get type(): TelegramChat['type'] {
-    return this.payload.type;
+    return this.payload.type
   }
 
   /** Title, for supergroups, channels and group chats */
   public get title(): string | undefined {
-    return this.payload.title;
+    return this.payload.title
   }
 
   /** Username, for private chats, supergroups and channels if available */
   public get username(): string | undefined {
-    return this.payload.username;
+    return this.payload.username
   }
 
   /** First name of the other party in a private chat */
   public get firstName(): string | undefined {
-    return this.payload.first_name;
+    return this.payload.first_name
   }
 
   /** Last name of the other party in a private chat */
   public get lastName(): string | undefined {
-    return this.payload.last_name;
+    return this.payload.last_name
   }
 
   /**
@@ -64,11 +60,11 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get photo(): ChatPhoto | undefined {
-    const { photo } = this.payload;
+    const { photo } = this.payload
 
-    if (!photo) return undefined;
+    if (!photo) return undefined
 
-    return new ChatPhoto(photo);
+    return new ChatPhoto(photo)
   }
 
   /**
@@ -77,7 +73,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get bio(): string | undefined {
-    return this.payload.bio;
+    return this.payload.bio
   }
 
   /**
@@ -87,7 +83,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get hasPrivateForwards(): true | undefined {
-    return this.payload.has_private_forwards as true | undefined;
+    return this.payload.has_private_forwards as true | undefined
   }
 
   /**
@@ -96,11 +92,11 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get location(): ChatLocation | undefined {
-    const { location } = this.payload;
+    const { location } = this.payload
 
-    if (!location) return undefined;
+    if (!location) return undefined
 
-    return new ChatLocation(location);
+    return new ChatLocation(location)
   }
 
   /**
@@ -109,7 +105,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get description(): string | undefined {
-    return this.payload.description;
+    return this.payload.description
   }
 
   /**
@@ -120,7 +116,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get inviteLink(): string | undefined {
-    return this.payload.invite_link;
+    return this.payload.invite_link
   }
 
   /**
@@ -129,11 +125,11 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get pinnedMessage(): Message | undefined {
-    const { pinned_message } = this.payload;
+    const { pinned_message } = this.payload
 
-    if (!pinned_message) return undefined;
+    if (!pinned_message) return undefined
 
-    return new Message(pinned_message);
+    return new Message(pinned_message)
   }
 
   /**
@@ -142,11 +138,11 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get permissions(): ChatPermissions | undefined {
-    const { permissions } = this.payload;
+    const { permissions } = this.payload
 
-    if (!permissions) return undefined;
+    if (!permissions) return undefined
 
-    return new ChatPermissions(permissions);
+    return new ChatPermissions(permissions)
   }
 
   /**
@@ -156,7 +152,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get slowModeDelay(): number | undefined {
-    return this.payload.slow_mode_delay;
+    return this.payload.slow_mode_delay
   }
 
   /**
@@ -165,7 +161,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get messageAutoDeleteTime(): number | undefined {
-    return this.payload.message_auto_delete_time;
+    return this.payload.message_auto_delete_time
   }
 
   /**
@@ -174,7 +170,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get hasProtectedContent(): boolean | undefined {
-    return this.payload.has_protected_content;
+    return this.payload.has_protected_content
   }
 
   /**
@@ -183,7 +179,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get stickerSetName(): string | undefined {
-    return this.payload.sticker_set_name;
+    return this.payload.sticker_set_name
   }
 
   /**
@@ -192,7 +188,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get canSetStickerSet(): boolean | undefined {
-    return this.payload.can_set_sticker_set;
+    return this.payload.can_set_sticker_set
   }
 
   /**
@@ -207,7 +203,7 @@ export class Chat {
    * Returned only in `getChat`.
    */
   public get linkedChatId(): number | undefined {
-    return this.payload.linked_chat_id;
+    return this.payload.linked_chat_id
   }
 }
 
@@ -228,8 +224,8 @@ inspectable(Chat, {
       slowModeDelay: chat.slowModeDelay,
       stickerSetName: chat.stickerSetName,
       canSetStickerSet: chat.canSetStickerSet
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

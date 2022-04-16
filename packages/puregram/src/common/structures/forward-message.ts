@@ -1,21 +1,17 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { User } from './user';
-import { Chat } from './chat';
+import { TelegramMessage } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
-import { TelegramMessage } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { User } from './user'
+import { Chat } from './chat'
 
 /** This object represents a forwarded message. */
 export class ForwardMessage {
-  private payload: TelegramMessage;
-
-  constructor(payload: TelegramMessage) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramMessage) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -23,16 +19,16 @@ export class ForwardMessage {
    * in the channel
    */
   public get id(): number | undefined {
-    return this.payload.forward_from_message_id;
+    return this.payload.forward_from_message_id
   }
 
   /** For forwarded messages, sender of the original message */
   public get from(): User | undefined {
-    const { forward_from } = this.payload;
+    const { forward_from } = this.payload
 
-    if (!forward_from) return undefined;
+    if (!forward_from) return undefined
 
-    return new User(forward_from);
+    return new User(forward_from)
   }
 
   /**
@@ -40,11 +36,11 @@ export class ForwardMessage {
    * channel
    */
   public get chat(): Chat | undefined {
-    const { forward_from_chat } = this.payload;
+    const { forward_from_chat } = this.payload
 
-    if (!forward_from_chat) return undefined;
+    if (!forward_from_chat) return undefined
 
-    return new Chat(forward_from_chat);
+    return new Chat(forward_from_chat)
   }
 
   /**
@@ -52,7 +48,7 @@ export class ForwardMessage {
    * if present
    */
   public get signature(): string | undefined {
-    return this.payload.forward_signature;
+    return this.payload.forward_signature
   }
 
   /**
@@ -60,19 +56,19 @@ export class ForwardMessage {
    * to their account in forwarded messages
    */
   public get senderName(): string | undefined {
-    return this.payload.forward_sender_name;
+    return this.payload.forward_sender_name
   }
 
   /**
    * For forwarded messages, date the original message was sent in Unix time
    */
   public get createdAt(): number {
-    return this.payload.forward_date!;
+    return this.payload.forward_date!
   }
 
   /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
   public get isAutomatic(): boolean | undefined {
-    return this.payload.is_automatic_forward;
+    return this.payload.is_automatic_forward
   }
 }
 
@@ -86,8 +82,8 @@ inspectable(ForwardMessage, {
       senderName: message.senderName,
       createdAt: message.createdAt,
       isAutomatic: message.isAutomatic
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

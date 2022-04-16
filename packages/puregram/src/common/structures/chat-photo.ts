@@ -1,17 +1,13 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramChatPhoto } from '../../telegram-interfaces';
+import { TelegramChatPhoto } from '../../telegram-interfaces'
 
 /** This object represents a chat photo. */
 export class ChatPhoto {
-  private payload: TelegramChatPhoto;
-
-  constructor(payload: TelegramChatPhoto) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramChatPhoto) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -20,7 +16,7 @@ export class ChatPhoto {
    * as the photo is not changed.
    */
   public get smallFileId(): string {
-    return this.payload.small_file_id;
+    return this.payload.small_file_id
   }
 
   /**
@@ -29,7 +25,7 @@ export class ChatPhoto {
    * or reuse the file.
    */
   public get smallFileUniqueId(): string {
-    return this.payload.small_file_unique_id;
+    return this.payload.small_file_unique_id
   }
 
   /**
@@ -37,7 +33,7 @@ export class ChatPhoto {
    * only for photo download and only for as long as the photo is not changed.
    */
   public get bigFileId(): string {
-    return this.payload.big_file_id;
+    return this.payload.big_file_id
   }
 
   /**
@@ -46,7 +42,7 @@ export class ChatPhoto {
    * download or reuse the file.
    */
   public get bigFileUniqueId(): string {
-    return this.payload.big_file_unique_id;
+    return this.payload.big_file_unique_id
   }
 }
 
@@ -57,6 +53,6 @@ inspectable(ChatPhoto, {
       smallFileUniqueId: photo.smallFileUniqueId,
       bigFileId: photo.bigFileId,
       bigFileUniqueId: photo.bigFileUniqueId
-    };
+    }
   }
-});
+})

@@ -8,11 +8,11 @@ import {
 
 /** Keyboard */
 export class Keyboard {
-  private buttons: TelegramKeyboardButton[][] = [];
+  private buttons: TelegramKeyboardButton[][] = []
 
-  private isResized: boolean = false;
-  private isOneTime: boolean = false;
-  private isSelective: boolean = false;
+  private isResized: boolean = false
+  private isOneTime: boolean = false
+  private isSelective: boolean = false
   private placeholder?: string
 
   public get [Symbol.toStringTag](): string {

@@ -8,13 +8,12 @@ import {
 
 /** Keyboard builder */
 export class KeyboardBuilder {
-  private rows: TelegramKeyboardButton[][] = [];
+  private rows: TelegramKeyboardButton[][] = []
+  private currentRow: TelegramKeyboardButton[] = []
 
-  private currentRow: TelegramKeyboardButton[] = [];
-
-  private isOneTime: boolean = false;
-  private isResized: boolean = false;
-  private isSelective: boolean = false;
+  private isOneTime: boolean = false
+  private isResized: boolean = false
+  private isSelective: boolean = false
   private placeholder?: string
 
   public get [Symbol.toStringTag]() {

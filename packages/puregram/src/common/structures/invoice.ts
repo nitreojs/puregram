@@ -1,27 +1,23 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramInvoice } from '../../telegram-interfaces';
+import { TelegramInvoice } from '../../telegram-interfaces'
 
 /** This object contains basic information about an invoice. */
 export class Invoice {
-  private payload: TelegramInvoice;
-
-  constructor(payload: TelegramInvoice) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramInvoice) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Product name */
   public get title(): string {
-    return this.payload.title;
+    return this.payload.title
   }
 
   /** Product description */
   public get description(): string {
-    return this.payload.description;
+    return this.payload.description
   }
 
   /**
@@ -29,12 +25,12 @@ export class Invoice {
    * invoice
    */
   public get startParameter(): string {
-    return this.payload.start_parameter;
+    return this.payload.start_parameter
   }
 
   /** Three-letter ISO 4217 currency code */
   public get currency(): string {
-    return this.payload.currency;
+    return this.payload.currency
   }
 
   /**
@@ -46,7 +42,7 @@ export class Invoice {
    * (2 for the majority of currencies).
    */
   public get totalAmount(): number {
-    return this.payload.total_amount;
+    return this.payload.total_amount
   }
 }
 
@@ -58,6 +54,6 @@ inspectable(Invoice, {
       startParameter: invoice.startParameter,
       currency: invoice.currency,
       totalAmount: invoice.totalAmount
-    };
+    }
   }
-});
+})

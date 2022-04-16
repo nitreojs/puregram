@@ -1,24 +1,20 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { PassportFile } from './passport-file';
+import { TelegramEncryptedPassportElement, TelegramPassportFile } from '../../telegram-interfaces'
 
-import { TelegramEncryptedPassportElement, TelegramPassportFile } from '../../telegram-interfaces';
+import { filterPayload } from '../../utils/helpers'
 
-import { filterPayload } from '../../utils/helpers';
+import { PassportFile } from './passport-file'
 
 /**
  * Contains information about documents or other Telegram Passport elements
  * shared with the bot by the user.
  */
 export class EncryptedPassportElement {
-  private payload: TelegramEncryptedPassportElement;
-
-  constructor(payload: TelegramEncryptedPassportElement) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramEncryptedPassportElement) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -28,7 +24,7 @@ export class EncryptedPassportElement {
    * `temporary_registration`, `phone_number`, `email`.
    */
   public get type(): TelegramEncryptedPassportElement['type'] {
-    return this.payload.type;
+    return this.payload.type
   }
 
   /**
@@ -39,17 +35,17 @@ export class EncryptedPassportElement {
    * `EncryptedCredentials`.
    */
   public get data(): string | undefined {
-    return this.payload.data;
+    return this.payload.data
   }
 
   /** User's verified phone number, available only for `phone_number` type */
   public get phoneNumber(): string | undefined {
-    return this.payload.phone_number;
+    return this.payload.phone_number
   }
 
   /** User's verified email address, available only for `email` type */
   public get email(): string | undefined {
-    return this.payload.email;
+    return this.payload.email
   }
 
   /**
@@ -59,13 +55,13 @@ export class EncryptedPassportElement {
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
   public get files(): PassportFile[] {
-    const { files } = this.payload;
+    const { files } = this.payload
 
-    if (!files) return [];
+    if (!files) return []
 
     return files.map(
       (file: TelegramPassportFile) => new PassportFile(file)
-    );
+    )
   }
 
   /**
@@ -75,11 +71,11 @@ export class EncryptedPassportElement {
    * accompanying `EncryptedCredentials`.
    */
   public get frontSide(): PassportFile | undefined {
-    const { front_side } = this.payload;
+    const { front_side } = this.payload
 
-    if (!front_side) return undefined;
+    if (!front_side) return undefined
 
-    return new PassportFile(front_side);
+    return new PassportFile(front_side)
   }
 
   /**
@@ -88,11 +84,11 @@ export class EncryptedPassportElement {
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
   public get reverseSide(): PassportFile | undefined {
-    const { reverse_side } = this.payload;
+    const { reverse_side } = this.payload
 
-    if (!reverse_side) return undefined;
+    if (!reverse_side) return undefined
 
-    return new PassportFile(reverse_side);
+    return new PassportFile(reverse_side)
   }
 
   /**
@@ -102,11 +98,11 @@ export class EncryptedPassportElement {
    * accompanying `EncryptedCredentials`.
    */
   public get selfie(): PassportFile | undefined {
-    const { selfie } = this.payload;
+    const { selfie } = this.payload
 
-    if (!selfie) return undefined;
+    if (!selfie) return undefined
 
-    return new PassportFile(selfie);
+    return new PassportFile(selfie)
   }
 
   /**
@@ -118,20 +114,20 @@ export class EncryptedPassportElement {
    * `EncryptedCredentials`.
    */
   public get translation(): PassportFile[] {
-    const { translation } = this.payload;
+    const { translation } = this.payload
 
-    if (!translation) return [];
+    if (!translation) return []
 
     return translation.map(
       (element: TelegramPassportFile) => new PassportFile(element)
-    );
+    )
   }
 
   /**
    * Base64-encoded element hash for using in `PassportElementErrorUnspecified`
    */
   public get hash(): string {
-    return this.payload.hash;
+    return this.payload.hash
   }
 }
 
@@ -148,8 +144,8 @@ inspectable(EncryptedPassportElement, {
       selfie: element.selfie,
       translation: element.translation,
       hash: element.hash
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

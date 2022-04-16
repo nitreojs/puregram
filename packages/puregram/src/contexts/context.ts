@@ -1,34 +1,34 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Telegram } from '../telegram';
-import { TelegramUpdate } from '../telegram-interfaces';
-import { UpdateName } from '../types';
+import { Telegram } from '../telegram'
+import { TelegramUpdate } from '../telegram-interfaces'
+import { UpdateName } from '../types'
 
-type AllowArray<T> = T | T[];
+type AllowArray<T> = T | T[]
 
 interface ContextOptions {
-  telegram: Telegram;
-  update?: TelegramUpdate;
-  updateType: UpdateName;
-  updateId?: number;
+  telegram: Telegram
+  update?: TelegramUpdate
+  updateType: UpdateName
+  updateId?: number
 }
 
 export class Context {
-  public telegram: Telegram;
-  public updateId?: number;
-  public update?: TelegramUpdate;
+  public telegram: Telegram
+  public updateId?: number
+  public update?: TelegramUpdate
 
-  protected updateType: UpdateName;
+  protected updateType: UpdateName
 
   constructor(options: ContextOptions) {
-    this.telegram = options.telegram;
-    this.updateType = options.updateType;
-    this.updateId = options.updateId;
-    this.update = options.update;
+    this.telegram = options.telegram
+    this.updateType = options.updateType
+    this.updateId = options.updateId
+    this.update = options.update
   }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   public is(
@@ -36,14 +36,14 @@ export class Context {
   ): boolean {
     const types = Array.isArray(rawTypes)
       ? rawTypes
-      : [rawTypes];
+      : [rawTypes]
 
-    return types.includes(this.updateType);
+    return types.includes(this.updateType)
   }
 }
 
 inspectable(Context, {
   serialize(context: Context) {
-    return {};
+    return {}
   }
-});
+})

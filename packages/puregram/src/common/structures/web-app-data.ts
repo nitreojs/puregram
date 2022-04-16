@@ -4,11 +4,7 @@ import { TelegramWebAppData } from '../../telegram-interfaces'
 
 /** Contains data sent from a Web App to the bot. */
 export class WebAppData {
-  private payload: TelegramWebAppData
-
-  constructor(payload: TelegramWebAppData) {
-    this.payload = payload
-  }
+  constructor(private payload: TelegramWebAppData) { }
 
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
   public get data(): string {

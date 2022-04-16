@@ -1,15 +1,15 @@
 import { inspectable } from 'inspectable'
 
-import { FileAttachment } from './file-attachment'
+import { TelegramSticker } from '../../telegram-interfaces'
 
 import { PhotoSize } from '../structures/photo-size'
-
-import { TelegramSticker } from '../../telegram-interfaces'
 import { MaskPosition } from '../structures/mask-position'
+
+import { FileAttachment } from './file-attachment'
 
 /** This object represents a sticker. */
 export class StickerAttachment extends FileAttachment<TelegramSticker> {
-  public attachmentType: 'sticker' = 'sticker';
+  public attachmentType: 'sticker' = 'sticker'
 
   /** Sticker width */
   public get width(): number {

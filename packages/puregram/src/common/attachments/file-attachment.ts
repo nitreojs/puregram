@@ -1,32 +1,32 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Attachment } from './attachment';
+import { AttachmentType } from '../../types'
 
-import { AttachmentType } from '../../types';
+import { Attachment } from './attachment'
 
 export interface DefaultAttachment {
-  file_id: string;
+  file_id: string
 
-  file_unique_id: string;
+  file_unique_id: string
 }
 
 /** Attachment with `fileId` and `fileUniqueId` properties */
 export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> extends Attachment {
-  protected payload: T;
+  protected payload: T
 
-  public attachmentType?: AttachmentType;
+  public attachmentType?: AttachmentType
 
   constructor(payload: T) {
-    super();
+    super()
 
-    this.payload = payload;
+    this.payload = payload
   }
 
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
   public get fileId(): string {
-    return this.payload.file_id;
+    return this.payload.file_id
   }
 
   /**
@@ -34,7 +34,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
    * time and for different bots. Can't be used to download or reuse the file.
    */
   public get fileUniqueId(): string {
-    return this.payload.file_unique_id;
+    return this.payload.file_unique_id
   }
 }
 
@@ -43,6 +43,6 @@ inspectable(FileAttachment, {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId
-    };
+    }
   }
-});
+})

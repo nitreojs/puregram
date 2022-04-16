@@ -1,32 +1,32 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Context } from './context';
+import { Context } from './context'
 
 import {
   filterPayload,
   applyMixins
-} from '../utils/helpers';
+} from '../utils/helpers'
 
-import { InlineQuery } from '../updates/inline-query';
+import { InlineQuery } from '../updates/inline-query'
 
 import {
   TelegramInlineQuery,
   TelegramInlineQueryResult,
   TelegramUpdate
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
-import { Telegram } from '../telegram';
-import { AnswerInlineQueryParams } from '../methods';
+import { Telegram } from '../telegram'
+import { AnswerInlineQueryParams } from '../methods'
 
 interface InlineQueryContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramInlineQuery;
-  updateId: number;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramInlineQuery
+  updateId: number
 }
 
 class InlineQueryContext extends Context {
-  public payload: TelegramInlineQuery;
+  public payload: TelegramInlineQuery
 
   constructor(options: InlineQueryContextOptions) {
     super({
@@ -34,9 +34,9 @@ class InlineQueryContext extends Context {
       updateType: 'inline_query',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /** Answers to inline query */
@@ -48,12 +48,12 @@ class InlineQueryContext extends Context {
       ...params,
       inline_query_id: this.id,
       results
-    });
+    })
   }
 }
 
 interface InlineQueryContext extends InlineQuery { }
-applyMixins(InlineQueryContext, [InlineQuery]);
+applyMixins(InlineQueryContext, [InlineQuery])
 
 inspectable(InlineQueryContext, {
   serialize(query: InlineQueryContext) {
@@ -63,10 +63,10 @@ inspectable(InlineQueryContext, {
       location: query.location,
       query: query.query,
       offset: query.offset
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})
 
-export { InlineQueryContext };
+export { InlineQueryContext }

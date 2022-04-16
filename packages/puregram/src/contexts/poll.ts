@@ -1,21 +1,21 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Context } from './context';
+import { Context } from './context'
 
-import { TelegramPoll, TelegramUpdate } from '../telegram-interfaces';
-import { Telegram } from '../telegram';
-import { filterPayload, applyMixins } from '../utils/helpers';
-import { Poll } from '../updates/';
+import { TelegramPoll, TelegramUpdate } from '../telegram-interfaces'
+import { Telegram } from '../telegram'
+import { filterPayload, applyMixins } from '../utils/helpers'
+import { Poll } from '../updates/'
 
 interface PollContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramPoll;
-  updateId: number;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramPoll
+  updateId: number
 }
 
 class PollContext extends Context {
-  public payload: TelegramPoll;
+  public payload: TelegramPoll
 
   constructor(options: PollContextOptions) {
     super({
@@ -23,14 +23,14 @@ class PollContext extends Context {
       updateType: 'poll',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 }
 
 interface PollContext extends Poll { }
-applyMixins(PollContext, [Poll]);
+applyMixins(PollContext, [Poll])
 
 inspectable(PollContext, {
   serialize(poll: PollContext) {
@@ -48,10 +48,10 @@ inspectable(PollContext, {
       explanationEntities: poll.explanationEntities,
       openPeriod: poll.openPeriod,
       closeDate: poll.closeDate
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})
 
-export { PollContext };
+export { PollContext }

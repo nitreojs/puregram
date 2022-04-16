@@ -1,11 +1,11 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Context } from './context';
-import { MessageContext } from './message';
+import { Context } from './context'
+import { MessageContext } from './message'
 
-import { filterPayload, applyMixins } from '../utils/helpers';
+import { filterPayload, applyMixins } from '../utils/helpers'
 
-import { ShippingQuery, Poll } from '../updates/';
+import { ShippingQuery, Poll } from '../updates/'
 
 import {
   TelegramShippingQuery,
@@ -13,9 +13,9 @@ import {
   TelegramMessage,
   InputFile,
   TelegramUpdate
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
-import { Telegram } from '../telegram';
+import { Telegram } from '../telegram'
 
 import {
   SendMessageParams,
@@ -36,21 +36,21 @@ import {
   SendChatActionParams,
   SendDocumentParams,
   AnswerShippingQueryParams
-} from '../methods';
+} from '../methods'
 
-import { Optional } from '../types';
+import { Optional } from '../types'
 
-import { BotCommand } from '../common/structures/bot-command';
+import { BotCommand } from '../common/structures/bot-command'
 
 interface ShippingQueryContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramShippingQuery;
-  updateId: number;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramShippingQuery
+  updateId: number
 }
 
 class ShippingQueryContext extends Context {
-  public payload: TelegramShippingQuery;
+  public payload: TelegramShippingQuery
 
   constructor(options: ShippingQueryContextOptions) {
     super({
@@ -58,9 +58,9 @@ class ShippingQueryContext extends Context {
       updateType: 'shipping_query',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /** Sends message to current chat */
@@ -72,12 +72,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       text
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends photo to current chat */
@@ -89,12 +89,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       photo
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends document to current chat */
@@ -106,12 +106,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       document
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends audio to current chat */
@@ -123,12 +123,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       audio
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video to current chat */
@@ -140,12 +140,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       video
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends animation to current chat */
@@ -157,12 +157,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       animation
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video note to current chat */
@@ -174,12 +174,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       video_note: videoNote
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends voice to current chat */
@@ -191,12 +191,12 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       voice
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends media group to current chat */
@@ -208,14 +208,14 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       media: mediaGroup
-    });
+    })
 
     return response.map(
       (message: TelegramMessage) => new MessageContext({
         telegram: this.telegram,
         payload: message
       })
-    );
+    )
   }
 
   /** Sends location to current chat */
@@ -229,12 +229,12 @@ class ShippingQueryContext extends Context {
       chat_id: this.senderId,
       latitude,
       longitude
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends venue to current chat */
@@ -244,12 +244,12 @@ class ShippingQueryContext extends Context {
     const response = await this.telegram.api.sendVenue({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends contact to current chat */
@@ -259,12 +259,12 @@ class ShippingQueryContext extends Context {
     const response = await this.telegram.api.sendContact({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends poll to current chat */
@@ -274,12 +274,12 @@ class ShippingQueryContext extends Context {
     const response = await this.telegram.api.sendPoll({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Stops poll in current chat */
@@ -291,9 +291,9 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       message_id: messageId
-    });
+    })
 
-    return new Poll(response);
+    return new Poll(response)
   }
 
   /** Sends chat action to current chat */
@@ -305,7 +305,7 @@ class ShippingQueryContext extends Context {
       ...params,
       chat_id: this.senderId,
       action
-    });
+    })
   }
 
   /** Sends sticker */
@@ -317,12 +317,12 @@ class ShippingQueryContext extends Context {
       ...params,
       sticker,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends dice */
@@ -334,21 +334,21 @@ class ShippingQueryContext extends Context {
       ...params,
       emoji,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Gets commands */
   public async getMyCommands(): Promise<BotCommand[]> {
-    const response = await this.telegram.api.getMyCommands();
+    const response = await this.telegram.api.getMyCommands()
 
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
-    );
+    )
   }
 
   /** Replies to shipping queries */
@@ -358,12 +358,12 @@ class ShippingQueryContext extends Context {
     return this.telegram.api.answerShippingQuery({
       ...params,
       shipping_query_id: this.id
-    });
+    })
   }
 }
 
 interface ShippingQueryContext extends ShippingQuery { }
-applyMixins(ShippingQueryContext, [ShippingQuery]);
+applyMixins(ShippingQueryContext, [ShippingQuery])
 
 inspectable(ShippingQueryContext, {
   serialize(query: ShippingQueryContext) {
@@ -373,10 +373,10 @@ inspectable(ShippingQueryContext, {
       senderId: query.senderId,
       invoicePayload: query.invoicePayload,
       shippingAddress: query.shippingAddress
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})
 
-export { ShippingQueryContext };
+export { ShippingQueryContext }

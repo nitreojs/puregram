@@ -4,11 +4,7 @@ import { TelegramChatAdministratorRights } from '../../telegram-interfaces'
 
 /** Represents the rights of an administrator in a chat. */
 export class ChatAdministratorRights {
-  private payload: TelegramChatAdministratorRights
-
-  constructor(payload: TelegramChatAdministratorRights) {
-    this.payload = payload
-  }
+  constructor(private payload: TelegramChatAdministratorRights) { }
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

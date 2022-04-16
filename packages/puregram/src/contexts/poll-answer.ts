@@ -1,15 +1,15 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Context } from './context';
-import { MessageContext } from './message';
+import { Context } from './context'
+import { MessageContext } from './message'
 
-import { applyMixins } from '../utils/helpers';
-import { Telegram } from '../telegram';
+import { applyMixins } from '../utils/helpers'
+import { Telegram } from '../telegram'
 
 import {
   PollAnswer,
   Poll
-} from '../updates/';
+} from '../updates/'
 
 import {
   TelegramBotCommand,
@@ -17,7 +17,7 @@ import {
   TelegramMessage,
   InputFile,
   TelegramUpdate
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
 import {
   SendMessageParams,
@@ -37,21 +37,21 @@ import {
   SendDiceParams,
   SendChatActionParams,
   SendDocumentParams
-} from '../methods';
+} from '../methods'
 
-import { Optional } from '../types';
+import { Optional } from '../types'
 
-import { BotCommand } from '../common/structures/bot-command';
+import { BotCommand } from '../common/structures/bot-command'
 
 interface PollAnswerContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramPollAnswer;
-  updateId: number;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramPollAnswer
+  updateId: number
 }
 
 class PollAnswerContext extends Context {
-  public payload: TelegramPollAnswer;
+  public payload: TelegramPollAnswer
 
   constructor(options: PollAnswerContextOptions) {
     super({
@@ -59,9 +59,9 @@ class PollAnswerContext extends Context {
       updateType: 'poll_answer',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /** Sends message to current chat */
@@ -73,12 +73,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       text
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends photo to current chat */
@@ -90,12 +90,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       photo
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends document to current chat */
@@ -107,12 +107,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       document
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends audio to current chat */
@@ -124,12 +124,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       audio
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video to current chat */
@@ -141,12 +141,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       video
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends animation to current chat */
@@ -158,12 +158,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       animation
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video note to current chat */
@@ -175,12 +175,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       video_note: videoNote
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends voice to current chat */
@@ -192,12 +192,12 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       voice
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends media group to current chat */
@@ -209,14 +209,14 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       media: mediaGroup
-    });
+    })
 
     return response.map(
       (message: TelegramMessage) => new MessageContext({
         telegram: this.telegram,
         payload: message
       })
-    );
+    )
   }
 
   /** Sends location to current chat */
@@ -230,12 +230,12 @@ class PollAnswerContext extends Context {
       chat_id: this.senderId,
       latitude,
       longitude
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends venue to current chat */
@@ -245,12 +245,12 @@ class PollAnswerContext extends Context {
     const response = await this.telegram.api.sendVenue({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends contact to current chat */
@@ -260,12 +260,12 @@ class PollAnswerContext extends Context {
     const response = await this.telegram.api.sendContact({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends poll to current chat */
@@ -275,12 +275,12 @@ class PollAnswerContext extends Context {
     const response = await this.telegram.api.sendPoll({
       ...params,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Stops poll in current chat */
@@ -292,9 +292,9 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       message_id: messageId
-    });
+    })
 
-    return new Poll(response);
+    return new Poll(response)
   }
 
   /** Sends chat action to current chat */
@@ -306,7 +306,7 @@ class PollAnswerContext extends Context {
       ...params,
       chat_id: this.senderId,
       action
-    });
+    })
   }
 
   /** Sends sticker */
@@ -318,12 +318,12 @@ class PollAnswerContext extends Context {
       ...params,
       sticker,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends dice */
@@ -335,26 +335,26 @@ class PollAnswerContext extends Context {
       ...params,
       emoji,
       chat_id: this.senderId
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Gets commands */
   public async getMyCommands(): Promise<BotCommand[]> {
-    const response = await this.telegram.api.getMyCommands();
+    const response = await this.telegram.api.getMyCommands()
 
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
-    );
+    )
   }
 }
 
 interface PollAnswerContext extends PollAnswer { }
-applyMixins(PollAnswerContext, [PollAnswer]);
+applyMixins(PollAnswerContext, [PollAnswer])
 
 inspectable(PollAnswerContext, {
   serialize(answer: PollAnswerContext) {
@@ -363,8 +363,8 @@ inspectable(PollAnswerContext, {
       user: answer.user,
       senderId: answer.senderId,
       optionIds: answer.optionIds
-    };
+    }
   }
-});
+})
 
-export { PollAnswerContext };
+export { PollAnswerContext }

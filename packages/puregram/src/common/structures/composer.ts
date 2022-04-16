@@ -1,6 +1,6 @@
-import { Composer as MiddlewareComposer } from 'middleware-io';
+import { Composer as MiddlewareComposer } from 'middleware-io'
 
-import { Context } from '../../contexts/context';
+import { Context } from '../../contexts/context'
 
 // @ts-expect-error
 export class Composer<T extends Context> extends MiddlewareComposer<T> {
@@ -8,6 +8,6 @@ export class Composer<T extends Context> extends MiddlewareComposer<T> {
    * Create new `Composer` instance
    */
   public static builder<T extends Context>(): Composer<T> {
-    return new Composer<T>();
+    return new Composer<T>()
   }
 }

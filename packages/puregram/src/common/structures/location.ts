@@ -1,32 +1,28 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramLocation } from '../../telegram-interfaces';
+import { TelegramLocation } from '../../telegram-interfaces'
 
 /** This object represents a point on the map. */
 export class Location {
-  private payload: TelegramLocation;
-
-  constructor(payload: TelegramLocation) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramLocation) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Longitude as defined by sender */
   public get longitude(): number {
-    return this.payload.longitude;
+    return this.payload.longitude
   }
 
   /** Latitude as defined by sender */
   public get latitude(): number {
-    return this.payload.latitude;
+    return this.payload.latitude
   }
 
   /** The radius of uncertainty for the location, measured in meters; `0-1500` */
   public get horizontalAccuracy(): number | undefined {
-    return this.payload.horizontal_accuracy;
+    return this.payload.horizontal_accuracy
   }
 
   /**
@@ -35,7 +31,7 @@ export class Location {
    * For active live locations only.
    */
   public get livePeriod(): number | undefined {
-    return this.payload.live_period;
+    return this.payload.live_period
   }
 
   /**
@@ -43,7 +39,7 @@ export class Location {
    * For active live locations only.
    */
   public get heading(): number | undefined {
-    return this.payload.heading;
+    return this.payload.heading
   }
 
   /**
@@ -51,7 +47,7 @@ export class Location {
    * For sent live locations only.
    */
   public get proximityAlertRadius(): number | undefined {
-    return this.payload.proximity_alert_radius;
+    return this.payload.proximity_alert_radius
   }
 }
 
@@ -64,6 +60,6 @@ inspectable(Location, {
       livePeriod: location.livePeriod,
       heading: location.heading,
       proximityAlertRadius: location.proximityAlertRadius
-    };
+    }
   }
-});
+})

@@ -1,22 +1,18 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { User } from './user';
+import { filterPayload } from '../../utils/helpers'
+import { TelegramMessageEntity, TelegramUser } from '../../telegram-interfaces'
 
-import { filterPayload } from '../../utils/helpers';
-import { TelegramMessageEntity, TelegramUser } from '../../telegram-interfaces';
+import { User } from './user'
 
 interface MessageEntityJSON {
-  type: TelegramMessageEntity['type'];
+  type: TelegramMessageEntity['type']
+  offset: number
+  length: number
 
-  offset: number;
-
-  length: number;
-
-  url?: string;
-
-  user?: TelegramUser;
-
-  language?: string;
+  url?: string
+  user?: TelegramUser
+  language?: string
 }
 
 /**
@@ -24,14 +20,10 @@ interface MessageEntityJSON {
  * For example, hashtags, usernames, URLs, etc.
  */
 export class MessageEntity {
-  private payload: TelegramMessageEntity;
-
-  constructor(payload: TelegramMessageEntity) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramMessageEntity) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -47,38 +39,38 @@ export class MessageEntity {
    * (for users without usernames)
    */
   public get type(): TelegramMessageEntity['type'] {
-    return this.payload.type;
+    return this.payload.type
   }
 
   /** Offset in UTF-16 code units to the start of the entity */
   public get offset(): number {
-    return this.payload.offset;
+    return this.payload.offset
   }
 
   /** Length of the entity in UTF-16 code units */
   public get length(): number {
-    return this.payload.length;
+    return this.payload.length
   }
 
   /**
    * For `text_link` only, url that will be opened after user taps on the text
    */
   public get url(): string | undefined {
-    return this.payload.url;
+    return this.payload.url
   }
 
   /** For `text_mention` only, the mentioned user */
   public get user(): User | undefined {
-    const { user } = this.payload;
+    const { user } = this.payload
 
-    if (!user) return undefined;
+    if (!user) return undefined
 
-    return new User(user);
+    return new User(user)
   }
 
   /** For `pre` only, the programming language of the entity text */
   public get language(): string | undefined {
-    return this.payload.language;
+    return this.payload.language
   }
 
   public toJSON(): MessageEntityJSON {
@@ -89,7 +81,7 @@ export class MessageEntity {
       url: this.url,
       user: this.user ? this.user.toJSON() : undefined,
       language: this.language
-    };
+    }
   }
 }
 
@@ -102,8 +94,8 @@ inspectable(MessageEntity, {
       url: entity.url,
       user: entity.user,
       language: entity.language
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

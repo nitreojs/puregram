@@ -6,11 +6,7 @@ import { User } from './user'
 
 /** This object represents a service message about new members invited to a video chat. */
 export class VideoChatParticipantsInvited {
-  public payload: TelegramVideoChatParticipantsInvited
-
-  constructor(options: TelegramVideoChatParticipantsInvited) {
-    this.payload = options
-  }
+  constructor(public payload: TelegramVideoChatParticipantsInvited) { }
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

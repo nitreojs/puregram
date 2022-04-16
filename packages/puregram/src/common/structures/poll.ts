@@ -1,63 +1,59 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { MessageEntity } from './message-entity';
-import { PollOption } from './poll-option';
+import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
-import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { MessageEntity } from './message-entity'
+import { PollOption } from './poll-option'
 
 /** This object contains information about a poll. */
 export class Poll {
-  public payload: TelegramPoll;
-
-  constructor(payload: TelegramPoll) {
-    this.payload = payload;
-  }
+  constructor(public payload: TelegramPoll) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Unique poll identifier */
   public get id(): string {
-    return this.payload.id;
+    return this.payload.id
   }
 
   /** Poll question, `1-300` characters */
   public get question(): string {
-    return this.payload.question;
+    return this.payload.question
   }
 
   /** List of poll options */
   public get options(): PollOption[] {
     return this.payload.options.map(
       (option: TelegramPollOption) => new PollOption(option)
-    );
+    )
   }
 
   /** Total number of users that voted in the poll */
   public get totalVoterCount(): number {
-    return this.payload.total_voter_count;
+    return this.payload.total_voter_count
   }
 
   /** `true`, if the poll is closed */
   public get isClosed(): boolean {
-    return this.payload.is_closed;
+    return this.payload.is_closed
   }
 
   /** `true`, if the poll is anonymous */
   public get isAnonymous(): boolean {
-    return this.payload.is_anonymous;
+    return this.payload.is_anonymous
   }
 
   /** Poll type, currently can be `regular` or `quiz` */
   public get type(): TelegramPoll['type'] {
-    return this.payload.type;
+    return this.payload.type
   }
 
   /** `true`, if the poll allows multiple answers */
   public get allowsMultipleAnswers(): boolean {
-    return this.payload.allows_multiple_answers;
+    return this.payload.allows_multiple_answers
   }
 
   /**
@@ -66,7 +62,7 @@ export class Poll {
    * or to the private chat with the bot.
    */
   public get correctOptionId(): number | undefined {
-    return this.payload.correct_option_id;
+    return this.payload.correct_option_id
   }
 
   /**
@@ -74,7 +70,7 @@ export class Poll {
    * lamp icon in a quiz-style poll, 0-200 characters
    */
   public get explanation(): string | undefined {
-    return this.payload.explanation;
+    return this.payload.explanation
   }
 
   /**
@@ -82,25 +78,25 @@ export class Poll {
    * the explanation
    */
   public get explanationEntities(): MessageEntity[] {
-    const { explanation_entities } = this.payload;
+    const { explanation_entities } = this.payload
 
-    if (!explanation_entities) return [];
+    if (!explanation_entities) return []
 
     return explanation_entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)
-    );
+    )
   }
 
   /** Amount of time in seconds the poll will be active after creation */
   public get openPeriod(): number | undefined {
-    return this.payload.open_period;
+    return this.payload.open_period
   }
 
   /**
    * Point in time (Unix timestamp) when the poll will be automatically closed
    */
   public get closeDate(): number | undefined {
-    return this.payload.close_date;
+    return this.payload.close_date
   }
 }
 
@@ -120,8 +116,8 @@ inspectable(Poll, {
       explanationEntities: poll.explanationEntities,
       openPeriod: poll.openPeriod,
       closeDate: poll.closeDate
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

@@ -1,2 +1,2 @@
-export * from './api';
-export * from './telegram';
+export * from './api'
+export * from './telegram'

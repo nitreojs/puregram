@@ -1,21 +1,17 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramLoginUrl } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { TelegramLoginUrl } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
 /**
  * This object represents a parameter of the inline keyboard button used to
  * automatically authorize a user.
  */
 export class LoginUrl {
-  private payload: TelegramLoginUrl;
-
-  constructor(payload: TelegramLoginUrl) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramLoginUrl) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -30,12 +26,12 @@ export class LoginUrl {
    * Checking authorization.
    */
   public get url(): string {
-    return this.payload.url;
+    return this.payload.url
   }
 
   /** New text of the button in forwarded messages. */
   public get forwardText(): string | undefined {
-    return this.payload.forward_text;
+    return this.payload.forward_text
   }
 
   /**
@@ -46,7 +42,7 @@ export class LoginUrl {
    * details.
    */
   public get botUsername(): string | undefined {
-    return this.payload.bot_username;
+    return this.payload.bot_username
   }
 
   /**
@@ -54,7 +50,7 @@ export class LoginUrl {
    * user.
    */
   public get requestWriteAccess(): boolean | undefined {
-    return this.payload.request_write_access;
+    return this.payload.request_write_access
   }
 }
 
@@ -65,8 +61,8 @@ inspectable(LoginUrl, {
       forwardText: loginUrl.forwardText,
       botUsername: loginUrl.botUsername,
       requestWriteAccess: loginUrl.requestWriteAccess
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

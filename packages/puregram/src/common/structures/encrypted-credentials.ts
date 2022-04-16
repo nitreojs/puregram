@@ -1,6 +1,6 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramEncryptedCredentials } from '../../telegram-interfaces';
+import { TelegramEncryptedCredentials } from '../../telegram-interfaces'
 
 /**
  * Contains data required for decrypting and authenticatin
@@ -8,14 +8,10 @@ import { TelegramEncryptedCredentials } from '../../telegram-interfaces';
  * complete description of the data decryption and authentication processes.
  */
 export class EncryptedCredentials {
-  private payload: TelegramEncryptedCredentials;
-
-  constructor(payload: TelegramEncryptedCredentials) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramEncryptedCredentials) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -24,12 +20,12 @@ export class EncryptedCredentials {
    * and authentication
    */
   public get data(): string {
-    return this.payload.data;
+    return this.payload.data
   }
 
   /** Base64-encoded data hash for data authentication */
   public get hash(): string {
-    return this.payload.hash;
+    return this.payload.hash
   }
 
   /**
@@ -37,7 +33,7 @@ export class EncryptedCredentials {
    * for data decryption
    */
   public get secret(): string {
-    return this.payload.secret;
+    return this.payload.secret
   }
 }
 
@@ -47,6 +43,6 @@ inspectable(EncryptedCredentials, {
       data: credentials.data,
       hash: credentials.hash,
       secret: credentials.secret
-    };
+    }
   }
-});
+})

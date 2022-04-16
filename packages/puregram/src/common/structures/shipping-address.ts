@@ -1,47 +1,43 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramShippingAddress } from '../../telegram-interfaces';
+import { TelegramShippingAddress } from '../../telegram-interfaces'
 
 /** This object represents a shipping address. */
 export class ShippingAddress {
-  private payload: TelegramShippingAddress;
-
-  constructor(payload: TelegramShippingAddress) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramShippingAddress) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** ISO 3166-1 alpha-2 country code */
   public get countryCode(): string {
-    return this.payload.country_code;
+    return this.payload.country_code
   }
 
   /** State, if applicable */
   public get state(): string {
-    return this.payload.state;
+    return this.payload.state
   }
 
   /** City */
   public get city(): string {
-    return this.payload.city;
+    return this.payload.city
   }
 
   /** First line for the address */
   public get firstStreetLine(): string {
-    return this.payload.street_line1;
+    return this.payload.street_line1
   }
 
   /** Second line for the address */
   public get secondStreetLine(): string {
-    return this.payload.street_line2;
+    return this.payload.street_line2
   }
 
   /** Address post code */
   public get postCode(): string {
-    return this.payload.post_code;
+    return this.payload.post_code
   }
 }
 
@@ -54,6 +50,6 @@ inspectable(ShippingAddress, {
       firstStreetLine: address.firstStreetLine,
       secondStreetLine: address.secondStreetLine,
       postCode: address.postCode
-    };
+    }
   }
-});
+})

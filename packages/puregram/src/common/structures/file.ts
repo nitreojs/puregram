@@ -1,24 +1,20 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramFile } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { TelegramFile } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
 export class File {
-  private payload: TelegramFile;
-
-  constructor(payload: TelegramFile) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramFile) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
   public get fileId(): string {
-    return this.payload.file_id;
+    return this.payload.file_id
   }
 
   /**
@@ -26,12 +22,12 @@ export class File {
    * time and for different bots. Can't be used to download or reuse the file.
    */
   public get fileUniqueId(): string {
-    return this.payload.file_unique_id;
+    return this.payload.file_unique_id
   }
 
   /** File size, if known */
   public get fileSize(): number | undefined {
-    return this.payload.file_size;
+    return this.payload.file_size
   }
 
   /**
@@ -40,7 +36,7 @@ export class File {
    * file.
    */
   public get filePath(): string | undefined {
-    return this.payload.file_path;
+    return this.payload.file_path
   }
 }
 
@@ -51,8 +47,8 @@ inspectable(File, {
       fileUniqueId: file.fileUniqueId,
       fileSize: file.fileSize,
       filePath: file.filePath
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

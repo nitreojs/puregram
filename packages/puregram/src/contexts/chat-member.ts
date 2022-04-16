@@ -1,10 +1,10 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
 import {
   BotCommand,
   ChatMemberUpdated,
   Poll
-} from '../common/structures';
+} from '../common/structures'
 
 import {
   TelegramBotCommand,
@@ -13,7 +13,7 @@ import {
   TelegramMessage,
   InputFile,
   TelegramUpdate
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
 import {
   SendAnimationParams,
@@ -34,23 +34,23 @@ import {
   SendVideoParams,
   SendVoiceParams,
   StopPollParams
-} from '../methods';
+} from '../methods'
 
-import { Telegram } from '../telegram';
+import { Telegram } from '../telegram'
 
-import { Optional, UpdateName } from '../types';
+import { Optional, UpdateName } from '../types'
 
-import { applyMixins } from '../utils/helpers';
+import { applyMixins } from '../utils/helpers'
 
-import { Context } from './context';
-import { MessageContext } from './message';
+import { Context } from './context'
+import { MessageContext } from './message'
 
 interface ChatMemberContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramChatMemberUpdated;
-  updateId: number;
-  type?: UpdateName;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramChatMemberUpdated
+  updateId: number
+  type?: UpdateName
 }
 
 class ChatMemberContext extends Context {
@@ -62,49 +62,49 @@ class ChatMemberContext extends Context {
       updateType: options.type ?? 'chat_member',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /** Sender's ID */
   public get senderId(): number {
-    return this.from.id;
+    return this.from.id
   }
 
   /** Chat ID */
   public get chatId(): number {
-    return this.chat.id;
+    return this.chat.id
   }
 
   /** Chat type */
   public get chatType(): TelegramChat['type'] | undefined {
-    return this.chat.type;
+    return this.chat.type
   }
 
   /** Is this chat a private one? */
   public get isPM(): boolean {
-    return this.chatType === 'private';
+    return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
   public get isGroup(): boolean {
-    return this.chatType === 'group';
+    return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
   public get isSupergroup(): boolean {
-    return this.chatType === 'supergroup';
+    return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
   public get isChannel(): boolean {
-    return this.chatType === 'channel';
+    return this.chatType === 'channel'
   }
 
   /** Does this update have `invite_link` property? */
   public get hasInviteLink(): boolean {
-    return this.inviteLink !== undefined;
+    return this.inviteLink !== undefined
   }
 
   /** Sends message to current chat */
@@ -116,12 +116,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       text
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends photo to current chat */
@@ -133,12 +133,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       photo
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends document to current chat */
@@ -150,12 +150,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       document
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends audio to current chat */
@@ -167,12 +167,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       audio
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video to current chat */
@@ -184,12 +184,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       video
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends animation to current chat */
@@ -201,12 +201,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       animation
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends video note to current chat */
@@ -218,12 +218,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       video_note: videoNote
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends voice to current chat */
@@ -235,12 +235,12 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       voice
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends media group to current chat */
@@ -252,14 +252,14 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       media: mediaGroup
-    });
+    })
 
     return response.map(
       (message: TelegramMessage) => new MessageContext({
         telegram: this.telegram,
         payload: message
       })
-    );
+    )
   }
 
   /** Sends location to current chat */
@@ -273,12 +273,12 @@ class ChatMemberContext extends Context {
       chat_id: this.chatId || this.senderId || 0,
       latitude,
       longitude
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends invoice to current user */
@@ -286,12 +286,12 @@ class ChatMemberContext extends Context {
     const response = await this.telegram.api.sendInvoice({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends venue to current chat */
@@ -301,12 +301,12 @@ class ChatMemberContext extends Context {
     const response = await this.telegram.api.sendVenue({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends contact to current chat */
@@ -316,12 +316,12 @@ class ChatMemberContext extends Context {
     const response = await this.telegram.api.sendContact({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends poll to current chat */
@@ -331,12 +331,12 @@ class ChatMemberContext extends Context {
     const response = await this.telegram.api.sendPoll({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Stops poll in current chat */
@@ -348,9 +348,9 @@ class ChatMemberContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       message_id: messageId
-    });
+    })
 
-    return new Poll(response);
+    return new Poll(response)
   }
 
   /** Sends chat action to current chat */
@@ -358,7 +358,7 @@ class ChatMemberContext extends Context {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
       action
-    });
+    })
   }
 
   /** Sends sticker */
@@ -370,12 +370,12 @@ class ChatMemberContext extends Context {
       ...params,
       sticker,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends dice */
@@ -387,26 +387,26 @@ class ChatMemberContext extends Context {
       ...params,
       emoji,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Gets commands */
   public async getMyCommands(): Promise<BotCommand[]> {
-    const response = await this.telegram.api.getMyCommands();
+    const response = await this.telegram.api.getMyCommands()
 
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
-    );
+    )
   }
 }
 
 interface ChatMemberContext extends ChatMemberUpdated { }
-applyMixins(ChatMemberContext, [ChatMemberUpdated]);
+applyMixins(ChatMemberContext, [ChatMemberUpdated])
 
 inspectable(ChatMemberContext, {
   serialize(context: ChatMemberContext) {
@@ -418,8 +418,8 @@ inspectable(ChatMemberContext, {
       newChatMember: context.newChatMember,
       date: context.date,
       inviteLink: context.inviteLink
-    };
+    }
   }
-});
+})
 
-export { ChatMemberContext };
+export { ChatMemberContext }

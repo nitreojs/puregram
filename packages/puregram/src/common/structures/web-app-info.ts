@@ -4,11 +4,7 @@ import { TelegramWebAppInfo } from '../../telegram-interfaces'
 
 /** Contains information about a Web App. */
 export class WebAppInfo {
-  private payload: TelegramWebAppInfo
-
-  constructor(payload: TelegramWebAppInfo) {
-    this.payload = payload
-  }
+  constructor(private payload: TelegramWebAppInfo) { }
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

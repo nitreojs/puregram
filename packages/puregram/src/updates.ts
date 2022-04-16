@@ -59,6 +59,7 @@ const rawEvents: [UpdateName, Constructor<any>][] = [
   ['video_chat_started', Contexts.VideoChatStartedContext],
   ['video_chat_ended', Contexts.VideoChatEndedContext],
   ['video_chat_participants_invited', Contexts.VideoChatParticipantsInvitedContext],
+  ['web_app_data', Contexts.WebAppDataContext],
   ['chat_join_request', Contexts.ChatJoinRequestContext]
 ]
 

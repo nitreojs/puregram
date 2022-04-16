@@ -1,43 +1,39 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramUser } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { TelegramUser } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
 /** This object represents a Telegram user or bot. */
 export class User {
-  private payload: TelegramUser;
-
-  constructor(payload: TelegramUser) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramUser) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Unique identifier for this user or bot */
   public get id(): number {
-    return Number(this.payload.id);
+    return Number(this.payload.id)
   }
 
   /** `true`, if this user is a bot */
   public get isBot(): boolean {
-    return this.payload.is_bot;
+    return this.payload.is_bot
   }
 
   /** User's or bot's first name */
   public get firstName(): string {
-    return this.payload.first_name;
+    return this.payload.first_name
   }
 
   /** User's or bot's last name */
   public get lastName(): string | undefined {
-    return this.payload.last_name;
+    return this.payload.last_name
   }
 
   /** User's or bot's username */
   public get username(): string | undefined {
-    return this.payload.username;
+    return this.payload.username
   }
 
   /**
@@ -45,7 +41,7 @@ export class User {
    * of the user's language
    */
   public get languageCode(): string | undefined {
-    return this.payload.language_code;
+    return this.payload.language_code
   }
 
   /**
@@ -54,7 +50,7 @@ export class User {
    * Returned only in `getMe`.
    */
   public get canJoinGroups(): boolean | undefined {
-    return this.payload.can_join_groups;
+    return this.payload.can_join_groups
   }
 
   /**
@@ -63,7 +59,7 @@ export class User {
    * Returned only in `getMe`.
    */
   public get canReadAllGroupMessages(): boolean | undefined {
-    return this.payload.can_read_all_group_messages;
+    return this.payload.can_read_all_group_messages
   }
 
   /**
@@ -72,7 +68,7 @@ export class User {
    * Returned only in `getMe`.
    */
   public get supportsInlineQueries(): boolean | undefined {
-    return this.payload.supports_inline_queries;
+    return this.payload.supports_inline_queries
   }
 
   public toJSON(): TelegramUser {
@@ -86,7 +82,7 @@ export class User {
       can_join_groups: this.canJoinGroups,
       can_read_all_group_messages: this.canReadAllGroupMessages,
       supports_inline_queries: this.supportsInlineQueries
-    };
+    }
   }
 }
 
@@ -102,8 +98,8 @@ inspectable(User, {
       canJoinGroups: user.canJoinGroups,
       canReadAllGroupMessages: user.canReadAllGroupMessages,
       supportsInlineQueries: user.supportsInlineQueries
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

@@ -1,21 +1,17 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { TelegramChatPermissions } from '../../telegram-interfaces';
-import { filterPayload } from '../../utils/helpers';
+import { TelegramChatPermissions } from '../../telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
 
 /**
  * Describes actions that a non-administrator user is allowed to take in a
  * chat.
  */
 export class ChatPermissions {
-  private payload: TelegramChatPermissions;
-
-  constructor(payload: TelegramChatPermissions) {
-    this.payload = payload;
-  }
+  constructor(private payload: TelegramChatPermissions) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /**
@@ -23,7 +19,7 @@ export class ChatPermissions {
    * and venues
    */
   public get canSendMessages(): boolean | undefined {
-    return this.payload.can_send_messages;
+    return this.payload.can_send_messages
   }
 
   /**
@@ -31,14 +27,14 @@ export class ChatPermissions {
    * video notes and voice notes, implies `can_send_messages`
    */
   public get canSendMediaMessages(): boolean | undefined {
-    return this.payload.can_send_media_messages;
+    return this.payload.can_send_media_messages
   }
 
   /**
    * `true`, if the user is allowed to send polls, implies `can_send_messages`
    */
   public get canSendPolls(): boolean | undefined {
-    return this.payload.can_send_polls;
+    return this.payload.can_send_polls
   }
 
   /**
@@ -46,7 +42,7 @@ export class ChatPermissions {
    * inline bots, implies `can_send_media_messages`
    */
   public get canSendOtherMessages(): boolean | undefined {
-    return this.payload.can_send_other_messages;
+    return this.payload.can_send_other_messages
   }
 
   /**
@@ -54,7 +50,7 @@ export class ChatPermissions {
    * implies `can_send_media_messages`
    */
   public get canAddWebPagePreviews(): boolean | undefined {
-    return this.payload.can_add_web_page_previews;
+    return this.payload.can_add_web_page_previews
   }
 
   /**
@@ -62,12 +58,12 @@ export class ChatPermissions {
    * settings. Ignored in public supergroups
    */
   public get canChangeInfo(): boolean | undefined {
-    return this.payload.can_change_info;
+    return this.payload.can_change_info
   }
 
   /** `true`, if the user is allowed to invite new users to the chat */
   public get canInviteUsers(): boolean | undefined {
-    return this.payload.can_invite_users;
+    return this.payload.can_invite_users
   }
 
   /**
@@ -75,7 +71,7 @@ export class ChatPermissions {
    * supergroups
    */
   public get canPinMessages(): boolean | undefined {
-    return this.payload.can_pin_messages;
+    return this.payload.can_pin_messages
   }
 }
 
@@ -90,8 +86,8 @@ inspectable(ChatPermissions, {
       canChangeInfo: permissions.canChangeInfo,
       canInviteUsers: permissions.canInviteUsers,
       canPinMessages: permissions.canPinMessages
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

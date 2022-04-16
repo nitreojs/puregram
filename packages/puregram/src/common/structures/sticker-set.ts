@@ -1,18 +1,14 @@
 import { inspectable } from 'inspectable'
 
-import { PhotoSize } from './photo-size'
-
 import { StickerAttachment } from '../attachments'
 
 import { TelegramStickerSet, TelegramSticker } from '../../telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
-export class StickerSet {
-  private payload: TelegramStickerSet
+import { PhotoSize } from './photo-size'
 
-  constructor(payload: TelegramStickerSet) {
-    this.payload = payload
-  }
+export class StickerSet {
+  constructor(private payload: TelegramStickerSet) { }
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

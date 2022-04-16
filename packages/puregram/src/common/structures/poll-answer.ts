@@ -1,34 +1,30 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { User } from './user';
+import { TelegramPollAnswer } from '../../telegram-interfaces'
 
-import { TelegramPollAnswer } from '../../telegram-interfaces';
+import { User } from './user'
 
 /** This object represents an answer of a user in a non-anonymous poll. */
 export class PollAnswer {
-  public payload: TelegramPollAnswer;
-
-  constructor(payload: TelegramPollAnswer) {
-    this.payload = payload;
-  }
+  constructor(public payload: TelegramPollAnswer) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Unique poll identifier */
   public get pollId(): string {
-    return this.payload.poll_id;
+    return this.payload.poll_id
   }
 
   /** The user, who changed the answer to the poll */
   public get user(): User {
-    return new User(this.payload.user);
+    return new User(this.payload.user)
   }
 
   /** Sender ID */
   public get senderId(): number {
-    return this.user.id;
+    return this.user.id
   }
 
   /**
@@ -36,7 +32,7 @@ export class PollAnswer {
    * May be empty if the user retracted their vote.
    */
   public get optionIds(): number[] {
-    return this.payload.option_ids;
+    return this.payload.option_ids
   }
 }
 
@@ -47,6 +43,6 @@ inspectable(PollAnswer, {
       user: answer.user,
       senderId: answer.senderId,
       optionIds: answer.optionIds
-    };
+    }
   }
-});
+})

@@ -1,14 +1,14 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Context } from './context';
+import { Context } from './context'
 
-import { Telegram } from '../telegram';
-import { Message } from '../updates/';
+import { Telegram } from '../telegram'
+import { Message } from '../updates/'
 
 import {
   AttachmentType as AttachmentTypeEnum,
   EntityType
-} from '../enums';
+} from '../enums'
 
 import {
   TelegramInputMedia,
@@ -18,22 +18,22 @@ import {
   TelegramChat,
   InputFile,
   TelegramUpdate
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
 import {
   applyMixins,
   filterPayload,
   isParseable
-} from '../utils/helpers';
+} from '../utils/helpers'
 
 import {
   AttachmentType,
   MessageEventName,
   Optional,
   UpdateName
-} from '../types';
+} from '../types'
 
-import { events } from '../utils/constants';
+import { events } from '../utils/constants'
 
 import {
   EditMessageCaptionParams,
@@ -60,11 +60,11 @@ import {
   SendVoiceParams,
   StopMessageLiveLocationParams,
   StopPollParams
-} from '../methods';
+} from '../methods'
 
-import { Poll } from '../updates/';
-import { BotCommand } from '../common/structures/bot-command';
-import { MessageEntity } from '../common/structures/message-entity';
+import { Poll } from '../updates/'
+import { BotCommand } from '../common/structures/bot-command'
+import { MessageEntity } from '../common/structures/message-entity'
 
 import {
   AnimationAttachment,
@@ -76,19 +76,19 @@ import {
   VideoAttachment,
   VideoNoteAttachment,
   VoiceAttachment
-} from '../common/attachments';
+} from '../common/attachments'
 
 interface MessageContextOptions {
-  telegram: Telegram;
-  update?: TelegramUpdate;
-  payload: TelegramMessage;
-  updateId?: number;
-  type?: UpdateName;
+  telegram: Telegram
+  update?: TelegramUpdate
+  payload: TelegramMessage
+  updateId?: number
+  type?: UpdateName
 }
 
 /** Called when `message` event occurs */
 class MessageContext extends Context {
-  public payload: TelegramMessage;
+  public payload: TelegramMessage
 
   constructor(options: MessageContextOptions) {
     super({
@@ -96,152 +96,152 @@ class MessageContext extends Context {
       updateType: options.type ?? 'message',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /** Sender's ID */
   public get senderId(): number | undefined {
-    return this.from?.id;
+    return this.from?.id
   }
 
   /** Chat ID */
   public get chatId(): number | undefined {
-    return this.chat?.id;
+    return this.chat?.id
   }
 
   /** Chat type */
   public get chatType(): TelegramChat['type'] | undefined {
-    return this.chat?.type;
+    return this.chat?.type
   }
 
   /** Is this chat a private one? */
   public get isPM(): boolean {
-    return this.chatType === 'private';
+    return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
   public get isGroup(): boolean {
-    return this.chatType === 'group';
+    return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
   public get isSupergroup(): boolean {
-    return this.chatType === 'supergroup';
+    return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
   public get isChannel(): boolean {
-    return this.chatType === 'channel';
+    return this.chatType === 'channel'
   }
 
   /** Checks if the message has `dice` property */
   public get hasDice(): boolean {
-    return this.dice !== undefined;
+    return this.dice !== undefined
   }
 
   public get startPayload(): any {
-    if (!this.hasText) return undefined;
+    if (!this.hasText) return undefined
     if (!this.text!.startsWith('/start') || this.text === '/start') {
-      return undefined;
+      return undefined
     }
 
-    let payload: any = this.text!.split(' ')[1];
+    let payload: any = this.text!.split(' ')[1]
 
     if (!Number.isNaN(+payload)) {
-      payload = Number.parseInt(payload, 10);
+      payload = Number.parseInt(payload, 10)
     } else if (isParseable(payload)) {
-      payload = JSON.parse(payload);
+      payload = JSON.parse(payload)
     }
 
-    return payload;
+    return payload
   }
 
   /** Checks if the message has `text` property */
   public get hasText(): boolean {
-    return this.text !== undefined;
+    return this.text !== undefined
   }
 
   /** Checks if the message has `author_signature` property */
   public get hasAuthorSignature(): boolean {
-    return this.authorSignature !== undefined;
+    return this.authorSignature !== undefined
   }
 
   /** Checks if there are any entities (with specified type) */
   public hasEntities(type?: EntityType | MessageEntity['type']): boolean {
-    if (type === undefined) return this.entities.length !== 0;
+    if (type === undefined) return this.entities.length !== 0
 
     return this.entities.some(
       (entity: MessageEntity) => entity.type === type
-    );
+    )
   }
 
   /** Checks if the message has `caption` property */
   public get hasCaption(): boolean {
-    return this.caption !== undefined;
+    return this.caption !== undefined
   }
 
   /** Checks if there are any caption entities (with specified type) */
   public hasCaptionEntities(type?: EntityType | MessageEntity['type']): boolean {
-    if (type === undefined) return this.captionEntities.length !== 0;
+    if (type === undefined) return this.captionEntities.length !== 0
 
     return this.captionEntities.some(
       (entity: MessageEntity) => entity.type === type
-    );
+    )
   }
 
   /** Message attachments */
   public get attachments(): Attachment[] {
-    const attachments: Attachment[] = [];
+    const attachments: Attachment[] = []
 
-    if (this.audio) attachments.push(this.audio);
-    if (this.document) attachments.push(this.document);
-    if (this.animation) attachments.push(this.animation);
-    if (this.photo) attachments.push(new PhotoAttachment(this.photo));
-    if (this.sticker) attachments.push(this.sticker);
-    if (this.video) attachments.push(this.video);
-    if (this.voice) attachments.push(this.voice);
-    if (this.videoNote) attachments.push(this.videoNote);
-    if (this.venue) attachments.push(this.venue);
+    if (this.audio) attachments.push(this.audio)
+    if (this.document) attachments.push(this.document)
+    if (this.animation) attachments.push(this.animation)
+    if (this.photo) attachments.push(new PhotoAttachment(this.photo))
+    if (this.sticker) attachments.push(this.sticker)
+    if (this.video) attachments.push(this.video)
+    if (this.voice) attachments.push(this.voice)
+    if (this.videoNote) attachments.push(this.videoNote)
+    if (this.venue) attachments.push(this.venue)
 
-    return attachments;
+    return attachments
   }
 
   /** Checks if there are attachments */
   public hasAttachments(type?: AttachmentType | AttachmentTypeEnum): boolean {
-    if (type === undefined) return this.attachments.length > 0;
+    if (type === undefined) return this.attachments.length > 0
 
     return this.attachments.some(
       (attachment: Attachment) => attachment.attachmentType === type
-    );
+    )
   }
 
   /** Gets attachments */
-  public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[];
+  public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[];
+  public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): DocumentAttachment[];
+  public getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): DocumentAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): PhotoAttachment[];
+  public getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): PhotoAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): StickerAttachment[];
+  public getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): StickerAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): VideoAttachment[];
+  public getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): VideoAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[];
+  public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[];
-  
-  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[];
-  
+  public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[]
+
+  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
+
   public getAttachments(type?: any): Attachment[] {
-    if (type === undefined) return this.attachments;
+    if (type === undefined) return this.attachments
 
     return this.attachments.filter(
       (attachment: Attachment) => attachment.attachmentType === type
-    );
+    )
   }
 
   /** Is this message an event? */
@@ -249,15 +249,15 @@ class MessageContext extends Context {
     return events.some(
       (event) => Boolean(
         this[
-          event[0] as keyof Message
+        event[0] as keyof Message
         ]
       )
-    );
+    )
   }
 
   /** Event type */
   public get eventType(): MessageEventName | undefined {
-    if (!this.isEvent) return undefined;
+    if (!this.isEvent) return undefined
 
     const value: (
       [keyof Message, MessageEventName] | undefined
@@ -265,39 +265,39 @@ class MessageContext extends Context {
       (event) => {
         const tValue = this[
           event[0] as keyof Message
-        ];
+        ]
 
         if (Array.isArray(tValue)) {
-          return tValue.length !== 0;
+          return tValue.length !== 0
         }
 
-        return tValue !== undefined;
+        return tValue !== undefined
       }
-    );
+    )
 
-    if (value === undefined) return undefined;
+    if (value === undefined) return undefined
 
-    return value[1];
+    return value[1]
   }
 
   /** Is this message a forwarded one? */
   public get isForward(): boolean {
-    return this.forwardMessage !== undefined;
+    return this.forwardMessage !== undefined
   }
 
   /** Does this message have reply message? */
   public get hasReplyMessage(): boolean {
-    return this.replyMessage !== undefined;
+    return this.replyMessage !== undefined
   }
 
   /** Checks if the sent message has `via_bot` property */
   public get hasViaBot(): boolean {
-    return this.viaBot !== undefined;
+    return this.viaBot !== undefined
   }
 
   /** Does this message have start payload? */
   public get hasStartPayload(): boolean {
-    return this.startPayload !== undefined;
+    return this.startPayload !== undefined
   }
 
   /** Sends message to current chat */
@@ -309,12 +309,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       text
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message */
@@ -325,7 +325,7 @@ class MessageContext extends Context {
     return this.send(text, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends photo to current chat */
@@ -337,12 +337,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       photo
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with photo */
@@ -353,7 +353,7 @@ class MessageContext extends Context {
     return this.sendPhoto(photo, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends document to current chat */
@@ -365,12 +365,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       document
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with document */
@@ -381,7 +381,7 @@ class MessageContext extends Context {
     return this.sendDocument(document, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends audio to current chat */
@@ -393,12 +393,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       audio
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with audio */
@@ -409,7 +409,7 @@ class MessageContext extends Context {
     return this.sendAudio(audio, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends video to current chat */
@@ -421,12 +421,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       video
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with video */
@@ -437,7 +437,7 @@ class MessageContext extends Context {
     return this.sendVideo(video, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends animation to current chat */
@@ -449,12 +449,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       animation
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with animation */
@@ -465,7 +465,7 @@ class MessageContext extends Context {
     return this.sendAnimation(animation, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends video note to current chat */
@@ -477,12 +477,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       video_note: videoNote
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with video note */
@@ -493,7 +493,7 @@ class MessageContext extends Context {
     return this.sendVideoNote(videoNote, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends voice to current chat */
@@ -505,12 +505,12 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       voice
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with voice */
@@ -521,7 +521,7 @@ class MessageContext extends Context {
     return this.sendVoice(voice, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends media group to current chat */
@@ -533,14 +533,14 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       media: mediaGroup
-    });
+    })
 
     return response.map(
       (message: TelegramMessage) => new MessageContext({
         telegram: this.telegram,
         payload: message
       })
-    );
+    )
   }
 
   /** Replies to current message with media group */
@@ -551,7 +551,7 @@ class MessageContext extends Context {
     return this.sendMediaGroup(mediaGroup, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends location to current chat */
@@ -565,12 +565,12 @@ class MessageContext extends Context {
       chat_id: this.chatId || this.senderId || 0,
       latitude,
       longitude
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with location */
@@ -582,7 +582,7 @@ class MessageContext extends Context {
     return this.sendLocation(latitude, longitude, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends invoice to current user */
@@ -592,12 +592,12 @@ class MessageContext extends Context {
     const response = await this.telegram.api.sendInvoice({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message live location */
@@ -608,16 +608,16 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Stops current message live location */
@@ -628,14 +628,14 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
-    if (response === true) return true;
+    if (response === true) return true
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends venue to current chat */
@@ -645,12 +645,12 @@ class MessageContext extends Context {
     const response = await this.telegram.api.sendVenue({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with venue */
@@ -660,7 +660,7 @@ class MessageContext extends Context {
     return this.sendVenue({
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends contact to current chat */
@@ -670,12 +670,12 @@ class MessageContext extends Context {
     const response = await this.telegram.api.sendContact({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with contact */
@@ -685,7 +685,7 @@ class MessageContext extends Context {
     return this.sendContact({
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends poll to current chat */
@@ -695,12 +695,12 @@ class MessageContext extends Context {
     const response = await this.telegram.api.sendPoll({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with poll */
@@ -710,7 +710,7 @@ class MessageContext extends Context {
     return this.sendPoll({
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Stops poll in current chat */
@@ -722,9 +722,9 @@ class MessageContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       message_id: messageId
-    });
+    })
 
-    return new Poll(response);
+    return new Poll(response)
   }
 
   /** Sends chat action to current chat */
@@ -732,7 +732,7 @@ class MessageContext extends Context {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
       action
-    });
+    })
   }
 
   /** Deletes current message */
@@ -740,7 +740,7 @@ class MessageContext extends Context {
     return this.telegram.api.deleteMessage({
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
   }
 
   /** Sends sticker */
@@ -752,12 +752,12 @@ class MessageContext extends Context {
       ...params,
       sticker,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends dice */
@@ -769,21 +769,21 @@ class MessageContext extends Context {
       ...params,
       emoji,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Gets commands */
   public async getMyCommands(): Promise<BotCommand[]> {
-    const response = await this.telegram.api.getMyCommands();
+    const response = await this.telegram.api.getMyCommands()
 
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
-    );
+    )
   }
 
   // Edit methods
@@ -798,16 +798,16 @@ class MessageContext extends Context {
       text,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message caption */
@@ -820,16 +820,16 @@ class MessageContext extends Context {
       caption,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message media */
@@ -842,16 +842,16 @@ class MessageContext extends Context {
       media,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message reply markup */
@@ -864,21 +864,21 @@ class MessageContext extends Context {
       reply_markup: replyMarkup,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 }
 
 interface MessageContext extends Message { }
-applyMixins(MessageContext, [Message]);
+applyMixins(MessageContext, [Message])
 
 inspectable(MessageContext, {
   serialize(message: MessageContext) {
@@ -904,10 +904,10 @@ inspectable(MessageContext, {
       venue: message.venue,
       poll: message.poll,
       replyMarkup: message.replyMarkup
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})
 
-export { MessageContext };
+export { MessageContext }

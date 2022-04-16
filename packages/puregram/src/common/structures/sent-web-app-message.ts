@@ -5,11 +5,7 @@ import { filterPayload } from '../../utils/helpers'
 
 /** Contains information about an inline message sent by a Web App on behalf of a user. */
 export class SentWebAppMessage {
-  private payload: TelegramSentWebAppMessage
-
-  constructor(payload: TelegramSentWebAppMessage) {
-    this.payload = payload
-  }
+  constructor(private payload: TelegramSentWebAppMessage) { }
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

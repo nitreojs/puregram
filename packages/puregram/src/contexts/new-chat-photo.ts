@@ -1,12 +1,12 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Context } from './context';
-import { MessageContext } from './message';
+import { Context } from './context'
+import { MessageContext } from './message'
 
-import { User } from '../common/structures/user';
-import { Chat } from '../common/structures/chat';
+import { User } from '../common/structures/user'
+import { Chat } from '../common/structures/chat'
 
-import { Telegram } from '../telegram';
+import { Telegram } from '../telegram'
 
 import {
   TelegramBotCommand,
@@ -17,7 +17,7 @@ import {
   TelegramChat,
   InputFile,
   TelegramUpdate
-} from '../telegram-interfaces';
+} from '../telegram-interfaces'
 
 import {
   SendMessageParams,
@@ -44,23 +44,23 @@ import {
   SendInvoiceParams,
   SendDocumentParams,
   SendChatActionParams
-} from '../methods';
+} from '../methods'
 
-import { Optional } from '../types';
+import { Optional } from '../types'
 
-import { Poll } from '../updates/';
-import { BotCommand } from '../common/structures/bot-command';
-import { PhotoSize } from '../common/structures/photo-size';
+import { Poll } from '../updates/'
+import { BotCommand } from '../common/structures/bot-command'
+import { PhotoSize } from '../common/structures/photo-size'
 
 interface NewChatPhotoContextOptions {
-  telegram: Telegram;
-  update: TelegramUpdate;
-  payload: TelegramMessage;
-  updateId: number;
+  telegram: Telegram
+  update: TelegramUpdate
+  payload: TelegramMessage
+  updateId: number
 }
 
 class NewChatPhotoContext extends Context {
-  public payload: TelegramMessage;
+  public payload: TelegramMessage
 
   constructor(options: NewChatPhotoContextOptions) {
     super({
@@ -68,79 +68,79 @@ class NewChatPhotoContext extends Context {
       updateType: 'new_chat_photo',
       updateId: options.updateId,
       update: options.update
-    });
+    })
 
-    this.payload = options.payload;
+    this.payload = options.payload
   }
 
   /** Unique message identifier inside this chat */
   public get id(): number {
-    return this.payload.message_id;
+    return this.payload.message_id
   }
 
   /** Sender, empty for messages sent to channels */
   public get from(): User | undefined {
-    const { from } = this.payload;
+    const { from } = this.payload
 
-    if (!from) return undefined;
+    if (!from) return undefined
 
-    return new User(from);
+    return new User(from)
   }
 
   /** Sender's ID */
   public get senderId(): number | undefined {
-    return this.from?.id;
+    return this.from?.id
   }
 
   /** Date the message was sent in Unix time */
   public get createdAt(): number {
-    return this.payload.date;
+    return this.payload.date
   }
 
   /** Conversation the message belongs to */
   public get chat(): Chat | undefined {
-    const { chat } = this.payload;
+    const { chat } = this.payload
 
-    if (!chat) return undefined;
+    if (!chat) return undefined
 
-    return new Chat(chat);
+    return new Chat(chat)
   }
 
   /** Chat ID */
   public get chatId(): number | undefined {
-    return this.chat?.id;
+    return this.chat?.id
   }
 
   /** Chat type */
   public get chatType(): TelegramChat['type'] | undefined {
-    return this.chat?.type;
+    return this.chat?.type
   }
 
   /** Is this chat a private one? */
   public get isPM(): boolean {
-    return this.chatType === 'private';
+    return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
   public get isGroup(): boolean {
-    return this.chatType === 'group';
+    return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
   public get isSupergroup(): boolean {
-    return this.chatType === 'supergroup';
+    return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
   public get isChannel(): boolean {
-    return this.chatType === 'channel';
+    return this.chatType === 'channel'
   }
 
   /** New chat photo */
   public get eventPhoto(): PhotoSize[] {
     return this.payload.new_chat_photo!.map(
       (size: TelegramPhotoSize) => new PhotoSize(size)
-    );
+    )
   }
 
   /** Sends message to current chat */
@@ -152,12 +152,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       text
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message */
@@ -168,7 +168,7 @@ class NewChatPhotoContext extends Context {
     return this.send(text, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends photo to current chat */
@@ -180,12 +180,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       photo
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with photo */
@@ -196,7 +196,7 @@ class NewChatPhotoContext extends Context {
     return this.sendPhoto(photo, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends document to current chat */
@@ -208,12 +208,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       document
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with document */
@@ -224,7 +224,7 @@ class NewChatPhotoContext extends Context {
     return this.sendDocument(document, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends audio to current chat */
@@ -236,12 +236,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       audio
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with audio */
@@ -252,7 +252,7 @@ class NewChatPhotoContext extends Context {
     return this.sendAudio(audio, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends video to current chat */
@@ -264,12 +264,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       video
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with video */
@@ -280,7 +280,7 @@ class NewChatPhotoContext extends Context {
     return this.sendVideo(video, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends animation to current chat */
@@ -292,12 +292,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       animation
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with animation */
@@ -308,7 +308,7 @@ class NewChatPhotoContext extends Context {
     return this.sendAnimation(animation, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends video note to current chat */
@@ -320,12 +320,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       video_note: videoNote
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with video note */
@@ -336,7 +336,7 @@ class NewChatPhotoContext extends Context {
     return this.sendVideoNote(videoNote, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends voice to current chat */
@@ -348,12 +348,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       voice
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with voice */
@@ -364,7 +364,7 @@ class NewChatPhotoContext extends Context {
     return this.sendVoice(voice, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends media group to current chat */
@@ -376,14 +376,14 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       media: mediaGroup
-    });
+    })
 
     return response.map(
       (message: TelegramMessage) => new MessageContext({
         telegram: this.telegram,
         payload: message
       })
-    );
+    )
   }
 
   /** Replies to current message with media group */
@@ -394,7 +394,7 @@ class NewChatPhotoContext extends Context {
     return this.sendMediaGroup(mediaGroup, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends location to current chat */
@@ -408,12 +408,12 @@ class NewChatPhotoContext extends Context {
       chat_id: this.chatId || this.senderId || 0,
       latitude,
       longitude
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with location */
@@ -425,7 +425,7 @@ class NewChatPhotoContext extends Context {
     return this.sendLocation(latitude, longitude, {
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends invoice to current user */
@@ -433,12 +433,12 @@ class NewChatPhotoContext extends Context {
     const response = await this.telegram.api.sendInvoice({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message live location */
@@ -449,16 +449,16 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Stops current message live location */
@@ -469,14 +469,14 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
-    if (response === true) return true;
+    if (response === true) return true
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends venue to current chat */
@@ -486,12 +486,12 @@ class NewChatPhotoContext extends Context {
     const response = await this.telegram.api.sendVenue({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with venue */
@@ -501,7 +501,7 @@ class NewChatPhotoContext extends Context {
     return this.sendVenue({
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends contact to current chat */
@@ -511,12 +511,12 @@ class NewChatPhotoContext extends Context {
     const response = await this.telegram.api.sendContact({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with contact */
@@ -526,7 +526,7 @@ class NewChatPhotoContext extends Context {
     return this.sendContact({
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Sends poll to current chat */
@@ -536,12 +536,12 @@ class NewChatPhotoContext extends Context {
     const response = await this.telegram.api.sendPoll({
       ...params,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Replies to current message with poll */
@@ -551,7 +551,7 @@ class NewChatPhotoContext extends Context {
     return this.sendPoll({
       ...params,
       reply_to_message_id: this.id
-    });
+    })
   }
 
   /** Stops poll in current chat */
@@ -563,9 +563,9 @@ class NewChatPhotoContext extends Context {
       ...params,
       chat_id: this.chatId || this.senderId || 0,
       message_id: messageId
-    });
+    })
 
-    return new Poll(response);
+    return new Poll(response)
   }
 
   /** Sends chat action to current chat */
@@ -573,7 +573,7 @@ class NewChatPhotoContext extends Context {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
       action
-    });
+    })
   }
 
   /** Deletes current message */
@@ -581,7 +581,7 @@ class NewChatPhotoContext extends Context {
     return this.telegram.api.deleteMessage({
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
   }
 
   /** Sends sticker */
@@ -593,12 +593,12 @@ class NewChatPhotoContext extends Context {
       ...params,
       sticker,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Sends dice */
@@ -610,21 +610,21 @@ class NewChatPhotoContext extends Context {
       ...params,
       emoji,
       chat_id: this.chatId || this.senderId || 0
-    });
+    })
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Gets commands */
   public async getMyCommands(): Promise<BotCommand[]> {
-    const response = await this.telegram.api.getMyCommands();
+    const response = await this.telegram.api.getMyCommands()
 
     return response.map(
       (command: TelegramBotCommand) => new BotCommand(command)
-    );
+    )
   }
 
   // Edit methods
@@ -639,16 +639,16 @@ class NewChatPhotoContext extends Context {
       text,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message caption */
@@ -661,16 +661,16 @@ class NewChatPhotoContext extends Context {
       caption,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message media */
@@ -683,16 +683,16 @@ class NewChatPhotoContext extends Context {
       media,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 
   /** Edits current message reply markup */
@@ -705,16 +705,16 @@ class NewChatPhotoContext extends Context {
       reply_markup: replyMarkup,
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
-    });
+    })
 
     if (response === true) {
-      return true;
+      return true
     }
 
     return new MessageContext({
       telegram: this.telegram,
       payload: response
-    });
+    })
   }
 }
 
@@ -729,8 +729,8 @@ inspectable(NewChatPhotoContext, {
       chatId: context.chatId,
       chatType: context.chatType,
       eventPhoto: context.eventPhoto
-    };
+    }
   }
-});
+})
 
-export { NewChatPhotoContext };
+export { NewChatPhotoContext }

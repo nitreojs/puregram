@@ -44,11 +44,7 @@ import { filterPayload } from '../utils/helpers'
 
 /** This object represents a message. */
 export class Message {
-  public payload: TelegramMessage
-
-  constructor(payload: TelegramMessage) {
-    this.payload = payload
-  }
+  constructor(public payload: TelegramMessage) { }
 
   public get [Symbol.toStringTag](): string {
     return this.constructor.name

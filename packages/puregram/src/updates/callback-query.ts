@@ -1,9 +1,9 @@
-import { inspectable } from 'inspectable';
+import { inspectable } from 'inspectable'
 
-import { Message } from './message';
-import { TelegramCallbackQuery } from '../telegram-interfaces';
-import { User } from '../common/structures/user';
-import { filterPayload } from '../utils/helpers';
+import { Message } from './message'
+import { TelegramCallbackQuery } from '../telegram-interfaces'
+import { User } from '../common/structures/user'
+import { filterPayload } from '../utils/helpers'
 
 /**
  * This object represents an incoming callback query from a callback button in
@@ -14,29 +14,25 @@ import { filterPayload } from '../utils/helpers';
  * Exactly one of the fields `data` or `game_short_name` will be present.
  */
 export class CallbackQuery {
-  public payload: TelegramCallbackQuery;
-
-  constructor(payload: TelegramCallbackQuery) {
-    this.payload = payload;
-  }
+  constructor(public payload: TelegramCallbackQuery) { }
 
   public get [Symbol.toStringTag](): string {
-    return this.constructor.name;
+    return this.constructor.name
   }
 
   /** Unique identifier for this query */
   public get id(): string {
-    return this.payload.id;
+    return this.payload.id
   }
 
   /** Sender */
   public get from(): User {
-    return new User(this.payload.from);
+    return new User(this.payload.from)
   }
 
   /** Sender ID */
   public get senderId(): number {
-    return this.from.id;
+    return this.from.id
   }
 
   /**
@@ -45,11 +41,11 @@ export class CallbackQuery {
    * if the message is too old
    */
   public get message(): Message | undefined {
-    const { message } = this.payload;
+    const { message } = this.payload
 
-    if (!message) return undefined;
+    if (!message) return undefined
 
-    return new Message(message);
+    return new Message(message)
   }
 
   /**
@@ -57,7 +53,7 @@ export class CallbackQuery {
    * that originated the query.
    */
   public get inlineMessageId(): string | undefined {
-    return this.payload.inline_message_id;
+    return this.payload.inline_message_id
   }
 
   /**
@@ -65,7 +61,7 @@ export class CallbackQuery {
    * with the callback button was sent. Useful for high scores in games.
    */
   public get chatInstance(): string {
-    return this.payload.chat_instance;
+    return this.payload.chat_instance
   }
 
   /**
@@ -73,7 +69,7 @@ export class CallbackQuery {
    * Be aware that a bad client can send arbitrary data in this field.
    */
   public get data(): string | undefined {
-    return this.payload.data;
+    return this.payload.data
   }
 
   /**
@@ -81,7 +77,7 @@ export class CallbackQuery {
    * serves as the unique identifier for the game
    */
   public get gameShortName(): string | undefined {
-    return this.payload.game_short_name;
+    return this.payload.game_short_name
   }
 }
 
@@ -96,8 +92,8 @@ inspectable(CallbackQuery, {
       chatInstance: query.chatInstance,
       data: query.data,
       gameShortName: query.gameShortName
-    };
+    }
 
-    return filterPayload(payload);
+    return filterPayload(payload)
   }
-});
+})

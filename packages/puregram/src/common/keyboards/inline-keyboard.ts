@@ -95,10 +95,11 @@ export class InlineKeyboard {
     }
   }
 
+  /** Generate Web App button */
   public static webAppButton(params: WebAppButtonParams): TelegramInlineKeyboardButton {
     return {
       text: params.text,
-      web_app: { url: params.text }
+      web_app: { url: params.url }
     }
   }
 

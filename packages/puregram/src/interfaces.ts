@@ -50,6 +50,14 @@ export interface TelegramOptions {
 
   /** Request headers */
   apiHeaders?: Record<string, string>
+
+  /**
+   * Should we use test datacenter?
+   * (It adds `/test` after the `/bot<token>` in the API path)
+   * 
+   * @default false
+   */
+  useTestDc?: boolean
 }
 
 export interface ApiResponseOk {

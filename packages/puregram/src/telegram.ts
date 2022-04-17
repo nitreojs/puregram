@@ -141,7 +141,7 @@ export class Telegram {
     method: ApiMethod,
     params: Record<string, any> | FormData
   ): Promise<any> {
-    const url: string = `${this.options.apiBaseUrl}${this.options.token}/${method}`
+    const url: string = `${this.options.apiBaseUrl}${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${method}`
     const body: string | FormData = params instanceof FormData ? params : JSON.stringify(params)
 
     // request

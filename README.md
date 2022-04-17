@@ -634,7 +634,9 @@ These packages are created by the `puregram` community _(and not only)_ and are 
 
 ### Non-official ones
 
-_Oh no, it's empty there..._ Maybe _you_ could add _your_ community package here?
+- [`nestjs-puregram`][nestjs-puregram]: `puregram` SDK for [NestJS](https://nestjs.com/)
+
+[nestjs-puregram]: https://github.com/ItzNeviKat/nestjs-puregram
 
 ---
 

@@ -19,9 +19,9 @@
 </p>
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram/tree/master/docs'><b>Docs</b></a>
+  <a href='https://github.com/nitreojs/puregram/tree/lord/docs'><b>Docs</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://github.com/nitreojs/puregram/tree/master/docs/examples'><b>Examples</b></a>
+  <a href='https://github.com/nitreojs/puregram/tree/lord/docs/examples'><b>Examples</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>TypeScript</b></a>
   <span>&nbsp;•&nbsp;</span>
@@ -52,7 +52,7 @@ bot.updates.startPolling();
 
 More examples [here][examples]
 
-[examples]: https://github.com/nitreojs/puregram/tree/master/docs/examples
+[examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples
 
 ---
 
@@ -161,7 +161,7 @@ More webhook examples are available [here][webhook-examples]
 [getting-updates]: https://core.telegram.org/bots/api#getting-updates
 [getUpdates]: https://core.telegram.org/bots/api#getupdates
 [setWebhook]: https://core.telegram.org/bots/api#setwebhook
-[webhook-examples]: https://github.com/nitreojs/puregram/tree/master/docs/examples/webhook
+[webhook-examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/webhook
 
 #### Handling updates
 
@@ -296,7 +296,7 @@ context.send(`Imagine using _classes_ for parse mode, *lol*!`, { parse_mode: 'Ma
 
 More markdown examples are available [here][markdown]
 
-[markdown]: https://github.com/nitreojs/puregram/tree/master/docs/examples/markdown
+[markdown]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/markdown
 
 ---
 
@@ -366,7 +366,7 @@ context.send('Look, here\'s a keyboard!', { reply_markup: keyboard });
 
 More keyboards examples are available [here][keyboards]
 
-[keyboards]: https://github.com/nitreojs/puregram/tree/master/docs/examples/keyboards
+[keyboards]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/keyboards
 
 ---
 
@@ -464,7 +464,7 @@ const context = new MessageContext({
 
 Every context is listed [here][contexts]
 
-[contexts]: https://github.com/nitreojs/puregram/tree/master/packages/puregram/src/contexts
+[contexts]: https://github.com/nitreojs/puregram/tree/lord/packages/puregram/src/contexts
 
 ---
 
@@ -626,11 +626,11 @@ These packages are created by the `puregram` community _(and not only)_ and are 
 - [`@puregram/utils`][@utils]: _Almost_ useful utilities
 - [`@puregram/prompt`][@prompt]: Basic prompt system implementation
 
-[@hear]: https://github.com/nitreojs/puregram/tree/master/packages/hear
-[@scenes]: https://github.com/nitreojs/puregram/tree/master/packages/scenes
-[@session]: https://github.com/nitreojs/puregram/tree/master/packages/session
-[@utils]: https://github.com/nitreojs/puregram/tree/master/packages/utils
-[@prompt]: https://github.com/nitreojs/puregram/tree/master/packages/prompt
+[@hear]: https://github.com/nitreojs/puregram/tree/lord/packages/hear
+[@scenes]: https://github.com/nitreojs/puregram/tree/lord/packages/scenes
+[@session]: https://github.com/nitreojs/puregram/tree/lord/packages/session
+[@utils]: https://github.com/nitreojs/puregram/tree/lord/packages/utils
+[@prompt]: https://github.com/nitreojs/puregram/tree/lord/packages/prompt
 
 ### Non-official ones
 

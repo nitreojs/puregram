@@ -3,9 +3,11 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 16.04.2022 18:19:03 MSK
+/// Generation date: 23.04.2022 21:53:06 MSK
 
-import { Readable } from 'stream'; // for Interfaces.InputFile
+import { Readable } from 'stream' // INFO  for Interfaces.InputFile
+
+import { MediaInput } from './media-source'
 
 import {
   Keyboard,
@@ -14,7 +16,7 @@ import {
   InlineKeyboard,
   ForceReply,
   RemoveKeyboard
-} from './common/keyboards';
+} from './common/keyboards'
 
 /**
  * This [object](https://core.telegram.org/bots/api/#available-types) represents an incoming update.  
@@ -24,65 +26,65 @@ export interface TelegramUpdate {
   /**
    * The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using [Webhooks](https://core.telegram.org/bots/api/#setwebhook), since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
    */
-  update_id: number;
+  update_id: number
   /**
    * *Optional*. New incoming message of any kind — text, photo, sticker, etc.
    */
-  message?: TelegramMessage;
+  message?: TelegramMessage
   /**
    * *Optional*. New version of a message that is known to the bot and was edited
    */
-  edited_message?: TelegramMessage;
+  edited_message?: TelegramMessage
   /**
    * *Optional*. New incoming channel post of any kind — text, photo, sticker, etc.
    */
-  channel_post?: TelegramMessage;
+  channel_post?: TelegramMessage
   /**
    * *Optional*. New version of a channel post that is known to the bot and was edited
    */
-  edited_channel_post?: TelegramMessage;
+  edited_channel_post?: TelegramMessage
   /**
    * *Optional*. New incoming [inline](https://core.telegram.org/bots/api/#inline-mode) query
    */
-  inline_query?: TelegramInlineQuery;
+  inline_query?: TelegramInlineQuery
   /**
-   * *Optional*. The result of an [inline](https://core.telegram.org/bots/api/#inline-mode) query that was chosen by a user and sent to their chat partner. Please see our documentation on the [feedback collecting](/bots/inline#collecting-feedback) for details on how to enable these updates for your bot.
+   * *Optional*. The result of an [inline](https://core.telegram.org/bots/api/#inline-mode) query that was chosen by a user and sent to their chat partner. Please see our documentation on the [feedback collecting](https://core.telegram.org/bots/inline#collecting-feedback) for details on how to enable these updates for your bot.
    */
-  chosen_inline_result?: TelegramChosenInlineResult;
+  chosen_inline_result?: TelegramChosenInlineResult
   /**
    * *Optional*. New incoming callback query
    */
-  callback_query?: TelegramCallbackQuery;
+  callback_query?: TelegramCallbackQuery
   /**
    * *Optional*. New incoming shipping query. Only for invoices with flexible price
    */
-  shipping_query?: TelegramShippingQuery;
+  shipping_query?: TelegramShippingQuery
   /**
    * *Optional*. New incoming pre-checkout query. Contains full information about checkout
    */
-  pre_checkout_query?: TelegramPreCheckoutQuery;
+  pre_checkout_query?: TelegramPreCheckoutQuery
   /**
    * *Optional*. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot
    */
-  poll?: TelegramPoll;
+  poll?: TelegramPoll
   /**
    * *Optional*. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
    */
-  poll_answer?: TelegramPollAnswer;
+  poll_answer?: TelegramPollAnswer
   /**
    * *Optional*. The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
    */
-  my_chat_member?: TelegramChatMemberUpdated;
+  my_chat_member?: TelegramChatMemberUpdated
   /**
    * *Optional*. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat\_member” in the list of *allowed\_updates* to receive these updates.
    */
-  chat_member?: TelegramChatMemberUpdated;
+  chat_member?: TelegramChatMemberUpdated
   /**
    * *Optional*. A request to join the chat has been sent. The bot must have the *can\_invite\_users* administrator right in the chat to receive these updates.
    */
-  chat_join_request?: TelegramChatJoinRequest;
+  chat_join_request?: TelegramChatJoinRequest
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -92,41 +94,41 @@ export interface TelegramWebhookInfo {
   /**
    * Webhook URL, may be empty if webhook is not set up
    */
-  url: string;
+  url: string
   /**
    * *True*, if a custom certificate was provided for webhook certificate checks
    */
-  has_custom_certificate: boolean;
+  has_custom_certificate: boolean
   /**
    * Number of updates awaiting delivery
    */
-  pending_update_count: number;
+  pending_update_count: number
   /**
    * *Optional*. Currently used webhook IP address
    */
-  ip_address?: string;
+  ip_address?: string
   /**
    * *Optional*. Unix time for the most recent error that happened when trying to deliver an update via webhook
    */
-  last_error_date?: number;
+  last_error_date?: number
   /**
    * *Optional*. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
    */
-  last_error_message?: string;
+  last_error_message?: string
   /**
    * *Optional*. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
    */
-  last_synchronization_error_date?: number;
+  last_synchronization_error_date?: number
   /**
    * *Optional*. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
    */
-  max_connections?: number;
+  max_connections?: number
   /**
    * *Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*
    */
-  allowed_updates?: string[];
+  allowed_updates?: string[]
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -136,41 +138,41 @@ export interface TelegramUser {
   /**
    * Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  id: number;
+  id: number
   /**
    * *True*, if this user is a bot
    */
-  is_bot: boolean;
+  is_bot: boolean
   /**
    * User's or bot's first name
    */
-  first_name: string;
+  first_name: string
   /**
    * *Optional*. User's or bot's last name
    */
-  last_name?: string;
+  last_name?: string
   /**
    * *Optional*. User's or bot's username
    */
-  username?: string;
+  username?: string
   /**
    * *Optional*. [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag) of the user's language
    */
-  language_code?: string;
+  language_code?: string
   /**
    * *Optional*. *True*, if the bot can be invited to groups. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
-  can_join_groups?: boolean;
+  can_join_groups?: boolean
   /**
    * *Optional*. *True*, if [privacy mode](https://core.telegram.org/bots#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
-  can_read_all_group_messages?: boolean;
+  can_read_all_group_messages?: boolean
   /**
    * *Optional*. *True*, if the bot supports inline queries. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
-  supports_inline_queries?: boolean;
+  supports_inline_queries?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -180,85 +182,85 @@ export interface TelegramChat {
   /**
    * Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  id: number;
+  id: number
   /**
    * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
    */
-  type: 'private' | 'group' | 'supergroup' | 'channel';
+  type: 'private' | 'group' | 'supergroup' | 'channel'
   /**
    * *Optional*. Title, for supergroups, channels and group chats
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Username, for private chats, supergroups and channels if available
    */
-  username?: string;
+  username?: string
   /**
    * *Optional*. First name of the other party in a private chat
    */
-  first_name?: string;
+  first_name?: string
   /**
    * *Optional*. Last name of the other party in a private chat
    */
-  last_name?: string;
+  last_name?: string
   /**
    * *Optional*. Chat photo. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  photo?: TelegramChatPhoto;
+  photo?: TelegramChatPhoto
   /**
    * *Optional*. Bio of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  bio?: string;
+  bio?: string
   /**
    * *Optional*. True, if privacy settings of the other party in the private chat allows to use `tg://user?id=<user_id>` links only in chats with the user. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_private_forwards?: boolean;
+  has_private_forwards?: boolean
   /**
    * *Optional*. Description, for groups, supergroups and channel chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  description?: string;
+  description?: string
   /**
    * *Optional*. Primary invite link, for groups, supergroups and channel chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  invite_link?: string;
+  invite_link?: string
   /**
    * *Optional*. The most recent pinned message (by sending date). Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  pinned_message?: TelegramMessage;
+  pinned_message?: TelegramMessage
   /**
    * *Optional*. Default chat member permissions, for groups and supergroups. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  permissions?: TelegramChatPermissions;
+  permissions?: TelegramChatPermissions
   /**
    * *Optional*. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  slow_mode_delay?: number;
+  slow_mode_delay?: number
   /**
    * *Optional*. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  message_auto_delete_time?: number;
+  message_auto_delete_time?: number
   /**
    * *Optional*. True, if messages from the chat can't be forwarded to other chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_protected_content?: boolean;
+  has_protected_content?: boolean
   /**
    * *Optional*. For supergroups, name of group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  sticker_set_name?: string;
+  sticker_set_name?: string
   /**
    * *Optional*. *True*, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  can_set_sticker_set?: boolean;
+  can_set_sticker_set?: boolean
   /**
    * *Optional*. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  linked_chat_id?: number;
+  linked_chat_id?: number
   /**
    * *Optional*. For supergroups, the location to which the supergroup is connected. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  location?: TelegramChatLocation;
+  location?: TelegramChatLocation
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -268,241 +270,241 @@ export interface TelegramMessage {
   /**
    * Unique message identifier inside this chat
    */
-  message_id: number;
+  message_id: number
   /**
    * *Optional*. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
    */
-  from?: TelegramUser;
+  from?: TelegramUser
   /**
    * *Optional*. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field *from* contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
    */
-  sender_chat?: TelegramChat;
+  sender_chat?: TelegramChat
   /**
    * Date the message was sent in Unix time
    */
-  date: number;
+  date: number
   /**
    * Conversation the message belongs to
    */
-  chat: TelegramChat;
+  chat: TelegramChat
   /**
    * *Optional*. For forwarded messages, sender of the original message
    */
-  forward_from?: TelegramUser;
+  forward_from?: TelegramUser
   /**
    * *Optional*. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
    */
-  forward_from_chat?: TelegramChat;
+  forward_from_chat?: TelegramChat
   /**
    * *Optional*. For messages forwarded from channels, identifier of the original message in the channel
    */
-  forward_from_message_id?: number;
+  forward_from_message_id?: number
   /**
    * *Optional*. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
    */
-  forward_signature?: string;
+  forward_signature?: string
   /**
    * *Optional*. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
    */
-  forward_sender_name?: string;
+  forward_sender_name?: string
   /**
    * *Optional*. For forwarded messages, date the original message was sent in Unix time
    */
-  forward_date?: number;
+  forward_date?: number
   /**
    * *Optional*. True, if the message is a channel post that was automatically forwarded to the connected discussion group
    */
-  is_automatic_forward?: boolean;
+  is_automatic_forward?: boolean
   /**
    * *Optional*. For replies, the original message. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
    */
-  reply_to_message?: TelegramMessage;
+  reply_to_message?: TelegramMessage
   /**
    * *Optional*. Bot through which the message was sent
    */
-  via_bot?: TelegramUser;
+  via_bot?: TelegramUser
   /**
    * *Optional*. Date the message was last edited in Unix time
    */
-  edit_date?: number;
+  edit_date?: number
   /**
    * *Optional*. True, if the message can't be forwarded
    */
-  has_protected_content?: boolean;
+  has_protected_content?: boolean
   /**
    * *Optional*. The unique identifier of a media message group this message belongs to
    */
-  media_group_id?: string;
+  media_group_id?: string
   /**
    * *Optional*. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
    */
-  author_signature?: string;
+  author_signature?: string
   /**
    * *Optional*. For text messages, the actual UTF-8 text of the message, 0-4096 characters
    */
-  text?: string;
+  text?: string
   /**
    * *Optional*. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
    */
-  entities?: TelegramMessageEntity[];
+  entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Message is an animation, information about the animation. For backward compatibility, when this field is set, the *document* field will also be set
    */
-  animation?: TelegramAnimation;
+  animation?: TelegramAnimation
   /**
    * *Optional*. Message is an audio file, information about the file
    */
-  audio?: TelegramAudio;
+  audio?: TelegramAudio
   /**
    * *Optional*. Message is a general file, information about the file
    */
-  document?: TelegramDocument;
+  document?: TelegramDocument
   /**
    * *Optional*. Message is a photo, available sizes of the photo
    */
-  photo?: TelegramPhotoSize[];
+  photo?: TelegramPhotoSize[]
   /**
    * *Optional*. Message is a sticker, information about the sticker
    */
-  sticker?: TelegramSticker;
+  sticker?: TelegramSticker
   /**
    * *Optional*. Message is a video, information about the video
    */
-  video?: TelegramVideo;
+  video?: TelegramVideo
   /**
    * *Optional*. Message is a [video note](https://telegram.org/blog/video-messages-and-telescope), information about the video message
    */
-  video_note?: TelegramVideoNote;
+  video_note?: TelegramVideoNote
   /**
    * *Optional*. Message is a voice message, information about the file
    */
-  voice?: TelegramVoice;
+  voice?: TelegramVoice
   /**
    * *Optional*. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Message is a shared contact, information about the contact
    */
-  contact?: TelegramContact;
+  contact?: TelegramContact
   /**
    * *Optional*. Message is a dice with random value
    */
-  dice?: TelegramDice;
+  dice?: TelegramDice
   /**
    * *Optional*. Message is a game, information about the game. [More about games »](https://core.telegram.org/bots/api/#games)
    */
-  game?: TelegramGame;
+  game?: TelegramGame
   /**
    * *Optional*. Message is a native poll, information about the poll
    */
-  poll?: TelegramPoll;
+  poll?: TelegramPoll
   /**
    * *Optional*. Message is a venue, information about the venue. For backward compatibility, when this field is set, the *location* field will also be set
    */
-  venue?: TelegramVenue;
+  venue?: TelegramVenue
   /**
    * *Optional*. Message is a shared location, information about the location
    */
-  location?: TelegramLocation;
+  location?: TelegramLocation
   /**
    * *Optional*. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
    */
-  new_chat_members?: TelegramUser[];
+  new_chat_members?: TelegramUser[]
   /**
    * *Optional*. A member was removed from the group, information about them (this member may be the bot itself)
    */
-  left_chat_member?: TelegramUser;
+  left_chat_member?: TelegramUser
   /**
    * *Optional*. A chat title was changed to this value
    */
-  new_chat_title?: string;
+  new_chat_title?: string
   /**
    * *Optional*. A chat photo was change to this value
    */
-  new_chat_photo?: TelegramPhotoSize[];
+  new_chat_photo?: TelegramPhotoSize[]
   /**
    * *Optional*. Service message: the chat photo was deleted
    */
-  delete_chat_photo?: boolean;
+  delete_chat_photo?: boolean
   /**
    * *Optional*. Service message: the group has been created
    */
-  group_chat_created?: boolean;
+  group_chat_created?: boolean
   /**
    * *Optional*. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply\_to\_message if someone replies to a very first message in a directly created supergroup.
    */
-  supergroup_chat_created?: boolean;
+  supergroup_chat_created?: boolean
   /**
    * *Optional*. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply\_to\_message if someone replies to a very first message in a channel.
    */
-  channel_chat_created?: boolean;
+  channel_chat_created?: boolean
   /**
    * *Optional*. Service message: auto-delete timer settings changed in the chat
    */
-  message_auto_delete_timer_changed?: TelegramMessageAutoDeleteTimerChanged;
+  message_auto_delete_timer_changed?: TelegramMessageAutoDeleteTimerChanged
   /**
    * *Optional*. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  migrate_to_chat_id?: number;
+  migrate_to_chat_id?: number
   /**
    * *Optional*. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  migrate_from_chat_id?: number;
+  migrate_from_chat_id?: number
   /**
    * *Optional*. Specified message was pinned. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it is itself a reply.
    */
-  pinned_message?: TelegramMessage;
+  pinned_message?: TelegramMessage
   /**
    * *Optional*. Message is an invoice for a [payment](https://core.telegram.org/bots/api/#payments), information about the invoice. [More about payments »](https://core.telegram.org/bots/api/#payments)
    */
-  invoice?: TelegramInvoice;
+  invoice?: TelegramInvoice
   /**
    * *Optional*. Message is a service message about a successful payment, information about the payment. [More about payments »](https://core.telegram.org/bots/api/#payments)
    */
-  successful_payment?: TelegramSuccessfulPayment;
+  successful_payment?: TelegramSuccessfulPayment
   /**
-   * *Optional*. The domain name of the website on which the user has logged in. [More about Telegram Login »](/widgets/login)
+   * *Optional*. The domain name of the website on which the user has logged in. [More about Telegram Login »](https://core.telegram.org/widgets/login)
    */
-  connected_website?: string;
+  connected_website?: string
   /**
    * *Optional*. Telegram Passport data
    */
-  passport_data?: TelegramPassportData;
+  passport_data?: TelegramPassportData
   /**
    * *Optional*. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
    */
-  proximity_alert_triggered?: TelegramProximityAlertTriggered;
+  proximity_alert_triggered?: TelegramProximityAlertTriggered
   /**
    * *Optional*. Service message: video chat scheduled
    */
-  video_chat_scheduled?: TelegramVideoChatScheduled;
+  video_chat_scheduled?: TelegramVideoChatScheduled
   /**
    * *Optional*. Service message: video chat started
    */
-  video_chat_started?: TelegramVideoChatStarted;
+  video_chat_started?: TelegramVideoChatStarted
   /**
    * *Optional*. Service message: video chat ended
    */
-  video_chat_ended?: TelegramVideoChatEnded;
+  video_chat_ended?: TelegramVideoChatEnded
   /**
    * *Optional*. Service message: new participants invited to a video chat
    */
-  video_chat_participants_invited?: TelegramVideoChatParticipantsInvited;
+  video_chat_participants_invited?: TelegramVideoChatParticipantsInvited
   /**
    * *Optional*. Service message: data sent by a Web App
    */
-  web_app_data?: TelegramWebAppData;
+  web_app_data?: TelegramWebAppData
   /**
    * *Optional*. Inline keyboard attached to the message. `login_url` buttons are represented as ordinary `url` buttons.
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -512,9 +514,9 @@ export interface TelegramMessageId {
   /**
    * Unique message identifier
    */
-  message_id: number;
+  message_id: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -524,29 +526,29 @@ export interface TelegramMessageEntity {
   /**
    * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag`), “cashtag” (`$USD`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions))
    */
-  type: 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'code' | 'pre' | 'text_link' | 'text_mention';
+  type: 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'code' | 'pre' | 'text_link' | 'text_mention'
   /**
    * Offset in UTF-16 code units to the start of the entity
    */
-  offset: number;
+  offset: number
   /**
    * Length of the entity in UTF-16 code units
    */
-  length: number;
+  length: number
   /**
    * *Optional*. For “text\_link” only, url that will be opened after user taps on the text
    */
-  url?: string;
+  url?: string
   /**
    * *Optional*. For “text\_mention” only, the mentioned user
    */
-  user?: TelegramUser;
+  user?: TelegramUser
   /**
    * *Optional*. For “pre” only, the programming language of the entity text
    */
-  language?: string;
+  language?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -556,25 +558,25 @@ export interface TelegramPhotoSize {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * Photo width
    */
-  width: number;
+  width: number
   /**
    * Photo height
    */
-  height: number;
+  height: number
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -584,41 +586,41 @@ export interface TelegramAnimation {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * Video width as defined by sender
    */
-  width: number;
+  width: number
   /**
    * Video height as defined by sender
    */
-  height: number;
+  height: number
   /**
    * Duration of the video in seconds as defined by sender
    */
-  duration: number;
+  duration: number
   /**
    * *Optional*. Animation thumbnail as defined by sender
    */
-  thumb?: TelegramPhotoSize;
+  thumb?: TelegramPhotoSize
   /**
    * *Optional*. Original animation filename as defined by sender
    */
-  file_name?: string;
+  file_name?: string
   /**
    * *Optional*. MIME type of the file as defined by sender
    */
-  mime_type?: string;
+  mime_type?: string
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -628,41 +630,41 @@ export interface TelegramAudio {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * Duration of the audio in seconds as defined by sender
    */
-  duration: number;
+  duration: number
   /**
    * *Optional*. Performer of the audio as defined by sender or by audio tags
    */
-  performer?: string;
+  performer?: string
   /**
    * *Optional*. Title of the audio as defined by sender or by audio tags
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Original filename as defined by sender
    */
-  file_name?: string;
+  file_name?: string
   /**
    * *Optional*. MIME type of the file as defined by sender
    */
-  mime_type?: string;
+  mime_type?: string
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
   /**
    * *Optional*. Thumbnail of the album cover to which the music file belongs
    */
-  thumb?: TelegramPhotoSize;
+  thumb?: TelegramPhotoSize
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -672,29 +674,29 @@ export interface TelegramDocument {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * *Optional*. Document thumbnail as defined by sender
    */
-  thumb?: TelegramPhotoSize;
+  thumb?: TelegramPhotoSize
   /**
    * *Optional*. Original filename as defined by sender
    */
-  file_name?: string;
+  file_name?: string
   /**
    * *Optional*. MIME type of the file as defined by sender
    */
-  mime_type?: string;
+  mime_type?: string
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -704,41 +706,41 @@ export interface TelegramVideo {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * Video width as defined by sender
    */
-  width: number;
+  width: number
   /**
    * Video height as defined by sender
    */
-  height: number;
+  height: number
   /**
    * Duration of the video in seconds as defined by sender
    */
-  duration: number;
+  duration: number
   /**
    * *Optional*. Video thumbnail
    */
-  thumb?: TelegramPhotoSize;
+  thumb?: TelegramPhotoSize
   /**
    * *Optional*. Original filename as defined by sender
    */
-  file_name?: string;
+  file_name?: string
   /**
    * *Optional*. Mime type of a file as defined by sender
    */
-  mime_type?: string;
+  mime_type?: string
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -748,29 +750,29 @@ export interface TelegramVideoNote {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * Video width and height (diameter of the video message) as defined by sender
    */
-  length: number;
+  length: number
   /**
    * Duration of the video in seconds as defined by sender
    */
-  duration: number;
+  duration: number
   /**
    * *Optional*. Video thumbnail
    */
-  thumb?: TelegramPhotoSize;
+  thumb?: TelegramPhotoSize
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -780,25 +782,25 @@ export interface TelegramVoice {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * Duration of the audio in seconds as defined by sender
    */
-  duration: number;
+  duration: number
   /**
    * *Optional*. MIME type of the file as defined by sender
    */
-  mime_type?: string;
+  mime_type?: string
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -808,25 +810,25 @@ export interface TelegramContact {
   /**
    * Contact's phone number
    */
-  phone_number: string;
+  phone_number: string
   /**
    * Contact's first name
    */
-  first_name: string;
+  first_name: string
   /**
    * *Optional*. Contact's last name
    */
-  last_name?: string;
+  last_name?: string
   /**
    * *Optional*. Contact's user identifier in Telegram. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  user_id?: number;
+  user_id?: number
   /**
    * *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard)
    */
-  vcard?: string;
+  vcard?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -836,13 +838,13 @@ export interface TelegramDice {
   /**
    * Emoji on which the dice throw animation is based
    */
-  emoji: string;
+  emoji: string
   /**
    * Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji
    */
-  value: number;
+  value: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -852,13 +854,13 @@ export interface TelegramPollOption {
   /**
    * Option text, 1-100 characters
    */
-  text: string;
+  text: string
   /**
    * Number of users that voted for this option
    */
-  voter_count: number;
+  voter_count: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -868,17 +870,17 @@ export interface TelegramPollAnswer {
   /**
    * Unique poll identifier
    */
-  poll_id: string;
+  poll_id: string
   /**
    * The user, who changed the answer to the poll
    */
-  user: TelegramUser;
+  user: TelegramUser
   /**
    * 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote.
    */
-  option_ids: number[];
+  option_ids: number[]
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -888,57 +890,57 @@ export interface TelegramPoll {
   /**
    * Unique poll identifier
    */
-  id: string;
+  id: string
   /**
    * Poll question, 1-300 characters
    */
-  question: string;
+  question: string
   /**
    * List of poll options
    */
-  options: TelegramPollOption[];
+  options: TelegramPollOption[]
   /**
    * Total number of users that voted in the poll
    */
-  total_voter_count: number;
+  total_voter_count: number
   /**
    * *True*, if the poll is closed
    */
-  is_closed: boolean;
+  is_closed: boolean
   /**
    * *True*, if the poll is anonymous
    */
-  is_anonymous: boolean;
+  is_anonymous: boolean
   /**
    * Poll type, currently can be “regular” or “quiz”
    */
-  type: 'regular' | 'quiz';
+  type: 'regular' | 'quiz'
   /**
    * *True*, if the poll allows multiple answers
    */
-  allows_multiple_answers: boolean;
+  allows_multiple_answers: boolean
   /**
    * *Optional*. 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
    */
-  correct_option_id?: number;
+  correct_option_id?: number
   /**
    * *Optional*. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
    */
-  explanation?: string;
+  explanation?: string
   /**
    * *Optional*. Special entities like usernames, URLs, bot commands, etc. that appear in the *explanation*
    */
-  explanation_entities?: TelegramMessageEntity[];
+  explanation_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Amount of time in seconds the poll will be active after creation
    */
-  open_period?: number;
+  open_period?: number
   /**
    * *Optional*. Point in time (Unix timestamp) when the poll will be automatically closed
    */
-  close_date?: number;
+  close_date?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -948,29 +950,29 @@ export interface TelegramLocation {
   /**
    * Longitude as defined by sender
    */
-  longitude: number;
+  longitude: number
   /**
    * Latitude as defined by sender
    */
-  latitude: number;
+  latitude: number
   /**
    * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  horizontal_accuracy?: number;
+  horizontal_accuracy?: number
   /**
    * *Optional*. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
    */
-  live_period?: number;
+  live_period?: number
   /**
    * *Optional*. The direction in which user is moving, in degrees; 1-360. For active live locations only.
    */
-  heading?: number;
+  heading?: number
   /**
    * *Optional*. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
    */
-  proximity_alert_radius?: number;
+  proximity_alert_radius?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -980,49 +982,49 @@ export interface TelegramVenue {
   /**
    * Venue location. Can't be a live location
    */
-  location: TelegramLocation;
+  location: TelegramLocation
   /**
    * Name of the venue
    */
-  title: string;
+  title: string
   /**
    * Address of the venue
    */
-  address: string;
+  address: string
   /**
    * *Optional*. Foursquare identifier of the venue
    */
-  foursquare_id?: string;
+  foursquare_id?: string
   /**
    * *Optional*. Foursquare type of the venue. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
    */
-  foursquare_type?: string;
+  foursquare_type?: string
   /**
    * *Optional*. Google Places identifier of the venue
    */
-  google_place_id?: string;
+  google_place_id?: string
   /**
    * *Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
    */
-  google_place_type?: string;
+  google_place_type?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
- * Contains data sent from a [Web App](/bots/webapps) to the bot.
+ * Contains data sent from a [Web App](https://core.telegram.org/bots/webapps) to the bot.
  */
 export interface TelegramWebAppData {
   /**
    * The data. Be aware that a bad client can send arbitrary data in this field.
    */
-  data: string;
+  data: string
   /**
    * Text of the *web\_app* keyboard button, from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field.
    */
-  button_text: string;
+  button_text: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1032,17 +1034,17 @@ export interface TelegramProximityAlertTriggered {
   /**
    * User that triggered the alert
    */
-  traveler: TelegramUser;
+  traveler: TelegramUser
   /**
    * User that set the alert
    */
-  watcher: TelegramUser;
+  watcher: TelegramUser
   /**
    * The distance between the users
    */
-  distance: number;
+  distance: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1052,9 +1054,9 @@ export interface TelegramMessageAutoDeleteTimerChanged {
   /**
    * New auto-delete time for messages in the chat; in seconds
    */
-  message_auto_delete_time: number;
+  message_auto_delete_time: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1064,9 +1066,9 @@ export interface TelegramVideoChatScheduled {
   /**
    * Point in time (Unix timestamp) when the video chat is supposed to be started by a chat administrator
    */
-  start_date: number;
+  start_date: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1081,9 +1083,9 @@ export interface TelegramVideoChatEnded {
   /**
    * Video chat duration in seconds
    */
-  duration: number;
+  duration: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1093,9 +1095,9 @@ export interface TelegramVideoChatParticipantsInvited {
   /**
    * New members that were invited to the video chat
    */
-  users: TelegramUser[];
+  users: TelegramUser[]
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1105,13 +1107,13 @@ export interface TelegramUserProfilePhotos {
   /**
    * Total number of profile pictures the target user has
    */
-  total_count: number;
+  total_count: number
   /**
    * Requested profile pictures (in up to 4 sizes each)
    */
-  photos: TelegramPhotoSize[][];
+  photos: TelegramPhotoSize[][]
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1123,33 +1125,33 @@ export interface TelegramFile {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * *Optional*. File size in bytes, if known
    */
-  file_size?: number;
+  file_size?: number
   /**
    * *Optional*. File path. Use `https://api.telegram.org/file/bot<token>/<file_path>` to get the file.
    */
-  file_path?: string;
+  file_path?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
- * Contains information about a [Web App](/bots/webapps).
+ * Contains information about a [Web App](https://core.telegram.org/bots/webapps).
  */
 export interface TelegramWebAppInfo {
   /**
-   * An HTTPS URL of a Web App to be opened with additional data as specified in [Initializing Web Apps](/bots/webapps#initializing-web-apps)
+   * An HTTPS URL of a Web App to be opened with additional data as specified in [Initializing Web Apps](https://core.telegram.org/bots/webapps#initializing-web-apps)
    */
-  url: string;
+  url: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1159,27 +1161,27 @@ export interface TelegramReplyKeyboardMarkup {
   /**
    * Array of button rows, each represented by an Array of [KeyboardButton](https://core.telegram.org/bots/api/#keyboardbutton) objects
    */
-  keyboard: TelegramKeyboardButton[][];
+  keyboard: TelegramKeyboardButton[][]
   /**
    * *Optional*. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to *false*, in which case the custom keyboard is always of the same height as the app's standard keyboard.
    */
-  resize_keyboard?: boolean;
+  resize_keyboard?: boolean
   /**
    * *Optional*. Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again. Defaults to *false*.
    */
-  one_time_keyboard?: boolean;
+  one_time_keyboard?: boolean
   /**
    * *Optional*. The placeholder to be shown in the input field when the keyboard is active; 1-64 characters
    */
-  input_field_placeholder?: string;
+  input_field_placeholder?: string
   /**
    * *Optional*. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.  
    * 
    * *Example:* A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
-  selective?: boolean;
+  selective?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1189,25 +1191,25 @@ export interface TelegramKeyboardButton {
   /**
    * Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
    */
-  text: string;
+  text: string
   /**
    * *Optional*. If *True*, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
    */
-  request_contact?: boolean;
+  request_contact?: boolean
   /**
    * *Optional*. If *True*, the user's current location will be sent when the button is pressed. Available in private chats only.
    */
-  request_location?: boolean;
+  request_location?: boolean
   /**
    * *Optional*. If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only.
    */
-  request_poll?: TelegramKeyboardButtonPollType;
+  request_poll?: TelegramKeyboardButtonPollType
   /**
-   * *Optional*. If specified, the described [Web App](/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a “web\_app\_data” service message. Available in private chats only.
+   * *Optional*. If specified, the described [Web App](https://core.telegram.org/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a “web\_app\_data” service message. Available in private chats only.
    */
-  web_app?: TelegramWebAppInfo;
+  web_app?: TelegramWebAppInfo
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1217,9 +1219,9 @@ export interface TelegramKeyboardButtonPollType {
   /**
    * *Optional*. If *quiz* is passed, the user will be allowed to create only polls in the quiz mode. If *regular* is passed, only regular polls will be allowed. Otherwise, the user will be allowed to create a poll of any type.
    */
-  type?: string;
+  type?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1229,15 +1231,15 @@ export interface TelegramReplyKeyboardRemove {
   /**
    * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use *one\_time\_keyboard* in [ReplyKeyboardMarkup](https://core.telegram.org/bots/api/#replykeyboardmarkup))
    */
-  remove_keyboard: boolean;
+  remove_keyboard: boolean
   /**
    * *Optional*. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.  
    * 
    * *Example:* A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
-  selective?: boolean;
+  selective?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1247,9 +1249,9 @@ export interface TelegramInlineKeyboardMarkup {
   /**
    * Array of button rows, each represented by an Array of [InlineKeyboardButton](https://core.telegram.org/bots/api/#inlinekeyboardbutton) objects
    */
-  inline_keyboard: TelegramInlineKeyboardButton[][];
+  inline_keyboard: TelegramInlineKeyboardButton[][]
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1259,49 +1261,49 @@ export interface TelegramInlineKeyboardButton {
   /**
    * Label text on the button
    */
-  text: string;
+  text: string
   /**
    * *Optional*. HTTP or tg:// url to be opened when the button is pressed. Links `tg://user?id=<user_id>` can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings.
    */
-  url?: string;
+  url?: string
   /**
    * *Optional*. Data to be sent in a [callback query](https://core.telegram.org/bots/api/#callbackquery) to the bot when button is pressed, 1-64 bytes
    */
-  callback_data?: string;
+  callback_data?: string
   /**
-   * *Optional*. Description of the [Web App](/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](https://core.telegram.org/bots/api/#answerwebappquery). Available only in private chats between a user and the bot.
+   * *Optional*. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](https://core.telegram.org/bots/api/#answerwebappquery). Available only in private chats between a user and the bot.
    */
-  web_app?: TelegramWebAppInfo;
+  web_app?: TelegramWebAppInfo
   /**
    * *Optional*. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login).
    */
-  login_url?: TelegramLoginUrl;
+  login_url?: TelegramLoginUrl
   /**
    * *Optional*. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. Can be empty, in which case just the bot's username will be inserted.  
    * 
-   * **Note:** This offers an easy way for users to start using your bot in [inline mode](/bots/inline) when they are currently in a private chat with it. Especially useful when combined with [*switch\_pm…*](https://core.telegram.org/bots/api/#answerinlinequery) actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
+   * **Note:** This offers an easy way for users to start using your bot in [inline mode](https://core.telegram.org/bots/inline) when they are currently in a private chat with it. Especially useful when combined with [*switch\_pm…*](https://core.telegram.org/bots/api/#answerinlinequery) actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
    */
-  switch_inline_query?: string;
+  switch_inline_query?: string
   /**
    * *Optional*. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. Can be empty, in which case only the bot's username will be inserted.  
    * 
    * This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
    */
-  switch_inline_query_current_chat?: string;
+  switch_inline_query_current_chat?: string
   /**
    * *Optional*. Description of the game that will be launched when the user presses the button.  
    * 
    * **NOTE:** This type of button **must** always be the first button in the first row.
    */
-  callback_game?: TelegramCallbackGame;
+  callback_game?: TelegramCallbackGame
   /**
    * *Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api/#payments).  
    * 
    * **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages.
    */
-  pay?: boolean;
+  pay?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1317,77 +1319,77 @@ export interface TelegramLoginUrl {
    * 
    * **NOTE:** You **must** always check the hash of the received data to verify the authentication and the integrity of the data as described in [Checking authorization](https://core.telegram.org/widgets/login#checking-authorization).
    */
-  url: string;
+  url: string
   /**
    * *Optional*. New text of the button in forwarded messages.
    */
-  forward_text?: string;
+  forward_text?: string
   /**
    * *Optional*. Username of a bot, which will be used for user authorization. See [Setting up a bot](https://core.telegram.org/widgets/login#setting-up-a-bot) for more details. If not specified, the current bot's username will be assumed. The *url*'s domain must be the same as the domain linked with the bot. See [Linking your domain to the bot](https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot) for more details.
    */
-  bot_username?: string;
+  bot_username?: string
   /**
    * *Optional*. Pass *True* to request the permission for your bot to send messages to the user.
    */
-  request_write_access?: boolean;
+  request_write_access?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
- * This object represents an incoming callback query from a callback button in an [inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating). If the button that originated the query was attached to a message sent by the bot, the field *message* will be present. If the button was attached to a message sent via the bot (in [inline mode](https://core.telegram.org/bots/api/#inline-mode)), the field *inline\_message\_id* will be present. Exactly one of the fields *data* or *game\_short\_name* will be present.
+ * This object represents an incoming callback query from a callback button in an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If the button that originated the query was attached to a message sent by the bot, the field *message* will be present. If the button was attached to a message sent via the bot (in [inline mode](https://core.telegram.org/bots/api/#inline-mode)), the field *inline\_message\_id* will be present. Exactly one of the fields *data* or *game\_short\_name* will be present.
  */
 export interface TelegramCallbackQuery {
   /**
    * Unique identifier for this query
    */
-  id: string;
+  id: string
   /**
    * Sender
    */
-  from: TelegramUser;
+  from: TelegramUser
   /**
    * *Optional*. Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
    */
-  message?: TelegramMessage;
+  message?: TelegramMessage
   /**
    * *Optional*. Identifier of the message sent via the bot in inline mode, that originated the query.
    */
-  inline_message_id?: string;
+  inline_message_id?: string
   /**
    * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in [games](https://core.telegram.org/bots/api/#games).
    */
-  chat_instance: string;
+  chat_instance: string
   /**
    * *Optional*. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.
    */
-  data?: string;
+  data?: string
   /**
    * *Optional*. Short name of a [Game](https://core.telegram.org/bots/api/#games) to be returned, serves as the unique identifier for the game
    */
-  game_short_name?: string;
+  game_short_name?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
- * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](/bots#privacy-mode).
+ * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/bots#privacy-mode).
  */
 export interface TelegramForceReply {
   /**
    * Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'
    */
-  force_reply: boolean;
+  force_reply: boolean
   /**
    * *Optional*. The placeholder to be shown in the input field when the reply is active; 1-64 characters
    */
-  input_field_placeholder?: string;
+  input_field_placeholder?: string
   /**
    * *Optional*. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.
    */
-  selective?: boolean;
+  selective?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1397,21 +1399,21 @@ export interface TelegramChatPhoto {
   /**
    * File identifier of small (160x160) chat photo. This file\_id can be used only for photo download and only for as long as the photo is not changed.
    */
-  small_file_id: string;
+  small_file_id: string
   /**
    * Unique file identifier of small (160x160) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  small_file_unique_id: string;
+  small_file_unique_id: string
   /**
    * File identifier of big (640x640) chat photo. This file\_id can be used only for photo download and only for as long as the photo is not changed.
    */
-  big_file_id: string;
+  big_file_id: string
   /**
    * Unique file identifier of big (640x640) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  big_file_unique_id: string;
+  big_file_unique_id: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1421,41 +1423,41 @@ export interface TelegramChatInviteLink {
   /**
    * The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
    */
-  invite_link: string;
+  invite_link: string
   /**
    * Creator of the link
    */
-  creator: TelegramUser;
+  creator: TelegramUser
   /**
    * *True*, if users joining the chat via the link need to be approved by chat administrators
    */
-  creates_join_request: boolean;
+  creates_join_request: boolean
   /**
    * *True*, if the link is primary
    */
-  is_primary: boolean;
+  is_primary: boolean
   /**
    * *True*, if the link is revoked
    */
-  is_revoked: boolean;
+  is_revoked: boolean
   /**
    * *Optional*. Invite link name
    */
-  name?: string;
+  name?: string
   /**
    * *Optional*. Point in time (Unix timestamp) when the link will expire or has been expired
    */
-  expire_date?: number;
+  expire_date?: number
   /**
    * *Optional*. Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
-  member_limit?: number;
+  member_limit?: number
   /**
    * *Optional*. Number of pending join requests created using this link
    */
-  pending_join_request_count?: number;
+  pending_join_request_count?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1465,49 +1467,49 @@ export interface TelegramChatAdministratorRights {
   /**
    * *True*, if the user's presence in the chat is hidden
    */
-  is_anonymous: boolean;
+  is_anonymous: boolean
   /**
    * *True*, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
-  can_manage_chat: boolean;
+  can_manage_chat: boolean
   /**
    * *True*, if the administrator can delete messages of other users
    */
-  can_delete_messages: boolean;
+  can_delete_messages: boolean
   /**
    * *True*, if the administrator can manage video chats
    */
-  can_manage_video_chats: boolean;
+  can_manage_video_chats: boolean
   /**
    * *True*, if the administrator can restrict, ban or unban chat members
    */
-  can_restrict_members: boolean;
+  can_restrict_members: boolean
   /**
    * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    */
-  can_promote_members: boolean;
+  can_promote_members: boolean
   /**
    * *True*, if the user is allowed to change the chat title, photo and other settings
    */
-  can_change_info: boolean;
+  can_change_info: boolean
   /**
    * *True*, if the user is allowed to invite new users to the chat
    */
-  can_invite_users: boolean;
+  can_invite_users: boolean
   /**
    * *Optional*. *True*, if the administrator can post in the channel; channels only
    */
-  can_post_messages?: boolean;
+  can_post_messages?: boolean
   /**
    * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; channels only
    */
-  can_edit_messages?: boolean;
+  can_edit_messages?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
    */
-  can_pin_messages?: boolean;
+  can_pin_messages?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1517,21 +1519,21 @@ export interface TelegramChatMemberOwner {
   /**
    * The member's status in the chat, always “creator”
    */
-  status: 'creator';
+  status: 'creator'
   /**
    * Information about the user
    */
-  user: TelegramUser;
+  user: TelegramUser
   /**
    * *True*, if the user's presence in the chat is hidden
    */
-  is_anonymous: boolean;
+  is_anonymous: boolean
   /**
    * *Optional*. Custom title for this user
    */
-  custom_title?: string;
+  custom_title?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1541,65 +1543,65 @@ export interface TelegramChatMemberAdministrator {
   /**
    * The member's status in the chat, always “administrator”
    */
-  status: 'administrator';
+  status: 'administrator'
   /**
    * Information about the user
    */
-  user: TelegramUser;
+  user: TelegramUser
   /**
    * *True*, if the bot is allowed to edit administrator privileges of that user
    */
-  can_be_edited: boolean;
+  can_be_edited: boolean
   /**
    * *True*, if the user's presence in the chat is hidden
    */
-  is_anonymous: boolean;
+  is_anonymous: boolean
   /**
    * *True*, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
-  can_manage_chat: boolean;
+  can_manage_chat: boolean
   /**
    * *True*, if the administrator can delete messages of other users
    */
-  can_delete_messages: boolean;
+  can_delete_messages: boolean
   /**
    * *True*, if the administrator can manage video chats
    */
-  can_manage_video_chats: boolean;
+  can_manage_video_chats: boolean
   /**
    * *True*, if the administrator can restrict, ban or unban chat members
    */
-  can_restrict_members: boolean;
+  can_restrict_members: boolean
   /**
    * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    */
-  can_promote_members: boolean;
+  can_promote_members: boolean
   /**
    * *True*, if the user is allowed to change the chat title, photo and other settings
    */
-  can_change_info: boolean;
+  can_change_info: boolean
   /**
    * *True*, if the user is allowed to invite new users to the chat
    */
-  can_invite_users: boolean;
+  can_invite_users: boolean
   /**
    * *Optional*. *True*, if the administrator can post in the channel; channels only
    */
-  can_post_messages?: boolean;
+  can_post_messages?: boolean
   /**
    * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; channels only
    */
-  can_edit_messages?: boolean;
+  can_edit_messages?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
    */
-  can_pin_messages?: boolean;
+  can_pin_messages?: boolean
   /**
    * *Optional*. Custom title for this user
    */
-  custom_title?: string;
+  custom_title?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1609,13 +1611,13 @@ export interface TelegramChatMemberMember {
   /**
    * The member's status in the chat, always “member”
    */
-  status: 'member';
+  status: 'member'
   /**
    * Information about the user
    */
-  user: TelegramUser;
+  user: TelegramUser
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1625,53 +1627,53 @@ export interface TelegramChatMemberRestricted {
   /**
    * The member's status in the chat, always “restricted”
    */
-  status: 'restricted';
+  status: 'restricted'
   /**
    * Information about the user
    */
-  user: TelegramUser;
+  user: TelegramUser
   /**
    * *True*, if the user is a member of the chat at the moment of the request
    */
-  is_member: boolean;
+  is_member: boolean
   /**
    * *True*, if the user is allowed to change the chat title, photo and other settings
    */
-  can_change_info: boolean;
+  can_change_info: boolean
   /**
    * *True*, if the user is allowed to invite new users to the chat
    */
-  can_invite_users: boolean;
+  can_invite_users: boolean
   /**
    * *True*, if the user is allowed to pin messages
    */
-  can_pin_messages: boolean;
+  can_pin_messages: boolean
   /**
    * *True*, if the user is allowed to send text messages, contacts, locations and venues
    */
-  can_send_messages: boolean;
+  can_send_messages: boolean
   /**
    * *True*, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
    */
-  can_send_media_messages: boolean;
+  can_send_media_messages: boolean
   /**
    * *True*, if the user is allowed to send polls
    */
-  can_send_polls: boolean;
+  can_send_polls: boolean
   /**
    * *True*, if the user is allowed to send animations, games, stickers and use inline bots
    */
-  can_send_other_messages: boolean;
+  can_send_other_messages: boolean
   /**
    * *True*, if the user is allowed to add web page previews to their messages
    */
-  can_add_web_page_previews: boolean;
+  can_add_web_page_previews: boolean
   /**
    * Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever
    */
-  until_date: number;
+  until_date: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1681,13 +1683,13 @@ export interface TelegramChatMemberLeft {
   /**
    * The member's status in the chat, always “left”
    */
-  status: 'left';
+  status: 'left'
   /**
    * Information about the user
    */
-  user: TelegramUser;
+  user: TelegramUser
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1697,17 +1699,17 @@ export interface TelegramChatMemberBanned {
   /**
    * The member's status in the chat, always “kicked”
    */
-  status: 'kicked';
+  status: 'kicked'
   /**
    * Information about the user
    */
-  user: TelegramUser;
+  user: TelegramUser
   /**
    * Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever
    */
-  until_date: number;
+  until_date: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1717,29 +1719,29 @@ export interface TelegramChatMemberUpdated {
   /**
    * Chat the user belongs to
    */
-  chat: TelegramChat;
+  chat: TelegramChat
   /**
    * Performer of the action, which resulted in the change
    */
-  from: TelegramUser;
+  from: TelegramUser
   /**
    * Date the change was done in Unix time
    */
-  date: number;
+  date: number
   /**
    * Previous information about the chat member
    */
-  old_chat_member: TelegramChatMember;
+  old_chat_member: TelegramChatMember
   /**
    * New information about the chat member
    */
-  new_chat_member: TelegramChatMember;
+  new_chat_member: TelegramChatMember
   /**
    * *Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
    */
-  invite_link?: TelegramChatInviteLink;
+  invite_link?: TelegramChatInviteLink
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1749,25 +1751,25 @@ export interface TelegramChatJoinRequest {
   /**
    * Chat to which the request was sent
    */
-  chat: TelegramChat;
+  chat: TelegramChat
   /**
    * User that sent the join request
    */
-  from: TelegramUser;
+  from: TelegramUser
   /**
    * Date the request was sent in Unix time
    */
-  date: number;
+  date: number
   /**
    * *Optional*. Bio of the user.
    */
-  bio?: string;
+  bio?: string
   /**
    * *Optional*. Chat invite link that was used by the user to send the join request
    */
-  invite_link?: TelegramChatInviteLink;
+  invite_link?: TelegramChatInviteLink
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1777,37 +1779,37 @@ export interface TelegramChatPermissions {
   /**
    * *Optional*. *True*, if the user is allowed to send text messages, contacts, locations and venues
    */
-  can_send_messages?: boolean;
+  can_send_messages?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can\_send\_messages
    */
-  can_send_media_messages?: boolean;
+  can_send_media_messages?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to send polls, implies can\_send\_messages
    */
-  can_send_polls?: boolean;
+  can_send_polls?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to send animations, games, stickers and use inline bots, implies can\_send\_media\_messages
    */
-  can_send_other_messages?: boolean;
+  can_send_other_messages?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to add web page previews to their messages, implies can\_send\_media\_messages
    */
-  can_add_web_page_previews?: boolean;
+  can_add_web_page_previews?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
    */
-  can_change_info?: boolean;
+  can_change_info?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to invite new users to the chat
    */
-  can_invite_users?: boolean;
+  can_invite_users?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to pin messages. Ignored in public supergroups
    */
-  can_pin_messages?: boolean;
+  can_pin_messages?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1817,13 +1819,13 @@ export interface TelegramChatLocation {
   /**
    * The location to which the supergroup is connected. Can't be a live location.
    */
-  location: TelegramLocation;
+  location: TelegramLocation
   /**
    * Location address; 1-64 characters, as defined by the chat owner
    */
-  address: string;
+  address: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1833,13 +1835,13 @@ export interface TelegramBotCommand {
   /**
    * Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores.
    */
-  command: string;
+  command: string
   /**
    * Description of the command; 1-256 characters.
    */
-  description: string;
+  description: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1849,9 +1851,9 @@ export interface TelegramBotCommandScopeDefault {
   /**
    * Scope type, must be *default*
    */
-  type: 'default';
+  type: 'default'
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1861,9 +1863,9 @@ export interface TelegramBotCommandScopeAllPrivateChats {
   /**
    * Scope type, must be *all\_private\_chats*
    */
-  type: 'all_private_chats';
+  type: 'all_private_chats'
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1873,9 +1875,9 @@ export interface TelegramBotCommandScopeAllGroupChats {
   /**
    * Scope type, must be *all\_group\_chats*
    */
-  type: 'all_group_chats';
+  type: 'all_group_chats'
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1885,9 +1887,9 @@ export interface TelegramBotCommandScopeAllChatAdministrators {
   /**
    * Scope type, must be *all\_chat\_administrators*
    */
-  type: 'all_chat_administrators';
+  type: 'all_chat_administrators'
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1897,13 +1899,13 @@ export interface TelegramBotCommandScopeChat {
   /**
    * Scope type, must be *chat*
    */
-  type: 'chat';
+  type: 'chat'
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
-  chat_id: number | string;
+  chat_id: number | string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1913,13 +1915,13 @@ export interface TelegramBotCommandScopeChatAdministrators {
   /**
    * Scope type, must be *chat\_administrators*
    */
-  type: 'chat_administrators';
+  type: 'chat_administrators'
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
-  chat_id: number | string;
+  chat_id: number | string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1929,17 +1931,17 @@ export interface TelegramBotCommandScopeChatMember {
   /**
    * Scope type, must be *chat\_member*
    */
-  type: 'chat_member';
+  type: 'chat_member'
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
-  chat_id: number | string;
+  chat_id: number | string
   /**
    * Unique identifier of the target user
    */
-  user_id: number;
+  user_id: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1949,29 +1951,29 @@ export interface TelegramMenuButtonCommands {
   /**
    * Type of the button, must be *commands*
    */
-  type: 'commands';
+  type: 'commands'
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
- * Represents a menu button, which launches a [Web App](/bots/webapps).
+ * Represents a menu button, which launches a [Web App](https://core.telegram.org/bots/webapps).
  */
 export interface TelegramMenuButtonWebApp {
   /**
    * Type of the button, must be *web\_app*
    */
-  type: 'web_app';
+  type: 'web_app'
   /**
    * Text on the button
    */
-  text: string;
+  text: string
   /**
    * Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](https://core.telegram.org/bots/api/#answerwebappquery).
    */
-  web_app: TelegramWebAppInfo;
+  web_app: TelegramWebAppInfo
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1981,9 +1983,9 @@ export interface TelegramMenuButtonDefault {
   /**
    * Type of the button, must be *default*
    */
-  type: 'default';
+  type: 'default'
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -1993,13 +1995,13 @@ export interface TelegramResponseParameters {
   /**
    * *Optional*. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  migrate_to_chat_id?: number;
+  migrate_to_chat_id?: number
   /**
    * *Optional*. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
    */
-  retry_after?: number;
+  retry_after?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2009,25 +2011,25 @@ export interface TelegramInputMediaPhoto {
   /**
    * Type of the result, must be *photo*
    */
-  type: 'photo';
+  type: 'photo'
   /**
    * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  media: string;
+  media: string
   /**
    * *Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2037,45 +2039,45 @@ export interface TelegramInputMediaVideo {
   /**
    * Type of the result, must be *video*
    */
-  type: 'video';
+  type: 'video'
   /**
    * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  media: string;
+  media: string
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: TelegramInputFile | string;
+  thumb?: MediaInput
   /**
    * *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Video width
    */
-  width?: number;
+  width?: number
   /**
    * *Optional*. Video height
    */
-  height?: number;
+  height?: number
   /**
    * *Optional*. Video duration in seconds
    */
-  duration?: number;
+  duration?: number
   /**
    * *Optional*. Pass *True*, if the uploaded video is suitable for streaming
    */
-  supports_streaming?: boolean;
+  supports_streaming?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2085,41 +2087,41 @@ export interface TelegramInputMediaAnimation {
   /**
    * Type of the result, must be *animation*
    */
-  type: 'animation';
+  type: 'animation'
   /**
    * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  media: string;
+  media: string
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: TelegramInputFile | string;
+  thumb?: MediaInput
   /**
    * *Optional*. Caption of the animation to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Animation width
    */
-  width?: number;
+  width?: number
   /**
    * *Optional*. Animation height
    */
-  height?: number;
+  height?: number
   /**
    * *Optional*. Animation duration in seconds
    */
-  duration?: number;
+  duration?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2129,41 +2131,41 @@ export interface TelegramInputMediaAudio {
   /**
    * Type of the result, must be *audio*
    */
-  type: 'audio';
+  type: 'audio'
   /**
    * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  media: string;
+  media: string
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: TelegramInputFile | string;
+  thumb?: MediaInput
   /**
    * *Optional*. Caption of the audio to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Duration of the audio in seconds
    */
-  duration?: number;
+  duration?: number
   /**
    * *Optional*. Performer of the audio
    */
-  performer?: string;
+  performer?: string
   /**
    * *Optional*. Title of the audio
    */
-  title?: string;
+  title?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2173,33 +2175,33 @@ export interface TelegramInputMediaDocument {
   /**
    * Type of the result, must be *document*
    */
-  type: 'document';
+  type: 'document'
   /**
    * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  media: string;
+  media: string
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: TelegramInputFile | string;
+  thumb?: MediaInput
   /**
    * *Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always *True*, if the document is sent as part of an album.
    */
-  disable_content_type_detection?: boolean;
+  disable_content_type_detection?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2214,49 +2216,49 @@ export interface TelegramSticker {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * Sticker width
    */
-  width: number;
+  width: number
   /**
    * Sticker height
    */
-  height: number;
+  height: number
   /**
    * *True*, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
    */
-  is_animated: boolean;
+  is_animated: boolean
   /**
    * *True*, if the sticker is a [video sticker](https://telegram.org/blog/video-stickers-better-reactions)
    */
-  is_video: boolean;
+  is_video: boolean
   /**
    * *Optional*. Sticker thumbnail in the .WEBP or .JPG format
    */
-  thumb?: TelegramPhotoSize;
+  thumb?: TelegramPhotoSize
   /**
    * *Optional*. Emoji associated with the sticker
    */
-  emoji?: string;
+  emoji?: string
   /**
    * *Optional*. Name of the sticker set to which the sticker belongs
    */
-  set_name?: string;
+  set_name?: string
   /**
    * *Optional*. For mask stickers, the position where the mask should be placed
    */
-  mask_position?: TelegramMaskPosition;
+  mask_position?: TelegramMaskPosition
   /**
    * *Optional*. File size in bytes
    */
-  file_size?: number;
+  file_size?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2266,33 +2268,33 @@ export interface TelegramStickerSet {
   /**
    * Sticker set name
    */
-  name: string;
+  name: string
   /**
    * Sticker set title
    */
-  title: string;
+  title: string
   /**
    * *True*, if the sticker set contains [animated stickers](https://telegram.org/blog/animated-stickers)
    */
-  is_animated: boolean;
+  is_animated: boolean
   /**
    * *True*, if the sticker set contains [video stickers](https://telegram.org/blog/video-stickers-better-reactions)
    */
-  is_video: boolean;
+  is_video: boolean
   /**
    * *True*, if the sticker set contains masks
    */
-  contains_masks: boolean;
+  contains_masks: boolean
   /**
    * List of all set stickers
    */
-  stickers: TelegramSticker[];
+  stickers: TelegramSticker[]
   /**
    * *Optional*. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
    */
-  thumb?: TelegramPhotoSize;
+  thumb?: TelegramPhotoSize
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2302,21 +2304,21 @@ export interface TelegramMaskPosition {
   /**
    * The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
    */
-  point: 'forehead' | 'eyes' | 'mouth' | 'chin';
+  point: 'forehead' | 'eyes' | 'mouth' | 'chin'
   /**
    * Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.
    */
-  x_shift: number;
+  x_shift: number
   /**
    * Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. For example, 1.0 will place the mask just below the default mask position.
    */
-  y_shift: number;
+  y_shift: number
   /**
    * Mask scaling coefficient. For example, 2.0 means double size.
    */
-  scale: number;
+  scale: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2326,29 +2328,29 @@ export interface TelegramInlineQuery {
   /**
    * Unique identifier for this query
    */
-  id: string;
+  id: string
   /**
    * Sender
    */
-  from: TelegramUser;
+  from: TelegramUser
   /**
    * Text of the query (up to 256 characters)
    */
-  query: string;
+  query: string
   /**
    * Offset of the results to be returned, can be controlled by the bot
    */
-  offset: string;
+  offset: string
   /**
    * *Optional*. Type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
    */
-  chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel';
+  chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel'
   /**
    * *Optional*. Sender location, only for bots that request user location
    */
-  location?: TelegramLocation;
+  location?: TelegramLocation
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2358,49 +2360,49 @@ export interface TelegramInlineQueryResultArticle {
   /**
    * Type of the result, must be *article*
    */
-  type: 'article';
+  type: 'article'
   /**
    * Unique identifier for this result, 1-64 Bytes
    */
-  id: string;
+  id: string
   /**
    * Title of the result
    */
-  title: string;
+  title: string
   /**
    * Content of the message to be sent
    */
-  input_message_content: TelegramInputMessageContent;
+  input_message_content: TelegramInputMessageContent
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. URL of the result
    */
-  url?: string;
+  url?: string
   /**
    * *Optional*. Pass *True*, if you don't want the URL to be shown in the message
    */
-  hide_url?: boolean;
+  hide_url?: boolean
   /**
    * *Optional*. Short description of the result
    */
-  description?: string;
+  description?: string
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string;
+  thumb_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number;
+  thumb_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number;
+  thumb_height?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2410,57 +2412,57 @@ export interface TelegramInlineQueryResultPhoto {
   /**
    * Type of the result, must be *photo*
    */
-  type: 'photo';
+  type: 'photo'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB
    */
-  photo_url: string;
+  photo_url: string
   /**
    * URL of the thumbnail for the photo
    */
-  thumb_url: string;
+  thumb_url: string
   /**
    * *Optional*. Width of the photo
    */
-  photo_width?: number;
+  photo_width?: number
   /**
    * *Optional*. Height of the photo
    */
-  photo_height?: number;
+  photo_height?: number
   /**
    * *Optional*. Title for the result
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Short description of the result
    */
-  description?: string;
+  description?: string
   /**
    * *Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the photo
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2470,61 +2472,61 @@ export interface TelegramInlineQueryResultGif {
   /**
    * Type of the result, must be *gif*
    */
-  type: 'gif';
+  type: 'gif'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid URL for the GIF file. File size must not exceed 1MB
    */
-  gif_url: string;
+  gif_url: string
   /**
    * *Optional*. Width of the GIF
    */
-  gif_width?: number;
+  gif_width?: number
   /**
    * *Optional*. Height of the GIF
    */
-  gif_height?: number;
+  gif_height?: number
   /**
    * *Optional*. Duration of the GIF in seconds
    */
-  gif_duration?: number;
+  gif_duration?: number
   /**
    * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
    */
-  thumb_url: string;
+  thumb_url: string
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
+  thumb_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4'
   /**
    * *Optional*. Title for the result
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the GIF animation
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2534,61 +2536,61 @@ export interface TelegramInlineQueryResultMpeg4Gif {
   /**
    * Type of the result, must be *mpeg4\_gif*
    */
-  type: 'mpeg4_gif';
+  type: 'mpeg4_gif'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid URL for the MP4 file. File size must not exceed 1MB
    */
-  mpeg4_url: string;
+  mpeg4_url: string
   /**
    * *Optional*. Video width
    */
-  mpeg4_width?: number;
+  mpeg4_width?: number
   /**
    * *Optional*. Video height
    */
-  mpeg4_height?: number;
+  mpeg4_height?: number
   /**
    * *Optional*. Video duration in seconds
    */
-  mpeg4_duration?: number;
+  mpeg4_duration?: number
   /**
    * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
    */
-  thumb_url: string;
+  thumb_url: string
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
+  thumb_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4'
   /**
    * *Optional*. Title for the result
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the video animation
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2600,65 +2602,65 @@ export interface TelegramInlineQueryResultVideo {
   /**
    * Type of the result, must be *video*
    */
-  type: 'video';
+  type: 'video'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid URL for the embedded video player or video file
    */
-  video_url: string;
+  video_url: string
   /**
    * Mime type of the content of video url, “text/html” or “video/mp4”
    */
-  mime_type: 'text/html' | 'video/mp4';
+  mime_type: 'text/html' | 'video/mp4'
   /**
    * URL of the thumbnail (JPEG only) for the video
    */
-  thumb_url: string;
+  thumb_url: string
   /**
    * Title for the result
    */
-  title: string;
+  title: string
   /**
    * *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Video width
    */
-  video_width?: number;
+  video_width?: number
   /**
    * *Optional*. Video height
    */
-  video_height?: number;
+  video_height?: number
   /**
    * *Optional*. Video duration in seconds
    */
-  video_duration?: number;
+  video_duration?: number
   /**
    * *Optional*. Short description of the result
    */
-  description?: string;
+  description?: string
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the video. This field is **required** if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2668,49 +2670,49 @@ export interface TelegramInlineQueryResultAudio {
   /**
    * Type of the result, must be *audio*
    */
-  type: 'audio';
+  type: 'audio'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid URL for the audio file
    */
-  audio_url: string;
+  audio_url: string
   /**
    * Title
    */
-  title: string;
+  title: string
   /**
    * *Optional*. Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Performer
    */
-  performer?: string;
+  performer?: string
   /**
    * *Optional*. Audio duration in seconds
    */
-  audio_duration?: number;
+  audio_duration?: number
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the audio
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2720,45 +2722,45 @@ export interface TelegramInlineQueryResultVoice {
   /**
    * Type of the result, must be *voice*
    */
-  type: 'voice';
+  type: 'voice'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid URL for the voice recording
    */
-  voice_url: string;
+  voice_url: string
   /**
    * Recording title
    */
-  title: string;
+  title: string
   /**
    * *Optional*. Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the voice message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Recording duration in seconds
    */
-  voice_duration?: number;
+  voice_duration?: number
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the voice recording
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2768,61 +2770,61 @@ export interface TelegramInlineQueryResultDocument {
   /**
    * Type of the result, must be *document*
    */
-  type: 'document';
+  type: 'document'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * Title for the result
    */
-  title: string;
+  title: string
   /**
    * *Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
    * A valid URL for the file
    */
-  document_url: string;
+  document_url: string
   /**
    * Mime type of the content of the file, either “application/pdf” or “application/zip”
    */
-  mime_type: 'application/pdf' | 'application/zip';
+  mime_type: 'application/pdf' | 'application/zip'
   /**
    * *Optional*. Short description of the result
    */
-  description?: string;
+  description?: string
   /**
    * *Optional*. Inline keyboard attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the file
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
   /**
    * *Optional*. URL of the thumbnail (JPEG only) for the file
    */
-  thumb_url?: string;
+  thumb_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number;
+  thumb_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number;
+  thumb_height?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2832,61 +2834,61 @@ export interface TelegramInlineQueryResultLocation {
   /**
    * Type of the result, must be *location*
    */
-  type: 'location';
+  type: 'location'
   /**
    * Unique identifier for this result, 1-64 Bytes
    */
-  id: string;
+  id: string
   /**
    * Location latitude in degrees
    */
-  latitude: number;
+  latitude: number
   /**
    * Location longitude in degrees
    */
-  longitude: number;
+  longitude: number
   /**
    * Location title
    */
-  title: string;
+  title: string
   /**
    * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  horizontal_accuracy?: number;
+  horizontal_accuracy?: number
   /**
    * *Optional*. Period in seconds for which the location can be updated, should be between 60 and 86400.
    */
-  live_period?: number;
+  live_period?: number
   /**
    * *Optional*. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
    */
-  heading?: number;
+  heading?: number
   /**
    * *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
    */
-  proximity_alert_radius?: number;
+  proximity_alert_radius?: number
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the location
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string;
+  thumb_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number;
+  thumb_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number;
+  thumb_height?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2896,65 +2898,65 @@ export interface TelegramInlineQueryResultVenue {
   /**
    * Type of the result, must be *venue*
    */
-  type: 'venue';
+  type: 'venue'
   /**
    * Unique identifier for this result, 1-64 Bytes
    */
-  id: string;
+  id: string
   /**
    * Latitude of the venue location in degrees
    */
-  latitude: number;
+  latitude: number
   /**
    * Longitude of the venue location in degrees
    */
-  longitude: number;
+  longitude: number
   /**
    * Title of the venue
    */
-  title: string;
+  title: string
   /**
    * Address of the venue
    */
-  address: string;
+  address: string
   /**
    * *Optional*. Foursquare identifier of the venue if known
    */
-  foursquare_id?: string;
+  foursquare_id?: string
   /**
    * *Optional*. Foursquare type of the venue, if known. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
    */
-  foursquare_type?: string;
+  foursquare_type?: string
   /**
    * *Optional*. Google Places identifier of the venue
    */
-  google_place_id?: string;
+  google_place_id?: string
   /**
    * *Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
    */
-  google_place_type?: string;
+  google_place_type?: string
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the venue
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string;
+  thumb_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number;
+  thumb_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number;
+  thumb_height?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -2964,49 +2966,49 @@ export interface TelegramInlineQueryResultContact {
   /**
    * Type of the result, must be *contact*
    */
-  type: 'contact';
+  type: 'contact'
   /**
    * Unique identifier for this result, 1-64 Bytes
    */
-  id: string;
+  id: string
   /**
    * Contact's phone number
    */
-  phone_number: string;
+  phone_number: string
   /**
    * Contact's first name
    */
-  first_name: string;
+  first_name: string
   /**
    * *Optional*. Contact's last name
    */
-  last_name?: string;
+  last_name?: string
   /**
    * *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
    */
-  vcard?: string;
+  vcard?: string
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the contact
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string;
+  thumb_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number;
+  thumb_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number;
+  thumb_height?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3016,21 +3018,21 @@ export interface TelegramInlineQueryResultGame {
   /**
    * Type of the result, must be *game*
    */
-  type: 'game';
+  type: 'game'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * Short name of the game
    */
-  game_short_name: string;
+  game_short_name: string
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3040,45 +3042,45 @@ export interface TelegramInlineQueryResultCachedPhoto {
   /**
    * Type of the result, must be *photo*
    */
-  type: 'photo';
+  type: 'photo'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid file identifier of the photo
    */
-  photo_file_id: string;
+  photo_file_id: string
   /**
    * *Optional*. Title for the result
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Short description of the result
    */
-  description?: string;
+  description?: string
   /**
    * *Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the photo
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3088,41 +3090,41 @@ export interface TelegramInlineQueryResultCachedGif {
   /**
    * Type of the result, must be *gif*
    */
-  type: 'gif';
+  type: 'gif'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid file identifier for the GIF file
    */
-  gif_file_id: string;
+  gif_file_id: string
   /**
    * *Optional*. Title for the result
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the GIF animation
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3132,41 +3134,41 @@ export interface TelegramInlineQueryResultCachedMpeg4Gif {
   /**
    * Type of the result, must be *mpeg4\_gif*
    */
-  type: 'mpeg4_gif';
+  type: 'mpeg4_gif'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid file identifier for the MP4 file
    */
-  mpeg4_file_id: string;
+  mpeg4_file_id: string
   /**
    * *Optional*. Title for the result
    */
-  title?: string;
+  title?: string
   /**
    * *Optional*. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the video animation
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3176,25 +3178,25 @@ export interface TelegramInlineQueryResultCachedSticker {
   /**
    * Type of the result, must be *sticker*
    */
-  type: 'sticker';
+  type: 'sticker'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid file identifier of the sticker
    */
-  sticker_file_id: string;
+  sticker_file_id: string
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the sticker
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3204,45 +3206,45 @@ export interface TelegramInlineQueryResultCachedDocument {
   /**
    * Type of the result, must be *document*
    */
-  type: 'document';
+  type: 'document'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * Title for the result
    */
-  title: string;
+  title: string
   /**
    * A valid file identifier for the file
    */
-  document_file_id: string;
+  document_file_id: string
   /**
    * *Optional*. Short description of the result
    */
-  description?: string;
+  description?: string
   /**
    * *Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the file
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3252,45 +3254,45 @@ export interface TelegramInlineQueryResultCachedVideo {
   /**
    * Type of the result, must be *video*
    */
-  type: 'video';
+  type: 'video'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid file identifier for the video file
    */
-  video_file_id: string;
+  video_file_id: string
   /**
    * Title for the result
    */
-  title: string;
+  title: string
   /**
    * *Optional*. Short description of the result
    */
-  description?: string;
+  description?: string
   /**
    * *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the video
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3300,41 +3302,41 @@ export interface TelegramInlineQueryResultCachedVoice {
   /**
    * Type of the result, must be *voice*
    */
-  type: 'voice';
+  type: 'voice'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid file identifier for the voice message
    */
-  voice_file_id: string;
+  voice_file_id: string
   /**
    * Voice message title
    */
-  title: string;
+  title: string
   /**
    * *Optional*. Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the voice message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the voice message
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3344,37 +3346,37 @@ export interface TelegramInlineQueryResultCachedAudio {
   /**
    * Type of the result, must be *audio*
    */
-  type: 'audio';
+  type: 'audio'
   /**
    * Unique identifier for this result, 1-64 bytes
    */
-  id: string;
+  id: string
   /**
    * A valid file identifier for the audio file
    */
-  audio_file_id: string;
+  audio_file_id: string
   /**
    * *Optional*. Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: TelegramMessageEntity[];
+  caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup;
+  reply_markup?: TelegramInlineKeyboardMarkup
   /**
    * *Optional*. Content of the message to be sent instead of the audio
    */
-  input_message_content?: TelegramInputMessageContent;
+  input_message_content?: TelegramInputMessageContent
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3384,21 +3386,21 @@ export interface TelegramInputTextMessageContent {
   /**
    * Text of the message to be sent, 1-4096 characters
    */
-  message_text: string;
+  message_text: string
   /**
    * *Optional*. Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string;
+  parse_mode?: string
   /**
    * *Optional*. List of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
-  entities?: TelegramMessageEntity[];
+  entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Disables link previews for links in the sent message
    */
-  disable_web_page_preview?: boolean;
+  disable_web_page_preview?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3408,29 +3410,29 @@ export interface TelegramInputLocationMessageContent {
   /**
    * Latitude of the location in degrees
    */
-  latitude: number;
+  latitude: number
   /**
    * Longitude of the location in degrees
    */
-  longitude: number;
+  longitude: number
   /**
    * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  horizontal_accuracy?: number;
+  horizontal_accuracy?: number
   /**
    * *Optional*. Period in seconds for which the location can be updated, should be between 60 and 86400.
    */
-  live_period?: number;
+  live_period?: number
   /**
    * *Optional*. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
    */
-  heading?: number;
+  heading?: number
   /**
    * *Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
    */
-  proximity_alert_radius?: number;
+  proximity_alert_radius?: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3440,37 +3442,37 @@ export interface TelegramInputVenueMessageContent {
   /**
    * Latitude of the venue in degrees
    */
-  latitude: number;
+  latitude: number
   /**
    * Longitude of the venue in degrees
    */
-  longitude: number;
+  longitude: number
   /**
    * Name of the venue
    */
-  title: string;
+  title: string
   /**
    * Address of the venue
    */
-  address: string;
+  address: string
   /**
    * *Optional*. Foursquare identifier of the venue, if known
    */
-  foursquare_id?: string;
+  foursquare_id?: string
   /**
    * *Optional*. Foursquare type of the venue, if known. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)
    */
-  foursquare_type?: string;
+  foursquare_type?: string
   /**
    * *Optional*. Google Places identifier of the venue
    */
-  google_place_id?: string;
+  google_place_id?: string
   /**
    * *Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)
    */
-  google_place_type?: string;
+  google_place_type?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3480,21 +3482,21 @@ export interface TelegramInputContactMessageContent {
   /**
    * Contact's phone number
    */
-  phone_number: string;
+  phone_number: string
   /**
    * Contact's first name
    */
-  first_name: string;
+  first_name: string
   /**
    * *Optional*. Contact's last name
    */
-  last_name?: string;
+  last_name?: string
   /**
    * *Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes
    */
-  vcard?: string;
+  vcard?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3504,85 +3506,85 @@ export interface TelegramInputInvoiceMessageContent {
   /**
    * Product name, 1-32 characters
    */
-  title: string;
+  title: string
   /**
    * Product description, 1-255 characters
    */
-  description: string;
+  description: string
   /**
    * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
    */
-  payload: string;
+  payload: string
   /**
    * Payment provider token, obtained via [Botfather](https://t.me/botfather)
    */
-  provider_token: string;
+  provider_token: string
   /**
-   * Three-letter ISO 4217 currency code, see [more on currencies](/bots/payments#supported-currencies)
+   * Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies)
    */
-  currency: string;
+  currency: string
   /**
    * Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    */
-  prices: TelegramLabeledPrice[];
+  prices: TelegramLabeledPrice[]
   /**
    * *Optional*. The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
    */
-  max_tip_amount?: number;
+  max_tip_amount?: number
   /**
    * *Optional*. A JSON-serialized array of suggested amounts of tip in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max\_tip\_amount*.
    */
-  suggested_tip_amounts?: number[];
+  suggested_tip_amounts?: number[]
   /**
    * *Optional*. A JSON-serialized object for data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider.
    */
-  provider_data?: string;
+  provider_data?: string
   /**
    * *Optional*. URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
    */
-  photo_url?: string;
+  photo_url?: string
   /**
    * *Optional*. Photo size
    */
-  photo_size?: number;
+  photo_size?: number
   /**
    * *Optional*. Photo width
    */
-  photo_width?: number;
+  photo_width?: number
   /**
    * *Optional*. Photo height
    */
-  photo_height?: number;
+  photo_height?: number
   /**
    * *Optional*. Pass *True*, if you require the user's full name to complete the order
    */
-  need_name?: boolean;
+  need_name?: boolean
   /**
    * *Optional*. Pass *True*, if you require the user's phone number to complete the order
    */
-  need_phone_number?: boolean;
+  need_phone_number?: boolean
   /**
    * *Optional*. Pass *True*, if you require the user's email address to complete the order
    */
-  need_email?: boolean;
+  need_email?: boolean
   /**
    * *Optional*. Pass *True*, if you require the user's shipping address to complete the order
    */
-  need_shipping_address?: boolean;
+  need_shipping_address?: boolean
   /**
    * *Optional*. Pass *True*, if user's phone number should be sent to provider
    */
-  send_phone_number_to_provider?: boolean;
+  send_phone_number_to_provider?: boolean
   /**
    * *Optional*. Pass *True*, if user's email address should be sent to provider
    */
-  send_email_to_provider?: boolean;
+  send_email_to_provider?: boolean
   /**
    * *Optional*. Pass *True*, if the final price depends on the shipping method
    */
-  is_flexible?: boolean;
+  is_flexible?: boolean
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3592,37 +3594,37 @@ export interface TelegramChosenInlineResult {
   /**
    * The unique identifier for the result that was chosen
    */
-  result_id: string;
+  result_id: string
   /**
    * The user that chose the result
    */
-  from: TelegramUser;
+  from: TelegramUser
   /**
    * *Optional*. Sender location, only for bots that require user location
    */
-  location?: TelegramLocation;
+  location?: TelegramLocation
   /**
    * *Optional*. Identifier of the sent inline message. Available only if there is an [inline keyboard](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) attached to the message. Will be also received in [callback queries](https://core.telegram.org/bots/api/#callbackquery) and can be used to [edit](https://core.telegram.org/bots/api/#updating-messages) the message.
    */
-  inline_message_id?: string;
+  inline_message_id?: string
   /**
    * The query that was used to obtain the result
    */
-  query: string;
+  query: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
- * Contains information about an inline message sent by a [Web App](/bots/webapps) on behalf of a user.
+ * Contains information about an inline message sent by a [Web App](https://core.telegram.org/bots/webapps) on behalf of a user.
  */
 export interface TelegramSentWebAppMessage {
   /**
    * *Optional*. Identifier of the sent inline message. Available only if there is an [inline keyboard](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) attached to the message.
    */
-  inline_message_id?: string;
+  inline_message_id?: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3632,13 +3634,13 @@ export interface TelegramLabeledPrice {
   /**
    * Portion label
    */
-  label: string;
+  label: string
   /**
-   * Price of the product in the *smallest units* of the [currency](/bots/payments#supported-currencies) (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+   * Price of the product in the *smallest units* of the [currency](https://core.telegram.org/bots/payments#supported-currencies) (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
-  amount: number;
+  amount: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3648,25 +3650,25 @@ export interface TelegramInvoice {
   /**
    * Product name
    */
-  title: string;
+  title: string
   /**
    * Product description
    */
-  description: string;
+  description: string
   /**
    * Unique bot deep-linking parameter that can be used to generate this invoice
    */
-  start_parameter: string;
+  start_parameter: string
   /**
-   * Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code
+   * Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code
    */
-  currency: string;
+  currency: string
   /**
    * Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
-  total_amount: number;
+  total_amount: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3676,29 +3678,29 @@ export interface TelegramShippingAddress {
   /**
    * ISO 3166-1 alpha-2 country code
    */
-  country_code: string;
+  country_code: string
   /**
    * State, if applicable
    */
-  state: string;
+  state: string
   /**
    * City
    */
-  city: string;
+  city: string
   /**
    * First line for the address
    */
-  street_line1: string;
+  street_line1: string
   /**
    * Second line for the address
    */
-  street_line2: string;
+  street_line2: string
   /**
    * Address post code
    */
-  post_code: string;
+  post_code: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3708,21 +3710,21 @@ export interface TelegramOrderInfo {
   /**
    * *Optional*. User name
    */
-  name?: string;
+  name?: string
   /**
    * *Optional*. User's phone number
    */
-  phone_number?: string;
+  phone_number?: string
   /**
    * *Optional*. User email
    */
-  email?: string;
+  email?: string
   /**
    * *Optional*. User shipping address
    */
-  shipping_address?: TelegramShippingAddress;
+  shipping_address?: TelegramShippingAddress
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3732,17 +3734,17 @@ export interface TelegramShippingOption {
   /**
    * Shipping option identifier
    */
-  id: string;
+  id: string
   /**
    * Option title
    */
-  title: string;
+  title: string
   /**
    * List of price portions
    */
-  prices: TelegramLabeledPrice[];
+  prices: TelegramLabeledPrice[]
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3750,35 +3752,35 @@ export interface TelegramShippingOption {
  */
 export interface TelegramSuccessfulPayment {
   /**
-   * Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code
+   * Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code
    */
-  currency: string;
+  currency: string
   /**
    * Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
-  total_amount: number;
+  total_amount: number
   /**
    * Bot specified invoice payload
    */
-  invoice_payload: string;
+  invoice_payload: string
   /**
    * *Optional*. Identifier of the shipping option chosen by the user
    */
-  shipping_option_id?: string;
+  shipping_option_id?: string
   /**
    * *Optional*. Order info provided by the user
    */
-  order_info?: TelegramOrderInfo;
+  order_info?: TelegramOrderInfo
   /**
    * Telegram payment identifier
    */
-  telegram_payment_charge_id: string;
+  telegram_payment_charge_id: string
   /**
    * Provider payment identifier
    */
-  provider_payment_charge_id: string;
+  provider_payment_charge_id: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3788,21 +3790,21 @@ export interface TelegramShippingQuery {
   /**
    * Unique query identifier
    */
-  id: string;
+  id: string
   /**
    * User who sent the query
    */
-  from: TelegramUser;
+  from: TelegramUser
   /**
    * Bot specified invoice payload
    */
-  invoice_payload: string;
+  invoice_payload: string
   /**
    * User specified shipping address
    */
-  shipping_address: TelegramShippingAddress;
+  shipping_address: TelegramShippingAddress
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3812,33 +3814,33 @@ export interface TelegramPreCheckoutQuery {
   /**
    * Unique query identifier
    */
-  id: string;
+  id: string
   /**
    * User who sent the query
    */
-  from: TelegramUser;
+  from: TelegramUser
   /**
-   * Three-letter ISO 4217 [currency](/bots/payments#supported-currencies) code
+   * Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code
    */
-  currency: string;
+  currency: string
   /**
    * Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
-  total_amount: number;
+  total_amount: number
   /**
    * Bot specified invoice payload
    */
-  invoice_payload: string;
+  invoice_payload: string
   /**
    * *Optional*. Identifier of the shipping option chosen by the user
    */
-  shipping_option_id?: string;
+  shipping_option_id?: string
   /**
    * *Optional*. Order info provided by the user
    */
-  order_info?: TelegramOrderInfo;
+  order_info?: TelegramOrderInfo
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3848,13 +3850,13 @@ export interface TelegramPassportData {
   /**
    * Array with information about documents and other Telegram Passport elements that was shared with the bot
    */
-  data: TelegramEncryptedPassportElement[];
+  data: TelegramEncryptedPassportElement[]
   /**
    * Encrypted credentials required to decrypt the data
    */
-  credentials: TelegramEncryptedCredentials;
+  credentials: TelegramEncryptedCredentials
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3864,21 +3866,21 @@ export interface TelegramPassportFile {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  file_id: string;
+  file_id: string
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  file_unique_id: string;
+  file_unique_id: string
   /**
    * File size in bytes
    */
-  file_size: number;
+  file_size: number
   /**
    * Unix time when the file was uploaded
    */
-  file_date: number;
+  file_date: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3888,45 +3890,45 @@ export interface TelegramEncryptedPassportElement {
   /**
    * Element type. One of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”, “phone\_number”, “email”.
    */
-  type: 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration' | 'phone_number' | 'email';
+  type: 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration' | 'phone_number' | 'email'
   /**
    * *Optional*. Base64-encoded encrypted Telegram Passport element data provided by the user, available for “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport” and “address” types. Can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
-  data?: string;
+  data?: string
   /**
    * *Optional*. User's verified phone number, available only for “phone\_number” type
    */
-  phone_number?: string;
+  phone_number?: string
   /**
    * *Optional*. User's verified email address, available only for “email” type
    */
-  email?: string;
+  email?: string
   /**
    * *Optional*. Array of encrypted files with documents provided by the user, available for “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration” and “temporary\_registration” types. Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
-  files?: TelegramPassportFile[];
+  files?: TelegramPassportFile[]
   /**
    * *Optional*. Encrypted file with the front side of the document, provided by the user. Available for “passport”, “driver\_license”, “identity\_card” and “internal\_passport”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
-  front_side?: TelegramPassportFile;
+  front_side?: TelegramPassportFile
   /**
    * *Optional*. Encrypted file with the reverse side of the document, provided by the user. Available for “driver\_license” and “identity\_card”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
-  reverse_side?: TelegramPassportFile;
+  reverse_side?: TelegramPassportFile
   /**
    * *Optional*. Encrypted file with the selfie of the user holding a document, provided by the user; available for “passport”, “driver\_license”, “identity\_card” and “internal\_passport”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
-  selfie?: TelegramPassportFile;
+  selfie?: TelegramPassportFile
   /**
    * *Optional*. Array of encrypted files with translated versions of documents provided by the user. Available if requested for “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration” and “temporary\_registration” types. Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
-  translation?: TelegramPassportFile[];
+  translation?: TelegramPassportFile[]
   /**
    * Base64-encoded element hash for using in [PassportElementErrorUnspecified](https://core.telegram.org/bots/api/#passportelementerrorunspecified)
    */
-  hash: string;
+  hash: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3936,17 +3938,17 @@ export interface TelegramEncryptedCredentials {
   /**
    * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for [EncryptedPassportElement](https://core.telegram.org/bots/api/#encryptedpassportelement) decryption and authentication
    */
-  data: string;
+  data: string
   /**
    * Base64-encoded data hash for data authentication
    */
-  hash: string;
+  hash: string
   /**
    * Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption
    */
-  secret: string;
+  secret: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3956,25 +3958,25 @@ export interface TelegramPassportElementErrorDataField {
   /**
    * Error source, must be *data*
    */
-  source: 'data';
+  source: 'data'
   /**
    * The section of the user's Telegram Passport which has the error, one of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”
    */
-  type: 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address';
+  type: 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address'
   /**
    * Name of the data field which has the error
    */
-  field_name: string;
+  field_name: string
   /**
    * Base64-encoded data hash
    */
-  data_hash: string;
+  data_hash: string
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -3984,21 +3986,21 @@ export interface TelegramPassportElementErrorFrontSide {
   /**
    * Error source, must be *front\_side*
    */
-  source: 'front_side';
+  source: 'front_side'
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport';
+  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport'
   /**
    * Base64-encoded hash of the file with the front side of the document
    */
-  file_hash: string;
+  file_hash: string
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4008,21 +4010,21 @@ export interface TelegramPassportElementErrorReverseSide {
   /**
    * Error source, must be *reverse\_side*
    */
-  source: 'reverse_side';
+  source: 'reverse_side'
   /**
    * The section of the user's Telegram Passport which has the issue, one of “driver\_license”, “identity\_card”
    */
-  type: 'driver_license' | 'identity_card';
+  type: 'driver_license' | 'identity_card'
   /**
    * Base64-encoded hash of the file with the reverse side of the document
    */
-  file_hash: string;
+  file_hash: string
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4032,21 +4034,21 @@ export interface TelegramPassportElementErrorSelfie {
   /**
    * Error source, must be *selfie*
    */
-  source: 'selfie';
+  source: 'selfie'
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport';
+  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport'
   /**
    * Base64-encoded hash of the file with the selfie
    */
-  file_hash: string;
+  file_hash: string
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4056,21 +4058,21 @@ export interface TelegramPassportElementErrorFile {
   /**
    * Error source, must be *file*
    */
-  source: 'file';
+  source: 'file'
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration';
+  type: 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
   /**
    * Base64-encoded file hash
    */
-  file_hash: string;
+  file_hash: string
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4080,21 +4082,21 @@ export interface TelegramPassportElementErrorFiles {
   /**
    * Error source, must be *files*
    */
-  source: 'files';
+  source: 'files'
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration';
+  type: 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
   /**
    * List of base64-encoded file hashes
    */
-  file_hashes: string[];
+  file_hashes: string[]
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4104,21 +4106,21 @@ export interface TelegramPassportElementErrorTranslationFile {
   /**
    * Error source, must be *translation\_file*
    */
-  source: 'translation_file';
+  source: 'translation_file'
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration';
+  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
   /**
    * Base64-encoded file hash
    */
-  file_hash: string;
+  file_hash: string
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4128,21 +4130,21 @@ export interface TelegramPassportElementErrorTranslationFiles {
   /**
    * Error source, must be *translation\_files*
    */
-  source: 'translation_files';
+  source: 'translation_files'
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration';
+  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
   /**
    * List of base64-encoded file hashes
    */
-  file_hashes: string[];
+  file_hashes: string[]
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4152,21 +4154,21 @@ export interface TelegramPassportElementErrorUnspecified {
   /**
    * Error source, must be *unspecified*
    */
-  source: 'unspecified';
+  source: 'unspecified'
   /**
    * Type of element of the user's Telegram Passport which has the issue
    */
-  type: string;
+  type: string
   /**
    * Base64-encoded element hash
    */
-  element_hash: string;
+  element_hash: string
   /**
    * Error message
    */
-  message: string;
+  message: string
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4176,29 +4178,29 @@ export interface TelegramGame {
   /**
    * Title of the game
    */
-  title: string;
+  title: string
   /**
    * Description of the game
    */
-  description: string;
+  description: string
   /**
    * Photo that will be displayed in the game message in chats.
    */
-  photo: TelegramPhotoSize[];
+  photo: TelegramPhotoSize[]
   /**
    * *Optional*. Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls [setGameScore](https://core.telegram.org/bots/api/#setgamescore), or manually edited using [editMessageText](https://core.telegram.org/bots/api/#editmessagetext). 0-4096 characters.
    */
-  text?: string;
+  text?: string
   /**
    * *Optional*. Special entities that appear in *text*, such as usernames, URLs, bot commands, etc.
    */
-  text_entities?: TelegramMessageEntity[];
+  text_entities?: TelegramMessageEntity[]
   /**
    * *Optional*. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)
    */
-  animation?: TelegramAnimation;
+  animation?: TelegramAnimation
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 /**
@@ -4213,17 +4215,17 @@ export interface TelegramGameHighScore {
   /**
    * Position in high score table for the game
    */
-  position: number;
+  position: number
   /**
    * User
    */
-  user: TelegramUser;
+  user: TelegramUser
   /**
    * Score
    */
-  score: number;
+  score: number
 
-  [key: string]: any;
+  [key: string]: any
 }
 
 export type ReplyMarkupUnion =
@@ -4236,13 +4238,13 @@ export type ReplyMarkupUnion =
   | InlineKeyboard
   | InlineKeyboardBuilder
   | ForceReply
-  | RemoveKeyboard;
+  | RemoveKeyboard
 
 export type InputFile =
   | string
   | Record<string, any>
   | Buffer
-  | Readable;
+  | Readable
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
@@ -4260,7 +4262,7 @@ export type TelegramChatMember =
   | TelegramChatMemberMember
   | TelegramChatMemberRestricted
   | TelegramChatMemberLeft
-  | TelegramChatMemberBanned;
+  | TelegramChatMemberBanned
 
 /**
  * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
@@ -4280,7 +4282,7 @@ export type TelegramBotCommandScope =
   | TelegramBotCommandScopeAllChatAdministrators
   | TelegramBotCommandScopeChat
   | TelegramBotCommandScopeChatAdministrators
-  | TelegramBotCommandScopeChatMember;
+  | TelegramBotCommandScopeChatMember
 
 /**
  * This object describes the bot's menu button in a private chat. It should be one of
@@ -4292,7 +4294,7 @@ export type TelegramBotCommandScope =
 export type TelegramMenuButton =
   | TelegramMenuButtonCommands
   | TelegramMenuButtonWebApp
-  | TelegramMenuButtonDefault;
+  | TelegramMenuButtonDefault
 
 /**
  * This object represents the content of a media message to be sent. It should be one of
@@ -4308,7 +4310,7 @@ export type TelegramInputMedia =
   | TelegramInputMediaDocument
   | TelegramInputMediaAudio
   | TelegramInputMediaPhoto
-  | TelegramInputMediaVideo;
+  | TelegramInputMediaVideo
 
 /**
  * This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
@@ -4354,7 +4356,7 @@ export type TelegramInlineQueryResult =
   | TelegramInlineQueryResultPhoto
   | TelegramInlineQueryResultVenue
   | TelegramInlineQueryResultVideo
-  | TelegramInlineQueryResultVoice;
+  | TelegramInlineQueryResultVoice
 
 /**
  * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:
@@ -4370,7 +4372,7 @@ export type TelegramInputMessageContent =
   | TelegramInputLocationMessageContent
   | TelegramInputVenueMessageContent
   | TelegramInputContactMessageContent
-  | TelegramInputInvoiceMessageContent;
+  | TelegramInputInvoiceMessageContent
 
 /**
  * This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
@@ -4394,4 +4396,4 @@ export type TelegramPassportElementError =
   | TelegramPassportElementErrorFiles
   | TelegramPassportElementErrorTranslationFile
   | TelegramPassportElementErrorTranslationFiles
-  | TelegramPassportElementErrorUnspecified;
+  | TelegramPassportElementErrorUnspecified

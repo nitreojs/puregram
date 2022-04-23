@@ -1,11 +1,12 @@
-import fetch, { Response } from 'node-fetch'
+import { writeFile, readFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
+
+import { fetch } from 'undici'
 import { stripIndent, stripIndents } from 'common-tags'
-import { writeFile, readFile } from 'fs/promises'
-import { resolve } from 'path'
 
 import * as Types from './types'
 
-// const SCHEMA_URL: string = `${__dirname}/custom.min.json`;
+// const SCHEMA_URL: string = `${__dirname}/custom.min.json`
 const SCHEMA_URL: string = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
 
 
@@ -42,7 +43,7 @@ class InterfaceService {
 
       // just some little hacks over there, nothing special, scroll away
       fields.push('')
-      fields.push(tab('[key: string]: any;'))
+      fields.push(tab('[key: string]: any'))
 
       content = `export interface ${name} {\n${fields.join('\n')}\n}`
     }
@@ -80,8 +81,14 @@ class InterfaceService {
     const fields: string[] = []
 
     for (const field of properties) {
+      let type = TypeResolver.resolve(field)
+
+      if (type === 'TelegramInputFile | string') {
+        type = 'MediaInput'
+      }
+
       const description: string = InterfaceService.generateDescription(field.description, 2)
-      const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${TypeResolver.resolve(field)};`
+      const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${type}`
 
       fields.push(property)
     }
@@ -92,34 +99,25 @@ class InterfaceService {
 
 class MethodService {
   public static generate(kMethod: Types.SchemaMethod): ServiceResultMethod {
-    /// TODO: simplify
+    // TODO  simplify
 
     const mTypeDescription: string = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
     const mReturnType: string = TypeResolver.resolve(kMethod.return_type as Types.SchemaObject, 'Interfaces')
-    let content = `${mTypeDescription}\nexport type ${kMethod.name} = () => Promise<${mReturnType}>;`
+    let content = `${mTypeDescription}\nexport type ${kMethod.name} = () => Promise<${mReturnType}>`
 
     if (kMethod.arguments) {
       const mInterfaceName: string = kMethod.name[0].toUpperCase() + kMethod.name.slice(1) + 'Params'
-
-      if (kMethod.name === 'sendDocument') {
-        kMethod.arguments.push({
-          type: 'string',
-          name: 'filename',
-          description: 'Name that will be used as a file name in the sent message',
-          required: false
-        })
-      }
 
       const fields: string[] = MethodService.generateFields(kMethod.arguments, 'Interfaces')
         .map(tab)
 
       /// just some little hacks over there, nothing special, scroll away
       fields.push('')
-      fields.push(tab('[key: string]: any;'))
+      fields.push(tab('[key: string]: any'))
 
       const mInterface: string = `export interface ${mInterfaceName} {\n${fields.join('\n')}\n}`
       const mParamsNotRequired: string = kMethod.arguments.every(argument => !argument.required) ? '?' : ''
-      const mType: string = `export type ${kMethod.name} = (params${mParamsNotRequired}: ${mInterfaceName}) => Promise<${mReturnType}>;`
+      const mType: string = `export type ${kMethod.name} = (params${mParamsNotRequired}: ${mInterfaceName}) => Promise<${mReturnType}>`
 
       content = `${mInterface}\n\n${mTypeDescription}\n${mType}`
     }
@@ -165,7 +163,7 @@ class MethodService {
               type: 'array',
               array: {
                 type: 'reference',
-                reference: 'Interfaces.TelegramMessageEntity', // another hack ¯\_(ツ)_/¯
+                reference: 'Interfaces.TelegramMessageEntity',
                 is_internal: true
               }
             }
@@ -175,14 +173,13 @@ class MethodService {
         returnType = TypeResolver.resolve(union)
       }
 
-      if (returnType.includes('Interfaces.TelegramInputFile')) { // kinda hacky btw but you didnt see it 👀
+      if (returnType.includes('Interfaces.TelegramInputFile')) {
         returnType = TypeResolver.resolve(
-          { type: 'reference', reference: 'InputFile', is_internal: true } as Types.SchemaObjectReference,
-          addition
+          { type: 'reference', reference: 'MediaInput', is_internal: true } as Types.SchemaObjectReference
         )
       }
 
-      const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${returnType};`
+      const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${returnType}`
 
       fields.push(property)
     }
@@ -197,7 +194,7 @@ class TypeService {
     const types: string[] = kType.any_of.map(TypeResolver.resolve)
 
     const description: string = InterfaceService.generateDescription(kType.description)
-    let content = `${description}\nexport type ${name} =\n  | ` + types.join('\n  | ') + ';'
+    let content = `${description}\nexport type ${name} =\n  | ` + types.join('\n  | ')
 
     return {
       content,
@@ -211,7 +208,7 @@ class TypeResolver {
     object: Types.SchemaObject,
     additionToReference?: string | number // allowing to do [].map(TypeResolver.resolve)
   ): string {
-    /// TODO: add `addition` check for every SchemaObject
+    // TODO  add `addition` check for every SchemaObject
 
     if (object.type === 'string') {
       if (object.enumeration) {
@@ -296,7 +293,9 @@ class GenerationService {
 
   public static generateInterfacesImports(): string {
     return stripIndent`
-      import { Readable } from 'stream'; // for Interfaces.InputFile
+      import { Readable } from 'stream' // INFO  for Interfaces.InputFile
+
+      import { MediaInput } from './media-source'
 
       import {
         Keyboard,
@@ -305,14 +304,16 @@ class GenerationService {
         InlineKeyboard,
         ForceReply,
         RemoveKeyboard
-      } from './common/keyboards';
+      } from './common/keyboards'
     `
   }
 
   public static generateMethodsImports(): string {
     return stripIndent`
-      import * as Interfaces from './telegram-interfaces';
-      import { MessageEntity } from './common/structures';
+      import * as Interfaces from './telegram-interfaces'
+      import { MediaInput } from './media-source'
+
+      import { MessageEntity } from './common/structures'
     `
   }
 
@@ -328,13 +329,13 @@ class GenerationService {
         | InlineKeyboard
         | InlineKeyboardBuilder
         | ForceReply
-        | RemoveKeyboard;
+        | RemoveKeyboard
       
       export type InputFile =
         | string
         | Record<string, any>
         | Buffer
-        | Readable;
+        | Readable
     `
   }
 
@@ -343,11 +344,11 @@ class GenerationService {
       (method) => {
         const description: string = InterfaceService.generateDescription(method.description, 2, method.documentation_link)
 
-        return `${description}\n${tab(method.name)}: api.${method.name};`
+        return `${description}\n${tab(method.name)}: api.${method.name}`
       }
     ).map(tab)
 
-    const content: string = `import * as api from './methods';\n\nexport interface ApiMethods {\n${fields.join('\n')}\n}`
+    const content: string = `import * as api from './methods'\n\nexport interface ApiMethods {\n${fields.join('\n')}\n\n  [key: string]: (...args: any[]) => Promise<any>\n}`
 
     return content
   }
@@ -374,8 +375,8 @@ export async function getJson(fromFile: boolean = false): Promise<Types.SchemaRe
     const response = (await readFile(SCHEMA_URL)).toString()
     json = JSON.parse(response)
   } else {
-    const response: Response = await fetch(SCHEMA_URL)
-    json = await response.json()
+    const response = await fetch(SCHEMA_URL)
+    json = await response.json() as Types.SchemaResponse
   }
 
   return json
@@ -492,7 +493,7 @@ async function _generate(generateFiles: boolean = true) {
   if (generateFiles) {
     const mainPath: string = resolve(`${__dirname}/../../packages/puregram/src/`)
 
-    /// interfaces.ts
+    /// telegram-interfaces.ts
     let iHeader: string = GenerationService.loadString(header) +
       GenerationService.generateInterfacesImports()
 

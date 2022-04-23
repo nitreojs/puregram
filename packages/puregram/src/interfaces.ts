@@ -1,4 +1,4 @@
-import { Agent } from 'https'
+import { Agent } from 'undici'
 
 import { TelegramResponseParameters } from './telegram-interfaces'
 

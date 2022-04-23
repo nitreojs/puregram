@@ -1,128 +1,96 @@
+import { Readable } from 'node:stream'
+import { deprecate } from 'node:util'
+
 import { inspectable } from 'inspectable'
-import { AbortController } from 'abort-controller'
-import { Readable } from 'stream'
-import fetch, { Response } from 'node-fetch'
-import FormData from 'form-data'
-import fs from 'fs'
+import { fetch, RequestInit, setGlobalDispatcher } from 'undici'
+import { File, FormData } from 'formdata-node'
+import { fileFromPath } from 'formdata-node/file-from-path'
+import { FormDataEncoder } from 'form-data-encoder'
 import createDebug from 'debug'
-import crypto from 'crypto'
 
 import { TelegramOptions, ApiResponseUnion } from './interfaces'
-import { defaultOptions, mediaMethods } from './utils/constants'
+import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 
 import { Updates } from './updates'
 import { User } from './common/structures/user'
 import { APIError } from './errors'
-import { ApiMethod, MediaAttachmentType } from './types'
 import { ApiMethods } from './api-methods'
-import { isEmptyValue, isPlainObject, isPrimitiveValue, parsePrimitiveValue } from './utils/helpers'
-
-type AllowArray<T> = T | T[]
+import { decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
+import { MediaInput } from './media-source'
 
 const debug = createDebug('puregram:api')
 
-const isURL: RegExp = /^https?:\/\//i
-
-interface MediaValue {
-  /** URL, path, stream or buffer */
-  value: string | Buffer | NodeJS.ReadableStream | Record<string, any>
-  /**
-   * API method's key
-   *
-   * For example, `sendPhoto` method has got `photo` key,
-   * `sendVideo` - `video` etc.
-   */
-  key: MediaAttachmentType
+interface APICallMethod {
+  /** Use this method to invoke Telegram Bot API `method` [with prompted `params`] */
+  call: (method: string, params?: Record<string, any>) => Promise<any>
 }
 
-interface UploadMediaParams {
-  /** URL, path, stream or buffer */
-  values: AllowArray<MediaValue>
-  /** API method */
-  method: ApiMethod
-  /** Some more data to pass into form-data */
-  contextData?: Record<string, any>
+interface APICreateAttachMediaInput {
+  fd: FormData,
+  input: Record<string, any>
+  key: string
 }
 
-interface BuildFormDataResponse {
-  form: FormData
-  keys: string[]
-  values: MediaValue[]
-}
+type ProxyAPIMethods = ApiMethods & APICallMethod
+
+const getBufferFromStream = (stream: Readable): Promise<Buffer[]> => (
+  new Promise((resolve) => {
+    let result: Buffer[] = []
+
+    stream.on('data', (chunk: Buffer) => {
+      if (chunk) {
+        result.push(chunk)
+      }
+    })
+
+    stream.on('end', () => resolve(result))
+  })
+)
 
 /** Telegram class */
 export class Telegram {
-  public options: TelegramOptions = { ...defaultOptions };
+  public options: TelegramOptions = { ...DEFAULT_OPTIONS }
 
   /** API */
-  public readonly api: ApiMethods = new Proxy<ApiMethods>({} as ApiMethods, {
-    get: (_target: ApiMethods, method: ApiMethod) => (
-      params: Record<string, any> = {}
-    ) => {
-      const mediaMethod: [ApiMethod, AllowArray<MediaAttachmentType>] | undefined = mediaMethods.find(
-        ([currentMediaMethod]) => (
-          method === currentMediaMethod
-        )
-      )
+  public readonly api = new Proxy<ProxyAPIMethods>({} as ProxyAPIMethods, {
+    get: (_target, method: string) => (
+      (...args: any[]) => {
+        // INFO  `telegram.api.call(path: string, params?: Record<string, any>)`
+        if (method === 'call') {
+          const path: string = args[0]
+          const params: Record<string, any> = args[1] ?? {}
 
-      if (mediaMethod !== undefined) {
-        let values: MediaValue[] = []
-        let value: any
-
-        if (Array.isArray(mediaMethod[1])) {
-          value = mediaMethod[1].find((value) => params[value] !== undefined)
-          // TODO: handle every value, not just determine which one is in use
-        } else {
-          value = params[mediaMethod[1]]
+          return this._callAPI(path, params)
         }
 
-        const mediaMethodKey: MediaAttachmentType = (mediaMethod[1] as MediaAttachmentType)
-
-        if (Array.isArray(value)) {
-          // [ { type: 'photo', media: './photo.png', ... } ]
-          values = value.map(
-            (element: { type: MediaValue['key'], media: MediaValue['value'] }) => {
-              const { type, media, ...other } = element
-
-              return { key: type, value: media, ...other }
-            }
-          )
-        } else if (typeof value === 'string') {
-          // './photo.png'
-          values = [{ key: mediaMethodKey, value, ...params }]
-        } else if (value instanceof Readable || Buffer.isBuffer(value)) {
-          // Readable | Buffer
-          const { [mediaMethodKey]: _, ...other } = params
-
-          values = [{ key: mediaMethodKey, value, ...other }]
-        } else if (isPlainObject(value)) {
-          // { type: 'photo', media: './photo.png', ... }
-          const { type, media, ...other } = value
-
-          values = [{ key: type, value: media, ...other }]
-        }
-
-        return this.uploadMedia({
-          method: mediaMethod[0],
-          values,
-          contextData: params
-        })
+        return this._callAPI(method, args[0] as Record<string, any>)
       }
-
-      return this.callApi(method, params)
-    }
-  });
+    )
+  })
 
   /** Updates */
-  public updates: Updates = new Updates(this);
+  public updates: Updates = new Updates(this)
 
   /** Bot data */
   public bot!: User
 
   constructor(options: Partial<TelegramOptions> = {}) {
-    this.setOptions(options)
+    Object.assign(this.options, options)
+
+    this.callApi = deprecate(
+      Telegram.prototype.callApi,
+      '`callApi` is deprecated and will be removed in puregram@3.0.0, use `api.call` instead',
+      'puregram'
+    )
+
+    this.setOptions = deprecate(
+      Telegram.prototype.setOptions,
+      '`setOptions` is deprecated and will be removed in puregram@3.0.0',
+      'puregram'
+    ) as typeof this.setOptions
   }
 
+  /** Creates `Telegram` instance just from `token` [and `params`] */
   public static fromToken(token: string, options: Partial<TelegramOptions> = {}): Telegram {
     return new Telegram({
       token,
@@ -130,194 +98,223 @@ export class Telegram {
     })
   }
 
+  /** @deprecated */
   public setOptions(options: Partial<TelegramOptions>): this {
-    Object.assign(this.options, options)
-
     return this
   }
 
-  /** Call API `method` with `params` */
-  public async callApi(
-    method: ApiMethod,
-    params: Record<string, any> | FormData
-  ): Promise<any> {
-    const url: string = `${this.options.apiBaseUrl}${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${method}`
-    const body: string | FormData = params instanceof FormData ? params : JSON.stringify(params)
+  /** Resolves `MediaInput` into a `File` or `string` */
+  private async createMediaInput(input: MediaInput): Promise<unknown> {
+    const filename = input.filename ?? 'file.dat'
 
-    // request
-    const headers: Record<string, string> = {
-      ...this.options.apiHeaders,
-      'content-type': 'application/json',
+    // INFO  creating [fs.ReadStream] from our path, returning that stream
+    if (input.type === 'path') {
+      return fileFromPath(input.value, input.filename)
     }
 
-    if (params instanceof FormData) {
-      Object.assign(headers, params.getHeaders())
+    // INFO  returning file ID itself since we can't do anything with it
+    if (input.type === 'file_id') {
+      return input.value
     }
 
-    const controller: AbortController = new AbortController()
-    const timeout: NodeJS.Timeout = setTimeout(
-      () => controller.abort(),
-      this.options.apiTimeout!
+    // INFO  fetching that URL and creating an array buffer -> file, returning that file
+    // INFO  OR returning that URL right away
+    if (input.type === 'url') {
+      // INFO  fetching URL contents and uploading them directly to Bot API
+      if (input.forceUpload) {
+        const url = input.value
+
+        const isURL = /^https?:\/\//i.test(url)
+
+        if (!isURL) {
+          throw new TypeError(`'${url}' is not a valid URL`)
+        }
+
+        const response = await fetch(url)
+        const arrayBuffer = await response.arrayBuffer()
+
+        const file = new File([arrayBuffer], filename)
+
+        return file
+      }
+
+      // INFO  ... or returning that URL right away =)
+      return input.value
+    }
+
+    // INFO  convert stream into buffers and return 'em
+    if (input.type === 'stream') {
+      const buffers = await getBufferFromStream(input.value)
+
+      const file = new File(buffers, filename)
+
+      return file
+    }
+
+    // INFO  returning buffer converted into a file
+    if (input.type === 'buffer') {
+      const file = new File([input.value], filename)
+
+      return file
+    }
+
+    // @ts-expect-error
+    throw new TypeError(`received invalid input type: ${input.type}`)
+  }
+
+  /** Uploads media as usual, returning `RequestInit` */
+  private async uploadMedia(params: Record<string, any>, entity: [string, string[]]): Promise<RequestInit> {
+    const fd = new FormData()
+
+    // INFO  clears [params] object and keeps only media values from it
+    const mediaEntries = Object.entries(params).filter(
+      ([key]) => entity[1].includes(key)
     )
 
+    for (const [key, input] of mediaEntries) {
+      // INFO  we allow only [MediaInput] media values since [puregram@2.5.0]
+      if (!isMediaInput(input)) {
+        throw new TypeError('expected media to be created via `MediaSource`')
+      }
+
+      const fdValue = await this.createMediaInput(input)
+
+      fd.set(key, fdValue)
+    }
+
+    const encoder = new FormDataEncoder(fd)
+
+    return {
+      method: 'POST',
+      headers: encoder.headers,
+      body: Readable.from(encoder)
+    }
+  }
+
+  /** Creates media under `attach://<attach-id>` ID */
+  private async createAttachMediaInput(params: APICreateAttachMediaInput) {
+    const media = params.input[params.key] as MediaInput
+
+    // INFO  we allow only [MediaInput] media values since [puregram@2.5.0]
+    if (!isMediaInput(media)) {
+      throw new TypeError('expected media to be created via `MediaSource`')
+    }
+
+    const attachId = generateAttachId()
+
+    const fdValue = await this.createMediaInput(media)
+
+    params.fd.set(attachId, fdValue)
+    params.input[params.key] = `attach://${attachId}`
+  }
+
+  /**
+   * Methods like `sendMediaGroup` and `editMessageMedia` has `media: MediaInput[]` properties.
+   * This method makes it so this `media` property is handled properly
+   */
+  private async uploadWithMedia(params: Record<string, any>): Promise<RequestInit> {
+    const fd = new FormData()
+
+    const { media } = params
+
+    for (let i = 0; i < media.length; i++) {
+      const input = media[i]
+
+      await this.createAttachMediaInput({ fd, input, key: 'media' })
+
+      // INFO  also there is a possibility that [thumb] property exists so
+      if (input.thumb !== undefined) {
+        await this.createAttachMediaInput({ fd, input, key: 'thumb' })
+      }
+    }
+
+    fd.set('media', JSON.stringify(media))
+
+    const encoder = new FormDataEncoder(fd)
+
+    return {
+      method: 'POST',
+      headers: encoder.headers,
+      body: Readable.from(encoder)
+    }
+  }
+
+  /** Invokes Telegram Bot API `path` method [with `params`] */
+  private async _callAPI(path: string, params: Record<string, any> = {}) {
+    // INFO  convert complex values in [params] into something readable
+    // INFO  note it will remove [Buffer] and [Readable] objects
+    const decomplexified = decomplexify(params)
+
+    const query = new URLSearchParams(decomplexified).toString()
+    const url = `https://api.telegram.org/bot${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${path}?${query}`
+
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), this.options.apiTimeout)
+
+    let init: RequestInit = {
+      method: 'GET',
+      signal: controller.signal
+    }
+
+    if (this.options.agent !== undefined) {
+      setGlobalDispatcher(this.options.agent)
+    }
+
+    // INFO  ---- detecting media methods ----
+
+    // INFO  [sendMediaGroup] and [editMessageMedia] requires special logic
+    if (['sendMediaGroup', 'editMessageMedia'].includes(path)) {
+      const newInit = await this.uploadWithMedia(params)
+
+      init = {
+        ...init,
+        ...newInit
+      }
+    } else {
+      const mediaEntity = METHODS_WITH_MEDIA.find(entity => entity[0] === path)
+
+      const hasMediaProperties = mediaEntity !== undefined && (
+        Object.keys(params).some(value => mediaEntity[1].includes(value))
+      )
+
+      // INFO  if current [path] is a method with possible media properties
+      // INFO  and we have those media properties in our [params] (not [decomplexified]!) object
+      if (hasMediaProperties) {
+        const newInit = await this.uploadMedia(params, mediaEntity!)
+
+        init = {
+          ...init,   // INFO  saving [signal] since we don't have access to it in [uploadMedia]
+          ...newInit
+        }
+      }
+    }
+
     try {
-      debug(`[${method}] HTTP ->`)
-      debug(`[${method}] Params: ${body}`)
+      debug(`${path} | HTTP »`)
 
-      const response: Response = await fetch(url, {
-        agent: this.options.agent,
-        compress: false,
-        method: 'POST',
-        signal: controller.signal,
-        headers,
-        body
-      })
+      const response = await fetch(url, init)
+      const json = await response.json() as ApiResponseUnion
 
-      debug(`[${method}] <- HTTP ${response?.status ?? '[not set]'}`)
+      debug(`${path} | « HTTP ${response.status}`)
+      debug(`${path} | Response:`)
+      debug(json)
 
-      if (response !== undefined) {
-        const json: ApiResponseUnion = await response!.json()
-
-        debug(`[${method}] Request response:`)
-        debug(json)
-
-        if (json.ok) return json.result
-
+      if (!json.ok) {
         throw new APIError(json)
       }
+
+      return json.result
     } finally {
       clearTimeout(timeout)
     }
   }
 
-  private async buildFormData(options: UploadMediaParams): Promise<BuildFormDataResponse> {
-    let { values, contextData = {}, method } = options
-
-    if (!Array.isArray(values)) {
-      values = [values]
-    }
-
-    const form: FormData = new FormData()
-    const keys: string[] = []
-
-    const tasks: Promise<void>[] = values.map(
-      async (media: MediaValue, index: number) => {
-        const { value, key } = media
-
-        let formValue: any
-
-        const isPath: boolean = typeof value === 'string' && fs.existsSync(value.toString())
-        const attachmentId: string = crypto.randomBytes(8).toString('hex')
-        const formKey: string = `${key}:${attachmentId}`
-
-        if (isPath) {
-          // string, path
-          formValue = fs.createReadStream(value as string)
-
-          debug(`[${method}] FormData: ${formKey}=${formValue}`)
-
-          form.append(formKey, formValue)
-          keys.push(formKey)
-        } else if (value instanceof Readable || Buffer.isBuffer(value)) {
-          // Readable | Buffer
-          formValue = value
-
-          debug(`[${method}] FormData: ${formKey}=${JSON.stringify(formValue)}`)
-
-          form.append(formKey, formValue, {
-            filename: contextData.filename ?? `${key}${index}_${contextData.chat_id}`
-          })
-
-          keys.push(formKey)
-        } else {
-          // string, URL | fileId
-          formValue = value
-
-          const isUrl: boolean = isURL.test(value as string)
-
-          debug(`[${method}] FormData: ${key}=${formValue}`)
-
-          form.append(key, formValue)
-
-          if (method === 'sendMediaGroup') {
-            keys.push(formKey)
-          } else {
-            keys.push(`${isUrl ? 'url' : 'fileId'}:${value as string}`)
-          }
-        }
-      }
-    )
-
-    await Promise.all(tasks)
-
-    return { form, keys, values }
-  }
-
-  /** Upload any media via URL / Buffer / Stream / path to file */
-  public async uploadMedia(options: UploadMediaParams): Promise<any> {
-    // options. values is     (string |      buffer | stream)[]
-    // options.   key  is     'photo' |     'audio' |     'video' | whatever
-    // options.method  is 'sendPhoto' | 'sendAudio' | 'sendVideo' | whatever
-
-    const { method } = options
-    let { contextData = {} } = options
-
-    const { form, keys, values }: BuildFormDataResponse = await this.buildFormData(options)
-    const key: string | undefined = keys[0]
-
-    if (values.length === 0 || values === undefined) {
-      throw new Error('Expected `uploadMedia` to contain at least one value')
-    }
-
-    if (method === 'sendMediaGroup' || method === 'editMessageMedia') {
-      let mediaValue: AllowArray<Record<string, any>> = keys.map(
-        (key: string, index: number) => {
-          const { key: elementKey, value: elementValue, ...valueContext }: MediaValue = values[index]
-          const [keyType]: string[] = key.split(':')
-
-          const isUrl: boolean = keyType === 'url'
-          const isFileId: boolean = keyType === 'fileId'
-
-          return {
-            type: (isUrl || isFileId) ? elementKey : keyType,
-            media: (isUrl || isFileId) ? elementValue : `attach://${key}`,
-            ...valueContext
-          }
-        }
-      )
-
-      if (method === 'editMessageMedia') mediaValue = (mediaValue as Record<string, any>[])[0]
-
-      form.append('media', JSON.stringify(mediaValue))
-    } else if (key !== undefined) {
-      form.append(key.split(':')[0], `attach://${key}`)
-    }
-
-    // hack: remove 'media' key from `contextData`
-    let { media: _, ...tempContextData } = contextData
-
-    for (const tempValue of values) {
-      if (tempValue.key in tempContextData) {
-        const { [tempValue.key]: _, ...tempContextData } = contextData
-
-        contextData = tempContextData
-      }
-    }
-
-    contextData = tempContextData
-
-    for (let [dataKey, dataValue] of Object.entries(contextData)) {
-      if (isEmptyValue(dataValue)) continue
-
-      if (isPrimitiveValue(dataValue)) dataValue = parsePrimitiveValue(dataValue)
-      else if (Array.isArray(dataValue)) dataValue = dataValue.join(',')
-      else if ('toJSON' in dataValue) dataValue = JSON.stringify(dataValue.toJSON())
-      else if (isPlainObject(dataValue)) dataValue = JSON.stringify(dataValue)
-
-      form.append(dataKey, dataValue)
-    }
-
-    return this.callApi(method, form)
+  /**
+   * Call API `method` with `params`
+   * @deprecated use `telegram.api.call(...)` instead
+   */
+  public callApi(method: string, params?: Record<string, any>) {
+    return this.api.call(method, params)
   }
 }
 

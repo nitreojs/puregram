@@ -1,23 +1,17 @@
-import { Agent } from 'https'
+import { Agent } from 'undici'
 
 import { TelegramOptions } from '../interfaces'
 import { Message } from '../updates/'
 
-import {
-  AllowArray,
-  ApiMethod,
-  MediaAttachmentType,
-  MessageEventName
-} from '../types'
+import { MessageEventName } from '../types'
 
 // @ts-expect-error
 import { version } from '../../package.json'
 
-export const defaultOptions: TelegramOptions = {
+export const DEFAULT_OPTIONS: TelegramOptions = {
   token: undefined,
   agent: new Agent({
-    keepAlive: true,
-    keepAliveMsecs: 30000
+    keepAliveTimeout: 30_000
   }),
   allowedUpdates: [],
 
@@ -31,7 +25,7 @@ export const defaultOptions: TelegramOptions = {
   },
 }
 
-export const events: [
+export const EVENTS: [
   keyof Message,
   MessageEventName
 ][] = [
@@ -56,24 +50,20 @@ export const events: [
     ['webAppData', 'web_app_data']
   ]
 
-export const mediaMethods: [ApiMethod, AllowArray<MediaAttachmentType>][] = [
-  // send*
-  ['sendPhoto', 'photo'],
-  ['sendAudio', 'audio'],
-  ['sendDocument', 'document'],
-  ['sendVideo', 'video'],
-  ['sendAnimation', 'animation'],
-  ['sendVoice', 'voice'],
-  ['sendSticker', 'sticker'],
-  ['sendVideoNote', 'video_note'],
-  ['sendMediaGroup', 'media'],
-
-  // Stickers
-  ['uploadStickerFile', 'png_sticker'],
-  ['createNewStickerSet', ['png_sticker', 'tgs_sticker']],
-  ['addStickerToSet', ['png_sticker', 'tgs_sticker']],
-  ['setStickerSetThumb', 'thumb'],
-
-  // edit*
-  ['editMessageMedia', 'media']
+export const METHODS_WITH_MEDIA: [string, string[]][] = [
+  ['sendPhoto', ['photo']],
+  ['sendAudio', ['audio', 'thumb']],
+  ['sendDocument', ['document', 'thumb']],
+  ['sendVideo', ['video', 'thumb']],
+  ['sendAnimation', ['animation', 'thumb']],
+  ['sendVideoNote', ['video_note', 'thumb']],
+  ['sendMediaGroup', ['media']], // INFO  needs special logic because of 'attach://<attachname>' stuff
+  ['sendSticker', ['sticker']],
+  ['uploadStickerFile', ['png_sticker']],
+  ['createNewStickerSet', ['png_sticker', 'tgs_sticker', 'webm_sticker']],
+  ['addStickerToSet', ['png_sticker', 'tgs_sticker', 'webm_sticker']],
+  ['setStickerSetThumb', ['thumb']],
+  ['editMessageMedia', ['media']],
+  ['setWebhook', ['certificate']],
+  ['setChatPhoto', ['photo']]
 ]

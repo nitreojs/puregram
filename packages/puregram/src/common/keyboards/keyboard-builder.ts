@@ -25,7 +25,7 @@ export class KeyboardBuilder {
    * If none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
-  textButton(text: string): this {
+  textButton(text: string) {
     return this.addButton({ text })
   }
 
@@ -34,7 +34,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  requestLocationButton(text: string): this {
+  requestLocationButton(text: string) {
     return this.addWideButton({
       text,
       request_location: true
@@ -47,7 +47,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  requestPollButton(text: string, type?: TelegramPoll['type']): this {
+  requestPollButton(text: string, type?: TelegramPoll['type']) {
     return this.addWideButton({
       text,
       request_poll: { type }
@@ -60,7 +60,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  requestContactButton(text: string): this {
+  requestContactButton(text: string) {
     return this.addWideButton({
       text,
       request_contact: true
@@ -73,7 +73,7 @@ export class KeyboardBuilder {
    * 
    * Available in private chats only.
    */
-  webAppButton(text: string, url: string): this {
+  webAppButton(text: string, url: string) {
     return this.addWideButton({
       text,
       web_app: { url }
@@ -81,7 +81,7 @@ export class KeyboardBuilder {
   }
 
   /** Save current row of buttons in the general rows */
-  row(): this {
+  row() {
     if (this.currentRow.length === 0) {
       return this
     }
@@ -93,40 +93,40 @@ export class KeyboardBuilder {
   }
 
   /** When pressed, the keyboard will disappear */
-  oneTime(oneTime: boolean = true): this {
+  oneTime(oneTime: boolean = true) {
     this.isOneTime = oneTime
 
     return this
   }
 
   /** Resize the keyboard */
-  resize(resize: boolean = true): this {
+  resize(resize: boolean = true) {
     this.isResized = resize
 
     return this
   }
 
   /** Use this parameter if you want to show the keyboard to specific users only */
-  selective(selective: boolean = true): this {
+  selective(selective: boolean = true) {
     this.isSelective = selective
 
     return this
   }
 
   /** The placeholder to be shown in the input field when the keyboard is active */
-  setPlaceholder(placeholder: string): this {
+  setPlaceholder(placeholder: string) {
     this.placeholder = placeholder
 
     return this
   }
 
-  private addButton(button: TelegramKeyboardButton): this {
+  private addButton(button: TelegramKeyboardButton) {
     this.currentRow.push(button)
 
     return this
   }
 
-  private addWideButton(button: TelegramKeyboardButton): this {
+  private addWideButton(button: TelegramKeyboardButton) {
     if (this.currentRow.length !== 0) this.row()
 
     this.addButton(button)

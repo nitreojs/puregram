@@ -147,7 +147,7 @@ export class InlineKeyboard {
     }
   }
 
-  private addRow(row: TelegramInlineKeyboardButton[] | TelegramInlineKeyboardButton): this {
+  private addRow(row: TelegramInlineKeyboardButton[] | TelegramInlineKeyboardButton) {
     if (!Array.isArray(row)) row = [row]
 
     this.buttons.push(row)

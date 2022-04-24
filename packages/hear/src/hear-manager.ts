@@ -39,7 +39,7 @@ export class HearManager<C extends Context> {
   hear<T = {}>(
     hearConditions: HearConditions<C & T>,
     handler: Middleware<C & T>
-  ): this {
+  ) {
     const rawConditions = !Array.isArray(hearConditions)
       ? [hearConditions]
       : hearConditions
@@ -136,7 +136,7 @@ export class HearManager<C extends Context> {
   }
 
   /** A handler that is called when handlers are not found */
-  onFallback(handler: Middleware<C>): this {
+  onFallback(handler: Middleware<C>) {
     // @ts-ignore
     this.fallbackHandler = handler
 

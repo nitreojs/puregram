@@ -110,7 +110,7 @@ export class Updates {
     return this.constructor.name
   }
 
-  use<T = {}>(middleware: Middleware<Contexts.Context & T>): this {
+  use<T = {}>(middleware: Middleware<Contexts.Context & T>) {
     if (typeof middleware !== 'function') {
       throw new TypeError('Middleware must be function')
     }
@@ -295,7 +295,7 @@ export class Updates {
   on<T = {}>(
     rawOnEvents: AllowArray<string>,
     rawHandlers: AllowArray<Middleware<Contexts.Context & T>>
-  ): this {
+  ) {
     const onEvents = Array.isArray(rawOnEvents)
       ? rawOnEvents
       : [rawOnEvents]

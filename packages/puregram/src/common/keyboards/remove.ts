@@ -10,7 +10,7 @@ export class RemoveKeyboard {
   private isSelective: boolean = false
 
   /** Use this parameter if you want to show the keyboard to specific users only */
-  selective(selective: boolean = true): this {
+  selective(selective: boolean = true) {
     this.isSelective = selective
 
     return this

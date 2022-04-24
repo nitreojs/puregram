@@ -24,7 +24,7 @@ export class SceneManager {
   }
 
   /** Adds scenes to the repository */
-  addScenes(scenes: SceneInterface[]): this {
+  addScenes(scenes: SceneInterface[]) {
     for (const scene of scenes) {
       this.repository.set(scene.slug, scene)
     }

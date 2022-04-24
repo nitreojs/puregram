@@ -31,28 +31,28 @@ export class Keyboard {
   }
 
   /** Resize the keyboard */
-  resize(resize: boolean = true): this {
+  resize(resize: boolean = true) {
     this.isResized = resize
 
     return this
   }
 
   /** When pressed, the keyboard will disappear */
-  oneTime(oneTime: boolean = true): this {
+  oneTime(oneTime: boolean = true) {
     this.isOneTime = oneTime
 
     return this
   }
 
   /** Use this parameter if you want to show the keyboard to specific users only */
-  selective(selective: boolean = true): this {
+  selective(selective: boolean = true) {
     this.isSelective = selective
 
     return this
   }
 
   /** The placeholder to be shown in the input field when the keyboard is active */
-  setPlaceholder(placeholder: string): this {
+  setPlaceholder(placeholder: string) {
     this.placeholder = placeholder
 
     return this
@@ -118,7 +118,7 @@ export class Keyboard {
     }
   }
 
-  private addRow(row: TelegramKeyboardButton[] | TelegramKeyboardButton): this {
+  private addRow(row: TelegramKeyboardButton[] | TelegramKeyboardButton) {
     if (!Array.isArray(row)) row = [row]
 
     this.buttons.push(row)

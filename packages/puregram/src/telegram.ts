@@ -85,7 +85,7 @@ export class Telegram {
   }
 
   /** @deprecated */
-  setOptions(options: Partial<TelegramOptions>): this {
+  setOptions(options: Partial<TelegramOptions>) {
     return this
   }
 

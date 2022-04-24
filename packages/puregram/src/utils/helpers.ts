@@ -1,5 +1,7 @@
 import { IncomingMessage } from 'node:http'
 import { randomBytes } from 'node:crypto'
+import { Stream, PassThrough } from 'node:stream'
+import type { Readable, Writable } from 'node:stream'
 
 import { MediaInput } from '../media-source'
 
@@ -142,3 +144,20 @@ export const decomplexify = (obj: Record<string, any>) => {
 }
 
 export const generateAttachId = () => randomBytes(8).toString('hex')
+
+export const convertStreamToBuffer = async (rawStream: Readable) => {
+  const stream = new PassThrough()
+
+  rawStream.pipe(stream)
+
+  const chunks: Buffer[] = []
+  let size = 0
+
+  for await (const chunk of stream) {
+    size += (chunk as Buffer).length
+
+    chunks.push(chunk as Buffer)
+  }
+
+  return Buffer.concat(chunks, size)
+}

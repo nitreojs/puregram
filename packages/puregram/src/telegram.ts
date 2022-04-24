@@ -15,7 +15,7 @@ import { Updates } from './updates'
 import { User } from './common/structures/user'
 import { APIError } from './errors'
 import { ApiMethods } from './api-methods'
-import { decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
+import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
 import { MediaInput } from './media-source'
 
 const debug = createDebug('puregram:api')
@@ -32,20 +32,6 @@ interface APICreateAttachMediaInput {
 }
 
 type ProxyAPIMethods = ApiMethods & APICallMethod
-
-const getBufferFromStream = (stream: Readable): Promise<Buffer[]> => (
-  new Promise((resolve) => {
-    let result: Buffer[] = []
-
-    stream.on('data', (chunk: Buffer) => {
-      if (chunk) {
-        result.push(chunk)
-      }
-    })
-
-    stream.on('end', () => resolve(result))
-  })
-)
 
 /** Telegram class */
 export class Telegram {
@@ -142,11 +128,11 @@ export class Telegram {
       return input.value
     }
 
-    // INFO  convert stream into buffers and return 'em
+    // INFO  convert stream into buffer and return 'em
     if (input.type === 'stream') {
-      const buffers = await getBufferFromStream(input.value)
+      const buffer = await convertStreamToBuffer(input.value)
 
-      const file = new File(buffers, filename)
+      const file = new File([buffer], filename)
 
       return file
     }

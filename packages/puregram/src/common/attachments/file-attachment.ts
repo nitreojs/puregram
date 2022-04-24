@@ -14,7 +14,7 @@ export interface DefaultAttachment {
 export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> extends Attachment {
   protected payload: T
 
-  public attachmentType?: AttachmentType
+  attachmentType?: AttachmentType
 
   constructor(payload: T) {
     super()
@@ -25,7 +25,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  public get fileId(): string {
+  get fileId(): string {
     return this.payload.file_id
   }
 
@@ -33,7 +33,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  public get fileUniqueId(): string {
+  get fileUniqueId(): string {
     return this.payload.file_unique_id
   }
 }

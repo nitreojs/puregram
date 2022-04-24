@@ -8,17 +8,17 @@ import { PhotoSize } from './photo-size'
 export class UserProfilePhotos {
   constructor(private payload: TelegramUserProfilePhotos) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Total number of profile pictures the target user has */
-  public get totalCount(): number {
+  get totalCount(): number {
     return this.payload.total_count
   }
 
   /** Requested profile pictures (in up to 4 sizes each) */
-  public get photos(): PhotoSize[][] {
+  get photos(): PhotoSize[][] {
     const { photos } = this.payload
 
     if (!photos.length) {

@@ -9,30 +9,30 @@ import { FileAttachment } from './file-attachment'
 
 /** This object represents a sticker. */
 export class StickerAttachment extends FileAttachment<TelegramSticker> {
-  public attachmentType: 'sticker' = 'sticker'
+  attachmentType: 'sticker' = 'sticker'
 
   /** Sticker width */
-  public get width(): number {
+  get width(): number {
     return this.payload.width
   }
 
   /** Sticker height */
-  public get height(): number {
+  get height(): number {
     return this.payload.height
   }
 
   /** `true`, if the sticker is animated */
-  public get isAnimated(): boolean {
+  get isAnimated(): boolean {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker is a video sticker */
-  public get isVideo(): boolean {
+  get isVideo(): boolean {
     return this.payload.is_video
   }
 
   /** Sticker thumbnail in the .WEBP or .JPG format */
-  public get thumb(): PhotoSize | undefined {
+  get thumb(): PhotoSize | undefined {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -43,17 +43,17 @@ export class StickerAttachment extends FileAttachment<TelegramSticker> {
   }
 
   /** Emoji associated with the sticker */
-  public get emoji(): string | undefined {
+  get emoji(): string | undefined {
     return this.payload.emoji
   }
 
   /** Name of the sticker set to which the sticker belongs */
-  public get setName(): string | undefined {
+  get setName(): string | undefined {
     return this.payload.set_name
   }
 
   /** For mask stickers, the position where the mask should be placed */
-  public get maskPosition(): MaskPosition | undefined {
+  get maskPosition(): MaskPosition | undefined {
     const { mask_position } = this.payload
 
     if (!mask_position) {
@@ -64,7 +64,7 @@ export class StickerAttachment extends FileAttachment<TelegramSticker> {
   }
 
   /** File size */
-  public get fileSize(): number | undefined {
+  get fileSize(): number | undefined {
     return this.payload.file_size
   }
 }

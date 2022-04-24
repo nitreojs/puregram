@@ -6,12 +6,12 @@ import { TelegramWebAppInfo } from '../../telegram-interfaces'
 export class WebAppInfo {
   constructor(private payload: TelegramWebAppInfo) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps */
-  public get url(): string {
+  get url(): string {
     return this.payload.url
   }
 }

@@ -22,7 +22,7 @@ interface MessageEntityJSON {
 export class MessageEntity {
   constructor(private payload: TelegramMessageEntity) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -38,29 +38,29 @@ export class MessageEntity {
    * `pre` (`monowidth block`), `text_link` (for clickable text URLs), `text_mention`
    * (for users without usernames)
    */
-  public get type(): TelegramMessageEntity['type'] {
+  get type(): TelegramMessageEntity['type'] {
     return this.payload.type
   }
 
   /** Offset in UTF-16 code units to the start of the entity */
-  public get offset(): number {
+  get offset(): number {
     return this.payload.offset
   }
 
   /** Length of the entity in UTF-16 code units */
-  public get length(): number {
+  get length(): number {
     return this.payload.length
   }
 
   /**
    * For `text_link` only, url that will be opened after user taps on the text
    */
-  public get url(): string | undefined {
+  get url(): string | undefined {
     return this.payload.url
   }
 
   /** For `text_mention` only, the mentioned user */
-  public get user(): User | undefined {
+  get user(): User | undefined {
     const { user } = this.payload
 
     if (!user) {
@@ -71,11 +71,11 @@ export class MessageEntity {
   }
 
   /** For `pre` only, the programming language of the entity text */
-  public get language(): string | undefined {
+  get language(): string | undefined {
     return this.payload.language
   }
 
-  public toJSON(): MessageEntityJSON {
+  toJSON(): MessageEntityJSON {
     return {
       type: this.type,
       offset: this.offset,

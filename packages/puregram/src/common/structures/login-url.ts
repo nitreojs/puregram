@@ -10,7 +10,7 @@ import { filterPayload } from '../../utils/helpers'
 export class LoginUrl {
   constructor(private payload: TelegramLoginUrl) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -25,12 +25,12 @@ export class LoginUrl {
    * verify the authentication and the integrity of the data as described in
    * Checking authorization.
    */
-  public get url(): string {
+  get url(): string {
     return this.payload.url
   }
 
   /** New text of the button in forwarded messages. */
-  public get forwardText(): string | undefined {
+  get forwardText(): string | undefined {
     return this.payload.forward_text
   }
 
@@ -41,7 +41,7 @@ export class LoginUrl {
    * domain linked with the bot. See Linking your domain to the bot for more
    * details.
    */
-  public get botUsername(): string | undefined {
+  get botUsername(): string | undefined {
     return this.payload.bot_username
   }
 
@@ -49,7 +49,7 @@ export class LoginUrl {
    * Pass `true` to request the permission for your bot to send messages to the
    * user.
    */
-  public get requestWriteAccess(): boolean | undefined {
+  get requestWriteAccess(): boolean | undefined {
     return this.payload.request_write_access
   }
 }

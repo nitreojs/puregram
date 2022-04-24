@@ -22,7 +22,7 @@ interface CallbackQueryContextOptions {
 
 /** Called when `callback_query` event occurs */
 class CallbackQueryContext extends Context {
-  public payload: TelegramCallbackQuery
+  payload: TelegramCallbackQuery
 
   constructor(options: CallbackQueryContextOptions) {
     super({
@@ -40,7 +40,7 @@ class CallbackQueryContext extends Context {
    * Note that message content and message date will not be available
    * if the message is too old
    */
-  public get message(): MessageContext | undefined {
+  get message(): MessageContext | undefined {
     if (this.payload.message === undefined) {
       return
     }
@@ -57,7 +57,7 @@ class CallbackQueryContext extends Context {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  public get queryPayload(): any {
+  get queryPayload(): any {
     const { data } = this.payload
 
     if (data === undefined) {
@@ -72,7 +72,7 @@ class CallbackQueryContext extends Context {
   }
 
   /** Answers to current callback query */
-  public answerCallbackQuery(
+  answerCallbackQuery(
     params?: Partial<AnswerCallbackQueryParams>
   ): Promise<true> {
     return this.telegram.api.answerCallbackQuery({

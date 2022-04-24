@@ -8,32 +8,32 @@ import { ShippingAddress } from '../common/structures/shipping-address'
 export class ShippingQuery {
   constructor(public payload: TelegramShippingQuery) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Unique query identifier */
-  public get id(): string {
+  get id(): string {
     return this.payload.id
   }
 
   /** User who sent the query */
-  public get from(): User {
+  get from(): User {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
-  public get senderId(): number {
+  get senderId(): number {
     return this.from.id
   }
 
   /** Bot specified invoice payload */
-  public get invoicePayload(): string {
+  get invoicePayload(): string {
     return this.payload.invoice_payload
   }
 
   /** User specified shipping address */
-  public get shippingAddress(): ShippingAddress {
+  get shippingAddress(): ShippingAddress {
     return new ShippingAddress(this.payload.shipping_address)
   }
 }

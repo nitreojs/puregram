@@ -11,40 +11,40 @@ import { FileAttachment } from './file-attachment'
  * clients.
  */
 export class AudioAttachment extends FileAttachment<TelegramAudio> {
-  public attachmentType: 'audio' = 'audio'
+  attachmentType: 'audio' = 'audio'
 
   /** Duration of the audio in seconds as defined by sender */
-  public get duration(): number {
+  get duration(): number {
     return this.payload.duration
   }
 
   /** Performer of the audio as defined by sender or by audio tags */
-  public get performer(): string | undefined {
+  get performer(): string | undefined {
     return this.payload.performer
   }
 
   /** Title of the audio as defined by sender or by audio tags */
-  public get title(): string | undefined {
+  get title(): string | undefined {
     return this.payload.title
   }
 
   /** Original filename as defined by sender */
-  public get fileName(): string | undefined {
+  get fileName(): string | undefined {
     return this.payload.file_name
   }
 
   /** MIME type of the file as defined by sender */
-  public get mimeType(): string | undefined {
+  get mimeType(): string | undefined {
     return this.payload.mime_type
   }
 
   /** File size */
-  public get fileSize(): number | undefined {
+  get fileSize(): number | undefined {
     return this.payload.file_size
   }
 
   /** Thumbnail of the album cover to which the music file belongs */
-  public get thumb(): PhotoSize | undefined {
+  get thumb(): PhotoSize | undefined {
     const { thumb } = this.payload
 
     if (!thumb) {

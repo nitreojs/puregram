@@ -26,7 +26,7 @@ interface ServiceResultMethod extends ServiceResult {
 }
 
 class InterfaceService {
-  public static generate(kInterface: Types.SchemaInterface): ServiceResultInterface {
+  static generate(kInterface: Types.SchemaInterface): ServiceResultInterface {
     if (kInterface.type === 'any_of') {
       console.log(kInterface)
 
@@ -59,7 +59,7 @@ class InterfaceService {
     }
   }
 
-  public static generateDescription(
+  static generateDescription(
     description: string,
     padSize: number = 0,
     documentationLink?: string
@@ -77,7 +77,7 @@ class InterfaceService {
     return `/**\n${parts.map(part => `${spaces} * ${part}`).join('\n')}\n${spaces} */`
   }
 
-  public static generateFields(properties: Types.SchemaObject[]): string[] {
+  static generateFields(properties: Types.SchemaObject[]): string[] {
     const fields: string[] = []
 
     for (const field of properties) {
@@ -98,7 +98,7 @@ class InterfaceService {
 }
 
 class MethodService {
-  public static generate(kMethod: Types.SchemaMethod): ServiceResultMethod {
+  static generate(kMethod: Types.SchemaMethod): ServiceResultMethod {
     // TODO  simplify
 
     const mTypeDescription: string = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
@@ -129,7 +129,7 @@ class MethodService {
     }
   }
 
-  public static generateFields(properties: Types.SchemaObject[], addition?: string): string[] {
+  static generateFields(properties: Types.SchemaObject[], addition?: string): string[] {
     const fields: string[] = []
 
     for (const field of properties) {
@@ -189,7 +189,7 @@ class MethodService {
 }
 
 class TypeService {
-  public static generate(kType: Types.SchemaInterfaceAnyOf): ServiceResult {
+  static generate(kType: Types.SchemaInterfaceAnyOf): ServiceResult {
     const name: string = `Telegram${kType.name}`
     const types: string[] = kType.any_of.map(TypeResolver.resolve)
 
@@ -204,7 +204,7 @@ class TypeService {
 }
 
 class TypeResolver {
-  public static resolve(
+  static resolve(
     object: Types.SchemaObject,
     additionToReference?: string | number // allowing to do [].map(TypeResolver.resolve)
   ): string {
@@ -269,17 +269,17 @@ class TypeResolver {
 }
 
 class SchemaService {
-  public static isType(schema: Types.SchemaInterface): schema is Types.SchemaInterfaceAnyOf {
+  static isType(schema: Types.SchemaInterface): schema is Types.SchemaInterfaceAnyOf {
     return schema.type === 'any_of'
   }
 }
 
 class GenerationService {
-  public static loadString(header: string): string {
+  static loadString(header: string): string {
     return header + '\n\n'
   }
 
-  public static generate(results: ServiceResult[], header?: string): string {
+  static generate(results: ServiceResult[], header?: string): string {
     let content: string = header
       ? GenerationService.loadString(header)
       : ''
@@ -291,7 +291,7 @@ class GenerationService {
     return content.trimEnd()
   }
 
-  public static generateInterfacesImports(): string {
+  static generateInterfacesImports(): string {
     return stripIndent`
       import { Readable } from 'stream' // INFO  for Interfaces.InputFile
 
@@ -308,7 +308,7 @@ class GenerationService {
     `
   }
 
-  public static generateMethodsImports(): string {
+  static generateMethodsImports(): string {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces'
       import { MediaInput } from './media-source'
@@ -317,7 +317,7 @@ class GenerationService {
     `
   }
 
-  public static generateAdditionalTypes(): string {
+  static generateAdditionalTypes(): string {
     return stripIndent`
       export type ReplyMarkupUnion =
         | TelegramInlineKeyboardMarkup
@@ -339,7 +339,7 @@ class GenerationService {
     `
   }
 
-  public static generateApiMethods(methods: Types.SchemaMethod[]): string {
+  static generateApiMethods(methods: Types.SchemaMethod[]): string {
     const fields: string[] = methods.map(
       (method) => {
         const description: string = InterfaceService.generateDescription(method.description, 2, method.documentation_link)

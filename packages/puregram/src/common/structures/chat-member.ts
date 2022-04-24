@@ -8,27 +8,27 @@ import { User } from './user'
 export class ChatMember {
   constructor(public payload: TelegramChatMember) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Information about the user */
-  public get user(): User {
+  get user(): User {
     return new User(this.payload.user)
   }
 
   /** The member's status in the chat */
-  public get status(): TelegramChatMember['status'] {
+  get status(): TelegramChatMember['status'] {
     return this.payload.status
   }
 
   /** Owner and administrators only. Custom title for this user */
-  public get customTitle(): string | undefined {
+  get customTitle(): string | undefined {
     return this.payload.custom_title
   }
 
   /** Owner and administrators only. `true`, if the user's presence in the chat is hidden */
-  public get isAnonymous(): boolean | undefined {
+  get isAnonymous(): boolean | undefined {
     return this.payload.is_anonymous
   }
 
@@ -37,7 +37,7 @@ export class ChatMember {
    * Date when restrictions will be lifted for this user;
    * unix time
    */
-  public get untilDate(): number | undefined {
+  get untilDate(): number | undefined {
     return this.payload.until_date
   }
 
@@ -46,7 +46,7 @@ export class ChatMember {
    * `true`, if the bot is allowed to edit administrator privileges of that
    * user
    */
-  public get canBeEdited(): boolean | undefined {
+  get canBeEdited(): boolean | undefined {
     return this.payload.can_be_edited
   }
 
@@ -57,7 +57,7 @@ export class ChatMember {
    * in supergroups and ignore slow mode.
    * Implied by any other administrator privilege
    */
-  public get canManageChat(): boolean | undefined {
+  get canManageChat(): boolean | undefined {
     return this.payload.can_manage_chat
   }
 
@@ -66,7 +66,7 @@ export class ChatMember {
    * `true`, if the administrator can post in the channel;
    * channels only
    */
-  public get canPostMessages(): boolean | undefined {
+  get canPostMessages(): boolean | undefined {
     return this.payload.can_post_messages
   }
 
@@ -75,7 +75,7 @@ export class ChatMember {
    * `true`, if the administrator can edit messages of other users
    * and can pin messages; channels only
    */
-  public get canEditMessages(): boolean | undefined {
+  get canEditMessages(): boolean | undefined {
     return this.payload.can_edit_messages
   }
 
@@ -83,7 +83,7 @@ export class ChatMember {
    * Administrators only.
    * `true`, if the administrator can delete messages of other users
    */
-  public get canDeleteMessages(): boolean | undefined {
+  get canDeleteMessages(): boolean | undefined {
     return this.payload.can_delete_messages
   }
 
@@ -91,7 +91,7 @@ export class ChatMember {
    * Administrators only.
    * `true`, if the administrator can manage video chats
    */
-  public get canManageVideoChats(): boolean | undefined {
+  get canManageVideoChats(): boolean | undefined {
     return this.payload.can_manage_video_chats
   }
 
@@ -99,7 +99,7 @@ export class ChatMember {
    * Administrators only.
    * `true`, if the administrator can restrict, ban or unban chat members
    */
-  public get canRestrictMembers(): boolean | undefined {
+  get canRestrictMembers(): boolean | undefined {
     return this.payload.can_restrict_members
   }
 
@@ -110,7 +110,7 @@ export class ChatMember {
    * directly or indirectly (promoted by administrators that were appointed by
    * the user)
    */
-  public get canPromoteMembers(): boolean | undefined {
+  get canPromoteMembers(): boolean | undefined {
     return this.payload.can_promote_members
   }
 
@@ -119,7 +119,7 @@ export class ChatMember {
    * `true`, if the user is allowed to change the chat title,
    * photo and other settings
    */
-  public get canChangeInfo(): boolean | undefined {
+  get canChangeInfo(): boolean | undefined {
     return this.payload.can_change_info
   }
 
@@ -127,7 +127,7 @@ export class ChatMember {
    * Administrators and restricted only.
    * `true`, if the user is allowed to invite new users to the chat
    */
-  public get canInviteUsers(): boolean | undefined {
+  get canInviteUsers(): boolean | undefined {
     return this.payload.can_invite_users
   }
 
@@ -136,7 +136,7 @@ export class ChatMember {
    * `true`, if the user is allowed to pin messages;
    * groups and supergroups only
    */
-  public get canPinMessages(): boolean | undefined {
+  get canPinMessages(): boolean | undefined {
     return this.payload.can_pin_messages
   }
 
@@ -144,7 +144,7 @@ export class ChatMember {
    * Restricted only.
    * `true`, if the user is a member of the chat at the moment of the request
    */
-  public get isMember(): boolean | undefined {
+  get isMember(): boolean | undefined {
     return this.payload.is_member
   }
 
@@ -153,7 +153,7 @@ export class ChatMember {
    * `true`, if the user is allowed to send text messages,
    * contacts, locations and venues
    */
-  public get canSendMessages(): boolean | undefined {
+  get canSendMessages(): boolean | undefined {
     return this.payload.can_send_messages
   }
 
@@ -162,12 +162,12 @@ export class ChatMember {
    * `true`, if the user is allowed to send audios, documents,
    * photos, videos, video notes and voice notes
    */
-  public get canSendMediaMessages(): boolean | undefined {
+  get canSendMediaMessages(): boolean | undefined {
     return this.payload.can_send_media_messages
   }
 
   /** Restricted only. `true`, if the user is allowed to send polls */
-  public get canSendPolls(): boolean | undefined {
+  get canSendPolls(): boolean | undefined {
     return this.payload.can_send_polls
   }
 
@@ -176,7 +176,7 @@ export class ChatMember {
    * `true`, if the user is allowed to send animations, games,
    * stickers and use inline bots
    */
-  public get canSendOtherMessages(): boolean | undefined {
+  get canSendOtherMessages(): boolean | undefined {
     return this.payload.can_send_other_messages
   }
 
@@ -184,7 +184,7 @@ export class ChatMember {
    * Restricted only
    * `true`, if the user is allowed to add web page previews to their messages
    */
-  public get canAddWebPagePreviews(): boolean | undefined {
+  get canAddWebPagePreviews(): boolean | undefined {
     return this.payload.can_add_web_page_previews
   }
 }

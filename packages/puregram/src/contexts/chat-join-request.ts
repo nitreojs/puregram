@@ -16,7 +16,7 @@ interface ChatJoinRequestContextParams {
 }
 
 class ChatJoinRequestContext extends Context {
-  public payload: TelegramChatJoinRequest
+  payload: TelegramChatJoinRequest
 
   constructor(options: ChatJoinRequestContextParams) {
     super({
@@ -30,37 +30,37 @@ class ChatJoinRequestContext extends Context {
   }
 
   /** Sender's ID */
-  public get senderId(): number | undefined {
+  get senderId(): number | undefined {
     return this.from?.id
   }
 
   /** Chat ID */
-  public get chatId(): number | undefined {
+  get chatId(): number | undefined {
     return this.chat?.id
   }
 
   /** Chat type */
-  public get chatType(): TelegramChat['type'] | undefined {
+  get chatType(): TelegramChat['type'] | undefined {
     return this.chat?.type
   }
 
   /** Is this chat a private one? */
-  public get isPM(): boolean {
+  get isPM(): boolean {
     return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
-  public get isGroup(): boolean {
+  get isGroup(): boolean {
     return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
-  public get isSupergroup(): boolean {
+  get isSupergroup(): boolean {
     return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
-  public get isChannel(): boolean {
+  get isChannel(): boolean {
     return this.chatType === 'channel'
   }
 }

@@ -19,19 +19,19 @@ export class MemoryStorage implements SessionStorage {
     this.store = store
   }
 
-  public async get(key: string): Promise<object | undefined> {
+  async get(key: string): Promise<object | undefined> {
     return this.store.get(key)
   }
 
-  public async set(key: string, value: object): Promise<boolean> {
+  async set(key: string, value: object): Promise<boolean> {
     this.store.set(key, value)
 
     return true
   }
 
-  public async delete(key: string): Promise<boolean> {
+  async delete(key: string): Promise<boolean> {
     return this.store.delete(key)
   }
 
-  public async touch(): Promise<void> { }
+  async touch(): Promise<void> { }
 }

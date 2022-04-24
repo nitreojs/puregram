@@ -12,7 +12,7 @@ import {
 } from './step.types'
 
 export class StepScene<T = MessageContext> implements SceneInterface {
-  public slug: string
+  slug: string
 
   private readonly steps: StepSceneHandler<T>[]
 
@@ -20,7 +20,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
 
   private readonly onLeaveHandler: NonNullable<StepSceneOptions<T>['leaveHandler']>
 
-  public constructor(slug: string, rawOptions: StepSceneOptions<T> | StepSceneHandler<T>[]) {
+  constructor(slug: string, rawOptions: StepSceneOptions<T> | StepSceneHandler<T>[]) {
     const options: StepSceneOptions<T> = Array.isArray(rawOptions)
       ? { steps: rawOptions }
       : rawOptions
@@ -31,7 +31,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
     this.onLeaveHandler = options.leaveHandler || ((): void => { })
   }
 
-  public async enterHandler(context: StepContext & T): Promise<void> {
+  async enterHandler(context: StepContext & T): Promise<void> {
     context.scene.step = new StepSceneContext({
       context,
 
@@ -46,7 +46,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
     }
   }
 
-  public leaveHandler(context: StepContext & T): Promise<unknown> {
+  leaveHandler(context: StepContext & T): Promise<unknown> {
     return Promise.resolve(this.onLeaveHandler(context))
   }
 }

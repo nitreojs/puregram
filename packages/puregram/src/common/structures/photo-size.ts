@@ -7,14 +7,14 @@ import { filterPayload } from '../../utils/helpers'
 export class PhotoSize {
   constructor(private payload: TelegramPhotoSize) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  public get fileId(): string {
+  get fileId(): string {
     return this.payload.file_id
   }
 
@@ -22,22 +22,22 @@ export class PhotoSize {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  public get fileUniqueId(): string {
+  get fileUniqueId(): string {
     return this.payload.file_unique_id
   }
 
   /** Photo width */
-  public get width(): number {
+  get width(): number {
     return this.payload.width
   }
 
   /** Photo height */
-  public get height(): number {
+  get height(): number {
     return this.payload.height
   }
 
   /** File size */
-  public get fileSize(): number | undefined {
+  get fileSize(): number | undefined {
     return this.payload.file_size
   }
 }

@@ -6,17 +6,17 @@ import { TelegramInvoice } from '../../telegram-interfaces'
 export class Invoice {
   constructor(private payload: TelegramInvoice) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Product name */
-  public get title(): string {
+  get title(): string {
     return this.payload.title
   }
 
   /** Product description */
-  public get description(): string {
+  get description(): string {
     return this.payload.description
   }
 
@@ -24,12 +24,12 @@ export class Invoice {
    * Unique bot deep-linking parameter that can be used to generate this
    * invoice
    */
-  public get startParameter(): string {
+  get startParameter(): string {
     return this.payload.start_parameter
   }
 
   /** Three-letter ISO 4217 currency code */
-  public get currency(): string {
+  get currency(): string {
     return this.payload.currency
   }
 
@@ -41,7 +41,7 @@ export class Invoice {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
-  public get totalAmount(): number {
+  get totalAmount(): number {
     return this.payload.total_amount
   }
 }

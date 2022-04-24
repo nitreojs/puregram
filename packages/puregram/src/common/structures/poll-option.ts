@@ -6,17 +6,17 @@ import { TelegramPollOption } from '../../telegram-interfaces'
 export class PollOption {
   constructor(private payload: TelegramPollOption) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Option text, 1-100 characters */
-  public get text(): string {
+  get text(): string {
     return this.payload.text
   }
 
   /** Number of users that voted for this option */
-  public get voterCount(): number {
+  get voterCount(): number {
     return this.payload.voter_count
   }
 }

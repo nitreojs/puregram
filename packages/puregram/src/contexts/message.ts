@@ -88,7 +88,7 @@ interface MessageContextOptions {
 
 /** Called when `message` event occurs */
 class MessageContext extends Context {
-  public payload: TelegramMessage
+  payload: TelegramMessage
 
   constructor(options: MessageContextOptions) {
     super({
@@ -102,46 +102,46 @@ class MessageContext extends Context {
   }
 
   /** Sender's ID */
-  public get senderId(): number | undefined {
+  get senderId(): number | undefined {
     return this.from?.id
   }
 
   /** Chat ID */
-  public get chatId(): number | undefined {
+  get chatId(): number | undefined {
     return this.chat?.id
   }
 
   /** Chat type */
-  public get chatType(): TelegramChat['type'] | undefined {
+  get chatType(): TelegramChat['type'] | undefined {
     return this.chat?.type
   }
 
   /** Is this chat a private one? */
-  public get isPM(): boolean {
+  get isPM(): boolean {
     return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
-  public get isGroup(): boolean {
+  get isGroup(): boolean {
     return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
-  public get isSupergroup(): boolean {
+  get isSupergroup(): boolean {
     return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
-  public get isChannel(): boolean {
+  get isChannel(): boolean {
     return this.chatType === 'channel'
   }
 
   /** Checks if the message has `dice` property */
-  public get hasDice(): boolean {
+  get hasDice(): boolean {
     return this.dice !== undefined
   }
 
-  public get startPayload(): any {
+  get startPayload(): any {
     if (!this.hasText) {
       return
     }
@@ -161,17 +161,17 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `text` property */
-  public get hasText(): boolean {
+  get hasText(): boolean {
     return this.text !== undefined
   }
 
   /** Checks if the message has `author_signature` property */
-  public get hasAuthorSignature(): boolean {
+  get hasAuthorSignature(): boolean {
     return this.authorSignature !== undefined
   }
 
   /** Checks if there are any entities (with specified type) */
-  public hasEntities(type?: EntityType | MessageEntity['type']): boolean {
+  hasEntities(type?: EntityType | MessageEntity['type']): boolean {
     if (type === undefined) {
       return this.entities.length !== 0
     }
@@ -182,12 +182,12 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `caption` property */
-  public get hasCaption(): boolean {
+  get hasCaption(): boolean {
     return this.caption !== undefined
   }
 
   /** Checks if there are any caption entities (with specified type) */
-  public hasCaptionEntities(type?: EntityType | MessageEntity['type']): boolean {
+  hasCaptionEntities(type?: EntityType | MessageEntity['type']): boolean {
     if (type === undefined) {
       return this.captionEntities.length !== 0
     }
@@ -198,7 +198,7 @@ class MessageContext extends Context {
   }
 
   /** Message attachments */
-  public get attachments(): Attachment[] {
+  get attachments(): Attachment[] {
     const attachments: Attachment[] = []
 
     if (this.audio) attachments.push(this.audio)
@@ -215,7 +215,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are attachments */
-  public hasAttachments(type?: AttachmentType | AttachmentTypeEnum): boolean {
+  hasAttachments(type?: AttachmentType | AttachmentTypeEnum): boolean {
     if (type === undefined) {
       return this.attachments.length > 0
     }
@@ -226,25 +226,25 @@ class MessageContext extends Context {
   }
 
   /** Gets attachments */
-  public getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[]
+  getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[]
+  getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): DocumentAttachment[]
+  getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): DocumentAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): PhotoAttachment[]
+  getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): PhotoAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): StickerAttachment[]
+  getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): StickerAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): VideoAttachment[]
+  getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): VideoAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[]
+  getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[]
 
-  public getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[]
+  getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[]
 
-  public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
+  getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
 
-  public getAttachments(type?: any): Attachment[] {
+  getAttachments(type?: any): Attachment[] {
     if (type === undefined) {
       return this.attachments
     }
@@ -255,7 +255,7 @@ class MessageContext extends Context {
   }
 
   /** Is this message an event? */
-  public get isEvent(): boolean {
+  get isEvent(): boolean {
     return EVENTS.some(
       (event) => Boolean(
         this[
@@ -266,7 +266,7 @@ class MessageContext extends Context {
   }
 
   /** Event type */
-  public get eventType(): MessageEventName | undefined {
+  get eventType(): MessageEventName | undefined {
     if (!this.isEvent) {
       return
     }
@@ -295,27 +295,27 @@ class MessageContext extends Context {
   }
 
   /** Is this message a forwarded one? */
-  public get isForward(): boolean {
+  get isForward(): boolean {
     return this.forwardMessage !== undefined
   }
 
   /** Does this message have reply message? */
-  public get hasReplyMessage(): boolean {
+  get hasReplyMessage(): boolean {
     return this.replyMessage !== undefined
   }
 
   /** Checks if the sent message has `via_bot` property */
-  public get hasViaBot(): boolean {
+  get hasViaBot(): boolean {
     return this.viaBot !== undefined
   }
 
   /** Does this message have start payload? */
-  public get hasStartPayload(): boolean {
+  get hasStartPayload(): boolean {
     return this.startPayload !== undefined
   }
 
   /** Sends message to current chat */
-  public async send(
+  async send(
     text: string,
     params?: Optional<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
@@ -332,7 +332,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message */
-  public reply(
+  reply(
     text: string,
     params?: Optional<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
@@ -343,7 +343,7 @@ class MessageContext extends Context {
   }
 
   /** Sends photo to current chat */
-  public async sendPhoto(
+  async sendPhoto(
     photo: MediaInput,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
@@ -360,7 +360,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with photo */
-  public replyWithPhoto(
+  replyWithPhoto(
     photo: MediaInput,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
@@ -371,7 +371,7 @@ class MessageContext extends Context {
   }
 
   /** Sends document to current chat */
-  public async sendDocument(
+  async sendDocument(
     document: MediaInput,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
@@ -388,7 +388,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with document */
-  public replyWithDocument(
+  replyWithDocument(
     document: MediaInput,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
@@ -399,7 +399,7 @@ class MessageContext extends Context {
   }
 
   /** Sends audio to current chat */
-  public async sendAudio(
+  async sendAudio(
     audio: MediaInput,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
@@ -416,7 +416,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with audio */
-  public replyWithAudio(
+  replyWithAudio(
     audio: MediaInput,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
@@ -427,7 +427,7 @@ class MessageContext extends Context {
   }
 
   /** Sends video to current chat */
-  public async sendVideo(
+  async sendVideo(
     video: MediaInput,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
@@ -444,7 +444,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with video */
-  public replyWithVideo(
+  replyWithVideo(
     video: MediaInput,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
@@ -455,7 +455,7 @@ class MessageContext extends Context {
   }
 
   /** Sends animation to current chat */
-  public async sendAnimation(
+  async sendAnimation(
     animation: MediaInput,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
@@ -472,7 +472,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with animation */
-  public replyWithAnimation(
+  replyWithAnimation(
     animation: MediaInput,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
@@ -483,7 +483,7 @@ class MessageContext extends Context {
   }
 
   /** Sends video note to current chat */
-  public async sendVideoNote(
+  async sendVideoNote(
     videoNote: MediaInput,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
@@ -500,7 +500,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with video note */
-  public replyWithVideoNote(
+  replyWithVideoNote(
     videoNote: MediaInput,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
@@ -511,7 +511,7 @@ class MessageContext extends Context {
   }
 
   /** Sends voice to current chat */
-  public async sendVoice(
+  async sendVoice(
     voice: MediaInput,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
@@ -528,7 +528,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with voice */
-  public replyWithVoice(
+  replyWithVoice(
     voice: MediaInput,
     params?: Optional<SendVoiceParams, 'chat_id'>
   ): Promise<MessageContext> {
@@ -539,7 +539,7 @@ class MessageContext extends Context {
   }
 
   /** Sends media group to current chat */
-  public async sendMediaGroup(
+  async sendMediaGroup(
     mediaGroup: SendMediaGroupParams['media'],
     params?: Optional<SendMediaGroupParams, 'chat_id' | 'media'>
   ): Promise<MessageContext[]> {
@@ -558,7 +558,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with media group */
-  public replyWithMediaGroup(
+  replyWithMediaGroup(
     mediaGroup: SendMediaGroupParams['media'],
     params?: Optional<SendMediaGroupParams, 'chat_id' | 'media'>
   ): Promise<MessageContext[]> {
@@ -569,7 +569,7 @@ class MessageContext extends Context {
   }
 
   /** Sends location to current chat */
-  public async sendLocation(
+  async sendLocation(
     latitude: number,
     longitude: number,
     params?: Optional<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
@@ -588,7 +588,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with location */
-  public replyWithLocation(
+  replyWithLocation(
     latitude: number,
     longitude: number,
     params?: Optional<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
@@ -600,7 +600,7 @@ class MessageContext extends Context {
   }
 
   /** Sends invoice to current user */
-  public async sendInvoice(
+  async sendInvoice(
     params: Optional<SendInvoiceParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendInvoice({
@@ -615,7 +615,7 @@ class MessageContext extends Context {
   }
 
   /** Edits current message live location */
-  public async editMessageLiveLocation(
+  async editMessageLiveLocation(
     params: EditMessageLiveLocationParams
   ): Promise<true | MessageContext> {
     const response = await this.telegram.api.editMessageLiveLocation({
@@ -635,7 +635,7 @@ class MessageContext extends Context {
   }
 
   /** Stops current message live location */
-  public async stopMessageLiveLocation(
+  async stopMessageLiveLocation(
     params?: StopMessageLiveLocationParams
   ): Promise<true | MessageContext> {
     const response = await this.telegram.api.stopMessageLiveLocation({
@@ -655,7 +655,7 @@ class MessageContext extends Context {
   }
 
   /** Sends venue to current chat */
-  public async sendVenue(
+  async sendVenue(
     params: Optional<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVenue({
@@ -670,7 +670,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with venue */
-  public replyWithVenue(
+  replyWithVenue(
     params: Optional<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendVenue({
@@ -680,7 +680,7 @@ class MessageContext extends Context {
   }
 
   /** Sends contact to current chat */
-  public async sendContact(
+  async sendContact(
     params: Optional<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendContact({
@@ -695,7 +695,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with contact */
-  public replyWithContact(
+  replyWithContact(
     params: Optional<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendContact({
@@ -705,7 +705,7 @@ class MessageContext extends Context {
   }
 
   /** Sends poll to current chat */
-  public async sendPoll(
+  async sendPoll(
     params: Optional<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPoll({
@@ -720,7 +720,7 @@ class MessageContext extends Context {
   }
 
   /** Replies to current message with poll */
-  public replyWithPoll(
+  replyWithPoll(
     params: Optional<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendPoll({
@@ -730,7 +730,7 @@ class MessageContext extends Context {
   }
 
   /** Stops poll in current chat */
-  public async stopPoll(
+  async stopPoll(
     messageId: number,
     params?: Partial<StopPollParams>
   ): Promise<Poll> {
@@ -744,7 +744,7 @@ class MessageContext extends Context {
   }
 
   /** Sends chat action to current chat */
-  public sendChatAction(action: SendChatActionParams['action']): Promise<true> {
+  sendChatAction(action: SendChatActionParams['action']): Promise<true> {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
       action
@@ -752,7 +752,7 @@ class MessageContext extends Context {
   }
 
   /** Deletes current message */
-  public deleteMessage(): Promise<true> {
+  deleteMessage(): Promise<true> {
     return this.telegram.api.deleteMessage({
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
@@ -760,7 +760,7 @@ class MessageContext extends Context {
   }
 
   /** Sends sticker */
-  public async sendSticker(
+  async sendSticker(
     sticker: MediaInput,
     params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
@@ -777,7 +777,7 @@ class MessageContext extends Context {
   }
 
   /** Sends dice */
-  public async sendDice(
+  async sendDice(
     emoji: SendDiceParams['emoji'],
     params?: Partial<SendDiceParams>
   ): Promise<MessageContext> {
@@ -794,7 +794,7 @@ class MessageContext extends Context {
   }
 
   /** Gets commands */
-  public async getMyCommands(): Promise<BotCommand[]> {
+  async getMyCommands(): Promise<BotCommand[]> {
     const response = await this.telegram.api.getMyCommands()
 
     return response.map(
@@ -805,7 +805,7 @@ class MessageContext extends Context {
   // Edit methods
 
   /** Edits current message text */
-  public async editMessageText(
+  async editMessageText(
     text: string,
     params?: Partial<EditMessageTextParams>
   ): Promise<true | MessageContext> {
@@ -827,7 +827,7 @@ class MessageContext extends Context {
   }
 
   /** Edits current message caption */
-  public async editMessageCaption(
+  async editMessageCaption(
     caption: string,
     params?: Partial<EditMessageCaptionParams>
   ): Promise<true | MessageContext> {
@@ -849,7 +849,7 @@ class MessageContext extends Context {
   }
 
   /** Edits current message media */
-  public async editMessageMedia(
+  async editMessageMedia(
     media: TelegramInputMedia,
     params?: Partial<EditMessageMediaParams>
   ): Promise<true | MessageContext> {
@@ -871,7 +871,7 @@ class MessageContext extends Context {
   }
 
   /** Edits current message reply markup */
-  public async editMessageReplyMarkup(
+  async editMessageReplyMarkup(
     replyMarkup: TelegramInlineKeyboardMarkup,
     params?: Partial<EditMessageReplyMarkupParams>
   ): Promise<true | MessageContext> {

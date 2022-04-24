@@ -8,27 +8,27 @@ import { filterPayload } from '../utils/helpers'
 export class PreCheckoutQuery {
   constructor(public payload: TelegramPreCheckoutQuery) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Unique query identifier */
-  public get id(): string {
+  get id(): string {
     return this.payload.id
   }
 
   /** User who sent the query */
-  public get from(): User {
+  get from(): User {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
-  public get senderId(): number {
+  get senderId(): number {
     return this.from.id
   }
 
   /** Three-letter ISO 4217 currency code */
-  public get currency(): string {
+  get currency(): string {
     return this.payload.currency
   }
 
@@ -40,22 +40,22 @@ export class PreCheckoutQuery {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
-  public get totalAmount(): number {
+  get totalAmount(): number {
     return this.payload.total_amount
   }
 
   /** Bot specified invoice payload */
-  public get invoicePayload(): string {
+  get invoicePayload(): string {
     return this.payload.invoice_payload
   }
 
   /** Identifier of the shipping option chosen by the user */
-  public get shippingOptionId(): string | undefined {
+  get shippingOptionId(): string | undefined {
     return this.payload.shipping_option_id
   }
 
   /** Order info provided by the user */
-  public get orderInfo(): OrderInfo | undefined {
+  get orderInfo(): OrderInfo | undefined {
     const { order_info } = this.payload
 
     if (!order_info) {

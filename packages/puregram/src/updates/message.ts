@@ -46,17 +46,17 @@ import { filterPayload } from '../utils/helpers'
 export class Message {
   constructor(public payload: TelegramMessage) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Unique message identifier inside this chat */
-  public get id(): number {
+  get id(): number {
     return this.payload.message_id
   }
 
   /** Sender, empty for messages sent to channels */
-  public get from(): User | undefined {
+  get from(): User | undefined {
     const { from } = this.payload
 
     if (!from) {
@@ -72,7 +72,7 @@ export class Message {
    * The supergroup itself for messages from anonymous group administrators.
    * The linked channel for messages automatically forwarded to the discussion group
    */
-  public get senderChat(): Chat | undefined {
+  get senderChat(): Chat | undefined {
     const { sender_chat } = this.payload
 
     if (!sender_chat) {
@@ -83,12 +83,12 @@ export class Message {
   }
 
   /** Date the message was sent in Unix time */
-  public get createdAt(): number {
+  get createdAt(): number {
     return this.payload.date
   }
 
   /** Conversation the message belongs to */
-  public get chat(): Chat | undefined {
+  get chat(): Chat | undefined {
     const { chat } = this.payload
 
     if (!chat) {
@@ -99,7 +99,7 @@ export class Message {
   }
 
   /** Forwarded message if there is any */
-  public get forwardMessage(): ForwardMessage | undefined {
+  get forwardMessage(): ForwardMessage | undefined {
     const { forward_date } = this.payload
 
     if (!forward_date) {
@@ -110,7 +110,7 @@ export class Message {
   }
 
   /** For replies, the original message */
-  public get replyMessage(): Omit<Message, 'replyMessage'> | undefined {
+  get replyMessage(): Omit<Message, 'replyMessage'> | undefined {
     const { reply_to_message } = this.payload
 
     if (!reply_to_message) {
@@ -121,7 +121,7 @@ export class Message {
   }
 
   /** Bot through which the message was sent */
-  public get viaBot(): User | undefined {
+  get viaBot(): User | undefined {
     const { via_bot } = this.payload
 
     if (!via_bot) {
@@ -132,17 +132,17 @@ export class Message {
   }
 
   /** Date the message was last edited in Unix time */
-  public get updatedAt(): number | undefined {
+  get updatedAt(): number | undefined {
     return this.payload.edit_date
   }
 
   /** `true`, if the message can't be forwarded */
-  public get hasProtectedContent(): true | undefined {
+  get hasProtectedContent(): true | undefined {
     return this.payload.has_protected_content as true | undefined
   }
 
   /** The unique identifier of a media message group this message belongs to */
-  public get mediaGroupId(): string | undefined {
+  get mediaGroupId(): string | undefined {
     return this.payload.media_group_id
   }
 
@@ -150,14 +150,14 @@ export class Message {
    * Signature of the post author for messages in channels,
    * or the custom title of an anonymous group administrator
    */
-  public get authorSignature(): string | undefined {
+  get authorSignature(): string | undefined {
     return this.payload.author_signature
   }
 
   /**
    * For text messages, the actual UTF-8 text of the message, 0-4096 characters
    */
-  public get text(): string | undefined {
+  get text(): string | undefined {
     return this.payload.text
   }
 
@@ -165,7 +165,7 @@ export class Message {
    * For text messages, special entities like usernames, URLs, bot commands,
    * etc. that appear in the text
    */
-  public get entities(): MessageEntity[] {
+  get entities(): MessageEntity[] {
     const { entities } = this.payload
 
     if (!entities) {
@@ -192,7 +192,7 @@ export class Message {
    * Message is an animation, information about the animation. For backward
    * compatibility, when this field is set, the `document` field will also be set
    */
-  public get animation(): AnimationAttachment | undefined {
+  get animation(): AnimationAttachment | undefined {
     const { animation } = this.payload
 
     if (!animation) {
@@ -203,7 +203,7 @@ export class Message {
   }
 
   /** Message is an audio file, information about the file */
-  public get audio(): AudioAttachment | undefined {
+  get audio(): AudioAttachment | undefined {
     const { audio } = this.payload
 
     if (!audio) {
@@ -214,7 +214,7 @@ export class Message {
   }
 
   /** Message is a general file, information about the file */
-  public get document(): DocumentAttachment | undefined {
+  get document(): DocumentAttachment | undefined {
     const { document } = this.payload
 
     if (!document) {
@@ -225,7 +225,7 @@ export class Message {
   }
 
   /** Message is a photo, available sizes of the photo */
-  public get photo(): PhotoSize[] | undefined {
+  get photo(): PhotoSize[] | undefined {
     const { photo } = this.payload
 
     if (!photo) {
@@ -238,7 +238,7 @@ export class Message {
   }
 
   /** Message is a sticker, information about the sticker */
-  public get sticker(): StickerAttachment | undefined {
+  get sticker(): StickerAttachment | undefined {
     const { sticker } = this.payload
 
     if (!sticker) {
@@ -249,7 +249,7 @@ export class Message {
   }
 
   /** Message is a video, information about the video */
-  public get video(): VideoAttachment | undefined {
+  get video(): VideoAttachment | undefined {
     const { video } = this.payload
 
     if (!video) {
@@ -260,7 +260,7 @@ export class Message {
   }
 
   /** Message is a video note, information about the video message */
-  public get videoNote(): VideoNoteAttachment | undefined {
+  get videoNote(): VideoNoteAttachment | undefined {
     const { video_note } = this.payload
 
     if (!video_note) {
@@ -271,7 +271,7 @@ export class Message {
   }
 
   /** Message is a voice message, information about the file */
-  public get voice(): VoiceAttachment | undefined {
+  get voice(): VoiceAttachment | undefined {
     const { voice } = this.payload
 
     if (!voice) {
@@ -285,7 +285,7 @@ export class Message {
    * Caption for the animation, audio, document, photo, video or voice,
    * 0-1024 characters
    */
-  public get caption(): string | undefined {
+  get caption(): string | undefined {
     return this.payload.caption
   }
 
@@ -293,7 +293,7 @@ export class Message {
    * For messages with a caption, special entities like usernames, URLs, bot
    * commands, etc. that appear in the caption
    */
-  public get captionEntities(): MessageEntity[] {
+  get captionEntities(): MessageEntity[] {
     const { caption_entities } = this.payload
 
     if (!caption_entities) {
@@ -306,7 +306,7 @@ export class Message {
   }
 
   /** Message is a shared contact, information about the contact */
-  public get contact(): Contact | undefined {
+  get contact(): Contact | undefined {
     const { contact } = this.payload
 
     if (!contact) {
@@ -317,7 +317,7 @@ export class Message {
   }
 
   /** Message is a dice with random value from 1 to 6 */
-  public get dice(): Dice | undefined {
+  get dice(): Dice | undefined {
     const { dice } = this.payload
 
     if (!dice) {
@@ -328,7 +328,7 @@ export class Message {
   }
 
   /** Message is a game, information about the game */
-  public get game(): Game | undefined {
+  get game(): Game | undefined {
     const { game } = this.payload
 
     if (!game) {
@@ -339,7 +339,7 @@ export class Message {
   }
 
   /** Message is a native poll, information about the poll */
-  public get poll(): Poll | undefined {
+  get poll(): Poll | undefined {
     const { poll } = this.payload
 
     if (!poll) {
@@ -354,7 +354,7 @@ export class Message {
    * For backward compatibility, when this field is set,
    * the `location` field will also be set
    */
-  public get venue(): Venue | undefined {
+  get venue(): Venue | undefined {
     const { venue } = this.payload
 
     if (!venue) {
@@ -365,7 +365,7 @@ export class Message {
   }
 
   /** Message is a shared location, information about the location */
-  public get location(): Location | undefined {
+  get location(): Location | undefined {
     const { location } = this.payload
 
     if (!location) {
@@ -381,7 +381,7 @@ export class Message {
    * New members that were added to the group or supergroup and information
    * about them (the bot itself may be one of these members)
    */
-  public get newChatMembers(): User[] {
+  get newChatMembers(): User[] {
     const { new_chat_members } = this.payload
 
     if (!new_chat_members) {
@@ -397,7 +397,7 @@ export class Message {
    * A member was removed from the group, information about them (this member
    * may be the bot itself)
    */
-  public get leftChatMember(): User | undefined {
+  get leftChatMember(): User | undefined {
     const { left_chat_member } = this.payload
 
     if (!left_chat_member) {
@@ -408,12 +408,12 @@ export class Message {
   }
 
   /** A chat title was changed to this value */
-  public get newChatTitle(): string | undefined {
+  get newChatTitle(): string | undefined {
     return this.payload.new_chat_title
   }
 
   /** A chat photo was change to this value */
-  public get newChatPhoto(): PhotoSize[] {
+  get newChatPhoto(): PhotoSize[] {
     const { new_chat_photo } = this.payload
 
     if (!new_chat_photo) {
@@ -426,12 +426,12 @@ export class Message {
   }
 
   /** Service message: the chat photo was deleted */
-  public get deleteChatPhoto(): boolean | undefined {
+  get deleteChatPhoto(): boolean | undefined {
     return this.payload.delete_chat_photo
   }
 
   /** Service message: the group has been created */
-  public get groupChatCreated(): boolean | undefined {
+  get groupChatCreated(): boolean | undefined {
     return this.payload.group_chat_created
   }
 
@@ -442,12 +442,12 @@ export class Message {
    * `replyMessage` if someone replies to a very first message in a
    * directly created supergroup.
    */
-  public get supergroupChatCreated(): boolean | undefined {
+  get supergroupChatCreated(): boolean | undefined {
     return this.payload.supergroup_chat_created
   }
 
   /** Service message: auto-delete timer settings changed in the chat */
-  public get messageAutoDeleteTimerChanged(): MessageAutoDeleteTimerChanged | undefined {
+  get messageAutoDeleteTimerChanged(): MessageAutoDeleteTimerChanged | undefined {
     const { message_auto_delete_timer_changed } = this.payload
 
     if (!message_auto_delete_timer_changed) return
@@ -461,7 +461,7 @@ export class Message {
    * member of a channel when it is created. It can only be found in
    * `replyMessage` if someone replies to a very first message in a channel.
    */
-  public get channelChatCreated(): boolean | undefined {
+  get channelChatCreated(): boolean | undefined {
     return this.payload.channel_chat_created
   }
 
@@ -472,7 +472,7 @@ export class Message {
    * 52 bits, so a signed 64 bit integer or double-precision float type are
    * safe for storing this identifier.
    */
-  public get migrateToChatId(): number | undefined {
+  get migrateToChatId(): number | undefined {
     return this.payload.migrate_to_chat_id
   }
 
@@ -483,7 +483,7 @@ export class Message {
    * smaller than 52 bits, so a signed 64 bit integer or double-precision float
    * type are safe for storing this identifier.
    */
-  public get migrateFromChatId(): number | undefined {
+  get migrateFromChatId(): number | undefined {
     return this.payload.migrate_from_chat_id
   }
 
@@ -492,7 +492,7 @@ export class Message {
    * will not contain further `replyMessage` fields even if it is itself a
    * reply.
    */
-  public get pinnedMessage(): Omit<Message, 'replyMessage'> | undefined {
+  get pinnedMessage(): Omit<Message, 'replyMessage'> | undefined {
     const { pinned_message } = this.payload
 
     if (!pinned_message) {
@@ -503,7 +503,7 @@ export class Message {
   }
 
   /** Message is an invoice for a payment, information about the invoice */
-  public get invoice(): Invoice | undefined {
+  get invoice(): Invoice | undefined {
     const { invoice } = this.payload
 
     if (!invoice) {
@@ -517,7 +517,7 @@ export class Message {
    * Message is a service message about a successful payment,
    * information about the payment.
    */
-  public get successfulPayment(): SuccessfulPayment | undefined {
+  get successfulPayment(): SuccessfulPayment | undefined {
     const { successful_payment } = this.payload
 
     if (!successful_payment) {
@@ -528,12 +528,12 @@ export class Message {
   }
 
   /** The domain name of the website on which the user has logged in. */
-  public get connectedWebsite(): string | undefined {
+  get connectedWebsite(): string | undefined {
     return this.payload.connected_website
   }
 
   /** Telegram Passport data */
-  public get passportData(): PassportData | undefined {
+  get passportData(): PassportData | undefined {
     const { passport_data } = this.payload
 
     if (!passport_data) {
@@ -548,7 +548,7 @@ export class Message {
    * A user in the chat triggered another user's proximity alert
    * while sharing Live Location.
    */
-  public get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
+  get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
     const { proximity_alert_triggered } = this.payload
 
     if (!proximity_alert_triggered) {
@@ -559,7 +559,7 @@ export class Message {
   }
 
   /** Service message: video chat scheduled */
-  public get videoChatScheduled(): VideoChatScheduled | undefined {
+  get videoChatScheduled(): VideoChatScheduled | undefined {
     const { video_chat_scheduled } = this.payload
 
     if (!video_chat_scheduled) return
@@ -568,7 +568,7 @@ export class Message {
   }
 
   /** Service message: video chat started */
-  public get videoChatStarted(): VideoChatStarted | undefined {
+  get videoChatStarted(): VideoChatStarted | undefined {
     const { video_chat_started } = this.payload
 
     if (!video_chat_started) return
@@ -577,7 +577,7 @@ export class Message {
   }
 
   /** Service message: video chat ended */
-  public get videoChatEnded(): VideoChatEnded | undefined {
+  get videoChatEnded(): VideoChatEnded | undefined {
     const { video_chat_ended } = this.payload
 
     if (!video_chat_ended) return
@@ -586,7 +586,7 @@ export class Message {
   }
 
   /** Service message: new participants invited to a video chat */
-  public get videoChatParticipantsInvited(): VideoChatParticipantsInvited | undefined {
+  get videoChatParticipantsInvited(): VideoChatParticipantsInvited | undefined {
     const { video_chat_participants_invited } = this.payload
 
     if (!video_chat_participants_invited) return
@@ -595,7 +595,7 @@ export class Message {
   }
 
   /** Service message: data sent by a Web App */
-  public get webAppData(): WebAppData | undefined {
+  get webAppData(): WebAppData | undefined {
     const { web_app_data } = this.payload
 
     if (!web_app_data) return
@@ -608,7 +608,7 @@ export class Message {
    *
    * `login_url` buttons are represented as ordinary `url` buttons.
    */
-  public get replyMarkup(): InlineKeyboardMarkup | undefined {
+  get replyMarkup(): InlineKeyboardMarkup | undefined {
     const { reply_markup } = this.payload
 
     if (!reply_markup) {

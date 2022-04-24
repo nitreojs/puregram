@@ -7,9 +7,9 @@ import { PromptQuestion } from './prompt-question'
 import { PromptAnswer } from './prompt-answer'
 
 export class PromptManager {
-  public questions: Map<number, PromptQuestion> = new Map();
+  questions: Map<number, PromptQuestion> = new Map();
 
-  public get middleware(): Middleware<Types.PromptMessageContext> {
+  get middleware(): Middleware<Types.PromptMessageContext> {
     return async (context: Types.PromptMessageContext, next) => {
       if (!context.is(['message', 'edited_message', 'channel_post', 'edited_channel_post', 'callback_query'])) {
         return next()

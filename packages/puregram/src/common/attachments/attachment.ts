@@ -4,9 +4,9 @@ import { AttachmentType } from '../../types'
 
 /** Simple attachment */
 export class Attachment {
-  public attachmentType?: AttachmentType
+  attachmentType?: AttachmentType
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 }

@@ -9,7 +9,7 @@ import { TelegramMaskPosition } from '../../telegram-interfaces'
 export class MaskPosition {
   constructor(private payload: TelegramMaskPosition) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -17,7 +17,7 @@ export class MaskPosition {
    * The part of the face relative to which the mask should be placed.
    * One of `forehead`, `eyes`, `mouth`, or `chin`.
    */
-  public get point(): TelegramMaskPosition['point'] {
+  get point(): TelegramMaskPosition['point'] {
     return this.payload.point
   }
 
@@ -26,7 +26,7 @@ export class MaskPosition {
    * from left to right. For example, choosing `-1.0` will place mask just to
    * the left of the default mask position.
    */
-  public get xShift(): number {
+  get xShift(): number {
     return this.payload.x_shift
   }
 
@@ -35,12 +35,12 @@ export class MaskPosition {
    * from top to bottom. For example, `1.0` will place the mask just below the
    * default mask position.
    */
-  public get yShift(): number {
+  get yShift(): number {
     return this.payload.y_shift
   }
 
   /** Mask scaling coefficient. For example, `2.0` means double size. */
-  public get scale(): number {
+  get scale(): number {
     return this.payload.scale
   }
 }

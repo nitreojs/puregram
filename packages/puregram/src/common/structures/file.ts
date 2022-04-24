@@ -6,14 +6,14 @@ import { filterPayload } from '../../utils/helpers'
 export class File {
   constructor(private payload: TelegramFile) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  public get fileId(): string {
+  get fileId(): string {
     return this.payload.file_id
   }
 
@@ -21,12 +21,12 @@ export class File {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  public get fileUniqueId(): string {
+  get fileUniqueId(): string {
     return this.payload.file_unique_id
   }
 
   /** File size, if known */
-  public get fileSize(): number | undefined {
+  get fileSize(): number | undefined {
     return this.payload.file_size
   }
 
@@ -35,7 +35,7 @@ export class File {
    * Use `https://api.telegram.org/file/bot<token>/<file_path>` to get the
    * file.
    */
-  public get filePath(): string | undefined {
+  get filePath(): string | undefined {
     return this.payload.file_path
   }
 }

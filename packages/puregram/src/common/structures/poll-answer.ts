@@ -8,22 +8,22 @@ import { User } from './user'
 export class PollAnswer {
   constructor(public payload: TelegramPollAnswer) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Unique poll identifier */
-  public get pollId(): string {
+  get pollId(): string {
     return this.payload.poll_id
   }
 
   /** The user, who changed the answer to the poll */
-  public get user(): User {
+  get user(): User {
     return new User(this.payload.user)
   }
 
   /** Sender ID */
-  public get senderId(): number {
+  get senderId(): number {
     return this.user.id
   }
 
@@ -31,7 +31,7 @@ export class PollAnswer {
    * 0-based identifiers of answer options, chosen by the user.
    * May be empty if the user retracted their vote.
    */
-  public get optionIds(): number[] {
+  get optionIds(): number[] {
     return this.payload.option_ids
   }
 }

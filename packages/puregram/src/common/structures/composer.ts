@@ -7,7 +7,7 @@ export class Composer<T extends Context> extends MiddlewareComposer<T> {
   /**
    * Create new `Composer` instance
    */
-  public static builder<T extends Context>(): Composer<T> {
+  static builder<T extends Context>(): Composer<T> {
     return new Composer<T>()
   }
 }

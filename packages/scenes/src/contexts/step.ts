@@ -13,26 +13,26 @@ export class StepSceneContext {
 
   private stepChanged = false;
 
-  public constructor(options: StepContextOptions) {
+  constructor(options: StepContextOptions) {
     this.context = options.context
 
     this.steps = options.steps
   }
 
   /** The first enter to the handler */
-  public get firstTime(): boolean {
+  get firstTime(): boolean {
     const { firstTime = true } = this.context.scene.session
 
     return firstTime
   }
 
   /** Returns current `stepId` */
-  public get stepId(): number {
+  get stepId(): number {
     return this.context.scene.session.stepId || 0
   }
 
   /** Sets current `stepId` */
-  public set stepId(stepId: number) {
+  set stepId(stepId: number) {
     const { session } = this.context.scene
 
     session.stepId = stepId
@@ -42,12 +42,12 @@ export class StepSceneContext {
   }
 
   /** Returns current handler */
-  public get current(): StepSceneHandler | undefined {
+  get current(): StepSceneHandler | undefined {
     return this.steps[this.stepId]
   }
 
   /** Reenter current step handler */
-  public async reenter(): Promise<void> {
+  async reenter(): Promise<void> {
     const { current } = this
 
     if (!current) {
@@ -66,7 +66,7 @@ export class StepSceneContext {
   }
 
   /** The `go` method goes to a specific step */
-  public go(stepId: number, { silent = false }: StepContextGoOptions = {}): Promise<void> {
+  go(stepId: number, { silent = false }: StepContextGoOptions = {}): Promise<void> {
     this.stepId = stepId
 
     if (silent) {
@@ -77,12 +77,12 @@ export class StepSceneContext {
   }
 
   /** Move to the next handler */
-  public next(options?: StepContextGoOptions): Promise<void> {
+  next(options?: StepContextGoOptions): Promise<void> {
     return this.go(this.stepId + 1, options)
   }
 
   /** Move to the previous handler */
-  public previous(options?: StepContextGoOptions): Promise<void> {
+  previous(options?: StepContextGoOptions): Promise<void> {
     return this.go(this.stepId - 1, options)
   }
 }

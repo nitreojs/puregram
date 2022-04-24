@@ -12,7 +12,7 @@ import { EncryptedCredentials } from './encrypted-credentials'
 export class PassportData {
   constructor(private payload: TelegramPassportData) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -20,7 +20,7 @@ export class PassportData {
    * Array with information about documents and other Telegram Passport
    * elements that was shared with the bot
    */
-  public get data(): EncryptedPassportElement[] {
+  get data(): EncryptedPassportElement[] {
     const { data } = this.payload
 
     if (!data) {
@@ -35,7 +35,7 @@ export class PassportData {
   }
 
   /** Encrypted credentials required to decrypt the data */
-  public get credentials(): EncryptedCredentials {
+  get credentials(): EncryptedCredentials {
     return new EncryptedCredentials(this.payload.credentials)
   }
 }

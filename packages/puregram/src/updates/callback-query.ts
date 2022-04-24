@@ -16,22 +16,22 @@ import { filterPayload } from '../utils/helpers'
 export class CallbackQuery {
   constructor(public payload: TelegramCallbackQuery) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Unique identifier for this query */
-  public get id(): string {
+  get id(): string {
     return this.payload.id
   }
 
   /** Sender */
-  public get from(): User {
+  get from(): User {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
-  public get senderId(): number {
+  get senderId(): number {
     return this.from.id
   }
 
@@ -40,7 +40,7 @@ export class CallbackQuery {
    * Note that message content and message date will not be available
    * if the message is too old
    */
-  public get message(): Message | undefined {
+  get message(): Message | undefined {
     const { message } = this.payload
 
     if (!message) {
@@ -54,7 +54,7 @@ export class CallbackQuery {
    * Identifier of the message sent via the bot in inline mode,
    * that originated the query.
    */
-  public get inlineMessageId(): string | undefined {
+  get inlineMessageId(): string | undefined {
     return this.payload.inline_message_id
   }
 
@@ -62,7 +62,7 @@ export class CallbackQuery {
    * Global identifier, uniquely corresponding to the chat to which the message
    * with the callback button was sent. Useful for high scores in games.
    */
-  public get chatInstance(): string {
+  get chatInstance(): string {
     return this.payload.chat_instance
   }
 
@@ -70,7 +70,7 @@ export class CallbackQuery {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  public get data(): string | undefined {
+  get data(): string | undefined {
     return this.payload.data
   }
 
@@ -78,7 +78,7 @@ export class CallbackQuery {
    * Short name of a Game to be returned,
    * serves as the unique identifier for the game
    */
-  public get gameShortName(): string | undefined {
+  get gameShortName(): string | undefined {
     return this.payload.game_short_name
   }
 }

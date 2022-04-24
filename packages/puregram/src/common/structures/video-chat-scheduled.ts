@@ -8,11 +8,11 @@ import { TelegramVideoChatScheduled } from '../../telegram-interfaces'
 export class VideoChatScheduled {
   constructor(public payload: TelegramVideoChatScheduled) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  public get startDate(): number {
+  get startDate(): number {
     return this.payload.start_date
   }
 }

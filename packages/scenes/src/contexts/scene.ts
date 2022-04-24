@@ -12,24 +12,24 @@ import { SceneInterface } from '../scenes'
 
 export class SceneContext {
   /** Lazy session for submodules */
-  public session!: SessionContext
+  session!: SessionContext
 
   /** Base namespace for user input */
-  public state!: Record<string, any>
+  state!: Record<string, any>
 
   /** Is the scene cancelled? Used in `leaveHandler()` */
-  public cancelled = false;
+  cancelled = false;
 
-  public lastAction: LastAction = LastAction.NONE;
+  lastAction: LastAction = LastAction.NONE;
 
   private readonly context: SceneContextOptions['context']
 
   private repository: SceneContextOptions['repository']
 
   /** Controlled behavior leave */
-  public leaving = false;
+  leaving = false;
 
-  public constructor(options: SceneContextOptions) {
+  constructor(options: SceneContextOptions) {
     this.context = options.context
     this.repository = options.repository
 
@@ -37,12 +37,12 @@ export class SceneContext {
   }
 
   /** Returns current scene */
-  public get current(): SceneInterface | undefined {
+  get current(): SceneInterface | undefined {
     return this.repository.get(this.session.current)
   }
 
   /** Enter to scene */
-  public async enter(slug: string, options: SceneContextEnterOptions = {}): Promise<void> {
+  async enter(slug: string, options: SceneContextEnterOptions = {}): Promise<void> {
     const scene = this.repository.strictGet(slug)
 
     const isCurrent: boolean = this.current?.slug === scene.slug
@@ -73,7 +73,7 @@ export class SceneContext {
   }
 
   /** Reenter to current scene */
-  public async reenter(): Promise<void> {
+  async reenter(): Promise<void> {
     const { current } = this
 
     if (!current) {
@@ -84,7 +84,7 @@ export class SceneContext {
   }
 
   /** Leave from current scene */
-  public async leave(options: SceneContextLeaveOptions = {}): Promise<void> {
+  async leave(options: SceneContextLeaveOptions = {}): Promise<void> {
     const { current } = this
 
     if (!current) return
@@ -105,7 +105,7 @@ export class SceneContext {
   }
 
   /** Reset state/session */
-  public reset(): void {
+  reset(): void {
     delete this.context.session.__scene
 
     this.updateSession()

@@ -7,7 +7,7 @@ import { filterPayload } from '../../utils/helpers'
 export class SentWebAppMessage {
   constructor(private payload: TelegramSentWebAppMessage) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -16,7 +16,7 @@ export class SentWebAppMessage {
    * 
    * Available only if there is an inline keyboard attached to the message.
    */
-  public get inlineMessageId(): string | undefined {
+  get inlineMessageId(): string | undefined {
     return this.payload.inline_message_id
   }
 }

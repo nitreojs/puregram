@@ -50,7 +50,7 @@ interface ShippingQueryContextOptions {
 }
 
 class ShippingQueryContext extends Context {
-  public payload: TelegramShippingQuery
+  payload: TelegramShippingQuery
 
   constructor(options: ShippingQueryContextOptions) {
     super({
@@ -64,7 +64,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends message to current chat */
-  public async send(
+  async send(
     text: string,
     params?: Optional<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
@@ -81,7 +81,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends photo to current chat */
-  public async sendPhoto(
+  async sendPhoto(
     photo: MediaInput,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
@@ -98,7 +98,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends document to current chat */
-  public async sendDocument(
+  async sendDocument(
     document: MediaInput,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
@@ -115,7 +115,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends audio to current chat */
-  public async sendAudio(
+  async sendAudio(
     audio: MediaInput,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
@@ -132,7 +132,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends video to current chat */
-  public async sendVideo(
+  async sendVideo(
     video: MediaInput,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
@@ -149,7 +149,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends animation to current chat */
-  public async sendAnimation(
+  async sendAnimation(
     animation: MediaInput,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
@@ -166,7 +166,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends video note to current chat */
-  public async sendVideoNote(
+  async sendVideoNote(
     videoNote: MediaInput,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
@@ -183,7 +183,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends voice to current chat */
-  public async sendVoice(
+  async sendVoice(
     voice: MediaInput,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
@@ -200,7 +200,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends media group to current chat */
-  public async sendMediaGroup(
+  async sendMediaGroup(
     mediaGroup: SendMediaGroupParams['media'],
     params?: Partial<SendMediaGroupParams>
   ): Promise<MessageContext[]> {
@@ -219,7 +219,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends location to current chat */
-  public async sendLocation(
+  async sendLocation(
     latitude: number,
     longitude: number,
     params?: Optional<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
@@ -238,7 +238,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends venue to current chat */
-  public async sendVenue(
+  async sendVenue(
     params: Optional<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVenue({
@@ -253,7 +253,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends contact to current chat */
-  public async sendContact(
+  async sendContact(
     params: Optional<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendContact({
@@ -268,7 +268,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends poll to current chat */
-  public async sendPoll(
+  async sendPoll(
     params: Optional<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPoll({
@@ -283,7 +283,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Stops poll in current chat */
-  public async stopPoll(
+  async stopPoll(
     messageId: number,
     params?: Partial<StopPollParams>
   ): Promise<Poll> {
@@ -297,7 +297,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends chat action to current chat */
-  public sendChatAction(
+  sendChatAction(
     action: SendChatActionParams['action'],
     params?: Optional<SendChatActionParams, 'chat_id'>
   ): Promise<true> {
@@ -309,7 +309,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends sticker */
-  public async sendSticker(
+  async sendSticker(
     sticker: MediaInput,
     params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
@@ -326,7 +326,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Sends dice */
-  public async sendDice(
+  async sendDice(
     emoji: SendDiceParams['emoji'],
     params?: Partial<SendDiceParams>
   ): Promise<MessageContext> {
@@ -343,7 +343,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Gets commands */
-  public async getMyCommands(): Promise<BotCommand[]> {
+  async getMyCommands(): Promise<BotCommand[]> {
     const response = await this.telegram.api.getMyCommands()
 
     return response.map(
@@ -352,7 +352,7 @@ class ShippingQueryContext extends Context {
   }
 
   /** Replies to shipping queries */
-  public async answerShippingQuery(
+  async answerShippingQuery(
     params: Optional<AnswerShippingQueryParams, 'shipping_query_id'>
   ): Promise<true> {
     return this.telegram.api.answerShippingQuery({

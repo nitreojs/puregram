@@ -7,7 +7,7 @@ export class WebAppData {
   constructor(private payload: TelegramWebAppData) { }
 
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
-  public get data(): string {
+  get data(): string {
     return this.payload.data
   }
 
@@ -15,7 +15,7 @@ export class WebAppData {
    * Text of the `web_app` keyboard button, from which the Web App was opened.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  public get buttonText(): string {
+  get buttonText(): string {
     return this.payload.button_text
   }
 }

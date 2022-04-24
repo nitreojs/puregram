@@ -9,7 +9,7 @@ import { TelegramVideoChatStarted } from '../../telegram-interfaces'
 export class VideoChatStarted {
   constructor(public payload: TelegramVideoChatStarted) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 }

@@ -10,7 +10,7 @@ import { filterPayload } from '../../utils/helpers'
 export class ChatPermissions {
   constructor(private payload: TelegramChatPermissions) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -18,7 +18,7 @@ export class ChatPermissions {
    * `true`, if the user is allowed to send text messages, contacts, locations
    * and venues
    */
-  public get canSendMessages(): boolean | undefined {
+  get canSendMessages(): boolean | undefined {
     return this.payload.can_send_messages
   }
 
@@ -26,14 +26,14 @@ export class ChatPermissions {
    * `true`, if the user is allowed to send audios, documents, photos, videos,
    * video notes and voice notes, implies `can_send_messages`
    */
-  public get canSendMediaMessages(): boolean | undefined {
+  get canSendMediaMessages(): boolean | undefined {
     return this.payload.can_send_media_messages
   }
 
   /**
    * `true`, if the user is allowed to send polls, implies `can_send_messages`
    */
-  public get canSendPolls(): boolean | undefined {
+  get canSendPolls(): boolean | undefined {
     return this.payload.can_send_polls
   }
 
@@ -41,7 +41,7 @@ export class ChatPermissions {
    * `true`, if the user is allowed to send animations, games, stickers and use
    * inline bots, implies `can_send_media_messages`
    */
-  public get canSendOtherMessages(): boolean | undefined {
+  get canSendOtherMessages(): boolean | undefined {
     return this.payload.can_send_other_messages
   }
 
@@ -49,7 +49,7 @@ export class ChatPermissions {
    * `true`, if the user is allowed to add web page previews to their messages,
    * implies `can_send_media_messages`
    */
-  public get canAddWebPagePreviews(): boolean | undefined {
+  get canAddWebPagePreviews(): boolean | undefined {
     return this.payload.can_add_web_page_previews
   }
 
@@ -57,12 +57,12 @@ export class ChatPermissions {
    * `true`, if the user is allowed to change the chat title, photo and other
    * settings. Ignored in public supergroups
    */
-  public get canChangeInfo(): boolean | undefined {
+  get canChangeInfo(): boolean | undefined {
     return this.payload.can_change_info
   }
 
   /** `true`, if the user is allowed to invite new users to the chat */
-  public get canInviteUsers(): boolean | undefined {
+  get canInviteUsers(): boolean | undefined {
     return this.payload.can_invite_users
   }
 
@@ -70,7 +70,7 @@ export class ChatPermissions {
    * `true`, if the user is allowed to pin messages. Ignored in public
    * supergroups
    */
-  public get canPinMessages(): boolean | undefined {
+  get canPinMessages(): boolean | undefined {
     return this.payload.can_pin_messages
   }
 }

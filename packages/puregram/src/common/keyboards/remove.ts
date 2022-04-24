@@ -10,20 +10,20 @@ export class RemoveKeyboard {
   private isSelective: boolean = false
 
   /** Use this parameter if you want to show the keyboard to specific users only */
-  public selective(selective: boolean = true): this {
+  selective(selective: boolean = true): this {
     this.isSelective = selective
 
     return this
   }
 
-  public toJSON(): RemoveKeyboardJSON {
+  toJSON(): RemoveKeyboardJSON {
     return {
       remove_keyboard: true,
       selective: this.isSelective
     }
   }
 
-  public toString(): string {
+  toString(): string {
     return JSON.stringify(this)
   }
 }

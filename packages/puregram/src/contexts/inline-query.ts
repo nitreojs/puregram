@@ -26,7 +26,7 @@ interface InlineQueryContextOptions {
 }
 
 class InlineQueryContext extends Context {
-  public payload: TelegramInlineQuery
+  payload: TelegramInlineQuery
 
   constructor(options: InlineQueryContextOptions) {
     super({
@@ -40,7 +40,7 @@ class InlineQueryContext extends Context {
   }
 
   /** Answers to inline query */
-  public answerInlineQuery(
+  answerInlineQuery(
     results: TelegramInlineQueryResult[],
     params?: Partial<AnswerInlineQueryParams>
   ): Promise<true> {

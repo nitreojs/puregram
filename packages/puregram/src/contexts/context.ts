@@ -14,9 +14,9 @@ interface ContextOptions {
 }
 
 export class Context {
-  public telegram: Telegram
-  public updateId?: number
-  public update?: TelegramUpdate
+  telegram: Telegram
+  updateId?: number
+  update?: TelegramUpdate
 
   protected updateType: UpdateName
 
@@ -27,11 +27,11 @@ export class Context {
     this.update = options.update
   }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  public is(
+  is(
     rawTypes: AllowArray<UpdateName | string>
   ): boolean {
     const types = Array.isArray(rawTypes)

@@ -8,20 +8,20 @@ export class ForceReply {
   private placeholder?: string
 
   /** Use this parameter if you want to show the keyboard to specific users only */
-  public selective(selective: boolean = true): this {
+  selective(selective: boolean = true): this {
     this.isSelective = selective
 
     return this
   }
 
   /** The placeholder to be shown in the input field when the keyboard is active */
-  public setPlaceholder(placeholder: string): this {
+  setPlaceholder(placeholder: string): this {
     this.placeholder = placeholder
 
     return this
   }
 
-  public toJSON(): TelegramForceReply {
+  toJSON(): TelegramForceReply {
     return {
       force_reply: true,
       input_field_placeholder: this.placeholder,
@@ -29,7 +29,7 @@ export class ForceReply {
     }
   }
 
-  public toString(): string {
+  toString(): string {
     return JSON.stringify(this)
   }
 }

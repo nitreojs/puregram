@@ -35,10 +35,10 @@ type ProxyAPIMethods = ApiMethods & APICallMethod
 
 /** Telegram class */
 export class Telegram {
-  public options: TelegramOptions = { ...DEFAULT_OPTIONS }
+  options: TelegramOptions = { ...DEFAULT_OPTIONS }
 
   /** API */
-  public readonly api = new Proxy<ProxyAPIMethods>({} as ProxyAPIMethods, {
+  readonly api = new Proxy<ProxyAPIMethods>({} as ProxyAPIMethods, {
     get: (_target, method: string) => (
       (...args: any[]) => {
         // INFO  `telegram.api.call(path: string, params?: Record<string, any>)`
@@ -55,10 +55,10 @@ export class Telegram {
   })
 
   /** Updates */
-  public updates: Updates = new Updates(this)
+  updates: Updates = new Updates(this)
 
   /** Bot data */
-  public bot!: User
+  bot!: User
 
   constructor(options: Partial<TelegramOptions> = {}) {
     Object.assign(this.options, options)
@@ -77,7 +77,7 @@ export class Telegram {
   }
 
   /** Creates `Telegram` instance just from `token` [and `params`] */
-  public static fromToken(token: string, options: Partial<TelegramOptions> = {}): Telegram {
+  static fromToken(token: string, options: Partial<TelegramOptions> = {}): Telegram {
     return new Telegram({
       token,
       ...options
@@ -85,7 +85,7 @@ export class Telegram {
   }
 
   /** @deprecated */
-  public setOptions(options: Partial<TelegramOptions>): this {
+  setOptions(options: Partial<TelegramOptions>): this {
     return this
   }
 
@@ -299,7 +299,7 @@ export class Telegram {
    * Call API `method` with `params`
    * @deprecated use `telegram.api.call(...)` instead
    */
-  public callApi(method: string, params?: Record<string, any>) {
+  callApi(method: string, params?: Record<string, any>) {
     return this.api.call(method, params)
   }
 }

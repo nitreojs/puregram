@@ -9,17 +9,17 @@ import { CallbackGame } from './callback-game'
 export class InlineKeyboardButton {
   constructor(private payload: TelegramInlineKeyboardButton) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Label text on the button */
-  public get text(): string {
+  get text(): string {
     return this.payload.text
   }
 
   /** HTTP or tg:// url to be opened when button is pressed */
-  public get url(): string | undefined {
+  get url(): string | undefined {
     return this.payload.url
   }
 
@@ -27,7 +27,7 @@ export class InlineKeyboardButton {
    * An HTTP URL used to automatically authorize the user.
    * Can be used as a replacement for the Telegram Login Widget.
    */
-  public get loginUrl(): LoginUrl | undefined {
+  get loginUrl(): LoginUrl | undefined {
     const { login_url } = this.payload
 
     if (!login_url) {
@@ -41,7 +41,7 @@ export class InlineKeyboardButton {
    * Data to be sent in a callback query to the bot when button is pressed,
    * 1-64 bytes
    */
-  public get callbackData(): string | undefined {
+  get callbackData(): string | undefined {
     return this.payload.callback_data
   }
 
@@ -57,7 +57,7 @@ export class InlineKeyboardButton {
    * be automatically returned to the chat they switched from, skipping the
    * chat selection screen.
    */
-  public get switchInlineQuery(): string | undefined {
+  get switchInlineQuery(): string | undefined {
     return this.payload.switch_inline_query
   }
 
@@ -69,7 +69,7 @@ export class InlineKeyboardButton {
    * This offers a quick way for the user to open your bot in inline mode in
    * the same chat – good for selecting something from multiple options.
    */
-  public get switchInlineQueryCurrentChat(): string | undefined {
+  get switchInlineQueryCurrentChat(): string | undefined {
     return this.payload.switch_inline_query_current_chat
   }
 
@@ -80,7 +80,7 @@ export class InlineKeyboardButton {
    * **NOTE**: This type of button **must** always be the first button in the
    * first row.
    */
-  public get callbackGame(): CallbackGame | undefined {
+  get callbackGame(): CallbackGame | undefined {
     const { callback_game } = this.payload
 
     if (!callback_game) {
@@ -95,7 +95,7 @@ export class InlineKeyboardButton {
    *
    * **NOTE**: This type of button **must** always be the first button in the first row.
    */
-  public get pay(): boolean | undefined {
+  get pay(): boolean | undefined {
     return this.payload.pay
   }
 }

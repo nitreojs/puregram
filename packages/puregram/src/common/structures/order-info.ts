@@ -9,27 +9,27 @@ import { ShippingAddress } from './shipping-address'
 export class OrderInfo {
   constructor(private payload: TelegramOrderInfo) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** User name */
-  public get name(): string | undefined {
+  get name(): string | undefined {
     return this.payload.name
   }
 
   /** User's phone number */
-  public get phoneNumber(): string | undefined {
+  get phoneNumber(): string | undefined {
     return this.payload.phone_number
   }
 
   /** User email */
-  public get email(): string | undefined {
+  get email(): string | undefined {
     return this.payload.email
   }
 
   /** User shipping address */
-  public get shippingAddress(): ShippingAddress | undefined {
+  get shippingAddress(): ShippingAddress | undefined {
     const { shipping_address } = this.payload
 
     if (!shipping_address) {

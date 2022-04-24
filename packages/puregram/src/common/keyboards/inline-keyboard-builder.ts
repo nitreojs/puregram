@@ -52,12 +52,12 @@ export class InlineKeyboardBuilder {
   private rows: TelegramInlineKeyboardButton[][] = []
   private currentRow: TelegramInlineKeyboardButton[] = []
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Generate text button */
-  public textButton(params: TextButtonParams): this {
+  textButton(params: TextButtonParams): this {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -69,7 +69,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate URL button */
-  public urlButton(params: UrlButtonParams): this {
+  urlButton(params: UrlButtonParams): this {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -82,7 +82,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate Web App button */
-  public webAppButton(params: WebAppButtonParams): this {
+  webAppButton(params: WebAppButtonParams): this {
     return this.addButton({
       text: params.text,
       web_app: { url: params.url }
@@ -90,7 +90,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate button that will switch to current chat and type the query */
-  public switchToCurrentChatButton(params: SwitchToCurrentChatButtonParams): this {
+  switchToCurrentChatButton(params: SwitchToCurrentChatButtonParams): this {
     return this.addButton({
       text: params.text,
       switch_inline_query_current_chat: params.query
@@ -98,7 +98,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate button that will prompt user to select one of their chats */
-  public switchToChatButton(params: SwitchToChatButtonParams): this {
+  switchToChatButton(params: SwitchToChatButtonParams): this {
     return this.addButton({
       text: params.text,
       switch_inline_query: params.query
@@ -106,7 +106,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate game button */
-  public gameButton(params: GameButtonParams): this {
+  gameButton(params: GameButtonParams): this {
     return this.addWideButton({
       text: params.text,
       callback_game: params.game
@@ -114,7 +114,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate pay button */
-  public payButton(params: PayButtonParams): this {
+  payButton(params: PayButtonParams): this {
     return this.addWideButton({
       pay: true,
       text: params.text
@@ -122,7 +122,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate login button */
-  public loginButton(params: LoginButtonParams): this {
+  loginButton(params: LoginButtonParams): this {
     return this.addButton({
       login_url: params.loginUrl,
       text: params.text
@@ -130,7 +130,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Save current row of buttons in the general rows */
-  public row(): this {
+  row(): this {
     if (this.currentRow.length === 0) {
       return this
     }
@@ -158,7 +158,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Clone current builder to new instance */
-  public clone(): InlineKeyboardBuilder {
+  clone(): InlineKeyboardBuilder {
     const builder = new InlineKeyboardBuilder()
 
     builder.rows = [...this.rows]
@@ -167,7 +167,7 @@ export class InlineKeyboardBuilder {
     return builder
   }
 
-  public toJSON(): TelegramInlineKeyboardMarkup {
+  toJSON(): TelegramInlineKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
       : this.rows
@@ -177,7 +177,7 @@ export class InlineKeyboardBuilder {
     }
   }
 
-  public toString(): string {
+  toString(): string {
     return JSON.stringify(this)
   }
 }

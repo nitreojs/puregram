@@ -8,7 +8,7 @@ import { SceneRepository, SceneManagerOptions } from './scene-manager.types'
 export class SceneManager {
   private repository: SceneRepository = new CacheRepository();
 
-  public constructor(rawOptions: SceneManagerOptions | SceneInterface[] = {}) {
+  constructor(rawOptions: SceneManagerOptions | SceneInterface[] = {}) {
     const options = Array.isArray(rawOptions)
       ? { scenes: rawOptions }
       : rawOptions
@@ -19,12 +19,12 @@ export class SceneManager {
   }
 
   /** Checks for has a scene */
-  public hasScene(slug: string): boolean {
+  hasScene(slug: string): boolean {
     return this.repository.has(slug)
   }
 
   /** Adds scenes to the repository */
-  public addScenes(scenes: SceneInterface[]): this {
+  addScenes(scenes: SceneInterface[]): this {
     for (const scene of scenes) {
       this.repository.set(scene.slug, scene)
     }
@@ -33,7 +33,7 @@ export class SceneManager {
   }
 
   /** Returns the middleware for embedding */
-  public get middleware(): Middleware<ContextInterface> {
+  get middleware(): Middleware<ContextInterface> {
     return (context: ContextInterface, next: Function): Promise<void> => {
       context.scene = new SceneContext({
         context,
@@ -45,7 +45,7 @@ export class SceneManager {
   }
 
   /** Returns the middleware for intercept */
-  public get middlewareIntercept(): Middleware<ContextInterface> {
+  get middlewareIntercept(): Middleware<ContextInterface> {
     return (context: ContextInterface, next: Function): Promise<void> => {
       if (!context.scene.current) {
         return next()

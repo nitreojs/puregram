@@ -8,27 +8,27 @@ import { filterPayload } from './utils'
 export class PromptQuestion {
   constructor(private params: Types.PromptQuestionParams) { }
 
-  public get requestText(): string {
+  get requestText(): string {
     return this.params.request.text
   }
 
-  public get requestParams(): Optional<SendMessageParams, 'chat_id' | 'text'> {
+  get requestParams(): Optional<SendMessageParams, 'chat_id' | 'text'> {
     return this.params.request.params ?? {}
   }
 
-  public get resolve(): Types.PromptQuestionParams['resolve'] {
+  get resolve(): Types.PromptQuestionParams['resolve'] {
     return this.params.resolve
   }
 
-  public get promptedAt(): number {
+  get promptedAt(): number {
     return this.params.promptedAt
   }
 
-  public get validate(): Types.PromptValidate | undefined {
+  get validate(): Types.PromptValidate | undefined {
     return this.params.validate
   }
 
-  public get onValidationFail(): Types.PromptOnValidation | undefined {
+  get onValidationFail(): Types.PromptOnValidation | undefined {
     return this.params.onValidationFail
   }
 }

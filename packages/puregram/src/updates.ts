@@ -83,10 +83,10 @@ export class Updates {
   private readonly telegram: Telegram
 
   /** Is polling started? */
-  public isStarted: boolean = false;
+  isStarted: boolean = false;
 
   /** Updates offset */
-  public offset: number = 0;
+  offset: number = 0;
 
   private retries: number = 0;
 
@@ -106,11 +106,11 @@ export class Updates {
     this.recompose()
   }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  public use<T = {}>(middleware: Middleware<Contexts.Context & T>): this {
+  use<T = {}>(middleware: Middleware<Contexts.Context & T>): this {
     if (typeof middleware !== 'function') {
       throw new TypeError('Middleware must be function')
     }
@@ -122,177 +122,177 @@ export class Updates {
   }
 
   /** Subscribe to events */
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.MESSAGE | 'message',
     handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.EDITED_MESSAGE | 'edited_message',
     handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.CHANNEL_POST | 'channel_post',
     handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.EDITED_CHANNEL_POST | 'edited_channel_post',
     handlers: AllowArray<Middleware<Contexts.MessageContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.INLINE_QUERY | 'inline_query',
     handlers: AllowArray<Middleware<Contexts.InlineQueryContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.CHOSEN_INLINE_RESULT | 'chosen_inline_result',
     handlers: AllowArray<Middleware<Contexts.ChosenInlineResultContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.CALLBACK_QUERY | 'callback_query',
     handlers: AllowArray<Middleware<Contexts.CallbackQueryContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.SHIPPING_QUERY | 'shipping_query',
     handlers: AllowArray<Middleware<Contexts.ShippingQueryContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.PRE_CHECKOUT_QUERY | 'pre_checkout_query',
     handlers: AllowArray<Middleware<Contexts.PreCheckoutQueryContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.POLL | 'poll',
     handlers: AllowArray<Middleware<Contexts.PollContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.POLL_ANSWER | 'poll_answer',
     handlers: AllowArray<Middleware<Contexts.PollAnswerContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.CHAT_MEMBER | 'chat_member',
     handlers: AllowArray<Middleware<Contexts.ChatMemberContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.MY_CHAT_MEMBER | 'my_chat_member',
     handlers: AllowArray<Middleware<Contexts.ChatMemberContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.NEW_CHAT_MEMBERS | 'new_chat_members',
     handlers: AllowArray<Middleware<Contexts.NewChatMembersContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.LEFT_CHAT_MEMBER | 'left_chat_member',
     handlers: AllowArray<Middleware<Contexts.LeftChatMemberContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.NEW_CHAT_TITLE | 'new_chat_title',
     handlers: AllowArray<Middleware<Contexts.NewChatTitleContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.NEW_CHAT_PHOTO | 'new_chat_photo',
     handlers: AllowArray<Middleware<Contexts.NewChatPhotoContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.DELETE_CHAT_PHOTO | 'delete_chat_photo',
     handlers: AllowArray<Middleware<Contexts.DeleteChatPhotoContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.GROUP_CHAT_CREATED | 'group_chat_created',
     handlers: AllowArray<Middleware<Contexts.GroupChatCreatedContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.SUPERGROUP_CHAT_CREATED | 'supergroup_chat_created',
     handlers: AllowArray<Middleware<Contexts.SupergroupChatCreatedContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.CHANNEL_CHAT_CREATED | 'channel_chat_created',
     handlers: AllowArray<Middleware<Contexts.ChannelChatCreatedContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.PINNED_MESSAGE | 'pinned_message',
     handlers: AllowArray<Middleware<Contexts.PinnedMessageContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.MIGRATE_FROM_TO_ID | 'migrate_to_chat_id',
     handlers: AllowArray<Middleware<Contexts.MigrateToChatIdContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.MIGRATE_FROM_CHAT_ID | 'migrate_from_chat_id',
     handlers: AllowArray<Middleware<Contexts.MigrateFromChatIdContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.INVOICE | 'invoice',
     handlers: AllowArray<Middleware<Contexts.InvoiceContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.SUCCESSFUL_PAYMENT | 'successful_payment',
     handlers: AllowArray<Middleware<Contexts.SuccessfulPaymentContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.MESSAGE_AUTO_DELETE_TIMER_CHANGED | 'message_auto_delete_timer_changed',
     handlers: AllowArray<Middleware<Contexts.MessageAutoDeleteTimerChangedContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.VIDEO_CHAT_SCHEDULED | 'video_chat_scheduled',
     handlers: AllowArray<Middleware<Contexts.VideoChatScheduledContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.VIDEO_CHAT_STARTED | 'video_chat_started',
     handlers: AllowArray<Middleware<Contexts.VideoChatStartedContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.VIDEO_CHAT_ENDED | 'video_chat_ended',
     handlers: AllowArray<Middleware<Contexts.VideoChatEndedContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.VIDEO_CHAT_PARTICIPANTS_INVITED | 'video_chat_participants_invited',
     handlers: AllowArray<Middleware<Contexts.VideoChatParticipantsInvitedContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.WEB_APP_DATA | 'web_app_data',
     handlers: AllowArray<Middleware<Contexts.WebAppDataContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: UpdateType.CHAT_JOIN_REQUEST | 'chat_join_request',
     handlers: AllowArray<Middleware<Contexts.ChatJoinRequestContext & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     events: AllowArray<string>,
     handlers: AllowArray<Middleware<Contexts.Context & T>>
   ): this
 
-  public on<T = {}>(
+  on<T = {}>(
     rawOnEvents: AllowArray<string>,
     rawHandlers: AllowArray<Middleware<Contexts.Context & T>>
   ): this {
@@ -324,7 +324,7 @@ export class Updates {
   }
 
   /** Calls up the middleware chain */
-  public dispatchMiddleware(context: Contexts.Context): Promise<void> {
+  dispatchMiddleware(context: Contexts.Context): Promise<void> {
     return this.composed(context, noopNext) as Promise<void>
   }
 
@@ -333,13 +333,13 @@ export class Updates {
   }
 
   /** Stop polling */
-  public stopPolling(): void {
+  stopPolling(): void {
     this.isStarted = false
     this.retries = 0
   }
 
   /** Start polling */
-  public async startPolling(options: StartPollingOptions = {}): Promise<void> {
+  async startPolling(options: StartPollingOptions = {}): Promise<void> {
     if (this.isStarted) {
       throw new Error('Polling is already started')
     }
@@ -453,7 +453,7 @@ export class Updates {
     )
   }
 
-  public async handleUpdate(update: TelegramUpdate): Promise<Contexts.Context | undefined> {
+  async handleUpdate(update: TelegramUpdate): Promise<Contexts.Context | undefined> {
     this.offset = update.update_id + 1
 
     const type: UpdateName = (Object.keys(update) as UpdateName[])[1]
@@ -502,7 +502,7 @@ export class Updates {
     return context
   }
 
-  public getKoaMiddleware(): Function {
+  getKoaMiddleware(): Function {
     return async (context: any): Promise<void> => {
       const update: any = context.request.body
 
@@ -519,7 +519,7 @@ export class Updates {
     }
   }
 
-  public getWebhookMiddleware(): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
+  getWebhookMiddleware(): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
     return async (req: http.IncomingMessage, res: http.ServerResponse): Promise<void> => {
       if (req.method !== 'POST') {
         return

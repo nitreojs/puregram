@@ -12,7 +12,7 @@ import { ChatLocation } from './chat-location'
 export class Chat {
   constructor(private payload: TelegramChat) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -23,34 +23,34 @@ export class Chat {
    * integer or double-precision float type are safe for storing
    * this identifier.
    */
-  public get id(): number {
+  get id(): number {
     return this.payload.id
   }
 
   /**
    * Type of chat, can be either `private`, `group`, `supergroup` or `channel`
    */
-  public get type(): TelegramChat['type'] {
+  get type(): TelegramChat['type'] {
     return this.payload.type
   }
 
   /** Title, for supergroups, channels and group chats */
-  public get title(): string | undefined {
+  get title(): string | undefined {
     return this.payload.title
   }
 
   /** Username, for private chats, supergroups and channels if available */
-  public get username(): string | undefined {
+  get username(): string | undefined {
     return this.payload.username
   }
 
   /** First name of the other party in a private chat */
-  public get firstName(): string | undefined {
+  get firstName(): string | undefined {
     return this.payload.first_name
   }
 
   /** Last name of the other party in a private chat */
-  public get lastName(): string | undefined {
+  get lastName(): string | undefined {
     return this.payload.last_name
   }
 
@@ -59,7 +59,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get photo(): ChatPhoto | undefined {
+  get photo(): ChatPhoto | undefined {
     const { photo } = this.payload
 
     if (!photo) {
@@ -74,7 +74,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  public get bio(): string | undefined {
+  get bio(): string | undefined {
     return this.payload.bio
   }
 
@@ -84,7 +84,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  public get hasPrivateForwards(): true | undefined {
+  get hasPrivateForwards(): true | undefined {
     return this.payload.has_private_forwards as true | undefined
   }
 
@@ -93,7 +93,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  public get location(): ChatLocation | undefined {
+  get location(): ChatLocation | undefined {
     const { location } = this.payload
 
     if (!location) {
@@ -108,7 +108,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get description(): string | undefined {
+  get description(): string | undefined {
     return this.payload.description
   }
 
@@ -119,7 +119,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get inviteLink(): string | undefined {
+  get inviteLink(): string | undefined {
     return this.payload.invite_link
   }
 
@@ -128,7 +128,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get pinnedMessage(): Message | undefined {
+  get pinnedMessage(): Message | undefined {
     const { pinned_message } = this.payload
 
     if (!pinned_message) {
@@ -143,7 +143,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get permissions(): ChatPermissions | undefined {
+  get permissions(): ChatPermissions | undefined {
     const { permissions } = this.payload
 
     if (!permissions) {
@@ -159,7 +159,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get slowModeDelay(): number | undefined {
+  get slowModeDelay(): number | undefined {
     return this.payload.slow_mode_delay
   }
 
@@ -168,7 +168,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  public get messageAutoDeleteTime(): number | undefined {
+  get messageAutoDeleteTime(): number | undefined {
     return this.payload.message_auto_delete_time
   }
 
@@ -177,7 +177,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  public get hasProtectedContent(): boolean | undefined {
+  get hasProtectedContent(): boolean | undefined {
     return this.payload.has_protected_content
   }
 
@@ -186,7 +186,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get stickerSetName(): string | undefined {
+  get stickerSetName(): string | undefined {
     return this.payload.sticker_set_name
   }
 
@@ -195,7 +195,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  public get canSetStickerSet(): boolean | undefined {
+  get canSetStickerSet(): boolean | undefined {
     return this.payload.can_set_sticker_set
   }
 
@@ -210,7 +210,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  public get linkedChatId(): number | undefined {
+  get linkedChatId(): number | undefined {
     return this.payload.linked_chat_id
   }
 }

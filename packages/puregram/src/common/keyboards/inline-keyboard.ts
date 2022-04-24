@@ -53,12 +53,12 @@ interface LoginButtonParams {
 export class InlineKeyboard {
   private buttons: TelegramInlineKeyboardButton[][] = []
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Assemble a builder of buttons */
-  public static keyboard(
+  static keyboard(
     rows: (TelegramInlineKeyboardButton | TelegramInlineKeyboardButton[])[]
   ): InlineKeyboard {
     const inlineKeyboard = new InlineKeyboard()
@@ -71,7 +71,7 @@ export class InlineKeyboard {
   }
 
   /** Generate text button */
-  public static textButton(params: TextButtonParams): TelegramInlineKeyboardButton {
+  static textButton(params: TextButtonParams): TelegramInlineKeyboardButton {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -83,7 +83,7 @@ export class InlineKeyboard {
   }
 
   /** Generate URL button */
-  public static urlButton(params: UrlButtonParams): TelegramInlineKeyboardButton {
+  static urlButton(params: UrlButtonParams): TelegramInlineKeyboardButton {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -96,7 +96,7 @@ export class InlineKeyboard {
   }
 
   /** Generate Web App button */
-  public static webAppButton(params: WebAppButtonParams): TelegramInlineKeyboardButton {
+  static webAppButton(params: WebAppButtonParams): TelegramInlineKeyboardButton {
     return {
       text: params.text,
       web_app: { url: params.url }
@@ -104,7 +104,7 @@ export class InlineKeyboard {
   }
 
   /** Generate button that will switch to current chat and type the query */
-  public static switchToCurrentChatButton(
+  static switchToCurrentChatButton(
     params: SwitchToCurrentChatButtonParams
   ): TelegramInlineKeyboardButton {
     return {
@@ -114,7 +114,7 @@ export class InlineKeyboard {
   }
 
   /** Generate button that will prompt user to select one of their chats */
-  public static switchToChatButton(
+  static switchToChatButton(
     params: SwitchToChatButtonParams
   ): TelegramInlineKeyboardButton {
     return {
@@ -124,7 +124,7 @@ export class InlineKeyboard {
   }
 
   /** Generate game button */
-  public static gameButton(params: GameButtonParams): TelegramInlineKeyboardButton {
+  static gameButton(params: GameButtonParams): TelegramInlineKeyboardButton {
     return {
       text: params.text,
       callback_game: params.game
@@ -132,7 +132,7 @@ export class InlineKeyboard {
   }
 
   /** Generate pay button */
-  public static payButton(params: PayButtonParams): TelegramInlineKeyboardButton {
+  static payButton(params: PayButtonParams): TelegramInlineKeyboardButton {
     return {
       pay: true,
       text: params.text
@@ -140,7 +140,7 @@ export class InlineKeyboard {
   }
 
   /** Generate login button */
-  public static loginButton(params: LoginButtonParams): TelegramInlineKeyboardButton {
+  static loginButton(params: LoginButtonParams): TelegramInlineKeyboardButton {
     return {
       login_url: params.loginUrl,
       text: params.text
@@ -155,13 +155,13 @@ export class InlineKeyboard {
     return this
   }
 
-  public toJSON(): TelegramInlineKeyboardMarkup {
+  toJSON(): TelegramInlineKeyboardMarkup {
     return {
       inline_keyboard: this.buttons
     }
   }
 
-  public toString(): string {
+  toString(): string {
     return JSON.stringify(this)
   }
 }

@@ -9,32 +9,32 @@ import { ChatInviteLink } from './chat-invite-link'
 export class ChatJoinRequest {
   constructor(public payload: TelegramChatJoinRequest) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Chat to which the request was sent */
-  public get chat(): Chat {
+  get chat(): Chat {
     return new Chat(this.payload.chat)
   }
 
   /** User that sent the join request */
-  public get from(): User {
+  get from(): User {
     return new User(this.payload.from)
   }
 
   /** Date the request was sent in Unix time */
-  public get date(): number {
+  get date(): number {
     return this.payload.date
   }
 
   /** Bio of the user */
-  public get bio(): string | undefined {
+  get bio(): string | undefined {
     return this.payload.bio
   }
 
   /** Chat invite link that was used by the user to send the join request */
-  public get inviteLink(): ChatInviteLink | undefined {
+  get inviteLink(): ChatInviteLink | undefined {
     const { invite_link } = this.payload
 
     if (!invite_link) {

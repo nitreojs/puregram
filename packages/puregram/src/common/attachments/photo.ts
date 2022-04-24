@@ -10,7 +10,7 @@ export class PhotoAttachment extends Attachment {
 
   private readonly sorted: PhotoSize[]
 
-  public attachmentType: 'photo' = 'photo'
+  attachmentType: 'photo' = 'photo'
 
   constructor(payload: PhotoSize[]) {
     super()
@@ -25,22 +25,22 @@ export class PhotoAttachment extends Attachment {
   }
 
   /** Photo sizes */
-  public get sizes(): PhotoSize[] {
+  get sizes(): PhotoSize[] {
     return this.payload
   }
 
   /** Biggest size of the photo */
-  public get bigSize(): PhotoSize {
+  get bigSize(): PhotoSize {
     return this.sorted[0]
   }
 
   /** Medium size of the photo */
-  public get mediumSize(): PhotoSize {
+  get mediumSize(): PhotoSize {
     return this.sorted[Math.floor(this.sorted.length / 2)]
   }
 
   /** Smallest size of the photo */
-  public get smallSize(): PhotoSize {
+  get smallSize(): PhotoSize {
     return this.sorted[this.sorted.length - 1]
   }
 }

@@ -11,25 +11,25 @@ import { FileAttachment } from './file-attachment'
  * (GIF or H.264/MPEG-4 AVC video without sound).
  */
 export class AnimationAttachment extends FileAttachment<TelegramAnimation> {
-  public attachmentType: 'animation' = 'animation'
+  attachmentType: 'animation' = 'animation'
 
   /** Video width as defined by sender */
-  public get width(): number {
+  get width(): number {
     return this.payload.width
   }
 
   /** Video height as defined by sender */
-  public get height(): number {
+  get height(): number {
     return this.payload.height
   }
 
   /** Duration of the video in seconds as defined by sender */
-  public get duration(): number {
+  get duration(): number {
     return this.payload.duration
   }
 
   /** Animation thumbnail as defined by sender */
-  public get thumb(): PhotoSize | undefined {
+  get thumb(): PhotoSize | undefined {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -40,17 +40,17 @@ export class AnimationAttachment extends FileAttachment<TelegramAnimation> {
   }
 
   /** Original animation filename as defined by sender */
-  public get fileName(): string | undefined {
+  get fileName(): string | undefined {
     return this.payload.file_name
   }
 
   /** MIME type of the file as defined by sender */
-  public get mimeType(): string | undefined {
+  get mimeType(): string | undefined {
     return this.payload.mime_type
   }
 
   /** File size */
-  public get fileSize(): number | undefined {
+  get fileSize(): number | undefined {
     return this.payload.file_size
   }
 }

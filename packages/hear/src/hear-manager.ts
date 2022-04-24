@@ -26,17 +26,17 @@ export class HearManager<C extends Context> {
     this.recompose()
   }
 
-  public get length(): number {
+  get length(): number {
     return this.composer.length
   }
 
-  public get middleware(): Middleware<C> {
+  get middleware(): Middleware<C> {
     return (context: C, next: NextMiddleware): unknown => (
       this.composed(context, next)
     )
   }
 
-  public hear<T = {}>(
+  hear<T = {}>(
     hearConditions: HearConditions<C & T>,
     handler: Middleware<C & T>
   ): this {
@@ -136,7 +136,7 @@ export class HearManager<C extends Context> {
   }
 
   /** A handler that is called when handlers are not found */
-  public onFallback(handler: Middleware<C>): this {
+  onFallback(handler: Middleware<C>): this {
     // @ts-ignore
     this.fallbackHandler = handler
 

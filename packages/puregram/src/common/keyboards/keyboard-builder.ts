@@ -16,7 +16,7 @@ export class KeyboardBuilder {
   private isSelective: boolean = false
   private placeholder?: string
 
-  public get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -25,7 +25,7 @@ export class KeyboardBuilder {
    * If none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
-  public textButton(text: string): this {
+  textButton(text: string): this {
     return this.addButton({ text })
   }
 
@@ -34,7 +34,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  public requestLocationButton(text: string): this {
+  requestLocationButton(text: string): this {
     return this.addWideButton({
       text,
       request_location: true
@@ -47,7 +47,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  public requestPollButton(text: string, type?: TelegramPoll['type']): this {
+  requestPollButton(text: string, type?: TelegramPoll['type']): this {
     return this.addWideButton({
       text,
       request_poll: { type }
@@ -60,7 +60,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  public requestContactButton(text: string): this {
+  requestContactButton(text: string): this {
     return this.addWideButton({
       text,
       request_contact: true
@@ -73,7 +73,7 @@ export class KeyboardBuilder {
    * 
    * Available in private chats only.
    */
-  public webAppButton(text: string, url: string): this {
+  webAppButton(text: string, url: string): this {
     return this.addWideButton({
       text,
       web_app: { url }
@@ -81,7 +81,7 @@ export class KeyboardBuilder {
   }
 
   /** Save current row of buttons in the general rows */
-  public row(): this {
+  row(): this {
     if (this.currentRow.length === 0) {
       return this
     }
@@ -93,28 +93,28 @@ export class KeyboardBuilder {
   }
 
   /** When pressed, the keyboard will disappear */
-  public oneTime(oneTime: boolean = true): this {
+  oneTime(oneTime: boolean = true): this {
     this.isOneTime = oneTime
 
     return this
   }
 
   /** Resize the keyboard */
-  public resize(resize: boolean = true): this {
+  resize(resize: boolean = true): this {
     this.isResized = resize
 
     return this
   }
 
   /** Use this parameter if you want to show the keyboard to specific users only */
-  public selective(selective: boolean = true): this {
+  selective(selective: boolean = true): this {
     this.isSelective = selective
 
     return this
   }
 
   /** The placeholder to be shown in the input field when the keyboard is active */
-  public setPlaceholder(placeholder: string): this {
+  setPlaceholder(placeholder: string): this {
     this.placeholder = placeholder
 
     return this
@@ -135,7 +135,7 @@ export class KeyboardBuilder {
   }
 
   /** Clone current builder to new instance */
-  public clone(): KeyboardBuilder {
+  clone(): KeyboardBuilder {
     const builder = new KeyboardBuilder()
 
     builder.oneTime(this.isOneTime)
@@ -152,7 +152,7 @@ export class KeyboardBuilder {
     return builder
   }
 
-  public toJSON(): TelegramReplyKeyboardMarkup {
+  toJSON(): TelegramReplyKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
       : this.rows
@@ -166,7 +166,7 @@ export class KeyboardBuilder {
     }
   }
 
-  public toString(): string {
+  toString(): string {
     return JSON.stringify(this)
   }
 }

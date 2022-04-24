@@ -15,7 +15,7 @@ interface PollContextOptions {
 }
 
 class PollContext extends Context {
-  public payload: TelegramPoll
+  payload: TelegramPoll
 
   constructor(options: PollContextOptions) {
     super({

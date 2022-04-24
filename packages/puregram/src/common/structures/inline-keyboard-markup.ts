@@ -10,12 +10,12 @@ import { InlineKeyboardButton } from './inline-keyboard-button'
 export class InlineKeyboardMarkup {
   constructor(private payload: TelegramInlineKeyboardMarkup) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Array of button rows */
-  public get inlineKeyboard(): InlineKeyboardButton[][] {
+  get inlineKeyboard(): InlineKeyboardButton[][] {
     const { inline_keyboard } = this.payload
 
     return inline_keyboard.map(

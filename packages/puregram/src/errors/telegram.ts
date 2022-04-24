@@ -5,12 +5,12 @@ export interface ErrorOptions {
 
 export class TelegramError extends Error {
   /** Error code */
-  public code: number
+  code: number
 
   /** Error stack */
-  public stack!: string
+  stack!: string
 
-  public constructor({ error_code, description }: ErrorOptions) {
+  constructor({ error_code, description }: ErrorOptions) {
     super(description)
 
     this.code = error_code
@@ -19,11 +19,11 @@ export class TelegramError extends Error {
     Error.captureStackTrace(this, this.constructor)
   }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
-  public toJSON(): Pick<this, keyof this> {
+  toJSON(): Pick<this, keyof this> {
     const json = {} as Pick<this, keyof this>
 
     for (const key of Object.getOwnPropertyNames(this)) {

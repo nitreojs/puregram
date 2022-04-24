@@ -13,22 +13,22 @@ import { filterPayload } from '../utils/helpers'
 export class InlineQuery {
   constructor(public payload: TelegramInlineQuery) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Unique identifier for this query */
-  public get id(): string {
+  get id(): string {
     return this.payload.id
   }
 
   /** Sender */
-  public get from(): User {
+  get from(): User {
     return new User(this.payload.from)
   }
 
   /** Sender location, only for bots that request user location */
-  public get location(): Location | undefined {
+  get location(): Location | undefined {
     const { location } = this.payload
 
     if (!location) {
@@ -39,12 +39,12 @@ export class InlineQuery {
   }
 
   /** Text of the query (up to 256 characters) */
-  public get query(): string {
+  get query(): string {
     return this.payload.query
   }
 
   /** Offset of the results to be returned, can be controlled by the bot */
-  public get offset(): string {
+  get offset(): string {
     return this.payload.offset
   }
 }

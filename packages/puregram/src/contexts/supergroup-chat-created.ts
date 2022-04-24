@@ -58,7 +58,7 @@ interface SupergroupChatCreatedContextOptions {
 }
 
 class SupergroupChatCreatedContext extends Context {
-  public payload: TelegramMessage
+  payload: TelegramMessage
 
   constructor(options: SupergroupChatCreatedContextOptions) {
     super({
@@ -72,12 +72,12 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Unique message identifier inside this chat */
-  public get id(): number {
+  get id(): number {
     return this.payload.message_id
   }
 
   /** Sender, empty for messages sent to channels */
-  public get from(): User | undefined {
+  get from(): User | undefined {
     const { from } = this.payload
 
     if (!from) {
@@ -88,17 +88,17 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sender's ID */
-  public get senderId(): number | undefined {
+  get senderId(): number | undefined {
     return this.from?.id
   }
 
   /** Date the message was sent in Unix time */
-  public get createdAt(): number {
+  get createdAt(): number {
     return this.payload.date
   }
 
   /** Conversation the message belongs to */
-  public get chat(): Chat | undefined {
+  get chat(): Chat | undefined {
     const { chat } = this.payload
 
     if (!chat) {
@@ -109,37 +109,37 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Chat ID */
-  public get chatId(): number | undefined {
+  get chatId(): number | undefined {
     return this.chat?.id
   }
 
   /** Chat type */
-  public get chatType(): TelegramChat['type'] | undefined {
+  get chatType(): TelegramChat['type'] | undefined {
     return this.chat?.type
   }
 
   /** Is this chat a private one? */
-  public get isPM(): boolean {
+  get isPM(): boolean {
     return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
-  public get isGroup(): boolean {
+  get isGroup(): boolean {
     return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
-  public get isSupergroup(): boolean {
+  get isSupergroup(): boolean {
     return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
-  public get isChannel(): boolean {
+  get isChannel(): boolean {
     return this.chatType === 'channel'
   }
 
   /** Sends message to current chat */
-  public async send(
+  async send(
     text: string,
     params?: Optional<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
@@ -156,7 +156,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message */
-  public reply(
+  reply(
     text: string,
     params?: Optional<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
@@ -167,7 +167,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends photo to current chat */
-  public async sendPhoto(
+  async sendPhoto(
     photo: MediaInput,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
@@ -184,7 +184,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with photo */
-  public replyWithPhoto(
+  replyWithPhoto(
     photo: MediaInput,
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
@@ -195,7 +195,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends document to current chat */
-  public async sendDocument(
+  async sendDocument(
     document: MediaInput,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
@@ -212,7 +212,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with document */
-  public replyWithDocument(
+  replyWithDocument(
     document: MediaInput,
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
@@ -223,7 +223,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends audio to current chat */
-  public async sendAudio(
+  async sendAudio(
     audio: MediaInput,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
@@ -240,7 +240,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with audio */
-  public replyWithAudio(
+  replyWithAudio(
     audio: MediaInput,
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
@@ -251,7 +251,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends video to current chat */
-  public async sendVideo(
+  async sendVideo(
     video: MediaInput,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
@@ -268,7 +268,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with video */
-  public replyWithVideo(
+  replyWithVideo(
     video: MediaInput,
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
@@ -279,7 +279,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends animation to current chat */
-  public async sendAnimation(
+  async sendAnimation(
     animation: MediaInput,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
@@ -296,7 +296,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with animation */
-  public replyWithAnimation(
+  replyWithAnimation(
     animation: MediaInput,
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
@@ -307,7 +307,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends video note to current chat */
-  public async sendVideoNote(
+  async sendVideoNote(
     videoNote: MediaInput,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
@@ -324,7 +324,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with video note */
-  public replyWithVideoNote(
+  replyWithVideoNote(
     videoNote: MediaInput,
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
@@ -335,7 +335,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends voice to current chat */
-  public async sendVoice(
+  async sendVoice(
     voice: MediaInput,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
@@ -352,7 +352,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with voice */
-  public replyWithVoice(
+  replyWithVoice(
     voice: MediaInput,
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
@@ -363,7 +363,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends media group to current chat */
-  public async sendMediaGroup(
+  async sendMediaGroup(
     mediaGroup: SendMediaGroupParams['media'],
     params?: Partial<SendMediaGroupParams>
   ): Promise<MessageContext[]> {
@@ -382,7 +382,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with media group */
-  public replyWithMediaGroup(
+  replyWithMediaGroup(
     mediaGroup: SendMediaGroupParams['media'],
     params?: Partial<SendMediaGroupParams>
   ): Promise<MessageContext[]> {
@@ -393,7 +393,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends location to current chat */
-  public async sendLocation(
+  async sendLocation(
     latitude: number,
     longitude: number,
     params?: Optional<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
@@ -412,7 +412,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with location */
-  public replyWithLocation(
+  replyWithLocation(
     latitude: number,
     longitude: number,
     params?: Optional<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
@@ -424,7 +424,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends invoice to current user */
-  public async sendInvoice(params: SendInvoiceParams): Promise<MessageContext> {
+  async sendInvoice(params: SendInvoiceParams): Promise<MessageContext> {
     const response = await this.telegram.api.sendInvoice({
       ...params,
       chat_id: this.chatId || this.senderId || 0
@@ -437,7 +437,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Edits current message live location */
-  public async editMessageLiveLocation(
+  async editMessageLiveLocation(
     params: EditMessageLiveLocationParams
   ): Promise<true | MessageContext> {
     const response = await this.telegram.api.editMessageLiveLocation({
@@ -457,7 +457,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Stops current message live location */
-  public async stopMessageLiveLocation(
+  async stopMessageLiveLocation(
     params?: StopMessageLiveLocationParams
   ): Promise<true | MessageContext> {
     const response = await this.telegram.api.stopMessageLiveLocation({
@@ -477,7 +477,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends venue to current chat */
-  public async sendVenue(
+  async sendVenue(
     params: Optional<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVenue({
@@ -492,7 +492,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with venue */
-  public replyWithVenue(
+  replyWithVenue(
     params: Optional<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendVenue({
@@ -502,7 +502,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends contact to current chat */
-  public async sendContact(
+  async sendContact(
     params: Optional<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendContact({
@@ -517,7 +517,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with contact */
-  public replyWithContact(
+  replyWithContact(
     params: Optional<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendContact({
@@ -527,7 +527,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends poll to current chat */
-  public async sendPoll(
+  async sendPoll(
     params: Optional<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPoll({
@@ -542,7 +542,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Replies to current message with poll */
-  public replyWithPoll(
+  replyWithPoll(
     params: Optional<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     return this.sendPoll({
@@ -552,7 +552,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Stops poll in current chat */
-  public async stopPoll(
+  async stopPoll(
     messageId: number,
     params?: Partial<StopPollParams>
   ): Promise<Poll> {
@@ -566,7 +566,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends chat action to current chat */
-  public sendChatAction(action: SendChatActionParams['action']): Promise<true> {
+  sendChatAction(action: SendChatActionParams['action']): Promise<true> {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
       action
@@ -574,7 +574,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Deletes current message */
-  public deleteMessage(): Promise<true> {
+  deleteMessage(): Promise<true> {
     return this.telegram.api.deleteMessage({
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
@@ -582,7 +582,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends sticker */
-  public async sendSticker(
+  async sendSticker(
     sticker: MediaInput,
     params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
@@ -599,7 +599,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Sends dice */
-  public async sendDice(
+  async sendDice(
     emoji: SendDiceParams['emoji'],
     params?: Partial<SendDiceParams>
   ): Promise<MessageContext> {
@@ -616,7 +616,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Gets commands */
-  public async getMyCommands(): Promise<BotCommand[]> {
+  async getMyCommands(): Promise<BotCommand[]> {
     const response = await this.telegram.api.getMyCommands()
 
     return response.map(
@@ -627,7 +627,7 @@ class SupergroupChatCreatedContext extends Context {
   // Edit methods
 
   /** Edits current message text */
-  public async editMessageText(
+  async editMessageText(
     text: string,
     params?: Partial<EditMessageTextParams>
   ): Promise<true | MessageContext> {
@@ -649,7 +649,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Edits current message caption */
-  public async editMessageCaption(
+  async editMessageCaption(
     caption: string,
     params?: Partial<EditMessageCaptionParams>
   ): Promise<true | MessageContext> {
@@ -671,7 +671,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Edits current message media */
-  public async editMessageMedia(
+  async editMessageMedia(
     media: TelegramInputMedia,
     params?: Partial<EditMessageMediaParams>
   ): Promise<true | MessageContext> {
@@ -693,7 +693,7 @@ class SupergroupChatCreatedContext extends Context {
   }
 
   /** Edits current message reply markup */
-  public async editMessageReplyMarkup(
+  async editMessageReplyMarkup(
     replyMarkup: TelegramInlineKeyboardMarkup,
     params?: Partial<EditMessageReplyMarkupParams>
   ): Promise<true | MessageContext> {

@@ -22,7 +22,7 @@ export class SessionManager<T = {}> {
   }
 
   /** Returns the middleware for embedding */
-  public get middleware(): Middleware<ContextInterface> {
+  get middleware(): Middleware<ContextInterface> {
     const { storage, getStorageKey } = this
 
     return async (context: ContextInterface, next: Function): Promise<void> => {

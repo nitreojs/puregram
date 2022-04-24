@@ -9,12 +9,12 @@ import { OrderInfo } from './order-info'
 export class SuccessfulPayment {
   constructor(private payload: TelegramSuccessfulPayment) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
   /** Three-letter ISO 4217 currency code */
-  public get currency(): string {
+  get currency(): string {
     return this.payload.currency
   }
 
@@ -26,22 +26,22 @@ export class SuccessfulPayment {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
-  public get totalAmount(): number {
+  get totalAmount(): number {
     return this.payload.total_amount
   }
 
   /** Bot specified invoice payload */
-  public get invoicePayload(): any {
+  get invoicePayload(): any {
     return JSON.stringify(this.payload.invoice_payload)
   }
 
   /** Identifier of the shipping option chosen by the user */
-  public get shippingOptionId(): string | undefined {
+  get shippingOptionId(): string | undefined {
     return this.payload.shipping_option_id
   }
 
   /** Order info provided by the user */
-  public get orderInfo(): OrderInfo | undefined {
+  get orderInfo(): OrderInfo | undefined {
     const { order_info } = this.payload
 
     if (!order_info) {
@@ -52,12 +52,12 @@ export class SuccessfulPayment {
   }
 
   /** Telegram payment identifier */
-  public get telegramPaymentChargeId(): string {
+  get telegramPaymentChargeId(): string {
     return this.payload.telegram_payment_charge_id
   }
 
   /** Provider payment identifier */
-  public get providerPaymentChargeId(): string {
+  get providerPaymentChargeId(): string {
     return this.payload.provider_payment_charge_id
   }
 }

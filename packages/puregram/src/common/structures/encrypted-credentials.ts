@@ -10,7 +10,7 @@ import { TelegramEncryptedCredentials } from '../../telegram-interfaces'
 export class EncryptedCredentials {
   constructor(private payload: TelegramEncryptedCredentials) { }
 
-  public get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag](): string {
     return this.constructor.name
   }
 
@@ -19,12 +19,12 @@ export class EncryptedCredentials {
    * data hashes and secrets required for `EncryptedPassportElement` decryption
    * and authentication
    */
-  public get data(): string {
+  get data(): string {
     return this.payload.data
   }
 
   /** Base64-encoded data hash for data authentication */
-  public get hash(): string {
+  get hash(): string {
     return this.payload.hash
   }
 
@@ -32,7 +32,7 @@ export class EncryptedCredentials {
    * Base64-encoded secret, encrypted with the bot's public RSA key, required
    * for data decryption
    */
-  public get secret(): string {
+  get secret(): string {
     return this.payload.secret
   }
 }

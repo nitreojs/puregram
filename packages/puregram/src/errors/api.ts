@@ -2,7 +2,7 @@ import { TelegramError } from './telegram'
 import { ApiResponseError } from '../interfaces'
 
 export class APIError extends TelegramError {
-  public parameters: ApiResponseError['parameters']
+  parameters: ApiResponseError['parameters']
 
   constructor(params: ApiResponseError) {
     super({

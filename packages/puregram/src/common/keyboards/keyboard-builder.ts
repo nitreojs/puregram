@@ -166,7 +166,7 @@ export class KeyboardBuilder {
     }
   }
 
-  toString(): string {
+  toString() {
     return JSON.stringify(this)
   }
 }

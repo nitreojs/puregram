@@ -52,7 +52,7 @@ export class InlineKeyboardBuilder {
   private rows: TelegramInlineKeyboardButton[][] = []
   private currentRow: TelegramInlineKeyboardButton[] = []
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -177,7 +177,7 @@ export class InlineKeyboardBuilder {
     }
   }
 
-  toString(): string {
+  toString() {
     return JSON.stringify(this)
   }
 }

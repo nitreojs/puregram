@@ -7,32 +7,32 @@ import { filterPayload } from '../../utils/helpers'
 export class Contact {
   constructor(private payload: TelegramContact) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Contact's phone number */
-  get phoneNumber(): string {
+  get phoneNumber() {
     return this.payload.phone_number
   }
 
   /** Contact's first name */
-  get firstName(): string {
+  get firstName() {
     return this.payload.first_name
   }
 
   /** Contact's last name */
-  get lastName(): string | undefined {
+  get lastName() {
     return this.payload.last_name
   }
 
   /** Contact's user identifier in Telegram */
-  get userId(): number | undefined {
+  get userId() {
     return this.payload.user_id
   }
 
   /** Additional data about the contact in the form of a vCard */
-  get vCard(): string | undefined {
+  get vCard() {
     return this.payload.vcard
   }
 }

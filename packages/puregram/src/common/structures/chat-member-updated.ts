@@ -12,32 +12,32 @@ import { User } from './user'
 export class ChatMemberUpdated {
   constructor(public payload: TelegramChatMemberUpdated) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Chat the user belongs to */
-  get chat(): Chat {
+  get chat() {
     return new Chat(this.payload.chat)
   }
 
   /** Performer of the action, which resulted in the change */
-  get from(): User {
+  get from() {
     return new User(this.payload.from)
   }
 
   /** Date the change was done in Unix time */
-  get date(): number {
+  get date() {
     return this.payload.date
   }
 
   /** Previous information about the chat member */
-  get oldChatMember(): ChatMember {
+  get oldChatMember() {
     return new ChatMember(this.payload.old_chat_member)
   }
 
   /** New information about the chat member */
-  get newChatMember(): ChatMember {
+  get newChatMember() {
     return new ChatMember(this.payload.new_chat_member)
   }
 
@@ -45,7 +45,7 @@ export class ChatMemberUpdated {
    * Chat invite link, which was used by the user to join the chat;
    * for joining by invite link events only.
    */
-  get inviteLink(): ChatInviteLink | undefined {
+  get inviteLink() {
     const { invite_link } = this.payload
 
     if (!invite_link) {

@@ -8,7 +8,7 @@ import { filterPayload } from './utils'
 export class PromptQuestion {
   constructor(private params: Types.PromptQuestionParams) { }
 
-  get requestText(): string {
+  get requestText() {
     return this.params.request.text
   }
 
@@ -16,19 +16,19 @@ export class PromptQuestion {
     return this.params.request.params ?? {}
   }
 
-  get resolve(): Types.PromptQuestionParams['resolve'] {
+  get resolve() {
     return this.params.resolve
   }
 
-  get promptedAt(): number {
+  get promptedAt() {
     return this.params.promptedAt
   }
 
-  get validate(): Types.PromptValidate | undefined {
+  get validate() {
     return this.params.validate
   }
 
-  get onValidationFail(): Types.PromptOnValidation | undefined {
+  get onValidationFail() {
     return this.params.onValidationFail
   }
 }

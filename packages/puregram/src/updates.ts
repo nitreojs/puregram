@@ -106,7 +106,7 @@ export class Updates {
     this.recompose()
   }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 

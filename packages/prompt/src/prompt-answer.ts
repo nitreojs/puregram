@@ -10,25 +10,25 @@ export class PromptAnswer {
     private params: Types.PromptAnswerParams = {}
   ) { }
 
-  get promptedAt(): number | undefined {
+  get promptedAt() {
     return this.params.promptedAt
   }
 
-  get promptedWithin(): number | undefined {
+  get promptedWithin() {
     return this.params.promptedWithin
   }
 
-  get answeredAt(): number | undefined {
+  get answeredAt() {
     return this.params.answeredAt
   }
 
-  get text(): string | undefined {
+  get text() {
     return this.context instanceof MessageContext
       ? this.context.text
       : this.context.message!.text
   }
 
-  get caption(): string | undefined {
+  get caption() {
     return this.context instanceof MessageContext
       ? this.context.caption
       : this.context.message!.caption

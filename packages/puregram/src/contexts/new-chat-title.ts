@@ -72,12 +72,12 @@ class NewChatTitleContext extends Context {
   }
 
   /** Unique message identifier inside this chat */
-  get id(): number {
+  get id() {
     return this.payload.message_id
   }
 
   /** Sender, empty for messages sent to channels */
-  get from(): User | undefined {
+  get from() {
     const { from } = this.payload
 
     if (!from) {
@@ -88,17 +88,17 @@ class NewChatTitleContext extends Context {
   }
 
   /** Sender's ID */
-  get senderId(): number | undefined {
+  get senderId() {
     return this.from?.id
   }
 
   /** Date the message was sent in Unix time */
-  get createdAt(): number {
+  get createdAt() {
     return this.payload.date
   }
 
   /** Conversation the message belongs to */
-  get chat(): Chat | undefined {
+  get chat() {
     const { chat } = this.payload
 
     if (!chat) {
@@ -109,37 +109,37 @@ class NewChatTitleContext extends Context {
   }
 
   /** Chat ID */
-  get chatId(): number | undefined {
+  get chatId() {
     return this.chat?.id
   }
 
   /** Chat type */
-  get chatType(): TelegramChat['type'] | undefined {
+  get chatType() {
     return this.chat?.type
   }
 
   /** Is this chat a private one? */
-  get isPM(): boolean {
+  get isPM() {
     return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
-  get isGroup(): boolean {
+  get isGroup() {
     return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
-  get isSupergroup(): boolean {
+  get isSupergroup() {
     return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
-  get isChannel(): boolean {
+  get isChannel() {
     return this.chatType === 'channel'
   }
 
   /** New chat title */
-  get eventTitle(): string {
+  get eventTitle() {
     return this.payload.new_chat_title!
   }
 

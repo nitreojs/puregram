@@ -68,42 +68,42 @@ class ChatMemberContext extends Context {
   }
 
   /** Sender's ID */
-  get senderId(): number {
+  get senderId() {
     return this.from.id
   }
 
   /** Chat ID */
-  get chatId(): number {
+  get chatId() {
     return this.chat.id
   }
 
   /** Chat type */
-  get chatType(): TelegramChat['type'] | undefined {
+  get chatType() {
     return this.chat.type
   }
 
   /** Is this chat a private one? */
-  get isPM(): boolean {
+  get isPM() {
     return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
-  get isGroup(): boolean {
+  get isGroup() {
     return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
-  get isSupergroup(): boolean {
+  get isSupergroup() {
     return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
-  get isChannel(): boolean {
+  get isChannel() {
     return this.chatType === 'channel'
   }
 
   /** Does this update have `invite_link` property? */
-  get hasInviteLink(): boolean {
+  get hasInviteLink() {
     return this.inviteLink !== undefined
   }
 

@@ -25,7 +25,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  get fileId(): string {
+  get fileId() {
     return this.payload.file_id
   }
 
@@ -33,7 +33,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  get fileUniqueId(): string {
+  get fileUniqueId() {
     return this.payload.file_unique_id
   }
 }

@@ -8,12 +8,12 @@ import { User } from './user'
 export class VideoChatParticipantsInvited {
   constructor(public payload: TelegramVideoChatParticipantsInvited) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** New members that were invited to the video chat */
-  get users(): User[] {
+  get users() {
     return (this.payload.users ?? []).map(
       (payload) => new User(payload)
     )

@@ -20,14 +20,14 @@ export class StepSceneContext {
   }
 
   /** The first enter to the handler */
-  get firstTime(): boolean {
+  get firstTime() {
     const { firstTime = true } = this.context.scene.session
 
     return firstTime
   }
 
   /** Returns current `stepId` */
-  get stepId(): number {
+  get stepId() {
     return this.context.scene.session.stepId || 0
   }
 

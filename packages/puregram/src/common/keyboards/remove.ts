@@ -23,7 +23,7 @@ export class RemoveKeyboard {
     }
   }
 
-  toString(): string {
+  toString() {
     return JSON.stringify(this)
   }
 }

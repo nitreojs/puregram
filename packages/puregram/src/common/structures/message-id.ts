@@ -7,7 +7,7 @@ export class MessageId {
   constructor(private payload: TelegramMessageId) { }
 
   /** Unique message identifier */
-  get id(): number {
+  get id() {
     return this.payload.message_id
   }
 }

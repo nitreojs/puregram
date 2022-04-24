@@ -7,32 +7,32 @@ import { filterPayload } from '../../utils/helpers'
 export class User {
   constructor(private payload: TelegramUser) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Unique identifier for this user or bot */
-  get id(): number {
+  get id() {
     return Number(this.payload.id)
   }
 
   /** `true`, if this user is a bot */
-  get isBot(): boolean {
+  get isBot() {
     return this.payload.is_bot
   }
 
   /** User's or bot's first name */
-  get firstName(): string {
+  get firstName() {
     return this.payload.first_name
   }
 
   /** User's or bot's last name */
-  get lastName(): string | undefined {
+  get lastName() {
     return this.payload.last_name
   }
 
   /** User's or bot's username */
-  get username(): string | undefined {
+  get username() {
     return this.payload.username
   }
 
@@ -40,7 +40,7 @@ export class User {
    * [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag)
    * of the user's language
    */
-  get languageCode(): string | undefined {
+  get languageCode() {
     return this.payload.language_code
   }
 
@@ -49,7 +49,7 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get canJoinGroups(): boolean | undefined {
+  get canJoinGroups() {
     return this.payload.can_join_groups
   }
 
@@ -58,7 +58,7 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get canReadAllGroupMessages(): boolean | undefined {
+  get canReadAllGroupMessages() {
     return this.payload.can_read_all_group_messages
   }
 
@@ -67,7 +67,7 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get supportsInlineQueries(): boolean | undefined {
+  get supportsInlineQueries() {
     return this.payload.supports_inline_queries
   }
 

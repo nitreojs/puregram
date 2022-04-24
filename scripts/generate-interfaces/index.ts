@@ -63,7 +63,7 @@ class InterfaceService {
     description: string,
     padSize: number = 0,
     documentationLink?: string
-  ): string {
+  ) {
     const parts = description.split(/\n/)
     const spaces = ' '.repeat(padSize)
 
@@ -207,7 +207,7 @@ class TypeResolver {
   static resolve(
     object: Types.SchemaObject,
     additionToReference?: string | number // allowing to do [].map(TypeResolver.resolve)
-  ): string {
+  ) {
     // TODO  add `addition` check for every SchemaObject
 
     if (object.type === 'string') {
@@ -275,11 +275,11 @@ class SchemaService {
 }
 
 class GenerationService {
-  static loadString(header: string): string {
+  static loadString(header: string) {
     return header + '\n\n'
   }
 
-  static generate(results: ServiceResult[], header?: string): string {
+  static generate(results: ServiceResult[], header?: string) {
     let content: string = header
       ? GenerationService.loadString(header)
       : ''
@@ -291,7 +291,7 @@ class GenerationService {
     return content.trimEnd()
   }
 
-  static generateInterfacesImports(): string {
+  static generateInterfacesImports() {
     return stripIndent`
       import { Readable } from 'stream' // INFO  for Interfaces.InputFile
 
@@ -308,7 +308,7 @@ class GenerationService {
     `
   }
 
-  static generateMethodsImports(): string {
+  static generateMethodsImports() {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces'
       import { MediaInput } from './media-source'
@@ -317,7 +317,7 @@ class GenerationService {
     `
   }
 
-  static generateAdditionalTypes(): string {
+  static generateAdditionalTypes() {
     return stripIndent`
       export type ReplyMarkupUnion =
         | TelegramInlineKeyboardMarkup
@@ -339,7 +339,7 @@ class GenerationService {
     `
   }
 
-  static generateApiMethods(methods: Types.SchemaMethod[]): string {
+  static generateApiMethods(methods: Types.SchemaMethod[]) {
     const fields: string[] = methods.map(
       (method) => {
         const description: string = InterfaceService.generateDescription(method.description, 2, method.documentation_link)
@@ -423,7 +423,7 @@ export async function generate(): Promise<GenerateDataType> {
   return data
 }
 
-export function generateHeader(version: Types.SchemaVersion, recentChanges: Types.SchemaRecentChanges): string {
+export function generateHeader(version: Types.SchemaVersion, recentChanges: Types.SchemaRecentChanges) {
   const date = new Date()
 
   const apiVersion: string = `v${version.major}.${version.minor}.${version.patch}`

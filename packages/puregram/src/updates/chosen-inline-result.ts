@@ -8,27 +8,27 @@ import { filterPayload } from '../utils/helpers'
 export class ChosenInlineResult {
   constructor(public payload: TelegramChosenInlineResult) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** The unique identifier for the result that was chosen */
-  get resultId(): string {
+  get resultId() {
     return this.payload.result_id
   }
 
   /** The user that chose the result */
-  get from(): User {
+  get from() {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
-  get senderId(): number {
+  get senderId() {
     return this.from.id
   }
 
   /** Sender location, only for bots that require user location */
-  get location(): Location | undefined {
+  get location() {
     const { location } = this.payload
 
     if (!location) {
@@ -43,12 +43,12 @@ export class ChosenInlineResult {
    * inline keyboard attached to the message. Will be also received in callback
    * queries and can be used to edit the message.
    */
-  get inlineMessageId(): string | undefined {
+  get inlineMessageId() {
     return this.payload.inline_message_id
   }
 
   /** The query that was used to obtain the result */
-  get query(): string {
+  get query() {
     return this.payload.query
   }
 }

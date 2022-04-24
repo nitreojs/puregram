@@ -25,22 +25,22 @@ export class PhotoAttachment extends Attachment {
   }
 
   /** Photo sizes */
-  get sizes(): PhotoSize[] {
+  get sizes() {
     return this.payload
   }
 
   /** Biggest size of the photo */
-  get bigSize(): PhotoSize {
+  get bigSize() {
     return this.sorted[0]
   }
 
   /** Medium size of the photo */
-  get mediumSize(): PhotoSize {
+  get mediumSize() {
     return this.sorted[Math.floor(this.sorted.length / 2)]
   }
 
   /** Smallest size of the photo */
-  get smallSize(): PhotoSize {
+  get smallSize() {
     return this.sorted[this.sorted.length - 1]
   }
 }

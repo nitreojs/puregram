@@ -102,46 +102,46 @@ class MessageContext extends Context {
   }
 
   /** Sender's ID */
-  get senderId(): number | undefined {
+  get senderId() {
     return this.from?.id
   }
 
   /** Chat ID */
-  get chatId(): number | undefined {
+  get chatId() {
     return this.chat?.id
   }
 
   /** Chat type */
-  get chatType(): TelegramChat['type'] | undefined {
+  get chatType() {
     return this.chat?.type
   }
 
   /** Is this chat a private one? */
-  get isPM(): boolean {
+  get isPM() {
     return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
-  get isGroup(): boolean {
+  get isGroup() {
     return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
-  get isSupergroup(): boolean {
+  get isSupergroup() {
     return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
-  get isChannel(): boolean {
+  get isChannel() {
     return this.chatType === 'channel'
   }
 
   /** Checks if the message has `dice` property */
-  get hasDice(): boolean {
+  get hasDice() {
     return this.dice !== undefined
   }
 
-  get startPayload(): any {
+  get startPayload() {
     if (!this.hasText) {
       return
     }
@@ -161,17 +161,17 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `text` property */
-  get hasText(): boolean {
+  get hasText() {
     return this.text !== undefined
   }
 
   /** Checks if the message has `author_signature` property */
-  get hasAuthorSignature(): boolean {
+  get hasAuthorSignature() {
     return this.authorSignature !== undefined
   }
 
   /** Checks if there are any entities (with specified type) */
-  hasEntities(type?: EntityType | MessageEntity['type']): boolean {
+  hasEntities(type?: EntityType | MessageEntity['type']) {
     if (type === undefined) {
       return this.entities.length !== 0
     }
@@ -182,12 +182,12 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `caption` property */
-  get hasCaption(): boolean {
+  get hasCaption() {
     return this.caption !== undefined
   }
 
   /** Checks if there are any caption entities (with specified type) */
-  hasCaptionEntities(type?: EntityType | MessageEntity['type']): boolean {
+  hasCaptionEntities(type?: EntityType | MessageEntity['type']) {
     if (type === undefined) {
       return this.captionEntities.length !== 0
     }
@@ -198,7 +198,7 @@ class MessageContext extends Context {
   }
 
   /** Message attachments */
-  get attachments(): Attachment[] {
+  get attachments() {
     const attachments: Attachment[] = []
 
     if (this.audio) attachments.push(this.audio)
@@ -215,7 +215,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are attachments */
-  hasAttachments(type?: AttachmentType | AttachmentTypeEnum): boolean {
+  hasAttachments(type?: AttachmentType | AttachmentTypeEnum) {
     if (type === undefined) {
       return this.attachments.length > 0
     }
@@ -255,7 +255,7 @@ class MessageContext extends Context {
   }
 
   /** Is this message an event? */
-  get isEvent(): boolean {
+  get isEvent() {
     return EVENTS.some(
       (event) => Boolean(
         this[
@@ -266,7 +266,7 @@ class MessageContext extends Context {
   }
 
   /** Event type */
-  get eventType(): MessageEventName | undefined {
+  get eventType() {
     if (!this.isEvent) {
       return
     }
@@ -295,22 +295,22 @@ class MessageContext extends Context {
   }
 
   /** Is this message a forwarded one? */
-  get isForward(): boolean {
+  get isForward() {
     return this.forwardMessage !== undefined
   }
 
   /** Does this message have reply message? */
-  get hasReplyMessage(): boolean {
+  get hasReplyMessage() {
     return this.replyMessage !== undefined
   }
 
   /** Checks if the sent message has `via_bot` property */
-  get hasViaBot(): boolean {
+  get hasViaBot() {
     return this.viaBot !== undefined
   }
 
   /** Does this message have start payload? */
-  get hasStartPayload(): boolean {
+  get hasStartPayload() {
     return this.startPayload !== undefined
   }
 

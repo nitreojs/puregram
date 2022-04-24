@@ -10,37 +10,37 @@ import { PhotoSize } from './photo-size'
 export class StickerSet {
   constructor(private payload: TelegramStickerSet) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Sticker set name */
-  get name(): string {
+  get name() {
     return this.payload.name
   }
 
   /** Sticker set title */
-  get title(): string {
+  get title() {
     return this.payload.title
   }
 
   /** `true`, if the sticker set contains animated stickers */
-  get isAnimated(): boolean {
+  get isAnimated() {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker set contains video stickers */
-  get isVideo(): boolean {
+  get isVideo() {
     return this.payload.is_video
   }
 
   /** `true`, if the sticker set contains masks */
-  get containsMasks(): boolean {
+  get containsMasks() {
     return this.payload.contains_masks
   }
 
   /** List of all set stickers */
-  get stickers(): StickerAttachment[] {
+  get stickers() {
     const { stickers } = this.payload
 
     if (!stickers.length) {
@@ -53,7 +53,7 @@ export class StickerSet {
   }
 
   /** Sticker set thumbnail in the .WEBP or .TGS format */
-  get thumb(): PhotoSize | undefined {
+  get thumb() {
     const { thumb } = this.payload
 
     if (!thumb) {

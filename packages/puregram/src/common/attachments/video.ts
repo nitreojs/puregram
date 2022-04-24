@@ -11,22 +11,22 @@ export class VideoAttachment extends FileAttachment<TelegramVideo> {
   attachmentType: 'video' = 'video'
 
   /** Video width as defined by sender */
-  get width(): number {
+  get width() {
     return this.payload.width
   }
 
   /** Video height as defined by sender */
-  get height(): number {
+  get height() {
     return this.payload.height
   }
 
   /** Duration of the video in seconds as defined by sender */
-  get duration(): number {
+  get duration() {
     return this.payload.duration
   }
 
   /** Video thumbnail */
-  get thumb(): PhotoSize | undefined {
+  get thumb() {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -37,17 +37,17 @@ export class VideoAttachment extends FileAttachment<TelegramVideo> {
   }
 
   /** Original filename as defined by sender */
-  get fileName(): string | undefined {
+  get fileName() {
     return this.payload.file_name
   }
 
   /** Mime type of a file as defined by sender */
-  get mimeType(): string | undefined {
+  get mimeType() {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize(): number | undefined {
+  get fileSize() {
     return this.payload.file_size
   }
 }

@@ -19,7 +19,7 @@ export class SceneManager {
   }
 
   /** Checks for has a scene */
-  hasScene(slug: string): boolean {
+  hasScene(slug: string) {
     return this.repository.has(slug)
   }
 

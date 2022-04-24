@@ -40,7 +40,7 @@ class CallbackQueryContext extends Context {
    * Note that message content and message date will not be available
    * if the message is too old
    */
-  get message(): MessageContext | undefined {
+  get message() {
     if (this.payload.message === undefined) {
       return
     }
@@ -57,7 +57,7 @@ class CallbackQueryContext extends Context {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  get queryPayload(): any {
+  get queryPayload() {
     const { data } = this.payload
 
     if (data === undefined) {

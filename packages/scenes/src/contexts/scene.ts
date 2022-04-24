@@ -37,7 +37,7 @@ export class SceneContext {
   }
 
   /** Returns current scene */
-  get current(): SceneInterface | undefined {
+  get current() {
     return this.repository.get(this.session.current)
   }
 
@@ -67,7 +67,9 @@ export class SceneContext {
 
     Object.assign(this.state, options.state || {})
 
-    if (options.silent) return
+    if (options.silent) {
+      return
+    }
 
     await scene.enterHandler(this.context)
   }
@@ -87,7 +89,9 @@ export class SceneContext {
   async leave(options: SceneContextLeaveOptions = {}): Promise<void> {
     const { current } = this
 
-    if (!current) return
+    if (!current) {
+      return
+    }
 
     this.leaving = true
     this.lastAction = LastAction.LEAVE

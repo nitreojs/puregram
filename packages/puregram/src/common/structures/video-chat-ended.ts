@@ -6,12 +6,12 @@ import { TelegramVideoChatEnded } from '../../telegram-interfaces'
 export class VideoChatEnded {
   constructor(public payload: TelegramVideoChatEnded) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Video chat duration; in seconds */
-  get duration(): number {
+  get duration() {
     return this.payload.duration
   }
 }

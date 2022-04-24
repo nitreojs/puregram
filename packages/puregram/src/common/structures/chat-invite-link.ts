@@ -9,7 +9,7 @@ import { User } from './user'
 export class ChatInviteLink {
   constructor(public payload: TelegramChatInviteLink) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -17,32 +17,32 @@ export class ChatInviteLink {
    * The invite link. If the link was created by another chat administrator,
    * then the second part of the link will be replaced with `…`.
    */
-  get link(): string {
+  get link() {
     return this.payload.invite_link
   }
 
   /** Creator of the link */
-  get creator(): User {
+  get creator() {
     return new User(this.payload.creator)
   }
 
   /** Invite link name */
-  get name(): string | undefined {
+  get name() {
     return this.payload.name
   }
 
   /** `true`, if the link is primary */
-  get isPrimary(): boolean {
+  get isPrimary() {
     return this.payload.is_primary
   }
 
   /** `true`, if the link is revoked */
-  get isRevoked(): boolean {
+  get isRevoked() {
     return this.payload.is_revoked
   }
 
   /** Point in time (Unix timestamp) when the link will expire or has been expired */
-  get expireDate(): number | undefined {
+  get expireDate() {
     return this.payload.expire_date
   }
 
@@ -51,17 +51,17 @@ export class ChatInviteLink {
    * after joining the chat via this invite link;
    * `1-99999`
    */
-  get memberLimit(): number | undefined {
+  get memberLimit() {
     return this.payload.member_limit
   }
 
   /** `true`, if users joining the chat via the link need to be approved by chat administrators */
-  get createsJoinRequest(): boolean {
+  get createsJoinRequest() {
     return this.payload.creates_join_request
   }
 
   /** Number of pending join requests created using this link */
-  get pendingJoinRequestCount(): number | undefined {
+  get pendingJoinRequestCount() {
     return this.payload.pending_join_request_count
   }
 }

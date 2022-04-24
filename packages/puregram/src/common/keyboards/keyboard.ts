@@ -15,7 +15,7 @@ export class Keyboard {
   private isSelective: boolean = false
   private placeholder?: string
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -136,7 +136,7 @@ export class Keyboard {
     }
   }
 
-  toString(): string {
+  toString() {
     return JSON.stringify(this)
   }
 }

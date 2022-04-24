@@ -10,7 +10,7 @@ import { Chat } from './chat'
 export class ForwardMessage {
   constructor(private payload: TelegramMessage) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -18,12 +18,12 @@ export class ForwardMessage {
    * For messages forwarded from channels, identifier of the original message
    * in the channel
    */
-  get id(): number | undefined {
+  get id() {
     return this.payload.forward_from_message_id
   }
 
   /** For forwarded messages, sender of the original message */
-  get from(): User | undefined {
+  get from() {
     const { forward_from } = this.payload
 
     if (!forward_from) {
@@ -37,7 +37,7 @@ export class ForwardMessage {
    * For messages forwarded from channels, information about the original
    * channel
    */
-  get chat(): Chat | undefined {
+  get chat() {
     const { forward_from_chat } = this.payload
 
     if (!forward_from_chat) {
@@ -51,7 +51,7 @@ export class ForwardMessage {
    * For messages forwarded from channels, signature of the post author
    * if present
    */
-  get signature(): string | undefined {
+  get signature() {
     return this.payload.forward_signature
   }
 
@@ -59,19 +59,19 @@ export class ForwardMessage {
    * Sender's name for messages forwarded from users who disallow adding a link
    * to their account in forwarded messages
    */
-  get senderName(): string | undefined {
+  get senderName() {
     return this.payload.forward_sender_name
   }
 
   /**
    * For forwarded messages, date the original message was sent in Unix time
    */
-  get createdAt(): number {
+  get createdAt() {
     return this.payload.forward_date!
   }
 
   /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
-  get isAutomatic(): boolean | undefined {
+  get isAutomatic() {
     return this.payload.is_automatic_forward
   }
 }

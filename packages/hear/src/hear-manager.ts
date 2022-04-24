@@ -26,7 +26,7 @@ export class HearManager<C extends Context> {
     this.recompose()
   }
 
-  get length(): number {
+  get length() {
     return this.composer.length
   }
 

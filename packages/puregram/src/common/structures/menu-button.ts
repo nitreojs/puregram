@@ -9,17 +9,17 @@ import { WebAppInfo } from './web-app-info'
 export class MenuButton {
   constructor(private payload: TelegramMenuButton) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Type of the button */
-  get type(): TelegramMenuButton['type'] {
+  get type() {
     return this.payload.type
   }
 
   /** Text on the button */
-  get text(): string | undefined {
+  get text() {
     return this.payload.text
   }
 
@@ -28,10 +28,12 @@ export class MenuButton {
    * The Web App will be able to send an arbitrary message on behalf of the user
    * using the method `answerWebAppQuery`.
    */
-  get webApp(): WebAppInfo | undefined {
+  get webApp() {
     const { web_app } = this.payload
 
-    if (!web_app) return
+    if (!web_app) {
+      return
+    }
 
     return new WebAppInfo(web_app)
   }

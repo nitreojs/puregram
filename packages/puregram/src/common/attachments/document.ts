@@ -14,7 +14,7 @@ export class DocumentAttachment extends FileAttachment<TelegramDocument> {
   attachmentType: 'document' = 'document'
 
   /** Document thumbnail as defined by sender */
-  get thumb(): PhotoSize | undefined {
+  get thumb() {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -25,17 +25,17 @@ export class DocumentAttachment extends FileAttachment<TelegramDocument> {
   }
 
   /** Original filename as defined by sender */
-  get fileName(): string | undefined {
+  get fileName() {
     return this.payload.file_name
   }
 
   /** MIME type of the file as defined by sender */
-  get mimeType(): string | undefined {
+  get mimeType() {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize(): number | undefined {
+  get fileSize() {
     return this.payload.file_size
   }
 }

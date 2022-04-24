@@ -29,7 +29,7 @@ export class ForceReply {
     }
   }
 
-  toString(): string {
+  toString() {
     return JSON.stringify(this)
   }
 }

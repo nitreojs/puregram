@@ -7,17 +7,17 @@ import { Location } from './location'
 export class ChatLocation {
   constructor(private payload: TelegramChatLocation) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** The location to which the supergroup is connected. Can't be a live location. */
-  get location(): Location {
+  get location() {
     return new Location(this.payload.location)
   }
 
   /** Location address; `1-64` characters, as defined by the chat owner */
-  get address(): string {
+  get address() {
     return this.payload.address
   }
 }

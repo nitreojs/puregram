@@ -6,12 +6,12 @@ import { TelegramMessageAutoDeleteTimerChanged } from '../../telegram-interfaces
 export class MessageAutoDeleteTimerChanged {
   constructor(public payload: TelegramMessageAutoDeleteTimerChanged) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** New auto-delete time for messages in the chat */
-  get messageAutoDeleteTime(): number {
+  get messageAutoDeleteTime() {
     return this.payload.message_auto_delete_time
   }
 }

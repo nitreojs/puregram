@@ -9,17 +9,17 @@ export class VoiceAttachment extends FileAttachment<TelegramVoice> {
   attachmentType: 'voice' = 'voice'
 
   /** Duration of the audio in seconds as defined by sender */
-  get duration(): number {
+  get duration() {
     return this.payload.duration
   }
 
   /** MIME type of the file as defined by sender */
-  get mimeType(): string | undefined {
+  get mimeType() {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize(): number | undefined {
+  get fileSize() {
     return this.payload.file_size
   }
 }

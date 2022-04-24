@@ -12,7 +12,7 @@ import { ChatLocation } from './chat-location'
 export class Chat {
   constructor(private payload: TelegramChat) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -23,34 +23,34 @@ export class Chat {
    * integer or double-precision float type are safe for storing
    * this identifier.
    */
-  get id(): number {
+  get id() {
     return this.payload.id
   }
 
   /**
    * Type of chat, can be either `private`, `group`, `supergroup` or `channel`
    */
-  get type(): TelegramChat['type'] {
+  get type() {
     return this.payload.type
   }
 
   /** Title, for supergroups, channels and group chats */
-  get title(): string | undefined {
+  get title() {
     return this.payload.title
   }
 
   /** Username, for private chats, supergroups and channels if available */
-  get username(): string | undefined {
+  get username() {
     return this.payload.username
   }
 
   /** First name of the other party in a private chat */
-  get firstName(): string | undefined {
+  get firstName() {
     return this.payload.first_name
   }
 
   /** Last name of the other party in a private chat */
-  get lastName(): string | undefined {
+  get lastName() {
     return this.payload.last_name
   }
 
@@ -59,7 +59,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get photo(): ChatPhoto | undefined {
+  get photo() {
     const { photo } = this.payload
 
     if (!photo) {
@@ -74,7 +74,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  get bio(): string | undefined {
+  get bio() {
     return this.payload.bio
   }
 
@@ -84,7 +84,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  get hasPrivateForwards(): true | undefined {
+  get hasPrivateForwards() {
     return this.payload.has_private_forwards as true | undefined
   }
 
@@ -93,7 +93,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  get location(): ChatLocation | undefined {
+  get location() {
     const { location } = this.payload
 
     if (!location) {
@@ -108,7 +108,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get description(): string | undefined {
+  get description() {
     return this.payload.description
   }
 
@@ -119,7 +119,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get inviteLink(): string | undefined {
+  get inviteLink() {
     return this.payload.invite_link
   }
 
@@ -143,7 +143,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get permissions(): ChatPermissions | undefined {
+  get permissions() {
     const { permissions } = this.payload
 
     if (!permissions) {
@@ -159,7 +159,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get slowModeDelay(): number | undefined {
+  get slowModeDelay() {
     return this.payload.slow_mode_delay
   }
 
@@ -168,7 +168,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  get messageAutoDeleteTime(): number | undefined {
+  get messageAutoDeleteTime() {
     return this.payload.message_auto_delete_time
   }
 
@@ -177,7 +177,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  get hasProtectedContent(): boolean | undefined {
+  get hasProtectedContent() {
     return this.payload.has_protected_content
   }
 
@@ -186,7 +186,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get stickerSetName(): string | undefined {
+  get stickerSetName() {
     return this.payload.sticker_set_name
   }
 
@@ -195,7 +195,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get canSetStickerSet(): boolean | undefined {
+  get canSetStickerSet() {
     return this.payload.can_set_sticker_set
   }
 
@@ -210,7 +210,7 @@ export class Chat {
    * 
    * Returned only in `getChat`.
    */
-  get linkedChatId(): number | undefined {
+  get linkedChatId() {
     return this.payload.linked_chat_id
   }
 }

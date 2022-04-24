@@ -12,17 +12,17 @@ export class ProximityAlertTriggered {
   constructor(private payload: TelegramProximityAlertTriggered) { }
 
   /** User that triggered the alert */
-  get traveler(): User {
+  get traveler() {
     return new User(this.payload.traveler)
   }
 
   /** User that set the alert */
-  get watcher(): User {
+  get watcher() {
     return new User(this.payload.watcher)
   }
 
   /** The distance between the users */
-  get distance(): number {
+  get distance() {
     return this.payload.distance
   }
 }

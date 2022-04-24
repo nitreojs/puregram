@@ -6,7 +6,7 @@ import { AttachmentType } from '../../types'
 export class Attachment {
   attachmentType?: AttachmentType
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 }

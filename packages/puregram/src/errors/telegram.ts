@@ -19,7 +19,7 @@ export class TelegramError extends Error {
     Error.captureStackTrace(this, this.constructor)
   }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 

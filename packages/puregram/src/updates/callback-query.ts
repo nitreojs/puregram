@@ -16,22 +16,22 @@ import { filterPayload } from '../utils/helpers'
 export class CallbackQuery {
   constructor(public payload: TelegramCallbackQuery) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Unique identifier for this query */
-  get id(): string {
+  get id() {
     return this.payload.id
   }
 
   /** Sender */
-  get from(): User {
+  get from() {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
-  get senderId(): number {
+  get senderId() {
     return this.from.id
   }
 
@@ -40,7 +40,7 @@ export class CallbackQuery {
    * Note that message content and message date will not be available
    * if the message is too old
    */
-  get message(): Message | undefined {
+  get message() {
     const { message } = this.payload
 
     if (!message) {
@@ -54,7 +54,7 @@ export class CallbackQuery {
    * Identifier of the message sent via the bot in inline mode,
    * that originated the query.
    */
-  get inlineMessageId(): string | undefined {
+  get inlineMessageId() {
     return this.payload.inline_message_id
   }
 
@@ -62,7 +62,7 @@ export class CallbackQuery {
    * Global identifier, uniquely corresponding to the chat to which the message
    * with the callback button was sent. Useful for high scores in games.
    */
-  get chatInstance(): string {
+  get chatInstance() {
     return this.payload.chat_instance
   }
 
@@ -70,7 +70,7 @@ export class CallbackQuery {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  get data(): string | undefined {
+  get data() {
     return this.payload.data
   }
 
@@ -78,7 +78,7 @@ export class CallbackQuery {
    * Short name of a Game to be returned,
    * serves as the unique identifier for the game
    */
-  get gameShortName(): string | undefined {
+  get gameShortName() {
     return this.payload.game_short_name
   }
 }

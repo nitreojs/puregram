@@ -16,7 +16,7 @@ export class CacheRepository<Key, Value> {
   }
 
   /** Checks has value by key */
-  has(key: Key): boolean {
+  has(key: Key) {
     return this.collection.has(key)
   }
 

@@ -25,7 +25,7 @@ import { PollAnswer } from './poll-answer'
 export class Update {
   constructor(private payload: TelegramUpdate) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -38,14 +38,14 @@ export class Update {
    * new updates for at least a week, then identifier of the next update will
    * be chosen randomly instead of sequentially.
    */
-  get id(): number {
+  get id() {
     return this.payload.update_id
   }
 
   /**
    * New incoming message of any kind — text, photo, sticker, etc.
    */
-  get message(): Message | undefined {
+  get message() {
     const { message } = this.payload
 
     if (!message) {
@@ -56,7 +56,7 @@ export class Update {
   }
 
   /** New version of a message that is known to the bot and was edited */
-  get editedMessage(): Message | undefined {
+  get editedMessage() {
     const { edited_message } = this.payload
 
     if (!edited_message) {
@@ -67,7 +67,7 @@ export class Update {
   }
 
   /** New incoming channel post of any kind — text, photo, sticker, etc. */
-  get channelPost(): Message | undefined {
+  get channelPost() {
     const { channel_post } = this.payload
 
     if (!channel_post) {
@@ -78,7 +78,7 @@ export class Update {
   }
 
   /** New version of a channel post that is known to the bot and was edited */
-  get editedChannelPost(): Message | undefined {
+  get editedChannelPost() {
     const { edited_channel_post } = this.payload
 
     if (!edited_channel_post) {
@@ -89,7 +89,7 @@ export class Update {
   }
 
   /** New incoming inline query */
-  get inlineQuery(): InlineQuery | undefined {
+  get inlineQuery() {
     const { inline_query } = this.payload
 
     if (!inline_query) {
@@ -104,7 +104,7 @@ export class Update {
    * chat partner. Please see our documentation on the feedback collecting for
    * details on how to enable these updates for your bot.
    */
-  get chosenInlineResult(): ChosenInlineResult | undefined {
+  get chosenInlineResult() {
     const { chosen_inline_result } = this.payload
 
     if (!chosen_inline_result) {
@@ -115,7 +115,7 @@ export class Update {
   }
 
   /** New incoming callback query */
-  get callbackQuery(): CallbackQuery | undefined {
+  get callbackQuery() {
     const { callback_query } = this.payload
 
     if (!callback_query) {
@@ -126,7 +126,7 @@ export class Update {
   }
 
   /** New incoming shipping query. Only for invoices with flexible price */
-  get shippingQuery(): ShippingQuery | undefined {
+  get shippingQuery() {
     const { shipping_query } = this.payload
 
     if (!shipping_query) {
@@ -139,7 +139,7 @@ export class Update {
   /**
    * New incoming pre-checkout query. Contains full information about checkout
    */
-  get preCheckoutQuery(): PreCheckoutQuery | undefined {
+  get preCheckoutQuery() {
     const { pre_checkout_query } = this.payload
 
     if (!pre_checkout_query) {
@@ -153,7 +153,7 @@ export class Update {
    * New poll state. Bots receive only updates about stopped polls and polls,
    * which are sent by the bot
    */
-  get poll(): Poll | undefined {
+  get poll() {
     const { poll } = this.payload
 
     if (!poll) {
@@ -167,7 +167,7 @@ export class Update {
    * A user changed their answer in a non-anonymous poll. Bots receive new
    * votes only in polls that were sent by the bot itself.
    */
-  get pollAnswer(): PollAnswer | undefined {
+  get pollAnswer() {
     const { poll_answer } = this.payload
 
     if (!poll_answer) {

@@ -9,12 +9,12 @@ import { Location } from './location'
 export class Venue {
   constructor(private payload: TelegramVenue) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Venue location */
-  get location(): Location | undefined {
+  get location() {
     const { location } = this.payload
 
     if (!location) {
@@ -25,27 +25,27 @@ export class Venue {
   }
 
   /** Name of the venue */
-  get title(): string {
+  get title() {
     return this.payload.title
   }
 
   /** Address of the venue */
-  get address(): string {
+  get address() {
     return this.payload.address
   }
 
   /** Foursquare identifier of the venue */
-  get foursquareId(): string | undefined {
+  get foursquareId() {
     return this.payload.foursquare_id
   }
 
   /** Foursquare type of the venue */
-  get foursquareType(): string | undefined {
+  get foursquareType() {
     return this.payload.foursquare_type
   }
 
   /** Google Places identifier of the venue */
-  get googlePlaceId(): string | undefined {
+  get googlePlaceId() {
     return this.payload.google_place_id
   }
 
@@ -53,7 +53,7 @@ export class Venue {
    * Google Places type of the venue.
    * (See [supported types](https://developers.google.com/places/web-service/supported_types).)
    */
-  get googlePlaceType(): string | undefined {
+  get googlePlaceType() {
     return this.payload.google_place_type
   }
 }

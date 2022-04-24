@@ -27,13 +27,13 @@ export class Context {
     this.update = options.update
   }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   is(
     rawTypes: AllowArray<UpdateName | string>
-  ): boolean {
+  ) {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes]

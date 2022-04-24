@@ -53,7 +53,7 @@ interface LoginButtonParams {
 export class InlineKeyboard {
   private buttons: TelegramInlineKeyboardButton[][] = []
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -161,7 +161,7 @@ export class InlineKeyboard {
     }
   }
 
-  toString(): string {
+  toString() {
     return JSON.stringify(this)
   }
 }

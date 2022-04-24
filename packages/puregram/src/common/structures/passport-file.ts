@@ -10,14 +10,14 @@ import { TelegramPassportFile } from '../../telegram-interfaces'
 export class PassportFile {
   constructor(private payload: TelegramPassportFile) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  get fileId(): string {
+  get fileId() {
     return this.payload.file_id
   }
 
@@ -25,17 +25,17 @@ export class PassportFile {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  get fileUniqueId(): string {
+  get fileUniqueId() {
     return this.payload.file_unique_id
   }
 
   /** File size */
-  get fileSize(): number {
+  get fileSize() {
     return this.payload.file_size
   }
 
   /** Unix time when the file was uploaded */
-  get fileDate(): number {
+  get fileDate() {
     return this.payload.file_date
   }
 }

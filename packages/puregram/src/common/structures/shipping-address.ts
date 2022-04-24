@@ -6,37 +6,37 @@ import { TelegramShippingAddress } from '../../telegram-interfaces'
 export class ShippingAddress {
   constructor(private payload: TelegramShippingAddress) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** ISO 3166-1 alpha-2 country code */
-  get countryCode(): string {
+  get countryCode() {
     return this.payload.country_code
   }
 
   /** State, if applicable */
-  get state(): string {
+  get state() {
     return this.payload.state
   }
 
   /** City */
-  get city(): string {
+  get city() {
     return this.payload.city
   }
 
   /** First line for the address */
-  get firstStreetLine(): string {
+  get firstStreetLine() {
     return this.payload.street_line1
   }
 
   /** Second line for the address */
-  get secondStreetLine(): string {
+  get secondStreetLine() {
     return this.payload.street_line2
   }
 
   /** Address post code */
-  get postCode(): string {
+  get postCode() {
     return this.payload.post_code
   }
 }

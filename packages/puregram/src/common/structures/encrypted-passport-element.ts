@@ -13,7 +13,7 @@ import { PassportFile } from './passport-file'
 export class EncryptedPassportElement {
   constructor(private payload: TelegramEncryptedPassportElement) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
@@ -23,7 +23,7 @@ export class EncryptedPassportElement {
    * `bank_statement`, `rental_agreement`, `passport_registration`,
    * `temporary_registration`, `phone_number`, `email`.
    */
-  get type(): TelegramEncryptedPassportElement['type'] {
+  get type() {
     return this.payload.type
   }
 
@@ -34,17 +34,17 @@ export class EncryptedPassportElement {
    * Can be decrypted and verified using the accompanying
    * `EncryptedCredentials`.
    */
-  get data(): string | undefined {
+  get data() {
     return this.payload.data
   }
 
   /** User's verified phone number, available only for `phone_number` type */
-  get phoneNumber(): string | undefined {
+  get phoneNumber() {
     return this.payload.phone_number
   }
 
   /** User's verified email address, available only for `email` type */
-  get email(): string | undefined {
+  get email() {
     return this.payload.email
   }
 
@@ -54,7 +54,7 @@ export class EncryptedPassportElement {
    * `passport_registration` and `temporary_registration` types. Files can be
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
-  get files(): PassportFile[] {
+  get files() {
     const { files } = this.payload
 
     if (!files) {
@@ -72,7 +72,7 @@ export class EncryptedPassportElement {
    * `internal_passport`. The file can be decrypted and verified using the
    * accompanying `EncryptedCredentials`.
    */
-  get frontSide(): PassportFile | undefined {
+  get frontSide() {
     const { front_side } = this.payload
 
     if (!front_side) {
@@ -87,7 +87,7 @@ export class EncryptedPassportElement {
    * user. Available for `driver_license` and `identity_card`. The file can be
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
-  get reverseSide(): PassportFile | undefined {
+  get reverseSide() {
     const { reverse_side } = this.payload
 
     if (!reverse_side) {
@@ -103,7 +103,7 @@ export class EncryptedPassportElement {
    * `internal_passport`. The file can be decrypted and verified using the
    * accompanying `EncryptedCredentials`.
    */
-  get selfie(): PassportFile | undefined {
+  get selfie() {
     const { selfie } = this.payload
 
     if (!selfie) {
@@ -121,7 +121,7 @@ export class EncryptedPassportElement {
    * types. Files can be decrypted and verified using the accompanying
    * `EncryptedCredentials`.
    */
-  get translation(): PassportFile[] {
+  get translation() {
     const { translation } = this.payload
 
     if (!translation) {
@@ -136,7 +136,7 @@ export class EncryptedPassportElement {
   /**
    * Base64-encoded element hash for using in `PassportElementErrorUnspecified`
    */
-  get hash(): string {
+  get hash() {
     return this.payload.hash
   }
 }

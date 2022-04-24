@@ -7,12 +7,12 @@ import { TelegramDice } from '../../telegram-interfaces'
 export class Dice {
   constructor(private payload: TelegramDice) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Emoji on which the dice throw animation is based */
-  get emoji(): SendDiceParams['emoji'] {
+  get emoji() {
     return this.payload.emoji! as SendDiceParams['emoji']
   }
 
@@ -22,7 +22,7 @@ export class Dice {
    * `1-5` for `🏀` and `⚽️` base emoji,
    * `1-64` for `🎰` base emoji
    */
-  get value(): number {
+  get value() {
     return this.payload.value
   }
 }

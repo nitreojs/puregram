@@ -6,22 +6,22 @@ import { TelegramLocation } from '../../telegram-interfaces'
 export class Location {
   constructor(private payload: TelegramLocation) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Longitude as defined by sender */
-  get longitude(): number {
+  get longitude() {
     return this.payload.longitude
   }
 
   /** Latitude as defined by sender */
-  get latitude(): number {
+  get latitude() {
     return this.payload.latitude
   }
 
   /** The radius of uncertainty for the location, measured in meters; `0-1500` */
-  get horizontalAccuracy(): number | undefined {
+  get horizontalAccuracy() {
     return this.payload.horizontal_accuracy
   }
 
@@ -30,7 +30,7 @@ export class Location {
    * during which the location can be updated, in seconds.
    * For active live locations only.
    */
-  get livePeriod(): number | undefined {
+  get livePeriod() {
     return this.payload.live_period
   }
 
@@ -38,7 +38,7 @@ export class Location {
    * The direction in which user is moving, in degrees; `1-360`.
    * For active live locations only.
    */
-  get heading(): number | undefined {
+  get heading() {
     return this.payload.heading
   }
 
@@ -46,7 +46,7 @@ export class Location {
    * Maximum distance for proximity alerts about approaching another chat member, in meters.
    * For sent live locations only.
    */
-  get proximityAlertRadius(): number | undefined {
+  get proximityAlertRadius() {
     return this.payload.proximity_alert_radius
   }
 }

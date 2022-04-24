@@ -13,17 +13,17 @@ export class VideoNoteAttachment extends FileAttachment<TelegramVideoNote> {
    * Video width and height (diameter of the video message) as defined by
    * sender
    */
-  get length(): number {
+  get length() {
     return this.payload.length
   }
 
   /** Duration of the video in seconds as defined by sender */
-  get duration(): number {
+  get duration() {
     return this.payload.duration
   }
 
   /** Video thumbnail */
-  get thumb(): PhotoSize | undefined {
+  get thumb() {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -34,7 +34,7 @@ export class VideoNoteAttachment extends FileAttachment<TelegramVideoNote> {
   }
 
   /** File size */
-  get fileSize(): number | undefined {
+  get fileSize() {
     return this.payload.file_size
   }
 }

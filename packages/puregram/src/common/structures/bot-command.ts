@@ -5,15 +5,15 @@ import { TelegramBotCommand } from '../../telegram-interfaces'
 export class BotCommand {
   constructor(private payload: TelegramBotCommand) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
-  get command(): string {
+  get command() {
     return this.payload.command
   }
 
-  get description(): string {
+  get description() {
     return this.payload.description
   }
 }

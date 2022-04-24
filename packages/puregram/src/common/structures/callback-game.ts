@@ -6,7 +6,7 @@ import { TelegramCallbackGame } from '../../telegram-interfaces'
 export class CallbackGame {
   constructor(private payload: TelegramCallbackGame) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 }

@@ -16,22 +16,22 @@ import { MessageEntity } from './message-entity'
 export class Game {
   constructor(private payload: TelegramGame) { }
 
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return this.constructor.name
   }
 
   /** Title of the game */
-  get title(): string {
+  get title() {
     return this.payload.title
   }
 
   /** Description of the game */
-  get description(): string {
+  get description() {
     return this.payload.description
   }
 
   /** Photo that will be displayed in the game message in chats. */
-  get photo(): PhotoSize[] {
+  get photo() {
     const { photo } = this.payload
 
     if (!photo) {
@@ -49,7 +49,7 @@ export class Game {
    * when the bot calls `setGameScore`, or manually edited using
    * `editMessageText`. 0-4096 characters.
    */
-  get text(): string | undefined {
+  get text() {
     return this.payload.text
   }
 
@@ -57,7 +57,7 @@ export class Game {
    * Special entities that appear in text, such as usernames, URLs, bot
    * commands, etc.
    */
-  get textEntities(): MessageEntity[] {
+  get textEntities() {
     const { text_entities } = this.payload
 
     if (!text_entities) {

@@ -6,7 +6,6 @@
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
-    "abort-controller": "^3.0.0",
     "debug": "^4.3.2",
     "form-data-encoder": "^1.7.2",
     "formdata-node": "^4.3.2",

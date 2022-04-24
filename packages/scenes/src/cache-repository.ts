@@ -1,11 +1,10 @@
 type CacheRepositorySortingValues<Value> = (a: Value, b: Value) => number
 
 export class CacheRepository<Key, Value> {
-  private readonly collection: Map<Key, Value> = new Map();
+  private readonly collection: Map<Key, Value> = new Map()
 
-  keys: Key[] = [];
-
-  values: Value[] = [];
+  keys: Key[] = []
+  values: Value[] = []
 
   protected sortingValues?: CacheRepositorySortingValues<Value>
 

@@ -83,19 +83,19 @@ export class Updates {
   private readonly telegram: Telegram
 
   /** Is polling started? */
-  isStarted: boolean = false;
+  isStarted: boolean = false
 
   /** Updates offset */
-  offset: number = 0;
+  offset: number = 0
 
-  private retries: number = 0;
+  private retries: number = 0
 
   private composer: Composer<Contexts.Context> = Composer.builder<Contexts.Context>()
     .caught(
       (_context: Contexts.Context, error: Error) => (
         console.error(error)
       )
-    );
+    )
 
   private composed!: Middleware<Contexts.Context>
 

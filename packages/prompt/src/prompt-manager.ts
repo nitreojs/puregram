@@ -7,7 +7,7 @@ import { PromptQuestion } from './prompt-question'
 import { PromptAnswer } from './prompt-answer'
 
 export class PromptManager {
-  questions: Map<number, PromptQuestion> = new Map();
+  questions: Map<number, PromptQuestion> = new Map()
 
   get middleware(): Middleware<Types.PromptMessageContext> {
     return async (context: Types.PromptMessageContext, next) => {

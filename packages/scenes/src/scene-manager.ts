@@ -6,7 +6,7 @@ import { CacheRepository } from './cache-repository'
 import { SceneRepository, SceneManagerOptions } from './scene-manager.types'
 
 export class SceneManager {
-  private repository: SceneRepository = new CacheRepository();
+  private repository: SceneRepository = new CacheRepository()
 
   constructor(rawOptions: SceneManagerOptions | SceneInterface[] = {}) {
     const options = Array.isArray(rawOptions)

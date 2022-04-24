@@ -16,10 +16,8 @@ import {
 } from './helpers'
 
 export class HearManager<C extends Context> {
-  private composer = Composer.builder<C>();
-
-  private fallbackHandler: Middleware<C> = skipMiddleware;
-
+  private composer = Composer.builder<C>()
+  private fallbackHandler: Middleware<C> = skipMiddleware
   private composed!: Middleware<C>
 
   constructor() {

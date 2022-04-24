@@ -13,21 +13,16 @@ import { SceneInterface } from '../scenes'
 export class SceneContext {
   /** Lazy session for submodules */
   session!: SessionContext
-
   /** Base namespace for user input */
   state!: Record<string, any>
-
   /** Is the scene cancelled? Used in `leaveHandler()` */
-  cancelled = false;
-
-  lastAction: LastAction = LastAction.NONE;
+  cancelled = false
+  lastAction: LastAction = LastAction.NONE
+  /** Controlled behavior leave */
+  leaving = false
 
   private readonly context: SceneContextOptions['context']
-
   private repository: SceneContextOptions['repository']
-
-  /** Controlled behavior leave */
-  leaving = false;
 
   constructor(options: SceneContextOptions) {
     this.context = options.context

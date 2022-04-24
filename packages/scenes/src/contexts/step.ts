@@ -8,10 +8,8 @@ import { LastAction } from './scene.types'
 
 export class StepSceneContext {
   private readonly context: StepContextOptions['context']
-
   private readonly steps: StepContextOptions['steps']
-
-  private stepChanged = false;
+  private stepChanged = false
 
   constructor(options: StepContextOptions) {
     this.context = options.context

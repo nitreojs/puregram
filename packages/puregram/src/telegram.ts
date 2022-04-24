@@ -242,6 +242,7 @@ export class Telegram {
       signal: controller.signal
     }
 
+    // FIXME  not sure about this! need to figure out how to safely update a dispatcher without setting it globally
     if (this.options.agent !== undefined) {
       setGlobalDispatcher(this.options.agent)
     }

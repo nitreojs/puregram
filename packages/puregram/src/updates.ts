@@ -1,13 +1,12 @@
-import { inspectable } from 'inspectable'
-import http from 'http'
+import http from 'node:http'
 
+import { inspectable } from 'inspectable'
 import {
   Middleware,
   compose,
   noopNext,
   NextMiddleware
 } from 'middleware-io'
-
 import createDebug from 'debug'
 
 import * as Contexts from './contexts'
@@ -81,14 +80,12 @@ const events: Record<string, ContextConstructor> = makeContexts()
 /** Updates class */
 export class Updates {
   private readonly telegram: Telegram
+  private retries: number = 0
 
   /** Is polling started? */
   isStarted: boolean = false
-
   /** Updates offset */
   offset: number = 0
-
-  private retries: number = 0
 
   private composer: Composer<Contexts.Context> = Composer.builder<Contexts.Context>()
     .caught(

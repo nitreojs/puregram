@@ -145,7 +145,7 @@ export class HearManager<C extends Context> {
     return this
   }
 
-  private recompose(): void {
+  private recompose() {
     this.composed = this.composer.clone()
       .use(this.fallbackHandler)
       .compose()

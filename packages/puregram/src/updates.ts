@@ -328,12 +328,12 @@ export class Updates {
     return this.composed(context, noopNext) as Promise<void>
   }
 
-  private recompose(): void {
+  private recompose() {
     this.composed = this.composer.compose()
   }
 
   /** Stop polling */
-  stopPolling(): void {
+  stopPolling() {
     this.isStarted = false
     this.retries = 0
   }

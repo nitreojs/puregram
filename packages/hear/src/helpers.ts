@@ -1,4 +1,4 @@
-export const splitPath = (path: string): string[] => (
+export const splitPath = (path: string) => (
   path
     .replace(/\[([^[\]]*)]/g, '.$1.')
     .split('.')
@@ -19,7 +19,7 @@ export const getObjectValue = (source: Record<string, any>, selectors: string[])
   return link
 }
 
-export const unifyCondition = (condition: unknown): Function => {
+export const unifyCondition = (condition: unknown) => {
   if (typeof condition === 'function') {
     return condition
   }

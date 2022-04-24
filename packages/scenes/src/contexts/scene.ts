@@ -109,14 +109,14 @@ export class SceneContext {
   }
 
   /** Reset state/session */
-  reset(): void {
+  reset() {
     delete this.context.session.__scene
 
     this.updateSession()
   }
 
   /** Updates session and state is lazy */
-  private updateSession(): void {
+  private updateSession() {
     this.session = new Proxy(this.context.session.__scene || {}, {
       set: (target, prop, value): boolean => {
         target[prop] = value

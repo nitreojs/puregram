@@ -66,7 +66,7 @@ export class SessionManager<T = {}> {
 
       Object.defineProperty(context, 'session', {
         get: (): SessionContext => session,
-        set: (newSession: any): void => {
+        set: (newSession: any) => {
           session = wrapSession(newSession)
           changed = true
         }

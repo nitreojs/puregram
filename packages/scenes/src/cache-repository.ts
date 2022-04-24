@@ -21,7 +21,7 @@ export class CacheRepository<Key, Value> {
   }
 
   /** Sets value by key */
-  set(key: Key, value: Value): void {
+  set(key: Key, value: Value) {
     this.collection.set(key, value)
 
     this.keys = [...this.collection.keys()]
@@ -38,7 +38,7 @@ export class CacheRepository<Key, Value> {
   }
 
   /** Sets value by key else error if exits */
-  strictSet(key: Key, value: Value): void {
+  strictSet(key: Key, value: Value) {
     if (this.collection.has(key)) {
       throw new Error(`Value by ${key} already exists`)
     }

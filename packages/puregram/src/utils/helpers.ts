@@ -5,7 +5,7 @@ import type { Readable, Writable } from 'node:stream'
 
 import { MediaInput } from '../media-source'
 
-export const applyMixins = (derivedCtor: any, baseCtors: any[]): void => {
+export const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
   for (const baseCtor of baseCtors) {
     for (const name of Object.getOwnPropertyNames(baseCtor.prototype)) {
       if (name === 'constructor') {

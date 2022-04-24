@@ -27,8 +27,8 @@ export class StepScene<T = MessageContext> implements SceneInterface {
 
     this.slug = slug
     this.steps = options.steps
-    this.onEnterHandler = options.enterHandler || ((): void => { })
-    this.onLeaveHandler = options.leaveHandler || ((): void => { })
+    this.onEnterHandler = options.enterHandler || (() => { })
+    this.onLeaveHandler = options.leaveHandler || (() => { })
   }
 
   async enterHandler(context: StepContext & T): Promise<void> {

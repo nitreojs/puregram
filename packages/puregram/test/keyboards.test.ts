@@ -5,46 +5,46 @@ import {
   Keyboard,
   KeyboardBuilder,
   RemoveKeyboard
-} from '../src';
+} from '../src'
 
-describe('Keyboards', (): void => {
-  describe('ForceReply', (): void => {
-    describe('#<ForceReply>.toJSON()', (): void => {
-      it('should return valid JSON', (): void => {
-        const selectiveKeyboard: ForceReply = new ForceReply().selective();
-        const nonSelectiveKeyboard: ForceReply = new ForceReply().selective(false);
+describe('Keyboards', () => {
+  describe('ForceReply', () => {
+    describe('#<ForceReply>.toJSON()', () => {
+      it('should return valid JSON', () => {
+        const selectiveKeyboard: ForceReply = new ForceReply().selective()
+        const nonSelectiveKeyboard: ForceReply = new ForceReply().selective(false)
 
         expect(selectiveKeyboard.toJSON()).toEqual({
           force_reply: true,
           selective: true
-        });
+        })
 
         expect(nonSelectiveKeyboard.toJSON()).toEqual({
           force_reply: true,
           selective: false
-        });
-      });
+        })
+      })
 
-      it('should return invalid JSON', (): void => {
-        const selectiveKeyboard: ForceReply = new ForceReply().selective();
-        const nonSelectiveKeyboard: ForceReply = new ForceReply().selective(false);
+      it('should return invalid JSON', () => {
+        const selectiveKeyboard: ForceReply = new ForceReply().selective()
+        const nonSelectiveKeyboard: ForceReply = new ForceReply().selective(false)
 
         expect(selectiveKeyboard.toJSON()).not.toEqual({
           force_reply: true,
           selective: false
-        });
+        })
 
         expect(nonSelectiveKeyboard.toJSON()).not.toEqual({
           force_reply: true,
           selective: true
-        });
-      });
-    });
-  });
+        })
+      })
+    })
+  })
 
-  describe('InlineKeyboard', (): void => {
-    describe('#InlineKeyboard.keyboard()', (): void => {
-      it('should return valid JSON', (): void => {
+  describe('InlineKeyboard', () => {
+    describe('#InlineKeyboard.keyboard()', () => {
+      it('should return valid JSON', () => {
         const keyboard: InlineKeyboard = InlineKeyboard.keyboard([
           [
             InlineKeyboard.textButton({
@@ -59,7 +59,7 @@ describe('Keyboards', (): void => {
               payload: { foo: 'bar' }
             })
           ]
-        ]);
+        ])
 
         expect(keyboard.toJSON()).toEqual({
           inline_keyboard: [
@@ -77,14 +77,14 @@ describe('Keyboards', (): void => {
               }
             ]
           ]
-        });
-      });
-    });
-  });
+        })
+      })
+    })
+  })
 
-  describe('InlineKeyboardBuilder', (): void => {
-    describe('#<InlineKeyboardBuilder>', (): void => {
-      it('should return valid JSON', (): void => {
+  describe('InlineKeyboardBuilder', () => {
+    describe('#<InlineKeyboardBuilder>', () => {
+      it('should return valid JSON', () => {
         const keyboard: InlineKeyboardBuilder = new InlineKeyboardBuilder()
           .textButton({
             text: 'This is an inline button',
@@ -94,7 +94,7 @@ describe('Keyboards', (): void => {
           .textButton({
             text: 'One more inline button',
             payload: { foo: 'bar' }
-          });
+          })
 
         expect(keyboard.toJSON()).toEqual({
           inline_keyboard: [
@@ -112,14 +112,14 @@ describe('Keyboards', (): void => {
               }
             ]
           ]
-        });
-      });
-    });
-  });
+        })
+      })
+    })
+  })
 
-  describe('Keyboard', (): void => {
-    describe('#Keyboard.keyboard()', (): void => {
-      it('should return valid JSON', (): void => {
+  describe('Keyboard', () => {
+    describe('#Keyboard.keyboard()', () => {
+      it('should return valid JSON', () => {
         const keyboard: Keyboard = Keyboard.keyboard([
           [
             Keyboard.textButton('Some keyboard button'),
@@ -129,7 +129,7 @@ describe('Keyboards', (): void => {
           [
             Keyboard.textButton('Button in a different row')
           ]
-        ]).resize().selective();
+        ]).resize().selective()
 
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
@@ -145,15 +145,15 @@ describe('Keyboards', (): void => {
           one_time_keyboard: false,
           resize_keyboard: true,
           selective: true
-        });
-      });
+        })
+      })
 
-      it('should return valid JSON [request contact]', (): void => {
+      it('should return valid JSON [request contact]', () => {
         const keyboard: Keyboard = Keyboard.keyboard([
           [
             Keyboard.requestContactButton('Request contact button')
           ]
-        ]).resize().oneTime();
+        ]).resize().oneTime()
 
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
@@ -167,15 +167,15 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: false
-        });
-      });
+        })
+      })
 
-      it('should return valid JSON [request poll]', (): void => {
+      it('should return valid JSON [request poll]', () => {
         const keyboard: Keyboard = Keyboard.keyboard([
           [
             Keyboard.requestPollButton('Request poll button', 'quiz')
           ]
-        ]);
+        ])
 
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
@@ -189,14 +189,14 @@ describe('Keyboards', (): void => {
           one_time_keyboard: false,
           resize_keyboard: false,
           selective: false
-        });
-      });
-    });
-  });
+        })
+      })
+    })
+  })
 
-  describe('KeyboardBuilder', (): void => {
-    describe('#<KeyboardBuilder>', (): void => {
-      it('should return valid JSON', (): void => {
+  describe('KeyboardBuilder', () => {
+    describe('#<KeyboardBuilder>', () => {
+      it('should return valid JSON', () => {
         const keyboard: KeyboardBuilder = new KeyboardBuilder()
           .textButton('Some keyboard button')
           .textButton('One more keyboard button')
@@ -204,7 +204,7 @@ describe('Keyboards', (): void => {
           .textButton('Button in a different row')
           .resize()
           .oneTime()
-          .selective();
+          .selective()
 
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
@@ -220,15 +220,15 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: true
-        });
-      });
+        })
+      })
 
-      it('should return valid JSON [request contact]', (): void => {
+      it('should return valid JSON [request contact]', () => {
         const keyboard: KeyboardBuilder = new KeyboardBuilder()
           .requestContactButton('Request contact button')
           .resize()
           .oneTime()
-          .selective();
+          .selective()
 
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
@@ -242,15 +242,15 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: true
-        });
-      });
+        })
+      })
 
-      it('should return valid JSON [request poll]', (): void => {
+      it('should return valid JSON [request poll]', () => {
         const keyboard: KeyboardBuilder = new KeyboardBuilder()
           .requestPollButton('Request poll button', 'regular')
           .resize()
           .oneTime()
-          .selective();
+          .selective()
 
         expect(keyboard.toJSON()).toEqual({
           keyboard: [
@@ -264,22 +264,22 @@ describe('Keyboards', (): void => {
           one_time_keyboard: true,
           resize_keyboard: true,
           selective: true
-        });
-      });
-    });
-  });
+        })
+      })
+    })
+  })
 
-  describe('RemoveKeyboard', (): void => {
-    describe('#<RemoveKeyboard>', (): void => {
-      it('should return valid JSON', (): void => {
+  describe('RemoveKeyboard', () => {
+    describe('#<RemoveKeyboard>', () => {
+      it('should return valid JSON', () => {
         const keyboard: RemoveKeyboard = new RemoveKeyboard()
-          .selective();
+          .selective()
 
         expect(keyboard.toJSON()).toEqual({
           remove_keyboard: true,
           selective: true
-        });
-      });
-    });
-  });
-});
+        })
+      })
+    })
+  })
+})

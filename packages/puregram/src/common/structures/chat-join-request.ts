@@ -37,7 +37,9 @@ export class ChatJoinRequest {
   public get inviteLink(): ChatInviteLink | undefined {
     const { invite_link } = this.payload
 
-    if (!invite_link) return
+    if (!invite_link) {
+      return
+    }
 
     return new ChatInviteLink(invite_link)
   }

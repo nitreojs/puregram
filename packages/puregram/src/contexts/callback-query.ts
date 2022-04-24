@@ -41,7 +41,9 @@ class CallbackQueryContext extends Context {
    * if the message is too old
    */
   public get message(): MessageContext | undefined {
-    if (this.payload.message === undefined) return undefined
+    if (this.payload.message === undefined) {
+      return
+    }
 
     return new MessageContext({
       telegram: this.telegram,
@@ -58,7 +60,9 @@ class CallbackQueryContext extends Context {
   public get queryPayload(): any {
     const { data } = this.payload
 
-    if (data === undefined) return undefined
+    if (data === undefined) {
+      return
+    }
 
     if (isParseable(data)) {
       return JSON.parse(data)

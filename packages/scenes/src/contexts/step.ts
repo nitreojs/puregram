@@ -69,7 +69,9 @@ export class StepSceneContext {
   public go(stepId: number, { silent = false }: StepContextGoOptions = {}): Promise<void> {
     this.stepId = stepId
 
-    if (silent) return Promise.resolve()
+    if (silent) {
+      return Promise.resolve()
+    }
 
     return this.reenter()
   }

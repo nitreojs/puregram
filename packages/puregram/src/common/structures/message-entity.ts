@@ -63,7 +63,9 @@ export class MessageEntity {
   public get user(): User | undefined {
     const { user } = this.payload
 
-    if (!user) return undefined
+    if (!user) {
+      return
+    }
 
     return new User(user)
   }

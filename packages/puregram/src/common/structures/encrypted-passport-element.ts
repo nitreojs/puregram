@@ -57,7 +57,9 @@ export class EncryptedPassportElement {
   public get files(): PassportFile[] {
     const { files } = this.payload
 
-    if (!files) return []
+    if (!files) {
+      return []
+    }
 
     return files.map(
       (file: TelegramPassportFile) => new PassportFile(file)
@@ -73,7 +75,9 @@ export class EncryptedPassportElement {
   public get frontSide(): PassportFile | undefined {
     const { front_side } = this.payload
 
-    if (!front_side) return undefined
+    if (!front_side) {
+      return
+    }
 
     return new PassportFile(front_side)
   }
@@ -86,7 +90,9 @@ export class EncryptedPassportElement {
   public get reverseSide(): PassportFile | undefined {
     const { reverse_side } = this.payload
 
-    if (!reverse_side) return undefined
+    if (!reverse_side) {
+      return
+    }
 
     return new PassportFile(reverse_side)
   }
@@ -100,7 +106,9 @@ export class EncryptedPassportElement {
   public get selfie(): PassportFile | undefined {
     const { selfie } = this.payload
 
-    if (!selfie) return undefined
+    if (!selfie) {
+      return
+    }
 
     return new PassportFile(selfie)
   }
@@ -116,7 +124,9 @@ export class EncryptedPassportElement {
   public get translation(): PassportFile[] {
     const { translation } = this.payload
 
-    if (!translation) return []
+    if (!translation) {
+      return []
+    }
 
     return translation.map(
       (element: TelegramPassportFile) => new PassportFile(element)

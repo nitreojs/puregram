@@ -437,7 +437,9 @@ export class Updates {
       return
     }
 
-    if (!updates.length) return
+    if (!updates.length) {
+      return
+    }
 
     updates.forEach(
       async (update: TelegramUpdate) => {

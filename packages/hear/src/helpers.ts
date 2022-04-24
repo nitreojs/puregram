@@ -9,7 +9,9 @@ export const getObjectValue = (source: Record<string, any>, selectors: string[])
   let link: Record<string, any> = source
 
   for (const selector of selectors) {
-    if (!link[selector]) return undefined
+    if (!link[selector]) {
+      return
+    }
 
     link = link[selector]
   }

@@ -80,7 +80,9 @@ export class Poll {
   public get explanationEntities(): MessageEntity[] {
     const { explanation_entities } = this.payload
 
-    if (!explanation_entities) return []
+    if (!explanation_entities) {
+      return []
+    }
 
     return explanation_entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)

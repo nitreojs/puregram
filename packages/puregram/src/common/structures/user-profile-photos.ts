@@ -21,7 +21,9 @@ export class UserProfilePhotos {
   public get photos(): PhotoSize[][] {
     const { photos } = this.payload
 
-    if (!photos.length) return []
+    if (!photos.length) {
+      return []
+    }
 
     return photos.map(
       (row: TelegramPhotoSize[]) => row.map(

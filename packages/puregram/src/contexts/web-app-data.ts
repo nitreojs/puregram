@@ -75,7 +75,9 @@ class WebAppDataContext extends Context {
   public get from(): User | undefined {
     const { from } = this.payload
 
-    if (!from) return undefined
+    if (!from) {
+      return
+    }
 
     return new User(from)
   }
@@ -94,7 +96,9 @@ class WebAppDataContext extends Context {
   public get chat(): Chat | undefined {
     const { chat } = this.payload
 
-    if (!chat) return undefined
+    if (!chat) {
+      return
+    }
 
     return new Chat(chat)
   }
@@ -470,7 +474,9 @@ class WebAppDataContext extends Context {
       message_id: this.id
     })
 
-    if (response === true) return true
+    if (response === true) {
+      return true
+    }
 
     return new MessageContext({
       telegram: this.telegram,

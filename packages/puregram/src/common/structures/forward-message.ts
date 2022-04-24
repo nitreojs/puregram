@@ -26,7 +26,9 @@ export class ForwardMessage {
   public get from(): User | undefined {
     const { forward_from } = this.payload
 
-    if (!forward_from) return undefined
+    if (!forward_from) {
+      return
+    }
 
     return new User(forward_from)
   }
@@ -38,7 +40,9 @@ export class ForwardMessage {
   public get chat(): Chat | undefined {
     const { forward_from_chat } = this.payload
 
-    if (!forward_from_chat) return undefined
+    if (!forward_from_chat) {
+      return
+    }
 
     return new Chat(forward_from_chat)
   }

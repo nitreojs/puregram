@@ -48,7 +48,9 @@ export class Update {
   public get message(): Message | undefined {
     const { message } = this.payload
 
-    if (!message) return undefined
+    if (!message) {
+      return
+    }
 
     return new Message(message)
   }
@@ -57,7 +59,9 @@ export class Update {
   public get editedMessage(): Message | undefined {
     const { edited_message } = this.payload
 
-    if (!edited_message) return undefined
+    if (!edited_message) {
+      return
+    }
 
     return new Message(edited_message)
   }
@@ -66,7 +70,9 @@ export class Update {
   public get channelPost(): Message | undefined {
     const { channel_post } = this.payload
 
-    if (!channel_post) return undefined
+    if (!channel_post) {
+      return
+    }
 
     return new Message(channel_post)
   }
@@ -75,7 +81,9 @@ export class Update {
   public get editedChannelPost(): Message | undefined {
     const { edited_channel_post } = this.payload
 
-    if (!edited_channel_post) return undefined
+    if (!edited_channel_post) {
+      return
+    }
 
     return new Message(edited_channel_post)
   }
@@ -84,7 +92,9 @@ export class Update {
   public get inlineQuery(): InlineQuery | undefined {
     const { inline_query } = this.payload
 
-    if (!inline_query) return undefined
+    if (!inline_query) {
+      return
+    }
 
     return new InlineQuery(inline_query)
   }
@@ -97,7 +107,9 @@ export class Update {
   public get chosenInlineResult(): ChosenInlineResult | undefined {
     const { chosen_inline_result } = this.payload
 
-    if (!chosen_inline_result) return undefined
+    if (!chosen_inline_result) {
+      return
+    }
 
     return new ChosenInlineResult(chosen_inline_result)
   }
@@ -106,7 +118,9 @@ export class Update {
   public get callbackQuery(): CallbackQuery | undefined {
     const { callback_query } = this.payload
 
-    if (!callback_query) return undefined
+    if (!callback_query) {
+      return
+    }
 
     return new CallbackQuery(callback_query)
   }
@@ -115,7 +129,9 @@ export class Update {
   public get shippingQuery(): ShippingQuery | undefined {
     const { shipping_query } = this.payload
 
-    if (!shipping_query) return undefined
+    if (!shipping_query) {
+      return
+    }
 
     return new ShippingQuery(shipping_query)
   }
@@ -126,7 +142,9 @@ export class Update {
   public get preCheckoutQuery(): PreCheckoutQuery | undefined {
     const { pre_checkout_query } = this.payload
 
-    if (!pre_checkout_query) return undefined
+    if (!pre_checkout_query) {
+      return
+    }
 
     return new PreCheckoutQuery(pre_checkout_query)
   }
@@ -138,7 +156,9 @@ export class Update {
   public get poll(): Poll | undefined {
     const { poll } = this.payload
 
-    if (!poll) return undefined
+    if (!poll) {
+      return
+    }
 
     return new Poll(poll)
   }
@@ -150,7 +170,9 @@ export class Update {
   public get pollAnswer(): PollAnswer | undefined {
     const { poll_answer } = this.payload
 
-    if (!poll_answer) return undefined
+    if (!poll_answer) {
+      return
+    }
 
     return new PollAnswer(poll_answer)
   }

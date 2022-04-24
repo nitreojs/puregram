@@ -32,7 +32,9 @@ export class OrderInfo {
   public get shippingAddress(): ShippingAddress | undefined {
     const { shipping_address } = this.payload
 
-    if (!shipping_address) return undefined
+    if (!shipping_address) {
+      return
+    }
 
     return new ShippingAddress(shipping_address)
   }

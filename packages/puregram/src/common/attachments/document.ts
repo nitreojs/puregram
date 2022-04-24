@@ -17,7 +17,9 @@ export class DocumentAttachment extends FileAttachment<TelegramDocument> {
   public get thumb(): PhotoSize | undefined {
     const { thumb } = this.payload
 
-    if (!thumb) return undefined
+    if (!thumb) {
+      return
+    }
 
     return new PhotoSize(thumb)
   }

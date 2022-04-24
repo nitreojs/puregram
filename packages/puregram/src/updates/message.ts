@@ -59,7 +59,9 @@ export class Message {
   public get from(): User | undefined {
     const { from } = this.payload
 
-    if (!from) return undefined
+    if (!from) {
+      return
+    }
 
     return new User(from)
   }
@@ -73,7 +75,9 @@ export class Message {
   public get senderChat(): Chat | undefined {
     const { sender_chat } = this.payload
 
-    if (!sender_chat) return undefined
+    if (!sender_chat) {
+      return
+    }
 
     return new Chat(sender_chat)
   }
@@ -87,7 +91,9 @@ export class Message {
   public get chat(): Chat | undefined {
     const { chat } = this.payload
 
-    if (!chat) return undefined
+    if (!chat) {
+      return
+    }
 
     return new Chat(chat)
   }
@@ -96,7 +102,9 @@ export class Message {
   public get forwardMessage(): ForwardMessage | undefined {
     const { forward_date } = this.payload
 
-    if (!forward_date) return undefined
+    if (!forward_date) {
+      return
+    }
 
     return new ForwardMessage(this.payload)
   }
@@ -105,7 +113,9 @@ export class Message {
   public get replyMessage(): Omit<Message, 'replyMessage'> | undefined {
     const { reply_to_message } = this.payload
 
-    if (!reply_to_message) return undefined
+    if (!reply_to_message) {
+      return
+    }
 
     return new Message(reply_to_message)
   }
@@ -114,7 +124,9 @@ export class Message {
   public get viaBot(): User | undefined {
     const { via_bot } = this.payload
 
-    if (!via_bot) return undefined
+    if (!via_bot) {
+      return
+    }
 
     return new User(via_bot)
   }
@@ -156,7 +168,9 @@ export class Message {
   public get entities(): MessageEntity[] {
     const { entities } = this.payload
 
-    if (!entities) return []
+    if (!entities) {
+      return []
+    }
 
     return entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)
@@ -181,7 +195,9 @@ export class Message {
   public get animation(): AnimationAttachment | undefined {
     const { animation } = this.payload
 
-    if (!animation) return undefined
+    if (!animation) {
+      return
+    }
 
     return new AnimationAttachment(animation)
   }
@@ -190,7 +206,9 @@ export class Message {
   public get audio(): AudioAttachment | undefined {
     const { audio } = this.payload
 
-    if (!audio) return undefined
+    if (!audio) {
+      return
+    }
 
     return new AudioAttachment(audio)
   }
@@ -199,7 +217,9 @@ export class Message {
   public get document(): DocumentAttachment | undefined {
     const { document } = this.payload
 
-    if (!document) return undefined
+    if (!document) {
+      return
+    }
 
     return new DocumentAttachment(document)
   }
@@ -208,7 +228,9 @@ export class Message {
   public get photo(): PhotoSize[] | undefined {
     const { photo } = this.payload
 
-    if (!photo) return undefined
+    if (!photo) {
+      return
+    }
 
     return photo.map(
       (size: TelegramPhotoSize) => new PhotoSize(size)
@@ -219,7 +241,9 @@ export class Message {
   public get sticker(): StickerAttachment | undefined {
     const { sticker } = this.payload
 
-    if (!sticker) return undefined
+    if (!sticker) {
+      return
+    }
 
     return new StickerAttachment(sticker)
   }
@@ -228,7 +252,9 @@ export class Message {
   public get video(): VideoAttachment | undefined {
     const { video } = this.payload
 
-    if (!video) return undefined
+    if (!video) {
+      return
+    }
 
     return new VideoAttachment(video)
   }
@@ -237,7 +263,9 @@ export class Message {
   public get videoNote(): VideoNoteAttachment | undefined {
     const { video_note } = this.payload
 
-    if (!video_note) return undefined
+    if (!video_note) {
+      return
+    }
 
     return new VideoNoteAttachment(video_note)
   }
@@ -246,7 +274,9 @@ export class Message {
   public get voice(): VoiceAttachment | undefined {
     const { voice } = this.payload
 
-    if (!voice) return undefined
+    if (!voice) {
+      return
+    }
 
     return new VoiceAttachment(voice)
   }
@@ -266,7 +296,9 @@ export class Message {
   public get captionEntities(): MessageEntity[] {
     const { caption_entities } = this.payload
 
-    if (!caption_entities) return []
+    if (!caption_entities) {
+      return []
+    }
 
     return caption_entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)
@@ -277,7 +309,9 @@ export class Message {
   public get contact(): Contact | undefined {
     const { contact } = this.payload
 
-    if (!contact) return undefined
+    if (!contact) {
+      return
+    }
 
     return new Contact(contact)
   }
@@ -286,7 +320,9 @@ export class Message {
   public get dice(): Dice | undefined {
     const { dice } = this.payload
 
-    if (!dice) return undefined
+    if (!dice) {
+      return
+    }
 
     return new Dice(dice)
   }
@@ -295,7 +331,9 @@ export class Message {
   public get game(): Game | undefined {
     const { game } = this.payload
 
-    if (!game) return undefined
+    if (!game) {
+      return
+    }
 
     return new Game(game)
   }
@@ -304,7 +342,9 @@ export class Message {
   public get poll(): Poll | undefined {
     const { poll } = this.payload
 
-    if (!poll) return undefined
+    if (!poll) {
+      return
+    }
 
     return new Poll(poll)
   }
@@ -317,7 +357,9 @@ export class Message {
   public get venue(): Venue | undefined {
     const { venue } = this.payload
 
-    if (!venue) return undefined
+    if (!venue) {
+      return
+    }
 
     return new Venue(venue)
   }
@@ -326,7 +368,9 @@ export class Message {
   public get location(): Location | undefined {
     const { location } = this.payload
 
-    if (!location) return undefined
+    if (!location) {
+      return
+    }
 
     return new Location(location)
   }
@@ -340,7 +384,9 @@ export class Message {
   public get newChatMembers(): User[] {
     const { new_chat_members } = this.payload
 
-    if (!new_chat_members) return []
+    if (!new_chat_members) {
+      return []
+    }
 
     return new_chat_members.map(
       (member: TelegramUser) => new User(member)
@@ -354,7 +400,9 @@ export class Message {
   public get leftChatMember(): User | undefined {
     const { left_chat_member } = this.payload
 
-    if (!left_chat_member) return undefined
+    if (!left_chat_member) {
+      return
+    }
 
     return new User(left_chat_member)
   }
@@ -368,7 +416,9 @@ export class Message {
   public get newChatPhoto(): PhotoSize[] {
     const { new_chat_photo } = this.payload
 
-    if (!new_chat_photo) return []
+    if (!new_chat_photo) {
+      return []
+    }
 
     return new_chat_photo.map(
       (size: TelegramPhotoSize) => new PhotoSize(size)
@@ -445,7 +495,9 @@ export class Message {
   public get pinnedMessage(): Omit<Message, 'replyMessage'> | undefined {
     const { pinned_message } = this.payload
 
-    if (!pinned_message) return undefined
+    if (!pinned_message) {
+      return
+    }
 
     return new Message(pinned_message)
   }
@@ -454,7 +506,9 @@ export class Message {
   public get invoice(): Invoice | undefined {
     const { invoice } = this.payload
 
-    if (!invoice) return undefined
+    if (!invoice) {
+      return
+    }
 
     return new Invoice(invoice)
   }
@@ -466,7 +520,9 @@ export class Message {
   public get successfulPayment(): SuccessfulPayment | undefined {
     const { successful_payment } = this.payload
 
-    if (!successful_payment) return undefined
+    if (!successful_payment) {
+      return
+    }
 
     return new SuccessfulPayment(successful_payment)
   }
@@ -480,7 +536,9 @@ export class Message {
   public get passportData(): PassportData | undefined {
     const { passport_data } = this.payload
 
-    if (!passport_data) return undefined
+    if (!passport_data) {
+      return
+    }
 
     return new PassportData(passport_data)
   }
@@ -493,7 +551,9 @@ export class Message {
   public get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
     const { proximity_alert_triggered } = this.payload
 
-    if (!proximity_alert_triggered) return undefined
+    if (!proximity_alert_triggered) {
+      return
+    }
 
     return new ProximityAlertTriggered(proximity_alert_triggered)
   }
@@ -551,7 +611,9 @@ export class Message {
   public get replyMarkup(): InlineKeyboardMarkup | undefined {
     const { reply_markup } = this.payload
 
-    if (!reply_markup) return undefined
+    if (!reply_markup) {
+      return
+    }
 
     return new InlineKeyboardMarkup(reply_markup)
   }

@@ -62,7 +62,9 @@ export class Chat {
   public get photo(): ChatPhoto | undefined {
     const { photo } = this.payload
 
-    if (!photo) return undefined
+    if (!photo) {
+      return
+    }
 
     return new ChatPhoto(photo)
   }
@@ -94,7 +96,9 @@ export class Chat {
   public get location(): ChatLocation | undefined {
     const { location } = this.payload
 
-    if (!location) return undefined
+    if (!location) {
+      return
+    }
 
     return new ChatLocation(location)
   }
@@ -127,7 +131,9 @@ export class Chat {
   public get pinnedMessage(): Message | undefined {
     const { pinned_message } = this.payload
 
-    if (!pinned_message) return undefined
+    if (!pinned_message) {
+      return
+    }
 
     return new Message(pinned_message)
   }
@@ -140,7 +146,9 @@ export class Chat {
   public get permissions(): ChatPermissions | undefined {
     const { permissions } = this.payload
 
-    if (!permissions) return undefined
+    if (!permissions) {
+      return
+    }
 
     return new ChatPermissions(permissions)
   }

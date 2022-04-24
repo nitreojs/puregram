@@ -23,7 +23,9 @@ export class PassportData {
   public get data(): EncryptedPassportElement[] {
     const { data } = this.payload
 
-    if (!data) return []
+    if (!data) {
+      return []
+    }
 
     return data.map(
       (element: TelegramEncryptedPassportElement) => (

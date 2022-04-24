@@ -34,7 +34,9 @@ export class Game {
   public get photo(): PhotoSize[] {
     const { photo } = this.payload
 
-    if (!photo) return []
+    if (!photo) {
+      return []
+    }
 
     return photo.map(
       (photoElement: TelegramPhotoSize) => new PhotoSize(photoElement)
@@ -58,7 +60,9 @@ export class Game {
   public get textEntities(): MessageEntity[] {
     const { text_entities } = this.payload
 
-    if (!text_entities) return []
+    if (!text_entities) {
+      return []
+    }
 
     return text_entities.map(
       (entity: TelegramMessageEntity) => new MessageEntity(entity)
@@ -72,7 +76,9 @@ export class Game {
   public animation(): AnimationAttachment | undefined {
     const { animation } = this.payload
 
-    if (!animation) return undefined
+    if (!animation) {
+      return
+    }
 
     return new AnimationAttachment(animation)
   }

@@ -142,9 +142,11 @@ class MessageContext extends Context {
   }
 
   public get startPayload(): any {
-    if (!this.hasText) return undefined
+    if (!this.hasText) {
+      return
+    }
     if (!this.text!.startsWith('/start') || this.text === '/start') {
-      return undefined
+      return
     }
 
     let payload: any = this.text!.split(' ')[1]
@@ -170,7 +172,9 @@ class MessageContext extends Context {
 
   /** Checks if there are any entities (with specified type) */
   public hasEntities(type?: EntityType | MessageEntity['type']): boolean {
-    if (type === undefined) return this.entities.length !== 0
+    if (type === undefined) {
+      return this.entities.length !== 0
+    }
 
     return this.entities.some(
       (entity: MessageEntity) => entity.type === type
@@ -184,7 +188,9 @@ class MessageContext extends Context {
 
   /** Checks if there are any caption entities (with specified type) */
   public hasCaptionEntities(type?: EntityType | MessageEntity['type']): boolean {
-    if (type === undefined) return this.captionEntities.length !== 0
+    if (type === undefined) {
+      return this.captionEntities.length !== 0
+    }
 
     return this.captionEntities.some(
       (entity: MessageEntity) => entity.type === type
@@ -210,7 +216,9 @@ class MessageContext extends Context {
 
   /** Checks if there are attachments */
   public hasAttachments(type?: AttachmentType | AttachmentTypeEnum): boolean {
-    if (type === undefined) return this.attachments.length > 0
+    if (type === undefined) {
+      return this.attachments.length > 0
+    }
 
     return this.attachments.some(
       (attachment: Attachment) => attachment.attachmentType === type
@@ -237,7 +245,9 @@ class MessageContext extends Context {
   public getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
 
   public getAttachments(type?: any): Attachment[] {
-    if (type === undefined) return this.attachments
+    if (type === undefined) {
+      return this.attachments
+    }
 
     return this.attachments.filter(
       (attachment: Attachment) => attachment.attachmentType === type
@@ -257,7 +267,9 @@ class MessageContext extends Context {
 
   /** Event type */
   public get eventType(): MessageEventName | undefined {
-    if (!this.isEvent) return undefined
+    if (!this.isEvent) {
+      return
+    }
 
     const value: (
       [keyof Message, MessageEventName] | undefined
@@ -275,7 +287,9 @@ class MessageContext extends Context {
       }
     )
 
-    if (value === undefined) return undefined
+    if (value === undefined) {
+      return
+    }
 
     return value[1]
   }
@@ -630,7 +644,9 @@ class MessageContext extends Context {
       message_id: this.id
     })
 
-    if (response === true) return true
+    if (response === true) {
+      return true
+    }
 
     return new MessageContext({
       telegram: this.telegram,

@@ -35,7 +35,9 @@ export class StickerAttachment extends FileAttachment<TelegramSticker> {
   public get thumb(): PhotoSize | undefined {
     const { thumb } = this.payload
 
-    if (!thumb) return undefined
+    if (!thumb) {
+      return
+    }
 
     return new PhotoSize(thumb)
   }
@@ -54,7 +56,9 @@ export class StickerAttachment extends FileAttachment<TelegramSticker> {
   public get maskPosition(): MaskPosition | undefined {
     const { mask_position } = this.payload
 
-    if (!mask_position) return undefined
+    if (!mask_position) {
+      return
+    }
 
     return new MaskPosition(mask_position)
   }

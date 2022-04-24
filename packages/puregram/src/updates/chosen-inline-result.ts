@@ -31,7 +31,9 @@ export class ChosenInlineResult {
   public get location(): Location | undefined {
     const { location } = this.payload
 
-    if (!location) return undefined
+    if (!location) {
+      return
+    }
 
     return new Location(location)
   }

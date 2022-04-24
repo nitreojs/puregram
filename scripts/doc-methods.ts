@@ -46,7 +46,9 @@ export const dasherize = (rawSource: string): string => {
   const source: string = rawSource.split(' ').join('-')
   const match: RegExpMatchArray | null = source.match(/[A-Z]/g)
 
-  if (match === null) return source
+  if (match === null) {
+    return source
+  }
 
   const upperCases: RegExpMatchArray = match
   const upperAmount: number = upperCases.length

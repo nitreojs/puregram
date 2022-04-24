@@ -43,7 +43,9 @@ export class StickerSet {
   public get stickers(): StickerAttachment[] {
     const { stickers } = this.payload
 
-    if (!stickers.length) return []
+    if (!stickers.length) {
+      return []
+    }
 
     return stickers.map(
       (sticker: TelegramSticker) => new StickerAttachment(sticker)
@@ -54,7 +56,9 @@ export class StickerSet {
   public get thumb(): PhotoSize | undefined {
     const { thumb } = this.payload
 
-    if (!thumb) return undefined
+    if (!thumb) {
+      return
+    }
 
     return new PhotoSize(thumb)
   }

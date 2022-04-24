@@ -43,7 +43,9 @@ export class CallbackQuery {
   public get message(): Message | undefined {
     const { message } = this.payload
 
-    if (!message) return undefined
+    if (!message) {
+      return
+    }
 
     return new Message(message)
   }

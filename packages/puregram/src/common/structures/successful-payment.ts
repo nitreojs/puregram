@@ -44,7 +44,9 @@ export class SuccessfulPayment {
   public get orderInfo(): OrderInfo | undefined {
     const { order_info } = this.payload
 
-    if (!order_info) return undefined
+    if (!order_info) {
+      return
+    }
 
     return new OrderInfo(order_info)
   }

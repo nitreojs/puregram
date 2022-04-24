@@ -30,7 +30,9 @@ export class InlineKeyboardButton {
   public get loginUrl(): LoginUrl | undefined {
     const { login_url } = this.payload
 
-    if (!login_url) return undefined
+    if (!login_url) {
+      return
+    }
 
     return new LoginUrl(login_url)
   }
@@ -81,7 +83,9 @@ export class InlineKeyboardButton {
   public get callbackGame(): CallbackGame | undefined {
     const { callback_game } = this.payload
 
-    if (!callback_game) return undefined
+    if (!callback_game) {
+      return
+    }
 
     return new CallbackGame(callback_game)
   }

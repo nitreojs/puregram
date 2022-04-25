@@ -45,9 +45,9 @@ class InlineQueryContext extends Context {
     params?: Partial<AnswerInlineQueryParams>
   ): Promise<true> {
     return this.telegram.api.answerInlineQuery({
-      ...params,
       inline_query_id: this.id,
-      results
+      results,
+      ...params
     })
   }
 }

@@ -70,9 +70,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendMessage({
-      ...params,
       chat_id: this.senderId,
-      text
+      text,
+      ...params
     })
 
     return new MessageContext({
@@ -87,9 +87,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPhoto({
-      ...params,
       chat_id: this.senderId,
-      photo
+      photo,
+      ...params
     })
 
     return new MessageContext({
@@ -104,9 +104,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDocument({
-      ...params,
       chat_id: this.senderId,
-      document
+      document,
+      ...params
     })
 
     return new MessageContext({
@@ -121,9 +121,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAudio({
-      ...params,
       chat_id: this.senderId,
-      audio
+      audio,
+      ...params
     })
 
     return new MessageContext({
@@ -138,9 +138,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideo({
-      ...params,
       chat_id: this.senderId,
-      video
+      video,
+      ...params
     })
 
     return new MessageContext({
@@ -155,9 +155,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAnimation({
-      ...params,
       chat_id: this.senderId,
-      animation
+      animation,
+      ...params
     })
 
     return new MessageContext({
@@ -172,9 +172,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideoNote({
-      ...params,
       chat_id: this.senderId,
-      video_note: videoNote
+      video_note: videoNote,
+      ...params
     })
 
     return new MessageContext({
@@ -189,9 +189,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVoice({
-      ...params,
       chat_id: this.senderId,
-      voice
+      voice,
+      ...params
     })
 
     return new MessageContext({
@@ -206,9 +206,9 @@ class PollAnswerContext extends Context {
     params?: Partial<SendMediaGroupParams>
   ): Promise<MessageContext[]> {
     const response = await this.telegram.api.sendMediaGroup({
-      ...params,
       chat_id: this.senderId,
-      media: mediaGroup
+      media: mediaGroup,
+      ...params
     })
 
     return response.map(
@@ -243,8 +243,8 @@ class PollAnswerContext extends Context {
     params: Optional<SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVenue({
-      ...params,
-      chat_id: this.senderId
+      chat_id: this.senderId,
+      ...params
     })
 
     return new MessageContext({
@@ -258,8 +258,8 @@ class PollAnswerContext extends Context {
     params: Optional<SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendContact({
-      ...params,
-      chat_id: this.senderId
+      chat_id: this.senderId,
+      ...params
     })
 
     return new MessageContext({
@@ -273,8 +273,8 @@ class PollAnswerContext extends Context {
     params: Optional<SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPoll({
-      ...params,
-      chat_id: this.senderId
+      chat_id: this.senderId,
+      ...params
     })
 
     return new MessageContext({
@@ -289,9 +289,9 @@ class PollAnswerContext extends Context {
     params?: Partial<StopPollParams>
   ): Promise<Poll> {
     const response = await this.telegram.api.stopPoll({
-      ...params,
       chat_id: this.senderId,
-      message_id: messageId
+      message_id: messageId,
+      ...params
     })
 
     return new Poll(response)
@@ -303,9 +303,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendChatActionParams, 'chat_id'>
   ): Promise<true> {
     return this.telegram.api.sendChatAction({
-      ...params,
       chat_id: this.senderId,
-      action
+      action,
+      ...params
     })
   }
 
@@ -315,9 +315,9 @@ class PollAnswerContext extends Context {
     params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendSticker({
-      ...params,
       sticker,
-      chat_id: this.senderId
+      chat_id: this.senderId,
+      ...params
     })
 
     return new MessageContext({
@@ -332,9 +332,9 @@ class PollAnswerContext extends Context {
     params?: Partial<SendDiceParams>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDice({
-      ...params,
       emoji,
-      chat_id: this.senderId
+      chat_id: this.senderId,
+      ...params
     })
 
     return new MessageContext({

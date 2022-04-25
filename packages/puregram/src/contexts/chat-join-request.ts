@@ -21,7 +21,7 @@ class ChatJoinRequestContext extends Context {
   constructor(options: ChatJoinRequestContextParams) {
     super({
       telegram: options.telegram,
-      updateType: 'delete_chat_photo',
+      updateType: 'chat_join_request',
       updateId: options.updateId,
       update: options.update
     })

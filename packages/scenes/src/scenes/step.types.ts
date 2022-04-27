@@ -1,4 +1,4 @@
-import { ContextInterface } from '../types/types'
+import { ContextInterface } from '../types'
 
 import {
   SceneContext,

@@ -1,5 +1,4 @@
-import { Optional } from 'puregram/lib/types'
-import { SendMessageParams } from 'puregram/lib/methods'
+import { SendMessageParams } from 'puregram/generated'
 import { inspectable } from 'inspectable'
 
 import * as Types from './types'
@@ -12,7 +11,7 @@ export class PromptQuestion {
     return this.params.request.text
   }
 
-  get requestParams(): Optional<SendMessageParams, 'chat_id' | 'text'> {
+  get requestParams(): Types.Optional<SendMessageParams, 'chat_id' | 'text'> {
     return this.params.request.params ?? {}
   }
 

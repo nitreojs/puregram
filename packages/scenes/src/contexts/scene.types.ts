@@ -1,4 +1,4 @@
-import { ContextInterface } from '../types/types'
+import { ContextInterface } from '../types'
 import { SceneRepository } from '../scene-manager.types'
 
 export interface SceneContextOptions {

@@ -31,6 +31,8 @@
     "lib"
   ],
   "exports": {
+    "./types": "./lib/types/types",
+    "./enums": "./lib/types/enums",
     "./contexts": "./lib/contexts",
     "./keyboards": "./lib/common/keyboards",
     "./structures": "./lib/common/structures",

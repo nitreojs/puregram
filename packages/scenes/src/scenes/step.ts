@@ -15,9 +15,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
   slug: string
 
   private readonly steps: StepSceneHandler<T>[]
-
   private readonly onEnterHandler: NonNullable<StepSceneOptions<T>['enterHandler']>
-
   private readonly onLeaveHandler: NonNullable<StepSceneOptions<T>['leaveHandler']>
 
   constructor(slug: string, rawOptions: StepSceneOptions<T> | StepSceneHandler<T>[]) {

@@ -2,7 +2,7 @@
   "name": "puregram",
   "version": "2.5.1",
   "description": "Powerful and modern Telegram Bot API SDK for Node.js and TypeScript 😁",
-  "main": "lib/index",
+  "main": "./lib/index",
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
@@ -30,14 +30,40 @@
   "files": [
     "lib"
   ],
+  "exports": {
+    "./contexts": "./lib/contexts",
+    "./keyboards": "./lib/common/keyboards",
+    "./structures": "./lib/common/structures",
+    "./parse-mode": "./lib/common/parse-mode",
+    "./attachments": "./lib/common/attachments",
+    "./generated": "./lib/generated"
+  },
+  "typesVersions": {
+    "*": {
+      "contexts": [
+        "lib/contexts"
+      ],
+      "keyboard": [
+        "lib/common/keyboard"
+      ],
+      "structures": [
+        "lib/common/structures"
+      ],
+      "parse-mode": [
+        "lib/common/parse-mode"
+      ],
+      "attachments": [
+        "lib/common/attachments"
+      ],
+      "generated": [
+        "lib/generated"
+      ]
+    }
+  },
   "devDependencies": {
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.2",
-    "@types/node-fetch": "^2.6.1",
-    "@typescript-eslint/eslint-plugin": "^4.32.0",
-    "@typescript-eslint/parser": "^4.32.0",
     "common-tags": "^1.8.0",
-    "eslint-plugin-import": "^2.24.2",
     "jest": "^27.2.4",
     "ts-jest": "^27.0.5",
     "typedoc": "^0.22.5",

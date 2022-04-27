@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMessageId } from '../../telegram-interfaces'
+import { TelegramMessageId } from '../../generated/telegram-interfaces'
 
 /** This object represents a unique message identifier. */
 export class MessageId {

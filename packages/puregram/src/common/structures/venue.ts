@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramVenue } from '../../telegram-interfaces'
+import { TelegramVenue } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { Location } from './location'

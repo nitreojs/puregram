@@ -12,7 +12,7 @@ import {
   TelegramChatMemberUpdated,
   TelegramMessage,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import {
   SendAnimationParams,
@@ -33,7 +33,7 @@ import {
   SendVideoParams,
   SendVoiceParams,
   StopPollParams
-} from '../methods'
+} from '../generated/methods'
 
 import { Telegram } from '../telegram'
 

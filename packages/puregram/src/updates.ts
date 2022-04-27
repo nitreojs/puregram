@@ -15,9 +15,9 @@ import { Composer } from './common/structures/composer'
 import { User } from './common/structures/user'
 
 import { Telegram } from './telegram'
-import { GetUpdatesParams } from './methods'
+import { GetUpdatesParams } from './generated/methods'
+import { TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
 import { delay, parseRequestJSON } from './utils/helpers'
-import { TelegramUpdate, TelegramUser } from './telegram-interfaces'
 import { StartPollingOptions } from './interfaces'
 import { Constructor, UpdateName, MessageEventName } from './types'
 import { UpdateType } from './enums'
@@ -65,7 +65,7 @@ const rawEvents: [UpdateName, Constructor<any>][] = [
 type ContextConstructor = Constructor<Contexts.Context>
 type AllowArray<T> = T | T[]
 
-function makeContexts(): Record<string, ContextConstructor> {
+const makeContexts = () => {
   const contexts: Record<string, ContextConstructor> = {}
 
   for (const [event, UpdateContext] of rawEvents) {
@@ -75,7 +75,7 @@ function makeContexts(): Record<string, ContextConstructor> {
   return contexts
 }
 
-const events: Record<string, ContextConstructor> = makeContexts()
+const events = makeContexts()
 
 /** Updates class */
 export class Updates {

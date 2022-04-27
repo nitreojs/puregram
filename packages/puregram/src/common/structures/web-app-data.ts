@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramWebAppData } from '../../telegram-interfaces'
+import { TelegramWebAppData } from '../../generated/telegram-interfaces'
 
 /** Contains data sent from a Web App to the bot. */
 export class WebAppData {

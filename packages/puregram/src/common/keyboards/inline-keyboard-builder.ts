@@ -5,7 +5,7 @@ import {
   TelegramCallbackGame,
   TelegramLoginUrl,
   TelegramInlineKeyboardMarkup
-} from '../../telegram-interfaces'
+} from '../../generated/telegram-interfaces'
 
 interface TextButtonParams {
   text: string

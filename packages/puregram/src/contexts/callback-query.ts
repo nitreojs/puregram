@@ -5,10 +5,10 @@ import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { CallbackQuery } from '../updates/'
 
-import { TelegramCallbackQuery, TelegramUpdate } from '../telegram-interfaces'
+import { TelegramCallbackQuery, TelegramUpdate } from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { AnswerCallbackQueryParams } from '../methods'
+import { AnswerCallbackQueryParams } from '../generated/methods'
 
 import { Context } from './context'
 import { MessageContext } from './message'

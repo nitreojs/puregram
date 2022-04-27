@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatLocation } from '../../telegram-interfaces'
+import { TelegramChatLocation } from '../../generated/telegram-interfaces'
 
 import { Location } from './location'
 

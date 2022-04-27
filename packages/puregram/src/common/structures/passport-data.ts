@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPassportData, TelegramEncryptedPassportElement } from '../../telegram-interfaces'
+import { TelegramPassportData, TelegramEncryptedPassportElement } from '../../generated/telegram-interfaces'
 
 import { EncryptedPassportElement } from './encrypted-passport-element'
 import { EncryptedCredentials } from './encrypted-credentials'

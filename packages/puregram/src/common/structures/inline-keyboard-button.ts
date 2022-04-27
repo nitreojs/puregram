@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramInlineKeyboardButton } from '../../telegram-interfaces'
+import { TelegramInlineKeyboardButton } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { LoginUrl } from './login-url'

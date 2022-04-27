@@ -1,5 +1,4 @@
-import { TelegramUpdate } from './telegram-interfaces'
-import { ApiMethods } from './api-methods'
+import { TelegramUpdate, ApiMethods } from './generated'
 
 export type AllowArray<T> = T | T[]
 

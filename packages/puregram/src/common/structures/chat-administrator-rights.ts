@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatAdministratorRights } from '../../telegram-interfaces'
+import { TelegramChatAdministratorRights } from '../../generated/telegram-interfaces'
 
 /** Represents the rights of an administrator in a chat. */
 export class ChatAdministratorRights {

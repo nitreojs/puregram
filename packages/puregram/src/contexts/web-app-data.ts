@@ -26,7 +26,7 @@ import {
   EditMessageCaptionParams,
   EditMessageMediaParams,
   EditMessageReplyMarkupParams
-} from '../methods'
+} from '../generated/methods'
 
 import { Telegram } from '../telegram'
 
@@ -37,7 +37,7 @@ import {
   TelegramInputMedia,
   TelegramMessage,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import { Optional } from '../types'
 import { MediaInput } from '../media-source'

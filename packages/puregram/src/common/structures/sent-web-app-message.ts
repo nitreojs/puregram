@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramSentWebAppMessage } from '../../telegram-interfaces'
+import { TelegramSentWebAppMessage } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /** Contains information about an inline message sent by a Web App on behalf of a user. */

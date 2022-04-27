@@ -12,7 +12,7 @@ import {
   TelegramBotCommand,
   TelegramMessage,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 
@@ -35,7 +35,7 @@ import {
   SendChatActionParams,
   SendDocumentParams,
   AnswerShippingQueryParams
-} from '../methods'
+} from '../generated/methods'
 
 import { Optional } from '../types'
 import { MediaInput } from '../media-source'

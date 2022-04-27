@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatJoinRequest } from '../../telegram-interfaces'
+import { TelegramChatJoinRequest } from '../../generated/telegram-interfaces'
 
 import { Chat } from './chat'
 import { User } from './user'

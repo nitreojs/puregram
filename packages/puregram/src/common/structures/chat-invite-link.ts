@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatInviteLink } from '../../telegram-interfaces'
+import { TelegramChatInviteLink } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { User } from './user'

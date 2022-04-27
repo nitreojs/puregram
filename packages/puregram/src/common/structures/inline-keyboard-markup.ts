@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable'
 import {
   TelegramInlineKeyboardMarkup,
   TelegramInlineKeyboardButton
-} from '../../telegram-interfaces'
+} from '../../generated/telegram-interfaces'
 
 import { InlineKeyboardButton } from './inline-keyboard-button'
 

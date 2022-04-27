@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramDocument } from '../../telegram-interfaces'
+import { TelegramDocument } from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from '../structures/photo-size'
 

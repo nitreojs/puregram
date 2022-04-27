@@ -13,10 +13,10 @@ import {
   TelegramInlineQuery,
   TelegramInlineQueryResult,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { AnswerInlineQueryParams } from '../methods'
+import { AnswerInlineQueryParams } from '../generated/methods'
 
 interface InlineQueryContextOptions {
   telegram: Telegram

@@ -10,7 +10,7 @@ import {
   TelegramChosenInlineResult,
   TelegramMessage,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import { Optional } from '../types'
 
@@ -32,7 +32,7 @@ import {
   SendDiceParams,
   SendChatActionParams,
   SendDocumentParams
-} from '../methods'
+} from '../generated/methods'
 
 import { Poll, ChosenInlineResult } from '../updates/'
 import { BotCommand } from '../common/structures/bot-command'

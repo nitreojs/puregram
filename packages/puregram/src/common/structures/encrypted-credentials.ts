@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramEncryptedCredentials } from '../../telegram-interfaces'
+import { TelegramEncryptedCredentials } from '../../generated/telegram-interfaces'
 
 /**
  * Contains data required for decrypting and authenticatin

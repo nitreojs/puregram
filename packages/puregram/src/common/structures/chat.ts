@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable'
 
 import { Message } from '../../updates/message'
 import { filterPayload } from '../../utils/helpers'
-import { TelegramChat } from '../../telegram-interfaces'
+import { TelegramChat } from '../../generated/telegram-interfaces'
 
 import { ChatPhoto } from './chat-photo'
 import { ChatPermissions } from './chat-permissions'

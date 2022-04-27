@@ -16,7 +16,7 @@ import {
   TelegramInlineKeyboardMarkup,
   TelegramChat,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import {
   SendMessageParams,
@@ -43,7 +43,7 @@ import {
   SendInvoiceParams,
   SendDocumentParams,
   SendChatActionParams
-} from '../methods'
+} from '../generated/methods'
 
 import { Optional } from '../types'
 import { MediaInput } from '../media-source'

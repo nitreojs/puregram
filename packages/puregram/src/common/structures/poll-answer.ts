@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPollAnswer } from '../../telegram-interfaces'
+import { TelegramPollAnswer } from '../../generated/telegram-interfaces'
 
 import { User } from './user'
 

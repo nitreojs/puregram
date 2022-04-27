@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramVoice } from '../../telegram-interfaces'
+import { TelegramVoice } from '../../generated/telegram-interfaces'
 
 import { FileAttachment } from './file-attachment'
 

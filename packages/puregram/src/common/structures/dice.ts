@@ -1,7 +1,7 @@
 import { inspectable } from 'inspectable'
 
-import { SendDiceParams } from '../../methods'
-import { TelegramDice } from '../../telegram-interfaces'
+import { SendDiceParams } from '../../generated/methods'
+import { TelegramDice } from '../../generated/telegram-interfaces'
 
 /** This object represents an animated emoji that displays a random value. */
 export class Dice {

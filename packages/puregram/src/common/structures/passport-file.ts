@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPassportFile } from '../../telegram-interfaces'
+import { TelegramPassportFile } from '../../generated/telegram-interfaces'
 
 /**
  * This object represents a file uploaded to Telegram Passport.

@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramEncryptedPassportElement, TelegramPassportFile } from '../../telegram-interfaces'
+import { TelegramEncryptedPassportElement, TelegramPassportFile } from '../../generated/telegram-interfaces'
 
 import { filterPayload } from '../../utils/helpers'
 

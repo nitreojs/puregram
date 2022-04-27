@@ -1,6 +1,6 @@
 import { Agent } from 'undici'
 
-import { TelegramResponseParameters } from './telegram-interfaces'
+import { TelegramResponseParameters } from './generated/telegram-interfaces'
 
 export interface TelegramOptions {
   /** Bot's token */

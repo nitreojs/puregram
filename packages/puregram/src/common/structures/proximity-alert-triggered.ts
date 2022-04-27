@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramProximityAlertTriggered } from '../../telegram-interfaces'
+import { TelegramProximityAlertTriggered } from '../../generated/telegram-interfaces'
 
 import { User } from './user'
 

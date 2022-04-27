@@ -18,7 +18,7 @@ import {
   TelegramMessage,
   TelegramChat,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import {
   applyMixins,
@@ -60,7 +60,7 @@ import {
   SendVoiceParams,
   StopMessageLiveLocationParams,
   StopPollParams
-} from '../methods'
+} from '../generated/methods'
 
 import { Poll } from '../updates/'
 import { BotCommand } from '../common/structures/bot-command'

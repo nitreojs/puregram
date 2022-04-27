@@ -14,7 +14,7 @@ import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 import { Updates } from './updates'
 import { User } from './common/structures/user'
 import { APIError } from './errors'
-import { ApiMethods } from './api-methods'
+import { ApiMethods } from './generated'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
 import { MediaInput } from './media-source'
 

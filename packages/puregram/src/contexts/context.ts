@@ -1,7 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import { Telegram } from '../telegram'
-import { TelegramUpdate } from '../telegram-interfaces'
+import { TelegramUpdate } from '../generated/telegram-interfaces'
 import { UpdateName } from '../types'
 
 type AllowArray<T> = T | T[]

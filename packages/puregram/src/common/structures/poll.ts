@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../telegram-interfaces'
+import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { MessageEntity } from './message-entity'

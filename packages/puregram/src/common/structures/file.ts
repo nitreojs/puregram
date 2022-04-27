@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramFile } from '../../telegram-interfaces'
+import { TelegramFile } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 export class File {

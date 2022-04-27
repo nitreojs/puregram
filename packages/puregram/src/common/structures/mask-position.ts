@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMaskPosition } from '../../telegram-interfaces'
+import { TelegramMaskPosition } from '../../generated/telegram-interfaces'
 
 /**
  * This object describes the position on faces where a mask should be placed

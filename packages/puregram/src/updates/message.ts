@@ -5,7 +5,7 @@ import {
   TelegramMessageEntity,
   TelegramPhotoSize,
   TelegramUser
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import { User } from '../common/structures/user'
 import { Chat } from '../common/structures/chat'

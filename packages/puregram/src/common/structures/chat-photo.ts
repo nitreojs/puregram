@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatPhoto } from '../../telegram-interfaces'
+import { TelegramChatPhoto } from '../../generated/telegram-interfaces'
 
 /** This object represents a chat photo. */
 export class ChatPhoto {

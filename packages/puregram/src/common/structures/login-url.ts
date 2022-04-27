@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramLoginUrl } from '../../telegram-interfaces'
+import { TelegramLoginUrl } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /**

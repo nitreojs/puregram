@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMessageAutoDeleteTimerChanged } from '../../telegram-interfaces'
+import { TelegramMessageAutoDeleteTimerChanged } from '../../generated/telegram-interfaces'
 
 /** This object represents a service message about a change in auto-delete timer settings */
 export class MessageAutoDeleteTimerChanged {

@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramWebAppInfo } from '../../telegram-interfaces'
+import { TelegramWebAppInfo } from '../../generated/telegram-interfaces'
 
 /** Contains information about a Web App. */
 export class WebAppInfo {

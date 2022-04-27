@@ -3,11 +3,11 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 23.04.2022 21:53:06 MSK
+/// Generation date: 27.04.2022 17:05:22 MSK
 
 import { Readable } from 'stream' // INFO  for Interfaces.InputFile
 
-import { MediaInput } from './media-source'
+import { MediaInput } from '../media-source'
 
 import {
   Keyboard,
@@ -16,7 +16,7 @@ import {
   InlineKeyboard,
   ForceReply,
   RemoveKeyboard
-} from './common/keyboards'
+} from '../common/keyboards'
 
 /**
  * This [object](https://core.telegram.org/bots/api/#available-types) represents an incoming update.  

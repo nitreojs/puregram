@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMenuButton } from '../../telegram-interfaces'
+import { TelegramMenuButton } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { WebAppInfo } from './web-app-info'

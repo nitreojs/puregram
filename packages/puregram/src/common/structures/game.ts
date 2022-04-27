@@ -4,7 +4,7 @@ import {
   TelegramGame,
   TelegramPhotoSize,
   TelegramMessageEntity
-} from '../../telegram-interfaces'
+} from '../../generated/telegram-interfaces'
 
 import { AnimationAttachment } from '../attachments'
 import { filterPayload } from '../../utils/helpers'

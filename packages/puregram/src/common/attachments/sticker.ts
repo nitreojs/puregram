@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramSticker } from '../../telegram-interfaces'
+import { TelegramSticker } from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from '../structures/photo-size'
 import { MaskPosition } from '../structures/mask-position'

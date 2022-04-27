@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramSuccessfulPayment } from '../../telegram-interfaces'
+import { TelegramSuccessfulPayment } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { OrderInfo } from './order-info'

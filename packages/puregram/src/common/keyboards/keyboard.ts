@@ -4,7 +4,7 @@ import {
   TelegramKeyboardButton,
   TelegramPoll,
   TelegramReplyKeyboardMarkup
-} from '../../telegram-interfaces'
+} from '../../generated/telegram-interfaces'
 
 /** Keyboard */
 export class Keyboard {

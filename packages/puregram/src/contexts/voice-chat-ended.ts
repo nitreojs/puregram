@@ -17,7 +17,7 @@ import {
   TelegramMessage,
   TelegramChat,
   TelegramUpdate
-} from '../telegram-interfaces'
+} from '../generated/telegram-interfaces'
 
 import {
   SendMessageParams,
@@ -44,7 +44,7 @@ import {
   EditMessageMediaParams,
   EditMessageReplyMarkupParams,
   SendChatActionParams
-} from '../methods'
+} from '../generated/methods'
 
 import { Telegram } from '../telegram'
 

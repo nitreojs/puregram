@@ -295,7 +295,7 @@ class GenerationService {
     return stripIndent`
       import { Readable } from 'stream' // INFO  for Interfaces.InputFile
 
-      import { MediaInput } from './media-source'
+      import { MediaInput } from '../media-source'
 
       import {
         Keyboard,
@@ -304,16 +304,16 @@ class GenerationService {
         InlineKeyboard,
         ForceReply,
         RemoveKeyboard
-      } from './common/keyboards'
+      } from '../common/keyboards'
     `
   }
 
   static generateMethodsImports() {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces'
-      import { MediaInput } from './media-source'
 
-      import { MessageEntity } from './common/structures'
+      import { MediaInput } from '../media-source'
+      import { MessageEntity } from '../common/structures'
     `
   }
 
@@ -491,7 +491,7 @@ async function _generate(generateFiles: boolean = true) {
   /// FILES GENERATION ----------
 
   if (generateFiles) {
-    const mainPath: string = resolve(`${__dirname}/../../packages/puregram/src/`)
+    const mainPath: string = resolve(`${__dirname}/../../packages/puregram/src/generated/`)
 
     /// telegram-interfaces.ts
     let iHeader: string = GenerationService.loadString(header) +

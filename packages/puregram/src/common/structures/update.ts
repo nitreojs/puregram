@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramUpdate } from '../../telegram-interfaces'
+import { TelegramUpdate } from '../../generated/telegram-interfaces'
 
 import {
   Message,

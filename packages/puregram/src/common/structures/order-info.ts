@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramOrderInfo } from '../../telegram-interfaces'
+import { TelegramOrderInfo } from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { ShippingAddress } from './shipping-address'

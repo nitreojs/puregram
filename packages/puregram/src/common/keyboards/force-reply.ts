@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramForceReply } from '../../telegram-interfaces'
+import { TelegramForceReply } from '../../generated/telegram-interfaces'
 
 /** Force reply keyboard */
 export class ForceReply {

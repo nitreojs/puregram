@@ -9,7 +9,7 @@ import { Message } from '../updates/'
 import {
   AttachmentType as AttachmentTypeEnum,
   EntityType
-} from '../enums'
+} from '../types/enums'
 
 import {
   TelegramInputMedia,
@@ -31,7 +31,7 @@ import {
   MessageEventName,
   Optional,
   UpdateName
-} from '../types'
+} from '../types/types'
 
 import { EVENTS } from '../utils/constants'
 

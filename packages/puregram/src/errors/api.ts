@@ -1,5 +1,6 @@
 import { TelegramError } from './telegram'
-import { ApiResponseError } from '../interfaces'
+
+import { ApiResponseError } from '../types/interfaces'
 
 export class APIError extends TelegramError {
   parameters: ApiResponseError['parameters']

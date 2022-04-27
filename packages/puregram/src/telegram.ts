@@ -8,7 +8,7 @@ import { fileFromPath } from 'formdata-node/file-from-path'
 import { FormDataEncoder } from 'form-data-encoder'
 import createDebug from 'debug'
 
-import { TelegramOptions, ApiResponseUnion } from './interfaces'
+import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 
 import { Updates } from './updates'

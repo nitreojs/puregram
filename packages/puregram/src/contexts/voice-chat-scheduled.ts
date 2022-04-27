@@ -46,7 +46,7 @@ import {
 
 import { Telegram } from '../telegram'
 
-import { Optional } from '../types'
+import { Optional } from '../types/types'
 import { MediaInput } from '../media-source'
 
 import { Context } from './context'

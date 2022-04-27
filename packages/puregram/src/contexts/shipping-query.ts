@@ -37,7 +37,7 @@ import {
   AnswerShippingQueryParams
 } from '../generated/methods'
 
-import { Optional } from '../types'
+import { Optional } from '../types/types'
 import { MediaInput } from '../media-source'
 
 import { BotCommand } from '../common/structures/bot-command'

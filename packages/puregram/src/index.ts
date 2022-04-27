@@ -1,6 +1,6 @@
 export * from './telegram'
 export * from './contexts'
-export * from './enums'
+export * from './types/enums'
 export * from './common/parse-mode'
 export * from './common/keyboards'
 export * from './common/attachments'

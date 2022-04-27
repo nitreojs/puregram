@@ -37,7 +37,7 @@ import {
 
 import { Telegram } from '../telegram'
 
-import { Optional, UpdateName } from '../types'
+import { Optional, UpdateName } from '../types/types'
 import { MediaInput } from '../media-source'
 
 import { applyMixins } from '../utils/helpers'

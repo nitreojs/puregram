@@ -18,9 +18,9 @@ import { Telegram } from './telegram'
 import { GetUpdatesParams } from './generated/methods'
 import { TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
 import { delay, parseRequestJSON } from './utils/helpers'
-import { StartPollingOptions } from './interfaces'
-import { Constructor, UpdateName, MessageEventName } from './types'
-import { UpdateType } from './enums'
+import { StartPollingOptions } from './types/interfaces'
+import { Constructor, UpdateName, MessageEventName } from './types/types'
+import { UpdateType } from './types/enums'
 import { TelegramError } from './errors'
 
 const debug = createDebug('puregram:updates')

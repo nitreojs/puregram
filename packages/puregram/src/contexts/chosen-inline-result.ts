@@ -12,7 +12,7 @@ import {
   TelegramUpdate
 } from '../generated/telegram-interfaces'
 
-import { Optional } from '../types'
+import { Optional } from '../types/types'
 
 import {
   SendMessageParams,

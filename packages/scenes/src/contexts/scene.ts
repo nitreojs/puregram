@@ -1,4 +1,4 @@
-import { SessionContext } from '../types'
+import { SessionContext } from '../types/types'
 
 import {
   SceneContextOptions,

@@ -44,7 +44,7 @@ import {
   SendChatActionParams
 } from '../generated/methods'
 
-import { Optional } from '../types'
+import { Optional } from '../types/types'
 import { MediaInput } from '../media-source'
 
 import { Poll } from '../updates/'

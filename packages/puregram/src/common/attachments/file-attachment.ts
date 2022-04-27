@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { AttachmentType } from '../../types'
+import { AttachmentType } from '../../types/types'
 
 import { Attachment } from './attachment'
 

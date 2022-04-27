@@ -1,4 +1,4 @@
-import { ContextInterface } from '../types'
+import { ContextInterface } from '../types/types'
 
 export interface SceneInterface {
   /** The unique name of the scene */

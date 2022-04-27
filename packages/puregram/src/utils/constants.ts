@@ -1,9 +1,9 @@
 import { Agent } from 'undici'
 
-import { TelegramOptions } from '../interfaces'
+import { TelegramOptions } from '../types/interfaces'
 import { Message } from '../updates/'
 
-import { MessageEventName } from '../types'
+import { MessageEventName } from '../types/types'
 
 // @ts-expect-error
 import { version } from '../../package.json'

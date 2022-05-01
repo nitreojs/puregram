@@ -19,13 +19,11 @@
 </p>
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram/tree/lord/docs'><b>Docs</b></a>
-  <span>&nbsp;•&nbsp;</span>
   <a href='https://github.com/nitreojs/puregram/tree/lord/docs/examples'><b>Examples</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#typescript-usage'><b>TypeScript</b></a>
+  <a href='#typescript-usage'><b>TypeScript Usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>Channel</b></a>
+  <a href='https://t.me/puregram'><b>Telegram channel</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#faq'><b>FAQ</b></a>
 </div>
@@ -605,8 +603,8 @@ $ DEBUG=puregram:* node index
 
 Yeah, there are.
 
-| Language      | Link                                                |
-| ------------- | --------------------------------------------------- |
+| Language       | Link                                                |
+| -------------- | --------------------------------------------------- |
 | **Russian 🇷🇺** | [puregram chat [ru]](https://t.me/puregram_chat_ru) |
 | **English 🇬🇧** | [puregram chat [en]](https://t.me/puregram_chat_en) |
 

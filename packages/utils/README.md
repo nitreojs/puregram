@@ -7,11 +7,9 @@
 <div align='center'>
   <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#list-of-methods--getters'><b>Functions</b></a>
+  <a href='#list-of-utilities'><b>List of utilities</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>Channel</b></a>
-  <span>&nbsp;•&nbsp;</span>
-  <a href='https://github.com/nitreojs/puregram#faq'><b>FAQ</b></a>
+  <a href='https://t.me/puregram'><b>Telegram channel</b></a>
 </div>
 
 ## @puregram/utils
@@ -20,7 +18,7 @@ _Package, containing some useful utilities for `puregram` package_
 
 ### Introduction
 
-This package exists only for one main reason: basically not everyone wants to have such utils as `getCasinoValues` and `<insert one more here>` when installing `puregram`, so these functions were moved to separated package
+This package exists only for one main reason: basically not everyone wants to have such utils as `getCasinoValues` and `WebApp` class when installing `puregram`, so these functions were moved to separated package
 
 ### Example
 ```js

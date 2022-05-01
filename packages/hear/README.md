@@ -9,9 +9,7 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>TypeScript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>Channel</b></a>
-  <span>&nbsp;•&nbsp;</span>
-  <a href='https://github.com/nitreojs/puregram#faq'><b>FAQ</b></a>
+  <a href='https://t.me/puregram'><b>Telegram channel</b></a>
 </div>
 
 ## @puregram/hear

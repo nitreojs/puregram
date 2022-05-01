@@ -1,14 +1,15 @@
 import { inspectable } from 'inspectable'
 
+import * as Interfaces from '../generated/telegram-interfaces'
+
 import { Telegram } from '../telegram'
-import { TelegramUpdate } from '../generated/telegram-interfaces'
 import { UpdateName } from '../types/types'
 
 type AllowArray<T> = T | T[]
 
 interface ContextOptions {
   telegram: Telegram
-  update?: TelegramUpdate
+  update?: Interfaces.TelegramUpdate
   updateType: UpdateName
   updateId?: number
 }
@@ -16,7 +17,7 @@ interface ContextOptions {
 export class Context {
   telegram: Telegram
   updateId?: number
-  update?: TelegramUpdate
+  update?: Interfaces.TelegramUpdate
 
   protected updateType: UpdateName
 

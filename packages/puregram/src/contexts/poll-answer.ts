@@ -1,57 +1,27 @@
 import { inspectable } from 'inspectable'
 
-import { Context } from './context'
-import { MessageContext } from './message'
-
-import { applyMixins } from '../utils/helpers'
-import { Telegram } from '../telegram'
-
-import {
-  PollAnswer,
-  Poll
-} from '../updates/'
-
-import {
-  TelegramBotCommand,
-  TelegramPollAnswer,
-  TelegramMessage,
-  TelegramUpdate
-} from '../generated/telegram-interfaces'
-
-import {
-  SendMessageParams,
-  SendPhotoParams,
-  SendAudioParams,
-  SendVideoParams,
-  SendAnimationParams,
-  SendVideoNoteParams,
-  SendVoiceParams,
-  SendMediaGroupParams,
-  SendLocationParams,
-  SendVenueParams,
-  SendContactParams,
-  SendPollParams,
-  StopPollParams,
-  SendStickerParams,
-  SendDiceParams,
-  SendChatActionParams,
-  SendDocumentParams
-} from '../generated/methods'
+import * as Interfaces from '../generated/telegram-interfaces'
+import * as Methods from '../generated/methods'
+import { BotCommand } from '../common/structures'
 
 import { Optional } from '../types/types'
 import { MediaInput } from '../media-source'
+import { applyMixins } from '../utils/helpers'
+import { Telegram } from '../telegram'
+import { PollAnswer, Poll } from '../updates/'
 
-import { BotCommand } from '../common/structures/bot-command'
+import { Context } from './context'
+import { MessageContext } from './message'
 
 interface PollAnswerContextOptions {
   telegram: Telegram
-  update: TelegramUpdate
-  payload: TelegramPollAnswer
+  update: Interfaces.TelegramUpdate
+  payload: Interfaces.TelegramPollAnswer
   updateId: number
 }
 
 class PollAnswerContext extends Context {
-  payload: TelegramPollAnswer
+  payload: Interfaces.TelegramPollAnswer
 
   constructor(options: PollAnswerContextOptions) {
     super({
@@ -67,7 +37,7 @@ class PollAnswerContext extends Context {
   /** Sends message to current chat */
   async send(
     text: string,
-    params?: Optional<SendMessageParams, 'chat_id' | 'text'>
+    params?: Optional<Methods.SendMessageParams, 'chat_id' | 'text'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendMessage({
       chat_id: this.senderId,
@@ -84,7 +54,7 @@ class PollAnswerContext extends Context {
   /** Sends photo to current chat */
   async sendPhoto(
     photo: MediaInput,
-    params?: Optional<SendPhotoParams, 'chat_id' | 'photo'>
+    params?: Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPhoto({
       chat_id: this.senderId,
@@ -101,7 +71,7 @@ class PollAnswerContext extends Context {
   /** Sends document to current chat */
   async sendDocument(
     document: MediaInput,
-    params?: Optional<SendDocumentParams, 'chat_id' | 'document'>
+    params?: Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDocument({
       chat_id: this.senderId,
@@ -118,7 +88,7 @@ class PollAnswerContext extends Context {
   /** Sends audio to current chat */
   async sendAudio(
     audio: MediaInput,
-    params?: Optional<SendAudioParams, 'chat_id' | 'audio'>
+    params?: Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAudio({
       chat_id: this.senderId,
@@ -135,7 +105,7 @@ class PollAnswerContext extends Context {
   /** Sends video to current chat */
   async sendVideo(
     video: MediaInput,
-    params?: Optional<SendVideoParams, 'chat_id' | 'video'>
+    params?: Optional<Methods.SendVideoParams, 'chat_id' | 'video'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideo({
       chat_id: this.senderId,
@@ -152,7 +122,7 @@ class PollAnswerContext extends Context {
   /** Sends animation to current chat */
   async sendAnimation(
     animation: MediaInput,
-    params?: Optional<SendAnimationParams, 'chat_id' | 'animation'>
+    params?: Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendAnimation({
       chat_id: this.senderId,
@@ -169,7 +139,7 @@ class PollAnswerContext extends Context {
   /** Sends video note to current chat */
   async sendVideoNote(
     videoNote: MediaInput,
-    params?: Optional<SendVideoNoteParams, 'chat_id' | 'video_note'>
+    params?: Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVideoNote({
       chat_id: this.senderId,
@@ -186,7 +156,7 @@ class PollAnswerContext extends Context {
   /** Sends voice to current chat */
   async sendVoice(
     voice: MediaInput,
-    params?: Optional<SendVoiceParams, 'chat_id' | 'voice'>
+    params?: Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVoice({
       chat_id: this.senderId,
@@ -202,8 +172,8 @@ class PollAnswerContext extends Context {
 
   /** Sends media group to current chat */
   async sendMediaGroup(
-    mediaGroup: SendMediaGroupParams['media'],
-    params?: Partial<SendMediaGroupParams>
+    mediaGroup: Methods.SendMediaGroupParams['media'],
+    params?: Partial<Methods.SendMediaGroupParams>
   ): Promise<MessageContext[]> {
     const response = await this.telegram.api.sendMediaGroup({
       chat_id: this.senderId,
@@ -212,7 +182,7 @@ class PollAnswerContext extends Context {
     })
 
     return response.map(
-      (message: TelegramMessage) => new MessageContext({
+      (message: Interfaces.TelegramMessage) => new MessageContext({
         telegram: this.telegram,
         payload: message
       })
@@ -223,7 +193,7 @@ class PollAnswerContext extends Context {
   async sendLocation(
     latitude: number,
     longitude: number,
-    params?: Optional<SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
+    params?: Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendLocation({
       ...params,
@@ -240,7 +210,7 @@ class PollAnswerContext extends Context {
 
   /** Sends venue to current chat */
   async sendVenue(
-    params: Optional<SendVenueParams, 'chat_id'>
+    params: Optional<Methods.SendVenueParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendVenue({
       chat_id: this.senderId,
@@ -255,7 +225,7 @@ class PollAnswerContext extends Context {
 
   /** Sends contact to current chat */
   async sendContact(
-    params: Optional<SendContactParams, 'chat_id'>
+    params: Optional<Methods.SendContactParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendContact({
       chat_id: this.senderId,
@@ -270,7 +240,7 @@ class PollAnswerContext extends Context {
 
   /** Sends poll to current chat */
   async sendPoll(
-    params: Optional<SendPollParams, 'chat_id'>
+    params: Optional<Methods.SendPollParams, 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendPoll({
       chat_id: this.senderId,
@@ -286,7 +256,7 @@ class PollAnswerContext extends Context {
   /** Stops poll in current chat */
   async stopPoll(
     messageId: number,
-    params?: Partial<StopPollParams>
+    params?: Partial<Methods.StopPollParams>
   ): Promise<Poll> {
     const response = await this.telegram.api.stopPoll({
       chat_id: this.senderId,
@@ -299,8 +269,8 @@ class PollAnswerContext extends Context {
 
   /** Sends chat action to current chat */
   sendChatAction(
-    action: SendChatActionParams['action'],
-    params?: Optional<SendChatActionParams, 'chat_id'>
+    action: Methods.SendChatActionParams['action'],
+    params?: Optional<Methods.SendChatActionParams, 'chat_id'>
   ): Promise<true> {
     return this.telegram.api.sendChatAction({
       chat_id: this.senderId,
@@ -312,7 +282,7 @@ class PollAnswerContext extends Context {
   /** Sends sticker */
   async sendSticker(
     sticker: MediaInput,
-    params?: Optional<SendStickerParams, 'sticker' | 'chat_id'>
+    params?: Optional<Methods.SendStickerParams, 'sticker' | 'chat_id'>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendSticker({
       sticker,
@@ -328,8 +298,8 @@ class PollAnswerContext extends Context {
 
   /** Sends dice */
   async sendDice(
-    emoji: SendDiceParams['emoji'],
-    params?: Partial<SendDiceParams>
+    emoji: Methods.SendDiceParams['emoji'],
+    params?: Partial<Methods.SendDiceParams>
   ): Promise<MessageContext> {
     const response = await this.telegram.api.sendDice({
       emoji,
@@ -348,7 +318,7 @@ class PollAnswerContext extends Context {
     const response = await this.telegram.api.getMyCommands()
 
     return response.map(
-      (command: TelegramBotCommand) => new BotCommand(command)
+      (command: Interfaces.TelegramBotCommand) => new BotCommand(command)
     )
   }
 }

@@ -1,22 +1,22 @@
 import { inspectable } from 'inspectable'
 
-import { ChatJoinRequest } from '../common/structures/chat-join-request'
 import { applyMixins } from '../utils/helpers'
-
 import { Telegram } from '../telegram'
-import { TelegramChatJoinRequest, TelegramUpdate } from '../generated/telegram-interfaces'
+
+import * as Interfaces from '../generated/telegram-interfaces'
+import { ChatJoinRequest } from '../common/structures'
 
 import { Context } from './context'
 
 interface ChatJoinRequestContextParams {
   telegram: Telegram
-  update: TelegramUpdate
-  payload: TelegramChatJoinRequest
+  update: Interfaces.TelegramUpdate
+  payload: Interfaces.TelegramChatJoinRequest
   updateId: number
 }
 
 class ChatJoinRequestContext extends Context {
-  payload: TelegramChatJoinRequest
+  payload: Interfaces.TelegramChatJoinRequest
 
   constructor(options: ChatJoinRequestContextParams) {
     super({

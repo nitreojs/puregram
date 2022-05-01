@@ -5,24 +5,24 @@ import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { CallbackQuery } from '../updates/'
 
-import { TelegramCallbackQuery, TelegramUpdate } from '../generated/telegram-interfaces'
+import * as Interfaces from '../generated/telegram-interfaces'
+import * as Methods from '../generated/methods'
 
 import { Telegram } from '../telegram'
-import { AnswerCallbackQueryParams } from '../generated/methods'
 
 import { Context } from './context'
 import { MessageContext } from './message'
 
 interface CallbackQueryContextOptions {
   telegram: Telegram
-  update: TelegramUpdate
-  payload: TelegramCallbackQuery
+  update: Interfaces.TelegramUpdate
+  payload: Interfaces.TelegramCallbackQuery
   updateId: number
 }
 
 /** Called when `callback_query` event occurs */
 class CallbackQueryContext extends Context {
-  payload: TelegramCallbackQuery
+  payload: Interfaces.TelegramCallbackQuery
 
   constructor(options: CallbackQueryContextOptions) {
     super({
@@ -73,7 +73,7 @@ class CallbackQueryContext extends Context {
 
   /** Answers to current callback query */
   answerCallbackQuery(
-    params?: Partial<AnswerCallbackQueryParams>
+    params?: Partial<Methods.AnswerCallbackQueryParams>
   ): Promise<true> {
     return this.telegram.api.answerCallbackQuery({
       callback_query_id: this.id,

@@ -1,21 +1,22 @@
 import { inspectable } from 'inspectable'
 
-import { Context } from './context'
+import * as Interfaces from '../generated/telegram-interfaces'
 
-import { TelegramPoll, TelegramUpdate } from '../generated/telegram-interfaces'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { Poll } from '../updates/'
 
+import { Context } from './context'
+
 interface PollContextOptions {
   telegram: Telegram
-  update: TelegramUpdate
-  payload: TelegramPoll
+  update: Interfaces.TelegramUpdate
+  payload: Interfaces.TelegramPoll
   updateId: number
 }
 
 class PollContext extends Context {
-  payload: TelegramPoll
+  payload: Interfaces.TelegramPoll
 
   constructor(options: PollContextOptions) {
     super({

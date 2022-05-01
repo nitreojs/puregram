@@ -1,32 +1,23 @@
 import { inspectable } from 'inspectable'
 
-import { Context } from './context'
-
-import {
-  filterPayload,
-  applyMixins
-} from '../utils/helpers'
-
-import { InlineQuery } from '../updates/inline-query'
-
-import {
-  TelegramInlineQuery,
-  TelegramInlineQueryResult,
-  TelegramUpdate
-} from '../generated/telegram-interfaces'
+import * as Interfaces from '../generated/telegram-interfaces'
+import * as Methods from '../generated/methods'
 
 import { Telegram } from '../telegram'
-import { AnswerInlineQueryParams } from '../generated/methods'
+import { filterPayload, applyMixins } from '../utils/helpers'
+import { InlineQuery } from '../updates/inline-query'
+
+import { Context } from './context'
 
 interface InlineQueryContextOptions {
   telegram: Telegram
-  update: TelegramUpdate
-  payload: TelegramInlineQuery
+  update: Interfaces.TelegramUpdate
+  payload: Interfaces.TelegramInlineQuery
   updateId: number
 }
 
 class InlineQueryContext extends Context {
-  payload: TelegramInlineQuery
+  payload: Interfaces.TelegramInlineQuery
 
   constructor(options: InlineQueryContextOptions) {
     super({
@@ -41,8 +32,8 @@ class InlineQueryContext extends Context {
 
   /** Answers to inline query */
   answerInlineQuery(
-    results: TelegramInlineQueryResult[],
-    params?: Partial<AnswerInlineQueryParams>
+    results: Interfaces.TelegramInlineQueryResult[],
+    params?: Partial<Methods.AnswerInlineQueryParams>
   ): Promise<true> {
     return this.telegram.api.answerInlineQuery({
       inline_query_id: this.id,

@@ -41,7 +41,7 @@ export class Telegram {
   readonly api = new Proxy<ProxyAPIMethods>({} as ProxyAPIMethods, {
     get: (_target, method: string) => (
       (...args: any[]) => {
-        // INFO  `telegram.api.call(path: string, params?: Record<string, any>)`
+        // INFO: `telegram.api.call(path: string, params?: Record<string, any>)`
         if (method === 'call') {
           const path: string = args[0]
           const params: Record<string, any> = args[1] ?? {}
@@ -93,20 +93,20 @@ export class Telegram {
   private async createMediaInput(input: MediaInput): Promise<unknown> {
     const filename = input.filename ?? 'file.dat'
 
-    // INFO  creating [fs.ReadStream] from our path, returning that stream
+    // INFO: creating [fs.ReadStream] from our path, returning that stream
     if (input.type === 'path') {
       return fileFromPath(input.value, input.filename)
     }
 
-    // INFO  returning file ID itself since we can't do anything with it
+    // INFO: returning file ID itself since we can't do anything with it
     if (input.type === 'file_id') {
       return input.value
     }
 
-    // INFO  fetching that URL and creating an array buffer -> file, returning that file
-    // INFO  OR returning that URL right away
+    // INFO: fetching that URL and creating an array buffer -> file, returning that file
+    // INFO: OR returning that URL right away
     if (input.type === 'url') {
-      // INFO  fetching URL contents and uploading them directly to Bot API
+      // INFO: fetching URL contents and uploading them directly to Bot API
       if (input.forceUpload) {
         const url = input.value
 
@@ -124,11 +124,11 @@ export class Telegram {
         return file
       }
 
-      // INFO  ... or returning that URL right away =)
+      // INFO: ... or returning that URL right away =)
       return input.value
     }
 
-    // INFO  convert stream into buffer and return 'em
+    // INFO: convert stream into buffer and return 'em
     if (input.type === 'stream') {
       const buffer = await convertStreamToBuffer(input.value)
 
@@ -137,7 +137,7 @@ export class Telegram {
       return file
     }
 
-    // INFO  returning buffer converted into a file
+    // INFO: returning buffer converted into a file
     if (input.type === 'buffer') {
       const file = new File([input.value], filename)
 
@@ -152,13 +152,13 @@ export class Telegram {
   private async uploadMedia(params: Record<string, any>, entity: [string, string[]]): Promise<RequestInit> {
     const fd = new FormData()
 
-    // INFO  clears [params] object and keeps only media values from it
+    // INFO: clears [params] object and keeps only media values from it
     const mediaEntries = Object.entries(params).filter(
       ([key]) => entity[1].includes(key)
     )
 
     for (const [key, input] of mediaEntries) {
-      // INFO  we allow only [MediaInput] media values since [puregram@2.5.0]
+      // INFO: we allow only [MediaInput] media values since [puregram@2.5.0]
       if (!isMediaInput(input)) {
         throw new TypeError('expected media to be created via `MediaSource`')
       }
@@ -181,7 +181,7 @@ export class Telegram {
   private async createAttachMediaInput(params: APICreateAttachMediaInput) {
     const media = params.input[params.key] as MediaInput
 
-    // INFO  we allow only [MediaInput] media values since [puregram@2.5.0]
+    // INFO: we allow only [MediaInput] media values since [puregram@2.5.0]
     if (!isMediaInput(media)) {
       throw new TypeError('expected media to be created via `MediaSource`')
     }
@@ -208,7 +208,7 @@ export class Telegram {
 
       await this.createAttachMediaInput({ fd, input, key: 'media' })
 
-      // INFO  also there is a possibility that [thumb] property exists so
+      // INFO: also there is a possibility that [thumb] property exists so
       if (input.thumb !== undefined) {
         await this.createAttachMediaInput({ fd, input, key: 'thumb' })
       }
@@ -227,8 +227,8 @@ export class Telegram {
 
   /** Invokes Telegram Bot API `path` method [with `params`] */
   private async _callAPI(path: string, params: Record<string, any> = {}) {
-    // INFO  convert complex values in [params] into something readable
-    // INFO  note it will remove [Buffer] and [Readable] objects
+    // INFO: convert complex values in [params] into something readable
+    // INFO: note it will remove [Buffer] and [Readable] objects
     const decomplexified = decomplexify(params)
 
     const query = new URLSearchParams(decomplexified).toString()
@@ -247,9 +247,9 @@ export class Telegram {
       setGlobalDispatcher(this.options.agent)
     }
 
-    // INFO  ---- detecting media methods ----
+    // INFO: ---- detecting media methods ----
 
-    // INFO  [sendMediaGroup] and [editMessageMedia] requires special logic
+    // INFO: [sendMediaGroup] and [editMessageMedia] requires special logic
     if (['sendMediaGroup', 'editMessageMedia'].includes(path)) {
       const newInit = await this.uploadWithMedia(params)
 
@@ -264,13 +264,13 @@ export class Telegram {
         Object.keys(params).some(value => mediaEntity[1].includes(value))
       )
 
-      // INFO  if current [path] is a method with possible media properties
-      // INFO  and we have those media properties in our [params] (not [decomplexified]!) object
+      // INFO: if current [path] is a method with possible media properties
+      // INFO: and we have those media properties in our [params] (not [decomplexified]!) object
       if (hasMediaProperties) {
         const newInit = await this.uploadMedia(params, mediaEntity!)
 
         init = {
-          ...init,   // INFO  saving [signal] since we don't have access to it in [uploadMedia]
+          ...init,   // INFO: saving [signal] since we don't have access to it in [uploadMedia]
           ...newInit
         }
       }

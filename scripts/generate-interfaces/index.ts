@@ -293,7 +293,7 @@ class GenerationService {
 
   static generateInterfacesImports() {
     return stripIndent`
-      import { Readable } from 'stream' // INFO  for Interfaces.InputFile
+      import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
       import { MediaInput } from '../media-source'
 

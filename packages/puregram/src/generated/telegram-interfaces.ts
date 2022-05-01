@@ -5,7 +5,7 @@
 /// Based on Bot API v6.0.0, 16.04.2022
 /// Generation date: 27.04.2022 17:05:22 MSK
 
-import { Readable } from 'stream' // INFO  for Interfaces.InputFile
+import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
 import { MediaInput } from '../media-source'
 

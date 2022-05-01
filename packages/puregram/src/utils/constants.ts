@@ -57,7 +57,7 @@ export const METHODS_WITH_MEDIA: [string, string[]][] = [
   ['sendVideo', ['video', 'thumb']],
   ['sendAnimation', ['animation', 'thumb']],
   ['sendVideoNote', ['video_note', 'thumb']],
-  ['sendMediaGroup', ['media']], // INFO  needs special logic because of 'attach://<attachname>' stuff
+  ['sendMediaGroup', ['media']], // INFO: needs special logic because of 'attach://<attachname>' stuff
   ['sendSticker', ['sticker']],
   ['uploadStickerFile', ['png_sticker']],
   ['createNewStickerSet', ['png_sticker', 'tgs_sticker', 'webm_sticker']],

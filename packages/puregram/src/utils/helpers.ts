@@ -119,9 +119,9 @@ export const decomplexify = (obj: Record<string, any>) => {
   for (const [key, value] of Object.entries(obj)) {
     const valueType = typeof value
 
-    // INFO  skipping values that'll return [undefined] when serialized
-    // INFO  skipping [media] keys since they must include an array of [MediaInput]
-    // INFO  note that passing [BigInt] value (e.g. `1337n`) is still allowed but it will crash the app
+    // INFO: skipping values that'll return [undefined] when serialized
+    // INFO: skipping [media] keys since they must include an array of [MediaInput]
+    // INFO: note that passing [BigInt] value (e.g. `1337n`) is still allowed but it will crash the app
     if (
       value === null ||
       typesToSkip.includes(valueType) ||

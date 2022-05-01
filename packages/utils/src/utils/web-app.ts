@@ -74,11 +74,11 @@ export class WebApp {
     const data = WebApp.parseInitData(initData)
 
     const dataCheckString = (
-      Object.keys(data)                    // INFO  getting init data keys
-        .filter(key => key !== 'hash')     // INFO  removing `hash` from them
-        .sort()                            // INFO  sort them alphabetically
-        .map(key => key + '=' + data[key]) // INFO  transform into query-like string
-        .join('\n')                        // INFO  join it
+      Object.keys(data)                    // INFO: getting init data keys
+        .filter(key => key !== 'hash')     // INFO: removing `hash` from them
+        .sort()                            // INFO: sort them alphabetically
+        .map(key => key + '=' + data[key]) // INFO: transform into query-like string
+        .join('\n')                        // INFO: join it
     )
 
     const hash = (
@@ -95,7 +95,7 @@ export class WebApp {
   static async validate(params: WebAppValidateInitDataParams) {
     const { initData, key, token, throwError = false } = params
 
-    // INFO  either [key] or [token] must be provided
+    // INFO: either [key] or [token] must be provided
     if (key === undefined && token === undefined) {
       throw new TypeError('expected either a `key` or a `token`')
     }
@@ -103,7 +103,7 @@ export class WebApp {
     const data = WebApp.parseInitData(initData)
     const hash = data.hash
 
-    // INFO  I don't know if that's even possible but let's check for that
+    // INFO: I don't know if that's even possible but let's check for that
     if (data.hash === undefined) {
       throw new TypeError('`data.hash` not found')
     }

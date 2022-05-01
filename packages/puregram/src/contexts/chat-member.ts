@@ -8,7 +8,6 @@ import {
 
 import {
   TelegramBotCommand,
-  TelegramChat,
   TelegramChatMemberUpdated,
   TelegramMessage,
   TelegramUpdate

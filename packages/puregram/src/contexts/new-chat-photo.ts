@@ -14,7 +14,6 @@ import {
   TelegramInputMedia,
   TelegramInlineKeyboardMarkup,
   TelegramPhotoSize,
-  TelegramChat,
   TelegramUpdate
 } from '../generated/telegram-interfaces'
 

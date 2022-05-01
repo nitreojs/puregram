@@ -1,7 +1,6 @@
 import { IncomingMessage } from 'node:http'
 import { randomBytes } from 'node:crypto'
-import { Stream, PassThrough } from 'node:stream'
-import type { Readable, Writable } from 'node:stream'
+import { PassThrough, Readable } from 'node:stream'
 
 import { MediaInput } from '../media-source'
 

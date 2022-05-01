@@ -13,7 +13,6 @@ import {
   TelegramBotCommand,
   TelegramInlineKeyboardMarkup,
   TelegramMessage,
-  TelegramChat,
   TelegramUpdate
 } from '../generated/telegram-interfaces'
 

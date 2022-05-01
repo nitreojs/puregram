@@ -4,7 +4,7 @@ import { ChatJoinRequest } from '../common/structures/chat-join-request'
 import { applyMixins } from '../utils/helpers'
 
 import { Telegram } from '../telegram'
-import { TelegramChat, TelegramChatJoinRequest, TelegramUpdate } from '../generated/telegram-interfaces'
+import { TelegramChatJoinRequest, TelegramUpdate } from '../generated/telegram-interfaces'
 
 import { Context } from './context'
 

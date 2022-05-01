@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramForceReply } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** Force reply keyboard */
 export class ForceReply {
@@ -21,7 +21,7 @@ export class ForceReply {
     return this
   }
 
-  toJSON(): TelegramForceReply {
+  toJSON(): Interfaces.TelegramForceReply {
     return {
       force_reply: true,
       input_field_placeholder: this.placeholder,

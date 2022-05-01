@@ -1,11 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import {
-  TelegramInlineKeyboardButton,
-  TelegramCallbackGame,
-  TelegramLoginUrl,
-  TelegramInlineKeyboardMarkup
-} from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 interface TextButtonParams {
   text: string
@@ -36,7 +31,7 @@ interface SwitchToChatButtonParams {
 
 interface GameButtonParams {
   text: string
-  game: TelegramCallbackGame
+  game: Interfaces.TelegramCallbackGame
 }
 
 interface PayButtonParams {
@@ -45,12 +40,12 @@ interface PayButtonParams {
 
 interface LoginButtonParams {
   text: string
-  loginUrl: TelegramLoginUrl
+  loginUrl: Interfaces.TelegramLoginUrl
 }
 
 export class InlineKeyboardBuilder {
-  private rows: TelegramInlineKeyboardButton[][] = []
-  private currentRow: TelegramInlineKeyboardButton[] = []
+  private rows: Interfaces.TelegramInlineKeyboardButton[][] = []
+  private currentRow: Interfaces.TelegramInlineKeyboardButton[] = []
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -141,13 +136,13 @@ export class InlineKeyboardBuilder {
     return this
   }
 
-  private addButton(button: TelegramInlineKeyboardButton) {
+  private addButton(button: Interfaces.TelegramInlineKeyboardButton) {
     this.currentRow.push(button)
 
     return this
   }
 
-  private addWideButton(button: TelegramInlineKeyboardButton) {
+  private addWideButton(button: Interfaces.TelegramInlineKeyboardButton) {
     if (this.currentRow.length !== 0) {
       this.row()
     }
@@ -167,7 +162,7 @@ export class InlineKeyboardBuilder {
     return builder
   }
 
-  toJSON(): TelegramInlineKeyboardMarkup {
+  toJSON(): Interfaces.TelegramInlineKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
       : this.rows

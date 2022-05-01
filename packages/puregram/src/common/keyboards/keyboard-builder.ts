@@ -1,15 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import {
-  TelegramKeyboardButton,
-  TelegramPoll,
-  TelegramReplyKeyboardMarkup
-} from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** Keyboard builder */
 export class KeyboardBuilder {
-  private rows: TelegramKeyboardButton[][] = []
-  private currentRow: TelegramKeyboardButton[] = []
+  private rows: Interfaces.TelegramKeyboardButton[][] = []
+  private currentRow: Interfaces.TelegramKeyboardButton[] = []
 
   private isOneTime: boolean = false
   private isResized: boolean = false
@@ -47,7 +43,7 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  requestPollButton(text: string, type?: TelegramPoll['type']) {
+  requestPollButton(text: string, type?: Interfaces.TelegramPoll['type']) {
     return this.addWideButton({
       text,
       request_poll: { type }
@@ -120,13 +116,13 @@ export class KeyboardBuilder {
     return this
   }
 
-  private addButton(button: TelegramKeyboardButton) {
+  private addButton(button: Interfaces.TelegramKeyboardButton) {
     this.currentRow.push(button)
 
     return this
   }
 
-  private addWideButton(button: TelegramKeyboardButton) {
+  private addWideButton(button: Interfaces.TelegramKeyboardButton) {
     if (this.currentRow.length !== 0) this.row()
 
     this.addButton(button)
@@ -152,7 +148,7 @@ export class KeyboardBuilder {
     return builder
   }
 
-  toJSON(): TelegramReplyKeyboardMarkup {
+  toJSON(): Interfaces.TelegramReplyKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
       : this.rows

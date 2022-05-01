@@ -1,11 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import {
-  TelegramInlineKeyboardButton,
-  TelegramCallbackGame,
-  TelegramLoginUrl,
-  TelegramInlineKeyboardMarkup
-} from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 interface TextButtonParams {
   text: string
@@ -37,7 +32,7 @@ interface SwitchToChatButtonParams {
 
 interface GameButtonParams {
   text: string
-  game: TelegramCallbackGame
+  game: Interfaces.TelegramCallbackGame
 }
 
 interface PayButtonParams {
@@ -46,12 +41,12 @@ interface PayButtonParams {
 
 interface LoginButtonParams {
   text: string
-  loginUrl: TelegramLoginUrl
+  loginUrl: Interfaces.TelegramLoginUrl
 }
 
 /** Inline keyboard */
 export class InlineKeyboard {
-  private buttons: TelegramInlineKeyboardButton[][] = []
+  private buttons: Interfaces.TelegramInlineKeyboardButton[][] = []
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -59,7 +54,7 @@ export class InlineKeyboard {
 
   /** Assemble a builder of buttons */
   static keyboard(
-    rows: (TelegramInlineKeyboardButton | TelegramInlineKeyboardButton[])[]
+    rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[]
   ): InlineKeyboard {
     const inlineKeyboard = new InlineKeyboard()
 
@@ -71,7 +66,7 @@ export class InlineKeyboard {
   }
 
   /** Generate text button */
-  static textButton(params: TextButtonParams): TelegramInlineKeyboardButton {
+  static textButton(params: TextButtonParams): Interfaces.TelegramInlineKeyboardButton {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -83,7 +78,7 @@ export class InlineKeyboard {
   }
 
   /** Generate URL button */
-  static urlButton(params: UrlButtonParams): TelegramInlineKeyboardButton {
+  static urlButton(params: UrlButtonParams): Interfaces.TelegramInlineKeyboardButton {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -96,7 +91,7 @@ export class InlineKeyboard {
   }
 
   /** Generate Web App button */
-  static webAppButton(params: WebAppButtonParams): TelegramInlineKeyboardButton {
+  static webAppButton(params: WebAppButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
       text: params.text,
       web_app: { url: params.url }
@@ -106,7 +101,7 @@ export class InlineKeyboard {
   /** Generate button that will switch to current chat and type the query */
   static switchToCurrentChatButton(
     params: SwitchToCurrentChatButtonParams
-  ): TelegramInlineKeyboardButton {
+  ): Interfaces.TelegramInlineKeyboardButton {
     return {
       text: params.text,
       switch_inline_query_current_chat: params.query
@@ -116,7 +111,7 @@ export class InlineKeyboard {
   /** Generate button that will prompt user to select one of their chats */
   static switchToChatButton(
     params: SwitchToChatButtonParams
-  ): TelegramInlineKeyboardButton {
+  ): Interfaces.TelegramInlineKeyboardButton {
     return {
       text: params.text,
       switch_inline_query: params.query
@@ -124,7 +119,7 @@ export class InlineKeyboard {
   }
 
   /** Generate game button */
-  static gameButton(params: GameButtonParams): TelegramInlineKeyboardButton {
+  static gameButton(params: GameButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
       text: params.text,
       callback_game: params.game
@@ -132,7 +127,7 @@ export class InlineKeyboard {
   }
 
   /** Generate pay button */
-  static payButton(params: PayButtonParams): TelegramInlineKeyboardButton {
+  static payButton(params: PayButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
       pay: true,
       text: params.text
@@ -140,14 +135,14 @@ export class InlineKeyboard {
   }
 
   /** Generate login button */
-  static loginButton(params: LoginButtonParams): TelegramInlineKeyboardButton {
+  static loginButton(params: LoginButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
       login_url: params.loginUrl,
       text: params.text
     }
   }
 
-  private addRow(row: TelegramInlineKeyboardButton[] | TelegramInlineKeyboardButton) {
+  private addRow(row: Interfaces.TelegramInlineKeyboardButton[] | Interfaces.TelegramInlineKeyboardButton) {
     if (!Array.isArray(row)) row = [row]
 
     this.buttons.push(row)
@@ -155,7 +150,7 @@ export class InlineKeyboard {
     return this
   }
 
-  toJSON(): TelegramInlineKeyboardMarkup {
+  toJSON(): Interfaces.TelegramInlineKeyboardMarkup {
     return {
       inline_keyboard: this.buttons
     }

@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable'
 
 import { TelegramAudio } from '../../generated/telegram-interfaces'
 
-import { PhotoSize } from '../structures/photo-size'
+import { PhotoSize } from '../structures'
 
 import { FileAttachment } from './file-attachment'
 

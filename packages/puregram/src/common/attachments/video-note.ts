@@ -1,9 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { FileAttachment } from './file-attachment'
-
 import { TelegramVideoNote } from '../../generated/telegram-interfaces'
-import { PhotoSize } from '../structures/photo-size'
+
+import { PhotoSize } from '../structures'
+
+import { FileAttachment } from './file-attachment'
 
 /** This object represents a video message. */
 export class VideoNoteAttachment extends FileAttachment<TelegramVideoNote> {

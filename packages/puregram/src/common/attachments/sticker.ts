@@ -2,8 +2,7 @@ import { inspectable } from 'inspectable'
 
 import { TelegramSticker } from '../../generated/telegram-interfaces'
 
-import { PhotoSize } from '../structures/photo-size'
-import { MaskPosition } from '../structures/mask-position'
+import { PhotoSize, MaskPosition } from '../structures'
 
 import { FileAttachment } from './file-attachment'
 

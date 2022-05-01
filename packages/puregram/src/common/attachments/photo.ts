@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { PhotoSize } from '../structures/photo-size'
+import { PhotoSize } from '../structures'
 
 import { Attachment } from './attachment'
 

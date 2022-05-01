@@ -33,34 +33,33 @@
   "exports": {
     "./types": "./lib/types/types",
     "./enums": "./lib/types/enums",
-    "./contexts": "./lib/contexts",
-    "./keyboards": "./lib/common/keyboards",
-    "./structures": "./lib/common/structures",
-    "./parse-mode": "./lib/common/parse-mode",
-    "./attachments": "./lib/common/attachments",
-    "./generated": "./lib/generated"
-  },
-  "typesVersions": {
-    "*": {
-      "contexts": [
-        "lib/contexts"
-      ],
-      "keyboard": [
-        "lib/common/keyboard"
-      ],
-      "structures": [
-        "lib/common/structures"
-      ],
-      "parse-mode": [
-        "lib/common/parse-mode"
-      ],
-      "attachments": [
-        "lib/common/attachments"
-      ],
-      "generated": [
-        "lib/generated"
-      ]
-    }
+    "./contexts": {
+      "default": "./lib/contexts",
+      "types": "./lib/contexts"
+    },
+    "./keyboards": {
+      "default": "./lib/common/keyboards",
+      "types": "./lib/common/keyboards"
+    },
+    "./structures": {
+      "default": "./lib/common/structures",
+      "types": "./lib/common/structures"
+    },
+    "./parse-mode": {
+      "default": "./lib/common/parse-mode",
+      "types": "./lib/common/parse-mode"
+    },
+    "./attachments": {
+      "default": "./lib/common/attachments",
+      "types": "./lib/common/attachments"
+    },
+    "./generated": {
+      "default": "./lib/generated",
+      "types": "./lib/generated"
+    },
+    "./generated/api-methods": "./lib/generated/api-methods",
+    "./generated/methods": "./lib/generated/methods",
+    "./generated/telegram-interfaces": "./lib/generated/telegram-interfaces"
   },
   "devDependencies": {
     "@types/debug": "^4.1.7",

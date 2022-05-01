@@ -1,27 +1,27 @@
-import { Telegram } from 'puregram';
-import { HearManager } from '@puregram/hear';
+import { Telegram } from 'puregram'
+import { HearManager } from '@puregram/hear'
 
 const telegram = new Telegram({
   token: process.env.TOKEN
-});
+})
 
-const hearManager = new HearManager();
+const hearManager = new HearManager()
 
 // Telling puregram that we are handling hearManager
 // on `message` update
-telegram.updates.on('message', hearManager.middleware);
+telegram.updates.on('message', hearManager.middleware)
 
 // Strict string, triggers only on exact same string
 hearManager.hear(
   '/strict',
   (context) => context.send('Triggered by a strict string')
-);
+)
 
 // Regular expression
 hearManager.hear(
   /^\/regexp$/i,
   (context) => context.send('Triggered by a regexp')
-);
+)
 
 // Function
 hearManager.hear(
@@ -30,7 +30,7 @@ hearManager.hear(
     'Triggered only if text is "/function" ' +
     'or senderId is 123'
   )
-);
+)
 
 /// Object notations:
 
@@ -45,7 +45,7 @@ hearManager.hear(
     'Triggered only if text is equal to "/test" ' +
     'and it is private messages'
   )
-);
+)
 
 // 2. Regexp
 hearManager.hear(
@@ -58,7 +58,7 @@ hearManager.hear(
     'Triggered if both text has "test" in it ' +
     'and senderId is 1337'
   )
-);
+)
 
 // 3. Array with callback or regexp in it
 hearManager.hear(
@@ -70,7 +70,7 @@ hearManager.hear(
     'Triggered only if senderId is 1, ' +
     'starts with 2, or equals to 3'
   )
-);
+)
 
 // 4. Nested properties
 // * context.session = { action: 'test' }
@@ -82,14 +82,14 @@ hearManager.hear(
   (context) => context.send(
     'Triggered only if session.action is "test"'
   )
-);
+)
 
 // Triggered when no other hears triggered
 hearManager.onFallback(
   (context) => context.send('Command not found.')
-);
+)
 
 telegram.updates.startPolling().then(
   () => console.log(`Started polling @${telegram.bot.username}`)
-).catch(console.error);
+).catch(console.error)
 

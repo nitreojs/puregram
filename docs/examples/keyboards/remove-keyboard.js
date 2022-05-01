@@ -1,18 +1,16 @@
 // https://core.telegram.org/bots/api#replykeyboardremove
 
-import { Telegram, RemoveKeyboard } from 'puregram';
+import { Telegram, RemoveKeyboard } from 'puregram'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
-telegram.updates.on('message', (context) => {
-  return context.send('If there was a default keyboard under the input, I will remove it now!', {
+telegram.updates.on('message', (context) => (
+  context.send('If there was a default keyboard under the input, it\'d be removed it now!', {
     reply_markup: new RemoveKeyboard,
     parse_mode: 'Markdown'
-  });
-});
+  })
+))
 
 telegram.updates.startPolling().then(
   () => console.log(`Bot @${telegram.bot.username} started polling`)
-).catch(console.error);
+).catch(console.error)

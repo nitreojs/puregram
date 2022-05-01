@@ -1,25 +1,25 @@
-import { Telegram } from 'puregram';
-import { SessionManager } from '@puregram/session';
+import { Telegram } from 'puregram'
+import { SessionManager } from '@puregram/session'
 
 const telegram = new Telegram({
   token: process.env.TOKEN
-});
+})
 
-const sessionManager = new SessionManager();
+const sessionManager = new SessionManager()
 
-telegram.updates.on('message', sessionManager.middleware);
+telegram.updates.on('message', sessionManager.middleware)
 
 telegram.updates.on('message', (context) => {
   if (!context.session.counter) {
-    context.session.counter = 0;
+    context.session.counter = 0
   }
 
-  context.session.counter += 1;
+  context.session.counter += 1
 
-  return context.send(`Counter: *${context.session.counter}*`, { parse_mode: 'Markdown' });
-});
+  return context.send(`Counter: *${context.session.counter}*`, { parse_mode: 'Markdown' })
+})
 
 telegram.updates.startPolling().then(
   () => console.log(`Started polling @${telegram.bot.username}`)
-).catch(console.error);
+).catch(console.error)
 

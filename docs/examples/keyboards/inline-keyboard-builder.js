@@ -1,8 +1,6 @@
-import { Telegram, InlineKeyboardBuilder } from 'puregram';
+import { Telegram, InlineKeyboardBuilder } from 'puregram'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
   const keyboard = new InlineKeyboardBuilder()
@@ -32,14 +30,14 @@ telegram.updates.on('message', (context) => {
     .switchToChatButton({
       text: 'Switch to chat button',
       query: 'Test tost'
-    });
+    })
 
   return context.send('Sending you an inline-keyboard using `InlineKeyboardBuilder`!', {
     reply_markup: keyboard,
     parse_mode: 'Markdown'
-  });
-});
+  })
+})
 
 telegram.updates.startPolling().then(
   () => console.log(`Bot @${telegram.bot.username} started polling`)
-).catch(console.error);
+).catch(console.error)

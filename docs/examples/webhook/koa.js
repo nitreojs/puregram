@@ -1,25 +1,20 @@
-import Koa from 'koa';
-import koaBody from 'koa-body';
+import Koa from 'koa'
+import koaBody from 'koa-body'
 
-import { Telegram } from 'puregram';
+import { Telegram } from 'puregram'
 
-const telegram = new Telegram({ token: process.env.TOKEN });
-const app = new Koa();
+const telegram = new Telegram({ token: process.env.TOKEN })
+const app = new Koa()
 
-app.use(koaBody()); // <-- IMPORTANT
-app.use(telegram.updates.getKoaMiddleware());
+app.use(koaBody()) // <-- IMPORTANT
+app.use(telegram.updates.getKoaMiddleware())
 
 // Also, you will need to call setWebhook at least once:
-telegram.api.setWebhook({
-  url: process.env.WEBHOOK_URL
-});
+// telegram.api.setWebhook({ url: process.env.WEBHOOK_URL })
 
-telegram.updates.on(
-  'message',
-  (context) => context.send('Handled message via koa')
-);
+telegram.updates.on('message', context => context.send('Handled message via koa'))
 
 // Remember that Telegram supports only these ports for Webhook:
 // 443, 80, 88, 8443
 // https://core.telegram.org/bots/api#setwebhook
-app.listen(8443, () => console.log('Started'));
+app.listen(8443, () => console.log('Started'))

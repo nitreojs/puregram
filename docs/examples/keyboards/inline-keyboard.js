@@ -1,8 +1,6 @@
-import { Telegram, InlineKeyboard } from 'puregram';
+import { Telegram, InlineKeyboard } from 'puregram'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
   const keyboard = InlineKeyboard.keyboard([
@@ -43,14 +41,14 @@ telegram.updates.on('message', (context) => {
         query: 'Test tost'
       })
     ]
-  ]);
+  ])
 
   return context.send('Sending you an inline-keyboard using `InlineKeyboard`!', {
     reply_markup: keyboard,
     parse_mode: 'Markdown'
-  });
-});
+  })
+})
 
 telegram.updates.startPolling().then(
   () => console.log(`Bot @${telegram.bot.username} started polling`)
-).catch(console.error);
+).catch(console.error)

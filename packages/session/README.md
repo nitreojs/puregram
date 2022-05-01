@@ -7,20 +7,21 @@
 <div align='center'>
   <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#typescript-usage'><b>TypeScript usage</b></a>
+  <a href='#typescript-usage'><b>typescript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>Telegram channel</b></a>
+  <a href='https://t.me/puregram'><b>telegram channel</b></a>
 </div>
 
 ## @puregram/session
 
-_Simple implementation of sessions for `puregram` package_
+_simple implementation of sessions for `puregram` package_
 
-### Introduction
+### introduction
 
-With `@puregram/session` you can set up your own session for each active user and store some data in it
+with `@puregram/session` you can set up your own session for each active user and store some data in it
 
 ### Example
+
 ```js
 const { Telegram } = require('puregram')
 const { SessionManager } = require('@puregram/session')
@@ -38,13 +39,13 @@ telegram.updates.on('message', (context) => {
 
   session.counter += 1
 
-  return context.send(`You called the bot ${session.counter} times!`)
+  return context.send(`you called the bot ${session.counter} times!`)
 })
 
 telegram.updates.startPolling()
 ```
 
-### Installation
+### installation
 
 ```sh
 $ yarn add @puregram/session
@@ -53,9 +54,9 @@ $ npm i -S @puregram/session
 
 ---
 
-## TypeScript usage
+## typescript usage
 
-You can extend `getStorageKey`'s `ContextInterface` by providing extra data interface into `SessionManager<T>`:
+you can extend `getStorageKey`'s `ContextInterface` by providing extra data interface into `SessionManager<T>`:
 
 ```ts
 import { SessionManager } from '@puregram/session'

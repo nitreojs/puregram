@@ -7,20 +7,21 @@
 <div align='center'>
   <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#typescript-usage'><b>TypeScript usage</b></a>
+  <a href='#typescript-usage'><b>typescript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>Telegram channel</b></a>
+  <a href='https://t.me/puregram'><b>telegram channel</b></a>
 </div>
 
 ## @puregram/hear
 
-_Simple implementation of hearing messages system for `puregram` package_
+_simple implementation of hearing messages system for `puregram` package_
 
-### Introduction
+### introduction
 
 `@puregram/hear` listens for every message that has `text` or `caption` property in it and checks if provided conditions coincides with the `text`/`caption` property
 
-### Example
+### example
+
 ```js
 const { Telegram } = require('puregram')
 const { HearManager } = require('@puregram/hear')
@@ -31,12 +32,12 @@ const hearManager = new HearManager()
 
 telegram.updates.on('message', hearManager.middleware)
 
-hearManager.hear(/^hello$/i, context => context.send('Hello, World!'))
+hearManager.hear(/^hello$/i, context => context.send('hello world!'))
 
 telegram.updates.startPolling()
 ```
 
-### Installation
+### installation
 
 ```sh
 $ yarn add @puregram/hear
@@ -45,9 +46,9 @@ $ npm i -S @puregram/hear
 
 ---
 
-## TypeScript usage
+## typescript usage
 
-In TypeScript, you kinda have to manually point `@puregram/hear` what context will be used as default by providing it in `HearManager<T>`:
+in typescript, you kinda have to manually point `@puregram/hear` what context will be used as default by providing it in `HearManager<T>`:
 
 ```ts
 import { Telegram, MessageContext } from 'puregram'
@@ -58,7 +59,7 @@ const telegram = Telegram.fromToken(process.env.TOKEN)
 const hearManager = new HearManager<MessageContext>()
 ```
 
-Of course, you can override that later by pointing new context in `hear<T>` method:
+of course, you can override that later by pointing new context in `hear<T>` method:
 
 ```ts
 import { CallbackQueryContext } from 'puregram'

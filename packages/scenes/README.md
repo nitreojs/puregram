@@ -7,22 +7,23 @@
 <div align='center'>
   <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#typescript-usage'><b>TypeScript usage</b></a>
+  <a href='#typescript-usage'><b>typescript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#list-of-methods--getters'><b>Methods & getters</b></a>
+  <a href='#list-of-methods--getters'><b>methods & getters</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>Telegram channel</b></a>
+  <a href='https://t.me/puregram'><b>telegram channel</b></a>
 </div>
 
 ## @puregram/scenes
 
-_Simple implementation of middleware-based scene management for `puregram` package_
+_simple implementation of middleware-based scene management for `puregram` package_
 
-### Introduction
+### introduction
 
 `@puregram/scenes` helps you to organize step-by-step handler by providing you needed classes and methods
 
-### Example
+### example
+
 ```js
 const { Telegram } = require('puregram')
 
@@ -38,7 +39,7 @@ const sceneManager = new SceneManager()
 telegram.updates.on('message', sessionManager.middleware)
 
 telegram.updates.on('message', sceneManager.middleware)
-telegram.updates.on('message', sceneManager.middlewareIntercept); // Default scene entry handler
+telegram.updates.on('message', sceneManager.middlewareIntercept) // default scene entry handler
 
 telegram.updates.on('message', (context) => {
   if (/^\/signup$/i.test(context.text)) {
@@ -50,7 +51,7 @@ sceneManager.addScenes([
   new StepScene('signup', [
     (context) => {
       if (context.scene.step.firstTime || !context.hasText) {
-        return context.send('What\'s your name?')
+        return context.send('what\'s your name?')
       }
 
       context.scene.state.firstName = context.text
@@ -60,7 +61,7 @@ sceneManager.addScenes([
 
     (context) => {
       if (context.scene.step.firstTime || !context.hasText) {
-        return context.send('How old are you?')
+        return context.send('how old are you?')
       }
 
       context.scene.state.age = Number.parseInt(context.text, 10)
@@ -71,9 +72,9 @@ sceneManager.addScenes([
     async (context) => {
       const { firstName, age } = context.scene.state
 
-      await context.send(`You are ${firstName} ${age} years old!`)
+      await context.send(`you are ${firstName} ${age} years old!`)
 
-      // Automatic exit, since this is the last scene
+      // automatic exit since this is the last scene
       return context.scene.step.next()
     }
   ])
@@ -82,7 +83,7 @@ sceneManager.addScenes([
 telegram.updates.startPolling()
 ```
 
-### Installation
+### installation
 
 ```sh
 $ yarn add @puregram/scenes
@@ -91,9 +92,9 @@ $ npm i -S @puregram/scenes
 
 ---
 
-## TypeScript usage
+## typescript usage
 
-You can tell `@puregram/scenes` about actual context type by providing it in the `StepScene<T>`:
+you can tell `@puregram/scenes` about actual context type by providing it in the `StepScene<T>`:
 
 ```ts
 import { CallbackQueryContext } from 'puregram'
@@ -101,7 +102,7 @@ import { CallbackQueryContext } from 'puregram'
 new StepScene<CallbackQueryContext>('foo', [])
 ```
 
-Also, you can change context type on the fly simply by providing new type to the `context` variable:
+also, you can change context type on the fly simply by providing new type to the `context` variable:
 
 ```ts
 import { CallbackQueryContext, MessageContext } from 'puregram'
@@ -114,21 +115,21 @@ new StepScene('bar', [
 
 ---
 
-## List of methods & getters
+## list of methods & getters
 
 ### `context.scene`
 
 #### `step`
 
-_Returns_: `SceneInterface | undefined`
+_returns_: `SceneInterface | undefined`
 
-Returns current scene step
+returns current scene step
 
 #### `enter(slug, options?)`
 
-_Returns_: `Promise<void>`
+_returns_: `Promise<void>`
 
-Enters to another scene by `slug`
+enters to another scene by `slug`
 
 ```js
 context.scene.enter('signup')
@@ -136,9 +137,9 @@ context.scene.enter('signup')
 
 #### `leave(options?)`
 
-_Returns_: `Promise<void>`
+_returns_: `Promise<void>`
 
-Leaves from current scene
+leaves from current scene
 
 ```js
 context.scene.leave()
@@ -146,9 +147,9 @@ context.scene.leave()
 
 #### `reenter()`
 
-_Returns_: `Promise<void>`
+_returns_: `Promise<void>`
 
-Reenters into current scene
+reenters into current scene
 
 ```js
 context.scene.reenter()
@@ -156,17 +157,17 @@ context.scene.reenter()
 
 #### `reset()`
 
-_Returns_: `void`
+_returns_: `void`
 
-Resets current scene (deletes it)
+resets current scene (deletes it)
 
 ### `context.scene.step`
 
 #### `firstTime`
 
-_Returns_: `boolean`
+_returns_: `boolean`
 
-Returns `true` if this entry is the first entry in this scene
+returns `true` if this entry is the first entry in this scene
 
 ```js
 if (context.scene.step.firstTime) { /* ... */ }
@@ -174,21 +175,21 @@ if (context.scene.step.firstTime) { /* ... */ }
 
 #### `stepId`
 
-_Returns_: `number`
+_returns_: `number`
 
-Returns current step ID
+returns current step ID
 
 #### `current`
 
-_Returns_: `StepSceneHandler | undefined`
+_returns_: `StepSceneHandler | undefined`
 
-Returns current step handler
+returns current step handler
 
 #### `reenter()`
 
-_Returns_: `Promise<void>`
+_returns_: `Promise<void>`
 
-Reenters into current step handler
+reenters into current step handler
 
 ```js
 if (value.invalid) {
@@ -198,9 +199,9 @@ if (value.invalid) {
 
 #### `go(stepId, options?)`
 
-_Returns_: `Promise<void>`
+_returns_: `Promise<void>`
 
-Goes to a specific step by `stepId`
+goes to a specific step by `stepId`
 
 ```js
 context.scene.step.go(0)
@@ -208,9 +209,9 @@ context.scene.step.go(0)
 
 #### `next(options?)`
 
-_Returns_: `Promise<void>`
+_returns_: `Promise<void>`
 
-Goes to the next step
+goes to the next step
 
 ```js
 context.scene.step.next()
@@ -218,9 +219,9 @@ context.scene.step.next()
 
 #### `previous(options?)`
 
-_Returns_: `Promise<void>`
+_returns_: `Promise<void>`
 
-Goes to the previous step
+goes to the previous step
 
 ```js
 context.scene.step.previous()

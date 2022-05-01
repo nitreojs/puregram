@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatPhoto } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object represents a chat photo. */
 export class ChatPhoto {
-  constructor(private payload: TelegramChatPhoto) { }
+  constructor(private payload: Interfaces.TelegramChatPhoto) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

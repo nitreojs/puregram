@@ -1,12 +1,12 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramUserProfilePhotos, TelegramPhotoSize } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from './photo-size'
 
 /** This object represent a user's profile pictures. */
 export class UserProfilePhotos {
-  constructor(private payload: TelegramUserProfilePhotos) { }
+  constructor(private payload: Interfaces.TelegramUserProfilePhotos) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -26,8 +26,8 @@ export class UserProfilePhotos {
     }
 
     return photos.map(
-      (row: TelegramPhotoSize[]) => row.map(
-        (element: TelegramPhotoSize) => new PhotoSize(element)
+      (row: Interfaces.TelegramPhotoSize[]) => row.map(
+        (element: Interfaces.TelegramPhotoSize) => new PhotoSize(element)
       )
     )
   }

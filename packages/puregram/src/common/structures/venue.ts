@@ -1,13 +1,13 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramVenue } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { Location } from './location'
 
 /** This object represents a venue. */
 export class Venue {
-  constructor(private payload: TelegramVenue) { }
+  constructor(private payload: Interfaces.TelegramVenue) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

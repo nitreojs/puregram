@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramLoginUrl } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /**
@@ -8,7 +8,7 @@ import { filterPayload } from '../../utils/helpers'
  * automatically authorize a user.
  */
 export class LoginUrl {
-  constructor(private payload: TelegramLoginUrl) { }
+  constructor(private payload: Interfaces.TelegramLoginUrl) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

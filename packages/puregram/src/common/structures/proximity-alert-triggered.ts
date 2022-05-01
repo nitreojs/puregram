@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramProximityAlertTriggered } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { User } from './user'
 
@@ -9,7 +9,7 @@ import { User } from './user'
  * sent whenever a user in the chat triggers a proximity alert set by another user.
  */
 export class ProximityAlertTriggered {
-  constructor(private payload: TelegramProximityAlertTriggered) { }
+  constructor(private payload: Interfaces.TelegramProximityAlertTriggered) { }
 
   /** User that triggered the alert */
   get traveler() {

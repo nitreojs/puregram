@@ -1,11 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPhotoSize } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /** This object represents one size of a photo or a file / sticker thumbnail */
 export class PhotoSize {
-  constructor(private payload: TelegramPhotoSize) { }
+  constructor(private payload: Interfaces.TelegramPhotoSize) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

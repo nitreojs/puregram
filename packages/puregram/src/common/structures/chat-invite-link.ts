@@ -1,13 +1,13 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatInviteLink } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { User } from './user'
 
 /** Represents an invite link for a chat. */
 export class ChatInviteLink {
-  constructor(public payload: TelegramChatInviteLink) { }
+  constructor(public payload: Interfaces.TelegramChatInviteLink) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

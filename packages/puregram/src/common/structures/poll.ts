@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPoll, TelegramPollOption, TelegramMessageEntity } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { MessageEntity } from './message-entity'
@@ -8,7 +8,7 @@ import { PollOption } from './poll-option'
 
 /** This object contains information about a poll. */
 export class Poll {
-  constructor(public payload: TelegramPoll) { }
+  constructor(public payload: Interfaces.TelegramPoll) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -27,7 +27,7 @@ export class Poll {
   /** List of poll options */
   get options() {
     return this.payload.options.map(
-      (option: TelegramPollOption) => new PollOption(option)
+      (option: Interfaces.TelegramPollOption) => new PollOption(option)
     )
   }
 
@@ -85,7 +85,7 @@ export class Poll {
     }
 
     return explanation_entities.map(
-      (entity: TelegramMessageEntity) => new MessageEntity(entity)
+      (entity: Interfaces.TelegramMessageEntity) => new MessageEntity(entity)
     )
   }
 

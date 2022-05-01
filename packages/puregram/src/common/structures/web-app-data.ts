@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramWebAppData } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** Contains data sent from a Web App to the bot. */
 export class WebAppData {
-  constructor(private payload: TelegramWebAppData) { }
+  constructor(private payload: Interfaces.TelegramWebAppData) { }
 
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
   get data() {

@@ -1,12 +1,12 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatMember } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { User } from './user'
 
 export class ChatMember {
-  constructor(public payload: TelegramChatMember) { }
+  constructor(public payload: Interfaces.TelegramChatMember) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

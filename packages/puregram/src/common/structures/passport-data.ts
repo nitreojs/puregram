@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPassportData, TelegramEncryptedPassportElement } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { EncryptedPassportElement } from './encrypted-passport-element'
 import { EncryptedCredentials } from './encrypted-credentials'
@@ -10,7 +10,7 @@ import { EncryptedCredentials } from './encrypted-credentials'
  * user.
  */
 export class PassportData {
-  constructor(private payload: TelegramPassportData) { }
+  constructor(private payload: Interfaces.TelegramPassportData) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -28,7 +28,7 @@ export class PassportData {
     }
 
     return data.map(
-      (element: TelegramEncryptedPassportElement) => (
+      (element: Interfaces.TelegramEncryptedPassportElement) => (
         new EncryptedPassportElement(element)
       )
     )

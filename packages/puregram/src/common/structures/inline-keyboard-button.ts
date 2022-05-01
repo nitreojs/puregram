@@ -1,13 +1,13 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramInlineKeyboardButton } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { LoginUrl } from './login-url'
 import { CallbackGame } from './callback-game'
 
 export class InlineKeyboardButton {
-  constructor(private payload: TelegramInlineKeyboardButton) { }
+  constructor(private payload: Interfaces.TelegramInlineKeyboardButton) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

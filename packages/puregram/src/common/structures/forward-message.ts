@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMessage } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { User } from './user'
@@ -8,7 +8,7 @@ import { Chat } from './chat'
 
 /** This object represents a forwarded message. */
 export class ForwardMessage {
-  constructor(private payload: TelegramMessage) { }
+  constructor(private payload: Interfaces.TelegramMessage) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

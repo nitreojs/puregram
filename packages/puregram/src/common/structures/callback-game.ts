@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramCallbackGame } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** A placeholder, currently holds no information. */
 export class CallbackGame {
-  constructor(private payload: TelegramCallbackGame) { }
+  constructor(private payload: Interfaces.TelegramCallbackGame) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

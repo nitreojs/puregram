@@ -1,11 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramSentWebAppMessage } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /** Contains information about an inline message sent by a Web App on behalf of a user. */
 export class SentWebAppMessage {
-  constructor(private payload: TelegramSentWebAppMessage) { }
+  constructor(private payload: Interfaces.TelegramSentWebAppMessage) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

@@ -1,12 +1,12 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramVideoChatScheduled } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /**
  * This object represents a service message about a video chat scheduled in the chat
  */
 export class VideoChatScheduled {
-  constructor(public payload: TelegramVideoChatScheduled) { }
+  constructor(public payload: Interfaces.TelegramVideoChatScheduled) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

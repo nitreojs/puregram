@@ -1,14 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import {
-  TelegramInlineKeyboardMarkup,
-  TelegramInlineKeyboardButton
-} from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { InlineKeyboardButton } from './inline-keyboard-button'
 
 export class InlineKeyboardMarkup {
-  constructor(private payload: TelegramInlineKeyboardMarkup) { }
+  constructor(private payload: Interfaces.TelegramInlineKeyboardMarkup) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -19,8 +16,8 @@ export class InlineKeyboardMarkup {
     const { inline_keyboard } = this.payload
 
     return inline_keyboard.map(
-      (row: TelegramInlineKeyboardButton[]) => row.map(
-        (element: TelegramInlineKeyboardButton) => new InlineKeyboardButton(element)
+      (row: Interfaces.TelegramInlineKeyboardButton[]) => row.map(
+        (element: Interfaces.TelegramInlineKeyboardButton) => new InlineKeyboardButton(element)
       )
     )
   }

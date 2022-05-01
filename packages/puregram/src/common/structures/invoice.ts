@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramInvoice } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object contains basic information about an invoice. */
 export class Invoice {
-  constructor(private payload: TelegramInvoice) { }
+  constructor(private payload: Interfaces.TelegramInvoice) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramLocation } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object represents a point on the map. */
 export class Location {
-  constructor(private payload: TelegramLocation) { }
+  constructor(private payload: Interfaces.TelegramLocation) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

@@ -1,11 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatLocation } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Location } from './location'
 
 export class ChatLocation {
-  constructor(private payload: TelegramChatLocation) { }
+  constructor(private payload: Interfaces.TelegramChatLocation) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

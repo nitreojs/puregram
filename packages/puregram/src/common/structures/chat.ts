@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable'
 
 import { Message } from '../../updates/message'
 import { filterPayload } from '../../utils/helpers'
-import { TelegramChat } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { ChatPhoto } from './chat-photo'
 import { ChatPermissions } from './chat-permissions'
@@ -10,7 +10,7 @@ import { ChatLocation } from './chat-location'
 
 /** This object represents a chat. */
 export class Chat {
-  constructor(private payload: TelegramChat) { }
+  constructor(private payload: Interfaces.TelegramChat) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

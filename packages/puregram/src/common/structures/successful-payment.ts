@@ -1,13 +1,13 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramSuccessfulPayment } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { OrderInfo } from './order-info'
 
 /** This object contains basic information about a successful payment. */
 export class SuccessfulPayment {
-  constructor(private payload: TelegramSuccessfulPayment) { }
+  constructor(private payload: Interfaces.TelegramSuccessfulPayment) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

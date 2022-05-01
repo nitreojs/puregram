@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramWebAppInfo } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** Contains information about a Web App. */
 export class WebAppInfo {
-  constructor(private payload: TelegramWebAppInfo) { }
+  constructor(private payload: Interfaces.TelegramWebAppInfo) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

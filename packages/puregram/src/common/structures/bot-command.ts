@@ -1,9 +1,9 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramBotCommand } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 export class BotCommand {
-  constructor(private payload: TelegramBotCommand) { }
+  constructor(private payload: Interfaces.TelegramBotCommand) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPollOption } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object contains information about one answer option in a poll. */
 export class PollOption {
-  constructor(private payload: TelegramPollOption) { }
+  constructor(private payload: Interfaces.TelegramPollOption) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

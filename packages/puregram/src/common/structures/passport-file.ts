@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramPassportFile } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /**
  * This object represents a file uploaded to Telegram Passport.
@@ -8,7 +8,7 @@ import { TelegramPassportFile } from '../../generated/telegram-interfaces'
  * don't exceed 10MB.
  */
 export class PassportFile {
-  constructor(private payload: TelegramPassportFile) { }
+  constructor(private payload: Interfaces.TelegramPassportFile) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

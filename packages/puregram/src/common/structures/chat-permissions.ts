@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatPermissions } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /**
@@ -8,7 +8,7 @@ import { filterPayload } from '../../utils/helpers'
  * chat.
  */
 export class ChatPermissions {
-  constructor(private payload: TelegramChatPermissions) { }
+  constructor(private payload: Interfaces.TelegramChatPermissions) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

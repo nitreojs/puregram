@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramEncryptedCredentials } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /**
  * Contains data required for decrypting and authenticatin
@@ -8,7 +8,7 @@ import { TelegramEncryptedCredentials } from '../../generated/telegram-interface
  * complete description of the data decryption and authentication processes.
  */
 export class EncryptedCredentials {
-  constructor(private payload: TelegramEncryptedCredentials) { }
+  constructor(private payload: Interfaces.TelegramEncryptedCredentials) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

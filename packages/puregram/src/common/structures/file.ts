@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramFile } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 export class File {
-  constructor(private payload: TelegramFile) { }
+  constructor(private payload: Interfaces.TelegramFile) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

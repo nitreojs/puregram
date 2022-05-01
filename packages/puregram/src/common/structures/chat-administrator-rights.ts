@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatAdministratorRights } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** Represents the rights of an administrator in a chat. */
 export class ChatAdministratorRights {
-  constructor(private payload: TelegramChatAdministratorRights) { }
+  constructor(private payload: Interfaces.TelegramChatAdministratorRights) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

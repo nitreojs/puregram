@@ -1,17 +1,17 @@
 import { inspectable } from 'inspectable'
 
 import { filterPayload } from '../../utils/helpers'
-import { TelegramMessageEntity, TelegramUser } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { User } from './user'
 
 interface MessageEntityJSON {
-  type: TelegramMessageEntity['type']
+  type: Interfaces.TelegramMessageEntity['type']
   offset: number
   length: number
 
   url?: string
-  user?: TelegramUser
+  user?: Interfaces.TelegramUser
   language?: string
 }
 
@@ -20,7 +20,7 @@ interface MessageEntityJSON {
  * For example, hashtags, usernames, URLs, etc.
  */
 export class MessageEntity {
-  constructor(private payload: TelegramMessageEntity) { }
+  constructor(private payload: Interfaces.TelegramMessageEntity) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

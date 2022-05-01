@@ -1,11 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramContact } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /** This object represents a phone contact. */
 export class Contact {
-  constructor(private payload: TelegramContact) { }
+  constructor(private payload: Interfaces.TelegramContact) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

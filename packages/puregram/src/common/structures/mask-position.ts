@@ -1,13 +1,13 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMaskPosition } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /**
  * This object describes the position on faces where a mask should be placed
  * by default.
  */
 export class MaskPosition {
-  constructor(private payload: TelegramMaskPosition) { }
+  constructor(private payload: Interfaces.TelegramMaskPosition) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

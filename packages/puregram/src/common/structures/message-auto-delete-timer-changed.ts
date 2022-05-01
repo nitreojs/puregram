@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMessageAutoDeleteTimerChanged } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object represents a service message about a change in auto-delete timer settings */
 export class MessageAutoDeleteTimerChanged {
-  constructor(public payload: TelegramMessageAutoDeleteTimerChanged) { }
+  constructor(public payload: Interfaces.TelegramMessageAutoDeleteTimerChanged) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

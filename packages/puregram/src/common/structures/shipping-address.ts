@@ -1,10 +1,10 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramShippingAddress } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object represents a shipping address. */
 export class ShippingAddress {
-  constructor(private payload: TelegramShippingAddress) { }
+  constructor(private payload: Interfaces.TelegramShippingAddress) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

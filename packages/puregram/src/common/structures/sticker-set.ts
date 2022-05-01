@@ -1,14 +1,14 @@
 import { inspectable } from 'inspectable'
 
-import { StickerAttachment } from '../attachments'
-
-import { TelegramStickerSet, TelegramSticker } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
+
+import { StickerAttachment } from '../attachments'
 
 import { PhotoSize } from './photo-size'
 
 export class StickerSet {
-  constructor(private payload: TelegramStickerSet) { }
+  constructor(private payload: Interfaces.TelegramStickerSet) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -48,7 +48,7 @@ export class StickerSet {
     }
 
     return stickers.map(
-      (sticker: TelegramSticker) => new StickerAttachment(sticker)
+      (sticker: Interfaces.TelegramSticker) => new StickerAttachment(sticker)
     )
   }
 

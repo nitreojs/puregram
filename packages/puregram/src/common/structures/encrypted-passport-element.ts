@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramEncryptedPassportElement, TelegramPassportFile } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { filterPayload } from '../../utils/helpers'
 
@@ -11,7 +11,7 @@ import { PassportFile } from './passport-file'
  * shared with the bot by the user.
  */
 export class EncryptedPassportElement {
-  constructor(private payload: TelegramEncryptedPassportElement) { }
+  constructor(private payload: Interfaces.TelegramEncryptedPassportElement) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -62,7 +62,7 @@ export class EncryptedPassportElement {
     }
 
     return files.map(
-      (file: TelegramPassportFile) => new PassportFile(file)
+      (file: Interfaces.TelegramPassportFile) => new PassportFile(file)
     )
   }
 
@@ -129,7 +129,7 @@ export class EncryptedPassportElement {
     }
 
     return translation.map(
-      (element: TelegramPassportFile) => new PassportFile(element)
+      (element: Interfaces.TelegramPassportFile) => new PassportFile(element)
     )
   }
 

@@ -1,13 +1,13 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramMenuButton } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { WebAppInfo } from './web-app-info'
 
 /** This object describes the bot's menu button in a private chat. */
 export class MenuButton {
-  constructor(private payload: TelegramMenuButton) { }
+  constructor(private payload: Interfaces.TelegramMenuButton) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

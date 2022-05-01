@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramChatMemberUpdated } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 import { Chat } from './chat'
@@ -10,7 +10,7 @@ import { User } from './user'
 
 /** This object represents changes in the status of a chat member. */
 export class ChatMemberUpdated {
-  constructor(public payload: TelegramChatMemberUpdated) { }
+  constructor(public payload: Interfaces.TelegramChatMemberUpdated) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

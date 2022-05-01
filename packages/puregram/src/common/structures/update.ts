@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramUpdate } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import {
   Message,
@@ -23,7 +23,7 @@ import { PollAnswer } from './poll-answer'
  * update.
  */
 export class Update {
-  constructor(private payload: TelegramUpdate) { }
+  constructor(private payload: Interfaces.TelegramUpdate) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name

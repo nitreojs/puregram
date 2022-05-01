@@ -1,11 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramUser } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
 /** This object represents a Telegram user or bot. */
 export class User {
-  constructor(private payload: TelegramUser) { }
+  constructor(private payload: Interfaces.TelegramUser) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -71,7 +71,7 @@ export class User {
     return this.payload.supports_inline_queries
   }
 
-  toJSON(): TelegramUser {
+  toJSON(): Interfaces.TelegramUser {
     return {
       id: this.id,
       is_bot: this.isBot,

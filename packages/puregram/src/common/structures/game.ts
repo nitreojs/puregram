@@ -1,10 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import {
-  TelegramGame,
-  TelegramPhotoSize,
-  TelegramMessageEntity
-} from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { AnimationAttachment } from '../attachments'
 import { filterPayload } from '../../utils/helpers'
@@ -14,7 +10,7 @@ import { MessageEntity } from './message-entity'
 
 /** This object represents a game. */
 export class Game {
-  constructor(private payload: TelegramGame) { }
+  constructor(private payload: Interfaces.TelegramGame) { }
 
   get [Symbol.toStringTag]() {
     return this.constructor.name
@@ -39,7 +35,7 @@ export class Game {
     }
 
     return photo.map(
-      (photoElement: TelegramPhotoSize) => new PhotoSize(photoElement)
+      (photoElement: Interfaces.TelegramPhotoSize) => new PhotoSize(photoElement)
     )
   }
 
@@ -65,7 +61,7 @@ export class Game {
     }
 
     return text_entities.map(
-      (entity: TelegramMessageEntity) => new MessageEntity(entity)
+      (entity: Interfaces.TelegramMessageEntity) => new MessageEntity(entity)
     )
   }
 

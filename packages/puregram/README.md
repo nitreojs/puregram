@@ -200,10 +200,10 @@ try {
 
 There are **three ways** of calling Telegram Bot API methods:
 
-1. Using the `bot.callApi(method, params?)` _(useful when new Bot API update is released and the package is not updated yet)_:
+1. Using the `bot.api.call(method, params?)` _(useful when new Bot API update is released and the package is not updated yet)_:
 
 ```js
-const me = await bot.callApi('getMe');
+const me = await bot.api.call('getMe');
 ```
 
 2. Using `bot.api.method(params?)`:

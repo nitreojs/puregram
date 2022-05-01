@@ -32,7 +32,6 @@ import { Telegram } from '../telegram'
 
 import {
   TelegramBotCommand,
-  TelegramChat,
   TelegramInlineKeyboardMarkup,
   TelegramInputMedia,
   TelegramMessage,

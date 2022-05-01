@@ -1,13 +1,13 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramVideo } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from '../structures'
 
 import { FileAttachment } from './file-attachment'
 
 /** This object represents a video file. */
-export class VideoAttachment extends FileAttachment<TelegramVideo> {
+export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
   attachmentType: 'video' = 'video'
 
   /** Video width as defined by sender */

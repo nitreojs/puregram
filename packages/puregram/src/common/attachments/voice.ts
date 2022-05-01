@@ -1,11 +1,11 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramVoice } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { FileAttachment } from './file-attachment'
 
 /** This object represents a voice note. */
-export class VoiceAttachment extends FileAttachment<TelegramVoice> {
+export class VoiceAttachment extends FileAttachment<Interfaces.TelegramVoice> {
   attachmentType: 'voice' = 'voice'
 
   /** Duration of the audio in seconds as defined by sender */

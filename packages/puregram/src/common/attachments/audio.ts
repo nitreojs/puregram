@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramAudio } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from '../structures'
 
@@ -10,7 +10,7 @@ import { FileAttachment } from './file-attachment'
  * This object represents an audio file to be treated as music by the Telegram
  * clients.
  */
-export class AudioAttachment extends FileAttachment<TelegramAudio> {
+export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
   attachmentType: 'audio' = 'audio'
 
   /** Duration of the audio in seconds as defined by sender */

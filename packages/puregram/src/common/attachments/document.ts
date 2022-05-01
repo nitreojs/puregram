@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramDocument } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from '../structures'
 
@@ -10,7 +10,7 @@ import { FileAttachment } from './file-attachment'
  * This object represents a general file (as opposed to photos, voice messages
  * and audio files).
  */
-export class DocumentAttachment extends FileAttachment<TelegramDocument> {
+export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocument> {
   attachmentType: 'document' = 'document'
 
   /** Document thumbnail as defined by sender */

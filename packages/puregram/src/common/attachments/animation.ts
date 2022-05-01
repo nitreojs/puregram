@@ -1,6 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramAnimation } from '../../generated/telegram-interfaces'
+import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from '../structures'
 
@@ -10,7 +10,7 @@ import { FileAttachment } from './file-attachment'
  * This object represents an animation file
  * (GIF or H.264/MPEG-4 AVC video without sound).
  */
-export class AnimationAttachment extends FileAttachment<TelegramAnimation> {
+export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnimation> {
   attachmentType: 'animation' = 'animation'
 
   /** Video width as defined by sender */

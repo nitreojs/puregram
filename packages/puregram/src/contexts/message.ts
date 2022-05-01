@@ -226,24 +226,15 @@ class MessageContext extends Context {
   }
 
   /** Gets attachments */
-  getAttachments(type: AttachmentTypeEnum.ANIMATION | 'animation'): AnimationAttachment[]
-
-  getAttachments(type: AttachmentTypeEnum.AUDIO | 'audio'): AudioAttachment[]
-
-  getAttachments(type: AttachmentTypeEnum.DOCUMENT | 'document'): DocumentAttachment[]
-
-  getAttachments(type: AttachmentTypeEnum.PHOTO | 'photo'): PhotoAttachment[]
-
-  getAttachments(type: AttachmentTypeEnum.STICKER | 'sticker'): StickerAttachment[]
-
-  getAttachments(type: AttachmentTypeEnum.VIDEO | 'video'): VideoAttachment[]
-
-  getAttachments(type: AttachmentTypeEnum.VIDEO_NOTE | 'video_note'): VideoNoteAttachment[]
-
-  getAttachments(type: AttachmentTypeEnum.VOICE | 'voice'): VoiceAttachment[]
-
+  getAttachments(type: AttachmentTypeEnum.Animation | 'animation'): AnimationAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Audio | 'audio'): AudioAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Document | 'document'): DocumentAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Photo | 'photo'): PhotoAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Sticker | 'sticker'): StickerAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Video | 'video'): VideoAttachment[]
+  getAttachments(type: AttachmentTypeEnum.VideoNote | 'video_note'): VideoNoteAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Voice | 'voice'): VoiceAttachment[]
   getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
-
   getAttachments(type?: any): Attachment[] {
     if (type === undefined) {
       return this.attachments

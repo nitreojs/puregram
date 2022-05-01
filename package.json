@@ -23,7 +23,8 @@
   "scripts": {
     "prepare": "yarn run test",
     "test": "jest --config jest.config.js --no-cache",
-    "generate": "yarn generate-interfaces && yarn generate-updates",
+    "generate": "yarn generate-interfaces && yarn generate-constants && yarn generate-updates",
+    "generate-constants": "ts-node scripts/generate-constants/",
     "generate-interfaces": "ts-node scripts/generate-interfaces/",
     "generate-updates": "ts-node scripts/generate-updates/"
   }

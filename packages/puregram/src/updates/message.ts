@@ -375,6 +375,37 @@ export class Message {
     return new Location(location)
   }
 
+  /**
+   * Inline keyboard attached to the message.
+   *
+   * `login_url` buttons are represented as ordinary `url` buttons.
+   */
+  get replyMarkup() {
+    const { reply_markup } = this.payload
+
+    if (!reply_markup) {
+      return
+    }
+
+    return new InlineKeyboardMarkup(reply_markup)
+  }
+
+  /** The domain name of the website on which the user has logged in. */
+  get connectedWebsite() {
+    return this.payload.connected_website
+  }
+
+  /** Telegram Passport data */
+  get passportData() {
+    const { passport_data } = this.payload
+
+    if (!passport_data) {
+      return
+    }
+
+    return new PassportData(passport_data)
+  }
+
   // Events
 
   /**
@@ -529,22 +560,6 @@ export class Message {
     return new SuccessfulPayment(successful_payment)
   }
 
-  /** The domain name of the website on which the user has logged in. */
-  get connectedWebsite() {
-    return this.payload.connected_website
-  }
-
-  /** Telegram Passport data */
-  get passportData() {
-    const { passport_data } = this.payload
-
-    if (!passport_data) {
-      return
-    }
-
-    return new PassportData(passport_data)
-  }
-
   /**
    * Service message.
    * A user in the chat triggered another user's proximity alert
@@ -613,21 +628,6 @@ export class Message {
     }
 
     return new WebAppData(web_app_data)
-  }
-
-  /**
-   * Inline keyboard attached to the message.
-   *
-   * `login_url` buttons are represented as ordinary `url` buttons.
-   */
-  get replyMarkup() {
-    const { reply_markup } = this.payload
-
-    if (!reply_markup) {
-      return
-    }
-
-    return new InlineKeyboardMarkup(reply_markup)
   }
 }
 

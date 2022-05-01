@@ -22,38 +22,36 @@ _Basic prompt system implemetation for `puregram` package_
 
 ### Example
 ```js
-const { Telegram } = require('puregram');
-const { PromptManager } = require('@puregram/prompt');
+const { Telegram } = require('puregram')
+const { PromptManager } = require('@puregram/prompt')
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
-const promptManager = new PromptManager();
+const promptManager = new PromptManager()
 
-telegram.updates.use(promptManager.middleware);
+telegram.updates.use(promptManager.middleware)
 
 telegram.updates.on('message', (context) => {
-  let nameAnswer;
+  let nameAnswer
 
   while (!nameAnswer || !nameAnswer.text) {
     nameAnswer = await context.prompt('Hey! Please, enter your name.')
   }
 
-  const name = nameAnswer.text; // also accessible via `nameAnswer.context.text`
+  const name = nameAnswer.text // also accessible via `nameAnswer.context.text`
 
-  let ageAnswer;
+  let ageAnswer
 
   while (!ageAnswer || !ageAnswer.text || Number.isNaN(+ageAnswer.text)) {
-    ageAnswer = await context.prompt('Cool! Now please enter your age.');
+    ageAnswer = await context.prompt('Cool! Now please enter your age.')
   }
 
-  const age = Number.parseInt(ageAnswer.text);
+  const age = Number.parseInt(ageAnswer.text)
 
-  return context.send(`You're welcome, ${name} ${age} y.o.!`);
+  return context.send(`You're welcome, ${name} ${age} y.o.!`)
 });
 
-telegram.updates.startPolling();
+telegram.updates.startPolling()
 ```
 
 ### Installation
@@ -72,5 +70,5 @@ You can extend context's properties by passing `PromptContext` into `Updates.on<
 ```ts
 telegram.updates.on<PromptContext>('message', (context) => {
   /* Now you have access to `prompt` and `promptReply` methods via types! */
-});
+})
 ```

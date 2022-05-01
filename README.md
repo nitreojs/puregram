@@ -38,14 +38,14 @@
 ### Example
 
 ```js
-const { Telegram } = require('puregram');
+const { Telegram } = require('puregram')
 
-const bot = Telegram.fromToken(process.env.TOKEN);
+const bot = Telegram.fromToken(process.env.TOKEN)
 
-bot.updates.on('message', context => context.reply('Hey!'));
-bot.updates.on('callback_query', context => context.answerCallbackQuery());
+bot.updates.on('message', context => context.reply('Hey!'))
+bot.updates.on('callback_query', context => context.answerCallbackQuery())
 
-bot.updates.startPolling();
+bot.updates.startPolling()
 ```
 
 More examples [here][examples]
@@ -112,17 +112,17 @@ $ npm i -S puregram
 Let's start with creating a `Telegram` instance:
 
 ```js
-const { Telegram } = require('puregram');
+const { Telegram } = require('puregram')
 
 const bot = new Telegram({
   token: '123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11'
-});
+})
 ```
 
 You can also initialize it via `Telegram.fromToken`:
 
 ```js
-const bot = Telegram.fromToken('123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11');
+const bot = Telegram.fromToken('123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11')
 ```
 
 Now, we want to [get updates][getting-updates] from the bot. **How can we do it?**
@@ -134,22 +134,22 @@ There are only **two ways** of getting updates right now:
 1. Polling via [`getUpdates` method][getUpdates]... or just using `puregram`'s built-in polling logic:
 
 ```js
-bot.updates.startPolling();
+bot.updates.startPolling()
 ```
 
 2. Setting up a Webhook via [`setWebhook` method][setWebhook]:
 
 ```js
-const { createServer } = require('http');
+const { createServer } = require('http')
 
 // you need to send this request only once
 bot.api.setWebhook({
   url: 'https://www.example.com/'
-});
+})
 
-const server = createServer(bot.updates.getWebhookMiddleware());
+const server = createServer(bot.updates.getWebhookMiddleware())
 
-server.listen(8443, () => console.log('Started'));
+server.listen(8443, () => console.log('Started'))
 ```
 
 Remember that there are only four accepted ports for now: `443`, `80`, `88` and `8443`. They are listed [here][setWebhook] under the **Notes** section.
@@ -166,7 +166,7 @@ More webhook examples are available [here][webhook-examples]
 Now with this setup we can catch updates like this:
 
 ```js
-bot.updates.on('message', context => context.reply('Yoooo!'));
+bot.updates.on('message', context => context.reply('Yoooo!'))
 ```
 
 _List of supported updates will be somewhere here when it's done_
@@ -180,14 +180,14 @@ If you want to handle updates by yourself, you can use `Updates.handleUpdate` me
 ```js
 /** Let's pretend I am polling updates manually... */
 
-const update = await getUpdate(...);
+const update = await getUpdate(...)
 
-let context;
+let context
 
 try {
-  context = await bot.updates.handleUpdate(update);
+  context = await bot.updates.handleUpdate(update)
 } catch (error) {
-  console.log('Update is not supported', update);
+  console.log('Update is not supported', update)
 }
 
 // Voila! Now you have the right context
@@ -201,41 +201,44 @@ There are **three ways** of calling Telegram Bot API methods:
 1. Using the `bot.api.call(method, params?)` _(useful when new Bot API update is released and the package is not updated yet)_:
 
 ```js
-const me = await bot.api.call('getMe');
+const me = await bot.api.call('getMe')
 ```
 
 2. Using `bot.api.method(params?)`:
 
 ```js
-const me = await bot.api.getMe();
+const me = await bot.api.getMe()
 ```
 
 3. Using context methods:
 
 ```js
-bot.updates.on('message', context => context.send('13² = 169! I mean 169, not 169!'));
+bot.updates.on('message', context => context.send('13² = 169! I mean "169", not "169!'))
 ```
 
 ### Sending media
 
-`puregram` allows you to send your local media via path, `Buffer`, `Stream` and URLs.
+`puregram` allows you to send your local media by using `MediaSource` class.
+You can put URLs, `Buffer`s, streams and paths in it.
 
 ```js
 /** Let's imagine we have an image called puppy.jpg in this directory... */
 
-const { createReadStream } = require('fs');
+const { createReadStream } = require('fs')
 
-const path = './puppy.jpg';
-const stream = createReadStream(path);
-const buffer = getBuffer(path);
-const url = 'https://puppies.com/random-puppy';
+const path = './puppy.jpg'
+const stream = createReadStream(path)
+const buffer = getBuffer(path)
+const url = 'https://puppies.com/random-puppy'
 
 bot.updates.on('message', (context) => {
-  context.sendPhoto(path, { caption: 'Puppy via path!' });
-  context.sendDocument(stream, { caption: 'More puppies via stream!', filename: 'puppy.jpg' });
-  context.sendPhoto(buffer, { caption: 'One more puppy via buffer!' });
-  context.sendPhoto(url, { caption: 'Some random puppy sent using an URL!!!' });
-});
+  await Promise.all([
+    context.sendPhoto(MediaSource.url(path), { caption: 'Puppy via path!' })
+    context.sendDocument(MediaSource.stream(stream, /* filename: */ 'puppy.jpg'), { caption: 'More puppies via stream!' })
+    context.sendPhoto(MediaSource.buffer(buffer), { caption: 'One more puppy via buffer!' })
+    context.sendPhoto(MediaSource.url(url), { caption: 'Some random puppy sent using an URL!!!' })
+  ])
+})
 ```
 
 This works for every method that can send media.
@@ -249,13 +252,13 @@ If you want to use _Markdown_ or _HTML_, there are **two ways** of doing that:
 1. Using built-in `HTML`, `Markdown` and `MarkdownV2` classes:
 
 ```js
-const message = HTML.bold('Very bold, such HTML');
+const message = HTML.bold('Very bold, such HTML')
 ```
 
 3. Writing tags manually as it is told [here][formatting-options]:
 
 ```js
-const message = '*Very bold, such Markdown*';
+const message = '*Very bold, such Markdown*'
 ```
 
 [formatting-options]: https://core.telegram.org/bots/api#formatting-options
@@ -277,13 +280,13 @@ Anyways, after writing the text you **need** to add `parse_mode` field. There ar
 Final API request will look like this:
 
 ```js
-const message = `Some ${HTML.bold('bold')} and ${HTML.italic('italic')} here`;
+const message = `Some ${HTML.bold('bold')} and ${HTML.italic('italic')} here`
 
-context.send(message, { parse_mode: HTML });
+context.send(message, { parse_mode: HTML })
 ```
 
 ```js
-context.send(`Imagine using _classes_ for parse mode, *lol*!`, { parse_mode: 'Markdown' });
+context.send(`Imagine using _classes_ for parse mode, *lol*!`, { parse_mode: 'Markdown' })
 ```
 
 <details>
@@ -307,7 +310,7 @@ More markdown examples are available [here][markdown]
 To create a keyboard, you need to call `keyboard` method from the keyboard class you chose. This method accepts an array of button rows.
 
 ```js
-const { InlineKeyboard, Keyboard } = require('puregram');
+const { InlineKeyboard, Keyboard } = require('puregram')
 
 const keyboard = InlineKeyboard.keyboard([
   [ // first row
@@ -328,7 +331,7 @@ const keyboard = InlineKeyboard.keyboard([
       url: 'https://example.com'
     })
   ]
-]);
+])
 ```
 
 ```js
@@ -336,7 +339,7 @@ const keyboard = InlineKeyboard.keyboard([
 const keyboard = Keyboard.keyboard([
   Keyboard.textButton('Some one-row keyboard'),
   Keyboard.textButton('with some buttons')
-]);
+])
 ```
 
 #### Keyboard builders
@@ -344,14 +347,14 @@ const keyboard = Keyboard.keyboard([
 There are also keyboard **builders** which are designed to be building a keyboard step by step:
 
 ```js
-const { KeyboardBuilder } = require('puregram');
+const { KeyboardBuilder } = require('puregram')
 
 const keyboard = new KeyboardBuilder()
   .textButton('First row, first button')
   .row()
   .textButton('Second row, first button')
   .textButton('Second row, second button')
-  .resize(); // keyboard will be much smaller
+  .resize() // keyboard will be much smaller
 ```
 
 #### Sending keyboards
@@ -359,7 +362,7 @@ const keyboard = new KeyboardBuilder()
 To send keyboard, you simply need to pass the generated value in `reply_markup` field:
 
 ```js
-context.send('Look, here\'s a keyboard!', { reply_markup: keyboard });
+context.send('Look, here\'s a keyboard!', { reply_markup: keyboard })
 ```
 
 More keyboards examples are available [here][keyboards]
@@ -377,7 +380,7 @@ bot.updates.startPolling().then(
   () => console.log(`@${bot.bot.username} started polling!`)
   // yeah, `bot.bot`   ¯\_(ツ)_/¯
   // that's why I prefer naming `telegram` instead of `bot`
-);
+)
 ```
 
 ---
@@ -388,27 +391,27 @@ Context is a class, containing current `update` object and it's payload _(via `u
 
 ```js
 bot.updates.on('message', (context) => {
-  const id = context.senderId;
+  const id = context.senderId
   // is the same as
-  const id = context.from?.id;
-});
+  const id = context.from?.id
+})
 
 bot.updates.on('message', (context) => {
-  context.send('Hey!');
+  context.send('Hey!')
   // equals to
   bot.api.sendMessage({
     chat_id: context.chat?.id,
     text: 'Hey!'
-  });
-});
+  })
+})
 ```
 
 Every context has `telegram` property, so you can call API methods almost everywhere if you have a context nearby.
 
 ```js
 bot.updates.on('message', async (context) => {
-  const me = await context.telegram.api.getMe();
-});
+  const me = await context.telegram.api.getMe()
+})
 ```
 
 ---
@@ -431,33 +434,34 @@ Every context requires **one argument**:
 ```ts
 interface ContextOptions {
   // main Telegram instance
-  telegram: Telegram;
+  telegram: Telegram
 
   // update type, e.g. 'message', 'callback_query'
-  updateType: UpdateName;
+  updateType: UpdateName
   
   // whole update object
   // optional, allows user to do the `context.update` to get the whole update object
-  update?: TelegramUpdate;
+  update?: TelegramUpdate
 
   // update ID, located at TelegramUpdate
   // optional, allows user to get this update's ID
-  updateId?: number;
+  updateId?: number
 }
 ```
 
 You can also create any context manually:
 
 ```js
-const { MessageContext } = require('puregram');
+const { MessageContext } = require('puregram')
 
-const update = await getUpdate();
+const update = await getUpdate()
+
 const context = new MessageContext({
   telegram: bot,
   update,
   updateType: 'message',
   updateId: update.update_id
-});
+})
 ```
 
 Every context is listed [here][contexts]
@@ -475,28 +479,28 @@ Every context is listed [here][contexts]
 Measuring the time it takes to proceed the update:
 ```js
 bot.updates.use(async (context, next) => {
-  const start = Date.now();
+  const start = Date.now()
 
-  await next(); // next() is async, so we need to await it
+  await next() // next() is async, so we need to await it
 
-  const end = Date.now();
+  const end = Date.now()
 
-  console.log(`${context.updateId ?? '[unknown]'} proceeded in ${end - start}ms`);
-});
+  console.log(`${context.updateId ?? '[unknown]'} proceeded in ${end - start}ms`)
+})
 ```
 
 Extending the context:
 ```js
 bot.updates.use((context, next) => {
-  context.user = await getUser(context.senderId);
+  context.user = await getUser(context.senderId)
 
-  return next();
-});
+  return next()
+})
 
 bot.updates.on('message', (context) => {
   // here we can access property we made in the middleware
-  return context.send(`Hey, ${context.user.name}!`);
-});
+  return context.send(`Hey, ${context.user.name}!`)
+})
 ```
 
 ---
@@ -508,8 +512,8 @@ bot.updates.on('message', (context) => {
 All Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for API methods. They all exist at the path `puregram/lib/`.
 
 ```ts
-import { TelegramUpdate, TelegramMessage } from 'puregram/lib/telegram-interfaces';
-import { SendDocumentParams } from 'puregram/lib/methods';
+import { TelegramUpdate, TelegramMessage } from 'puregram/lib/telegram-interfaces'
+import { SendDocumentParams } from 'puregram/lib/methods'
 ```
 
 ### Extending contexts
@@ -518,20 +522,20 @@ Surely enough, you can extend contexts with extra fields and properties you need
 
 ```ts
 interface ExtraData {
-  name: string;
-  id?: number;
+  name: string
+  id?: number
 }
 
 /** ... */
 
 bot.updates.use((context, next) => {
-  const user = await getUser(context.senderId);
+  const user = await getUser(context.senderId)
 
-  context.name = user.name;
-  context.id = user.id;
+  context.name = user.name
+  context.id = user.id
 
-  return next();
-});
+  return next()
+})
 
 /**
  * There are 2 ways of updating context's type:
@@ -544,8 +548,8 @@ bot.updates.use((context, next) => {
  */
 
 bot.updates.on<ExtraData>('message', (context) => {
-  assert(context.name !== undefined);
-});
+  assert(context.name !== undefined)
+})
 ```
 
 ---
@@ -559,14 +563,14 @@ You are trying to use [`@puregram/scenes`][@scenes] or [`@puregram/hear`][@hear]
 You should firstly initialize `@puregram/session`'s middleware and only then initialize other middlewares, depending on it:
 
 ```js
-const sessionManager = new SessionManager();
-const hearManager = new HearManager();
+const sessionManager = new SessionManager()
+const hearManager = new HearManager()
 
 // 1. Session middleware first
-bot.updates.on('message', sessionManager.middleware);
+bot.updates.on('message', sessionManager.middleware)
 
 // 2. Hear middleware second
-bot.updates.on('message', hearManager.middleware);
+bot.updates.on('message', hearManager.middleware)
 ```
 
 ### How do I enable debugging?

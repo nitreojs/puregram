@@ -22,28 +22,26 @@ With `@puregram/session` you can set up your own session for each active user an
 
 ### Example
 ```js
-const { Telegram } = require('puregram');
-const { SessionManager } = require('@puregram/session');
+const { Telegram } = require('puregram')
+const { SessionManager } = require('@puregram/session')
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
-const sessionManager = new SessionManager();
+const sessionManager = new SessionManager()
 
-telegram.updates.on('message', sessionManager.middleware);
+telegram.updates.on('message', sessionManager.middleware)
 
 telegram.updates.on('message', (context) => {
-  const { session } = context;
+  const { session } = context
 
-  if (!session.counter) session.counter = 0;
+  if (!session.counter) session.counter = 0
 
-  session.counter += 1;
+  session.counter += 1
 
-  return context.send(`You called the bot ${session.counter} times!`);
-});
+  return context.send(`You called the bot ${session.counter} times!`)
+})
 
-telegram.updates.startPolling();
+telegram.updates.startPolling()
 ```
 
 ### Installation
@@ -60,7 +58,7 @@ $ npm i -S @puregram/session
 You can extend `getStorageKey`'s `ContextInterface` by providing extra data interface into `SessionManager<T>`:
 
 ```ts
-import { SessionManager } from '@puregram/session';
+import { SessionManager } from '@puregram/session'
 
-const manager = new SessionManager<{ test: boolean }>();
+const manager = new SessionManager<{ test: boolean }>()
 ```

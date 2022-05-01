@@ -22,20 +22,18 @@ _Simple implementation of hearing messages system for `puregram` package_
 
 ### Example
 ```js
-const { Telegram } = require('puregram');
-const { HearManager } = require('@puregram/hear');
+const { Telegram } = require('puregram')
+const { HearManager } = require('@puregram/hear')
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
-const hearManager = new HearManager();
+const hearManager = new HearManager()
 
-telegram.updates.on('message', hearManager.middleware);
+telegram.updates.on('message', hearManager.middleware)
 
-hearManager.hear(/^hello$/i, context => context.send('Hello, World!'));
+hearManager.hear(/^hello$/i, context => context.send('Hello, World!'))
 
-telegram.updates.startPolling();
+telegram.updates.startPolling()
 ```
 
 ### Installation
@@ -52,20 +50,18 @@ $ npm i -S @puregram/hear
 In TypeScript, you kinda have to manually point `@puregram/hear` what context will be used as default by providing it in `HearManager<T>`:
 
 ```ts
-import { Telegram, MessageContext } from 'puregram';
-import { HearManager } from '@puregram/hear';
+import { Telegram, MessageContext } from 'puregram'
+import { HearManager } from '@puregram/hear'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
-const hearManager = new HearManager<MessageContext>();
+const hearManager = new HearManager<MessageContext>()
 ```
 
 Of course, you can override that later by pointing new context in `hear<T>` method:
 
 ```ts
-import { CallbackQueryContext } from 'puregram';
+import { CallbackQueryContext } from 'puregram'
 
-hearManager.hear<CallbackQueryContext>(/some-regexp$/i, (context) => { /* ... */ });
+hearManager.hear<CallbackQueryContext>(/some-regexp$/i, (context) => { /* ... */ })
 ```

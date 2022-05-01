@@ -22,20 +22,18 @@ This package exists only for one main reason: basically not everyone wants to ha
 
 ### Example
 ```js
-const { Telegram } = require('puregram');
-const { getCasinoValues } = require('@puregram/utils');
+const { Telegram } = require('puregram')
+const { getCasinoValues } = require('@puregram/utils')
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-});
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
   if (context.hasDice && context.dice.emoji === '🎰') {
     console.log(getCasinoValues(context.dice.value)); // e.g. ['seven', 'bar', 'grapes']
   }
-});
+})
 
-telegram.updates.startPolling();
+telegram.updates.startPolling()
 ```
 
 ### Installation
@@ -99,6 +97,6 @@ Returns an _array of `CasinoValue`_ detected by `value` in the dice
 
 ```js
 if (context.hasDice && context.dice.emoji === '🎰') {
-  return context.send(`You've got ${getCasinoValues(context.dice.value).join(', ')}!`)
+  return context.send(`You got ${getCasinoValues(context.dice.value).join(', ')}!`)
 }
 ```

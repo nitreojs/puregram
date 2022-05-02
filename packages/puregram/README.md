@@ -12,9 +12,9 @@
   allows you to
   <b>easily interact</b>
   with
-  <a href='https://core.telegram.org/bots/api'>Telegram Bot API</a>
+  <a href='https://core.telegram.org/bots/api'>telegram bot api</a>
   via
-  <a href='https://nodejs.org'>Node.js</a>
+  <a href='https://nodejs.org'>node.js</a>
   😎👍
 </p>
 
@@ -147,10 +147,10 @@ telegram.api.setWebhook({
 
 const server = createServer(telegram.updates.getWebhookMiddleware())
 
-server.listen(8443, () => console.log('Started'))
+server.listen(8443, () => console.log('started'))
 ```
 
-remember that there are only four accepted ports for now: `443`, `80`, `88` and `8443`. they are listed [here][setWebhook] under the **Notes** section.
+remember that there are only four accepted ports for now: `443`, `80`, `88` and `8443`. they are listed [here][setWebhook] under the **notes** section.
 
 more webhook examples are available [here][webhook-examples]
 
@@ -190,11 +190,11 @@ try {
 // (or you don't if the event is not supported 😢)
 ```
 
-### calling API methods
+### calling api methods
 
-there are **three ways** of calling Telegram Bot API methods:
+there are **three ways** of calling telegram bot api methods:
 
-1. using the `telegram.api.call(method, params?)` _(useful when new Bot API update is released and the package is not updated yet)_:
+1. using the `telegram.api.call(method, params?)` _(useful when new bot api update is released and the package is not updated yet)_:
 
 ```js
 const me = await telegram.api.call('getMe')
@@ -229,10 +229,10 @@ const url = 'https://puppies.com/random-puppy'
 
 telegram.updates.on('message', (context) => {
   await Promise.all([
-    context.sendPhoto(MediaSource.url(path), { caption: 'puppy via path!' })
+    context.sendPhoto(MediaSource.path(path), { caption: 'puppy via path!' })
     context.sendDocument(MediaSource.stream(stream, /* filename: */ 'puppy.jpg'), { caption: 'more puppies via stream!' })
     context.sendPhoto(MediaSource.buffer(buffer), { caption: 'one more puppy via buffer!' })
-    context.sendPhoto(MediaSource.url(url), { caption: 'some random puppy sent using an URL!!!' })
+    context.sendPhoto(MediaSource.url(url), { caption: 'some random puppy sent using an url!!!' })
   ])
 })
 ```
@@ -273,7 +273,7 @@ anyways, after writing the text you **need** to add `parse_mode` field. there ar
 { parse_mode: HTML }
 ```
 
-final API request will look like this:
+final api request will look like this:
 
 ```js
 const message = `some ${HTML.bold('bold')} and ${HTML.italic('italic')} here`
@@ -373,7 +373,7 @@ if you are using `puregram`'s built-in polling logic, after `Updates.startPollin
 
 ```js
 telegram.updates.startPolling().then(
-  () => console.log(`@${telegram.bot.username} started polling!`)
+  () => console.log(`@${telegram.bot.username} started polling`)
 )
 ```
 
@@ -402,7 +402,7 @@ telegram.updates.on('message', (context) => {
 })
 ```
 
-every context has `telegram` property, so you can call API methods almost everywhere if you have a context nearby.
+every context has `telegram` property, so you can call api methods almost everywhere if you have a context nearby.
 
 ```js
 telegram.updates.on('message', async (context) => {
@@ -507,7 +507,7 @@ telegram.updates.on('message', (context) => {
 
 ### importing Telegram interfaces
 
-all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for API methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
+all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for api methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
 also there's a `puregram/generated` export which exports everything from `lib/generated` folder (all of those listed before).
 
 ```ts
@@ -588,7 +588,7 @@ if you want to inspect out- and ingoing requests made by `puregram`, you will ne
 
 | type      | example (unix)           | description                                     |
 | --------- | ------------------------ | ----------------------------------------------- |
-| `api`     | `DEBUG=puregram:api`     | enables debugging API out- and ingoing requests |
+| `api`     | `DEBUG=puregram:api`     | enables debugging api out- and ingoing requests |
 | `updates` | `DEBUG=puregram:updates` | enables debugging ingoing updates               |
 | `*`       | `DEBUG=puregram:*`       | enables debugging all of the listed types above |
 
@@ -621,6 +621,16 @@ yeah, there are.
 
 there is also a [puregram chats](https://t.me/puregram_chats) channel, which has list of every officially supported `puregram` chat.
 
+### why is your readme lowercased?
+
+because i dont like doing anything that looks official so i do my own styling 😎
+
+**btw did you see these issues?**
+- https://github.com/nitreojs/puregram/issues/63
+- https://github.com/nitreojs/puregram/issues/62
+
+they confirm im against anything that looks kinda too official 😉
+
 ---
 
 ## community
@@ -643,7 +653,7 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 
 ### non-official ones
 
-- [`nestjs-puregram`][nestjs-puregram]: `puregram` SDK for [NestJS](https://nestjs.com/)
+- [`nestjs-puregram`][nestjs-puregram]: `puregram` sdk for [nestjs](https://nestjs.com/)
 
 [nestjs-puregram]: https://github.com/ItzNeviKat/nestjs-puregram
 
@@ -651,7 +661,7 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 
 ## thanks to
 
-- [Negezor][negezor] ([negezor/vk-io][negezor/vk-io]) — for inspiration, package idea (!) and some code and implementation ideas
+- [negezor][negezor] ([negezor/vk-io][negezor/vk-io]) — for inspiration, package idea (!) and some code and implementation ideas
 
 [negezor]: https://github.com/negezor
 [negezor/vk-io]: https://github.com/negezor/vk-io

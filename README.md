@@ -190,7 +190,7 @@ try {
 // (or you don't if the event is not supported 😢)
 ```
 
-### calling API methods
+### calling api methods
 
 there are **three ways** of calling Telegram Bot API methods:
 
@@ -273,7 +273,7 @@ anyways, after writing the text you **need** to add `parse_mode` field. there ar
 { parse_mode: HTML }
 ```
 
-final API request will look like this:
+final api request will look like this:
 
 ```js
 const message = `some ${HTML.bold('bold')} and ${HTML.italic('italic')} here`
@@ -402,7 +402,7 @@ telegram.updates.on('message', (context) => {
 })
 ```
 
-every context has `telegram` property, so you can call API methods almost everywhere if you have a context nearby.
+every context has `telegram` property, so you can call api methods almost everywhere if you have a context nearby.
 
 ```js
 telegram.updates.on('message', async (context) => {
@@ -507,7 +507,7 @@ telegram.updates.on('message', (context) => {
 
 ### importing Telegram interfaces
 
-all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for API methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
+all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for api methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
 also there's a `puregram/generated` export which exports everything from `lib/generated` folder (all of those listed before).
 
 ```ts
@@ -588,7 +588,7 @@ if you want to inspect out- and ingoing requests made by `puregram`, you will ne
 
 | type      | example (unix)           | description                                     |
 | --------- | ------------------------ | ----------------------------------------------- |
-| `api`     | `DEBUG=puregram:api`     | enables debugging API out- and ingoing requests |
+| `api`     | `DEBUG=puregram:api`     | enables debugging api out- and ingoing requests |
 | `updates` | `DEBUG=puregram:updates` | enables debugging ingoing updates               |
 | `*`       | `DEBUG=puregram:*`       | enables debugging all of the listed types above |
 
@@ -620,6 +620,12 @@ yeah, there are.
 | **english 🇬🇧** | [puregram chat [en]](https://t.me/puregram_chat_en) |
 
 there is also a [puregram chats](https://t.me/puregram_chats) channel, which has list of every officially supported `puregram` chat.
+
+### why is your readme lowercased?
+
+because i dont like doing anything that looks in an adult way so i do my own styling :cool:
+
+btw did you see these issues? https://github.com/nitreojs/puregram/issues/63 https://github.com/nitreojs/puregram/issues/62 they confirm im against anything that looks kinda too official
 
 ---
 

@@ -420,7 +420,7 @@ every context _(except for manually created ones and some that were created afte
 
 | property   | required | description                                                                   |
 | ---------- | -------- | ----------------------------------------------------------------------------- |
-| `updateId` | _no_     | unique update ID. used as an offset when getting new updates                  |
+| `updateId` | _no_     | unique update id. used as an offset when getting new updates                  |
 | `update`   | _no_     | update object. current context was created via `this.update[this.updateType]` |
 
 for example, if we have the `message` update, we will get `MessageContext` on this update, `CallbackQueryContext` for `callback_query` update and so on.
@@ -507,7 +507,8 @@ telegram.updates.on('message', (context) => {
 
 ### importing Telegram interfaces
 
-all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for API methods. they all exist at the path `puregram/generated`.
+all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for API methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
+also there's a `puregram/generated` export which exports everything from `lib/generated` folder (all of those listed before).
 
 ```ts
 import { TelegramUpdate, TelegramMessage } from 'puregram/generated'
@@ -515,6 +516,11 @@ import { TelegramUpdate, TelegramMessage } from 'puregram/generated'
 
 ```ts
 import { SendDocumentParams } from 'puregram/generated'
+```
+
+```ts
+import { CopyMessageParams } from 'puregram/methods'
+import { InputFile, TelegramUpdate } from 'puregram/telegram-interfaces'
 ```
 
 ### extending contexts
@@ -529,7 +535,7 @@ interface ExtraData {
 
 /** ... */
 
-telegram.updates.use((context, next) => {
+telegram.updates.use(async (context, next) => {
   const user = await getUser(context.senderId)
 
   context.name = user.name

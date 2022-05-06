@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 27.04.2022 17:05:22 MSK
+/// Generation date: 06.05.2022 17:52:37 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -1047,7 +1047,7 @@ export interface SendPollParams {
   /**
    * *True*, if the poll needs to be anonymous, defaults to *True*
    */
-  is_anonymous?: true
+  is_anonymous?: boolean
   /**
    * Poll type, “quiz” or “regular”, defaults to “regular”
    */
@@ -2027,7 +2027,7 @@ export interface SetChatMenuButtonParams {
    */
   chat_id?: number
   /**
-   * A JSON-serialized object for the new bot's menu button. Defaults to [MenuButtonDefault](https://core.telegram.org/bots/api/#menubuttondefault)
+   * A JSON-serialized object for the bot's new menu button. Defaults to [MenuButtonDefault](https://core.telegram.org/bots/api/#menubuttondefault)
    */
   menu_button?: Interfaces.TelegramMenuButton
 

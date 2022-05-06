@@ -172,10 +172,20 @@ class MethodService {
         returnType = TypeResolver.resolve(union)
       }
 
+      if (field.name === 'is_anonymous') {
+        const object = { type: 'bool' } as Types.SchemaObjectBool
+
+        returnType = TypeResolver.resolve(object)
+      }
+
       if (returnType.includes('Interfaces.TelegramInputFile')) {
-        returnType = TypeResolver.resolve(
-          { type: 'reference', reference: 'MediaInput', is_internal: true } as Types.SchemaObjectReference
-        )
+        const object = {
+          type: 'reference',
+          reference: 'MediaInput',
+          is_internal: true
+        } as Types.SchemaObjectReference
+
+        returnType = TypeResolver.resolve(object)
       }
 
       const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${returnType}`

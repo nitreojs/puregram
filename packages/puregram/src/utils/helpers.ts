@@ -57,9 +57,7 @@ export const isParseable = (source: string): boolean => {
   return true
 }
 
-export const delay = (delayed: number): Promise<void> => (
-  new Promise(resolve => setTimeout(resolve, delayed))
-)
+export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 const replaceRegexpChar = (char: string): string => (
   char

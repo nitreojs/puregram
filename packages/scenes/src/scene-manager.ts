@@ -34,7 +34,7 @@ export class SceneManager {
 
   /** Returns the middleware for embedding */
   get middleware(): Middleware<ContextInterface> {
-    return (context: ContextInterface, next: Function): Promise<void> => {
+    return (context: ContextInterface, next: Function) => {
       context.scene = new SceneContext({
         context,
         repository: this.repository
@@ -46,7 +46,7 @@ export class SceneManager {
 
   /** Returns the middleware for intercept */
   get middlewareIntercept(): Middleware<ContextInterface> {
-    return (context: ContextInterface, next: Function): Promise<void> => {
+    return (context: ContextInterface, next: Function) => {
       if (!context.scene.current) {
         return next()
       }

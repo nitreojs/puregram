@@ -45,7 +45,7 @@ export class StepSceneContext {
   }
 
   /** Reenter current step handler */
-  async reenter(): Promise<void> {
+  async reenter() {
     const { current } = this
 
     if (!current) {
@@ -64,7 +64,7 @@ export class StepSceneContext {
   }
 
   /** The `go` method goes to a specific step */
-  go(stepId: number, { silent = false }: StepContextGoOptions = {}): Promise<void> {
+  go(stepId: number, { silent = false }: StepContextGoOptions = {}) {
     this.stepId = stepId
 
     if (silent) {
@@ -75,12 +75,12 @@ export class StepSceneContext {
   }
 
   /** Move to the next handler */
-  next(options?: StepContextGoOptions): Promise<void> {
+  next(options?: StepContextGoOptions) {
     return this.go(this.stepId + 1, options)
   }
 
   /** Move to the previous handler */
-  previous(options?: StepContextGoOptions): Promise<void> {
+  previous(options?: StepContextGoOptions) {
     return this.go(this.stepId - 1, options)
   }
 }

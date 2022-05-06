@@ -25,7 +25,7 @@ export class SessionManager<T = {}> {
   get middleware(): Middleware<ContextInterface> {
     const { storage, getStorageKey } = this
 
-    return async (context: ContextInterface, next: Function): Promise<void> => {
+    return async (context: ContextInterface, next: Function) => {
       const storageKey = getStorageKey(context)
 
       let changed: boolean = false
@@ -50,7 +50,7 @@ export class SessionManager<T = {}> {
         })
       )
 
-      const $forceUpdate: (() => Promise<boolean>) = (): Promise<boolean> => {
+      const $forceUpdate = () => {
         if (Object.keys(session).length > 1) {
           changed = false
 

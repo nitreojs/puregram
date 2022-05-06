@@ -37,7 +37,7 @@ export class SceneContext {
   }
 
   /** Enter to scene */
-  async enter(slug: string, options: SceneContextEnterOptions = {}): Promise<void> {
+  async enter(slug: string, options: SceneContextEnterOptions = {}) {
     const scene = this.repository.strictGet(slug)
 
     const isCurrent: boolean = this.current?.slug === scene.slug
@@ -70,7 +70,7 @@ export class SceneContext {
   }
 
   /** Reenter to current scene */
-  async reenter(): Promise<void> {
+  async reenter() {
     const { current } = this
 
     if (!current) {
@@ -81,7 +81,7 @@ export class SceneContext {
   }
 
   /** Leave from current scene */
-  async leave(options: SceneContextLeaveOptions = {}): Promise<void> {
+  async leave(options: SceneContextLeaveOptions = {}) {
     const { current } = this
 
     if (!current) {

@@ -29,7 +29,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
     this.onLeaveHandler = options.leaveHandler || (() => { })
   }
 
-  async enterHandler(context: StepContext & T): Promise<void> {
+  async enterHandler(context: StepContext & T) {
     context.scene.step = new StepSceneContext({
       context,
 
@@ -44,7 +44,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
     }
   }
 
-  leaveHandler(context: StepContext & T): Promise<unknown> {
+  leaveHandler(context: StepContext & T) {
     return Promise.resolve(this.onLeaveHandler(context))
   }
 }

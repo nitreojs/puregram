@@ -99,7 +99,7 @@ class InterfaceService {
 
 class MethodService {
   static generate(kMethod: Types.SchemaMethod): ServiceResultMethod {
-    // TODO  simplify
+    // TODO: simplify
 
     const mTypeDescription: string = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
     const mReturnType: string = TypeResolver.resolve(kMethod.return_type as Types.SchemaObject, 'Interfaces')
@@ -134,6 +134,10 @@ class MethodService {
 
     for (const field of properties) {
       const description: string = InterfaceService.generateDescription(field.description, 2)
+
+      if (field.name === 'is_anonymous') {
+        console.log(field)
+      }
 
       let returnType: string = TypeResolver.resolve(field, addition)
 
@@ -208,7 +212,7 @@ class TypeResolver {
     object: Types.SchemaObject,
     additionToReference?: string | number // allowing to do [].map(TypeResolver.resolve)
   ) {
-    // TODO  add `addition` check for every SchemaObject
+    // TODO: add `addition` check for every SchemaObject
 
     if (object.type === 'string') {
       if (object.enumeration) {
@@ -237,10 +241,6 @@ class TypeResolver {
     }
 
     if (object.type === 'bool') {
-      if (object.default) {
-        return String(object.default)
-      }
-
       return 'boolean'
     }
 
@@ -368,7 +368,7 @@ export type GenerateDataType = InterfacesData & { time: number }
 export const pad = (number: number): string => String(number).padStart(2, '0')
 export const tab = (source: string): string => `  ${source}`
 
-export async function getJson(fromFile: boolean = false): Promise<Types.SchemaResponse> {
+export async function getJson(fromFile: boolean = false) {
   let json: Types.SchemaResponse
 
   if (fromFile) {
@@ -382,7 +382,7 @@ export async function getJson(fromFile: boolean = false): Promise<Types.SchemaRe
   return json
 }
 
-export async function generate(): Promise<GenerateDataType> {
+export async function generate() {
   const { objects: interfaces, methods } = await getJson()
 
   const _generation_start = Date.now()

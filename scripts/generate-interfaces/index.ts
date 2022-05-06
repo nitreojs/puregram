@@ -134,7 +134,6 @@ class MethodService {
 
     for (const field of properties) {
       const description: string = InterfaceService.generateDescription(field.description, 2)
-
       let returnType: string = TypeResolver.resolve(field, addition)
 
       if (field.name === 'reply_markup') {
@@ -237,6 +236,10 @@ class TypeResolver {
     }
 
     if (object.type === 'bool') {
+      if (object.default) {
+        return String(object.default)
+      }
+
       return 'boolean'
     }
 

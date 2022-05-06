@@ -459,14 +459,14 @@ async function _generate(generateFiles: boolean = true) {
   const items = await generate()
   const header = generateHeader(version, recent_changes)
 
-  console.log('[Header]')
+  console.log('[header]')
   console.log(header)
   console.log()
 
 
   /// INTERFACES ----------
 
-  console.log(`[Interfaces (${items.interfaces.length})]`)
+  console.log(`[interfaces (${items.interfaces.length})]`)
 
   for (const kInterface of items.interfaces) {
     console.log(`- ${kInterface.name} (${kInterface.fields} fields)`)
@@ -476,7 +476,7 @@ async function _generate(generateFiles: boolean = true) {
 
   /// TYPES ----------
 
-  console.log(`[Types (${items.types.length})]`)
+  console.log(`[types (${items.types.length})]`)
 
   for (const kType of items.types) {
     console.log(`- ${kType.name}`)
@@ -486,7 +486,7 @@ async function _generate(generateFiles: boolean = true) {
 
   /// METHODS ----------
 
-  console.log(`[Methods (${items.methods.length})]`)
+  console.log(`[methods (${items.methods.length})]`)
 
   for (const kMethod of items.methods) {
     console.log(`- ${kMethod.name}(${kMethod.hasParams ? 'params' : ''})`)
@@ -494,7 +494,7 @@ async function _generate(generateFiles: boolean = true) {
 
   console.log()
 
-  console.log('[Results]')
+  console.log('[results]')
 
 
   /// FILES GENERATION ----------
@@ -541,8 +541,8 @@ async function _generate(generateFiles: boolean = true) {
 
   const _generation_end = Date.now()
 
-  console.log(`Time: ${_generation_end - _generation_start}ms`)
-  console.log(`Generation time: ${items.time}ms`)
+  console.log(`time: ${_generation_end - _generation_start}ms`)
+  console.log(`generation time: ${items.time}ms`)
 
   return 0
 }

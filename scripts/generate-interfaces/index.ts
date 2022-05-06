@@ -135,10 +135,6 @@ class MethodService {
     for (const field of properties) {
       const description: string = InterfaceService.generateDescription(field.description, 2)
 
-      if (field.name === 'is_anonymous') {
-        console.log(field)
-      }
-
       let returnType: string = TypeResolver.resolve(field, addition)
 
       if (field.name === 'reply_markup') {

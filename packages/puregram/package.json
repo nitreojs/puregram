@@ -5,6 +5,9 @@
   "main": "./lib/index.js",
   "author": "nitrojs",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
     "debug": "^4.3.2",
     "form-data-encoder": "^1.7.2",

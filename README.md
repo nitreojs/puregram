@@ -98,6 +98,10 @@ token looks like this: `123456:abc-def1234ghikl-zyx57w2v1u123ew11`
 
 ### installation
 
+#### requirements
+
+> node.js version must be greater or equal than **LTS** (`16.15.0` atm)
+
 ```sh
 $ yarn add puregram
 $ npm i -S puregram

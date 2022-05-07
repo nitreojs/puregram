@@ -32,9 +32,7 @@ export class Context {
     return this.constructor.name
   }
 
-  is(
-    rawTypes: AllowArray<UpdateName | string>
-  ) {
+  is(rawTypes: AllowArray<UpdateName | string>) {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes]

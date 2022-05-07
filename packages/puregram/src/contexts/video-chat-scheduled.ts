@@ -1,28 +1,29 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../generated/telegram-interfaces'
+import { VideoChatScheduled } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
+import { Message } from '../updates/'
 
 import { Context } from './context'
 import { NodeMixin, SendMixin, TargetMixin } from './mixins'
 
-interface MigrateFromChatIdContextOptions {
+interface VideoChatScheduledContextOptions {
   telegram: Telegram
   update: Interfaces.TelegramUpdate
   payload: Interfaces.TelegramMessage
   updateId: number
 }
 
-class MigrateFromChatIdContext extends Context {
+class VideoChatScheduledContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: MigrateFromChatIdContextOptions) {
+  constructor(options: VideoChatScheduledContextOptions) {
     super({
       telegram: options.telegram,
-      updateType: 'migrate_from_chat_id',
+      updateType: 'video_chat_scheduled',
       updateId: options.updateId,
       update: options.update
     })
@@ -30,17 +31,17 @@ class MigrateFromChatIdContext extends Context {
     this.payload = options.payload
   }
 
-  /** Chat ID */
-  get eventId() {
-    return this.payload.migrate_to_chat_id!
+  /** Service message: video chat scheduled */
+  get videoChatScheduled() {
+    return new VideoChatScheduled(this.payload.video_chat_scheduled!)
   }
 }
 
-interface MigrateFromChatIdContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(MigrateFromChatIdContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface VideoChatScheduledContext extends Message, TargetMixin, SendMixin, NodeMixin { }
+applyMixins(VideoChatScheduledContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
-inspectable(MigrateFromChatIdContext, {
-  serialize(context: MigrateFromChatIdContext) {
+inspectable(VideoChatScheduledContext, {
+  serialize(context: VideoChatScheduledContext) {
     return {
       id: context.id,
       from: context.from,
@@ -49,9 +50,9 @@ inspectable(MigrateFromChatIdContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      eventId: context.eventId
+      videoChatScheduled: context.videoChatScheduled
     }
   }
 })
 
-export { MigrateFromChatIdContext }
+export { VideoChatScheduledContext }

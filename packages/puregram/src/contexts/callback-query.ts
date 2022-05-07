@@ -72,9 +72,7 @@ class CallbackQueryContext extends Context {
   }
 
   /** Answers to current callback query */
-  answerCallbackQuery(
-    params?: Partial<Methods.AnswerCallbackQueryParams>
-  ): Promise<true> {
+  answerCallbackQuery(params?: Partial<Methods.AnswerCallbackQueryParams>) {
     return this.telegram.api.answerCallbackQuery({
       callback_query_id: this.id,
       ...params

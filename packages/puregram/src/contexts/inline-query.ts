@@ -34,7 +34,7 @@ class InlineQueryContext extends Context {
   answerInlineQuery(
     results: Interfaces.TelegramInlineQueryResult[],
     params?: Partial<Methods.AnswerInlineQueryParams>
-  ): Promise<true> {
+  ) {
     return this.telegram.api.answerInlineQuery({
       inline_query_id: this.id,
       results,

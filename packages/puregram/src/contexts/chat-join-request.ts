@@ -7,6 +7,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { ChatJoinRequest } from '../common/structures'
 
 import { Context } from './context'
+import { SendMixin, TargetMixin } from './mixins'
 
 interface ChatJoinRequestContextParams {
   telegram: Telegram
@@ -28,45 +29,11 @@ class ChatJoinRequestContext extends Context {
 
     this.payload = options.payload
   }
-
-  /** Sender's ID */
-  get senderId() {
-    return this.from?.id
-  }
-
-  /** Chat ID */
-  get chatId() {
-    return this.chat?.id
-  }
-
-  /** Chat type */
-  get chatType() {
-    return this.chat?.type
-  }
-
-  /** Is this chat a private one? */
-  get isPM() {
-    return this.chatType === 'private'
-  }
-
-  /** Is this chat a group? */
-  get isGroup() {
-    return this.chatType === 'group'
-  }
-
-  /** Is this chat a supergroup? */
-  get isSupergroup() {
-    return this.chatType === 'supergroup'
-  }
-
-  /** Is this chat a channel? */
-  get isChannel() {
-    return this.chatType === 'channel'
-  }
 }
 
-interface ChatJoinRequestContext extends ChatJoinRequest { }
-applyMixins(ChatJoinRequestContext, [ChatJoinRequest])
+// @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
+interface ChatJoinRequestContext extends ChatJoinRequest, TargetMixin, SendMixin { }
+applyMixins(ChatJoinRequestContext, [ChatJoinRequest, TargetMixin, SendMixin])
 
 inspectable(ChatJoinRequestContext, {
   serialize(context: ChatJoinRequestContext) {

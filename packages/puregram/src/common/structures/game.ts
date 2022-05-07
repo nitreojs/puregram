@@ -1,9 +1,9 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { AnimationAttachment } from '../attachments'
+import { filterPayload } from '../../utils/helpers'
 
 import { PhotoSize } from './photo-size'
 import { MessageEntity } from './message-entity'

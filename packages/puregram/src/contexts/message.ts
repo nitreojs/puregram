@@ -4,13 +4,24 @@ import { Telegram } from '../telegram'
 import { Message } from '../updates/'
 
 import * as Interfaces from '../generated/telegram-interfaces'
-import * as Attachments from '../common/attachments'
 import { MessageEntity } from '../common/structures'
 
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
 import { AttachmentType, MessageEventName, UpdateName } from '../types/types'
 import { EVENTS } from '../utils/constants'
+
+import {
+  AnimationAttachment,
+  Attachment,
+  AudioAttachment,
+  DocumentAttachment,
+  PhotoAttachment,
+  StickerAttachment,
+  VideoAttachment,
+  VideoNoteAttachment,
+  VoiceAttachment
+} from '../common/attachments'
 
 import { Context } from './context'
 import { NodeMixin, SendMixin, TargetMixin } from './mixins'
@@ -47,7 +58,6 @@ class MessageContext extends Context {
     if (!this.hasText) {
       return
     }
-
     if (!this.text!.startsWith('/start') || this.text === '/start') {
       return
     }
@@ -79,7 +89,9 @@ class MessageContext extends Context {
       return this.entities.length !== 0
     }
 
-    return this.entities.some(entity => entity.type === type)
+    return this.entities.some(
+      (entity: MessageEntity) => entity.type === type
+    )
   }
 
   /** Checks if the message has `caption` property */
@@ -93,17 +105,19 @@ class MessageContext extends Context {
       return this.captionEntities.length !== 0
     }
 
-    return this.captionEntities.some(entity => entity.type === type)
+    return this.captionEntities.some(
+      (entity: MessageEntity) => entity.type === type
+    )
   }
 
   /** Message attachments */
   get attachments() {
-    const attachments: Attachments.Attachment[] = []
+    const attachments: Attachment[] = []
 
     if (this.audio) attachments.push(this.audio)
     if (this.document) attachments.push(this.document)
     if (this.animation) attachments.push(this.animation)
-    if (this.photo) attachments.push(new Attachments.PhotoAttachment(this.photo))
+    if (this.photo) attachments.push(new PhotoAttachment(this.photo))
     if (this.sticker) attachments.push(this.sticker)
     if (this.video) attachments.push(this.video)
     if (this.voice) attachments.push(this.voice)
@@ -119,30 +133,40 @@ class MessageContext extends Context {
       return this.attachments.length > 0
     }
 
-    return this.attachments.some(attachment => attachment.attachmentType === type)
+    return this.attachments.some(
+      (attachment: Attachment) => attachment.attachmentType === type
+    )
   }
 
   /** Gets attachments */
-  getAttachments(type: AttachmentTypeEnum.Animation | 'animation'): Attachments.AnimationAttachment[]
-  getAttachments(type: AttachmentTypeEnum.Audio | 'audio'): Attachments.AudioAttachment[]
-  getAttachments(type: AttachmentTypeEnum.Document | 'document'): Attachments.DocumentAttachment[]
-  getAttachments(type: AttachmentTypeEnum.Photo | 'photo'): Attachments.PhotoAttachment[]
-  getAttachments(type: AttachmentTypeEnum.Sticker | 'sticker'): Attachments.StickerAttachment[]
-  getAttachments(type: AttachmentTypeEnum.Video | 'video'): Attachments.VideoAttachment[]
-  getAttachments(type: AttachmentTypeEnum.VideoNote | 'video_note'): Attachments.VideoNoteAttachment[]
-  getAttachments(type: AttachmentTypeEnum.Voice | 'voice'): Attachments.VoiceAttachment[]
-  getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachments.Attachment[]
-  getAttachments(type?: any): Attachments.Attachment[] {
+  getAttachments(type: AttachmentTypeEnum.Animation | 'animation'): AnimationAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Audio | 'audio'): AudioAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Document | 'document'): DocumentAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Photo | 'photo'): PhotoAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Sticker | 'sticker'): StickerAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Video | 'video'): VideoAttachment[]
+  getAttachments(type: AttachmentTypeEnum.VideoNote | 'video_note'): VideoNoteAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Voice | 'voice'): VoiceAttachment[]
+  getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
+  getAttachments(type?: any): Attachment[] {
     if (type === undefined) {
       return this.attachments
     }
 
-    return this.attachments.filter(attachment => attachment.attachmentType === type)
+    return this.attachments.filter(
+      (attachment: Attachment) => attachment.attachmentType === type
+    )
   }
 
   /** Is this message an event? */
   get isEvent() {
-    return EVENTS.some(event => Boolean(this[event[0] as keyof Message]))
+    return EVENTS.some(
+      (event) => Boolean(
+        this[
+        event[0] as keyof Message
+        ]
+      )
+    )
   }
 
   /** Event type */
@@ -151,9 +175,13 @@ class MessageContext extends Context {
       return
     }
 
-    const value = EVENTS.find(
+    const value: (
+      [keyof Message, MessageEventName] | undefined
+    ) = EVENTS.find(
       (event) => {
-        const tValue = this[event[0] as keyof Message]
+        const tValue = this[
+          event[0] as keyof Message
+        ]
 
         if (Array.isArray(tValue)) {
           return tValue.length !== 0

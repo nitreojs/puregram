@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable'
 
 import { TelegramPreCheckoutQuery } from '../generated/telegram-interfaces'
-import { User, OrderInfo } from '../common/structures'
+import { User } from '../common/structures/user'
+import { OrderInfo } from '../common/structures/order-info'
 import { filterPayload } from '../utils/helpers'
 
 export class PreCheckoutQuery {

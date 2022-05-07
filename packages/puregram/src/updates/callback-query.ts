@@ -1,10 +1,9 @@
 import { inspectable } from 'inspectable'
 
-import { TelegramCallbackQuery } from '../generated/telegram-interfaces'
-import { User } from '../common/structures'
-import { filterPayload } from '../utils/helpers'
-
 import { Message } from './message'
+import { TelegramCallbackQuery } from '../generated/telegram-interfaces'
+import { User } from '../common/structures/user'
+import { filterPayload } from '../utils/helpers'
 
 /**
  * This object represents an incoming callback query from a callback button in

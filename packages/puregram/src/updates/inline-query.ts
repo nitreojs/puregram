@@ -1,7 +1,8 @@
 import { inspectable } from 'inspectable'
 
 import { TelegramInlineQuery } from '../generated/telegram-interfaces'
-import { User, Location } from '../common/structures'
+import { User } from '../common/structures/user'
+import { Location } from '../common/structures/location'
 import { filterPayload } from '../utils/helpers'
 
 /**

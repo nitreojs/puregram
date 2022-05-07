@@ -11,10 +11,12 @@ import createDebug from 'debug'
 
 import * as Contexts from './contexts'
 
-import { Composer, User } from './common/structures'
+import { Composer } from './common/structures/composer'
+import { User } from './common/structures/user'
 
 import { Telegram } from './telegram'
-import { GetUpdatesParams, TelegramUpdate, TelegramUser } from './generated'
+import { GetUpdatesParams } from './generated/methods'
+import { TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
 import { delay, parseRequestJSON } from './utils/helpers'
 import { StartPollingOptions } from './types/interfaces'
 import { Constructor, UpdateName, MessageEventName } from './types/types'

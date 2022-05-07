@@ -4,7 +4,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
-import { ShippingQuery } from '../updates/'
+import { ShippingQuery, Poll } from '../updates/'
 
 import { Context } from './context'
 import { SendMixin } from './mixins'

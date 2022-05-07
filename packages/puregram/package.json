@@ -37,6 +37,7 @@
     ".": "./lib/index.js",
     "./types": "./lib/types/types.js",
     "./enums": "./lib/types/enums.js",
+    "./interfaces": "./lib/types/interfaces.js",
     "./contexts": "./lib/contexts/index.js",
     "./keyboards": "./lib/common/keyboards/index.js",
     "./structures": "./lib/common/structures/index.js",
@@ -52,6 +53,15 @@
   },
   "typesVersions": {
     "*": {
+      "types": [
+        "./lib/types/types"
+      ],
+      "enums": [
+        "./lib/types/enums"
+      ],
+      "interfaces": [
+        "./lib/types/interfaces"
+      ],
       "contexts": [
         "./lib/contexts"
       ],

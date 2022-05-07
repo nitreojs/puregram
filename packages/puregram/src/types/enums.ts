@@ -60,5 +60,6 @@ export enum UpdateType {
   VideoChatEnded = 'video_chat_ended',
   VideoChatParticipantsInvited = 'video_chat_participants_invited',
   WebAppData = 'web_app_data',
-  ChatJoinRequest = 'chat_join_request'
+  ChatJoinRequest = 'chat_join_request',
+  ProximityAlertTriggered = 'proximity_alert_triggered'
 }

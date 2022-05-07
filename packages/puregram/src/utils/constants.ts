@@ -43,6 +43,7 @@ export const EVENTS: [keyof Message, MessageEventName][] = [
   ['pinnedMessage', 'pinned_message'],
   ['invoice', 'invoice'],
   ['successfulPayment', 'successful_payment'],
+  ['proximityAlertTriggered', 'proximity_alert_triggered'],
   ['videoChatScheduled', 'video_chat_scheduled'],
   ['videoChatStarted', 'video_chat_started'],
   ['videoChatEnded', 'video_chat_ended'],

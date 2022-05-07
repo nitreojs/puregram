@@ -28,7 +28,7 @@ const main = async () => {
     const rawGetters = getGetters(message)
 
     const eventsIndex = rawGetters.findIndex(e => e === 'newChatMembers')
-    const getters = rawGetters.slice(eventsIndex).filter(e => !['proximityAlertTriggered'].includes(e)) // FIXME
+    const getters = rawGetters.slice(eventsIndex)
 
     // ['newChatMembers', 'new_chat_members'],
     for (const getter of getters) {

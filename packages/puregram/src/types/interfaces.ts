@@ -78,6 +78,12 @@ export interface StartPollingOptions {
   offset?: number
   /** Timeout in seconds for long polling */
   timeout?: number
+  /**
+   * Do you want to skip updates that were created when the bot was turned off?
+   * 
+   * If you want to skip specific updates, you need to pass a list of update types you want to skip
+   */
+  dropPendingUpdates?: boolean | string[]
 }
 
 export type ApiResponseUnion = ApiResponseOk | ApiResponseError

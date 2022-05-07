@@ -86,17 +86,11 @@ export class Updates {
   private readonly telegram: Telegram
   private retries: number = 0
 
-  /** Is polling started? */
-  isStarted: boolean = false
-  /** Updates offset */
-  offset: number = 0
+  private isStarted: boolean = false
+  private offset: number = 0
 
   private composer: Composer<Contexts.Context> = Composer.builder<Contexts.Context>()
-    .caught(
-      (_context: Contexts.Context, error: Error) => (
-        console.error(error)
-      )
-    )
+    .caught((_context: Contexts.Context, error: Error) => console.error(error))
 
   private composed!: Middleware<Contexts.Context>
 
@@ -113,7 +107,7 @@ export class Updates {
 
   use<T = {}>(middleware: Middleware<Contexts.Context & T>) {
     if (typeof middleware !== 'function') {
-      throw new TypeError('Middleware must be function')
+      throw new TypeError('middleware must be a function')
     }
 
     this.composer.use(middleware)
@@ -134,7 +128,7 @@ export class Updates {
     const hasEvents = onEvents.every(Boolean)
 
     if (!hasEvents) {
-      throw new TypeError('Events must be not empty')
+      throw new TypeError('events must be not empty')
     }
 
     const handler = Array.isArray(rawHandlers)
@@ -142,11 +136,11 @@ export class Updates {
       : rawHandlers
 
     if (typeof handler !== 'function') {
-      throw new TypeError('Handler must be function')
+      throw new TypeError('handler must be a function')
     }
 
     return this.use(
-      (context: Contexts.Context & T, next: NextMiddleware): unknown => (
+      (context: Contexts.Context & T, next: NextMiddleware) => (
         context.is(onEvents)
           ? handler(context, next)
           : next()
@@ -172,22 +166,22 @@ export class Updates {
   /** Start polling */
   async startPolling(options: StartPollingOptions = {}) {
     if (this.isStarted) {
-      throw new Error('Polling is already started')
+      throw new Error('polling is already started!')
     }
 
     if (!this.telegram.options.token) {
-      throw new TypeError('Token is not set. Perhaps you forgot to set it?')
+      throw new TypeError('token is not set. perhaps you forgot to set it?')
     }
 
     if (!this.telegram.bot) {
-      debug('Fetching bot data...')
+      debug('startPolling | fetching bot data...')
 
       let me!: TelegramUser
 
       try {
         me = await this.telegram.api.getMe()
       } catch (error) {
-        debug('Unable to fetch bot info, perhaps no internet connection?')
+        debug('startPolling | unable to fetch bot info, perhaps no internet connection?')
 
         throw new TelegramError({
           error_code: -1,
@@ -199,7 +193,7 @@ export class Updates {
 
       this.telegram.bot = bot
 
-      debug('Bot data fetched successfully:')
+      debug('startPolling | bot data fetched successfully:')
       debug(bot)
     }
 
@@ -216,6 +210,32 @@ export class Updates {
 
   private async startFetchLoop(options: StartPollingOptions) {
     try {
+      if (options.dropPendingUpdates) {
+        let offset = 0
+        let skippedUpdates = 0
+
+        while (true) {
+          const allowedUpdates = Array.isArray(options.dropPendingUpdates) ? options.dropPendingUpdates : []
+
+          const updates = await this.telegram.api.getUpdates({
+            offset,
+            allowed_updates: allowedUpdates
+          })
+
+          if (updates.length === 0) {
+            break
+          }
+
+          skippedUpdates += updates.length
+
+          offset = updates[updates.length - 1].update_id + 1
+        }
+
+        if (skippedUpdates !== 0) {
+          debug(`startFetchLoop | skipped ${skippedUpdates} updates`)
+        }
+      }
+
       while (this.isStarted) {
         await this.fetchUpdates(options)
       }
@@ -223,22 +243,22 @@ export class Updates {
       debug(error)
 
       if (this.telegram.options.apiRetryLimit === -1) {
-        debug('Trying to reconnect...')
+        debug('startFetchLoop | trying to reconnect...')
       } else if (this.retries === this.telegram.options.apiRetryLimit) {
         if (this.telegram.options.apiRetryLimit === 0) {
-          return debug('`apiRetryLimit` is set to 0, not trying to reconnect')
+          return debug('startFetchLoop | `apiRetryLimit` is set to 0, not trying to reconnect')
         }
 
-        return debug(`Tried to reconnect ${this.retries} times, but it didn't work, cya next time`)
+        return debug(`startFetchLoop | tried to reconnect ${this.retries} times, but it didn't work, cya next time`)
       } else {
         this.retries += 1
 
-        debug(`Trying to reconnect, ${this.retries}/${this.telegram.options.apiRetryLimit} try`)
+        debug(`startFetchLoop | trying to reconnect, ${this.retries}/${this.telegram.options.apiRetryLimit} try`)
       }
 
       await delay(this.telegram.options.apiWait!)
 
-      // not this.stopPolling() because it resets this.retries
+      // INFO: not this.stopPolling() because it resets this.retries
       this.isStarted = false
 
       this.startPolling()
@@ -258,9 +278,9 @@ export class Updates {
     const updates: TelegramUpdate[] = await this.telegram.api.getUpdates(params)
 
     if (!updates) {
-      /// Something is wrong with the internet connection I can feel it...
+      // INFO: Something is wrong with the internet connection I can feel it...
 
-      debug('`fetchUpdates` error: unable to get updates')
+      debug('fetchUpdates | unable to get updates')
 
       this.stopPolling()
       this.startPolling()
@@ -272,37 +292,40 @@ export class Updates {
       return
     }
 
-    updates.forEach(
-      async (update: TelegramUpdate) => {
-        try {
-          await this.handleUpdate(update)
-        } catch (error) {
-          debug('`fetchUpdates` error:')
-          debug(error)
-        }
+    for (const update of updates) {
+      try {
+        await this.handleUpdate(update)
+      } catch (error) {
+        debug('fetchUpdates | error:')
+        debug(error)
       }
-    )
+    }
   }
 
   async handleUpdate(update: TelegramUpdate): Promise<Contexts.Context | undefined> {
     this.offset = update.update_id + 1
 
-    const type: UpdateName = (Object.keys(update) as UpdateName[])[1]
+    const type = (Object.keys(update) as UpdateName[])[1]
 
-    let UpdateContext: ContextConstructor = events[type]
+    let UpdateContext = events[type]
 
-    debug('Event type:', type)
+    debug('handleUpdate | event type:', type)
 
     if (!UpdateContext) {
-      debug(`Unsupported context type \`${type}\``)
+      debug(`handleUpdate | unsupported context type \`${type}\``)
 
       return
     }
 
-    debug('Update payload:')
+    debug('handleUpdate | update payload:')
     debug(update[type])
 
-    let context: Contexts.Context & { isEvent?: boolean, eventType?: MessageEventName } = new UpdateContext({
+    interface ContextAddition {
+      isEvent?: boolean
+      eventType?: MessageEventName
+    }
+
+    let context: Contexts.Context & ContextAddition = new UpdateContext({
       telegram: this.telegram,
       update,
       payload: update[type],
@@ -310,9 +333,9 @@ export class Updates {
       updateId: update.update_id
     })
 
-    const isEvent: boolean = context.isEvent === true && context.eventType !== undefined
+    const isEvent = context.isEvent === true && context.eventType !== undefined
 
-    debug('Is event?', isEvent)
+    debug('handleUpdate | is this event an extra event?', isEvent)
 
     if (isEvent) {
       UpdateContext = events[context.eventType!]
@@ -326,6 +349,7 @@ export class Updates {
       })
     }
 
+    debug('handleUpdate | context:')
     debug(context)
 
     this.dispatchMiddleware(context)
@@ -336,12 +360,12 @@ export class Updates {
   // FIXME: unacceptable return type
   getKoaMiddleware(): Function {
     return async (context: any) => {
-      const update: any = context.request.body
+      const update = context.request.body
 
       if (update === undefined) {
         context.status = 500
 
-        throw new Error('request.body is undefined. Are you sure you parsed it (e.g. via koa-body)?')
+        throw new Error('request.body is undefined. are you sure you parsed it (e.g. via koa-body)?')
       }
 
       context.status = 200
@@ -374,7 +398,7 @@ export class Updates {
         res.writeHead(500)
         res.end()
 
-        throw new Error('req.body is undefined. Are you sure you parsed it (e.g. via body-parser)?')
+        throw new Error('req.body is undefined. are you sure you parsed it (e.g. via body-parser)?')
       }
 
       res.writeHead(200)
@@ -430,9 +454,6 @@ export interface Updates {
 
 inspectable(Updates, {
   serialize(updates: Updates) {
-    return {
-      isStarted: updates.isStarted,
-      offset: updates.offset
-    }
+    return {}
   }
 })

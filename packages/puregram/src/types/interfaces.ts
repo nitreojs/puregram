@@ -84,6 +84,8 @@ export interface StartPollingOptions {
    * If you want to skip specific updates, you need to pass a list of update types you want to skip
    */
   dropPendingUpdates?: boolean | string[]
+  /** List of the update types you want your bot to receive */
+  allowedUpdates?: string[]
 }
 
 export type ApiResponseUnion = ApiResponseOk | ApiResponseError

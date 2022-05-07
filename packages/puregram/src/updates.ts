@@ -268,7 +268,7 @@ export class Updates {
   private async fetchUpdates(options: StartPollingOptions) {
     const params: Partial<GetUpdatesParams> = {
       timeout: 15,
-      allowed_updates: this.telegram.options.allowedUpdates!
+      allowed_updates: options.allowedUpdates ?? this.telegram.options.allowedUpdates!
     }
 
     if (this.offset) params.offset = this.offset

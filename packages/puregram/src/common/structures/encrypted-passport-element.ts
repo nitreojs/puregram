@@ -1,7 +1,6 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-
 import { filterPayload } from '../../utils/helpers'
 
 import { PassportFile } from './passport-file'

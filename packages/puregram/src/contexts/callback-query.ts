@@ -4,11 +4,10 @@ import { inspectable } from 'inspectable'
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { CallbackQuery } from '../updates/'
+import { Telegram } from '../telegram'
 
 import * as Interfaces from '../generated/telegram-interfaces'
 import * as Methods from '../generated/methods'
-
-import { Telegram } from '../telegram'
 
 import { Context } from './context'
 import { MessageContext } from './message'

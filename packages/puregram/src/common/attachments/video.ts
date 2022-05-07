@@ -3,7 +3,6 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { PhotoSize } from '../structures'
-
 import { FileAttachment } from './file-attachment'
 
 /** This object represents a video file. */

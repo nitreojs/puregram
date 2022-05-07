@@ -5,8 +5,9 @@ import { MediaInput } from '../../media-source'
 import { Optional } from '../../types/types'
 
 import { Context } from '../context'
-import { SendMixin } from './send'
 import { MessageContext } from '../message'
+
+import { SendMixin } from './send'
 
 interface NodeMixinMetadata {
   get id(): number

@@ -7,28 +7,7 @@ import {
   TelegramUser
 } from '../generated/telegram-interfaces'
 
-import { User } from '../common/structures/user'
-import { Chat } from '../common/structures/chat'
-import { ForwardMessage } from '../common/structures/forward-message'
-import { MessageEntity } from '../common/structures/message-entity'
-import { PhotoSize } from '../common/structures/photo-size'
-import { Contact } from '../common/structures/contact'
-import { Game } from '../common/structures/game'
-import { Poll } from '../common/structures/poll'
-import { Venue } from '../common/structures/venue'
-import { Location } from '../common/structures/location'
-import { Invoice } from '../common/structures/invoice'
-import { Dice } from '../common/structures/dice'
-import { SuccessfulPayment } from '../common/structures/successful-payment'
-import { PassportData } from '../common/structures/passport-data'
-import { InlineKeyboardMarkup } from '../common/structures/inline-keyboard-markup'
-import { MessageAutoDeleteTimerChanged } from '../common/structures/message-auto-delete-timer-changed'
-import { VideoChatEnded } from '../common/structures/video-chat-ended'
-import { VideoChatParticipantsInvited } from '../common/structures/video-chat-participants-invited'
-import { VideoChatStarted } from '../common/structures/video-chat-started'
-import { VideoChatScheduled } from '../common/structures/video-chat-scheduled'
-import { ProximityAlertTriggered } from '../common/structures/proximity-alert-triggered'
-import { WebAppData } from '../common/structures/web-app-data'
+import * as Structures from '../common/structures'
 
 import {
   AnimationAttachment,
@@ -63,7 +42,7 @@ export class Message {
       return
     }
 
-    return new User(from)
+    return new Structures.User(from)
   }
 
   /**
@@ -79,7 +58,7 @@ export class Message {
       return
     }
 
-    return new Chat(sender_chat)
+    return new Structures.Chat(sender_chat)
   }
 
   /** Date the message was sent in Unix time */
@@ -95,7 +74,7 @@ export class Message {
       return
     }
 
-    return new Chat(chat)
+    return new Structures.Chat(chat)
   }
 
   /** Forwarded message if there is any */
@@ -106,7 +85,7 @@ export class Message {
       return
     }
 
-    return new ForwardMessage(this.payload)
+    return new Structures.ForwardMessage(this.payload)
   }
 
   /** For replies, the original message */
@@ -128,7 +107,7 @@ export class Message {
       return
     }
 
-    return new User(via_bot)
+    return new Structures.User(via_bot)
   }
 
   /** Date the message was last edited in Unix time */
@@ -173,7 +152,7 @@ export class Message {
     }
 
     return entities.map(
-      (entity: TelegramMessageEntity) => new MessageEntity(entity)
+      (entity: TelegramMessageEntity) => new Structures.MessageEntity(entity)
     )
   }
 
@@ -233,7 +212,7 @@ export class Message {
     }
 
     return photo.map(
-      (size: TelegramPhotoSize) => new PhotoSize(size)
+      (size: TelegramPhotoSize) => new Structures.PhotoSize(size)
     )
   }
 
@@ -301,7 +280,7 @@ export class Message {
     }
 
     return caption_entities.map(
-      (entity: TelegramMessageEntity) => new MessageEntity(entity)
+      (entity: TelegramMessageEntity) => new Structures.MessageEntity(entity)
     )
   }
 
@@ -313,7 +292,7 @@ export class Message {
       return
     }
 
-    return new Contact(contact)
+    return new Structures.Contact(contact)
   }
 
   /** Message is a dice with random value from 1 to 6 */
@@ -324,7 +303,7 @@ export class Message {
       return
     }
 
-    return new Dice(dice)
+    return new Structures.Dice(dice)
   }
 
   /** Message is a game, information about the game */
@@ -335,7 +314,7 @@ export class Message {
       return
     }
 
-    return new Game(game)
+    return new Structures.Game(game)
   }
 
   /** Message is a native poll, information about the poll */
@@ -346,7 +325,7 @@ export class Message {
       return
     }
 
-    return new Poll(poll)
+    return new Structures.Poll(poll)
   }
 
   /**
@@ -361,7 +340,7 @@ export class Message {
       return
     }
 
-    return new Venue(venue)
+    return new Structures.Venue(venue)
   }
 
   /** Message is a shared location, information about the location */
@@ -372,7 +351,7 @@ export class Message {
       return
     }
 
-    return new Location(location)
+    return new Structures.Location(location)
   }
 
   /**
@@ -387,7 +366,7 @@ export class Message {
       return
     }
 
-    return new InlineKeyboardMarkup(reply_markup)
+    return new Structures.InlineKeyboardMarkup(reply_markup)
   }
 
   /** The domain name of the website on which the user has logged in. */
@@ -403,7 +382,7 @@ export class Message {
       return
     }
 
-    return new PassportData(passport_data)
+    return new Structures.PassportData(passport_data)
   }
 
   // Events
@@ -420,7 +399,7 @@ export class Message {
     }
 
     return new_chat_members.map(
-      (member: TelegramUser) => new User(member)
+      (member: TelegramUser) => new Structures.User(member)
     )
   }
 
@@ -435,7 +414,7 @@ export class Message {
       return
     }
 
-    return new User(left_chat_member)
+    return new Structures.User(left_chat_member)
   }
 
   /** A chat title was changed to this value */
@@ -452,7 +431,7 @@ export class Message {
     }
 
     return new_chat_photo.map(
-      (size: TelegramPhotoSize) => new PhotoSize(size)
+      (size: TelegramPhotoSize) => new Structures.PhotoSize(size)
     )
   }
 
@@ -485,7 +464,7 @@ export class Message {
       return
     }
 
-    return new MessageAutoDeleteTimerChanged(message_auto_delete_timer_changed)
+    return new Structures.MessageAutoDeleteTimerChanged(message_auto_delete_timer_changed)
   }
 
   /**
@@ -543,7 +522,7 @@ export class Message {
       return
     }
 
-    return new Invoice(invoice)
+    return new Structures.Invoice(invoice)
   }
 
   /**
@@ -557,7 +536,7 @@ export class Message {
       return
     }
 
-    return new SuccessfulPayment(successful_payment)
+    return new Structures.SuccessfulPayment(successful_payment)
   }
 
   /**
@@ -572,7 +551,7 @@ export class Message {
       return
     }
 
-    return new ProximityAlertTriggered(proximity_alert_triggered)
+    return new Structures.ProximityAlertTriggered(proximity_alert_triggered)
   }
 
   /** Service message: video chat scheduled */
@@ -583,7 +562,7 @@ export class Message {
       return
     }
 
-    return new VideoChatScheduled(video_chat_scheduled)
+    return new Structures.VideoChatScheduled(video_chat_scheduled)
   }
 
   /** Service message: video chat started */
@@ -594,7 +573,7 @@ export class Message {
       return
     }
 
-    return new VideoChatStarted(video_chat_started)
+    return new Structures.VideoChatStarted(video_chat_started)
   }
 
   /** Service message: video chat ended */
@@ -605,7 +584,7 @@ export class Message {
       return
     }
 
-    return new VideoChatEnded(video_chat_ended)
+    return new Structures.VideoChatEnded(video_chat_ended)
   }
 
   /** Service message: new participants invited to a video chat */
@@ -616,7 +595,7 @@ export class Message {
       return
     }
 
-    return new VideoChatParticipantsInvited(video_chat_participants_invited)
+    return new Structures.VideoChatParticipantsInvited(video_chat_participants_invited)
   }
 
   /** Service message: data sent by a Web App */
@@ -627,7 +606,7 @@ export class Message {
       return
     }
 
-    return new WebAppData(web_app_data)
+    return new Structures.WebAppData(web_app_data)
   }
 }
 

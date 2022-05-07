@@ -12,7 +12,7 @@ import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 
 import { Updates } from './updates'
-import { User } from './common/structures/user'
+import { User } from './common/structures'
 import { APIError } from './errors'
 import { ApiMethods } from './generated'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'

@@ -1,8 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import { TelegramShippingQuery } from '../generated/telegram-interfaces'
-import { User } from '../common/structures/user'
-import { ShippingAddress } from '../common/structures/shipping-address'
+import { User, ShippingAddress } from '../common/structures'
 
 /** This object contains information about an incoming shipping query. */
 export class ShippingQuery {

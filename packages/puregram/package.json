@@ -1,8 +1,8 @@
 {
   "name": "puregram",
   "version": "2.5.1",
-  "description": "Powerful and modern Telegram Bot API SDK for Node.js and TypeScript 😁",
-  "main": "./lib/index",
+  "description": "powerful and modern telegram bot api sdk for node.js and typescript 😁",
+  "main": "./lib/index.js",
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
@@ -31,20 +31,21 @@
     "lib"
   ],
   "exports": {
-    "./types": "./lib/types/types",
-    "./enums": "./lib/types/enums",
-    "./contexts": "./lib/contexts",
-    "./keyboards": "./lib/common/keyboards",
-    "./structures": "./lib/common/structures",
-    "./parse-mode": "./lib/common/parse-mode",
-    "./attachments": "./lib/common/attachments",
-    "./generated": "./lib/generated",
-    "./generated/methods": "./lib/generated/methods",
-    "./generated/api-methods": "./lib/generated/api-methods",
-    "./generated/telegram-interfaces": "./lib/generated/telegram-interfaces",
-    "./api-methods": "./lib/generated/api-methods",
-    "./methods": "./lib/generated/methods",
-    "./telegram-interfaces": "./lib/generated/telegram-interfaces"
+    ".": "./lib/index.js",
+    "./types": "./lib/types/types.js",
+    "./enums": "./lib/types/enums.js",
+    "./contexts": "./lib/contexts/index.js",
+    "./keyboards": "./lib/common/keyboards/index.js",
+    "./structures": "./lib/common/structures/index.js",
+    "./parse-mode": "./lib/common/parse-mode/index.js",
+    "./attachments": "./lib/common/attachments/index.js",
+    "./generated": "./lib/generated/index.js",
+    "./generated/methods": "./lib/generated/methods.js",
+    "./generated/api-methods": "./lib/generated/api-methods.js",
+    "./generated/telegram-interfaces": "./lib/generated/telegram-interfaces.js",
+    "./api-methods": "./lib/generated/api-methods.js",
+    "./methods": "./lib/generated/methods.js",
+    "./telegram-interfaces": "./lib/generated/telegram-interfaces.js"
   },
   "typesVersions": {
     "*": {

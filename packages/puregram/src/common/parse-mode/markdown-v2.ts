@@ -1,6 +1,6 @@
 import { replaceChars } from '../../utils/helpers'
 
-/** Markdown V2 reply markup */
+/** Markdown V2 parse mode */
 export class MarkdownV2 {
   static parseMode: 'MarkdownV2' = 'MarkdownV2'
 

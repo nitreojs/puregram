@@ -5,7 +5,7 @@ const escapeHtml = (source: string): string => (
     .replace(/"/g, '&quot;')
 )
 
-/** HTML reply markup */
+/** HTML parse mode */
 export class HTML {
   static parseMode: 'HTML' = 'HTML'
 

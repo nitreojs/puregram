@@ -55,6 +55,9 @@ class MessageContext extends Context {
     this.#caption = this.payload.caption
   }
 
+  /**
+   * For text messages, the actual UTF-8 text of the message, 0-4096 characters
+   */
   get text() {
     return this.#text
   }
@@ -63,6 +66,10 @@ class MessageContext extends Context {
     this.#text = text
   }
 
+  /**
+   * Caption for the animation, audio, document, photo, video or voice,
+   * 0-1024 characters
+   */
   get caption() {
     return this.#caption
   }

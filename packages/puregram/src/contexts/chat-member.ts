@@ -43,7 +43,7 @@ interface ChatMemberContext extends ChatMemberUpdated, TargetMixin, SendMixin { 
 applyMixins(ChatMemberContext, [ChatMemberUpdated, TargetMixin, SendMixin])
 
 inspectable(ChatMemberContext, {
-  serialize(context: ChatMemberContext) {
+  serialize(context) {
     return {
       senderId: context.senderId,
       chatId: context.chatId,

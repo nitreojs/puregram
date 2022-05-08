@@ -178,7 +178,7 @@ export class InlineKeyboardBuilder {
 }
 
 inspectable(InlineKeyboardBuilder, {
-  serialize(builder: InlineKeyboardBuilder) {
+  serialize(builder) {
     return builder.toJSON()
   }
 })

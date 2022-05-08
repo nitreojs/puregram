@@ -45,7 +45,7 @@ interface ChannelChatCreatedContext extends Message, SendMixin, TargetMixin, Nod
 applyMixins(ChannelChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(ChannelChatCreatedContext, {
-  serialize(context: ChannelChatCreatedContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

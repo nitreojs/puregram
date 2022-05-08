@@ -67,7 +67,7 @@ export class PreCheckoutQuery {
 }
 
 inspectable(PreCheckoutQuery, {
-  serialize(query: PreCheckoutQuery) {
+  serialize(query) {
     const payload = {
       id: query.id,
       from: query.from,

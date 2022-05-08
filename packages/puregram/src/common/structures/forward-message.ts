@@ -77,7 +77,7 @@ export class ForwardMessage {
 }
 
 inspectable(ForwardMessage, {
-  serialize(message: ForwardMessage) {
+  serialize(message) {
     const payload = {
       id: message.id,
       from: message.from,

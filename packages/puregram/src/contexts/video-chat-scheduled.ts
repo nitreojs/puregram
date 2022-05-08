@@ -41,7 +41,7 @@ interface VideoChatScheduledContext extends Message, TargetMixin, SendMixin, Nod
 applyMixins(VideoChatScheduledContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(VideoChatScheduledContext, {
-  serialize(context: VideoChatScheduledContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

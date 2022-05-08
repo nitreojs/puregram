@@ -63,7 +63,7 @@ export class SuccessfulPayment {
 }
 
 inspectable(SuccessfulPayment, {
-  serialize(payment: SuccessfulPayment) {
+  serialize(payment) {
     const payload = {
       currency: payment.currency,
       totalAmount: payment.totalAmount,

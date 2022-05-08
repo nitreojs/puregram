@@ -41,7 +41,7 @@ interface InvoiceContext extends Message, TargetMixin, SendMixin, NodeMixin { }
 applyMixins(InvoiceContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(InvoiceContext, {
-  serialize(context: InvoiceContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

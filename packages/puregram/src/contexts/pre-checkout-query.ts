@@ -36,7 +36,7 @@ interface PreCheckoutQueryContext extends PreCheckoutQuery, SendMixin { }
 applyMixins(PreCheckoutQueryContext, [PreCheckoutQuery, SendMixin])
 
 inspectable(PreCheckoutQueryContext, {
-  serialize(query: PreCheckoutQueryContext) {
+  serialize(query) {
     const payload = {
       id: query.id,
       from: query.from,

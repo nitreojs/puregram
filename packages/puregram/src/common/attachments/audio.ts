@@ -56,7 +56,7 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
 }
 
 inspectable(AudioAttachment, {
-  serialize(audio: AudioAttachment) {
+  serialize(audio) {
     return {
       fileId: audio.fileId,
       fileUniqueId: audio.fileUniqueId,

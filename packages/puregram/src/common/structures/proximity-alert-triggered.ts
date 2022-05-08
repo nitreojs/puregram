@@ -28,7 +28,7 @@ export class ProximityAlertTriggered {
 }
 
 inspectable(ProximityAlertTriggered, {
-  serialize(alert: ProximityAlertTriggered) {
+  serialize(alert) {
     return {
       traveler: alert.traveler,
       watcher: alert.watcher,

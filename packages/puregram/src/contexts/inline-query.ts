@@ -47,7 +47,7 @@ interface InlineQueryContext extends InlineQuery { }
 applyMixins(InlineQueryContext, [InlineQuery])
 
 inspectable(InlineQueryContext, {
-  serialize(query: InlineQueryContext) {
+  serialize(query) {
     const payload = {
       id: query.id,
       from: query.from,

@@ -306,7 +306,7 @@ export class Telegram {
 }
 
 inspectable(Telegram, {
-  serialize(telegram: Telegram) {
+  serialize(telegram) {
     return {
       options: {
         token: telegram.options.token ? '[set]' : '[none]',

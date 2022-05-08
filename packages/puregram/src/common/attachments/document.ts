@@ -41,7 +41,7 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
 }
 
 inspectable(DocumentAttachment, {
-  serialize(document: DocumentAttachment) {
+  serialize(document) {
     return {
       fileId: document.fileId,
       fileUniqueId: document.fileUniqueId,

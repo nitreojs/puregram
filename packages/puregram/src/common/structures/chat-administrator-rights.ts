@@ -67,7 +67,7 @@ export class ChatAdministratorRights {
 }
 
 inspectable(ChatAdministratorRights, {
-  serialize(rights: ChatAdministratorRights) {
+  serialize(rights) {
 
   }
 })

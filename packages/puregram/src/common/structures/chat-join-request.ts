@@ -46,7 +46,7 @@ export class ChatJoinRequest {
 }
 
 inspectable(ChatJoinRequest, {
-  serialize(request: ChatJoinRequest) {
+  serialize(request) {
     return {
       chat: request.chat,
       from: request.from,

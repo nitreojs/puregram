@@ -23,7 +23,7 @@ export class ChatLocation {
 }
 
 inspectable(ChatLocation, {
-  serialize(chatLocation: ChatLocation) {
+  serialize(chatLocation) {
     return {
       location: chatLocation.location,
       address: chatLocation.address

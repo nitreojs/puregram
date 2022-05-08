@@ -162,7 +162,7 @@ export class InlineKeyboard {
 }
 
 inspectable(InlineKeyboard, {
-  serialize(keyboard: InlineKeyboard) {
+  serialize(keyboard) {
     return keyboard.toJSON()
   }
 })

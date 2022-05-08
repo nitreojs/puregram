@@ -44,7 +44,7 @@ interface PinnedMessageContext extends Message, TargetMixin, SendMixin, NodeMixi
 applyMixins(PinnedMessageContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(PinnedMessageContext, {
-  serialize(context: PinnedMessageContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

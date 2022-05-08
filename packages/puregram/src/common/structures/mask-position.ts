@@ -46,7 +46,7 @@ export class MaskPosition {
 }
 
 inspectable(MaskPosition, {
-  serialize(position: MaskPosition) {
+  serialize(position) {
     return {
       point: position.point,
       xShift: position.xShift,

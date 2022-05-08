@@ -36,7 +36,7 @@ interface ChatJoinRequestContext extends ChatJoinRequest, TargetMixin, SendMixin
 applyMixins(ChatJoinRequestContext, [ChatJoinRequest, TargetMixin, SendMixin])
 
 inspectable(ChatJoinRequestContext, {
-  serialize(context: ChatJoinRequestContext) {
+  serialize(context) {
     return {
       chat: context.chat,
       from: context.from,

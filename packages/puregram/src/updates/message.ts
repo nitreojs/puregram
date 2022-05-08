@@ -1,11 +1,6 @@
 import { inspectable } from 'inspectable'
 
-import {
-  TelegramMessage,
-  TelegramMessageEntity,
-  TelegramPhotoSize,
-  TelegramUser
-} from '../generated/telegram-interfaces'
+import { TelegramMessage } from '../generated/telegram-interfaces'
 
 import { User } from '../common/structures/user'
 import { Chat } from '../common/structures/chat'
@@ -172,9 +167,7 @@ export class Message {
       return []
     }
 
-    return entities.map(
-      (entity: TelegramMessageEntity) => new MessageEntity(entity)
-    )
+    return entities.map(entity => new MessageEntity(entity))
   }
 
   /**
@@ -232,9 +225,7 @@ export class Message {
       return
     }
 
-    return photo.map(
-      (size: TelegramPhotoSize) => new PhotoSize(size)
-    )
+    return photo.map(size => new PhotoSize(size))
   }
 
   /** Message is a sticker, information about the sticker */
@@ -300,9 +291,7 @@ export class Message {
       return []
     }
 
-    return caption_entities.map(
-      (entity: TelegramMessageEntity) => new MessageEntity(entity)
-    )
+    return caption_entities.map(entity => new MessageEntity(entity))
   }
 
   /** Message is a shared contact, information about the contact */
@@ -419,9 +408,7 @@ export class Message {
       return []
     }
 
-    return new_chat_members.map(
-      (member: TelegramUser) => new User(member)
-    )
+    return new_chat_members.map(member => new User(member))
   }
 
   /**
@@ -451,9 +438,7 @@ export class Message {
       return []
     }
 
-    return new_chat_photo.map(
-      (size: TelegramPhotoSize) => new PhotoSize(size)
-    )
+    return new_chat_photo.map(size => new PhotoSize(size))
   }
 
   /** Service message: the chat photo was deleted */
@@ -632,7 +617,7 @@ export class Message {
 }
 
 inspectable(Message, {
-  serialize(message: Message) {
+  serialize(message) {
     const payload = {
       id: message.id,
       from: message.from,

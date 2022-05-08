@@ -40,7 +40,7 @@ interface ChosenInlineResultContext extends ChosenInlineResult, SendMixin { }
 applyMixins(ChosenInlineResultContext, [ChosenInlineResult, SendMixin])
 
 inspectable(ChosenInlineResultContext, {
-  serialize(result: ChosenInlineResultContext) {
+  serialize(result) {
     const payload = {
       resultId: result.resultId,
       from: result.from,

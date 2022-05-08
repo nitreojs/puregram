@@ -41,7 +41,7 @@ interface SuccessfulPaymentContext extends Message, TargetMixin, SendMixin, Node
 applyMixins(SuccessfulPayment, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(SuccessfulPaymentContext, {
-  serialize(context: SuccessfulPaymentContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

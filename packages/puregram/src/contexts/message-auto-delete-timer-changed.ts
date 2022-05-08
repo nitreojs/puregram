@@ -41,7 +41,7 @@ interface MessageAutoDeleteTimerChangedContext extends Message, TargetMixin, Sen
 applyMixins(MessageAutoDeleteTimerChangedContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(MessageAutoDeleteTimerChangedContext, {
-  serialize(context: MessageAutoDeleteTimerChangedContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

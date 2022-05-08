@@ -65,7 +65,7 @@ export class StickerSet {
 }
 
 inspectable(StickerSet, {
-  serialize(set: StickerSet) {
+  serialize(set) {
     const payload = {
       name: set.name,
       title: set.title,

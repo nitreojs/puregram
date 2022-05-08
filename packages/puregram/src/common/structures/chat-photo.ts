@@ -47,7 +47,7 @@ export class ChatPhoto {
 }
 
 inspectable(ChatPhoto, {
-  serialize(photo: ChatPhoto) {
+  serialize(photo) {
     return {
       smallFileId: photo.smallFileId,
       smallFileUniqueId: photo.smallFileUniqueId,

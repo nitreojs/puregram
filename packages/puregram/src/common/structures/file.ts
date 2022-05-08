@@ -41,7 +41,7 @@ export class File {
 }
 
 inspectable(File, {
-  serialize(file: File) {
+  serialize(file) {
     const payload = {
       fileId: file.fileId,
       fileUniqueId: file.fileUniqueId,

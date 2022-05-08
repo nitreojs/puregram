@@ -53,7 +53,7 @@ export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
 }
 
 inspectable(VideoAttachment, {
-  serialize(video: VideoAttachment) {
+  serialize(video) {
     return {
       fileId: video.fileId,
       fileUniqueId: video.fileUniqueId,

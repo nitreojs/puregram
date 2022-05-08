@@ -43,7 +43,7 @@ export class PhotoSize {
 }
 
 inspectable(PhotoSize, {
-  serialize(size: PhotoSize) {
+  serialize(size) {
     const payload = {
       fileId: size.fileId,
       fileUniqueId: size.fileUniqueId,

@@ -28,7 +28,7 @@ export class Dice {
 }
 
 inspectable(Dice, {
-  serialize(dice: Dice) {
+  serialize(dice) {
     return {
       emoji: dice.emoji,
       value: dice.value

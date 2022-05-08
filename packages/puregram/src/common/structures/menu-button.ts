@@ -40,7 +40,7 @@ export class MenuButton {
 }
 
 inspectable(MenuButton, {
-  serialize(button: MenuButton) {
+  serialize(button) {
     const payload = {
       type: button.type,
       text: button.text,

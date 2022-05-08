@@ -76,7 +76,7 @@ export class ChatPermissions {
 }
 
 inspectable(ChatPermissions, {
-  serialize(permissions: ChatPermissions) {
+  serialize(permissions) {
     const payload = {
       canSendMessages: permissions.canSendMessages,
       canSendMediaMessages: permissions.canSendMediaMessages,

@@ -94,7 +94,7 @@ export class PromptManager {
 }
 
 inspectable(PromptManager, {
-  serialize(manager: PromptManager) {
+  serialize(manager) {
     return {}
   }
 })

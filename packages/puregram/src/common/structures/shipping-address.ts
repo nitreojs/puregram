@@ -42,7 +42,7 @@ export class ShippingAddress {
 }
 
 inspectable(ShippingAddress, {
-  serialize(address: ShippingAddress) {
+  serialize(address) {
     return {
       countryCode: address.countryCode,
       state: address.state,

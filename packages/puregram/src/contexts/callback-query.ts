@@ -84,7 +84,7 @@ interface CallbackQueryContext extends CallbackQuery { }
 applyMixins(CallbackQueryContext, [CallbackQuery])
 
 inspectable(CallbackQueryContext, {
-  serialize(query: CallbackQueryContext) {
+  serialize(query) {
     const payload = {
       id: query.id,
       senderId: query.senderId,

@@ -22,7 +22,7 @@ export class SentWebAppMessage {
 }
 
 inspectable(SentWebAppMessage, {
-  serialize(message: SentWebAppMessage) {
+  serialize(message) {
     const payload = {
       inlineMessageId: message.inlineMessageId
     }

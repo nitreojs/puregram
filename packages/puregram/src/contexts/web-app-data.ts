@@ -48,7 +48,7 @@ interface WebAppDataContext extends Message, TargetMixin, SendMixin, NodeMixin {
 applyMixins(WebAppDataContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(WebAppDataContext, {
-  serialize(context: WebAppDataContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

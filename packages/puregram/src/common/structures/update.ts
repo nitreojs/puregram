@@ -179,7 +179,7 @@ export class Update {
 }
 
 inspectable(Update, {
-  serialize(update: Update) {
+  serialize(update) {
     const payload = {
       id: update.id,
       message: update.message,

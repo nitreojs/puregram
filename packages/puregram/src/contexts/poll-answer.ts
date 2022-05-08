@@ -36,7 +36,7 @@ interface PollAnswerContext extends PollAnswer, SendMixin { }
 applyMixins(PollAnswerContext, [PollAnswer, SendMixin])
 
 inspectable(PollAnswerContext, {
-  serialize(answer: PollAnswerContext) {
+  serialize(answer) {
     return {
       pollId: answer.pollId,
       user: answer.user,

@@ -42,7 +42,7 @@ export class Context {
 }
 
 inspectable(Context, {
-  serialize(context: Context) {
+  serialize(context) {
     return {}
   }
 })

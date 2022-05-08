@@ -38,7 +38,7 @@ export class EncryptedCredentials {
 }
 
 inspectable(EncryptedCredentials, {
-  serialize(credentials: EncryptedCredentials) {
+  serialize(credentials) {
     return {
       data: credentials.data,
       hash: credentials.hash,

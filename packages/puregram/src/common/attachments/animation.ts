@@ -56,7 +56,7 @@ export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnima
 }
 
 inspectable(AnimationAttachment, {
-  serialize(animation: AnimationAttachment) {
+  serialize(animation) {
     return {
       fileId: animation.fileId,
       fileUniqueId: animation.fileUniqueId,

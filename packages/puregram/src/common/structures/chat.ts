@@ -216,7 +216,7 @@ export class Chat {
 }
 
 inspectable(Chat, {
-  serialize(chat: Chat) {
+  serialize(chat) {
     const payload = {
       id: chat.id,
       type: chat.type,

@@ -84,7 +84,7 @@ export class CallbackQuery {
 }
 
 inspectable(CallbackQuery, {
-  serialize(query: CallbackQuery) {
+  serialize(query) {
     const payload = {
       id: query.id,
       senderId: query.senderId,

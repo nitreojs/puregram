@@ -36,7 +36,7 @@ export class PromptAnswer {
 }
 
 inspectable(PromptAnswer, {
-  serialize(answer: PromptAnswer) {
+  serialize(answer) {
     return filterPayload({
       context: answer.context,
       promptedAt: answer.promptedAt,

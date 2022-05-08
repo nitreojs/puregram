@@ -33,7 +33,7 @@ export class PromptQuestion {
 }
 
 inspectable(PromptQuestion, {
-  serialize(question: PromptQuestion) {
+  serialize(question) {
     return filterPayload({
       promptedAt: question.promptedAt,
       text: question.requestText,

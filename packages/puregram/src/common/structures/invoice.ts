@@ -47,7 +47,7 @@ export class Invoice {
 }
 
 inspectable(Invoice, {
-  serialize(invoice: Invoice) {
+  serialize(invoice) {
     return {
       title: invoice.title,
       description: invoice.description,

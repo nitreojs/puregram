@@ -41,7 +41,7 @@ interface VideoChatStartedContext extends Message, TargetMixin, SendMixin, NodeM
 applyMixins(VideoChatStartedContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(VideoChatStartedContext, {
-  serialize(context: VideoChatStartedContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

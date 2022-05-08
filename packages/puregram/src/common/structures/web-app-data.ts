@@ -21,7 +21,7 @@ export class WebAppData {
 }
 
 inspectable(WebAppData, {
-  serialize(data: WebAppData) {
+  serialize(data) {
     return {
       data: data.data,
       buttonText: data.buttonText

@@ -35,7 +35,7 @@ interface GroupChatCreatedContext extends Message, TargetMixin, SendMixin, NodeM
 applyMixins(GroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(GroupChatCreatedContext, {
-  serialize(context: GroupChatCreatedContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

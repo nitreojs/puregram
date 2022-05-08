@@ -17,7 +17,7 @@ export class VideoChatEnded {
 }
 
 inspectable(VideoChatEnded, {
-  serialize(event: VideoChatEnded) {
+  serialize(event) {
     return {
       duration: event.duration
     }

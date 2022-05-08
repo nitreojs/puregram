@@ -34,7 +34,7 @@ interface PollContext extends Poll { }
 applyMixins(PollContext, [Poll])
 
 inspectable(PollContext, {
-  serialize(poll: PollContext) {
+  serialize(poll) {
     const payload = {
       id: poll.id,
       question: poll.question,

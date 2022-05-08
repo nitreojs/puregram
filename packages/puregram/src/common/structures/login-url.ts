@@ -55,7 +55,7 @@ export class LoginUrl {
 }
 
 inspectable(LoginUrl, {
-  serialize(loginUrl: LoginUrl) {
+  serialize(loginUrl) {
     const payload = {
       url: loginUrl.url,
       forwardText: loginUrl.forwardText,

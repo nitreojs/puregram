@@ -81,7 +81,7 @@ export class Game {
 }
 
 inspectable(Game, {
-  serialize(game: Game) {
+  serialize(game) {
     const payload = {
       title: game.title,
       description: game.description,

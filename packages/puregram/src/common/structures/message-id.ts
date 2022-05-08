@@ -13,7 +13,7 @@ export class MessageId {
 }
 
 inspectable(MessageId, {
-  serialize(messageId: MessageId) {
+  serialize(messageId) {
     return {
       id: messageId.id
     }

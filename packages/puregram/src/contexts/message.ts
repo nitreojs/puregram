@@ -8,7 +8,7 @@ import { MessageEntity } from '../common/structures'
 
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
-import { AttachmentType, MessageEventName, UpdateName } from '../types/types'
+import { AttachmentType, UpdateName } from '../types/types'
 import { EVENTS } from '../utils/constants'
 
 import {
@@ -38,6 +38,9 @@ interface MessageContextOptions {
 class MessageContext extends Context {
   payload: Interfaces.TelegramMessage
 
+  #text: string | undefined
+  #caption: string | undefined
+
   constructor(options: MessageContextOptions) {
     super({
       telegram: options.telegram,
@@ -47,6 +50,25 @@ class MessageContext extends Context {
     })
 
     this.payload = options.payload
+
+    this.#text = this.payload.text
+    this.#caption = this.payload.caption
+  }
+
+  get text() {
+    return this.#text
+  }
+
+  set text(text) {
+    this.#text = text
+  }
+
+  get caption() {
+    return this.#caption
+  }
+
+  set caption(caption) {
+    this.#caption = caption
   }
 
   /** Checks if the message has `dice` property */
@@ -58,6 +80,7 @@ class MessageContext extends Context {
     if (!this.hasText) {
       return
     }
+
     if (!this.text!.startsWith('/start') || this.text === '/start') {
       return
     }
@@ -89,9 +112,7 @@ class MessageContext extends Context {
       return this.entities.length !== 0
     }
 
-    return this.entities.some(
-      (entity: MessageEntity) => entity.type === type
-    )
+    return this.entities.some(entity => entity.type === type)
   }
 
   /** Checks if the message has `caption` property */
@@ -105,9 +126,7 @@ class MessageContext extends Context {
       return this.captionEntities.length !== 0
     }
 
-    return this.captionEntities.some(
-      (entity: MessageEntity) => entity.type === type
-    )
+    return this.captionEntities.some(entity => entity.type === type)
   }
 
   /** Message attachments */
@@ -133,9 +152,7 @@ class MessageContext extends Context {
       return this.attachments.length > 0
     }
 
-    return this.attachments.some(
-      (attachment: Attachment) => attachment.attachmentType === type
-    )
+    return this.attachments.some(attachment => attachment.attachmentType === type)
   }
 
   /** Gets attachments */
@@ -153,19 +170,13 @@ class MessageContext extends Context {
       return this.attachments
     }
 
-    return this.attachments.filter(
-      (attachment: Attachment) => attachment.attachmentType === type
-    )
+    return this.attachments.filter(attachment => attachment.attachmentType === type)
   }
 
   /** Is this message an event? */
   get isEvent() {
     return EVENTS.some(
-      (event) => Boolean(
-        this[
-        event[0] as keyof Message
-        ]
-      )
+      event => Boolean(this[event[0] as keyof Message])
     )
   }
 
@@ -175,13 +186,9 @@ class MessageContext extends Context {
       return
     }
 
-    const value: (
-      [keyof Message, MessageEventName] | undefined
-    ) = EVENTS.find(
+    const value = EVENTS.find(
       (event) => {
-        const tValue = this[
-          event[0] as keyof Message
-        ]
+        const tValue = this[event[0] as keyof Message]
 
         if (Array.isArray(tValue)) {
           return tValue.length !== 0
@@ -223,7 +230,7 @@ interface MessageContext extends Message, TargetMixin, SendMixin, NodeMixin { }
 applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(MessageContext, {
-  serialize(message: MessageContext) {
+  serialize(message) {
     const payload = {
       id: message.id,
       from: message.from,

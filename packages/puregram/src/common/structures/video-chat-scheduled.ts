@@ -18,7 +18,7 @@ export class VideoChatScheduled {
 }
 
 inspectable(VideoChatScheduled, {
-  serialize(event: VideoChatScheduled) {
+  serialize(event) {
     return {
       startDate: event.startDate
     }

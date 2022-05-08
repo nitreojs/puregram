@@ -39,7 +39,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
 }
 
 inspectable(FileAttachment, {
-  serialize(attachment: FileAttachment) {
+  serialize(attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId

@@ -35,7 +35,7 @@ export class ForceReply {
 }
 
 inspectable(ForceReply, {
-  serialize(forceReply: ForceReply) {
+  serialize(forceReply) {
     return forceReply.toJSON()
   }
 })

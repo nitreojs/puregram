@@ -41,7 +41,7 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
 }
 
 inspectable(VideoNoteAttachment, {
-  serialize(videoNote: VideoNoteAttachment) {
+  serialize(videoNote) {
     return {
       fileId: videoNote.fileId,
       fileUniqueId: videoNote.fileUniqueId,

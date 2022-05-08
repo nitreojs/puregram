@@ -41,7 +41,7 @@ export class PassportData {
 }
 
 inspectable(PassportData, {
-  serialize(passport: PassportData) {
+  serialize(passport) {
     return {
       data: passport.data,
       credentials: passport.credentials

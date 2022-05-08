@@ -52,7 +52,7 @@ export class Location {
 }
 
 inspectable(Location, {
-  serialize(location: Location) {
+  serialize(location) {
     return {
       longitude: location.longitude,
       latitude: location.latitude,

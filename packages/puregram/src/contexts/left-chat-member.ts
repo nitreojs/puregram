@@ -41,7 +41,7 @@ interface LeftChatMemberContext extends Message, TargetMixin, SendMixin, NodeMix
 applyMixins(LeftChatMemberContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(LeftChatMemberContext, {
-  serialize(context: LeftChatMemberContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

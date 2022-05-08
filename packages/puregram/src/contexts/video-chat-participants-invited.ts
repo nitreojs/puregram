@@ -41,7 +41,7 @@ interface VideoChatParticipantsInvitedContext extends Message, TargetMixin, Send
 applyMixins(VideoChatParticipantsInvitedContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(VideoChatParticipantsInvitedContext, {
-  serialize(context: VideoChatParticipantsInvitedContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

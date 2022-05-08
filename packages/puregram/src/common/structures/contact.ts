@@ -38,7 +38,7 @@ export class Contact {
 }
 
 inspectable(Contact, {
-  serialize(contact: Contact) {
+  serialize(contact) {
     const payload = {
       phoneNumber: contact.phoneNumber,
       firstName: contact.firstName,

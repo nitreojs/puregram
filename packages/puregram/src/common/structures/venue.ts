@@ -59,7 +59,7 @@ export class Venue {
 }
 
 inspectable(Venue, {
-  serialize(venue: Venue) {
+  serialize(venue) {
     const payload = {
       location: venue.location,
       title: venue.title,

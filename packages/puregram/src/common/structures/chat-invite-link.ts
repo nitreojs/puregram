@@ -67,7 +67,7 @@ export class ChatInviteLink {
 }
 
 inspectable(ChatInviteLink, {
-  serialize(link: ChatInviteLink) {
+  serialize(link) {
     const payload = {
       link: link.link,
       creator: link.creator,

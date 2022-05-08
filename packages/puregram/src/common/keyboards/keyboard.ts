@@ -138,7 +138,7 @@ export class Keyboard {
 }
 
 inspectable(Keyboard, {
-  serialize(keyboard: Keyboard) {
+  serialize(keyboard) {
     return keyboard.toJSON()
   }
 })

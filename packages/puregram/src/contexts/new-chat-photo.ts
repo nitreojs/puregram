@@ -43,7 +43,7 @@ interface NewChatPhotoContext extends Message, TargetMixin, SendMixin, NodeMixin
 applyMixins(NewChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(NewChatPhotoContext, {
-  serialize(context: NewChatPhotoContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

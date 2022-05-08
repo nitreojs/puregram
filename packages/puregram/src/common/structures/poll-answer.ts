@@ -37,7 +37,7 @@ export class PollAnswer {
 }
 
 inspectable(PollAnswer, {
-  serialize(answer: PollAnswer) {
+  serialize(answer) {
     return {
       pollId: answer.pollId,
       user: answer.user,

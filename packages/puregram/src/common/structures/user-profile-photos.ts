@@ -34,7 +34,7 @@ export class UserProfilePhotos {
 }
 
 inspectable(UserProfilePhotos, {
-  serialize(photos: UserProfilePhotos) {
+  serialize(photos) {
     return {
       totalCount: photos.totalCount,
       photos: photos.photos

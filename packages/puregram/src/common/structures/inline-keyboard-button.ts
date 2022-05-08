@@ -101,7 +101,7 @@ export class InlineKeyboardButton {
 }
 
 inspectable(InlineKeyboardButton, {
-  serialize(button: InlineKeyboardButton) {
+  serialize(button) {
     const payload = {
       text: button.text,
       url: button.url,

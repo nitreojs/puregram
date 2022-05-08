@@ -36,7 +36,7 @@ interface ShippingQueryContext extends ShippingQuery, SendMixin { }
 applyMixins(ShippingQueryContext, [ShippingQuery, SendMixin])
 
 inspectable(ShippingQueryContext, {
-  serialize(query: ShippingQueryContext) {
+  serialize(query) {
     const payload = {
       id: query.id,
       from: query.from,

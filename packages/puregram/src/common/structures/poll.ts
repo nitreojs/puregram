@@ -103,7 +103,7 @@ export class Poll {
 }
 
 inspectable(Poll, {
-  serialize(poll: Poll) {
+  serialize(poll) {
     const payload = {
       id: poll.id,
       question: poll.question,

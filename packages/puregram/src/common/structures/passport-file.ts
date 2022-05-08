@@ -41,7 +41,7 @@ export class PassportFile {
 }
 
 inspectable(PassportFile, {
-  serialize(passport: PassportFile) {
+  serialize(passport) {
     return {
       fileId: passport.fileId,
       fileUniqueId: passport.fileUniqueId,

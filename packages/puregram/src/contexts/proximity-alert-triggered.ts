@@ -45,7 +45,7 @@ interface ProximityAlertTriggeredContext extends Message, TargetMixin, SendMixin
 applyMixins(ProximityAlertTriggeredContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(ProximityAlertTriggeredContext, {
-  serialize(context: ProximityAlertTriggeredContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

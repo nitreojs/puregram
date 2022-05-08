@@ -41,7 +41,7 @@ interface VideoChatEndedContext extends Message, TargetMixin, SendMixin, NodeMix
 applyMixins(VideoChatEndedContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(VideoChatEndedContext, {
-  serialize(context: VideoChatEndedContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

@@ -50,7 +50,7 @@ export class InlineQuery {
 }
 
 inspectable(InlineQuery, {
-  serialize(query: InlineQuery) {
+  serialize(query) {
     const payload = {
       id: query.id,
       from: query.from,

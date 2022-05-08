@@ -54,7 +54,7 @@ export class ChosenInlineResult {
 }
 
 inspectable(ChosenInlineResult, {
-  serialize(inlineResult: ChosenInlineResult) {
+  serialize(inlineResult) {
     const payload = {
       resultId: inlineResult.resultId,
       from: inlineResult.from,

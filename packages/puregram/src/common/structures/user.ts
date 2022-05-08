@@ -87,7 +87,7 @@ export class User {
 }
 
 inspectable(User, {
-  serialize(user: User) {
+  serialize(user) {
     const payload = {
       id: user.id,
       isBot: user.isBot,

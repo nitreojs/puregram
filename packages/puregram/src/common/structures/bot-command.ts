@@ -19,7 +19,7 @@ export class BotCommand {
 }
 
 inspectable(BotCommand, {
-  serialize(command: BotCommand) {
+  serialize(command) {
     return {
       command: command.command,
       description: command.description

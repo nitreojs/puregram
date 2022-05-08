@@ -69,7 +69,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
 }
 
 inspectable(StickerAttachment, {
-  serialize(sticker: StickerAttachment) {
+  serialize(sticker) {
     return {
       fileId: sticker.fileId,
       fileUniqueId: sticker.fileUniqueId,

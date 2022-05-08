@@ -35,7 +35,7 @@ interface SupergroupChatCreatedContext extends Message, TargetMixin, SendMixin, 
 applyMixins(SupergroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(SupergroupChatCreatedContext, {
-  serialize(context: SupergroupChatCreatedContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

@@ -40,7 +40,7 @@ interface NewChatTitleContext extends Message, TargetMixin, SendMixin, NodeMixin
 applyMixins(NewChatTitleContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(NewChatTitleContext, {
-  serialize(context: NewChatTitleContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

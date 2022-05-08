@@ -35,7 +35,7 @@ interface DeleteChatPhotoContext extends Message, TargetMixin, SendMixin, NodeMi
 applyMixins(DeleteChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(DeleteChatPhotoContext, {
-  serialize(context: DeleteChatPhotoContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

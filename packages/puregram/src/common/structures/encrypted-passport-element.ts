@@ -142,7 +142,7 @@ export class EncryptedPassportElement {
 }
 
 inspectable(EncryptedPassportElement, {
-  serialize(element: EncryptedPassportElement) {
+  serialize(element) {
     const payload = {
       type: element.type,
       data: element.data,

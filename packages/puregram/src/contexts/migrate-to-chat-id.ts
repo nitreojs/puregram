@@ -40,7 +40,7 @@ interface MigrateToChatIdContext extends Message, TargetMixin, SendMixin, NodeMi
 applyMixins(MigrateToChatIdContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(MigrateToChatIdContext, {
-  serialize(context: MigrateToChatIdContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

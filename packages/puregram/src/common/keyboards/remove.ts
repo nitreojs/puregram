@@ -29,7 +29,7 @@ export class RemoveKeyboard {
 }
 
 inspectable(RemoveKeyboard, {
-  serialize(keyboard: RemoveKeyboard) {
+  serialize(keyboard) {
     return keyboard.toJSON()
   }
 })

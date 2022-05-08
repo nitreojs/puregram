@@ -43,7 +43,7 @@ interface NewChatMembersContext extends Message, TargetMixin, SendMixin, NodeMix
 applyMixins(NewChatMembersContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(NewChatMembersContext, {
-  serialize(context: NewChatMembersContext) {
+  serialize(context) {
     return {
       id: context.id,
       from: context.from,

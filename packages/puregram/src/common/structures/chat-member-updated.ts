@@ -57,7 +57,7 @@ export class ChatMemberUpdated {
 }
 
 inspectable(ChatMemberUpdated, {
-  serialize(member: ChatMemberUpdated) {
+  serialize(member) {
     const payload = {
       chat: member.chat,
       from: member.from,

@@ -88,7 +88,7 @@ export class MessageEntity {
 }
 
 inspectable(MessageEntity, {
-  serialize(entity: MessageEntity) {
+  serialize(entity) {
     const payload = {
       type: entity.type,
       offset: entity.offset,

@@ -39,7 +39,7 @@ export class ShippingQuery {
 }
 
 inspectable(ShippingQuery, {
-  serialize(query: ShippingQuery) {
+  serialize(query) {
     return {
       id: query.id,
       from: query.from,

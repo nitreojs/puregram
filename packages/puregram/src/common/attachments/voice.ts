@@ -25,7 +25,7 @@ export class VoiceAttachment extends FileAttachment<Interfaces.TelegramVoice> {
 }
 
 inspectable(VoiceAttachment, {
-  serialize(voice: VoiceAttachment) {
+  serialize(voice) {
     return {
       fileId: voice.fileId,
       fileUniqueId: voice.fileUniqueId,

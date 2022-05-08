@@ -41,7 +41,7 @@ export class OrderInfo {
 }
 
 inspectable(OrderInfo, {
-  serialize(order: OrderInfo) {
+  serialize(order) {
     const payload = {
       name: order.name,
       phoneNumber: order.phoneNumber,

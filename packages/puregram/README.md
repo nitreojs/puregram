@@ -584,6 +584,8 @@ telegram.updates.on('message', sessionManager.middleware)
 telegram.updates.on('message', hearManager.middleware)
 ```
 
+### `ExperimentalWarning: buffer.Blob is an experimental feature.`
+
 ### how do i enable debugging?
 
 if you want to inspect out- and ingoing requests made by `puregram`, you will need to enable `DEBUG` environment variable so the package understands you are ready for logs.
@@ -614,16 +616,16 @@ if you want to inspect out- and ingoing requests made by `puregram`, you will ne
 $ DEBUG=puregram:* node index
 ```
 
-### are there some chats?
+### are there any telegram chats or channels?
 
 yeah, there are.
 
-| language       | link                                                |
-| -------------- | --------------------------------------------------- |
-| **russian 🇷🇺** | [puregram chat [ru]](https://t.me/puregram_chat_ru) |
-| **english 🇬🇧** | [puregram chat [en]](https://t.me/puregram_chat_en) |
-
-there is also a [puregram chats](https://t.me/puregram_chats) channel, which has list of every officially supported `puregram` chat.
+| what                       | how to get here                              |
+| -------------------------- | -------------------------------------------- |
+| **channel 📢**             | [click here](https://t.me/puregram)          |
+| **russian chat 🇷🇺**        | [click there](https://t.me/puregram_chat_ru) |
+| **english chat 🇬🇧**        | [click](https://t.me/puregram_chat_en)       |
+| **puregram chats list 🍔** | [press](https://t.me/puregram_chats)         |
 
 ### why is your readme lowercased?
 

@@ -620,12 +620,13 @@ $ DEBUG=puregram:* node index
 
 yeah, there are.
 
-| what                       | how to get here                              |
-| -------------------------- | -------------------------------------------- |
-| **channel 📢**             | [click here](https://t.me/puregram)          |
-| **russian chat 🇷🇺**        | [click there](https://t.me/puregram_chat_ru) |
-| **english chat 🇬🇧**        | [click](https://t.me/puregram_chat_en)       |
-| **puregram chats list 🍔** | [press](https://t.me/puregram_chats)         |
+| what                       | how to get here                                         |
+| -------------------------- | ------------------------------------------------------- |
+| **channel 📢**             | [click](https://t.me/puregram)                          |
+| **russian chat 🇷🇺**        | [press](https://t.me/puregram_chat_ru)                  |
+| **english chat 🇬🇧**        | [☆*: .｡. o(≧▽≦)o .｡.:*☆](https://t.me/puregram_chat_en) |
+| **puregram chats list 🍔** | [d=====(￣▽￣*)b](https://t.me/puregram_chats)           |
+| **offtop chat 👀**            | [ᕦ( ⊡ 益 ⊡ )ᕤ](https://t.me/puregram_offtop_chat)    |
 
 ### why is your readme lowercased?
 

@@ -586,6 +586,9 @@ telegram.updates.on('message', hearManager.middleware)
 
 ### `ExperimentalWarning: buffer.Blob is an experimental feature.`
 
+yes, this is because `^2.5.0` versions are using `undici`'s `fetch` which is experimental atm.
+you can look it up [here](https://undici.nodejs.org/#/?id=undicifetchinput-init-promise) for future changes
+
 ### how do i enable debugging?
 
 if you want to inspect out- and ingoing requests made by `puregram`, you will need to enable `DEBUG` environment variable so the package understands you are ready for logs.

@@ -7,7 +7,7 @@ import {
   skipMiddleware
 } from 'middleware-io'
 
-import { HearConditions } from './types'
+import { HearConditions, ContextMatch } from './types'
 
 import {
   getObjectValue,
@@ -16,9 +16,9 @@ import {
 } from './helpers'
 
 export class HearManager<C extends Context> {
-  private composer = Composer.builder<C>()
-  private fallbackHandler: Middleware<C> = skipMiddleware
-  private composed!: Middleware<C>
+  private composer = Composer.builder<C & ContextMatch>()
+  private fallbackHandler: Middleware<C & ContextMatch> = skipMiddleware
+  private composed!: Middleware<C & ContextMatch>
 
   constructor() {
     this.recompose()
@@ -28,15 +28,13 @@ export class HearManager<C extends Context> {
     return this.composer.length
   }
 
-  get middleware(): Middleware<C> {
-    return (context: C, next: NextMiddleware): unknown => (
-      this.composed(context, next)
-    )
+  get middleware(): Middleware<C & ContextMatch> {
+    return (context: C & ContextMatch, next: NextMiddleware) => this.composed(context, next)
   }
 
   hear<T = {}>(
-    hearConditions: HearConditions<C & T>,
-    handler: Middleware<C & T>
+    hearConditions: HearConditions<C & ContextMatch & T>,
+    handler: Middleware<C & ContextMatch & T>
   ) {
     const rawConditions = !Array.isArray(hearConditions)
       ? [hearConditions]
@@ -56,25 +54,19 @@ export class HearManager<C extends Context> {
     let functionCondition = false
 
     const conditions = rawConditions.map(
-      (condition): Function => {
+      (condition) => {
         if (typeof condition === 'object' && !(condition instanceof RegExp)) {
           functionCondition = true
 
           const entries = Object.entries(condition)
-            .map(
-              ([path, value]): [string[], Function] => (
-                [splitPath(path), unifyCondition(value)]
-              )
-            )
+            .map(([path, value]): [string[], Function] => [splitPath(path), unifyCondition(value)])
 
-          return (text: string | undefined, context: C): boolean => (
-            entries.every(
-              ([selectors, callback]: [string[], Function]): boolean => {
-                const value: any = getObjectValue(context, selectors)
+          return (text: string | undefined, context: C) => (
+            entries.every(([selectors, callback]) => {
+              const value = getObjectValue(context, selectors)
 
-                return callback(value, context)
-              }
-            )
+              return callback(value, context)
+            })
           )
         }
 
@@ -87,28 +79,27 @@ export class HearManager<C extends Context> {
         textCondition = true
 
         if (condition instanceof RegExp) {
-          return (text: string | undefined, context: C): boolean => {
-            const passed: boolean = condition.test(text!)
+          return (text: string | undefined, context: C & ContextMatch) => {
+            const passed = condition.test(text!)
 
-            // @ts-expect-error
-            if (passed) context.$match = text!.match(condition)!
+            if (passed) {
+              context.$match = text!.match(condition)!
+            }
 
             return passed
           }
         }
 
-        const stringCondition: string = String(condition)
+        const stringCondition = String(condition)
 
-        return (text: string | undefined): boolean => (
-          text === stringCondition
-        )
+        return (text: string | undefined) => text === stringCondition
       }
     )
 
     const needText = textCondition && !functionCondition
 
     this.composer.use(
-      (context: C & T, next: NextMiddleware): MiddlewareReturn => {
+      (context: C & ContextMatch & T, next: NextMiddleware): MiddlewareReturn => {
         // @ts-expect-error
         const { text, caption } = context
 
@@ -116,11 +107,7 @@ export class HearManager<C extends Context> {
           return next()
         }
 
-        const hasSome = conditions.some(
-          (condition: Function): boolean => (
-            condition(text ?? caption, context)
-          )
-        )
+        const hasSome = conditions.some(condition => condition(text ?? caption, context))
 
         return hasSome
           ? handler(context, next)
@@ -135,9 +122,7 @@ export class HearManager<C extends Context> {
 
   /** A handler that is called when handlers are not found */
   onFallback(handler: Middleware<C>) {
-    // @ts-ignore
     this.fallbackHandler = handler
-
     this.recompose()
 
     return this

@@ -6,7 +6,7 @@ export const splitPath = (path: string) => (
 )
 
 export const getObjectValue = (source: Record<string, any>, selectors: string[]): any => {
-  let link: Record<string, any> = source
+  let link = source
 
   for (const selector of selectors) {
     if (!link[selector]) {
@@ -25,28 +25,18 @@ export const unifyCondition = (condition: unknown) => {
   }
 
   if (condition instanceof RegExp) {
-    return (text: string | undefined): boolean => (
-      condition.test(text!)
-    )
+    return (text: string | undefined) => condition.test(text!)
   }
 
   if (Array.isArray(condition)) {
-    const arrayConditions: Function[] = condition.map(unifyCondition)
+    const arrayConditions = condition.map(unifyCondition)
 
-    return (value: string | undefined): boolean => (
+    return (value: string | undefined) => (
       Array.isArray(value)
-        ? arrayConditions.every(
-          (cond: Function): boolean => (
-            value.some(
-              (val): boolean => cond(val)
-            )
-          )
-        )
-        : arrayConditions.some(
-          (cond: Function): boolean => cond(value)
-        )
+        ? arrayConditions.every(cond => value.some(val => cond(val)))
+        : arrayConditions.some(cond => cond(value))
     )
   }
 
-  return (value: string | undefined): boolean => value === condition
+  return (value: string | undefined) => value === condition
 }

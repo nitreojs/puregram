@@ -1,5 +1,9 @@
 export type AllowArray<T> = T | T[]
 
+export interface ContextMatch {
+  $match: RegExpMatchArray
+}
+
 export type HearFunctionCondition<T, V> = (value: V, context: T) => boolean
 
 export type HearCondition<T, V> = HearFunctionCondition<T, V> | RegExp | string | number | boolean

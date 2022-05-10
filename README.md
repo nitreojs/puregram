@@ -595,28 +595,29 @@ if you want to inspect out- and ingoing requests made by `puregram`, you will ne
 
 #### how to enable `DEBUG`
 
-| type      | example (unix)           | description                                     |
-| --------- | ------------------------ | ----------------------------------------------- |
-| `api`     | `DEBUG=puregram:api`     | enables debugging api out- and ingoing requests |
-| `updates` | `DEBUG=puregram:updates` | enables debugging ingoing updates               |
-| `*`       | `DEBUG=puregram:*`       | enables debugging all of the listed types above |
+| namespace   | example (unix)             | description                                                                       |
+| ----------- | -------------------------- | --------------------------------------------------------------------------------- |
+| `api`       | `DEBUG=puregram:api`       | enables debugging api out- and ingoing requests                                   |
+| `api/getMe` | `DEBUG=puregram:api/getMe` | enables debugging `getMe` update (you can set whichever method you want to debug) |
+| `updates`   | `DEBUG=puregram:updates`   | enables debugging ingoing updates                                                 |
+| `all`       | `DEBUG=puregram:all`       | enables debugging all of the listed types above                                   |
 
 ##### cmd
 
 ```cmd
-> set "DEBUG=puregram:*" & node index
+> set "DEBUG=puregram:all" & node index
 ```
 
 ##### powershell
 
 ```ps
-> $env:DEBUG = "puregram:*"; node index
+> $env:DEBUG = "puregram:all"; node index
 ```
 
 ##### linux
 
 ```sh
-$ DEBUG=puregram:* node index
+$ DEBUG=puregram:all node index
 ```
 
 ### are there any telegram chats or channels?

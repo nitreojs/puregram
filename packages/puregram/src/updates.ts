@@ -7,7 +7,7 @@ import {
   noopNext,
   NextMiddleware
 } from 'middleware-io'
-import createDebug from 'debug'
+import { debug } from 'debug'
 
 import * as Contexts from './contexts'
 
@@ -23,7 +23,19 @@ import { Constructor, UpdateName, MessageEventName } from './types/types'
 import { UpdateType } from './types/enums'
 import { TelegramError } from './errors'
 
-const debug = createDebug('puregram:updates')
+const $debugger = debug('puregram:updates')
+
+if ($debugger.enabled || debug.enabled('puregram:all')) {
+  const namespaces = debug.disable()
+
+  debug.enable(`${namespaces},puregram:updates:*`)
+}
+
+const debug_startPolling = $debugger.extend('startPolling')
+const debug_startFetchLoop = $debugger.extend('startFetchLoop')
+const debug_fetchUpdates = $debugger.extend('fetchUpdates')
+const debug_handleUpdate = $debugger.extend('handleUpdate')
+const debug_webhook = $debugger.extend('webhook')
 
 // THIS PART OF FILE IS AUTO-GENERATED!
 // SOURCE: scripts/generate-updates
@@ -174,14 +186,14 @@ export class Updates {
     }
 
     if (!this.telegram.bot) {
-      debug('startPolling | fetching bot data...')
+      debug_startPolling('fetching bot data...')
 
       let me!: TelegramUser
 
       try {
         me = await this.telegram.api.getMe()
       } catch (error) {
-        debug('startPolling | unable to fetch bot info, perhaps no internet connection?')
+        debug_startPolling('unable to fetch bot info, perhaps no internet connection?')
 
         throw new TelegramError({
           error_code: -1,
@@ -193,8 +205,7 @@ export class Updates {
 
       this.telegram.bot = bot
 
-      debug('startPolling | bot data fetched successfully:')
-      debug(bot)
+      debug_startPolling('bot data fetched successfully: %O', bot)
     }
 
     this.isStarted = true
@@ -232,7 +243,7 @@ export class Updates {
         }
 
         if (skippedUpdates !== 0) {
-          debug(`startFetchLoop | skipped ${skippedUpdates} updates`)
+          debug_startFetchLoop('skipped %d updates', skippedUpdates)
         }
       }
 
@@ -240,20 +251,20 @@ export class Updates {
         await this.fetchUpdates(options)
       }
     } catch (error) {
-      debug(error)
+      debug_startFetchLoop('an error has occured: %O', error)
 
       if (this.telegram.options.apiRetryLimit === -1) {
-        debug('startFetchLoop | trying to reconnect...')
+        debug_startFetchLoop('trying to reconnect...')
       } else if (this.retries === this.telegram.options.apiRetryLimit) {
         if (this.telegram.options.apiRetryLimit === 0) {
-          return debug('startFetchLoop | `apiRetryLimit` is set to 0, not trying to reconnect')
+          return debug_startFetchLoop('`apiRetryLimit` is set to %d, not trying to reconnect', 0)
         }
 
-        return debug(`startFetchLoop | tried to reconnect ${this.retries} times, but it didn't work, cya next time`)
+        return debug_startFetchLoop('tried to reconnect %d times but it didn\'t work, cya next time', this.retries)
       } else {
         this.retries += 1
 
-        debug(`startFetchLoop | trying to reconnect, ${this.retries}/${this.telegram.options.apiRetryLimit} try`)
+        debug_startFetchLoop('trying to reconnect, %d/%d try', this.retries, this.telegram.options.apiRetryLimit)
       }
 
       await delay(this.telegram.options.apiWait!)
@@ -280,7 +291,7 @@ export class Updates {
     if (!updates) {
       // INFO: Something is wrong with the internet connection I can feel it...
 
-      debug('fetchUpdates | unable to get updates')
+      debug_fetchUpdates('unable to get updates')
 
       this.stopPolling()
       this.startPolling()
@@ -296,8 +307,7 @@ export class Updates {
       try {
         await this.handleUpdate(update)
       } catch (error) {
-        debug('fetchUpdates | error:')
-        debug(error)
+        debug_fetchUpdates('an error has occured: %O', error)
       }
     }
   }
@@ -309,16 +319,13 @@ export class Updates {
 
     let UpdateContext = events[type]
 
-    debug('handleUpdate | event type:', type)
-
     if (!UpdateContext) {
-      debug(`handleUpdate | unsupported context type \`${type}\``)
+      debug_handleUpdate('unsupported context type `%s`', type)
 
       return
     }
 
-    debug('handleUpdate | update payload:')
-    debug(update[type])
+    debug_handleUpdate('update payload: %j', update[type])
 
     interface ContextAddition {
       isEvent?: boolean
@@ -335,8 +342,6 @@ export class Updates {
 
     const isEvent = context.isEvent === true && context.eventType !== undefined
 
-    debug('handleUpdate | is this event an extra event?', isEvent)
-
     if (isEvent) {
       UpdateContext = events[context.eventType!]
 
@@ -349,8 +354,7 @@ export class Updates {
       })
     }
 
-    debug('handleUpdate | context:')
-    debug(context)
+    debug_handleUpdate('constructed context: %O', context)
 
     this.dispatchMiddleware(context)
 
@@ -389,7 +393,7 @@ export class Updates {
       try {
         update = typeof reqBody === 'object' ? reqBody : await parseRequestJSON(req)
       } catch (error) {
-        debug(error)
+        debug_webhook('an error has occured: %O', error)
 
         return
       }

@@ -6,7 +6,7 @@ import { fetch, RequestInit, setGlobalDispatcher } from 'undici'
 import { File, FormData } from 'formdata-node'
 import { fileFromPath } from 'formdata-node/file-from-path'
 import { FormDataEncoder } from 'form-data-encoder'
-import createDebug from 'debug'
+import { debug } from 'debug'
 
 import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
@@ -18,7 +18,13 @@ import { ApiMethods } from './generated'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
 import { MediaInput } from './media-source'
 
-const debug = createDebug('puregram:api')
+const $debugger = debug('puregram:api')
+
+if ($debugger.enabled || debug.enabled('puregram:all')) {
+  const namespaces = debug.disable()
+
+  debug.enable(`${namespaces},puregram:api/*`)
+}
 
 interface APICallMethod {
   /** Use this method to invoke Telegram Bot API `method` [with prompted `params`] */
@@ -276,15 +282,16 @@ export class Telegram {
       }
     }
 
+    const debug_api = $debugger.extend(path, '/')
+
     try {
-      debug(`${path} | HTTP »`)
+      debug_api('HTTP »')
 
       const response = await fetch(url, init)
       const json = await response.json() as ApiResponseUnion
 
-      debug(`${path} | « HTTP ${response.status}`)
-      debug(`${path} | Response:`)
-      debug(json)
+      debug_api('« HTTP %d', response.status)
+      debug_api('response: %j', json)
 
       if (!json.ok) {
         throw new APIError(json)

@@ -87,6 +87,11 @@ class InterfaceService {
         type = 'MediaInput'
       }
 
+      // INFO: TelegramInputMedia(*)['media'] should be MediaInput
+      if (field.name === 'media' && type === 'string') {
+        type = 'MediaInput'
+      }
+
       const description: string = InterfaceService.generateDescription(field.description, 2)
       const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${type}`
 

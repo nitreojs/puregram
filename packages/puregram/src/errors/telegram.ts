@@ -1,20 +1,23 @@
 export interface ErrorOptions {
   error_code: number
   description: string
+  cause?: unknown
 }
 
 export class TelegramError extends Error {
   /** Error code */
   code: number
-
   /** Error stack */
   stack!: string
+  /** Error cause */
+  cause?: unknown
 
-  constructor({ error_code, description }: ErrorOptions) {
+  constructor({ error_code, description, cause }: ErrorOptions) {
     super(description)
 
     this.code = error_code
     this.name = this.constructor.name
+    this.cause = cause
 
     Error.captureStackTrace(this, this.constructor)
   }

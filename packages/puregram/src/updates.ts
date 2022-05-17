@@ -197,7 +197,8 @@ export class Updates {
 
         throw new TelegramError({
           error_code: -1,
-          description: 'Unable to fetch bot data from the start'
+          description: 'Unable to fetch bot data from the start',
+          cause: error
         })
       }
 
@@ -219,32 +220,42 @@ export class Updates {
     }
   }
 
+  /**
+   * Drops pending bot updates. Returns amount of dropped updates
+   * @param value If you want to skip specific updates, pass an array of update types you want to skip
+   */
+  async dropPendingUpdates(value?: StartPollingOptions['dropPendingUpdates']) {
+    let offset = 0
+    let skippedUpdates = 0
+
+    while (true) {
+      const allowedUpdates = Array.isArray(value) ? value : []
+
+      const updates = await this.telegram.api.getUpdates({
+        offset,
+        allowed_updates: allowedUpdates
+      })
+
+      if (updates.length === 0) {
+        break
+      }
+
+      skippedUpdates += updates.length
+
+      offset = updates[updates.length - 1].update_id + 1
+    }
+
+    if (skippedUpdates !== 0) {
+      debug_startFetchLoop('skipped %d updates', skippedUpdates)
+    }
+
+    return skippedUpdates
+  }
+
   private async startFetchLoop(options: StartPollingOptions) {
     try {
       if (options.dropPendingUpdates) {
-        let offset = 0
-        let skippedUpdates = 0
-
-        while (true) {
-          const allowedUpdates = Array.isArray(options.dropPendingUpdates) ? options.dropPendingUpdates : []
-
-          const updates = await this.telegram.api.getUpdates({
-            offset,
-            allowed_updates: allowedUpdates
-          })
-
-          if (updates.length === 0) {
-            break
-          }
-
-          skippedUpdates += updates.length
-
-          offset = updates[updates.length - 1].update_id + 1
-        }
-
-        if (skippedUpdates !== 0) {
-          debug_startFetchLoop('skipped %d updates', skippedUpdates)
-        }
+        await this.dropPendingUpdates(options.dropPendingUpdates)
       }
 
       while (this.isStarted) {
@@ -286,7 +297,7 @@ export class Updates {
     if (options.offset) params.offset = options.offset
     if (options.timeout) params.timeout = options.timeout
 
-    const updates: TelegramUpdate[] = await this.telegram.api.getUpdates(params)
+    const updates = await this.telegram.api.getUpdates(params)
 
     if (!updates) {
       // INFO: Something is wrong with the internet connection I can feel it...

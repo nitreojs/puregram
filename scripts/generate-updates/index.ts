@@ -19,7 +19,7 @@ const main = async () => {
   {
     let clauses: string[] = []
 
-    clauses.push('/** Subscribe to events */')
+    clauses.push('/** Subscribes to specific event(s) and sets up a handler for it(them) */')
 
     // on<T = {}>(events: UpdateType.VideoChatEnded | 'video_chat_ended', handlers: AllowArray<Middleware<Contexts.VideoChatEndedContext & T>>): this
     for (const [key, value] of Object.entries(UpdateType)) {

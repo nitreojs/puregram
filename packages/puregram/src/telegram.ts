@@ -39,11 +39,22 @@ interface APICreateAttachMediaInput {
 
 type ProxyAPIMethods = ApiMethods & APICallMethod
 
-/** Telegram class */
+/**
+ * Telegram class. Actually, this class is a set of other classes such as `Updates` and (uh that's it. `api` is not a class, it's a `Proxy` object :P)
+ */
 export class Telegram {
   options: TelegramOptions = { ...DEFAULT_OPTIONS }
 
-  /** API */
+  /**
+   * API Proxy object
+   *
+   * @example
+   * ```js
+   * telegram.api.getMe()
+   * telegram.api.sendMessage({ chat_id, text })
+   * telegram.api.call('sendPhoto', { chat_id, photo })
+   * ```
+   */
   readonly api = new Proxy<ProxyAPIMethods>({} as ProxyAPIMethods, {
     get: (_target, method: string) => (
       (...args: any[]) => {
@@ -60,10 +71,10 @@ export class Telegram {
     )
   })
 
-  /** Updates */
+  /** Updates instance */
   updates: Updates = new Updates(this)
 
-  /** Bot data */
+  /** Bot data. You are able to access it only after `updates.startPolling()` succeeded! */
   bot!: User
 
   constructor(options: Partial<TelegramOptions> = {}) {

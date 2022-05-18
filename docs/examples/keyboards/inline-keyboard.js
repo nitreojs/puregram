@@ -6,49 +6,49 @@ telegram.updates.on('message', (context) => {
   const keyboard = InlineKeyboard.keyboard([
     [
       InlineKeyboard.textButton({
-        text: 'Some button',
-        payload: 'Some payload'
+        text: 'some button',
+        payload: 'some payload'
       })
     ],
 
     [
       InlineKeyboard.textButton({
-        text: 'Two buttons',
+        text: 'two buttons',
         payload: { objectPayload: true }
       }),
 
       InlineKeyboard.textButton({
-        text: 'In one row',
-        payload: 'Payload is required'
+        text: 'in one row',
+        payload: 'payload is required'
       })
     ],
 
     [
       InlineKeyboard.urlButton({
-        text: 'Some URL button',
+        text: 'some url button',
         url: 'https://example.com'
       })
     ],
 
     [
       InlineKeyboard.switchToCurrentChatButton({
-        text: 'Switch to current chat button',
-        query: 'Foo bar baz'
+        text: 'switch to current chat button',
+        query: 'foo bar baz'
       }),
 
       InlineKeyboard.switchToChatButton({
-        text: 'Switch to chat button',
-        query: 'Test tost'
+        text: 'switch to chat button',
+        query: 'test tost'
       })
     ]
   ])
 
-  return context.send('Sending you an inline-keyboard using `InlineKeyboard`!', {
+  return context.send('sending you an inline-keyboard using `InlineKeyboard`!', {
     reply_markup: keyboard,
-    parse_mode: 'Markdown'
+    parse_mode: 'markdown'
   })
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Bot @${telegram.bot.username} started polling`)
+  () => console.log(`bot @${telegram.bot.username} started polling`)
 ).catch(console.error)

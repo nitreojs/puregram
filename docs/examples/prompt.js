@@ -13,12 +13,12 @@ telegram.updates.on('message', async (context) => {
   let answer
 
   while (!answer || !answer.context.hasAttachments('photo')) {
-    answer = await context.prompt('*Send nudes* pls', { parse_mode: 'markdown' })
+    answer = await context.prompt('*send nudes* pls', { parse_mode: 'markdown' })
   }
 
-  await context.send('Yooooo thanks for nudes cya')
+  await context.send('yooooo thanks for nudes cya')
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)

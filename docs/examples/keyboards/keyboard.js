@@ -5,21 +5,21 @@ const telegram = Telegram.fromToken(process.env.TOKEN)
 telegram.updates.on('message', (context) => {
   const keyboard = Keyboard.keyboard([
     [
-      Keyboard.textButton('Some button')
+      Keyboard.textButton('some button')
     ],
 
     [
-      Keyboard.textButton('Two buttons'),
-      Keyboard.textButton('In one row')
+      Keyboard.textButton('two buttons'),
+      Keyboard.textButton('in one row')
     ]
-  ]).resize() // keyboard will be much smaller
+  ]).resize() // INFO: keyboard will be much smaller
 
-  return context.send('Sending you a keyboard, generated using `Keyboard`!', {
+  return context.send('sending you a keyboard, generated using `Keyboard`!', {
     reply_markup: keyboard,
-    parse_mode: 'Markdown'
+    parse_mode: 'markdown'
   })
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Bot @${telegram.bot.username} started polling`)
+  () => console.log(`bot @${telegram.bot.username} started polling`)
 ).catch(console.error)

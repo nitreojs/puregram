@@ -9,38 +9,38 @@ const hearManager = new HearManager()
 
 telegram.updates.on('message', hearManager.middleware)
 
-// Editing text in a text message
+// INFO: editing text in a text message
 hearManager.hear('/text', async (context) => {
-  const sentMessage = await context.send('Some *message* to edit.', {
-    parse_mode: 'Markdown'
+  const sentMessage = await context.send('some *message* to edit.', {
+    parse_mode: 'markdown'
   })
 
   setTimeout(
-    () => sentMessage.editMessageText('Some _edited message text_.', {
-      parse_mode: 'Markdown'
+    () => sentMessage.editMessageText('some _edited message text_.', {
+      parse_mode: 'markdown'
     }),
     1000
   )
 })
 
-// Editing a caption of some media attachment
+// INFO: editing a caption of some media attachment
 hearManager.hear('/caption', async (context) => {
   const media = MediaSource.path('./photo.jpg')
 
   const sentMessage = await context.sendPhoto(media, {
-    caption: 'Some *photo* with _caption_',
-    parse_mode: 'Markdown'
+    caption: 'some *photo* with _caption_',
+    parse_mode: 'markdown'
   })
 
   setTimeout(
-    () => sentMessage.editMessageCaption('Edited *photo* _caption_ goes here', {
-      parse_mode: 'Markdown'
+    () => sentMessage.editMessageCaption('edited *photo* _caption_ goes here', {
+      parse_mode: 'markdown'
     }),
     1000
   )
 })
 
-// Editing the media attachment
+// INFO: editing the media attachment
 hearManager.hear('/media', async (context) => {
   const documents = [
     MediaSource.path('./file1.txt'),
@@ -48,25 +48,25 @@ hearManager.hear('/media', async (context) => {
   ]
 
   const sentMessage = await context.sendDocument(documents[0], {
-    caption: 'Document #1'
+    caption: 'document #1'
   })
 
   setTimeout(
     () => sentMessage.editMessageMedia({
       type: 'document',
       media: documents[1],
-      caption: 'Document #2'
+      caption: 'document #2'
     }),
     1000
   )
 })
 
-// Editing the inline keyboard
+// INFO: editing the inline keyboard
 hearManager.hear('/markup', async (context) => {
   const firstKeyboard = InlineKeyboard.keyboard([
     [
       InlineKeyboard.textButton({
-        text: 'Some inline button',
+        text: 'some inline button',
         payload: { dummy: true }
       })
     ]
@@ -75,25 +75,25 @@ hearManager.hear('/markup', async (context) => {
   const secondKeyboard = InlineKeyboard.keyboard([
     [
       InlineKeyboard.textButton({
-        text: 'Button #1',
+        text: 'button #1',
         payload: { dummy: true }
       }),
 
       InlineKeyboard.textButton({
-        text: 'Button #2',
+        text: 'button #2',
         payload: { dummy: true }
       })
     ],
 
     [
       InlineKeyboard.textButton({
-        text: 'Button #3',
+        text: 'button #3',
         payload: { dummy: true }
       })
     ]
   ])
 
-  const sentMessage = await context.send('Some message with an inline keyboard.', {
+  const sentMessage = await context.send('some message with an inline keyboard.', {
     reply_markup: firstKeyboard
   })
 
@@ -103,11 +103,9 @@ hearManager.hear('/markup', async (context) => {
   )
 })
 
-// Triggered when no other hears triggered
-hearManager.onFallback(
-  (context) => context.send('Command not found.')
-)
+// INFO: triggered when no other hears are triggered
+hearManager.onFallback((context) => context.send('command not found.'))
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)

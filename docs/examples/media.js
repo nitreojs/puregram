@@ -21,7 +21,7 @@ telegram.updates.on('message', hearManager.middleware)
 hearManager.hear('/start', (context) => (
   context.send(
     stripIndents`
-      *My commands*
+      *my commands*
 
       /url - send photo via URL
       /buffer - send document via Buffer
@@ -29,20 +29,20 @@ hearManager.hear('/start', (context) => (
       /fileid - send sticker via File ID
       /path - send photo via path
     `,
-    { parse_mode: 'Markdown' }
+    { parse_mode: 'markdown' }
   )
 ))
 
 hearManager.hear('/url', (context) => (
-  context.sendPhoto(MediaSource.url(URL), { caption: 'Here\'s a cat sent via URL!' })
+  context.sendPhoto(MediaSource.url(URL), { caption: 'here\'s a cat sent via URL!' })
 ))
 
 hearManager.hear('/buffer', (context) => (
-  context.sendDocument(MediaSource.buffer(BUFFER), { caption: 'Some cool document uploaded via Buffer!' })
+  context.sendDocument(MediaSource.buffer(BUFFER), { caption: 'some cool document uploaded via Buffer!' })
 ))
 
 hearManager.hear('/stream', (context) => (
-  context.sendDocument(MediaSource.stream(STREAM), { caption: 'Some amazing document uploaded via Stream!' })
+  context.sendDocument(MediaSource.stream(STREAM), { caption: 'some amazing document uploaded via Stream!' })
 ))
 
 hearManager.hear('/fileid', (context) => (
@@ -50,11 +50,11 @@ hearManager.hear('/fileid', (context) => (
 ))
 
 hearManager.hear('/path', (context) => (
-  context.sendPhoto(MediaSource.path(PATH), { caption: 'Photo attachment uploaded using local path' })
+  context.sendPhoto(MediaSource.path(PATH), { caption: 'photo attachment uploaded using local path' })
 ))
 
 // As easy as that!
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)

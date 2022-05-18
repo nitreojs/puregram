@@ -5,15 +5,15 @@ const telegram = new Telegram({
 })
 
 telegram.updates.on('message', (context) => {
-  const message = `A ${HTML.bold('message')} with ${HTML.italic('HTML markdown')}!`
-  const anotherMessage = `Another <b>message</b> with <i>HTML markdown</i>.`
+  const message = `a ${HTML.bold('message')} with ${HTML.italic('html markdown')}!`
+  const anotherMessage = `another <b>message</b> with <i>html markdown</i>.`
 
   await Promise.all([
-    context.send(message, { parse_mode: 'HTML' }),       // <-- Note how we are telling telegram
-    context.send(anotherMessage, { parse_mode: 'HTML' }) //     that there are some HTML entities in the message
+    context.send(message, { parse_mode: 'html' }),       // <-- note how we are telling telegram
+    context.send(anotherMessage, { parse_mode: 'html' }) //     that there are some html entities in the message
   ])
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)

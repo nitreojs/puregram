@@ -5,15 +5,15 @@ const telegram = new Telegram({
 })
 
 telegram.updates.on('message', (context) => {
-  const message = `A ${Markdown.bold('message')} with ${Markdown.italic('markdown')}!`
-  const anotherMessage = `One more *message* with _markdown_, but without a class!`
+  const message = `a ${Markdown.bold('message')} with ${Markdown.italic('markdown')}!`
+  const anotherMessage = `one more *message* with _markdown_, but without a class!`
 
   await Promise.all([
-    context.send(message, { parse_mode: 'Markdown' }),       // <-- Note how we are telling telegram
-    context.send(anotherMessage, { parse_mode: 'Markdown' }) //     that there are some Markdown entities in the message
+    context.send(message, { parse_mode: 'markdown' }),       // <-- note how we are telling telegram
+    context.send(anotherMessage, { parse_mode: 'markdown' }) //     that there are some markdown entities in the message
   ])
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)

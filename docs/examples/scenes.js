@@ -11,8 +11,8 @@ const sessionManager = new SessionManager()
 const sceneManager = new SceneManager()
 const hearManager = new HearManager()
 
-// Both message and callback query because we will
-// handle messages and inline keyboard button taps
+// INFO: both message and callback query because we will
+// INFO: handle messages and inline keyboard button taps
 const events = ['message', 'callback_query']
 
 telegram.updates.on(events, sessionManager.middleware)
@@ -20,12 +20,9 @@ telegram.updates.on(events, sceneManager.middleware)
 telegram.updates.on(events, sceneManager.middlewareIntercept)
 telegram.updates.on('message', hearManager.middleware)
 
-hearManager.hear(
-  /^\/hello$/i,
-  (context) => context.scene.enter('hello')
-)
+hearManager.hear(/^\/hello$/i, (context) => context.scene.enter('hello'))
 
-// Setting up our steps
+// INFO: setting up our steps
 sceneManager.addScenes([
   new StepScene('hello', [
     (context) => {
@@ -33,27 +30,26 @@ sceneManager.addScenes([
         const keyboard = InlineKeyboard.keyboard([
           [
             InlineKeyboard.textButton({
-              text: 'Male',
+              text: 'male',
               payload: { sex: 'male' }
             }),
 
             InlineKeyboard.textButton({
-              text: 'Female',
+              text: 'female',
               payload: { sex: 'female' }
             })
           ],
 
           [
             InlineKeyboard.textButton({
-              text: 'Prefer not to say',
+              text: 'prefer not to say',
               payload: { sex: 'android' }
             })
           ]
         ])
 
         return context.send(
-          'Welcome. Please tell me, ' +
-          'are you a man or a woman.',
+          'welcome. please tell me whether you are a man or a woman.',
           { reply_markup: keyboard }
         )
       }
@@ -73,20 +69,20 @@ sceneManager.addScenes([
       const sex = context.scene.state.sex
 
       const phrase = {
-        male: 'Ayy bro! How ya doin\'?',
-        female: 'Hello, mam, you are welcome.',
-        android: 'So you are android? 01100100100101.'
+        male: 'ayy bro! how ya doin\'?',
+        female: 'hello, mam, you are welcome.',
+        android: 'so you are android? 01100100100101.'
       }[sex]
 
       await context.message.editMessageText(phrase)
 
-      // Automatic exit because this is the last step
+      // INFO: automatic exit because this is the last step
       return context.scene.step.next()
     }
   ])
 ])
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)
 

@@ -4,18 +4,18 @@ const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
   const keyboard = new KeyboardBuilder()
-    .textButton('Some button')
+    .textButton('some button')
     .row()
-    .textButton('Two buttons')
-    .textButton('In one row')
-    .resize() // keyboard will be much smaller
+    .textButton('two buttons')
+    .textButton('in one row')
+    .resize() // INFO: keyboard will be much smaller
 
-  return context.send('Sending you a keyboard, generated using `KeyboardBuilder`!', {
+  return context.send('sending you a keyboard, generated using `KeyboardBuilder`!', {
     reply_markup: keyboard,
-    parse_mode: 'Markdown'
+    parse_mode: 'markdown'
   })
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Bot @${telegram.bot.username} started polling`)
+  () => console.log(`bot @${telegram.bot.username} started polling`)
 ).catch(console.error)

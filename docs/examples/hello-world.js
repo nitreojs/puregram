@@ -6,10 +6,10 @@ const telegram = new Telegram({
 
 telegram.updates.on('message', (context) => {
   if (context.text && /hello/i.test(context.text)) {
-    return context.send('Hello, World!')
+    return context.send('hello, World!')
   }
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)

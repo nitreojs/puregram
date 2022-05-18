@@ -5,39 +5,39 @@ const telegram = Telegram.fromToken(process.env.TOKEN)
 telegram.updates.on('message', (context) => {
   const keyboard = new InlineKeyboardBuilder()
     .textButton({
-      text: 'Some button',
-      payload: 'Some payload'
+      text: 'some button',
+      payload: 'some payload'
     })
     .row()
     .textButton({
-      text: 'Two buttons',
+      text: 'two buttons',
       payload: { objectPayload: true }
     })
     .textButton({
-      text: 'In one row',
-      payload: 'Payload is required'
+      text: 'in one row',
+      payload: 'payload is required'
     })
     .row()
     .urlButton({
-      text: 'Some URL button',
+      text: 'some url button',
       url: 'https://example.com'
     })
     .row()
     .switchToCurrentChatButton({
-      text: 'Switch to current chat button',
-      query: 'Foo bar baz'
+      text: 'switch to current chat button',
+      query: 'foo bar baz'
     })
     .switchToChatButton({
-      text: 'Switch to chat button',
-      query: 'Test tost'
+      text: 'switch to chat button',
+      query: 'test tost'
     })
 
-  return context.send('Sending you an inline-keyboard using `InlineKeyboardBuilder`!', {
+  return context.send('sending you an inline-keyboard using `InlineKeyboardBuilder`!', {
     reply_markup: keyboard,
-    parse_mode: 'Markdown'
+    parse_mode: 'markdown'
   })
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Bot @${telegram.bot.username} started polling`)
+  () => console.log(`bot @${telegram.bot.username} started polling`)
 ).catch(console.error)

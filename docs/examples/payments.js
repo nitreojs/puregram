@@ -9,24 +9,24 @@ const hearManager = new HearManager()
 telegram.updates.on('message', hearManager.middleware)
 
 hearManager.hear(/^\/payments$/i, (context) => {
-  // Sending an invoice to user
+  // INFO: sending an invoice to user
 
   return context.sendInvoice({
-    title: 'Product name',
-    description: 'Product description (actual message text)',
-    currency: 'USD', // https://core.telegram.org/bots/payments#supported-currencies
-    payload: { product: 'Product name' },
+    title: 'product name',
+    description: 'product description (actual message text)',
+    currency: 'USD', // INFO: https://core.telegram.org/bots/payments#supported-currencies
+    payload: { product: 'product name' },
     prices: [
       {
-        label: 'Product name',
+        label: 'product name',
         amount: 5000 // 50,00$
       },
       {
-        label: 'Some more stuff',
+        label: 'some more stuff',
         amount: 135 // 1,35$
       }
     ],
-    provider_token: process.env.STRIPE_TOKEN, // https://core.telegram.org/bots/payments#getting-a-token
+    provider_token: process.env.STRIPE_TOKEN, // INFO: https://core.telegram.org/bots/payments#getting-a-token
     start_parameter: 'test',
 
     is_flexible: true,
@@ -35,7 +35,7 @@ hearManager.hear(/^\/payments$/i, (context) => {
 })
 
 telegram.updates.on('shipping_query', async (context) => {
-  // Triggered when product has `is_flexible` or `need_shipping_address` options
+  // INFO: triggered when product has `is_flexible` or `need_shipping_address` options
 
   console.log(`${context.from.firstName} wants to ship ${context.invoicePayload.product} to ${context.shippingAddress.city}!`)
 
@@ -45,10 +45,10 @@ telegram.updates.on('shipping_query', async (context) => {
     shipping_options: [
       {
         id: 'shipping-somewhere',
-        title: 'Shipping to somewhere',
+        title: 'shipping to somewhere',
         prices: [
           {
-            label: 'Shipping to somewhere',
+            label: 'shipping to somewhere',
             amount: 1250 // 12,50$
           }
         ]
@@ -58,27 +58,26 @@ telegram.updates.on('shipping_query', async (context) => {
 })
 
 telegram.updates.on('pre_checkout_query', async (context) => {
-  // Triggered when user pressed "Pay" button and Telegram expecting
-  // you to verify all the data and say if everything is OK
+  // INFO: triggered when user pressed "Pay" button and Telegram expecting
+  // INFO: you to verify all the data and say if everything is OK
 
   await context.answerPreCheckoutQuery({ ok: true })
 
-  // alternative:
-
+  // INFO: an alternative
   // await context.answerPreCheckoutQuery({
   //   ok: false,
-  //   error_message: `We have no ${context.invoicePayload.product} now!`
+  //   error_message: `we have no ${context.invoicePayload.product} now!`
   // });
 })
 
 telegram.updates.on('successful_payment', async (context) => {
-  // Triggered when the payment went OK and money has been sent to you
+  // INFO: triggered when the payment went OK and money has been sent to you
 
-  await context.reply(`Thank you, *${context.eventPayment.orderInfo.name}*, for purchasing *${context.eventPayment.invoicePayload.product}*!`, {
-    parse_mode: 'Markdown'
+  await context.reply(`thank you, *${context.eventPayment.orderInfo.name}*, for purchasing *${context.eventPayment.invoicePayload.product}*!`, {
+    parse_mode: 'markdown'
   })
 })
 
 telegram.updates.startPolling()
-  .then(() => console.log('Started'))
+  .then(() => console.log('started'))
   .catch(console.error)

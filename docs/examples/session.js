@@ -16,10 +16,10 @@ telegram.updates.on('message', (context) => {
 
   context.session.counter += 1
 
-  return context.send(`Counter: *${context.session.counter}*`, { parse_mode: 'Markdown' })
+  return context.send(`counter: *${context.session.counter}*`, { parse_mode: 'Markdown' })
 })
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)
 

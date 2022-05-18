@@ -7,7 +7,7 @@ const telegram = new Telegram({
 
 telegram.updates.on('message', (context) => {
   if (context.hasDice && context.dice.emoji === '🎰') {
-    // for example, user has got seven, bar, grapes
+    // INFO: for example, user has got seven, bar, grapes
     console.log(getCasinoValues(context.dice.value)) // ['seven', 'bar', 'grapes']
   }
 })

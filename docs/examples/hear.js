@@ -7,89 +7,65 @@ const telegram = new Telegram({
 
 const hearManager = new HearManager()
 
-// Telling puregram that we are handling hearManager
-// on `message` update
+// INFO: telling puregram that we are handling hearManager on `message` update
 telegram.updates.on('message', hearManager.middleware)
 
-// Strict string, triggers only on exact same string
+// INFO: strict string, triggers only on exact same string
 hearManager.hear(
   '/strict',
-  (context) => context.send('Triggered by a strict string')
+  (context) => context.send('triggered by a strict string')
 )
 
-// Regular expression
+// INFO: regular expression
 hearManager.hear(
   /^\/regexp$/i,
-  (context) => context.send('Triggered by a regexp')
+  (context) => context.send('triggered by a regexp')
 )
 
-// Function
+// INFO: function
 hearManager.hear(
   (text, context) => text === '/function' || context.senderId === 123,
-  (context) => context.send(
-    'Triggered only if text is "/function" ' +
-    'or senderId is 123'
-  )
+  (context) => context.send('triggered only if text is "/function" or senderId is 123')
 )
 
-/// Object notations:
-
-// 1. Basic object
+// INFO: object notations
+// INFO: 1. basic object
 hearManager.hear(
   {
     text: '/test',
     isPM: true
   },
 
-  (context) => context.send(
-    'Triggered only if text is equal to "/test" ' +
-    'and it is private messages'
-  )
+  (context) => context.send('triggered only if text is equal to "/test" and it is private messages')
 )
 
-// 2. Regexp
+// INFO: 2. regexp
 hearManager.hear(
   {
     text: /test/i,
     senderId: 1337
   },
 
-  (context) => context.send(
-    'Triggered if both text has "test" in it ' +
-    'and senderId is 1337'
-  )
+  (context) => context.send('triggered if both text has "test" in it and senderId is 1337')
 )
 
-// 3. Array with callback or regexp in it
+// INFO: 3. an array with callback or regexp in it
 hearManager.hear(
-  {
-    senderId: [1, /^2/, (id) => id === 3]
-  },
-
-  (context) => context.send(
-    'Triggered only if senderId is 1, ' +
-    'starts with 2, or equals to 3'
-  )
+  { senderId: [1, /^2/, (id) => id === 3] },
+  (context) => context.send('triggered only if senderId is 1, starts with 2, or equals to 3')
 )
 
-// 4. Nested properties
-// * context.session = { action: 'test' }
+// INFO: 4. nested properties
+// NOTE: context.session = { action: 'test' }
 hearManager.hear(
-  {
-    'session.action': 'test'
-  },
-
-  (context) => context.send(
-    'Triggered only if session.action is "test"'
-  )
+  { 'session.action': 'test' },
+  (context) => context.send('triggered only if session.action is "test"')
 )
 
-// Triggered when no other hears triggered
-hearManager.onFallback(
-  (context) => context.send('Command not found.')
-)
+// INFO: triggered when no other hears are triggered
+hearManager.onFallback((context) => context.send('command not found.'))
 
 telegram.updates.startPolling().then(
-  () => console.log(`Started polling @${telegram.bot.username}`)
+  () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)
 

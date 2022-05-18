@@ -179,20 +179,20 @@ export class Update {
 }
 
 inspectable(Update, {
-  serialize(update) {
+  serialize(struct) {
     const payload = {
-      id: update.id,
-      message: update.message,
-      editedMessage: update.editedMessage,
-      channelPost: update.channelPost,
-      editedChannelPost: update.editedChannelPost,
-      inlineQuery: update.inlineQuery,
-      chosenInlineResult: update.chosenInlineResult,
-      callbackQuery: update.callbackQuery,
-      shippingQuery: update.shippingQuery,
-      preCheckoutQuery: update.preCheckoutQuery,
-      poll: update.poll,
-      pollAnswer: update.pollAnswer
+      id: struct.id,
+      message: struct.message,
+      editedMessage: struct.editedMessage,
+      channelPost: struct.channelPost,
+      editedChannelPost: struct.editedChannelPost,
+      inlineQuery: struct.inlineQuery,
+      chosenInlineResult: struct.chosenInlineResult,
+      callbackQuery: struct.callbackQuery,
+      shippingQuery: struct.shippingQuery,
+      preCheckoutQuery: struct.preCheckoutQuery,
+      poll: struct.poll,
+      pollAnswer: struct.pollAnswer
     }
 
     return filterPayload(payload)

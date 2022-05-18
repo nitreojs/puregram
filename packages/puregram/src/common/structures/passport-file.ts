@@ -41,12 +41,12 @@ export class PassportFile {
 }
 
 inspectable(PassportFile, {
-  serialize(passport) {
+  serialize(struct) {
     return {
-      fileId: passport.fileId,
-      fileUniqueId: passport.fileUniqueId,
-      fileSize: passport.fileSize,
-      fileDate: passport.fileDate
+      fileId: struct.fileId,
+      fileUniqueId: struct.fileUniqueId,
+      fileSize: struct.fileSize,
+      fileDate: struct.fileDate
     }
   }
 })

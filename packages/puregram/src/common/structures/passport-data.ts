@@ -41,10 +41,10 @@ export class PassportData {
 }
 
 inspectable(PassportData, {
-  serialize(passport) {
+  serialize(struct) {
     return {
-      data: passport.data,
-      credentials: passport.credentials
+      data: struct.data,
+      credentials: struct.credentials
     }
   }
 })

@@ -28,11 +28,11 @@ export class ProximityAlertTriggered {
 }
 
 inspectable(ProximityAlertTriggered, {
-  serialize(alert) {
+  serialize(struct) {
     return {
-      traveler: alert.traveler,
-      watcher: alert.watcher,
-      distance: alert.distance
+      traveler: struct.traveler,
+      watcher: struct.watcher,
+      distance: struct.distance
     }
   }
 })

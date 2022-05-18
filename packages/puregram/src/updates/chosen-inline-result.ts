@@ -54,14 +54,14 @@ export class ChosenInlineResult {
 }
 
 inspectable(ChosenInlineResult, {
-  serialize(inlineResult) {
+  serialize(update) {
     const payload = {
-      resultId: inlineResult.resultId,
-      from: inlineResult.from,
-      senderId: inlineResult.senderId,
-      location: inlineResult.location,
-      inlineMessageId: inlineResult.inlineMessageId,
-      query: inlineResult.query
+      resultId: update.resultId,
+      from: update.from,
+      senderId: update.senderId,
+      location: update.location,
+      inlineMessageId: update.inlineMessageId,
+      query: update.query
     }
 
     return filterPayload(payload)

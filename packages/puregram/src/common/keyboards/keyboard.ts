@@ -122,6 +122,7 @@ export class Keyboard {
     return this
   }
 
+  /** Returns JSON which is compatible with Telegram's `ReplyKeyboardMarkup` interface */
   toJSON(): Interfaces.TelegramReplyKeyboardMarkup {
     return {
       keyboard: this.buttons,

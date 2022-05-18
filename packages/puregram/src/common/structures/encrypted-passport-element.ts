@@ -142,18 +142,18 @@ export class EncryptedPassportElement {
 }
 
 inspectable(EncryptedPassportElement, {
-  serialize(element) {
+  serialize(struct) {
     const payload = {
-      type: element.type,
-      data: element.data,
-      phoneNumber: element.phoneNumber,
-      email: element.email,
-      files: element.files,
-      frontSide: element.frontSide,
-      reverseSide: element.reverseSide,
-      selfie: element.selfie,
-      translation: element.translation,
-      hash: element.hash
+      type: struct.type,
+      data: struct.data,
+      phoneNumber: struct.phoneNumber,
+      email: struct.email,
+      files: struct.files,
+      frontSide: struct.frontSide,
+      reverseSide: struct.reverseSide,
+      selfie: struct.selfie,
+      translation: struct.translation,
+      hash: struct.hash
     }
 
     return filterPayload(payload)

@@ -76,16 +76,16 @@ export class ChatPermissions {
 }
 
 inspectable(ChatPermissions, {
-  serialize(permissions) {
+  serialize(struct) {
     const payload = {
-      canSendMessages: permissions.canSendMessages,
-      canSendMediaMessages: permissions.canSendMediaMessages,
-      canSendPolls: permissions.canSendPolls,
-      canSendOtherMessages: permissions.canSendOtherMessages,
-      canAddWebPagePreviews: permissions.canAddWebPagePreviews,
-      canChangeInfo: permissions.canChangeInfo,
-      canInviteUsers: permissions.canInviteUsers,
-      canPinMessages: permissions.canPinMessages
+      canSendMessages: struct.canSendMessages,
+      canSendMediaMessages: struct.canSendMediaMessages,
+      canSendPolls: struct.canSendPolls,
+      canSendOtherMessages: struct.canSendOtherMessages,
+      canAddWebPagePreviews: struct.canAddWebPagePreviews,
+      canChangeInfo: struct.canChangeInfo,
+      canInviteUsers: struct.canInviteUsers,
+      canPinMessages: struct.canPinMessages
     }
 
     return filterPayload(payload)

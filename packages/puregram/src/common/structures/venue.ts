@@ -59,15 +59,15 @@ export class Venue {
 }
 
 inspectable(Venue, {
-  serialize(venue) {
+  serialize(struct) {
     const payload = {
-      location: venue.location,
-      title: venue.title,
-      address: venue.address,
-      foursquareId: venue.foursquareId,
-      foursquareType: venue.foursquareType,
-      googlePlaceId: venue.googlePlaceId,
-      googlePlaceType: venue.googlePlaceType
+      location: struct.location,
+      title: struct.title,
+      address: struct.address,
+      foursquareId: struct.foursquareId,
+      foursquareType: struct.foursquareType,
+      googlePlaceId: struct.googlePlaceId,
+      googlePlaceType: struct.googlePlaceType
     }
 
     return filterPayload(payload)

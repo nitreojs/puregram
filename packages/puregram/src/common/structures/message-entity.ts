@@ -88,14 +88,14 @@ export class MessageEntity {
 }
 
 inspectable(MessageEntity, {
-  serialize(entity) {
+  serialize(struct) {
     const payload = {
-      type: entity.type,
-      offset: entity.offset,
-      length: entity.length,
-      url: entity.url,
-      user: entity.user,
-      language: entity.language
+      type: struct.type,
+      offset: struct.offset,
+      length: struct.length,
+      url: struct.url,
+      user: struct.user,
+      language: struct.language
     }
 
     return filterPayload(payload)

@@ -40,11 +40,11 @@ export class MenuButton {
 }
 
 inspectable(MenuButton, {
-  serialize(button) {
+  serialize(struct) {
     const payload = {
-      type: button.type,
-      text: button.text,
-      webApp: button.webApp
+      type: struct.type,
+      text: struct.text,
+      webApp: struct.webApp
     }
 
     return filterPayload(payload)

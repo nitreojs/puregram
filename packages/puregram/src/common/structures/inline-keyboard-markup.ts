@@ -24,9 +24,9 @@ export class InlineKeyboardMarkup {
 }
 
 inspectable(InlineKeyboardMarkup, {
-  serialize(markup) {
+  serialize(struct) {
     return {
-      inlineKeyboard: markup.inlineKeyboard
+      inlineKeyboard: struct.inlineKeyboard
     }
   }
 })

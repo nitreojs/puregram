@@ -38,11 +38,11 @@ export class EncryptedCredentials {
 }
 
 inspectable(EncryptedCredentials, {
-  serialize(credentials) {
+  serialize(struct) {
     return {
-      data: credentials.data,
-      hash: credentials.hash,
-      secret: credentials.secret
+      data: struct.data,
+      hash: struct.hash,
+      secret: struct.secret
     }
   }
 })

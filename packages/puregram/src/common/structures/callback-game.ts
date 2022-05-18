@@ -12,7 +12,7 @@ export class CallbackGame {
 }
 
 inspectable(CallbackGame, {
-  serialize(game) {
+  serialize(struct) {
     return {}
   }
 })

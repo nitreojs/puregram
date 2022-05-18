@@ -17,9 +17,9 @@ export class WebAppInfo {
 }
 
 inspectable(WebAppInfo, {
-  serialize(info) {
+  serialize(struct) {
     const payload = {
-      url: info.url
+      url: struct.url
     }
 
     return payload

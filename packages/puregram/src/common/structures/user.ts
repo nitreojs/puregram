@@ -87,17 +87,17 @@ export class User {
 }
 
 inspectable(User, {
-  serialize(user) {
+  serialize(struct) {
     const payload = {
-      id: user.id,
-      isBot: user.isBot,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username,
-      languageCode: user.languageCode,
-      canJoinGroups: user.canJoinGroups,
-      canReadAllGroupMessages: user.canReadAllGroupMessages,
-      supportsInlineQueries: user.supportsInlineQueries
+      id: struct.id,
+      isBot: struct.isBot,
+      firstName: struct.firstName,
+      lastName: struct.lastName,
+      username: struct.username,
+      languageCode: struct.languageCode,
+      canJoinGroups: struct.canJoinGroups,
+      canReadAllGroupMessages: struct.canReadAllGroupMessages,
+      supportsInlineQueries: struct.supportsInlineQueries
     }
 
     return filterPayload(payload)

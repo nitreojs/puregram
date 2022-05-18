@@ -2,6 +2,8 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { filterPayload } from '../../utils/helpers'
+
 /** Represents the rights of an administrator in a chat. */
 export class ChatAdministratorRights {
   constructor(private payload: Interfaces.TelegramChatAdministratorRights) { }
@@ -67,7 +69,21 @@ export class ChatAdministratorRights {
 }
 
 inspectable(ChatAdministratorRights, {
-  serialize(rights) {
+  serialize(struct) {
+    const payload = {
+      isAnonymous: struct.isAnonymous,
+      canManageChat: struct.canManageChat,
+      canDeleteMessages: struct.canDeleteMessages,
+      canManageVideoChats: struct.canManageVideoChats,
+      canRestrictMembers: struct.canRestrictMembers,
+      canPromoteMembers: struct.canPromoteMembers,
+      canChangeInfo: struct.canChangeInfo,
+      canInviteUsers: struct.canInviteUsers,
+      canPostMessages: struct.canPostMessages,
+      canEditMessages: struct.canEditMessages,
+      canPinMessages: struct.canPinMessages
+    }
 
+    return filterPayload(payload)
   }
 })

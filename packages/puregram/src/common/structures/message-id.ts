@@ -13,9 +13,9 @@ export class MessageId {
 }
 
 inspectable(MessageId, {
-  serialize(messageId) {
+  serialize(struct) {
     return {
-      id: messageId.id
+      id: struct.id
     }
   }
 })

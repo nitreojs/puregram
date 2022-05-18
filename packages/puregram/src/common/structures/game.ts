@@ -81,14 +81,14 @@ export class Game {
 }
 
 inspectable(Game, {
-  serialize(game) {
+  serialize(struct) {
     const payload = {
-      title: game.title,
-      description: game.description,
-      photo: game.photo,
-      text: game.text,
-      textEntities: game.textEntities,
-      animation: game.animation
+      title: struct.title,
+      description: struct.description,
+      photo: struct.photo,
+      text: struct.text,
+      textEntities: struct.textEntities,
+      animation: struct.animation
     }
 
     return filterPayload(payload)

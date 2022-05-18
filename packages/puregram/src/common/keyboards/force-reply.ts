@@ -21,6 +21,7 @@ export class ForceReply {
     return this
   }
 
+  /** Returns JSON which is compatible with Telegram's `ForceReply` interface */
   toJSON(): Interfaces.TelegramForceReply {
     return {
       force_reply: true,
@@ -35,7 +36,7 @@ export class ForceReply {
 }
 
 inspectable(ForceReply, {
-  serialize(forceReply) {
-    return forceReply.toJSON()
+  serialize(keyboard) {
+    return keyboard.toJSON()
   }
 })

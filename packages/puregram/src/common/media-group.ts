@@ -15,10 +15,12 @@ export class MediaGroup {
     return this.constructor.name
   }
 
+  /** Returns media group's ID */
   get id() {
     return this.options.id
   }
 
+  /** Returns a list of contexts (constructed earlier) every single of which contains an attachment */
   get contexts() {
     if (this.options.contexts[0].mediaGroup !== undefined) {
       delete this.options.contexts[0].mediaGroup
@@ -27,6 +29,7 @@ export class MediaGroup {
     return this.options.contexts
   }
 
+  /** Returns a list of attachments (mapped through `contexts`) */
   get attachments() {
     const attachments = this.contexts.map(context => context.attachments).flat()
 

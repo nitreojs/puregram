@@ -56,17 +56,17 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
 }
 
 inspectable(AudioAttachment, {
-  serialize(audio) {
+  serialize(attachment) {
     return {
-      fileId: audio.fileId,
-      fileUniqueId: audio.fileUniqueId,
-      duration: audio.duration,
-      performer: audio.performer,
-      title: audio.title,
-      fileName: audio.fileName,
-      mimeType: audio.mimeType,
-      fileSize: audio.fileSize,
-      thumb: audio.thumb
+      fileId: attachment.fileId,
+      fileUniqueId: attachment.fileUniqueId,
+      duration: attachment.duration,
+      performer: attachment.performer,
+      title: attachment.title,
+      fileName: attachment.fileName,
+      mimeType: attachment.mimeType,
+      fileSize: attachment.fileSize,
+      thumb: attachment.thumb
     }
   }
 })

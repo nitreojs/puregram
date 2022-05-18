@@ -47,12 +47,12 @@ export class ChatPhoto {
 }
 
 inspectable(ChatPhoto, {
-  serialize(photo) {
+  serialize(struct) {
     return {
-      smallFileId: photo.smallFileId,
-      smallFileUniqueId: photo.smallFileUniqueId,
-      bigFileId: photo.bigFileId,
-      bigFileUniqueId: photo.bigFileUniqueId
+      smallFileId: struct.smallFileId,
+      smallFileUniqueId: struct.smallFileUniqueId,
+      bigFileId: struct.bigFileId,
+      bigFileUniqueId: struct.bigFileUniqueId
     }
   }
 })

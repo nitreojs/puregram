@@ -52,14 +52,14 @@ export class Location {
 }
 
 inspectable(Location, {
-  serialize(location) {
+  serialize(struct) {
     return {
-      longitude: location.longitude,
-      latitude: location.latitude,
-      horizontalAccuracy: location.horizontalAccuracy,
-      livePeriod: location.livePeriod,
-      heading: location.heading,
-      proximityAlertRadius: location.proximityAlertRadius
+      longitude: struct.longitude,
+      latitude: struct.latitude,
+      horizontalAccuracy: struct.horizontalAccuracy,
+      livePeriod: struct.livePeriod,
+      heading: struct.heading,
+      proximityAlertRadius: struct.proximityAlertRadius
     }
   }
 })

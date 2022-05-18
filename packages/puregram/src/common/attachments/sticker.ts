@@ -69,18 +69,18 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
 }
 
 inspectable(StickerAttachment, {
-  serialize(sticker) {
+  serialize(attachment) {
     return {
-      fileId: sticker.fileId,
-      fileUniqueId: sticker.fileUniqueId,
-      width: sticker.width,
-      height: sticker.height,
-      isAnimated: sticker.isAnimated,
-      thumb: sticker.thumb,
-      emoji: sticker.emoji,
-      setName: sticker.setName,
-      maskPosition: sticker.maskPosition,
-      fileSize: sticker.fileSize
+      fileId: attachment.fileId,
+      fileUniqueId: attachment.fileUniqueId,
+      width: attachment.width,
+      height: attachment.height,
+      isAnimated: attachment.isAnimated,
+      thumb: attachment.thumb,
+      emoji: attachment.emoji,
+      setName: attachment.setName,
+      maskPosition: attachment.maskPosition,
+      fileSize: attachment.fileSize
     }
   }
 })

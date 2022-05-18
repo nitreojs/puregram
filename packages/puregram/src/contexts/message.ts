@@ -139,6 +139,7 @@ class MessageContext extends Context {
     return this.captionEntities.some(entity => entity.type === type)
   }
 
+  /** Checks whether current message contains a media group (`mergeMediaEvents` must be on) */
   get isMediaGroup() {
     return this.mediaGroupId !== undefined
   }
@@ -244,34 +245,34 @@ interface MessageContext extends Message, TargetMixin, SendMixin, NodeMixin { }
 applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(MessageContext, {
-  serialize(message) {
+  serialize(context) {
     const payload: Record<string, any> = {
-      id: message.id,
-      from: message.from,
-      createdAt: message.createdAt,
-      chat: message.chat,
-      forwardMessage: message.forwardMessage,
-      replyMessage: message.replyMessage,
-      viaBot: message.viaBot,
-      updatedAt: message.updatedAt,
-      authorSignature: message.authorSignature,
-      text: message.text,
-      entities: message.entities,
-      captionEntities: message.captionEntities,
-      dice: message.dice,
-      caption: message.caption,
-      contact: message.contact,
-      location: message.location,
-      venue: message.venue,
-      poll: message.poll,
-      replyMarkup: message.replyMarkup
+      id: context.id,
+      from: context.from,
+      createdAt: context.createdAt,
+      chat: context.chat,
+      forwardMessage: context.forwardMessage,
+      replyMessage: context.replyMessage,
+      viaBot: context.viaBot,
+      updatedAt: context.updatedAt,
+      authorSignature: context.authorSignature,
+      text: context.text,
+      entities: context.entities,
+      captionEntities: context.captionEntities,
+      dice: context.dice,
+      caption: context.caption,
+      contact: context.contact,
+      location: context.location,
+      venue: context.venue,
+      poll: context.poll,
+      replyMarkup: context.replyMarkup
     }
 
-    if (message.isMediaGroup) {
-      payload.mediaGroup = message.mediaGroup
+    if (context.isMediaGroup) {
+      payload.mediaGroup = context.mediaGroup
     } else {
-      payload.mediaGroupId = message.mediaGroupId
-      payload.attachments = message.attachments
+      payload.mediaGroupId = context.mediaGroupId
+      payload.attachments = context.attachments
     }
 
     return filterPayload(payload)

@@ -38,13 +38,13 @@ export class Contact {
 }
 
 inspectable(Contact, {
-  serialize(contact) {
+  serialize(struct) {
     const payload = {
-      phoneNumber: contact.phoneNumber,
-      firstName: contact.firstName,
-      lastName: contact.lastName,
-      userId: contact.userId,
-      vCard: contact.vCard
+      phoneNumber: struct.phoneNumber,
+      firstName: struct.firstName,
+      lastName: struct.lastName,
+      userId: struct.userId,
+      vCard: struct.vCard
     }
 
     return filterPayload(payload)

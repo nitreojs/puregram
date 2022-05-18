@@ -50,13 +50,13 @@ export class InlineQuery {
 }
 
 inspectable(InlineQuery, {
-  serialize(query) {
+  serialize(update) {
     const payload = {
-      id: query.id,
-      from: query.from,
-      location: query.location,
-      query: query.query,
-      offset: query.offset
+      id: update.id,
+      from: update.from,
+      location: update.location,
+      query: update.query,
+      offset: update.offset
     }
 
     return filterPayload(payload)

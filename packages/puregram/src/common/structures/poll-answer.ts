@@ -37,12 +37,12 @@ export class PollAnswer {
 }
 
 inspectable(PollAnswer, {
-  serialize(answer) {
+  serialize(struct) {
     return {
-      pollId: answer.pollId,
-      user: answer.user,
-      senderId: answer.senderId,
-      optionIds: answer.optionIds
+      pollId: struct.pollId,
+      user: struct.user,
+      senderId: struct.senderId,
+      optionIds: struct.optionIds
     }
   }
 })

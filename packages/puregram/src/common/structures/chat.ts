@@ -216,22 +216,22 @@ export class Chat {
 }
 
 inspectable(Chat, {
-  serialize(chat) {
+  serialize(struct) {
     const payload = {
-      id: chat.id,
-      type: chat.type,
-      title: chat.title,
-      username: chat.username,
-      firstName: chat.firstName,
-      lastName: chat.lastName,
-      photo: chat.photo,
-      description: chat.description,
-      inviteLink: chat.inviteLink,
-      pinnedMessage: chat.pinnedMessage,
-      permissions: chat.permissions,
-      slowModeDelay: chat.slowModeDelay,
-      stickerSetName: chat.stickerSetName,
-      canSetStickerSet: chat.canSetStickerSet
+      id: struct.id,
+      type: struct.type,
+      title: struct.title,
+      username: struct.username,
+      firstName: struct.firstName,
+      lastName: struct.lastName,
+      photo: struct.photo,
+      description: struct.description,
+      inviteLink: struct.inviteLink,
+      pinnedMessage: struct.pinnedMessage,
+      permissions: struct.permissions,
+      slowModeDelay: struct.slowModeDelay,
+      stickerSetName: struct.stickerSetName,
+      canSetStickerSet: struct.canSetStickerSet
     }
 
     return filterPayload(payload)

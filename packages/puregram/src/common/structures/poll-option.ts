@@ -22,10 +22,10 @@ export class PollOption {
 }
 
 inspectable(PollOption, {
-  serialize(option) {
+  serialize(struct) {
     return {
-      text: option.text,
-      voterCount: option.voterCount
+      text: struct.text,
+      voterCount: struct.voterCount
     }
   }
 })

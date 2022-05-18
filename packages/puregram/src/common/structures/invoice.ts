@@ -47,13 +47,13 @@ export class Invoice {
 }
 
 inspectable(Invoice, {
-  serialize(invoice) {
+  serialize(struct) {
     return {
-      title: invoice.title,
-      description: invoice.description,
-      startParameter: invoice.startParameter,
-      currency: invoice.currency,
-      totalAmount: invoice.totalAmount
+      title: struct.title,
+      description: struct.description,
+      startParameter: struct.startParameter,
+      currency: struct.currency,
+      totalAmount: struct.totalAmount
     }
   }
 })

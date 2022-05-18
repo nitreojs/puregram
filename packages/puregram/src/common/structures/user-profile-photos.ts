@@ -34,10 +34,10 @@ export class UserProfilePhotos {
 }
 
 inspectable(UserProfilePhotos, {
-  serialize(photos) {
+  serialize(struct) {
     return {
-      totalCount: photos.totalCount,
-      photos: photos.photos
+      totalCount: struct.totalCount,
+      photos: struct.photos
     }
   }
 })

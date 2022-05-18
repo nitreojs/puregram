@@ -67,16 +67,16 @@ export class ChatInviteLink {
 }
 
 inspectable(ChatInviteLink, {
-  serialize(link) {
+  serialize(struct) {
     const payload = {
-      link: link.link,
-      creator: link.creator,
-      isPrimary: link.isPrimary,
-      isRevoked: link.isRevoked,
-      expireDate: link.expireDate,
-      memberLimit: link.memberLimit,
-      createsJoinRequest: link.createsJoinRequest,
-      pendingJoinRequestCount: link.pendingJoinRequestCount
+      link: struct.link,
+      creator: struct.creator,
+      isPrimary: struct.isPrimary,
+      isRevoked: struct.isRevoked,
+      expireDate: struct.expireDate,
+      memberLimit: struct.memberLimit,
+      createsJoinRequest: struct.createsJoinRequest,
+      pendingJoinRequestCount: struct.pendingJoinRequestCount
     }
 
     return filterPayload(payload)

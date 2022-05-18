@@ -2,6 +2,7 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+/** This object represents a bot command */
 export class BotCommand {
   constructor(private payload: Interfaces.TelegramBotCommand) { }
 
@@ -9,20 +10,22 @@ export class BotCommand {
     return this.constructor.name
   }
 
+  /** Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores. */
   get command() {
     return this.payload.command
   }
 
+  /** Description of the command; 1-256 characters */
   get description() {
     return this.payload.description
   }
 }
 
 inspectable(BotCommand, {
-  serialize(command) {
+  serialize(struct) {
     return {
-      command: command.command,
-      description: command.description
+      command: struct.command,
+      description: struct.description
     }
   }
 })

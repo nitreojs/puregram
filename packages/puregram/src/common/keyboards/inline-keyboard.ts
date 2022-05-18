@@ -150,6 +150,7 @@ export class InlineKeyboard {
     return this
   }
 
+  /** Returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
   toJSON(): Interfaces.TelegramInlineKeyboardMarkup {
     return {
       inline_keyboard: this.buttons

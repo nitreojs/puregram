@@ -39,13 +39,13 @@ export class ShippingQuery {
 }
 
 inspectable(ShippingQuery, {
-  serialize(query) {
+  serialize(update) {
     return {
-      id: query.id,
-      from: query.from,
-      senderId: query.senderId,
-      invoicePayload: query.invoicePayload,
-      shippingAddress: query.shippingAddress
+      id: update.id,
+      from: update.from,
+      senderId: update.senderId,
+      invoicePayload: update.invoicePayload,
+      shippingAddress: update.shippingAddress
     }
   }
 })

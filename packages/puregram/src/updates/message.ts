@@ -104,6 +104,11 @@ export class Message {
     return new ForwardMessage(this.payload)
   }
 
+  /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
+  get isAutomaticForward() {
+    return this.payload.is_automatic_forward
+  }
+
   /** For replies, the original message */
   get replyMessage(): Omit<Message, 'replyMessage'> | undefined {
     const { reply_to_message } = this.payload
@@ -617,66 +622,67 @@ export class Message {
 }
 
 inspectable(Message, {
-  serialize(message) {
+  serialize(update) {
     const payload = {
-      id: message.id,
-      from: message.from,
-      senderChat: message.senderChat,
-      createdAt: message.createdAt,
-      chat: message.chat,
-      forwardMessage: message.forwardMessage,
-      replyMessage: message.replyMessage,
-      viaBot: message.viaBot,
-      updatedAt: message.updatedAt,
-      mediaGroupId: message.mediaGroupId,
-      authorSignature: message.authorSignature,
-      text: message.text,
-      entities: message.entities,
+      id: update.id,
+      from: update.from,
+      senderChat: update.senderChat,
+      createdAt: update.createdAt,
+      chat: update.chat,
+      forwardMessage: update.forwardMessage,
+      isAutomaticForward: update.isAutomaticForward,
+      replyMessage: update.replyMessage,
+      viaBot: update.viaBot,
+      updatedAt: update.updatedAt,
+      mediaGroupId: update.mediaGroupId,
+      authorSignature: update.authorSignature,
+      text: update.text,
+      entities: update.entities,
 
       // Attachments
 
-      animation: message.animation,
-      audio: message.audio,
-      document: message.document,
-      photo: message.photo,
-      sticker: message.sticker,
-      video: message.video,
-      videoNote: message.videoNote,
-      voice: message.voice,
+      animation: update.animation,
+      audio: update.audio,
+      document: update.document,
+      photo: update.photo,
+      sticker: update.sticker,
+      video: update.video,
+      videoNote: update.videoNote,
+      voice: update.voice,
 
-      caption: message.caption,
-      captionEntities: message.captionEntities,
+      caption: update.caption,
+      captionEntities: update.captionEntities,
 
-      contact: message.contact,
-      dice: message.dice,
-      game: message.game,
-      poll: message.poll,
-      venue: message.venue,
-      location: message.location,
+      contact: update.contact,
+      dice: update.dice,
+      game: update.game,
+      poll: update.poll,
+      venue: update.venue,
+      location: update.location,
 
       // Events
 
-      newChatMembers: message.newChatMembers,
-      leftChatMember: message.leftChatMember,
-      newChatTitle: message.newChatTitle,
-      newChatPhoto: message.newChatPhoto,
-      deleteChatPhoto: message.deleteChatPhoto,
-      groupChatCreated: message.groupChatCreated,
-      supergroupChatCreated: message.supergroupChatCreated,
-      channelChatCreated: message.channelChatCreated,
-      migrateToChatId: message.migrateToChatId,
-      migrateFromChatId: message.migrateFromChatId,
+      newChatMembers: update.newChatMembers,
+      leftChatMember: update.leftChatMember,
+      newChatTitle: update.newChatTitle,
+      newChatPhoto: update.newChatPhoto,
+      deleteChatPhoto: update.deleteChatPhoto,
+      groupChatCreated: update.groupChatCreated,
+      supergroupChatCreated: update.supergroupChatCreated,
+      channelChatCreated: update.channelChatCreated,
+      migrateToChatId: update.migrateToChatId,
+      migrateFromChatId: update.migrateFromChatId,
 
-      pinnedMessage: message.pinnedMessage,
-      invoice: message.invoice,
-      successfulPayment: message.successfulPayment,
-      connectedWebsite: message.connectedWebsite,
-      passportData: message.passportData,
-      videoChatStarted: message.videoChatStarted,
-      videoChatEnded: message.videoChatEnded,
-      videoChatParticipantsInvited: message.videoChatParticipantsInvited,
+      pinnedMessage: update.pinnedMessage,
+      invoice: update.invoice,
+      successfulPayment: update.successfulPayment,
+      connectedWebsite: update.connectedWebsite,
+      passportData: update.passportData,
+      videoChatStarted: update.videoChatStarted,
+      videoChatEnded: update.videoChatEnded,
+      videoChatParticipantsInvited: update.videoChatParticipantsInvited,
 
-      replyMarkup: message.replyMarkup
+      replyMarkup: update.replyMarkup
     }
 
     return filterPayload(payload)

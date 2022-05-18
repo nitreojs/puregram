@@ -41,12 +41,12 @@ export class File {
 }
 
 inspectable(File, {
-  serialize(file) {
+  serialize(struct) {
     const payload = {
-      fileId: file.fileId,
-      fileUniqueId: file.fileUniqueId,
-      fileSize: file.fileSize,
-      filePath: file.filePath
+      fileId: struct.fileId,
+      fileUniqueId: struct.fileUniqueId,
+      fileSize: struct.fileSize,
+      filePath: struct.filePath
     }
 
     return filterPayload(payload)

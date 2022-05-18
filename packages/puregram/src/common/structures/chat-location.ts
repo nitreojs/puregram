@@ -23,10 +23,10 @@ export class ChatLocation {
 }
 
 inspectable(ChatLocation, {
-  serialize(chatLocation) {
+  serialize(struct) {
     return {
-      location: chatLocation.location,
-      address: chatLocation.address
+      location: struct.location,
+      address: struct.address
     }
   }
 })

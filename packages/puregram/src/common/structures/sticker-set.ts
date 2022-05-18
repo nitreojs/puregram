@@ -65,14 +65,14 @@ export class StickerSet {
 }
 
 inspectable(StickerSet, {
-  serialize(set) {
+  serialize(struct) {
     const payload = {
-      name: set.name,
-      title: set.title,
-      isAnimated: set.isAnimated,
-      containsMasks: set.containsMasks,
-      stickers: set.stickers,
-      thumb: set.thumb
+      name: struct.name,
+      title: struct.title,
+      isAnimated: struct.isAnimated,
+      containsMasks: struct.containsMasks,
+      stickers: struct.stickers,
+      thumb: struct.thumb
     }
 
     return filterPayload(payload)

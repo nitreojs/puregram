@@ -162,6 +162,7 @@ export class InlineKeyboardBuilder {
     return builder
   }
 
+  /** Returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
   toJSON(): Interfaces.TelegramInlineKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]

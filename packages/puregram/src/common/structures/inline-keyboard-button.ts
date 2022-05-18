@@ -101,16 +101,16 @@ export class InlineKeyboardButton {
 }
 
 inspectable(InlineKeyboardButton, {
-  serialize(button) {
+  serialize(struct) {
     const payload = {
-      text: button.text,
-      url: button.url,
-      loginUrl: button.loginUrl,
-      callbackData: button.callbackData,
-      switchInlineQuery: button.switchInlineQuery,
-      switchInlineQueryCurrentChat: button.switchInlineQueryCurrentChat,
-      callbackGame: button.callbackGame,
-      pay: button.pay
+      text: struct.text,
+      url: struct.url,
+      loginUrl: struct.loginUrl,
+      callbackData: struct.callbackData,
+      switchInlineQuery: struct.switchInlineQuery,
+      switchInlineQueryCurrentChat: struct.switchInlineQueryCurrentChat,
+      callbackGame: struct.callbackGame,
+      pay: struct.pay
     }
 
     return filterPayload(payload)

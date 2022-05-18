@@ -103,21 +103,21 @@ export class Poll {
 }
 
 inspectable(Poll, {
-  serialize(poll) {
+  serialize(struct) {
     const payload = {
-      id: poll.id,
-      question: poll.question,
-      options: poll.options,
-      totalVoterCount: poll.totalVoterCount,
-      isClosed: poll.isClosed,
-      isAnonymous: poll.isAnonymous,
-      type: poll.type,
-      allowsMultipleAnswers: poll.allowsMultipleAnswers,
-      correctOptionId: poll.correctOptionId,
-      explanation: poll.explanation,
-      explanationEntities: poll.explanationEntities,
-      openPeriod: poll.openPeriod,
-      closeDate: poll.closeDate
+      id: struct.id,
+      question: struct.question,
+      options: struct.options,
+      totalVoterCount: struct.totalVoterCount,
+      isClosed: struct.isClosed,
+      isAnonymous: struct.isAnonymous,
+      type: struct.type,
+      allowsMultipleAnswers: struct.allowsMultipleAnswers,
+      correctOptionId: struct.correctOptionId,
+      explanation: struct.explanation,
+      explanationEntities: struct.explanationEntities,
+      openPeriod: struct.openPeriod,
+      closeDate: struct.closeDate
     }
 
     return filterPayload(payload)

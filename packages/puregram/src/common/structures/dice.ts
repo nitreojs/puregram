@@ -28,10 +28,10 @@ export class Dice {
 }
 
 inspectable(Dice, {
-  serialize(dice) {
+  serialize(struct) {
     return {
-      emoji: dice.emoji,
-      value: dice.value
+      emoji: struct.emoji,
+      value: struct.value
     }
   }
 })

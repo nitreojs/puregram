@@ -15,7 +15,7 @@ export class VideoChatStarted {
 }
 
 inspectable(VideoChatStarted, {
-  serialize(event) {
+  serialize(struct) {
     return {}
   }
 })

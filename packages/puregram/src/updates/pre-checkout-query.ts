@@ -67,16 +67,16 @@ export class PreCheckoutQuery {
 }
 
 inspectable(PreCheckoutQuery, {
-  serialize(query) {
+  serialize(update) {
     const payload = {
-      id: query.id,
-      from: query.from,
-      senderId: query.senderId,
-      currency: query.currency,
-      totalAmount: query.totalAmount,
-      invoicePayload: query.invoicePayload,
-      shippingOptionId: query.shippingOptionId,
-      orderInfo: query.orderInfo
+      id: update.id,
+      from: update.from,
+      senderId: update.senderId,
+      currency: update.currency,
+      totalAmount: update.totalAmount,
+      invoicePayload: update.invoicePayload,
+      shippingOptionId: update.shippingOptionId,
+      orderInfo: update.orderInfo
     }
 
     return filterPayload(payload)

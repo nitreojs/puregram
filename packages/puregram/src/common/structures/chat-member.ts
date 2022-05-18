@@ -190,28 +190,28 @@ export class ChatMember {
 }
 
 inspectable(ChatMember, {
-  serialize(member) {
+  serialize(struct) {
     const payload = {
-      user: member.user,
-      status: member.status,
-      customTitle: member.customTitle,
-      isAnonymous: member.isAnonymous,
-      untilDate: member.untilDate,
-      canBeEdited: member.canBeEdited,
-      canManageChat: member.canManageChat,
-      canPostMessages: member.canPostMessages,
-      canEditMessages: member.canEditMessages,
-      canDeleteMessages: member.canDeleteMessages,
-      canManageVideoChats: member.canManageVideoChats,
-      canRestrictMembers: member.canRestrictMembers,
-      canPromoteMembers: member.canPromoteMembers,
-      canChangeInfo: member.canChangeInfo,
-      canInviteUsers: member.canInviteUsers,
-      canPinMessages: member.canPinMessages,
-      isMember: member.isMember,
-      canSendMessages: member.canSendMessages,
-      canSendOtherMessages: member.canSendOtherMessages,
-      canAddWebPagePreviews: member.canAddWebPagePreviews
+      user: struct.user,
+      status: struct.status,
+      customTitle: struct.customTitle,
+      isAnonymous: struct.isAnonymous,
+      untilDate: struct.untilDate,
+      canBeEdited: struct.canBeEdited,
+      canManageChat: struct.canManageChat,
+      canPostMessages: struct.canPostMessages,
+      canEditMessages: struct.canEditMessages,
+      canDeleteMessages: struct.canDeleteMessages,
+      canManageVideoChats: struct.canManageVideoChats,
+      canRestrictMembers: struct.canRestrictMembers,
+      canPromoteMembers: struct.canPromoteMembers,
+      canChangeInfo: struct.canChangeInfo,
+      canInviteUsers: struct.canInviteUsers,
+      canPinMessages: struct.canPinMessages,
+      isMember: struct.isMember,
+      canSendMessages: struct.canSendMessages,
+      canSendOtherMessages: struct.canSendOtherMessages,
+      canAddWebPagePreviews: struct.canAddWebPagePreviews
     }
 
     return filterPayload(payload)

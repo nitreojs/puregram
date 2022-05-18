@@ -41,12 +41,12 @@ export class OrderInfo {
 }
 
 inspectable(OrderInfo, {
-  serialize(order) {
+  serialize(struct) {
     const payload = {
-      name: order.name,
-      phoneNumber: order.phoneNumber,
-      email: order.email,
-      shippingAddress: order.shippingAddress
+      name: struct.name,
+      phoneNumber: struct.phoneNumber,
+      email: struct.email,
+      shippingAddress: struct.shippingAddress
     }
 
     return filterPayload(payload)

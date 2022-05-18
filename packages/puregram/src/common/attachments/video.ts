@@ -53,17 +53,17 @@ export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
 }
 
 inspectable(VideoAttachment, {
-  serialize(video) {
+  serialize(attachment) {
     return {
-      fileId: video.fileId,
-      fileUniqueId: video.fileUniqueId,
-      width: video.width,
-      height: video.height,
-      duration: video.duration,
-      thumb: video.thumb,
-      fileName: video.fileName,
-      mimeType: video.mimeType,
-      fileSize: video.fileSize
+      fileId: attachment.fileId,
+      fileUniqueId: attachment.fileUniqueId,
+      width: attachment.width,
+      height: attachment.height,
+      duration: attachment.duration,
+      thumb: attachment.thumb,
+      fileName: attachment.fileName,
+      mimeType: attachment.mimeType,
+      fileSize: attachment.fileSize
     }
   }
 })

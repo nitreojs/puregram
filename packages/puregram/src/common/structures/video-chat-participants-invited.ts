@@ -21,7 +21,7 @@ export class VideoChatParticipantsInvited {
 }
 
 inspectable(VideoChatParticipantsInvited, {
-  serialize(event) {
+  serialize(struct) {
     return {}
   }
 })

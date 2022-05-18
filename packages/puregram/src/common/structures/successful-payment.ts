@@ -63,15 +63,15 @@ export class SuccessfulPayment {
 }
 
 inspectable(SuccessfulPayment, {
-  serialize(payment) {
+  serialize(struct) {
     const payload = {
-      currency: payment.currency,
-      totalAmount: payment.totalAmount,
-      invoicePayload: payment.invoicePayload,
-      shippingOptionId: payment.shippingOptionId,
-      orderInfo: payment.orderInfo,
-      telegramPaymentChargeId: payment.telegramPaymentChargeId,
-      providerPaymentChargeId: payment.providerPaymentChargeId
+      currency: struct.currency,
+      totalAmount: struct.totalAmount,
+      invoicePayload: struct.invoicePayload,
+      shippingOptionId: struct.shippingOptionId,
+      orderInfo: struct.orderInfo,
+      telegramPaymentChargeId: struct.telegramPaymentChargeId,
+      providerPaymentChargeId: struct.providerPaymentChargeId
     }
 
     return filterPayload(payload)

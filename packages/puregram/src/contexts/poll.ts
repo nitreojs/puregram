@@ -34,21 +34,21 @@ interface PollContext extends Poll { }
 applyMixins(PollContext, [Poll])
 
 inspectable(PollContext, {
-  serialize(poll) {
+  serialize(context) {
     const payload = {
-      id: poll.id,
-      question: poll.question,
-      options: poll.options,
-      totalVoterCount: poll.totalVoterCount,
-      isClosed: poll.isClosed,
-      isAnonymous: poll.isAnonymous,
-      type: poll.type,
-      allowsMultipleAnswers: poll.allowsMultipleAnswers,
-      correctOptionId: poll.correctOptionId,
-      explanation: poll.explanation,
-      explanationEntities: poll.explanationEntities,
-      openPeriod: poll.openPeriod,
-      closeDate: poll.closeDate
+      id: context.id,
+      question: context.question,
+      options: context.options,
+      totalVoterCount: context.totalVoterCount,
+      isClosed: context.isClosed,
+      isAnonymous: context.isAnonymous,
+      type: context.type,
+      allowsMultipleAnswers: context.allowsMultipleAnswers,
+      correctOptionId: context.correctOptionId,
+      explanation: context.explanation,
+      explanationEntities: context.explanationEntities,
+      openPeriod: context.openPeriod,
+      closeDate: context.closeDate
     }
 
     return filterPayload(payload)

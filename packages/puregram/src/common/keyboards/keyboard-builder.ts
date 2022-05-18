@@ -148,6 +148,7 @@ export class KeyboardBuilder {
     return builder
   }
 
+  /** Returns JSON which is compatible with Telegram's `ReplyKeyboardMarkup` interface */
   toJSON(): Interfaces.TelegramReplyKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]

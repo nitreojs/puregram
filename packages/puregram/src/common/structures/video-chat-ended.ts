@@ -17,9 +17,9 @@ export class VideoChatEnded {
 }
 
 inspectable(VideoChatEnded, {
-  serialize(event) {
+  serialize(struct) {
     return {
-      duration: event.duration
+      duration: struct.duration
     }
   }
 })

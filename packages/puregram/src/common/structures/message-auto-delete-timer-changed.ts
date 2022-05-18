@@ -17,7 +17,7 @@ export class MessageAutoDeleteTimerChanged {
 }
 
 inspectable(MessageAutoDeleteTimerChanged, {
-  serialize(holyShitThatName) {
+  serialize(struct) { // rip `holyShitThatName` =(
     return {}
   }
 })

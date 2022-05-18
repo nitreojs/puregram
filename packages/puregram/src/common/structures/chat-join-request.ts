@@ -46,13 +46,13 @@ export class ChatJoinRequest {
 }
 
 inspectable(ChatJoinRequest, {
-  serialize(request) {
+  serialize(struct) {
     return {
-      chat: request.chat,
-      from: request.from,
-      date: request.date,
-      bio: request.bio,
-      inviteLink: request.inviteLink
+      chat: struct.chat,
+      from: struct.from,
+      date: struct.date,
+      bio: struct.bio,
+      inviteLink: struct.inviteLink
     }
   }
 })

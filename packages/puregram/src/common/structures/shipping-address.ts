@@ -42,14 +42,14 @@ export class ShippingAddress {
 }
 
 inspectable(ShippingAddress, {
-  serialize(address) {
+  serialize(struct) {
     return {
-      countryCode: address.countryCode,
-      state: address.state,
-      city: address.city,
-      firstStreetLine: address.firstStreetLine,
-      secondStreetLine: address.secondStreetLine,
-      postCode: address.postCode
+      countryCode: struct.countryCode,
+      state: struct.state,
+      city: struct.city,
+      firstStreetLine: struct.firstStreetLine,
+      secondStreetLine: struct.secondStreetLine,
+      postCode: struct.postCode
     }
   }
 })

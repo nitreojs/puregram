@@ -84,16 +84,16 @@ interface CallbackQueryContext extends CallbackQuery { }
 applyMixins(CallbackQueryContext, [CallbackQuery])
 
 inspectable(CallbackQueryContext, {
-  serialize(query) {
+  serialize(context) {
     const payload = {
-      id: query.id,
-      senderId: query.senderId,
-      from: query.from,
-      message: query.message,
-      inlineMessageId: query.inlineMessageId,
-      chatInstance: query.chatInstance,
-      queryPayload: query.queryPayload,
-      gameShortName: query.gameShortName
+      id: context.id,
+      senderId: context.senderId,
+      from: context.from,
+      message: context.message,
+      inlineMessageId: context.inlineMessageId,
+      chatInstance: context.chatInstance,
+      queryPayload: context.queryPayload,
+      gameShortName: context.gameShortName
     }
 
     return filterPayload(payload)

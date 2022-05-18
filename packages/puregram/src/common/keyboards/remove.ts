@@ -16,6 +16,7 @@ export class RemoveKeyboard {
     return this
   }
 
+  /** Returns JSON which is compatible with Telegram's `RemoveKeyboard` interface */
   toJSON(): RemoveKeyboardJSON {
     return {
       remove_keyboard: true,

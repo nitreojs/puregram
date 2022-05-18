@@ -41,14 +41,14 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
 }
 
 inspectable(DocumentAttachment, {
-  serialize(document) {
+  serialize(attachment) {
     return {
-      fileId: document.fileId,
-      fileUniqueId: document.fileUniqueId,
-      thumb: document.thumb,
-      fileName: document.fileName,
-      mimeType: document.mimeType,
-      fileSize: document.fileSize
+      fileId: attachment.fileId,
+      fileUniqueId: attachment.fileUniqueId,
+      thumb: attachment.thumb,
+      fileName: attachment.fileName,
+      mimeType: attachment.mimeType,
+      fileSize: attachment.fileSize
     }
   }
 })

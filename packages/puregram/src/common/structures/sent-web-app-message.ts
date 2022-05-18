@@ -22,9 +22,9 @@ export class SentWebAppMessage {
 }
 
 inspectable(SentWebAppMessage, {
-  serialize(message) {
+  serialize(struct) {
     const payload = {
-      inlineMessageId: message.inlineMessageId
+      inlineMessageId: struct.inlineMessageId
     }
 
     return filterPayload(payload)

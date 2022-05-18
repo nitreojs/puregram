@@ -77,15 +77,15 @@ export class ForwardMessage {
 }
 
 inspectable(ForwardMessage, {
-  serialize(message) {
+  serialize(struct) {
     const payload = {
-      id: message.id,
-      from: message.from,
-      chat: message.chat,
-      signature: message.signature,
-      senderName: message.senderName,
-      createdAt: message.createdAt,
-      isAutomatic: message.isAutomatic
+      id: struct.id,
+      from: struct.from,
+      chat: struct.chat,
+      signature: struct.signature,
+      senderName: struct.senderName,
+      createdAt: struct.createdAt,
+      isAutomatic: struct.isAutomatic
     }
 
     return filterPayload(payload)

@@ -55,12 +55,12 @@ export class LoginUrl {
 }
 
 inspectable(LoginUrl, {
-  serialize(loginUrl) {
+  serialize(struct) {
     const payload = {
-      url: loginUrl.url,
-      forwardText: loginUrl.forwardText,
-      botUsername: loginUrl.botUsername,
-      requestWriteAccess: loginUrl.requestWriteAccess
+      url: struct.url,
+      forwardText: struct.forwardText,
+      botUsername: struct.botUsername,
+      requestWriteAccess: struct.requestWriteAccess
     }
 
     return filterPayload(payload)

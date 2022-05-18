@@ -57,14 +57,14 @@ export class ChatMemberUpdated {
 }
 
 inspectable(ChatMemberUpdated, {
-  serialize(member) {
+  serialize(struct) {
     const payload = {
-      chat: member.chat,
-      from: member.from,
-      date: member.date,
-      oldChatMember: member.oldChatMember,
-      newChatMember: member.newChatMember,
-      inviteLink: member.inviteLink
+      chat: struct.chat,
+      from: struct.from,
+      date: struct.date,
+      oldChatMember: struct.oldChatMember,
+      newChatMember: struct.newChatMember,
+      inviteLink: struct.inviteLink
     }
 
     return filterPayload(payload)

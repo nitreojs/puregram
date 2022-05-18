@@ -84,16 +84,16 @@ export class CallbackQuery {
 }
 
 inspectable(CallbackQuery, {
-  serialize(query) {
+  serialize(update) {
     const payload = {
-      id: query.id,
-      senderId: query.senderId,
-      from: query.from,
-      message: query.message,
-      inlineMessageId: query.inlineMessageId,
-      chatInstance: query.chatInstance,
-      data: query.data,
-      gameShortName: query.gameShortName
+      id: update.id,
+      senderId: update.senderId,
+      from: update.from,
+      message: update.message,
+      inlineMessageId: update.inlineMessageId,
+      chatInstance: update.chatInstance,
+      data: update.data,
+      gameShortName: update.gameShortName
     }
 
     return filterPayload(payload)

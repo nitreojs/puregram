@@ -14,6 +14,7 @@ export interface DefaultAttachment {
 export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> extends Attachment {
   protected payload: T
 
+  /** Returns attachment's type (e.g. `'audio'`, `'photo'`) */
   attachmentType?: AttachmentType
 
   constructor(payload: T) {
@@ -22,9 +23,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
     this.payload = payload
   }
 
-  /**
-   * Identifier for this file, which can be used to download or reuse the file
-   */
+  /** Identifier for this file, which can be used to download or reuse the file */
   get fileId() {
     return this.payload.file_id
   }

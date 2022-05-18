@@ -43,13 +43,13 @@ export class PhotoSize {
 }
 
 inspectable(PhotoSize, {
-  serialize(size) {
+  serialize(struct) {
     const payload = {
-      fileId: size.fileId,
-      fileUniqueId: size.fileUniqueId,
-      width: size.width,
-      height: size.height,
-      fileSize: size.fileSize
+      fileId: struct.fileId,
+      fileUniqueId: struct.fileUniqueId,
+      width: struct.width,
+      height: struct.height,
+      fileSize: struct.fileSize
     }
 
     return filterPayload(payload)

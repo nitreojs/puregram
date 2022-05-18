@@ -21,10 +21,10 @@ export class WebAppData {
 }
 
 inspectable(WebAppData, {
-  serialize(data) {
+  serialize(struct) {
     return {
-      data: data.data,
-      buttonText: data.buttonText
+      data: struct.data,
+      buttonText: struct.buttonText
     }
   }
 })

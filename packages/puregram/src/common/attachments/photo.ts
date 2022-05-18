@@ -48,7 +48,6 @@ export class PhotoAttachment extends Attachment {
 inspectable(PhotoAttachment, {
   serialize(photo) {
     return {
-      sizes: photo.sizes,
       bigSize: photo.bigSize,
       mediumSize: photo.mediumSize,
       smallSize: photo.smallSize

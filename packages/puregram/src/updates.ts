@@ -13,10 +13,11 @@ import * as Contexts from './contexts'
 
 import { Composer } from './common/structures/composer'
 import { User } from './common/structures/user'
+import { MediaGroup } from './common/media-group'
 
 import { Telegram } from './telegram'
 import { GetUpdatesParams } from './generated/methods'
-import { TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
+import { TelegramMessage, TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
 import { delay, parseRequestJSON } from './utils/helpers'
 import { StartPollingOptions } from './types/interfaces'
 import { Constructor, UpdateName, MessageEventName } from './types/types'
@@ -36,6 +37,7 @@ const debug_startFetchLoop = $debugger.extend('startFetchLoop')
 const debug_fetchUpdates = $debugger.extend('fetchUpdates')
 const debug_handleUpdate = $debugger.extend('handleUpdate')
 const debug_webhook = $debugger.extend('webhook')
+const debug_mediaEvents = $debugger.extend('mediaEvents')
 
 // THIS PART OF FILE IS AUTO-GENERATED!
 // SOURCE: scripts/generate-updates
@@ -114,7 +116,6 @@ export class Updates {
 
   private composed!: Middleware<Contexts.Context>
 
-  /** Constructor */
   constructor(telegram: Telegram) {
     this.telegram = telegram
 
@@ -356,7 +357,7 @@ export class Updates {
     if (options.offset) params.offset = options.offset
     if (options.timeout) params.timeout = options.timeout
 
-    const updates = await this.telegram.api.getUpdates(params)
+    let updates = await this.telegram.api.getUpdates(params)
 
     if (!updates) {
       // INFO: something is wrong with the internet connection I can feel it...
@@ -373,6 +374,68 @@ export class Updates {
       return
     }
 
+    // INFO: optimize?
+    if (this.telegram.options.mergeMediaEvents) {
+      const possibleUpdateTypes = ['message', 'edited_message', 'channel_post', 'edited_channel_post']
+
+      const getMessage = (update: TelegramUpdate) => {
+        const key = possibleUpdateTypes.find(ut => update[ut])!
+        const message = update[key] as TelegramMessage
+
+        return message
+      }
+
+      const mediaEventUpdates = updates
+        .filter(update => possibleUpdateTypes.some(ut => update[ut] !== undefined))
+        .filter(update => getMessage(update).media_group_id !== undefined)
+
+      if (mediaEventUpdates.length !== 0) {
+        const mediaGroupIdsMap = new Map<string, TelegramUpdate[]>()
+
+        // INFO: optimize?
+        for (const meUpdate of mediaEventUpdates) {
+          const mgId = getMessage(meUpdate).media_group_id!
+
+          if (!mediaGroupIdsMap.has(mgId)) {
+            mediaGroupIdsMap.set(mgId, [meUpdate])
+          } else {
+            mediaGroupIdsMap.set(mgId, [...mediaGroupIdsMap.get(mgId)!, meUpdate])
+          }
+        }
+
+        debug_mediaEvents('MG map: %O', mediaGroupIdsMap)
+
+        // INFO: processing each `media_group_id`s, creating final context
+        for (const [mgId, mgUpdates] of mediaGroupIdsMap.entries()) {
+          // INFO: jess, that's not an album!
+          if (mgUpdates.length === 1) {
+            mediaGroupIdsMap.delete(mgId)
+          }
+
+          const contexts = await Promise.all(mgUpdates.map(u => this.handleUpdate(u, false))) as Contexts.MessageContext[]
+
+          const mediaGroup = new MediaGroup({
+            id: mgId,
+            contexts
+          })
+
+          // INFO: on top of this context we will build the media group
+          // INFO: exactly this context will be dispatched in the middleware chain
+          const mainContext = contexts[0]
+          mainContext.mediaGroup = mediaGroup
+
+          this.dispatchMiddleware(mainContext)
+        }
+
+        const mgKeys = [...mediaGroupIdsMap.keys()]
+
+        // INFO: clearing out original [updates]
+        updates = updates.filter(update => !mgKeys.includes(getMessage(update).media_group_id!))
+      }
+    }
+
+    debug_fetchUpdates('updates: %O', updates)
+
     for (const update of updates) {
       try {
         await this.handleUpdate(update)
@@ -384,11 +447,13 @@ export class Updates {
 
   /**
    * Handles specified update and returns an appropriate `Context` (if it does exist)
+   * 
+   * If you don't want puregram to automatically process (dispatch) that context, pass `false` for the second argument
    *
    * @example
    * ```js
    * const [update] = await telegram.api.getUpdates(params)
-   * const context = await telegram.updates.handleUpdate(update)
+   * const context = await telegram.updates.handleUpdate(update, false)
    * 
    * if (context === undefined) {
    *   console.log(':sadface: context not found for this update!')
@@ -399,7 +464,7 @@ export class Updates {
    * console.log('hell yeah im pro')
    * ```
    */
-  async handleUpdate(update: TelegramUpdate): Promise<Contexts.Context | undefined> {
+  async handleUpdate(update: TelegramUpdate, dispatch: boolean = true): Promise<Contexts.Context | undefined> {
     this.offset = update.update_id + 1
 
     const type = (Object.keys(update) as UpdateName[])[1]
@@ -443,7 +508,10 @@ export class Updates {
 
     debug_handleUpdate('constructed context: %O', context)
 
-    this.dispatchMiddleware(context)
+    // INFO: this sends the built context to the middleware chain
+    if (dispatch) {
+      this.dispatchMiddleware(context)
+    }
 
     return context
   }

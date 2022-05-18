@@ -22,6 +22,7 @@ import {
   VideoNoteAttachment,
   VoiceAttachment
 } from '../common/attachments'
+import { MediaGroup } from '../common/media-group'
 
 import { Context } from './context'
 import { NodeMixin, SendMixin, TargetMixin } from './mixins'
@@ -40,6 +41,8 @@ class MessageContext extends Context {
 
   #text: string | undefined
   #caption: string | undefined
+
+  mediaGroup?: MediaGroup
 
   constructor(options: MessageContextOptions) {
     super({
@@ -134,6 +137,10 @@ class MessageContext extends Context {
     }
 
     return this.captionEntities.some(entity => entity.type === type)
+  }
+
+  get isMediaGroup() {
+    return this.mediaGroupId !== undefined
   }
 
   /** Message attachments */
@@ -238,7 +245,7 @@ applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(MessageContext, {
   serialize(message) {
-    const payload = {
+    const payload: Record<string, any> = {
       id: message.id,
       from: message.from,
       createdAt: message.createdAt,
@@ -247,19 +254,24 @@ inspectable(MessageContext, {
       replyMessage: message.replyMessage,
       viaBot: message.viaBot,
       updatedAt: message.updatedAt,
-      mediaGroupId: message.mediaGroupId,
       authorSignature: message.authorSignature,
       text: message.text,
       entities: message.entities,
       captionEntities: message.captionEntities,
       dice: message.dice,
-      attachments: message.attachments,
       caption: message.caption,
       contact: message.contact,
       location: message.location,
       venue: message.venue,
       poll: message.poll,
       replyMarkup: message.replyMarkup
+    }
+
+    if (message.isMediaGroup) {
+      payload.mediaGroup = message.mediaGroup
+    } else {
+      payload.mediaGroupId = message.mediaGroupId
+      payload.attachments = message.attachments
     }
 
     return filterPayload(payload)

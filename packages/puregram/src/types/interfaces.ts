@@ -58,6 +58,13 @@ export interface TelegramOptions {
    * @default false
    */
   useTestDc?: boolean
+
+  /**
+   * Should we merge events with the same `mediaGroupId` into one context with `mediaGroup` field?
+   * 
+   * @default false
+   */
+  mergeMediaEvents?: boolean
 }
 
 export interface ApiResponseOk {

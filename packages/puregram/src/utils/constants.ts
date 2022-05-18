@@ -23,6 +23,9 @@ export const DEFAULT_OPTIONS: TelegramOptions = {
     connection: 'keep-alive',
     'User-Agent': `puregram/${version} (+https://github.com/nitreojs/puregram)`
   },
+
+  useTestDc: false,
+  mergeMediaEvents: false
 }
 
 // THIS PART OF FILE IS AUTO-GENERATED!

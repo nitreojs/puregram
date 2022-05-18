@@ -410,6 +410,8 @@ export class Updates {
           // INFO: jess, that's not an album!
           if (mgUpdates.length === 1) {
             mediaGroupIdsMap.delete(mgId)
+
+            continue
           }
 
           const contexts = await Promise.all(mgUpdates.map(u => this.handleUpdate(u, false))) as Contexts.MessageContext[]

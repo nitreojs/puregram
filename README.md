@@ -173,6 +173,41 @@ telegram.updates.on('message', context => context.reply('yoo!'))
 
 _list of supported updates will be somewhere here when it's done_
 
+#### the `mergeMediaEvents`
+
+if you've had to handle multiple attachments at once you'd know that in telegram every single attachment is a separate message. that makes it pretty hard for us to handle multiple attachs at once. here it comes - the `mergeMediaEvents` option in `Telegram`'s constructor
+
+```js
+const telegram = new Telegram({
+  token: process.env.TOKEN,
+  mergeMediaEvents: true
+})
+```
+
+**what's changed?** if you'd set up a handler like this:
+
+```js
+telegram.updates.on('message', (context) => {
+  console.log(context)
+})
+```
+
+and then sent an album, you'd see that there will be some `mediaGroup` field in the `MessageContext`. that `mediaGroup` (instance of a `MediaGroup` class) contains some getters:
+
+| getter        | type               | description                                                           |
+| ------------- | ------------------ | --------------------------------------------------------------------- |
+| `id`          | `string`           | media group's id                                                      |
+| `contexts`    | `MessageContext[]` | list of received (and processed) contexts which contain an attachment |
+| `attachments` | `Attachment[]`     | list of attachments mapped through `contexts` (described earlier)     |
+
+```js
+telegram.updates.on('message', (context) => {
+  if (context.isMediaGroup) {
+    return context.reply(`this album contains ${context.mediaGroup.attachments.length} attachments!`)
+  }
+})
+```
+
 #### manual updates handling
 
 if you want to handle updates by yourself, you can use `Updates.handleUpdate` method, which takes one argument and this argument is raw Telegram update:
@@ -624,13 +659,13 @@ $ DEBUG=puregram:all node index
 
 yeah, there are.
 
-| what                       | how to get here                                         |
-| -------------------------- | ------------------------------------------------------- |
+| what                      | how to get here                                         |
+| ------------------------- | ------------------------------------------------------- |
 | **channel 📢**             | [click](https://t.me/puregram)                          |
 | **russian chat 🇷🇺**        | [press](https://t.me/puregram_chat_ru)                  |
 | **english chat 🇬🇧**        | [☆*: .｡. o(≧▽≦)o .｡.:*☆](https://t.me/puregram_chat_en) |
-| **puregram chats list 🍔** | [d=====(￣▽￣*)b](https://t.me/puregram_chats)           |
-| **offtop chat 👀**            | [ᕦ( ⊡ 益 ⊡ )ᕤ](https://t.me/puregram_offtop_chat)    |
+| **puregram chats list 🍔** | [d=====(￣▽￣*)b](https://t.me/puregram_chats)            |
+| **offtop chat 👀**         | [ᕦ( ⊡ 益 ⊡ )ᕤ](https://t.me/puregram_offtop_chat)       |
 
 ### why is your readme lowercased?
 

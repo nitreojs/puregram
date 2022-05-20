@@ -14,58 +14,63 @@ export class HTML {
   }
 
   /** Escape all the danger characters */
-  static raw(source: string) {
+  static escape(source: string) {
     return escapeHtml(source)
   }
 
+  /** @deprecated use `HTML.escape` instead */
+  static raw(source: string) {
+    return HTML.escape(source)
+  }
+
   /** Bold text */
-  static bold(source: string) {
-    return `<b>${escapeHtml(source)}</b>`
+  static bold(source: string, escape: boolean = true) {
+    return `<b>${escape ? HTML.escape(source) : source}</b>`
   }
 
   /** Italic text */
-  static italic(source: string) {
-    return `<i>${escapeHtml(source)}</i>`
+  static italic(source: string, escape: boolean = true) {
+    return `<i>${escape ? HTML.escape(source) : source}</i>`
   }
 
   /** Underlined text */
-  static underline(source: string) {
-    return `<u>${escapeHtml(source)}</u>`
+  static underline(source: string, escape: boolean = true) {
+    return `<u>${escape ? HTML.escape(source) : source}</u>`
   }
 
   /** Strikethrough text */
-  static strikethrough(source: string) {
-    return `<s>${escapeHtml(source)}</s>`
+  static strikethrough(source: string, escape: boolean = true) {
+    return `<s>${escape ? HTML.escape(source) : source}</s>`
   }
 
   /** Spoilered text */
-  static spoiler(source: string) {
-    return `<span class="tg-spoiler">${escapeHtml(source)}</span>`
+  static spoiler(source: string, escape: boolean = true) {
+    return `<span class="tg-spoiler">${escape ? HTML.escape(source) : source}</span>`
   }
 
   /** URL with text */
-  static url(source: string, link: string) {
-    return `<a href="${link}">${escapeHtml(source)}</a>`
+  static url(source: string, link: string, escape: boolean = true) {
+    return `<a href="${link}">${escape ? HTML.escape(source) : source}</a>`
   }
 
   /** Mention the user */
-  static mention(source: string, id: number | string) {
-    return `<a href="tg://user?id=${id}">${escapeHtml(source)}</a>`
+  static mention(source: string, id: number | string, escape: boolean = true) {
+    return `<a href="tg://user?id=${id}">${escape ? HTML.escape(source) : source}</a>`
   }
 
   /** Preformatted code */
-  static code(source: string, language?: string) {
+  static code(source: string, language?: string, escape: boolean = true) {
     const additional: string = (
       language
         ? ` class="language-${language}"`
         : ''
     )
 
-    return `<code${additional}>${escapeHtml(source)}</code>`
+    return `<code${additional}>${escape ? HTML.escape(source) : source}</code>`
   }
 
   /** Preformatted code */
-  static pre(source: string) {
-    return `<pre>${escapeHtml(source)}</pre>`
+  static pre(source: string, escape: boolean = true) {
+    return `<pre>${escape ? HTML.escape(source) : source}</pre>`
   }
 }

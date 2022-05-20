@@ -63,13 +63,16 @@ export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 
 const replaceRegexpChar = (char: string): string => (
   char
-    .replace(/\//g, '\\/')
-    .replace(/\\/g, '\\\\')
-    .replace(/\[/g, '\\[')
-    .replace(/]/g, '\\]')
-    .replace(/\(/g, '\\(')
-    .replace(/\)/g, '\\)')
-    .replace(/\*/g, '\\*')
+    .replace(/\//g, '\\/')   // '/'
+    .replace(/\\/g, '\\\\')  // '\'
+    .replace(/\[/g, '\\[')   // '['
+    .replace(/]/g, '\\]')    // ']'
+    .replace(/\(/g, '\\(')   // '('
+    .replace(/\)/g, '\\)')   // ')'
+    .replace(/\*/g, '\\*')   // '*'
+    .replace(/\+/g, '\\+')   // '+'
+    .replace(/\./g, '\\.')   // '.'
+    .replace(/\|/g, '\\|')   // '|'
 )
 
 export const replaceChars = (source: string, chars: string[] | string): string => {

@@ -330,6 +330,16 @@ context.send(`imagine using _classes_ for parse mode, *lol*!`, { parse_mode: 'ma
   <img src="https://i.imgur.com/x6EFfCH.png" />
 </details>
 
+since markdown-v2 requires a lot of chars to be escaped, i've came up with a beautiful idea...
+
+```js
+const message = MarkdownV2.build`
+  damn that's a cool usage of ${MarkdownV2.bold('template strings')}!
+  ${MarkdownV2.italic('foo')} bar ${MarkdownV2.underline('baz')}
+  starkow v3 when
+`
+```
+
 more markdown examples are available [here][markdown]
 
 [markdown]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/markdown

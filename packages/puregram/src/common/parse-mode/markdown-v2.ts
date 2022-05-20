@@ -46,7 +46,7 @@ export class MarkdownV2 {
   /** URL with text */
   static url(source: string, link: string, escape: boolean = true) {
     const text = escape ? replaceChars(source, ']') : source
-    const url = escape ? replaceChars(link, '\\)') : link
+    const url = escape ? replaceChars(link, ['\\', ')']) : link
 
     return `[${text}](${url})`
   }
@@ -58,13 +58,13 @@ export class MarkdownV2 {
 
   /** Preformatted code */
   static code(source: string, escape: boolean = true) {
-    return `\`${escape ? replaceChars(source, '`') : source}\``
+    return `\`${escape ? replaceChars(source, ['`', '\\']) : source}\``
   }
 
   /** Preformatted code */
-  static pre(source: string, language?: string) {
+  static pre(source: string, language?: string, escape: boolean = true) {
     const quotes = '```'
 
-    return `${quotes}${language || ''}\n${source}\n${quotes}`
+    return `${quotes}${language || ''}\n${escape ? replaceChars(source, ['`', '\\']) : source}\n${quotes}`
   }
 }

@@ -721,3 +721,9 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 
 [negezor]: https://github.com/negezor
 [negezor/vk-io]: https://github.com/negezor/vk-io
+
+<div align='center'>
+  <a title="j++" href="https://github.com/jppteam">
+    <img src="https://i.imgur.com/jWw5HIk.png" alt="j++ logo" width="100px" height="100px" />
+  </a>
+</div>

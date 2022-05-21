@@ -725,8 +725,8 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 <div align='center'>
   <a title='j++' href='https://github.com/jppteam'>
     <picture>
-      <source media='(prefers-color-scheme: dark)' srcset='https://i.imgur.com/YneSpeq.png' alt='jpp logo' width='200px'/>
-      <img src='https://i.imgur.com/BxcB86k.png' alt='jpp logo' width='200px'/>
+      <source media='(prefers-color-scheme: dark)' srcset='https://i.imgur.com/B301hMm.png' alt='jpp logo' width='200px'/>
+      <img src='https://i.imgur.com/Npj32k1.png' alt='jpp logo' width='200px'/>
     </picture>
   </a>
 </div>

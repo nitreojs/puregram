@@ -77,6 +77,7 @@ you can find more examples [here][examples]
 ## why `puregram`?
 
 - written **by [starków](https://github.com/nitreojs)** ⚠
+- powered **by [j++team](https://github.com/jppteam)** ⚠
 - very **cool** package name
 - package itself is **cool** _(at least i think so)_
 - **works** _(i guess)_

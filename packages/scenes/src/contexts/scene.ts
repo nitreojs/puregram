@@ -74,7 +74,7 @@ export class SceneContext {
     const { current } = this
 
     if (!current) {
-      throw new Error('There is no active scene to enter')
+      throw new Error('there is no active scene to enter')
     }
 
     await this.enter(current.slug)

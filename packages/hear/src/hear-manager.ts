@@ -43,11 +43,11 @@ export class HearManager<C extends Context> {
     const hasConditions = rawConditions.every(Boolean)
 
     if (!hasConditions) {
-      throw new Error('Condition should be not empty')
+      throw new Error('condition should be not empty')
     }
 
     if (typeof handler !== 'function') {
-      throw new TypeError('Handler must be a function')
+      throw new TypeError('handler must be a function')
     }
 
     let textCondition = false

@@ -278,7 +278,7 @@ class TypeResolver {
       return addition + internalCheck + object.reference
     }
 
-    throw new Error(`Unresolved type: ${object}`)
+    throw new Error(`unresolved type: ${object}`)
   }
 }
 

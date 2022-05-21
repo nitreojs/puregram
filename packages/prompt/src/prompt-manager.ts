@@ -51,7 +51,7 @@ export class PromptManager {
 
       context.prompt = async (text: string, params: Types.PromptParamsType = {}) => {
         if (!text) {
-          throw new TypeError('Missing `text` parameter')
+          throw new TypeError('missing `text` parameter')
         }
 
         const { validate, onValidationFail, ...sendParams } = params

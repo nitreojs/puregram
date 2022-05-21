@@ -39,7 +39,7 @@ export class CacheRepository<Key, Value> {
   /** Sets value by key else error if exits */
   strictSet(key: Key, value: Value) {
     if (this.collection.has(key)) {
-      throw new Error(`Value by ${key} already exists`)
+      throw new Error(`value by ${key} already exists`)
     }
 
     return this.set(key, value)
@@ -50,7 +50,7 @@ export class CacheRepository<Key, Value> {
     const value: Value | undefined = this.get(key)
 
     if (!value) {
-      throw new Error(`Value by ${key} not found`)
+      throw new Error(`value by ${key} not found`)
     }
 
     return value

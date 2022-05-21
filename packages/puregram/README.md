@@ -723,7 +723,10 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 [negezor/vk-io]: https://github.com/negezor/vk-io
 
 <div align='center'>
-  <a title="j++" href="https://github.com/jppteam">
-    <img src="https://i.imgur.com/jWw5HIk.png" alt="j++ logo" width="100px" height="100px" />
+  <a title='j++' href='https://github.com/jppteam'>
+    <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://i.imgur.com/YneSpeq.png" alt="jpp logo" width="200px"/>
+    <img src="https://i.imgur.com/BxcB86k.png" alt="jpp logo" width="200px"/>
+    </picture>
   </a>
 </div>

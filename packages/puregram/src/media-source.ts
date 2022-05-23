@@ -130,7 +130,12 @@ export class MediaSource {
    * 
    * @example
    * ```js
-   * context.sendMediaGroup(MediaSource.buffer(media_group()))
+   * // imagine we have some variable like this
+   * const group: Buffer[] = [ ... ]
+   * 
+   * context.sendMediaGroup(
+   *   group.map(element => MediaSource.buffer(element))
+   * )
    * ```
    */
   static buffer(buffer: Buffer, options: MediaInputOptions = {}): MediaSourceBuffer {

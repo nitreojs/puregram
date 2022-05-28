@@ -6,8 +6,9 @@ import { stripIndent, stripIndents } from 'common-tags'
 
 import * as Types from './types'
 
-// const SCHEMA_URL: string = `${__dirname}/custom.min.json`
-const SCHEMA_URL: string = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
+// const SCHEMA_URL = `${__dirname}/custom.min.json`
+const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
+const CURRENCIES_URL = 'https://core.telegram.org/bots/payments/currencies.json'
 
 
 ///           SERVICES           ///
@@ -26,7 +27,7 @@ interface ServiceResultMethod extends ServiceResult {
 }
 
 class InterfaceService {
-  static generate(kInterface: Types.SchemaInterface): ServiceResultInterface {
+  static async generate(kInterface: Types.SchemaInterface): Promise<ServiceResultInterface> {
     if (kInterface.type === 'any_of') {
       console.log(kInterface)
 
@@ -38,7 +39,7 @@ class InterfaceService {
     let content = `export interface ${name} { }`
 
     if (kInterface.properties) {
-      const fields: string[] = InterfaceService.generateFields(kInterface.properties)
+      const fields: string[] = (await InterfaceService.generateFields(kInterface.properties))
         .map(tab)
 
       // just some little hacks over there, nothing special, scroll away
@@ -77,12 +78,14 @@ class InterfaceService {
     return `/**\n${parts.map(part => `${spaces} * ${part}`).join('\n')}\n${spaces} */`
   }
 
-  static generateFields(properties: Types.SchemaObject[]): string[] {
+  static async generateFields(properties: Types.SchemaObject[]): Promise<string[]> {
     const fields: string[] = []
 
+    // TODO: [field] or [property]?
     for (const field of properties) {
       let type = TypeResolver.resolve(field)
 
+      // INFO: any [TelegramInputFile] must be replaced with [MediaInput]
       if (type === 'TelegramInputFile | string') {
         type = 'MediaInput'
       }
@@ -90,6 +93,11 @@ class InterfaceService {
       // INFO: TelegramInputMedia(*)['media'] should be MediaInput
       if (field.name === 'media' && type === 'string') {
         type = 'MediaInput'
+      }
+
+      // INFO: replace [currency]'s [string] with a list of actual currencies
+      if (field.name === 'currency') {
+        type = 'Currency'
       }
 
       const description: string = InterfaceService.generateDescription(field.description, 2)
@@ -103,7 +111,7 @@ class InterfaceService {
 }
 
 class MethodService {
-  static generate(kMethod: Types.SchemaMethod): ServiceResultMethod {
+  static async generate(kMethod: Types.SchemaMethod): Promise<ServiceResultMethod> {
     // TODO: simplify
 
     const mTypeDescription: string = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
@@ -113,7 +121,7 @@ class MethodService {
     if (kMethod.arguments) {
       const mInterfaceName: string = kMethod.name[0].toUpperCase() + kMethod.name.slice(1) + 'Params'
 
-      const fields: string[] = MethodService.generateFields(kMethod.arguments, 'Interfaces')
+      const fields: string[] = (await MethodService.generateFields(kMethod.arguments, 'Interfaces'))
         .map(tab)
 
       /// just some little hacks over there, nothing special, scroll away
@@ -134,13 +142,15 @@ class MethodService {
     }
   }
 
-  static generateFields(properties: Types.SchemaObject[], addition?: string): string[] {
+  static async generateFields(properties: Types.SchemaObject[], addition?: string): Promise<string[]> {
     const fields: string[] = []
 
+    // TODO: [field] or [property]?
     for (const field of properties) {
       const description: string = InterfaceService.generateDescription(field.description, 2)
       let returnType: string = TypeResolver.resolve(field, addition)
 
+      // INFO: keyboards must have [ReplyMarkupUnion] type
       if (field.name === 'reply_markup') {
         const object = {
           type: 'reference',
@@ -151,6 +161,7 @@ class MethodService {
         returnType = TypeResolver.resolve(object, addition)
       }
 
+      // INFO: entities are either [MessageEntity] or [Interfaces.TelegramMessageEntity]
       if (field.name === 'entities' || field.name === 'caption_entities') {
         const union = {
           type: 'any_of',
@@ -177,16 +188,30 @@ class MethodService {
         returnType = TypeResolver.resolve(union)
       }
 
+      // INFO: [is_anonymous] resolves as [true] because you should either specify [true] or nothing
+      // INFO: i don't think that's cool
       if (field.name === 'is_anonymous') {
         const object = { type: 'bool' } as Types.SchemaObjectBool
 
         returnType = TypeResolver.resolve(object)
       }
 
+      // INFO: if return-type is [Interfaces.TelegramInputFile] replace it with [MediaInput]
       if (returnType.includes('Interfaces.TelegramInputFile')) {
         const object = {
           type: 'reference',
           reference: 'MediaInput',
+          is_internal: true
+        } as Types.SchemaObjectReference
+
+        returnType = TypeResolver.resolve(object)
+      }
+
+      // INFO: replace [currency]'s [string] with a list of actual currencies
+      if (field.name === 'currency') {
+        const object = {
+          type: 'reference',
+          reference: 'Interfaces.Currency',
           is_internal: true
         } as Types.SchemaObjectReference
 
@@ -309,6 +334,8 @@ class GenerationService {
     return stripIndent`
       import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
+      import { StringWithSuggestions } from '../types/types'
+
       import { MediaInput } from '../common/media-source'
 
       import {
@@ -353,6 +380,12 @@ class GenerationService {
     `
   }
 
+  static generateCurrenciesType(currencies: Types.CurrenciesResponse) {
+    const enumeration = buildEnumeration(currencies)
+
+    return `export type Currency = StringWithSuggestions<${enumeration.enumeration!.map(e => `'${e}'`).join(' | ')}>`
+  }
+
   static generateApiMethods(methods: Types.SchemaMethod[]) {
     const fields: string[] = methods.map(
       (method) => {
@@ -381,6 +414,27 @@ export type GenerateDataType = InterfacesData & { time: number }
 
 export const pad = (number: number): string => String(number).padStart(2, '0')
 export const tab = (source: string): string => `  ${source}`
+
+export const fetchCurrencies = async () => {
+  const response = await fetch(CURRENCIES_URL)
+  const json = await response.json() as Types.CurrenciesResponse
+
+  return json
+}
+
+let currencies: Types.CurrenciesResponse | undefined
+
+const loadCurrencies = () => (currencies ?? fetchCurrencies())
+
+const buildEnumeration = (currencies: Types.CurrenciesResponse): Types.SchemaObjectString => {
+  return {
+    type: 'string',
+    name: 'currency',
+    required: true,
+    description: 'Three-letter ISO 4217 currency code',
+    enumeration: Object.keys(currencies)
+  }
+}
 
 export async function getJson(fromFile: boolean = false) {
   let json: Types.SchemaResponse
@@ -416,13 +470,13 @@ export async function generate() {
       continue
     }
 
-    const result: ServiceResultInterface = InterfaceService.generate(kInterface)
+    const result: ServiceResultInterface = await InterfaceService.generate(kInterface)
 
     items.interfaces.push(result)
   }
 
   for (const kMethod of methods) {
-    const result: ServiceResultMethod = MethodService.generate(kMethod)
+    const result: ServiceResultMethod = await MethodService.generate(kMethod)
 
     items.methods.push(result)
   }
@@ -507,6 +561,8 @@ async function _generate(generateFiles: boolean = true) {
   if (generateFiles) {
     const mainPath: string = resolve(`${__dirname}/../../packages/puregram/src/generated/`)
 
+    const currencies = await loadCurrencies()
+
     /// telegram-interfaces.ts
     let iHeader: string = GenerationService.loadString(header) +
       GenerationService.generateInterfacesImports()
@@ -517,6 +573,10 @@ async function _generate(generateFiles: boolean = true) {
 
     iContent += GenerationService.loadString(
       GenerationService.generateAdditionalTypes()
+    )
+
+    iContent += GenerationService.loadString(
+      GenerationService.generateCurrenciesType(currencies)
     )
 
     iContent += GenerationService.generate(items.types)

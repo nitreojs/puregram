@@ -142,3 +142,21 @@ export interface SchemaInterfaceProperties extends SchemaInterfaceBase {
   type: 'properties'
   properties: SchemaObject[]
 }
+
+export interface CurrencyData {
+  code: string
+  title: string
+  symbol: string
+  native: string
+  thousands_sep: string
+  decimal_sep: string
+  symbol_left: boolean
+  space_between: boolean
+  exp: number
+  min_amount: string
+  max_amount: string
+}
+
+export interface CurrenciesResponse {
+  [key: string]: CurrencyData
+}

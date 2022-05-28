@@ -85,6 +85,13 @@ class InterfaceService {
     for (const field of properties) {
       let type = TypeResolver.resolve(field)
 
+      // INFO: current field type is enumeration of strings: [key: 'foo' | 'bar' | 'baz']
+      if (field.type === 'string' && field.enumeration !== undefined) {
+        // INFO: soften (is that even a word?) string enumerations by allowing any strings but keeping suggestions
+        // INFO: see [StringWithSuggestions<S>] type (puregram/src/types/types.ts)
+        type = `StringWithSuggestions<${type}>`
+      }
+
       // INFO: any [TelegramInputFile] must be replaced with [MediaInput]
       if (type === 'TelegramInputFile | string') {
         type = 'MediaInput'
@@ -149,6 +156,11 @@ class MethodService {
     for (const field of properties) {
       const description: string = InterfaceService.generateDescription(field.description, 2)
       let returnType: string = TypeResolver.resolve(field, addition)
+
+      // TODO: export these types
+      if (field.type === 'string' && field.enumeration !== undefined) {
+        returnType = `StringWithSuggestions<${returnType}>`
+      }
 
       // INFO: keyboards must have [ReplyMarkupUnion] type
       if (field.name === 'reply_markup') {
@@ -352,6 +364,8 @@ class GenerationService {
   static generateMethodsImports() {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces'
+
+      import { StringWithSuggestions } from '../types/types'
 
       import { MediaInput } from '../common/media-source'
       import { MessageEntity } from '../common/structures'

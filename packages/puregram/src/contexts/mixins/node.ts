@@ -125,6 +125,14 @@ class NodeMixin {
     })
   }
 
+  /** Replies to current message with invoice */
+  replyWithInvoice(params: Optional<Methods.SendInvoiceParams, 'chat_id'>) {
+    return this.sendInvoice({
+      reply_to_message_id: this.id,
+      ...params
+    })
+  }
+
   /** Replies to current message with venue */
   replyWithVenue(params: Optional<Methods.SendVenueParams, 'chat_id'>) {
     return this.sendVenue({

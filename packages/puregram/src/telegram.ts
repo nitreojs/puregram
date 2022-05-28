@@ -309,6 +309,7 @@ export class Telegram {
 
     try {
       debug_api('HTTP »')
+      debug_api('params: %j', decomplexified)
 
       const response = await fetch(url, init)
       const json = await response.json() as ApiResponseUnion

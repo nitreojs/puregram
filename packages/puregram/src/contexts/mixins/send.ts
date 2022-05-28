@@ -1,7 +1,7 @@
 import * as Interfaces from '../../generated/telegram-interfaces'
 import * as Methods from '../../generated/methods'
 
-import { MediaInput } from '../../media-source'
+import { MediaInput } from '../../common/media-source'
 import { Optional } from '../../types/types'
 import { Poll } from '../../updates/'
 

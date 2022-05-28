@@ -2,7 +2,7 @@ import { IncomingMessage } from 'node:http'
 import { randomBytes } from 'node:crypto'
 import { PassThrough, Readable } from 'node:stream'
 
-import { MediaInput } from '../media-source'
+import { MediaInput, MediaSourceType } from '../common/media-source'
 
 export const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
   for (const baseCtor of baseCtors) {
@@ -110,7 +110,7 @@ export const parseRequestJSON = async (req: IncomingMessage): Promise<Record<str
 
 /** Totally safe way to identify whether `obj` is `MediaInput` or not */
 export const isMediaInput = (obj: Record<string, any>): obj is MediaInput => (
-  obj.type !== undefined && ['path', 'url', 'file_id', 'buffer', 'stream'].includes(obj.type)
+  obj.type !== undefined && Object.values(MediaSourceType).includes(obj.type)
 )
 
 /** Converts complex values in `obj` into simple strings */

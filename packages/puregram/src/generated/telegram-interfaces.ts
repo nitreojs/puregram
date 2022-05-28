@@ -7,7 +7,7 @@
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
-import { MediaInput } from '../media-source'
+import { MediaInput } from '../common/media-source'
 
 import {
   Keyboard,

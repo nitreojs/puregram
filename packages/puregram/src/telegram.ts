@@ -16,7 +16,7 @@ import { User } from './common/structures/user'
 import { APIError } from './errors'
 import { ApiMethods } from './generated'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
-import { MediaInput } from './media-source'
+import { MediaInput, MediaSourceType } from './common/media-source'
 
 const $debugger = debug('puregram:api')
 
@@ -61,7 +61,7 @@ export class Telegram {
         // INFO: `telegram.api.call(path: string, params?: Record<string, any>)`
         if (method === 'call') {
           const path: string = args[0]
-          const params: Record<string, any> = args[1] ?? {}
+          const params: Record<string, any> | undefined = args[1]
 
           return this._callAPI(path, params)
         }
@@ -94,7 +94,7 @@ export class Telegram {
   }
 
   /** Creates `Telegram` instance just from `token` [and `params`] */
-  static fromToken(token: string, options: Partial<TelegramOptions> = {}): Telegram {
+  static fromToken(token: string, options: Partial<TelegramOptions> = {}) {
     return new Telegram({
       token,
       ...options
@@ -110,19 +110,47 @@ export class Telegram {
   private async createMediaInput(input: MediaInput): Promise<unknown> {
     const filename = input.filename ?? 'file.dat'
 
+    // INFO: returning file ID itself since we can't do anything with it
+    if (input.type === MediaSourceType.FileId) {
+      return input.value
+    }
+
+    // INFO: [File] passed, return it
+    if (input.type === MediaSourceType.File) {
+      return input.value
+    }
+
     // INFO: creating [fs.ReadStream] from our path, returning that stream
-    if (input.type === 'path') {
+    if (input.type === MediaSourceType.Path) {
       return fileFromPath(input.value, input.filename)
     }
 
-    // INFO: returning file ID itself since we can't do anything with it
-    if (input.type === 'file_id') {
-      return input.value
+    // INFO: convert stream into buffer and return it
+    if (input.type === MediaSourceType.Stream) {
+      const buffer = await convertStreamToBuffer(input.value)
+
+      const file = new File([buffer], filename)
+
+      return file
+    }
+
+    // INFO: returning buffer converted into a file
+    if (input.type === MediaSourceType.Buffer) {
+      const file = new File([input.value], filename)
+
+      return file
+    }
+
+    // INFO: [ArrayBufferLike] passed, convert into a [File] and return in
+    if (input.type === MediaSourceType.ArrayBuffer) {
+      const file = new File([input.value], filename)
+
+      return file
     }
 
     // INFO: fetching that URL and creating an array buffer -> file, returning that file
     // INFO: OR returning that URL right away
-    if (input.type === 'url') {
+    if (input.type === MediaSourceType.Url) {
       // INFO: fetching URL contents and uploading them directly to Bot API
       if (input.forceUpload) {
         const url = input.value
@@ -143,22 +171,6 @@ export class Telegram {
 
       // INFO: ... or returning that URL right away =)
       return input.value
-    }
-
-    // INFO: convert stream into buffer and return 'em
-    if (input.type === 'stream') {
-      const buffer = await convertStreamToBuffer(input.value)
-
-      const file = new File([buffer], filename)
-
-      return file
-    }
-
-    // INFO: returning buffer converted into a file
-    if (input.type === 'buffer') {
-      const file = new File([input.value], filename)
-
-      return file
     }
 
     // @ts-expect-error
@@ -259,7 +271,7 @@ export class Telegram {
       signal: controller.signal
     }
 
-    // FIXME  not sure about this! need to figure out how to safely update a dispatcher without setting it globally
+    // FIXME: not sure about this! need to figure out how to safely update a dispatcher without setting it globally
     if (this.options.agent !== undefined) {
       setGlobalDispatcher(this.options.agent)
     }

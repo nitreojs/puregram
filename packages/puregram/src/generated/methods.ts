@@ -7,7 +7,7 @@
 
 import * as Interfaces from './telegram-interfaces'
 
-import { MediaInput } from '../media-source'
+import { MediaInput } from '../common/media-source'
 import { MessageEntity } from '../common/structures'
 
 export interface GetUpdatesParams {

@@ -1,53 +1,7 @@
 import { Readable } from 'node:stream'
+import { File } from 'undici'
 
-interface MediaInputOptions {
-  /** Sets custom file name */
-  filename?: string
-}
-
-interface MediaInputUrlOptions {
-  /**
-   * Tells `puregram` to fetch URL contents and upload them directly to Bot API
-   * instead of passing raw URL as an end value
-   */
-  forceUpload?: boolean
-}
-
-export interface MediaSourceBase extends MediaInputOptions {
-  type: 'path' | 'url' | 'file_id' | 'buffer' | 'stream'
-}
-
-export interface MediaSourcePath extends MediaSourceBase {
-  type: 'path'
-  value: string
-}
-
-export interface MediaSourceUrl extends MediaSourceBase, MediaInputUrlOptions {
-  type: 'url'
-  value: string
-}
-
-export interface MediaSourceFileId extends MediaSourceBase {
-  type: 'file_id'
-  value: string
-}
-
-export interface MediaSourceBuffer extends MediaSourceBase {
-  type: 'buffer'
-  value: Buffer
-}
-
-export interface MediaSourceStream extends MediaSourceBase {
-  type: 'stream'
-  value: Readable
-}
-
-export type MediaInput =
-  | MediaSourcePath
-  | MediaSourceUrl
-  | MediaSourceFileId
-  | MediaSourceBuffer
-  | MediaSourceStream
+import { MediaInputOptions, MediaInputUrlOptions, MediaSourceArrayBuffer, MediaSourceBuffer, MediaSourceFile, MediaSourceFileId, MediaSourcePath, MediaSourceStream, MediaSourceType, MediaSourceUrl } from './types'
 
 /**
  * This object includes static methods which you can use to upload media
@@ -71,7 +25,7 @@ export class MediaSource {
    */
   static path(path: string, options: MediaInputOptions = {}): MediaSourcePath {
     return {
-      type: 'path',
+      type: MediaSourceType.Path,
       value: path,
       ...options
     }
@@ -103,7 +57,7 @@ export class MediaSource {
    */
   static url(url: string, options: MediaInputOptions & MediaInputUrlOptions = {}): MediaSourceUrl {
     return {
-      type: 'url',
+      type: MediaSourceType.Url,
       value: url,
       ...options
     }
@@ -119,7 +73,7 @@ export class MediaSource {
    */
   static fileId(fileId: string, options: MediaInputOptions = {}): MediaSourceFileId {
     return {
-      type: 'file_id',
+      type: MediaSourceType.FileId,
       value: fileId,
       ...options
     }
@@ -140,7 +94,7 @@ export class MediaSource {
    */
   static buffer(buffer: Buffer, options: MediaInputOptions = {}): MediaSourceBuffer {
     return {
-      type: 'buffer',
+      type: MediaSourceType.Buffer,
       value: buffer,
       ...options
     }
@@ -156,8 +110,47 @@ export class MediaSource {
    */
   static stream(stream: Readable, options: MediaInputOptions = {}): MediaSourceStream {
     return {
-      type: 'stream',
+      type: MediaSourceType.Stream,
       value: stream,
+      ...options
+    }
+  }
+
+  /**
+   * Use this static method for uploading media by passing a [File] to it
+   * 
+   * @example
+   * ```js
+   * const ab = await response.arrayBuffer()
+   * const file = new File([ab], filename)
+   * 
+   * context.sendDocument(MediaSource.file(file), {
+   *   filename: 'epic-stuff.epic'
+   * })
+   * ```
+   */
+  static file(file: File, options: MediaInputOptions = {}): MediaSourceFile {
+    return {
+      type: MediaSourceType.File,
+      value: file,
+      ...options
+    }
+  }
+
+  /**
+   * Use this static method for uploading media via [ArrayBuffer]
+   * 
+   * @example
+   * ```js
+   * const ab = await response.arrayBuffer()
+   * 
+   * context.sendPhoto(MediaSource.arrayBuffer(ab))
+   * ```
+   */
+  static arrayBuffer(buffer: ArrayBufferLike, options: MediaInputOptions = {}): MediaSourceArrayBuffer {
+    return {
+      type: MediaSourceType.ArrayBuffer,
+      value: buffer,
       ...options
     }
   }

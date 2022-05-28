@@ -3,9 +3,7 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { UpdateName } from '../types/types'
-
-type AllowArray<T> = T | T[]
+import { AllowArray, UpdateName } from '../types/types'
 
 interface ContextOptions {
   telegram: Telegram

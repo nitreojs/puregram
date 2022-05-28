@@ -3,9 +3,11 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 17.05.2022 21:08:16 MSK
+/// Generation date: 28.05.2022 15:08:25 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
+
+import { StringWithSuggestions } from '../types/types'
 
 import { MediaInput } from '../common/media-source'
 
@@ -3522,7 +3524,7 @@ export interface TelegramInputInvoiceMessageContent {
   /**
    * Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies)
    */
-  currency: string
+  currency: Currency
   /**
    * Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    */
@@ -3662,7 +3664,7 @@ export interface TelegramInvoice {
   /**
    * Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code
    */
-  currency: string
+  currency: Currency
   /**
    * Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
@@ -3754,7 +3756,7 @@ export interface TelegramSuccessfulPayment {
   /**
    * Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code
    */
-  currency: string
+  currency: Currency
   /**
    * Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
@@ -3822,7 +3824,7 @@ export interface TelegramPreCheckoutQuery {
   /**
    * Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies) code
    */
-  currency: string
+  currency: Currency
   /**
    * Total price in the *smallest units* of the currency (integer, **not** float/double). For example, for a price of `US$ 1.45` pass `amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
@@ -4245,6 +4247,8 @@ export type InputFile =
   | Record<string, any>
   | Buffer
   | Readable
+
+export type Currency = StringWithSuggestions<'AED' | 'AFN' | 'ALL' | 'AMD' | 'ARS' | 'AUD' | 'AZN' | 'BAM' | 'BDT' | 'BGN' | 'BND' | 'BOB' | 'BRL' | 'CAD' | 'CHF' | 'CLP' | 'CNY' | 'COP' | 'CRC' | 'CZK' | 'DKK' | 'DOP' | 'DZD' | 'EGP' | 'EUR' | 'GBP' | 'GEL' | 'GTQ' | 'HKD' | 'HNL' | 'HRK' | 'HUF' | 'IDR' | 'ILS' | 'INR' | 'ISK' | 'JMD' | 'JPY' | 'KES' | 'KGS' | 'KRW' | 'KZT' | 'LBP' | 'LKR' | 'MAD' | 'MDL' | 'MNT' | 'MUR' | 'MVR' | 'MXN' | 'MYR' | 'MZN' | 'NGN' | 'NIO' | 'NOK' | 'NPR' | 'NZD' | 'PAB' | 'PEN' | 'PHP' | 'PKR' | 'PLN' | 'PYG' | 'QAR' | 'RON' | 'RSD' | 'RUB' | 'SAR' | 'SEK' | 'SGD' | 'THB' | 'TJS' | 'TRY' | 'TTD' | 'TWD' | 'TZS' | 'UAH' | 'UGX' | 'USD' | 'UYU' | 'UZS' | 'VND' | 'YER' | 'ZAR'>
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:

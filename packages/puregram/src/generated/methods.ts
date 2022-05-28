@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 17.05.2022 21:08:16 MSK
+/// Generation date: 28.05.2022 15:08:25 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -2640,7 +2640,7 @@ export interface SendInvoiceParams {
   /**
    * Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies)
    */
-  currency: string
+  currency: Interfaces.Currency
   /**
    * Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    */

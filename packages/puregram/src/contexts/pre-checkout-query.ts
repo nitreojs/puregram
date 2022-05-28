@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../generated/telegram-interfaces'
+import * as Methods from '../generated/methods'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
@@ -28,6 +29,20 @@ class PreCheckoutQueryContext extends Context {
     })
 
     this.payload = options.payload
+  }
+
+  /** Answers to the pending pre-checkout query */
+  answerPreCheckoutQuery(
+    ok?: boolean,
+    errorMessage?: string,
+    params?: Partial<Methods.AnswerPreCheckoutQueryParams>
+  ) {
+    return this.telegram.api.answerPreCheckoutQuery({
+      pre_checkout_query_id: this.id,
+      ok: ok ?? true,
+      error_message: errorMessage,
+      ...params
+    })
   }
 }
 

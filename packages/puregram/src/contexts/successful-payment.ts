@@ -31,14 +31,14 @@ class SuccessfulPaymentContext extends Context {
     this.payload = options.payload
   }
 
-  /** Payment */
+  /** Received payment */
   get eventPayment() {
     return new SuccessfulPayment(this.payload.successful_payment!)
   }
 }
 
 interface SuccessfulPaymentContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(SuccessfulPayment, [Message, TargetMixin, SendMixin, NodeMixin])
+applyMixins(SuccessfulPaymentContext, [Message, TargetMixin, SendMixin, NodeMixin])
 
 inspectable(SuccessfulPaymentContext, {
   serialize(context) {

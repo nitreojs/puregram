@@ -6,6 +6,7 @@ import * as Methods from '../generated/methods'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { PreCheckoutQuery } from '../updates/'
+import { Optional } from '../types/types'
 
 import { Context } from './context'
 import { SendMixin } from './mixins'
@@ -32,15 +33,9 @@ class PreCheckoutQueryContext extends Context {
   }
 
   /** Answers to the pending pre-checkout query */
-  answerPreCheckoutQuery(
-    ok?: boolean,
-    errorMessage?: string,
-    params?: Partial<Methods.AnswerPreCheckoutQueryParams>
-  ) {
+  answerPreCheckoutQuery(params: Optional<Methods.AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>) {
     return this.telegram.api.answerPreCheckoutQuery({
       pre_checkout_query_id: this.id,
-      ok: ok ?? true,
-      error_message: errorMessage,
       ...params
     })
   }

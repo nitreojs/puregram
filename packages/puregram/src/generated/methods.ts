@@ -3,9 +3,11 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 28.05.2022 15:08:25 MSK
+/// Generation date: 28.05.2022 15:20:36 MSK
 
 import * as Interfaces from './telegram-interfaces'
+
+import { StringWithSuggestions } from '../types/types'
 
 import { MediaInput } from '../common/media-source'
 import { MessageEntity } from '../common/structures'
@@ -1051,7 +1053,7 @@ export interface SendPollParams {
   /**
    * Poll type, “quiz” or “regular”, defaults to “regular”
    */
-  type?: 'quiz' | 'regular'
+  type?: StringWithSuggestions<'quiz' | 'regular'>
   /**
    * *True*, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to *False*
    */
@@ -1125,7 +1127,7 @@ export interface SendDiceParams {
   /**
    * Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
    */
-  emoji?: '🎲' | '🎯' | '🏀' | '⚽' | '🎳' | '🎰'
+  emoji?: StringWithSuggestions<'🎲' | '🎯' | '🏀' | '⚽' | '🎳' | '🎰'>
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -1167,7 +1169,7 @@ export interface SendChatActionParams {
   /**
    * Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](https://core.telegram.org/bots/api/#sendmessage), *upload\_photo* for [photos](https://core.telegram.org/bots/api/#sendphoto), *record\_video* or *upload\_video* for [videos](https://core.telegram.org/bots/api/#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](https://core.telegram.org/bots/api/#sendvoice), *upload\_document* for [general files](https://core.telegram.org/bots/api/#senddocument), *choose\_sticker* for [stickers](https://core.telegram.org/bots/api/#sendsticker), *find\_location* for [location data](https://core.telegram.org/bots/api/#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](https://core.telegram.org/bots/api/#sendvideonote).
    */
-  action: 'typing' | 'upload_photo' | 'record_video' | 'upload_video' | 'record_voice' | 'upload_voice' | 'upload_document' | 'choose_sticker' | 'find_location' | 'record_video_note' | 'upload_video_note'
+  action: StringWithSuggestions<'typing' | 'upload_photo' | 'record_video' | 'upload_video' | 'record_voice' | 'upload_voice' | 'upload_document' | 'choose_sticker' | 'find_location' | 'record_video_note' | 'upload_video_note'>
 
   [key: string]: any
 }

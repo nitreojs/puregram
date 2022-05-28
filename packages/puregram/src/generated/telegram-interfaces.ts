@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 28.05.2022 15:08:25 MSK
+/// Generation date: 28.05.2022 15:20:36 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -188,7 +188,7 @@ export interface TelegramChat {
   /**
    * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
    */
-  type: 'private' | 'group' | 'supergroup' | 'channel'
+  type: StringWithSuggestions<'private' | 'group' | 'supergroup' | 'channel'>
   /**
    * *Optional*. Title, for supergroups, channels and group chats
    */
@@ -528,7 +528,7 @@ export interface TelegramMessageEntity {
   /**
    * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag`), “cashtag” (`$USD`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions))
    */
-  type: 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'code' | 'pre' | 'text_link' | 'text_mention'
+  type: StringWithSuggestions<'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'code' | 'pre' | 'text_link' | 'text_mention'>
   /**
    * Offset in UTF-16 code units to the start of the entity
    */
@@ -916,7 +916,7 @@ export interface TelegramPoll {
   /**
    * Poll type, currently can be “regular” or “quiz”
    */
-  type: 'regular' | 'quiz'
+  type: StringWithSuggestions<'regular' | 'quiz'>
   /**
    * *True*, if the poll allows multiple answers
    */
@@ -2306,7 +2306,7 @@ export interface TelegramMaskPosition {
   /**
    * The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
    */
-  point: 'forehead' | 'eyes' | 'mouth' | 'chin'
+  point: StringWithSuggestions<'forehead' | 'eyes' | 'mouth' | 'chin'>
   /**
    * Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.
    */
@@ -2346,7 +2346,7 @@ export interface TelegramInlineQuery {
   /**
    * *Optional*. Type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
    */
-  chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel'
+  chat_type?: StringWithSuggestions<'sender' | 'private' | 'group' | 'supergroup' | 'channel'>
   /**
    * *Optional*. Sender location, only for bots that request user location
    */
@@ -2502,7 +2502,7 @@ export interface TelegramInlineQueryResultGif {
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4'
+  thumb_mime_type?: StringWithSuggestions<'image/jpeg' | 'image/gif' | 'video/mp4'>
   /**
    * *Optional*. Title for the result
    */
@@ -2566,7 +2566,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4'
+  thumb_mime_type?: StringWithSuggestions<'image/jpeg' | 'image/gif' | 'video/mp4'>
   /**
    * *Optional*. Title for the result
    */
@@ -2616,7 +2616,7 @@ export interface TelegramInlineQueryResultVideo {
   /**
    * Mime type of the content of video url, “text/html” or “video/mp4”
    */
-  mime_type: 'text/html' | 'video/mp4'
+  mime_type: StringWithSuggestions<'text/html' | 'video/mp4'>
   /**
    * URL of the thumbnail (JPEG only) for the video
    */
@@ -2800,7 +2800,7 @@ export interface TelegramInlineQueryResultDocument {
   /**
    * Mime type of the content of the file, either “application/pdf” or “application/zip”
    */
-  mime_type: 'application/pdf' | 'application/zip'
+  mime_type: StringWithSuggestions<'application/pdf' | 'application/zip'>
   /**
    * *Optional*. Short description of the result
    */
@@ -3892,7 +3892,7 @@ export interface TelegramEncryptedPassportElement {
   /**
    * Element type. One of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”, “phone\_number”, “email”.
    */
-  type: 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration' | 'phone_number' | 'email'
+  type: StringWithSuggestions<'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration' | 'phone_number' | 'email'>
   /**
    * *Optional*. Base64-encoded encrypted Telegram Passport element data provided by the user, available for “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport” and “address” types. Can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
@@ -3964,7 +3964,7 @@ export interface TelegramPassportElementErrorDataField {
   /**
    * The section of the user's Telegram Passport which has the error, one of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”
    */
-  type: 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address'
+  type: StringWithSuggestions<'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address'>
   /**
    * Name of the data field which has the error
    */
@@ -3992,7 +3992,7 @@ export interface TelegramPassportElementErrorFrontSide {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport'
+  type: StringWithSuggestions<'passport' | 'driver_license' | 'identity_card' | 'internal_passport'>
   /**
    * Base64-encoded hash of the file with the front side of the document
    */
@@ -4016,7 +4016,7 @@ export interface TelegramPassportElementErrorReverseSide {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “driver\_license”, “identity\_card”
    */
-  type: 'driver_license' | 'identity_card'
+  type: StringWithSuggestions<'driver_license' | 'identity_card'>
   /**
    * Base64-encoded hash of the file with the reverse side of the document
    */
@@ -4040,7 +4040,7 @@ export interface TelegramPassportElementErrorSelfie {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport'
+  type: StringWithSuggestions<'passport' | 'driver_license' | 'identity_card' | 'internal_passport'>
   /**
    * Base64-encoded hash of the file with the selfie
    */
@@ -4064,7 +4064,7 @@ export interface TelegramPassportElementErrorFile {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
+  type: StringWithSuggestions<'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
   /**
    * Base64-encoded file hash
    */
@@ -4088,7 +4088,7 @@ export interface TelegramPassportElementErrorFiles {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
+  type: StringWithSuggestions<'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
   /**
    * List of base64-encoded file hashes
    */
@@ -4112,7 +4112,7 @@ export interface TelegramPassportElementErrorTranslationFile {
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
+  type: StringWithSuggestions<'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
   /**
    * Base64-encoded file hash
    */
@@ -4136,7 +4136,7 @@ export interface TelegramPassportElementErrorTranslationFiles {
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
+  type: StringWithSuggestions<'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
   /**
    * List of base64-encoded file hashes
    */

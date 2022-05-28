@@ -88,8 +88,8 @@ class InterfaceService {
       // INFO: current field type is enumeration of strings: [key: 'foo' | 'bar' | 'baz']
       if (field.type === 'string' && field.enumeration !== undefined) {
         // INFO: soften (is that even a word?) string enumerations by allowing any strings but keeping suggestions
-        // INFO: see [StringWithSuggestions<S>] type (puregram/src/types/types.ts)
-        type = `StringWithSuggestions<${type}>`
+        // INFO: see [SoftString<S>] type (puregram/src/types/types.ts)
+        type = `SoftString<${type}>`
       }
 
       // INFO: any [TelegramInputFile] must be replaced with [MediaInput]
@@ -159,7 +159,7 @@ class MethodService {
 
       // TODO: export these types
       if (field.type === 'string' && field.enumeration !== undefined) {
-        returnType = `StringWithSuggestions<${returnType}>`
+        returnType = `SoftString<${returnType}>`
       }
 
       // INFO: keyboards must have [ReplyMarkupUnion] type
@@ -346,7 +346,7 @@ class GenerationService {
     return stripIndent`
       import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
-      import { StringWithSuggestions } from '../types/types'
+      import { SoftString } from '../types/types'
 
       import { MediaInput } from '../common/media-source'
 
@@ -365,7 +365,7 @@ class GenerationService {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces'
 
-      import { StringWithSuggestions } from '../types/types'
+      import { SoftString } from '../types/types'
 
       import { MediaInput } from '../common/media-source'
       import { MessageEntity } from '../common/structures'
@@ -397,7 +397,7 @@ class GenerationService {
   static generateCurrenciesType(currencies: Types.CurrenciesResponse) {
     const enumeration = buildEnumeration(currencies)
 
-    return `export type Currency = StringWithSuggestions<${enumeration.enumeration!.map(e => `'${e}'`).join(' | ')}>`
+    return `export type Currency = SoftString<${enumeration.enumeration!.map(e => `'${e}'`).join(' | ')}>`
   }
 
   static generateApiMethods(methods: Types.SchemaMethod[]) {

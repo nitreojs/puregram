@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { AllowArray, UpdateName } from '../types/types'
+import { MaybeArray, UpdateName } from '../types/types'
 
 interface ContextOptions {
   telegram: Telegram
@@ -30,7 +30,7 @@ export class Context {
     return this.constructor.name
   }
 
-  is(rawTypes: AllowArray<UpdateName | string>) {
+  is(rawTypes: MaybeArray<UpdateName | string>) {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes]

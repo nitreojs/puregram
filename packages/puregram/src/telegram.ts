@@ -11,12 +11,13 @@ import { debug } from 'debug'
 import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 
-import { Updates } from './updates'
 import { User } from './common/structures/user'
+import { MediaInput, MediaSourceType } from './common/media-source'
+import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
+
+import { Updates } from './updates'
 import { APIError } from './errors'
 import { ApiMethods } from './generated'
-import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
-import { MediaInput, MediaSourceType } from './common/media-source'
 
 const $debugger = debug('puregram:api')
 
@@ -296,7 +297,7 @@ export class Telegram {
       // INFO: if current [path] is a method with possible media properties
       // INFO: and we have those media properties in our [params] (not [decomplexified]!) object
       if (hasMediaProperties) {
-        const newInit = await this.uploadMedia(params, mediaEntity!)
+        const newInit = await this.uploadMedia(params, mediaEntity)
 
         init = {
           ...init,   // INFO: saving [signal] since we don't have access to it in [uploadMedia]

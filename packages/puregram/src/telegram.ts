@@ -261,7 +261,7 @@ export class Telegram {
     const decomplexified = decomplexify(params)
 
     const query = new URLSearchParams(decomplexified).toString()
-    const url = `https://api.telegram.org/bot${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${path}?${query}`
+    const url = `${this.options.apiBaseUrl}${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${path}?${query}`
 
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), this.options.apiTimeout)
@@ -309,6 +309,7 @@ export class Telegram {
 
     try {
       debug_api('HTTP »')
+      debug_api('url: %s', url.replace(this.options.token!, '[token]'))
       debug_api('params: %j', decomplexified)
 
       const response = await fetch(url, init)

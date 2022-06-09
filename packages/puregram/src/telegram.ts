@@ -236,12 +236,12 @@ export class Telegram {
     for (let i = 0; i < media.length; i++) {
       const input = media[i]
 
-      await this.createAttachMediaInput({ fd, input, key: 'media' })
-
-      // INFO: also there is a possibility that [thumb] property exists so
+      // INFO: [thumb] property might exist and we need to also handle it
       if (input.thumb !== undefined) {
         await this.createAttachMediaInput({ fd, input, key: 'thumb' })
       }
+
+      await this.createAttachMediaInput({ fd, input, key: 'media' })
     }
 
     fd.set('media', JSON.stringify(media))

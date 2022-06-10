@@ -84,11 +84,16 @@ export class MediaSource {
    * 
    * @example
    * ```js
-   * // imagine we have some variable like this
+   * // imagine we have some variable like this holding images
    * const group: Buffer[] = [ ... ]
    * 
    * context.sendMediaGroup(
-   *   group.map(element => MediaSource.buffer(element))
+   *   group.map(
+   *     element => ({
+   *       type: 'photo',
+   *       media: MediaSource.buffer(element)
+   *     })
+   *   )
    * )
    * ```
    */

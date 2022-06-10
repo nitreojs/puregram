@@ -55,7 +55,7 @@ sceneManager.addScenes([
       }
 
       if (!context.is('callback_query')) {
-        return context.deleteMessage()
+        return context.delete()
       }
 
       const sex = context.queryPayload.sex

@@ -174,7 +174,8 @@ export class Telegram {
       return input.value
     }
 
-    // @ts-expect-error
+    // INFO: user may pass invalid input.type and TypeScript does not know about it :shrug:
+    // @ts-expect-error 
     throw new TypeError(`received invalid input type: ${input.type}`)
   }
 
@@ -207,7 +208,7 @@ export class Telegram {
     }
   }
 
-  /** Creates media under `attach://<attach-id>` ID */
+  /** Validates media and creates it under `attach://<attach-id>` ID if necessary */
   private async createAttachMediaInput(params: APICreateAttachMediaInput) {
     const media = params.input[params.key] as MediaInput
 
@@ -216,12 +217,24 @@ export class Telegram {
       throw new TypeError('expected media to be created via `MediaSource`')
     }
 
-    const attachId = generateAttachId()
+    // INFO: we don't need to generate `attach://` clause if we are working with file IDs
+    if (media.type === MediaSourceType.FileId) {
+      params.input[params.key] = media.value
 
-    const fdValue = await this.createMediaInput(media)
+      // INFO: we are dealing with URLs and we are not forced to upload them manually,
+      // INFO: so we should just put it as is
+    } else if (media.type === MediaSourceType.Url && !media.forceUpload) {
+      params.input[params.key] = media.value
 
-    params.fd.set(attachId, fdValue)
-    params.input[params.key] = `attach://${attachId}`
+      // INFO: otherwise...
+    } else {
+      const attachId = generateAttachId()
+
+      const fdValue = await this.createMediaInput(media)
+
+      params.fd.set(attachId, fdValue)
+      params.input[params.key] = `attach://${attachId}`
+    }
   }
 
   /**

@@ -93,8 +93,13 @@ export class Message {
     return new Chat(chat)
   }
 
-  /** Forwarded message if there is any */
+  /** @deprecated use `forwardedMessage` instead */
   get forwardMessage() {
+    return this.forwardedMessage
+  }
+
+  /** Forwarded message if there is any */
+  get forwardedMessage() {
     const { forward_date } = this.payload
 
     if (!forward_date) {
@@ -629,7 +634,7 @@ inspectable(Message, {
       senderChat: update.senderChat,
       createdAt: update.createdAt,
       chat: update.chat,
-      forwardMessage: update.forwardMessage,
+      forwardMessage: update.forwardedMessage,
       isAutomaticForward: update.isAutomaticForward,
       replyMessage: update.replyMessage,
       viaBot: update.viaBot,

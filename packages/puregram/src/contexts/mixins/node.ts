@@ -2,6 +2,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import * as Methods from '../../generated/methods'
 
 import { MediaInput } from '../../common/media-source'
+import { MessageId } from '../../common/structures'
 import { Optional } from '../../types/types'
 
 import { Context } from '../context'
@@ -168,6 +169,7 @@ class NodeMixin {
     })
   }
 
+  /** Replies to current message with a dice */
   replyWithDice(
     emoji: Methods.SendDiceParams['emoji'],
     params?: Partial<Methods.SendDiceParams>
@@ -178,8 +180,13 @@ class NodeMixin {
     })
   }
 
-  /** Deletes current message */
+  /** @deprecated use `delete()` instead */
   deleteMessage() {
+    return this.delete()
+  }
+
+  /** Deletes current message */
+  delete() {
     return this.telegram.api.deleteMessage({
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id
@@ -307,6 +314,39 @@ class NodeMixin {
     if (response === true) {
       return true
     }
+
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    })
+  }
+
+  /** Copies current message [into other chat if `chatId` is provided] */
+  async copy(
+    chatId = this.chatId || this.senderId || 0,
+    params: Optional<Methods.CopyMessageParams, 'chat_id' | 'from_chat_id' | 'message_id'> = {}
+  ) {
+    const response = await this.telegram.api.copyMessage({
+      chat_id: chatId,
+      from_chat_id: this.chatId || 0,
+      message_id: this.id,
+      ...params
+    })
+
+    return new MessageId(response)
+  }
+
+  /** Forwards current message [into other chat if `chatId` is provided] */
+  async forward(
+    chatId = this.chatId || this.senderId || 0,
+    params: Optional<Methods.ForwardMessageParams, 'chat_id' | 'from_chat_id' | 'message_id'> = {}
+  ) {
+    const response = await this.telegram.api.forwardMessage({
+      chat_id: chatId,
+      from_chat_id: this.chatId || 0,
+      message_id: this.id,
+      ...params
+    })
 
     return new MessageContext({
       telegram: this.telegram,

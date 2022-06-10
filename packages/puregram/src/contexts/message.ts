@@ -222,7 +222,7 @@ class MessageContext extends Context {
 
   /** Is this message a forwarded one? */
   get isForward() {
-    return this.forwardMessage !== undefined
+    return this.forwardedMessage !== undefined
   }
 
   /** Does this message have reply message? */
@@ -251,7 +251,7 @@ inspectable(MessageContext, {
       from: context.from,
       createdAt: context.createdAt,
       chat: context.chat,
-      forwardMessage: context.forwardMessage,
+      forwardMessage: context.forwardedMessage,
       replyMessage: context.replyMessage,
       viaBot: context.viaBot,
       updatedAt: context.updatedAt,

@@ -323,11 +323,10 @@ class NodeMixin {
 
   /** Copies current message [into other chat if `chatId` is provided] */
   async copy(
-    chatId = this.chatId || this.senderId || 0,
     params: Optional<Methods.CopyMessageParams, 'chat_id' | 'from_chat_id' | 'message_id'> = {}
   ) {
     const response = await this.telegram.api.copyMessage({
-      chat_id: chatId,
+      chat_id: this.chatId || this.senderId || 0,
       from_chat_id: this.chatId || 0,
       message_id: this.id,
       ...params
@@ -338,11 +337,10 @@ class NodeMixin {
 
   /** Forwards current message [into other chat if `chatId` is provided] */
   async forward(
-    chatId = this.chatId || this.senderId || 0,
     params: Optional<Methods.ForwardMessageParams, 'chat_id' | 'from_chat_id' | 'message_id'> = {}
   ) {
     const response = await this.telegram.api.forwardMessage({
-      chat_id: chatId,
+      chat_id: this.chatId || this.senderId || 0,
       from_chat_id: this.chatId || 0,
       message_id: this.id,
       ...params

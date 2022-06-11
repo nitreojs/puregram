@@ -58,6 +58,15 @@ class MessageContext extends Context {
     this.#caption = this.payload.caption
   }
 
+  clone() {
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId,
+      update: this.update
+    })
+  }
+
   /**
    * For text messages, the actual UTF-8 text of the message, 0-4096 characters
    */
@@ -268,7 +277,7 @@ inspectable(MessageContext, {
       replyMarkup: context.replyMarkup
     }
 
-    if (context.isMediaGroup) {
+    if (context.mediaGroup !== undefined) {
       payload.mediaGroup = context.mediaGroup
     } else {
       payload.mediaGroupId = context.mediaGroupId

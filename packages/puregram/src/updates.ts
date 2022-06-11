@@ -394,47 +394,31 @@ export class Updates {
       if (mediaEventUpdates.length !== 0) {
         const mediaGroupIdsMap = new Map<string, TelegramUpdate[]>()
 
-        // INFO: optimize?
-        for (const meUpdate of mediaEventUpdates) {
-          const mgId = getMessage(meUpdate).media_group_id!
+        const mediaGroupIds = [...new Set(mediaEventUpdates.map(me => getMessage(me).media_group_id!))]
 
-          if (!mediaGroupIdsMap.has(mgId)) {
-            mediaGroupIdsMap.set(mgId, [meUpdate])
-          } else {
-            mediaGroupIdsMap.set(mgId, [...mediaGroupIdsMap.get(mgId)!, meUpdate])
-          }
+        for (const meId of mediaGroupIds) {
+          const updates = mediaEventUpdates.filter(me => getMessage(me).media_group_id! === meId)
+
+          mediaGroupIdsMap.set(meId, updates)
         }
 
         debug_mediaEvents('MG map: %O', mediaGroupIdsMap)
 
-        // INFO: processing each `media_group_id`s, creating final context
         for (const [mgId, mgUpdates] of mediaGroupIdsMap.entries()) {
-          // INFO: jess, that's not an album!
-          if (mgUpdates.length === 1) {
-            mediaGroupIdsMap.delete(mgId)
+          const contexts = await Promise.all(mgUpdates.map(mgu => this.handleUpdate(mgu, false))) as Contexts.MessageContext[]
 
-            continue
-          }
+          const mediaGroup = new MediaGroup({ id: mgId, contexts })
 
-          const contexts = await Promise.all(mgUpdates.map(u => this.handleUpdate(u, false))) as Contexts.MessageContext[]
+          // INFO: had to implement `MessageContext.clone()` method just because of this line :/
+          // INFO: creating [MediaGroup] on top of the first context
+          const context = contexts[0].clone()
+          context.mediaGroup = mediaGroup
 
-          const mediaGroup = new MediaGroup({
-            id: mgId,
-            contexts
-          })
-
-          // INFO: on top of this context we will build the media group
-          // INFO: exactly this context will be dispatched in the middleware chain
-          const mainContext = contexts[0]
-          mainContext.mediaGroup = mediaGroup
-
-          this.dispatchMiddleware(mainContext)
+          this.dispatchMiddleware(context)
         }
 
-        const mgKeys = [...mediaGroupIdsMap.keys()]
-
         // INFO: clearing out original [updates]
-        updates = updates.filter(update => !mgKeys.includes(getMessage(update).media_group_id!))
+        updates = updates.filter(update => !mediaGroupIds.includes(getMessage(update).media_group_id!))
       }
     }
 
@@ -489,11 +473,11 @@ export class Updates {
     }
 
     let context: Contexts.Context & ContextAddition = new UpdateContext({
-      telegram: this.telegram,
       update,
-      payload: update[type],
       type,
-      updateId: update.update_id
+      updateId: update.update_id,
+      telegram: this.telegram,
+      payload: update[type]
     })
 
     const isEvent = context.isEvent === true && context.eventType !== undefined
@@ -502,11 +486,11 @@ export class Updates {
       UpdateContext = events[context.eventType!]
 
       context = new UpdateContext({
-        telegram: this.telegram,
         update,
-        payload: update.message,
+        updateId: update.update_id,
         type: context.eventType!,
-        updateId: update.update_id
+        telegram: this.telegram,
+        payload: update.message
       })
     }
 

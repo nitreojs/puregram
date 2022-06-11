@@ -22,10 +22,6 @@ export class MediaGroup {
 
   /** Returns a list of contexts (constructed earlier) every single of which contains an attachment */
   get contexts() {
-    if (this.options.contexts[0].mediaGroup !== undefined) {
-      delete this.options.contexts[0].mediaGroup
-    }
-
     return this.options.contexts
   }
 

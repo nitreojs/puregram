@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 28.05.2022 15:20:36 MSK
+/// Generation date: 11.06.2022 16:25:26 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -177,6 +177,8 @@ export interface TelegramUser {
   [key: string]: any
 }
 
+export type TelegramChatType = 'private' | 'group' | 'supergroup' | 'channel'
+
 /**
  * This object represents a chat.
  */
@@ -188,7 +190,7 @@ export interface TelegramChat {
   /**
    * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
    */
-  type: SoftString<'private' | 'group' | 'supergroup' | 'channel'>
+  type: SoftString<TelegramChatType>
   /**
    * *Optional*. Title, for supergroups, channels and group chats
    */
@@ -521,6 +523,8 @@ export interface TelegramMessageId {
   [key: string]: any
 }
 
+export type TelegramMessageEntityType = 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'code' | 'pre' | 'text_link' | 'text_mention'
+
 /**
  * This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
  */
@@ -528,7 +532,7 @@ export interface TelegramMessageEntity {
   /**
    * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag`), “cashtag” (`$USD`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions))
    */
-  type: SoftString<'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'code' | 'pre' | 'text_link' | 'text_mention'>
+  type: SoftString<TelegramMessageEntityType>
   /**
    * Offset in UTF-16 code units to the start of the entity
    */
@@ -885,6 +889,8 @@ export interface TelegramPollAnswer {
   [key: string]: any
 }
 
+export type TelegramPollType = 'regular' | 'quiz'
+
 /**
  * This object contains information about a poll.
  */
@@ -916,7 +922,7 @@ export interface TelegramPoll {
   /**
    * Poll type, currently can be “regular” or “quiz”
    */
-  type: SoftString<'regular' | 'quiz'>
+  type: SoftString<TelegramPollType>
   /**
    * *True*, if the poll allows multiple answers
    */
@@ -1363,7 +1369,7 @@ export interface TelegramCallbackQuery {
    */
   chat_instance: string
   /**
-   * *Optional*. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.
+   * *Optional*. Data associated with the callback button. Be aware that the message, which originated the query, can contain no callback buttons with this data.
    */
   data?: string
   /**
@@ -2299,6 +2305,8 @@ export interface TelegramStickerSet {
   [key: string]: any
 }
 
+export type TelegramMaskPositionPoint = 'forehead' | 'eyes' | 'mouth' | 'chin'
+
 /**
  * This object describes the position on faces where a mask should be placed by default.
  */
@@ -2306,7 +2314,7 @@ export interface TelegramMaskPosition {
   /**
    * The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
    */
-  point: SoftString<'forehead' | 'eyes' | 'mouth' | 'chin'>
+  point: SoftString<TelegramMaskPositionPoint>
   /**
    * Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.
    */
@@ -2322,6 +2330,8 @@ export interface TelegramMaskPosition {
 
   [key: string]: any
 }
+
+export type TelegramInlineQueryChatType = 'sender' | 'private' | 'group' | 'supergroup' | 'channel'
 
 /**
  * This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
@@ -2346,7 +2356,7 @@ export interface TelegramInlineQuery {
   /**
    * *Optional*. Type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
    */
-  chat_type?: SoftString<'sender' | 'private' | 'group' | 'supergroup' | 'channel'>
+  chat_type?: SoftString<TelegramInlineQueryChatType>
   /**
    * *Optional*. Sender location, only for bots that request user location
    */
@@ -2467,6 +2477,8 @@ export interface TelegramInlineQueryResultPhoto {
   [key: string]: any
 }
 
+export type TelegramInlineQueryResultGifThumbMimeType = 'image/jpeg' | 'image/gif' | 'video/mp4'
+
 /**
  * Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the animation.
  */
@@ -2502,7 +2514,7 @@ export interface TelegramInlineQueryResultGif {
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: SoftString<'image/jpeg' | 'image/gif' | 'video/mp4'>
+  thumb_mime_type?: SoftString<TelegramInlineQueryResultGifThumbMimeType>
   /**
    * *Optional*. Title for the result
    */
@@ -2530,6 +2542,8 @@ export interface TelegramInlineQueryResultGif {
 
   [key: string]: any
 }
+
+export type TelegramInlineQueryResultMpeg4GifThumbMimeType = 'image/jpeg' | 'image/gif' | 'video/mp4'
 
 /**
  * Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the animation.
@@ -2566,7 +2580,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: SoftString<'image/jpeg' | 'image/gif' | 'video/mp4'>
+  thumb_mime_type?: SoftString<TelegramInlineQueryResultMpeg4GifThumbMimeType>
   /**
    * *Optional*. Title for the result
    */
@@ -2595,6 +2609,8 @@ export interface TelegramInlineQueryResultMpeg4Gif {
   [key: string]: any
 }
 
+export type TelegramInlineQueryResultVideoMimeType = 'text/html' | 'video/mp4'
+
 /**
  * Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the video.
  * 
@@ -2616,7 +2632,7 @@ export interface TelegramInlineQueryResultVideo {
   /**
    * Mime type of the content of video url, “text/html” or “video/mp4”
    */
-  mime_type: SoftString<'text/html' | 'video/mp4'>
+  mime_type: SoftString<TelegramInlineQueryResultVideoMimeType>
   /**
    * URL of the thumbnail (JPEG only) for the video
    */
@@ -2765,6 +2781,8 @@ export interface TelegramInlineQueryResultVoice {
   [key: string]: any
 }
 
+export type TelegramInlineQueryResultDocumentMimeType = 'application/pdf' | 'application/zip'
+
 /**
  * Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the file. Currently, only **.PDF** and **.ZIP** files can be sent using this method.
  */
@@ -2800,7 +2818,7 @@ export interface TelegramInlineQueryResultDocument {
   /**
    * Mime type of the content of the file, either “application/pdf” or “application/zip”
    */
-  mime_type: SoftString<'application/pdf' | 'application/zip'>
+  mime_type: SoftString<TelegramInlineQueryResultDocumentMimeType>
   /**
    * *Optional*. Short description of the result
    */
@@ -3885,6 +3903,8 @@ export interface TelegramPassportFile {
   [key: string]: any
 }
 
+export type TelegramEncryptedPassportElementType = 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration' | 'phone_number' | 'email'
+
 /**
  * Contains information about documents or other Telegram Passport elements shared with the bot by the user.
  */
@@ -3892,7 +3912,7 @@ export interface TelegramEncryptedPassportElement {
   /**
    * Element type. One of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”, “phone\_number”, “email”.
    */
-  type: SoftString<'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration' | 'phone_number' | 'email'>
+  type: SoftString<TelegramEncryptedPassportElementType>
   /**
    * *Optional*. Base64-encoded encrypted Telegram Passport element data provided by the user, available for “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport” and “address” types. Can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
@@ -3953,6 +3973,8 @@ export interface TelegramEncryptedCredentials {
   [key: string]: any
 }
 
+export type TelegramPassportElementErrorDataFieldType = 'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address'
+
 /**
  * Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
  */
@@ -3964,7 +3986,7 @@ export interface TelegramPassportElementErrorDataField {
   /**
    * The section of the user's Telegram Passport which has the error, one of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”
    */
-  type: SoftString<'personal_details' | 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'address'>
+  type: SoftString<TelegramPassportElementErrorDataFieldType>
   /**
    * Name of the data field which has the error
    */
@@ -3981,6 +4003,8 @@ export interface TelegramPassportElementErrorDataField {
   [key: string]: any
 }
 
+export type TelegramPassportElementErrorFrontSideType = 'passport' | 'driver_license' | 'identity_card' | 'internal_passport'
+
 /**
  * Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
  */
@@ -3992,7 +4016,7 @@ export interface TelegramPassportElementErrorFrontSide {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
    */
-  type: SoftString<'passport' | 'driver_license' | 'identity_card' | 'internal_passport'>
+  type: SoftString<TelegramPassportElementErrorFrontSideType>
   /**
    * Base64-encoded hash of the file with the front side of the document
    */
@@ -4005,6 +4029,8 @@ export interface TelegramPassportElementErrorFrontSide {
   [key: string]: any
 }
 
+export type TelegramPassportElementErrorReverseSideType = 'driver_license' | 'identity_card'
+
 /**
  * Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.
  */
@@ -4016,7 +4042,7 @@ export interface TelegramPassportElementErrorReverseSide {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “driver\_license”, “identity\_card”
    */
-  type: SoftString<'driver_license' | 'identity_card'>
+  type: SoftString<TelegramPassportElementErrorReverseSideType>
   /**
    * Base64-encoded hash of the file with the reverse side of the document
    */
@@ -4029,6 +4055,8 @@ export interface TelegramPassportElementErrorReverseSide {
   [key: string]: any
 }
 
+export type TelegramPassportElementErrorSelfieType = 'passport' | 'driver_license' | 'identity_card' | 'internal_passport'
+
 /**
  * Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.
  */
@@ -4040,7 +4068,7 @@ export interface TelegramPassportElementErrorSelfie {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”
    */
-  type: SoftString<'passport' | 'driver_license' | 'identity_card' | 'internal_passport'>
+  type: SoftString<TelegramPassportElementErrorSelfieType>
   /**
    * Base64-encoded hash of the file with the selfie
    */
@@ -4053,6 +4081,8 @@ export interface TelegramPassportElementErrorSelfie {
   [key: string]: any
 }
 
+export type TelegramPassportElementErrorFileType = 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
+
 /**
  * Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.
  */
@@ -4064,7 +4094,7 @@ export interface TelegramPassportElementErrorFile {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: SoftString<'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
+  type: SoftString<TelegramPassportElementErrorFileType>
   /**
    * Base64-encoded file hash
    */
@@ -4076,6 +4106,8 @@ export interface TelegramPassportElementErrorFile {
 
   [key: string]: any
 }
+
+export type TelegramPassportElementErrorFilesType = 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
 
 /**
  * Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
@@ -4088,7 +4120,7 @@ export interface TelegramPassportElementErrorFiles {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: SoftString<'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
+  type: SoftString<TelegramPassportElementErrorFilesType>
   /**
    * List of base64-encoded file hashes
    */
@@ -4101,6 +4133,8 @@ export interface TelegramPassportElementErrorFiles {
   [key: string]: any
 }
 
+export type TelegramPassportElementErrorTranslationFileType = 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
+
 /**
  * Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
  */
@@ -4112,7 +4146,7 @@ export interface TelegramPassportElementErrorTranslationFile {
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: SoftString<'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
+  type: SoftString<TelegramPassportElementErrorTranslationFileType>
   /**
    * Base64-encoded file hash
    */
@@ -4125,6 +4159,8 @@ export interface TelegramPassportElementErrorTranslationFile {
   [key: string]: any
 }
 
+export type TelegramPassportElementErrorTranslationFilesType = 'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'
+
 /**
  * Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change.
  */
@@ -4136,7 +4172,7 @@ export interface TelegramPassportElementErrorTranslationFiles {
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”
    */
-  type: SoftString<'passport' | 'driver_license' | 'identity_card' | 'internal_passport' | 'utility_bill' | 'bank_statement' | 'rental_agreement' | 'passport_registration' | 'temporary_registration'>
+  type: SoftString<TelegramPassportElementErrorTranslationFilesType>
   /**
    * List of base64-encoded file hashes
    */

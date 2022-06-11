@@ -7,7 +7,7 @@ import { User } from './user'
 import { Chat } from './chat'
 
 /** This object represents a forwarded message. */
-export class ForwardMessage {
+export class ForwardedMessage {
   constructor(private payload: Interfaces.TelegramMessage) { }
 
   get [Symbol.toStringTag]() {
@@ -76,7 +76,7 @@ export class ForwardMessage {
   }
 }
 
-inspectable(ForwardMessage, {
+inspectable(ForwardedMessage, {
   serialize(struct) {
     const payload = {
       id: struct.id,

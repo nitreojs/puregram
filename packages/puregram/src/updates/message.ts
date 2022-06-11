@@ -4,7 +4,7 @@ import { TelegramMessage } from '../generated/telegram-interfaces'
 
 import { User } from '../common/structures/user'
 import { Chat } from '../common/structures/chat'
-import { ForwardMessage } from '../common/structures/forward-message'
+import { ForwardedMessage } from '../common/structures/forwarded-message'
 import { MessageEntity } from '../common/structures/message-entity'
 import { PhotoSize } from '../common/structures/photo-size'
 import { Contact } from '../common/structures/contact'
@@ -106,7 +106,7 @@ export class Message {
       return
     }
 
-    return new ForwardMessage(this.payload)
+    return new ForwardedMessage(this.payload)
   }
 
   /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */

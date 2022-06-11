@@ -2,27 +2,30 @@ import http from 'node:http'
 
 import { inspectable } from 'inspectable'
 import {
+  NextMiddleware,
   Middleware,
-  compose,
   noopNext,
-  NextMiddleware
+  compose
 } from 'middleware-io'
 import { debug } from 'debug'
 
 import * as Contexts from './contexts'
 
 import { Composer } from './common/structures/composer'
-import { User } from './common/structures/user'
 import { MediaGroup } from './common/media-group'
+import { User } from './common/structures/user'
 
-import { Telegram } from './telegram'
-import { GetUpdatesParams } from './generated/methods'
 import { TelegramMessage, TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
-import { delay, parseRequestJSON } from './utils/helpers'
-import { StartPollingOptions } from './types/interfaces'
+import { GetUpdatesParams } from './generated/methods'
+
 import { Constructor, UpdateName, MessageEventName } from './types/types'
+import { StartPollingOptions } from './types/interfaces'
 import { UpdateType } from './types/enums'
+
+import { delay, parseRequestJSON } from './utils/helpers'
+
 import { TelegramError } from './errors'
+import { Telegram } from './telegram'
 
 const $debugger = debug('puregram:updates')
 

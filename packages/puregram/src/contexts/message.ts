@@ -4,11 +4,10 @@ import { Telegram } from '../telegram'
 import { Message } from '../updates/'
 
 import * as Interfaces from '../generated/telegram-interfaces'
-import { MessageEntity } from '../common/structures'
 
-import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
 import { AttachmentType, UpdateName } from '../types/types'
+import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 import { EVENTS } from '../utils/constants'
 
 import {
@@ -22,6 +21,7 @@ import {
   VideoNoteAttachment,
   VoiceAttachment
 } from '../common/attachments'
+import { MessageEntity } from '../common/structures'
 import { MediaGroup } from '../common/media-group'
 
 import { Context } from './context'

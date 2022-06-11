@@ -1,23 +1,23 @@
 import { Readable } from 'node:stream'
 import { deprecate } from 'node:util'
 
-import { inspectable } from 'inspectable'
 import { fetch, RequestInit, setGlobalDispatcher } from 'undici'
-import { File, FormData } from 'formdata-node'
 import { fileFromPath } from 'formdata-node/file-from-path'
 import { FormDataEncoder } from 'form-data-encoder'
+import { File, FormData } from 'formdata-node'
+import { inspectable } from 'inspectable'
 import { debug } from 'debug'
 
-import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
+import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
 
-import { User } from './common/structures/user'
-import { MediaInput, MediaSourceType } from './common/media-source'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
+import { MediaInput, MediaSourceType } from './common/media-source'
+import { User } from './common/structures/user'
 
-import { Updates } from './updates'
-import { APIError } from './errors'
 import { ApiMethods } from './generated'
+import { APIError } from './errors'
+import { Updates } from './updates'
 
 const $debugger = debug('puregram:api')
 

@@ -181,15 +181,16 @@ class NodeMixin {
   }
 
   /** @deprecated use `delete()` instead */
-  deleteMessage() {
-    return this.delete()
+  deleteMessage(params?: Optional<Methods.DeleteMessageParams, 'chat_id' | 'message_id'>) {
+    return this.delete(params)
   }
 
   /** Deletes current message */
-  delete() {
+  delete(params: Optional<Methods.DeleteMessageParams, 'chat_id' | 'message_id'> = {}) {
     return this.telegram.api.deleteMessage({
       chat_id: this.chatId || this.senderId || 0,
-      message_id: this.id
+      message_id: this.id,
+      ...params
     })
   }
 
@@ -239,10 +240,10 @@ class NodeMixin {
     params?: Partial<Methods.EditMessageTextParams>
   ) {
     const response = await this.telegram.api.editMessageText({
-      ...params,
-      text,
       chat_id: this.chatId || this.senderId || 0,
-      message_id: this.id
+      message_id: this.id,
+      text,
+      ...params
     })
 
     if (response === true) {
@@ -261,10 +262,10 @@ class NodeMixin {
     params?: Partial<Methods.EditMessageCaptionParams>
   ) {
     const response = await this.telegram.api.editMessageCaption({
-      ...params,
-      caption,
       chat_id: this.chatId || this.senderId || 0,
-      message_id: this.id
+      message_id: this.id,
+      caption,
+      ...params
     })
 
     if (response === true) {
@@ -283,10 +284,10 @@ class NodeMixin {
     params?: Partial<Methods.EditMessageMediaParams>
   ) {
     const response = await this.telegram.api.editMessageMedia({
-      ...params,
-      media,
       chat_id: this.chatId || this.senderId || 0,
-      message_id: this.id
+      message_id: this.id,
+      media,
+      ...params
     })
 
     if (response === true) {
@@ -305,10 +306,10 @@ class NodeMixin {
     params?: Partial<Methods.EditMessageReplyMarkupParams>
   ) {
     const response = await this.telegram.api.editMessageReplyMarkup({
-      ...params,
-      reply_markup: replyMarkup,
       chat_id: this.chatId || this.senderId || 0,
-      message_id: this.id
+      message_id: this.id,
+      reply_markup: replyMarkup,
+      ...params
     })
 
     if (response === true) {

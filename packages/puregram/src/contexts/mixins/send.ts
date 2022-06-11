@@ -177,10 +177,10 @@ class SendMixin {
     params?: Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
   ) {
     const response = await this.telegram.api.sendLocation({
-      ...params,
       chat_id: this.chatId || this.senderId || 0,
       latitude,
-      longitude
+      longitude,
+      ...params
     })
 
     return new MessageContext({
@@ -258,10 +258,14 @@ class SendMixin {
   }
 
   /** Sends chat action to current chat */
-  sendChatAction(action: Methods.SendChatActionParams['action']) {
+  sendChatAction(
+    action: Methods.SendChatActionParams['action'],
+    params: Optional<Methods.SendChatActionParams, 'chat_id' | 'action'> = {}
+  ) {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
-      action
+      action,
+      ...params
     })
   }
 
@@ -271,8 +275,8 @@ class SendMixin {
     params?: Optional<Methods.SendStickerParams, 'sticker' | 'chat_id'>
   ) {
     const response = await this.telegram.api.sendSticker({
-      sticker,
       chat_id: this.chatId || this.senderId || 0,
+      sticker,
       ...params
     })
 
@@ -288,8 +292,8 @@ class SendMixin {
     params?: Partial<Methods.SendDiceParams>
   ) {
     const response = await this.telegram.api.sendDice({
-      emoji,
       chat_id: this.chatId || this.senderId || 0,
+      emoji,
       ...params
     })
 

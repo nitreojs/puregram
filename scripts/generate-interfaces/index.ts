@@ -26,6 +26,17 @@ interface ServiceResultMethod extends ServiceResult {
   hasParams: boolean
 }
 
+interface GenerateFieldsResponse {
+  fields: string[]
+  types: ServiceResult[]
+}
+
+const uppercaseFirst = (string: string) => string[0].toUpperCase() + string.slice(1)
+const undoSnakeCase = (string: string) => string.split('_').reduce(
+  (prev, cur, i) => i === 0 ? cur : prev + uppercaseFirst(cur),
+  ''
+)
+
 class InterfaceService {
   static async generate(kInterface: Types.SchemaInterface): Promise<ServiceResultInterface> {
     if (kInterface.type === 'any_of') {
@@ -34,24 +45,24 @@ class InterfaceService {
       throw new TypeError('SchemaInterfaceAnyOf should be generated via TypeService.generate')
     }
 
-    const name: string = `Telegram${kInterface.name}`
+    const name = `Telegram${kInterface.name}`
+    const description = InterfaceService.generateDescription(kInterface.description)
 
-    let content = `export interface ${name} { }`
+    let content = `${description}\nexport interface ${name} { }`
 
     if (kInterface.properties) {
-      const fields: string[] = (await InterfaceService.generateFields(kInterface.properties))
-        .map(tab)
+      const generateFieldsResponse = await InterfaceService.generateFields(kInterface)
+
+      const fields: string[] = generateFieldsResponse.fields.map(tab)
 
       // just some little hacks over there, nothing special, scroll away
       fields.push('')
       fields.push(tab('[key: string]: any'))
 
-      content = `export interface ${name} {\n${fields.join('\n')}\n}`
+      const iAdditionalTypes = generateFieldsResponse.types.length !== 0 ? generateFieldsResponse.types.map(e => e.content).join('\n') + '\n\n' : ''
+
+      content = `${iAdditionalTypes}${description}\nexport interface ${name} {\n${fields.join('\n')}\n}`
     }
-
-    const description: string = InterfaceService.generateDescription(kInterface.description)
-
-    content = `${description}\n${content}`
 
     return {
       content,
@@ -78,18 +89,30 @@ class InterfaceService {
     return `/**\n${parts.map(part => `${spaces} * ${part}`).join('\n')}\n${spaces} */`
   }
 
-  static async generateFields(properties: Types.SchemaObject[]): Promise<string[]> {
-    const fields: string[] = []
+  static async generateFields(iface: Types.SchemaInterfaceProperties): Promise<GenerateFieldsResponse> {
+    const response: GenerateFieldsResponse = {
+      fields: [],
+      types: []
+    }
 
     // TODO: [field] or [property]?
-    for (const field of properties) {
+    for (const field of iface.properties) {
       let type = TypeResolver.resolve(field)
 
       // INFO: current field type is enumeration of strings: [key: 'foo' | 'bar' | 'baz']
       if (field.type === 'string' && field.enumeration !== undefined) {
+        const typeName = `Telegram${iface.name}${uppercaseFirst(undoSnakeCase(field.name))}`
+
+        const sType: ServiceResult = {
+          name: typeName,
+          content: `export type ${typeName} = ${type}`
+        }
+
+        response.types.push(sType)
+
         // INFO: soften (is that even a word?) string enumerations by allowing any strings but keeping suggestions
         // INFO: see [SoftString<S>] type (puregram/src/types/types.ts)
-        type = `SoftString<${type}>`
+        type = `SoftString<${typeName}>`
       }
 
       // INFO: any [TelegramInputFile] must be replaced with [MediaInput]
@@ -110,10 +133,10 @@ class InterfaceService {
       const description: string = InterfaceService.generateDescription(field.description, 2)
       const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${type}`
 
-      fields.push(property)
+      response.fields.push(property)
     }
 
-    return fields
+    return response
   }
 }
 
@@ -121,25 +144,28 @@ class MethodService {
   static async generate(kMethod: Types.SchemaMethod): Promise<ServiceResultMethod> {
     // TODO: simplify
 
-    const mTypeDescription: string = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
-    const mReturnType: string = TypeResolver.resolve(kMethod.return_type as Types.SchemaObject, 'Interfaces')
+    const mTypeDescription = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
+    const mReturnType = TypeResolver.resolve(kMethod.return_type as Types.SchemaObject, 'Interfaces')
+
     let content = `${mTypeDescription}\nexport type ${kMethod.name} = () => Promise<${mReturnType}>`
 
     if (kMethod.arguments) {
-      const mInterfaceName: string = kMethod.name[0].toUpperCase() + kMethod.name.slice(1) + 'Params'
+      const mInterfaceName = uppercaseFirst(kMethod.name) + 'Params'
 
-      const fields: string[] = (await MethodService.generateFields(kMethod.arguments, 'Interfaces'))
-        .map(tab)
+      const generateFieldsResponse = await MethodService.generateFields(kMethod, 'Interfaces')
+
+      const fields = generateFieldsResponse.fields.map(tab)
 
       /// just some little hacks over there, nothing special, scroll away
       fields.push('')
       fields.push(tab('[key: string]: any'))
 
-      const mInterface: string = `export interface ${mInterfaceName} {\n${fields.join('\n')}\n}`
-      const mParamsNotRequired: string = kMethod.arguments.every(argument => !argument.required) ? '?' : ''
-      const mType: string = `export type ${kMethod.name} = (params${mParamsNotRequired}: ${mInterfaceName}) => Promise<${mReturnType}>`
+      const mAdditionalTypes = generateFieldsResponse.types.length !== 0 ? generateFieldsResponse.types.map(e => e.content).join('\n') + '\n\n' : ''
+      const mInterface = `export interface ${mInterfaceName} {\n${fields.join('\n')}\n}`
+      const mParamsNotRequired = kMethod.arguments.every(argument => !argument.required) ? '?' : ''
+      const mType = `export type ${kMethod.name} = (params${mParamsNotRequired}: ${mInterfaceName}) => Promise<${mReturnType}>`
 
-      content = `${mInterface}\n\n${mTypeDescription}\n${mType}`
+      content = `${mAdditionalTypes}${mInterface}\n\n${mTypeDescription}\n${mType}`
     }
 
     return {
@@ -149,17 +175,30 @@ class MethodService {
     }
   }
 
-  static async generateFields(properties: Types.SchemaObject[], addition?: string): Promise<string[]> {
-    const fields: string[] = []
+  static async generateFields(method: Types.SchemaMethod, addition?: string):
+    Promise<GenerateFieldsResponse> {
+    const response: GenerateFieldsResponse = {
+      fields: [],
+      types: []
+    }
 
     // TODO: [field] or [property]?
-    for (const field of properties) {
-      const description: string = InterfaceService.generateDescription(field.description, 2)
-      let returnType: string = TypeResolver.resolve(field, addition)
+    for (const field of method.arguments!) {
+      const description = InterfaceService.generateDescription(field.description, 2)
 
-      // TODO: export these types
+      let returnType = TypeResolver.resolve(field, addition)
+
       if (field.type === 'string' && field.enumeration !== undefined) {
-        returnType = `SoftString<${returnType}>`
+        const typeName = uppercaseFirst(method.name) + uppercaseFirst(undoSnakeCase(field.name))
+
+        const type: ServiceResult = {
+          name: typeName,
+          content: `export type ${typeName} = ${returnType}`
+        }
+
+        response.types.push(type)
+
+        returnType = `SoftString<${typeName}>`
       }
 
       // INFO: keyboards must have [ReplyMarkupUnion] type
@@ -230,12 +269,12 @@ class MethodService {
         returnType = TypeResolver.resolve(object)
       }
 
-      const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${returnType}`
+      const property = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${returnType}`
 
-      fields.push(property)
+      response.fields.push(property)
     }
 
-    return fields
+    return response
   }
 }
 
@@ -490,7 +529,7 @@ export async function generate() {
   }
 
   for (const kMethod of methods) {
-    const result: ServiceResultMethod = await MethodService.generate(kMethod)
+    const result = await MethodService.generate(kMethod)
 
     items.methods.push(result)
   }

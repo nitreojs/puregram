@@ -30,6 +30,16 @@ class ChannelChatCreatedContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: ChannelChatCreatedContextOptions) {
+    return new ChannelChatCreatedContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Unique message identifier inside this chat */
   get id() {
     return this.payload.message_id

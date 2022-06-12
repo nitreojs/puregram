@@ -31,6 +31,16 @@ class NewChatPhotoContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: NewChatPhotoContextOptions) {
+    return new NewChatPhotoContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** New chat photo */
   get eventPhoto() {
     return this.payload.new_chat_photo!.map(

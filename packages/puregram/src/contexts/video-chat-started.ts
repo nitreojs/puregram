@@ -31,6 +31,16 @@ class VideoChatStartedContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: VideoChatStartedContextOptions) {
+    return new VideoChatStartedContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Service message: video chat started */
   get videoChatStarted() {
     return new VideoChatStarted(this.payload.video_chat_started!)

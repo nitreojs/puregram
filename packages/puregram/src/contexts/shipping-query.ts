@@ -29,6 +29,16 @@ class ShippingQueryContext extends Context {
 
     this.payload = options.payload
   }
+
+  clone(options?: ShippingQueryContextOptions) {
+    return new ShippingQueryContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:

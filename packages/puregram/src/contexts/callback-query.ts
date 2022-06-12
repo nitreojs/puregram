@@ -35,6 +35,16 @@ class CallbackQueryContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: CallbackQueryContextOptions) {
+    return new CallbackQueryContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /**
    * Message with the callback button that originated the query.
    * Note that message content and message date will not be available

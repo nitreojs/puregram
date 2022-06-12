@@ -31,6 +31,16 @@ class VideoChatScheduledContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: VideoChatScheduledContextOptions) {
+    return new VideoChatScheduledContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Service message: video chat scheduled */
   get videoChatScheduled() {
     return new VideoChatScheduled(this.payload.video_chat_scheduled!)

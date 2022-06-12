@@ -28,6 +28,16 @@ class PollContext extends Context {
 
     this.payload = options.payload
   }
+
+  clone(options?: PollContextOptions) {
+    return new PollContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
 }
 
 interface PollContext extends Poll { }

@@ -9,7 +9,7 @@ import { ChatJoinRequest } from '../common/structures'
 import { Context } from './context'
 import { SendMixin, TargetMixin } from './mixins'
 
-interface ChatJoinRequestContextParams {
+interface ChatJoinRequestContextOptions {
   telegram: Telegram
   update: Interfaces.TelegramUpdate
   payload: Interfaces.TelegramChatJoinRequest
@@ -19,7 +19,7 @@ interface ChatJoinRequestContextParams {
 class ChatJoinRequestContext extends Context {
   payload: Interfaces.TelegramChatJoinRequest
 
-  constructor(options: ChatJoinRequestContextParams) {
+  constructor(options: ChatJoinRequestContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'chat_join_request',
@@ -28,6 +28,16 @@ class ChatJoinRequestContext extends Context {
     })
 
     this.payload = options.payload
+  }
+
+  clone(options?: ChatJoinRequestContextOptions) {
+    return new ChatJoinRequestContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
   }
 }
 

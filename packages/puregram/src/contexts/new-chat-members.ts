@@ -31,6 +31,16 @@ class NewChatMembersContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: NewChatMembersContextOptions) {
+    return new NewChatMembersContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** New chat members */
   get eventMembers() {
     return this.payload.new_chat_members!.map(

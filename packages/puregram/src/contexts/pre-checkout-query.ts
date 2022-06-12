@@ -32,6 +32,16 @@ class PreCheckoutQueryContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: PreCheckoutQueryContextOptions) {
+    return new PreCheckoutQueryContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Answers to the pending pre-checkout query */
   answerPreCheckoutQuery(params: Optional<Methods.AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>) {
     return this.telegram.api.answerPreCheckoutQuery({

@@ -58,12 +58,13 @@ class MessageContext extends Context {
     this.#caption = this.payload.caption
   }
 
-  clone() {
+  clone(options?: MessageContextOptions) {
     return new MessageContext({
       telegram: this.telegram,
       payload: this.payload,
-      updateId: this.updateId,
-      update: this.update
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
     })
   }
 

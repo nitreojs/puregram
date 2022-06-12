@@ -29,6 +29,16 @@ class DeleteChatPhotoContext extends Context {
 
     this.payload = options.payload
   }
+
+  clone(options?: DeleteChatPhotoContextOptions) {
+    return new DeleteChatPhotoContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
 }
 
 interface DeleteChatPhotoContext extends Message, TargetMixin, SendMixin, NodeMixin { }

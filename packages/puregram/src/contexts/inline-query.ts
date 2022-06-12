@@ -30,6 +30,16 @@ class InlineQueryContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: InlineQueryContextOptions) {
+    return new InlineQueryContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Answers to inline query */
   answerInlineQuery(
     results: Interfaces.TelegramInlineQueryResult[],

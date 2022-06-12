@@ -31,6 +31,16 @@ class VideoChatParticipantsInvitedContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: VideoChatParticipantsInvitedContextOptions) {
+    return new VideoChatParticipantsInvitedContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Service message: new participants invited to a video chat */
   get videoChatParticipantsInvited() {
     return new VideoChatParticipantsInvited(this.payload.video_chat_participants_invited!)

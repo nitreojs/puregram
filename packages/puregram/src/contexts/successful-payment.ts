@@ -31,6 +31,16 @@ class SuccessfulPaymentContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: SuccessfulPaymentContextOptions) {
+    return new SuccessfulPaymentContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Received payment */
   get eventPayment() {
     return new SuccessfulPayment(this.payload.successful_payment!)

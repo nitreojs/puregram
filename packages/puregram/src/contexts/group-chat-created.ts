@@ -29,6 +29,16 @@ class GroupChatCreatedContext extends Context {
 
     this.payload = options.payload
   }
+
+  clone(options?: GroupChatCreatedContextOptions) {
+    return new GroupChatCreatedContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
 }
 
 interface GroupChatCreatedContext extends Message, TargetMixin, SendMixin, NodeMixin { }

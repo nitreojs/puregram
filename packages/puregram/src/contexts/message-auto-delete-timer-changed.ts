@@ -31,6 +31,16 @@ class MessageAutoDeleteTimerChangedContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: MessageAutoDeleteTimerChangedContextOptions) {
+    return new MessageAutoDeleteTimerChangedContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Message auto delete timer */
   get autoDeleteTimer() {
     return new MessageAutoDeleteTimerChanged(this.payload.message_auto_delete_timer_changed!)

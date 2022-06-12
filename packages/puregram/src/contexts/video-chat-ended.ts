@@ -31,6 +31,16 @@ class VideoChatEndedContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: VideoChatEndedContextOptions) {
+    return new VideoChatEndedContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Service message: video chat ended */
   get videoChatEnded() {
     return new VideoChatEnded(this.payload.video_chat_ended!)

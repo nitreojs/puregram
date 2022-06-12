@@ -32,6 +32,16 @@ class ChatMemberContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: ChatMemberContextOptions) {
+    return new ChatMemberContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Does this update have `invite_link` property? */
   get hasInviteLink() {
     return this.inviteLink !== undefined

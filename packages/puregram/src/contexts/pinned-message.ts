@@ -31,6 +31,16 @@ class PinnedMessageContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: PinnedMessageContextOptions) {
+    return new PinnedMessageContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Pinned message */
   get eventMessage() {
     return new MessageContext({

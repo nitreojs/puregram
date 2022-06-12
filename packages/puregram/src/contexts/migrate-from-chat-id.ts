@@ -30,6 +30,16 @@ class MigrateFromChatIdContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: MigrateFromChatIdContextOptions) {
+    return new MigrateFromChatIdContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Chat ID */
   get eventId() {
     return this.payload.migrate_to_chat_id!

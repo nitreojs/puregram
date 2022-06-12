@@ -31,6 +31,16 @@ class LeftChatMemberContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: LeftChatMemberContextOptions) {
+    return new LeftChatMemberContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Left chat member */
   get eventMember() {
     return new User(this.payload.left_chat_member!)

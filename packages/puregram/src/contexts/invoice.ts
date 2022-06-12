@@ -31,6 +31,16 @@ class InvoiceContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: InvoiceContextOptions) {
+    return new InvoiceContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** Invoice */
   get eventInvoice() {
     return new Invoice(this.payload.invoice!)

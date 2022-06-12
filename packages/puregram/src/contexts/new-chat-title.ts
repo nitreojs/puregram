@@ -30,6 +30,16 @@ class NewChatTitleContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: NewChatTitleContextOptions) {
+    return new NewChatTitleContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** New chat title */
   get eventTitle() {
     return this.payload.new_chat_title!

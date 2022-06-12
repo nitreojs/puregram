@@ -29,6 +29,16 @@ class SupergroupChatCreatedContext extends Context {
 
     this.payload = options.payload
   }
+
+  clone(options?: SupergroupChatCreatedContextOptions) {
+    return new SupergroupChatCreatedContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
 }
 
 interface SupergroupChatCreatedContext extends Message, TargetMixin, SendMixin, NodeMixin { }

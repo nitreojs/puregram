@@ -30,6 +30,16 @@ class WebAppDataContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: WebAppDataContextOptions) {
+    return new WebAppDataContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
   get data() {
     return this.payload.web_app_data!.data

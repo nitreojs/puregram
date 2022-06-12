@@ -31,6 +31,16 @@ class ProximityAlertTriggeredContext extends Context {
     this.payload = options.payload
   }
 
+  clone(options?: ProximityAlertTriggeredContextOptions) {
+    return new ProximityAlertTriggeredContext({
+      telegram: this.telegram,
+      payload: this.payload,
+      updateId: this.updateId!,
+      update: this.update!,
+      ...options
+    })
+  }
+
   /**
    * Service message.
    * A user in the chat triggered another user's proximity alert

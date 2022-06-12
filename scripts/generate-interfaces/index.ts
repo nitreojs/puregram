@@ -201,72 +201,34 @@ class MethodService {
         returnType = `SoftString<${typeName}>`
       }
 
+      if (field.name === 'parse_mode') {
+        returnType = 'Interfaces.PossibleParseMode'
+      }
+
       // INFO: keyboards must have [ReplyMarkupUnion] type
       if (field.name === 'reply_markup') {
-        const object = {
-          type: 'reference',
-          reference: 'ReplyMarkupUnion',
-          is_internal: true
-        } as Types.SchemaObjectReference
-
-        returnType = TypeResolver.resolve(object, addition)
+        returnType = 'Interfaces.ReplyMarkupUnion'
       }
 
       // INFO: entities are either [MessageEntity] or [Interfaces.TelegramMessageEntity]
       if (field.name === 'entities' || field.name === 'caption_entities') {
-        const union = {
-          type: 'any_of',
-          any_of: [
-            {
-              type: 'array',
-              array: {
-                type: 'reference',
-                reference: 'MessageEntity',
-                is_internal: true
-              }
-            },
-            {
-              type: 'array',
-              array: {
-                type: 'reference',
-                reference: 'Interfaces.TelegramMessageEntity',
-                is_internal: true
-              }
-            }
-          ]
-        } as Types.SchemaObjectAnyOf
-
-        returnType = TypeResolver.resolve(union)
+        returnType = '(MessageEntity | Interfaces.TelegramMessageEntity)[]'
       }
 
       // INFO: [is_anonymous] resolves as [true] because you should either specify [true] or nothing
       // INFO: i don't think that's cool
       if (field.name === 'is_anonymous') {
-        const object = { type: 'bool' } as Types.SchemaObjectBool
-
-        returnType = TypeResolver.resolve(object)
+        returnType = 'boolean'
       }
 
       // INFO: if return-type is [Interfaces.TelegramInputFile] replace it with [MediaInput]
       if (returnType.includes('Interfaces.TelegramInputFile')) {
-        const object = {
-          type: 'reference',
-          reference: 'MediaInput',
-          is_internal: true
-        } as Types.SchemaObjectReference
-
-        returnType = TypeResolver.resolve(object)
+        returnType = 'MediaInput'
       }
 
       // INFO: replace [currency]'s [string] with a list of actual currencies
       if (field.name === 'currency') {
-        const object = {
-          type: 'reference',
-          reference: 'Interfaces.Currency',
-          is_internal: true
-        } as Types.SchemaObjectReference
-
-        returnType = TypeResolver.resolve(object)
+        returnType = 'Interfaces.Currency'
       }
 
       const property = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${returnType}`
@@ -430,6 +392,8 @@ class GenerationService {
         | Record<string, any>
         | Buffer
         | Readable
+      
+      export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2' | 'html' | 'markdown' | 'markdownv2'>
     `
   }
 

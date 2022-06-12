@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 11.06.2022 16:25:26 MSK
+/// Generation date: 12.06.2022 11:42:56 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -151,11 +151,11 @@ export interface SendMessageParams {
   /**
    * Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
-  entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Disables link previews for links in this message
    */
@@ -247,11 +247,11 @@ export interface CopyMessageParams {
   /**
    * Mode for parsing entities in the new caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -301,11 +301,11 @@ export interface SendPhotoParams {
   /**
    * Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -355,11 +355,11 @@ export interface SendAudioParams {
   /**
    * Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Duration of the audio in seconds
    */
@@ -431,11 +431,11 @@ export interface SendDocumentParams {
   /**
    * Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Disables automatic server-side content type detection for files uploaded using multipart/form-data
    */
@@ -505,11 +505,11 @@ export interface SendVideoParams {
   /**
    * Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Pass *True*, if the uploaded video is suitable for streaming
    */
@@ -579,11 +579,11 @@ export interface SendAnimationParams {
   /**
    * Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -633,11 +633,11 @@ export interface SendVoiceParams {
   /**
    * Mode for parsing entities in the voice message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Duration of the voice message in seconds
    */
@@ -2129,11 +2129,11 @@ export interface EditMessageTextParams {
   /**
    * Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
-  entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * Disables link previews for links in this message
    */
@@ -2175,11 +2175,11 @@ export interface EditMessageCaptionParams {
   /**
    * Mode for parsing entities in the message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: Interfaces.PossibleParseMode
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
-  caption_entities?: MessageEntity[] | Interfaces.TelegramMessageEntity[]
+  caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
    */

@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 11.06.2022 16:25:26 MSK
+/// Generation date: 12.06.2022 11:42:56 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -4283,6 +4283,8 @@ export type InputFile =
   | Record<string, any>
   | Buffer
   | Readable
+
+export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2' | 'html' | 'markdown' | 'markdownv2'>
 
 export type Currency = SoftString<'AED' | 'AFN' | 'ALL' | 'AMD' | 'ARS' | 'AUD' | 'AZN' | 'BAM' | 'BDT' | 'BGN' | 'BND' | 'BOB' | 'BRL' | 'CAD' | 'CHF' | 'CLP' | 'CNY' | 'COP' | 'CRC' | 'CZK' | 'DKK' | 'DOP' | 'DZD' | 'EGP' | 'EUR' | 'GBP' | 'GEL' | 'GTQ' | 'HKD' | 'HNL' | 'HRK' | 'HUF' | 'IDR' | 'ILS' | 'INR' | 'ISK' | 'JMD' | 'JPY' | 'KES' | 'KGS' | 'KRW' | 'KZT' | 'LBP' | 'LKR' | 'MAD' | 'MDL' | 'MNT' | 'MUR' | 'MVR' | 'MXN' | 'MYR' | 'MZN' | 'NGN' | 'NIO' | 'NOK' | 'NPR' | 'NZD' | 'PAB' | 'PEN' | 'PHP' | 'PKR' | 'PLN' | 'PYG' | 'QAR' | 'RON' | 'RSD' | 'RUB' | 'SAR' | 'SEK' | 'SGD' | 'THB' | 'TJS' | 'TRY' | 'TTD' | 'TWD' | 'TZS' | 'UAH' | 'UGX' | 'USD' | 'UYU' | 'UZS' | 'VND' | 'YER' | 'ZAR'>
 

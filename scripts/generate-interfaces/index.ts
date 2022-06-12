@@ -40,8 +40,6 @@ const undoSnakeCase = (string: string) => string.split('_').reduce(
 class InterfaceService {
   static async generate(kInterface: Types.SchemaInterface): Promise<ServiceResultInterface> {
     if (kInterface.type === 'any_of') {
-      console.log(kInterface)
-
       throw new TypeError('SchemaInterfaceAnyOf should be generated via TypeService.generate')
     }
 
@@ -375,25 +373,11 @@ class GenerationService {
 
   static generateAdditionalTypes() {
     return stripIndent`
+      export type InputFile = string | Record<string, any> | Buffer | Readable
+      export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2'>
       export type ReplyMarkupUnion =
-        | TelegramInlineKeyboardMarkup
-        | TelegramReplyKeyboardMarkup
-        | TelegramReplyKeyboardRemove
-        | TelegramForceReply
-        | Keyboard
-        | KeyboardBuilder
-        | InlineKeyboard
-        | InlineKeyboardBuilder
-        | ForceReply
-        | RemoveKeyboard
-      
-      export type InputFile =
-        | string
-        | Record<string, any>
-        | Buffer
-        | Readable
-      
-      export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2' | 'html' | 'markdown' | 'markdownv2'>
+        | TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply
+        | Keyboard | KeyboardBuilder | InlineKeyboard | InlineKeyboardBuilder | ForceReply | RemoveKeyboard
     `
   }
 

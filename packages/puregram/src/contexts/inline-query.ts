@@ -5,9 +5,11 @@ import * as Methods from '../generated/methods'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 import { InlineQuery } from '../updates/inline-query'
 
 import { Context } from './context'
+import { CloneMixin } from './mixins'
 
 interface InlineQueryContextOptions {
   telegram: Telegram
@@ -30,16 +32,6 @@ class InlineQueryContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: InlineQueryContextOptions) {
-    return new InlineQueryContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Answers to inline query */
   answerInlineQuery(
     results: Interfaces.TelegramInlineQueryResult[],
@@ -53,8 +45,8 @@ class InlineQueryContext extends Context {
   }
 }
 
-interface InlineQueryContext extends InlineQuery { }
-applyMixins(InlineQueryContext, [InlineQuery])
+interface InlineQueryContext extends Constructor<InlineQueryContext>, InlineQuery, CloneMixin<InlineQueryContext, InlineQueryContextOptions> { }
+applyMixins(InlineQueryContext, [InlineQuery, CloneMixin])
 
 inspectable(InlineQueryContext, {
   serialize(context) {

@@ -5,10 +5,11 @@ import { VideoChatStarted } from '../common/structures'
 
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface VideoChatStartedContextOptions {
   telegram: Telegram
@@ -31,24 +32,14 @@ class VideoChatStartedContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: VideoChatStartedContextOptions) {
-    return new VideoChatStartedContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Service message: video chat started */
   get videoChatStarted() {
     return new VideoChatStarted(this.payload.video_chat_started!)
   }
 }
 
-interface VideoChatStartedContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(VideoChatStartedContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface VideoChatStartedContext extends Constructor<VideoChatStartedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<VideoChatStartedContext, VideoChatStartedContextOptions> { }
+applyMixins(VideoChatStartedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatStartedContext, {
   serialize(context) {

@@ -4,11 +4,11 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { ChatMemberUpdated } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { UpdateName } from '../types/types'
+import { UpdateName, Constructor } from '../types/types'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { SendMixin, TargetMixin } from './mixins'
+import { SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface ChatMemberContextOptions {
   telegram: Telegram
@@ -32,16 +32,6 @@ class ChatMemberContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: ChatMemberContextOptions) {
-    return new ChatMemberContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Does this update have `invite_link` property? */
   get hasInviteLink() {
     return this.inviteLink !== undefined
@@ -49,8 +39,8 @@ class ChatMemberContext extends Context {
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface ChatMemberContext extends ChatMemberUpdated, TargetMixin, SendMixin { }
-applyMixins(ChatMemberContext, [ChatMemberUpdated, TargetMixin, SendMixin])
+interface ChatMemberContext extends Constructor<ChatMemberContext>, ChatMemberUpdated, TargetMixin, SendMixin, CloneMixin<ChatMemberContext, ChatMemberContextOptions> { }
+applyMixins(ChatMemberContext, [ChatMemberUpdated, TargetMixin, SendMixin, CloneMixin])
 
 inspectable(ChatMemberContext, {
   serialize(context) {

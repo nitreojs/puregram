@@ -5,10 +5,11 @@ import { VideoChatScheduled } from '../common/structures'
 
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface VideoChatScheduledContextOptions {
   telegram: Telegram
@@ -31,24 +32,14 @@ class VideoChatScheduledContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: VideoChatScheduledContextOptions) {
-    return new VideoChatScheduledContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Service message: video chat scheduled */
   get videoChatScheduled() {
     return new VideoChatScheduled(this.payload.video_chat_scheduled!)
   }
 }
 
-interface VideoChatScheduledContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(VideoChatScheduledContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface VideoChatScheduledContext extends Constructor<VideoChatScheduledContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<VideoChatScheduledContext, VideoChatScheduledContextOptions> { }
+applyMixins(VideoChatScheduledContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatScheduledContext, {
   serialize(context) {

@@ -3,11 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface GroupChatCreatedContextOptions {
   telegram: Telegram
@@ -29,20 +30,10 @@ class GroupChatCreatedContext extends Context {
 
     this.payload = options.payload
   }
-
-  clone(options?: GroupChatCreatedContextOptions) {
-    return new GroupChatCreatedContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
 }
 
-interface GroupChatCreatedContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(GroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface GroupChatCreatedContext extends Constructor<GroupChatCreatedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<GroupChatCreatedContext, GroupChatCreatedContextOptions> { }
+applyMixins(GroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(GroupChatCreatedContext, {
   serialize(context) {

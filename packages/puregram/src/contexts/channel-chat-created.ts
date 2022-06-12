@@ -4,10 +4,12 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { Message } from '../updates/'
+
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { CloneMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
 
 interface ChannelChatCreatedContextOptions {
   telegram: Telegram
@@ -30,16 +32,6 @@ class ChannelChatCreatedContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: ChannelChatCreatedContextOptions) {
-    return new ChannelChatCreatedContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Unique message identifier inside this chat */
   get id() {
     return this.payload.message_id
@@ -51,8 +43,8 @@ class ChannelChatCreatedContext extends Context {
   }
 }
 
-interface ChannelChatCreatedContext extends Message, SendMixin, TargetMixin, NodeMixin { }
-applyMixins(ChannelChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface ChannelChatCreatedContext extends Constructor<ChannelChatCreatedContext>, Message, SendMixin, TargetMixin, NodeMixin, CloneMixin<ChannelChatCreatedContext, ChannelChatCreatedContextOptions> { }
+applyMixins(ChannelChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(ChannelChatCreatedContext, {
   serialize(context) {

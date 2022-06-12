@@ -6,9 +6,10 @@ import { SuccessfulPayment } from '../common/structures'
 import { Message } from '../updates/'
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface SuccessfulPaymentContextOptions {
   telegram: Telegram
@@ -31,24 +32,14 @@ class SuccessfulPaymentContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: SuccessfulPaymentContextOptions) {
-    return new SuccessfulPaymentContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Received payment */
   get eventPayment() {
     return new SuccessfulPayment(this.payload.successful_payment!)
   }
 }
 
-interface SuccessfulPaymentContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(SuccessfulPaymentContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface SuccessfulPaymentContext extends Constructor<SuccessfulPaymentContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<SuccessfulPaymentContext, SuccessfulPaymentContextOptions> { }
+applyMixins(SuccessfulPaymentContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(SuccessfulPaymentContext, {
   serialize(context) {

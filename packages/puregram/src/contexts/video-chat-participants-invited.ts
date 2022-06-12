@@ -6,9 +6,10 @@ import { VideoChatParticipantsInvited } from '../common/structures'
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
 import { Message } from '../updates/'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface VideoChatParticipantsInvitedContextOptions {
   telegram: Telegram
@@ -31,24 +32,14 @@ class VideoChatParticipantsInvitedContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: VideoChatParticipantsInvitedContextOptions) {
-    return new VideoChatParticipantsInvitedContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Service message: new participants invited to a video chat */
   get videoChatParticipantsInvited() {
     return new VideoChatParticipantsInvited(this.payload.video_chat_participants_invited!)
   }
 }
 
-interface VideoChatParticipantsInvitedContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(VideoChatParticipantsInvitedContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface VideoChatParticipantsInvitedContext extends Constructor<VideoChatParticipantsInvitedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<VideoChatParticipantsInvitedContext, VideoChatParticipantsInvitedContextOptions> { }
+applyMixins(VideoChatParticipantsInvitedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatParticipantsInvitedContext, {
   serialize(context) {

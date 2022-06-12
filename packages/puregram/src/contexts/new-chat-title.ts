@@ -3,11 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface NewChatTitleContextOptions {
   telegram: Telegram
@@ -30,24 +31,14 @@ class NewChatTitleContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: NewChatTitleContextOptions) {
-    return new NewChatTitleContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** New chat title */
   get eventTitle() {
     return this.payload.new_chat_title!
   }
 }
 
-interface NewChatTitleContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(NewChatTitleContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface NewChatTitleContext extends Constructor<NewChatTitleContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<NewChatTitleContext, NewChatTitleContextOptions> { }
+applyMixins(NewChatTitleContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(NewChatTitleContext, {
   serialize(context) {

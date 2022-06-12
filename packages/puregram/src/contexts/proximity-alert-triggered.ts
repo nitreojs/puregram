@@ -6,9 +6,10 @@ import { ProximityAlertTriggered } from '../common/structures'
 import { Telegram } from '../telegram'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface ProximityAlertTriggeredContextOptions {
   telegram: Telegram
@@ -31,16 +32,6 @@ class ProximityAlertTriggeredContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: ProximityAlertTriggeredContextOptions) {
-    return new ProximityAlertTriggeredContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /**
    * Service message.
    * A user in the chat triggered another user's proximity alert
@@ -51,8 +42,8 @@ class ProximityAlertTriggeredContext extends Context {
   }
 }
 
-interface ProximityAlertTriggeredContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(ProximityAlertTriggeredContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface ProximityAlertTriggeredContext extends Constructor<ProximityAlertTriggeredContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<ProximityAlertTriggeredContext, ProximityAlertTriggeredContextOptions> { }
+applyMixins(ProximityAlertTriggeredContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(ProximityAlertTriggeredContext, {
   serialize(context) {

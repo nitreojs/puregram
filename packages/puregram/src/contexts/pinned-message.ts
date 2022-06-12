@@ -3,12 +3,13 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
 import { MessageContext } from './message'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface PinnedMessageContextOptions {
   telegram: Telegram
@@ -31,16 +32,6 @@ class PinnedMessageContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: PinnedMessageContextOptions) {
-    return new PinnedMessageContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Pinned message */
   get eventMessage() {
     return new MessageContext({
@@ -50,8 +41,8 @@ class PinnedMessageContext extends Context {
   }
 }
 
-interface PinnedMessageContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(PinnedMessageContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface PinnedMessageContext extends Constructor<PinnedMessageContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<PinnedMessageContext, PinnedMessageContextOptions> { }
+applyMixins(PinnedMessageContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(PinnedMessageContext, {
   serialize(context) {

@@ -3,11 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface MigrateFromChatIdContextOptions {
   telegram: Telegram
@@ -30,24 +31,14 @@ class MigrateFromChatIdContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: MigrateFromChatIdContextOptions) {
-    return new MigrateFromChatIdContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Chat ID */
   get eventId() {
     return this.payload.migrate_to_chat_id!
   }
 }
 
-interface MigrateFromChatIdContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(MigrateFromChatIdContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface MigrateFromChatIdContext extends Constructor<MigrateFromChatIdContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<MigrateFromChatIdContext, MigrateFromChatIdContextOptions> { }
+applyMixins(MigrateFromChatIdContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(MigrateFromChatIdContext, {
   serialize(context) {

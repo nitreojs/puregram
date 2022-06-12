@@ -5,9 +5,10 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { Message } from '../updates/'
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface SupergroupChatCreatedContextOptions {
   telegram: Telegram
@@ -29,20 +30,10 @@ class SupergroupChatCreatedContext extends Context {
 
     this.payload = options.payload
   }
-
-  clone(options?: SupergroupChatCreatedContextOptions) {
-    return new SupergroupChatCreatedContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
 }
 
-interface SupergroupChatCreatedContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(SupergroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface SupergroupChatCreatedContext extends Constructor<SupergroupChatCreatedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<SupergroupChatCreatedContext, SupergroupChatCreatedContextOptions> { }
+applyMixins(SupergroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(SupergroupChatCreatedContext, {
   serialize(context) {

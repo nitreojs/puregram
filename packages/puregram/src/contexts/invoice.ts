@@ -6,9 +6,10 @@ import { Invoice } from '../common/structures'
 import { Telegram } from '../telegram'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface InvoiceContextOptions {
   telegram: Telegram
@@ -31,24 +32,14 @@ class InvoiceContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: InvoiceContextOptions) {
-    return new InvoiceContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Invoice */
   get eventInvoice() {
     return new Invoice(this.payload.invoice!)
   }
 }
 
-interface InvoiceContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(InvoiceContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface InvoiceContext extends Constructor<InvoiceContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<InvoiceContext, InvoiceContextOptions> { }
+applyMixins(InvoiceContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(InvoiceContext, {
   serialize(context) {

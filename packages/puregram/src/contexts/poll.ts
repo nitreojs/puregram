@@ -4,9 +4,11 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 import { Poll } from '../updates/'
 
 import { Context } from './context'
+import { CloneMixin } from './mixins'
 
 interface PollContextOptions {
   telegram: Telegram
@@ -28,20 +30,10 @@ class PollContext extends Context {
 
     this.payload = options.payload
   }
-
-  clone(options?: PollContextOptions) {
-    return new PollContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
 }
 
-interface PollContext extends Poll { }
-applyMixins(PollContext, [Poll])
+interface PollContext extends Constructor<PollContext>, Poll, CloneMixin<PollContext, PollContextOptions> { }
+applyMixins(PollContext, [Poll, CloneMixin])
 
 inspectable(PollContext, {
   serialize(context) {

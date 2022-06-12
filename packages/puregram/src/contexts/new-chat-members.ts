@@ -6,9 +6,10 @@ import { User } from '../common/structures'
 import { Telegram } from '../telegram'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface NewChatMembersContextOptions {
   telegram: Telegram
@@ -31,16 +32,6 @@ class NewChatMembersContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: NewChatMembersContextOptions) {
-    return new NewChatMembersContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** New chat members */
   get eventMembers() {
     return this.payload.new_chat_members!.map(
@@ -49,8 +40,8 @@ class NewChatMembersContext extends Context {
   }
 }
 
-interface NewChatMembersContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(NewChatMembersContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface NewChatMembersContext extends Constructor<NewChatMembersContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<NewChatMembersContext, NewChatMembersContextOptions> { }
+applyMixins(NewChatMembersContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(NewChatMembersContext, {
   serialize(context) {

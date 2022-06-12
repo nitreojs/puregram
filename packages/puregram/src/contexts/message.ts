@@ -6,7 +6,7 @@ import { Message } from '../updates/'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
-import { AttachmentType, UpdateName } from '../types/types'
+import { AttachmentType, Constructor, UpdateName } from '../types/types'
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 import { EVENTS } from '../utils/constants'
 
@@ -25,7 +25,7 @@ import { MessageEntity } from '../common/structures'
 import { MediaGroup } from '../common/media-group'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface MessageContextOptions {
   telegram: Telegram
@@ -56,16 +56,6 @@ class MessageContext extends Context {
 
     this.#text = this.payload.text
     this.#caption = this.payload.caption
-  }
-
-  clone(options?: MessageContextOptions) {
-    return new MessageContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
   }
 
   /**
@@ -251,8 +241,8 @@ class MessageContext extends Context {
   }
 }
 
-interface MessageContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface MessageContext extends Constructor<MessageContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<MessageContext, MessageContextOptions> { }
+applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(MessageContext, {
   serialize(context) {

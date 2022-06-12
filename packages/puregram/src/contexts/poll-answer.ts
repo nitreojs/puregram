@@ -3,11 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 import { Telegram } from '../telegram'
 import { PollAnswer } from '../updates/'
 
 import { Context } from './context'
-import { SendMixin } from './mixins'
+import { SendMixin, CloneMixin } from './mixins'
 
 interface PollAnswerContextOptions {
   telegram: Telegram
@@ -29,21 +30,11 @@ class PollAnswerContext extends Context {
 
     this.payload = options.payload
   }
-
-  clone(options?: PollAnswerContextOptions) {
-    return new PollAnswerContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface PollAnswerContext extends PollAnswer, SendMixin { }
-applyMixins(PollAnswerContext, [PollAnswer, SendMixin])
+interface PollAnswerContext extends Constructor<PollAnswerContext>, PollAnswer, SendMixin, CloneMixin<PollAnswerContext, PollAnswerContextOptions> { }
+applyMixins(PollAnswerContext, [PollAnswer, SendMixin, CloneMixin])
 
 inspectable(PollAnswerContext, {
   serialize(context) {

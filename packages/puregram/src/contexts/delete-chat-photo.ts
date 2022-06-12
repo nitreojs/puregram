@@ -3,11 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface DeleteChatPhotoContextOptions {
   telegram: Telegram
@@ -29,20 +30,10 @@ class DeleteChatPhotoContext extends Context {
 
     this.payload = options.payload
   }
-
-  clone(options?: DeleteChatPhotoContextOptions) {
-    return new DeleteChatPhotoContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
 }
 
-interface DeleteChatPhotoContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(DeleteChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface DeleteChatPhotoContext extends Constructor<DeleteChatPhotoContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<DeleteChatPhotoContext, DeleteChatPhotoContextOptions> { }
+applyMixins(DeleteChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(DeleteChatPhotoContext, {
   serialize(context) {

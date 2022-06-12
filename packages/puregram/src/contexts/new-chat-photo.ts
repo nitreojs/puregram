@@ -6,9 +6,10 @@ import { PhotoSize } from '../common/structures'
 import { Telegram } from '../telegram'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface NewChatPhotoContextOptions {
   telegram: Telegram
@@ -31,16 +32,6 @@ class NewChatPhotoContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: NewChatPhotoContextOptions) {
-    return new NewChatPhotoContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** New chat photo */
   get eventPhoto() {
     return this.payload.new_chat_photo!.map(
@@ -49,8 +40,8 @@ class NewChatPhotoContext extends Context {
   }
 }
 
-interface NewChatPhotoContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(NewChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface NewChatPhotoContext extends Constructor<NewChatPhotoContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<NewChatPhotoContext, NewChatPhotoContextOptions> { }
+applyMixins(NewChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(NewChatPhotoContext, {
   serialize(context) {

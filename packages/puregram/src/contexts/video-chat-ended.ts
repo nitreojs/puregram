@@ -6,9 +6,10 @@ import { VideoChatEnded } from '../common/structures'
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
 import { Message } from '../updates/'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface VideoChatEndedContextOptions {
   telegram: Telegram
@@ -31,24 +32,14 @@ class VideoChatEndedContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: VideoChatEndedContextOptions) {
-    return new VideoChatEndedContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Service message: video chat ended */
   get videoChatEnded() {
     return new VideoChatEnded(this.payload.video_chat_ended!)
   }
 }
 
-interface VideoChatEndedContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(VideoChatEndedContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface VideoChatEndedContext extends Constructor<VideoChatEndedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<VideoChatEndedContext, VideoChatEndedContextOptions> { }
+applyMixins(VideoChatEndedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatEndedContext, {
   serialize(context) {

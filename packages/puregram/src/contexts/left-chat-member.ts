@@ -6,9 +6,10 @@ import { User } from '../common/structures'
 import { Telegram } from '../telegram'
 import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface LeftChatMemberContextOptions {
   telegram: Telegram
@@ -31,24 +32,14 @@ class LeftChatMemberContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: LeftChatMemberContextOptions) {
-    return new LeftChatMemberContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Left chat member */
   get eventMember() {
     return new User(this.payload.left_chat_member!)
   }
 }
 
-interface LeftChatMemberContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(LeftChatMemberContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface LeftChatMemberContext extends Constructor<LeftChatMemberContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<LeftChatMemberContext, LeftChatMemberContextOptions> { }
+applyMixins(LeftChatMemberContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(LeftChatMemberContext, {
   serialize(context) {

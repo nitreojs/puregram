@@ -6,10 +6,10 @@ import * as Methods from '../generated/methods'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { PreCheckoutQuery } from '../updates/'
-import { Optional } from '../types/types'
+import { Optional, Constructor } from '../types/types'
 
 import { Context } from './context'
-import { SendMixin } from './mixins'
+import { SendMixin, CloneMixin } from './mixins'
 
 interface PreCheckoutQueryContextOptions {
   telegram: Telegram
@@ -32,16 +32,6 @@ class PreCheckoutQueryContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: PreCheckoutQueryContextOptions) {
-    return new PreCheckoutQueryContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** Answers to the pending pre-checkout query */
   answerPreCheckoutQuery(params: Optional<Methods.AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>) {
     return this.telegram.api.answerPreCheckoutQuery({
@@ -52,8 +42,8 @@ class PreCheckoutQueryContext extends Context {
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface PreCheckoutQueryContext extends PreCheckoutQuery, SendMixin { }
-applyMixins(PreCheckoutQueryContext, [PreCheckoutQuery, SendMixin])
+interface PreCheckoutQueryContext extends Constructor<PreCheckoutQueryContext>, PreCheckoutQuery, SendMixin, CloneMixin<PreCheckoutQueryContext, PreCheckoutQueryContextOptions> { }
+applyMixins(PreCheckoutQueryContext, [PreCheckoutQuery, SendMixin, CloneMixin])
 
 inspectable(PreCheckoutQueryContext, {
   serialize(context) {

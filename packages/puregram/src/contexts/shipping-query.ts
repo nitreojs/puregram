@@ -4,10 +4,11 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
-import { ShippingQuery, Poll } from '../updates/'
+import { Constructor } from '../types/types'
+import { ShippingQuery } from '../updates/'
 
 import { Context } from './context'
-import { SendMixin } from './mixins'
+import { SendMixin, CloneMixin } from './mixins'
 
 interface ShippingQueryContextOptions {
   telegram: Telegram
@@ -29,21 +30,11 @@ class ShippingQueryContext extends Context {
 
     this.payload = options.payload
   }
-
-  clone(options?: ShippingQueryContextOptions) {
-    return new ShippingQueryContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface ShippingQueryContext extends ShippingQuery, SendMixin { }
-applyMixins(ShippingQueryContext, [ShippingQuery, SendMixin])
+interface ShippingQueryContext extends Constructor<ShippingQueryContext>, ShippingQuery, SendMixin, CloneMixin<ShippingQueryContext, ShippingQueryContextOptions> { }
+applyMixins(ShippingQueryContext, [ShippingQuery, SendMixin, CloneMixin])
 
 inspectable(ShippingQueryContext, {
   serialize(context) {

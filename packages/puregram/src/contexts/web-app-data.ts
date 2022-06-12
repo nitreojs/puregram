@@ -4,10 +4,11 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
+import { Constructor } from '../types/types'
 import { Message } from '../updates/'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface WebAppDataContextOptions {
   telegram: Telegram
@@ -30,16 +31,6 @@ class WebAppDataContext extends Context {
     this.payload = options.payload
   }
 
-  clone(options?: WebAppDataContextOptions) {
-    return new WebAppDataContext({
-      telegram: this.telegram,
-      payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
-      ...options
-    })
-  }
-
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
   get data() {
     return this.payload.web_app_data!.data
@@ -54,8 +45,8 @@ class WebAppDataContext extends Context {
   }
 }
 
-interface WebAppDataContext extends Message, TargetMixin, SendMixin, NodeMixin { }
-applyMixins(WebAppDataContext, [Message, TargetMixin, SendMixin, NodeMixin])
+interface WebAppDataContext extends Constructor<WebAppDataContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<WebAppDataContext, WebAppDataContextOptions> { }
+applyMixins(WebAppDataContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(WebAppDataContext, {
   serialize(context) {

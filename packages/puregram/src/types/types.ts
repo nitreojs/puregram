@@ -7,7 +7,7 @@ export type UpdateName = Exclude<keyof Known<TelegramUpdate>, 'update_id'> | Mes
 export type AttachmentType = 'animation' | 'audio' | 'document' | 'photo' | 'sticker' | 'video' | 'video_note' | 'voice'
 export type MediaAttachmentType = AttachmentType | 'media' | 'png_sticker' | 'tgs_sticker' | 'thumb'
 export type Constructor<T = {}> = new (...args: any[]) => T
-export type ApiMethod = keyof ApiMethods
+export type ApiMethod = keyof Known<ApiMethods>
 
 /** Removes `[key: string]: any;` from interface */
 export type Known<T> = {

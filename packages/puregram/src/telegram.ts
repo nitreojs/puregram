@@ -18,6 +18,7 @@ import { User } from './common/structures/user'
 import { ApiMethods } from './generated'
 import { APIError } from './errors'
 import { Updates } from './updates'
+import { ApiMethod, SoftString } from './types/types'
 
 const $debugger = debug('puregram:api')
 
@@ -29,7 +30,7 @@ if ($debugger.enabled || debug.enabled('puregram:all')) {
 
 interface APICallMethod {
   /** Use this method to invoke Telegram Bot API `method` [with prompted `params`] */
-  call: (method: string, params?: Record<string, any>) => Promise<any>
+  call: (method: SoftString<ApiMethod>, params?: Record<string, any>) => Promise<any>
 }
 
 interface APICreateAttachMediaInput {

@@ -26,7 +26,7 @@ export const isPlainObject = (object: object): object is Record<string, any> => 
   Object.prototype.toString.call(object) === '[object Object]'
 )
 
-export const filterPayload = (payload: Record<string, any>): Record<string, any> => {
+export const filterPayload = (payload: Record<string, any>) => {
   const filteredPayload: Record<string, any> = {}
 
   for (const [key, value] of Object.entries(payload)) {
@@ -49,7 +49,7 @@ export const filterPayload = (payload: Record<string, any>): Record<string, any>
   return filteredPayload
 }
 
-export const isParseable = (source: string): boolean => {
+export const isParseable = (source: string) => {
   try {
     JSON.parse(source)
   } catch (e) {
@@ -61,7 +61,7 @@ export const isParseable = (source: string): boolean => {
 
 export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-const replaceRegexpChar = (char: string): string => (
+const replaceRegexpChar = (char: string) => (
   char
     .replace(/\\/g, '\\\\')  // '\'
     .replace(/\//g, '\\/')   // '/'
@@ -75,7 +75,7 @@ const replaceRegexpChar = (char: string): string => (
     .replace(/\|/g, '\\|')   // '|'
 )
 
-export const replaceChars = (source: string, chars: string[] | string): string => {
+export const replaceChars = (source: string, chars: string[] | string) => {
   let edited: string = source
   const actualChars: string[] = !Array.isArray(chars) ? chars.split('') : chars
 
@@ -95,6 +95,7 @@ export const replaceChars = (source: string, chars: string[] | string): string =
 // https://github.com/negezor/vk-io/blob/c4db32cdd15e17e398e88fb780bbbbe0e8b61856/packages/vk-io/src/updates/helpers.ts
 export const parseRequestJSON = async (req: IncomingMessage): Promise<Record<string, any>> => {
   const chunks = []
+
   let totalSize = 0
 
   for await (const chunk of req) {

@@ -409,7 +409,6 @@ export class Updates {
 
           const mediaGroup = new MediaGroup({ id: mgId, contexts })
 
-          // INFO: had to implement `clone()` methods just because of this line :/
           // INFO: creating [MediaGroup] on top of the first context
           const context = contexts[0].clone()
           context.mediaGroup = mediaGroup

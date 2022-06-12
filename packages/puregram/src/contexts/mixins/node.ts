@@ -1,6 +1,7 @@
 import * as Interfaces from '../../generated/telegram-interfaces'
 import * as Methods from '../../generated/methods'
 
+import { InlineKeyboard, InlineKeyboardBuilder } from '../../common/keyboards'
 import { MediaInput } from '../../common/media-source'
 import { MessageId } from '../../common/structures'
 import { Optional } from '../../types/types'
@@ -302,7 +303,7 @@ class NodeMixin {
 
   /** Edits current message reply markup */
   async editMessageReplyMarkup(
-    replyMarkup: Interfaces.TelegramInlineKeyboardMarkup,
+    replyMarkup: InlineKeyboard | InlineKeyboardBuilder | Interfaces.TelegramInlineKeyboardMarkup,
     params?: Partial<Methods.EditMessageReplyMarkupParams>
   ) {
     const response = await this.telegram.api.editMessageReplyMarkup({

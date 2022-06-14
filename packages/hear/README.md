@@ -58,11 +58,3 @@ const telegram = Telegram.fromToken(process.env.TOKEN)
 
 const hearManager = new HearManager<MessageContext>()
 ```
-
-of course, you can override that later by pointing new context in `hear<T>` method:
-
-```ts
-import { CallbackQueryContext } from 'puregram'
-
-hearManager.hear<CallbackQueryContext>(/some-regexp$/i, (context) => { /* ... */ })
-```

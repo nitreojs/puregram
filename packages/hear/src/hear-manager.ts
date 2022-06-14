@@ -29,12 +29,14 @@ export class HearManager<C extends Context> {
   }
 
   get middleware(): Middleware<C & ContextMatch> {
+    this.hear(/^\/start/i, (context) => { })
+
     return (context: C & ContextMatch, next: NextMiddleware) => this.composed(context, next)
   }
 
-  hear<T = {}>(
-    hearConditions: HearConditions<C & ContextMatch & T>,
-    handler: Middleware<C & ContextMatch & T>
+  hear(
+    hearConditions: HearConditions<C & ContextMatch>,
+    handler: Middleware<C & ContextMatch>
   ) {
     const rawConditions = !Array.isArray(hearConditions)
       ? [hearConditions]
@@ -99,7 +101,7 @@ export class HearManager<C extends Context> {
     const needText = textCondition && !functionCondition
 
     this.composer.use(
-      (context: C & ContextMatch & T, next: NextMiddleware): MiddlewareReturn => {
+      (context: C & ContextMatch, next: NextMiddleware): MiddlewareReturn => {
         // @ts-expect-error
         const { text, caption } = context
 

@@ -13,7 +13,6 @@ export type HearObjectCondition<T extends Record<string, any>> =
     [P in keyof T]?: MaybeArray<HearCondition<T, T[P]>>
   }
 
-export type HearConditions<T> = (
-  MaybeArray<HearCondition<T, string | undefined>>
+export type HearConditions<T> =
+  | MaybeArray<HearCondition<T, string | undefined>>
   | MaybeArray<HearObjectCondition<T>>
-)

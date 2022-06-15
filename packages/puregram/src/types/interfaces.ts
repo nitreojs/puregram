@@ -1,6 +1,7 @@
 import { Agent } from 'undici'
 
 import { TelegramResponseParameters } from '../generated/telegram-interfaces'
+import { SoftString, UpdateName } from './types'
 
 export interface TelegramOptions {
   /** Bot's token */
@@ -14,7 +15,7 @@ export interface TelegramOptions {
    * 
    * @default []
    */
-  allowedUpdates?: string[]
+  allowedUpdates?: SoftString<UpdateName>[]
 
   /**
    * How much will library wait before retrying to get updates? In milliseconds
@@ -92,7 +93,7 @@ export interface StartPollingOptions {
    */
   dropPendingUpdates?: boolean | string[]
   /** List of the update types you want your bot to receive */
-  allowedUpdates?: string[]
+  allowedUpdates?: SoftString<UpdateName>[]
 }
 
 export type ApiResponseUnion = ApiResponseOk | ApiResponseError

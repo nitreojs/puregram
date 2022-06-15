@@ -1,7 +1,7 @@
 import { Readable } from 'node:stream'
 import { deprecate } from 'node:util'
 
-import { fetch, RequestInit, setGlobalDispatcher } from 'undici'
+import { fetch, RequestInit } from 'undici'
 import { fileFromPath } from 'formdata-node/file-from-path'
 import { FormDataEncoder } from 'form-data-encoder'
 import { File, FormData } from 'formdata-node'
@@ -286,9 +286,8 @@ export class Telegram {
       signal: controller.signal
     }
 
-    // FIXME: not sure about this! need to figure out how to safely update a dispatcher without setting it globally
     if (this.options.agent !== undefined) {
-      setGlobalDispatcher(this.options.agent)
+      init.dispatcher = this.options.agent
     }
 
     // INFO: ---- detecting media methods ----

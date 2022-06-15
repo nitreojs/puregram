@@ -463,7 +463,7 @@ export class Updates {
         }
 
         // INFO: clearing out original [updates]
-        updates = updates.filter(update => !mediaGroupIds.includes(getMessage(update).media_group_id!))
+        updates = updates.filter(update => !mediaGroupIdsMap.has(getMessage(update).media_group_id!))
       }
     }
 

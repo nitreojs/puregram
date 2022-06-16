@@ -220,6 +220,8 @@ export class Telegram {
       throw new TypeError('expected media to be created via `MediaSource`')
     }
 
+    this.#log!('%s: <%s>(%s)', params.key, media.type, media.value)
+
     // INFO: we don't need to generate `attach://` clause if we are working with file IDs
     if (media.type === MediaSourceType.FileId) {
       params.input[params.key] = media.value
@@ -256,12 +258,8 @@ export class Telegram {
 
       // INFO: [thumb] property might exist and we need to also handle it
       if (input.thumb !== undefined) {
-        this.#log!('%s: <%s>(%s)', 'thumb', input.type, input.value)
-
         await this.createAttachMediaInput({ fd, input, key: 'thumb' })
       }
-
-      this.#log!('%s: <%s>(%s)', 'media', input.type, input.value)
 
       await this.createAttachMediaInput({ fd, input, key: 'media' })
     }

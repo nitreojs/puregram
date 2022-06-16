@@ -6,12 +6,12 @@ import { fileFromPath } from 'formdata-node/file-from-path'
 import { FormDataEncoder } from 'form-data-encoder'
 import { File, FormData } from 'formdata-node'
 import { inspectable } from 'inspectable'
-import { debug } from 'debug'
+import { debug, Debugger } from 'debug'
 
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
 
-import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput } from './utils/helpers'
+import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, updateDebugFlags } from './utils/helpers'
 import { MediaInput, MediaSourceType } from './common/media-source'
 import { User } from './common/structures/user'
 
@@ -23,9 +23,7 @@ import { ApiMethod, SoftString } from './types/types'
 const $debugger = debug('puregram:api')
 
 if ($debugger.enabled || debug.enabled('puregram:all')) {
-  const namespaces = debug.disable()
-
-  debug.enable(`${namespaces},puregram:api/*`)
+  updateDebugFlags(['puregram:api/*', 'puregram:api/*:*'])
 }
 
 interface APICallMethod {
@@ -46,6 +44,8 @@ type ProxyAPIMethods = ApiMethods & APICallMethod
  */
 export class Telegram {
   options: TelegramOptions = { ...DEFAULT_OPTIONS }
+
+  #log: Debugger | undefined
 
   /**
    * API Proxy object
@@ -195,6 +195,8 @@ export class Telegram {
         throw new TypeError('expected media to be created via `MediaSource`')
       }
 
+      this.#log!('[%s]: <%s>(%s)', key, input.type, input.value)
+
       const fdValue = await this.createMediaInput(input)
 
       fd.set(key, fdValue)
@@ -231,6 +233,8 @@ export class Telegram {
     } else {
       const attachId = generateAttachId()
 
+      this.#log!('\'attach://%s\': <%s>(%s)', attachId, media.type, media.value)
+
       const fdValue = await this.createMediaInput(media)
 
       params.fd.set(attachId, fdValue)
@@ -252,8 +256,12 @@ export class Telegram {
 
       // INFO: [thumb] property might exist and we need to also handle it
       if (input.thumb !== undefined) {
+        this.#log!('%s: <%s>(%s)', 'thumb', input.type, input.value)
+
         await this.createAttachMediaInput({ fd, input, key: 'thumb' })
       }
+
+      this.#log!('%s: <%s>(%s)', 'media', input.type, input.value)
 
       await this.createAttachMediaInput({ fd, input, key: 'media' })
     }
@@ -279,7 +287,7 @@ export class Telegram {
     const url = `${this.options.apiBaseUrl}${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${path}?${query}`
 
     const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), this.options.apiTimeout)
+    const timeout = setTimeout(controller.abort, this.options.apiTimeout)
 
     let init: RequestInit = {
       method: 'GET',
@@ -290,46 +298,54 @@ export class Telegram {
       init.dispatcher = this.options.agent
     }
 
-    // INFO: ---- detecting media methods ----
-
-    // INFO: [sendMediaGroup] and [editMessageMedia] requires special logic
-    if (['sendMediaGroup', 'editMessageMedia'].includes(path)) {
-      const newInit = await this.uploadWithMedia(params)
-
-      init = {
-        ...init,
-        ...newInit
-      }
-    } else {
-      const mediaEntity = METHODS_WITH_MEDIA.find(entity => entity[0] === path)
-
-      const hasMediaProperties = mediaEntity !== undefined && (
-        Object.keys(params).some(value => mediaEntity[1].includes(value))
-      )
-
-      // INFO: if current [path] is a method with possible media properties
-      // INFO: and we have those media properties in our [params] (not [decomplexified]!) object
-      if (hasMediaProperties) {
-        const newInit = await this.uploadMedia(params, mediaEntity)
-
-        init = {
-          ...init,   // INFO: saving [signal] since we don't have access to it in [uploadMedia]
-          ...newInit
-        }
-      }
-    }
-
     const debug_api = $debugger.extend(path, '/')
 
+    this.#log = debug_api.extend('formdata')
+
+    if (debug_api.enabled && !this.#log.enabled) {
+      updateDebugFlags([this.#log.namespace])
+    }
+
     try {
-      debug_api('HTTP »')
+      debug_api('HTTP ›')
       debug_api('url: %s', url.replace(this.options.token!, '[token]'))
       debug_api('params: %j', decomplexified)
+
+      // INFO: ---- detecting media methods ----
+
+      // INFO: [sendMediaGroup] and [editMessageMedia] requires special logic
+      if (['sendMediaGroup', 'editMessageMedia'].includes(path)) {
+        const newInit = await this.uploadWithMedia(params)
+
+        init = {
+          ...init,
+          ...newInit
+        }
+      } else {
+        const mediaEntity = METHODS_WITH_MEDIA.find(entity => entity[0] === path)
+
+        const hasMediaProperties = mediaEntity !== undefined && (
+          Object.keys(params).some(value => mediaEntity[1].includes(value))
+        )
+
+        // INFO: if current [path] is a method with possible media properties
+        // INFO: and we have those media properties in our [params] (not [decomplexified]!) object
+        if (hasMediaProperties) {
+          const newInit = await this.uploadMedia(params, mediaEntity)
+
+          init = {
+            ...init,   // INFO: saving [signal] since we don't have access to it in [uploadMedia]
+            ...newInit
+          }
+        }
+      }
+
+      this.#log = undefined
 
       const response = await fetch(url, init)
       const json = await response.json() as ApiResponseUnion
 
-      debug_api('« HTTP %d', response.status)
+      debug_api('‹ HTTP %d', response.status)
       debug_api('response: %j', json)
 
       if (!json.ok) {

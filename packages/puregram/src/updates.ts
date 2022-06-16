@@ -21,7 +21,7 @@ import { GetUpdatesParams } from './generated/methods'
 import { Constructor, UpdateName, MessageEventName, MaybeArray, Known } from './types/types'
 import { StartPollingOptions } from './types/interfaces'
 
-import { delay, parseRequestJSON } from './utils/helpers'
+import { delay, parseRequestJSON, updateDebugFlags } from './utils/helpers'
 
 import { TelegramError } from './errors'
 import { Telegram } from './telegram'
@@ -31,9 +31,7 @@ type ContextConstructor = Constructor<Contexts.Context>
 const $debugger = debug('puregram:updates')
 
 if ($debugger.enabled || debug.enabled('puregram:all')) {
-  const namespaces = debug.disable()
-
-  debug.enable(`${namespaces},puregram:updates:*`)
+  updateDebugFlags(['puregram:updates:*'])
 }
 
 const debug_startPolling = $debugger.extend('startPolling')

@@ -2,6 +2,8 @@ import { IncomingMessage } from 'node:http'
 import { randomBytes } from 'node:crypto'
 import { PassThrough, Readable } from 'node:stream'
 
+import { debug } from 'debug'
+
 import { MediaInput, MediaSourceType } from '../common/media-source'
 
 export const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
@@ -163,4 +165,10 @@ export const convertStreamToBuffer = async (rawStream: Readable) => {
   }
 
   return Buffer.concat(chunks, size)
+}
+
+export const updateDebugFlags = (additional: string[]) => {
+  const namespaces = debug.disable()
+
+  debug.enable([namespaces, ...additional].join(','))
 }

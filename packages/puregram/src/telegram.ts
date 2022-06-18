@@ -45,8 +45,6 @@ type ProxyAPIMethods = ApiMethods & APICallMethod
 export class Telegram {
   options: TelegramOptions = { ...DEFAULT_OPTIONS }
 
-  #log: Debugger | undefined
-
   /**
    * API Proxy object
    *
@@ -195,8 +193,6 @@ export class Telegram {
         throw new TypeError('expected media to be created via `MediaSource`')
       }
 
-      this.#log!('[%s]: <%s>(%s)', key, input.type, input.value)
-
       const fdValue = await this.createMediaInput(input)
 
       fd.set(key, fdValue)
@@ -220,8 +216,6 @@ export class Telegram {
       throw new TypeError('expected media to be created via `MediaSource`')
     }
 
-    this.#log!('%s: <%s>(%s)', params.key, media.type, media.value)
-
     // INFO: we don't need to generate `attach://` clause if we are working with file IDs
     if (media.type === MediaSourceType.FileId) {
       params.input[params.key] = media.value
@@ -234,8 +228,6 @@ export class Telegram {
       // INFO: otherwise...
     } else {
       const attachId = generateAttachId()
-
-      this.#log!('\'attach://%s\': <%s>(%s)', attachId, media.type, media.value)
 
       const fdValue = await this.createMediaInput(media)
 
@@ -298,12 +290,6 @@ export class Telegram {
 
     const debug_api = $debugger.extend(path, '/')
 
-    this.#log = debug_api.extend('formdata')
-
-    if (debug_api.enabled && !this.#log.enabled) {
-      updateDebugFlags([this.#log.namespace])
-    }
-
     try {
       debug_api('HTTP ›')
       debug_api('url: %s', url.replace(this.options.token!, '[token]'))
@@ -337,8 +323,6 @@ export class Telegram {
           }
         }
       }
-
-      this.#log = undefined
 
       const response = await fetch(url, init)
       const json = await response.json() as ApiResponseUnion

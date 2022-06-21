@@ -89,6 +89,25 @@ export class Chat {
   }
 
   /**
+   * `true`, if users need to join the supergroup before they can send messages.
+   * 
+   * Returned only in `getChat`.
+   */
+  get joinToSendMessages() {
+    return this.payload.join_to_send_messages as true | undefined
+  }
+
+  /**
+   * `true`, if all users directly joining the supergroup need to be approved
+   * by supergroup administrators.
+   * 
+   * Returned only in `getChat`.
+   */
+  get joinByRequest() {
+    return this.payload.join_by_request as true | undefined
+  }
+
+  /**
    * For supergroups, the location to which the supergroup is connected
    * 
    * Returned only in `getChat`.
@@ -225,13 +244,19 @@ inspectable(Chat, {
       firstName: struct.firstName,
       lastName: struct.lastName,
       photo: struct.photo,
+      bio: struct.bio,
+      hasPrivateForwards: struct.hasPrivateForwards,
+      joinToSendMessages: struct.joinToSendMessages,
+      joinByRequest: struct.joinByRequest,
+      location: struct.location,
       description: struct.description,
       inviteLink: struct.inviteLink,
       pinnedMessage: struct.pinnedMessage,
       permissions: struct.permissions,
       slowModeDelay: struct.slowModeDelay,
       stickerSetName: struct.stickerSetName,
-      canSetStickerSet: struct.canSetStickerSet
+      canSetStickerSet: struct.canSetStickerSet,
+      linkedChatId: struct.linkedChatId
     }
 
     return filterPayload(payload)

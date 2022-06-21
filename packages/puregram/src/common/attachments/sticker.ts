@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
-import { PhotoSize, MaskPosition } from '../structures'
+import { PhotoSize, MaskPosition, File } from '../structures'
 
 import { FileAttachment } from './file-attachment'
 
@@ -49,6 +49,17 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   /** Name of the sticker set to which the sticker belongs */
   get setName() {
     return this.payload.set_name
+  }
+
+  /** Premium animation for the sticker, if the sticker is premium */
+  get premiumAnimation() {
+    const { premium_animation } = this.payload
+
+    if (!premium_animation) {
+      return
+    }
+
+    return new File(premium_animation)
   }
 
   /** For mask stickers, the position where the mask should be placed */

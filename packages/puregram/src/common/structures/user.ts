@@ -44,6 +44,16 @@ export class User {
     return this.payload.language_code
   }
 
+  /** `true`, if this user is a Telegram Premium user */
+  get isPremium() {
+    return this.payload.is_premium as true | undefined
+  }
+
+  /** `true`, if this user added the bot to the attachment menu */
+  get addedToAttachmentMenu() {
+    return this.payload.added_to_attachment_menu as true | undefined
+  }
+
   /**
    * `true`, if the bot can be invited to groups.
    *

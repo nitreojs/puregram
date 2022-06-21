@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.0.0, 16.04.2022
-/// Generation date: 12.06.2022 11:42:56 MSK
+/// Based on Bot API v6.1.0, 20.06.2022
+/// Generation date: 21.06.2022 18:35:57 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -46,7 +46,7 @@ export type getUpdates = (params?: GetUpdatesParams) => Promise<Interfaces.Teleg
 
 export interface SetWebhookParams {
   /**
-   * HTTPS url to send updates to. Use an empty string to remove webhook integration
+   * HTTPS URL to send updates to. Use an empty string to remove webhook integration
    */
   url: string
   /**
@@ -58,7 +58,7 @@ export interface SetWebhookParams {
    */
   ip_address?: string
   /**
-   * Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to *40*. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.
+   * The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to *40*. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.
    */
   max_connections?: number
   /**
@@ -70,14 +70,18 @@ export interface SetWebhookParams {
    * Pass *True* to drop all pending updates
    */
   drop_pending_updates?: boolean
+  /**
+   * A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed. The header is useful to ensure that the request comes from a webhook set by you.
+   */
+  secret_token?: string
 
   [key: string]: any
 }
 
 /**
- * Use this method to specify a url and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized [Update](https://core.telegram.org/bots/api/#update). In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns *True* on success.
+ * Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized [Update](https://core.telegram.org/bots/api/#update). In case of an unsuccessful request, we will give up after a reasonable amount of attempts. Returns *True* on success.
  * 
- * If you'd like to make sure that the Webhook request comes from Telegram, we recommend using a secret path in the URL, e.g. `https://www.example.com/<token>`. Since nobody else knows your bot's token, you can be pretty sure it's us.
+ * If you'd like to make sure that the webhook was set by you, you can specify secret data in the parameter *secret\_token*. If specified, the request will contain a header “X-Telegram-Bot-Api-Secret-Token” with the secret token as content.
  * 
  * ---
  * 
@@ -291,7 +295,7 @@ export interface SendPhotoParams {
    */
   chat_id: number | string
   /**
-   * Photo to send. Pass a file\_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Photo to send. Pass a file\_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   photo: MediaInput
   /**
@@ -345,7 +349,7 @@ export interface SendAudioParams {
    */
   chat_id: number | string
   /**
-   * Audio file to send. Pass a file\_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Audio file to send. Pass a file\_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   audio: MediaInput
   /**
@@ -373,7 +377,7 @@ export interface SendAudioParams {
    */
   title?: string
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -417,11 +421,11 @@ export interface SendDocumentParams {
    */
   chat_id: number | string
   /**
-   * File to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   document: MediaInput
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -479,7 +483,7 @@ export interface SendVideoParams {
    */
   chat_id: number | string
   /**
-   * Video to send. Pass a file\_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Video to send. Pass a file\_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   video: MediaInput
   /**
@@ -495,7 +499,7 @@ export interface SendVideoParams {
    */
   height?: number
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -539,7 +543,7 @@ export interface SendVideoParams {
 }
 
 /**
- * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as [Document](https://core.telegram.org/bots/api/#document)). On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
+ * Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as [Document](https://core.telegram.org/bots/api/#document)). On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
  * 
  * ---
  * 
@@ -553,7 +557,7 @@ export interface SendAnimationParams {
    */
   chat_id: number | string
   /**
-   * Animation to send. Pass a file\_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Animation to send. Pass a file\_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   animation: MediaInput
   /**
@@ -569,7 +573,7 @@ export interface SendAnimationParams {
    */
   height?: number
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -623,7 +627,7 @@ export interface SendVoiceParams {
    */
   chat_id: number | string
   /**
-   * Audio file to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Audio file to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   voice: MediaInput
   /**
@@ -681,7 +685,7 @@ export interface SendVideoNoteParams {
    */
   chat_id: number | string
   /**
-   * Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Sending video notes by a URL is currently unsupported
+   * Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Sending video notes by a URL is currently unsupported
    */
   video_note: MediaInput
   /**
@@ -693,7 +697,7 @@ export interface SendVideoNoteParams {
    */
   length?: number
   /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -721,7 +725,7 @@ export interface SendVideoNoteParams {
 }
 
 /**
- * As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
+ * As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
  * 
  * ---
  * 
@@ -859,7 +863,7 @@ export interface EditMessageLiveLocationParams {
    */
   heading?: number
   /**
-   * Maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+   * The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
    */
   proximity_alert_radius?: number
   /**
@@ -1221,7 +1225,7 @@ export type getUserProfilePhotos = (params: GetUserProfilePhotosParams) => Promi
 
 export interface GetFileParams {
   /**
-   * File identifier to get info about
+   * File identifier to get information about
    */
   file_id: string
 
@@ -1229,7 +1233,7 @@ export interface GetFileParams {
 }
 
 /**
- * Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a [File](https://core.telegram.org/bots/api/#file) object is returned. The file can then be downloaded via the link `https://api.telegram.org/file/bot<token>/<file_path>`, where `<file_path>` is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling [getFile](https://core.telegram.org/bots/api/#getfile) again.
+ * Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a [File](https://core.telegram.org/bots/api/#file) object is returned. The file can then be downloaded via the link `https://api.telegram.org/file/bot<token>/<file_path>`, where `<file_path>` is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling [getFile](https://core.telegram.org/bots/api/#getfile) again.
  * 
  * ---
  * 
@@ -1513,7 +1517,7 @@ export interface CreateChatInviteLinkParams {
    */
   expire_date?: number
   /**
-   * Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+   * The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
   member_limit?: number
   /**
@@ -1551,7 +1555,7 @@ export interface EditChatInviteLinkParams {
    */
   expire_date?: number
   /**
-   * Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+   * The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
   member_limit?: number
   /**
@@ -1935,7 +1939,7 @@ export interface AnswerCallbackQueryParams {
    */
   show_alert?: boolean
   /**
-   * URL that will be opened by the user's client. If you have created a [Game](https://core.telegram.org/bots/api/#game) and accepted the conditions via [@Botfather](https://t.me/botfather), specify the URL that opens your game — note that this will only work if the query comes from a [*callback\_game*](https://core.telegram.org/bots/api/#inlinekeyboardbutton) button.  
+   * URL that will be opened by the user's client. If you have created a [Game](https://core.telegram.org/bots/api/#game) and accepted the conditions via [@BotFather](https://t.me/botfather), specify the URL that opens your game - note that this will only work if the query comes from a [*callback\_game*](https://core.telegram.org/bots/api/#inlinekeyboardbutton) button.  
    * 
    * Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
    */
@@ -1951,7 +1955,7 @@ export interface AnswerCallbackQueryParams {
 /**
  * Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
  * 
- * Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@Botfather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
+ * Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@BotFather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
  * 
  * ---
  * 
@@ -2323,7 +2327,7 @@ export interface SendStickerParams {
    */
   chat_id: number | string
   /**
-   * Sticker to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Sticker to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   sticker: MediaInput
   /**
@@ -2383,7 +2387,7 @@ export interface UploadStickerFileParams {
    */
   user_id: number
   /**
-   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   png_sticker: MediaInput
 
@@ -2405,7 +2409,7 @@ export interface CreateNewStickerSetParams {
    */
   user_id: number
   /**
-   * Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., *animals*). Can contain only english letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in `"_by_<bot_username>"`. `<bot_username>` is case insensitive. 1-64 characters.
+   * Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., *animals*). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in `"_by_<bot_username>"`. `<bot_username>` is case insensitive. 1-64 characters.
    */
   name: string
   /**
@@ -2413,7 +2417,7 @@ export interface CreateNewStickerSetParams {
    */
   title: string
   /**
-   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   png_sticker?: MediaInput
   /**
@@ -2459,7 +2463,7 @@ export interface AddStickerToSetParams {
    */
   name: string
   /**
-   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   png_sticker?: MediaInput
   /**
@@ -2541,7 +2545,7 @@ export interface SetStickerSetThumbParams {
    */
   user_id: number
   /**
-   * A **PNG** image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a **TGS** animation with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements, or a **WEBM** video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More info on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Animated sticker set thumbnails can't be uploaded via HTTP URL.
+   * A **PNG** image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a **TGS** animation with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements, or a **WEBM** video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Animated sticker set thumbnails can't be uploaded via HTTP URL.
    */
   thumb?: MediaInput
 
@@ -2642,7 +2646,7 @@ export interface SendInvoiceParams {
    */
   payload: string
   /**
-   * Payments provider token, obtained via [Botfather](https://t.me/botfather)
+   * Payment provider token, obtained via [@BotFather](https://t.me/botfather)
    */
   provider_token: string
   /**
@@ -2666,7 +2670,7 @@ export interface SendInvoiceParams {
    */
   start_parameter?: string
   /**
-   * A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+   * JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
    */
   provider_data?: string
   /**
@@ -2674,7 +2678,7 @@ export interface SendInvoiceParams {
    */
   photo_url?: string
   /**
-   * Photo size
+   * Photo size in bytes
    */
   photo_size?: number
   /**
@@ -2702,11 +2706,11 @@ export interface SendInvoiceParams {
    */
   need_shipping_address?: boolean
   /**
-   * Pass *True*, if user's phone number should be sent to provider
+   * Pass *True*, if the user's phone number should be sent to provider
    */
   send_phone_number_to_provider?: boolean
   /**
-   * Pass *True*, if user's email address should be sent to provider
+   * Pass *True*, if the user's email address should be sent to provider
    */
   send_email_to_provider?: boolean
   /**
@@ -2745,6 +2749,100 @@ export interface SendInvoiceParams {
  * [**Documentation**](https://core.telegram.org/bots/api/#sendinvoice)
  */
 export type sendInvoice = (params: SendInvoiceParams) => Promise<Interfaces.TelegramMessage>
+
+export interface CreateInvoiceLinkParams {
+  /**
+   * Product name, 1-32 characters
+   */
+  title: string
+  /**
+   * Product description, 1-255 characters
+   */
+  description: string
+  /**
+   * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
+   */
+  payload: string
+  /**
+   * Payment provider token, obtained via [BotFather](https://t.me/botfather)
+   */
+  provider_token: string
+  /**
+   * Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies)
+   */
+  currency: Interfaces.Currency
+  /**
+   * Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+   */
+  prices: Interfaces.TelegramLabeledPrice[]
+  /**
+   * The maximum accepted amount for tips in the *smallest units* of the currency (integer, **not** float/double). For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`. See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json), it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+   */
+  max_tip_amount?: number
+  /**
+   * A JSON-serialized array of suggested amounts of tips in the *smallest units* of the currency (integer, **not** float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed *max\_tip\_amount*.
+   */
+  suggested_tip_amounts?: number[]
+  /**
+   * JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+   */
+  provider_data?: string
+  /**
+   * URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.
+   */
+  photo_url?: string
+  /**
+   * Photo size in bytes
+   */
+  photo_size?: number
+  /**
+   * Photo width
+   */
+  photo_width?: number
+  /**
+   * Photo height
+   */
+  photo_height?: number
+  /**
+   * Pass *True*, if you require the user's full name to complete the order
+   */
+  need_name?: boolean
+  /**
+   * Pass *True*, if you require the user's phone number to complete the order
+   */
+  need_phone_number?: boolean
+  /**
+   * Pass *True*, if you require the user's email address to complete the order
+   */
+  need_email?: boolean
+  /**
+   * Pass *True*, if you require the user's shipping address to complete the order
+   */
+  need_shipping_address?: boolean
+  /**
+   * Pass *True*, if the user's phone number should be sent to the provider
+   */
+  send_phone_number_to_provider?: boolean
+  /**
+   * Pass *True*, if the user's email address should be sent to the provider
+   */
+  send_email_to_provider?: boolean
+  /**
+   * Pass *True*, if the final price depends on the shipping method
+   */
+  is_flexible?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to create a link for an invoice. Returns the created invoice link as *String* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#createinvoicelink)
+ */
+export type createInvoiceLink = (params: CreateInvoiceLinkParams) => Promise<string>
 
 export interface AnswerShippingQueryParams {
   /**
@@ -2832,7 +2930,7 @@ export interface SendGameParams {
    */
   chat_id: number
   /**
-   * Short name of the game, serves as the unique identifier for the game. Set up your games via [Botfather](https://t.me/botfather).
+   * Short name of the game, serves as the unique identifier for the game. Set up your games via [@BotFather](https://t.me/botfather).
    */
   game_short_name: string
   /**
@@ -2934,7 +3032,7 @@ export interface GetGameHighScoresParams {
 /**
  * Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. On success, returns an *Array* of [GameHighScore](https://core.telegram.org/bots/api/#gamehighscore) objects.
  * 
- * This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change.
+ * This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change.
  * 
  * ---
  * 

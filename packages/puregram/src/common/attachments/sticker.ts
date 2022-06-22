@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
+import { AttachmentType } from '../../types/types'
 
 import { PhotoSize, MaskPosition, File } from '../structures'
 
@@ -8,7 +9,7 @@ import { FileAttachment } from './file-attachment'
 
 /** This object represents a sticker. */
 export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker> {
-  attachmentType: 'sticker' = 'sticker'
+  attachmentType: AttachmentType = 'sticker'
 
   /** Sticker width */
   get width() {

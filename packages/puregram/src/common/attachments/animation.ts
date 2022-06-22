@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
+import { AttachmentType } from '../../types/types'
 
 import { PhotoSize } from '../structures'
 
@@ -11,7 +12,7 @@ import { FileAttachment } from './file-attachment'
  * (GIF or H.264/MPEG-4 AVC video without sound).
  */
 export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnimation> {
-  attachmentType: 'animation' = 'animation'
+  attachmentType: AttachmentType = 'animation'
 
   /** Video width as defined by sender */
   get width() {

@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
+import { AttachmentType } from '../../types/types'
 
 import { PhotoSize } from '../structures'
 
@@ -11,7 +12,7 @@ import { FileAttachment } from './file-attachment'
  * clients.
  */
 export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
-  attachmentType: 'audio' = 'audio'
+  attachmentType: AttachmentType = 'audio'
 
   /** Duration of the audio in seconds as defined by sender */
   get duration() {

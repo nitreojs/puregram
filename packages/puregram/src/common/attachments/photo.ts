@@ -1,4 +1,5 @@
 import { inspectable } from 'inspectable'
+import { AttachmentType } from '../../types/types'
 
 import { PhotoSize } from '../structures'
 
@@ -10,7 +11,7 @@ export class PhotoAttachment extends Attachment {
 
   private readonly sorted: PhotoSize[]
 
-  attachmentType: 'photo' = 'photo'
+  attachmentType: AttachmentType = 'photo'
 
   constructor(payload: PhotoSize[]) {
     super()

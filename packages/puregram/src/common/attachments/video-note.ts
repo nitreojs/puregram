@@ -1,6 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
+import { AttachmentType } from '../../types/types'
 
 import { PhotoSize } from '../structures'
 
@@ -8,7 +9,7 @@ import { FileAttachment } from './file-attachment'
 
 /** This object represents a video message. */
 export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideoNote> {
-  attachmentType: 'video_note' = 'video_note'
+  attachmentType: AttachmentType = 'video_note'
 
   /**
    * Video width and height (diameter of the video message) as defined by

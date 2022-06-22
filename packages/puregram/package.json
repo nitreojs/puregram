@@ -1,6 +1,6 @@
 {
   "name": "puregram",
-  "version": "2.8.0-proper",
+  "version": "2.8.1",
   "description": "powerful and modern telegram bot api sdk for node.js and typescript 😁",
   "main": "./lib/index.js",
   "author": "nitrojs",

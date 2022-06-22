@@ -8,7 +8,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
 import { AttachmentType, Constructor, UpdateName } from '../types/types'
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
-import { EVENTS } from '../utils/constants'
+import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 
 import {
   AnimationAttachment,
@@ -190,9 +190,12 @@ class MessageContext extends Context {
 
   /** Is this message an event? */
   get isEvent() {
-    return EVENTS.some(
-      event => Boolean(this[event[0] as keyof Message])
-    )
+    return EVENTS.some(event => this[event[0]] !== undefined)
+  }
+
+  /** Is this message a service one? */
+  get isServiceMessage() {
+    return SERVICE_MESSAGE_EVENTS.some(event => this.payload[event] !== undefined)
   }
 
   /** Event type */

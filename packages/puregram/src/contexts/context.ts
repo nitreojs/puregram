@@ -3,7 +3,8 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { MaybeArray, UpdateName } from '../types/types'
+import { MaybeArray, SoftString, UpdateName } from '../types/types'
+import { SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 
 interface ContextOptions {
   telegram: Telegram
@@ -30,10 +31,14 @@ export class Context {
     return this.constructor.name
   }
 
-  is(rawTypes: MaybeArray<UpdateName | string>) {
+  is(rawTypes: MaybeArray<SoftString<UpdateName>>) {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes]
+
+    if (types.includes('service_message')) {
+      types.push(...SERVICE_MESSAGE_EVENTS)
+    }
 
     return types.includes(this.updateType)
   }

@@ -4,13 +4,21 @@ import { UpdateType } from '../../packages/puregram/src'
 
 const UDPATES_PATH = `${__dirname}/../../packages/puregram/src/updates.ts`
 
-const getContext = (key: string, value: string) => (
-  ['edited_message', 'channel_post', 'edited_channel_post'].includes(value)
-    ? 'MessageContext'
-    : value === 'my_chat_member'
-      ? 'ChatMemberContext'
-      : `${key}Context`
-)
+const getContext = (key: string, value: string) => {
+  if (['edited_message', 'channel_post', 'edited_channel_post'].includes(value)) {
+    return 'MessageContext'
+  }
+
+  if (value === 'my_chat_member') {
+    return 'ChatMemberContext'
+  }
+
+  if (value === 'service_message') {
+    return 'MessageContext'
+  }
+
+  return `${key}Context`
+}
 
 const main = async () => {
   let updatesTsContent = await readFile(UDPATES_PATH, 'utf8')

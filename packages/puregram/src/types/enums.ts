@@ -62,5 +62,6 @@ export enum UpdateType {
   WebAppData = 'web_app_data',
   ChatJoinRequest = 'chat_join_request',
   ProximityAlertTriggered = 'proximity_alert_triggered',
-  PassportData = 'passport_data'
+  PassportData = 'passport_data',
+  ServiceMessage = 'service_message'
 }

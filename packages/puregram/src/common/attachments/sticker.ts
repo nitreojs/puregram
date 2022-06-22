@@ -51,6 +51,11 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
     return this.payload.set_name
   }
 
+  /** Is this sticker a premium one? */
+  get isPremium() {
+    return this.premiumAnimation !== undefined
+  }
+
   /** Premium animation for the sticker, if the sticker is premium */
   get premiumAnimation() {
     const { premium_animation } = this.payload

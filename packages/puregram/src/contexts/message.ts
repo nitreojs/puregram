@@ -264,10 +264,10 @@ class MessageContext extends Context {
   getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
   getAttachments(type?: any): Attachment[] {
     if (type === undefined) {
-      return this.attachments
+      return [this.attachment!]
     }
 
-    return this.attachments.filter(attachment => attachment.attachmentType === type)
+    return this.attachment?.attachmentType === type ? [this.attachment!] : []
   }
 
   /** @deprecated use `isForwarded` instead */

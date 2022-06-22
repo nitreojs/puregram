@@ -14,9 +14,13 @@ import {
   AnimationAttachment,
   Attachment,
   AudioAttachment,
+  ContactAttachment,
   DocumentAttachment,
+  LocationAttachment,
   PhotoAttachment,
+  PollAttachment,
   StickerAttachment,
+  VenueAttachment,
   VideoAttachment,
   VideoNoteAttachment,
   VoiceAttachment
@@ -69,6 +73,11 @@ class MessageContext extends Context {
     this.#text = text
   }
 
+  /** Checks if the message has `text` property */
+  get hasText() {
+    return this.text !== undefined
+  }
+
   /**
    * Caption for the animation, audio, document, photo, video or voice,
    * 0-1024 characters
@@ -79,6 +88,11 @@ class MessageContext extends Context {
 
   set caption(caption) {
     this.#caption = caption
+  }
+
+  /** Checks if the message has `caption` property */
+  get hasCaption() {
+    return this.caption !== undefined
   }
 
   /** Checks if the message has `dice` property */
@@ -106,9 +120,9 @@ class MessageContext extends Context {
     return payload
   }
 
-  /** Checks if the message has `text` property */
-  get hasText() {
-    return this.text !== undefined
+  /** Does this message have start payload? */
+  get hasStartPayload() {
+    return this.startPayload !== undefined
   }
 
   /** Checks if the message has `author_signature` property */
@@ -125,11 +139,6 @@ class MessageContext extends Context {
     return this.entities.some(entity => entity.type === type)
   }
 
-  /** Checks if the message has `caption` property */
-  get hasCaption() {
-    return this.caption !== undefined
-  }
-
   /** Checks if there are any caption entities (with specified type) */
   hasCaptionEntities(type?: EntityType | MessageEntity['type']) {
     if (type === undefined) {
@@ -144,33 +153,106 @@ class MessageContext extends Context {
     return this.mediaGroupId !== undefined
   }
 
-  /** Message attachments */
-  get attachments() {
-    const attachments: Attachment[] = []
-
-    if (this.audio) attachments.push(this.audio)
-    if (this.document) attachments.push(this.document)
-    if (this.animation) attachments.push(this.animation)
-    if (this.photo) attachments.push(new PhotoAttachment(this.photo))
-    if (this.sticker) attachments.push(this.sticker)
-    if (this.video) attachments.push(this.video)
-    if (this.voice) attachments.push(this.voice)
-    if (this.videoNote) attachments.push(this.videoNote)
-    if (this.venue) attachments.push(this.venue)
-
-    return attachments
-  }
-
-  /** Checks if there are attachments */
-  hasAttachments(type?: AttachmentType | AttachmentTypeEnum) {
-    if (type === undefined) {
-      return this.attachments.length > 0
+  /** Message attachment */
+  get attachment() {
+    if (this.photo) {
+      return new PhotoAttachment(this.photo)
     }
 
-    return this.attachments.some(attachment => attachment.attachmentType === type)
+    if (this.contact) {
+      return new ContactAttachment(this.payload.contact!)
+    }
+
+    if (this.poll) {
+      return new PollAttachment(this.payload.poll!)
+    }
+
+    if (this.venue) {
+      return new VenueAttachment(this.payload.venue!)
+    }
+
+    if (this.location) {
+      return new LocationAttachment(this.payload.location!)
+    }
+
+    return this.animation ?? this.audio ?? this.document ?? this.sticker ?? this.video ?? this.videoNote ?? this.voice
   }
 
-  /** Gets attachments */
+  /** Does this message have an attachment with a specific type `type`? */
+  hasAttachmentType(type: AttachmentType) {
+    return this.attachment?.attachmentType === type
+  }
+
+  /** Does this message even have an attachment? */
+  get hasAttachment() {
+    return this.attachment !== undefined
+  }
+
+  /** Is this message an event? */
+  get isEvent() {
+    return EVENTS.some(event => this[event[0]] !== undefined)
+  }
+
+  /** Event type */
+  get eventType() {
+    if (!this.isEvent) {
+      return
+    }
+
+    const value = EVENTS.find(
+      (event) => {
+        const tValue = this[event[0]]
+
+        if (Array.isArray(tValue)) {
+          return tValue.length !== 0
+        }
+
+        return tValue !== undefined
+      }
+    )
+
+    if (value === undefined) {
+      return
+    }
+
+    return value[1]
+  }
+
+  /** Is this message a service one? */
+  get isServiceMessage() {
+    return SERVICE_MESSAGE_EVENTS.some(event => this.payload[event] !== undefined)
+  }
+
+  /** Is this message a forwarded one? */
+  get isForwarded() {
+    return this.forwardedMessage !== undefined
+  }
+
+  /** Does this message have reply message? */
+  get hasReplyMessage() {
+    return this.replyMessage !== undefined
+  }
+
+  /** Checks if the sent message has `via_bot` property */
+  get hasViaBot() {
+    return this.viaBot !== undefined
+  }
+
+  /** @deprecated use `attachment` instead */
+  get attachments() {
+    return [this.attachment] as Attachment[]
+  }
+
+  /** @deprecated use `hasAttachmentType(type)` and `hasAttachment` instead */
+  hasAttachments(type?: AttachmentType | AttachmentTypeEnum) {
+    if (type === undefined) {
+      return this.hasAttachment
+    }
+
+    return this.hasAttachmentType(type)
+  }
+
+  /** @deprecated */
   getAttachments(type: AttachmentTypeEnum.Animation | 'animation'): AnimationAttachment[]
   getAttachments(type: AttachmentTypeEnum.Audio | 'audio'): AudioAttachment[]
   getAttachments(type: AttachmentTypeEnum.Document | 'document'): DocumentAttachment[]
@@ -188,59 +270,9 @@ class MessageContext extends Context {
     return this.attachments.filter(attachment => attachment.attachmentType === type)
   }
 
-  /** Is this message an event? */
-  get isEvent() {
-    return EVENTS.some(event => this[event[0]] !== undefined)
-  }
-
-  /** Is this message a service one? */
-  get isServiceMessage() {
-    return SERVICE_MESSAGE_EVENTS.some(event => this.payload[event] !== undefined)
-  }
-
-  /** Event type */
-  get eventType() {
-    if (!this.isEvent) {
-      return
-    }
-
-    const value = EVENTS.find(
-      (event) => {
-        const tValue = this[event[0] as keyof Message]
-
-        if (Array.isArray(tValue)) {
-          return tValue.length !== 0
-        }
-
-        return tValue !== undefined
-      }
-    )
-
-    if (value === undefined) {
-      return
-    }
-
-    return value[1]
-  }
-
-  /** Is this message a forwarded one? */
+  /** @deprecated use `isForwarded` instead */
   get isForward() {
-    return this.forwardedMessage !== undefined
-  }
-
-  /** Does this message have reply message? */
-  get hasReplyMessage() {
-    return this.replyMessage !== undefined
-  }
-
-  /** Checks if the sent message has `via_bot` property */
-  get hasViaBot() {
-    return this.viaBot !== undefined
-  }
-
-  /** Does this message have start payload? */
-  get hasStartPayload() {
-    return this.startPayload !== undefined
+    return this.isForwarded
   }
 }
 

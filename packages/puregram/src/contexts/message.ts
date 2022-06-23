@@ -100,7 +100,8 @@ class MessageContext extends Context {
     return this.dice !== undefined
   }
 
-  get startPayload() {
+  /** Value after the `/start` command */
+  get rawStartPayload() {
     if (!this.hasText) {
       return
     }
@@ -109,7 +110,16 @@ class MessageContext extends Context {
       return
     }
 
-    let payload: any = this.text!.split(' ')[1]
+    return this.text!.split(' ')[1]
+  }
+
+  /** Parsed value after the `/start` command */
+  get startPayload() {
+    let payload: any = this.rawStartPayload
+
+    if (payload === undefined) {
+      return
+    }
 
     if (!Number.isNaN(+payload)) {
       payload = Number.parseInt(payload, 10)
@@ -237,6 +247,8 @@ class MessageContext extends Context {
   get hasViaBot() {
     return this.viaBot !== undefined
   }
+
+  // INFO: deprecated methods
 
   /** @deprecated use `attachment` instead */
   get attachments() {

@@ -277,7 +277,7 @@ export class Telegram {
     const url = `${this.options.apiBaseUrl}${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${path}?${query}`
 
     const controller = new AbortController()
-    const timeout = setTimeout(controller.abort, this.options.apiTimeout)
+    const timeout = setTimeout(() => controller.abort(), this.options.apiTimeout)
 
     let init: RequestInit = {
       method: 'GET',

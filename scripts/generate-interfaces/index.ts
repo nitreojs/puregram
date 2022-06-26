@@ -129,7 +129,7 @@ class InterfaceService {
       }
 
       // INFO: keyboards must have [ReplyMarkupUnion] type
-      if (field.name === 'reply_markup') {
+      if (field.name === 'reply_markup' && iface.name !== 'Message') {
         type = 'ReplyMarkupUnion'
       }
 

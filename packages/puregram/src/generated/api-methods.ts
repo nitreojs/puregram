@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.1.0, 20.06.2022
-/// Generation date: 21.06.2022 18:35:57 MSK
+/// Generation date: 26.06.2022 22:22:10 MSK
 
 import * as api from './methods'
 

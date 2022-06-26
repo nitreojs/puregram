@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.1.0, 20.06.2022
-/// Generation date: 21.06.2022 18:35:57 MSK
+/// Generation date: 26.06.2022 22:22:10 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -522,7 +522,7 @@ export interface TelegramMessage {
   /**
    * *Optional*. Inline keyboard attached to the message. `login_url` buttons are represented as ordinary `url` buttons.
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
 
   [key: string]: any
 }
@@ -2037,7 +2037,7 @@ export interface TelegramInputMediaPhoto {
    */
   type: 'photo'
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: MediaInput
   /**
@@ -2065,11 +2065,11 @@ export interface TelegramInputMediaVideo {
    */
   type: 'video'
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: MediaInput
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -2113,11 +2113,11 @@ export interface TelegramInputMediaAnimation {
    */
   type: 'animation'
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: MediaInput
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -2157,11 +2157,11 @@ export interface TelegramInputMediaAudio {
    */
   type: 'audio'
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: MediaInput
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -2201,11 +2201,11 @@ export interface TelegramInputMediaDocument {
    */
   type: 'document'
   /**
-   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   media: MediaInput
   /**
-   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   thumb?: MediaInput
   /**
@@ -2408,7 +2408,7 @@ export interface TelegramInlineQueryResultArticle {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. URL of the result
    */
@@ -2488,7 +2488,7 @@ export interface TelegramInlineQueryResultPhoto {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the photo
    */
@@ -2554,7 +2554,7 @@ export interface TelegramInlineQueryResultGif {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the GIF animation
    */
@@ -2620,7 +2620,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the video animation
    */
@@ -2692,7 +2692,7 @@ export interface TelegramInlineQueryResultVideo {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the video. This field is **required** if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
    */
@@ -2744,7 +2744,7 @@ export interface TelegramInlineQueryResultAudio {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the audio
    */
@@ -2792,7 +2792,7 @@ export interface TelegramInlineQueryResultVoice {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the voice recording
    */
@@ -2846,7 +2846,7 @@ export interface TelegramInlineQueryResultDocument {
   /**
    * *Optional*. Inline keyboard attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the file
    */
@@ -2910,7 +2910,7 @@ export interface TelegramInlineQueryResultLocation {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the location
    */
@@ -2978,7 +2978,7 @@ export interface TelegramInlineQueryResultVenue {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the venue
    */
@@ -3030,7 +3030,7 @@ export interface TelegramInlineQueryResultContact {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the contact
    */
@@ -3070,7 +3070,7 @@ export interface TelegramInlineQueryResultGame {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
 
   [key: string]: any
 }
@@ -3114,7 +3114,7 @@ export interface TelegramInlineQueryResultCachedPhoto {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the photo
    */
@@ -3158,7 +3158,7 @@ export interface TelegramInlineQueryResultCachedGif {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the GIF animation
    */
@@ -3202,7 +3202,7 @@ export interface TelegramInlineQueryResultCachedMpeg4Gif {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the video animation
    */
@@ -3230,7 +3230,7 @@ export interface TelegramInlineQueryResultCachedSticker {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the sticker
    */
@@ -3278,7 +3278,7 @@ export interface TelegramInlineQueryResultCachedDocument {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the file
    */
@@ -3326,7 +3326,7 @@ export interface TelegramInlineQueryResultCachedVideo {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the video
    */
@@ -3370,7 +3370,7 @@ export interface TelegramInlineQueryResultCachedVoice {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the voice message
    */
@@ -3410,7 +3410,7 @@ export interface TelegramInlineQueryResultCachedAudio {
   /**
    * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
    */
-  reply_markup?: TelegramInlineKeyboardMarkup
+  reply_markup?: ReplyMarkupUnion
   /**
    * *Optional*. Content of the message to be sent instead of the audio
    */

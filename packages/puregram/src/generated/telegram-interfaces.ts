@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.1.0, 20.06.2022
-/// Generation date: 26.06.2022 22:22:10 MSK
+/// Generation date: 26.06.2022 22:40:37 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -522,7 +522,7 @@ export interface TelegramMessage {
   /**
    * *Optional*. Inline keyboard attached to the message. `login_url` buttons are represented as ordinary `url` buttons.
    */
-  reply_markup?: ReplyMarkupUnion
+  reply_markup?: TelegramInlineKeyboardMarkup
 
   [key: string]: any
 }

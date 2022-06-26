@@ -128,6 +128,11 @@ class InterfaceService {
         type = 'Currency'
       }
 
+      // INFO: keyboards must have [ReplyMarkupUnion] type
+      if (field.name === 'reply_markup') {
+        type = 'ReplyMarkupUnion'
+      }
+
       const description: string = InterfaceService.generateDescription(field.description, 2)
       const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${type}`
 

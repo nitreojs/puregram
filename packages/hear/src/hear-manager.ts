@@ -29,8 +29,6 @@ export class HearManager<C extends Context> {
   }
 
   get middleware(): Middleware<C & ContextMatch> {
-    this.hear(/^\/start/i, (context) => { })
-
     return (context: C & ContextMatch, next: NextMiddleware) => this.composed(context, next)
   }
 

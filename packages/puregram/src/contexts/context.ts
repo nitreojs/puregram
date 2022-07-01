@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { MaybeArray, SoftString, UpdateName } from '../types/types'
+import { ContextsCollection, MaybeArray, SoftString, UpdateName } from '../types/types'
 import { SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 
 interface ContextOptions {
@@ -13,7 +13,7 @@ interface ContextOptions {
   updateId?: number
 }
 
-export class Context {
+class Context {
   telegram: Telegram
   updateId?: number
   update?: Interfaces.TelegramUpdate
@@ -31,11 +31,12 @@ export class Context {
     return this.constructor.name
   }
 
-  is(rawTypes: MaybeArray<SoftString<UpdateName>>) {
+  is<T extends UpdateName>(rawTypes: MaybeArray<SoftString<T>>) {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes]
 
+    // TODO: it if interferring, make 'subTypes' logic maybe?
     if (types.includes('service_message')) {
       types.push(...SERVICE_MESSAGE_EVENTS)
     }
@@ -44,8 +45,14 @@ export class Context {
   }
 }
 
+interface Context {
+  is<T extends UpdateName>(rawTypes: MaybeArray<SoftString<T>>): this is ContextsCollection[T]
+}
+
 inspectable(Context, {
   serialize(context) {
     return {}
   }
 })
+
+export { Context }

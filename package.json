@@ -20,10 +20,11 @@
   "scripts": {
     "prepare": "yarn run test",
     "test": "jest --config jest.config.js --no-cache",
-    "generate": "yarn generate-constants && yarn generate-updates",
+    "generate": "yarn generate-constants && yarn generate-updates && yarn generate-types",
     "generate-references": "ts-node scripts/generate-references/",
     "generate-constants": "ts-node scripts/generate-constants/",
     "generate-interfaces": "ts-node scripts/generate-interfaces/",
-    "generate-updates": "ts-node scripts/generate-updates/"
+    "generate-updates": "ts-node scripts/generate-updates/",
+    "generate-types": "ts-node scripts/generate-types/"
   }
 }

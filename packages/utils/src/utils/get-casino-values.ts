@@ -7,7 +7,7 @@ enum CasinoValue {
 
 type SlotMachineValue = [CasinoValue, CasinoValue, CasinoValue]
 
-const casinoValues: CasinoValue[] = [
+const casinoValues = [
   CasinoValue.Bar,
   CasinoValue.Grapes,
   CasinoValue.Lemon,
@@ -41,7 +41,7 @@ export const getCasinoValues = (source: number | string) => {
   let result = []
 
   for (const char of number) {
-    let int: number = Number.parseInt(char)
+    let int = Number.parseInt(char)
 
     if (int > 3) {
       int = 3

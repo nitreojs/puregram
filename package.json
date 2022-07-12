@@ -5,6 +5,8 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@types/common-tags": "^1.8.1",
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.2",

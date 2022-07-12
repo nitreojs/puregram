@@ -1,8 +1,9 @@
 import { readFile, writeFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
 
 import { Message } from '../../packages/puregram/src/updates/'
 
-const CONSTANTS_PATH = `${__dirname}/../../packages/puregram/src/utils/constants.ts`
+const CONSTANTS_PATH = resolve(__dirname, '..', '..', 'packages', 'puregram', 'src', 'utils', 'constants.ts')
 
 const getGetters = (instance: Message) => (
   Object.entries(
@@ -22,7 +23,7 @@ const main = async () => {
 
   // INFO: generate-constants-events
   {
-    let clauses: string[] = []
+    const clauses: string[] = []
 
     const message = new Message({ chat: { id: 0, type: 'channel' }, date: 0, message_id: 1 })
     const rawGetters = getGetters(message)

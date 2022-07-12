@@ -47,7 +47,7 @@ const main = async (src: string) => {
     }
 
     if (node.kind in simpleKinds) {
-      return simpleKinds[node.kind]!
+      return simpleKinds[node.kind] as string
     }
 
     if (node.kind === ts.SyntaxKind.ArrayType) {
@@ -67,7 +67,7 @@ const main = async (src: string) => {
 
       const name = getText(rNode.typeName)
 
-      return name + (rNode.typeArguments ? `<${rNode.typeArguments!.map(ta => typeNodeToString(ta)).join(', ')}>` : '')
+      return name + (rNode.typeArguments ? `<${(rNode.typeArguments ?? []).map(ta => typeNodeToString(ta)).join(', ')}>` : '')
     }
 
     throw new Error(`unexpected node ${syntaxToKind(node.kind)}[kind=${node.kind}]`)

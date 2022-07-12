@@ -1,8 +1,9 @@
 import { readFile, writeFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
 
 import { UpdateType } from '../../packages/puregram/src'
 
-const TYPES_PATH = `${__dirname}/../../packages/puregram/src/types/types.ts`
+const TYPES_PATH = resolve(__dirname, '..', '..', 'packages', 'puregram', 'src', 'types', 'types.ts')
 
 const getContext = (key: string, value: string) => {
   if (['edited_message', 'channel_post', 'edited_channel_post'].includes(value)) {
@@ -25,7 +26,7 @@ const main = async () => {
 
   // INFO: generate-types-contexts-interface
   {
-    let clauses: string[] = []
+    const clauses: string[] = []
 
     // message: Contexts.MessageContext
     for (const [key, value] of Object.entries(UpdateType)) {

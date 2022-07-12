@@ -10,7 +10,6 @@ import * as Types from './types'
 const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
 const CURRENCIES_URL = 'https://core.telegram.org/bots/payments/currencies.json'
 
-
 ///           SERVICES           ///
 
 interface ServiceResult {
@@ -38,7 +37,7 @@ const undoSnakeCase = (string: string) => string.split('_').reduce(
 )
 
 class InterfaceService {
-  static async generate(kInterface: Types.SchemaInterface): Promise<ServiceResultInterface> {
+  static async generate (kInterface: Types.SchemaInterface): Promise<ServiceResultInterface> {
     if (kInterface.type === 'any_of') {
       throw new TypeError('SchemaInterfaceAnyOf should be generated via TypeService.generate')
     }
@@ -51,7 +50,7 @@ class InterfaceService {
     if (kInterface.properties) {
       const generateFieldsResponse = await InterfaceService.generateFields(kInterface)
 
-      const fields: string[] = generateFieldsResponse.fields.map(tab)
+      const fields = generateFieldsResponse.fields.map(tab)
 
       // just some little hacks over there, nothing special, scroll away
       fields.push('')
@@ -69,9 +68,9 @@ class InterfaceService {
     }
   }
 
-  static generateDescription(
+  static generateDescription (
     description: string,
-    padSize: number = 0,
+    padSize = 0,
     documentationLink?: string
   ) {
     const parts = description.split(/\n/)
@@ -87,7 +86,7 @@ class InterfaceService {
     return `/**\n${parts.map(part => `${spaces} * ${part}`).join('\n')}\n${spaces} */`
   }
 
-  static async generateFields(iface: Types.SchemaInterfaceProperties): Promise<GenerateFieldsResponse> {
+  static async generateFields (iface: Types.SchemaInterfaceProperties): Promise<GenerateFieldsResponse> {
     const response: GenerateFieldsResponse = {
       fields: [],
       types: []
@@ -133,8 +132,8 @@ class InterfaceService {
         type = 'ReplyMarkupUnion'
       }
 
-      const description: string = InterfaceService.generateDescription(field.description, 2)
-      const property: string = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${type}`
+      const description = InterfaceService.generateDescription(field.description, 2)
+      const property = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${type}`
 
       response.fields.push(property)
     }
@@ -144,7 +143,7 @@ class InterfaceService {
 }
 
 class MethodService {
-  static async generate(kMethod: Types.SchemaMethod): Promise<ServiceResultMethod> {
+  static async generate (kMethod: Types.SchemaMethod): Promise<ServiceResultMethod> {
     // TODO: simplify
 
     const mTypeDescription = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
@@ -178,7 +177,7 @@ class MethodService {
     }
   }
 
-  static async generateFields(method: Types.SchemaMethod, addition?: string):
+  static async generateFields (method: Types.SchemaMethod, addition?: string):
     Promise<GenerateFieldsResponse> {
     const response: GenerateFieldsResponse = {
       fields: [],
@@ -186,7 +185,7 @@ class MethodService {
     }
 
     // TODO: [field] or [property]?
-    for (const field of method.arguments!) {
+    for (const field of (method.arguments ?? [])) {
       const description = InterfaceService.generateDescription(field.description, 2)
 
       let returnType = TypeResolver.resolve(field, addition)
@@ -244,12 +243,12 @@ class MethodService {
 }
 
 class TypeService {
-  static generate(kType: Types.SchemaInterfaceAnyOf): ServiceResult {
-    const name: string = `Telegram${kType.name}`
-    const types: string[] = kType.any_of.map(TypeResolver.resolve)
+  static generate (kType: Types.SchemaInterfaceAnyOf): ServiceResult {
+    const name = `Telegram${kType.name}`
+    const types = kType.any_of.map(TypeResolver.resolve)
 
-    const description: string = InterfaceService.generateDescription(kType.description)
-    let content = `${description}\nexport type ${name} =\n  | ` + types.join('\n  | ')
+    const description = InterfaceService.generateDescription(kType.description)
+    const content = `${description}\nexport type ${name} =\n  | ` + types.join('\n  | ')
 
     return {
       content,
@@ -259,10 +258,10 @@ class TypeService {
 }
 
 class TypeResolver {
-  static resolve(
+  static resolve (
     object: Types.SchemaObject,
     additionToReference?: string | number // allowing to do [].map(TypeResolver.resolve)
-  ) {
+  ): string {
     // TODO: add `addition` check for every SchemaObject
 
     if (object.type === 'string') {
@@ -271,7 +270,7 @@ class TypeResolver {
       }
 
       if (object.default) {
-        return `'${object.default!}'`
+        return `'${object.default}'`
       }
 
       return 'string'
@@ -282,7 +281,7 @@ class TypeResolver {
     }
 
     if (object.type === 'array') {
-      const value: string = TypeResolver.resolve(object.array, additionToReference)
+      const value = TypeResolver.resolve(object.array, additionToReference)
 
       if (object.array.type === 'any_of') {
         return `(${value})[]`
@@ -300,7 +299,7 @@ class TypeResolver {
     }
 
     if (object.type === 'any_of') {
-      const types: string[] = object.any_of.map(
+      const types = object.any_of.map(
         (value) => TypeResolver.resolve(value, additionToReference)
       )
 
@@ -308,11 +307,11 @@ class TypeResolver {
     }
 
     if (object.type === 'reference') {
-      const addition: string = typeof additionToReference === 'string' // allowing to do [].map(TypeResolver.resolve)
+      const addition = typeof additionToReference === 'string' // allowing to do [].map(TypeResolver.resolve)
         ? `${additionToReference}.`
         : ''
 
-      const internalCheck: string = object.is_internal
+      const internalCheck = object.is_internal
         ? ''
         : 'Telegram'
 
@@ -324,18 +323,18 @@ class TypeResolver {
 }
 
 class SchemaService {
-  static isType(schema: Types.SchemaInterface): schema is Types.SchemaInterfaceAnyOf {
+  static isType (schema: Types.SchemaInterface): schema is Types.SchemaInterfaceAnyOf {
     return schema.type === 'any_of'
   }
 }
 
 class GenerationService {
-  static loadString(header: string) {
+  static loadString (header: string) {
     return header + '\n\n'
   }
 
-  static generate(results: ServiceResult[], header?: string) {
-    let content: string = header
+  static generate (results: ServiceResult[], header?: string) {
+    let content = header
       ? GenerationService.loadString(header)
       : ''
 
@@ -346,7 +345,7 @@ class GenerationService {
     return content.trimEnd()
   }
 
-  static generateInterfacesImports() {
+  static generateInterfacesImports () {
     return stripIndent`
       import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -365,7 +364,7 @@ class GenerationService {
     `
   }
 
-  static generateMethodsImports() {
+  static generateMethodsImports () {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces'
 
@@ -376,7 +375,7 @@ class GenerationService {
     `
   }
 
-  static generateAdditionalTypes() {
+  static generateAdditionalTypes () {
     return stripIndent`
       export type InputFile = string | Record<string, any> | Buffer | Readable
       export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2'>
@@ -386,27 +385,26 @@ class GenerationService {
     `
   }
 
-  static generateCurrenciesType(currencies: Types.CurrenciesResponse) {
+  static generateCurrenciesType (currencies: Types.CurrenciesResponse) {
     const enumeration = buildEnumeration(currencies)
 
-    return `export type Currency = SoftString<${enumeration.enumeration!.map(e => `'${e}'`).join(' | ')}>`
+    return `export type Currency = SoftString<${(enumeration.enumeration ?? []).map(e => `'${e}'`).join(' | ')}>`
   }
 
-  static generateApiMethods(methods: Types.SchemaMethod[]) {
-    const fields: string[] = methods.map(
+  static generateApiMethods (methods: Types.SchemaMethod[]) {
+    const fields = methods.map(
       (method) => {
-        const description: string = InterfaceService.generateDescription(method.description, 2, method.documentation_link)
+        const description = InterfaceService.generateDescription(method.description, 2, method.documentation_link)
 
         return `${description}\n${tab(method.name)}: api.${method.name}`
       }
     ).map(tab)
 
-    const content: string = `import * as api from './methods'\n\nexport interface ApiMethods {\n${fields.join('\n')}\n\n  [key: string]: (...args: any[]) => Promise<any>\n}`
+    const content = `import * as api from './methods'\n\nexport interface ApiMethods {\n${fields.join('\n')}\n\n  [key: string]: (...args: any[]) => Promise<any>\n}`
 
     return content
   }
 }
-
 
 ///           GENERATION           ///
 
@@ -442,7 +440,7 @@ const buildEnumeration = (currencies: Types.CurrenciesResponse): Types.SchemaObj
   }
 }
 
-export async function getJson(fromFile: boolean = false) {
+export async function getJson (fromFile = false) {
   let json: Types.SchemaResponse
 
   if (fromFile) {
@@ -456,7 +454,7 @@ export async function getJson(fromFile: boolean = false) {
   return json
 }
 
-export async function generate() {
+export async function generate () {
   const { objects: interfaces, methods } = await getJson()
 
   const _generation_start = Date.now()
@@ -469,14 +467,14 @@ export async function generate() {
 
   for (const kInterface of interfaces) {
     if (SchemaService.isType(kInterface)) {
-      const result: ServiceResult = TypeService.generate(kInterface)
+      const result = TypeService.generate(kInterface)
 
       items.types.push(result)
 
       continue
     }
 
-    const result: ServiceResultInterface = await InterfaceService.generate(kInterface)
+    const result = await InterfaceService.generate(kInterface)
 
     items.interfaces.push(result)
   }
@@ -497,12 +495,12 @@ export async function generate() {
   return data
 }
 
-export function generateHeader(version: Types.SchemaVersion, recentChanges: Types.SchemaRecentChanges) {
+export function generateHeader (version: Types.SchemaVersion, recentChanges: Types.SchemaRecentChanges) {
   const date = new Date()
 
-  const apiVersion: string = `v${version.major}.${version.minor}.${version.patch}`
-  const apiUpdateDate: string = `${pad(recentChanges.day)}.${pad(recentChanges.month)}.${recentChanges.year}`
-  const generationDate: string = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())} MSK`
+  const apiVersion = `v${version.major}.${version.minor}.${version.patch}`
+  const apiUpdateDate = `${pad(recentChanges.day)}.${pad(recentChanges.month)}.${recentChanges.year}`
+  const generationDate = `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())} MSK`
 
   const header = stripIndents`
     /// AUTO-GENERATED FILE
@@ -516,7 +514,7 @@ export function generateHeader(version: Types.SchemaVersion, recentChanges: Type
   return header
 }
 
-async function _generate(generateFiles: boolean = true) {
+async function _generate (generateFiles = true) {
   const { version, recent_changes, methods } = await getJson()
 
   const _generation_start = Date.now()
@@ -527,7 +525,6 @@ async function _generate(generateFiles: boolean = true) {
   console.log('[header]')
   console.log(header)
   console.log()
-
 
   /// INTERFACES ----------
 
@@ -561,19 +558,18 @@ async function _generate(generateFiles: boolean = true) {
 
   console.log('[results]')
 
-
   /// FILES GENERATION ----------
 
   if (generateFiles) {
-    const mainPath: string = resolve(`${__dirname}/../../packages/puregram/src/generated/`)
+    const mainPath = resolve(__dirname, '..', '..', 'packages', 'puregram', 'src', 'generated')
 
     const currencies = await loadCurrencies()
 
     /// telegram-interfaces.ts
-    let iHeader: string = GenerationService.loadString(header) +
+    const iHeader = GenerationService.loadString(header) +
       GenerationService.generateInterfacesImports()
 
-    let iContent: string = GenerationService.loadString(
+    let iContent = GenerationService.loadString(
       GenerationService.generate(items.interfaces, iHeader)
     )
 
@@ -592,17 +588,17 @@ async function _generate(generateFiles: boolean = true) {
     console.log(`- telegram-interfaces.ts: ${items.interfaces.length} interfaces, ${items.types.length} types, ${iContent.split('\n').length} lines`)
 
     /// methods.ts
-    let mHeader: string = GenerationService.loadString(header) +
+    const mHeader = GenerationService.loadString(header) +
       GenerationService.generateMethodsImports()
 
-    let mContent: string = GenerationService.generate(items.methods, mHeader)
+    const mContent = GenerationService.generate(items.methods, mHeader)
 
     await writeFile(`${mainPath}/methods.ts`, mContent)
 
     console.log(`- methods.ts: ${items.methods.length} methods, ${mContent.split('\n').length} lines`)
 
     /// api-methods.ts
-    let amContent: string = GenerationService.generate([], header)
+    let amContent = GenerationService.generate([], header)
     amContent += '\n\n' + GenerationService.generateApiMethods(methods)
 
     await writeFile(`${mainPath}/api-methods.ts`, amContent)

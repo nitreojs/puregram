@@ -28,7 +28,7 @@ export const camelize = (source: string): string => (
  * ```
  */
 export const camelizeSmall = (source: string): string => {
-  const value: string = camelize(source)
+  const value = camelize(source)
 
   return value[0].toLowerCase() + value.slice(1)
 }
@@ -43,19 +43,19 @@ export const camelizeSmall = (source: string): string => {
  * ```
  */
 export const dasherize = (rawSource: string): string => {
-  const source: string = rawSource.split(' ').join('-')
-  const match: RegExpMatchArray | null = source.match(/[A-Z]/g)
+  const source = rawSource.split(' ').join('-')
+  const match = source.match(/[A-Z]/g)
 
   if (match === null) {
     return source
   }
 
-  const upperCases: RegExpMatchArray = match
-  const upperAmount: number = upperCases.length
-  const result: string[] = source.split('')
+  const upperCases = match
+  const upperAmount = upperCases.length
+  const result = source.split('')
 
-  for (let i: number = 0; i < upperAmount; i += 1) {
-    const charIndex: number = result.indexOf(upperCases[i])
+  for (let i = 0; i < upperAmount; i += 1) {
+    const charIndex = result.indexOf(upperCases[i])
 
     result[charIndex] = result[charIndex].toLowerCase()
 
@@ -77,18 +77,18 @@ export enum Token {
   PRE = '```'
 }
 
-export const tokenize = (rawSource: string | string[], token: Token, language: string = ''): string => {
-  const source: string = (
+export const tokenize = (rawSource: string | string[], token: Token, language = ''): string => {
+  const source = (
     Array.isArray(rawSource)
       ? rawSource.join(' ')
       : rawSource
   )
 
-  const leftAddition: string = (language ? language + Token.NEWLINE : '')
-  const rightAddition: string = (language ? '\n' : '')
+  const leftAddition = (language ? language + Token.NEWLINE : '')
+  const rightAddition = (language ? '\n' : '')
 
-  const leftToken: Token = token
-  let rightToken: Token = token
+  const leftToken = token
+  let rightToken = token
 
   if (leftToken === Token.CODE_START) rightToken = Token.CODE_END
 
@@ -106,17 +106,15 @@ export const calculateLongestStrings = (matrix: string[][]): number[] => {
     }
   }
 
-  return lengths.map(
-    (element: number) => element + 1
-  )
+  return lengths.map(element => element + 1)
 }
 
 export const createTableSeparator = (lengths: number[]): string => {
-  const amount: number = lengths.length
-  let result: string = ''
+  const amount = lengths.length
+  let result = ''
 
-  for (let i: number = 0; i < amount; i += 1) {
-    const length: number = lengths[i]
+  for (let i = 0; i < amount; i += 1) {
+    const length = lengths[i]
 
     result += `| :${'-'.repeat(length - 3)}: `
   }
@@ -126,17 +124,17 @@ export const createTableSeparator = (lengths: number[]): string => {
   return result
 }
 
-export const createTableRow = (elements: string[], lengths: number[], center: boolean = false): string => {
-  let result: string = ''
+export const createTableRow = (elements: string[], lengths: number[], center = false): string => {
+  let result = ''
 
   for (const [index, element] of elements.entries()) {
-    const length: number = lengths[index]
+    const length = lengths[index]
 
-    let leftSpaces: number = 1
-    let rightSpaces: number = length - element.length
+    let leftSpaces = 1
+    let rightSpaces = length - element.length
 
     if (center) {
-      const value: number = (leftSpaces + rightSpaces) / 2
+      const value = (leftSpaces + rightSpaces) / 2
 
       leftSpaces = Math.floor(value)
       rightSpaces = Math.ceil(value)
@@ -166,18 +164,18 @@ export const generateAnchor = (element: string): string => (
  * ```ts
  * header(1, 'Test') // # Test
  * ```
- * 
+ *
  * # Test
- * 
+ *
  * ---
- * 
+ *
  * ```ts
  * header(3, 'Foo bar baz') // ### Foo bar baz
  * ```
- * 
+ *
  * ### Foo bar baz
  */
-export const header = (level: number = 1, text: string): string => (
+export const header = (level = 1, text: string): string => (
   `${'#'.repeat(level)} ${text}`
 )
 
@@ -185,15 +183,15 @@ export const header = (level: number = 1, text: string): string => (
  * ```ts
  * code('MessageContext') // `MessageContext`
  * ```
- * 
+ *
  * `MessageContext`
- * 
+ *
  * ---
- * 
+ *
  * ```ts
  * header(2, code('InlineQueryContext')) // ## `InlineQueryContext`
  * ```
- * 
+ *
  * ## `InlineQueryContext`
  */
 export const code = (...args: string[]): string => (
@@ -205,7 +203,9 @@ export const code = (...args: string[]): string => (
     (
       args.some(
         (element: string): boolean => element.includes('&#124;')
-      ) ? Token.CODE_START : Token.BACKTICK
+      )
+        ? Token.CODE_START
+        : Token.BACKTICK
     )
   )
 )
@@ -214,7 +214,7 @@ export const code = (...args: string[]): string => (
  * ```ts
  * bold('Triggered when new message occurs.') // **Triggered when new message occurs**
  * ```
- * 
+ *
  * **Triggered when new message occurs**
  */
 export const bold = (...args: string[]): string => tokenize(args, Token.BOLD)
@@ -223,7 +223,7 @@ export const bold = (...args: string[]): string => tokenize(args, Token.BOLD)
  * ```ts
  * italic('May be', code('undefined')) // _May be `undefined`_
  * ```
- * 
+ *
  * _May be `undefined`_
  */
 export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC)
@@ -235,18 +235,18 @@ export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC
  * // import { Telegram } from "puregram";
  * // ```
  * ```
- * 
+ *
  * ```ts
  * import { Telegram } from "puregram";
  * ```
  */
-export const pre = (language: string = '', ...args: string[]): string => tokenize(args, Token.PRE, language)
+export const pre = (language = '', ...args: string[]): string => tokenize(args, Token.PRE, language)
 
 /**
  * ```ts
  * link(code('Context'), 'context.md') // [`Context`](context.md)
  * ```
- * 
+ *
  * [`Context`](context.md)
  */
 export const link = (text: string, source: string): string => `[${text}](${source})`
@@ -257,12 +257,12 @@ export const link = (text: string, source: string): string => `[${text}](${sourc
  *   ['Header 1', 'Header 2'],
  *   [bold('Value 1'), code('Value 2')]
  * ])
- * 
+ *
  * // |  Header 1   | Header 2  |
  * // | :---------: | :-------: |
  * // | **Value 1** | `Value 2` |
  * ```
- * 
+ *
  * |  Header 1   | Header 2  |
  * | :---------: | :-------: |
  * | **Value 1** | `Value 2` |
@@ -270,11 +270,11 @@ export const link = (text: string, source: string): string => `[${text}](${sourc
 export const table = (rawMatrix: string[][]): string => {
   const [head, ...matrix] = rawMatrix
 
-  const lengths: number[] = calculateLongestStrings([[...head], ...matrix])
-  const headRow: string = createTableRow(head, lengths, true)
-  const separator: string = createTableSeparator(lengths)
+  const lengths = calculateLongestStrings([[...head], ...matrix])
+  const headRow = createTableRow(head, lengths, true)
+  const separator = createTableSeparator(lengths)
 
-  const rows: string[] = [headRow, separator]
+  const rows = [headRow, separator]
 
   for (const row of matrix) {
     rows.push(createTableRow(row, lengths))
@@ -292,13 +292,13 @@ export const table = (rawMatrix: string[][]): string => {
  *   'Answer something',
  *   `I don't know, ${bold('Pizza 🍕')}?`
  * ];
- * 
+ *
  * list('*', ...elements)
  * // * Ask something
  * // * Answer something
  * // * I don't know, **Pizza 🍕**?
  * ```
- * 
+ *
  * * Ask something
  * * Answer something
  * * I don't know, **Pizza 🍕**?

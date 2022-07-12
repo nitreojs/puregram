@@ -1,13 +1,6 @@
 export type SchemaType = 'integer' | 'string' | 'bool' | 'reference' | 'array' | 'float' | 'any_of'
 export type SchemaInterfaceType = 'any_of' | 'properties'
 
-export interface SchemaResponse {
-  version: SchemaVersion
-  recent_changes: SchemaRecentChanges
-  methods: SchemaMethod[]
-  objects: SchemaInterface[]
-}
-
 export interface SchemaVersion {
   major: number
   minor: number
@@ -19,24 +12,6 @@ export interface SchemaRecentChanges {
   month: number
   day: number
 }
-
-export interface SchemaMethod {
-  name: string
-  description: string
-  arguments?: SchemaObject[]
-  multipart_only: boolean
-  return_type: SchemaReturnType
-  documentation_link: string
-}
-
-export type SchemaObject =
-  | SchemaObjectReference
-  | SchemaObjectInteger
-  | SchemaObjectBool
-  | SchemaObjectFloat
-  | SchemaObjectAnyOf
-  | SchemaObjectString
-  | SchemaObjectArray
 
 export interface SchemaObjectBase {
   name: string
@@ -72,6 +47,7 @@ export interface SchemaObjectFloat extends SchemaObjectBase {
 
 export interface SchemaObjectAnyOf extends SchemaObjectBase {
   type: 'any_of'
+  // eslint-disable-next-line no-use-before-define
   any_of: SchemaObject[]
 }
 
@@ -83,16 +59,18 @@ export interface SchemaObjectString extends SchemaObjectBase {
 
 export interface SchemaObjectArray extends SchemaObjectBase {
   type: 'array'
+  // eslint-disable-next-line no-use-before-define
   array: SchemaObject
 }
 
-export type SchemaReturnType =
-  | ReturnTypeReference
-  | ReturnTypeArray
-  | ReturnTypeAnyOf
-  | ReturnTypeBool
-  | ReturnTypeInteger
-  | ReturnTypeString
+export type SchemaObject =
+  | SchemaObjectReference
+  | SchemaObjectInteger
+  | SchemaObjectBool
+  | SchemaObjectFloat
+  | SchemaObjectAnyOf
+  | SchemaObjectString
+  | SchemaObjectArray
 
 export interface ReturnTypeReference {
   type: 'reference'
@@ -101,11 +79,13 @@ export interface ReturnTypeReference {
 
 export interface ReturnTypeArray {
   type: 'array'
+  // eslint-disable-next-line no-use-before-define
   array: SchemaReturnType
 }
 
 export interface ReturnTypeAnyOf {
   type: 'any_of'
+  // eslint-disable-next-line no-use-before-define
   any_of: SchemaReturnType[]
 }
 
@@ -122,9 +102,22 @@ export interface ReturnTypeString {
   type: 'string'
 }
 
-export type SchemaInterface =
-  | SchemaInterfaceAnyOf
-  | SchemaInterfaceProperties
+export type SchemaReturnType =
+  | ReturnTypeReference
+  | ReturnTypeArray
+  | ReturnTypeAnyOf
+  | ReturnTypeBool
+  | ReturnTypeInteger
+  | ReturnTypeString
+
+export interface SchemaMethod {
+  name: string
+  description: string
+  arguments?: SchemaObject[]
+  multipart_only: boolean
+  return_type: SchemaReturnType
+  documentation_link: string
+}
 
 export interface SchemaInterfaceBase {
   name: string
@@ -141,6 +134,16 @@ export interface SchemaInterfaceAnyOf extends SchemaInterfaceBase {
 export interface SchemaInterfaceProperties extends SchemaInterfaceBase {
   type: 'properties'
   properties: SchemaObject[]
+}
+export type SchemaInterface =
+  | SchemaInterfaceAnyOf
+  | SchemaInterfaceProperties
+
+export interface SchemaResponse {
+  version: SchemaVersion
+  recent_changes: SchemaRecentChanges
+  methods: SchemaMethod[]
+  objects: SchemaInterface[]
 }
 
 export interface CurrencyData {

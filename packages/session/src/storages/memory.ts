@@ -15,23 +15,23 @@ export interface MemoryStorageOptions {
 export class MemoryStorage implements SessionStorage {
   private store: MemoryStorageOptions['store']
 
-  constructor({ store = new Map() }: Partial<MemoryStorageOptions> = {}) {
+  constructor ({ store = new Map() }: Partial<MemoryStorageOptions> = {}) {
     this.store = store
   }
 
-  async get(key: string): Promise<object | undefined> {
+  async get (key: string): Promise<object | undefined> {
     return this.store.get(key)
   }
 
-  async set(key: string, value: object): Promise<boolean> {
+  async set (key: string, value: object): Promise<boolean> {
     this.store.set(key, value)
 
     return true
   }
 
-  async delete(key: string): Promise<boolean> {
+  async delete (key: string): Promise<boolean> {
     return this.store.delete(key)
   }
 
-  async touch(): Promise<void> { }
+  async touch (): Promise<void> { }
 }

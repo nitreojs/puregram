@@ -13,7 +13,7 @@ export class SessionManager<T = {}> {
 
   protected getStorageKey: SessionManagerOptions['getStorageKey']
 
-  constructor(options: Partial<SessionManagerOptions<T>> = {}) {
+  constructor (options: Partial<SessionManagerOptions<T>> = {}) {
     this.storage = options.storage || new MemoryStorage()
 
     this.getStorageKey = options.getStorageKey || (
@@ -22,13 +22,13 @@ export class SessionManager<T = {}> {
   }
 
   /** Returns the middleware for embedding */
-  get middleware(): Middleware<ContextInterface> {
+  get middleware (): Middleware<ContextInterface> {
     const { storage, getStorageKey } = this
 
     return async (context: ContextInterface, next: Function) => {
       const storageKey = getStorageKey(context)
 
-      let changed: boolean = false
+      let changed = false
 
       const wrapSession = (targetRaw: object): SessionContext => (
         new Proxy<SessionContext>({ ...targetRaw, $forceUpdate }, {
@@ -60,9 +60,9 @@ export class SessionManager<T = {}> {
         return storage.delete(storageKey)
       }
 
-      const initialSession: any = await storage.get(storageKey) || {}
+      const initialSession = await storage.get(storageKey) || {}
 
-      let session: SessionContext = wrapSession(initialSession)
+      let session = wrapSession(initialSession)
 
       Object.defineProperty(context, 'session', {
         get: (): SessionContext => session,

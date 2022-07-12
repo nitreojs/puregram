@@ -1,4 +1,3 @@
-# i hope this works?
 name: "CodeQL"
 
 on:
@@ -19,13 +18,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'typescript' ] # pls typescript i beg you
+        language: [ 'typescript' ]
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Initializes the CodeQL tools for scanning.
+    # Initializes the CodeQL tools for scanning
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:

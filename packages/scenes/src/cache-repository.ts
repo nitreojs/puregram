@@ -8,19 +8,19 @@ export class CacheRepository<Key, Value> {
 
   protected sortingValues?: CacheRepositorySortingValues<Value>
 
-  constructor({ sortingValues }: {
+  constructor ({ sortingValues }: {
     sortingValues?: CacheRepositorySortingValues<Value>
   } = {}) {
     this.sortingValues = sortingValues
   }
 
   /** Checks has value by key */
-  has(key: Key) {
+  has (key: Key) {
     return this.collection.has(key)
   }
 
   /** Sets value by key */
-  set(key: Key, value: Value) {
+  set (key: Key, value: Value) {
     this.collection.set(key, value)
 
     this.keys = [...this.collection.keys()]
@@ -32,12 +32,12 @@ export class CacheRepository<Key, Value> {
   }
 
   /** Returns value by key */
-  get(key: Key): Value | undefined {
+  get (key: Key): Value | undefined {
     return this.collection.get(key)
   }
 
   /** Sets value by key else error if exits */
-  strictSet(key: Key, value: Value) {
+  strictSet (key: Key, value: Value) {
     if (this.collection.has(key)) {
       throw new Error(`value by ${key} already exists`)
     }
@@ -46,8 +46,8 @@ export class CacheRepository<Key, Value> {
   }
 
   /** Returns value by key else error */
-  strictGet(key: Key): Value {
-    const value: Value | undefined = this.get(key)
+  strictGet (key: Key): Value {
+    const value = this.get(key)
 
     if (!value) {
       throw new Error(`value by ${key} not found`)
@@ -57,7 +57,7 @@ export class CacheRepository<Key, Value> {
   }
 
   /** Returns iterator */
-  [Symbol.iterator](): IterableIterator<[Key, Value]> {
+  [Symbol.iterator] (): IterableIterator<[Key, Value]> {
     return this.collection[Symbol.iterator]()
   }
 }

@@ -11,26 +11,26 @@ export class StepSceneContext {
   private readonly steps: StepContextOptions['steps']
   private stepChanged = false
 
-  constructor(options: StepContextOptions) {
+  constructor (options: StepContextOptions) {
     this.context = options.context
 
     this.steps = options.steps
   }
 
   /** The first enter to the handler */
-  get firstTime() {
+  get firstTime () {
     const { firstTime = true } = this.context.scene.session
 
     return firstTime
   }
 
   /** Returns current `stepId` */
-  get stepId() {
+  get stepId () {
     return this.context.scene.session.stepId || 0
   }
 
   /** Sets current `stepId` */
-  set stepId(stepId: number) {
+  set stepId (stepId: number) {
     const { session } = this.context.scene
 
     session.stepId = stepId
@@ -40,12 +40,12 @@ export class StepSceneContext {
   }
 
   /** Returns current handler */
-  get current(): StepSceneHandler | undefined {
+  get current (): StepSceneHandler | undefined {
     return this.steps[this.stepId]
   }
 
   /** Reenter current step handler */
-  async reenter() {
+  async reenter () {
     const { current } = this
 
     if (!current) {
@@ -64,7 +64,7 @@ export class StepSceneContext {
   }
 
   /** The `go` method goes to a specific step */
-  go(stepId: number, { silent = false }: StepContextGoOptions = {}) {
+  go (stepId: number, { silent = false }: StepContextGoOptions = {}) {
     this.stepId = stepId
 
     if (silent) {
@@ -75,12 +75,12 @@ export class StepSceneContext {
   }
 
   /** Move to the next handler */
-  next(options?: StepContextGoOptions) {
+  next (options?: StepContextGoOptions) {
     return this.go(this.stepId + 1, options)
   }
 
   /** Move to the previous handler */
-  previous(options?: StepContextGoOptions) {
+  previous (options?: StepContextGoOptions) {
     return this.go(this.stepId - 1, options)
   }
 }

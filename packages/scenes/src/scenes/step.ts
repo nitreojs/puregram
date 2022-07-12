@@ -2,8 +2,7 @@ import { MessageContext } from 'puregram'
 
 import { SceneInterface } from './scene'
 
-import { StepSceneContext } from '../contexts'
-import { LastAction } from '../contexts'
+import { StepSceneContext, LastAction } from '../contexts'
 
 import {
   StepSceneHandler,
@@ -18,8 +17,8 @@ export class StepScene<T = MessageContext> implements SceneInterface {
   private readonly onEnterHandler: NonNullable<StepSceneOptions<T>['enterHandler']>
   private readonly onLeaveHandler: NonNullable<StepSceneOptions<T>['leaveHandler']>
 
-  constructor(slug: string, rawOptions: StepSceneOptions<T> | StepSceneHandler<T>[]) {
-    const options: StepSceneOptions<T> = Array.isArray(rawOptions)
+  constructor (slug: string, rawOptions: StepSceneOptions<T> | StepSceneHandler<T>[]) {
+    const options = Array.isArray(rawOptions)
       ? { steps: rawOptions }
       : rawOptions
 
@@ -29,11 +28,10 @@ export class StepScene<T = MessageContext> implements SceneInterface {
     this.onLeaveHandler = options.leaveHandler || (() => { })
   }
 
-  async enterHandler(context: StepContext & T) {
+  async enterHandler (context: StepContext & T) {
     context.scene.step = new StepSceneContext({
       context,
-
-      // @ts-expect-error
+      // @ts-expect-error T does not extend {} :shrug:
       steps: this.steps
     })
 
@@ -44,7 +42,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
     }
   }
 
-  leaveHandler(context: StepContext & T) {
+  leaveHandler (context: StepContext & T) {
     return Promise.resolve(this.onLeaveHandler(context))
   }
 }

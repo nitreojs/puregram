@@ -12,6 +12,8 @@ export interface StepContext extends ContextInterface {
   }
 }
 
+export type StepSceneHandler<T = {}> = (context: StepContext & T) => unknown
+
 export interface StepSceneOptions<T> {
   steps: StepSceneHandler<T>[]
 
@@ -19,5 +21,3 @@ export interface StepSceneOptions<T> {
 
   leaveHandler?: StepSceneHandler<T>
 }
-
-export type StepSceneHandler<T = {}> = (context: StepContext & T) => unknown

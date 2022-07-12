@@ -8,8 +8,6 @@ import {
   LastAction
 } from './scene.types'
 
-import { SceneInterface } from '../scenes'
-
 export class SceneContext {
   /** Lazy session for submodules */
   session!: SessionContext
@@ -24,7 +22,7 @@ export class SceneContext {
   private readonly context: SceneContextOptions['context']
   private repository: SceneContextOptions['repository']
 
-  constructor(options: SceneContextOptions) {
+  constructor (options: SceneContextOptions) {
     this.context = options.context
     this.repository = options.repository
 
@@ -32,15 +30,15 @@ export class SceneContext {
   }
 
   /** Returns current scene */
-  get current() {
+  get current () {
     return this.repository.get(this.session.current)
   }
 
   /** Enter to scene */
-  async enter(slug: string, options: SceneContextEnterOptions = {}) {
+  async enter (slug: string, options: SceneContextEnterOptions = {}) {
     const scene = this.repository.strictGet(slug)
 
-    const isCurrent: boolean = this.current?.slug === scene.slug
+    const isCurrent = this.current?.slug === scene.slug
 
     if (!isCurrent) {
       if (!this.leaving) {
@@ -70,7 +68,7 @@ export class SceneContext {
   }
 
   /** Reenter to current scene */
-  async reenter() {
+  async reenter () {
     const { current } = this
 
     if (!current) {
@@ -81,7 +79,7 @@ export class SceneContext {
   }
 
   /** Leave from current scene */
-  async leave(options: SceneContextLeaveOptions = {}) {
+  async leave (options: SceneContextLeaveOptions = {}) {
     const { current } = this
 
     if (!current) {
@@ -104,14 +102,14 @@ export class SceneContext {
   }
 
   /** Reset state/session */
-  reset() {
+  reset () {
     delete this.context.session.__scene
 
     this.updateSession()
   }
 
   /** Updates session and state is lazy */
-  private updateSession() {
+  private updateSession () {
     this.session = new Proxy(this.context.session.__scene || {}, {
       set: (target, prop, value): boolean => {
         target[prop] = value

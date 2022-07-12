@@ -11,7 +11,8 @@ module.exports = {
       'api',
       'updates',
       'eslint',
-      'commitlint'
+      'commitlint',
+      'husky'
     ]],
     'scope-case': [2, 'always', 'kebab-case']
   }

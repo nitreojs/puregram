@@ -20,7 +20,7 @@ interface ShippingQueryContextOptions {
 class ShippingQueryContext extends Context {
   payload: Interfaces.TelegramShippingQuery
 
-  constructor(options: ShippingQueryContextOptions) {
+  constructor (options: ShippingQueryContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'shipping_query',
@@ -37,7 +37,7 @@ interface ShippingQueryContext extends Constructor<ShippingQueryContext>, Shippi
 applyMixins(ShippingQueryContext, [ShippingQuery, SendMixin, CloneMixin])
 
 inspectable(ShippingQueryContext, {
-  serialize(context) {
+  serialize (context) {
     const payload = {
       id: context.id,
       from: context.from,

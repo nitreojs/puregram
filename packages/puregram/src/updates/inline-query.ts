@@ -11,24 +11,24 @@ import { filterPayload } from '../utils/helpers'
  * trending results.
  */
 export class InlineQuery {
-  constructor(public payload: TelegramInlineQuery) { }
+  constructor (public payload: TelegramInlineQuery) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Unique identifier for this query */
-  get id() {
+  get id () {
     return this.payload.id
   }
 
   /** Sender */
-  get from() {
+  get from () {
     return new User(this.payload.from)
   }
 
   /** Sender location, only for bots that request user location */
-  get location() {
+  get location () {
     const { location } = this.payload
 
     if (!location) {
@@ -39,18 +39,18 @@ export class InlineQuery {
   }
 
   /** Text of the query (up to 256 characters) */
-  get query() {
+  get query () {
     return this.payload.query
   }
 
   /** Offset of the results to be returned, can be controlled by the bot */
-  get offset() {
+  get offset () {
     return this.payload.offset
   }
 }
 
 inspectable(InlineQuery, {
-  serialize(update) {
+  serialize (update) {
     const payload = {
       id: update.id,
       from: update.from,

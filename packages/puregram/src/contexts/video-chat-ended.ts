@@ -21,7 +21,7 @@ interface VideoChatEndedContextOptions {
 class VideoChatEndedContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: VideoChatEndedContextOptions) {
+  constructor (options: VideoChatEndedContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'video_chat_ended',
@@ -33,8 +33,8 @@ class VideoChatEndedContext extends Context {
   }
 
   /** Service message: video chat ended */
-  get videoChatEnded() {
-    return new VideoChatEnded(this.payload.video_chat_ended!)
+  get videoChatEnded () {
+    return new VideoChatEnded(this.payload.video_chat_ended as Interfaces.TelegramVideoChatEnded)
   }
 }
 
@@ -42,7 +42,7 @@ interface VideoChatEndedContext extends Constructor<VideoChatEndedContext>, Mess
 applyMixins(VideoChatEndedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatEndedContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

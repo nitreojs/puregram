@@ -21,7 +21,7 @@ interface VideoChatStartedContextOptions {
 class VideoChatStartedContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: VideoChatStartedContextOptions) {
+  constructor (options: VideoChatStartedContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'video_chat_started',
@@ -33,8 +33,8 @@ class VideoChatStartedContext extends Context {
   }
 
   /** Service message: video chat started */
-  get videoChatStarted() {
-    return new VideoChatStarted(this.payload.video_chat_started!)
+  get videoChatStarted () {
+    return new VideoChatStarted(this.payload.video_chat_started as Interfaces.TelegramVideoChatStarted)
   }
 }
 
@@ -42,7 +42,7 @@ interface VideoChatStartedContext extends Constructor<VideoChatStartedContext>, 
 applyMixins(VideoChatStartedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatStartedContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

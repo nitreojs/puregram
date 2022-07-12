@@ -20,7 +20,7 @@ interface DeleteChatPhotoContextOptions {
 class DeleteChatPhotoContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: DeleteChatPhotoContextOptions) {
+  constructor (options: DeleteChatPhotoContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'delete_chat_photo',
@@ -36,7 +36,7 @@ interface DeleteChatPhotoContext extends Constructor<DeleteChatPhotoContext>, Me
 applyMixins(DeleteChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(DeleteChatPhotoContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

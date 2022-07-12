@@ -21,7 +21,7 @@ interface ProximityAlertTriggeredContextOptions {
 class ProximityAlertTriggeredContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: ProximityAlertTriggeredContextOptions) {
+  constructor (options: ProximityAlertTriggeredContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'proximity_alert_triggered',
@@ -37,8 +37,8 @@ class ProximityAlertTriggeredContext extends Context {
    * A user in the chat triggered another user's proximity alert
    * while sharing Live Location.
    */
-  get proximityAlert() {
-    return new ProximityAlertTriggered(this.payload.proximity_alert_triggered!)
+  get proximityAlert () {
+    return new ProximityAlertTriggered(this.payload.proximity_alert_triggered as Interfaces.TelegramProximityAlertTriggered)
   }
 }
 
@@ -46,7 +46,7 @@ interface ProximityAlertTriggeredContext extends Constructor<ProximityAlertTrigg
 applyMixins(ProximityAlertTriggeredContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(ProximityAlertTriggeredContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

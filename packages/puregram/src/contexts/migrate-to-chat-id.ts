@@ -20,7 +20,7 @@ interface MigrateToChatIdContextOptions {
 class MigrateToChatIdContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: MigrateToChatIdContextOptions) {
+  constructor (options: MigrateToChatIdContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'migrate_to_chat_id',
@@ -32,8 +32,8 @@ class MigrateToChatIdContext extends Context {
   }
 
   /** Chat ID */
-  get eventId() {
-    return this.payload.migrate_to_chat_id!
+  get eventId () {
+    return this.payload.migrate_to_chat_id as number
   }
 }
 
@@ -41,7 +41,7 @@ interface MigrateToChatIdContext extends Constructor<MigrateToChatIdContext>, Me
 applyMixins(MigrateToChatIdContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(MigrateToChatIdContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

@@ -5,7 +5,7 @@ import { ApiResponseError } from '../types/interfaces'
 export class APIError extends TelegramError {
   parameters: ApiResponseError['parameters']
 
-  constructor(params: ApiResponseError) {
+  constructor (params: ApiResponseError) {
     super({
       error_code: params.error_code,
       description: params.description

@@ -5,40 +5,40 @@ import { filterPayload } from '../../utils/helpers'
 
 /** This object represents a phone contact. */
 export class Contact {
-  constructor(private payload: Interfaces.TelegramContact) { }
+  constructor (private payload: Interfaces.TelegramContact) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Contact's phone number */
-  get phoneNumber() {
+  get phoneNumber () {
     return this.payload.phone_number
   }
 
   /** Contact's first name */
-  get firstName() {
+  get firstName () {
     return this.payload.first_name
   }
 
   /** Contact's last name */
-  get lastName() {
+  get lastName () {
     return this.payload.last_name
   }
 
   /** Contact's user identifier in Telegram */
-  get userId() {
+  get userId () {
     return this.payload.user_id
   }
 
   /** Additional data about the contact in the form of a vCard */
-  get vCard() {
+  get vCard () {
     return this.payload.vcard
   }
 }
 
 inspectable(Contact, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       phoneNumber: struct.phoneNumber,
       firstName: struct.firstName,

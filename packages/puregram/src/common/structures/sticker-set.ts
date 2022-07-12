@@ -8,39 +8,39 @@ import { StickerAttachment } from '../attachments'
 import { PhotoSize } from './photo-size'
 
 export class StickerSet {
-  constructor(private payload: Interfaces.TelegramStickerSet) { }
+  constructor (private payload: Interfaces.TelegramStickerSet) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Sticker set name */
-  get name() {
+  get name () {
     return this.payload.name
   }
 
   /** Sticker set title */
-  get title() {
+  get title () {
     return this.payload.title
   }
 
   /** `true`, if the sticker set contains animated stickers */
-  get isAnimated() {
+  get isAnimated () {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker set contains video stickers */
-  get isVideo() {
+  get isVideo () {
     return this.payload.is_video
   }
 
   /** `true`, if the sticker set contains masks */
-  get containsMasks() {
+  get containsMasks () {
     return this.payload.contains_masks
   }
 
   /** List of all set stickers */
-  get stickers() {
+  get stickers () {
     const { stickers } = this.payload
 
     if (!stickers.length) {
@@ -53,7 +53,7 @@ export class StickerSet {
   }
 
   /** Sticker set thumbnail in the .WEBP or .TGS format */
-  get thumb() {
+  get thumb () {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -65,7 +65,7 @@ export class StickerSet {
 }
 
 inspectable(StickerSet, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       name: struct.name,
       title: struct.title,

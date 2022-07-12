@@ -7,9 +7,9 @@ import { User } from './user'
 
 /** Represents an invite link for a chat. */
 export class ChatInviteLink {
-  constructor(public payload: Interfaces.TelegramChatInviteLink) { }
+  constructor (public payload: Interfaces.TelegramChatInviteLink) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
@@ -17,32 +17,32 @@ export class ChatInviteLink {
    * The invite link. If the link was created by another chat administrator,
    * then the second part of the link will be replaced with `…`.
    */
-  get link() {
+  get link () {
     return this.payload.invite_link
   }
 
   /** Creator of the link */
-  get creator() {
+  get creator () {
     return new User(this.payload.creator)
   }
 
   /** Invite link name */
-  get name() {
+  get name () {
     return this.payload.name
   }
 
   /** `true`, if the link is primary */
-  get isPrimary() {
+  get isPrimary () {
     return this.payload.is_primary
   }
 
   /** `true`, if the link is revoked */
-  get isRevoked() {
+  get isRevoked () {
     return this.payload.is_revoked
   }
 
   /** Point in time (Unix timestamp) when the link will expire or has been expired */
-  get expireDate() {
+  get expireDate () {
     return this.payload.expire_date
   }
 
@@ -51,23 +51,23 @@ export class ChatInviteLink {
    * after joining the chat via this invite link;
    * `1-99999`
    */
-  get memberLimit() {
+  get memberLimit () {
     return this.payload.member_limit
   }
 
   /** `true`, if users joining the chat via the link need to be approved by chat administrators */
-  get createsJoinRequest() {
+  get createsJoinRequest () {
     return this.payload.creates_join_request
   }
 
   /** Number of pending join requests created using this link */
-  get pendingJoinRequestCount() {
+  get pendingJoinRequestCount () {
     return this.payload.pending_join_request_count
   }
 }
 
 inspectable(ChatInviteLink, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       link: struct.link,
       creator: struct.creator,

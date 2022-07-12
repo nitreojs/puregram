@@ -21,7 +21,7 @@ interface PassportDataContextOptions {
 class PassportDataContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: PassportDataContextOptions) {
+  constructor (options: PassportDataContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'passport_data',
@@ -33,8 +33,8 @@ class PassportDataContext extends Context {
   }
 
   /** Telegram Passport data */
-  get passportData() {
-    return new PassportData(this.payload.passport_data!)
+  get passportData () {
+    return new PassportData(this.payload.passport_data as Interfaces.TelegramPassportData)
   }
 }
 
@@ -42,7 +42,7 @@ interface PassportDataContext extends Constructor<PassportDataContext>, Message,
 applyMixins(PassportDataContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(PassportDataContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

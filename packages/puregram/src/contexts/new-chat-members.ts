@@ -21,7 +21,7 @@ interface NewChatMembersContextOptions {
 class NewChatMembersContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: NewChatMembersContextOptions) {
+  constructor (options: NewChatMembersContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'new_chat_members',
@@ -33,10 +33,10 @@ class NewChatMembersContext extends Context {
   }
 
   /** New chat members */
-  get eventMembers() {
-    return this.payload.new_chat_members!.map(
-      (member: Interfaces.TelegramUser) => new User(member)
-    )
+  get eventMembers () {
+    const members = this.payload.new_chat_members as Interfaces.TelegramUser[]
+
+    return members.map(member => new User(member))
   }
 }
 
@@ -44,7 +44,7 @@ interface NewChatMembersContext extends Constructor<NewChatMembersContext>, Mess
 applyMixins(NewChatMembersContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(NewChatMembersContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

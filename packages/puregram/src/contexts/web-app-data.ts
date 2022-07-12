@@ -20,7 +20,7 @@ interface WebAppDataContextOptions {
 class WebAppDataContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: WebAppDataContextOptions) {
+  constructor (options: WebAppDataContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'web_app_data',
@@ -32,16 +32,20 @@ class WebAppDataContext extends Context {
   }
 
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
-  get data() {
-    return this.payload.web_app_data!.data
+  get data () {
+    const webAppData = this.payload.web_app_data as Interfaces.TelegramWebAppData
+
+    return webAppData.data
   }
 
   /**
    * Text of the `web_app` keyboard button, from which the Web App was opened.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  get buttonText() {
-    return this.payload.web_app_data!.button_text
+  get buttonText () {
+    const webAppData = this.payload.web_app_data as Interfaces.TelegramWebAppData
+
+    return webAppData.button_text
   }
 }
 
@@ -49,7 +53,7 @@ interface WebAppDataContext extends Constructor<WebAppDataContext>, Message, Tar
 applyMixins(WebAppDataContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(WebAppDataContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

@@ -17,7 +17,7 @@ interface NodeMixinMetadata {
 /** This object represents a context which has `id` field and can invoke `id`-dependent methods */
 class NodeMixin {
   /** Replies to current message */
-  reply(
+  reply (
     text: string,
     params?: Optional<Methods.SendMessageParams, 'chat_id' | 'text'>
   ) {
@@ -28,7 +28,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with photo */
-  replyWithPhoto(
+  replyWithPhoto (
     photo: MediaInput,
     params?: Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>
   ) {
@@ -39,7 +39,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with document */
-  replyWithDocument(
+  replyWithDocument (
     document: MediaInput,
     params?: Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>
   ) {
@@ -50,7 +50,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with audio */
-  replyWithAudio(
+  replyWithAudio (
     audio: MediaInput,
     params?: Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>
   ) {
@@ -61,7 +61,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with video */
-  replyWithVideo(
+  replyWithVideo (
     video: MediaInput,
     params?: Optional<Methods.SendVideoParams, 'chat_id' | 'video'>
   ) {
@@ -72,7 +72,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with animation */
-  replyWithAnimation(
+  replyWithAnimation (
     animation: MediaInput,
     params?: Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>
   ) {
@@ -83,7 +83,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with video note */
-  replyWithVideoNote(
+  replyWithVideoNote (
     videoNote: MediaInput,
     params?: Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>
   ) {
@@ -94,7 +94,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with voice */
-  replyWithVoice(
+  replyWithVoice (
     voice: MediaInput,
     params?: Optional<Methods.SendVoiceParams, 'chat_id'>
   ) {
@@ -105,7 +105,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with media group */
-  replyWithMediaGroup(
+  replyWithMediaGroup (
     mediaGroup: Methods.SendMediaGroupParams['media'],
     params?: Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>
   ) {
@@ -116,7 +116,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with location */
-  replyWithLocation(
+  replyWithLocation (
     latitude: number,
     longitude: number,
     params?: Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
@@ -128,7 +128,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with invoice */
-  replyWithInvoice(params: Optional<Methods.SendInvoiceParams, 'chat_id'>) {
+  replyWithInvoice (params: Optional<Methods.SendInvoiceParams, 'chat_id'>) {
     return this.sendInvoice({
       reply_to_message_id: this.id,
       ...params
@@ -136,7 +136,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with venue */
-  replyWithVenue(params: Optional<Methods.SendVenueParams, 'chat_id'>) {
+  replyWithVenue (params: Optional<Methods.SendVenueParams, 'chat_id'>) {
     return this.sendVenue({
       reply_to_message_id: this.id,
       ...params
@@ -144,7 +144,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with contact */
-  replyWithContact(params: Optional<Methods.SendContactParams, 'chat_id'>) {
+  replyWithContact (params: Optional<Methods.SendContactParams, 'chat_id'>) {
     return this.sendContact({
       reply_to_message_id: this.id,
       ...params
@@ -152,7 +152,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with poll */
-  replyWithPoll(params: Optional<Methods.SendPollParams, 'chat_id'>) {
+  replyWithPoll (params: Optional<Methods.SendPollParams, 'chat_id'>) {
     return this.sendPoll({
       reply_to_message_id: this.id,
       ...params
@@ -160,7 +160,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with sticker */
-  replyWithSticker(
+  replyWithSticker (
     sticker: MediaInput,
     params: Optional<Methods.SendStickerParams, 'chat_id'>
   ) {
@@ -171,7 +171,7 @@ class NodeMixin {
   }
 
   /** Replies to current message with a dice */
-  replyWithDice(
+  replyWithDice (
     emoji: Methods.SendDiceParams['emoji'],
     params?: Partial<Methods.SendDiceParams>
   ) {
@@ -182,12 +182,12 @@ class NodeMixin {
   }
 
   /** @deprecated use `delete()` instead */
-  deleteMessage(params?: Optional<Methods.DeleteMessageParams, 'chat_id' | 'message_id'>) {
+  deleteMessage (params?: Optional<Methods.DeleteMessageParams, 'chat_id' | 'message_id'>) {
     return this.delete(params)
   }
 
   /** Deletes current message */
-  delete(params: Optional<Methods.DeleteMessageParams, 'chat_id' | 'message_id'> = {}) {
+  delete (params: Optional<Methods.DeleteMessageParams, 'chat_id' | 'message_id'> = {}) {
     return this.telegram.api.deleteMessage({
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id,
@@ -196,7 +196,7 @@ class NodeMixin {
   }
 
   /** Edits current message live location */
-  async editMessageLiveLocation(
+  async editMessageLiveLocation (
     params: Methods.EditMessageLiveLocationParams
   ) {
     const response = await this.telegram.api.editMessageLiveLocation({
@@ -216,7 +216,7 @@ class NodeMixin {
   }
 
   /** Stops current message live location */
-  async stopMessageLiveLocation(
+  async stopMessageLiveLocation (
     params?: Methods.StopMessageLiveLocationParams
   ) {
     const response = await this.telegram.api.stopMessageLiveLocation({
@@ -236,7 +236,7 @@ class NodeMixin {
   }
 
   /** Edits current message text */
-  async editMessageText(
+  async editMessageText (
     text: string,
     params?: Partial<Methods.EditMessageTextParams>
   ) {
@@ -258,7 +258,7 @@ class NodeMixin {
   }
 
   /** Edits current message caption */
-  async editMessageCaption(
+  async editMessageCaption (
     caption: string,
     params?: Partial<Methods.EditMessageCaptionParams>
   ) {
@@ -280,7 +280,7 @@ class NodeMixin {
   }
 
   /** Edits current message media */
-  async editMessageMedia(
+  async editMessageMedia (
     media: Interfaces.TelegramInputMedia,
     params?: Partial<Methods.EditMessageMediaParams>
   ) {
@@ -302,7 +302,7 @@ class NodeMixin {
   }
 
   /** Edits current message reply markup */
-  async editMessageReplyMarkup(
+  async editMessageReplyMarkup (
     replyMarkup: InlineKeyboard | InlineKeyboardBuilder | Interfaces.TelegramInlineKeyboardMarkup,
     params?: Partial<Methods.EditMessageReplyMarkupParams>
   ) {
@@ -324,7 +324,7 @@ class NodeMixin {
   }
 
   /** Copies current message [into other chat if `chatId` is provided] */
-  async copy(
+  async copy (
     params: Optional<Methods.CopyMessageParams, 'chat_id' | 'from_chat_id' | 'message_id'> = {}
   ) {
     const response = await this.telegram.api.copyMessage({
@@ -338,7 +338,7 @@ class NodeMixin {
   }
 
   /** Forwards current message [into other chat if `chatId` is provided] */
-  async forward(
+  async forward (
     params: Optional<Methods.ForwardMessageParams, 'chat_id' | 'from_chat_id' | 'message_id'> = {}
   ) {
     const response = await this.telegram.api.forwardMessage({

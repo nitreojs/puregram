@@ -21,7 +21,7 @@ interface ChatJoinRequestContextOptions {
 class ChatJoinRequestContext extends Context {
   payload: Interfaces.TelegramChatJoinRequest
 
-  constructor(options: ChatJoinRequestContextOptions) {
+  constructor (options: ChatJoinRequestContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'chat_join_request',
@@ -38,7 +38,7 @@ interface ChatJoinRequestContext extends Constructor<ChatJoinRequestContext>, Ch
 applyMixins(ChatJoinRequestContext, [ChatJoinRequest, TargetMixin, SendMixin, CloneMixin])
 
 inspectable(ChatJoinRequestContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       chat: context.chat,
       from: context.from,

@@ -21,7 +21,7 @@ interface VideoChatScheduledContextOptions {
 class VideoChatScheduledContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: VideoChatScheduledContextOptions) {
+  constructor (options: VideoChatScheduledContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'video_chat_scheduled',
@@ -33,8 +33,8 @@ class VideoChatScheduledContext extends Context {
   }
 
   /** Service message: video chat scheduled */
-  get videoChatScheduled() {
-    return new VideoChatScheduled(this.payload.video_chat_scheduled!)
+  get videoChatScheduled () {
+    return new VideoChatScheduled(this.payload.video_chat_scheduled as Interfaces.TelegramVideoChatScheduled)
   }
 }
 
@@ -42,7 +42,7 @@ interface VideoChatScheduledContext extends Constructor<VideoChatScheduledContex
 applyMixins(VideoChatScheduledContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatScheduledContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

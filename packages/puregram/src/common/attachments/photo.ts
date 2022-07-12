@@ -13,7 +13,7 @@ export class PhotoAttachment extends Attachment {
 
   attachmentType: AttachmentType = 'photo'
 
-  constructor(payload: PhotoSize[]) {
+  constructor (payload: PhotoSize[]) {
     super()
 
     this.payload = payload
@@ -26,28 +26,28 @@ export class PhotoAttachment extends Attachment {
   }
 
   /** Photo sizes */
-  get sizes() {
+  get sizes () {
     return this.payload
   }
 
   /** Biggest size of the photo */
-  get bigSize() {
+  get bigSize () {
     return this.sorted[0]
   }
 
   /** Medium size of the photo */
-  get mediumSize() {
+  get mediumSize () {
     return this.sorted[Math.floor(this.sorted.length / 2)]
   }
 
   /** Smallest size of the photo */
-  get smallSize() {
+  get smallSize () {
     return this.sorted[this.sorted.length - 1]
   }
 }
 
 inspectable(PhotoAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       smallSize: attachment.smallSize,
       mediumSize: attachment.mediumSize,

@@ -10,34 +10,34 @@ import { User } from './user'
 
 /** This object represents changes in the status of a chat member. */
 export class ChatMemberUpdated {
-  constructor(public payload: Interfaces.TelegramChatMemberUpdated) { }
+  constructor (public payload: Interfaces.TelegramChatMemberUpdated) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Chat the user belongs to */
-  get chat() {
+  get chat () {
     return new Chat(this.payload.chat)
   }
 
   /** Performer of the action, which resulted in the change */
-  get from() {
+  get from () {
     return new User(this.payload.from)
   }
 
   /** Date the change was done in Unix time */
-  get date() {
+  get date () {
     return this.payload.date
   }
 
   /** Previous information about the chat member */
-  get oldChatMember() {
+  get oldChatMember () {
     return new ChatMember(this.payload.old_chat_member)
   }
 
   /** New information about the chat member */
-  get newChatMember() {
+  get newChatMember () {
     return new ChatMember(this.payload.new_chat_member)
   }
 
@@ -45,7 +45,7 @@ export class ChatMemberUpdated {
    * Chat invite link, which was used by the user to join the chat;
    * for joining by invite link events only.
    */
-  get inviteLink() {
+  get inviteLink () {
     const { invite_link } = this.payload
 
     if (!invite_link) {
@@ -57,7 +57,7 @@ export class ChatMemberUpdated {
 }
 
 inspectable(ChatMemberUpdated, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       chat: struct.chat,
       from: struct.from,

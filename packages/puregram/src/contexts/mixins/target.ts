@@ -5,7 +5,7 @@ class TargetMixin {
   payload!: Record<string, any>
 
   /** Sender, empty for messages sent to channels */
-  get from() {
+  get from () {
     const { from } = this.payload
 
     if (!from) {
@@ -21,7 +21,7 @@ class TargetMixin {
    * The supergroup itself for messages from anonymous group administrators.
    * The linked channel for messages automatically forwarded to the discussion group
    */
-  get senderChat() {
+  get senderChat () {
     const { sender_chat } = this.payload
 
     if (!sender_chat) {
@@ -32,7 +32,7 @@ class TargetMixin {
   }
 
   /** Conversation the message belongs to */
-  get chat() {
+  get chat () {
     const { chat } = this.payload
 
     if (!chat) {
@@ -43,37 +43,37 @@ class TargetMixin {
   }
 
   /** Sender's ID */
-  get senderId() {
+  get senderId () {
     return this.from?.id
   }
 
   /** Chat ID */
-  get chatId() {
+  get chatId () {
     return this.chat?.id
   }
 
   /** Chat type */
-  get chatType() {
+  get chatType () {
     return this.chat?.type
   }
 
   /** Is this chat a private one? */
-  get isPM() {
+  get isPM () {
     return this.chatType === 'private'
   }
 
   /** Is this chat a group? */
-  get isGroup() {
+  get isGroup () {
     return this.chatType === 'group'
   }
 
   /** Is this chat a supergroup? */
-  get isSupergroup() {
+  get isSupergroup () {
     return this.chatType === 'supergroup'
   }
 
   /** Is this chat a channel? */
-  get isChannel() {
+  get isChannel () {
     return this.chatType === 'channel'
   }
 }

@@ -21,7 +21,7 @@ interface LeftChatMemberContextOptions {
 class LeftChatMemberContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: LeftChatMemberContextOptions) {
+  constructor (options: LeftChatMemberContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'left_chat_member',
@@ -33,8 +33,8 @@ class LeftChatMemberContext extends Context {
   }
 
   /** Left chat member */
-  get eventMember() {
-    return new User(this.payload.left_chat_member!)
+  get eventMember () {
+    return new User(this.payload.left_chat_member as Interfaces.TelegramUser)
   }
 }
 
@@ -42,7 +42,7 @@ interface LeftChatMemberContext extends Constructor<LeftChatMemberContext>, Mess
 applyMixins(LeftChatMemberContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(LeftChatMemberContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

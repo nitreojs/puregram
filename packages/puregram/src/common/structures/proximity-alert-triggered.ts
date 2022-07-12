@@ -9,26 +9,26 @@ import { User } from './user'
  * sent whenever a user in the chat triggers a proximity alert set by another user.
  */
 export class ProximityAlertTriggered {
-  constructor(private payload: Interfaces.TelegramProximityAlertTriggered) { }
+  constructor (private payload: Interfaces.TelegramProximityAlertTriggered) { }
 
   /** User that triggered the alert */
-  get traveler() {
+  get traveler () {
     return new User(this.payload.traveler)
   }
 
   /** User that set the alert */
-  get watcher() {
+  get watcher () {
     return new User(this.payload.watcher)
   }
 
   /** The distance between the users */
-  get distance() {
+  get distance () {
     return this.payload.distance
   }
 }
 
 inspectable(ProximityAlertTriggered, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       traveler: struct.traveler,
       watcher: struct.watcher,

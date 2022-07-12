@@ -15,17 +15,17 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
    * Video width and height (diameter of the video message) as defined by
    * sender
    */
-  get length() {
+  get length () {
     return this.payload.length
   }
 
   /** Duration of the video in seconds as defined by sender */
-  get duration() {
+  get duration () {
     return this.payload.duration
   }
 
   /** Video thumbnail */
-  get thumb() {
+  get thumb () {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -36,13 +36,13 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 }
 
 inspectable(VideoNoteAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,

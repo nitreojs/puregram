@@ -12,22 +12,22 @@ export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
   attachmentType: AttachmentType = 'video'
 
   /** Video width as defined by sender */
-  get width() {
+  get width () {
     return this.payload.width
   }
 
   /** Video height as defined by sender */
-  get height() {
+  get height () {
     return this.payload.height
   }
 
   /** Duration of the video in seconds as defined by sender */
-  get duration() {
+  get duration () {
     return this.payload.duration
   }
 
   /** Video thumbnail */
-  get thumb() {
+  get thumb () {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -38,23 +38,23 @@ export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
   }
 
   /** Original filename as defined by sender */
-  get fileName() {
+  get fileName () {
     return this.payload.file_name
   }
 
   /** Mime type of a file as defined by sender */
-  get mimeType() {
+  get mimeType () {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 }
 
 inspectable(VideoAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,

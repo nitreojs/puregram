@@ -6,40 +6,40 @@ import { ShippingAddress } from '../common/structures/shipping-address'
 
 /** This object contains information about an incoming shipping query. */
 export class ShippingQuery {
-  constructor(public payload: TelegramShippingQuery) { }
+  constructor (public payload: TelegramShippingQuery) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Unique query identifier */
-  get id() {
+  get id () {
     return this.payload.id
   }
 
   /** User who sent the query */
-  get from() {
+  get from () {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
-  get senderId() {
+  get senderId () {
     return this.from.id
   }
 
   /** Bot specified invoice payload */
-  get invoicePayload() {
+  get invoicePayload () {
     return this.payload.invoice_payload
   }
 
   /** User specified shipping address */
-  get shippingAddress() {
+  get shippingAddress () {
     return new ShippingAddress(this.payload.shipping_address)
   }
 }
 
 inspectable(ShippingQuery, {
-  serialize(update) {
+  serialize (update) {
     return {
       id: update.id,
       from: update.from,

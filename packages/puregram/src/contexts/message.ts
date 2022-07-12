@@ -48,7 +48,7 @@ class MessageContext extends Context {
 
   mediaGroup?: MediaGroup
 
-  constructor(options: MessageContextOptions) {
+  constructor (options: MessageContextOptions) {
     super({
       telegram: options.telegram,
       updateType: options.type ?? 'message',
@@ -65,16 +65,16 @@ class MessageContext extends Context {
   /**
    * For text messages, the actual UTF-8 text of the message, 0-4096 characters
    */
-  get text() {
+  get text () {
     return this.#text
   }
 
-  set text(text) {
+  set text (text) {
     this.#text = text
   }
 
   /** Checks if the message has `text` property */
-  get hasText() {
+  get hasText () {
     return this.text !== undefined
   }
 
@@ -82,39 +82,41 @@ class MessageContext extends Context {
    * Caption for the animation, audio, document, photo, video or voice,
    * 0-1024 characters
    */
-  get caption() {
+  get caption () {
     return this.#caption
   }
 
-  set caption(caption) {
+  set caption (caption) {
     this.#caption = caption
   }
 
   /** Checks if the message has `caption` property */
-  get hasCaption() {
+  get hasCaption () {
     return this.caption !== undefined
   }
 
   /** Checks if the message has `dice` property */
-  get hasDice() {
+  get hasDice () {
     return this.dice !== undefined
   }
 
   /** Value after the `/start` command */
-  get rawStartPayload() {
+  get rawStartPayload () {
     if (!this.hasText) {
       return
     }
 
-    if (!this.text!.startsWith('/start') || this.text === '/start') {
+    const text = this.text as string
+
+    if (!text.startsWith('/start') || text === '/start') {
       return
     }
 
-    return this.text!.split(' ')[1]
+    return text.split(' ')[1]
   }
 
   /** Parsed value after the `/start` command */
-  get startPayload() {
+  get startPayload () {
     let payload: any = this.rawStartPayload
 
     if (payload === undefined) {
@@ -131,17 +133,17 @@ class MessageContext extends Context {
   }
 
   /** Does this message have start payload? */
-  get hasStartPayload() {
+  get hasStartPayload () {
     return this.startPayload !== undefined
   }
 
   /** Checks if the message has `author_signature` property */
-  get hasAuthorSignature() {
+  get hasAuthorSignature () {
     return this.authorSignature !== undefined
   }
 
   /** Checks if there are any entities (with specified type) */
-  hasEntities(type?: EntityType | MessageEntity['type']) {
+  hasEntities (type?: EntityType | MessageEntity['type']) {
     if (type === undefined) {
       return this.entities.length !== 0
     }
@@ -150,7 +152,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any caption entities (with specified type) */
-  hasCaptionEntities(type?: EntityType | MessageEntity['type']) {
+  hasCaptionEntities (type?: EntityType | MessageEntity['type']) {
     if (type === undefined) {
       return this.captionEntities.length !== 0
     }
@@ -159,52 +161,52 @@ class MessageContext extends Context {
   }
 
   /** Checks whether current message contains a media group (`mergeMediaEvents` must be on) */
-  get isMediaGroup() {
+  get isMediaGroup () {
     return this.mediaGroupId !== undefined
   }
 
   /** Message attachment */
-  get attachment() {
+  get attachment () {
     if (this.photo) {
       return new PhotoAttachment(this.photo)
     }
 
     if (this.contact) {
-      return new ContactAttachment(this.payload.contact!)
+      return new ContactAttachment(this.payload.contact as Interfaces.TelegramContact)
     }
 
     if (this.poll) {
-      return new PollAttachment(this.payload.poll!)
+      return new PollAttachment(this.payload.poll as Interfaces.TelegramPoll)
     }
 
     if (this.venue) {
-      return new VenueAttachment(this.payload.venue!)
+      return new VenueAttachment(this.payload.venue as Interfaces.TelegramVenue)
     }
 
     if (this.location) {
-      return new LocationAttachment(this.payload.location!)
+      return new LocationAttachment(this.payload.location as Interfaces.TelegramLocation)
     }
 
     return this.animation ?? this.audio ?? this.document ?? this.sticker ?? this.video ?? this.videoNote ?? this.voice
   }
 
   /** Does this message have an attachment with a specific type `type`? */
-  hasAttachmentType(type: AttachmentType) {
+  hasAttachmentType (type: AttachmentType) {
     return this.attachment?.attachmentType === type
   }
 
   /** Does this message even have an attachment? */
-  get hasAttachment() {
+  get hasAttachment () {
     return this.attachment !== undefined
   }
 
   /** Is this message an event? */
-  get isEvent() {
+  get isEvent () {
     return EVENTS.some(event => this[event[0]] !== undefined)
   }
 
   /** Event type */
-  get eventType() {
+  get eventType () {
     if (!this.isEvent) {
       return
     }
@@ -229,34 +231,34 @@ class MessageContext extends Context {
   }
 
   /** Is this message a service one? */
-  get isServiceMessage() {
+  get isServiceMessage () {
     return SERVICE_MESSAGE_EVENTS.some(event => this.payload[event] !== undefined)
   }
 
   /** Is this message a forwarded one? */
-  get isForwarded() {
+  get isForwarded () {
     return this.forwardedMessage !== undefined
   }
 
   /** Does this message have reply message? */
-  get hasReplyMessage() {
+  get hasReplyMessage () {
     return this.replyMessage !== undefined
   }
 
   /** Checks if the sent message has `via_bot` property */
-  get hasViaBot() {
+  get hasViaBot () {
     return this.viaBot !== undefined
   }
 
   // INFO: deprecated methods
 
   /** @deprecated use `attachment` instead */
-  get attachments() {
+  get attachments () {
     return [this.attachment] as Attachment[]
   }
 
   /** @deprecated use `hasAttachmentType(type)` and `hasAttachment` instead */
-  hasAttachments(type?: AttachmentType | AttachmentTypeEnum) {
+  hasAttachments (type?: AttachmentType | AttachmentTypeEnum) {
     if (type === undefined) {
       return this.hasAttachment
     }
@@ -274,16 +276,18 @@ class MessageContext extends Context {
   getAttachments(type: AttachmentTypeEnum.VideoNote | 'video_note'): VideoNoteAttachment[]
   getAttachments(type: AttachmentTypeEnum.Voice | 'voice'): VoiceAttachment[]
   getAttachments(type?: AttachmentType | AttachmentTypeEnum): Attachment[]
-  getAttachments(type?: any): Attachment[] {
+  getAttachments (type?: any): Attachment[] {
+    const attachment = this.attachment as Attachment
+
     if (type === undefined) {
-      return [this.attachment!]
+      return [attachment]
     }
 
-    return this.attachment?.attachmentType === type ? [this.attachment!] : []
+    return this.attachment?.attachmentType === type ? [attachment] : []
   }
 
   /** @deprecated use `isForwarded` instead */
-  get isForward() {
+  get isForward () {
     return this.isForwarded
   }
 }
@@ -292,7 +296,7 @@ interface MessageContext extends Constructor<MessageContext>, Message, TargetMix
 applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(MessageContext, {
-  serialize(context) {
+  serialize (context) {
     const payload: Record<string, any> = {
       id: context.id,
       from: context.from,

@@ -6,7 +6,7 @@ import { fileFromPath } from 'formdata-node/file-from-path'
 import { FormDataEncoder } from 'form-data-encoder'
 import { File, FormData } from 'formdata-node'
 import { inspectable } from 'inspectable'
-import { debug, Debugger } from 'debug'
+import { debug } from 'debug'
 
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
@@ -56,7 +56,7 @@ export class Telegram {
    * ```
    */
   readonly api = new Proxy<ProxyAPIMethods>({} as ProxyAPIMethods, {
-    get: (_target, method: string) => (
+    get: (_target, method: string) =>
       (...args: any[]) => {
         // INFO: `telegram.api.call(path: string, params?: Record<string, any>)`
         if (method === 'call') {
@@ -68,7 +68,7 @@ export class Telegram {
 
         return this._callAPI(method, args[0] as Record<string, any>)
       }
-    )
+
   })
 
   /** Updates instance */
@@ -77,7 +77,7 @@ export class Telegram {
   /** Bot data. You are able to access it only after `updates.startPolling()` succeeded! */
   bot!: User
 
-  constructor(options: Partial<TelegramOptions> = {}) {
+  constructor (options: Partial<TelegramOptions> = {}) {
     Object.assign(this.options, options)
 
     this.callApi = deprecate(
@@ -94,7 +94,7 @@ export class Telegram {
   }
 
   /** Creates `Telegram` instance just from `token` [and `params`] */
-  static fromToken(token: string, options: Partial<TelegramOptions> = {}) {
+  static fromToken (token: string, options: Partial<TelegramOptions> = {}) {
     return new Telegram({
       token,
       ...options
@@ -102,12 +102,12 @@ export class Telegram {
   }
 
   /** @deprecated */
-  setOptions(options: Partial<TelegramOptions>) {
+  setOptions (options: Partial<TelegramOptions>) {
     return this
   }
 
   /** Resolves `MediaInput` into a `File` or `string` */
-  private async createMediaInput(input: MediaInput): Promise<unknown> {
+  private async createMediaInput (input: MediaInput): Promise<unknown> {
     const filename = input.filename ?? 'file.dat'
 
     // INFO: returning file ID itself since we can't do anything with it
@@ -173,13 +173,12 @@ export class Telegram {
       return input.value
     }
 
-    // INFO: user may pass invalid input.type and TypeScript does not know about it :shrug:
-    // @ts-expect-error 
+    // @ts-expect-error user may pass invalid input.type and TypeScript does not know about it :shrug:
     throw new TypeError(`received invalid input type: ${input.type}`)
   }
 
   /** Uploads media as usual, returning `RequestInit` */
-  private async uploadMedia(params: Record<string, any>, entity: [string, string[]]): Promise<RequestInit> {
+  private async uploadMedia (params: Record<string, any>, entity: [string, string[]]): Promise<RequestInit> {
     const fd = new FormData()
 
     // INFO: clears [params] object and keeps only media values from it
@@ -208,7 +207,7 @@ export class Telegram {
   }
 
   /** Validates media and creates it under `attach://<attach-id>` ID if necessary */
-  private async createAttachMediaInput(params: APICreateAttachMediaInput) {
+  private async createAttachMediaInput (params: APICreateAttachMediaInput) {
     const media = params.input[params.key] as MediaInput
 
     // INFO: we allow only [MediaInput] media values since [puregram@2.5.0]
@@ -240,7 +239,7 @@ export class Telegram {
    * Methods like `sendMediaGroup` and `editMessageMedia` has `media: MediaInput[]` properties.
    * This method makes it so this `media` property is handled properly
    */
-  private async uploadWithMedia(params: Record<string, any>): Promise<RequestInit> {
+  private async uploadWithMedia (params: Record<string, any>): Promise<RequestInit> {
     const fd = new FormData()
 
     const { media } = params
@@ -268,7 +267,7 @@ export class Telegram {
   }
 
   /** Invokes Telegram Bot API `path` method [with `params`] */
-  private async _callAPI(path: string, params: Record<string, any> = {}) {
+  private async _callAPI (path: string, params: Record<string, any> = {}) {
     // INFO: convert complex values in [params] into something readable
     // INFO: note it will remove [Buffer] and [Readable] objects
     const decomplexified = decomplexify(params)
@@ -292,7 +291,7 @@ export class Telegram {
 
     try {
       debug_api('HTTP ›')
-      debug_api('url: %s', url.replace(this.options.token!, '[token]'))
+      debug_api('url: %s', url.replace(this.options.token as string, '[token]'))
       debug_api('params: %j', decomplexified)
 
       // INFO: ---- detecting media methods ----
@@ -318,7 +317,7 @@ export class Telegram {
           const newInit = await this.uploadMedia(params, mediaEntity)
 
           init = {
-            ...init,   // INFO: saving [signal] since we don't have access to it in [uploadMedia]
+            ...init, // INFO: saving [signal] since we don't have access to it in [uploadMedia]
             ...newInit
           }
         }
@@ -344,13 +343,13 @@ export class Telegram {
    * Call API `method` with `params`
    * @deprecated use `telegram.api.call(...)` instead
    */
-  callApi(method: string, params?: Record<string, any>) {
+  callApi (method: string, params?: Record<string, any>) {
     return this.api.call(method, params)
   }
 }
 
 inspectable(Telegram, {
-  serialize(telegram) {
+  serialize (telegram) {
     return {
       options: {
         token: telegram.options.token ? '[set]' : '[none]',

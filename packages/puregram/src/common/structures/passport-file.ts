@@ -8,16 +8,16 @@ import * as Interfaces from '../../generated/telegram-interfaces'
  * don't exceed 10MB.
  */
 export class PassportFile {
-  constructor(private payload: Interfaces.TelegramPassportFile) { }
+  constructor (private payload: Interfaces.TelegramPassportFile) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  get fileId() {
+  get fileId () {
     return this.payload.file_id
   }
 
@@ -25,23 +25,23 @@ export class PassportFile {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  get fileUniqueId() {
+  get fileUniqueId () {
     return this.payload.file_unique_id
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 
   /** Unix time when the file was uploaded */
-  get fileDate() {
+  get fileDate () {
     return this.payload.file_date
   }
 }
 
 inspectable(PassportFile, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       fileId: struct.fileId,
       fileUniqueId: struct.fileUniqueId,

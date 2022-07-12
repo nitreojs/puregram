@@ -21,7 +21,7 @@ interface PreCheckoutQueryContextOptions {
 class PreCheckoutQueryContext extends Context {
   payload: Interfaces.TelegramPreCheckoutQuery
 
-  constructor(options: PreCheckoutQueryContextOptions) {
+  constructor (options: PreCheckoutQueryContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'pre_checkout_query',
@@ -33,7 +33,7 @@ class PreCheckoutQueryContext extends Context {
   }
 
   /** Answers to the pending pre-checkout query */
-  answerPreCheckoutQuery(params: Optional<Methods.AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>) {
+  answerPreCheckoutQuery (params: Optional<Methods.AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>) {
     return this.telegram.api.answerPreCheckoutQuery({
       pre_checkout_query_id: this.id,
       ...params
@@ -46,7 +46,7 @@ interface PreCheckoutQueryContext extends Constructor<PreCheckoutQueryContext>, 
 applyMixins(PreCheckoutQueryContext, [PreCheckoutQuery, SendMixin, CloneMixin])
 
 inspectable(PreCheckoutQueryContext, {
-  serialize(context) {
+  serialize (context) {
     const payload = {
       id: context.id,
       from: context.from,

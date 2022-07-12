@@ -4,15 +4,15 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** A placeholder, currently holds no information. */
 export class CallbackGame {
-  constructor(private payload: Interfaces.TelegramCallbackGame) { }
+  constructor (private payload: Interfaces.TelegramCallbackGame) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 }
 
 inspectable(CallbackGame, {
-  serialize(struct) {
+  serialize (struct) {
     return {}
   }
 })

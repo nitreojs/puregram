@@ -4,19 +4,19 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object contains basic information about an invoice. */
 export class Invoice {
-  constructor(private payload: Interfaces.TelegramInvoice) { }
+  constructor (private payload: Interfaces.TelegramInvoice) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Product name */
-  get title() {
+  get title () {
     return this.payload.title
   }
 
   /** Product description */
-  get description() {
+  get description () {
     return this.payload.description
   }
 
@@ -24,12 +24,12 @@ export class Invoice {
    * Unique bot deep-linking parameter that can be used to generate this
    * invoice
    */
-  get startParameter() {
+  get startParameter () {
     return this.payload.start_parameter
   }
 
   /** Three-letter ISO 4217 currency code */
-  get currency() {
+  get currency () {
     return this.payload.currency
   }
 
@@ -41,13 +41,13 @@ export class Invoice {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
-  get totalAmount() {
+  get totalAmount () {
     return this.payload.total_amount
   }
 }
 
 inspectable(Invoice, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       title: struct.title,
       description: struct.description,

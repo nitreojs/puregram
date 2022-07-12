@@ -21,7 +21,7 @@ interface ChannelChatCreatedContextOptions {
 class ChannelChatCreatedContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: ChannelChatCreatedContextOptions) {
+  constructor (options: ChannelChatCreatedContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'channel_chat_created',
@@ -33,12 +33,12 @@ class ChannelChatCreatedContext extends Context {
   }
 
   /** Unique message identifier inside this chat */
-  get id() {
+  get id () {
     return this.payload.message_id
   }
 
   /** Date the message was sent in Unix time */
-  get createdAt() {
+  get createdAt () {
     return this.payload.date
   }
 }
@@ -47,7 +47,7 @@ interface ChannelChatCreatedContext extends Constructor<ChannelChatCreatedContex
 applyMixins(ChannelChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(ChannelChatCreatedContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

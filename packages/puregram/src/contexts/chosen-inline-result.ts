@@ -24,7 +24,7 @@ interface ChosenInlineResultContextOptions {
 class ChosenInlineResultContext extends Context {
   payload: Interfaces.TelegramChosenInlineResult
 
-  constructor(options: ChosenInlineResultContextOptions) {
+  constructor (options: ChosenInlineResultContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'chosen_inline_result',
@@ -41,7 +41,7 @@ interface ChosenInlineResultContext extends Constructor<ChosenInlineResultContex
 applyMixins(ChosenInlineResultContext, [ChosenInlineResult, SendMixin, CloneMixin])
 
 inspectable(ChosenInlineResultContext, {
-  serialize(result) {
+  serialize (result) {
     const payload = {
       resultId: result.resultId,
       from: result.from,

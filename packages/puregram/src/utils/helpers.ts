@@ -17,6 +17,7 @@ export const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
         Object.defineProperty(
           derivedCtor.prototype,
           name,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           Object.getOwnPropertyDescriptor(baseCtor.prototype, name)!
         )
       }
@@ -34,10 +35,7 @@ export const filterPayload = (payload: Record<string, any>) => {
   for (const [key, value] of Object.entries(payload)) {
     const notEmpty = value !== undefined && value !== null
 
-    const isEmptyArray = (
-      Array.isArray(value)
-      && value!.length === 0
-    )
+    const isEmptyArray = Array.isArray(value) && value?.length === 0
 
     if (notEmpty && !isEmptyArray) {
       if (isPlainObject(value)) {
@@ -65,16 +63,16 @@ export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 
 const replaceRegexpChar = (char: string) => (
   char
-    .replace(/\\/g, '\\\\')  // '\'
-    .replace(/\//g, '\\/')   // '/'
-    .replace(/\[/g, '\\[')   // '['
-    .replace(/]/g, '\\]')    // ']'
-    .replace(/\(/g, '\\(')   // '('
-    .replace(/\)/g, '\\)')   // ')'
-    .replace(/\*/g, '\\*')   // '*'
-    .replace(/\+/g, '\\+')   // '+'
-    .replace(/\./g, '\\.')   // '.'
-    .replace(/\|/g, '\\|')   // '|'
+    .replace(/\\/g, '\\\\') // '\'
+    .replace(/\//g, '\\/') // '/'
+    .replace(/\[/g, '\\[') // '['
+    .replace(/]/g, '\\]') // ']'
+    .replace(/\(/g, '\\(') // '('
+    .replace(/\)/g, '\\)') // ')'
+    .replace(/\*/g, '\\*') // '*'
+    .replace(/\+/g, '\\+') // '+'
+    .replace(/\./g, '\\.') // '.'
+    .replace(/\|/g, '\\|') // '|'
 )
 
 export const replaceChars = (source: string, chars: string[] | string) => {

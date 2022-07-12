@@ -21,7 +21,7 @@ interface PinnedMessageContextOptions {
 class PinnedMessageContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: PinnedMessageContextOptions) {
+  constructor (options: PinnedMessageContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'pinned_message',
@@ -33,10 +33,10 @@ class PinnedMessageContext extends Context {
   }
 
   /** Pinned message */
-  get eventMessage() {
+  get eventMessage () {
     return new MessageContext({
       telegram: this.telegram,
-      payload: this.payload.pinned_message!
+      payload: this.payload.pinned_message as Interfaces.TelegramMessage
     })
   }
 }
@@ -45,7 +45,7 @@ interface PinnedMessageContext extends Constructor<PinnedMessageContext>, Messag
 applyMixins(PinnedMessageContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(PinnedMessageContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

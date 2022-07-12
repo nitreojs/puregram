@@ -4,25 +4,25 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object represents a bot command */
 export class BotCommand {
-  constructor(private payload: Interfaces.TelegramBotCommand) { }
+  constructor (private payload: Interfaces.TelegramBotCommand) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores. */
-  get command() {
+  get command () {
     return this.payload.command
   }
 
   /** Description of the command; 1-256 characters */
-  get description() {
+  get description () {
     return this.payload.description
   }
 }
 
 inspectable(BotCommand, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       command: struct.command,
       description: struct.description

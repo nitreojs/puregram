@@ -12,7 +12,7 @@ export class TelegramError extends Error {
   /** Error cause */
   cause?: unknown
 
-  constructor({ error_code, description, cause }: ErrorOptions) {
+  constructor ({ error_code, description, cause }: ErrorOptions) {
     super(description)
 
     this.code = error_code
@@ -22,11 +22,11 @@ export class TelegramError extends Error {
     Error.captureStackTrace(this, this.constructor)
   }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
-  toJSON(): Pick<this, keyof this> {
+  toJSON (): Pick<this, keyof this> {
     const json = {} as Pick<this, keyof this>
 
     for (const key of Object.getOwnPropertyNames(this)) {

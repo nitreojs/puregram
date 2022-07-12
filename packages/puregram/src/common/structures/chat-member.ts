@@ -6,29 +6,29 @@ import { filterPayload } from '../../utils/helpers'
 import { User } from './user'
 
 export class ChatMember {
-  constructor(public payload: Interfaces.TelegramChatMember) { }
+  constructor (public payload: Interfaces.TelegramChatMember) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Information about the user */
-  get user() {
+  get user () {
     return new User(this.payload.user)
   }
 
   /** The member's status in the chat */
-  get status() {
+  get status () {
     return this.payload.status
   }
 
   /** Owner and administrators only. Custom title for this user */
-  get customTitle() {
+  get customTitle () {
     return this.payload.custom_title
   }
 
   /** Owner and administrators only. `true`, if the user's presence in the chat is hidden */
-  get isAnonymous() {
+  get isAnonymous () {
     return this.payload.is_anonymous
   }
 
@@ -37,7 +37,7 @@ export class ChatMember {
    * Date when restrictions will be lifted for this user;
    * unix time
    */
-  get untilDate() {
+  get untilDate () {
     return this.payload.until_date
   }
 
@@ -46,18 +46,18 @@ export class ChatMember {
    * `true`, if the bot is allowed to edit administrator privileges of that
    * user
    */
-  get canBeEdited() {
+  get canBeEdited () {
     return this.payload.can_be_edited
   }
 
   /**
    * Administrators only.
    * `true`, if the administrator can access the chat event log, chat statistics,
-   * message statistics in channels, see channel members, see anonymous administrators 
+   * message statistics in channels, see channel members, see anonymous administrators
    * in supergroups and ignore slow mode.
    * Implied by any other administrator privilege
    */
-  get canManageChat() {
+  get canManageChat () {
     return this.payload.can_manage_chat
   }
 
@@ -66,7 +66,7 @@ export class ChatMember {
    * `true`, if the administrator can post in the channel;
    * channels only
    */
-  get canPostMessages() {
+  get canPostMessages () {
     return this.payload.can_post_messages
   }
 
@@ -75,7 +75,7 @@ export class ChatMember {
    * `true`, if the administrator can edit messages of other users
    * and can pin messages; channels only
    */
-  get canEditMessages() {
+  get canEditMessages () {
     return this.payload.can_edit_messages
   }
 
@@ -83,7 +83,7 @@ export class ChatMember {
    * Administrators only.
    * `true`, if the administrator can delete messages of other users
    */
-  get canDeleteMessages() {
+  get canDeleteMessages () {
     return this.payload.can_delete_messages
   }
 
@@ -91,7 +91,7 @@ export class ChatMember {
    * Administrators only.
    * `true`, if the administrator can manage video chats
    */
-  get canManageVideoChats() {
+  get canManageVideoChats () {
     return this.payload.can_manage_video_chats
   }
 
@@ -99,7 +99,7 @@ export class ChatMember {
    * Administrators only.
    * `true`, if the administrator can restrict, ban or unban chat members
    */
-  get canRestrictMembers() {
+  get canRestrictMembers () {
     return this.payload.can_restrict_members
   }
 
@@ -110,7 +110,7 @@ export class ChatMember {
    * directly or indirectly (promoted by administrators that were appointed by
    * the user)
    */
-  get canPromoteMembers() {
+  get canPromoteMembers () {
     return this.payload.can_promote_members
   }
 
@@ -119,7 +119,7 @@ export class ChatMember {
    * `true`, if the user is allowed to change the chat title,
    * photo and other settings
    */
-  get canChangeInfo() {
+  get canChangeInfo () {
     return this.payload.can_change_info
   }
 
@@ -127,7 +127,7 @@ export class ChatMember {
    * Administrators and restricted only.
    * `true`, if the user is allowed to invite new users to the chat
    */
-  get canInviteUsers() {
+  get canInviteUsers () {
     return this.payload.can_invite_users
   }
 
@@ -136,7 +136,7 @@ export class ChatMember {
    * `true`, if the user is allowed to pin messages;
    * groups and supergroups only
    */
-  get canPinMessages() {
+  get canPinMessages () {
     return this.payload.can_pin_messages
   }
 
@@ -144,7 +144,7 @@ export class ChatMember {
    * Restricted only.
    * `true`, if the user is a member of the chat at the moment of the request
    */
-  get isMember() {
+  get isMember () {
     return this.payload.is_member
   }
 
@@ -153,7 +153,7 @@ export class ChatMember {
    * `true`, if the user is allowed to send text messages,
    * contacts, locations and venues
    */
-  get canSendMessages() {
+  get canSendMessages () {
     return this.payload.can_send_messages
   }
 
@@ -162,12 +162,12 @@ export class ChatMember {
    * `true`, if the user is allowed to send audios, documents,
    * photos, videos, video notes and voice notes
    */
-  get canSendMediaMessages() {
+  get canSendMediaMessages () {
     return this.payload.can_send_media_messages
   }
 
   /** Restricted only. `true`, if the user is allowed to send polls */
-  get canSendPolls() {
+  get canSendPolls () {
     return this.payload.can_send_polls
   }
 
@@ -176,7 +176,7 @@ export class ChatMember {
    * `true`, if the user is allowed to send animations, games,
    * stickers and use inline bots
    */
-  get canSendOtherMessages() {
+  get canSendOtherMessages () {
     return this.payload.can_send_other_messages
   }
 
@@ -184,13 +184,13 @@ export class ChatMember {
    * Restricted only
    * `true`, if the user is allowed to add web page previews to their messages
    */
-  get canAddWebPagePreviews() {
+  get canAddWebPagePreviews () {
     return this.payload.can_add_web_page_previews
   }
 }
 
 inspectable(ChatMember, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       user: struct.user,
       status: struct.status,

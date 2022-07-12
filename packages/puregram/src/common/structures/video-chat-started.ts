@@ -7,15 +7,15 @@ import * as Interfaces from '../../generated/telegram-interfaces'
  * Currently holds no information.
  */
 export class VideoChatStarted {
-  constructor(public payload: Interfaces.TelegramVideoChatStarted) { }
+  constructor (public payload: Interfaces.TelegramVideoChatStarted) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 }
 
 inspectable(VideoChatStarted, {
-  serialize(struct) {
+  serialize (struct) {
     return {}
   }
 })

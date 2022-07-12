@@ -21,7 +21,7 @@ interface SuccessfulPaymentContextOptions {
 class SuccessfulPaymentContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: SuccessfulPaymentContextOptions) {
+  constructor (options: SuccessfulPaymentContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'successful_payment',
@@ -33,8 +33,8 @@ class SuccessfulPaymentContext extends Context {
   }
 
   /** Received payment */
-  get eventPayment() {
-    return new SuccessfulPayment(this.payload.successful_payment!)
+  get eventPayment () {
+    return new SuccessfulPayment(this.payload.successful_payment as Interfaces.TelegramSuccessfulPayment)
   }
 }
 
@@ -42,7 +42,7 @@ interface SuccessfulPaymentContext extends Constructor<SuccessfulPaymentContext>
 applyMixins(SuccessfulPaymentContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(SuccessfulPaymentContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

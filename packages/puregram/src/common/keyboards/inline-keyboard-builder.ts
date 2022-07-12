@@ -47,12 +47,12 @@ export class InlineKeyboardBuilder {
   private rows: Interfaces.TelegramInlineKeyboardButton[][] = []
   private currentRow: Interfaces.TelegramInlineKeyboardButton[] = []
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Generate text button */
-  textButton(params: TextButtonParams) {
+  textButton (params: TextButtonParams) {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -64,7 +64,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate URL button */
-  urlButton(params: UrlButtonParams) {
+  urlButton (params: UrlButtonParams) {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
@@ -77,7 +77,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate Web App button */
-  webAppButton(params: WebAppButtonParams) {
+  webAppButton (params: WebAppButtonParams) {
     return this.addButton({
       text: params.text,
       web_app: { url: params.url }
@@ -85,7 +85,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate button that will switch to current chat and type the query */
-  switchToCurrentChatButton(params: SwitchToCurrentChatButtonParams) {
+  switchToCurrentChatButton (params: SwitchToCurrentChatButtonParams) {
     return this.addButton({
       text: params.text,
       switch_inline_query_current_chat: params.query
@@ -93,7 +93,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate button that will prompt user to select one of their chats */
-  switchToChatButton(params: SwitchToChatButtonParams) {
+  switchToChatButton (params: SwitchToChatButtonParams) {
     return this.addButton({
       text: params.text,
       switch_inline_query: params.query
@@ -101,7 +101,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate game button */
-  gameButton(params: GameButtonParams) {
+  gameButton (params: GameButtonParams) {
     return this.addWideButton({
       text: params.text,
       callback_game: params.game
@@ -109,7 +109,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate pay button */
-  payButton(params: PayButtonParams) {
+  payButton (params: PayButtonParams) {
     return this.addWideButton({
       pay: true,
       text: params.text
@@ -117,7 +117,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Generate login button */
-  loginButton(params: LoginButtonParams) {
+  loginButton (params: LoginButtonParams) {
     return this.addButton({
       login_url: params.loginUrl,
       text: params.text
@@ -125,7 +125,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Save current row of buttons in the general rows */
-  row() {
+  row () {
     if (this.currentRow.length === 0) {
       return this
     }
@@ -136,13 +136,13 @@ export class InlineKeyboardBuilder {
     return this
   }
 
-  private addButton(button: Interfaces.TelegramInlineKeyboardButton) {
+  private addButton (button: Interfaces.TelegramInlineKeyboardButton) {
     this.currentRow.push(button)
 
     return this
   }
 
-  private addWideButton(button: Interfaces.TelegramInlineKeyboardButton) {
+  private addWideButton (button: Interfaces.TelegramInlineKeyboardButton) {
     if (this.currentRow.length !== 0) {
       this.row()
     }
@@ -153,7 +153,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Clone current builder to new instance */
-  clone(): InlineKeyboardBuilder {
+  clone (): InlineKeyboardBuilder {
     const builder = new InlineKeyboardBuilder()
 
     builder.rows = [...this.rows]
@@ -163,7 +163,7 @@ export class InlineKeyboardBuilder {
   }
 
   /** Returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
-  toJSON(): Interfaces.TelegramInlineKeyboardMarkup {
+  toJSON (): Interfaces.TelegramInlineKeyboardMarkup {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
       : this.rows
@@ -173,13 +173,13 @@ export class InlineKeyboardBuilder {
     }
   }
 
-  toString() {
+  toString () {
     return JSON.stringify(this)
   }
 }
 
 inspectable(InlineKeyboardBuilder, {
-  serialize(builder) {
+  serialize (builder) {
     return builder.toJSON()
   }
 })

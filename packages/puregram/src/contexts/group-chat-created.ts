@@ -20,7 +20,7 @@ interface GroupChatCreatedContextOptions {
 class GroupChatCreatedContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: GroupChatCreatedContextOptions) {
+  constructor (options: GroupChatCreatedContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'group_chat_created',
@@ -36,7 +36,7 @@ interface GroupChatCreatedContext extends Constructor<GroupChatCreatedContext>, 
 applyMixins(GroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(GroupChatCreatedContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

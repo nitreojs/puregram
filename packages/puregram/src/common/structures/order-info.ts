@@ -7,29 +7,29 @@ import { ShippingAddress } from './shipping-address'
 
 /** This object represents information about an order. */
 export class OrderInfo {
-  constructor(private payload: Interfaces.TelegramOrderInfo) { }
+  constructor (private payload: Interfaces.TelegramOrderInfo) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** User name */
-  get name() {
+  get name () {
     return this.payload.name
   }
 
   /** User's phone number */
-  get phoneNumber() {
+  get phoneNumber () {
     return this.payload.phone_number
   }
 
   /** User email */
-  get email() {
+  get email () {
     return this.payload.email
   }
 
   /** User shipping address */
-  get shippingAddress() {
+  get shippingAddress () {
     const { shipping_address } = this.payload
 
     if (!shipping_address) {
@@ -41,7 +41,7 @@ export class OrderInfo {
 }
 
 inspectable(OrderInfo, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       name: struct.name,
       phoneNumber: struct.phoneNumber,

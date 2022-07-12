@@ -6,13 +6,13 @@ import { AttachmentType } from '../../types/types'
 export class Attachment {
   attachmentType?: AttachmentType
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 }
 
 inspectable(Attachment, {
-  serialize() {
+  serialize () {
     return {}
   }
 })

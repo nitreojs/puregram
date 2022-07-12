@@ -7,34 +7,34 @@ import { User } from './user'
 import { ChatInviteLink } from './chat-invite-link'
 
 export class ChatJoinRequest {
-  constructor(public payload: Interfaces.TelegramChatJoinRequest) { }
+  constructor (public payload: Interfaces.TelegramChatJoinRequest) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Chat to which the request was sent */
-  get chat() {
+  get chat () {
     return new Chat(this.payload.chat)
   }
 
   /** User that sent the join request */
-  get from() {
+  get from () {
     return new User(this.payload.from)
   }
 
   /** Date the request was sent in Unix time */
-  get date() {
+  get date () {
     return this.payload.date
   }
 
   /** Bio of the user */
-  get bio() {
+  get bio () {
     return this.payload.bio
   }
 
   /** Chat invite link that was used by the user to send the join request */
-  get inviteLink() {
+  get inviteLink () {
     const { invite_link } = this.payload
 
     if (!invite_link) {
@@ -46,7 +46,7 @@ export class ChatJoinRequest {
 }
 
 inspectable(ChatJoinRequest, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       chat: struct.chat,
       from: struct.from,

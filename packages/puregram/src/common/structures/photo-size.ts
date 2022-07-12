@@ -5,16 +5,16 @@ import { filterPayload } from '../../utils/helpers'
 
 /** This object represents one size of a photo or a file / sticker thumbnail */
 export class PhotoSize {
-  constructor(private payload: Interfaces.TelegramPhotoSize) { }
+  constructor (private payload: Interfaces.TelegramPhotoSize) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  get fileId() {
+  get fileId () {
     return this.payload.file_id
   }
 
@@ -22,28 +22,28 @@ export class PhotoSize {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  get fileUniqueId() {
+  get fileUniqueId () {
     return this.payload.file_unique_id
   }
 
   /** Photo width */
-  get width() {
+  get width () {
     return this.payload.width
   }
 
   /** Photo height */
-  get height() {
+  get height () {
     return this.payload.height
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 }
 
 inspectable(PhotoSize, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       fileId: struct.fileId,
       fileUniqueId: struct.fileUniqueId,

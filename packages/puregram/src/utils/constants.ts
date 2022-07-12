@@ -5,7 +5,7 @@ import { Message } from '../updates/'
 
 import { MessageEventName } from '../types/types'
 
-// @ts-expect-error
+// @ts-expect-error JSON non-resolvable
 import { version } from '../../package.json'
 
 export const DEFAULT_OPTIONS: TelegramOptions = {

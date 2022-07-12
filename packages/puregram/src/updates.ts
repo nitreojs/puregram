@@ -107,23 +107,23 @@ const events = makeContexts()
  */
 export class Updates {
   private readonly telegram: Telegram
-  private retries: number = 0
+  private retries = 0
 
-  private isStarted: boolean = false
-  private offset: number = 0
+  private isStarted = false
+  private offset = 0
 
   private composer: Composer<Contexts.Context> = Composer.builder<Contexts.Context>()
     .caught((_context: Contexts.Context, error: Error) => console.error(error))
 
   private composed!: Middleware<Contexts.Context>
 
-  constructor(telegram: Telegram) {
+  constructor (telegram: Telegram) {
     this.telegram = telegram
 
     this.recompose()
   }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
@@ -134,16 +134,16 @@ export class Updates {
    * ```js
    * telegram.updates.use(async (context, next) => {
    *   const start = Date.now()
-   * 
+   *
    *   await next() // we be waitin' for the middleware chain to execute
-   * 
+   *
    *   const end = Date.now()
-   * 
+   *
    *   console.log('damn that update was executing for %dms!', end - start)
    * })
    * ```
    */
-  use<T = {}>(middleware: Middleware<Contexts.Context & T>) {
+  use<T = {}> (middleware: Middleware<Contexts.Context & T>) {
     if (typeof middleware !== 'function') {
       throw new TypeError('middleware must be a function')
     }
@@ -153,7 +153,6 @@ export class Updates {
 
     return this
   }
-
 
   /**
    * Subscribes to specific event(s) and sets up a handler for it(them)
@@ -168,7 +167,7 @@ export class Updates {
     handler: MaybeArray<Middleware<ContextsCollection[K] & T>>
   ): this
 
-  on<T = {}>(
+  on<T = {}> (
     rawOnEvents: MaybeArray<string>,
     rawHandlers: MaybeArray<Middleware<Contexts.Context & T>>
   ) {
@@ -200,11 +199,11 @@ export class Updates {
   }
 
   /** Calls up the middleware chain */
-  dispatchMiddleware(context: Contexts.Context) {
+  dispatchMiddleware (context: Contexts.Context) {
     return this.composed(context, noopNext) as Promise<void>
   }
 
-  private recompose() {
+  private recompose () {
     this.composed = this.composer.compose()
   }
 
@@ -218,7 +217,7 @@ export class Updates {
    *   .then(() => console.log(':trollface:'))
    * ```
    */
-  stopPolling() {
+  stopPolling () {
     this.isStarted = false
     this.retries = 0
   }
@@ -233,7 +232,7 @@ export class Updates {
    *   .catch(error => console.error('an error has occured! %o', error))
    * ```
    */
-  async startPolling(options: StartPollingOptions = {}) {
+  async startPolling (options: StartPollingOptions = {}) {
     if (this.isStarted) {
       throw new Error('polling is already started!')
     }
@@ -287,11 +286,11 @@ export class Updates {
    * ```js
    * const droppedUpdates = await telegram.updates.dropPendingUpdates()
    * console.log('yay! dropped %d updates!', droppedUpdates)
-   * 
+   *
    * await telegram.updates.startPolling()
    * ```
    */
-  async dropPendingUpdates(value?: StartPollingOptions['dropPendingUpdates']) {
+  async dropPendingUpdates (value?: StartPollingOptions['dropPendingUpdates']) {
     let offset = 0
     let skippedUpdates = 0
 
@@ -319,7 +318,7 @@ export class Updates {
     return skippedUpdates
   }
 
-  private async startFetchLoop(options: StartPollingOptions) {
+  private async startFetchLoop (options: StartPollingOptions) {
     try {
       if (options.dropPendingUpdates) {
         await this.dropPendingUpdates(options.dropPendingUpdates)
@@ -345,7 +344,7 @@ export class Updates {
         debug_startFetchLoop('trying to reconnect, %d/%d try', this.retries, this.telegram.options.apiRetryLimit)
       }
 
-      await delay(this.telegram.options.apiWait!)
+      await delay(this.telegram.options.apiWait as number)
 
       // INFO: not this.stopPolling() because it resets this.retries
       this.isStarted = false
@@ -354,10 +353,10 @@ export class Updates {
     }
   }
 
-  private async fetchUpdates(options: StartPollingOptions) {
+  private async fetchUpdates (options: StartPollingOptions) {
     const params: Partial<GetUpdatesParams> = {
       timeout: 15,
-      allowed_updates: options.allowedUpdates ?? this.telegram.options.allowedUpdates!
+      allowed_updates: options.allowedUpdates ?? this.telegram.options.allowedUpdates
     }
 
     if (this.offset) params.offset = this.offset
@@ -386,7 +385,7 @@ export class Updates {
       const possibleUpdateTypes = ['message', 'edited_message', 'channel_post', 'edited_channel_post']
 
       const getMessage = (update: TelegramUpdate) => {
-        const key = possibleUpdateTypes.find(ut => update[ut])!
+        const key = possibleUpdateTypes.find(ut => update[ut]) as string
         const message = update[key] as TelegramMessage
 
         return message
@@ -399,10 +398,10 @@ export class Updates {
       if (mediaEventUpdates.length !== 0) {
         const mediaGroupIdsMap = new Map<string, TelegramUpdate[]>()
 
-        const mediaGroupIds = [...new Set(mediaEventUpdates.map(me => getMessage(me).media_group_id!))]
+        const mediaGroupIds = [...new Set(mediaEventUpdates.map(me => getMessage(me).media_group_id as string))]
 
         for (const meId of mediaGroupIds) {
-          const updates = mediaEventUpdates.filter(me => getMessage(me).media_group_id! === meId)
+          const updates = mediaEventUpdates.filter(me => getMessage(me).media_group_id as string === meId)
 
           mediaGroupIdsMap.set(meId, updates)
         }
@@ -422,7 +421,7 @@ export class Updates {
         }
 
         // INFO: clearing out original [updates]
-        updates = updates.filter(update => !mediaGroupIdsMap.has(getMessage(update).media_group_id!))
+        updates = updates.filter(update => !mediaGroupIdsMap.has(getMessage(update).media_group_id as string))
       }
     }
 
@@ -439,24 +438,24 @@ export class Updates {
 
   /**
    * Handles specified update and returns an appropriate `Context` (if it does exist)
-   * 
+   *
    * If you don't want puregram to automatically process (dispatch) that context, pass `false` for the second argument
    *
    * @example
    * ```js
    * const [update] = await telegram.api.getUpdates(params)
    * const context = await telegram.updates.handleUpdate(update, false)
-   * 
+   *
    * if (context === undefined) {
    *   console.log(':sadface: context not found for this update!')
-   * 
+   *
    *   return cry()
    * }
-   * 
+   *
    * console.log('hell yeah im pro')
    * ```
    */
-  async handleUpdate(update: TelegramUpdate, dispatch: boolean = true): Promise<Contexts.Context | undefined> {
+  async handleUpdate (update: TelegramUpdate, dispatch = true): Promise<Contexts.Context | undefined> {
     this.offset = update.update_id + 1
 
     const type = (Object.keys(update) as UpdateName[])[1]
@@ -484,15 +483,13 @@ export class Updates {
       payload: update[type]
     })
 
-    const isEvent = context.isEvent === true && context.eventType !== undefined
-
-    if (isEvent) {
-      UpdateContext = events[context.eventType!]
+    if (context.isEvent && context.eventType !== undefined) {
+      UpdateContext = events[context.eventType]
 
       context = new UpdateContext({
         update,
         updateId: update.update_id,
-        type: context.eventType!,
+        type: context.eventType,
         telegram: this.telegram,
         payload: update.message
       })
@@ -509,7 +506,7 @@ export class Updates {
   }
 
   // FIXME: unacceptable return type
-  getKoaMiddleware(): Function {
+  getKoaMiddleware (): (context: any) => Promise<void> {
     return async (context: any) => {
       const update = context.request.body
 
@@ -527,7 +524,7 @@ export class Updates {
   }
 
   // FIXME: unacceptable return type
-  getWebhookMiddleware(): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
+  getWebhookMiddleware (): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
     return async (req: http.IncomingMessage, res: http.ServerResponse) => {
       if (req.method !== 'POST') {
         return
@@ -561,7 +558,7 @@ export class Updates {
 }
 
 inspectable(Updates, {
-  serialize(updates) {
+  serialize (updates) {
     return {}
   }
 })

@@ -21,7 +21,7 @@ interface VideoChatParticipantsInvitedContextOptions {
 class VideoChatParticipantsInvitedContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: VideoChatParticipantsInvitedContextOptions) {
+  constructor (options: VideoChatParticipantsInvitedContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'video_chat_participants_invited',
@@ -33,8 +33,8 @@ class VideoChatParticipantsInvitedContext extends Context {
   }
 
   /** Service message: new participants invited to a video chat */
-  get videoChatParticipantsInvited() {
-    return new VideoChatParticipantsInvited(this.payload.video_chat_participants_invited!)
+  get videoChatParticipantsInvited () {
+    return new VideoChatParticipantsInvited(this.payload.video_chat_participants_invited as Interfaces.TelegramVideoChatParticipantsInvited)
   }
 }
 
@@ -42,7 +42,7 @@ interface VideoChatParticipantsInvitedContext extends Constructor<VideoChatParti
 applyMixins(VideoChatParticipantsInvitedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(VideoChatParticipantsInvitedContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

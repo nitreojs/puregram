@@ -8,9 +8,9 @@ import { filterPayload } from '../../utils/helpers'
  * automatically authorize a user.
  */
 export class LoginUrl {
-  constructor(private payload: Interfaces.TelegramLoginUrl) { }
+  constructor (private payload: Interfaces.TelegramLoginUrl) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
@@ -25,12 +25,12 @@ export class LoginUrl {
    * verify the authentication and the integrity of the data as described in
    * Checking authorization.
    */
-  get url() {
+  get url () {
     return this.payload.url
   }
 
   /** New text of the button in forwarded messages. */
-  get forwardText() {
+  get forwardText () {
     return this.payload.forward_text
   }
 
@@ -41,7 +41,7 @@ export class LoginUrl {
    * domain linked with the bot. See Linking your domain to the bot for more
    * details.
    */
-  get botUsername() {
+  get botUsername () {
     return this.payload.bot_username
   }
 
@@ -49,13 +49,13 @@ export class LoginUrl {
    * Pass `true` to request the permission for your bot to send messages to the
    * user.
    */
-  get requestWriteAccess() {
+  get requestWriteAccess () {
     return this.payload.request_write_access
   }
 }
 
 inspectable(LoginUrl, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       url: struct.url,
       forwardText: struct.forwardText,

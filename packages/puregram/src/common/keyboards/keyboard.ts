@@ -6,17 +6,17 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 export class Keyboard {
   private buttons: Interfaces.TelegramKeyboardButton[][] = []
 
-  private isResized: boolean = false
-  private isOneTime: boolean = false
-  private isSelective: boolean = false
+  private isResized = false
+  private isOneTime = false
+  private isSelective = false
   private placeholder?: string
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Assemble a builder of buttons */
-  static keyboard(rows: (Interfaces.TelegramKeyboardButton | Interfaces.TelegramKeyboardButton[])[]): Keyboard {
+  static keyboard (rows: (Interfaces.TelegramKeyboardButton | Interfaces.TelegramKeyboardButton[])[]): Keyboard {
     const keyboard: Keyboard = new Keyboard()
 
     for (const row of rows) {
@@ -27,28 +27,28 @@ export class Keyboard {
   }
 
   /** Resize the keyboard */
-  resize(resize: boolean = true) {
+  resize (resize = true) {
     this.isResized = resize
 
     return this
   }
 
   /** When pressed, the keyboard will disappear */
-  oneTime(oneTime: boolean = true) {
+  oneTime (oneTime = true) {
     this.isOneTime = oneTime
 
     return this
   }
 
   /** Use this parameter if you want to show the keyboard to specific users only */
-  selective(selective: boolean = true) {
+  selective (selective = true) {
     this.isSelective = selective
 
     return this
   }
 
   /** The placeholder to be shown in the input field when the keyboard is active */
-  setPlaceholder(placeholder: string) {
+  setPlaceholder (placeholder: string) {
     this.placeholder = placeholder
 
     return this
@@ -59,7 +59,7 @@ export class Keyboard {
    * If none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
-  static textButton(text: string): Interfaces.TelegramKeyboardButton {
+  static textButton (text: string): Interfaces.TelegramKeyboardButton {
     return { text }
   }
 
@@ -69,7 +69,7 @@ export class Keyboard {
    *
    * Available in private chats only
    */
-  static requestContactButton(text: string): Interfaces.TelegramKeyboardButton {
+  static requestContactButton (text: string): Interfaces.TelegramKeyboardButton {
     return {
       text,
       request_contact: true
@@ -81,7 +81,7 @@ export class Keyboard {
    *
    * Available in private chats only
    */
-  static requestLocationButton(text: string): Interfaces.TelegramKeyboardButton {
+  static requestLocationButton (text: string): Interfaces.TelegramKeyboardButton {
     return {
       text,
       request_location: true
@@ -94,7 +94,7 @@ export class Keyboard {
    *
    * Available in private chats only
    */
-  static requestPollButton(text: string, type?: Interfaces.TelegramPoll['type']): Interfaces.TelegramKeyboardButton {
+  static requestPollButton (text: string, type?: Interfaces.TelegramPoll['type']): Interfaces.TelegramKeyboardButton {
     return {
       text,
       request_poll: { type }
@@ -104,17 +104,17 @@ export class Keyboard {
   /**
    * The described Web App will be launched when the button is pressed.
    * The Web App will be able to send a `web_app_data` service message.
-   * 
+   *
    * Available in private chats only.
    */
-  static webAppButton(text: string, url: string): Interfaces.TelegramKeyboardButton {
+  static webAppButton (text: string, url: string): Interfaces.TelegramKeyboardButton {
     return {
       text,
       web_app: { url }
     }
   }
 
-  private addRow(row: Interfaces.TelegramKeyboardButton[] | Interfaces.TelegramKeyboardButton) {
+  private addRow (row: Interfaces.TelegramKeyboardButton[] | Interfaces.TelegramKeyboardButton) {
     if (!Array.isArray(row)) row = [row]
 
     this.buttons.push(row)
@@ -123,7 +123,7 @@ export class Keyboard {
   }
 
   /** Returns JSON which is compatible with Telegram's `ReplyKeyboardMarkup` interface */
-  toJSON(): Interfaces.TelegramReplyKeyboardMarkup {
+  toJSON (): Interfaces.TelegramReplyKeyboardMarkup {
     return {
       keyboard: this.buttons,
       resize_keyboard: this.isResized,
@@ -133,13 +133,13 @@ export class Keyboard {
     }
   }
 
-  toString() {
+  toString () {
     return JSON.stringify(this)
   }
 }
 
 inspectable(Keyboard, {
-  serialize(keyboard) {
+  serialize (keyboard) {
     return keyboard.toJSON()
   }
 })

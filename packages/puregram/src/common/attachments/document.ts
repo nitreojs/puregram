@@ -15,7 +15,7 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
   attachmentType: AttachmentType = 'document'
 
   /** Document thumbnail as defined by sender */
-  get thumb() {
+  get thumb () {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -26,23 +26,23 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
   }
 
   /** Original filename as defined by sender */
-  get fileName() {
+  get fileName () {
     return this.payload.file_name
   }
 
   /** MIME type of the file as defined by sender */
-  get mimeType() {
+  get mimeType () {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 }
 
 inspectable(DocumentAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,

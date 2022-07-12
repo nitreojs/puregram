@@ -10,9 +10,9 @@ import { ChatLocation } from './chat-location'
 
 /** This object represents a chat. */
 export class Chat {
-  constructor(private payload: Interfaces.TelegramChat) { }
+  constructor (private payload: Interfaces.TelegramChat) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
@@ -23,34 +23,34 @@ export class Chat {
    * integer or double-precision float type are safe for storing
    * this identifier.
    */
-  get id() {
+  get id () {
     return this.payload.id
   }
 
   /**
    * Type of chat, can be either `private`, `group`, `supergroup` or `channel`
    */
-  get type() {
+  get type () {
     return this.payload.type
   }
 
   /** Title, for supergroups, channels and group chats */
-  get title() {
+  get title () {
     return this.payload.title
   }
 
   /** Username, for private chats, supergroups and channels if available */
-  get username() {
+  get username () {
     return this.payload.username
   }
 
   /** First name of the other party in a private chat */
-  get firstName() {
+  get firstName () {
     return this.payload.first_name
   }
 
   /** Last name of the other party in a private chat */
-  get lastName() {
+  get lastName () {
     return this.payload.last_name
   }
 
@@ -59,7 +59,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get photo() {
+  get photo () {
     const { photo } = this.payload
 
     if (!photo) {
@@ -71,48 +71,48 @@ export class Chat {
 
   /**
    * Bio of the other party in a private chat.
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get bio() {
+  get bio () {
     return this.payload.bio
   }
 
   /**
    * `true`, if privacy settings of the other party in the private chat allows
    * to use `tg://user?id=<user_id>` links only in chats with the user.
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get hasPrivateForwards() {
+  get hasPrivateForwards () {
     return this.payload.has_private_forwards as true | undefined
   }
 
   /**
    * `true`, if users need to join the supergroup before they can send messages.
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get joinToSendMessages() {
+  get joinToSendMessages () {
     return this.payload.join_to_send_messages as true | undefined
   }
 
   /**
    * `true`, if all users directly joining the supergroup need to be approved
    * by supergroup administrators.
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get joinByRequest() {
+  get joinByRequest () {
     return this.payload.join_by_request as true | undefined
   }
 
   /**
    * For supergroups, the location to which the supergroup is connected
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get location() {
+  get location () {
     const { location } = this.payload
 
     if (!location) {
@@ -127,7 +127,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get description() {
+  get description () {
     return this.payload.description
   }
 
@@ -138,7 +138,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get inviteLink() {
+  get inviteLink () {
     return this.payload.invite_link
   }
 
@@ -147,7 +147,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get pinnedMessage(): Message | undefined {
+  get pinnedMessage (): Message | undefined {
     const { pinned_message } = this.payload
 
     if (!pinned_message) {
@@ -162,7 +162,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get permissions() {
+  get permissions () {
     const { permissions } = this.payload
 
     if (!permissions) {
@@ -178,25 +178,25 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get slowModeDelay() {
+  get slowModeDelay () {
     return this.payload.slow_mode_delay
   }
 
   /**
    * The time after which all messages sent to the chat will be automatically deleted; in seconds.
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get messageAutoDeleteTime() {
+  get messageAutoDeleteTime () {
     return this.payload.message_auto_delete_time
   }
 
   /**
    * `true`, if messages from the chat can't be forwarded to other chats.
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get hasProtectedContent() {
+  get hasProtectedContent () {
     return this.payload.has_protected_content
   }
 
@@ -205,7 +205,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get stickerSetName() {
+  get stickerSetName () {
     return this.payload.sticker_set_name
   }
 
@@ -214,7 +214,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get canSetStickerSet() {
+  get canSetStickerSet () {
     return this.payload.can_set_sticker_set
   }
 
@@ -226,16 +226,16 @@ export class Chat {
    * may have difficulty/silent defects in interpreting it.
    * But it is smaller than 52 bits, so a signed 64 bit integer or double-precision
    * float type are safe for storing this identifier.
-   * 
+   *
    * Returned only in `getChat`.
    */
-  get linkedChatId() {
+  get linkedChatId () {
     return this.payload.linked_chat_id
   }
 }
 
 inspectable(Chat, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       id: struct.id,
       type: struct.type,

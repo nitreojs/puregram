@@ -6,24 +6,24 @@ import { User } from './user'
 
 /** This object represents an answer of a user in a non-anonymous poll. */
 export class PollAnswer {
-  constructor(public payload: Interfaces.TelegramPollAnswer) { }
+  constructor (public payload: Interfaces.TelegramPollAnswer) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Unique poll identifier */
-  get pollId() {
+  get pollId () {
     return this.payload.poll_id
   }
 
   /** The user, who changed the answer to the poll */
-  get user() {
+  get user () {
     return new User(this.payload.user)
   }
 
   /** Sender ID */
-  get senderId() {
+  get senderId () {
     return this.user.id
   }
 
@@ -31,13 +31,13 @@ export class PollAnswer {
    * 0-based identifiers of answer options, chosen by the user.
    * May be empty if the user retracted their vote.
    */
-  get optionIds() {
+  get optionIds () {
     return this.payload.option_ids
   }
 }
 
 inspectable(PollAnswer, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       pollId: struct.pollId,
       user: struct.user,

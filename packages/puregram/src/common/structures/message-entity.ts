@@ -20,9 +20,9 @@ interface MessageEntityJSON {
  * For example, hashtags, usernames, URLs, etc.
  */
 export class MessageEntity {
-  constructor(private payload: Interfaces.TelegramMessageEntity) { }
+  constructor (private payload: Interfaces.TelegramMessageEntity) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
@@ -38,29 +38,29 @@ export class MessageEntity {
    * `pre` (`monowidth block`), `text_link` (for clickable text URLs), `text_mention`
    * (for users without usernames)
    */
-  get type() {
+  get type () {
     return this.payload.type
   }
 
   /** Offset in UTF-16 code units to the start of the entity */
-  get offset() {
+  get offset () {
     return this.payload.offset
   }
 
   /** Length of the entity in UTF-16 code units */
-  get length() {
+  get length () {
     return this.payload.length
   }
 
   /**
    * For `text_link` only, url that will be opened after user taps on the text
    */
-  get url() {
+  get url () {
     return this.payload.url
   }
 
   /** For `text_mention` only, the mentioned user */
-  get user() {
+  get user () {
     const { user } = this.payload
 
     if (!user) {
@@ -71,11 +71,11 @@ export class MessageEntity {
   }
 
   /** For `pre` only, the programming language of the entity text */
-  get language() {
+  get language () {
     return this.payload.language
   }
 
-  toJSON(): MessageEntityJSON {
+  toJSON (): MessageEntityJSON {
     return {
       type: this.type,
       offset: this.offset,
@@ -88,7 +88,7 @@ export class MessageEntity {
 }
 
 inspectable(MessageEntity, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       type: struct.type,
       offset: struct.offset,

@@ -21,7 +21,7 @@ interface MessageAutoDeleteTimerChangedContextOptions {
 class MessageAutoDeleteTimerChangedContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: MessageAutoDeleteTimerChangedContextOptions) {
+  constructor (options: MessageAutoDeleteTimerChangedContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'message_auto_delete_timer_changed',
@@ -33,8 +33,8 @@ class MessageAutoDeleteTimerChangedContext extends Context {
   }
 
   /** Message auto delete timer */
-  get autoDeleteTimer() {
-    return new MessageAutoDeleteTimerChanged(this.payload.message_auto_delete_timer_changed!)
+  get autoDeleteTimer () {
+    return new MessageAutoDeleteTimerChanged(this.payload.message_auto_delete_timer_changed as Interfaces.TelegramMessageAutoDeleteTimerChanged)
   }
 }
 
@@ -42,7 +42,7 @@ interface MessageAutoDeleteTimerChangedContext extends Constructor<MessageAutoDe
 applyMixins(MessageAutoDeleteTimerChangedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(MessageAutoDeleteTimerChangedContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

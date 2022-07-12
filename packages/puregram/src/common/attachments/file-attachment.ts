@@ -17,14 +17,14 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
   /** Returns attachment's type (e.g. `'audio'`, `'photo'`) */
   attachmentType?: AttachmentType
 
-  constructor(payload: T) {
+  constructor (payload: T) {
     super()
 
     this.payload = payload
   }
 
   /** Identifier for this file, which can be used to download or reuse the file */
-  get fileId() {
+  get fileId () {
     return this.payload.file_id
   }
 
@@ -32,13 +32,13 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
-  get fileUniqueId() {
+  get fileUniqueId () {
     return this.payload.file_unique_id
   }
 }
 
 inspectable(FileAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId

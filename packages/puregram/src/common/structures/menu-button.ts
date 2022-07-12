@@ -7,19 +7,19 @@ import { WebAppInfo } from './web-app-info'
 
 /** This object describes the bot's menu button in a private chat. */
 export class MenuButton {
-  constructor(private payload: Interfaces.TelegramMenuButton) { }
+  constructor (private payload: Interfaces.TelegramMenuButton) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Type of the button */
-  get type() {
+  get type () {
     return this.payload.type
   }
 
   /** Text on the button */
-  get text() {
+  get text () {
     return this.payload.text
   }
 
@@ -28,7 +28,7 @@ export class MenuButton {
    * The Web App will be able to send an arbitrary message on behalf of the user
    * using the method `answerWebAppQuery`.
    */
-  get webApp() {
+  get webApp () {
     const { web_app } = this.payload
 
     if (!web_app) {
@@ -40,7 +40,7 @@ export class MenuButton {
 }
 
 inspectable(MenuButton, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       type: struct.type,
       text: struct.text,

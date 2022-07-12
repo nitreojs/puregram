@@ -12,27 +12,27 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   attachmentType: AttachmentType = 'sticker'
 
   /** Sticker width */
-  get width() {
+  get width () {
     return this.payload.width
   }
 
   /** Sticker height */
-  get height() {
+  get height () {
     return this.payload.height
   }
 
   /** `true`, if the sticker is animated */
-  get isAnimated() {
+  get isAnimated () {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker is a video sticker */
-  get isVideo() {
+  get isVideo () {
     return this.payload.is_video
   }
 
   /** Sticker thumbnail in the .WEBP or .JPG format */
-  get thumb() {
+  get thumb () {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -43,22 +43,22 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** Emoji associated with the sticker */
-  get emoji() {
+  get emoji () {
     return this.payload.emoji
   }
 
   /** Name of the sticker set to which the sticker belongs */
-  get setName() {
+  get setName () {
     return this.payload.set_name
   }
 
   /** Is this sticker a premium one? */
-  get isPremium() {
+  get isPremium () {
     return this.premiumAnimation !== undefined
   }
 
   /** Premium animation for the sticker, if the sticker is premium */
-  get premiumAnimation() {
+  get premiumAnimation () {
     const { premium_animation } = this.payload
 
     if (!premium_animation) {
@@ -69,7 +69,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** For mask stickers, the position where the mask should be placed */
-  get maskPosition() {
+  get maskPosition () {
     const { mask_position } = this.payload
 
     if (!mask_position) {
@@ -80,13 +80,13 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 }
 
 inspectable(StickerAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,

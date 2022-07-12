@@ -20,7 +20,7 @@ interface PollAnswerContextOptions {
 class PollAnswerContext extends Context {
   payload: Interfaces.TelegramPollAnswer
 
-  constructor(options: PollAnswerContextOptions) {
+  constructor (options: PollAnswerContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'poll_answer',
@@ -37,7 +37,7 @@ interface PollAnswerContext extends Constructor<PollAnswerContext>, PollAnswer, 
 applyMixins(PollAnswerContext, [PollAnswer, SendMixin, CloneMixin])
 
 inspectable(PollAnswerContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       pollId: context.pollId,
       user: context.user,

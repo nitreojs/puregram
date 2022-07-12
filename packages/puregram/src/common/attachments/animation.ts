@@ -15,22 +15,22 @@ export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnima
   attachmentType: AttachmentType = 'animation'
 
   /** Video width as defined by sender */
-  get width() {
+  get width () {
     return this.payload.width
   }
 
   /** Video height as defined by sender */
-  get height() {
+  get height () {
     return this.payload.height
   }
 
   /** Duration of the video in seconds as defined by sender */
-  get duration() {
+  get duration () {
     return this.payload.duration
   }
 
   /** Animation thumbnail as defined by sender */
-  get thumb() {
+  get thumb () {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -41,23 +41,23 @@ export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnima
   }
 
   /** Original animation filename as defined by sender */
-  get fileName() {
+  get fileName () {
     return this.payload.file_name
   }
 
   /** MIME type of the file as defined by sender */
-  get mimeType() {
+  get mimeType () {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 }
 
 inspectable(AnimationAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,

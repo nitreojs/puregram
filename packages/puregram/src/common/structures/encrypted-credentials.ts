@@ -8,9 +8,9 @@ import * as Interfaces from '../../generated/telegram-interfaces'
  * complete description of the data decryption and authentication processes.
  */
 export class EncryptedCredentials {
-  constructor(private payload: Interfaces.TelegramEncryptedCredentials) { }
+  constructor (private payload: Interfaces.TelegramEncryptedCredentials) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
@@ -19,12 +19,12 @@ export class EncryptedCredentials {
    * data hashes and secrets required for `EncryptedPassportElement` decryption
    * and authentication
    */
-  get data() {
+  get data () {
     return this.payload.data
   }
 
   /** Base64-encoded data hash for data authentication */
-  get hash() {
+  get hash () {
     return this.payload.hash
   }
 
@@ -32,13 +32,13 @@ export class EncryptedCredentials {
    * Base64-encoded secret, encrypted with the bot's public RSA key, required
    * for data decryption
    */
-  get secret() {
+  get secret () {
     return this.payload.secret
   }
 }
 
 inspectable(EncryptedCredentials, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       data: struct.data,
       hash: struct.hash,

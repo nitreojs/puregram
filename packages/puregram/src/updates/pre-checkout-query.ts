@@ -6,29 +6,29 @@ import { OrderInfo } from '../common/structures/order-info'
 import { filterPayload } from '../utils/helpers'
 
 export class PreCheckoutQuery {
-  constructor(public payload: TelegramPreCheckoutQuery) { }
+  constructor (public payload: TelegramPreCheckoutQuery) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Unique query identifier */
-  get id() {
+  get id () {
     return this.payload.id
   }
 
   /** User who sent the query */
-  get from() {
+  get from () {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
-  get senderId() {
+  get senderId () {
     return this.from.id
   }
 
   /** Three-letter ISO 4217 currency code */
-  get currency() {
+  get currency () {
     return this.payload.currency
   }
 
@@ -40,22 +40,22 @@ export class PreCheckoutQuery {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
-  get totalAmount() {
+  get totalAmount () {
     return this.payload.total_amount
   }
 
   /** Bot specified invoice payload */
-  get invoicePayload() {
+  get invoicePayload () {
     return this.payload.invoice_payload
   }
 
   /** Identifier of the shipping option chosen by the user */
-  get shippingOptionId() {
+  get shippingOptionId () {
     return this.payload.shipping_option_id
   }
 
   /** Order info provided by the user */
-  get orderInfo() {
+  get orderInfo () {
     const { order_info } = this.payload
 
     if (!order_info) {
@@ -67,7 +67,7 @@ export class PreCheckoutQuery {
 }
 
 inspectable(PreCheckoutQuery, {
-  serialize(update) {
+  serialize (update) {
     const payload = {
       id: update.id,
       from: update.from,

@@ -15,37 +15,37 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
   attachmentType: AttachmentType = 'audio'
 
   /** Duration of the audio in seconds as defined by sender */
-  get duration() {
+  get duration () {
     return this.payload.duration
   }
 
   /** Performer of the audio as defined by sender or by audio tags */
-  get performer() {
+  get performer () {
     return this.payload.performer
   }
 
   /** Title of the audio as defined by sender or by audio tags */
-  get title() {
+  get title () {
     return this.payload.title
   }
 
   /** Original filename as defined by sender */
-  get fileName() {
+  get fileName () {
     return this.payload.file_name
   }
 
   /** MIME type of the file as defined by sender */
-  get mimeType() {
+  get mimeType () {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 
   /** Thumbnail of the album cover to which the music file belongs */
-  get thumb() {
+  get thumb () {
     const { thumb } = this.payload
 
     if (!thumb) {
@@ -57,7 +57,7 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
 }
 
 inspectable(AudioAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,

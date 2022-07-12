@@ -7,14 +7,14 @@ import { Location } from './location'
 
 /** This object represents a venue. */
 export class Venue {
-  constructor(private payload: Interfaces.TelegramVenue) { }
+  constructor (private payload: Interfaces.TelegramVenue) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Venue location */
-  get location() {
+  get location () {
     const { location } = this.payload
 
     if (!location) {
@@ -25,27 +25,27 @@ export class Venue {
   }
 
   /** Name of the venue */
-  get title() {
+  get title () {
     return this.payload.title
   }
 
   /** Address of the venue */
-  get address() {
+  get address () {
     return this.payload.address
   }
 
   /** Foursquare identifier of the venue */
-  get foursquareId() {
+  get foursquareId () {
     return this.payload.foursquare_id
   }
 
   /** Foursquare type of the venue */
-  get foursquareType() {
+  get foursquareType () {
     return this.payload.foursquare_type
   }
 
   /** Google Places identifier of the venue */
-  get googlePlaceId() {
+  get googlePlaceId () {
     return this.payload.google_place_id
   }
 
@@ -53,13 +53,13 @@ export class Venue {
    * Google Places type of the venue.
    * (See [supported types](https://developers.google.com/places/web-service/supported_types).)
    */
-  get googlePlaceType() {
+  get googlePlaceType () {
     return this.payload.google_place_type
   }
 }
 
 inspectable(Venue, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       location: struct.location,
       title: struct.title,

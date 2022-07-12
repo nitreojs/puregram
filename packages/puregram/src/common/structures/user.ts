@@ -5,34 +5,34 @@ import { filterPayload } from '../../utils/helpers'
 
 /** This object represents a Telegram user or bot. */
 export class User {
-  constructor(private payload: Interfaces.TelegramUser) { }
+  constructor (private payload: Interfaces.TelegramUser) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Unique identifier for this user or bot */
-  get id() {
+  get id () {
     return Number(this.payload.id)
   }
 
   /** `true`, if this user is a bot */
-  get isBot() {
+  get isBot () {
     return this.payload.is_bot
   }
 
   /** User's or bot's first name */
-  get firstName() {
+  get firstName () {
     return this.payload.first_name
   }
 
   /** User's or bot's last name */
-  get lastName() {
+  get lastName () {
     return this.payload.last_name
   }
 
   /** User's or bot's username */
-  get username() {
+  get username () {
     return this.payload.username
   }
 
@@ -40,17 +40,17 @@ export class User {
    * [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag)
    * of the user's language
    */
-  get languageCode() {
+  get languageCode () {
     return this.payload.language_code
   }
 
   /** `true`, if this user is a Telegram Premium user */
-  get isPremium() {
+  get isPremium () {
     return this.payload.is_premium as true | undefined
   }
 
   /** `true`, if this user added the bot to the attachment menu */
-  get addedToAttachmentMenu() {
+  get addedToAttachmentMenu () {
     return this.payload.added_to_attachment_menu as true | undefined
   }
 
@@ -59,7 +59,7 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get canJoinGroups() {
+  get canJoinGroups () {
     return this.payload.can_join_groups
   }
 
@@ -68,7 +68,7 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get canReadAllGroupMessages() {
+  get canReadAllGroupMessages () {
     return this.payload.can_read_all_group_messages
   }
 
@@ -77,11 +77,11 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get supportsInlineQueries() {
+  get supportsInlineQueries () {
     return this.payload.supports_inline_queries
   }
 
-  toJSON(): Interfaces.TelegramUser {
+  toJSON (): Interfaces.TelegramUser {
     return {
       id: this.id,
       is_bot: this.isBot,
@@ -97,7 +97,7 @@ export class User {
 }
 
 inspectable(User, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       id: struct.id,
       isBot: struct.isBot,

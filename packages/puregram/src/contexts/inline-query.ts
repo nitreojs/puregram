@@ -21,7 +21,7 @@ interface InlineQueryContextOptions {
 class InlineQueryContext extends Context {
   payload: Interfaces.TelegramInlineQuery
 
-  constructor(options: InlineQueryContextOptions) {
+  constructor (options: InlineQueryContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'inline_query',
@@ -33,7 +33,7 @@ class InlineQueryContext extends Context {
   }
 
   /** Answers to inline query */
-  answerInlineQuery(
+  answerInlineQuery (
     results: Interfaces.TelegramInlineQueryResult[],
     params?: Partial<Methods.AnswerInlineQueryParams>
   ) {
@@ -49,7 +49,7 @@ interface InlineQueryContext extends Constructor<InlineQueryContext>, InlineQuer
 applyMixins(InlineQueryContext, [InlineQuery, CloneMixin])
 
 inspectable(InlineQueryContext, {
-  serialize(context) {
+  serialize (context) {
     const payload = {
       id: context.id,
       from: context.from,

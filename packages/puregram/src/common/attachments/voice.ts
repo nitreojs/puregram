@@ -10,23 +10,23 @@ export class VoiceAttachment extends FileAttachment<Interfaces.TelegramVoice> {
   attachmentType: AttachmentType = 'voice'
 
   /** Duration of the audio in seconds as defined by sender */
-  get duration() {
+  get duration () {
     return this.payload.duration
   }
 
   /** MIME type of the file as defined by sender */
-  get mimeType() {
+  get mimeType () {
     return this.payload.mime_type
   }
 
   /** File size */
-  get fileSize() {
+  get fileSize () {
     return this.payload.file_size
   }
 }
 
 inspectable(VoiceAttachment, {
-  serialize(attachment) {
+  serialize (attachment) {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,

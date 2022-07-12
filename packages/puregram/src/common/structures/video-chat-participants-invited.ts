@@ -6,14 +6,14 @@ import { User } from './user'
 
 /** This object represents a service message about new members invited to a video chat. */
 export class VideoChatParticipantsInvited {
-  constructor(public payload: Interfaces.TelegramVideoChatParticipantsInvited) { }
+  constructor (public payload: Interfaces.TelegramVideoChatParticipantsInvited) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** New members that were invited to the video chat */
-  get users() {
+  get users () {
     return (this.payload.users ?? []).map(
       (payload) => new User(payload)
     )
@@ -21,7 +21,7 @@ export class VideoChatParticipantsInvited {
 }
 
 inspectable(VideoChatParticipantsInvited, {
-  serialize(struct) {
+  serialize (struct) {
     return {}
   }
 })

@@ -21,7 +21,7 @@ interface ChatMemberContextOptions {
 class ChatMemberContext extends Context {
   payload: Interfaces.TelegramChatMemberUpdated
 
-  constructor(options: ChatMemberContextOptions) {
+  constructor (options: ChatMemberContextOptions) {
     super({
       telegram: options.telegram,
       updateType: options.type ?? 'chat_member',
@@ -33,7 +33,7 @@ class ChatMemberContext extends Context {
   }
 
   /** Does this update have `invite_link` property? */
-  get hasInviteLink() {
+  get hasInviteLink () {
     return this.inviteLink !== undefined
   }
 }
@@ -43,7 +43,7 @@ interface ChatMemberContext extends Constructor<ChatMemberContext>, ChatMemberUp
 applyMixins(ChatMemberContext, [ChatMemberUpdated, TargetMixin, SendMixin, CloneMixin])
 
 inspectable(ChatMemberContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       senderId: context.senderId,
       chatId: context.chatId,

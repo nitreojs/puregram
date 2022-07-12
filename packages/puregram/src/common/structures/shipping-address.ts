@@ -4,45 +4,45 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** This object represents a shipping address. */
 export class ShippingAddress {
-  constructor(private payload: Interfaces.TelegramShippingAddress) { }
+  constructor (private payload: Interfaces.TelegramShippingAddress) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** ISO 3166-1 alpha-2 country code */
-  get countryCode() {
+  get countryCode () {
     return this.payload.country_code
   }
 
   /** State, if applicable */
-  get state() {
+  get state () {
     return this.payload.state
   }
 
   /** City */
-  get city() {
+  get city () {
     return this.payload.city
   }
 
   /** First line for the address */
-  get firstStreetLine() {
+  get firstStreetLine () {
     return this.payload.street_line1
   }
 
   /** Second line for the address */
-  get secondStreetLine() {
+  get secondStreetLine () {
     return this.payload.street_line2
   }
 
   /** Address post code */
-  get postCode() {
+  get postCode () {
     return this.payload.post_code
   }
 }
 
 inspectable(ShippingAddress, {
-  serialize(struct) {
+  serialize (struct) {
     return {
       countryCode: struct.countryCode,
       state: struct.state,

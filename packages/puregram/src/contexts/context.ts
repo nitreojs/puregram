@@ -20,18 +20,18 @@ class Context {
 
   protected updateType: UpdateName
 
-  constructor(options: ContextOptions) {
+  constructor (options: ContextOptions) {
     this.telegram = options.telegram
     this.updateType = options.updateType
     this.updateId = options.updateId
     this.update = options.update
   }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
-  is<T extends UpdateName>(rawTypes: MaybeArray<SoftString<T>>) {
+  is<T extends UpdateName> (rawTypes: MaybeArray<SoftString<T>>) {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes]
@@ -50,7 +50,7 @@ interface Context {
 }
 
 inspectable(Context, {
-  serialize(context) {
+  serialize (context) {
     return {}
   }
 })

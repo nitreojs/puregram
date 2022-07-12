@@ -236,7 +236,7 @@ describe('Keyboards', () => {
               {
                 text: 'Request contact button',
                 request_contact: true
-              },
+              }
             ]
           ],
           one_time_keyboard: true,
@@ -258,7 +258,7 @@ describe('Keyboards', () => {
               {
                 text: 'Request poll button',
                 request_poll: { type: 'regular' }
-              },
+              }
             ]
           ],
           one_time_keyboard: true,

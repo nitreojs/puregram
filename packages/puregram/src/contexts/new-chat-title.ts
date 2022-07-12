@@ -20,7 +20,7 @@ interface NewChatTitleContextOptions {
 class NewChatTitleContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: NewChatTitleContextOptions) {
+  constructor (options: NewChatTitleContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'new_chat_title',
@@ -32,8 +32,8 @@ class NewChatTitleContext extends Context {
   }
 
   /** New chat title */
-  get eventTitle() {
-    return this.payload.new_chat_title!
+  get eventTitle () {
+    return this.payload.new_chat_title as string
   }
 }
 
@@ -41,7 +41,7 @@ interface NewChatTitleContext extends Constructor<NewChatTitleContext>, Message,
 applyMixins(NewChatTitleContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(NewChatTitleContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

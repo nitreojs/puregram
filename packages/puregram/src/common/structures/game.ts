@@ -10,24 +10,24 @@ import { MessageEntity } from './message-entity'
 
 /** This object represents a game. */
 export class Game {
-  constructor(private payload: Interfaces.TelegramGame) { }
+  constructor (private payload: Interfaces.TelegramGame) { }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag] () {
     return this.constructor.name
   }
 
   /** Title of the game */
-  get title() {
+  get title () {
     return this.payload.title
   }
 
   /** Description of the game */
-  get description() {
+  get description () {
     return this.payload.description
   }
 
   /** Photo that will be displayed in the game message in chats. */
-  get photo() {
+  get photo () {
     const { photo } = this.payload
 
     if (!photo) {
@@ -45,7 +45,7 @@ export class Game {
    * when the bot calls `setGameScore`, or manually edited using
    * `editMessageText`. 0-4096 characters.
    */
-  get text() {
+  get text () {
     return this.payload.text
   }
 
@@ -53,7 +53,7 @@ export class Game {
    * Special entities that appear in text, such as usernames, URLs, bot
    * commands, etc.
    */
-  get textEntities() {
+  get textEntities () {
     const { text_entities } = this.payload
 
     if (!text_entities) {
@@ -69,7 +69,7 @@ export class Game {
    * Animation that will be displayed in the game message in chats.
    * Upload via BotFather
    */
-  animation(): AnimationAttachment | undefined {
+  animation (): AnimationAttachment | undefined {
     const { animation } = this.payload
 
     if (!animation) {
@@ -81,7 +81,7 @@ export class Game {
 }
 
 inspectable(Game, {
-  serialize(struct) {
+  serialize (struct) {
     const payload = {
       title: struct.title,
       description: struct.description,

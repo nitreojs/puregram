@@ -21,7 +21,7 @@ interface NewChatPhotoContextOptions {
 class NewChatPhotoContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: NewChatPhotoContextOptions) {
+  constructor (options: NewChatPhotoContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'new_chat_photo',
@@ -33,10 +33,10 @@ class NewChatPhotoContext extends Context {
   }
 
   /** New chat photo */
-  get eventPhoto() {
-    return this.payload.new_chat_photo!.map(
-      (size: Interfaces.TelegramPhotoSize) => new PhotoSize(size)
-    )
+  get eventPhoto () {
+    const sizes = this.payload.new_chat_photo as Interfaces.TelegramPhotoSize[]
+
+    return sizes.map(size => new PhotoSize(size))
   }
 }
 
@@ -44,7 +44,7 @@ interface NewChatPhotoContext extends Constructor<NewChatPhotoContext>, Message,
 applyMixins(NewChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(NewChatPhotoContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

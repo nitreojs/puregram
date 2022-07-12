@@ -16,7 +16,7 @@ interface SendMixinMetadata {
 /** This object represents a context which can invoke `chatId`/`senderId`-dependent methods */
 class SendMixin {
   /** Sends message to current chat */
-  async send(
+  async send (
     text: string,
     params?: Optional<Methods.SendMessageParams, 'chat_id' | 'text'>
   ) {
@@ -33,7 +33,7 @@ class SendMixin {
   }
 
   /** Sends photo to current chat */
-  async sendPhoto(
+  async sendPhoto (
     photo: MediaInput,
     params?: Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>
   ) {
@@ -50,7 +50,7 @@ class SendMixin {
   }
 
   /** Sends document to current chat */
-  async sendDocument(
+  async sendDocument (
     document: MediaInput,
     params?: Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>
   ) {
@@ -67,7 +67,7 @@ class SendMixin {
   }
 
   /** Sends audio to current chat */
-  async sendAudio(
+  async sendAudio (
     audio: MediaInput,
     params?: Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>
   ) {
@@ -84,7 +84,7 @@ class SendMixin {
   }
 
   /** Sends video to current chat */
-  async sendVideo(
+  async sendVideo (
     video: MediaInput,
     params?: Optional<Methods.SendVideoParams, 'chat_id' | 'video'>
   ) {
@@ -101,7 +101,7 @@ class SendMixin {
   }
 
   /** Sends animation to current chat */
-  async sendAnimation(
+  async sendAnimation (
     animation: MediaInput,
     params?: Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>
   ) {
@@ -118,7 +118,7 @@ class SendMixin {
   }
 
   /** Sends video note to current chat */
-  async sendVideoNote(
+  async sendVideoNote (
     videoNote: MediaInput,
     params?: Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>
   ) {
@@ -135,7 +135,7 @@ class SendMixin {
   }
 
   /** Sends voice to current chat */
-  async sendVoice(
+  async sendVoice (
     voice: MediaInput,
     params?: Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>
   ) {
@@ -152,7 +152,7 @@ class SendMixin {
   }
 
   /** Sends media group to current chat */
-  async sendMediaGroup(
+  async sendMediaGroup (
     mediaGroup: Methods.SendMediaGroupParams['media'],
     params?: Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>
   ) {
@@ -171,7 +171,7 @@ class SendMixin {
   }
 
   /** Sends location to current chat */
-  async sendLocation(
+  async sendLocation (
     latitude: number,
     longitude: number,
     params?: Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
@@ -190,7 +190,7 @@ class SendMixin {
   }
 
   /** Sends invoice to current user */
-  async sendInvoice(
+  async sendInvoice (
     params: Optional<Methods.SendInvoiceParams, 'chat_id'>
   ) {
     const response = await this.telegram.api.sendInvoice({
@@ -205,7 +205,7 @@ class SendMixin {
   }
 
   /** Sends venue to current chat */
-  async sendVenue(params: Optional<Methods.SendVenueParams, 'chat_id'>) {
+  async sendVenue (params: Optional<Methods.SendVenueParams, 'chat_id'>) {
     const response = await this.telegram.api.sendVenue({
       chat_id: this.chatId || this.senderId || 0,
       ...params
@@ -218,7 +218,7 @@ class SendMixin {
   }
 
   /** Sends contact to current chat */
-  async sendContact(params: Optional<Methods.SendContactParams, 'chat_id'>) {
+  async sendContact (params: Optional<Methods.SendContactParams, 'chat_id'>) {
     const response = await this.telegram.api.sendContact({
       chat_id: this.chatId || this.senderId || 0,
       ...params
@@ -231,7 +231,7 @@ class SendMixin {
   }
 
   /** Sends poll to current chat */
-  async sendPoll(params: Optional<Methods.SendPollParams, 'chat_id'>) {
+  async sendPoll (params: Optional<Methods.SendPollParams, 'chat_id'>) {
     const response = await this.telegram.api.sendPoll({
       chat_id: this.chatId || this.senderId || 0,
       ...params
@@ -244,7 +244,7 @@ class SendMixin {
   }
 
   /** Stops poll in current chat */
-  async stopPoll(
+  async stopPoll (
     messageId: number,
     params?: Partial<Methods.StopPollParams>
   ) {
@@ -258,7 +258,7 @@ class SendMixin {
   }
 
   /** Sends chat action to current chat */
-  sendChatAction(
+  sendChatAction (
     action: Methods.SendChatActionParams['action'],
     params: Optional<Methods.SendChatActionParams, 'chat_id' | 'action'> = {}
   ) {
@@ -270,7 +270,7 @@ class SendMixin {
   }
 
   /** Sends sticker */
-  async sendSticker(
+  async sendSticker (
     sticker: MediaInput,
     params?: Optional<Methods.SendStickerParams, 'sticker' | 'chat_id'>
   ) {
@@ -287,7 +287,7 @@ class SendMixin {
   }
 
   /** Sends dice */
-  async sendDice(
+  async sendDice (
     emoji: Methods.SendDiceParams['emoji'],
     params?: Partial<Methods.SendDiceParams>
   ) {

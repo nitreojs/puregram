@@ -26,7 +26,7 @@ interface CallbackQueryContextOptions {
 class CallbackQueryContext extends Context {
   payload: Interfaces.TelegramCallbackQuery
 
-  constructor(options: CallbackQueryContextOptions) {
+  constructor (options: CallbackQueryContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'callback_query',
@@ -42,7 +42,7 @@ class CallbackQueryContext extends Context {
    * Note that message content and message date will not be available
    * if the message is too old
    */
-  get message() {
+  get message () {
     if (this.payload.message === undefined) {
       return
     }
@@ -59,7 +59,7 @@ class CallbackQueryContext extends Context {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  get queryPayload() {
+  get queryPayload () {
     const { data } = this.payload
 
     if (data === undefined) {
@@ -74,7 +74,7 @@ class CallbackQueryContext extends Context {
   }
 
   /** Answers to current callback query */
-  answerCallbackQuery(params?: Partial<Methods.AnswerCallbackQueryParams>) {
+  answerCallbackQuery (params?: Partial<Methods.AnswerCallbackQueryParams>) {
     return this.telegram.api.answerCallbackQuery({
       callback_query_id: this.id,
       ...params
@@ -86,7 +86,7 @@ interface CallbackQueryContext extends Constructor<CallbackQueryContext>, Callba
 applyMixins(CallbackQueryContext, [CallbackQuery, CloneMixin])
 
 inspectable(CallbackQueryContext, {
-  serialize(context) {
+  serialize (context) {
     const payload = {
       id: context.id,
       senderId: context.senderId,

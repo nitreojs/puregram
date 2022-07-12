@@ -21,7 +21,7 @@ interface InvoiceContextOptions {
 class InvoiceContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  constructor(options: InvoiceContextOptions) {
+  constructor (options: InvoiceContextOptions) {
     super({
       telegram: options.telegram,
       updateType: 'invoice',
@@ -33,8 +33,8 @@ class InvoiceContext extends Context {
   }
 
   /** Invoice */
-  get eventInvoice() {
-    return new Invoice(this.payload.invoice!)
+  get eventInvoice () {
+    return new Invoice(this.payload.invoice as Interfaces.TelegramInvoice)
   }
 }
 
@@ -42,7 +42,7 @@ interface InvoiceContext extends Constructor<InvoiceContext>, Message, TargetMix
 applyMixins(InvoiceContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(InvoiceContext, {
-  serialize(context) {
+  serialize (context) {
     return {
       id: context.id,
       from: context.from,

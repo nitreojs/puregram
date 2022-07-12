@@ -1,3 +1,4 @@
+import { TelegramUpdate } from '../../generated'
 import { Constructor } from '../../types/types'
 
 import { Context } from '../context'
@@ -7,12 +8,12 @@ interface CloneMixinMetadata<P> {
 }
 
 class CloneMixin<C extends Context & Constructor<C>, Options extends Record<string, any>> {
-  clone(options?: Options) {
+  clone (options?: Options) {
     return new (this.constructor as C)({
       telegram: this.telegram,
       payload: this.payload,
-      updateId: this.updateId!,
-      update: this.update!,
+      updateId: this.updateId as number,
+      update: this.update as TelegramUpdate,
       ...options
     })
   }

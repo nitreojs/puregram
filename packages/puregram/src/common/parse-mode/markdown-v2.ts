@@ -94,7 +94,7 @@ export class MarkdownV2 {
   /** URL with text */
   static url (source: string, link: string, escape = true) {
     const text = escape ? MarkdownV2.escape(source) : source
-    const url = escape ? MarkdownV2.escape(source) : link
+    const url = escape ? MarkdownV2.escape(link) : link
 
     return `[${text}](${url})`
   }

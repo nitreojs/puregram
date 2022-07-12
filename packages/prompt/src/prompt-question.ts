@@ -5,35 +5,35 @@ import * as Types from './types'
 import { filterPayload } from './utils'
 
 export class PromptQuestion {
-  constructor(private params: Types.PromptQuestionParams) { }
+  constructor (private params: Types.PromptQuestionParams) { }
 
-  get requestText() {
+  get requestText () {
     return this.params.request.text
   }
 
-  get requestParams(): Types.Optional<SendMessageParams, 'chat_id' | 'text'> {
+  get requestParams (): Types.Optional<SendMessageParams, 'chat_id' | 'text'> {
     return this.params.request.params ?? {}
   }
 
-  get resolve() {
+  get resolve () {
     return this.params.resolve
   }
 
-  get promptedAt() {
+  get promptedAt () {
     return this.params.promptedAt
   }
 
-  get validate() {
+  get validate () {
     return this.params.validate
   }
 
-  get onValidationFail() {
+  get onValidationFail () {
     return this.params.onValidationFail
   }
 }
 
 inspectable(PromptQuestion, {
-  serialize(question) {
+  serialize (question) {
     return filterPayload({
       promptedAt: question.promptedAt,
       text: question.requestText,

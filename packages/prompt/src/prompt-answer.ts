@@ -5,38 +5,38 @@ import * as Types from './types'
 import { filterPayload } from './utils'
 
 export class PromptAnswer {
-  constructor(
+  constructor (
     public context: Types.PromptMessageContext,
     private params: Types.PromptAnswerParams = {}
   ) { }
 
-  get promptedAt() {
+  get promptedAt () {
     return this.params.promptedAt
   }
 
-  get promptedWithin() {
+  get promptedWithin () {
     return this.params.promptedWithin
   }
 
-  get answeredAt() {
+  get answeredAt () {
     return this.params.answeredAt
   }
 
-  get text() {
+  get text () {
     return this.context instanceof MessageContext
       ? this.context.text
-      : this.context.message!.text
+      : this.context.message?.text
   }
 
-  get caption() {
+  get caption () {
     return this.context instanceof MessageContext
       ? this.context.caption
-      : this.context.message!.caption
+      : this.context.message?.caption
   }
 }
 
 inspectable(PromptAnswer, {
-  serialize(answer) {
+  serialize (answer) {
     return filterPayload({
       context: answer.context,
       promptedAt: answer.promptedAt,

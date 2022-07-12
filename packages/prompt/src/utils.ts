@@ -8,10 +8,7 @@ export const filterPayload = (payload: Record<string, any>) => {
   for (const [key, value] of Object.entries(payload)) {
     const notEmpty = value !== undefined && value !== null
 
-    const isEmptyArray = (
-      Array.isArray(value)
-      && value!.length === 0
-    )
+    const isEmptyArray = Array.isArray(value) && value?.length === 0
 
     if (notEmpty && !isEmptyArray) {
       if (isPlainObject(value)) {

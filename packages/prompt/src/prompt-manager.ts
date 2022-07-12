@@ -9,25 +9,29 @@ import { PromptAnswer } from './prompt-answer'
 export class PromptManager {
   questions: Map<number, PromptQuestion> = new Map()
 
-  get middleware(): Middleware<Types.PromptMessageContext> {
+  get middleware (): Middleware<Types.PromptMessageContext> {
     return async (context: Types.PromptMessageContext, next) => {
       if (!context.is(['message', 'edited_message', 'channel_post', 'edited_channel_post', 'callback_query'])) {
         return next()
       }
 
-      const id: number = context.senderId!
-      const now: number = Date.now()
+      const id = context.senderId as number
+      const now = Date.now()
 
       if (this.questions.has(id)) {
-        const question: PromptQuestion = this.questions.get(id)!
+        const question = this.questions.get(id)
 
-        const answer: PromptAnswer = new PromptAnswer(context, {
+        if (question === undefined) {
+          return
+        }
+
+        const answer = new PromptAnswer(context, {
           promptedAt: question.promptedAt,
           promptedWithin: now - question.promptedAt,
           answeredAt: now
         })
 
-        const validate: Types.PromptValidate = question.validate ?? (() => true)
+        const validate = question.validate ?? (() => true)
 
         if (!validate(answer)) {
           if (question.onValidationFail) {
@@ -36,7 +40,7 @@ export class PromptManager {
             if (context instanceof MessageContext) {
               await context.send(question.requestText, question.requestParams)
             } else {
-              await context.message!.send(question.requestText, question.requestParams)
+              await context.message?.send(question.requestText, question.requestParams)
             }
           }
 
@@ -59,11 +63,11 @@ export class PromptManager {
         if (context instanceof MessageContext) {
           await context.send(text, sendParams)
         } else {
-          await context.message!.send(text, sendParams)
+          await context.message?.send(text, sendParams)
         }
 
         return new Promise((resolve) => {
-          const question: PromptQuestion = new PromptQuestion({
+          const question = new PromptQuestion({
             resolve,
             promptedAt: Date.now(),
             request: {
@@ -83,7 +87,7 @@ export class PromptManager {
         context.prompt(text, {
           ...params,
           reply_to_message_id: context.is('callback_query')
-            ? (context as CallbackQueryContext).message!.id
+            ? (context as CallbackQueryContext).message?.id
             : (context as MessageContext).id
         })
       )
@@ -94,7 +98,7 @@ export class PromptManager {
 }
 
 inspectable(PromptManager, {
-  serialize(manager) {
+  serialize (manager) {
     return {}
   }
 })

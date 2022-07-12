@@ -8,11 +8,23 @@ module.exports = {
       'scenes',
       'session',
       'utils',
+
       'api',
       'updates',
+
       'eslint',
       'commitlint',
-      'husky'
+      'husky',
+
+      'keyboards',
+      'contexts',
+      'attachments',
+      'structures',
+      'parse-mode',
+      'media-source',
+      'media-group',
+
+      'scripts'
     ]],
     'scope-case': [2, 'always', 'kebab-case']
   }

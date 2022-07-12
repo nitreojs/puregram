@@ -5,7 +5,7 @@ import {
   Keyboard,
   KeyboardBuilder,
   RemoveKeyboard
-} from '../src'
+} from '../src/common/keyboards'
 
 describe('Keyboards', () => {
   describe('ForceReply', () => {

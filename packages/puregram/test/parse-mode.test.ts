@@ -1,10 +1,10 @@
-import { HTML, Markdown, MarkdownV2 } from '../src'
+import { HTML, Markdown, MarkdownV2 } from '../src/common/parse-mode'
 
 describe('Parse mode', () => {
   describe('HTML', () => {
-    describe('#HTML.raw()', () => {
-      it('should raw-ify text properly', () => {
-        const text = HTML.raw('some <b>text</b> that <i>should be</i> escaped')
+    describe('#HTML.escape()', () => {
+      it('should escape text properly', () => {
+        const text = HTML.escape('some <b>text</b> that <i>should be</i> escaped')
 
         expect(text).toEqual('some &lt;b&gt;text&lt;/b&gt; that &lt;i&gt;should be&lt;/i&gt; escaped')
       })
@@ -154,9 +154,9 @@ describe('Parse mode', () => {
   })
 
   describe('Markdown', () => {
-    describe('#Markdown.raw()', () => {
-      it('should raw-ify text properly', () => {
-        const text = Markdown.raw('some *text* that _should be_ escaped')
+    describe('#Markdown.escape()', () => {
+      it('should escape text properly', () => {
+        const text = Markdown.escape('some *text* that _should be_ escaped')
 
         expect(text).toEqual('some \\*text\\* that \\_should be\\_ escaped')
       })
@@ -258,9 +258,9 @@ describe('Parse mode', () => {
   })
 
   describe('MarkdownV2', () => {
-    describe('#MarkdownV2.raw()', () => {
-      it('should raw-ify text properly', () => {
-        const text = MarkdownV2.raw('some *text* ~that~ _should be_ `escaped`')
+    describe('#MarkdownV2.escape()', () => {
+      it('should escape text properly', () => {
+        const text = MarkdownV2.escape('some *text* ~that~ _should be_ `escaped`')
 
         expect(text).toEqual('some \\*text\\* \\~that\\~ \\_should be\\_ \\`escaped\\`')
       })
@@ -322,7 +322,7 @@ describe('Parse mode', () => {
         )
 
         expect(text).toEqual(
-          '*bold _italic bold ~italic bold strikethrough~ \\_\\_underline italic bold\\_\\__ bold*'
+          '*bold \\_italic bold \\\\~italic bold strikethrough\\\\~ \\\\_\\\\_underline italic bold\\\\_\\\\_\\_ bold*'
         )
       })
     })
@@ -331,13 +331,19 @@ describe('Parse mode', () => {
       it('should parse url properly', () => {
         const text = MarkdownV2.url('url text', 'example.com')
 
-        expect(text).toEqual('[url text](example.com)')
+        expect(text).toEqual('[url text](example\\.com)')
       })
 
-      it('should escape characters', () => {
+      it('should escape characters without `escape`', () => {
         const text = MarkdownV2.url('url [text]', '(example.com)')
 
-        expect(text).toEqual('[url [text\\]]((example.com\\))')
+        expect(text).toEqual('[url \\[text\\]](\\(example\\.com\\))')
+      })
+
+      it('should not escape characters when `escape = false`', () => {
+        const text = MarkdownV2.url('url [text]', '(example.com)', false)
+
+        expect(text).toEqual('[url [text]]((example.com))')
       })
     })
 
@@ -348,10 +354,16 @@ describe('Parse mode', () => {
         expect(text).toEqual('[mention text](tg://user?id=1)')
       })
 
-      it('should escape characters', () => {
+      it('should escape characters without `escape`', () => {
         const text = MarkdownV2.mention('mention [text]', 1)
 
-        expect(text).toEqual('[mention [text\\]](tg://user?id=1)')
+        expect(text).toEqual('[mention \\[text\\]](tg://user?id=1)')
+      })
+
+      it('should not escape characters when `escape = false`', () => {
+        const text = MarkdownV2.mention('mention [text]', 1, false)
+
+        expect(text).toEqual('[mention [text]](tg://user?id=1)')
       })
     })
 
@@ -359,30 +371,43 @@ describe('Parse mode', () => {
       it('should parse code properly', () => {
         const text = MarkdownV2.code('inline fixed-width code')
 
-        expect(text).toEqual('`inline fixed-width code`')
+        expect(text).toEqual('`inline fixed\\-width code`')
       })
 
-      it('should escape characters', () => {
+      it('should escape characters without `escape`', () => {
         const text = MarkdownV2.code('inline `fixed-width` code')
 
-        expect(text).toEqual('`inline \\`fixed-width\\` code`')
+        expect(text).toEqual('`inline \\`fixed\\-width\\` code`')
+      })
+
+      it('should not escape characters when `escape = false`', () => {
+        const text = MarkdownV2.code('inline `fixed-width` code', false)
+
+        expect(text).toEqual('`inline `fixed-width` code`')
       })
     })
 
     describe('#MarkdownV2.pre()', () => {
       it('should parse preformatted area properly', () => {
         const text = MarkdownV2.pre('pre-formatted fixed-width code block')
+
         const textWithLanguage = MarkdownV2.pre(
           'pre-formatted fixed-width code block',
           'python'
         )
 
-        expect(text).toEqual('```\npre-formatted fixed-width code block\n```')
-        expect(textWithLanguage).toEqual('```python\npre-formatted fixed-width code block\n```')
+        expect(text).toEqual('```\npre\\-formatted fixed\\-width code block\n```')
+        expect(textWithLanguage).toEqual('```python\npre\\-formatted fixed\\-width code block\n```')
       })
 
-      it('should not escape characters', () => {
+      it('should escape characters without `escape`', () => {
         const text = MarkdownV2.pre('preformatted area with `chars`')
+
+        expect(text).toEqual('```\npreformatted area with \\`chars\\`\n```')
+      })
+
+      it('should not escape characters when `escape = false`', () => {
+        const text = MarkdownV2.pre('preformatted area with `chars`', '', false)
 
         expect(text).toEqual('```\npreformatted area with `chars`\n```')
       })

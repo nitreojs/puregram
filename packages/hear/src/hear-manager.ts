@@ -19,19 +19,19 @@ export class HearManager<C extends MessageContext> {
   private fallbackHandler: Middleware<C & ContextMatch> = skipMiddleware
   private composed!: Middleware<C & ContextMatch>
 
-  constructor() {
+  constructor () {
     this.recompose()
   }
 
-  get length() {
+  get length () {
     return this.composer.length
   }
 
-  get middleware(): Middleware<C & ContextMatch> {
+  get middleware (): Middleware<C & ContextMatch> {
     return (context: C & ContextMatch, next: NextMiddleware) => this.composed(context, next)
   }
 
-  hear(
+  hear (
     hearConditions: HearConditions<C & ContextMatch>,
     handler: Middleware<C & ContextMatch>
   ) {
@@ -79,10 +79,14 @@ export class HearManager<C extends MessageContext> {
 
         if (condition instanceof RegExp) {
           return (text: string | undefined, context: C & ContextMatch) => {
-            const passed = condition.test(text!)
+            if (text === undefined) {
+              return false
+            }
+
+            const passed = condition.test(text)
 
             if (passed) {
-              context.$match = text!.match(condition)!
+              context.$match = text.match(condition)
             }
 
             return passed
@@ -103,7 +107,7 @@ export class HearManager<C extends MessageContext> {
           return next()
         }
 
-        const text = context.text ?? context.caption!
+        const text = context.text ?? context.caption
 
         const hasSome = conditions.some(condition => condition(text, context))
 
@@ -118,7 +122,7 @@ export class HearManager<C extends MessageContext> {
     return this
   }
 
-  command(command: string, handler: Middleware<C>) {
+  command (command: string, handler: Middleware<C>) {
     if (!command) {
       throw new Error('command should not be empty')
     }
@@ -133,7 +137,7 @@ export class HearManager<C extends MessageContext> {
           return next()
         }
 
-        const text = context.text ?? context.caption!
+        const text = context.text ?? context.caption as string
 
         const firstWord = text.split(/\s/)[0]
 
@@ -152,7 +156,7 @@ export class HearManager<C extends MessageContext> {
           }
 
           // INFO: we have '@<username>' part but usernames do not match
-          if (hasUsername && tUsername.toLowerCase() !== context.telegram.bot.username!.toLowerCase()) {
+          if (hasUsername && tUsername.toLowerCase() !== (context.telegram.bot.username as string).toLowerCase()) {
             return next()
           }
 
@@ -174,7 +178,7 @@ export class HearManager<C extends MessageContext> {
   }
 
   /** A handler that is called when handlers are not found */
-  onFallback(handler: Middleware<C>) {
+  onFallback (handler: Middleware<C>) {
     this.fallbackHandler = handler
 
     this.recompose()
@@ -182,7 +186,7 @@ export class HearManager<C extends MessageContext> {
     return this
   }
 
-  private recompose() {
+  private recompose () {
     this.composed = this.composer.clone()
       .use(this.fallbackHandler)
       .compose()

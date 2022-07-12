@@ -1,7 +1,7 @@
 export type MaybeArray<T> = T | T[]
 
 export interface ContextMatch {
-  $match: RegExpMatchArray
+  $match: RegExpMatchArray | null
 }
 
 export type HearFunctionCondition<T, V> = (value: V, context: T) => boolean

@@ -25,7 +25,7 @@ export const unifyCondition = (condition: unknown) => {
   }
 
   if (condition instanceof RegExp) {
-    return (text: string | undefined) => condition.test(text!)
+    return (text: string | undefined) => text ? condition.test(text) : false
   }
 
   if (Array.isArray(condition)) {

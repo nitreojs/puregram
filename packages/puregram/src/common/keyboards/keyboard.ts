@@ -17,7 +17,7 @@ export class Keyboard {
 
   /** Assemble a builder of buttons */
   static keyboard (rows: (Interfaces.TelegramKeyboardButton | Interfaces.TelegramKeyboardButton[])[]): Keyboard {
-    const keyboard: Keyboard = new Keyboard()
+    const keyboard = new Keyboard()
 
     for (const row of rows) {
       keyboard.addRow(row)

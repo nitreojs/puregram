@@ -258,7 +258,7 @@ export class Updates {
         })
       }
 
-      const bot: User = new User(me)
+      const bot = new User(me)
 
       this.telegram.bot = bot
 

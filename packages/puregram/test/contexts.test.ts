@@ -1,10 +1,10 @@
 import { Context, Telegram } from '../src'
 
-const telegram: Telegram = new Telegram()
+const telegram = new Telegram()
 
 describe('Contexts', () => {
   describe('Context', () => {
-    const context: Context = new Context({
+    const context = new Context({
       telegram,
       updateType: 'message'
     })

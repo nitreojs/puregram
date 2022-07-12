@@ -11,8 +11,8 @@ describe('Keyboards', () => {
   describe('ForceReply', () => {
     describe('#<ForceReply>.toJSON()', () => {
       it('should return valid JSON', () => {
-        const selectiveKeyboard: ForceReply = new ForceReply().selective()
-        const nonSelectiveKeyboard: ForceReply = new ForceReply().selective(false)
+        const selectiveKeyboard = new ForceReply().selective()
+        const nonSelectiveKeyboard = new ForceReply().selective(false)
 
         expect(selectiveKeyboard.toJSON()).toEqual({
           force_reply: true,
@@ -26,8 +26,8 @@ describe('Keyboards', () => {
       })
 
       it('should return invalid JSON', () => {
-        const selectiveKeyboard: ForceReply = new ForceReply().selective()
-        const nonSelectiveKeyboard: ForceReply = new ForceReply().selective(false)
+        const selectiveKeyboard = new ForceReply().selective()
+        const nonSelectiveKeyboard = new ForceReply().selective(false)
 
         expect(selectiveKeyboard.toJSON()).not.toEqual({
           force_reply: true,
@@ -45,7 +45,7 @@ describe('Keyboards', () => {
   describe('InlineKeyboard', () => {
     describe('#InlineKeyboard.keyboard()', () => {
       it('should return valid JSON', () => {
-        const keyboard: InlineKeyboard = InlineKeyboard.keyboard([
+        const keyboard = InlineKeyboard.keyboard([
           [
             InlineKeyboard.textButton({
               text: 'This is an inline button',
@@ -85,7 +85,7 @@ describe('Keyboards', () => {
   describe('InlineKeyboardBuilder', () => {
     describe('#<InlineKeyboardBuilder>', () => {
       it('should return valid JSON', () => {
-        const keyboard: InlineKeyboardBuilder = new InlineKeyboardBuilder()
+        const keyboard = new InlineKeyboardBuilder()
           .textButton({
             text: 'This is an inline button',
             payload: 'Some string payload'
@@ -120,7 +120,7 @@ describe('Keyboards', () => {
   describe('Keyboard', () => {
     describe('#Keyboard.keyboard()', () => {
       it('should return valid JSON', () => {
-        const keyboard: Keyboard = Keyboard.keyboard([
+        const keyboard = Keyboard.keyboard([
           [
             Keyboard.textButton('Some keyboard button'),
             Keyboard.textButton('One more keyboard button')
@@ -149,7 +149,7 @@ describe('Keyboards', () => {
       })
 
       it('should return valid JSON [request contact]', () => {
-        const keyboard: Keyboard = Keyboard.keyboard([
+        const keyboard = Keyboard.keyboard([
           [
             Keyboard.requestContactButton('Request contact button')
           ]
@@ -171,7 +171,7 @@ describe('Keyboards', () => {
       })
 
       it('should return valid JSON [request poll]', () => {
-        const keyboard: Keyboard = Keyboard.keyboard([
+        const keyboard = Keyboard.keyboard([
           [
             Keyboard.requestPollButton('Request poll button', 'quiz')
           ]
@@ -197,7 +197,7 @@ describe('Keyboards', () => {
   describe('KeyboardBuilder', () => {
     describe('#<KeyboardBuilder>', () => {
       it('should return valid JSON', () => {
-        const keyboard: KeyboardBuilder = new KeyboardBuilder()
+        const keyboard = new KeyboardBuilder()
           .textButton('Some keyboard button')
           .textButton('One more keyboard button')
           .row()
@@ -224,7 +224,7 @@ describe('Keyboards', () => {
       })
 
       it('should return valid JSON [request contact]', () => {
-        const keyboard: KeyboardBuilder = new KeyboardBuilder()
+        const keyboard = new KeyboardBuilder()
           .requestContactButton('Request contact button')
           .resize()
           .oneTime()
@@ -246,7 +246,7 @@ describe('Keyboards', () => {
       })
 
       it('should return valid JSON [request poll]', () => {
-        const keyboard: KeyboardBuilder = new KeyboardBuilder()
+        const keyboard = new KeyboardBuilder()
           .requestPollButton('Request poll button', 'regular')
           .resize()
           .oneTime()
@@ -272,7 +272,7 @@ describe('Keyboards', () => {
   describe('RemoveKeyboard', () => {
     describe('#<RemoveKeyboard>', () => {
       it('should return valid JSON', () => {
-        const keyboard: RemoveKeyboard = new RemoveKeyboard()
+        const keyboard = new RemoveKeyboard()
           .selective()
 
         expect(keyboard.toJSON()).toEqual({

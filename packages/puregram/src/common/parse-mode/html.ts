@@ -60,7 +60,7 @@ export class HTML {
 
   /** Preformatted code */
   static code (source: string, language?: string, escape = true) {
-    const additional: string = (
+    const additional = (
       language
         ? ` class="language-${language}"`
         : ''

@@ -76,8 +76,9 @@ const replaceRegexpChar = (char: string) => (
 )
 
 export const replaceChars = (source: string, chars: string[] | string) => {
-  let edited: string = source
-  const actualChars: string[] = !Array.isArray(chars) ? chars.split('') : chars
+  let edited = source
+
+  const actualChars = !Array.isArray(chars) ? chars.split('') : chars
 
   for (const char of actualChars) {
     edited = edited.replace(

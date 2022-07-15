@@ -1,12 +1,11 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 
 import { Telegram } from 'puregram'
 
 const telegram = new Telegram({ token: process.env.TOKEN })
 const app = express()
 
-app.use(bodyParser.json()) // <-- IMPORTANT
+app.use(express.json()) // <-- IMPORTANT
 app.use(telegram.updates.getWebhookMiddleware())
 
 // INFO: also, you will need to call setWebhook at least once

@@ -7,7 +7,6 @@ import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 import { InlineQuery } from '../updates/inline-query'
-import { User } from '../common/structures'
 
 import { Context } from './context'
 import { CloneMixin } from './mixins'

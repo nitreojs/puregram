@@ -93,6 +93,7 @@ inspectable(StickerAttachment, {
       width: attachment.width,
       height: attachment.height,
       isAnimated: attachment.isAnimated,
+      isVideo: attachment.isVideo,
       thumb: attachment.thumb,
       emoji: attachment.emoji,
       setName: attachment.setName,

@@ -105,6 +105,8 @@ inspectable(User, {
       lastName: struct.lastName,
       username: struct.username,
       languageCode: struct.languageCode,
+      isPremium: struct.isPremium,
+      addedToAttachmentMenu: struct.addedToAttachmentMenu,
       canJoinGroups: struct.canJoinGroups,
       canReadAllGroupMessages: struct.canReadAllGroupMessages,
       supportsInlineQueries: struct.supportsInlineQueries

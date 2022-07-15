@@ -7,6 +7,7 @@ import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 import { InlineQuery } from '../updates/inline-query'
+import { User } from '../common/structures'
 
 import { Context } from './context'
 import { CloneMixin } from './mixins'
@@ -32,6 +33,11 @@ class InlineQueryContext extends Context {
     this.payload = options.payload
   }
 
+  /** Sender's ID */
+  get senderId () {
+    return this.from.id
+  }
+
   /** Answers to inline query */
   answerInlineQuery (
     results: Interfaces.TelegramInlineQueryResult[],
@@ -52,6 +58,7 @@ inspectable(InlineQueryContext, {
   serialize (context) {
     const payload = {
       id: context.id,
+      senderId: context.senderId,
       from: context.from,
       location: context.location,
       query: context.query,

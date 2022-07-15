@@ -236,7 +236,20 @@ export class Telegram {
   }
 
   /**
-   * Methods like `sendMediaGroup` and `editMessageMedia` has `media: MediaInput[]` properties.
+   * `uploadWithMedia` shares the same logic under the hood for both `sendMediaGroup` and `editMessageMedia`.
+   * This method keeps it separate yet organic at the same time
+   */
+  private async processUploadWithMedia (fd: FormData, input: Record<string, any>) {
+    // INFO: [thumb] property might exist and we need to also handle it
+    if (input.thumb !== undefined) {
+      await this.createAttachMediaInput({ fd, input, key: 'thumb' })
+    }
+
+    await this.createAttachMediaInput({ fd, input, key: 'media' })
+  }
+
+  /**
+   * Methods like `sendMediaGroup` and `editMessageMedia` has `media: MediaInput` (or `media: MediaInput[]`) properties.
    * This method makes it so this `media` property is handled properly
    */
   private async uploadWithMedia (params: Record<string, any>): Promise<RequestInit> {
@@ -244,15 +257,18 @@ export class Telegram {
 
     const { media } = params
 
-    for (let i = 0; i < media.length; i++) {
-      const input = media[i]
+    if (Array.isArray(media)) {
+      // INFO: `media: MediaInput[]`, probably `sendMediaGroup`
 
-      // INFO: [thumb] property might exist and we need to also handle it
-      if (input.thumb !== undefined) {
-        await this.createAttachMediaInput({ fd, input, key: 'thumb' })
+      for (let i = 0; i < media.length; i++) {
+        const input = media[i]
+
+        await this.processUploadWithMedia(fd, input)
       }
+    } else {
+      // INFO: `media: MediaInput`, probably `editMessageMedia`
 
-      await this.createAttachMediaInput({ fd, input, key: 'media' })
+      await this.processUploadWithMedia(fd, media)
     }
 
     fd.set('media', JSON.stringify(media))

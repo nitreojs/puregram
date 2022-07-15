@@ -2,7 +2,7 @@ import express from 'express'
 
 import { Telegram } from 'puregram'
 
-const telegram = new Telegram({ token: process.env.TOKEN })
+const telegram = Telegram.fromToken(process.env.TOKEN)
 const app = express()
 
 app.use(express.json()) // <-- IMPORTANT

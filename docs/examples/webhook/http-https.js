@@ -4,7 +4,7 @@ import https from 'https'
 
 import { Telegram } from 'puregram'
 
-const telegram = new Telegram({ token: process.env.TOKEN })
+const telegram = Telegram.fromToken(process.env.TOKEN)
 const server = http.createServer(telegram.updates.getWebhookMiddleware())
 
 // INFO: also, you will need to call setWebhook at least once

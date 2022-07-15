@@ -3,7 +3,7 @@ import koaBody from 'koa-body'
 
 import { Telegram } from 'puregram'
 
-const telegram = new Telegram({ token: process.env.TOKEN })
+const telegram = Telegram.fromToken(process.env.TOKEN)
 const app = new Koa()
 
 app.use(koaBody()) // <-- IMPORTANT

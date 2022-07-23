@@ -85,4 +85,3 @@ sceneManager.addScenes([
 telegram.updates.startPolling().then(
   () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)
-

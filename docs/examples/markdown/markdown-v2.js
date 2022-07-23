@@ -10,11 +10,11 @@ const telegram = new Telegram({
 // -> https://core.telegram.org/bots/api#markdownv2-style <-
 
 telegram.updates.on('message', (context) => {
-  const message = `a ${MarkdownV2.bold('message')} with some ${MarkdownV2.strikethrough('epic')} ${MarkdownV2.underline('markdown')}!`
-  const anotherMessage = `same *message* with ~epic~ __markdown__.`
+  const message = `a ${MarkdownV2.bold('message')} with some ${MarkdownV2.strikethrough('epic')} ${MarkdownV2.underline('markdown')}\\!`
+  const anotherMessage = 'same *message* with ~epic~ __markdown__\\.'
 
   await Promise.all([
-    context.send(message, { parse_mode: 'markdownv2' }),       // <-- mote how we are telling telegram
+    context.send(message, { parse_mode: 'markdownv2' }), // <-- note how we are telling telegram
     context.send(anotherMessage, { parse_mode: 'markdownv2' }) //     that there are some markdownv2 entities in the message
   ])
 })

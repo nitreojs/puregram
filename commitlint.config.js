@@ -24,7 +24,8 @@ module.exports = {
       'media-source',
       'media-group',
 
-      'scripts'
+      'scripts',
+      'docs'
     ]],
     'scope-case': [2, 'always', 'kebab-case']
   }

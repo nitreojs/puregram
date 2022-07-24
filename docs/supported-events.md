@@ -382,11 +382,11 @@ telegram.updates.on(UpdateType.MessageAutoDeleteTimeChanged, (context: MessageAu
 - **type**: `'video_chat_scheduled'`, `UpdateType.VideoChatScheduled`
 - **context**: `VideoChatScheduledContext`
 - **how to trigger**: schedule a video chat
-- **getter**: `videoChatScheduled`
+- **getter**: `eventScheduled`
 
 ```ts
-telegram.updates.on('video_chat_scheduled', (context: VideoChatScheduledContext) => console.log(context.videoChatScheduled))
-telegram.updates.on(UpdateType.VideoChatScheduled, (context: VideoChatScheduledContext) => console.log(context.videoChatScheduled))
+telegram.updates.on('video_chat_scheduled', (context: VideoChatScheduledContext) => console.log(context.eventScheduled))
+telegram.updates.on(UpdateType.VideoChatScheduled, (context: VideoChatScheduledContext) => console.log(context.eventScheduled))
 ```
 
 ### `video_chat_started`
@@ -394,11 +394,11 @@ telegram.updates.on(UpdateType.VideoChatScheduled, (context: VideoChatScheduledC
 - **type**: `'video_chat_started'`, `UpdateType.VideoChatStarted`
 - **context**: `VideoChatStartedContext`
 - **how to trigger**: start a video chat
-- **getter**: `videoChatStarted`
+- **getter**: `eventStarted`
 
 ```ts
-telegram.updates.on('video_chat_started', (context: VideoChatStartedContext) => console.log(context.videoChatStarted))
-telegram.updates.on(UpdateType.VideoChatStarted, (context: VideoChatStartedContext) => console.log(context.videoChatStarted))
+telegram.updates.on('video_chat_started', (context: VideoChatStartedContext) => console.log(context.eventStarted))
+telegram.updates.on(UpdateType.VideoChatStarted, (context: VideoChatStartedContext) => console.log(context.eventStarted))
 ```
 
 ### `video_chat_ended`
@@ -406,11 +406,11 @@ telegram.updates.on(UpdateType.VideoChatStarted, (context: VideoChatStartedConte
 - **type**: `'video_chat_ended'`, `UpdateType.VideoChatEnded`
 - **context**: `VideoChatEndedContext`
 - **how to trigger**: end a video chat
-- **getter**: `videoChatEnded`
+- **getter**: `eventEnded`
 
 ```ts
-telegram.updates.on('video_chat_ended', (context: VideoChatEndedContext) => console.log(context.videoChatEnded))
-telegram.updates.on(UpdateType.VideoChatEnded, (context: VideoChatEndedContext) => console.log(context.videoChatEnded))
+telegram.updates.on('video_chat_ended', (context: VideoChatEndedContext) => console.log(context.eventEnded))
+telegram.updates.on(UpdateType.VideoChatEnded, (context: VideoChatEndedContext) => console.log(context.eventEnded))
 ```
 
 ### `video_chat_participants_invited`
@@ -418,11 +418,11 @@ telegram.updates.on(UpdateType.VideoChatEnded, (context: VideoChatEndedContext) 
 - **type**: `'video_chat_participants_invited'`, `UpdateType.VideoChatParticipantsInvited`
 - **context**: `VideoChatParticipantsInvitedContext`
 - **how to trigger**: invite participants to video chat
-- **getter**: `videoChatParticipantsInvited`
+- **getter**: `eventParticipantsInvited`
 
 ```ts
-telegram.updates.on('video_chat_participants_invited', (context: VideoChatParticipantsInvitedContext) => console.log(context.videoChatParticipantsInvited))
-telegram.updates.on(UpdateType.VideoChatParticipantsInvited, (context: VideoChatParticipantsInvitedContext) => console.log(context.videoChatParticipantsInvited))
+telegram.updates.on('video_chat_participants_invited', (context: VideoChatParticipantsInvitedContext) => console.log(context.eventParticipantsInvited))
+telegram.updates.on(UpdateType.VideoChatParticipantsInvited, (context: VideoChatParticipantsInvitedContext) => console.log(context.eventParticipantsInvited))
 ```
 
 ### `web_app_data`

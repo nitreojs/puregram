@@ -5,6 +5,8 @@ const telegram = Telegram.fromToken(process.env.TOKEN)
 // INFO: the difference between `Markdown` and `MarkdownV2` classes
 // INFO: is that `MarkdownV2` can handle ~strikethrough~ and __underlined__ entities...
 // INFO: and that's it!
+// INFO: but it also requires A LOT OF escaping under the hood...
+// INFO: are you sure you want to use it?
 // -> https://core.telegram.org/bots/api#markdownv2-style <-
 
 telegram.updates.on('message', (context) => {

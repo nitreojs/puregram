@@ -1,0 +1,462 @@
+# supported events
+
+you can see all official events [here](https://core.telegram.org/bots/api#getting-updates).
+they are represented as: `{ [update_type]: update_data }`, e.g. `message` is an event type and `Message` is the event data
+
+## official events
+
+these are events that are native to telegram bot api – they are listed under the `Update` object.
+however, telegram has some extra events, you can find a list of them [here](#extra-events)
+
+### `message`
+
+called whenever a new message is sent
+
+- **type**: `'message'`, `UpdateType.Message`
+- **context**: `MessageContext`
+- **how to trigger**: send a message to the bot
+
+```ts
+telegram.updates.on('message', (context: MessageContext) => {})
+telegram.updates.on(UpdateType.Message, (context: MessageContext) => {})
+```
+
+### `edited_message`
+
+called whenever a message *that is known to the bot* was edited
+
+- **type**: `'edited_message'`, `UpdateType.EditedMessage`
+- **context**: `MessageContext`
+- **how to trigger**: edit a message bot has access to
+
+```ts
+telegram.updates.on('edited_message', (context: MessageContext) => {})
+telegram.updates.on(UpdateType.EditedMessage, (context: MessageContext) => {})
+```
+
+### `channel_post`
+
+called whenever a new message in a known channel is sent
+
+- **type**: `'channel_post'`, `UpdateType.ChannelPost`
+- **context**: `MessageContext`
+- **how to trigger**: send a message in a channel in which bot is admin
+
+```ts
+telegram.updates.on('channel_post', (context: MessageContext) => {})
+telegram.updates.on(UpdateType.ChannelPost, (context: MessageContext) => {})
+```
+
+### `edited_channel_post`
+
+called whenever a message in a known channel *that is known to the bot* was edited
+
+- **type**: `'edited_channel_post'`, `UpdateType.EditedChannelPost`
+- **context**: `MessageContext`
+- **how to trigger**: edit a message in a channel in which bot is admin
+
+```ts
+telegram.updates.on('edited_channel_post', (context: MessageContext) => {})
+telegram.updates.on(UpdateType.EditedChannelPost, (context: MessageContext) => {})
+```
+
+### `inline_query`
+
+called whenever a query starting with `@<bot-username>` was typed in the message box
+
+- **type**: `'inline_query'`, `UpdateType.InlineQuery`
+- **context**: `InlineQueryContext`
+- **how to trigger**: enable `Inline mode` in [@botfather](https://t.me/botfather) & type `@<bot-username> test` in the message box
+
+```ts
+telegram.updates.on('inline_query', (context: InlineQueryContext) => {})
+telegram.updates.on(UpdateType.InlineQuery, (context: InlineQueryContext) => {})
+```
+
+### `chosen_inline_result`
+
+called whenever an inline query was pressed
+
+- **type**: `'chosen_inline_result'`, `UpdateType.ChosenInlineResult`
+- **context**: `ChosenInlineResultContext`
+- **how to trigger**: enable [feedback collecting](https://core.telegram.org/bots/inline#collecting-feedback) & press on an inline query
+
+```ts
+telegram.updates.on('chosen_inline_result', (context: ChosenInlineResultContext) => {})
+telegram.updates.on(UpdateType.ChosenInlineResult, (context: ChosenInlineResultContext) => {})
+```
+
+### `callback_query`
+
+called whenever an inline button was pressed
+
+- **type**: `'callback_query'`, `UpdateType.CallbackQuery`
+- **context**: `CallbackQueryContext`
+- **how to trigger**: send a message with inline buttons & click on one of them
+
+```ts
+telegram.updates.on('callback_query', (context: CallbackQueryContext) => {})
+telegram.updates.on(UpdateType.CallbackQuery, (context: CallbackQueryContext) => {})
+```
+
+### `shipping_query`
+
+called whenever shipping data was typed & sent for you to validate
+
+- **type**: `'shipping_query'`, `UpdateType.ShippingQuery`
+- **context**: `ShippingQueryContext`
+- **how to trigger**: send an invoice with shipping requirements & enter shipping data
+
+```ts
+telegram.updates.on('shipping_query', (context: ShippingQueryContext) => {})
+telegram.updates.on(UpdateType.ShippingQuery, (context: ShippingQueryContext) => {})
+```
+
+### `pre_checkout_query`
+
+called whenever payment is almost done. contains full information about this checkout
+
+- **type**: `'pre_checkout_query'`, `UpdateType.PreCheckoutQuery`
+- **context**: `PreCheckoutQueryContext`
+- **how to trigger**: send an invoice & complete it
+
+```ts
+telegram.updates.on('pre_checkout_query', (context: PreCheckoutQueryContext) => {})
+telegram.updates.on(UpdateType.PreCheckoutQuery, (context: PreCheckoutQueryContext) => {})
+```
+
+### `poll`
+
+called whenever poll state changes (e.g. it stops or some user votes in it)
+
+- **type**: `'poll'`, `UpdateType.Poll`
+- **context**: `PollContext`
+- **how to trigger**: send a poll & vote in it
+
+```ts
+telegram.updates.on('poll', (context: PollContext) => {})
+telegram.updates.on(UpdateType.Poll, (context: PollContext) => {})
+```
+
+### `poll_answer`
+
+called whenever a user changed their answer in a non-anonymous poll
+
+- **type**: `'poll_answer'`, `UpdateType.PollAnswer`
+- **context**: `PollAnswerContext`
+- **how to trigger**: send a non-anonymous poll, vote in it & change your answer
+
+```ts
+telegram.updates.on('poll_answer', (context: PollAnswerContext) => {})
+telegram.updates.on(UpdateType.PollAnswer, (context: PollAnswerContext) => {})
+```
+
+### `my_chat_member`
+
+called whenever bot's chat member status was updated. for PMs, this update is called whenever
+user stops or unblocks this bot
+
+- **type**: `'my_chat_member'`, `UpdateType.MyChatMember`
+- **context**: `ChatMemberContext`
+- **how to trigger**: block/unblock your bot
+
+```ts
+telegram.updates.on('my_chat_member', (context: ChatMemberContext) => {})
+telegram.updates.on(UpdateType.MyChatMember, (context: ChatMemberContext) => {})
+```
+
+### `chat_member`
+
+called whenever chat member's status was updated.
+the bot must be an administrator in the chat and **must explicitly specify** `'chat_member'` in the list of `allowed_updates` to receive these updates.
+
+- **type**: `'chat_member'`, `UpdateType.ChatMember`
+- **context**: `ChatMemberContext`
+- **how to trigger**: add a bot to a chat as an administrator & remove someone from it
+
+```ts
+telegram.updates.on('chat_member', (context: ChatMemberContext) => {})
+telegram.updates.on(UpdateType.ChatMember, (context: ChatMemberContext) => {})
+```
+
+### `chat_join_request`
+
+called whenever a request to join the chat has been sent
+
+- **type**: `'chat_join_request'`, `UpdateType.ChatJoinRequest`
+- **context**: `ChatJoinRequestContext`
+- **how to trigger**: make a chat private, create an invite link with join requsts & send a join request
+
+```ts
+telegram.updates.on('chat_join_request', (context: ChatJoinRequestContext) => {})
+telegram.updates.on(UpdateType.ChatJoinRequest, (context: ChatJoinRequestContext) => {})
+```
+
+## extra events
+
+`puregram` adds some extra events so you don't have to, for example, handle `message` event just to check if there is
+`new_chat_title` field in the object
+
+### `new_chat_members`
+
+- **type**: `'new_chat_members'`, `UpdateType.NewChatMembers`
+- **context**: `MessageContext`
+- **how to trigger**: invite someone to a chat
+- **getter**: `eventMembers`
+
+```ts
+telegram.updates.on('new_chat_members', (context: MessageContext) => console.log(context.eventMembers))
+telegram.updates.on(UpdateType.NewChatMembers, (context: MessageContext) => console.log(context.eventMembers))
+```
+
+### `left_chat_member`
+
+- **type**: `'left_chat_member'`, `UpdateType.LeftChatMember`
+- **context**: `MessageContext`
+- **how to trigger**: leave a chat
+- **getter**: `eventMember`
+
+```ts
+telegram.updates.on('left_chat_member', (context: MessageContext) => console.log(context.eventMember))
+telegram.updates.on(UpdateType.LeftChatMember, (context: MessageContext) => console.log(context.eventMember))
+```
+
+### `new_chat_photo`
+
+- **type**: `'new_chat_photo'`, `UpdateType.NewChatPhoto`
+- **context**: `MessageContext`
+- **how to trigger**: change chat's photo
+- **getter**: `eventPhoto`
+
+```ts
+telegram.updates.on('new_chat_photo', (context: MessageContext) => console.log(context.eventPhoto))
+telegram.updates.on(UpdateType.NewChatPhoto, (context: MessageContext) => console.log(context.eventPhoto))
+```
+
+### `new_chat_title`
+
+- **type**: `'new_chat_title'`, `UpdateType.NewChatTitle`
+- **context**: `MessageContext`
+- **how to trigger**: change chat's title
+- **getter**: `eventTitle`
+
+```ts
+telegram.updates.on('new_chat_title', (context: MessageContext) => console.log(context.eventTitle))
+telegram.updates.on(UpdateType.NewChatTitle, (context: MessageContext) => console.log(context.eventTitle))
+```
+
+### `delete_chat_photo`
+
+- **type**: `'delete_chat_photo'`, `UpdateType.DeleteChatPhoto`
+- **context**: `MessageContext`
+- **how to trigger**: delete chat's photo
+- **getter**: *none*
+
+```ts
+telegram.updates.on('delete_chat_photo', (context: MessageContext) => {})
+telegram.updates.on(UpdateType.DeleteChatPhoto, (context: MessageContext) => {})
+```
+
+### `group_chat_created`
+
+- **type**: `'group_chat_created'`, `UpdateType.GroupChatCreated`
+- **context**: `MessageContext`
+- **how to trigger**: create a group chat with bot as a member
+- **getter**: *none*
+
+```ts
+telegram.updates.on('group_chat_created', (context: MessageContext) => {})
+telegram.updates.on(UpdateType.GroupChatCreated, (context: MessageContext) => {})
+```
+
+### `supergroup_chat_created`
+
+- **type**: `'supergroup_chat_created'`, `UpdateType.SupergroupChatCreated`
+- **context**: `MessageContext`
+- **how to trigger**: create a supergroup chat with bot as a member
+- **getter**: *none*
+
+```ts
+telegram.updates.on('supregroup_chat_created', (context: MessageContext) => {})
+telegram.updates.on(UpdateType.SupergroupChatCreated, (context: MessageContext) => {})
+```
+
+### `channel_chat_created`
+
+- **type**: `'channel_chat_created'`, `UpdateType.ChannelChatCreated`
+- **context**: `MessageContext`
+- **how to trigger**: create a channel chat with bot as a member
+- **getters**: `id`, `createdAt`
+
+```ts
+telegram.updates.on('channel_chat_created', (context: MessageContext) => console.log(context.id, context.createdAt))
+telegram.updates.on(UpdateType.ChannelChatCreated, (context: MessageContext) => console.log(context.id, context.createdAt))
+```
+
+### `migrate_to_chat_id`
+
+- **type**: `'migrate_to_chat_id'`, `UpdateType.MigrateToChatId`
+- **context**: `MessageContext`
+- **how to trigger**: migrate to chat
+- **getter**: `eventId`
+
+```ts
+telegram.updates.on('migrate_to_chat_id', (context: MessageContext) => console.log(context.eventId))
+telegram.updates.on(UpdateType.MigrateToChatId, (context: MessageContext) => console.log(context.eventId))
+```
+
+### `migrate_from_chat_id`
+
+- **type**: `'migrate_from_chat_id'`, `UpdateType.MigrateFromChatId`
+- **context**: `MessageContext`
+- **how to trigger**: migrate from chat
+- **getter**: `eventId`
+
+```ts
+telegram.updates.on('migrate_from_chat_id', (context: MessageContext) => console.log(context.eventId))
+telegram.updates.on(UpdateType.MigrateFromChatId, (context: MessageContext) => console.log(context.eventId))
+```
+
+### `pinned_message`
+
+- **type**: `'pinned_message'`, `UpdateType.PinnedMessage`
+- **context**: `MessageContext`
+- **how to trigger**: pin a message
+- **getter**: `eventMessage`
+
+```ts
+telegram.updates.on('pinned_message', (context: MessageContext) => console.log(context.eventMessage))
+telegram.updates.on(UpdateType.PinnedMessage, (context: MessageContext) => console.log(context.eventMessage))
+```
+
+### `invoice`
+
+- **type**: `'invoice'`, `UpdateType.Invoice`
+- **context**: `MessageContext`
+- **how to trigger**: send an invoice
+- **getter**: `eventInvoice`
+
+```ts
+telegram.updates.on('invoice', (context: MessageContext) => console.log(context.eventInvoice))
+telegram.updates.on(UpdateType.Invoice, (context: MessageContext) => console.log(context.eventInvoice))
+```
+
+### `successful_payment`
+
+- **type**: `'successful_payment'`, `UpdateType.SuccessfulPayment`
+- **context**: `MessageContext`
+- **how to trigger**: make a successful payment
+- **getter**: `eventPayment`
+
+```ts
+telegram.updates.on('successful_payment', (context: MessageContext) => console.log(context.eventPayment))
+telegram.updates.on(UpdateType.SuccessfulPayment, (context: MessageContext) => console.log(context.eventPayment))
+```
+
+### `location`
+
+- **type**: `'location'`, `UpdateType.Location`
+- **context**: `MessageContext`
+- **how to trigger**: send location
+- **getter**: `eventLocation`
+
+```ts
+telegram.updates.on('location', (context: MessageContext) => console.log(context.eventLocation))
+telegram.updates.on(UpdateType.Location, (context: MessageContext) => console.log(context.eventLocation))
+```
+
+### `message_auto_delete_timer_changed`
+
+- **type**: `'message_auto_delete_timer_changed'`, `UpdateType.MessageAutoDeleteTimerChanged`
+- **context**: `MessageContext`
+- **how to trigger**: change the time after which all sent messages will be automatically deleted
+- **getter**: `autoDeleteTimer`
+
+```ts
+telegram.updates.on('message_auto_delete_timer_changed', (context: MessageContext) => console.log(context.autoDeleteTimer))
+telegram.updates.on(UpdateType.MessageAutoDeleteTimeChanged, (context: MessageContext) => console.log(context.autoDeleteTimer))
+```
+
+### `video_chat_scheduled`
+
+- **type**: `'video_chat_scheduled'`, `UpdateType.VideoChatScheduled`
+- **context**: `MessageContext`
+- **how to trigger**: schedule a video chat
+- **getter**: `videoChatScheduled`
+
+```ts
+telegram.updates.on('video_chat_scheduled', (context: MessageContext) => console.log(context.videoChatScheduled))
+telegram.updates.on(UpdateType.VideoChatScheduled, (context: MessageContext) => console.log(context.videoChatScheduled))
+```
+
+### `video_chat_started`
+
+- **type**: `'video_chat_started'`, `UpdateType.VideoChatStarted`
+- **context**: `MessageContext`
+- **how to trigger**: start a video chat
+- **getter**: `videoChatStarted`
+
+```ts
+telegram.updates.on('video_chat_started', (context: MessageContext) => console.log(context.videoChatStarted))
+telegram.updates.on(UpdateType.VideoChatStarted, (context: MessageContext) => console.log(context.videoChatStarted))
+```
+
+### `video_chat_ended`
+
+- **type**: `'video_chat_ended'`, `UpdateType.VideoChatEnded`
+- **context**: `MessageContext`
+- **how to trigger**: end a video chat
+- **getter**: `videoChatEnded`
+
+```ts
+telegram.updates.on('video_chat_ended', (context: MessageContext) => console.log(context.videoChatEnded))
+telegram.updates.on(UpdateType.VideoChatEnded, (context: MessageContext) => console.log(context.videoChatEnded))
+```
+
+### `video_chat_participants_invited`
+
+- **type**: `'video_chat_participants_invited'`, `UpdateType.VideoChatParticipantsInvited`
+- **context**: `MessageContext`
+- **how to trigger**: invite participants to video chat
+- **getter**: `videoChatParticipantsInvited`
+
+```ts
+telegram.updates.on('video_chat_participants_invited', (context: MessageContext) => console.log(context.videoChatParticipantsInvited))
+telegram.updates.on(UpdateType.VideoChatParticipantsInvited, (context: MessageContext) => console.log(context.videoChatParticipantsInvited))
+```
+
+### `web_app_data`
+
+- **type**: `'web_app_data'`, `UpdateType.WebAppData`
+- **context**: `MessageContext`
+- **how to trigger**: send Web App data
+- **getters**: `data`, `buttonText`
+
+```ts
+telegram.updates.on('web_app_data', (context: MessageContext) => console.log(context.data, context.buttonText))
+telegram.updates.on(UpdateType.WebAppData, (context: MessageContext) => console.log(context.data, context.buttonText))
+```
+
+### `proximity_alert_triggered`
+
+- **type**: `'proximity_alert_triggered'`, `UpdateType.ProximityAlertTriggered`
+- **context**: `MessageContext`
+- **how to trigger**: trigger another user's proximity alert while sharing live location *(pretty hard one, huh?)*
+- **getter**: `proximityAlert`
+
+```ts
+telegram.updates.on('proximity_alert_triggered', (context: MessageContext) => console.log(context.proximityAlert))
+telegram.updates.on(UpdateType.ProximityAlertTriggered, (context: MessageContext) => console.log(context.proximityAlert))
+```
+
+### `passport_data`
+
+- **type**: `'passport_data'`, `UpdateType.PassportData`
+- **context**: `MessageContext`
+- **how to trigger**: send a passport *(honestly, i dont even know what that means)*
+- **getter**: `passportData`
+
+```ts
+telegram.updates.on('passport_data', (context: MessageContext) => console.log(context.passportData))
+telegram.updates.on(UpdateType.PassportData, (context: MessageContext) => console.log(context.passportData))
+```

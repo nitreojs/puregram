@@ -10,7 +10,7 @@ telegram.updates.on('message', (context) => {
 
   await Promise.all([
     context.send(message, { parse_mode: 'markdown' }), // <-- note how we are telling telegram
-    context.send(anotherMessage, { parse_mode: 'markdown' }) //     that there are some markdown entities in the message
+    context.send(anotherMessage, { parse_mode: 'markdown' }) // that there are some markdown entities in the message
   ])
 })
 

@@ -10,7 +10,7 @@ telegram.updates.on('message', (context) => {
 
   await Promise.all([
     context.send(message, { parse_mode: 'html' }), // <-- note how we are telling telegram
-    context.send(anotherMessage, { parse_mode: 'html' }) //     that there are some html entities in the message
+    context.send(anotherMessage, { parse_mode: 'html' }) // that there are some html entities in the message
   ])
 })
 

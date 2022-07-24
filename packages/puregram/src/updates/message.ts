@@ -683,6 +683,7 @@ inspectable(Message, {
       successfulPayment: update.successfulPayment,
       connectedWebsite: update.connectedWebsite,
       passportData: update.passportData,
+      videoChatScheduled: update.videoChatScheduled,
       videoChatStarted: update.videoChatStarted,
       videoChatEnded: update.videoChatEnded,
       videoChatParticipantsInvited: update.videoChatParticipantsInvited,

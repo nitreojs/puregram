@@ -33,7 +33,7 @@ class LocationContext extends Context {
   }
 
   /** Location */
-  get location () {
+  get eventLocation () {
     return new Location(this.payload.location as Interfaces.TelegramLocation)
   }
 }
@@ -51,7 +51,7 @@ inspectable(LocationContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      location: context.location
+      eventLocation: context.eventLocation
     }
   }
 })

@@ -63,6 +63,6 @@ hearManager.hear(
 // INFO: triggered when no other hears are triggered
 hearManager.onFallback((context) => context.send('command not found.'))
 
-telegram.updates.startPolling().then(
-  () => console.log(`started polling @${telegram.bot.username}`)
-).catch(console.error)
+telegram.updates.startPolling()
+  .then(() => console.log(`started polling @${telegram.bot.username}`))
+  .catch(console.error)

@@ -10,4 +10,6 @@ telegram.updates.on('message', (context) => {
   }
 })
 
-telegram.updates.startPolling().catch(console.error)
+telegram.updates.startPolling()
+  .then(() => console.log(`started polling @${telegram.bot.username}`))
+  .catch(console.error)

@@ -66,6 +66,6 @@ hearManager.hear('/file', (context) => (
 
 // easy as that!
 
-telegram.updates.startPolling().then(
-  () => console.log(`started polling @${telegram.bot.username}`)
-).catch(console.error)
+telegram.updates.startPolling()
+  .then(() => console.log(`started polling @${telegram.bot.username}`))
+  .catch(console.error)

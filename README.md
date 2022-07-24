@@ -172,7 +172,7 @@ now with this setup we can catch updates like this:
 telegram.updates.on('message', context => context.reply('yoo!'))
 ```
 
-_list of supported updates will be somewhere here when it's done_
+supported events are listed [here](https://github.com/nitreojs/puregram/tree/lord/docs/supported-events.md)
 
 #### the `mergeMediaEvents`
 

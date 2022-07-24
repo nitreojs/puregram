@@ -1,9 +1,7 @@
 import { Telegram, InlineKeyboard, MediaSource } from 'puregram'
 import { HearManager } from '@puregram/hear'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 const hearManager = new HearManager()
 

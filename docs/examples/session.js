@@ -1,9 +1,7 @@
 import { Telegram } from 'puregram'
 import { SessionManager } from '@puregram/session'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 const sessionManager = new SessionManager()
 

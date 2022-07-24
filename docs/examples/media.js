@@ -5,9 +5,7 @@ import { HearManager } from '@puregram/hear'
 import { stripIndents } from 'common-tags'
 import { File } from 'undici'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 const hearManager = new HearManager()
 

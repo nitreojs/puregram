@@ -1,8 +1,6 @@
 import { Telegram, Markdown } from 'puregram'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
   const message = `a ${Markdown.bold('message')} with ${Markdown.italic('markdown')}!`

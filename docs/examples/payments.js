@@ -4,6 +4,7 @@ import { Telegram } from 'puregram'
 import { HearManager } from '@puregram/hear'
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
+
 const hearManager = new HearManager()
 
 telegram.updates.on('message', hearManager.middleware)

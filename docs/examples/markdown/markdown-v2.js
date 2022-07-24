@@ -1,8 +1,6 @@
 import { Telegram, MarkdownV2 } from 'puregram'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 // INFO: the difference between `Markdown` and `MarkdownV2` classes
 // INFO: is that `MarkdownV2` can handle ~strikethrough~ and __underlined__ entities...

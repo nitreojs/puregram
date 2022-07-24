@@ -1,9 +1,7 @@
 import { Telegram } from 'puregram'
 import { getCasinoValues } from '@puregram/utils'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
   if (context.hasDice && context.dice.emoji === '🎰') {

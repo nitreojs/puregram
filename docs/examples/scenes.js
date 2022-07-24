@@ -3,9 +3,7 @@ import { SessionManager } from '@puregram/session'
 import { SceneManager, StepScene } from '@puregram/scenes'
 import { HearManager } from '@puregram/hear'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 const sessionManager = new SessionManager()
 const sceneManager = new SceneManager()

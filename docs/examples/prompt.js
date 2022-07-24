@@ -1,9 +1,7 @@
 import { Telegram } from 'puregram'
 import { PromptManager } from '@puregram/prompt'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 const manager = new PromptManager()
 

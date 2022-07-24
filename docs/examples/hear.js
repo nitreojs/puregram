@@ -1,9 +1,7 @@
 import { Telegram } from 'puregram'
 import { HearManager } from '@puregram/hear'
 
-const telegram = new Telegram({
-  token: process.env.TOKEN
-})
+const telegram = Telegram.fromToken(process.env.TOKEN)
 
 const hearManager = new HearManager()
 
@@ -68,4 +66,3 @@ hearManager.onFallback((context) => context.send('command not found.'))
 telegram.updates.startPolling().then(
   () => console.log(`started polling @${telegram.bot.username}`)
 ).catch(console.error)
-

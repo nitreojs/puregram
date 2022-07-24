@@ -33,7 +33,7 @@ class VideoChatParticipantsInvitedContext extends Context {
   }
 
   /** Service message: new participants invited to a video chat */
-  get videoChatParticipantsInvited () {
+  get eventParticipantsInvited () {
     return new VideoChatParticipantsInvited(this.payload.video_chat_participants_invited as Interfaces.TelegramVideoChatParticipantsInvited)
   }
 }
@@ -51,7 +51,7 @@ inspectable(VideoChatParticipantsInvitedContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      videoChatParticipantsInvited: context.videoChatParticipantsInvited
+      eventParticipantsInvited: context.eventParticipantsInvited
     }
   }
 })

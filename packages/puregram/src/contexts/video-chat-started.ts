@@ -33,7 +33,7 @@ class VideoChatStartedContext extends Context {
   }
 
   /** Service message: video chat started */
-  get videoChatStarted () {
+  get eventStarted () {
     return new VideoChatStarted(this.payload.video_chat_started as Interfaces.TelegramVideoChatStarted)
   }
 }
@@ -51,7 +51,7 @@ inspectable(VideoChatStartedContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      videoChatStarted: context.videoChatStarted
+      eventStarted: context.eventStarted
     }
   }
 })

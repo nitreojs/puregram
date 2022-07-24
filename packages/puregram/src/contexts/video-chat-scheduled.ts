@@ -33,7 +33,7 @@ class VideoChatScheduledContext extends Context {
   }
 
   /** Service message: video chat scheduled */
-  get videoChatScheduled () {
+  get eventScheduled () {
     return new VideoChatScheduled(this.payload.video_chat_scheduled as Interfaces.TelegramVideoChatScheduled)
   }
 }
@@ -51,7 +51,7 @@ inspectable(VideoChatScheduledContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      videoChatScheduled: context.videoChatScheduled
+      eventScheduled: context.eventScheduled
     }
   }
 })

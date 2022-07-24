@@ -33,7 +33,7 @@ class VideoChatEndedContext extends Context {
   }
 
   /** Service message: video chat ended */
-  get videoChatEnded () {
+  get eventEnded () {
     return new VideoChatEnded(this.payload.video_chat_ended as Interfaces.TelegramVideoChatEnded)
   }
 }
@@ -51,7 +51,7 @@ inspectable(VideoChatEndedContext, {
       chat: context.chat,
       chatId: context.chatId,
       chatType: context.chatType,
-      videoChatEnded: context.videoChatEnded
+      eventEnded: context.eventEnded
     }
   }
 })

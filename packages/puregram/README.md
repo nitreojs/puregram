@@ -203,7 +203,9 @@ and then sent an album, you'd see that there will be some `mediaGroup` field in 
 
 ```js
 telegram.updates.on('message', (context) => {
-  if (context.isMediaGroup) {
+  if (context.isMediaGroup()) {
+    // INFO: all is* getters are methods in puregram@^2.9.0
+    // INFO: if you are using puregram < 2.9.0, consider using `isMediaGroup` as a getter
     return context.reply(`this album contains ${context.mediaGroup.attachments.length} attachments!`)
   }
 })

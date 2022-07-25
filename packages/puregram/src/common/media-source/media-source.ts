@@ -24,6 +24,10 @@ export class MediaSource {
    * ```
    */
   static path (path: string, options: MediaInputOptions = {}): MediaSourcePath {
+    if (typeof path !== 'string') {
+      throw new TypeError(`expected 'path' to be string, found ${typeof path}`)
+    }
+
     return {
       type: MediaSourceType.Path,
       value: path,
@@ -56,6 +60,10 @@ export class MediaSource {
    * ```
    */
   static url (url: string, options: MediaInputOptions & MediaInputUrlOptions = {}): MediaSourceUrl {
+    if (typeof url !== 'string') {
+      throw new TypeError(`expected 'url' to be string, found ${typeof url}`)
+    }
+
     return {
       type: MediaSourceType.Url,
       value: url,
@@ -72,6 +80,10 @@ export class MediaSource {
    * ```
    */
   static fileId (fileId: string, options: MediaInputOptions = {}): MediaSourceFileId {
+    if (typeof fileId !== 'string') {
+      throw new TypeError(`expected 'fileId' to be string, found ${typeof fileId}`)
+    }
+
     return {
       type: MediaSourceType.FileId,
       value: fileId,
@@ -98,6 +110,10 @@ export class MediaSource {
    * ```
    */
   static buffer (buffer: Buffer, options: MediaInputOptions = {}): MediaSourceBuffer {
+    if (!Buffer.isBuffer(buffer)) {
+      throw new TypeError(`expected 'buffer' to be Buffer, found ${typeof buffer}`)
+    }
+
     return {
       type: MediaSourceType.Buffer,
       value: buffer,
@@ -114,6 +130,10 @@ export class MediaSource {
    * ```
    */
   static stream (stream: Readable, options: MediaInputOptions = {}): MediaSourceStream {
+    if (!(stream instanceof Readable)) {
+      throw new TypeError(`expected 'stream' to be instance of Readable, found ${typeof stream}`)
+    }
+
     return {
       type: MediaSourceType.Stream,
       value: stream,
@@ -135,6 +155,10 @@ export class MediaSource {
    * ```
    */
   static file (file: File, options: MediaInputOptions = {}): MediaSourceFile {
+    if (!(file instanceof File)) {
+      throw new TypeError(`expected 'file' to be instance of File, found ${typeof file}`)
+    }
+
     return {
       type: MediaSourceType.File,
       value: file,
@@ -153,6 +177,10 @@ export class MediaSource {
    * ```
    */
   static arrayBuffer (buffer: ArrayBufferLike, options: MediaInputOptions = {}): MediaSourceArrayBuffer {
+    if (!(buffer instanceof ArrayBuffer) || !(buffer instanceof SharedArrayBuffer)) {
+      throw new TypeError(`expected 'buffer' to be instance of ArrayBuffer/SharedArrayBuffer, found ${typeof buffer}`)
+    }
+
     return {
       type: MediaSourceType.ArrayBuffer,
       value: buffer,

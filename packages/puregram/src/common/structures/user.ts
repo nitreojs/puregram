@@ -17,7 +17,7 @@ export class User {
   }
 
   /** `true`, if this user is a bot */
-  get isBot () {
+  isBot () {
     return this.payload.is_bot
   }
 
@@ -45,7 +45,7 @@ export class User {
   }
 
   /** `true`, if this user is a Telegram Premium user */
-  get isPremium () {
+  isPremium () {
     return this.payload.is_premium as true | undefined
   }
 
@@ -59,7 +59,7 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get canJoinGroups () {
+  canJoinGroups () {
     return this.payload.can_join_groups
   }
 
@@ -68,7 +68,7 @@ export class User {
    *
    * Returned only in `getMe`.
    */
-  get canReadAllGroupMessages () {
+  canReadAllGroupMessages () {
     return this.payload.can_read_all_group_messages
   }
 

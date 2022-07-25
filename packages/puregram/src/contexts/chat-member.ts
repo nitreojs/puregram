@@ -4,7 +4,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { ChatMemberUpdated } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { UpdateName, Constructor } from '../types/types'
+import { UpdateName, Constructor, Require } from '../types/types'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
@@ -33,7 +33,7 @@ class ChatMemberContext extends Context {
   }
 
   /** Does this update have `invite_link` property? */
-  get hasInviteLink () {
+  hasInviteLink (): this is Require<ChatMemberContext, 'inviteLink'> {
     return this.inviteLink !== undefined
   }
 }

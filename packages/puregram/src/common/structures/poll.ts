@@ -37,12 +37,12 @@ export class Poll {
   }
 
   /** `true`, if the poll is closed */
-  get isClosed () {
+  isClosed () {
     return this.payload.is_closed
   }
 
   /** `true`, if the poll is anonymous */
-  get isAnonymous () {
+  isAnonymous () {
     return this.payload.is_anonymous
   }
 

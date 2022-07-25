@@ -32,12 +32,12 @@ export class ChatInviteLink {
   }
 
   /** `true`, if the link is primary */
-  get isPrimary () {
+  isPrimary () {
     return this.payload.is_primary
   }
 
   /** `true`, if the link is revoked */
-  get isRevoked () {
+  isRevoked () {
     return this.payload.is_revoked
   }
 

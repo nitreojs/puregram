@@ -25,12 +25,12 @@ export class StickerSet {
   }
 
   /** `true`, if the sticker set contains animated stickers */
-  get isAnimated () {
+  isAnimated () {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker set contains video stickers */
-  get isVideo () {
+  isVideo () {
     return this.payload.is_video
   }
 

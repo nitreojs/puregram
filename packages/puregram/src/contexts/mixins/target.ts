@@ -1,4 +1,6 @@
 import { Chat, User } from '../../common/structures'
+import { ChatType } from '../../types/enums'
+import { RequireValue } from '../../types/types'
 
 /** This object represents a context which has sender data (e.g. `senderId`, `from` etc.) */
 class TargetMixin {
@@ -58,23 +60,23 @@ class TargetMixin {
   }
 
   /** Is this chat a private one? */
-  get isPM () {
-    return this.chatType === 'private'
+  isPM (): this is RequireValue<TargetMixin, 'chatType', ChatType.Private> {
+    return this.chatType === ChatType.Private
   }
 
   /** Is this chat a group? */
-  get isGroup () {
-    return this.chatType === 'group'
+  isGroup (): this is RequireValue<TargetMixin, 'chatType', ChatType.Group> {
+    return this.chatType === ChatType.Group
   }
 
   /** Is this chat a supergroup? */
-  get isSupergroup () {
-    return this.chatType === 'supergroup'
+  isSupergroup (): this is RequireValue<TargetMixin, 'chatType', ChatType.Supergroup> {
+    return this.chatType === ChatType.Supergroup
   }
 
   /** Is this chat a channel? */
-  get isChannel () {
-    return this.chatType === 'channel'
+  isChannel (): this is RequireValue<TargetMixin, 'chatType', ChatType.Channel> {
+    return this.chatType === ChatType.Channel
   }
 }
 

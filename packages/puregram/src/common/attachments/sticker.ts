@@ -1,7 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { AttachmentType } from '../../types/types'
+import { AttachmentType, Require } from '../../types/types'
 
 import { PhotoSize, MaskPosition, File } from '../structures'
 
@@ -22,12 +22,12 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** `true`, if the sticker is animated */
-  get isAnimated () {
+  isAnimated () {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker is a video sticker */
-  get isVideo () {
+  isVideo () {
     return this.payload.is_video
   }
 
@@ -53,7 +53,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** Is this sticker a premium one? */
-  get isPremium () {
+  isPremium (): this is Require<StickerAttachment, 'premiumAnimation'> {
     return this.premiumAnimation !== undefined
   }
 

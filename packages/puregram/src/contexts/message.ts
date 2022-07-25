@@ -6,7 +6,7 @@ import { Message } from '../updates/'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
-import { AttachmentType, Constructor, UpdateName } from '../types/types'
+import { AttachmentType, Constructor, Require, UpdateName } from '../types/types'
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 
@@ -74,7 +74,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `text` property */
-  get hasText () {
+  hasText (): this is Require<MessageContext, 'text'> {
     return this.text !== undefined
   }
 
@@ -91,12 +91,12 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `caption` property */
-  get hasCaption () {
+  hasCaption (): this is Require<MessageContext, 'caption'> {
     return this.caption !== undefined
   }
 
   /** Checks if the message has `dice` property */
-  get hasDice () {
+  hasDice (): this is Require<MessageContext, 'dice'> {
     return this.dice !== undefined
   }
 
@@ -133,12 +133,12 @@ class MessageContext extends Context {
   }
 
   /** Does this message have start payload? */
-  get hasStartPayload () {
+  hasStartPayload (): this is Require<MessageContext, 'startPayload'> {
     return this.startPayload !== undefined
   }
 
   /** Checks if the message has `author_signature` property */
-  get hasAuthorSignature () {
+  hasAuthorSignature (): this is Require<MessageContext, 'authorSignature'> {
     return this.authorSignature !== undefined
   }
 
@@ -161,7 +161,7 @@ class MessageContext extends Context {
   }
 
   /** Checks whether current message contains a media group (`mergeMediaEvents` must be on) */
-  get isMediaGroup () {
+  isMediaGroup (): this is Require<MessageContext, 'mediaGroupId' | 'mediaGroup'> {
     return this.mediaGroupId !== undefined
   }
 
@@ -196,12 +196,12 @@ class MessageContext extends Context {
   }
 
   /** Does this message even have an attachment? */
-  get hasAttachment () {
+  hasAttachment (): this is Require<MessageContext, 'attachment'> {
     return this.attachment !== undefined
   }
 
   /** Is this message an event? */
-  get isEvent () {
+  isEvent () {
     return EVENTS.some(event => this[event[0]] !== undefined)
   }
 
@@ -231,22 +231,22 @@ class MessageContext extends Context {
   }
 
   /** Is this message a service one? */
-  get isServiceMessage () {
+  isServiceMessage () {
     return SERVICE_MESSAGE_EVENTS.some(event => this.payload[event] !== undefined)
   }
 
   /** Is this message a forwarded one? */
-  get isForwarded () {
+  isForwarded (): this is Require<MessageContext, 'forwardedMessage'> {
     return this.forwardedMessage !== undefined
   }
 
   /** Does this message have reply message? */
-  get hasReplyMessage () {
+  hasReplyMessage (): this is Require<MessageContext, 'replyMessage'> {
     return this.replyMessage !== undefined
   }
 
   /** Checks if the sent message has `via_bot` property */
-  get hasViaBot () {
+  hasViaBot (): this is Require<MessageContext, 'viaBot'> {
     return this.viaBot !== undefined
   }
 

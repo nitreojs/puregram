@@ -71,7 +71,7 @@ export class ForwardedMessage {
   }
 
   /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
-  get isAutomatic () {
+  isAutomatic () {
     return this.payload.is_automatic_forward
   }
 }

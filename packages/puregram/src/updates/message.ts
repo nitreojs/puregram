@@ -110,7 +110,7 @@ export class Message {
   }
 
   /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
-  get isAutomaticForward () {
+  isAutomaticForward () {
     return this.payload.is_automatic_forward
   }
 
@@ -142,7 +142,7 @@ export class Message {
   }
 
   /** `true`, if the message can't be forwarded */
-  get hasProtectedContent () {
+  hasProtectedContent () {
     return this.payload.has_protected_content as true | undefined
   }
 

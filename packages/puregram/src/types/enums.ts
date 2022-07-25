@@ -65,3 +65,10 @@ export enum UpdateType {
   PassportData = 'passport_data',
   ServiceMessage = 'service_message'
 }
+
+export enum ChatType {
+  Private = 'private',
+  Group = 'group',
+  Supergroup = 'supergroup',
+  Channel = 'channel'
+}

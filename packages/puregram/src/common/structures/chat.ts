@@ -84,7 +84,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get hasPrivateForwards () {
+  hasPrivateForwards () {
     return this.payload.has_private_forwards as true | undefined
   }
 
@@ -196,7 +196,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get hasProtectedContent () {
+  hasProtectedContent () {
     return this.payload.has_protected_content
   }
 
@@ -214,7 +214,7 @@ export class Chat {
    *
    * Returned only in `getChat`.
    */
-  get canSetStickerSet () {
+  canSetStickerSet () {
     return this.payload.can_set_sticker_set
   }
 

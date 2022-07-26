@@ -7,6 +7,7 @@ interface CloneMixinMetadata<P> {
   payload: P
 }
 
+/** This object represents a mixin which has `clone(options?)` method */
 class CloneMixin<C extends Context & Constructor<C>, Options extends Record<string, any>> {
   clone (options?: Options) {
     return new (this.constructor as C)({

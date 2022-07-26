@@ -97,3 +97,7 @@ export interface StartPollingOptions {
 }
 
 export type ApiResponseUnion = ApiResponseOk | ApiResponseError
+
+export interface Structure {
+  toJSON(): Record<string, any>
+}

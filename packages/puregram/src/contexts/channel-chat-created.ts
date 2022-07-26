@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { Message } from '../updates/'
+import { Message } from '../common/structures'
 
 import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'

@@ -1,7 +1,7 @@
 import { Agent } from 'undici'
 
 import { TelegramOptions } from '../types/interfaces'
-import { Message } from '../updates/'
+import { Message } from '../common/structures'
 
 import { MessageEventName } from '../types/types'
 

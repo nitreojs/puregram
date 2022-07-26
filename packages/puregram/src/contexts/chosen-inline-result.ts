@@ -2,7 +2,7 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../generated/telegram-interfaces'
 
-import { ChosenInlineResult } from '../updates/'
+import { ChosenInlineResult } from '../common/structures'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'

@@ -3,17 +3,17 @@ import * as Methods from '../../generated/methods'
 
 import { MediaInput } from '../../common/media-source'
 import { Optional } from '../../types/types'
-import { Poll } from '../../updates/'
+import { Poll } from '../../common/structures'
 
 import { MessageContext } from '../message'
 import { Context } from '../context'
 
 interface SendMixinMetadata {
-  get chatId(): number | undefined
+  get chatId(): number
   get senderId(): number | undefined
 }
 
-/** This object represents a context which can invoke `chatId`/`senderId`-dependent methods */
+/** This object represents a mixin which can invoke `chatId`/`senderId`-dependent methods */
 class SendMixin {
   /** Sends message to current chat */
   async send (

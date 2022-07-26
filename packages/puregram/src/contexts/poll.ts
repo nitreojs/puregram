@@ -5,7 +5,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
-import { Poll } from '../updates/'
+import { Poll } from '../common/structures'
 
 import { Context } from './context'
 import { CloneMixin } from './mixins'

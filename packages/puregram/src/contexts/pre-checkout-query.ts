@@ -5,7 +5,7 @@ import * as Methods from '../generated/methods'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
-import { PreCheckoutQuery } from '../updates/'
+import { PreCheckoutQuery } from '../common/structures'
 import { Optional, Constructor } from '../types/types'
 
 import { Context } from './context'

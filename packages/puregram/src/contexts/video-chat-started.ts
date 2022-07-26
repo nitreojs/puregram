@@ -1,12 +1,11 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../generated/telegram-interfaces'
-import { VideoChatStarted } from '../common/structures'
+import { VideoChatStarted, Message } from '../common/structures'
 
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
-import { Message } from '../updates/'
 
 import { Context } from './context'
 import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'

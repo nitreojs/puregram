@@ -5,7 +5,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
-import { ShippingQuery } from '../updates/'
+import { ShippingQuery } from '../common/structures'
 
 import { Context } from './context'
 import { SendMixin, CloneMixin } from './mixins'

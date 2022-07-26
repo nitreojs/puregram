@@ -1,7 +1,7 @@
 import { inspectable } from 'inspectable'
 
 import { Telegram } from '../telegram'
-import { Message } from '../updates/'
+import { Message, MessageEntity } from '../common/structures'
 
 import * as Interfaces from '../generated/telegram-interfaces'
 
@@ -25,7 +25,7 @@ import {
   VideoNoteAttachment,
   VoiceAttachment
 } from '../common/attachments'
-import { MessageEntity } from '../common/structures'
+
 import { MediaGroup } from '../common/media-group'
 
 import { Context } from './context'
@@ -144,6 +144,10 @@ class MessageContext extends Context {
 
   /** Checks if there are any entities (with specified type) */
   hasEntities (type?: EntityType | MessageEntity['type']) {
+    if (this.entities === undefined) {
+      return false
+    }
+
     if (type === undefined) {
       return this.entities.length !== 0
     }
@@ -153,6 +157,10 @@ class MessageContext extends Context {
 
   /** Checks if there are any caption entities (with specified type) */
   hasCaptionEntities (type?: EntityType | MessageEntity['type']) {
+    if (this.captionEntities === undefined) {
+      return false
+    }
+
     if (type === undefined) {
       return this.captionEntities.length !== 0
     }

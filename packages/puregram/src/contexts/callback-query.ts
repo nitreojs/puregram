@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable'
 
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
-import { CallbackQuery } from '../updates/'
+import { CallbackQuery } from '../common/structures'
 import { Constructor } from '../types/types'
 
 import * as Interfaces from '../generated/telegram-interfaces'

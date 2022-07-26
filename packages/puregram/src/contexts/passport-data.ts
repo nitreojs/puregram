@@ -1,11 +1,10 @@
 import { inspectable } from 'inspectable'
-import { PassportData } from '../common/structures'
+import { PassportData, Message } from '../common/structures'
 
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { Constructor } from '../types/types'
-import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'

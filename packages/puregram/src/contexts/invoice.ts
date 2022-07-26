@@ -1,10 +1,9 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../generated/telegram-interfaces'
-import { Invoice } from '../common/structures'
+import { Invoice, Message } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { Message } from '../updates/'
 import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 

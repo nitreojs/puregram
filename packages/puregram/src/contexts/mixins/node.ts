@@ -14,7 +14,7 @@ interface NodeMixinMetadata {
   get id(): number
 }
 
-/** This object represents a context which has `id` field and can invoke `id`-dependent methods */
+/** This object represents a mixin which has `id` field and can invoke `id`-dependent methods */
 class NodeMixin {
   /** Replies to current message */
   reply (

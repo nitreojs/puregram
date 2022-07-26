@@ -2,7 +2,7 @@ import { Chat, User } from '../../common/structures'
 import { ChatType } from '../../types/enums'
 import { RequireValue } from '../../types/types'
 
-/** This object represents a context which has sender data (e.g. `senderId`, `from` etc.) */
+/** This object represents a mixin which has sender data (e.g. `senderId`, `from` etc.) */
 class TargetMixin {
   payload!: Record<string, any>
 
@@ -35,13 +35,7 @@ class TargetMixin {
 
   /** Conversation the message belongs to */
   get chat () {
-    const { chat } = this.payload
-
-    if (!chat) {
-      return
-    }
-
-    return new Chat(chat)
+    return new Chat(this.payload.chat)
   }
 
   /** Sender's ID */
@@ -51,12 +45,12 @@ class TargetMixin {
 
   /** Chat ID */
   get chatId () {
-    return this.chat?.id
+    return this.chat.id
   }
 
   /** Chat type */
   get chatType () {
-    return this.chat?.type
+    return this.chat.type
   }
 
   /** Is this chat a private one? */

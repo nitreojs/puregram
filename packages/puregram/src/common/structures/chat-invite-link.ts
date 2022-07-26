@@ -3,10 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { User } from './user'
 
 /** Represents an invite link for a chat. */
-export class ChatInviteLink {
+export class ChatInviteLink implements Structure {
   constructor (public payload: Interfaces.TelegramChatInviteLink) { }
 
   get [Symbol.toStringTag] () {
@@ -64,6 +66,20 @@ export class ChatInviteLink {
   get pendingJoinRequestCount () {
     return this.payload.pending_join_request_count
   }
+
+  toJSON (): Interfaces.TelegramChatInviteLink {
+    return {
+      invite_link: this.link,
+      name: this.name,
+      creator: this.creator.toJSON(),
+      is_primary: this.isPrimary(),
+      is_revoked: this.isRevoked(),
+      expire_date: this.expireDate,
+      member_limit: this.memberLimit,
+      creates_join_request: this.createsJoinRequest,
+      pending_join_request_count: this.pendingJoinRequestCount
+    }
+  }
 }
 
 inspectable(ChatInviteLink, {
@@ -71,8 +87,8 @@ inspectable(ChatInviteLink, {
     const payload = {
       link: struct.link,
       creator: struct.creator,
-      isPrimary: struct.isPrimary,
-      isRevoked: struct.isRevoked,
+      isPrimary: struct.isPrimary(),
+      isRevoked: struct.isRevoked(),
       expireDate: struct.expireDate,
       memberLimit: struct.memberLimit,
       createsJoinRequest: struct.createsJoinRequest,

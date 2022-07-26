@@ -2,6 +2,8 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 import { EncryptedPassportElement } from './encrypted-passport-element'
 import { EncryptedCredentials } from './encrypted-credentials'
 
@@ -9,7 +11,7 @@ import { EncryptedCredentials } from './encrypted-credentials'
  * Contains information about Telegram Passport data shared with the bot by the
  * user.
  */
-export class PassportData {
+export class PassportData implements Structure {
   constructor (private payload: Interfaces.TelegramPassportData) { }
 
   get [Symbol.toStringTag] () {
@@ -24,19 +26,22 @@ export class PassportData {
     const { data } = this.payload
 
     if (!data) {
-      return []
+      return
     }
 
-    return data.map(
-      (element: Interfaces.TelegramEncryptedPassportElement) => (
-        new EncryptedPassportElement(element)
-      )
-    )
+    return data.map(element => new EncryptedPassportElement(element))
   }
 
   /** Encrypted credentials required to decrypt the data */
   get credentials () {
     return new EncryptedCredentials(this.payload.credentials)
+  }
+
+  toJSON (): Interfaces.TelegramPassportData {
+    return {
+      data: this.data?.map(e => e.toJSON()) ?? [],
+      credentials: this.credentials
+    }
   }
 }
 

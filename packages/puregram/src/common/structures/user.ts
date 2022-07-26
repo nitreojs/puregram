@@ -3,8 +3,10 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents a Telegram user or bot. */
-export class User {
+export class User implements Structure {
   constructor (private payload: Interfaces.TelegramUser) { }
 
   get [Symbol.toStringTag] () {
@@ -84,13 +86,15 @@ export class User {
   toJSON (): Interfaces.TelegramUser {
     return {
       id: this.id,
-      is_bot: this.isBot,
+      is_bot: this.isBot(),
       first_name: this.firstName,
       last_name: this.lastName,
       username: this.username,
       language_code: this.languageCode,
-      can_join_groups: this.canJoinGroups,
-      can_read_all_group_messages: this.canReadAllGroupMessages,
+      is_premium: this.isPremium(),
+      added_to_attachment_menu: this.addedToAttachmentMenu,
+      can_join_groups: this.canJoinGroups(),
+      can_read_all_group_messages: this.canReadAllGroupMessages(),
       supports_inline_queries: this.supportsInlineQueries
     }
   }
@@ -100,15 +104,15 @@ inspectable(User, {
   serialize (struct) {
     const payload = {
       id: struct.id,
-      isBot: struct.isBot,
+      isBot: struct.isBot(),
       firstName: struct.firstName,
       lastName: struct.lastName,
       username: struct.username,
       languageCode: struct.languageCode,
-      isPremium: struct.isPremium,
+      isPremium: struct.isPremium(),
       addedToAttachmentMenu: struct.addedToAttachmentMenu,
-      canJoinGroups: struct.canJoinGroups,
-      canReadAllGroupMessages: struct.canReadAllGroupMessages,
+      canJoinGroups: struct.canJoinGroups(),
+      canReadAllGroupMessages: struct.canReadAllGroupMessages(),
       supportsInlineQueries: struct.supportsInlineQueries
     }
 

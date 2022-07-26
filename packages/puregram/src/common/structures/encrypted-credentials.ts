@@ -2,12 +2,14 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /**
  * Contains data required for decrypting and authenticatin
  * `EncryptedPassportElement`. See the Telegram Passport Documentation for a
  * complete description of the data decryption and authentication processes.
  */
-export class EncryptedCredentials {
+export class EncryptedCredentials implements Structure {
   constructor (private payload: Interfaces.TelegramEncryptedCredentials) { }
 
   get [Symbol.toStringTag] () {
@@ -34,6 +36,14 @@ export class EncryptedCredentials {
    */
   get secret () {
     return this.payload.secret
+  }
+
+  toJSON (): Interfaces.TelegramEncryptedCredentials {
+    return {
+      data: this.data,
+      hash: this.hash,
+      secret: this.secret
+    }
   }
 }
 

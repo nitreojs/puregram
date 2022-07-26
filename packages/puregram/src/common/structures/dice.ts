@@ -3,8 +3,10 @@ import { inspectable } from 'inspectable'
 import * as Methods from '../../generated/methods'
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents an animated emoji that displays a random value. */
-export class Dice {
+export class Dice implements Structure {
   constructor (private payload: Interfaces.TelegramDice) { }
 
   get [Symbol.toStringTag] () {
@@ -13,7 +15,7 @@ export class Dice {
 
   /** Emoji on which the dice throw animation is based */
   get emoji () {
-    return this.payload.emoji as Methods.SendDiceParams['emoji']
+    return this.payload.emoji as NonNullable<Methods.SendDiceParams['emoji']>
   }
 
   /**
@@ -24,6 +26,13 @@ export class Dice {
    */
   get value () {
     return this.payload.value
+  }
+
+  toJSON (): Interfaces.TelegramDice {
+    return {
+      emoji: this.emoji,
+      value: this.value
+    }
   }
 }
 

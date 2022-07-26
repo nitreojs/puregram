@@ -2,11 +2,13 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /**
  * This object describes the position on faces where a mask should be placed
  * by default.
  */
-export class MaskPosition {
+export class MaskPosition implements Structure {
   constructor (private payload: Interfaces.TelegramMaskPosition) { }
 
   get [Symbol.toStringTag] () {
@@ -42,6 +44,15 @@ export class MaskPosition {
   /** Mask scaling coefficient. For example, `2.0` means double size. */
   get scale () {
     return this.payload.scale
+  }
+
+  toJSON (): Interfaces.TelegramMaskPosition {
+    return {
+      point: this.point,
+      x_shift: this.xShift,
+      y_shift: this.yShift,
+      scale: this.scale
+    }
   }
 }
 

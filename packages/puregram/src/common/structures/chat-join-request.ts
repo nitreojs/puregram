@@ -2,11 +2,13 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 import { Chat } from './chat'
 import { User } from './user'
 import { ChatInviteLink } from './chat-invite-link'
 
-export class ChatJoinRequest {
+export class ChatJoinRequest implements Structure {
   constructor (public payload: Interfaces.TelegramChatJoinRequest) { }
 
   get [Symbol.toStringTag] () {
@@ -42,6 +44,16 @@ export class ChatJoinRequest {
     }
 
     return new ChatInviteLink(invite_link)
+  }
+
+  toJSON (): Interfaces.TelegramChatJoinRequest {
+    return {
+      chat: this.chat.toJSON(),
+      date: this.date,
+      from: this.from.toJSON(),
+      bio: this.bio,
+      invite_link: this.inviteLink?.toJSON()
+    }
   }
 }
 

@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object contains information about one answer option in a poll. */
-export class PollOption {
+export class PollOption implements Structure {
   constructor (private payload: Interfaces.TelegramPollOption) { }
 
   get [Symbol.toStringTag] () {
@@ -18,6 +20,13 @@ export class PollOption {
   /** Number of users that voted for this option */
   get voterCount () {
     return this.payload.voter_count
+  }
+
+  toJSON (): Interfaces.TelegramPollOption {
+    return {
+      text: this.text,
+      voter_count: this.voterCount
+    }
   }
 }
 

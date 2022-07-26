@@ -2,10 +2,12 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 import { filterPayload } from '../../utils/helpers'
 
 /** Represents the rights of an administrator in a chat. */
-export class ChatAdministratorRights {
+export class ChatAdministratorRights implements Structure {
   constructor (private payload: Interfaces.TelegramChatAdministratorRights) { }
 
   get [Symbol.toStringTag] () {
@@ -66,22 +68,38 @@ export class ChatAdministratorRights {
   canPinMessages () {
     return this.payload.can_pin_messages
   }
+
+  toJSON (): Interfaces.TelegramChatAdministratorRights {
+    return {
+      is_anonymous: this.isAnonymous(),
+      can_manage_chat: this.canManageChat(),
+      can_delete_messages: this.canDeleteMessages(),
+      can_manage_video_chats: this.canManageVideoChats(),
+      can_restrict_members: this.canRestrictMembers(),
+      can_promote_members: this.canPromoteMembers(),
+      can_change_info: this.canChangeInfo(),
+      can_invite_users: this.canInviteUsers(),
+      can_post_messages: this.canPostMessages(),
+      can_edit_messages: this.canEditMessages(),
+      can_pin_messages: this.canPinMessages()
+    }
+  }
 }
 
 inspectable(ChatAdministratorRights, {
   serialize (struct) {
     const payload = {
-      isAnonymous: struct.isAnonymous,
-      canManageChat: struct.canManageChat,
-      canDeleteMessages: struct.canDeleteMessages,
-      canManageVideoChats: struct.canManageVideoChats,
-      canRestrictMembers: struct.canRestrictMembers,
-      canPromoteMembers: struct.canPromoteMembers,
-      canChangeInfo: struct.canChangeInfo,
-      canInviteUsers: struct.canInviteUsers,
-      canPostMessages: struct.canPostMessages,
-      canEditMessages: struct.canEditMessages,
-      canPinMessages: struct.canPinMessages
+      isAnonymous: struct.isAnonymous(),
+      canManageChat: struct.canManageChat(),
+      canDeleteMessages: struct.canDeleteMessages(),
+      canManageVideoChats: struct.canManageVideoChats(),
+      canRestrictMembers: struct.canRestrictMembers(),
+      canPromoteMembers: struct.canPromoteMembers(),
+      canChangeInfo: struct.canChangeInfo(),
+      canInviteUsers: struct.canInviteUsers(),
+      canPostMessages: struct.canPostMessages(),
+      canEditMessages: struct.canEditMessages(),
+      canPinMessages: struct.canPinMessages()
     }
 
     return filterPayload(payload)

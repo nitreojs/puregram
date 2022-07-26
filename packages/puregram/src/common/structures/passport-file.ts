@@ -2,12 +2,14 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /**
  * This object represents a file uploaded to Telegram Passport.
  * Currently all Telegram Passport files are in JPEG format when decrypted and
  * don't exceed 10MB.
  */
-export class PassportFile {
+export class PassportFile implements Structure {
   constructor (private payload: Interfaces.TelegramPassportFile) { }
 
   get [Symbol.toStringTag] () {
@@ -37,6 +39,15 @@ export class PassportFile {
   /** Unix time when the file was uploaded */
   get fileDate () {
     return this.payload.file_date
+  }
+
+  toJSON (): Interfaces.TelegramPassportFile {
+    return {
+      file_id: this.fileId,
+      file_unique_id: this.fileUniqueId,
+      file_size: this.fileSize,
+      file_date: this.fileDate
+    }
   }
 }
 

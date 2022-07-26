@@ -3,11 +3,13 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 /**
  * This object represents a parameter of the inline keyboard button used to
  * automatically authorize a user.
  */
-export class LoginUrl {
+export class LoginUrl implements Structure {
   constructor (private payload: Interfaces.TelegramLoginUrl) { }
 
   get [Symbol.toStringTag] () {
@@ -51,6 +53,15 @@ export class LoginUrl {
    */
   get requestWriteAccess () {
     return this.payload.request_write_access
+  }
+
+  toJSON (): Interfaces.TelegramLoginUrl {
+    return {
+      url: this.url,
+      forward_text: this.forwardText,
+      bot_username: this.botUsername,
+      request_write_access: this.requestWriteAccess
+    }
   }
 }
 

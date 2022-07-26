@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** Contains data sent from a Web App to the bot. */
-export class WebAppData {
+export class WebAppData implements Structure {
   constructor (private payload: Interfaces.TelegramWebAppData) { }
 
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
@@ -17,6 +19,13 @@ export class WebAppData {
    */
   get buttonText () {
     return this.payload.button_text
+  }
+
+  toJSON (): Interfaces.TelegramWebAppData {
+    return {
+      data: this.data,
+      button_text: this.buttonText
+    }
   }
 }
 

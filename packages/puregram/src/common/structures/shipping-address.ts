@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents a shipping address. */
-export class ShippingAddress {
+export class ShippingAddress implements Structure {
   constructor (private payload: Interfaces.TelegramShippingAddress) { }
 
   get [Symbol.toStringTag] () {
@@ -38,6 +40,17 @@ export class ShippingAddress {
   /** Address post code */
   get postCode () {
     return this.payload.post_code
+  }
+
+  toJSON (): Interfaces.TelegramShippingAddress {
+    return {
+      country_code: this.countryCode,
+      state: this.state,
+      city: this.city,
+      street_line1: this.firstStreetLine,
+      street_line2: this.secondStreetLine,
+      post_code: this.postCode
+    }
   }
 }
 

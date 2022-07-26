@@ -3,10 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { Location } from './location'
 
 /** This object represents a venue. */
-export class Venue {
+export class Venue implements Structure {
   constructor (private payload: Interfaces.TelegramVenue) { }
 
   get [Symbol.toStringTag] () {
@@ -15,13 +17,7 @@ export class Venue {
 
   /** Venue location */
   get location () {
-    const { location } = this.payload
-
-    if (!location) {
-      return
-    }
-
-    return new Location(location)
+    return new Location(this.payload.location)
   }
 
   /** Name of the venue */
@@ -55,6 +51,18 @@ export class Venue {
    */
   get googlePlaceType () {
     return this.payload.google_place_type
+  }
+
+  toJSON (): Interfaces.TelegramVenue {
+    return {
+      location: this.location.toJSON(),
+      title: this.title,
+      address: this.address,
+      foursquare_id: this.foursquareId,
+      foursquare_type: this.foursquareType,
+      google_place_id: this.googlePlaceId,
+      google_place_type: this.googlePlaceType
+    }
   }
 }
 

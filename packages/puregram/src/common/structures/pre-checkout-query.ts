@@ -5,14 +5,29 @@ import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
+import { User } from './user'
 import { OrderInfo } from './order-info'
 
-/** This object contains basic information about a successful payment. */
-export class SuccessfulPayment implements Structure {
-  constructor (private payload: Interfaces.TelegramSuccessfulPayment) { }
+export class PreCheckoutQuery implements Structure {
+  constructor (public payload: Interfaces.TelegramPreCheckoutQuery) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name
+  }
+
+  /** Unique query identifier */
+  get id () {
+    return this.payload.id
+  }
+
+  /** User who sent the query */
+  get from () {
+    return new User(this.payload.from)
+  }
+
+  /** Sender ID */
+  get senderId () {
+    return this.from.id
   }
 
   /** Three-letter ISO 4217 currency code */
@@ -53,39 +68,30 @@ export class SuccessfulPayment implements Structure {
     return new OrderInfo(order_info)
   }
 
-  /** Telegram payment identifier */
-  get telegramPaymentChargeId () {
-    return this.payload.telegram_payment_charge_id
-  }
-
-  /** Provider payment identifier */
-  get providerPaymentChargeId () {
-    return this.payload.provider_payment_charge_id
-  }
-
-  toJSON (): Interfaces.TelegramSuccessfulPayment {
+  toJSON (): Interfaces.TelegramPreCheckoutQuery {
     return {
+      id: this.id,
+      from: this.from.toJSON(),
       currency: this.currency,
       total_amount: this.totalAmount,
       invoice_payload: this.invoicePayload,
       shipping_option_id: this.shippingOptionId,
-      order_info: this.orderInfo,
-      telegram_payment_charge_id: this.telegramPaymentChargeId,
-      provider_payment_charge_id: this.providerPaymentChargeId
+      order_info: this.orderInfo?.toJSON()
     }
   }
 }
 
-inspectable(SuccessfulPayment, {
+inspectable(PreCheckoutQuery, {
   serialize (struct) {
     const payload = {
+      id: struct.id,
+      from: struct.from,
+      senderId: struct.senderId,
       currency: struct.currency,
       totalAmount: struct.totalAmount,
       invoicePayload: struct.invoicePayload,
       shippingOptionId: struct.shippingOptionId,
-      orderInfo: struct.orderInfo,
-      telegramPaymentChargeId: struct.telegramPaymentChargeId,
-      providerPaymentChargeId: struct.providerPaymentChargeId
+      orderInfo: struct.orderInfo
     }
 
     return filterPayload(payload)

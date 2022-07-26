@@ -3,8 +3,10 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents one size of a photo or a file / sticker thumbnail */
-export class PhotoSize {
+export class PhotoSize implements Structure {
   constructor (private payload: Interfaces.TelegramPhotoSize) { }
 
   get [Symbol.toStringTag] () {
@@ -39,6 +41,16 @@ export class PhotoSize {
   /** File size */
   get fileSize () {
     return this.payload.file_size
+  }
+
+  toJSON (): Interfaces.TelegramPhotoSize {
+    return {
+      file_id: this.fileId,
+      file_unique_id: this.fileUniqueId,
+      width: this.width,
+      height: this.height,
+      file_size: this.fileSize
+    }
   }
 }
 

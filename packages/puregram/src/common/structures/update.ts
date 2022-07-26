@@ -2,19 +2,20 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
-import {
-  Message,
-  InlineQuery,
-  ChosenInlineResult,
-  CallbackQuery,
-  ShippingQuery,
-  PreCheckoutQuery
-} from '../../updates/'
+import { Structure } from '../../types/interfaces'
 
 import { filterPayload } from '../../utils/helpers'
+import { CallbackQuery } from './callback-query'
 
+import { ChatJoinRequest } from './chat-join-request'
+import { ChatMemberUpdated } from './chat-member-updated'
+import { ChosenInlineResult } from './chosen-inline-result'
+import { InlineQuery } from './inline-query'
+import { Message } from './message'
 import { Poll } from './poll'
 import { PollAnswer } from './poll-answer'
+import { PreCheckoutQuery } from './pre-checkout-query'
+import { ShippingQuery } from './shipping-query'
 
 /**
  * This object represents an incoming update.
@@ -22,7 +23,7 @@ import { PollAnswer } from './poll-answer'
  * At most **one** of the optional parameters can be present in any given
  * update.
  */
-export class Update {
+export class Update implements Structure {
   constructor (private payload: Interfaces.TelegramUpdate) { }
 
   get [Symbol.toStringTag] () {
@@ -175,6 +176,56 @@ export class Update {
     }
 
     return new PollAnswer(poll_answer)
+  }
+
+  get myChatMember () {
+    const { my_chat_member } = this.payload
+
+    if (!my_chat_member) {
+      return
+    }
+
+    return new ChatMemberUpdated(my_chat_member)
+  }
+
+  get chatMember () {
+    const { chat_member } = this.payload
+
+    if (!chat_member) {
+      return
+    }
+
+    return new ChatMemberUpdated(chat_member)
+  }
+
+  get chatJoinRequest () {
+    const { chat_join_request } = this.payload
+
+    if (!chat_join_request) {
+      return
+    }
+
+    return new ChatJoinRequest(chat_join_request)
+  }
+
+  toJSON (): Interfaces.TelegramUpdate {
+    return {
+      update_id: this.id,
+      message: this.message?.toJSON(),
+      edited_message: this.editedMessage?.toJSON(),
+      channel_post: this.channelPost?.toJSON(),
+      edited_channel_post: this.editedChannelPost?.toJSON(),
+      inline_query: this.inlineQuery?.toJSON(),
+      chosen_inline_result: this.chosenInlineResult?.toJSON(),
+      callback_query: this.callbackQuery?.toJSON(),
+      shipping_query: this.shippingQuery?.toJSON(),
+      pre_checkout_query: this.preCheckoutQuery?.toJSON(),
+      poll: this.poll?.toJSON(),
+      poll_answer: this.pollAnswer?.toJSON(),
+      my_chat_member: this.myChatMember?.toJSON(),
+      chat_member: this.chatMember?.toJSON(),
+      chat_join_request: this.chatJoinRequest?.toJSON()
+    }
   }
 }
 

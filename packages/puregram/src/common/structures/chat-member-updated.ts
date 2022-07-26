@@ -3,13 +3,15 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { Chat } from './chat'
 import { ChatInviteLink } from './chat-invite-link'
 import { ChatMember } from './chat-member'
 import { User } from './user'
 
 /** This object represents changes in the status of a chat member. */
-export class ChatMemberUpdated {
+export class ChatMemberUpdated implements Structure {
   constructor (public payload: Interfaces.TelegramChatMemberUpdated) { }
 
   get [Symbol.toStringTag] () {
@@ -53,6 +55,17 @@ export class ChatMemberUpdated {
     }
 
     return new ChatInviteLink(invite_link)
+  }
+
+  toJSON (): Interfaces.TelegramChatMemberUpdated {
+    return {
+      chat: this.chat.toJSON(),
+      from: this.from.toJSON(),
+      date: this.date,
+      old_chat_member: this.oldChatMember.toJSON(),
+      new_chat_member: this.newChatMember.toJSON(),
+      invite_link: this.inviteLink?.toJSON()
+    }
   }
 }
 

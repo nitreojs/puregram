@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents a bot command */
-export class BotCommand {
+export class BotCommand implements Structure {
   constructor (private payload: Interfaces.TelegramBotCommand) { }
 
   get [Symbol.toStringTag] () {
@@ -18,6 +20,13 @@ export class BotCommand {
   /** Description of the command; 1-256 characters */
   get description () {
     return this.payload.description
+  }
+
+  toJSON (): Interfaces.TelegramBotCommand {
+    return {
+      command: this.command,
+      description: this.description
+    }
   }
 }
 

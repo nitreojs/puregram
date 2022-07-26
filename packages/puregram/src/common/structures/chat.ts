@@ -1,15 +1,17 @@
 import { inspectable } from 'inspectable'
 
-import { Message } from '../../updates/message'
+import { Message } from '../../common/structures'
 import { filterPayload } from '../../utils/helpers'
 import * as Interfaces from '../../generated/telegram-interfaces'
+
+import { Structure } from '../../types/interfaces'
 
 import { ChatPhoto } from './chat-photo'
 import { ChatPermissions } from './chat-permissions'
 import { ChatLocation } from './chat-location'
 
 /** This object represents a chat. */
-export class Chat {
+export class Chat implements Structure {
   constructor (private payload: Interfaces.TelegramChat) { }
 
   get [Symbol.toStringTag] () {
@@ -232,6 +234,31 @@ export class Chat {
   get linkedChatId () {
     return this.payload.linked_chat_id
   }
+
+  toJSON (): Interfaces.TelegramChat {
+    return {
+      id: this.id,
+      type: this.type,
+      title: this.title,
+      username: this.username,
+      first_name: this.firstName,
+      last_name: this.lastName,
+      photo: this.photo?.toJSON(),
+      bio: this.bio,
+      has_private_forwards: this.hasPrivateForwards(),
+      join_to_send_messages: this.joinToSendMessages,
+      join_by_request: this.joinByRequest,
+      location: this.location,
+      description: this.description,
+      invite_link: this.inviteLink,
+      pinned_message: this.pinnedMessage?.toJSON(),
+      permissions: this.permissions,
+      slow_mode_delay: this.slowModeDelay,
+      sticker_set_name: this.stickerSetName,
+      can_set_sticker_set: this.canSetStickerSet(),
+      linked_chat_id: this.linkedChatId
+    }
+  }
 }
 
 inspectable(Chat, {
@@ -245,7 +272,7 @@ inspectable(Chat, {
       lastName: struct.lastName,
       photo: struct.photo,
       bio: struct.bio,
-      hasPrivateForwards: struct.hasPrivateForwards,
+      hasPrivateForwards: struct.hasPrivateForwards(),
       joinToSendMessages: struct.joinToSendMessages,
       joinByRequest: struct.joinByRequest,
       location: struct.location,
@@ -255,7 +282,7 @@ inspectable(Chat, {
       permissions: struct.permissions,
       slowModeDelay: struct.slowModeDelay,
       stickerSetName: struct.stickerSetName,
-      canSetStickerSet: struct.canSetStickerSet,
+      canSetStickerSet: struct.canSetStickerSet(),
       linkedChatId: struct.linkedChatId
     }
 

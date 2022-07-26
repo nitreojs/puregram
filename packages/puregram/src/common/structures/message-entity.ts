@@ -1,25 +1,17 @@
 import { inspectable } from 'inspectable'
 
-import { filterPayload } from '../../utils/helpers'
 import * as Interfaces from '../../generated/telegram-interfaces'
+import { filterPayload } from '../../utils/helpers'
+
+import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
-
-interface MessageEntityJSON {
-  type: Interfaces.TelegramMessageEntity['type']
-  offset: number
-  length: number
-
-  url?: string
-  user?: Interfaces.TelegramUser
-  language?: string
-}
 
 /**
  * This object represents one special entity in a text message.
  * For example, hashtags, usernames, URLs, etc.
  */
-export class MessageEntity {
+export class MessageEntity implements Structure {
   constructor (private payload: Interfaces.TelegramMessageEntity) { }
 
   get [Symbol.toStringTag] () {
@@ -75,13 +67,13 @@ export class MessageEntity {
     return this.payload.language
   }
 
-  toJSON (): MessageEntityJSON {
+  toJSON (): Interfaces.TelegramMessageEntity {
     return {
       type: this.type,
       offset: this.offset,
       length: this.length,
       url: this.url,
-      user: this.user ? this.user.toJSON() : undefined,
+      user: this.user?.toJSON(),
       language: this.language
     }
   }

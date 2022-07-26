@@ -3,8 +3,10 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 /** Contains information about an inline message sent by a Web App on behalf of a user. */
-export class SentWebAppMessage {
+export class SentWebAppMessage implements Structure {
   constructor (private payload: Interfaces.TelegramSentWebAppMessage) { }
 
   get [Symbol.toStringTag] () {
@@ -18,6 +20,12 @@ export class SentWebAppMessage {
    */
   get inlineMessageId () {
     return this.payload.inline_message_id
+  }
+
+  toJSON (): Interfaces.TelegramSentWebAppMessage {
+    return {
+      inline_message_id: this.inlineMessageId
+    }
   }
 }
 

@@ -2,6 +2,8 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 import { filterPayload } from '../../utils/helpers'
 
 import { PassportFile } from './passport-file'
@@ -10,7 +12,7 @@ import { PassportFile } from './passport-file'
  * Contains information about documents or other Telegram Passport elements
  * shared with the bot by the user.
  */
-export class EncryptedPassportElement {
+export class EncryptedPassportElement implements Structure {
   constructor (private payload: Interfaces.TelegramEncryptedPassportElement) { }
 
   get [Symbol.toStringTag] () {
@@ -58,7 +60,7 @@ export class EncryptedPassportElement {
     const { files } = this.payload
 
     if (!files) {
-      return []
+      return
     }
 
     return files.map(
@@ -125,7 +127,7 @@ export class EncryptedPassportElement {
     const { translation } = this.payload
 
     if (!translation) {
-      return []
+      return
     }
 
     return translation.map(
@@ -138,6 +140,21 @@ export class EncryptedPassportElement {
    */
   get hash () {
     return this.payload.hash
+  }
+
+  toJSON (): Interfaces.TelegramEncryptedPassportElement {
+    return {
+      type: this.type,
+      data: this.data,
+      phone_number: this.phoneNumber,
+      email: this.email,
+      files: this.files?.map(file => file.toJSON()),
+      front_side: this.frontSide?.toJSON(),
+      reverse_side: this.reverseSide?.toJSON(),
+      selfie: this.selfie?.toJSON(),
+      translation: this.translation?.map(e => e.toJSON()),
+      hash: this.hash
+    }
   }
 }
 

@@ -3,11 +3,13 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { MessageEntity } from './message-entity'
 import { PollOption } from './poll-option'
 
 /** This object contains information about a poll. */
-export class Poll {
+export class Poll implements Structure {
   constructor (public payload: Interfaces.TelegramPoll) { }
 
   get [Symbol.toStringTag] () {
@@ -26,9 +28,7 @@ export class Poll {
 
   /** List of poll options */
   get options () {
-    return this.payload.options.map(
-      (option: Interfaces.TelegramPollOption) => new PollOption(option)
-    )
+    return this.payload.options.map(option => new PollOption(option))
   }
 
   /** Total number of users that voted in the poll */
@@ -81,12 +81,10 @@ export class Poll {
     const { explanation_entities } = this.payload
 
     if (!explanation_entities) {
-      return []
+      return
     }
 
-    return explanation_entities.map(
-      (entity: Interfaces.TelegramMessageEntity) => new MessageEntity(entity)
-    )
+    return explanation_entities.map(entity => new MessageEntity(entity))
   }
 
   /** Amount of time in seconds the poll will be active after creation */
@@ -100,6 +98,24 @@ export class Poll {
   get closeDate () {
     return this.payload.close_date
   }
+
+  toJSON (): Interfaces.TelegramPoll {
+    return {
+      id: this.id,
+      question: this.question,
+      options: this.options.map(option => option.toJSON()),
+      total_voter_count: this.totalVoterCount,
+      is_closed: this.isClosed(),
+      is_anonymous: this.isAnonymous(),
+      type: this.type,
+      allows_multiple_answers: this.allowsMultipleAnswers,
+      correct_option_id: this.correctOptionId,
+      explanation: this.explanation,
+      explanation_entities: this.explanationEntities?.map(entity => entity.toJSON()),
+      open_period: this.openPeriod,
+      close_date: this.closeDate
+    }
+  }
 }
 
 inspectable(Poll, {
@@ -109,8 +125,8 @@ inspectable(Poll, {
       question: struct.question,
       options: struct.options,
       totalVoterCount: struct.totalVoterCount,
-      isClosed: struct.isClosed,
-      isAnonymous: struct.isAnonymous,
+      isClosed: struct.isClosed(),
+      isAnonymous: struct.isAnonymous(),
       type: struct.type,
       allowsMultipleAnswers: struct.allowsMultipleAnswers,
       correctOptionId: struct.correctOptionId,

@@ -3,10 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { LoginUrl } from './login-url'
 import { CallbackGame } from './callback-game'
 
-export class InlineKeyboardButton {
+export class InlineKeyboardButton implements Structure {
   constructor (private payload: Interfaces.TelegramInlineKeyboardButton) { }
 
   get [Symbol.toStringTag] () {
@@ -97,6 +99,19 @@ export class InlineKeyboardButton {
    */
   get pay () {
     return this.payload.pay
+  }
+
+  toJSON (): Interfaces.TelegramInlineKeyboardButton {
+    return {
+      text: this.text,
+      url: this.url,
+      login_url: this.loginUrl,
+      callback_data: this.callbackData,
+      switch_inline_query: this.switchInlineQuery,
+      switch_inline_query_current_chat: this.switchInlineQueryCurrentChat,
+      callback_game: this.callbackGame,
+      pay: this.pay
+    }
   }
 }
 

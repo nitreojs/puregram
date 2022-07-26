@@ -3,9 +3,11 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { User } from './user'
 
-export class ChatMember {
+export class ChatMember implements Structure {
   constructor (public payload: Interfaces.TelegramChatMember) { }
 
   get [Symbol.toStringTag] () {
@@ -187,6 +189,32 @@ export class ChatMember {
   canAddWebPagePreviews () {
     return this.payload.can_add_web_page_previews
   }
+
+  toJSON (): Interfaces.TelegramChatMember {
+    // @ts-expect-error typescript yells at status for no reason :smh:
+    return {
+      status: this.status,
+      user: this.user.toJSON(),
+      is_anonymous: this.isAnonymous(),
+      custom_title: this.customTitle,
+      until_date: this.untilDate,
+      can_be_edited: this.canBeEdited(),
+      can_manage_chat: this.canManageChat(),
+      can_post_messages: this.canPostMessages(),
+      can_edit_messages: this.canEditMessages(),
+      can_delete_messages: this.canDeleteMessages(),
+      can_manage_video_chats: this.canManageVideoChats(),
+      can_restrict_members: this.canRestrictMembers(),
+      can_promote_members: this.canPromoteMembers(),
+      can_change_info: this.canChangeInfo(),
+      can_invite_users: this.canInviteUsers(),
+      can_pin_messages: this.canPinMessages(),
+      is_member: this.isMember(),
+      can_send_messages: this.canSendMessages(),
+      can_send_other_messages: this.canSendOtherMessages(),
+      can_add_web_page_previews: this.canAddWebPagePreviews()
+    }
+  }
 }
 
 inspectable(ChatMember, {
@@ -195,23 +223,23 @@ inspectable(ChatMember, {
       user: struct.user,
       status: struct.status,
       customTitle: struct.customTitle,
-      isAnonymous: struct.isAnonymous,
+      isAnonymous: struct.isAnonymous(),
       untilDate: struct.untilDate,
-      canBeEdited: struct.canBeEdited,
-      canManageChat: struct.canManageChat,
-      canPostMessages: struct.canPostMessages,
-      canEditMessages: struct.canEditMessages,
-      canDeleteMessages: struct.canDeleteMessages,
-      canManageVideoChats: struct.canManageVideoChats,
-      canRestrictMembers: struct.canRestrictMembers,
-      canPromoteMembers: struct.canPromoteMembers,
-      canChangeInfo: struct.canChangeInfo,
-      canInviteUsers: struct.canInviteUsers,
-      canPinMessages: struct.canPinMessages,
-      isMember: struct.isMember,
-      canSendMessages: struct.canSendMessages,
-      canSendOtherMessages: struct.canSendOtherMessages,
-      canAddWebPagePreviews: struct.canAddWebPagePreviews
+      canBeEdited: struct.canBeEdited(),
+      canManageChat: struct.canManageChat(),
+      canPostMessages: struct.canPostMessages(),
+      canEditMessages: struct.canEditMessages(),
+      canDeleteMessages: struct.canDeleteMessages(),
+      canManageVideoChats: struct.canManageVideoChats(),
+      canRestrictMembers: struct.canRestrictMembers(),
+      canPromoteMembers: struct.canPromoteMembers(),
+      canChangeInfo: struct.canChangeInfo(),
+      canInviteUsers: struct.canInviteUsers(),
+      canPinMessages: struct.canPinMessages(),
+      isMember: struct.isMember(),
+      canSendMessages: struct.canSendMessages(),
+      canSendOtherMessages: struct.canSendOtherMessages(),
+      canAddWebPagePreviews: struct.canAddWebPagePreviews()
     }
 
     return filterPayload(payload)

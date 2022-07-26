@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents a point on the map. */
-export class Location {
+export class Location implements Structure {
   constructor (private payload: Interfaces.TelegramLocation) { }
 
   get [Symbol.toStringTag] () {
@@ -48,6 +50,17 @@ export class Location {
    */
   get proximityAlertRadius () {
     return this.payload.proximity_alert_radius
+  }
+
+  toJSON (): Interfaces.TelegramLocation {
+    return {
+      longitude: this.longitude,
+      latitude: this.latitude,
+      horizontal_accuracy: this.horizontalAccuracy,
+      live_period: this.livePeriod,
+      heading: this.heading,
+      proximity_alert_radius: this.proximityAlertRadius
+    }
   }
 }
 

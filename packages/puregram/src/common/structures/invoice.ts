@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object contains basic information about an invoice. */
-export class Invoice {
+export class Invoice implements Structure {
   constructor (private payload: Interfaces.TelegramInvoice) { }
 
   get [Symbol.toStringTag] () {
@@ -43,6 +45,16 @@ export class Invoice {
    */
   get totalAmount () {
     return this.payload.total_amount
+  }
+
+  toJSON (): Interfaces.TelegramInvoice {
+    return {
+      title: this.title,
+      description: this.description,
+      start_parameter: this.startParameter,
+      currency: this.currency,
+      total_amount: this.totalAmount
+    }
   }
 }
 

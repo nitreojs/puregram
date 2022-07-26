@@ -3,10 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { WebAppInfo } from './web-app-info'
 
 /** This object describes the bot's menu button in a private chat. */
-export class MenuButton {
+export class MenuButton implements Structure {
   constructor (private payload: Interfaces.TelegramMenuButton) { }
 
   get [Symbol.toStringTag] () {
@@ -36,6 +38,15 @@ export class MenuButton {
     }
 
     return new WebAppInfo(web_app)
+  }
+
+  toJSON (): Interfaces.TelegramMenuButton {
+    // @ts-expect-error typescript yells at type for no reason :smh:
+    return {
+      type: this.type,
+      text: this.text,
+      web_app: this.webApp?.toJSON()
+    }
   }
 }
 

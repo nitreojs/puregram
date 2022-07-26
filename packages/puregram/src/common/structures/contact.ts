@@ -3,8 +3,10 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents a phone contact. */
-export class Contact {
+export class Contact implements Structure {
   constructor (private payload: Interfaces.TelegramContact) { }
 
   get [Symbol.toStringTag] () {
@@ -34,6 +36,16 @@ export class Contact {
   /** Additional data about the contact in the form of a vCard */
   get vCard () {
     return this.payload.vcard
+  }
+
+  toJSON (): Interfaces.TelegramContact {
+    return {
+      phone_number: this.phoneNumber,
+      first_name: this.firstName,
+      last_name: this.lastName,
+      user_id: this.userId,
+      vcard: this.vCard
+    }
   }
 }
 

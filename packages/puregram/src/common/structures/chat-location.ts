@@ -2,9 +2,11 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 import { Location } from './location'
 
-export class ChatLocation {
+export class ChatLocation implements Structure {
   constructor (private payload: Interfaces.TelegramChatLocation) { }
 
   get [Symbol.toStringTag] () {
@@ -19,6 +21,13 @@ export class ChatLocation {
   /** Location address; `1-64` characters, as defined by the chat owner */
   get address () {
     return this.payload.address
+  }
+
+  toJSON (): Interfaces.TelegramChatLocation {
+    return {
+      address: this.address,
+      location: this.location.toJSON()
+    }
   }
 }
 

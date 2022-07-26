@@ -3,11 +3,13 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 /**
  * Describes actions that a non-administrator user is allowed to take in a
  * chat.
  */
-export class ChatPermissions {
+export class ChatPermissions implements Structure {
   constructor (private payload: Interfaces.TelegramChatPermissions) { }
 
   get [Symbol.toStringTag] () {
@@ -73,19 +75,32 @@ export class ChatPermissions {
   canPinMessages () {
     return this.payload.can_pin_messages
   }
+
+  toJSON (): Interfaces.TelegramChatPermissions {
+    return {
+      can_send_messages: this.canSendMessages(),
+      can_send_media_messages: this.canSendMediaMessages(),
+      can_send_polls: this.canSendPolls(),
+      can_send_other_messages: this.canSendOtherMessages(),
+      can_add_web_page_previews: this.canAddWebPagePreviews(),
+      can_change_info: this.canChangeInfo(),
+      can_invite_users: this.canInviteUsers(),
+      can_pin_messages: this.canPinMessages()
+    }
+  }
 }
 
 inspectable(ChatPermissions, {
   serialize (struct) {
     const payload = {
-      canSendMessages: struct.canSendMessages,
-      canSendMediaMessages: struct.canSendMediaMessages,
-      canSendPolls: struct.canSendPolls,
-      canSendOtherMessages: struct.canSendOtherMessages,
-      canAddWebPagePreviews: struct.canAddWebPagePreviews,
-      canChangeInfo: struct.canChangeInfo,
-      canInviteUsers: struct.canInviteUsers,
-      canPinMessages: struct.canPinMessages
+      canSendMessages: struct.canSendMessages(),
+      canSendMediaMessages: struct.canSendMediaMessages(),
+      canSendPolls: struct.canSendPolls(),
+      canSendOtherMessages: struct.canSendOtherMessages(),
+      canAddWebPagePreviews: struct.canAddWebPagePreviews(),
+      canChangeInfo: struct.canChangeInfo(),
+      canInviteUsers: struct.canInviteUsers(),
+      canPinMessages: struct.canPinMessages()
     }
 
     return filterPayload(payload)

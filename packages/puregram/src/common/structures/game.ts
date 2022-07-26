@@ -2,6 +2,8 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 import { AnimationAttachment } from '../attachments'
 import { filterPayload } from '../../utils/helpers'
 
@@ -9,7 +11,7 @@ import { PhotoSize } from './photo-size'
 import { MessageEntity } from './message-entity'
 
 /** This object represents a game. */
-export class Game {
+export class Game implements Structure {
   constructor (private payload: Interfaces.TelegramGame) { }
 
   get [Symbol.toStringTag] () {
@@ -31,12 +33,10 @@ export class Game {
     const { photo } = this.payload
 
     if (!photo) {
-      return []
+      return
     }
 
-    return photo.map(
-      (photoElement: Interfaces.TelegramPhotoSize) => new PhotoSize(photoElement)
-    )
+    return photo.map(element => new PhotoSize(element))
   }
 
   /**
@@ -57,19 +57,17 @@ export class Game {
     const { text_entities } = this.payload
 
     if (!text_entities) {
-      return []
+      return
     }
 
-    return text_entities.map(
-      (entity: Interfaces.TelegramMessageEntity) => new MessageEntity(entity)
-    )
+    return text_entities.map(entity => new MessageEntity(entity))
   }
 
   /**
    * Animation that will be displayed in the game message in chats.
    * Upload via BotFather
    */
-  animation (): AnimationAttachment | undefined {
+  get animation (): AnimationAttachment | undefined {
     const { animation } = this.payload
 
     if (!animation) {
@@ -77,6 +75,17 @@ export class Game {
     }
 
     return new AnimationAttachment(animation)
+  }
+
+  toJSON (): Interfaces.TelegramGame {
+    return {
+      title: this.title,
+      description: this.description,
+      photo: this.photo?.map(size => size.toJSON()) ?? [],
+      text: this.text,
+      text_entities: this.textEntities?.map(entity => entity.toJSON()),
+      animation: this.animation?.toJSON()
+    }
   }
 }
 

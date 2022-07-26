@@ -3,11 +3,13 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { StickerAttachment } from '../attachments'
 
 import { PhotoSize } from './photo-size'
 
-export class StickerSet {
+export class StickerSet implements Structure {
   constructor (private payload: Interfaces.TelegramStickerSet) { }
 
   get [Symbol.toStringTag] () {
@@ -44,12 +46,10 @@ export class StickerSet {
     const { stickers } = this.payload
 
     if (!stickers.length) {
-      return []
+      return
     }
 
-    return stickers.map(
-      (sticker: Interfaces.TelegramSticker) => new StickerAttachment(sticker)
-    )
+    return stickers.map(sticker => new StickerAttachment(sticker))
   }
 
   /** Sticker set thumbnail in the .WEBP or .TGS format */
@@ -62,6 +62,18 @@ export class StickerSet {
 
     return new PhotoSize(thumb)
   }
+
+  toJSON (): Interfaces.TelegramStickerSet {
+    return {
+      name: this.name,
+      title: this.title,
+      is_animated: this.isAnimated(),
+      is_video: this.isVideo(),
+      contains_masks: this.containsMasks,
+      stickers: this.stickers?.map(sticker => sticker.toJSON()) ?? [],
+      thumb: this.thumb?.toJSON()
+    }
+  }
 }
 
 inspectable(StickerSet, {
@@ -69,7 +81,8 @@ inspectable(StickerSet, {
     const payload = {
       name: struct.name,
       title: struct.title,
-      isAnimated: struct.isAnimated,
+      isAnimated: struct.isAnimated(),
+      isVideo: struct.isVideo(),
       containsMasks: struct.containsMasks,
       stickers: struct.stickers,
       thumb: struct.thumb

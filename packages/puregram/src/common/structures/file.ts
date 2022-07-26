@@ -3,7 +3,9 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
-export class File {
+import { Structure } from '../../types/interfaces'
+
+export class File implements Structure {
   constructor (private payload: Interfaces.TelegramFile) { }
 
   get [Symbol.toStringTag] () {
@@ -37,6 +39,15 @@ export class File {
    */
   get filePath () {
     return this.payload.file_path
+  }
+
+  toJSON (): Interfaces.TelegramFile {
+    return {
+      file_id: this.fileId,
+      file_unique_id: this.fileUniqueId,
+      file_size: this.fileSize,
+      file_path: this.filePath
+    }
   }
 }
 

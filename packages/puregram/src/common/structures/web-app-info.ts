@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** Contains information about a Web App. */
-export class WebAppInfo {
+export class WebAppInfo implements Structure {
   constructor (private payload: Interfaces.TelegramWebAppInfo) { }
 
   get [Symbol.toStringTag] () {
@@ -14,14 +16,18 @@ export class WebAppInfo {
   get url () {
     return this.payload.url
   }
+
+  toJSON (): Interfaces.TelegramWebAppInfo {
+    return {
+      url: this.url
+    }
+  }
 }
 
 inspectable(WebAppInfo, {
   serialize (struct) {
-    const payload = {
+    return {
       url: struct.url
     }
-
-    return payload
   }
 })

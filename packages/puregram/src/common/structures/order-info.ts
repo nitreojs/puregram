@@ -3,10 +3,12 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
 
+import { Structure } from '../../types/interfaces'
+
 import { ShippingAddress } from './shipping-address'
 
 /** This object represents information about an order. */
-export class OrderInfo {
+export class OrderInfo implements Structure {
   constructor (private payload: Interfaces.TelegramOrderInfo) { }
 
   get [Symbol.toStringTag] () {
@@ -37,6 +39,15 @@ export class OrderInfo {
     }
 
     return new ShippingAddress(shipping_address)
+  }
+
+  toJSON (): Interfaces.TelegramOrderInfo {
+    return {
+      name: this.name,
+      phone_number: this.phoneNumber,
+      email: this.email,
+      shipping_address: this.shippingAddress?.toJSON()
+    }
   }
 }
 

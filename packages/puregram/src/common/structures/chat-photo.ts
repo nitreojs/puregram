@@ -2,8 +2,10 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 /** This object represents a chat photo. */
-export class ChatPhoto {
+export class ChatPhoto implements Structure {
   constructor (private payload: Interfaces.TelegramChatPhoto) { }
 
   get [Symbol.toStringTag] () {
@@ -43,6 +45,15 @@ export class ChatPhoto {
    */
   get bigFileUniqueId () {
     return this.payload.big_file_unique_id
+  }
+
+  toJSON (): Interfaces.TelegramChatPhoto {
+    return {
+      small_file_id: this.smallFileId,
+      small_file_unique_id: this.smallFileUniqueId,
+      big_file_id: this.bigFileId,
+      big_file_unique_id: this.bigFileUniqueId
+    }
   }
 }
 

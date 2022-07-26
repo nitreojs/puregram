@@ -2,10 +2,12 @@ import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { Structure } from '../../types/interfaces'
+
 import { User } from './user'
 
 /** This object represents an answer of a user in a non-anonymous poll. */
-export class PollAnswer {
+export class PollAnswer implements Structure {
   constructor (public payload: Interfaces.TelegramPollAnswer) { }
 
   get [Symbol.toStringTag] () {
@@ -33,6 +35,15 @@ export class PollAnswer {
    */
   get optionIds () {
     return this.payload.option_ids
+  }
+
+  toJSON (): Interfaces.TelegramPollAnswer {
+    return {
+      poll_id: this.pollId,
+      user: this.user.toJSON(),
+      sender_id: this.senderId,
+      option_ids: this.optionIds
+    }
   }
 }
 

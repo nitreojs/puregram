@@ -4,7 +4,7 @@
  * // FooBar
  * ```
  */
-export const camelizeFirst = (source: string): string => (
+export const camelizeFirst = (source: string) => (
   source[0].toUpperCase() + source.slice(1)
 )
 
@@ -17,7 +17,7 @@ export const camelizeFirst = (source: string): string => (
  * // FooBarBaz
  * ```
  */
-export const camelize = (source: string): string => (
+export const camelize = (source: string) => (
   source.split(/[\s-_]/).map(camelizeFirst).join('')
 )
 
@@ -27,7 +27,7 @@ export const camelize = (source: string): string => (
  * // fooBar
  * ```
  */
-export const camelizeSmall = (source: string): string => {
+export const camelizeSmall = (source: string) => {
   const value = camelize(source)
 
   return value[0].toLowerCase() + value.slice(1)
@@ -42,7 +42,7 @@ export const camelizeSmall = (source: string): string => {
  * // this-is-epic
  * ```
  */
-export const dasherize = (rawSource: string): string => {
+export const dasherize = (rawSource: string) => {
   const source = rawSource.split(' ').join('-')
   const match = source.match(/[A-Z]/g)
 
@@ -77,7 +77,7 @@ export enum Token {
   PRE = '```'
 }
 
-export const tokenize = (rawSource: string | string[], token: Token, language = ''): string => {
+export const tokenize = (rawSource: string | string[], token: Token, language = '') => {
   const source = (
     Array.isArray(rawSource)
       ? rawSource.join(' ')
@@ -95,7 +95,7 @@ export const tokenize = (rawSource: string | string[], token: Token, language = 
   return leftToken + leftAddition + source + rightAddition + rightToken
 }
 
-export const calculateLongestStrings = (matrix: string[][]): number[] => {
+export const calculateLongestStrings = (matrix: string[][]) => {
   const lengths: number[] = []
 
   for (const row of matrix) {
@@ -109,7 +109,7 @@ export const calculateLongestStrings = (matrix: string[][]): number[] => {
   return lengths.map(element => element + 1)
 }
 
-export const createTableSeparator = (lengths: number[]): string => {
+export const createTableSeparator = (lengths: number[]) => {
   const amount = lengths.length
   let result = ''
 
@@ -124,7 +124,7 @@ export const createTableSeparator = (lengths: number[]): string => {
   return result
 }
 
-export const createTableRow = (elements: string[], lengths: number[], center = false): string => {
+export const createTableRow = (elements: string[], lengths: number[], center = false) => {
   let result = ''
 
   for (const [index, element] of elements.entries()) {
@@ -148,12 +148,10 @@ export const createTableRow = (elements: string[], lengths: number[], center = f
   return result
 }
 
-export const generateAnchor = (element: string): string => (
+export const generateAnchor = (element: string) => (
   `#${element.toLowerCase()
     .split(' ')
-    .map(
-      (kElement: string) => kElement.replace(/,/g, '')
-    )
+    .map(kElement => kElement.replace(/,/g, ''))
     .join('-')
   }`
 )
@@ -175,7 +173,7 @@ export const generateAnchor = (element: string): string => (
  *
  * ### Foo bar baz
  */
-export const header = (level = 1, text: string): string => (
+export const header = (level = 1, text: string) => (
   `${'#'.repeat(level)} ${text}`
 )
 
@@ -194,19 +192,12 @@ export const header = (level = 1, text: string): string => (
  *
  * ## `InlineQueryContext`
  */
-export const code = (...args: string[]): string => (
+export const code = (...args: string[]) => (
   tokenize(
-    args.map(
-      (element: string): string => element.replace(/\|/g, '&#124;')
-    ),
-
-    (
-      args.some(
-        (element: string): boolean => element.includes('&#124;')
-      )
-        ? Token.CODE_START
-        : Token.BACKTICK
-    )
+    args.map(element => element.replace(/\|/g, '&#124;')),
+    args.some(element => element.includes('&#124;'))
+      ? Token.CODE_START
+      : Token.BACKTICK
   )
 )
 
@@ -217,7 +208,7 @@ export const code = (...args: string[]): string => (
  *
  * **Triggered when new message occurs**
  */
-export const bold = (...args: string[]): string => tokenize(args, Token.BOLD)
+export const bold = (...args: string[]) => tokenize(args, Token.BOLD)
 
 /**
  * ```ts
@@ -226,7 +217,7 @@ export const bold = (...args: string[]): string => tokenize(args, Token.BOLD)
  *
  * _May be `undefined`_
  */
-export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC)
+export const italic = (...args: string[]) => tokenize(args, Token.ITALIC)
 
 /**
  * ```ts
@@ -240,7 +231,7 @@ export const italic = (...args: string[]): string => tokenize(args, Token.ITALIC
  * import { Telegram } from "puregram";
  * ```
  */
-export const pre = (language = '', ...args: string[]): string => tokenize(args, Token.PRE, language)
+export const pre = (language = '', ...args: string[]) => tokenize(args, Token.PRE, language)
 
 /**
  * ```ts
@@ -249,7 +240,7 @@ export const pre = (language = '', ...args: string[]): string => tokenize(args, 
  *
  * [`Context`](context.md)
  */
-export const link = (text: string, source: string): string => `[${text}](${source})`
+export const link = (text: string, source: string) => `[${text}](${source})`
 
 /**
  * ```ts
@@ -267,7 +258,7 @@ export const link = (text: string, source: string): string => `[${text}](${sourc
  * | :---------: | :-------: |
  * | **Value 1** | `Value 2` |
  */
-export const table = (rawMatrix: string[][]): string => {
+export const table = (rawMatrix: string[][]) => {
   const [head, ...matrix] = rawMatrix
 
   const lengths = calculateLongestStrings([[...head], ...matrix])
@@ -303,8 +294,6 @@ export const table = (rawMatrix: string[][]): string => {
  * * Answer something
  * * I don't know, **Pizza 🍕**?
  */
-export const list = (token: '*' | '-' | '=' = '*', ...elements: string[]): string => (
-  elements.map(
-    (element: string): string => `${token} ${element}`
-  ).join('\n')
+export const list = (token: '*' | '-' | '=' = '*', ...elements: string[]) => (
+  elements.map(element => `${token} ${element}`).join('\n')
 )

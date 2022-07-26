@@ -17,11 +17,7 @@ export class InlineKeyboardMarkup implements Structure {
   get inlineKeyboard () {
     const { inline_keyboard } = this.payload
 
-    return inline_keyboard.map(
-      (row: Interfaces.TelegramInlineKeyboardButton[]) => row.map(
-        (element: Interfaces.TelegramInlineKeyboardButton) => new InlineKeyboardButton(element)
-      )
-    )
+    return inline_keyboard.map(row => row.map(element => new InlineKeyboardButton(element)))
   }
 
   toJSON (): Interfaces.TelegramInlineKeyboardMarkup {

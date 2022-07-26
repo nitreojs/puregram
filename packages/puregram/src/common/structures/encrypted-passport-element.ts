@@ -63,9 +63,7 @@ export class EncryptedPassportElement implements Structure {
       return
     }
 
-    return files.map(
-      (file: Interfaces.TelegramPassportFile) => new PassportFile(file)
-    )
+    return files.map(file => new PassportFile(file))
   }
 
   /**
@@ -130,9 +128,7 @@ export class EncryptedPassportElement implements Structure {
       return
     }
 
-    return translation.map(
-      (element: Interfaces.TelegramPassportFile) => new PassportFile(element)
-    )
+    return translation.map(element => new PassportFile(element))
   }
 
   /**

@@ -1,4 +1,3 @@
-import * as Interfaces from '../../generated/telegram-interfaces'
 import * as Methods from '../../generated/methods'
 
 import { MediaInput } from '../../common/media-source'
@@ -162,12 +161,10 @@ class SendMixin {
       ...params
     })
 
-    return response.map(
-      (message: Interfaces.TelegramMessage) => new MessageContext({
-        telegram: this.telegram,
-        payload: message
-      })
-    )
+    return response.map(message => new MessageContext({
+      telegram: this.telegram,
+      payload: message
+    }))
   }
 
   /** Sends location to current chat */

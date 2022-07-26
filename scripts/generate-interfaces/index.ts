@@ -86,7 +86,7 @@ class InterfaceService {
     return `/**\n${parts.map(part => `${spaces} * ${part}`).join('\n')}\n${spaces} */`
   }
 
-  static async generateFields (iface: Types.SchemaInterfaceProperties): Promise<GenerateFieldsResponse> {
+  static async generateFields (iface: Types.SchemaInterfaceProperties) {
     const response: GenerateFieldsResponse = {
       fields: [],
       types: []
@@ -177,8 +177,7 @@ class MethodService {
     }
   }
 
-  static async generateFields (method: Types.SchemaMethod, addition?: string):
-    Promise<GenerateFieldsResponse> {
+  static async generateFields (method: Types.SchemaMethod, addition?: string) {
     const response: GenerateFieldsResponse = {
       fields: [],
       types: []
@@ -416,8 +415,8 @@ export interface InterfacesData {
 
 export type GenerateDataType = InterfacesData & { time: number }
 
-export const pad = (number: number): string => String(number).padStart(2, '0')
-export const tab = (source: string): string => `  ${source}`
+export const pad = (number: number) => String(number).padStart(2, '0')
+export const tab = (source: string) => `  ${source}`
 
 export const fetchCurrencies = async () => {
   const response = await fetch(CURRENCIES_URL)

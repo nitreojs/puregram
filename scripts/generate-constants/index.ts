@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
-import { Message } from '../../packages/puregram/src/updates/'
+import { Message } from '../../packages/puregram/src/common/structures'
 
 const CONSTANTS_PATH = resolve(__dirname, '..', '..', 'packages', 'puregram', 'src', 'utils', 'constants.ts')
 

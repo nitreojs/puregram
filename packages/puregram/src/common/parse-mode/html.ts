@@ -1,4 +1,4 @@
-const escapeHtml = (source: string): string => (
+const escapeHtml = (source: string) => (
   source.replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')

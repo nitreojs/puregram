@@ -1,4 +1,6 @@
 import { inspectable } from 'inspectable'
+
+import * as Interfaces from '../../generated/telegram-interfaces'
 import { AttachmentType } from '../../types/types'
 
 import { PhotoSize } from '../structures'
@@ -43,6 +45,14 @@ export class PhotoAttachment extends Attachment {
   /** Smallest size of the photo */
   get smallSize () {
     return this.sorted[this.sorted.length - 1]
+  }
+
+  toJSON (): Interfaces.TelegramPhotoSize[] {
+    return [
+      this.smallSize.toJSON(),
+      this.mediumSize.toJSON(),
+      this.bigSize.toJSON()
+    ]
   }
 }
 

@@ -39,6 +39,17 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
   get fileSize () {
     return this.payload.file_size
   }
+
+  toJSON (): Interfaces.TelegramVideoNote {
+    return {
+      file_id: this.fileId,
+      file_unique_id: this.fileUniqueId,
+      length: this.length,
+      duration: this.duration,
+      thumb: this.thumb?.toJSON(),
+      file_size: this.fileSize
+    }
+  }
 }
 
 inspectable(VideoNoteAttachment, {

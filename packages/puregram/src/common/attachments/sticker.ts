@@ -83,6 +83,22 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   get fileSize () {
     return this.payload.file_size
   }
+
+  toJSON (): Interfaces.TelegramSticker {
+    return {
+      file_id: this.fileId,
+      file_unique_id: this.fileUniqueId,
+      width: this.width,
+      height: this.height,
+      is_animated: this.isAnimated(),
+      is_video: this.isVideo(),
+      thumb: this.thumb?.toJSON(),
+      emoji: this.emoji,
+      set_name: this.setName,
+      mask_position: this.maskPosition?.toJSON(),
+      file_size: this.fileSize
+    }
+  }
 }
 
 inspectable(StickerAttachment, {
@@ -92,8 +108,8 @@ inspectable(StickerAttachment, {
       fileUniqueId: attachment.fileUniqueId,
       width: attachment.width,
       height: attachment.height,
-      isAnimated: attachment.isAnimated,
-      isVideo: attachment.isVideo,
+      isAnimated: attachment.isAnimated(),
+      isVideo: attachment.isVideo(),
       thumb: attachment.thumb,
       emoji: attachment.emoji,
       setName: attachment.setName,

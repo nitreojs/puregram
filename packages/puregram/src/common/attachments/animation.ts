@@ -54,6 +54,20 @@ export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnima
   get fileSize () {
     return this.payload.file_size
   }
+
+  toJSON (): Interfaces.TelegramAnimation {
+    return {
+      file_id: this.fileId,
+      file_unique_id: this.fileUniqueId,
+      width: this.width,
+      height: this.height,
+      duration: this.duration,
+      thumb: this.thumb?.toJSON(),
+      file_name: this.fileName,
+      mime_type: this.mimeType,
+      file_size: this.fileSize
+    }
+  }
 }
 
 inspectable(AnimationAttachment, {

@@ -54,6 +54,20 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
 
     return new PhotoSize(thumb)
   }
+
+  toJSON (): Interfaces.TelegramAudio {
+    return {
+      file_id: this.fileId,
+      file_unique_id: this.fileUniqueId,
+      duration: this.duration,
+      performer: this.performer,
+      title: this.title,
+      file_name: this.fileName,
+      mime_type: this.mimeType,
+      file_size: this.fileSize,
+      thumb: this.thumb?.toJSON()
+    }
+  }
 }
 
 inspectable(AudioAttachment, {

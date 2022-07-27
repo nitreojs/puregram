@@ -29,7 +29,7 @@ const { getCasinoValues } = require('@puregram/utils')
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
-  if (context.hasDice && context.dice.emoji === '🎰') {
+  if (context.hasDice() && context.dice.emoji === '🎰') {
     console.log(getCasinoValues(context.dice.value)); // e.g. ['seven', 'bar', 'grapes']
   }
 })
@@ -97,7 +97,7 @@ _returns_: `SlotMachineValue`
 returns an _array of `CasinoValue`_ detected by `value` in the dice
 
 ```js
-if (context.hasDice && context.dice.emoji === '🎰') {
+if (context.hasDice() && context.dice.emoji === '🎰') {
   return context.send(`You got ${getCasinoValues(context.dice.value).join(', ')}!`)
 }
 ```

@@ -50,7 +50,7 @@ telegram.updates.on('message', (context) => {
 sceneManager.addScenes([
   new StepScene('signup', [
     (context) => {
-      if (context.scene.step.firstTime || !context.hasText) {
+      if (context.scene.step.firstTime || !context.hasText()) {
         return context.send('what\'s your name?')
       }
 
@@ -60,7 +60,7 @@ sceneManager.addScenes([
     },
 
     (context) => {
-      if (context.scene.step.firstTime || !context.hasText) {
+      if (context.scene.step.firstTime || !context.hasText()) {
         return context.send('how old are you?')
       }
 

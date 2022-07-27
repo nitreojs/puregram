@@ -4,7 +4,7 @@ import { getCasinoValues } from '@puregram/utils'
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
-  if (context.hasDice && context.dice.emoji === '🎰') {
+  if (context.hasDice() && context.dice.emoji === '🎰') {
     // INFO: for example, user has got seven, bar, grapes
     console.log(getCasinoValues(context.dice.value)) // ['seven', 'bar', 'grapes']
   }

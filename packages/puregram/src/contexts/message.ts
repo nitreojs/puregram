@@ -102,7 +102,7 @@ class MessageContext extends Context {
 
   /** Value after the `/start` command */
   get rawStartPayload () {
-    if (!this.hasText) {
+    if (!this.hasText()) {
       return
     }
 
@@ -268,7 +268,7 @@ class MessageContext extends Context {
   /** @deprecated use `hasAttachmentType(type)` and `hasAttachment` instead */
   hasAttachments (type?: AttachmentType | AttachmentTypeEnum) {
     if (type === undefined) {
-      return this.hasAttachment
+      return this.hasAttachment()
     }
 
     return this.hasAttachmentType(type)

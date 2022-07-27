@@ -103,7 +103,7 @@ export class HearManager<C extends MessageContext> {
 
     this.composer.use(
       (context: C & ContextMatch, next: NextMiddleware) => {
-        if (needText && !context.hasText && !context.hasCaption) {
+        if (needText && !context.hasText?.() && !context.hasCaption?.()) {
           return next()
         }
 
@@ -133,7 +133,7 @@ export class HearManager<C extends MessageContext> {
 
     this.composer.use(
       (context: C, next: NextMiddleware) => {
-        if (!context.hasText && !context.hasCaption) {
+        if (!context.hasText?.() && !context.hasCaption?.()) {
           return next()
         }
 

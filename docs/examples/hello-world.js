@@ -3,8 +3,8 @@ import { Telegram } from 'puregram'
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', (context) => {
-  if (context.text && /hello/i.test(context.text)) {
-    return context.send('hello, World!')
+  if (context.hasText() && /hello/i.test(context.text)) {
+    return context.send('hello, world!')
   }
 })
 

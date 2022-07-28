@@ -5,7 +5,8 @@
   },
   "extends": [
     "standard",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -27,6 +28,9 @@
     "@typescript-eslint/no-empty-function": "off",
     "no-lone-blocks": "off",
     "no-useless-constructor": "off",
-    "camelcase": "off"
+    "camelcase": "off",
+    "getter-return": "off",
+    "no-dupe-class-members": "off",
+    "no-redeclare": "off"
   }
 }

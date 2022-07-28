@@ -28,8 +28,6 @@ export type Optional<T, K extends keyof Known<T>> =
   /** Lastly, we add `[key: string]: any;` */
   & { [key: string]: any }
 
-type Modify<T, R> = Omit<T, keyof R> & R
-
 // https://github.com/grammyjs/grammY/blob/b8ac3d65bad6ed6a63a82c8bd8c642406c95532c/src/composer.ts#L8
 /** Permits `string` but gives hints */
 export type SoftString<S extends string> = (string & {}) | S

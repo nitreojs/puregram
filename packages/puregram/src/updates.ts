@@ -18,8 +18,9 @@ import { User } from './common/structures/user'
 import { TelegramMessage, TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
 import { GetUpdatesParams } from './generated/methods'
 
-import { Constructor, UpdateName, MessageEventName, MaybeArray, Known, ContextsCollection } from './types/types'
+import { Constructor, UpdateName, MessageEventName, MaybeArray, Known } from './types/types'
 import { StartPollingOptions } from './types/interfaces'
+import { ContextsMapping } from './types/mappings'
 
 import { delay, parseRequestJSON, updateDebugFlags } from './utils/helpers'
 
@@ -162,9 +163,9 @@ export class Updates {
    * telegram.updates.on('message', context => context.reply('im busy stfu'))
    * ```
    */
-  on<K extends keyof Known<ContextsCollection>, T = {}>(
+  on<K extends keyof Known<ContextsMapping>, T = {}>(
     events: MaybeArray<K>,
-    handler: MaybeArray<Middleware<ContextsCollection[K] & T>>
+    handler: MaybeArray<Middleware<ContextsMapping[K] & T>>
   ): this
 
   on<T = {}> (

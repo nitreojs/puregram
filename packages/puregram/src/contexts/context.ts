@@ -3,7 +3,8 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { ContextsCollection, MaybeArray, SoftString, UpdateName } from '../types/types'
+import { MaybeArray, SoftString, UpdateName } from '../types/types'
+import { ContextsMapping } from '../types/mappings'
 import { SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 
 interface ContextOptions {
@@ -46,7 +47,7 @@ class Context {
 }
 
 interface Context {
-  is<T extends UpdateName>(rawTypes: MaybeArray<SoftString<T>>): this is ContextsCollection[T]
+  is<T extends UpdateName>(rawTypes: MaybeArray<SoftString<T>>): this is ContextsMapping[T]
 }
 
 inspectable(Context, {

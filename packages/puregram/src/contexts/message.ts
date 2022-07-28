@@ -6,7 +6,7 @@ import { Message, MessageEntity } from '../common/structures'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
-import { AttachmentType, Constructor, Require, UpdateName } from '../types/types'
+import { AttachmentType, Constructor, Require, RequireValue, UpdateName } from '../types/types'
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 
@@ -30,6 +30,7 @@ import { MediaGroup } from '../common/media-group'
 
 import { Context } from './context'
 import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { AttachmentsMapping } from '../types/mappings'
 
 interface MessageContextOptions {
   telegram: Telegram
@@ -199,7 +200,7 @@ class MessageContext extends Context {
   }
 
   /** Does this message have an attachment with a specific type `type`? */
-  hasAttachmentType (type: AttachmentType) {
+  hasAttachmentType<T extends AttachmentType> (type: T): this is RequireValue<MessageContext, 'attachment', AttachmentsMapping[T]> {
     return this.attachment?.attachmentType === type
   }
 

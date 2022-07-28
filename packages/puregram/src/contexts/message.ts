@@ -216,7 +216,7 @@ class MessageContext extends Context {
 
   /** Event type */
   get eventType () {
-    if (!this.isEvent) {
+    if (!this.isEvent()) {
       return
     }
 

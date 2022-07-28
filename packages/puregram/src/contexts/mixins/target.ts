@@ -1,10 +1,15 @@
 import { Chat, User } from '../../common/structures'
 import { ChatType } from '../../types/enums'
-import { RequireValue } from '../../types/types'
+import { Require, RequireValue } from '../../types/types'
 
 /** This object represents a mixin which has sender data (e.g. `senderId`, `from` etc.) */
 class TargetMixin {
   payload!: Record<string, any>
+
+  /** Checks if the instance has `from` and `senderId` properties */
+  hasFrom (): this is Require<TargetMixin, 'from' | 'senderId'> {
+    return this.payload.from !== undefined
+  }
 
   /** Sender, empty for messages sent to channels */
   get from () {
@@ -15,6 +20,11 @@ class TargetMixin {
     }
 
     return new User(from)
+  }
+
+  /** Checks if the instance has `senderChat` property */
+  hasSenderChat (): this is Require<TargetMixin, 'senderChat'> {
+    return this.payload.sender_chat !== undefined
   }
 
   /**

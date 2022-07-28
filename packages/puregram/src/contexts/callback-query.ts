@@ -4,7 +4,7 @@ import { inspectable } from 'inspectable'
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { CallbackQuery } from '../common/structures'
-import { Constructor } from '../types/types'
+import { Constructor, Require } from '../types/types'
 
 import * as Interfaces from '../generated/telegram-interfaces'
 import * as Methods from '../generated/methods'
@@ -37,6 +37,11 @@ class CallbackQueryContext extends Context {
     this.payload = options.payload
   }
 
+  /** Checks if the query has `message` property */
+  hasMessage (): this is Require<CallbackQueryContext, 'message'> {
+    return this.payload.message !== undefined
+  }
+
   /**
    * Message with the callback button that originated the query.
    * Note that message content and message date will not be available
@@ -53,6 +58,11 @@ class CallbackQueryContext extends Context {
       payload: this.payload.message,
       updateId: this.update?.update_id
     })
+  }
+
+  /** Checks if the query has `queryPayload` property */
+  hasQueryPayload (): this is Require<CallbackQueryContext, 'queryPayload'> {
+    return this.payload.data !== undefined
   }
 
   /**

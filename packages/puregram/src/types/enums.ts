@@ -1,11 +1,15 @@
 export enum AttachmentType {
   Animation = 'animation',
   Audio = 'audio',
+  Contact = 'contact',
   Document = 'document',
+  Location = 'location',
   Photo = 'photo',
+  Poll = 'poll',
   Sticker = 'sticker',
-  Video = 'video',
+  Venue = 'venue',
   VideoNote = 'video_note',
+  Video = 'video',
   Voice = 'voice'
 }
 

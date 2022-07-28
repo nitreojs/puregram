@@ -76,3 +76,8 @@ export enum ChatType {
   Supergroup = 'supergroup',
   Channel = 'channel'
 }
+
+export enum PollType {
+  Regular = 'regular',
+  Quiz = 'quiz'
+}

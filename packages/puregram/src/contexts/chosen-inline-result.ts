@@ -5,7 +5,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { ChosenInlineResult } from '../common/structures'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
-import { Constructor } from '../types/types'
+import { Constructor, Require } from '../types/types'
 
 import { Context } from './context'
 import { SendMixin, CloneMixin } from './mixins'
@@ -33,6 +33,16 @@ class ChosenInlineResultContext extends Context {
     })
 
     this.payload = options.payload
+  }
+
+  /** Checks if the result has `location` property */
+  hasLocation (): this is Require<ChosenInlineResultContext, 'location'> {
+    return this.location !== undefined
+  }
+
+  /** Checks if the query has `inlineMessageId` property */
+  hasInlineMessageId (): this is Require<ChosenInlineResultContext, 'inlineMessageId'> {
+    return this.inlineMessageId !== undefined
   }
 }
 

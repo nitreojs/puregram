@@ -5,7 +5,7 @@ import * as Methods from '../generated/methods'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
-import { Constructor } from '../types/types'
+import { Constructor, Require } from '../types/types'
 import { InlineQuery } from '../common/structures'
 
 import { Context } from './context'
@@ -35,6 +35,11 @@ class InlineQueryContext extends Context {
   /** Sender's ID */
   get senderId () {
     return this.from.id
+  }
+
+  /** Checks if query has `location` property */
+  hasLocation (): this is Require<InlineQueryContext, 'location'> {
+    return this.location !== undefined
   }
 
   /** Answers to inline query */

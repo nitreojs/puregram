@@ -4,11 +4,12 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
-import { Constructor } from '../types/types'
+import { Constructor, Require, RequireValue } from '../types/types'
 import { Poll } from '../common/structures'
 
 import { Context } from './context'
 import { CloneMixin } from './mixins'
+import { PollType } from '../types/enums'
 
 interface PollContextOptions {
   telegram: Telegram
@@ -29,6 +30,41 @@ class PollContext extends Context {
     })
 
     this.payload = options.payload
+  }
+
+  /** Returns `true` if current poll is a regular one */
+  isRegular (): this is RequireValue<PollContext, 'type', PollType.Regular> {
+    return this.type === PollType.Regular
+  }
+
+  /** Returns `true` if current poll is a quiz */
+  isQuiz (): this is RequireValue<PollContext, 'type', PollType.Quiz> {
+    return this.type === PollType.Quiz
+  }
+
+  /** Checks if poll has `correctOptionId` property */
+  hasCorrectOptionId (): this is Require<PollContext, 'correctOptionId'> {
+    return this.correctOptionId !== undefined
+  }
+
+  /** Checks if poll has `explanation` property */
+  hasExplanation (): this is Require<PollContext, 'explanation'> {
+    return this.explanation !== undefined
+  }
+
+  /** Checks if poll has `explanationEntities` property */
+  hasExplanationEntities (): this is Require<PollContext, 'explanationEntities'> {
+    return this.explanationEntities !== undefined
+  }
+
+  /** Checks if poll has `openPeriod` property */
+  hasOpenPeriod (): this is Require<PollContext, 'openPeriod'> {
+    return this.openPeriod !== undefined
+  }
+
+  /** Checks if poll has `closeDate` property */
+  hasCloseDate (): this is Require<PollContext, 'closeDate'> {
+    return this.closeDate !== undefined
   }
 }
 

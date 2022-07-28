@@ -6,7 +6,7 @@ import * as Methods from '../generated/methods'
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
 import { PreCheckoutQuery } from '../common/structures'
-import { Optional, Constructor } from '../types/types'
+import { Optional, Constructor, Require } from '../types/types'
 
 import { Context } from './context'
 import { SendMixin, CloneMixin } from './mixins'
@@ -30,6 +30,16 @@ class PreCheckoutQueryContext extends Context {
     })
 
     this.payload = options.payload
+  }
+
+  /** Checks if the query has `shippingOptionId` property */
+  hasShippingOptionId (): this is Require<PreCheckoutQueryContext, 'shippingOptionId'> {
+    return this.shippingOptionId !== undefined
+  }
+
+  /** Checks if the query has `orderInfo` property */
+  hasOrderInfo (): this is Require<PreCheckoutQueryContext, 'orderInfo'> {
+    return this.orderInfo !== undefined
   }
 
   /** Answers to the pending pre-checkout query */

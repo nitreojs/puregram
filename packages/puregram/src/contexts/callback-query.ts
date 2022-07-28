@@ -83,6 +83,21 @@ class CallbackQueryContext extends Context {
     return data
   }
 
+  /** Checks if the query has `inlineMessageId` property */
+  hasInlineMessageId (): this is Require<CallbackQueryContext, 'inlineMessageId'> {
+    return this.inlineMessageId !== undefined
+  }
+
+  /** Checks if the query has `data` property */
+  hasData (): this is Require<CallbackQueryContext, 'data'> {
+    return this.data !== undefined
+  }
+
+  /** Checks if the query has `gameShortName` property */
+  hasGameShortName (): this is Require<CallbackQueryContext, 'gameShortName'> {
+    return this.gameShortName !== undefined
+  }
+
   /** Answers to current callback query */
   answerCallbackQuery (params?: Partial<Methods.AnswerCallbackQueryParams>) {
     return this.telegram.api.answerCallbackQuery({

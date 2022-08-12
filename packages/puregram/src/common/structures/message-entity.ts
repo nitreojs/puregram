@@ -67,6 +67,13 @@ export class MessageEntity implements Structure {
     return this.payload.language
   }
 
+  /** For `custom_emoji` only, unique identifier of the custom emoji.
+   *
+   * Use `getCustomEmojiStickers` to get full information about the sticker */
+  get customEmojiId () {
+    return this.payload.custom_emoji_id
+  }
+
   toJSON (): Interfaces.TelegramMessageEntity {
     return {
       type: this.type,
@@ -74,7 +81,8 @@ export class MessageEntity implements Structure {
       length: this.length,
       url: this.url,
       user: this.user?.toJSON(),
-      language: this.language
+      language: this.language,
+      custom_emoji_id: this.customEmojiId
     }
   }
 }
@@ -87,7 +95,8 @@ inspectable(MessageEntity, {
       length: struct.length,
       url: struct.url,
       user: struct.user,
-      language: struct.language
+      language: struct.language,
+      customEmojiId: struct.customEmojiId
     }
 
     return filterPayload(payload)

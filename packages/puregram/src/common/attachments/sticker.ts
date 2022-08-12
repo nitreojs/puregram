@@ -11,6 +11,15 @@ import { FileAttachment } from './file-attachment'
 export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker> {
   attachmentType: AttachmentType = 'sticker'
 
+  /**
+   * Type of the sticker, currently one of `regular`, `mask`, `custom_emoji`.
+   *
+   * The type of the sticker is independent from its format, which is determined by the fields `is_animated` and `is_video`.
+   */
+  get type () {
+    return this.payload.type
+  }
+
   /** Sticker width */
   get width () {
     return this.payload.width
@@ -79,6 +88,11 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
     return new MaskPosition(mask_position)
   }
 
+  /** For custom emoji stickers, unique identifier of the custom emoji */
+  get customEmojiId () {
+    return this.payload.custom_emoji_id
+  }
+
   /** File size */
   get fileSize () {
     return this.payload.file_size
@@ -88,6 +102,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
     return {
       file_id: this.fileId,
       file_unique_id: this.fileUniqueId,
+      type: this.type,
       width: this.width,
       height: this.height,
       is_animated: this.isAnimated(),
@@ -96,6 +111,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
       emoji: this.emoji,
       set_name: this.setName,
       mask_position: this.maskPosition?.toJSON(),
+      custom_emoji_id: this.customEmojiId,
       file_size: this.fileSize
     }
   }

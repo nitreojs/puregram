@@ -26,6 +26,11 @@ export class StickerSet implements Structure {
     return this.payload.title
   }
 
+  /** Type of stickers in the set, currently one of `regular`, `mask`, `custom_emoji` */
+  get stickerType () {
+    return this.payload.sticker_type
+  }
+
   /** `true`, if the sticker set contains animated stickers */
   isAnimated () {
     return this.payload.is_animated
@@ -67,6 +72,7 @@ export class StickerSet implements Structure {
     return {
       name: this.name,
       title: this.title,
+      sticker_type: this.stickerType,
       is_animated: this.isAnimated(),
       is_video: this.isVideo(),
       contains_masks: this.containsMasks,
@@ -81,6 +87,7 @@ inspectable(StickerSet, {
     const payload = {
       name: struct.name,
       title: struct.title,
+      stickerType: struct.stickerType,
       isAnimated: struct.isAnimated(),
       isVideo: struct.isVideo(),
       containsMasks: struct.containsMasks,

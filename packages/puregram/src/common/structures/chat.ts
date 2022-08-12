@@ -91,6 +91,15 @@ export class Chat implements Structure {
   }
 
   /**
+   * `true`, if the privacy settings of the other party restrict sending voice and video note messages in the private chat.
+   *
+   * Returned only in `getChat`.
+   */
+  hasRestrictedVoiceAndVideoMessages () {
+    return this.payload.has_restricted_voice_and_video_messages
+  }
+
+  /**
    * `true`, if users need to join the supergroup before they can send messages.
    *
    * Returned only in `getChat`.
@@ -246,6 +255,7 @@ export class Chat implements Structure {
       photo: this.photo?.toJSON(),
       bio: this.bio,
       has_private_forwards: this.hasPrivateForwards(),
+      has_restricted_voice_and_video_messages: this.hasRestrictedVoiceAndVideoMessages(),
       join_to_send_messages: this.joinToSendMessages,
       join_by_request: this.joinByRequest,
       location: this.location,
@@ -273,6 +283,7 @@ inspectable(Chat, {
       photo: struct.photo,
       bio: struct.bio,
       hasPrivateForwards: struct.hasPrivateForwards(),
+      hasRestrictedVoiceAndVideoMessages: struct.hasRestrictedVoiceAndVideoMessages(),
       joinToSendMessages: struct.joinToSendMessages,
       joinByRequest: struct.joinByRequest,
       location: struct.location,

@@ -23,7 +23,7 @@ class LocationContext extends Context {
   constructor (options: LocationContextOptions) {
     super({
       telegram: options.telegram,
-      updateType: 'left_chat_member',
+      updateType: 'location',
       updateId: options.updateId,
       update: options.update
     })

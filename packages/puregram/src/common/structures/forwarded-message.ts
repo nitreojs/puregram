@@ -85,7 +85,7 @@ inspectable(ForwardedMessage, {
       signature: struct.signature,
       senderName: struct.senderName,
       createdAt: struct.createdAt,
-      isAutomatic: struct.isAutomatic
+      isAutomatic: struct.isAutomatic()
     }
 
     return filterPayload(payload)

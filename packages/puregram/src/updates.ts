@@ -486,6 +486,8 @@ export class Updates {
     })
 
     if (context.isEvent && context.eventType !== undefined) {
+      debug_handleUpdate('is event: %s, updating context', context.eventType)
+
       UpdateContext = events[context.eventType]
 
       context = new UpdateContext({
@@ -493,7 +495,7 @@ export class Updates {
         updateId: update.update_id,
         type: context.eventType,
         telegram: this.telegram,
-        payload: update.message
+        payload: update.message ?? update.edited_message
       })
     }
 

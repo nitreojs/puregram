@@ -4,6 +4,8 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
+import { filterPayload } from '../../utils/helpers'
+
 /** This object represents a point on the map. */
 export class Location implements Structure {
   constructor (private payload: Interfaces.TelegramLocation) { }
@@ -66,13 +68,13 @@ export class Location implements Structure {
 
 inspectable(Location, {
   serialize (struct) {
-    return {
+    return filterPayload({
       longitude: struct.longitude,
       latitude: struct.latitude,
       horizontalAccuracy: struct.horizontalAccuracy,
       livePeriod: struct.livePeriod,
       heading: struct.heading,
       proximityAlertRadius: struct.proximityAlertRadius
-    }
+    })
   }
 })

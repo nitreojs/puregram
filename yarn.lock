@@ -3759,7 +3759,7 @@
 
 "puregram@^2.0.0", "puregram@file:/home/starkow/puregram/packages/puregram":
   "resolved" "file:packages/puregram"
-  "version" "2.9.4"
+  "version" "2.9.5"
   dependencies:
     "debug" "^4.3.2"
     "form-data-encoder" "^1.7.2"

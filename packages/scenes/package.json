@@ -1,6 +1,6 @@
 {
   "name": "@puregram/scenes",
-  "version": "2.0.1-rc.1",
+  "version": "2.0.1",
   "description": "Simple implementation of middleware-based scene management for puregram",
   "main": "lib/index",
   "engines": {

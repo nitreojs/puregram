@@ -7,12 +7,12 @@ export interface SceneContextOptions {
   repository: SceneRepository
 }
 
-export interface SceneContextEnterOptions {
+export interface SceneContextEnterOptions<S extends Record<string, unknown> = Record<string, any>> {
   /** Logging into a handler without executing it */
   silent?: boolean
 
   /** The standard state for the scene */
-  state?: Record<string, unknown>
+  state?: S
 }
 
 export interface SceneContextLeaveOptions {

@@ -6,12 +6,12 @@ import {
 import { StepSceneHandler } from '../scenes'
 import { LastAction } from './scene.types'
 
-export class StepSceneContext {
-  private readonly context: StepContextOptions['context']
-  private readonly steps: StepContextOptions['steps']
+export class StepSceneContext<S extends Record<string, unknown> = Record<string, any>> {
+  private readonly context: StepContextOptions<S>['context']
+  private readonly steps: StepContextOptions<S>['steps']
   private stepChanged = false
 
-  constructor (options: StepContextOptions) {
+  constructor (options: StepContextOptions<S>) {
     this.context = options.context
 
     this.steps = options.steps
@@ -40,7 +40,7 @@ export class StepSceneContext {
   }
 
   /** Returns current handler */
-  get current (): StepSceneHandler | undefined {
+  get current (): StepSceneHandler<{}, S> | undefined {
     return this.steps[this.stepId]
   }
 

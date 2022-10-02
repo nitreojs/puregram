@@ -8,8 +8,8 @@ export interface SessionContext {
   [key: string]: any
 }
 
-export interface ContextInterface extends Context {
-  scene: SceneContext
+export interface ContextInterface<T = {}> extends Context {
+  scene: SceneContext & T
 
   [key: string]: any
 }

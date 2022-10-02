@@ -8,11 +8,11 @@ import {
   LastAction
 } from './scene.types'
 
-export class SceneContext {
+export class SceneContext<S extends Record<string, unknown> = Record<string, any>> {
   /** Lazy session for submodules */
   session!: SessionContext
   /** Base namespace for user input */
-  state!: Record<string, any>
+  state!: S
   /** Is the scene cancelled? Used in `leaveHandler()` */
   cancelled = false
   lastAction: LastAction = LastAction.NONE
@@ -35,7 +35,7 @@ export class SceneContext {
   }
 
   /** Enter to scene */
-  async enter (slug: string, options: SceneContextEnterOptions = {}) {
+  async enter (slug: string, options: SceneContextEnterOptions<S> = {}) {
     const scene = this.repository.strictGet(slug)
 
     const isCurrent = this.current?.slug === scene.slug

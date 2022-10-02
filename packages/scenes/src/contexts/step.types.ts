@@ -3,8 +3,8 @@ import {
   StepSceneHandler
 } from '../scenes'
 
-export interface StepContextOptions {
-  context: StepContext
+export interface StepContextOptions<S extends Record<string, unknown> = Record<string, any>> {
+  context: StepContext<S>
 
   steps: StepSceneHandler[]
 }

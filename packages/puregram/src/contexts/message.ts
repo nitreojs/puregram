@@ -196,7 +196,7 @@ class MessageContext extends Context {
       return new LocationAttachment(this.payload.location as Interfaces.TelegramLocation)
     }
 
-    return this.animation ?? this.audio ?? this.document ?? this.sticker ?? this.video ?? this.videoNote ?? this.voice
+    return this.sticker ?? this.animation ?? this.audio ?? this.document ?? this.video ?? this.videoNote ?? this.voice
   }
 
   /** Does this message have an attachment with a specific type `type`? */

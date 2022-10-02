@@ -7,7 +7,7 @@ class TargetMixin {
   payload!: Record<string, any>
 
   /** Checks if the instance has `from` and `senderId` properties */
-  hasFrom (): this is Require<TargetMixin, 'from' | 'senderId'> {
+  hasFrom (): this is Require<this, 'from' | 'senderId'> {
     return this.payload.from !== undefined
   }
 
@@ -64,22 +64,22 @@ class TargetMixin {
   }
 
   /** Is this chat a private one? */
-  isPM (): this is RequireValue<TargetMixin, 'chatType', ChatType.Private> {
+  isPM (): this is RequireValue<this, 'chatType', ChatType.Private> {
     return this.chatType === ChatType.Private
   }
 
   /** Is this chat a group? */
-  isGroup (): this is RequireValue<TargetMixin, 'chatType', ChatType.Group> {
+  isGroup (): this is RequireValue<this, 'chatType', ChatType.Group> {
     return this.chatType === ChatType.Group
   }
 
   /** Is this chat a supergroup? */
-  isSupergroup (): this is RequireValue<TargetMixin, 'chatType', ChatType.Supergroup> {
+  isSupergroup (): this is RequireValue<this, 'chatType', ChatType.Supergroup> {
     return this.chatType === ChatType.Supergroup
   }
 
   /** Is this chat a channel? */
-  isChannel (): this is RequireValue<TargetMixin, 'chatType', ChatType.Channel> {
+  isChannel (): this is RequireValue<this, 'chatType', ChatType.Channel> {
     return this.chatType === ChatType.Channel
   }
 }

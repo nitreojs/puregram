@@ -33,7 +33,7 @@ class ChatMemberContext extends Context {
   }
 
   /** Does this update have `invite_link` property? */
-  hasInviteLink (): this is Require<ChatMemberContext, 'inviteLink'> {
+  hasInviteLink (): this is Require<this, 'inviteLink'> {
     return this.inviteLink !== undefined
   }
 }

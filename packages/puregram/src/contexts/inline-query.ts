@@ -38,7 +38,7 @@ class InlineQueryContext extends Context {
   }
 
   /** Checks if query has `location` property */
-  hasLocation (): this is Require<InlineQueryContext, 'location'> {
+  hasLocation (): this is Require<this, 'location'> {
     return this.location !== undefined
   }
 

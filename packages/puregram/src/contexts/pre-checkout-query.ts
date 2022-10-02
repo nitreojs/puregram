@@ -33,12 +33,12 @@ class PreCheckoutQueryContext extends Context {
   }
 
   /** Checks if the query has `shippingOptionId` property */
-  hasShippingOptionId (): this is Require<PreCheckoutQueryContext, 'shippingOptionId'> {
+  hasShippingOptionId (): this is Require<this, 'shippingOptionId'> {
     return this.shippingOptionId !== undefined
   }
 
   /** Checks if the query has `orderInfo` property */
-  hasOrderInfo (): this is Require<PreCheckoutQueryContext, 'orderInfo'> {
+  hasOrderInfo (): this is Require<this, 'orderInfo'> {
     return this.orderInfo !== undefined
   }
 

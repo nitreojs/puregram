@@ -36,12 +36,12 @@ class ChosenInlineResultContext extends Context {
   }
 
   /** Checks if the result has `location` property */
-  hasLocation (): this is Require<ChosenInlineResultContext, 'location'> {
+  hasLocation (): this is Require<this, 'location'> {
     return this.location !== undefined
   }
 
   /** Checks if the query has `inlineMessageId` property */
-  hasInlineMessageId (): this is Require<ChosenInlineResultContext, 'inlineMessageId'> {
+  hasInlineMessageId (): this is Require<this, 'inlineMessageId'> {
     return this.inlineMessageId !== undefined
   }
 }

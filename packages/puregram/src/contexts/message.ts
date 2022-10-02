@@ -75,7 +75,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `text` property */
-  hasText (): this is Require<MessageContext, 'text'> {
+  hasText (): this is Require<this, 'text'> {
     return this.text !== undefined
   }
 
@@ -92,12 +92,12 @@ class MessageContext extends Context {
   }
 
   /** Checks if the message has `caption` property */
-  hasCaption (): this is Require<MessageContext, 'caption'> {
+  hasCaption (): this is Require<this, 'caption'> {
     return this.caption !== undefined
   }
 
   /** Checks if the message has `dice` property */
-  hasDice (): this is Require<MessageContext, 'dice'> {
+  hasDice (): this is Require<this, 'dice'> {
     return this.dice !== undefined
   }
 
@@ -134,12 +134,12 @@ class MessageContext extends Context {
   }
 
   /** Does this message have start payload? */
-  hasStartPayload (): this is Require<MessageContext, 'startPayload'> {
+  hasStartPayload (): this is Require<this, 'startPayload'> {
     return this.startPayload !== undefined
   }
 
   /** Checks if the message has `author_signature` property */
-  hasAuthorSignature (): this is Require<MessageContext, 'authorSignature'> {
+  hasAuthorSignature (): this is Require<this, 'authorSignature'> {
     return this.authorSignature !== undefined
   }
 
@@ -170,7 +170,7 @@ class MessageContext extends Context {
   }
 
   /** Checks whether current message contains a media group (`mergeMediaEvents` must be on) */
-  isMediaGroup (): this is Require<MessageContext, 'mediaGroupId' | 'mediaGroup'> {
+  isMediaGroup (): this is Require<this, 'mediaGroupId' | 'mediaGroup'> {
     return this.mediaGroupId !== undefined
   }
 
@@ -200,12 +200,12 @@ class MessageContext extends Context {
   }
 
   /** Does this message have an attachment with a specific type `type`? */
-  hasAttachmentType<T extends AttachmentType> (type: T): this is RequireValue<MessageContext, 'attachment', AttachmentsMapping[T]> {
+  hasAttachmentType<T extends AttachmentType> (type: T): this is RequireValue<this, 'attachment', AttachmentsMapping[T]> {
     return this.attachment?.attachmentType === type
   }
 
   /** Does this message even have an attachment? */
-  hasAttachment (): this is Require<MessageContext, 'attachment'> {
+  hasAttachment (): this is Require<this, 'attachment'> {
     return this.attachment !== undefined
   }
 
@@ -245,17 +245,17 @@ class MessageContext extends Context {
   }
 
   /** Is this message a forwarded one? */
-  isForwarded (): this is Require<MessageContext, 'forwardedMessage'> {
+  isForwarded (): this is Require<this, 'forwardedMessage'> {
     return this.forwardedMessage !== undefined
   }
 
   /** Does this message have reply message? */
-  hasReplyMessage (): this is Require<MessageContext, 'replyMessage'> {
+  hasReplyMessage (): this is Require<this, 'replyMessage'> {
     return this.replyMessage !== undefined
   }
 
   /** Checks if the sent message has `via_bot` property */
-  hasViaBot (): this is Require<MessageContext, 'viaBot'> {
+  hasViaBot (): this is Require<this, 'viaBot'> {
     return this.viaBot !== undefined
   }
 

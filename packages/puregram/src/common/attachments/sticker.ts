@@ -62,7 +62,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** Is this sticker a premium one? */
-  isPremium (): this is Require<StickerAttachment, 'premiumAnimation'> {
+  isPremium (): this is Require<this, 'premiumAnimation'> {
     return this.premiumAnimation !== undefined
   }
 

@@ -38,7 +38,7 @@ class CallbackQueryContext extends Context {
   }
 
   /** Checks if the query has `message` property */
-  hasMessage (): this is Require<CallbackQueryContext, 'message'> {
+  hasMessage (): this is Require<this, 'message'> {
     return this.payload.message !== undefined
   }
 
@@ -61,7 +61,7 @@ class CallbackQueryContext extends Context {
   }
 
   /** Checks if the query has `queryPayload` property */
-  hasQueryPayload (): this is Require<CallbackQueryContext, 'queryPayload'> {
+  hasQueryPayload (): this is Require<this, 'queryPayload'> {
     return this.payload.data !== undefined
   }
 
@@ -69,7 +69,7 @@ class CallbackQueryContext extends Context {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
-  get queryPayload () {
+  get queryPayload (): unknown {
     const { data } = this.payload
 
     if (data === undefined) {
@@ -84,17 +84,17 @@ class CallbackQueryContext extends Context {
   }
 
   /** Checks if the query has `inlineMessageId` property */
-  hasInlineMessageId (): this is Require<CallbackQueryContext, 'inlineMessageId'> {
+  hasInlineMessageId (): this is Require<this, 'inlineMessageId'> {
     return this.inlineMessageId !== undefined
   }
 
   /** Checks if the query has `data` property */
-  hasData (): this is Require<CallbackQueryContext, 'data'> {
+  hasData (): this is Require<this, 'data'> {
     return this.data !== undefined
   }
 
   /** Checks if the query has `gameShortName` property */
-  hasGameShortName (): this is Require<CallbackQueryContext, 'gameShortName'> {
+  hasGameShortName (): this is Require<this, 'gameShortName'> {
     return this.gameShortName !== undefined
   }
 

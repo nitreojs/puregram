@@ -68,7 +68,6 @@ export class Telegram {
 
         return this._callAPI(method, args[0] as Record<string, any>)
       }
-
   })
 
   /** Updates instance */

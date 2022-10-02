@@ -33,37 +33,37 @@ class PollContext extends Context {
   }
 
   /** Returns `true` if current poll is a regular one */
-  isRegular (): this is RequireValue<PollContext, 'type', PollType.Regular> {
+  isRegular (): this is RequireValue<this, 'type', PollType.Regular> {
     return this.type === PollType.Regular
   }
 
   /** Returns `true` if current poll is a quiz */
-  isQuiz (): this is RequireValue<PollContext, 'type', PollType.Quiz> {
+  isQuiz (): this is RequireValue<this, 'type', PollType.Quiz> {
     return this.type === PollType.Quiz
   }
 
   /** Checks if poll has `correctOptionId` property */
-  hasCorrectOptionId (): this is Require<PollContext, 'correctOptionId'> {
+  hasCorrectOptionId (): this is Require<this, 'correctOptionId'> {
     return this.correctOptionId !== undefined
   }
 
   /** Checks if poll has `explanation` property */
-  hasExplanation (): this is Require<PollContext, 'explanation'> {
+  hasExplanation (): this is Require<this, 'explanation'> {
     return this.explanation !== undefined
   }
 
   /** Checks if poll has `explanationEntities` property */
-  hasExplanationEntities (): this is Require<PollContext, 'explanationEntities'> {
+  hasExplanationEntities (): this is Require<this, 'explanationEntities'> {
     return this.explanationEntities !== undefined
   }
 
   /** Checks if poll has `openPeriod` property */
-  hasOpenPeriod (): this is Require<PollContext, 'openPeriod'> {
+  hasOpenPeriod (): this is Require<this, 'openPeriod'> {
     return this.openPeriod !== undefined
   }
 
   /** Checks if poll has `closeDate` property */
-  hasCloseDate (): this is Require<PollContext, 'closeDate'> {
+  hasCloseDate (): this is Require<this, 'closeDate'> {
     return this.closeDate !== undefined
   }
 }

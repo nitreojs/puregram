@@ -1,31 +1,24 @@
-import http from 'node:http'
+import { debug } from 'debug'
 
 import { inspectable } from 'inspectable'
-import {
-  NextMiddleware,
-  Middleware,
-  noopNext,
-  compose
-} from 'middleware-io'
-import { debug } from 'debug'
+import { compose, Middleware, NextMiddleware, noopNext } from 'middleware-io'
+import http from 'node:http'
+import { MediaGroup } from './common/media-group'
+
+import { Composer, User } from './common/structures'
 
 import * as Contexts from './contexts'
 
-import { Composer } from './common/structures/composer'
-import { MediaGroup } from './common/media-group'
-import { User } from './common/structures/user'
+import { TelegramError } from './errors'
 
-import { TelegramMessage, TelegramUpdate, TelegramUser } from './generated/telegram-interfaces'
-import { GetUpdatesParams } from './generated/methods'
-
-import { Constructor, UpdateName, MessageEventName, MaybeArray, Known } from './types/types'
+import { GetUpdatesParams, TelegramMessage, TelegramUpdate, TelegramUser } from './generated'
+import { Telegram } from './telegram'
 import { StartPollingOptions } from './types/interfaces'
 import { ContextsMapping } from './types/mappings'
 
-import { delay, parseRequestJSON, updateDebugFlags } from './utils/helpers'
+import { Constructor, Known, MaybeArray, MessageEventName, UpdateName } from './types/types'
 
-import { TelegramError } from './errors'
-import { Telegram } from './telegram'
+import { delay, parseRequestJSON, updateDebugFlags } from './utils/helpers'
 
 type ContextConstructor = Constructor<Contexts.Context>
 
@@ -231,7 +224,7 @@ export class Updates {
    * ```js
    * telegram.updates.startPolling()
    *   .then(() => console.log('started polling updates!'))
-   *   .catch(error => console.error('an error has occured! %o', error))
+   *   .catch(error => console.error('an error has occurred! %o', error))
    * ```
    */
   async startPolling (options: StartPollingOptions = {}) {
@@ -320,6 +313,39 @@ export class Updates {
     return skippedUpdates
   }
 
+  // FIXME: unacceptable return type
+  getWebhookMiddleware (): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
+    return async (req: http.IncomingMessage, res: http.ServerResponse) => {
+      if (req.method !== 'POST') {
+        return
+      }
+
+      const reqBody = (req as typeof req & { body: string | Record<string, any> }).body
+
+      let update: any
+
+      try {
+        update = typeof reqBody === 'object' ? reqBody : await parseRequestJSON(req)
+      } catch (error) {
+        debug_webhook('an error has occurred: %O', error)
+
+        return
+      }
+
+      if (update === undefined) {
+        res.writeHead(500)
+        res.end()
+
+        throw new Error('req.body is undefined. are you sure you parsed it (e.g. via body-parser)?')
+      }
+
+      res.writeHead(200)
+      res.end()
+
+      setImmediate(() => this.handleUpdate(update))
+    }
+  }
+
   private async startFetchLoop (options: StartPollingOptions) {
     try {
       if (options.dropPendingUpdates) {
@@ -330,7 +356,7 @@ export class Updates {
         await this.fetchUpdates(options)
       }
     } catch (error) {
-      debug_startFetchLoop('an error has occured: %O', error)
+      debug_startFetchLoop('an error has occurred: %O', error)
 
       if (this.telegram.options.apiRetryLimit === -1) {
         debug_startFetchLoop('trying to reconnect...')
@@ -352,89 +378,6 @@ export class Updates {
       this.isStarted = false
 
       this.startPolling()
-    }
-  }
-
-  private async fetchUpdates (options: StartPollingOptions) {
-    const params: Partial<GetUpdatesParams> = {
-      timeout: 15,
-      allowed_updates: options.allowedUpdates ?? this.telegram.options.allowedUpdates
-    }
-
-    if (this.offset) params.offset = this.offset
-    if (options.offset) params.offset = options.offset
-    if (options.timeout) params.timeout = options.timeout
-
-    let updates = await this.telegram.api.getUpdates(params)
-
-    if (!updates) {
-      // INFO: something is wrong with the internet connection I can feel it...
-
-      debug_fetchUpdates('unable to get updates')
-
-      this.stopPolling()
-      this.startPolling()
-
-      return
-    }
-
-    if (!updates.length) {
-      return
-    }
-
-    // INFO: optimize?
-    if (this.telegram.options.mergeMediaEvents) {
-      const possibleUpdateTypes = ['message', 'edited_message', 'channel_post', 'edited_channel_post']
-
-      const getMessage = (update: TelegramUpdate) => {
-        const key = possibleUpdateTypes.find(ut => update[ut]) as string
-        const message = update[key] as TelegramMessage
-
-        return message
-      }
-
-      const mediaEventUpdates = updates
-        .filter(update => possibleUpdateTypes.some(ut => update[ut] !== undefined))
-        .filter(update => getMessage(update).media_group_id !== undefined)
-
-      if (mediaEventUpdates.length !== 0) {
-        const mediaGroupIdsMap = new Map<string, TelegramUpdate[]>()
-
-        const mediaGroupIds = [...new Set(mediaEventUpdates.map(me => getMessage(me).media_group_id as string))]
-
-        for (const meId of mediaGroupIds) {
-          const updates = mediaEventUpdates.filter(me => getMessage(me).media_group_id as string === meId)
-
-          mediaGroupIdsMap.set(meId, updates)
-        }
-
-        debug_mediaEvents('MG map: %O', mediaGroupIdsMap)
-
-        for (const [mgId, mgUpdates] of mediaGroupIdsMap.entries()) {
-          const contexts = await Promise.all(mgUpdates.map(mgu => this.handleUpdate(mgu, false))) as Contexts.MessageContext[]
-
-          const mediaGroup = new MediaGroup({ id: mgId, contexts })
-
-          // INFO: creating [MediaGroup] on top of the first context
-          const context = contexts[0].clone()
-          context.mediaGroup = mediaGroup
-
-          this.dispatchMiddleware(context)
-        }
-
-        // INFO: clearing out original [updates]
-        updates = updates.filter(update => !mediaGroupIdsMap.has(getMessage(update).media_group_id as string))
-      }
-    }
-
-    debug_fetchUpdates('updates: %O', updates)
-
-    for (const update of updates) {
-      try {
-        await this.handleUpdate(update)
-      } catch (error) {
-        debug_fetchUpdates('an error has occured: %O', error)
-      }
     }
   }
 
@@ -527,36 +470,91 @@ export class Updates {
     }
   }
 
-  // FIXME: unacceptable return type
-  getWebhookMiddleware (): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
-    return async (req: http.IncomingMessage, res: http.ServerResponse) => {
-      if (req.method !== 'POST') {
-        return
+  private async fetchUpdates (options: StartPollingOptions) {
+    const params: Partial<GetUpdatesParams> = {
+      timeout: 15,
+      allowed_updates: options.allowedUpdates ?? this.telegram.options.allowedUpdates
+    }
+
+    if (this.offset) {
+      params.offset = this.offset
+    }
+    if (options.offset) {
+      params.offset = options.offset
+    }
+    if (options.timeout) {
+      params.timeout = options.timeout
+    }
+
+    let updates = await this.telegram.api.getUpdates(params)
+
+    if (!updates) {
+      // INFO: something is wrong with the internet connection I can feel it...
+
+      debug_fetchUpdates('unable to get updates')
+
+      this.stopPolling()
+      this.startPolling()
+
+      return
+    }
+
+    if (!updates.length) {
+      return
+    }
+
+    // INFO: optimize?
+    if (this.telegram.options.mergeMediaEvents) {
+      const possibleUpdateTypes = ['message', 'edited_message', 'channel_post', 'edited_channel_post']
+
+      const getMessage = (update: TelegramUpdate) => {
+        const key = possibleUpdateTypes.find(ut => update[ut]) as string
+
+        return update[key] as TelegramMessage
       }
 
-      const reqBody = (req as typeof req & { body: string | Record<string, any> }).body
+      const mediaEventUpdates = updates
+        .filter(update => possibleUpdateTypes.some(ut => update[ut] !== undefined))
+        .filter(update => getMessage(update).media_group_id !== undefined)
 
-      let update: any
+      if (mediaEventUpdates.length !== 0) {
+        const mediaGroupIdsMap = new Map<string, TelegramUpdate[]>()
 
+        const mediaGroupIds = [...new Set(mediaEventUpdates.map(me => getMessage(me).media_group_id as string))]
+
+        for (const meId of mediaGroupIds) {
+          const updates = mediaEventUpdates.filter(me => getMessage(me).media_group_id as string === meId)
+
+          mediaGroupIdsMap.set(meId, updates)
+        }
+
+        debug_mediaEvents('MG map: %O', mediaGroupIdsMap)
+
+        for (const [mgId, mgUpdates] of mediaGroupIdsMap.entries()) {
+          const contexts = await Promise.all(mgUpdates.map(mgu => this.handleUpdate(mgu, false))) as Contexts.MessageContext[]
+
+          const mediaGroup = new MediaGroup({ id: mgId, contexts })
+
+          // INFO: creating [MediaGroup] on top of the first context
+          const context = contexts[0].clone()
+          context.mediaGroup = mediaGroup
+
+          this.dispatchMiddleware(context)
+        }
+
+        // INFO: clearing out original [updates]
+        updates = updates.filter(update => !mediaGroupIdsMap.has(getMessage(update).media_group_id as string))
+      }
+    }
+
+    debug_fetchUpdates('updates: %O', updates)
+
+    for (const update of updates) {
       try {
-        update = typeof reqBody === 'object' ? reqBody : await parseRequestJSON(req)
+        await this.handleUpdate(update)
       } catch (error) {
-        debug_webhook('an error has occured: %O', error)
-
-        return
+        debug_fetchUpdates('an error has occurred: %O', error)
       }
-
-      if (update === undefined) {
-        res.writeHead(500)
-        res.end()
-
-        throw new Error('req.body is undefined. are you sure you parsed it (e.g. via body-parser)?')
-      }
-
-      res.writeHead(200)
-      res.end()
-
-      setImmediate(() => this.handleUpdate(update))
     }
   }
 }

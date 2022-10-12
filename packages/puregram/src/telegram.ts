@@ -1,24 +1,24 @@
+import { debug } from 'debug'
+import { FormDataEncoder } from 'form-data-encoder'
+import { File, FormData } from 'formdata-node'
+import { fileFromPath } from 'formdata-node/file-from-path'
+import { inspectable } from 'inspectable'
 import { Readable } from 'node:stream'
 import { deprecate } from 'node:util'
 
 import { fetch, RequestInit } from 'undici'
-import { fileFromPath } from 'formdata-node/file-from-path'
-import { FormDataEncoder } from 'form-data-encoder'
-import { File, FormData } from 'formdata-node'
-import { inspectable } from 'inspectable'
-import { debug } from 'debug'
-
-import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
-import { TelegramOptions, ApiResponseUnion } from './types/interfaces'
-
-import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, updateDebugFlags } from './utils/helpers'
 import { MediaInput, MediaSourceType } from './common/media-source'
-import { User } from './common/structures/user'
+import { User } from './common/structures'
+import { APIError } from './errors'
 
 import { ApiMethods } from './generated'
-import { APIError } from './errors'
-import { Updates } from './updates'
+import { ApiResponseUnion, TelegramOptions } from './types/interfaces'
 import { ApiMethod, SoftString } from './types/types'
+import { Updates } from './updates'
+
+import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
+
+import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, updateDebugFlags } from './utils/helpers'
 
 const $debugger = debug('puregram:api')
 
@@ -128,23 +128,17 @@ export class Telegram {
     if (input.type === MediaSourceType.Stream) {
       const buffer = await convertStreamToBuffer(input.value)
 
-      const file = new File([buffer], filename)
-
-      return file
+      return new File([buffer], filename)
     }
 
     // INFO: returning buffer converted into a file
     if (input.type === MediaSourceType.Buffer) {
-      const file = new File([input.value], filename)
-
-      return file
+      return new File([input.value], filename)
     }
 
     // INFO: [ArrayBufferLike] passed, convert into a [File] and return in
     if (input.type === MediaSourceType.ArrayBuffer) {
-      const file = new File([input.value], filename)
-
-      return file
+      return new File([input.value], filename)
     }
 
     // INFO: fetching that URL and creating an array buffer -> file, returning that file
@@ -163,9 +157,7 @@ export class Telegram {
         const response = await fetch(url)
         const arrayBuffer = await response.arrayBuffer()
 
-        const file = new File([arrayBuffer], filename)
-
-        return file
+        return new File([arrayBuffer], filename)
       }
 
       // INFO: ... or returning that URL right away =)

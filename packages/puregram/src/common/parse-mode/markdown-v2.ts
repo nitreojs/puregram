@@ -40,7 +40,7 @@ export class MarkdownV2 {
 
     if (isMultilineTemplate) {
       const spacesLine = template[0].replace(/\n+/, '')
-      const matches = spacesLine.match(/^([\s]+)/g)
+      const matches = spacesLine.match(/^(\s+)/g)
 
       if (matches !== null) {
         startSpaces = matches[0].length

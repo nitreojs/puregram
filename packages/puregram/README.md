@@ -269,11 +269,11 @@ const stream = createReadStream(path)
 const buffer = getBuffer(path)
 const url = 'https://puppies.com/random-puppy'
 
-telegram.updates.on('message', (context) => {
+telegram.updates.on('message', async (context) => {
   await Promise.all([
-    context.sendPhoto(MediaSource.path(path), { caption: 'puppy via path!' })
-    context.sendDocument(MediaSource.stream(stream, /* filename: */ 'puppy.jpg'), { caption: 'more puppies via stream!' })
-    context.sendPhoto(MediaSource.buffer(buffer), { caption: 'one more puppy via buffer!' })
+    context.sendPhoto(MediaSource.path(path), { caption: 'puppy via path!' }),
+    context.sendDocument(MediaSource.stream(stream, /* filename: */ 'puppy.jpg'), { caption: 'more puppies via stream!' }),
+    context.sendPhoto(MediaSource.buffer(buffer), { caption: 'one more puppy via buffer!' }),
     context.sendPhoto(MediaSource.url(url), { caption: 'some random puppy sent using an url!!!' })
   ])
 })
@@ -471,7 +471,7 @@ every update in `puregram` is handled by a special context, which is detected vi
 every context _(except for manually created ones and some that were created after methods like `sendMessage`)_ will have `updateId` and `update` properties.
 
 | property   | required | description                                                                   |
-| ---------- | -------- | ----------------------------------------------------------------------------- |
+|------------|----------|-------------------------------------------------------------------------------|
 | `updateId` | _no_     | unique update id. used as an offset when getting new updates                  |
 | `update`   | _no_     | update object. current context was created via `this.update[this.updateType]` |
 
@@ -644,7 +644,7 @@ if you want to inspect out- and ingoing requests made by `puregram`, you will ne
 #### how to enable `DEBUG`
 
 | namespace   | example (unix)             | description                                                                       |
-| ----------- | -------------------------- | --------------------------------------------------------------------------------- |
+|-------------|----------------------------|-----------------------------------------------------------------------------------|
 | `api`       | `DEBUG=puregram:api`       | enables debugging api out- and ingoing requests                                   |
 | `api/getMe` | `DEBUG=puregram:api/getMe` | enables debugging `getMe` update (you can set whichever method you want to debug) |
 | `updates`   | `DEBUG=puregram:updates`   | enables debugging ingoing updates                                                 |
@@ -672,13 +672,13 @@ $ DEBUG=puregram:all node index
 
 yeah, there are.
 
-| what                      | how to get here                                         |
-| ------------------------- | ------------------------------------------------------- |
+| what                       | how to get here                                         |
+|----------------------------|---------------------------------------------------------|
 | **channel 📢**             | [click](https://t.me/puregram)                          |
-| **russian chat 🇷🇺**        | [press](https://t.me/puregram_chat_ru)                  |
-| **english chat 🇬🇧**        | [☆*: .｡. o(≧▽≦)o .｡.:*☆](https://t.me/puregram_chat_en) |
+| **russian chat 🇷🇺**      | [press](https://t.me/puregram_chat_ru)                  |
+| **english chat 🇬🇧**      | [☆*: .｡. o(≧▽≦)o .｡.:*☆](https://t.me/puregram_chat_en) |
 | **puregram chats list 🍔** | [d=====(￣▽￣*)b](https://t.me/puregram_chats)            |
-| **offtop chat 👀**         | [ᕦ( ⊡ 益 ⊡ )ᕤ](https://t.me/puregram_offtop_chat)       |
+| **offtop chat 👀**         | [ᕦ( ⊡ 益 ⊡ )ᕤ](https://t.me/puregram_offtop_chat)        |
 
 ### why is your readme lowercased?
 

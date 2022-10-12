@@ -1,15 +1,5 @@
 import { inspectable } from 'inspectable'
 
-import { Telegram } from '../telegram'
-import { Message, MessageEntity } from '../common/structures'
-
-import * as Interfaces from '../generated/telegram-interfaces'
-
-import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
-import { AttachmentType, Constructor, Require, RequireValue, UpdateName } from '../types/types'
-import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
-import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
-
 import {
   AnimationAttachment,
   Attachment,
@@ -27,10 +17,20 @@ import {
 } from '../common/attachments'
 
 import { MediaGroup } from '../common/media-group'
+import { Message, MessageEntity } from '../common/structures'
+
+import * as Interfaces from '../generated/telegram-interfaces'
+
+import { Telegram } from '../telegram'
+
+import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
+import { AttachmentsMapping } from '../types/mappings'
+import { AttachmentType, Constructor, Require, RequireValue, UpdateName } from '../types/types'
+import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
+import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
-import { AttachmentsMapping } from '../types/mappings'
+import { CloneMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
 
 interface MessageContextOptions {
   telegram: Telegram
@@ -305,7 +305,7 @@ interface MessageContext extends Constructor<MessageContext>, Message, TargetMix
 applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
 
 inspectable(MessageContext, {
-  serialize (context) {
+  serialize: function (context) {
     const payload: Record<string, any> = {
       id: context.id,
       from: context.from,
@@ -332,7 +332,7 @@ inspectable(MessageContext, {
       payload.mediaGroup = context.mediaGroup
     } else {
       payload.mediaGroupId = context.mediaGroupId
-      payload.attachments = context.attachments
+      payload.attachment = context.attachment
     }
 
     return filterPayload(payload)

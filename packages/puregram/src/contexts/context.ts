@@ -3,8 +3,8 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { MaybeArray, SoftString, UpdateName } from '../types/types'
 import { ContextsMapping } from '../types/mappings'
+import { MaybeArray, SoftString, UpdateName } from '../types/types'
 import { SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 
 interface ContextOptions {
@@ -37,7 +37,7 @@ class Context {
       ? rawTypes
       : [rawTypes]
 
-    // TODO: it if interferring, make 'subTypes' logic maybe?
+    // TODO: it if interfering, make 'subTypes' logic maybe?
     if (types.includes('service_message')) {
       types.push(...SERVICE_MESSAGE_EVENTS)
     }

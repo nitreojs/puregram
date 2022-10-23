@@ -15,6 +15,7 @@ class CloneMixin<C extends Context & Constructor<C>, Options extends Record<stri
       payload: this.payload,
       updateId: this.updateId as number,
       update: this.update as TelegramUpdate,
+      type: this.updateType,
       ...options
     })
   }

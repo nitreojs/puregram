@@ -20,7 +20,7 @@
   "author": "nitrojs",
   "license": "MIT",
   "dependencies": {
-    "middleware-io": "^2.8.0"
+    "middleware-io": "^2.8.1"
   },
   "peerDependencies": {
     "puregram": "^2.0.0"

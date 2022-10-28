@@ -3,7 +3,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { AttachmentType } from '../../types/types'
 import { applyMixins } from '../../utils/helpers'
 
-import { Poll } from '../structures'
+import { Poll } from '../structures/poll'
 
 import { Attachment } from './attachment'
 

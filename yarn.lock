@@ -3766,14 +3766,14 @@
 
 "puregram@^2.0.0", "puregram@file:/home/starkow/puregram/packages/puregram":
   "resolved" "file:packages/puregram"
-  "version" "2.9.6"
+  "version" "2.9.7"
   dependencies:
     "debug" "^4.3.2"
     "form-data-encoder" "^1.7.2"
     "formdata-node" "^4.3.2"
     "inspectable" "^1.2.0"
     "middleware-io" "^2.8.0"
-    "undici" "^5.8.2"
+    "undici" "~5.11.0"
 
 "q@^1.5.1":
   "integrity" "sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw=="

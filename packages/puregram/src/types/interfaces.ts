@@ -1,4 +1,4 @@
-import { Agent } from 'undici'
+import { Agent, Dispatcher, ProxyAgent } from 'undici'
 
 import { TelegramResponseParameters } from '../generated'
 import { SoftString, UpdateName } from './types'
@@ -8,7 +8,7 @@ export interface TelegramOptions {
   token?: string
 
   /** HTTP(s) agent, used in requests */
-  agent?: Agent
+  agent?: Agent | ProxyAgent | Dispatcher
 
   /**
    * List of the update types you want your bot to receive

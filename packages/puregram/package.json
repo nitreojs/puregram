@@ -14,7 +14,7 @@
     "formdata-node": "^4.3.2",
     "inspectable": "^1.2.0",
     "middleware-io": "^2.8.0",
-    "undici": "~5.11.0"
+    "undici": "~5.19.1"
   },
   "types": "./lib/index.d.ts",
   "scripts": {

@@ -177,7 +177,7 @@ export class MediaSource {
    * ```
    */
   static arrayBuffer (buffer: ArrayBufferLike, options: MediaInputOptions = {}): MediaSourceArrayBuffer {
-    if (!(buffer instanceof ArrayBuffer) || !(buffer instanceof SharedArrayBuffer)) {
+    if (!(buffer instanceof ArrayBuffer) && !(buffer instanceof SharedArrayBuffer)) {
       throw new TypeError(`expected 'buffer' to be instance of ArrayBuffer/SharedArrayBuffer, found ${typeof buffer}`)
     }
 

@@ -15,14 +15,14 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
   attachmentType: AttachmentType = 'document'
 
   /** Document thumbnail as defined by sender */
-  get thumb () {
-    const { thumb } = this.payload
+  get thumbnail () {
+    const { thumbnail } = this.payload
 
-    if (!thumb) {
+    if (!thumbnail) {
       return
     }
 
-    return new PhotoSize(thumb)
+    return new PhotoSize(thumbnail)
   }
 
   /** Original filename as defined by sender */
@@ -44,7 +44,7 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
     return {
       file_id: this.fileId,
       file_unique_id: this.fileUniqueId,
-      thumb: this.thumb?.toJSON(),
+      thumbnail: this.thumbnail?.toJSON(),
       file_name: this.fileName,
       mime_type: this.mimeType,
       file_size: this.fileSize
@@ -57,7 +57,7 @@ inspectable(DocumentAttachment, {
     return {
       fileId: attachment.fileId,
       fileUniqueId: attachment.fileUniqueId,
-      thumb: attachment.thumb,
+      thumbnail: attachment.thumbnail,
       fileName: attachment.fileName,
       mimeType: attachment.mimeType,
       fileSize: attachment.fileSize

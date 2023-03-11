@@ -76,6 +76,11 @@ export class ChatPermissions implements Structure {
     return this.payload.can_pin_messages
   }
 
+  /** `true`, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages */
+  canManageTopics () {
+    return this.payload.can_manage_topics
+  }
+
   toJSON (): Interfaces.TelegramChatPermissions {
     return {
       can_send_messages: this.canSendMessages(),
@@ -85,7 +90,8 @@ export class ChatPermissions implements Structure {
       can_add_web_page_previews: this.canAddWebPagePreviews(),
       can_change_info: this.canChangeInfo(),
       can_invite_users: this.canInviteUsers(),
-      can_pin_messages: this.canPinMessages()
+      can_pin_messages: this.canPinMessages(),
+      can_manage_topics: this.canManageTopics()
     }
   }
 }
@@ -100,7 +106,8 @@ inspectable(ChatPermissions, {
       canAddWebPagePreviews: struct.canAddWebPagePreviews(),
       canChangeInfo: struct.canChangeInfo(),
       canInviteUsers: struct.canInviteUsers(),
-      canPinMessages: struct.canPinMessages()
+      canPinMessages: struct.canPinMessages(),
+      canManageTopics: struct.canManageTopics()
     }
 
     return filterPayload(payload)

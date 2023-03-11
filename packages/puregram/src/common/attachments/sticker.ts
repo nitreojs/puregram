@@ -41,14 +41,14 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** Sticker thumbnail in the .WEBP or .JPG format */
-  get thumb () {
-    const { thumb } = this.payload
+  get thumbnail () {
+    const { thumbnail } = this.payload
 
-    if (!thumb) {
+    if (!thumbnail) {
       return
     }
 
-    return new PhotoSize(thumb)
+    return new PhotoSize(thumbnail)
   }
 
   /** Emoji associated with the sticker */
@@ -93,6 +93,11 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
     return this.payload.custom_emoji_id
   }
 
+  /** `true`, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places */
+  get needs_repainting () {
+    return this.payload.needs_repainting as true | undefined
+  }
+
   /** File size */
   get fileSize () {
     return this.payload.file_size
@@ -107,7 +112,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
       height: this.height,
       is_animated: this.isAnimated(),
       is_video: this.isVideo(),
-      thumb: this.thumb?.toJSON(),
+      thumbnail: this.thumbnail?.toJSON(),
       emoji: this.emoji,
       set_name: this.setName,
       mask_position: this.maskPosition?.toJSON(),
@@ -126,7 +131,7 @@ inspectable(StickerAttachment, {
       height: attachment.height,
       isAnimated: attachment.isAnimated(),
       isVideo: attachment.isVideo(),
-      thumb: attachment.thumb,
+      thumbnail: attachment.thumbnail,
       emoji: attachment.emoji,
       setName: attachment.setName,
       maskPosition: attachment.maskPosition,

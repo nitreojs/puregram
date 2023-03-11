@@ -27,14 +27,14 @@ export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
   }
 
   /** Video thumbnail */
-  get thumb () {
-    const { thumb } = this.payload
+  get thumbnail () {
+    const { thumbnail } = this.payload
 
-    if (!thumb) {
+    if (!thumbnail) {
       return
     }
 
-    return new PhotoSize(thumb)
+    return new PhotoSize(thumbnail)
   }
 
   /** Original filename as defined by sender */
@@ -59,7 +59,7 @@ export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
       width: this.width,
       height: this.height,
       duration: this.duration,
-      thumb: this.thumb?.toJSON(),
+      thumbnail: this.thumbnail?.toJSON(),
       file_name: this.fileName,
       mime_type: this.mimeType,
       file_size: this.fileSize
@@ -75,7 +75,7 @@ inspectable(VideoAttachment, {
       width: attachment.width,
       height: attachment.height,
       duration: attachment.duration,
-      thumb: attachment.thumb,
+      thumbnail: attachment.thumbnail,
       fileName: attachment.fileName,
       mimeType: attachment.mimeType,
       fileSize: attachment.fileSize

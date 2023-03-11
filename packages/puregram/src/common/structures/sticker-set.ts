@@ -58,14 +58,14 @@ export class StickerSet implements Structure {
   }
 
   /** Sticker set thumbnail in the .WEBP or .TGS format */
-  get thumb () {
-    const { thumb } = this.payload
+  get thumbnail () {
+    const { thumbnail } = this.payload
 
-    if (!thumb) {
+    if (!thumbnail) {
       return
     }
 
-    return new PhotoSize(thumb)
+    return new PhotoSize(thumbnail)
   }
 
   toJSON (): Interfaces.TelegramStickerSet {
@@ -77,7 +77,7 @@ export class StickerSet implements Structure {
       is_video: this.isVideo(),
       contains_masks: this.containsMasks,
       stickers: this.stickers?.map(sticker => sticker.toJSON()) ?? [],
-      thumb: this.thumb?.toJSON()
+      thumbnail: this.thumbnail?.toJSON()
     }
   }
 }
@@ -92,7 +92,7 @@ inspectable(StickerSet, {
       isVideo: struct.isVideo(),
       containsMasks: struct.containsMasks,
       stickers: struct.stickers,
-      thumb: struct.thumb
+      thumbnail: struct.thumbnail
     }
 
     return filterPayload(payload)

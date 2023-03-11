@@ -67,8 +67,17 @@ const rawEvents: [UpdateName, Constructor<Contexts.Context>][] = [
   ['poll', Contexts.PollContext],
   ['pre_checkout_query', Contexts.PreCheckoutQueryContext],
   ['proximity_alert_triggered', Contexts.ProximityAlertTriggeredContext],
+  ['write_access_allowed', Contexts.WriteAccessAllowedContext],
+  ['forum_topic_created', Contexts.ForumTopicCreatedContext],
+  ['forum_topic_edited', Contexts.ForumTopicEditedContext],
+  ['forum_topic_closed', Contexts.ForumTopicClosedContext],
+  ['forum_topic_reopened', Contexts.ForumTopicReopenedContext],
+  ['general_forum_topic_hidden', Contexts.GeneralForumTopicHiddenContext],
+  ['general_forum_topic_unhidden', Contexts.GeneralForumTopicUnhiddenContext],
   ['shipping_query', Contexts.ShippingQueryContext],
   ['successful_payment', Contexts.SuccessfulPaymentContext],
+  ['user_shared', Contexts.UserSharedContext],
+  ['chat_shared', Contexts.ChatSharedContext],
   ['supergroup_chat_created', Contexts.SupergroupChatCreatedContext],
   ['video_chat_ended', Contexts.VideoChatEndedContext],
   ['video_chat_participants_invited', Contexts.VideoChatParticipantsInvitedContext],
@@ -286,6 +295,9 @@ export class Updates {
    * ```
    */
   async dropPendingUpdates (value?: StartPollingOptions['dropPendingUpdates']) {
+    // TODO:
+    //   await this.telegram.api.deleteWebhook()
+
     let offset = 0
     let skippedUpdates = 0
 

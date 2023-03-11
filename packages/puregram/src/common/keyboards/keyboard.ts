@@ -9,6 +9,7 @@ export class Keyboard {
   private isResized = false
   private isOneTime = false
   private isSelective = false
+  private isPersistent = false
   private placeholder?: string
 
   get [Symbol.toStringTag] () {
@@ -26,14 +27,14 @@ export class Keyboard {
     return keyboard
   }
 
-  /** Resize the keyboard */
+  /** Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to `false`, in which case the custom keyboard is always of the same height as the app's standard keyboard */
   resize (resize = true) {
     this.isResized = resize
 
     return this
   }
 
-  /** When pressed, the keyboard will disappear */
+  /** Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to `false` */
   oneTime (oneTime = true) {
     this.isOneTime = oneTime
 
@@ -43,6 +44,13 @@ export class Keyboard {
   /** Use this parameter if you want to show the keyboard to specific users only */
   selective (selective = true) {
     this.isSelective = selective
+
+    return this
+  }
+
+  /** Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to `false`, in which case the custom keyboard can be hidden and opened with a keyboard icon */
+  persistent (persistent = true) {
+    this.isPersistent = persistent
 
     return this
   }
@@ -61,6 +69,22 @@ export class Keyboard {
    */
   static textButton (text: string): Interfaces.TelegramKeyboardButton {
     return { text }
+  }
+
+  /** If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user_shared” service message. Available in private chats only. */
+  static requestUserButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUser): Interfaces.TelegramKeyboardButton {
+    return {
+      text,
+      request_user: params
+    }
+  }
+
+  /** If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only. */
+  static requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat): Interfaces.TelegramKeyboardButton {
+    return {
+      text,
+      request_chat: params
+    }
   }
 
   /**
@@ -126,6 +150,7 @@ export class Keyboard {
   toJSON (): Interfaces.TelegramReplyKeyboardMarkup {
     return {
       keyboard: this.buttons,
+      is_persistent: this.isPersistent,
       resize_keyboard: this.isResized,
       one_time_keyboard: this.isOneTime,
       input_field_placeholder: this.placeholder,

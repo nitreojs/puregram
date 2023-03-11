@@ -25,14 +25,14 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
   }
 
   /** Video thumbnail */
-  get thumb () {
-    const { thumb } = this.payload
+  get thumbnail () {
+    const { thumbnail } = this.payload
 
-    if (!thumb) {
+    if (!thumbnail) {
       return
     }
 
-    return new PhotoSize(thumb)
+    return new PhotoSize(thumbnail)
   }
 
   /** File size */
@@ -46,7 +46,7 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
       file_unique_id: this.fileUniqueId,
       length: this.length,
       duration: this.duration,
-      thumb: this.thumb?.toJSON(),
+      thumbnail: this.thumbnail?.toJSON(),
       file_size: this.fileSize
     }
   }
@@ -59,7 +59,7 @@ inspectable(VideoNoteAttachment, {
       fileUniqueId: attachment.fileUniqueId,
       length: attachment.length,
       duration: attachment.duration,
-      thumb: attachment.thumb,
+      thumbnail: attachment.thumbnail,
       fileSize: attachment.fileSize
     }
   }

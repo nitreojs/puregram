@@ -19,6 +19,6 @@ export class CallbackGame implements Structure {
 
 inspectable(CallbackGame, {
   serialize (struct) {
-    return {}
+    return { }
   }
 })

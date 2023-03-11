@@ -45,14 +45,14 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
   }
 
   /** Thumbnail of the album cover to which the music file belongs */
-  get thumb () {
-    const { thumb } = this.payload
+  get thumbnail () {
+    const { thumbnail } = this.payload
 
-    if (!thumb) {
+    if (!thumbnail) {
       return
     }
 
-    return new PhotoSize(thumb)
+    return new PhotoSize(thumbnail)
   }
 
   toJSON (): Interfaces.TelegramAudio {
@@ -65,7 +65,7 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
       file_name: this.fileName,
       mime_type: this.mimeType,
       file_size: this.fileSize,
-      thumb: this.thumb?.toJSON()
+      thumbnail: this.thumbnail?.toJSON()
     }
   }
 }
@@ -81,7 +81,7 @@ inspectable(AudioAttachment, {
       fileName: attachment.fileName,
       mimeType: attachment.mimeType,
       fileSize: attachment.fileSize,
-      thumb: attachment.thumb
+      thumbnail: attachment.thumbnail
     }
   }
 })

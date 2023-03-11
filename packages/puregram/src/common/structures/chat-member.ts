@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
@@ -142,6 +142,11 @@ export class ChatMember implements Structure {
     return this.payload.can_pin_messages
   }
 
+  /** `true`, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
+  canManageTopics () {
+    return this.payload.can_manage_topics
+  }
+
   /**
    * Restricted only.
    * `true`, if the user is a member of the chat at the moment of the request
@@ -159,13 +164,34 @@ export class ChatMember implements Structure {
     return this.payload.can_send_messages
   }
 
-  /**
-   * Restricted only.
-   * `true`, if the user is allowed to send audios, documents,
-   * photos, videos, video notes and voice notes
-   */
-  canSendMediaMessages () {
-    return this.payload.can_send_media_messages
+  /** `true`, if the user is allowed to send audios */
+  canSendAudios () {
+    return this.payload.can_send_audios
+  }
+
+  /** `true`, if the user is allowed to send documents */
+  canSendDocuments () {
+    return this.payload.can_send_documents
+  }
+
+  /** `true`, if the user is allowed to send photos */
+  canSendPhotos () {
+    return this.payload.can_send_photos
+  }
+
+  /** `true`, if the user is allowed to send videos */
+  canSendVideos () {
+    return this.payload.can_send_videos
+  }
+
+  /** `true`, if the user is allowed to send video notes */
+  canSendVideoNotes () {
+    return this.payload.can_send_video_notes
+  }
+
+  /** `true`, if the user is allowed to send voice notes */
+  canSendVoiceNotes () {
+    return this.payload.can_send_voice_notes
   }
 
   /** Restricted only. `true`, if the user is allowed to send polls */
@@ -209,8 +235,15 @@ export class ChatMember implements Structure {
       can_change_info: this.canChangeInfo(),
       can_invite_users: this.canInviteUsers(),
       can_pin_messages: this.canPinMessages(),
+      can_manage_topics: this.canManageTopics(),
       is_member: this.isMember(),
       can_send_messages: this.canSendMessages(),
+      can_send_audios: this.canSendAudios(),
+      can_send_documents: this.canSendDocuments(),
+      can_send_photos: this.canSendPhotos(),
+      can_send_videos: this.canSendVideos(),
+      can_send_video_notes: this.canSendVideoNotes(),
+      can_send_voice_notes: this.canSendVoiceNotes(),
       can_send_other_messages: this.canSendOtherMessages(),
       can_add_web_page_previews: this.canAddWebPagePreviews()
     }
@@ -236,8 +269,15 @@ inspectable(ChatMember, {
       canChangeInfo: struct.canChangeInfo(),
       canInviteUsers: struct.canInviteUsers(),
       canPinMessages: struct.canPinMessages(),
+      canManageTopics: struct.canManageTopics(),
       isMember: struct.isMember(),
       canSendMessages: struct.canSendMessages(),
+      canSendAudios: struct.canSendAudios(),
+      canSendDocuments: struct.canSendDocuments(),
+      canSendPhotos: struct.canSendPhotos(),
+      canSendVideos: struct.canSendVideos(),
+      canSendVideoNotes: struct.canSendVideoNotes(),
+      canSendVoiceNotes: struct.canSendVoiceNotes(),
       canSendOtherMessages: struct.canSendOtherMessages(),
       canAddWebPagePreviews: struct.canAddWebPagePreviews()
     }

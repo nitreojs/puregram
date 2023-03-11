@@ -30,14 +30,14 @@ export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnima
   }
 
   /** Animation thumbnail as defined by sender */
-  get thumb () {
-    const { thumb } = this.payload
+  get thumbnail () {
+    const { thumbnail } = this.payload
 
-    if (!thumb) {
+    if (!thumbnail) {
       return
     }
 
-    return new PhotoSize(thumb)
+    return new PhotoSize(thumbnail)
   }
 
   /** Original animation filename as defined by sender */
@@ -62,7 +62,7 @@ export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnima
       width: this.width,
       height: this.height,
       duration: this.duration,
-      thumb: this.thumb?.toJSON(),
+      thumbnail: this.thumbnail?.toJSON(),
       file_name: this.fileName,
       mime_type: this.mimeType,
       file_size: this.fileSize
@@ -78,7 +78,7 @@ inspectable(AnimationAttachment, {
       width: attachment.width,
       height: attachment.height,
       duration: attachment.duration,
-      thumb: attachment.thumb,
+      thumbnail: attachment.thumbnail,
       fileName: attachment.fileName,
       mimeType: attachment.mimeType,
       fileSize: attachment.fileSize

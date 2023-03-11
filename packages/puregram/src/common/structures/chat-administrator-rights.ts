@@ -69,6 +69,11 @@ export class ChatAdministratorRights implements Structure {
     return this.payload.can_pin_messages
   }
 
+  /** `true`, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
+  canManageTopics () {
+    return this.payload.can_manage_topics
+  }
+
   toJSON (): Interfaces.TelegramChatAdministratorRights {
     return {
       is_anonymous: this.isAnonymous(),
@@ -81,7 +86,8 @@ export class ChatAdministratorRights implements Structure {
       can_invite_users: this.canInviteUsers(),
       can_post_messages: this.canPostMessages(),
       can_edit_messages: this.canEditMessages(),
-      can_pin_messages: this.canPinMessages()
+      can_pin_messages: this.canPinMessages(),
+      can_manage_topics: this.canManageTopics(),
     }
   }
 }
@@ -99,7 +105,8 @@ inspectable(ChatAdministratorRights, {
       canInviteUsers: struct.canInviteUsers(),
       canPostMessages: struct.canPostMessages(),
       canEditMessages: struct.canEditMessages(),
-      canPinMessages: struct.canPinMessages()
+      canPinMessages: struct.canPinMessages(),
+      canManageTopics: struct.canManageTopics(),
     }
 
     return filterPayload(payload)

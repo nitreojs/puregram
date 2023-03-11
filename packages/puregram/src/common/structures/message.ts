@@ -27,6 +27,10 @@ import { VideoChatStarted } from './video-chat-started'
 import { VideoChatScheduled } from './video-chat-scheduled'
 import { ProximityAlertTriggered } from './proximity-alert-triggered'
 import { WebAppData } from './web-app-data'
+import { ForumTopicCreated } from './forum-topic-created'
+import { ForumTopicEdited } from './forum-topic-edited'
+import { ForumTopicClosed } from './forum-topic-closed'
+import { ForumTopicReopened } from './forum-topic-reopened'
 
 import {
   AnimationAttachment,
@@ -37,6 +41,11 @@ import {
   StickerAttachment,
   VoiceAttachment
 } from '../attachments'
+import { WriteAccessAllowed } from './write-access-allowed'
+import { GeneralForumTopicHidden } from './general-forum-topic-hidden'
+import { GeneralForumTopicUnhidden } from './general-forum-topic-unhidden'
+import { UserShared } from './user-shared'
+import { ChatShared } from './chat-shared'
 
 /** This object represents a message. */
 export class Message implements Structure {
@@ -49,6 +58,11 @@ export class Message implements Structure {
   /** Unique message identifier inside this chat */
   get id () {
     return this.payload.message_id
+  }
+
+  /** Unique identifier of a message thread to which the message belongs; for supergroups only */
+  get threadId () {
+    return this.payload.message_thread_id
   }
 
   /** Sender, empty for messages sent to channels */
@@ -102,6 +116,11 @@ export class Message implements Structure {
     }
 
     return new ForwardedMessage(this.payload)
+  }
+
+  /** `true`, if the message is sent to a forum topic */
+  isTopicMessage () {
+    return this.payload.is_topic_message
   }
 
   /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
@@ -297,6 +316,11 @@ export class Message implements Structure {
     }
 
     return caption_entities.map(entity => new MessageEntity(entity))
+  }
+
+  /** `true`, if the message media is covered by a spoiler animation */
+  hasMediaSpoiler () {
+    return this.payload.has_media_spoiler as true | undefined
   }
 
   /** Message is a shared contact, information about the contact */
@@ -550,6 +574,28 @@ export class Message implements Structure {
     return new SuccessfulPayment(successful_payment)
   }
 
+  /** Service message: a user was shared with the bot */
+  get userShared () {
+    const { user_shared } = this.payload
+
+    if (!user_shared) {
+      return
+    }
+
+    return new UserShared(user_shared)
+  }
+
+  /** Service message: a chat was shared with the bot */
+  get chatShared () {
+    const { chat_shared } = this.payload
+
+    if (!chat_shared) {
+      return
+    }
+
+    return new ChatShared(chat_shared)
+  }
+
   /**
    * Service message.
    * A user in the chat triggered another user's proximity alert
@@ -563,6 +609,83 @@ export class Message implements Structure {
     }
 
     return new ProximityAlertTriggered(proximity_alert_triggered)
+  }
+
+  /** Service message: the user allowed the bot added to the attachment menu to write messages */
+  get writeAccessAllowed () {
+    const { write_access_allowed } = this.payload
+
+    if (!write_access_allowed) {
+      return
+    }
+
+    return new WriteAccessAllowed(write_access_allowed)
+  }
+
+  /** Service message: forum topic created */
+  get forumTopicCreated () {
+    const { forum_topic_created } = this.payload
+
+    if (!forum_topic_created) {
+      return
+    }
+
+    return new ForumTopicCreated(forum_topic_created)
+  }
+
+  /** Service message: forum topic edited */
+  get forumTopicEdited () {
+    const { forum_topic_edited } = this.payload
+
+    if (!forum_topic_edited) {
+      return
+    }
+
+    return new ForumTopicEdited(forum_topic_edited)
+  }
+
+  /** Service message: forum topic closed */
+  get forumTopicClosed () {
+    const { forum_topic_closed } = this.payload
+
+    if (!forum_topic_closed) {
+      return
+    }
+
+    return new ForumTopicClosed(forum_topic_closed)
+  }
+
+  /** Service message: forum topic reopened */
+  get forumTopicReopened () {
+    const { forum_topic_reopened } = this.payload
+
+    if (!forum_topic_reopened) {
+      return
+    }
+
+    return new ForumTopicReopened(forum_topic_reopened)
+  }
+
+  /** Service message: the 'General' forum topic hidden */
+  get generalForumTopicHidden () {
+    const { general_forum_topic_hidden } = this.payload
+
+    if (!general_forum_topic_hidden) {
+      return
+    }
+
+    return new GeneralForumTopicHidden(general_forum_topic_hidden)
+  }
+
+  /** Service message: the 'General' forum topic unhidden */
+  get generalForumTopicUnhidden () {
+    const { general_forum_topic_unhidden } = this.payload
+
+    if (!general_forum_topic_unhidden) {
+      return
+    }
+
+    return new GeneralForumTopicUnhidden(general_forum_topic_unhidden)
   }
 
   /** Service message: video chat scheduled */

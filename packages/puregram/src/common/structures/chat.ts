@@ -56,6 +56,11 @@ export class Chat implements Structure {
     return this.payload.last_name
   }
 
+  /** `true`, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled) */
+  isForum () {
+    return this.payload.is_forum
+  }
+
   /**
    * Chat photo.
    *
@@ -69,6 +74,24 @@ export class Chat implements Structure {
     }
 
     return new ChatPhoto(photo)
+  }
+
+  /**
+   * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels.
+   * 
+   * Returned only in `getChat`.
+   */
+  get activeUsernames () {
+    return this.payload.active_usernames
+  }
+
+  /**
+   * Custom emoji identifier of emoji status of the other party in a private chat.
+   * 
+   * Returned only in `getChat`.
+   */
+  get emojiStatusCustomEmojiId () {
+    return this.payload.emoji_status_custom_emoji_id
   }
 
   /**
@@ -203,6 +226,24 @@ export class Chat implements Structure {
   }
 
   /**
+   * `true`, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators.
+   * 
+   * Returned only in `getChat`.
+   */
+  hasAggressiveAntiSpamEnabled () {
+    return this.payload.has_aggressive_anti_spam_enabled
+  }
+
+  /**
+   * `true`, if non-administrators can only get the list of bots and administrators in the chat.
+   * 
+   * Returned only in `getChat`.
+   */
+  hasHiddenMembers () {
+    return this.payload.has_hidden_members
+  }
+
+  /**
    * `true`, if messages from the chat can't be forwarded to other chats.
    *
    * Returned only in `getChat`.
@@ -253,6 +294,8 @@ export class Chat implements Structure {
       first_name: this.firstName,
       last_name: this.lastName,
       photo: this.photo?.toJSON(),
+      active_usernames: this.activeUsernames,
+      emoji_status_custom_emoji_id: this.emojiStatusCustomEmojiId,
       bio: this.bio,
       has_private_forwards: this.hasPrivateForwards(),
       has_restricted_voice_and_video_messages: this.hasRestrictedVoiceAndVideoMessages(),
@@ -281,6 +324,8 @@ inspectable(Chat, {
       firstName: struct.firstName,
       lastName: struct.lastName,
       photo: struct.photo,
+      activeUsernames: struct.activeUsernames,
+      emojiStatusCustomEmojiId: struct.emojiStatusCustomEmojiId,
       bio: struct.bio,
       hasPrivateForwards: struct.hasPrivateForwards(),
       hasRestrictedVoiceAndVideoMessages: struct.hasRestrictedVoiceAndVideoMessages(),

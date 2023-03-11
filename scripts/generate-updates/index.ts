@@ -3,7 +3,7 @@ import { resolve } from 'node:path'
 
 import { UpdateType } from '../../packages/puregram/src'
 
-const UDPATES_PATH = resolve(__dirname, '..', '..', 'packages', 'puregram', 'src', 'updates.ts')
+const UPDATES_PATH = resolve(__dirname, '..', '..', 'packages', 'puregram', 'src', 'updates.ts')
 
 const getContext = (key: string, value: string) => {
   if (['edited_message', 'channel_post', 'edited_channel_post'].includes(value)) {
@@ -22,7 +22,7 @@ const getContext = (key: string, value: string) => {
 }
 
 const main = async () => {
-  let updatesTsContent = await readFile(UDPATES_PATH, 'utf8')
+  let updatesTsContent = await readFile(UPDATES_PATH, 'utf8')
 
   // INFO: generate-updates-contexts-interface
   {
@@ -60,7 +60,7 @@ const main = async () => {
     console.log(`[generate-updates-raw-events] successfully generated ${clauses.length - 1} on() clauses`)
   }
 
-  await writeFile(UDPATES_PATH, updatesTsContent)
+  await writeFile(UPDATES_PATH, updatesTsContent)
 }
 
 main().catch(console.error)

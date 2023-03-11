@@ -22,7 +22,7 @@
     "husky": "^8.0.1",
     "jest": "^27.2.4",
     "ts-jest": "^27.0.5",
-    "ts-node": "github:TypeStrong/ts-node#master",
+    "ts-node": "^10.9.1",
     "typedoc": "^0.22.5",
     "typescript": "^4.7.4",
     "undici": "^5.8.2"
@@ -35,6 +35,7 @@
     "generate-constants": "ts-node scripts/generate-constants/",
     "generate-interfaces": "ts-node scripts/generate-interfaces/",
     "generate-updates": "ts-node scripts/generate-updates/",
-    "generate-types": "ts-node scripts/generate-types/"
+    "generate-types": "ts-node scripts/generate-types/",
+    "generate-index": "ts-node scripts/generate-index/"
   }
 }

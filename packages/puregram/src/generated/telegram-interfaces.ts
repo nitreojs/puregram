@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.2.0, 12.08.2022
-/// Generation date: 12.08.2022 21:44:05 MSK
+/// Based on Bot API v6.6.0, 09.03.2023
+/// Generation date: 10.03.2023 04:10:27 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -174,7 +174,7 @@ export interface TelegramUser {
    */
   can_join_groups?: boolean
   /**
-   * *Optional*. *True*, if [privacy mode](https://core.telegram.org/bots#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
+   * *Optional*. *True*, if [privacy mode](https://core.telegram.org/bots/features#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
   can_read_all_group_messages?: boolean
   /**
@@ -216,9 +216,21 @@ export interface TelegramChat {
    */
   last_name?: string
   /**
+   * *Optional*. *True*, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled)
+   */
+  is_forum?: boolean
+  /**
    * *Optional*. Chat photo. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   photo?: TelegramChatPhoto
+  /**
+   * *Optional*. If non-empty, the list of all [active chat usernames](https://telegram.org/blog/topics-in-groups-collectible-usernames#collectible-usernames); for private chats, supergroups and channels. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  active_usernames?: string[]
+  /**
+   * *Optional*. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  emoji_status_custom_emoji_id?: string
   /**
    * *Optional*. Bio of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
@@ -264,6 +276,14 @@ export interface TelegramChat {
    */
   message_auto_delete_time?: number
   /**
+   * *Optional*. *True*, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  has_aggressive_anti_spam_enabled?: boolean
+  /**
+   * *Optional*. *True*, if non-administrators can only get the list of bots and administrators in the chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  has_hidden_members?: boolean
+  /**
    * *Optional*. *True*, if messages from the chat can't be forwarded to other chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   has_protected_content?: boolean
@@ -295,6 +315,10 @@ export interface TelegramMessage {
    * Unique message identifier inside this chat
    */
   message_id: number
+  /**
+   * *Optional*. Unique identifier of a message thread to which the message belongs; for supergroups only
+   */
+  message_thread_id?: number
   /**
    * *Optional*. Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
    */
@@ -335,6 +359,10 @@ export interface TelegramMessage {
    * *Optional*. For forwarded messages, date the original message was sent in Unix time
    */
   forward_date?: number
+  /**
+   * *Optional*. *True*, if the message is sent to a forum topic
+   */
+  is_topic_message?: boolean
   /**
    * *Optional*. *True*, if the message is a channel post that was automatically forwarded to the connected discussion group
    */
@@ -411,6 +439,10 @@ export interface TelegramMessage {
    * *Optional*. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
    */
   caption_entities?: TelegramMessageEntity[]
+  /**
+   * *Optional*. *True*, if the message media is covered by a spoiler animation
+   */
+  has_media_spoiler?: boolean
   /**
    * *Optional*. Message is a shared contact, information about the contact
    */
@@ -492,9 +524,21 @@ export interface TelegramMessage {
    */
   successful_payment?: TelegramSuccessfulPayment
   /**
+   * *Optional*. Service message: a user was shared with the bot
+   */
+  user_shared?: TelegramUserShared
+  /**
+   * *Optional*. Service message: a chat was shared with the bot
+   */
+  chat_shared?: TelegramChatShared
+  /**
    * *Optional*. The domain name of the website on which the user has logged in. [More about Telegram Login »](https://core.telegram.org/widgets/login)
    */
   connected_website?: string
+  /**
+   * *Optional*. Service message: the user allowed the bot added to the attachment menu to write messages
+   */
+  write_access_allowed?: TelegramWriteAccessAllowed
   /**
    * *Optional*. Telegram Passport data
    */
@@ -503,6 +547,30 @@ export interface TelegramMessage {
    * *Optional*. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
    */
   proximity_alert_triggered?: TelegramProximityAlertTriggered
+  /**
+   * *Optional*. Service message: forum topic created
+   */
+  forum_topic_created?: TelegramForumTopicCreated
+  /**
+   * *Optional*. Service message: forum topic edited
+   */
+  forum_topic_edited?: TelegramForumTopicEdited
+  /**
+   * *Optional*. Service message: forum topic closed
+   */
+  forum_topic_closed?: TelegramForumTopicClosed
+  /**
+   * *Optional*. Service message: forum topic reopened
+   */
+  forum_topic_reopened?: TelegramForumTopicReopened
+  /**
+   * *Optional*. Service message: the 'General' forum topic hidden
+   */
+  general_forum_topic_hidden?: TelegramGeneralForumTopicHidden
+  /**
+   * *Optional*. Service message: the 'General' forum topic unhidden
+   */
+  general_forum_topic_unhidden?: TelegramGeneralForumTopicUnhidden
   /**
    * *Optional*. Service message: video chat scheduled
    */
@@ -554,11 +622,11 @@ export interface TelegramMessageEntity {
    */
   type: SoftString<TelegramMessageEntityType>
   /**
-   * Offset in UTF-16 code units to the start of the entity
+   * Offset in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length) to the start of the entity
    */
   offset: number
   /**
-   * Length of the entity in UTF-16 code units
+   * Length of the entity in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length)
    */
   length: number
   /**
@@ -636,7 +704,7 @@ export interface TelegramAnimation {
   /**
    * *Optional*. Animation thumbnail as defined by sender
    */
-  thumb?: TelegramPhotoSize
+  thumbnail?: TelegramPhotoSize
   /**
    * *Optional*. Original animation filename as defined by sender
    */
@@ -692,7 +760,7 @@ export interface TelegramAudio {
   /**
    * *Optional*. Thumbnail of the album cover to which the music file belongs
    */
-  thumb?: TelegramPhotoSize
+  thumbnail?: TelegramPhotoSize
 
   [key: string]: any
 }
@@ -712,7 +780,7 @@ export interface TelegramDocument {
   /**
    * *Optional*. Document thumbnail as defined by sender
    */
-  thumb?: TelegramPhotoSize
+  thumbnail?: TelegramPhotoSize
   /**
    * *Optional*. Original filename as defined by sender
    */
@@ -756,7 +824,7 @@ export interface TelegramVideo {
   /**
    * *Optional*. Video thumbnail
    */
-  thumb?: TelegramPhotoSize
+  thumbnail?: TelegramPhotoSize
   /**
    * *Optional*. Original filename as defined by sender
    */
@@ -796,7 +864,7 @@ export interface TelegramVideoNote {
   /**
    * *Optional*. Video thumbnail
    */
-  thumb?: TelegramPhotoSize
+  thumbnail?: TelegramPhotoSize
   /**
    * *Optional*. File size in bytes
    */
@@ -1092,6 +1160,99 @@ export interface TelegramMessageAutoDeleteTimerChanged {
 }
 
 /**
+ * This object represents a service message about a new forum topic created in the chat.
+ */
+export interface TelegramForumTopicCreated {
+  /**
+   * Name of the topic
+   */
+  name: string
+  /**
+   * Color of the topic icon in RGB format
+   */
+  icon_color: number
+  /**
+   * *Optional*. Unique identifier of the custom emoji shown as the topic icon
+   */
+  icon_custom_emoji_id?: string
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a service message about a forum topic closed in the chat. Currently holds no information.
+ */
+export interface TelegramForumTopicClosed { }
+
+/**
+ * This object represents a service message about an edited forum topic.
+ */
+export interface TelegramForumTopicEdited {
+  /**
+   * *Optional*. New name of the topic, if it was edited
+   */
+  name?: string
+  /**
+   * *Optional*. New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed
+   */
+  icon_custom_emoji_id?: string
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a service message about a forum topic reopened in the chat. Currently holds no information.
+ */
+export interface TelegramForumTopicReopened { }
+
+/**
+ * This object represents a service message about General forum topic hidden in the chat. Currently holds no information.
+ */
+export interface TelegramGeneralForumTopicHidden { }
+
+/**
+ * This object represents a service message about General forum topic unhidden in the chat. Currently holds no information.
+ */
+export interface TelegramGeneralForumTopicUnhidden { }
+
+/**
+ * This object contains information about the user whose identifier was shared with the bot using a [KeyboardButtonRequestUser](https://core.telegram.org/bots/api/#keyboardbuttonrequestuser) button.
+ */
+export interface TelegramUserShared {
+  /**
+   * Identifier of the request
+   */
+  request_id: number
+  /**
+   * Identifier of the shared user. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot may not have access to the user and could be unable to use this identifier, unless the user is already known to the bot by some other means.
+   */
+  user_id: number
+
+  [key: string]: any
+}
+
+/**
+ * This object contains information about the chat whose identifier was shared with the bot using a [KeyboardButtonRequestChat](https://core.telegram.org/bots/api/#keyboardbuttonrequestchat) button.
+ */
+export interface TelegramChatShared {
+  /**
+   * Identifier of the request
+   */
+  request_id: number
+  /**
+   * Identifier of the shared chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot may not have access to the chat and could be unable to use this identifier, unless the chat is already known to the bot by some other means.
+   */
+  chat_id: number
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a service message about a user allowing a bot added to the attachment menu to write messages. Currently holds no information.
+ */
+export interface TelegramWriteAccessAllowed { }
+
+/**
  * This object represents a service message about a video chat scheduled in the chat.
  */
 export interface TelegramVideoChatScheduled {
@@ -1187,13 +1348,17 @@ export interface TelegramWebAppInfo {
 }
 
 /**
- * This object represents a [custom keyboard](https://core.telegram.org/bots#keyboards) with reply options (see [Introduction to bots](https://core.telegram.org/bots#keyboards) for details and examples).
+ * This object represents a [custom keyboard](https://core.telegram.org/bots/features#keyboards) with reply options (see [Introduction to bots](https://core.telegram.org/bots/features#keyboards) for details and examples).
  */
 export interface TelegramReplyKeyboardMarkup {
   /**
    * Array of button rows, each represented by an Array of [KeyboardButton](https://core.telegram.org/bots/api/#keyboardbutton) objects
    */
   keyboard: TelegramKeyboardButton[][]
+  /**
+   * *Optional*. Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to *false*, in which case the custom keyboard can be hidden and opened with a keyboard icon.
+   */
+  is_persistent?: boolean
   /**
    * *Optional*. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to *false*, in which case the custom keyboard is always of the same height as the app's standard keyboard.
    */
@@ -1217,13 +1382,21 @@ export interface TelegramReplyKeyboardMarkup {
 }
 
 /**
- * This object represents one button of the reply keyboard. For simple text buttons *String* can be used instead of this object to specify text of the button. Optional fields *web\_app*, *request\_contact*, *request\_location*, and *request\_poll* are mutually exclusive.
+ * This object represents one button of the reply keyboard. For simple text buttons, *String* can be used instead of this object to specify the button text. The optional fields *web\_app*, *request\_user*, *request\_chat*, *request\_contact*, *request\_location*, and *request\_poll* are mutually exclusive.
  */
 export interface TelegramKeyboardButton {
   /**
    * Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
    */
   text: string
+  /**
+   * *Optional.* If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user\_shared” service message. Available in private chats only.
+   */
+  request_user?: TelegramKeyboardButtonRequestUser
+  /**
+   * *Optional.* If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat\_shared” service message. Available in private chats only.
+   */
+  request_chat?: TelegramKeyboardButtonRequestChat
   /**
    * *Optional*. If *True*, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
    */
@@ -1240,6 +1413,66 @@ export interface TelegramKeyboardButton {
    * *Optional*. If specified, the described [Web App](https://core.telegram.org/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a “web\_app\_data” service message. Available in private chats only.
    */
   web_app?: TelegramWebAppInfo
+
+  [key: string]: any
+}
+
+/**
+ * This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed.
+ */
+export interface TelegramKeyboardButtonRequestUser {
+  /**
+   * Signed 32-bit identifier of the request, which will be received back in the [UserShared](https://core.telegram.org/bots/api/#usershared) object. Must be unique within the message
+   */
+  request_id: number
+  /**
+   * *Optional*. Pass *True* to request a bot, pass *False* to request a regular user. If not specified, no additional restrictions are applied.
+   */
+  user_is_bot?: boolean
+  /**
+   * *Optional*. Pass *True* to request a premium user, pass *False* to request a non-premium user. If not specified, no additional restrictions are applied.
+   */
+  user_is_premium?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed.
+ */
+export interface TelegramKeyboardButtonRequestChat {
+  /**
+   * Signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api/#chatshared) object. Must be unique within the message
+   */
+  request_id: number
+  /**
+   * Pass *True* to request a channel chat, pass *False* to request a group or a supergroup chat.
+   */
+  chat_is_channel: boolean
+  /**
+   * *Optional*. Pass *True* to request a forum supergroup, pass *False* to request a non-forum chat. If not specified, no additional restrictions are applied.
+   */
+  chat_is_forum?: boolean
+  /**
+   * *Optional*. Pass *True* to request a supergroup or a channel with a username, pass *False* to request a chat without a username. If not specified, no additional restrictions are applied.
+   */
+  chat_has_username?: boolean
+  /**
+   * *Optional*. Pass *True* to request a chat owned by the user. Otherwise, no additional restrictions are applied.
+   */
+  chat_is_created?: boolean
+  /**
+   * *Optional*. A JSON-serialized object listing the required administrator rights of the user in the chat. The rights must be a superset of *bot\_administrator\_rights*. If not specified, no additional restrictions are applied.
+   */
+  user_administrator_rights?: TelegramChatAdministratorRights
+  /**
+   * *Optional*. A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of *user\_administrator\_rights*. If not specified, no additional restrictions are applied.
+   */
+  bot_administrator_rights?: TelegramChatAdministratorRights
+  /**
+   * *Optional*. Pass *True* to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
+   */
+  bot_is_member?: boolean
 
   [key: string]: any
 }
@@ -1275,7 +1508,7 @@ export interface TelegramReplyKeyboardRemove {
 }
 
 /**
- * This object represents an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) that appears right next to the message it belongs to.
+ * This object represents an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) that appears right next to the message it belongs to.
  */
 export interface TelegramInlineKeyboardMarkup {
   /**
@@ -1369,7 +1602,7 @@ export interface TelegramLoginUrl {
 }
 
 /**
- * This object represents an incoming callback query from a callback button in an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If the button that originated the query was attached to a message sent by the bot, the field *message* will be present. If the button was attached to a message sent via the bot (in [inline mode](https://core.telegram.org/bots/api/#inline-mode)), the field *inline\_message\_id* will be present. Exactly one of the fields *data* or *game\_short\_name* will be present.
+ * This object represents an incoming callback query from a callback button in an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If the button that originated the query was attached to a message sent by the bot, the field *message* will be present. If the button was attached to a message sent via the bot (in [inline mode](https://core.telegram.org/bots/api/#inline-mode)), the field *inline\_message\_id* will be present. Exactly one of the fields *data* or *game\_short\_name* will be present.
  */
 export interface TelegramCallbackQuery {
   /**
@@ -1405,7 +1638,7 @@ export interface TelegramCallbackQuery {
 }
 
 /**
- * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/bots#privacy-mode).
+ * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/bots/features#privacy-mode).
  */
 export interface TelegramForceReply {
   /**
@@ -1517,7 +1750,7 @@ export interface TelegramChatAdministratorRights {
    */
   can_restrict_members: boolean
   /**
-   * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+   * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    */
   can_promote_members: boolean
   /**
@@ -1540,6 +1773,10 @@ export interface TelegramChatAdministratorRights {
    * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
    */
   can_pin_messages?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+   */
+  can_manage_topics?: boolean
 
   [key: string]: any
 }
@@ -1605,7 +1842,7 @@ export interface TelegramChatMemberAdministrator {
    */
   can_restrict_members: boolean
   /**
-   * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+   * *True*, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    */
   can_promote_members: boolean
   /**
@@ -1628,6 +1865,10 @@ export interface TelegramChatMemberAdministrator {
    * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
    */
   can_pin_messages?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+   */
+  can_manage_topics?: boolean
   /**
    * *Optional*. Custom title for this user
    */
@@ -1669,25 +1910,33 @@ export interface TelegramChatMemberRestricted {
    */
   is_member: boolean
   /**
-   * *True*, if the user is allowed to change the chat title, photo and other settings
-   */
-  can_change_info: boolean
-  /**
-   * *True*, if the user is allowed to invite new users to the chat
-   */
-  can_invite_users: boolean
-  /**
-   * *True*, if the user is allowed to pin messages
-   */
-  can_pin_messages: boolean
-  /**
-   * *True*, if the user is allowed to send text messages, contacts, locations and venues
+   * *True*, if the user is allowed to send text messages, contacts, invoices, locations and venues
    */
   can_send_messages: boolean
   /**
-   * *True*, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
+   * *True*, if the user is allowed to send audios
    */
-  can_send_media_messages: boolean
+  can_send_audios: boolean
+  /**
+   * *True*, if the user is allowed to send documents
+   */
+  can_send_documents: boolean
+  /**
+   * *True*, if the user is allowed to send photos
+   */
+  can_send_photos: boolean
+  /**
+   * *True*, if the user is allowed to send videos
+   */
+  can_send_videos: boolean
+  /**
+   * *True*, if the user is allowed to send video notes
+   */
+  can_send_video_notes: boolean
+  /**
+   * *True*, if the user is allowed to send voice notes
+   */
+  can_send_voice_notes: boolean
   /**
    * *True*, if the user is allowed to send polls
    */
@@ -1700,6 +1949,22 @@ export interface TelegramChatMemberRestricted {
    * *True*, if the user is allowed to add web page previews to their messages
    */
   can_add_web_page_previews: boolean
+  /**
+   * *True*, if the user is allowed to change the chat title, photo and other settings
+   */
+  can_change_info: boolean
+  /**
+   * *True*, if the user is allowed to invite new users to the chat
+   */
+  can_invite_users: boolean
+  /**
+   * *True*, if the user is allowed to pin messages
+   */
+  can_pin_messages: boolean
+  /**
+   * *True*, if the user is allowed to create forum topics
+   */
+  can_manage_topics: boolean
   /**
    * Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever
    */
@@ -1789,6 +2054,10 @@ export interface TelegramChatJoinRequest {
    */
   from: TelegramUser
   /**
+   * Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 24 hours to send messages until the join request is processed, assuming no other administrator contacted the user.
+   */
+  user_chat_id: number
+  /**
    * Date the request was sent in Unix time
    */
   date: number
@@ -1809,23 +2078,43 @@ export interface TelegramChatJoinRequest {
  */
 export interface TelegramChatPermissions {
   /**
-   * *Optional*. *True*, if the user is allowed to send text messages, contacts, locations and venues
+   * *Optional*. *True*, if the user is allowed to send text messages, contacts, invoices, locations and venues
    */
   can_send_messages?: boolean
   /**
-   * *Optional*. *True*, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can\_send\_messages
+   * *Optional*. *True*, if the user is allowed to send audios
    */
-  can_send_media_messages?: boolean
+  can_send_audios?: boolean
   /**
-   * *Optional*. *True*, if the user is allowed to send polls, implies can\_send\_messages
+   * *Optional*. *True*, if the user is allowed to send documents
+   */
+  can_send_documents?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to send photos
+   */
+  can_send_photos?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to send videos
+   */
+  can_send_videos?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to send video notes
+   */
+  can_send_video_notes?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to send voice notes
+   */
+  can_send_voice_notes?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to send polls
    */
   can_send_polls?: boolean
   /**
-   * *Optional*. *True*, if the user is allowed to send animations, games, stickers and use inline bots, implies can\_send\_media\_messages
+   * *Optional*. *True*, if the user is allowed to send animations, games, stickers and use inline bots
    */
   can_send_other_messages?: boolean
   /**
-   * *Optional*. *True*, if the user is allowed to add web page previews to their messages, implies can\_send\_media\_messages
+   * *Optional*. *True*, if the user is allowed to add web page previews to their messages
    */
   can_add_web_page_previews?: boolean
   /**
@@ -1840,6 +2129,10 @@ export interface TelegramChatPermissions {
    * *Optional*. *True*, if the user is allowed to pin messages. Ignored in public supergroups
    */
   can_pin_messages?: boolean
+  /**
+   * *Optional*. *True*, if the user is allowed to create forum topics. If omitted defaults to the value of can\_pin\_messages
+   */
+  can_manage_topics?: boolean
 
   [key: string]: any
 }
@@ -1856,6 +2149,30 @@ export interface TelegramChatLocation {
    * Location address; 1-64 characters, as defined by the chat owner
    */
   address: string
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a forum topic.
+ */
+export interface TelegramForumTopic {
+  /**
+   * Unique identifier of the forum topic
+   */
+  message_thread_id: number
+  /**
+   * Name of the topic
+   */
+  name: string
+  /**
+   * Color of the topic icon in RGB format
+   */
+  icon_color: number
+  /**
+   * *Optional*. Unique identifier of the custom emoji shown as the topic icon
+   */
+  icon_custom_emoji_id?: string
 
   [key: string]: any
 }
@@ -1977,6 +2294,30 @@ export interface TelegramBotCommandScopeChatMember {
 }
 
 /**
+ * This object represents the bot's description.
+ */
+export interface TelegramBotDescription {
+  /**
+   * The bot's description
+   */
+  description: string
+
+  [key: string]: any
+}
+
+/**
+ * This object represents the bot's short description.
+ */
+export interface TelegramBotShortDescription {
+  /**
+   * The bot's short description
+   */
+  short_description: string
+
+  [key: string]: any
+}
+
+/**
  * Represents a menu button, which opens the bot's list of commands.
  */
 export interface TelegramMenuButtonCommands {
@@ -2060,6 +2401,10 @@ export interface TelegramInputMediaPhoto {
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: TelegramMessageEntity[]
+  /**
+   * *Optional*. Pass *True* if the photo needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean
 
   [key: string]: any
 }
@@ -2079,7 +2424,7 @@ export interface TelegramInputMediaVideo {
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
    */
@@ -2108,6 +2453,10 @@ export interface TelegramInputMediaVideo {
    * *Optional*. Pass *True* if the uploaded video is suitable for streaming
    */
   supports_streaming?: boolean
+  /**
+   * *Optional*. Pass *True* if the video needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean
 
   [key: string]: any
 }
@@ -2127,7 +2476,7 @@ export interface TelegramInputMediaAnimation {
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * *Optional*. Caption of the animation to be sent, 0-1024 characters after entities parsing
    */
@@ -2152,6 +2501,10 @@ export interface TelegramInputMediaAnimation {
    * *Optional*. Animation duration in seconds
    */
   duration?: number
+  /**
+   * *Optional*. Pass *True* if the animation needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean
 
   [key: string]: any
 }
@@ -2171,7 +2524,7 @@ export interface TelegramInputMediaAudio {
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * *Optional*. Caption of the audio to be sent, 0-1024 characters after entities parsing
    */
@@ -2215,7 +2568,7 @@ export interface TelegramInputMediaDocument {
   /**
    * *Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * *Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing
    */
@@ -2278,7 +2631,7 @@ export interface TelegramSticker {
   /**
    * *Optional*. Sticker thumbnail in the .WEBP or .JPG format
    */
-  thumb?: TelegramPhotoSize
+  thumbnail?: TelegramPhotoSize
   /**
    * *Optional*. Emoji associated with the sticker
    */
@@ -2299,6 +2652,10 @@ export interface TelegramSticker {
    * *Optional*. For custom emoji stickers, unique identifier of the custom emoji
    */
   custom_emoji_id?: string
+  /**
+   * *Optional*. *True*, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
+   */
+  needs_repainting?: boolean
   /**
    * *Optional*. File size in bytes
    */
@@ -2340,7 +2697,7 @@ export interface TelegramStickerSet {
   /**
    * *Optional*. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
    */
-  thumb?: TelegramPhotoSize
+  thumbnail?: TelegramPhotoSize
 
   [key: string]: any
 }
@@ -2367,6 +2724,30 @@ export interface TelegramMaskPosition {
    * Mask scaling coefficient. For example, 2.0 means double size.
    */
   scale: number
+
+  [key: string]: any
+}
+
+/**
+ * This object describes a sticker to be added to a sticker set.
+ */
+export interface TelegramInputSticker {
+  /**
+   * The added sticker. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. Animated and video stickers can't be uploaded via HTTP URL. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   */
+  sticker: MediaInput
+  /**
+   * List of 1-20 emoji associated with the sticker
+   */
+  emoji_list: string[]
+  /**
+   * *Optional*. Position where the mask should be placed on faces. For “mask” stickers only.
+   */
+  mask_position?: TelegramMaskPosition
+  /**
+   * *Optional*. List of 0-20 search keywords for the sticker with total length of up to 64 characters. For “regular” and “custom\_emoji” stickers only.
+   */
+  keywords?: string[]
 
   [key: string]: any
 }
@@ -2426,7 +2807,7 @@ export interface TelegramInlineQueryResultArticle {
    */
   input_message_content: TelegramInputMessageContent
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2444,15 +2825,15 @@ export interface TelegramInlineQueryResultArticle {
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string
+  thumbnail_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number
+  thumbnail_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number
+  thumbnail_height?: number
 
   [key: string]: any
 }
@@ -2476,7 +2857,7 @@ export interface TelegramInlineQueryResultPhoto {
   /**
    * URL of the thumbnail for the photo
    */
-  thumb_url: string
+  thumbnail_url: string
   /**
    * *Optional*. Width of the photo
    */
@@ -2506,7 +2887,7 @@ export interface TelegramInlineQueryResultPhoto {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2517,7 +2898,7 @@ export interface TelegramInlineQueryResultPhoto {
   [key: string]: any
 }
 
-export type TelegramInlineQueryResultGifThumbMimeType = 'image/jpeg' | 'image/gif' | 'video/mp4'
+export type TelegramInlineQueryResultGifThumbnailMimeType = 'image/jpeg' | 'image/gif' | 'video/mp4'
 
 /**
  * Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the animation.
@@ -2550,11 +2931,11 @@ export interface TelegramInlineQueryResultGif {
   /**
    * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
    */
-  thumb_url: string
+  thumbnail_url: string
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: SoftString<TelegramInlineQueryResultGifThumbMimeType>
+  thumbnail_mime_type?: SoftString<TelegramInlineQueryResultGifThumbnailMimeType>
   /**
    * *Optional*. Title for the result
    */
@@ -2572,7 +2953,7 @@ export interface TelegramInlineQueryResultGif {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2583,7 +2964,7 @@ export interface TelegramInlineQueryResultGif {
   [key: string]: any
 }
 
-export type TelegramInlineQueryResultMpeg4GifThumbMimeType = 'image/jpeg' | 'image/gif' | 'video/mp4'
+export type TelegramInlineQueryResultMpeg4GifThumbnailMimeType = 'image/jpeg' | 'image/gif' | 'video/mp4'
 
 /**
  * Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the animation.
@@ -2616,11 +2997,11 @@ export interface TelegramInlineQueryResultMpeg4Gif {
   /**
    * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
    */
-  thumb_url: string
+  thumbnail_url: string
   /**
    * *Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumb_mime_type?: SoftString<TelegramInlineQueryResultMpeg4GifThumbMimeType>
+  thumbnail_mime_type?: SoftString<TelegramInlineQueryResultMpeg4GifThumbnailMimeType>
   /**
    * *Optional*. Title for the result
    */
@@ -2638,7 +3019,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2676,7 +3057,7 @@ export interface TelegramInlineQueryResultVideo {
   /**
    * URL of the thumbnail (JPEG only) for the video
    */
-  thumb_url: string
+  thumbnail_url: string
   /**
    * Title for the result
    */
@@ -2710,7 +3091,7 @@ export interface TelegramInlineQueryResultVideo {
    */
   description?: string
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2762,7 +3143,7 @@ export interface TelegramInlineQueryResultAudio {
    */
   audio_duration?: number
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2810,7 +3191,7 @@ export interface TelegramInlineQueryResultVoice {
    */
   voice_duration?: number
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2874,15 +3255,15 @@ export interface TelegramInlineQueryResultDocument {
   /**
    * *Optional*. URL of the thumbnail (JPEG only) for the file
    */
-  thumb_url?: string
+  thumbnail_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number
+  thumbnail_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number
+  thumbnail_height?: number
 
   [key: string]: any
 }
@@ -2928,7 +3309,7 @@ export interface TelegramInlineQueryResultLocation {
    */
   proximity_alert_radius?: number
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -2938,15 +3319,15 @@ export interface TelegramInlineQueryResultLocation {
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string
+  thumbnail_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number
+  thumbnail_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number
+  thumbnail_height?: number
 
   [key: string]: any
 }
@@ -2996,7 +3377,7 @@ export interface TelegramInlineQueryResultVenue {
    */
   google_place_type?: string
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3006,15 +3387,15 @@ export interface TelegramInlineQueryResultVenue {
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string
+  thumbnail_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number
+  thumbnail_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number
+  thumbnail_height?: number
 
   [key: string]: any
 }
@@ -3048,7 +3429,7 @@ export interface TelegramInlineQueryResultContact {
    */
   vcard?: string
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3058,15 +3439,15 @@ export interface TelegramInlineQueryResultContact {
   /**
    * *Optional*. Url of the thumbnail for the result
    */
-  thumb_url?: string
+  thumbnail_url?: string
   /**
    * *Optional*. Thumbnail width
    */
-  thumb_width?: number
+  thumbnail_width?: number
   /**
    * *Optional*. Thumbnail height
    */
-  thumb_height?: number
+  thumbnail_height?: number
 
   [key: string]: any
 }
@@ -3088,7 +3469,7 @@ export interface TelegramInlineQueryResultGame {
    */
   game_short_name: string
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
 
@@ -3132,7 +3513,7 @@ export interface TelegramInlineQueryResultCachedPhoto {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3176,7 +3557,7 @@ export interface TelegramInlineQueryResultCachedGif {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3220,7 +3601,7 @@ export interface TelegramInlineQueryResultCachedMpeg4Gif {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3248,7 +3629,7 @@ export interface TelegramInlineQueryResultCachedSticker {
    */
   sticker_file_id: string
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3296,7 +3677,7 @@ export interface TelegramInlineQueryResultCachedDocument {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3344,7 +3725,7 @@ export interface TelegramInlineQueryResultCachedVideo {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3388,7 +3769,7 @@ export interface TelegramInlineQueryResultCachedVoice {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -3428,7 +3809,7 @@ export interface TelegramInlineQueryResultCachedAudio {
    */
   caption_entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. [Inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating) attached to the message
+   * *Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message
    */
   reply_markup?: ReplyMarkupUnion
   /**
@@ -4312,7 +4693,7 @@ export type ReplyMarkupUnion =
   | TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply
   | Keyboard | KeyboardBuilder | InlineKeyboard | InlineKeyboardBuilder | ForceReply | RemoveKeyboard
 
-export type Currency = SoftString<'AED' | 'AFN' | 'ALL' | 'AMD' | 'ARS' | 'AUD' | 'AZN' | 'BAM' | 'BDT' | 'BGN' | 'BND' | 'BOB' | 'BRL' | 'CAD' | 'CHF' | 'CLP' | 'CNY' | 'COP' | 'CRC' | 'CZK' | 'DKK' | 'DOP' | 'DZD' | 'EGP' | 'EUR' | 'GBP' | 'GEL' | 'GTQ' | 'HKD' | 'HNL' | 'HRK' | 'HUF' | 'IDR' | 'ILS' | 'INR' | 'ISK' | 'JMD' | 'JPY' | 'KES' | 'KGS' | 'KRW' | 'KZT' | 'LBP' | 'LKR' | 'MAD' | 'MDL' | 'MNT' | 'MUR' | 'MVR' | 'MXN' | 'MYR' | 'MZN' | 'NGN' | 'NIO' | 'NOK' | 'NPR' | 'NZD' | 'PAB' | 'PEN' | 'PHP' | 'PKR' | 'PLN' | 'PYG' | 'QAR' | 'RON' | 'RSD' | 'RUB' | 'SAR' | 'SEK' | 'SGD' | 'THB' | 'TJS' | 'TRY' | 'TTD' | 'TWD' | 'TZS' | 'UAH' | 'UGX' | 'USD' | 'UYU' | 'UZS' | 'VND' | 'YER' | 'ZAR'>
+export type Currency = SoftString<'AED' | 'AFN' | 'ALL' | 'AMD' | 'ARS' | 'AUD' | 'AZN' | 'BAM' | 'BDT' | 'BGN' | 'BND' | 'BOB' | 'BRL' | 'BYN' | 'CAD' | 'CHF' | 'CLP' | 'CNY' | 'COP' | 'CRC' | 'CZK' | 'DKK' | 'DOP' | 'DZD' | 'EGP' | 'ETB' | 'EUR' | 'GBP' | 'GEL' | 'GTQ' | 'HKD' | 'HNL' | 'HRK' | 'HUF' | 'IDR' | 'ILS' | 'INR' | 'ISK' | 'JMD' | 'JPY' | 'KES' | 'KGS' | 'KRW' | 'KZT' | 'LBP' | 'LKR' | 'MAD' | 'MDL' | 'MNT' | 'MUR' | 'MVR' | 'MXN' | 'MYR' | 'MZN' | 'NGN' | 'NIO' | 'NOK' | 'NPR' | 'NZD' | 'PAB' | 'PEN' | 'PHP' | 'PKR' | 'PLN' | 'PYG' | 'QAR' | 'RON' | 'RSD' | 'RUB' | 'SAR' | 'SEK' | 'SGD' | 'THB' | 'TJS' | 'TRY' | 'TTD' | 'TWD' | 'TZS' | 'UAH' | 'UGX' | 'USD' | 'UYU' | 'UZS' | 'VND' | 'YER' | 'ZAR'>
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:

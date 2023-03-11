@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.2.0, 12.08.2022
-/// Generation date: 12.08.2022 21:44:05 MSK
+/// Based on Bot API v6.6.0, 09.03.2023
+/// Generation date: 10.03.2023 04:10:27 MSK
 
 import * as api from './methods'
 
@@ -164,22 +164,6 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#sendlocation)
    */
   sendLocation: api.sendLocation
-  /**
-   * Use this method to edit live location messages. A location can be edited until its *live\_period* expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](https://core.telegram.org/bots/api/#stopmessagelivelocation). On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
-   * 
-   * ---
-   * 
-   * [**Documentation**](https://core.telegram.org/bots/api/#editmessagelivelocation)
-   */
-  editMessageLiveLocation: api.editMessageLiveLocation
-  /**
-   * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
-   * 
-   * ---
-   * 
-   * [**Documentation**](https://core.telegram.org/bots/api/#stopmessagelivelocation)
-   */
-  stopMessageLiveLocation: api.stopMessageLiveLocation
   /**
    * Use this method to send information about a venue. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
    * 
@@ -441,7 +425,7 @@ export interface ApiMethods {
    */
   getChatMemberCount: api.getChatMemberCount
   /**
-   * Use this method to get information about a member of a chat. Returns a [ChatMember](https://core.telegram.org/bots/api/#chatmember) object on success.
+   * Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the bot is an administrator in the chat. Returns a [ChatMember](https://core.telegram.org/bots/api/#chatmember) object on success.
    * 
    * ---
    * 
@@ -465,7 +449,103 @@ export interface ApiMethods {
    */
   deleteChatStickerSet: api.deleteChatStickerSet
   /**
-   * Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
+   * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of [Sticker](https://core.telegram.org/bots/api/#sticker) objects.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getforumtopiciconstickers)
+   */
+  getForumTopicIconStickers: api.getForumTopicIconStickers
+  /**
+   * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns information about the created topic as a [ForumTopic](https://core.telegram.org/bots/api/#forumtopic) object.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#createforumtopic)
+   */
+  createForumTopic: api.createForumTopic
+  /**
+   * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#editforumtopic)
+   */
+  editForumTopic: api.editForumTopic
+  /**
+   * Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#closeforumtopic)
+   */
+  closeForumTopic: api.closeForumTopic
+  /**
+   * Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#reopenforumtopic)
+   */
+  reopenForumTopic: api.reopenForumTopic
+  /**
+   * Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_delete\_messages* administrator rights. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#deleteforumtopic)
+   */
+  deleteForumTopic: api.deleteForumTopic
+  /**
+   * Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the *can\_pin\_messages* administrator right in the supergroup. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#unpinallforumtopicmessages)
+   */
+  unpinAllForumTopicMessages: api.unpinAllForumTopicMessages
+  /**
+   * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have *can\_manage\_topics* administrator rights. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#editgeneralforumtopic)
+   */
+  editGeneralForumTopic: api.editGeneralForumTopic
+  /**
+   * Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#closegeneralforumtopic)
+   */
+  closeGeneralForumTopic: api.closeGeneralForumTopic
+  /**
+   * Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. The topic will be automatically unhidden if it was hidden. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#reopengeneralforumtopic)
+   */
+  reopenGeneralForumTopic: api.reopenGeneralForumTopic
+  /**
+   * Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. The topic will be automatically closed if it was open. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#hidegeneralforumtopic)
+   */
+  hideGeneralForumTopic: api.hideGeneralForumTopic
+  /**
+   * Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#unhidegeneralforumtopic)
+   */
+  unhideGeneralForumTopic: api.unhideGeneralForumTopic
+  /**
+   * Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots/features#inline-keyboards). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
    * 
    * Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@BotFather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
    * 
@@ -475,7 +555,7 @@ export interface ApiMethods {
    */
   answerCallbackQuery: api.answerCallbackQuery
   /**
-   * Use this method to change the list of the bot's commands. See [https://core.telegram.org/bots#commands](https://core.telegram.org/bots#commands) for more details about bot commands. Returns *True* on success.
+   * Use this method to change the list of the bot's commands. See [this manual](https://core.telegram.org/bots/features#commands) for more details about bot commands. Returns *True* on success.
    * 
    * ---
    * 
@@ -499,6 +579,38 @@ export interface ApiMethods {
    */
   getMyCommands: api.getMyCommands
   /**
+   * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setmydescription)
+   */
+  setMyDescription: api.setMyDescription
+  /**
+   * Use this method to get the current bot description for the given user language. Returns [BotDescription](https://core.telegram.org/bots/api/#botdescription) on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getmydescription)
+   */
+  getMyDescription: api.getMyDescription
+  /**
+   * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setmyshortdescription)
+   */
+  setMyShortDescription: api.setMyShortDescription
+  /**
+   * Use this method to get the current bot short description for the given user language. Returns [BotShortDescription](https://core.telegram.org/bots/api/#botshortdescription) on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getmyshortdescription)
+   */
+  getMyShortDescription: api.getMyShortDescription
+  /**
    * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns *True* on success.
    * 
    * ---
@@ -515,7 +627,7 @@ export interface ApiMethods {
    */
   getChatMenuButton: api.getChatMenuButton
   /**
-   * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns *True* on success.
+   * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns *True* on success.
    * 
    * ---
    * 
@@ -555,6 +667,22 @@ export interface ApiMethods {
    */
   editMessageMedia: api.editMessageMedia
   /**
+   * Use this method to edit live location messages. A location can be edited until its *live\_period* expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](https://core.telegram.org/bots/api/#stopmessagelivelocation). On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#editmessagelivelocation)
+   */
+  editMessageLiveLocation: api.editMessageLiveLocation
+  /**
+   * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#stopmessagelivelocation)
+   */
+  stopMessageLiveLocation: api.stopMessageLiveLocation
+  /**
    * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
    * 
    * ---
@@ -573,6 +701,7 @@ export interface ApiMethods {
   /**
    * Use this method to delete a message, including service messages, with the following limitations:  
    * \- A message can only be deleted if it was sent less than 48 hours ago.  
+   * \- Service messages about a supergroup, channel, or forum topic creation can't be deleted.  
    * \- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.  
    * \- Bots can delete outgoing messages in private chats, groups, and supergroups.  
    * \- Bots can delete incoming messages in private chats.  
@@ -611,7 +740,7 @@ export interface ApiMethods {
    */
   getCustomEmojiStickers: api.getCustomEmojiStickers
   /**
-   * Use this method to upload a .PNG file with a sticker for later use in *createNewStickerSet* and *addStickerToSet* methods (can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api/#file) on success.
+   * Use this method to upload a file with a sticker for later use in the [createNewStickerSet](https://core.telegram.org/bots/api/#createnewstickerset) and [addStickerToSet](https://core.telegram.org/bots/api/#addstickertoset) methods (the file can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api/#file) on success.
    * 
    * ---
    * 
@@ -619,7 +748,7 @@ export interface ApiMethods {
    */
   uploadStickerFile: api.uploadStickerFile
   /**
-   * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Returns *True* on success.
+   * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns *True* on success.
    * 
    * ---
    * 
@@ -627,7 +756,7 @@ export interface ApiMethods {
    */
   createNewStickerSet: api.createNewStickerSet
   /**
-   * Use this method to add a new sticker to a set created by the bot. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
+   * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
    * 
    * ---
    * 
@@ -651,13 +780,61 @@ export interface ApiMethods {
    */
   deleteStickerFromSet: api.deleteStickerFromSet
   /**
-   * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Video thumbnails can be set only for video sticker sets only. Returns *True* on success.
+   * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns *True* on success.
    * 
    * ---
    * 
-   * [**Documentation**](https://core.telegram.org/bots/api/#setstickersetthumb)
+   * [**Documentation**](https://core.telegram.org/bots/api/#setstickeremojilist)
    */
-  setStickerSetThumb: api.setStickerSetThumb
+  setStickerEmojiList: api.setStickerEmojiList
+  /**
+   * Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setstickerkeywords)
+   */
+  setStickerKeywords: api.setStickerKeywords
+  /**
+   * Use this method to change the [mask position](https://core.telegram.org/bots/api/#maskposition) of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setstickermaskposition)
+   */
+  setStickerMaskPosition: api.setStickerMaskPosition
+  /**
+   * Use this method to set the title of a created sticker set. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setstickersettitle)
+   */
+  setStickerSetTitle: api.setStickerSetTitle
+  /**
+   * Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setstickersetthumbnail)
+   */
+  setStickerSetThumbnail: api.setStickerSetThumbnail
+  /**
+   * Use this method to set the thumbnail of a custom emoji sticker set. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setcustomemojistickersetthumbnail)
+   */
+  setCustomEmojiStickerSetThumbnail: api.setCustomEmojiStickerSetThumbnail
+  /**
+   * Use this method to delete a sticker set that was created by the bot. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#deletestickerset)
+   */
+  deleteStickerSet: api.deleteStickerSet
   /**
    * Use this method to send answers to an inline query. On success, *True* is returned.  
    * No more than **50** results per query are allowed.

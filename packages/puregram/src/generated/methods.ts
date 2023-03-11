@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.2.0, 12.08.2022
-/// Generation date: 12.08.2022 21:44:05 MSK
+/// Based on Bot API v6.6.0, 09.03.2023
+/// Generation date: 10.03.2023 04:10:27 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -149,6 +149,10 @@ export interface SendMessageParams {
    */
   chat_id: number | string
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * Text of the message to be sent, 1-4096 characters after entities parsing
    */
   text: string
@@ -181,7 +185,7 @@ export interface SendMessageParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -202,6 +206,10 @@ export interface ForwardMessageParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
    */
@@ -236,6 +244,10 @@ export interface CopyMessageParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)
    */
@@ -273,7 +285,7 @@ export interface CopyMessageParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -295,6 +307,10 @@ export interface SendPhotoParams {
    */
   chat_id: number | string
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * Photo to send. Pass a file\_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   photo: MediaInput
@@ -310,6 +326,10 @@ export interface SendPhotoParams {
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
+  /**
+   * Pass *True* if the photo needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -327,7 +347,7 @@ export interface SendPhotoParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -348,6 +368,10 @@ export interface SendAudioParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Audio file to send. Pass a file\_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
@@ -379,7 +403,7 @@ export interface SendAudioParams {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -397,7 +421,7 @@ export interface SendAudioParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -421,13 +445,17 @@ export interface SendDocumentParams {
    */
   chat_id: number | string
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * File to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   document: MediaInput
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * Document caption (may also be used when resending documents by *file\_id*), 0-1024 characters after entities parsing
    */
@@ -461,7 +489,7 @@ export interface SendDocumentParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -483,6 +511,10 @@ export interface SendVideoParams {
    */
   chat_id: number | string
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * Video to send. Pass a file\_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   video: MediaInput
@@ -501,7 +533,7 @@ export interface SendVideoParams {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * Video caption (may also be used when resending videos by *file\_id*), 0-1024 characters after entities parsing
    */
@@ -514,6 +546,10 @@ export interface SendVideoParams {
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
+  /**
+   * Pass *True* if the video needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean
   /**
    * Pass *True* if the uploaded video is suitable for streaming
    */
@@ -535,7 +571,7 @@ export interface SendVideoParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -557,6 +593,10 @@ export interface SendAnimationParams {
    */
   chat_id: number | string
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * Animation to send. Pass a file\_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   animation: MediaInput
@@ -575,7 +615,7 @@ export interface SendAnimationParams {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * Animation caption (may also be used when resending animation by *file\_id*), 0-1024 characters after entities parsing
    */
@@ -588,6 +628,10 @@ export interface SendAnimationParams {
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
   caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
+  /**
+   * Pass *True* if the animation needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -605,7 +649,7 @@ export interface SendAnimationParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -626,6 +670,10 @@ export interface SendVoiceParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Audio file to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
@@ -663,7 +711,7 @@ export interface SendVoiceParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -685,6 +733,10 @@ export interface SendVideoNoteParams {
    */
   chat_id: number | string
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Sending video notes by a URL is currently unsupported
    */
   video_note: MediaInput
@@ -699,7 +751,7 @@ export interface SendVideoNoteParams {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://\<file\_attach\_name\>” if the thumbnail was uploaded using multipart/form-data under \<file\_attach\_name\>. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -717,7 +769,7 @@ export interface SendVideoNoteParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -738,6 +790,10 @@ export interface SendMediaGroupParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * A JSON-serialized array describing messages to be sent, must include 2-10 items
    */
@@ -776,6 +832,10 @@ export interface SendLocationParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Latitude of the location
    */
@@ -817,7 +877,7 @@ export interface SendLocationParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -833,91 +893,15 @@ export interface SendLocationParams {
  */
 export type sendLocation = (params: SendLocationParams) => Promise<Interfaces.TelegramMessage>
 
-export interface EditMessageLiveLocationParams {
-  /**
-   * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-   */
-  chat_id?: number | string
-  /**
-   * Required if *inline\_message\_id* is not specified. Identifier of the message to edit
-   */
-  message_id?: number
-  /**
-   * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-   */
-  inline_message_id?: string
-  /**
-   * Latitude of new location
-   */
-  latitude: number
-  /**
-   * Longitude of new location
-   */
-  longitude: number
-  /**
-   * The radius of uncertainty for the location, measured in meters; 0-1500
-   */
-  horizontal_accuracy?: number
-  /**
-   * Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
-   */
-  heading?: number
-  /**
-   * The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
-   */
-  proximity_alert_radius?: number
-  /**
-   * A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
-   */
-  reply_markup?: Interfaces.ReplyMarkupUnion
-
-  [key: string]: any
-}
-
-/**
- * Use this method to edit live location messages. A location can be edited until its *live\_period* expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](https://core.telegram.org/bots/api/#stopmessagelivelocation). On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
- * 
- * ---
- * 
- * [**Documentation**](https://core.telegram.org/bots/api/#editmessagelivelocation)
- */
-export type editMessageLiveLocation = (params: EditMessageLiveLocationParams) => Promise<Interfaces.TelegramMessage | true>
-
-export interface StopMessageLiveLocationParams {
-  /**
-   * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
-   */
-  chat_id?: number | string
-  /**
-   * Required if *inline\_message\_id* is not specified. Identifier of the message with live location to stop
-   */
-  message_id?: number
-  /**
-   * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
-   */
-  inline_message_id?: string
-  /**
-   * A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
-   */
-  reply_markup?: Interfaces.ReplyMarkupUnion
-
-  [key: string]: any
-}
-
-/**
- * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
- * 
- * ---
- * 
- * [**Documentation**](https://core.telegram.org/bots/api/#stopmessagelivelocation)
- */
-export type stopMessageLiveLocation = (params?: StopMessageLiveLocationParams) => Promise<Interfaces.TelegramMessage | true>
-
 export interface SendVenueParams {
   /**
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Latitude of the venue
    */
@@ -967,7 +951,7 @@ export interface SendVenueParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -988,6 +972,10 @@ export interface SendContactParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Contact's phone number
    */
@@ -1021,7 +1009,7 @@ export interface SendContactParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -1044,6 +1032,10 @@ export interface SendPollParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Poll question, 1-300 characters
    */
@@ -1109,7 +1101,7 @@ export interface SendPollParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -1133,6 +1125,10 @@ export interface SendDiceParams {
    */
   chat_id: number | string
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
    */
   emoji?: SoftString<SendDiceEmoji>
@@ -1153,7 +1149,7 @@ export interface SendDiceParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -1176,6 +1172,10 @@ export interface SendChatActionParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread; supergroups only
+   */
+  message_thread_id?: number
   /**
    * Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](https://core.telegram.org/bots/api/#sendmessage), *upload\_photo* for [photos](https://core.telegram.org/bots/api/#sendphoto), *record\_video* or *upload\_video* for [videos](https://core.telegram.org/bots/api/#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](https://core.telegram.org/bots/api/#sendvoice), *upload\_document* for [general files](https://core.telegram.org/bots/api/#senddocument), *choose\_sticker* for [stickers](https://core.telegram.org/bots/api/#sendsticker), *find\_location* for [location data](https://core.telegram.org/bots/api/#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](https://core.telegram.org/bots/api/#sendvideonote).
    */
@@ -1311,6 +1311,10 @@ export interface RestrictChatMemberParams {
    */
   permissions: Interfaces.TelegramChatPermissions
   /**
+   * Pass *True* if chat permissions are set independently. Otherwise, the *can\_send\_other\_messages* and *can\_add\_web\_page\_previews* permissions will imply the *can\_send\_messages*, *can\_send\_audios*, *can\_send\_documents*, *can\_send\_photos*, *can\_send\_videos*, *can\_send\_video\_notes*, and *can\_send\_voice\_notes* permissions; the *can\_send\_polls* permission will imply the *can\_send\_messages* permission.
+   */
+  use_independent_chat_permissions?: boolean
+  /**
    * Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
    */
   until_date?: number
@@ -1365,7 +1369,7 @@ export interface PromoteChatMemberParams {
    */
   can_restrict_members?: boolean
   /**
-   * Pass *True* if the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
+   * Pass *True* if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)
    */
   can_promote_members?: boolean
   /**
@@ -1380,6 +1384,10 @@ export interface PromoteChatMemberParams {
    * Pass *True* if the administrator can pin messages, supergroups only
    */
   can_pin_messages?: boolean
+  /**
+   * Pass *True* if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
+   */
+  can_manage_topics?: boolean
 
   [key: string]: any
 }
@@ -1472,6 +1480,10 @@ export interface SetChatPermissionsParams {
    * A JSON-serialized object for new default chat permissions
    */
   permissions: Interfaces.TelegramChatPermissions
+  /**
+   * Pass *True* if chat permissions are set independently. Otherwise, the *can\_send\_other\_messages* and *can\_add\_web\_page\_previews* permissions will imply the *can\_send\_messages*, *can\_send\_audios*, *can\_send\_documents*, *can\_send\_photos*, *can\_send\_videos*, *can\_send\_video\_notes*, and *can\_send\_voice\_notes* permissions; the *can\_send\_polls* permission will imply the *can\_send\_messages* permission.
+   */
+  use_independent_chat_permissions?: boolean
 
   [key: string]: any
 }
@@ -1687,7 +1699,7 @@ export interface SetChatTitleParams {
    */
   chat_id: number | string
   /**
-   * New chat title, 1-255 characters
+   * New chat title, 1-128 characters
    */
   title: string
 
@@ -1877,7 +1889,7 @@ export interface GetChatMemberParams {
 }
 
 /**
- * Use this method to get information about a member of a chat. Returns a [ChatMember](https://core.telegram.org/bots/api/#chatmember) object on success.
+ * Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the bot is an administrator in the chat. Returns a [ChatMember](https://core.telegram.org/bots/api/#chatmember) object on success.
  * 
  * ---
  * 
@@ -1925,6 +1937,257 @@ export interface DeleteChatStickerSetParams {
  */
 export type deleteChatStickerSet = (params: DeleteChatStickerSetParams) => Promise<true>
 
+/**
+ * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of [Sticker](https://core.telegram.org/bots/api/#sticker) objects.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#getforumtopiciconstickers)
+ */
+export type getForumTopicIconStickers = () => Promise<Interfaces.TelegramSticker[]>
+
+export interface CreateForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+  /**
+   * Topic name, 1-128 characters
+   */
+  name: string
+  /**
+   * Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)
+   */
+  icon_color?: number
+  /**
+   * Unique identifier of the custom emoji shown as the topic icon. Use [getForumTopicIconStickers](https://core.telegram.org/bots/api/#getforumtopiciconstickers) to get all allowed custom emoji identifiers.
+   */
+  icon_custom_emoji_id?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns information about the created topic as a [ForumTopic](https://core.telegram.org/bots/api/#forumtopic) object.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#createforumtopic)
+ */
+export type createForumTopic = (params: CreateForumTopicParams) => Promise<Interfaces.TelegramForumTopic>
+
+export interface EditForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier for the target message thread of the forum topic
+   */
+  message_thread_id: number
+  /**
+   * New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept
+   */
+  name?: string
+  /**
+   * New unique identifier of the custom emoji shown as the topic icon. Use [getForumTopicIconStickers](https://core.telegram.org/bots/api/#getforumtopiciconstickers) to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
+   */
+  icon_custom_emoji_id?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#editforumtopic)
+ */
+export type editForumTopic = (params: EditForumTopicParams) => Promise<true>
+
+export interface CloseForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier for the target message thread of the forum topic
+   */
+  message_thread_id: number
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#closeforumtopic)
+ */
+export type closeForumTopic = (params: CloseForumTopicParams) => Promise<true>
+
+export interface ReopenForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier for the target message thread of the forum topic
+   */
+  message_thread_id: number
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights, unless it is the creator of the topic. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#reopenforumtopic)
+ */
+export type reopenForumTopic = (params: ReopenForumTopicParams) => Promise<true>
+
+export interface DeleteForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier for the target message thread of the forum topic
+   */
+  message_thread_id: number
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_delete\_messages* administrator rights. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#deleteforumtopic)
+ */
+export type deleteForumTopic = (params: DeleteForumTopicParams) => Promise<true>
+
+export interface UnpinAllForumTopicMessagesParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier for the target message thread of the forum topic
+   */
+  message_thread_id: number
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the *can\_pin\_messages* administrator right in the supergroup. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#unpinallforumtopicmessages)
+ */
+export type unpinAllForumTopicMessages = (params: UnpinAllForumTopicMessagesParams) => Promise<true>
+
+export interface EditGeneralForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+  /**
+   * New topic name, 1-128 characters
+   */
+  name: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have *can\_manage\_topics* administrator rights. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#editgeneralforumtopic)
+ */
+export type editGeneralForumTopic = (params: EditGeneralForumTopicParams) => Promise<true>
+
+export interface CloseGeneralForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#closegeneralforumtopic)
+ */
+export type closeGeneralForumTopic = (params: CloseGeneralForumTopicParams) => Promise<true>
+
+export interface ReopenGeneralForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. The topic will be automatically unhidden if it was hidden. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#reopengeneralforumtopic)
+ */
+export type reopenGeneralForumTopic = (params: ReopenGeneralForumTopicParams) => Promise<true>
+
+export interface HideGeneralForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. The topic will be automatically closed if it was open. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#hidegeneralforumtopic)
+ */
+export type hideGeneralForumTopic = (params: HideGeneralForumTopicParams) => Promise<true>
+
+export interface UnhideGeneralForumTopicParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#unhidegeneralforumtopic)
+ */
+export type unhideGeneralForumTopic = (params: UnhideGeneralForumTopicParams) => Promise<true>
+
 export interface AnswerCallbackQueryParams {
   /**
    * Unique identifier for the query to be answered
@@ -1953,7 +2216,7 @@ export interface AnswerCallbackQueryParams {
 }
 
 /**
- * Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
+ * Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots/features#inline-keyboards). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
  * 
  * Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@BotFather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
  * 
@@ -1981,7 +2244,7 @@ export interface SetMyCommandsParams {
 }
 
 /**
- * Use this method to change the list of the bot's commands. See [https://core.telegram.org/bots#commands](https://core.telegram.org/bots#commands) for more details about bot commands. Returns *True* on success.
+ * Use this method to change the list of the bot's commands. See [this manual](https://core.telegram.org/bots/features#commands) for more details about bot commands. Returns *True* on success.
  * 
  * ---
  * 
@@ -2032,6 +2295,86 @@ export interface GetMyCommandsParams {
  * [**Documentation**](https://core.telegram.org/bots/api/#getmycommands)
  */
 export type getMyCommands = (params?: GetMyCommandsParams) => Promise<Interfaces.TelegramBotCommand[]>
+
+export interface SetMyDescriptionParams {
+  /**
+   * New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
+   */
+  description?: string
+  /**
+   * A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+   */
+  language_code?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setmydescription)
+ */
+export type setMyDescription = (params?: SetMyDescriptionParams) => Promise<true>
+
+export interface GetMyDescriptionParams {
+  /**
+   * A two-letter ISO 639-1 language code or an empty string
+   */
+  language_code?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to get the current bot description for the given user language. Returns [BotDescription](https://core.telegram.org/bots/api/#botdescription) on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#getmydescription)
+ */
+export type getMyDescription = (params?: GetMyDescriptionParams) => Promise<Interfaces.TelegramBotDescription>
+
+export interface SetMyShortDescriptionParams {
+  /**
+   * New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+   */
+  short_description?: string
+  /**
+   * A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+   */
+  language_code?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setmyshortdescription)
+ */
+export type setMyShortDescription = (params?: SetMyShortDescriptionParams) => Promise<true>
+
+export interface GetMyShortDescriptionParams {
+  /**
+   * A two-letter ISO 639-1 language code or an empty string
+   */
+  language_code?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to get the current bot short description for the given user language. Returns [BotShortDescription](https://core.telegram.org/bots/api/#botshortdescription) on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#getmyshortdescription)
+ */
+export type getMyShortDescription = (params?: GetMyShortDescriptionParams) => Promise<Interfaces.TelegramBotShortDescription>
 
 export interface SetChatMenuButtonParams {
   /**
@@ -2087,7 +2430,7 @@ export interface SetMyDefaultAdministratorRightsParams {
 }
 
 /**
- * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns *True* on success.
+ * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns *True* on success.
  * 
  * ---
  * 
@@ -2143,7 +2486,7 @@ export interface EditMessageTextParams {
    */
   disable_web_page_preview?: boolean
   /**
-   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -2185,7 +2528,7 @@ export interface EditMessageCaptionParams {
    */
   caption_entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
-   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -2219,7 +2562,7 @@ export interface EditMessageMediaParams {
    */
   media: Interfaces.TelegramInputMedia
   /**
-   * A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+   * A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -2235,6 +2578,86 @@ export interface EditMessageMediaParams {
  */
 export type editMessageMedia = (params: EditMessageMediaParams) => Promise<Interfaces.TelegramMessage | true>
 
+export interface EditMessageLiveLocationParams {
+  /**
+   * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id?: number | string
+  /**
+   * Required if *inline\_message\_id* is not specified. Identifier of the message to edit
+   */
+  message_id?: number
+  /**
+   * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+   */
+  inline_message_id?: string
+  /**
+   * Latitude of new location
+   */
+  latitude: number
+  /**
+   * Longitude of new location
+   */
+  longitude: number
+  /**
+   * The radius of uncertainty for the location, measured in meters; 0-1500
+   */
+  horizontal_accuracy?: number
+  /**
+   * Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+   */
+  heading?: number
+  /**
+   * The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+   */
+  proximity_alert_radius?: number
+  /**
+   * A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
+   */
+  reply_markup?: Interfaces.ReplyMarkupUnion
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to edit live location messages. A location can be edited until its *live\_period* expires or editing is explicitly disabled by a call to [stopMessageLiveLocation](https://core.telegram.org/bots/api/#stopmessagelivelocation). On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#editmessagelivelocation)
+ */
+export type editMessageLiveLocation = (params: EditMessageLiveLocationParams) => Promise<Interfaces.TelegramMessage | true>
+
+export interface StopMessageLiveLocationParams {
+  /**
+   * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id?: number | string
+  /**
+   * Required if *inline\_message\_id* is not specified. Identifier of the message with live location to stop
+   */
+  message_id?: number
+  /**
+   * Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message
+   */
+  inline_message_id?: string
+  /**
+   * A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
+   */
+  reply_markup?: Interfaces.ReplyMarkupUnion
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to stop updating a live location message before *live\_period* expires. On success, if the message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#stopmessagelivelocation)
+ */
+export type stopMessageLiveLocation = (params?: StopMessageLiveLocationParams) => Promise<Interfaces.TelegramMessage | true>
+
 export interface EditMessageReplyMarkupParams {
   /**
    * Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
@@ -2249,7 +2672,7 @@ export interface EditMessageReplyMarkupParams {
    */
   inline_message_id?: string
   /**
-   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -2275,7 +2698,7 @@ export interface StopPollParams {
    */
   message_id: number
   /**
-   * A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating).
+   * A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -2307,6 +2730,7 @@ export interface DeleteMessageParams {
 /**
  * Use this method to delete a message, including service messages, with the following limitations:  
  * \- A message can only be deleted if it was sent less than 48 hours ago.  
+ * \- Service messages about a supergroup, channel, or forum topic creation can't be deleted.  
  * \- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.  
  * \- Bots can delete outgoing messages in private chats, groups, and supergroups.  
  * \- Bots can delete incoming messages in private chats.  
@@ -2327,9 +2751,17 @@ export interface SendStickerParams {
    */
   chat_id: number | string
   /**
-   * Sticker to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
+   * Sticker to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP or .TGS sticker using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Video stickers can only be sent by a file\_id. Animated stickers can't be sent via an HTTP URL.
    */
   sticker: MediaInput
+  /**
+   * Emoji associated with the sticker; only for just uploaded stickers
+   */
+  emoji?: string
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -2347,7 +2779,7 @@ export interface SendStickerParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating), [custom reply keyboard](https://core.telegram.org/bots#keyboards), instructions to remove reply keyboard or to force a reply from the user.
+   * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -2399,21 +2831,27 @@ export interface GetCustomEmojiStickersParams {
  */
 export type getCustomEmojiStickers = (params: GetCustomEmojiStickersParams) => Promise<Interfaces.TelegramSticker[]>
 
+export type UploadStickerFileStickerFormat = 'static' | 'animated' | 'video'
+
 export interface UploadStickerFileParams {
   /**
    * User identifier of sticker file owner
    */
   user_id: number
   /**
-   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See [https://core.telegram.org/stickers](https://core.telegram.org/stickers) for technical requirements. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
-  png_sticker: MediaInput
+  sticker: MediaInput
+  /**
+   * Format of the sticker, must be one of “static”, “animated”, “video”
+   */
+  sticker_format: SoftString<UploadStickerFileStickerFormat>
 
   [key: string]: any
 }
 
 /**
- * Use this method to upload a .PNG file with a sticker for later use in *createNewStickerSet* and *addStickerToSet* methods (can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api/#file) on success.
+ * Use this method to upload a file with a sticker for later use in the [createNewStickerSet](https://core.telegram.org/bots/api/#createnewstickerset) and [addStickerToSet](https://core.telegram.org/bots/api/#addstickertoset) methods (the file can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api/#file) on success.
  * 
  * ---
  * 
@@ -2421,7 +2859,8 @@ export interface UploadStickerFileParams {
  */
 export type uploadStickerFile = (params: UploadStickerFileParams) => Promise<Interfaces.TelegramFile>
 
-export type CreateNewStickerSetStickerType = 'regular' | 'mask'
+export type CreateNewStickerSetStickerFormat = 'static' | 'animated' | 'video'
+export type CreateNewStickerSetStickerType = 'mask' | 'custom_emoji'
 
 export interface CreateNewStickerSetParams {
   /**
@@ -2437,35 +2876,27 @@ export interface CreateNewStickerSetParams {
    */
   title: string
   /**
-   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
    */
-  png_sticker?: MediaInput
+  stickers: Interfaces.TelegramInputSticker[]
   /**
-   * **TGS** animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for technical requirements
+   * Format of stickers in the set, must be one of “static”, “animated”, “video”
    */
-  tgs_sticker?: MediaInput
+  sticker_format: SoftString<CreateNewStickerSetStickerFormat>
   /**
-   * **WEBM** video with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for technical requirements
-   */
-  webm_sticker?: MediaInput
-  /**
-   * Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created.
+   * Type of stickers in the set, pass “regular”, “mask”, or “custom\_emoji”. By default, a regular sticker set is created.
    */
   sticker_type?: SoftString<CreateNewStickerSetStickerType>
   /**
-   * One or more emoji corresponding to the sticker
+   * Pass *True* if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
    */
-  emojis: string
-  /**
-   * A JSON-serialized object for position where the mask should be placed on faces
-   */
-  mask_position?: Interfaces.TelegramMaskPosition
+  needs_repainting?: boolean
 
   [key: string]: any
 }
 
 /**
- * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Returns *True* on success.
+ * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns *True* on success.
  * 
  * ---
  * 
@@ -2483,31 +2914,15 @@ export interface AddStickerToSetParams {
    */
   name: string
   /**
-   * **PNG** image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn't changed.
    */
-  png_sticker?: MediaInput
-  /**
-   * **TGS** animation with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for technical requirements
-   */
-  tgs_sticker?: MediaInput
-  /**
-   * **WEBM** video with the sticker, uploaded using multipart/form-data. See [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for technical requirements
-   */
-  webm_sticker?: MediaInput
-  /**
-   * One or more emoji corresponding to the sticker
-   */
-  emojis: string
-  /**
-   * A JSON-serialized object for position where the mask should be placed on faces
-   */
-  mask_position?: Interfaces.TelegramMaskPosition
+  sticker: Interfaces.TelegramInputSticker
 
   [key: string]: any
 }
 
 /**
- * Use this method to add a new sticker to a set created by the bot. You **must** use exactly one of the fields *png\_sticker*, *tgs\_sticker*, or *webm\_sticker*. Animated stickers can be added to animated sticker sets and only to them. Animated sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
+ * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
  * 
  * ---
  * 
@@ -2555,7 +2970,95 @@ export interface DeleteStickerFromSetParams {
  */
 export type deleteStickerFromSet = (params: DeleteStickerFromSetParams) => Promise<true>
 
-export interface SetStickerSetThumbParams {
+export interface SetStickerEmojiListParams {
+  /**
+   * File identifier of the sticker
+   */
+  sticker: string
+  /**
+   * A JSON-serialized list of 1-20 emoji associated with the sticker
+   */
+  emoji_list: string[]
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setstickeremojilist)
+ */
+export type setStickerEmojiList = (params: SetStickerEmojiListParams) => Promise<true>
+
+export interface SetStickerKeywordsParams {
+  /**
+   * File identifier of the sticker
+   */
+  sticker: string
+  /**
+   * A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters
+   */
+  keywords?: string[]
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setstickerkeywords)
+ */
+export type setStickerKeywords = (params: SetStickerKeywordsParams) => Promise<true>
+
+export interface SetStickerMaskPositionParams {
+  /**
+   * File identifier of the sticker
+   */
+  sticker: string
+  /**
+   * A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
+   */
+  mask_position?: Interfaces.TelegramMaskPosition
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to change the [mask position](https://core.telegram.org/bots/api/#maskposition) of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setstickermaskposition)
+ */
+export type setStickerMaskPosition = (params: SetStickerMaskPositionParams) => Promise<true>
+
+export interface SetStickerSetTitleParams {
+  /**
+   * Sticker set name
+   */
+  name: string
+  /**
+   * Sticker set title, 1-64 characters
+   */
+  title: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to set the title of a created sticker set. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setstickersettitle)
+ */
+export type setStickerSetTitle = (params: SetStickerSetTitleParams) => Promise<true>
+
+export interface SetStickerSetThumbnailParams {
   /**
    * Sticker set name
    */
@@ -2565,21 +3068,61 @@ export interface SetStickerSetThumbParams {
    */
   user_id: number
   /**
-   * A **PNG** image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a **TGS** animation with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements, or a **WEBM** video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Animated sticker set thumbnails can't be uploaded via HTTP URL.
+   * A **.WEBP** or **.PNG** image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a **.TGS** animation with a thumbnail up to 32 kilobytes in size (see [https://core.telegram.org/stickers#animated-sticker-requirements](https://core.telegram.org/stickers#animated-sticker-requirements) for animated sticker technical requirements), or a **WEBM** video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-sticker-requirements](https://core.telegram.org/stickers#video-sticker-requirements) for video sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files). Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
    */
-  thumb?: MediaInput
+  thumbnail?: MediaInput
 
   [key: string]: any
 }
 
 /**
- * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only. Video thumbnails can be set only for video sticker sets only. Returns *True* on success.
+ * Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns *True* on success.
  * 
  * ---
  * 
- * [**Documentation**](https://core.telegram.org/bots/api/#setstickersetthumb)
+ * [**Documentation**](https://core.telegram.org/bots/api/#setstickersetthumbnail)
  */
-export type setStickerSetThumb = (params: SetStickerSetThumbParams) => Promise<true>
+export type setStickerSetThumbnail = (params: SetStickerSetThumbnailParams) => Promise<true>
+
+export interface SetCustomEmojiStickerSetThumbnailParams {
+  /**
+   * Sticker set name
+   */
+  name: string
+  /**
+   * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
+   */
+  custom_emoji_id?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to set the thumbnail of a custom emoji sticker set. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setcustomemojistickersetthumbnail)
+ */
+export type setCustomEmojiStickerSetThumbnail = (params: SetCustomEmojiStickerSetThumbnailParams) => Promise<true>
+
+export interface DeleteStickerSetParams {
+  /**
+   * Sticker set name
+   */
+  name: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to delete a sticker set that was created by the bot. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#deletestickerset)
+ */
+export type deleteStickerSet = (params: DeleteStickerSetParams) => Promise<true>
 
 export interface AnswerInlineQueryParams {
   /**
@@ -2607,7 +3150,7 @@ export interface AnswerInlineQueryParams {
    */
   switch_pm_text?: string
   /**
-   * [Deep-linking](https://core.telegram.org/bots#deep-linking) parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.  
+   * [Deep-linking](https://core.telegram.org/bots/features#deep-linking) parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.  
    * 
    * *Example:* An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a [*switch\_inline*](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
    */
@@ -2653,6 +3196,10 @@ export interface SendInvoiceParams {
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
   /**
    * Product name, 1-32 characters
    */
@@ -2754,7 +3301,7 @@ export interface SendInvoiceParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.
+   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 
@@ -2950,6 +3497,10 @@ export interface SendGameParams {
    */
   chat_id: number
   /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
    * Short name of the game, serves as the unique identifier for the game. Set up your games via [@BotFather](https://t.me/botfather).
    */
   game_short_name: string
@@ -2970,7 +3521,7 @@ export interface SendGameParams {
    */
   allow_sending_without_reply?: boolean
   /**
-   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating). If empty, one 'Play game\_title' button will be shown. If not empty, the first button must launch the game.
+   * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Play game\_title' button will be shown. If not empty, the first button must launch the game.
    */
   reply_markup?: Interfaces.ReplyMarkupUnion
 

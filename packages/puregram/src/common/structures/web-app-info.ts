@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** Contains information about a Web App. */
 export class WebAppInfo implements Structure {
-  constructor (private payload: Interfaces.TelegramWebAppInfo) { }
+  constructor (public payload: Interfaces.TelegramWebAppInfo) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

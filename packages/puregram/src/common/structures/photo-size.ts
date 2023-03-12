@@ -7,7 +7,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents one size of a photo or a file / sticker thumbnail */
 export class PhotoSize implements Structure {
-  constructor (private payload: Interfaces.TelegramPhotoSize) { }
+  constructor (public payload: Interfaces.TelegramPhotoSize) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

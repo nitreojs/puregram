@@ -7,7 +7,7 @@ import { Structure } from '../../types/interfaces'
 import { Location } from './location'
 
 export class ChatLocation implements Structure {
-  constructor (private payload: Interfaces.TelegramChatLocation) { }
+  constructor (public payload: Interfaces.TelegramChatLocation) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

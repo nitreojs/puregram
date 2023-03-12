@@ -7,7 +7,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents an animated emoji that displays a random value. */
 export class Dice implements Structure {
-  constructor (private payload: Interfaces.TelegramDice) { }
+  constructor (public payload: Interfaces.TelegramDice) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

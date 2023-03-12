@@ -5,9 +5,9 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 export class WriteAccessAllowed implements Structure {
-  constructor (private payload: Interfaces.TelegramWriteAccessAllowed) { }
+  constructor (public payload: Interfaces.TelegramWriteAccessAllowed) { }
 
-  toJSON(): Interfaces.TelegramWriteAccessAllowed {
+  toJSON (): Interfaces.TelegramWriteAccessAllowed {
     return { }
   }
 }

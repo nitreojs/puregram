@@ -10,7 +10,7 @@ import { Structure } from '../../types/interfaces'
  * chat.
  */
 export class ChatPermissions implements Structure {
-  constructor (private payload: Interfaces.TelegramChatPermissions) { }
+  constructor (public payload: Interfaces.TelegramChatPermissions) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

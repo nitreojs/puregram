@@ -7,7 +7,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents a phone contact. */
 export class Contact implements Structure {
-  constructor (private payload: Interfaces.TelegramContact) { }
+  constructor (public payload: Interfaces.TelegramContact) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

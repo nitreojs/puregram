@@ -7,7 +7,7 @@ import { Structure } from '../../types/interfaces'
 import { InlineKeyboardButton } from './inline-keyboard-button'
 
 export class InlineKeyboardMarkup implements Structure {
-  constructor (private payload: Interfaces.TelegramInlineKeyboardMarkup) { }
+  constructor (public payload: Interfaces.TelegramInlineKeyboardMarkup) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

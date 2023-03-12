@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** Contains data sent from a Web App to the bot. */
 export class WebAppData implements Structure {
-  constructor (private payload: Interfaces.TelegramWebAppData) { }
+  constructor (public payload: Interfaces.TelegramWebAppData) { }
 
   /** The data. Be aware that a bad client can send arbitrary data in this field. */
   get data () {

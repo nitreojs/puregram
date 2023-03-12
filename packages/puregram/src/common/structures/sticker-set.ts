@@ -10,7 +10,7 @@ import { StickerAttachment } from '../attachments'
 import { PhotoSize } from './photo-size'
 
 export class StickerSet implements Structure {
-  constructor (private payload: Interfaces.TelegramStickerSet) { }
+  constructor (public payload: Interfaces.TelegramStickerSet) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

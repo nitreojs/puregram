@@ -13,7 +13,7 @@ import { PassportFile } from './passport-file'
  * shared with the bot by the user.
  */
 export class EncryptedPassportElement implements Structure {
-  constructor (private payload: Interfaces.TelegramEncryptedPassportElement) { }
+  constructor (public payload: Interfaces.TelegramEncryptedPassportElement) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

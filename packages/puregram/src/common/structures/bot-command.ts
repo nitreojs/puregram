@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents a bot command */
 export class BotCommand implements Structure {
-  constructor (private payload: Interfaces.TelegramBotCommand) { }
+  constructor (public payload: Interfaces.TelegramBotCommand) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

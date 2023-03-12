@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object contains basic information about an invoice. */
 export class Invoice implements Structure {
-  constructor (private payload: Interfaces.TelegramInvoice) { }
+  constructor (public payload: Interfaces.TelegramInvoice) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

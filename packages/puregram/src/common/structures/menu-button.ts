@@ -9,7 +9,7 @@ import { WebAppInfo } from './web-app-info'
 
 /** This object describes the bot's menu button in a private chat. */
 export class MenuButton implements Structure {
-  constructor (private payload: Interfaces.TelegramMenuButton) { }
+  constructor (public payload: Interfaces.TelegramMenuButton) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

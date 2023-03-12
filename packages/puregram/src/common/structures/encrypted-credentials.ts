@@ -10,7 +10,7 @@ import { Structure } from '../../types/interfaces'
  * complete description of the data decryption and authentication processes.
  */
 export class EncryptedCredentials implements Structure {
-  constructor (private payload: Interfaces.TelegramEncryptedCredentials) { }
+  constructor (public payload: Interfaces.TelegramEncryptedCredentials) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

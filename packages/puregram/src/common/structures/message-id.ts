@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents a unique message identifier. */
 export class MessageId implements Structure {
-  constructor (private payload: Interfaces.TelegramMessageId) { }
+  constructor (public payload: Interfaces.TelegramMessageId) { }
 
   /** Unique message identifier */
   get id () {

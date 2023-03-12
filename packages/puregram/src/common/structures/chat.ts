@@ -12,7 +12,7 @@ import { ChatLocation } from './chat-location'
 
 /** This object represents a chat. */
 export class Chat implements Structure {
-  constructor (private payload: Interfaces.TelegramChat) { }
+  constructor (public payload: Interfaces.TelegramChat) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name
@@ -78,7 +78,7 @@ export class Chat implements Structure {
 
   /**
    * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels.
-   * 
+   *
    * Returned only in `getChat`.
    */
   get activeUsernames () {
@@ -87,7 +87,7 @@ export class Chat implements Structure {
 
   /**
    * Custom emoji identifier of emoji status of the other party in a private chat.
-   * 
+   *
    * Returned only in `getChat`.
    */
   get emojiStatusCustomEmojiId () {
@@ -227,7 +227,7 @@ export class Chat implements Structure {
 
   /**
    * `true`, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators.
-   * 
+   *
    * Returned only in `getChat`.
    */
   hasAggressiveAntiSpamEnabled () {
@@ -236,7 +236,7 @@ export class Chat implements Structure {
 
   /**
    * `true`, if non-administrators can only get the list of bots and administrators in the chat.
-   * 
+   *
    * Returned only in `getChat`.
    */
   hasHiddenMembers () {

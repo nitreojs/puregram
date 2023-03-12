@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** A placeholder, currently holds no information. */
 export class CallbackGame implements Structure {
-  constructor (private payload: Interfaces.TelegramCallbackGame) { }
+  constructor (public payload: Interfaces.TelegramCallbackGame) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

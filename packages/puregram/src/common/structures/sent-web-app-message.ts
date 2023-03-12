@@ -7,7 +7,7 @@ import { Structure } from '../../types/interfaces'
 
 /** Contains information about an inline message sent by a Web App on behalf of a user. */
 export class SentWebAppMessage implements Structure {
-  constructor (private payload: Interfaces.TelegramSentWebAppMessage) { }
+  constructor (public payload: Interfaces.TelegramSentWebAppMessage) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

@@ -9,7 +9,7 @@ import { LoginUrl } from './login-url'
 import { CallbackGame } from './callback-game'
 
 export class InlineKeyboardButton implements Structure {
-  constructor (private payload: Interfaces.TelegramInlineKeyboardButton) { }
+  constructor (public payload: Interfaces.TelegramInlineKeyboardButton) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

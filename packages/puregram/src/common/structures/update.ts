@@ -24,7 +24,7 @@ import { ShippingQuery } from './shipping-query'
  * update.
  */
 export class Update implements Structure {
-  constructor (private payload: Interfaces.TelegramUpdate) { }
+  constructor (public payload: Interfaces.TelegramUpdate) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

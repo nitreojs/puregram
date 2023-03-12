@@ -8,7 +8,7 @@ import { PhotoSize } from './photo-size'
 
 /** This object represent a user's profile pictures. */
 export class UserProfilePhotos implements Structure {
-  constructor (private payload: Interfaces.TelegramUserProfilePhotos) { }
+  constructor (public payload: Interfaces.TelegramUserProfilePhotos) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

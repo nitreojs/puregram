@@ -9,7 +9,7 @@ import { Structure } from '../../types/interfaces'
  * by default.
  */
 export class MaskPosition implements Structure {
-  constructor (private payload: Interfaces.TelegramMaskPosition) { }
+  constructor (public payload: Interfaces.TelegramMaskPosition) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

@@ -8,7 +8,7 @@ import { filterPayload } from '../../utils/helpers'
 
 /** Represents the rights of an administrator in a chat. */
 export class ChatAdministratorRights implements Structure {
-  constructor (private payload: Interfaces.TelegramChatAdministratorRights) { }
+  constructor (public payload: Interfaces.TelegramChatAdministratorRights) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name
@@ -87,7 +87,7 @@ export class ChatAdministratorRights implements Structure {
       can_post_messages: this.canPostMessages(),
       can_edit_messages: this.canEditMessages(),
       can_pin_messages: this.canPinMessages(),
-      can_manage_topics: this.canManageTopics(),
+      can_manage_topics: this.canManageTopics()
     }
   }
 }
@@ -106,7 +106,7 @@ inspectable(ChatAdministratorRights, {
       canPostMessages: struct.canPostMessages(),
       canEditMessages: struct.canEditMessages(),
       canPinMessages: struct.canPinMessages(),
-      canManageTopics: struct.canManageTopics(),
+      canManageTopics: struct.canManageTopics()
     }
 
     return filterPayload(payload)

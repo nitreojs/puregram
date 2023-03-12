@@ -12,7 +12,7 @@ import { EncryptedCredentials } from './encrypted-credentials'
  * user.
  */
 export class PassportData implements Structure {
-  constructor (private payload: Interfaces.TelegramPassportData) { }
+  constructor (public payload: Interfaces.TelegramPassportData) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

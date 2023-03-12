@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents a service message about an edited forum topic. */
 export class ForumTopicReopened implements Structure {
-  constructor (private payload: Interfaces.TelegramForumTopicReopened) { }
+  constructor (public payload: Interfaces.TelegramForumTopicReopened) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object contains information about the chat whose identifier was shared with the bot using a KeyboardButtonRequestChat button. */
 export class ChatShared implements Structure {
-  constructor (private payload: Interfaces.TelegramChatShared) { }
+  constructor (public payload: Interfaces.TelegramChatShared) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name
@@ -22,7 +22,7 @@ export class ChatShared implements Structure {
     return this.payload.chat_id
   }
 
-  toJSON(): Interfaces.TelegramChatShared {
+  toJSON (): Interfaces.TelegramChatShared {
     return {
       request_id: this.requestId,
       chat_id: this.chatId

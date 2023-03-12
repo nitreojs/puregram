@@ -9,7 +9,7 @@ import { OrderInfo } from './order-info'
 
 /** This object contains basic information about a successful payment. */
 export class SuccessfulPayment implements Structure {
-  constructor (private payload: Interfaces.TelegramSuccessfulPayment) { }
+  constructor (public payload: Interfaces.TelegramSuccessfulPayment) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

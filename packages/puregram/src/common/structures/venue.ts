@@ -9,7 +9,7 @@ import { Location } from './location'
 
 /** This object represents a venue. */
 export class Venue implements Structure {
-  constructor (private payload: Interfaces.TelegramVenue) { }
+  constructor (public payload: Interfaces.TelegramVenue) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

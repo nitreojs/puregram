@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents a chat photo. */
 export class ChatPhoto implements Structure {
-  constructor (private payload: Interfaces.TelegramChatPhoto) { }
+  constructor (public payload: Interfaces.TelegramChatPhoto) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

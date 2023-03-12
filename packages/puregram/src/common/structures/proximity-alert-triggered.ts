@@ -11,7 +11,7 @@ import { User } from './user'
  * sent whenever a user in the chat triggers a proximity alert set by another user.
  */
 export class ProximityAlertTriggered implements Structure {
-  constructor (private payload: Interfaces.TelegramProximityAlertTriggered) { }
+  constructor (public payload: Interfaces.TelegramProximityAlertTriggered) { }
 
   /** User that triggered the alert */
   get traveler () {

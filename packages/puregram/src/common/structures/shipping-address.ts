@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object represents a shipping address. */
 export class ShippingAddress implements Structure {
-  constructor (private payload: Interfaces.TelegramShippingAddress) { }
+  constructor (public payload: Interfaces.TelegramShippingAddress) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

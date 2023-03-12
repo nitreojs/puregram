@@ -6,7 +6,7 @@ import { filterPayload } from '../../utils/helpers'
 import { Structure } from '../../types/interfaces'
 
 export class File implements Structure {
-  constructor (private payload: Interfaces.TelegramFile) { }
+  constructor (public payload: Interfaces.TelegramFile) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

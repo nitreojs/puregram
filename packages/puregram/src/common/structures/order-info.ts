@@ -9,7 +9,7 @@ import { ShippingAddress } from './shipping-address'
 
 /** This object represents information about an order. */
 export class OrderInfo implements Structure {
-  constructor (private payload: Interfaces.TelegramOrderInfo) { }
+  constructor (public payload: Interfaces.TelegramOrderInfo) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

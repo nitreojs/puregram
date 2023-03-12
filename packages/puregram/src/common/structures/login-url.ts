@@ -10,7 +10,7 @@ import { Structure } from '../../types/interfaces'
  * automatically authorize a user.
  */
 export class LoginUrl implements Structure {
-  constructor (private payload: Interfaces.TelegramLoginUrl) { }
+  constructor (public payload: Interfaces.TelegramLoginUrl) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

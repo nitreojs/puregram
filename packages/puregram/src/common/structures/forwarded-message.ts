@@ -8,7 +8,7 @@ import { Chat } from './chat'
 
 /** This object represents a forwarded message. */
 export class ForwardedMessage {
-  constructor (private payload: Interfaces.TelegramMessage) { }
+  constructor (public payload: Interfaces.TelegramMessage) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

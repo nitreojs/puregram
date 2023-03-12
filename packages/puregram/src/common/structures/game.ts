@@ -12,7 +12,7 @@ import { MessageEntity } from './message-entity'
 
 /** This object represents a game. */
 export class Game implements Structure {
-  constructor (private payload: Interfaces.TelegramGame) { }
+  constructor (public payload: Interfaces.TelegramGame) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

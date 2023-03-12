@@ -12,7 +12,7 @@ import { User } from './user'
  * For example, hashtags, usernames, URLs, etc.
  */
 export class MessageEntity implements Structure {
-  constructor (private payload: Interfaces.TelegramMessageEntity) { }
+  constructor (public payload: Interfaces.TelegramMessageEntity) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

@@ -8,7 +8,7 @@ import { filterPayload } from '../../utils/helpers'
 
 /** This object represents a point on the map. */
 export class Location implements Structure {
-  constructor (private payload: Interfaces.TelegramLocation) { }
+  constructor (public payload: Interfaces.TelegramLocation) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

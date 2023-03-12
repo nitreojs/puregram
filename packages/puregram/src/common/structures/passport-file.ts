@@ -10,7 +10,7 @@ import { Structure } from '../../types/interfaces'
  * don't exceed 10MB.
  */
 export class PassportFile implements Structure {
-  constructor (private payload: Interfaces.TelegramPassportFile) { }
+  constructor (public payload: Interfaces.TelegramPassportFile) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

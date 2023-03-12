@@ -8,7 +8,7 @@ import { filterPayload } from '../../utils/helpers'
 
 /** This object represents a service message about an edited forum topic. */
 export class ForumTopicEdited implements Structure {
-  constructor (private payload: Interfaces.TelegramForumTopicEdited) { }
+  constructor (public payload: Interfaces.TelegramForumTopicEdited) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

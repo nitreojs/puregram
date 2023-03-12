@@ -6,7 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 /** This object contains information about one answer option in a poll. */
 export class PollOption implements Structure {
-  constructor (private payload: Interfaces.TelegramPollOption) { }
+  constructor (public payload: Interfaces.TelegramPollOption) { }
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

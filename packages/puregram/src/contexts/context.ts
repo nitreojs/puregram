@@ -37,7 +37,7 @@ class Context {
       ? rawTypes
       : [rawTypes]
 
-    // TODO: it if interfering, make 'subTypes' logic maybe?
+    // TODO: it is interfering, make 'subTypes' logic maybe?
     if (types.includes('service_message')) {
       types.push(...SERVICE_MESSAGE_EVENTS)
     }

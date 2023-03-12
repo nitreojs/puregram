@@ -85,6 +85,7 @@ export const METHODS_WITH_MEDIA: [string, string[]][] = [
   ['sendPhoto', ['photo']],
   ['sendAudio', ['audio', 'thumb']],
   ['sendDocument', ['document', 'thumb']],
+  ['sendVoice', ['voice']],
   ['sendVideo', ['video', 'thumb']],
   ['sendAnimation', ['animation', 'thumb']],
   ['sendVideoNote', ['video_note', 'thumb']],

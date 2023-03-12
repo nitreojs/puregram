@@ -36,7 +36,7 @@ applyMixins(WriteAccessAllowedContext, [Message, TargetMixin, SendMixin, NodeMix
 
 inspectable(WriteAccessAllowedContext, {
   serialize (context) {
-    return { }
+    return {}
   }
 })
 

@@ -15,6 +15,6 @@ export class WriteAccessAllowed implements Structure {
 
 inspectable(WriteAccessAllowed, {
   serialize (struct) {
-    return { }
+    return {}
   }
 })

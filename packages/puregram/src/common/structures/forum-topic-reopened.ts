@@ -19,6 +19,6 @@ export class ForumTopicReopened implements Structure {
 
 inspectable(ForumTopicReopened, {
   serialize (struct) {
-    return { }
+    return {}
   }
 })

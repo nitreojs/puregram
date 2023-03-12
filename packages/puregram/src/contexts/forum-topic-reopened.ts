@@ -37,7 +37,7 @@ applyMixins(ForumTopicReopenedContext, [Message, TargetMixin, SendMixin, NodeMix
 
 inspectable(ForumTopicReopenedContext, {
   serialize (context) {
-    return { }
+    return {}
   }
 })
 

@@ -37,7 +37,7 @@ applyMixins(GeneralForumTopicUnhiddenContext, [Message, TargetMixin, SendMixin, 
 
 inspectable(GeneralForumTopicUnhiddenContext, {
   serialize (context) {
-    return { }
+    return {}
   }
 })
 

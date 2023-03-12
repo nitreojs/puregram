@@ -15,6 +15,6 @@ export class GeneralForumTopicHidden implements Structure {
 
 inspectable(GeneralForumTopicHidden, {
   serialize (struct) {
-    return { }
+    return {}
   }
 })

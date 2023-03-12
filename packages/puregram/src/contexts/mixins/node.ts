@@ -96,7 +96,7 @@ class NodeMixin {
   /** Replies to current message with voice */
   replyWithVoice (
     voice: MediaInput,
-    params?: Optional<Methods.SendVoiceParams, 'chat_id'>
+    params?: Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>
   ) {
     return this.sendVoice(voice, {
       reply_to_message_id: this.id,

@@ -192,6 +192,110 @@ telegram.updates.on('chat_join_request', (context: ChatJoinRequestContext) => {}
 telegram.updates.on(UpdateType.ChatJoinRequest, (context: ChatJoinRequestContext) => {})
 ```
 
+### `user_shared`
+
+called whenever a user has shared another user via the keyboard
+
+- **type**: `'user_shared'`, `UpdateType.UserShared`
+- **context**: `UserSharedContext`
+- **hot to trigger**: send a keyboard with `request_user` button and share a user via it
+
+```ts
+telegram.updates.on('user_shared', (context: UserSharedContext) => {})
+telegram.updates.on(UpdateType.UserShared, (context: UserSharedContext) => {})
+```
+
+### `chat_shared`
+
+called whenever a user has shared a chat via the keyboard
+
+- **type**: `'chat_shared'`, `UpdateType.ChatShared`
+- **context**: `ChatSharedContext`
+- **hot to trigger**: send a keyboard with `request_chat` button and share a chat via it
+
+```ts
+telegram.updates.on('chat_shared', (context: ChatSharedContext) => {})
+telegram.updates.on(UpdateType.ChatShared, (context: ChatSharedContext) => {})
+```
+
+### `forum_topic_created`
+
+called whenever a forum topic has been created
+
+- **type**: `'forum_topic_created'`, `UpdateType.ForumTopicCreated`
+- **context**: `ForumTopicCreatedContext`
+- **hot to trigger**: create a forum topic with a bot as a member
+
+```ts
+telegram.updates.on('forum_topic_created', (context: ForumTopicCreatedContext) => {})
+telegram.updates.on(UpdateType.ForumTopicCreated, (context: ForumTopicCreatedContext) => {})
+```
+
+### `forum_topic_edited`
+
+called whenever a forum topic has been somehow edited
+
+- **type**: `'forum_topic_edited'`, `UpdateType.ForumTopicEdited`
+- **context**: `ForumTopicEditedContext`
+- **hot to trigger**: edit a forum topic with a bot as a member
+
+```ts
+telegram.updates.on('forum_topic_edited', (context: ForumTopicEditedContext) => {})
+telegram.updates.on(UpdateType.ForumTopicEdited, (context: ForumTopicEditedContext) => {})
+```
+
+### `forum_topic_closed`
+
+called whenever a forum topic has been closed
+
+- **type**: `'forum_topic_closed'`, `UpdateType.ForumTopicClosed`
+- **context**: `ForumTopicClosedContext`
+- **hot to trigger**: close a forum topic with a bot as a member
+
+```ts
+telegram.updates.on('forum_topic_closed', (context: ForumTopicClosedContext) => {})
+telegram.updates.on(UpdateType.ForumTopicClosed, (context: ForumTopicClosedContext) => {})
+```
+
+### `forum_topic_reopened`
+
+called whenever a forum topic has been reopened
+
+- **type**: `'forum_topic_reopened'`, `UpdateType.ForumTopicReopened`
+- **context**: `ForumTopicReopenedContext`
+- **hot to trigger**: reopen a forum topic with a bot as a member
+
+```ts
+telegram.updates.on('forum_topic_reopened', (context: ForumTopicReopenedContext) => {})
+telegram.updates.on(UpdateType.ForumTopicReopened, (context: ForumTopicReopenedContext) => {})
+```
+
+### `general_forum_topic_hidden`
+
+called whenever a 'General' forum topic has been hidden
+
+- **type**: `'general_forum_topic_hidden'`, `UpdateType.GeneralForumTopicHidden`
+- **context**: `GeneralForumTopicHiddenContext`
+- **hot to trigger**: hide a 'General' forum topic
+
+```ts
+telegram.updates.on('general_forum_topic_hidden', (context: GeneralForumTopicHiddenContext) => {})
+telegram.updates.on(UpdateType.GeneralForumTopicHidden, (context: GeneralForumTopicHiddenContext) => {})
+```
+
+### `general_forum_topic_unhidden`
+
+called whenever a 'General' forum topic has been unhidden
+
+- **type**: `'general_forum_topic_unhidden'`, `UpdateType.GeneralForumTopicUnhidden`
+- **context**: `GeneralForumTopicUnhiddenContext`
+- **hot to trigger**: unhide a 'General' forum topic
+
+```ts
+telegram.updates.on('general_forum_topic_unhidden', (context: GeneralForumTopicUnhiddenContext) => {})
+telegram.updates.on(UpdateType.GeneralForumTopicUnhidden, (context: GeneralForumTopicUnhiddenContext) => {})
+```
+
 ## extra events
 
 `puregram` adds some extra events so you don't have to, for example, handle `message` event just to check if there is

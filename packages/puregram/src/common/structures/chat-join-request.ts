@@ -8,6 +8,7 @@ import { Chat } from './chat'
 import { User } from './user'
 import { ChatInviteLink } from './chat-invite-link'
 
+/** Represents a join request sent to a chat. */
 export class ChatJoinRequest implements Structure {
   constructor (public payload: Interfaces.TelegramChatJoinRequest) { }
 

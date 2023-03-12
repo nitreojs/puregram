@@ -8,6 +8,7 @@ import { Structure } from '../../types/interfaces'
 import { User } from './user'
 import { Location } from './location'
 
+/** Represents a result of an inline query that was chosen by the user and sent to their chat partner. */
 export class ChosenInlineResult implements Structure {
   constructor (public payload: Interfaces.TelegramChosenInlineResult) { }
 

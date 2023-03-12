@@ -9,6 +9,7 @@ import { StickerAttachment } from '../attachments'
 
 import { PhotoSize } from './photo-size'
 
+/** This object represents a sticker set. */
 export class StickerSet implements Structure {
   constructor (public payload: Interfaces.TelegramStickerSet) { }
 

@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { Location } from './location'
 
+/** Represents a location to which a chat is connected. */
 export class ChatLocation implements Structure {
   constructor (public payload: Interfaces.TelegramChatLocation) { }
 

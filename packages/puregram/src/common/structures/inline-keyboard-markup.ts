@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { InlineKeyboardButton } from './inline-keyboard-button'
 
+/** This object represents an inline keyboard that appears right next to the message it belongs to. */
 export class InlineKeyboardMarkup implements Structure {
   constructor (public payload: Interfaces.TelegramInlineKeyboardMarkup) { }
 

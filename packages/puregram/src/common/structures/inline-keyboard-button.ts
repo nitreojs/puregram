@@ -8,6 +8,7 @@ import { Structure } from '../../types/interfaces'
 import { LoginUrl } from './login-url'
 import { CallbackGame } from './callback-game'
 
+/** This object represents one button of an inline keyboard. You must use exactly one of the optional fields. */
 export class InlineKeyboardButton implements Structure {
   constructor (public payload: Interfaces.TelegramInlineKeyboardButton) { }
 

@@ -5,6 +5,7 @@ import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
+/** This object represents a file ready to be downloaded. The file can be downloaded via the link `https://api.telegram.org/file/bot<token>/<file_path>`. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling `getFile`. */
 export class File implements Structure {
   constructor (public payload: Interfaces.TelegramFile) { }
 

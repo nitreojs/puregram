@@ -1,4 +1,4 @@
-import { Inspect, inspectable } from 'inspectable'
+import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { filterPayload } from '../../utils/helpers'
@@ -7,6 +7,15 @@ import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
 
+/**
+ * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
+ * - `ChatMemberOwner`
+ * - `ChatMemberAdministrator`
+ * - `ChatMemberMember`
+ * - `ChatMemberRestricted`
+ * - `ChatMemberLeft`
+ * - `ChatMemberBanned`
+ */
 export class ChatMember implements Structure {
   constructor (public payload: Interfaces.TelegramChatMember) { }
 

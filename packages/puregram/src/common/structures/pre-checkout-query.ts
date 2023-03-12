@@ -8,6 +8,7 @@ import { Structure } from '../../types/interfaces'
 import { User } from './user'
 import { OrderInfo } from './order-info'
 
+/** This object contains information about an incoming pre-checkout query. */
 export class PreCheckoutQuery implements Structure {
   constructor (public payload: Interfaces.TelegramPreCheckoutQuery) { }
 

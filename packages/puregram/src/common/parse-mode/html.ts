@@ -7,7 +7,7 @@ const escapeHtml = (source: string) => (
 
 /** HTML parse mode */
 export class HTML {
-  static parseMode: 'HTML' = 'HTML'
+  static parseMode = 'HTML' as const
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

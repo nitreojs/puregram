@@ -16,7 +16,7 @@ const join = (template: TemplateStringsArray, ...args: any[]) => {
 
 /** Markdown V2 parse mode */
 export class MarkdownV2 {
-  static parseMode: 'MarkdownV2' = 'MarkdownV2'
+  static parseMode = 'MarkdownV2' as const
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

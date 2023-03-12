@@ -2,7 +2,7 @@ import { replaceChars } from '../../utils/helpers'
 
 /** Markdown parse mode */
 export class Markdown {
-  static parseMode: 'Markdown' = 'Markdown'
+  static parseMode = 'Markdown' as const
 
   get [Symbol.toStringTag] () {
     return this.constructor.name

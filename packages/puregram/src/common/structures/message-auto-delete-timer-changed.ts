@@ -17,10 +17,8 @@ export class MessageAutoDeleteTimerChanged implements Structure {
     return this.payload.message_auto_delete_time
   }
 
-  toJSON (): Interfaces.TelegramMessageAutoDeleteTimerChanged {
-    return {
-      message_auto_delete_time: this.messageAutoDeleteTime
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

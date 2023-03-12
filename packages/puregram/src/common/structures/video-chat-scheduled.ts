@@ -18,10 +18,8 @@ export class VideoChatScheduled implements Structure {
     return this.payload.start_date
   }
 
-  toJSON (): Interfaces.TelegramVideoChatScheduled {
-    return {
-      start_date: this.startDate
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

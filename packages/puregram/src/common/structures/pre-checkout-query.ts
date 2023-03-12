@@ -68,16 +68,8 @@ export class PreCheckoutQuery implements Structure {
     return new OrderInfo(order_info)
   }
 
-  toJSON (): Interfaces.TelegramPreCheckoutQuery {
-    return {
-      id: this.id,
-      from: this.from.toJSON(),
-      currency: this.currency,
-      total_amount: this.totalAmount,
-      invoice_payload: this.invoicePayload,
-      shipping_option_id: this.shippingOptionId,
-      order_info: this.orderInfo?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

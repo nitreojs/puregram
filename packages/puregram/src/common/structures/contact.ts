@@ -38,14 +38,8 @@ export class Contact implements Structure {
     return this.payload.vcard
   }
 
-  toJSON (): Interfaces.TelegramContact {
-    return {
-      phone_number: this.phoneNumber,
-      first_name: this.firstName,
-      last_name: this.lastName,
-      user_id: this.userId,
-      vcard: this.vCard
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

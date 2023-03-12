@@ -68,17 +68,8 @@ export class StickerSet implements Structure {
     return new PhotoSize(thumbnail)
   }
 
-  toJSON (): Interfaces.TelegramStickerSet {
-    return {
-      name: this.name,
-      title: this.title,
-      sticker_type: this.stickerType,
-      is_animated: this.isAnimated(),
-      is_video: this.isVideo(),
-      contains_masks: this.containsMasks,
-      stickers: this.stickers?.map(sticker => sticker.toJSON()) ?? [],
-      thumbnail: this.thumbnail?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

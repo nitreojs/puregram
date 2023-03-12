@@ -41,13 +41,8 @@ export class PassportFile implements Structure {
     return this.payload.file_date
   }
 
-  toJSON (): Interfaces.TelegramPassportFile {
-    return {
-      file_id: this.fileId,
-      file_unique_id: this.fileUniqueId,
-      file_size: this.fileSize,
-      file_date: this.fileDate
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

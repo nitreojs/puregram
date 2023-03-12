@@ -85,16 +85,8 @@ export class CallbackQuery implements Structure {
     return this.payload.game_short_name
   }
 
-  toJSON (): Interfaces.TelegramCallbackQuery {
-    return {
-      id: this.id,
-      from: this.from.toJSON(),
-      message: this.message?.toJSON(),
-      inline_message_id: this.inlineMessageId,
-      chat_instance: this.chatInstance,
-      data: this.data,
-      game_short_name: this.gameShortName
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

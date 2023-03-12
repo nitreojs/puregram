@@ -22,11 +22,8 @@ export class UserShared implements Structure {
     return this.payload.user_id
   }
 
-  toJSON (): Interfaces.TelegramUserShared {
-    return {
-      request_id: this.requestId,
-      user_id: this.userId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

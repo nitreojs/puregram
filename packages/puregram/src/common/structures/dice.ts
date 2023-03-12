@@ -28,11 +28,8 @@ export class Dice implements Structure {
     return this.payload.value
   }
 
-  toJSON (): Interfaces.TelegramDice {
-    return {
-      emoji: this.emoji,
-      value: this.value
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

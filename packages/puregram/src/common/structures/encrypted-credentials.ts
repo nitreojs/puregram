@@ -38,12 +38,8 @@ export class EncryptedCredentials implements Structure {
     return this.payload.secret
   }
 
-  toJSON (): Interfaces.TelegramEncryptedCredentials {
-    return {
-      data: this.data,
-      hash: this.hash,
-      secret: this.secret
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

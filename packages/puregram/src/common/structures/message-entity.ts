@@ -74,16 +74,8 @@ export class MessageEntity implements Structure {
     return this.payload.custom_emoji_id
   }
 
-  toJSON (): Interfaces.TelegramMessageEntity {
-    return {
-      type: this.type,
-      offset: this.offset,
-      length: this.length,
-      url: this.url,
-      user: this.user?.toJSON(),
-      language: this.language,
-      custom_emoji_id: this.customEmojiId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

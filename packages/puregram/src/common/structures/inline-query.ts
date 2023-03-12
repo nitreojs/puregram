@@ -51,14 +51,8 @@ export class InlineQuery implements Structure {
     return this.payload.offset
   }
 
-  toJSON (): Interfaces.TelegramInlineQuery {
-    return {
-      id: this.id,
-      from: this.from.toJSON(),
-      location: this.location?.toJSON(),
-      query: this.query,
-      offset: this.offset
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -103,22 +103,8 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
     return this.payload.file_size
   }
 
-  toJSON (): Interfaces.TelegramSticker {
-    return {
-      file_id: this.fileId,
-      file_unique_id: this.fileUniqueId,
-      type: this.type,
-      width: this.width,
-      height: this.height,
-      is_animated: this.isAnimated(),
-      is_video: this.isVideo(),
-      thumbnail: this.thumbnail?.toJSON(),
-      emoji: this.emoji,
-      set_name: this.setName,
-      mask_position: this.maskPosition?.toJSON(),
-      custom_emoji_id: this.customEmojiId,
-      file_size: this.fileSize
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

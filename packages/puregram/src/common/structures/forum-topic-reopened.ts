@@ -12,8 +12,8 @@ export class ForumTopicReopened implements Structure {
     return this.constructor.name
   }
 
-  toJSON (): Interfaces.TelegramForumTopicReopened {
-    return { }
+  toJSON () {
+    return this.payload
   }
 }
 

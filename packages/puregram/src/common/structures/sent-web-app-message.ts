@@ -22,10 +22,8 @@ export class SentWebAppMessage implements Structure {
     return this.payload.inline_message_id
   }
 
-  toJSON (): Interfaces.TelegramSentWebAppMessage {
-    return {
-      inline_message_id: this.inlineMessageId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

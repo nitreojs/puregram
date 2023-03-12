@@ -17,10 +17,8 @@ export class VideoChatEnded implements Structure {
     return this.payload.duration
   }
 
-  toJSON (): Interfaces.TelegramVideoChatEnded {
-    return {
-      duration: this.duration
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

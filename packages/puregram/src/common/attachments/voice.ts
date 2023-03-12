@@ -24,14 +24,8 @@ export class VoiceAttachment extends FileAttachment<Interfaces.TelegramVoice> {
     return this.payload.file_size
   }
 
-  toJSON (): Interfaces.TelegramVoice {
-    return {
-      file_id: this.fileId,
-      file_unique_id: this.fileUniqueId,
-      duration: this.duration,
-      mime_type: this.mimeType,
-      file_size: this.fileSize
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

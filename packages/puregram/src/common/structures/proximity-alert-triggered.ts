@@ -28,12 +28,8 @@ export class ProximityAlertTriggered implements Structure {
     return this.payload.distance
   }
 
-  toJSON (): Interfaces.TelegramProximityAlertTriggered {
-    return {
-      traveler: this.traveler.toJSON(),
-      watcher: this.watcher.toJSON(),
-      distance: this.distance
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

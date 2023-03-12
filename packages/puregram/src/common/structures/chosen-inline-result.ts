@@ -55,15 +55,8 @@ export class ChosenInlineResult implements Structure {
     return this.payload.query
   }
 
-  toJSON (): Interfaces.TelegramChosenInlineResult {
-    return {
-      result_id: this.resultId,
-      from: this.from.toJSON(),
-      sender_id: this.senderId,
-      location: this.location,
-      inline_message_id: this.inlineMessageId,
-      query: this.query
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

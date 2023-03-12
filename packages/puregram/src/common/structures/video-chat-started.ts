@@ -15,8 +15,8 @@ export class VideoChatStarted implements Structure {
     return this.constructor.name
   }
 
-  toJSON (): Interfaces.TelegramVideoChatStarted {
-    return {}
+  toJSON () {
+    return this.payload
   }
 }
 

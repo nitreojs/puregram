@@ -216,37 +216,8 @@ export class ChatMember implements Structure {
     return this.payload.can_add_web_page_previews
   }
 
-  toJSON (): Interfaces.TelegramChatMember {
-    // @ts-expect-error typescript yells at status for no reason :smh:
-    return {
-      status: this.status,
-      user: this.user.toJSON(),
-      is_anonymous: this.isAnonymous(),
-      custom_title: this.customTitle,
-      until_date: this.untilDate,
-      can_be_edited: this.canBeEdited(),
-      can_manage_chat: this.canManageChat(),
-      can_post_messages: this.canPostMessages(),
-      can_edit_messages: this.canEditMessages(),
-      can_delete_messages: this.canDeleteMessages(),
-      can_manage_video_chats: this.canManageVideoChats(),
-      can_restrict_members: this.canRestrictMembers(),
-      can_promote_members: this.canPromoteMembers(),
-      can_change_info: this.canChangeInfo(),
-      can_invite_users: this.canInviteUsers(),
-      can_pin_messages: this.canPinMessages(),
-      can_manage_topics: this.canManageTopics(),
-      is_member: this.isMember(),
-      can_send_messages: this.canSendMessages(),
-      can_send_audios: this.canSendAudios(),
-      can_send_documents: this.canSendDocuments(),
-      can_send_photos: this.canSendPhotos(),
-      can_send_videos: this.canSendVideos(),
-      can_send_video_notes: this.canSendVideoNotes(),
-      can_send_voice_notes: this.canSendVoiceNotes(),
-      can_send_other_messages: this.canSendOtherMessages(),
-      can_add_web_page_previews: this.canAddWebPagePreviews()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

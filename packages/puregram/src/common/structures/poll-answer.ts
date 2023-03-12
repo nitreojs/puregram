@@ -37,13 +37,8 @@ export class PollAnswer implements Structure {
     return this.payload.option_ids
   }
 
-  toJSON (): Interfaces.TelegramPollAnswer {
-    return {
-      poll_id: this.pollId,
-      user: this.user.toJSON(),
-      sender_id: this.senderId,
-      option_ids: this.optionIds
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

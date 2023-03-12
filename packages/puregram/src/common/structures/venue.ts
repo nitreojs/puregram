@@ -53,16 +53,8 @@ export class Venue implements Structure {
     return this.payload.google_place_type
   }
 
-  toJSON (): Interfaces.TelegramVenue {
-    return {
-      location: this.location.toJSON(),
-      title: this.title,
-      address: this.address,
-      foursquare_id: this.foursquareId,
-      foursquare_type: this.foursquareType,
-      google_place_id: this.googlePlaceId,
-      google_place_type: this.googlePlaceType
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

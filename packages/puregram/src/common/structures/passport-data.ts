@@ -37,11 +37,8 @@ export class PassportData implements Structure {
     return new EncryptedCredentials(this.payload.credentials)
   }
 
-  toJSON (): Interfaces.TelegramPassportData {
-    return {
-      data: this.data?.map(e => e.toJSON()) ?? [],
-      credentials: this.credentials
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

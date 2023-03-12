@@ -43,14 +43,8 @@ export class PhotoSize implements Structure {
     return this.payload.file_size
   }
 
-  toJSON (): Interfaces.TelegramPhotoSize {
-    return {
-      file_id: this.fileId,
-      file_unique_id: this.fileUniqueId,
-      width: this.width,
-      height: this.height,
-      file_size: this.fileSize
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

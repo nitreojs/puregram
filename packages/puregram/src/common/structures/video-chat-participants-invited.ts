@@ -19,10 +19,8 @@ export class VideoChatParticipantsInvited implements Structure {
     return this.payload.users.map(user => new User(user))
   }
 
-  toJSON (): Interfaces.TelegramVideoChatParticipantsInvited {
-    return {
-      users: this.users.map(user => user.toJSON())
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

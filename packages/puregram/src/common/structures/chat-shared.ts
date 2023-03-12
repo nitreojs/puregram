@@ -22,11 +22,8 @@ export class ChatShared implements Structure {
     return this.payload.chat_id
   }
 
-  toJSON (): Interfaces.TelegramChatShared {
-    return {
-      request_id: this.requestId,
-      chat_id: this.chatId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

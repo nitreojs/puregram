@@ -29,12 +29,8 @@ export class ForumTopicCreated implements Structure {
     return this.payload.icon_custom_emoji_id
   }
 
-  toJSON (): Interfaces.TelegramForumTopicCreated {
-    return {
-      name: this.name,
-      icon_color: this.iconColor,
-      icon_custom_emoji_id: this.iconCustomEmojiId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -101,17 +101,8 @@ export class InlineKeyboardButton implements Structure {
     return this.payload.pay
   }
 
-  toJSON (): Interfaces.TelegramInlineKeyboardButton {
-    return {
-      text: this.text,
-      url: this.url,
-      login_url: this.loginUrl,
-      callback_data: this.callbackData,
-      switch_inline_query: this.switchInlineQuery,
-      switch_inline_query_current_chat: this.switchInlineQueryCurrentChat,
-      callback_game: this.callbackGame,
-      pay: this.pay
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

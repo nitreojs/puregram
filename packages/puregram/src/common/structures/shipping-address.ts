@@ -42,15 +42,8 @@ export class ShippingAddress implements Structure {
     return this.payload.post_code
   }
 
-  toJSON (): Interfaces.TelegramShippingAddress {
-    return {
-      country_code: this.countryCode,
-      state: this.state,
-      city: this.city,
-      street_line1: this.firstStreetLine,
-      street_line2: this.secondStreetLine,
-      post_code: this.postCode
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

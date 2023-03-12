@@ -52,18 +52,8 @@ export class VideoAttachment extends FileAttachment<Interfaces.TelegramVideo> {
     return this.payload.file_size
   }
 
-  toJSON (): Interfaces.TelegramVideo {
-    return {
-      file_id: this.fileId,
-      file_unique_id: this.fileUniqueId,
-      width: this.width,
-      height: this.height,
-      duration: this.duration,
-      thumbnail: this.thumbnail?.toJSON(),
-      file_name: this.fileName,
-      mime_type: this.mimeType,
-      file_size: this.fileSize
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -285,32 +285,8 @@ export class Chat implements Structure {
     return this.payload.linked_chat_id
   }
 
-  toJSON (): Interfaces.TelegramChat {
-    return {
-      id: this.id,
-      type: this.type,
-      title: this.title,
-      username: this.username,
-      first_name: this.firstName,
-      last_name: this.lastName,
-      photo: this.photo?.toJSON(),
-      active_usernames: this.activeUsernames,
-      emoji_status_custom_emoji_id: this.emojiStatusCustomEmojiId,
-      bio: this.bio,
-      has_private_forwards: this.hasPrivateForwards(),
-      has_restricted_voice_and_video_messages: this.hasRestrictedVoiceAndVideoMessages(),
-      join_to_send_messages: this.joinToSendMessages,
-      join_by_request: this.joinByRequest,
-      location: this.location,
-      description: this.description,
-      invite_link: this.inviteLink,
-      pinned_message: this.pinnedMessage?.toJSON(),
-      permissions: this.permissions,
-      slow_mode_delay: this.slowModeDelay,
-      sticker_set_name: this.stickerSetName,
-      can_set_sticker_set: this.canSetStickerSet(),
-      linked_chat_id: this.linkedChatId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -13,10 +13,8 @@ export class MessageId implements Structure {
     return this.payload.message_id
   }
 
-  toJSON (): Interfaces.TelegramMessageId {
-    return {
-      message_id: this.id
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -51,15 +51,8 @@ export class ChatJoinRequest implements Structure {
     return new ChatInviteLink(invite_link)
   }
 
-  toJSON (): Interfaces.TelegramChatJoinRequest {
-    return {
-      chat: this.chat.toJSON(),
-      user_chat_id: this.userChatId,
-      date: this.date,
-      from: this.from.toJSON(),
-      bio: this.bio,
-      invite_link: this.inviteLink?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

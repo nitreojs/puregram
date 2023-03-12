@@ -22,11 +22,8 @@ export class PollOption implements Structure {
     return this.payload.voter_count
   }
 
-  toJSON (): Interfaces.TelegramPollOption {
-    return {
-      text: this.text,
-      voter_count: this.voterCount
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

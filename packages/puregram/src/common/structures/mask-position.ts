@@ -46,13 +46,8 @@ export class MaskPosition implements Structure {
     return this.payload.scale
   }
 
-  toJSON (): Interfaces.TelegramMaskPosition {
-    return {
-      point: this.point,
-      x_shift: this.xShift,
-      y_shift: this.yShift,
-      scale: this.scale
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

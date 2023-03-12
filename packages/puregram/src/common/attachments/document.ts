@@ -40,15 +40,8 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
     return this.payload.file_size
   }
 
-  toJSON (): Interfaces.TelegramDocument {
-    return {
-      file_id: this.fileId,
-      file_unique_id: this.fileUniqueId,
-      thumbnail: this.thumbnail?.toJSON(),
-      file_name: this.fileName,
-      mime_type: this.mimeType,
-      file_size: this.fileSize
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

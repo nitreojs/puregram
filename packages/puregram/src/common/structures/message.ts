@@ -743,78 +743,8 @@ export class Message implements Structure {
     return new WebAppData(web_app_data)
   }
 
-  toJSON (): Interfaces.TelegramMessage {
-    return {
-      message_id: this.id,
-      from: this.from?.toJSON(),
-      sender_chat: this.senderChat?.toJSON(),
-      date: this.createdAt,
-      chat: this.chat.toJSON(),
-      created_at: this.createdAt,
-      forward_from: this.forwardedMessage?.from?.toJSON(),
-      forward_from_chat: this.forwardedMessage?.chat?.toJSON(),
-      forward_from_message_id: this.forwardedMessage?.id,
-      forward_signature: this.forwardedMessage?.signature,
-      forward_sender_name: this.forwardedMessage?.senderName,
-      forward_date: this.forwardedMessage?.createdAt,
-      is_automatic_forward: this.isAutomaticForward(),
-      reply_to_message: this.replyMessage?.toJSON(),
-      via_bot: this.viaBot?.toJSON(),
-      edit_date: this.updatedAt,
-      has_protected_content: this.hasProtectedContent(),
-      media_group_id: this.mediaGroupId,
-      author_signature: this.authorSignature,
-      text: this.text,
-      entities: this.entities?.map(entity => entity.toJSON()),
-
-      // Attachments
-
-      animation: this.animation?.toJSON(),
-      audio: this.audio?.toJSON(),
-      document: this.document?.toJSON(),
-      photo: this.photo?.map(size => size.toJSON()),
-      sticker: this.sticker?.toJSON(),
-      video: this.video?.toJSON(),
-      video_note: this.videoNote?.toJSON(),
-      voice: this.voice?.toJSON(),
-
-      caption: this.caption,
-      caption_entities: this.captionEntities?.map(entity => entity.toJSON()),
-
-      contact: this.contact?.toJSON(),
-      dice: this.dice?.toJSON(),
-      game: this.game?.toJSON(),
-      poll: this.poll?.toJSON(),
-      venue: this.venue?.toJSON(),
-      location: this.location?.toJSON(),
-
-      // Events
-
-      new_chat_members: this.newChatMembers?.map(user => user.toJSON()),
-      left_chat_member: this.leftChatMember?.toJSON(),
-      new_chat_title: this.newChatTitle,
-      new_chat_photo: this.newChatPhoto?.map(size => size.toJSON()),
-      delete_chat_photo: this.deleteChatPhoto,
-      group_chat_created: this.groupChatCreated,
-      supergroup_chat_created: this.supergroupChatCreated,
-      channel_chat_created: this.channelChatCreated,
-      message_auto_delete_timer_changed: this.messageAutoDeleteTimerChanged?.toJSON(),
-      migrate_to_chat_id: this.migrateToChatId,
-      migrate_from_chat_id: this.migrateFromChatId,
-
-      pinned_message: this.pinnedMessage?.toJSON(),
-      invoice: this.invoice?.toJSON(),
-      successful_payment: this.successfulPayment?.toJSON(),
-      connected_website: this.connectedWebsite,
-      passport_data: this.passportData?.toJSON(),
-      video_chat_scheduled: this.videoChatScheduled?.toJSON(),
-      video_chat_started: this.videoChatStarted?.toJSON(),
-      video_chat_ended: this.videoChatEnded?.toJSON(),
-      video_chat_participants_invited: this.videoChatParticipantsInvited?.toJSON(),
-      web_app_data: this.webAppData?.toJSON(),
-
-      reply_markup: this.replyMarkup?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

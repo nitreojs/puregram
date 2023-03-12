@@ -40,13 +40,8 @@ export class MenuButton implements Structure {
     return new WebAppInfo(web_app)
   }
 
-  toJSON (): Interfaces.TelegramMenuButton {
-    // @ts-expect-error typescript yells at type for no reason :smh:
-    return {
-      type: this.type,
-      text: this.text,
-      web_app: this.webApp?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

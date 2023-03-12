@@ -7,8 +7,8 @@ import { Structure } from '../../types/interfaces'
 export class WriteAccessAllowed implements Structure {
   constructor (public payload: Interfaces.TelegramWriteAccessAllowed) { }
 
-  toJSON (): Interfaces.TelegramWriteAccessAllowed {
-    return { }
+  toJSON () {
+    return this.payload
   }
 }
 

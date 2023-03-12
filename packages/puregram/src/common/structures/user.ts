@@ -83,20 +83,8 @@ export class User implements Structure {
     return this.payload.supports_inline_queries
   }
 
-  toJSON (): Interfaces.TelegramUser {
-    return {
-      id: this.id,
-      is_bot: this.isBot(),
-      first_name: this.firstName,
-      last_name: this.lastName,
-      username: this.username,
-      language_code: this.languageCode,
-      is_premium: this.isPremium(),
-      added_to_attachment_menu: this.addedToAttachmentMenu,
-      can_join_groups: this.canJoinGroups(),
-      can_read_all_group_messages: this.canReadAllGroupMessages(),
-      supports_inline_queries: this.supportsInlineQueries
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

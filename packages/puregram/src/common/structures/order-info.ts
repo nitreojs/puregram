@@ -41,13 +41,8 @@ export class OrderInfo implements Structure {
     return new ShippingAddress(shipping_address)
   }
 
-  toJSON (): Interfaces.TelegramOrderInfo {
-    return {
-      name: this.name,
-      phone_number: this.phoneNumber,
-      email: this.email,
-      shipping_address: this.shippingAddress?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

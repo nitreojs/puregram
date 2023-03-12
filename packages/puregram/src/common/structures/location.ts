@@ -54,15 +54,8 @@ export class Location implements Structure {
     return this.payload.proximity_alert_radius
   }
 
-  toJSON (): Interfaces.TelegramLocation {
-    return {
-      longitude: this.longitude,
-      latitude: this.latitude,
-      horizontal_accuracy: this.horizontalAccuracy,
-      live_period: this.livePeriod,
-      heading: this.heading,
-      proximity_alert_radius: this.proximityAlertRadius
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -57,15 +57,8 @@ export class ChatMemberUpdated implements Structure {
     return new ChatInviteLink(invite_link)
   }
 
-  toJSON (): Interfaces.TelegramChatMemberUpdated {
-    return {
-      chat: this.chat.toJSON(),
-      from: this.from.toJSON(),
-      date: this.date,
-      old_chat_member: this.oldChatMember.toJSON(),
-      new_chat_member: this.newChatMember.toJSON(),
-      invite_link: this.inviteLink?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

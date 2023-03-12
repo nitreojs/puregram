@@ -67,18 +67,8 @@ export class ChatInviteLink implements Structure {
     return this.payload.pending_join_request_count
   }
 
-  toJSON (): Interfaces.TelegramChatInviteLink {
-    return {
-      invite_link: this.link,
-      name: this.name,
-      creator: this.creator.toJSON(),
-      is_primary: this.isPrimary(),
-      is_revoked: this.isRevoked(),
-      expire_date: this.expireDate,
-      member_limit: this.memberLimit,
-      creates_join_request: this.createsJoinRequest,
-      pending_join_request_count: this.pendingJoinRequestCount
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

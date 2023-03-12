@@ -208,24 +208,8 @@ export class Update implements Structure {
     return new ChatJoinRequest(chat_join_request)
   }
 
-  toJSON (): Interfaces.TelegramUpdate {
-    return {
-      update_id: this.id,
-      message: this.message?.toJSON(),
-      edited_message: this.editedMessage?.toJSON(),
-      channel_post: this.channelPost?.toJSON(),
-      edited_channel_post: this.editedChannelPost?.toJSON(),
-      inline_query: this.inlineQuery?.toJSON(),
-      chosen_inline_result: this.chosenInlineResult?.toJSON(),
-      callback_query: this.callbackQuery?.toJSON(),
-      shipping_query: this.shippingQuery?.toJSON(),
-      pre_checkout_query: this.preCheckoutQuery?.toJSON(),
-      poll: this.poll?.toJSON(),
-      poll_answer: this.pollAnswer?.toJSON(),
-      my_chat_member: this.myChatMember?.toJSON(),
-      chat_member: this.chatMember?.toJSON(),
-      chat_join_request: this.chatJoinRequest?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

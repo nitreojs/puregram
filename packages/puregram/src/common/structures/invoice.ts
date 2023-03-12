@@ -47,14 +47,8 @@ export class Invoice implements Structure {
     return this.payload.total_amount
   }
 
-  toJSON (): Interfaces.TelegramInvoice {
-    return {
-      title: this.title,
-      description: this.description,
-      start_parameter: this.startParameter,
-      currency: this.currency,
-      total_amount: this.totalAmount
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

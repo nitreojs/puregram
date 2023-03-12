@@ -47,13 +47,8 @@ export class ChatPhoto implements Structure {
     return this.payload.big_file_unique_id
   }
 
-  toJSON (): Interfaces.TelegramChatPhoto {
-    return {
-      small_file_id: this.smallFileId,
-      small_file_unique_id: this.smallFileUniqueId,
-      big_file_id: this.bigFileId,
-      big_file_unique_id: this.bigFileUniqueId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

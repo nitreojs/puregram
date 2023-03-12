@@ -12,8 +12,8 @@ export class CallbackGame implements Structure {
     return this.constructor.name
   }
 
-  toJSON (): Interfaces.TelegramCallbackGame {
-    return {}
+  toJSON () {
+    return this.payload
   }
 }
 

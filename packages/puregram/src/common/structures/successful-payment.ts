@@ -63,16 +63,8 @@ export class SuccessfulPayment implements Structure {
     return this.payload.provider_payment_charge_id
   }
 
-  toJSON (): Interfaces.TelegramSuccessfulPayment {
-    return {
-      currency: this.currency,
-      total_amount: this.totalAmount,
-      invoice_payload: this.invoicePayload,
-      shipping_option_id: this.shippingOptionId,
-      order_info: this.orderInfo,
-      telegram_payment_charge_id: this.telegramPaymentChargeId,
-      provider_payment_charge_id: this.providerPaymentChargeId
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -21,11 +21,8 @@ export class WebAppData implements Structure {
     return this.payload.button_text
   }
 
-  toJSON (): Interfaces.TelegramWebAppData {
-    return {
-      data: this.data,
-      button_text: this.buttonText
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

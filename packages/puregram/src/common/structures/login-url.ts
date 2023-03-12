@@ -55,13 +55,8 @@ export class LoginUrl implements Structure {
     return this.payload.request_write_access
   }
 
-  toJSON (): Interfaces.TelegramLoginUrl {
-    return {
-      url: this.url,
-      forward_text: this.forwardText,
-      bot_username: this.botUsername,
-      request_write_access: this.requestWriteAccess
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

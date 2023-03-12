@@ -138,19 +138,8 @@ export class EncryptedPassportElement implements Structure {
     return this.payload.hash
   }
 
-  toJSON (): Interfaces.TelegramEncryptedPassportElement {
-    return {
-      type: this.type,
-      data: this.data,
-      phone_number: this.phoneNumber,
-      email: this.email,
-      files: this.files?.map(file => file.toJSON()),
-      front_side: this.frontSide?.toJSON(),
-      reverse_side: this.reverseSide?.toJSON(),
-      selfie: this.selfie?.toJSON(),
-      translation: this.translation?.map(e => e.toJSON()),
-      hash: this.hash
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

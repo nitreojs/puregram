@@ -8,8 +8,8 @@ import { Structure } from '../../types/interfaces'
 export class GeneralForumTopicHidden implements Structure {
   constructor (public payload: Interfaces.TelegramGeneralForumTopicHidden) { }
 
-  toJSON (): Interfaces.TelegramGeneralForumTopicHidden {
-    return { }
+  toJSON () {
+    return this.payload
   }
 }
 

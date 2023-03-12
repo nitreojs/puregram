@@ -17,10 +17,8 @@ export class WebAppInfo implements Structure {
     return this.payload.url
   }
 
-  toJSON (): Interfaces.TelegramWebAppInfo {
-    return {
-      url: this.url
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

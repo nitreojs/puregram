@@ -40,13 +40,8 @@ export class ShippingQuery implements Structure {
     return new ShippingAddress(this.payload.shipping_address)
   }
 
-  toJSON (): Interfaces.TelegramShippingQuery {
-    return {
-      id: this.id,
-      from: this.from.toJSON(),
-      invoice_payload: this.invoicePayload,
-      shipping_address: this.shippingAddress.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

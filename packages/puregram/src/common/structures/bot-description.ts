@@ -17,10 +17,8 @@ export class BotDescription implements Structure {
     return this.payload.description
   }
 
-  toJSON (): Interfaces.TelegramBotDescription {
-    return {
-      description: this.description
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -30,11 +30,8 @@ export class UserProfilePhotos implements Structure {
     return photos.map(row => row.map(element => new PhotoSize(element)))
   }
 
-  toJSON (): Interfaces.TelegramUserProfilePhotos {
-    return {
-      photos: this.photos?.map(row => row.map(size => size.toJSON())) ?? [],
-      total_count: this.totalCount
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

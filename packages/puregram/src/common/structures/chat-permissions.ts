@@ -81,18 +81,8 @@ export class ChatPermissions implements Structure {
     return this.payload.can_manage_topics
   }
 
-  toJSON (): Interfaces.TelegramChatPermissions {
-    return {
-      can_send_messages: this.canSendMessages(),
-      can_send_media_messages: this.canSendMediaMessages(),
-      can_send_polls: this.canSendPolls(),
-      can_send_other_messages: this.canSendOtherMessages(),
-      can_add_web_page_previews: this.canAddWebPagePreviews(),
-      can_change_info: this.canChangeInfo(),
-      can_invite_users: this.canInviteUsers(),
-      can_pin_messages: this.canPinMessages(),
-      can_manage_topics: this.canManageTopics()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

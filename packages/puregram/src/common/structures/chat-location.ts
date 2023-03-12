@@ -23,11 +23,8 @@ export class ChatLocation implements Structure {
     return this.payload.address
   }
 
-  toJSON (): Interfaces.TelegramChatLocation {
-    return {
-      address: this.address,
-      location: this.location.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -22,11 +22,8 @@ export class BotCommand implements Structure {
     return this.payload.description
   }
 
-  toJSON (): Interfaces.TelegramBotCommand {
-    return {
-      command: this.command,
-      description: this.description
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

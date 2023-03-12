@@ -41,13 +41,8 @@ export class File implements Structure {
     return this.payload.file_path
   }
 
-  toJSON (): Interfaces.TelegramFile {
-    return {
-      file_id: this.fileId,
-      file_unique_id: this.fileUniqueId,
-      file_size: this.fileSize,
-      file_path: this.filePath
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

@@ -77,15 +77,8 @@ export class Game implements Structure {
     return new AnimationAttachment(animation)
   }
 
-  toJSON (): Interfaces.TelegramGame {
-    return {
-      title: this.title,
-      description: this.description,
-      photo: this.photo?.map(size => size.toJSON()) ?? [],
-      text: this.text,
-      text_entities: this.textEntities?.map(entity => entity.toJSON()),
-      animation: this.animation?.toJSON()
-    }
+  toJSON () {
+    return this.payload
   }
 }
 

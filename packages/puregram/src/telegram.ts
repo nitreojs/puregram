@@ -288,7 +288,6 @@ export class Telegram {
     let init: RequestInit = {
       method: 'GET',
       signal: controller.signal,
-      // @ts-expect-error undici's types are weird; https://github.com/nodejs/node/issues/46221
       duplex: 'half'
     }
 

@@ -12,8 +12,9 @@
     "debug": "^4.3.2",
     "form-data-encoder": "^1.7.2",
     "formdata-node": "^4.3.2",
-    "inspectable": "^1.2.0",
+    "inspectable": "^2.0.0",
     "middleware-io": "^2.8.0",
+    "reflect-metadata": "^0.1.13",
     "undici": "5.19.1"
   },
   "types": "./lib/index.d.ts",

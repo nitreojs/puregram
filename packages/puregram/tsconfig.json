@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2019",
+    "experimentalDecorators": true,
     "module": "commonjs",
     "declaration": true,
     "outDir": "./lib",

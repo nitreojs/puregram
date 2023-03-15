@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents the bot's description. */
+@Inspectable()
 export class BotDescription implements Structure {
   constructor (public payload: Interfaces.TelegramBotDescription) { }
 
@@ -13,6 +14,7 @@ export class BotDescription implements Structure {
   }
 
   /** The bot's description */
+  @Inspect()
   get description () {
     return this.payload.description
   }
@@ -21,11 +23,3 @@ export class BotDescription implements Structure {
     return this.payload
   }
 }
-
-inspectable(BotDescription, {
-  serialize (struct) {
-    return {
-      description: struct.description
-    }
-  }
-})

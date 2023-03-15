@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -16,6 +15,7 @@ import { User } from './user'
  * the field inline_message_id will be present.
  * Exactly one of the fields `data` or `game_short_name` will be present.
  */
+@Inspectable()
 export class CallbackQuery implements Structure {
   constructor (public payload: Interfaces.TelegramCallbackQuery) { }
 
@@ -24,11 +24,13 @@ export class CallbackQuery implements Structure {
   }
 
   /** Unique identifier for this query */
+  @Inspect()
   get id () {
     return this.payload.id
   }
 
   /** Sender */
+  @Inspect()
   get from () {
     return new User(this.payload.from)
   }
@@ -43,6 +45,7 @@ export class CallbackQuery implements Structure {
    * Note that message content and message date will not be available
    * if the message is too old
    */
+  @Inspect({ nullable: false })
   get message () {
     const { message } = this.payload
 
@@ -57,6 +60,7 @@ export class CallbackQuery implements Structure {
    * Identifier of the message sent via the bot in inline mode,
    * that originated the query.
    */
+  @Inspect({ nullable: false })
   get inlineMessageId () {
     return this.payload.inline_message_id
   }
@@ -65,6 +69,7 @@ export class CallbackQuery implements Structure {
    * Global identifier, uniquely corresponding to the chat to which the message
    * with the callback button was sent. Useful for high scores in games.
    */
+  @Inspect()
   get chatInstance () {
     return this.payload.chat_instance
   }
@@ -73,6 +78,7 @@ export class CallbackQuery implements Structure {
    * Data associated with the callback button.
    * Be aware that a bad client can send arbitrary data in this field.
    */
+  @Inspect({ nullable: false })
   get data () {
     return this.payload.data
   }
@@ -81,6 +87,7 @@ export class CallbackQuery implements Structure {
    * Short name of a Game to be returned,
    * serves as the unique identifier for the game
    */
+  @Inspect({ nullable: false })
   get gameShortName () {
     return this.payload.game_short_name
   }
@@ -89,19 +96,3 @@ export class CallbackQuery implements Structure {
     return this.payload
   }
 }
-
-inspectable(CallbackQuery, {
-  serialize (struct) {
-    const payload = {
-      id: struct.id,
-      from: struct.from,
-      message: struct.message,
-      inlineMessageId: struct.inlineMessageId,
-      chatInstance: struct.chatInstance,
-      data: struct.data,
-      gameShortName: struct.gameShortName
-    }
-
-    return filterPayload(payload)
-  }
-})

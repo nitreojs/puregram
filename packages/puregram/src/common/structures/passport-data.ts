@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -11,6 +11,7 @@ import { EncryptedCredentials } from './encrypted-credentials'
  * Contains information about Telegram Passport data shared with the bot by the
  * user.
  */
+@Inspectable()
 export class PassportData implements Structure {
   constructor (public payload: Interfaces.TelegramPassportData) { }
 
@@ -22,6 +23,7 @@ export class PassportData implements Structure {
    * Array with information about documents and other Telegram Passport
    * elements that was shared with the bot
    */
+  @Inspect({ nullable: false })
   get data () {
     const { data } = this.payload
 
@@ -33,6 +35,7 @@ export class PassportData implements Structure {
   }
 
   /** Encrypted credentials required to decrypt the data */
+  @Inspect()
   get credentials () {
     return new EncryptedCredentials(this.payload.credentials)
   }
@@ -41,12 +44,3 @@ export class PassportData implements Structure {
     return this.payload
   }
 }
-
-inspectable(PassportData, {
-  serialize (struct) {
-    return {
-      data: struct.data,
-      credentials: struct.credentials
-    }
-  }
-})

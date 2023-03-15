@@ -1,15 +1,26 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** Keyboard */
+@Inspectable()
 export class Keyboard {
+  @Inspect({ as: 'keyboard' })
   private buttons: Interfaces.TelegramKeyboardButton[][] = []
 
+  @Inspect({ as: 'resize_keyboard' })
   private isResized = false
+
+  @Inspect({ as: 'one_time_keyboard' })
   private isOneTime = false
+
+  @Inspect({ as: 'selective' })
   private isSelective = false
+
+  @Inspect({ as: 'is_persistent' })
   private isPersistent = false
+
+  @Inspect({ as: 'input_field_placeholder' })
   private placeholder?: string
 
   get [Symbol.toStringTag] () {
@@ -162,9 +173,3 @@ export class Keyboard {
     return JSON.stringify(this)
   }
 }
-
-inspectable(Keyboard, {
-  serialize (keyboard) {
-    return keyboard.toJSON()
-  }
-})

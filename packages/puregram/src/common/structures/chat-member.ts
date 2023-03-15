@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -16,6 +15,7 @@ import { User } from './user'
  * - `ChatMemberLeft`
  * - `ChatMemberBanned`
  */
+@Inspectable()
 export class ChatMember implements Structure {
   constructor (public payload: Interfaces.TelegramChatMember) { }
 
@@ -24,22 +24,26 @@ export class ChatMember implements Structure {
   }
 
   /** Information about the user */
+  @Inspect()
   get user () {
     return new User(this.payload.user)
   }
 
   /** The member's status in the chat */
+  @Inspect()
   get status () {
     return this.payload.status
   }
 
   /** Owner and administrators only. Custom title for this user */
-  get customTitle () {
+  @Inspect({ nullable: false })
+  get customTitle (): string | undefined {
     return this.payload.custom_title
   }
 
   /** Owner and administrators only. `true`, if the user's presence in the chat is hidden */
-  isAnonymous () {
+  @Inspect({ compute: true, nullable: false })
+  isAnonymous (): boolean | undefined {
     return this.payload.is_anonymous
   }
 
@@ -48,7 +52,8 @@ export class ChatMember implements Structure {
    * Date when restrictions will be lifted for this user;
    * unix time
    */
-  get untilDate () {
+  @Inspect({ nullable: false })
+  get untilDate (): number | undefined {
     return this.payload.until_date
   }
 
@@ -57,7 +62,8 @@ export class ChatMember implements Structure {
    * `true`, if the bot is allowed to edit administrator privileges of that
    * user
    */
-  canBeEdited () {
+  @Inspect({ compute: true, nullable: false })
+  canBeEdited (): boolean | undefined {
     return this.payload.can_be_edited
   }
 
@@ -68,7 +74,8 @@ export class ChatMember implements Structure {
    * in supergroups and ignore slow mode.
    * Implied by any other administrator privilege
    */
-  canManageChat () {
+  @Inspect({ compute: true, nullable: false })
+  canManageChat (): boolean | undefined {
     return this.payload.can_manage_chat
   }
 
@@ -77,7 +84,8 @@ export class ChatMember implements Structure {
    * `true`, if the administrator can post in the channel;
    * channels only
    */
-  canPostMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canPostMessages (): boolean | undefined {
     return this.payload.can_post_messages
   }
 
@@ -86,7 +94,8 @@ export class ChatMember implements Structure {
    * `true`, if the administrator can edit messages of other users
    * and can pin messages; channels only
    */
-  canEditMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canEditMessages (): boolean | undefined {
     return this.payload.can_edit_messages
   }
 
@@ -94,7 +103,8 @@ export class ChatMember implements Structure {
    * Administrators only.
    * `true`, if the administrator can delete messages of other users
    */
-  canDeleteMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canDeleteMessages (): boolean | undefined {
     return this.payload.can_delete_messages
   }
 
@@ -102,7 +112,8 @@ export class ChatMember implements Structure {
    * Administrators only.
    * `true`, if the administrator can manage video chats
    */
-  canManageVideoChats () {
+  @Inspect({ compute: true, nullable: false })
+  canManageVideoChats (): boolean | undefined {
     return this.payload.can_manage_video_chats
   }
 
@@ -110,7 +121,8 @@ export class ChatMember implements Structure {
    * Administrators only.
    * `true`, if the administrator can restrict, ban or unban chat members
    */
-  canRestrictMembers () {
+  @Inspect({ compute: true, nullable: false })
+  canRestrictMembers (): boolean | undefined {
     return this.payload.can_restrict_members
   }
 
@@ -121,7 +133,8 @@ export class ChatMember implements Structure {
    * directly or indirectly (promoted by administrators that were appointed by
    * the user)
    */
-  canPromoteMembers () {
+  @Inspect({ compute: true, nullable: false })
+  canPromoteMembers (): boolean | undefined {
     return this.payload.can_promote_members
   }
 
@@ -130,7 +143,8 @@ export class ChatMember implements Structure {
    * `true`, if the user is allowed to change the chat title,
    * photo and other settings
    */
-  canChangeInfo () {
+  @Inspect({ compute: true, nullable: false })
+  canChangeInfo (): boolean | undefined {
     return this.payload.can_change_info
   }
 
@@ -138,7 +152,8 @@ export class ChatMember implements Structure {
    * Administrators and restricted only.
    * `true`, if the user is allowed to invite new users to the chat
    */
-  canInviteUsers () {
+  @Inspect({ compute: true, nullable: false })
+  canInviteUsers (): boolean | undefined {
     return this.payload.can_invite_users
   }
 
@@ -147,12 +162,14 @@ export class ChatMember implements Structure {
    * `true`, if the user is allowed to pin messages;
    * groups and supergroups only
    */
-  canPinMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canPinMessages (): boolean | undefined {
     return this.payload.can_pin_messages
   }
 
   /** `true`, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
-  canManageTopics () {
+  @Inspect({ compute: true, nullable: false })
+  canManageTopics (): boolean | undefined {
     return this.payload.can_manage_topics
   }
 
@@ -160,7 +177,8 @@ export class ChatMember implements Structure {
    * Restricted only.
    * `true`, if the user is a member of the chat at the moment of the request
    */
-  isMember () {
+  @Inspect({ compute: true, nullable: false })
+  isMember (): boolean | undefined {
     return this.payload.is_member
   }
 
@@ -169,42 +187,49 @@ export class ChatMember implements Structure {
    * `true`, if the user is allowed to send text messages,
    * contacts, locations and venues
    */
-  canSendMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canSendMessages (): boolean | undefined {
     return this.payload.can_send_messages
   }
 
   /** `true`, if the user is allowed to send audios */
-  canSendAudios () {
+  @Inspect({ compute: true, nullable: false })
+  canSendAudios (): boolean | undefined {
     return this.payload.can_send_audios
   }
 
   /** `true`, if the user is allowed to send documents */
-  canSendDocuments () {
+  @Inspect({ compute: true, nullable: false })
+  canSendDocuments (): boolean | undefined {
     return this.payload.can_send_documents
   }
 
   /** `true`, if the user is allowed to send photos */
-  canSendPhotos () {
+  @Inspect({ compute: true, nullable: false })
+  canSendPhotos (): boolean | undefined {
     return this.payload.can_send_photos
   }
 
   /** `true`, if the user is allowed to send videos */
-  canSendVideos () {
+  @Inspect({ compute: true, nullable: false })
+  canSendVideos (): boolean | undefined {
     return this.payload.can_send_videos
   }
 
   /** `true`, if the user is allowed to send video notes */
-  canSendVideoNotes () {
+  @Inspect({ compute: true, nullable: false })
+  canSendVideoNotes (): boolean | undefined {
     return this.payload.can_send_video_notes
   }
 
   /** `true`, if the user is allowed to send voice notes */
-  canSendVoiceNotes () {
+  @Inspect({ compute: true, nullable: false })
+  canSendVoiceNotes (): boolean | undefined {
     return this.payload.can_send_voice_notes
   }
 
   /** Restricted only. `true`, if the user is allowed to send polls */
-  canSendPolls () {
+  canSendPolls (): boolean | undefined {
     return this.payload.can_send_polls
   }
 
@@ -213,7 +238,8 @@ export class ChatMember implements Structure {
    * `true`, if the user is allowed to send animations, games,
    * stickers and use inline bots
    */
-  canSendOtherMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canSendOtherMessages (): boolean | undefined {
     return this.payload.can_send_other_messages
   }
 
@@ -221,7 +247,8 @@ export class ChatMember implements Structure {
    * Restricted only
    * `true`, if the user is allowed to add web page previews to their messages
    */
-  canAddWebPagePreviews () {
+  @Inspect({ compute: true, nullable: false })
+  canAddWebPagePreviews (): boolean | undefined {
     return this.payload.can_add_web_page_previews
   }
 
@@ -229,39 +256,3 @@ export class ChatMember implements Structure {
     return this.payload
   }
 }
-
-inspectable(ChatMember, {
-  serialize (struct) {
-    const payload = {
-      user: struct.user,
-      status: struct.status,
-      customTitle: struct.customTitle,
-      isAnonymous: struct.isAnonymous(),
-      untilDate: struct.untilDate,
-      canBeEdited: struct.canBeEdited(),
-      canManageChat: struct.canManageChat(),
-      canPostMessages: struct.canPostMessages(),
-      canEditMessages: struct.canEditMessages(),
-      canDeleteMessages: struct.canDeleteMessages(),
-      canManageVideoChats: struct.canManageVideoChats(),
-      canRestrictMembers: struct.canRestrictMembers(),
-      canPromoteMembers: struct.canPromoteMembers(),
-      canChangeInfo: struct.canChangeInfo(),
-      canInviteUsers: struct.canInviteUsers(),
-      canPinMessages: struct.canPinMessages(),
-      canManageTopics: struct.canManageTopics(),
-      isMember: struct.isMember(),
-      canSendMessages: struct.canSendMessages(),
-      canSendAudios: struct.canSendAudios(),
-      canSendDocuments: struct.canSendDocuments(),
-      canSendPhotos: struct.canSendPhotos(),
-      canSendVideos: struct.canSendVideos(),
-      canSendVideoNotes: struct.canSendVideoNotes(),
-      canSendVoiceNotes: struct.canSendVoiceNotes(),
-      canSendOtherMessages: struct.canSendOtherMessages(),
-      canAddWebPagePreviews: struct.canAddWebPagePreviews()
-    }
-
-    return filterPayload(payload)
-  }
-})

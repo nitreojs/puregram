@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -13,6 +12,7 @@ import { Location } from './location'
  * When the user sends an empty query, your bot could return some default or
  * trending results.
  */
+@Inspectable()
 export class InlineQuery implements Structure {
   constructor (public payload: Interfaces.TelegramInlineQuery) { }
 
@@ -21,16 +21,19 @@ export class InlineQuery implements Structure {
   }
 
   /** Unique identifier for this query */
+  @Inspect()
   get id () {
     return this.payload.id
   }
 
   /** Sender */
+  @Inspect()
   get from () {
     return new User(this.payload.from)
   }
 
   /** Sender location, only for bots that request user location */
+  @Inspect({ nullable: false })
   get location () {
     const { location } = this.payload
 
@@ -42,11 +45,13 @@ export class InlineQuery implements Structure {
   }
 
   /** Text of the query (up to 256 characters) */
+  @Inspect()
   get query () {
     return this.payload.query
   }
 
   /** Offset of the results to be returned, can be controlled by the bot */
+  @Inspect()
   get offset () {
     return this.payload.offset
   }
@@ -55,17 +60,3 @@ export class InlineQuery implements Structure {
     return this.payload
   }
 }
-
-inspectable(InlineQuery, {
-  serialize (struct) {
-    const payload = {
-      id: struct.id,
-      from: struct.from,
-      location: struct.location,
-      query: struct.query,
-      offset: struct.offset
-    }
-
-    return filterPayload(payload)
-  }
-})

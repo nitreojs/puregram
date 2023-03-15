@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -9,6 +9,7 @@ import { Structure } from '../../types/interfaces'
  * Currently all Telegram Passport files are in JPEG format when decrypted and
  * don't exceed 10MB.
  */
+@Inspectable()
 export class PassportFile implements Structure {
   constructor (public payload: Interfaces.TelegramPassportFile) { }
 
@@ -19,6 +20,7 @@ export class PassportFile implements Structure {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
+  @Inspect()
   get fileId () {
     return this.payload.file_id
   }
@@ -27,16 +29,19 @@ export class PassportFile implements Structure {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
+  @Inspect()
   get fileUniqueId () {
     return this.payload.file_unique_id
   }
 
   /** File size */
+  @Inspect()
   get fileSize () {
     return this.payload.file_size
   }
 
   /** Unix time when the file was uploaded */
+  @Inspect()
   get fileDate () {
     return this.payload.file_date
   }
@@ -45,14 +50,3 @@ export class PassportFile implements Structure {
     return this.payload
   }
 }
-
-inspectable(PassportFile, {
-  serialize (struct) {
-    return {
-      fileId: struct.fileId,
-      fileUniqueId: struct.fileUniqueId,
-      fileSize: struct.fileSize,
-      fileDate: struct.fileDate
-    }
-  }
-})

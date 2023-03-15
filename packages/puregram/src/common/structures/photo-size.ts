@@ -1,11 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents one size of a photo or a file / sticker thumbnail */
+@Inspectable()
 export class PhotoSize implements Structure {
   constructor (public payload: Interfaces.TelegramPhotoSize) { }
 
@@ -16,6 +16,7 @@ export class PhotoSize implements Structure {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
+  @Inspect()
   get fileId () {
     return this.payload.file_id
   }
@@ -24,21 +25,25 @@ export class PhotoSize implements Structure {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
+  @Inspect()
   get fileUniqueId () {
     return this.payload.file_unique_id
   }
 
   /** Photo width */
+  @Inspect()
   get width () {
     return this.payload.width
   }
 
   /** Photo height */
+  @Inspect()
   get height () {
     return this.payload.height
   }
 
   /** File size */
+  @Inspect({ nullable: false })
   get fileSize () {
     return this.payload.file_size
   }
@@ -47,17 +52,3 @@ export class PhotoSize implements Structure {
     return this.payload
   }
 }
-
-inspectable(PhotoSize, {
-  serialize (struct) {
-    const payload = {
-      fileId: struct.fileId,
-      fileUniqueId: struct.fileUniqueId,
-      width: struct.width,
-      height: struct.height,
-      fileSize: struct.fileSize
-    }
-
-    return filterPayload(payload)
-  }
-})

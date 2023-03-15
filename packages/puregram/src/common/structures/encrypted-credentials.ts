@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -9,6 +9,7 @@ import { Structure } from '../../types/interfaces'
  * `EncryptedPassportElement`. See the Telegram Passport Documentation for a
  * complete description of the data decryption and authentication processes.
  */
+@Inspectable()
 export class EncryptedCredentials implements Structure {
   constructor (public payload: Interfaces.TelegramEncryptedCredentials) { }
 
@@ -21,11 +22,13 @@ export class EncryptedCredentials implements Structure {
    * data hashes and secrets required for `EncryptedPassportElement` decryption
    * and authentication
    */
+  @Inspect()
   get data () {
     return this.payload.data
   }
 
   /** Base64-encoded data hash for data authentication */
+  @Inspect()
   get hash () {
     return this.payload.hash
   }
@@ -34,6 +37,7 @@ export class EncryptedCredentials implements Structure {
    * Base64-encoded secret, encrypted with the bot's public RSA key, required
    * for data decryption
    */
+  @Inspect()
   get secret () {
     return this.payload.secret
   }
@@ -42,13 +46,3 @@ export class EncryptedCredentials implements Structure {
     return this.payload
   }
 }
-
-inspectable(EncryptedCredentials, {
-  serialize (struct) {
-    return {
-      data: struct.data,
-      hash: struct.hash,
-      secret: struct.secret
-    }
-  }
-})

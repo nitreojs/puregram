@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -8,6 +8,7 @@ import { User } from './user'
 import { ShippingAddress } from './shipping-address'
 
 /** This object contains information about an incoming shipping query. */
+@Inspectable()
 export class ShippingQuery implements Structure {
   constructor (public payload: Interfaces.TelegramShippingQuery) { }
 
@@ -16,26 +17,31 @@ export class ShippingQuery implements Structure {
   }
 
   /** Unique query identifier */
+  @Inspect()
   get id () {
     return this.payload.id
   }
 
   /** User who sent the query */
+  @Inspect()
   get from () {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
+  @Inspect()
   get senderId () {
     return this.from.id
   }
 
   /** Bot specified invoice payload */
+  @Inspect()
   get invoicePayload () {
     return this.payload.invoice_payload
   }
 
   /** User specified shipping address */
+  @Inspect()
   get shippingAddress () {
     return new ShippingAddress(this.payload.shipping_address)
   }
@@ -44,15 +50,3 @@ export class ShippingQuery implements Structure {
     return this.payload
   }
 }
-
-inspectable(ShippingQuery, {
-  serialize (struct) {
-    return {
-      id: struct.id,
-      from: struct.from,
-      senderId: struct.senderId,
-      invoicePayload: struct.invoicePayload,
-      shippingAddress: struct.shippingAddress
-    }
-  }
-})

@@ -1,11 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents a phone contact. */
+@Inspectable()
 export class Contact implements Structure {
   constructor (public payload: Interfaces.TelegramContact) { }
 
@@ -14,26 +14,31 @@ export class Contact implements Structure {
   }
 
   /** Contact's phone number */
+  @Inspect()
   get phoneNumber () {
     return this.payload.phone_number
   }
 
   /** Contact's first name */
+  @Inspect()
   get firstName () {
     return this.payload.first_name
   }
 
   /** Contact's last name */
+  @Inspect({ nullable: false })
   get lastName () {
     return this.payload.last_name
   }
 
   /** Contact's user identifier in Telegram */
+  @Inspect({ nullable: false })
   get userId () {
     return this.payload.user_id
   }
 
   /** Additional data about the contact in the form of a vCard */
+  @Inspect({ nullable: false })
   get vCard () {
     return this.payload.vcard
   }
@@ -42,17 +47,3 @@ export class Contact implements Structure {
     return this.payload
   }
 }
-
-inspectable(Contact, {
-  serialize (struct) {
-    const payload = {
-      phoneNumber: struct.phoneNumber,
-      firstName: struct.firstName,
-      lastName: struct.lastName,
-      userId: struct.userId,
-      vCard: struct.vCard
-    }
-
-    return filterPayload(payload)
-  }
-})

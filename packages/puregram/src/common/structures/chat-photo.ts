@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents a chat photo. */
+@Inspectable()
 export class ChatPhoto implements Structure {
   constructor (public payload: Interfaces.TelegramChatPhoto) { }
 
@@ -17,6 +18,7 @@ export class ChatPhoto implements Structure {
    * This `file_id` can be used only for photo download and only for as long
    * as the photo is not changed.
    */
+  @Inspect()
   get smallFileId () {
     return this.payload.small_file_id
   }
@@ -26,6 +28,7 @@ export class ChatPhoto implements Structure {
    * to be the same over time and for different bots. Can't be used to download
    * or reuse the file.
    */
+  @Inspect()
   get smallFileUniqueId () {
     return this.payload.small_file_unique_id
   }
@@ -34,6 +37,7 @@ export class ChatPhoto implements Structure {
    * File identifier of big (`640x640`) chat photo. This `file_id` can be used
    * only for photo download and only for as long as the photo is not changed.
    */
+  @Inspect()
   get bigFileId () {
     return this.payload.big_file_id
   }
@@ -43,6 +47,7 @@ export class ChatPhoto implements Structure {
    * to be the same over time and for different bots. Can't be used to
    * download or reuse the file.
    */
+  @Inspect()
   get bigFileUniqueId () {
     return this.payload.big_file_unique_id
   }
@@ -51,14 +56,3 @@ export class ChatPhoto implements Structure {
     return this.payload
   }
 }
-
-inspectable(ChatPhoto, {
-  serialize (struct) {
-    return {
-      smallFileId: struct.smallFileId,
-      smallFileUniqueId: struct.smallFileUniqueId,
-      bigFileId: struct.bigFileId,
-      bigFileUniqueId: struct.bigFileUniqueId
-    }
-  }
-})

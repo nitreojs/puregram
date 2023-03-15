@@ -1,12 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
-import { filterPayload } from '../../utils/helpers'
-
 /** This object represents a service message about an edited forum topic. */
+@Inspectable()
 export class ForumTopicEdited implements Structure {
   constructor (public payload: Interfaces.TelegramForumTopicEdited) { }
 
@@ -15,11 +14,13 @@ export class ForumTopicEdited implements Structure {
   }
 
   /** New name of the topic, if it was edited */
+  @Inspect()
   get name () {
     return this.payload.name
   }
 
   /** New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed */
+  @Inspect({ nullable: false })
   get iconCustomEmojiId () {
     return this.payload.icon_custom_emoji_id
   }
@@ -28,14 +29,3 @@ export class ForumTopicEdited implements Structure {
     return this.payload
   }
 }
-
-inspectable(ForumTopicEdited, {
-  serialize (struct) {
-    const payload = {
-      name: struct.name,
-      iconCustomEmojiId: struct.iconCustomEmojiId
-    }
-
-    return filterPayload(payload)
-  }
-})

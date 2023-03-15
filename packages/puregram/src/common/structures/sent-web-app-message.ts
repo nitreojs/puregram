@@ -1,11 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 /** Contains information about an inline message sent by a Web App on behalf of a user. */
+@Inspectable()
 export class SentWebAppMessage implements Structure {
   constructor (public payload: Interfaces.TelegramSentWebAppMessage) { }
 
@@ -18,6 +18,7 @@ export class SentWebAppMessage implements Structure {
    *
    * Available only if there is an inline keyboard attached to the message.
    */
+  @Inspect({ nullable: false })
   get inlineMessageId () {
     return this.payload.inline_message_id
   }
@@ -26,13 +27,3 @@ export class SentWebAppMessage implements Structure {
     return this.payload
   }
 }
-
-inspectable(SentWebAppMessage, {
-  serialize (struct) {
-    const payload = {
-      inlineMessageId: struct.inlineMessageId
-    }
-
-    return filterPayload(payload)
-  }
-})

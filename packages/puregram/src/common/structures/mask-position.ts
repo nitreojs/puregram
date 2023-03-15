@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -8,6 +8,7 @@ import { Structure } from '../../types/interfaces'
  * This object describes the position on faces where a mask should be placed
  * by default.
  */
+@Inspectable()
 export class MaskPosition implements Structure {
   constructor (public payload: Interfaces.TelegramMaskPosition) { }
 
@@ -19,6 +20,7 @@ export class MaskPosition implements Structure {
    * The part of the face relative to which the mask should be placed.
    * One of `forehead`, `eyes`, `mouth`, or `chin`.
    */
+  @Inspect()
   get point () {
     return this.payload.point
   }
@@ -28,6 +30,7 @@ export class MaskPosition implements Structure {
    * from left to right. For example, choosing `-1.0` will place mask just to
    * the left of the default mask position.
    */
+  @Inspect()
   get xShift () {
     return this.payload.x_shift
   }
@@ -37,11 +40,13 @@ export class MaskPosition implements Structure {
    * from top to bottom. For example, `1.0` will place the mask just below the
    * default mask position.
    */
+  @Inspect()
   get yShift () {
     return this.payload.y_shift
   }
 
   /** Mask scaling coefficient. For example, `2.0` means double size. */
+  @Inspect()
   get scale () {
     return this.payload.scale
   }
@@ -50,14 +55,3 @@ export class MaskPosition implements Structure {
     return this.payload
   }
 }
-
-inspectable(MaskPosition, {
-  serialize (struct) {
-    return {
-      point: struct.point,
-      xShift: struct.xShift,
-      yShift: struct.yShift,
-      scale: struct.scale
-    }
-  }
-})

@@ -1,13 +1,13 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 import { ShippingAddress } from './shipping-address'
 
 /** This object represents information about an order. */
+@Inspectable()
 export class OrderInfo implements Structure {
   constructor (public payload: Interfaces.TelegramOrderInfo) { }
 
@@ -16,21 +16,25 @@ export class OrderInfo implements Structure {
   }
 
   /** User name */
+  @Inspect({ nullable: false })
   get name () {
     return this.payload.name
   }
 
   /** User's phone number */
+  @Inspect({ nullable: false })
   get phoneNumber () {
     return this.payload.phone_number
   }
 
   /** User email */
+  @Inspect({ nullable: false })
   get email () {
     return this.payload.email
   }
 
   /** User shipping address */
+  @Inspect({ nullable: false })
   get shippingAddress () {
     const { shipping_address } = this.payload
 
@@ -45,16 +49,3 @@ export class OrderInfo implements Structure {
     return this.payload
   }
 }
-
-inspectable(OrderInfo, {
-  serialize (struct) {
-    const payload = {
-      name: struct.name,
-      phoneNumber: struct.phoneNumber,
-      email: struct.email,
-      shippingAddress: struct.shippingAddress
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 interface RemoveKeyboardJSON {
   remove_keyboard: true
@@ -6,7 +6,10 @@ interface RemoveKeyboardJSON {
 }
 
 /** Remove keyboard */
+@Inspectable()
 export class RemoveKeyboard {
+  // TODO: remove_keyboard: true
+  @Inspect({ as: 'selective' })
   private isSelective = false
 
   /** Use this parameter if you want to show the keyboard to specific users only */
@@ -28,9 +31,3 @@ export class RemoveKeyboard {
     return JSON.stringify(this)
   }
 }
-
-inspectable(RemoveKeyboard, {
-  serialize (keyboard) {
-    return keyboard.toJSON()
-  }
-})

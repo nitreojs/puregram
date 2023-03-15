@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { AttachmentType } from '../../types/types'
@@ -8,6 +8,8 @@ import { PhotoSize } from '../structures'
 import { FileAttachment } from './file-attachment'
 
 /** This object represents a video message. */
+// TODO: extended: ['fileId', 'fileUniqueId']
+@Inspectable()
 export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideoNote> {
   attachmentType: AttachmentType = 'video_note'
 
@@ -15,16 +17,19 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
    * Video width and height (diameter of the video message) as defined by
    * sender
    */
+  @Inspect()
   get length () {
     return this.payload.length
   }
 
   /** Duration of the video in seconds as defined by sender */
+  @Inspect()
   get duration () {
     return this.payload.duration
   }
 
   /** Video thumbnail */
+  @Inspect({ nullable: false })
   get thumbnail () {
     const { thumbnail } = this.payload
 
@@ -36,6 +41,7 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
   }
 
   /** File size */
+  @Inspect({ nullable: false })
   get fileSize () {
     return this.payload.file_size
   }
@@ -44,16 +50,3 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
     return this.payload
   }
 }
-
-inspectable(VideoNoteAttachment, {
-  serialize (attachment) {
-    return {
-      fileId: attachment.fileId,
-      fileUniqueId: attachment.fileUniqueId,
-      length: attachment.length,
-      duration: attachment.duration,
-      thumbnail: attachment.thumbnail,
-      fileSize: attachment.fileSize
-    }
-  }
-})

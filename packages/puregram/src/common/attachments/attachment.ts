@@ -1,9 +1,10 @@
-import { inspectable } from 'inspectable'
+import { Inspectable } from 'inspectable'
 
 import { Structure } from '../../types/interfaces'
 import { AttachmentType } from '../../types/types'
 
 /** Simple attachment */
+@Inspectable()
 export class Attachment implements Structure {
   attachmentType?: AttachmentType
 
@@ -15,9 +16,3 @@ export class Attachment implements Structure {
     throw new Error('toJSON not implemented')
   }
 }
-
-inspectable(Attachment, {
-  serialize () {
-    return {}
-  }
-})

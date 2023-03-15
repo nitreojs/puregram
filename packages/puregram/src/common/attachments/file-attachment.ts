@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import { AttachmentType } from '../../types/types'
 
@@ -11,6 +11,7 @@ export interface DefaultAttachment {
 }
 
 /** Attachment with `fileId` and `fileUniqueId` properties */
+@Inspectable()
 export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> extends Attachment {
   protected payload: T
 
@@ -24,6 +25,7 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
   }
 
   /** Identifier for this file, which can be used to download or reuse the file */
+  @Inspect()
   get fileId () {
     return this.payload.file_id
   }
@@ -32,16 +34,8 @@ export class FileAttachment<T extends DefaultAttachment = DefaultAttachment> ext
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
+  @Inspect()
   get fileUniqueId () {
     return this.payload.file_unique_id
   }
 }
-
-inspectable(FileAttachment, {
-  serialize (attachment) {
-    return {
-      fileId: attachment.fileId,
-      fileUniqueId: attachment.fileUniqueId
-    }
-  }
-})

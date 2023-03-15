@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object contains information about one answer option in a poll. */
+@Inspectable()
 export class PollOption implements Structure {
   constructor (public payload: Interfaces.TelegramPollOption) { }
 
@@ -13,11 +14,13 @@ export class PollOption implements Structure {
   }
 
   /** Option text, 1-100 characters */
+  @Inspect()
   get text () {
     return this.payload.text
   }
 
   /** Number of users that voted for this option */
+  @Inspect()
   get voterCount () {
     return this.payload.voter_count
   }
@@ -26,12 +29,3 @@ export class PollOption implements Structure {
     return this.payload
   }
 }
-
-inspectable(PollOption, {
-  serialize (struct) {
-    return {
-      text: struct.text,
-      voterCount: struct.voterCount
-    }
-  }
-})

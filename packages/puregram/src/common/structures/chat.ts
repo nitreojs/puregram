@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import { Message } from '../../common/structures'
-import { filterPayload } from '../../utils/helpers'
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
@@ -11,6 +10,7 @@ import { ChatPermissions } from './chat-permissions'
 import { ChatLocation } from './chat-location'
 
 /** This object represents a chat. */
+@Inspectable()
 export class Chat implements Structure {
   constructor (public payload: Interfaces.TelegramChat) { }
 
@@ -25,6 +25,7 @@ export class Chat implements Structure {
    * integer or double-precision float type are safe for storing
    * this identifier.
    */
+  @Inspect()
   get id () {
     return this.payload.id
   }
@@ -32,31 +33,37 @@ export class Chat implements Structure {
   /**
    * Type of chat, can be either `private`, `group`, `supergroup` or `channel`
    */
+  @Inspect()
   get type () {
     return this.payload.type
   }
 
   /** Title, for supergroups, channels and group chats */
+  @Inspect({ nullable: false })
   get title () {
     return this.payload.title
   }
 
   /** Username, for private chats, supergroups and channels if available */
+  @Inspect({ nullable: false })
   get username () {
     return this.payload.username
   }
 
   /** First name of the other party in a private chat */
+  @Inspect({ nullable: false })
   get firstName () {
     return this.payload.first_name
   }
 
   /** Last name of the other party in a private chat */
+  @Inspect({ nullable: false })
   get lastName () {
     return this.payload.last_name
   }
 
   /** `true`, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled) */
+  @Inspect({ compute: true, nullable: false })
   isForum () {
     return this.payload.is_forum
   }
@@ -66,6 +73,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get photo () {
     const { photo } = this.payload
 
@@ -81,6 +89,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get activeUsernames () {
     return this.payload.active_usernames
   }
@@ -90,6 +99,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get emojiStatusCustomEmojiId () {
     return this.payload.emoji_status_custom_emoji_id
   }
@@ -99,6 +109,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get bio () {
     return this.payload.bio
   }
@@ -109,6 +120,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ compute: true, nullable: false })
   hasPrivateForwards () {
     return this.payload.has_private_forwards as true | undefined
   }
@@ -118,6 +130,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ compute: true, nullable: false })
   hasRestrictedVoiceAndVideoMessages () {
     return this.payload.has_restricted_voice_and_video_messages
   }
@@ -127,6 +140,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get joinToSendMessages () {
     return this.payload.join_to_send_messages as true | undefined
   }
@@ -137,6 +151,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get joinByRequest () {
     return this.payload.join_by_request as true | undefined
   }
@@ -146,6 +161,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get location () {
     const { location } = this.payload
 
@@ -161,6 +177,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get description () {
     return this.payload.description
   }
@@ -172,6 +189,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get inviteLink () {
     return this.payload.invite_link
   }
@@ -181,6 +199,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get pinnedMessage (): Message | undefined {
     const { pinned_message } = this.payload
 
@@ -196,6 +215,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get permissions () {
     const { permissions } = this.payload
 
@@ -212,6 +232,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get slowModeDelay () {
     return this.payload.slow_mode_delay
   }
@@ -221,6 +242,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get messageAutoDeleteTime () {
     return this.payload.message_auto_delete_time
   }
@@ -230,6 +252,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ compute: true, nullable: false })
   hasAggressiveAntiSpamEnabled () {
     return this.payload.has_aggressive_anti_spam_enabled
   }
@@ -239,6 +262,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ compute: true, nullable: false })
   hasHiddenMembers () {
     return this.payload.has_hidden_members
   }
@@ -248,6 +272,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ compute: true, nullable: false })
   hasProtectedContent () {
     return this.payload.has_protected_content
   }
@@ -257,6 +282,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get stickerSetName () {
     return this.payload.sticker_set_name
   }
@@ -266,6 +292,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ compute: true, nullable: false })
   canSetStickerSet () {
     return this.payload.can_set_sticker_set
   }
@@ -281,6 +308,7 @@ export class Chat implements Structure {
    *
    * Returned only in `getChat`.
    */
+  @Inspect({ nullable: false })
   get linkedChatId () {
     return this.payload.linked_chat_id
   }
@@ -289,35 +317,3 @@ export class Chat implements Structure {
     return this.payload
   }
 }
-
-inspectable(Chat, {
-  serialize (struct) {
-    const payload = {
-      id: struct.id,
-      type: struct.type,
-      title: struct.title,
-      username: struct.username,
-      firstName: struct.firstName,
-      lastName: struct.lastName,
-      photo: struct.photo,
-      activeUsernames: struct.activeUsernames,
-      emojiStatusCustomEmojiId: struct.emojiStatusCustomEmojiId,
-      bio: struct.bio,
-      hasPrivateForwards: struct.hasPrivateForwards(),
-      hasRestrictedVoiceAndVideoMessages: struct.hasRestrictedVoiceAndVideoMessages(),
-      joinToSendMessages: struct.joinToSendMessages,
-      joinByRequest: struct.joinByRequest,
-      location: struct.location,
-      description: struct.description,
-      inviteLink: struct.inviteLink,
-      pinnedMessage: struct.pinnedMessage,
-      permissions: struct.permissions,
-      slowModeDelay: struct.slowModeDelay,
-      stickerSetName: struct.stickerSetName,
-      canSetStickerSet: struct.canSetStickerSet(),
-      linkedChatId: struct.linkedChatId
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,13 +1,13 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 import { OrderInfo } from './order-info'
 
 /** This object contains basic information about a successful payment. */
+@Inspectable()
 export class SuccessfulPayment implements Structure {
   constructor (public payload: Interfaces.TelegramSuccessfulPayment) { }
 
@@ -16,6 +16,7 @@ export class SuccessfulPayment implements Structure {
   }
 
   /** Three-letter ISO 4217 currency code */
+  @Inspect()
   get currency () {
     return this.payload.currency
   }
@@ -28,21 +29,25 @@ export class SuccessfulPayment implements Structure {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
+  @Inspect()
   get totalAmount () {
     return this.payload.total_amount
   }
 
   /** Bot specified invoice payload */
+  @Inspect()
   get invoicePayload () {
     return this.payload.invoice_payload
   }
 
   /** Identifier of the shipping option chosen by the user */
+  @Inspect({ nullable: false })
   get shippingOptionId () {
     return this.payload.shipping_option_id
   }
 
   /** Order info provided by the user */
+  @Inspect({ nullable: false })
   get orderInfo () {
     const { order_info } = this.payload
 
@@ -54,11 +59,13 @@ export class SuccessfulPayment implements Structure {
   }
 
   /** Telegram payment identifier */
+  @Inspect()
   get telegramPaymentChargeId () {
     return this.payload.telegram_payment_charge_id
   }
 
   /** Provider payment identifier */
+  @Inspect()
   get providerPaymentChargeId () {
     return this.payload.provider_payment_charge_id
   }
@@ -67,19 +74,3 @@ export class SuccessfulPayment implements Structure {
     return this.payload
   }
 }
-
-inspectable(SuccessfulPayment, {
-  serialize (struct) {
-    const payload = {
-      currency: struct.currency,
-      totalAmount: struct.totalAmount,
-      invoicePayload: struct.invoicePayload,
-      shippingOptionId: struct.shippingOptionId,
-      orderInfo: struct.orderInfo,
-      telegramPaymentChargeId: struct.telegramPaymentChargeId,
-      providerPaymentChargeId: struct.providerPaymentChargeId
-    }
-
-    return filterPayload(payload)
-  }
-})

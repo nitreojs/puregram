@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -9,6 +8,7 @@ import { MessageEntity } from './message-entity'
 import { PollOption } from './poll-option'
 
 /** This object contains information about a poll. */
+@Inspectable()
 export class Poll implements Structure {
   constructor (public payload: Interfaces.TelegramPoll) { }
 
@@ -17,41 +17,49 @@ export class Poll implements Structure {
   }
 
   /** Unique poll identifier */
+  @Inspect()
   get id () {
     return this.payload.id
   }
 
   /** Poll question, `1-300` characters */
+  @Inspect()
   get question () {
     return this.payload.question
   }
 
   /** List of poll options */
+  @Inspect()
   get options () {
     return this.payload.options.map(option => new PollOption(option))
   }
 
   /** Total number of users that voted in the poll */
+  @Inspect()
   get totalVoterCount () {
     return this.payload.total_voter_count
   }
 
   /** `true`, if the poll is closed */
+  @Inspect({ compute: true })
   isClosed () {
     return this.payload.is_closed
   }
 
   /** `true`, if the poll is anonymous */
+  @Inspect({ compute: true })
   isAnonymous () {
     return this.payload.is_anonymous
   }
 
   /** Poll type, currently can be `regular` or `quiz` */
+  @Inspect()
   get type () {
     return this.payload.type
   }
 
   /** `true`, if the poll allows multiple answers */
+  @Inspect()
   get allowsMultipleAnswers () {
     return this.payload.allows_multiple_answers
   }
@@ -61,6 +69,7 @@ export class Poll implements Structure {
    * in the quiz mode, which are closed, or was sent (not forwarded) by the bot
    * or to the private chat with the bot.
    */
+  @Inspect({ nullable: false })
   get correctOptionId () {
     return this.payload.correct_option_id
   }
@@ -69,6 +78,7 @@ export class Poll implements Structure {
    * Text that is shown when a user chooses an incorrect answer or taps on the
    * lamp icon in a quiz-style poll, 0-200 characters
    */
+  @Inspect({ nullable: false })
   get explanation () {
     return this.payload.explanation
   }
@@ -77,6 +87,7 @@ export class Poll implements Structure {
    * Special entities like usernames, URLs, bot commands, etc. that appear in
    * the explanation
    */
+  @Inspect({ nullable: false })
   get explanationEntities () {
     const { explanation_entities } = this.payload
 
@@ -88,6 +99,7 @@ export class Poll implements Structure {
   }
 
   /** Amount of time in seconds the poll will be active after creation */
+  @Inspect({ nullable: false })
   get openPeriod () {
     return this.payload.open_period
   }
@@ -95,6 +107,7 @@ export class Poll implements Structure {
   /**
    * Point in time (Unix timestamp) when the poll will be automatically closed
    */
+  @Inspect({ nullable: false })
   get closeDate () {
     return this.payload.close_date
   }
@@ -103,25 +116,3 @@ export class Poll implements Structure {
     return this.payload
   }
 }
-
-inspectable(Poll, {
-  serialize (struct) {
-    const payload = {
-      id: struct.id,
-      question: struct.question,
-      options: struct.options,
-      totalVoterCount: struct.totalVoterCount,
-      isClosed: struct.isClosed(),
-      isAnonymous: struct.isAnonymous(),
-      type: struct.type,
-      allowsMultipleAnswers: struct.allowsMultipleAnswers,
-      correctOptionId: struct.correctOptionId,
-      explanation: struct.explanation,
-      explanationEntities: struct.explanationEntities,
-      openPeriod: struct.openPeriod,
-      closeDate: struct.closeDate
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -9,6 +8,7 @@ import { User } from './user'
 import { OrderInfo } from './order-info'
 
 /** This object contains information about an incoming pre-checkout query. */
+@Inspectable()
 export class PreCheckoutQuery implements Structure {
   constructor (public payload: Interfaces.TelegramPreCheckoutQuery) { }
 
@@ -17,21 +17,25 @@ export class PreCheckoutQuery implements Structure {
   }
 
   /** Unique query identifier */
+  @Inspect()
   get id () {
     return this.payload.id
   }
 
   /** User who sent the query */
+  @Inspect()
   get from () {
     return new User(this.payload.from)
   }
 
   /** Sender ID */
+  @Inspect()
   get senderId () {
     return this.from.id
   }
 
   /** Three-letter ISO 4217 currency code */
+  @Inspect()
   get currency () {
     return this.payload.currency
   }
@@ -44,21 +48,25 @@ export class PreCheckoutQuery implements Structure {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
+  @Inspect()
   get totalAmount () {
     return this.payload.total_amount
   }
 
   /** Bot specified invoice payload */
+  @Inspect()
   get invoicePayload () {
     return this.payload.invoice_payload
   }
 
   /** Identifier of the shipping option chosen by the user */
+  @Inspect({ nullable: false })
   get shippingOptionId () {
     return this.payload.shipping_option_id
   }
 
   /** Order info provided by the user */
+  @Inspect({ nullable: false })
   get orderInfo () {
     const { order_info } = this.payload
 
@@ -73,20 +81,3 @@ export class PreCheckoutQuery implements Structure {
     return this.payload
   }
 }
-
-inspectable(PreCheckoutQuery, {
-  serialize (struct) {
-    const payload = {
-      id: struct.id,
-      from: struct.from,
-      senderId: struct.senderId,
-      currency: struct.currency,
-      totalAmount: struct.totalAmount,
-      invoicePayload: struct.invoicePayload,
-      shippingOptionId: struct.shippingOptionId,
-      orderInfo: struct.orderInfo
-    }
-
-    return filterPayload(payload)
-  }
-})

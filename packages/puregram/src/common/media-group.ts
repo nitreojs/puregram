@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Contexts from '../contexts'
 
@@ -8,6 +8,7 @@ interface MediaGroupOptions {
 }
 
 /** This object represent a media group: a group of contexts with some attachments in it */
+@Inspectable()
 export class MediaGroup {
   constructor (private options: MediaGroupOptions) { }
 
@@ -16,29 +17,22 @@ export class MediaGroup {
   }
 
   /** Returns media group's ID */
+  @Inspect()
   get id () {
     return this.options.id
   }
 
   /** Returns a list of contexts (constructed earlier) every single of which contains an attachment */
+  @Inspect()
   get contexts () {
     return this.options.contexts
   }
 
   /** Returns a list of attachments (mapped through `contexts`) */
+  @Inspect()
   get attachments () {
     const attachments = this.contexts.map(context => context.attachments).flat()
 
     return attachments
   }
 }
-
-inspectable(MediaGroup, {
-  serialize (mg) {
-    return {
-      id: mg.id,
-      contexts: mg.contexts,
-      attachments: mg.attachments
-    }
-  }
-})

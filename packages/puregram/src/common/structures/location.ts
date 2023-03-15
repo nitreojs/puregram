@@ -1,12 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
-import { filterPayload } from '../../utils/helpers'
-
 /** This object represents a point on the map. */
+@Inspectable()
 export class Location implements Structure {
   constructor (public payload: Interfaces.TelegramLocation) { }
 
@@ -15,16 +14,19 @@ export class Location implements Structure {
   }
 
   /** Longitude as defined by sender */
+  @Inspect()
   get longitude () {
     return this.payload.longitude
   }
 
   /** Latitude as defined by sender */
+  @Inspect()
   get latitude () {
     return this.payload.latitude
   }
 
   /** The radius of uncertainty for the location, measured in meters; `0-1500` */
+  @Inspect()
   get horizontalAccuracy () {
     return this.payload.horizontal_accuracy
   }
@@ -34,6 +36,7 @@ export class Location implements Structure {
    * during which the location can be updated, in seconds.
    * For active live locations only.
    */
+  @Inspect()
   get livePeriod () {
     return this.payload.live_period
   }
@@ -42,6 +45,7 @@ export class Location implements Structure {
    * The direction in which user is moving, in degrees; `1-360`.
    * For active live locations only.
    */
+  @Inspect()
   get heading () {
     return this.payload.heading
   }
@@ -50,6 +54,7 @@ export class Location implements Structure {
    * Maximum distance for proximity alerts about approaching another chat member, in meters.
    * For sent live locations only.
    */
+  @Inspect()
   get proximityAlertRadius () {
     return this.payload.proximity_alert_radius
   }
@@ -58,16 +63,3 @@ export class Location implements Structure {
     return this.payload
   }
 }
-
-inspectable(Location, {
-  serialize (struct) {
-    return filterPayload({
-      longitude: struct.longitude,
-      latitude: struct.latitude,
-      horizontalAccuracy: struct.horizontalAccuracy,
-      livePeriod: struct.livePeriod,
-      heading: struct.heading,
-      proximityAlertRadius: struct.proximityAlertRadius
-    })
-  }
-})

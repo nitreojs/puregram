@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object contains basic information about an invoice. */
+@Inspectable()
 export class Invoice implements Structure {
   constructor (public payload: Interfaces.TelegramInvoice) { }
 
@@ -13,11 +14,13 @@ export class Invoice implements Structure {
   }
 
   /** Product name */
+  @Inspect()
   get title () {
     return this.payload.title
   }
 
   /** Product description */
+  @Inspect()
   get description () {
     return this.payload.description
   }
@@ -26,11 +29,13 @@ export class Invoice implements Structure {
    * Unique bot deep-linking parameter that can be used to generate this
    * invoice
    */
+  @Inspect()
   get startParameter () {
     return this.payload.start_parameter
   }
 
   /** Three-letter ISO 4217 currency code */
+  @Inspect()
   get currency () {
     return this.payload.currency
   }
@@ -43,6 +48,7 @@ export class Invoice implements Structure {
    * it shows the number of digits past the decimal point for each currency
    * (2 for the majority of currencies).
    */
+  @Inspect()
   get totalAmount () {
     return this.payload.total_amount
   }
@@ -51,15 +57,3 @@ export class Invoice implements Structure {
     return this.payload
   }
 }
-
-inspectable(Invoice, {
-  serialize (struct) {
-    return {
-      title: struct.title,
-      description: struct.description,
-      startParameter: struct.startParameter,
-      currency: struct.currency,
-      totalAmount: struct.totalAmount
-    }
-  }
-})

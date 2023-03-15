@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -11,6 +10,7 @@ import { User } from './user'
  * This object represents one special entity in a text message.
  * For example, hashtags, usernames, URLs, etc.
  */
+@Inspectable()
 export class MessageEntity implements Structure {
   constructor (public payload: Interfaces.TelegramMessageEntity) { }
 
@@ -30,16 +30,19 @@ export class MessageEntity implements Structure {
    * `pre` (`monowidth block`), `text_link` (for clickable text URLs), `text_mention`
    * (for users without usernames)
    */
+  @Inspect()
   get type () {
     return this.payload.type
   }
 
   /** Offset in UTF-16 code units to the start of the entity */
+  @Inspect()
   get offset () {
     return this.payload.offset
   }
 
   /** Length of the entity in UTF-16 code units */
+  @Inspect()
   get length () {
     return this.payload.length
   }
@@ -47,11 +50,13 @@ export class MessageEntity implements Structure {
   /**
    * For `text_link` only, url that will be opened after user taps on the text
    */
+  @Inspect({ nullable: false })
   get url () {
     return this.payload.url
   }
 
   /** For `text_mention` only, the mentioned user */
+  @Inspect({ nullable: false })
   get user () {
     const { user } = this.payload
 
@@ -63,13 +68,17 @@ export class MessageEntity implements Structure {
   }
 
   /** For `pre` only, the programming language of the entity text */
+  @Inspect({ nullable: false })
   get language () {
     return this.payload.language
   }
 
-  /** For `custom_emoji` only, unique identifier of the custom emoji.
+  /**
+   * For `custom_emoji` only, unique identifier of the custom emoji.
    *
-   * Use `getCustomEmojiStickers` to get full information about the sticker */
+   * Use `getCustomEmojiStickers` to get full information about the sticker
+   */
+  @Inspect({ nullable: false })
   get customEmojiId () {
     return this.payload.custom_emoji_id
   }
@@ -78,19 +87,3 @@ export class MessageEntity implements Structure {
     return this.payload
   }
 }
-
-inspectable(MessageEntity, {
-  serialize (struct) {
-    const payload = {
-      type: struct.type,
-      offset: struct.offset,
-      length: struct.length,
-      url: struct.url,
-      user: struct.user,
-      language: struct.language,
-      customEmojiId: struct.customEmojiId
-    }
-
-    return filterPayload(payload)
-  }
-})

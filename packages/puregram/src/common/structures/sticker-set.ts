@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -10,6 +9,7 @@ import { StickerAttachment } from '../attachments'
 import { PhotoSize } from './photo-size'
 
 /** This object represents a sticker set. */
+@Inspectable()
 export class StickerSet implements Structure {
   constructor (public payload: Interfaces.TelegramStickerSet) { }
 
@@ -18,36 +18,37 @@ export class StickerSet implements Structure {
   }
 
   /** Sticker set name */
+  @Inspect()
   get name () {
     return this.payload.name
   }
 
   /** Sticker set title */
+  @Inspect()
   get title () {
     return this.payload.title
   }
 
   /** Type of stickers in the set, currently one of `regular`, `mask`, `custom_emoji` */
+  @Inspect()
   get stickerType () {
     return this.payload.sticker_type
   }
 
   /** `true`, if the sticker set contains animated stickers */
+  @Inspect({ compute: true })
   isAnimated () {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker set contains video stickers */
+  @Inspect({ compute: true })
   isVideo () {
     return this.payload.is_video
   }
 
-  /** `true`, if the sticker set contains masks */
-  get containsMasks () {
-    return this.payload.contains_masks
-  }
-
   /** List of all set stickers */
+  @Inspect({ nullable: false })
   get stickers () {
     const { stickers } = this.payload
 
@@ -59,6 +60,7 @@ export class StickerSet implements Structure {
   }
 
   /** Sticker set thumbnail in the .WEBP or .TGS format */
+  @Inspect({ nullable: false })
   get thumbnail () {
     const { thumbnail } = this.payload
 
@@ -73,20 +75,3 @@ export class StickerSet implements Structure {
     return this.payload
   }
 }
-
-inspectable(StickerSet, {
-  serialize (struct) {
-    const payload = {
-      name: struct.name,
-      title: struct.title,
-      stickerType: struct.stickerType,
-      isAnimated: struct.isAnimated(),
-      isVideo: struct.isVideo(),
-      containsMasks: struct.containsMasks,
-      stickers: struct.stickers,
-      thumbnail: struct.thumbnail
-    }
-
-    return filterPayload(payload)
-  }
-})

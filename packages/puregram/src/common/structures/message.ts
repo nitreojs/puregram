@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -48,6 +47,7 @@ import { UserShared } from './user-shared'
 import { ChatShared } from './chat-shared'
 
 /** This object represents a message. */
+@Inspectable()
 export class Message implements Structure {
   constructor (public payload: Interfaces.TelegramMessage) { }
 
@@ -56,16 +56,19 @@ export class Message implements Structure {
   }
 
   /** Unique message identifier inside this chat */
+  @Inspect()
   get id () {
     return this.payload.message_id
   }
 
   /** Unique identifier of a message thread to which the message belongs; for supergroups only */
+  @Inspect({ nullable: false })
   get threadId () {
     return this.payload.message_thread_id
   }
 
   /** Sender, empty for messages sent to channels */
+  @Inspect({ nullable: false })
   get from () {
     const { from } = this.payload
 
@@ -82,6 +85,7 @@ export class Message implements Structure {
    * The supergroup itself for messages from anonymous group administrators.
    * The linked channel for messages automatically forwarded to the discussion group
    */
+  @Inspect({ nullable: false })
   get senderChat () {
     const { sender_chat } = this.payload
 
@@ -93,11 +97,13 @@ export class Message implements Structure {
   }
 
   /** Date the message was sent in Unix time */
+  @Inspect()
   get createdAt () {
     return this.payload.date
   }
 
   /** Conversation the message belongs to */
+  @Inspect()
   get chat () {
     return new Chat(this.payload.chat)
   }
@@ -108,6 +114,7 @@ export class Message implements Structure {
   }
 
   /** Forwarded message if there is any */
+  @Inspect({ nullable: false })
   get forwardedMessage () {
     const { forward_date } = this.payload
 
@@ -119,16 +126,19 @@ export class Message implements Structure {
   }
 
   /** `true`, if the message is sent to a forum topic */
+  @Inspect({ compute: true, nullable: false })
   isTopicMessage () {
     return this.payload.is_topic_message
   }
 
   /** `true`, if the message is a channel post that was automatically forwarded to the connected discussion group */
+  @Inspect({ compute: true, nullable: false })
   isAutomaticForward () {
     return this.payload.is_automatic_forward
   }
 
   /** For replies, the original message */
+  @Inspect({ nullable: false })
   get replyMessage (): Omit<Message, 'replyMessage'> | undefined {
     const { reply_to_message } = this.payload
 
@@ -140,6 +150,7 @@ export class Message implements Structure {
   }
 
   /** Bot through which the message was sent */
+  @Inspect({ nullable: false })
   get viaBot () {
     const { via_bot } = this.payload
 
@@ -151,16 +162,19 @@ export class Message implements Structure {
   }
 
   /** Date the message was last edited in Unix time */
+  @Inspect({ nullable: false })
   get updatedAt () {
     return this.payload.edit_date
   }
 
   /** `true`, if the message can't be forwarded */
+  @Inspect({ compute: true, nullable: false })
   hasProtectedContent () {
     return this.payload.has_protected_content as true | undefined
   }
 
   /** The unique identifier of a media message group this message belongs to */
+  @Inspect({ nullable: false })
   get mediaGroupId () {
     return this.payload.media_group_id
   }
@@ -169,6 +183,7 @@ export class Message implements Structure {
    * Signature of the post author for messages in channels,
    * or the custom title of an anonymous group administrator
    */
+  @Inspect({ nullable: false })
   get authorSignature () {
     return this.payload.author_signature
   }
@@ -176,6 +191,7 @@ export class Message implements Structure {
   /**
    * For text messages, the actual UTF-8 text of the message, 0-4096 characters
    */
+  @Inspect({ nullable: false })
   get text () {
     return this.payload.text
   }
@@ -184,6 +200,7 @@ export class Message implements Structure {
    * For text messages, special entities like usernames, URLs, bot commands,
    * etc. that appear in the text
    */
+  @Inspect({ nullable: false })
   get entities () {
     const { entities } = this.payload
 
@@ -195,20 +212,10 @@ export class Message implements Structure {
   }
 
   /**
-   * Attachments
-   *
-   * I would like to create a function like
-   * `getMessageAttachment<Audio>('audio')`
-   * which automatically takes `audio` from `this.payload`
-   * and if it exists creates `new Audio(audio)`
-   *
-   * :(
-   */
-
-  /**
    * Message is an animation, information about the animation. For backward
    * compatibility, when this field is set, the `document` field will also be set
    */
+  @Inspect({ nullable: false })
   get animation () {
     const { animation } = this.payload
 
@@ -220,6 +227,7 @@ export class Message implements Structure {
   }
 
   /** Message is an audio file, information about the file */
+  @Inspect({ nullable: false })
   get audio () {
     const { audio } = this.payload
 
@@ -231,6 +239,7 @@ export class Message implements Structure {
   }
 
   /** Message is a general file, information about the file */
+  @Inspect({ nullable: false })
   get document () {
     const { document } = this.payload
 
@@ -242,6 +251,7 @@ export class Message implements Structure {
   }
 
   /** Message is a photo, available sizes of the photo */
+  @Inspect({ nullable: false })
   get photo () {
     const { photo } = this.payload
 
@@ -253,6 +263,7 @@ export class Message implements Structure {
   }
 
   /** Message is a sticker, information about the sticker */
+  @Inspect({ nullable: false })
   get sticker () {
     const { sticker } = this.payload
 
@@ -264,6 +275,7 @@ export class Message implements Structure {
   }
 
   /** Message is a video, information about the video */
+  @Inspect({ nullable: false })
   get video () {
     const { video } = this.payload
 
@@ -275,6 +287,7 @@ export class Message implements Structure {
   }
 
   /** Message is a video note, information about the video message */
+  @Inspect({ nullable: false })
   get videoNote () {
     const { video_note } = this.payload
 
@@ -286,6 +299,7 @@ export class Message implements Structure {
   }
 
   /** Message is a voice message, information about the file */
+  @Inspect({ nullable: false })
   get voice () {
     const { voice } = this.payload
 
@@ -300,6 +314,7 @@ export class Message implements Structure {
    * Caption for the animation, audio, document, photo, video or voice,
    * 0-1024 characters
    */
+  @Inspect({ nullable: false })
   get caption () {
     return this.payload.caption
   }
@@ -308,6 +323,7 @@ export class Message implements Structure {
    * For messages with a caption, special entities like usernames, URLs, bot
    * commands, etc. that appear in the caption
    */
+  @Inspect({ nullable: false })
   get captionEntities () {
     const { caption_entities } = this.payload
 
@@ -319,11 +335,13 @@ export class Message implements Structure {
   }
 
   /** `true`, if the message media is covered by a spoiler animation */
+  @Inspect({ compute: true, nullable: false })
   hasMediaSpoiler () {
     return this.payload.has_media_spoiler as true | undefined
   }
 
   /** Message is a shared contact, information about the contact */
+  @Inspect({ nullable: false })
   get contact () {
     const { contact } = this.payload
 
@@ -335,6 +353,7 @@ export class Message implements Structure {
   }
 
   /** Message is a dice with random value from 1 to 6 */
+  @Inspect({ nullable: false })
   get dice () {
     const { dice } = this.payload
 
@@ -346,6 +365,7 @@ export class Message implements Structure {
   }
 
   /** Message is a game, information about the game */
+  @Inspect({ nullable: false })
   get game () {
     const { game } = this.payload
 
@@ -357,6 +377,7 @@ export class Message implements Structure {
   }
 
   /** Message is a native poll, information about the poll */
+  @Inspect({ nullable: false })
   get poll () {
     const { poll } = this.payload
 
@@ -372,6 +393,7 @@ export class Message implements Structure {
    * For backward compatibility, when this field is set,
    * the `location` field will also be set
    */
+  @Inspect({ nullable: false })
   get venue () {
     const { venue } = this.payload
 
@@ -383,6 +405,7 @@ export class Message implements Structure {
   }
 
   /** Message is a shared location, information about the location */
+  @Inspect({ nullable: false })
   get location () {
     const { location } = this.payload
 
@@ -398,6 +421,7 @@ export class Message implements Structure {
    *
    * `login_url` buttons are represented as ordinary `url` buttons.
    */
+  @Inspect({ nullable: false })
   get replyMarkup () {
     const { reply_markup } = this.payload
 
@@ -409,11 +433,13 @@ export class Message implements Structure {
   }
 
   /** The domain name of the website on which the user has logged in. */
+  @Inspect({ nullable: false })
   get connectedWebsite () {
     return this.payload.connected_website
   }
 
   /** Telegram Passport data */
+  @Inspect({ nullable: false })
   get passportData () {
     const { passport_data } = this.payload
 
@@ -430,6 +456,7 @@ export class Message implements Structure {
    * New members that were added to the group or supergroup and information
    * about them (the bot itself may be one of these members)
    */
+  @Inspect({ nullable: false })
   get newChatMembers () {
     const { new_chat_members } = this.payload
 
@@ -444,6 +471,7 @@ export class Message implements Structure {
    * A member was removed from the group, information about them (this member
    * may be the bot itself)
    */
+  @Inspect({ nullable: false })
   get leftChatMember () {
     const { left_chat_member } = this.payload
 
@@ -455,11 +483,13 @@ export class Message implements Structure {
   }
 
   /** A chat title was changed to this value */
+  @Inspect({ nullable: false })
   get newChatTitle () {
     return this.payload.new_chat_title
   }
 
   /** A chat photo was change to this value */
+  @Inspect({ nullable: false })
   get newChatPhoto () {
     const { new_chat_photo } = this.payload
 
@@ -471,11 +501,13 @@ export class Message implements Structure {
   }
 
   /** Service message: the chat photo was deleted */
+  @Inspect({ nullable: false })
   get deleteChatPhoto () {
     return this.payload.delete_chat_photo
   }
 
   /** Service message: the group has been created */
+  @Inspect({ nullable: false })
   get groupChatCreated () {
     return this.payload.group_chat_created
   }
@@ -487,11 +519,13 @@ export class Message implements Structure {
    * `replyMessage` if someone replies to a very first message in a
    * directly created supergroup.
    */
+  @Inspect({ nullable: false })
   get supergroupChatCreated () {
     return this.payload.supergroup_chat_created
   }
 
   /** Service message: auto-delete timer settings changed in the chat */
+  @Inspect({ nullable: false })
   get messageAutoDeleteTimerChanged () {
     const { message_auto_delete_timer_changed } = this.payload
 
@@ -508,6 +542,7 @@ export class Message implements Structure {
    * member of a channel when it is created. It can only be found in
    * `replyMessage` if someone replies to a very first message in a channel.
    */
+  @Inspect({ nullable: false })
   get channelChatCreated () {
     return this.payload.channel_chat_created
   }
@@ -519,6 +554,7 @@ export class Message implements Structure {
    * 52 bits, so a signed 64 bit integer or double-precision float type are
    * safe for storing this identifier.
    */
+  @Inspect({ nullable: false })
   get migrateToChatId () {
     return this.payload.migrate_to_chat_id
   }
@@ -530,6 +566,7 @@ export class Message implements Structure {
    * smaller than 52 bits, so a signed 64 bit integer or double-precision float
    * type are safe for storing this identifier.
    */
+  @Inspect({ nullable: false })
   get migrateFromChatId () {
     return this.payload.migrate_from_chat_id
   }
@@ -539,6 +576,7 @@ export class Message implements Structure {
    * will not contain further `replyMessage` fields even if it is itself a
    * reply.
    */
+  @Inspect({ nullable: false })
   get pinnedMessage (): Omit<Message, 'replyMessage'> | undefined {
     const { pinned_message } = this.payload
 
@@ -550,6 +588,7 @@ export class Message implements Structure {
   }
 
   /** Message is an invoice for a payment, information about the invoice */
+  @Inspect({ nullable: false })
   get invoice () {
     const { invoice } = this.payload
 
@@ -564,6 +603,7 @@ export class Message implements Structure {
    * Message is a service message about a successful payment,
    * information about the payment.
    */
+  @Inspect({ nullable: false })
   get successfulPayment () {
     const { successful_payment } = this.payload
 
@@ -575,6 +615,7 @@ export class Message implements Structure {
   }
 
   /** Service message: a user was shared with the bot */
+  @Inspect({ nullable: false })
   get userShared () {
     const { user_shared } = this.payload
 
@@ -586,6 +627,7 @@ export class Message implements Structure {
   }
 
   /** Service message: a chat was shared with the bot */
+  @Inspect({ nullable: false })
   get chatShared () {
     const { chat_shared } = this.payload
 
@@ -601,6 +643,7 @@ export class Message implements Structure {
    * A user in the chat triggered another user's proximity alert
    * while sharing Live Location.
    */
+  @Inspect({ nullable: false })
   get proximityAlertTriggered () {
     const { proximity_alert_triggered } = this.payload
 
@@ -612,6 +655,7 @@ export class Message implements Structure {
   }
 
   /** Service message: the user allowed the bot added to the attachment menu to write messages */
+  @Inspect({ nullable: false })
   get writeAccessAllowed () {
     const { write_access_allowed } = this.payload
 
@@ -623,6 +667,7 @@ export class Message implements Structure {
   }
 
   /** Service message: forum topic created */
+  @Inspect({ nullable: false })
   get forumTopicCreated () {
     const { forum_topic_created } = this.payload
 
@@ -634,6 +679,7 @@ export class Message implements Structure {
   }
 
   /** Service message: forum topic edited */
+  @Inspect({ nullable: false })
   get forumTopicEdited () {
     const { forum_topic_edited } = this.payload
 
@@ -645,6 +691,7 @@ export class Message implements Structure {
   }
 
   /** Service message: forum topic closed */
+  @Inspect({ nullable: false })
   get forumTopicClosed () {
     const { forum_topic_closed } = this.payload
 
@@ -656,6 +703,7 @@ export class Message implements Structure {
   }
 
   /** Service message: forum topic reopened */
+  @Inspect({ nullable: false })
   get forumTopicReopened () {
     const { forum_topic_reopened } = this.payload
 
@@ -667,6 +715,7 @@ export class Message implements Structure {
   }
 
   /** Service message: the 'General' forum topic hidden */
+  @Inspect({ nullable: false })
   get generalForumTopicHidden () {
     const { general_forum_topic_hidden } = this.payload
 
@@ -678,6 +727,7 @@ export class Message implements Structure {
   }
 
   /** Service message: the 'General' forum topic unhidden */
+  @Inspect({ nullable: false })
   get generalForumTopicUnhidden () {
     const { general_forum_topic_unhidden } = this.payload
 
@@ -689,6 +739,7 @@ export class Message implements Structure {
   }
 
   /** Service message: video chat scheduled */
+  @Inspect({ nullable: false })
   get videoChatScheduled () {
     const { video_chat_scheduled } = this.payload
 
@@ -700,6 +751,7 @@ export class Message implements Structure {
   }
 
   /** Service message: video chat started */
+  @Inspect({ nullable: false })
   get videoChatStarted () {
     const { video_chat_started } = this.payload
 
@@ -711,6 +763,7 @@ export class Message implements Structure {
   }
 
   /** Service message: video chat ended */
+  @Inspect({ nullable: false })
   get videoChatEnded () {
     const { video_chat_ended } = this.payload
 
@@ -722,6 +775,7 @@ export class Message implements Structure {
   }
 
   /** Service message: new participants invited to a video chat */
+  @Inspect({ nullable: false })
   get videoChatParticipantsInvited () {
     const { video_chat_participants_invited } = this.payload
 
@@ -733,6 +787,7 @@ export class Message implements Structure {
   }
 
   /** Service message: data sent by a Web App */
+  @Inspect({ nullable: false })
   get webAppData () {
     const { web_app_data } = this.payload
 
@@ -747,72 +802,3 @@ export class Message implements Structure {
     return this.payload
   }
 }
-
-inspectable(Message, {
-  serialize (struct) {
-    const payload = {
-      id: struct.id,
-      from: struct.from,
-      senderChat: struct.senderChat,
-      createdAt: struct.createdAt,
-      chat: struct.chat,
-      forwardMessage: struct.forwardedMessage,
-      isAutomaticForward: struct.isAutomaticForward(),
-      replyMessage: struct.replyMessage,
-      viaBot: struct.viaBot,
-      updatedAt: struct.updatedAt,
-      mediaGroupId: struct.mediaGroupId,
-      authorSignature: struct.authorSignature,
-      text: struct.text,
-      entities: struct.entities,
-
-      // Attachments
-
-      animation: struct.animation,
-      audio: struct.audio,
-      document: struct.document,
-      photo: struct.photo,
-      sticker: struct.sticker,
-      video: struct.video,
-      videoNote: struct.videoNote,
-      voice: struct.voice,
-
-      caption: struct.caption,
-      captionEntities: struct.captionEntities,
-
-      contact: struct.contact,
-      dice: struct.dice,
-      game: struct.game,
-      poll: struct.poll,
-      venue: struct.venue,
-      location: struct.location,
-
-      // Events
-
-      newChatMembers: struct.newChatMembers,
-      leftChatMember: struct.leftChatMember,
-      newChatTitle: struct.newChatTitle,
-      newChatPhoto: struct.newChatPhoto,
-      deleteChatPhoto: struct.deleteChatPhoto,
-      groupChatCreated: struct.groupChatCreated,
-      supergroupChatCreated: struct.supergroupChatCreated,
-      channelChatCreated: struct.channelChatCreated,
-      migrateToChatId: struct.migrateToChatId,
-      migrateFromChatId: struct.migrateFromChatId,
-
-      pinnedMessage: struct.pinnedMessage,
-      invoice: struct.invoice,
-      successfulPayment: struct.successfulPayment,
-      connectedWebsite: struct.connectedWebsite,
-      passportData: struct.passportData,
-      videoChatScheduled: struct.videoChatScheduled,
-      videoChatStarted: struct.videoChatStarted,
-      videoChatEnded: struct.videoChatEnded,
-      videoChatParticipantsInvited: struct.videoChatParticipantsInvited,
-
-      replyMarkup: struct.replyMarkup
-    }
-
-    return filterPayload(payload)
-  }
-})

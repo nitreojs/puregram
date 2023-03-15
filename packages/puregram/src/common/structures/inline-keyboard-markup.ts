@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -7,6 +7,7 @@ import { Structure } from '../../types/interfaces'
 import { InlineKeyboardButton } from './inline-keyboard-button'
 
 /** This object represents an inline keyboard that appears right next to the message it belongs to. */
+@Inspectable()
 export class InlineKeyboardMarkup implements Structure {
   constructor (public payload: Interfaces.TelegramInlineKeyboardMarkup) { }
 
@@ -15,6 +16,7 @@ export class InlineKeyboardMarkup implements Structure {
   }
 
   /** Array of button rows */
+  @Inspect()
   get inlineKeyboard () {
     const { inline_keyboard } = this.payload
 
@@ -25,11 +27,3 @@ export class InlineKeyboardMarkup implements Structure {
     return this.payload
   }
 }
-
-inspectable(InlineKeyboardMarkup, {
-  serialize (struct) {
-    return {
-      inlineKeyboard: struct.inlineKeyboard
-    }
-  }
-})

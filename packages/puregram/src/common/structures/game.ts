@@ -1,16 +1,16 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 import { AnimationAttachment } from '../attachments'
-import { filterPayload } from '../../utils/helpers'
 
 import { PhotoSize } from './photo-size'
 import { MessageEntity } from './message-entity'
 
 /** This object represents a game. */
+@Inspectable()
 export class Game implements Structure {
   constructor (public payload: Interfaces.TelegramGame) { }
 
@@ -19,16 +19,19 @@ export class Game implements Structure {
   }
 
   /** Title of the game */
+  @Inspect()
   get title () {
     return this.payload.title
   }
 
   /** Description of the game */
+  @Inspect()
   get description () {
     return this.payload.description
   }
 
   /** Photo that will be displayed in the game message in chats. */
+  @Inspect({ nullable: false })
   get photo () {
     const { photo } = this.payload
 
@@ -45,6 +48,7 @@ export class Game implements Structure {
    * when the bot calls `setGameScore`, or manually edited using
    * `editMessageText`. 0-4096 characters.
    */
+  @Inspect({ nullable: false })
   get text () {
     return this.payload.text
   }
@@ -53,6 +57,7 @@ export class Game implements Structure {
    * Special entities that appear in text, such as usernames, URLs, bot
    * commands, etc.
    */
+  @Inspect({ nullable: false })
   get textEntities () {
     const { text_entities } = this.payload
 
@@ -67,7 +72,8 @@ export class Game implements Structure {
    * Animation that will be displayed in the game message in chats.
    * Upload via BotFather
    */
-  get animation (): AnimationAttachment | undefined {
+  @Inspect({ nullable: false })
+  get animation () {
     const { animation } = this.payload
 
     if (!animation) {
@@ -81,18 +87,3 @@ export class Game implements Structure {
     return this.payload
   }
 }
-
-inspectable(Game, {
-  serialize (struct) {
-    const payload = {
-      title: struct.title,
-      description: struct.description,
-      photo: struct.photo,
-      text: struct.text,
-      textEntities: struct.textEntities,
-      animation: struct.animation
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -9,6 +8,7 @@ import { LoginUrl } from './login-url'
 import { CallbackGame } from './callback-game'
 
 /** This object represents one button of an inline keyboard. You must use exactly one of the optional fields. */
+@Inspectable()
 export class InlineKeyboardButton implements Structure {
   constructor (public payload: Interfaces.TelegramInlineKeyboardButton) { }
 
@@ -17,11 +17,13 @@ export class InlineKeyboardButton implements Structure {
   }
 
   /** Label text on the button */
+  @Inspect()
   get text () {
     return this.payload.text
   }
 
   /** HTTP or tg:// url to be opened when button is pressed */
+  @Inspect({ nullable: false })
   get url () {
     return this.payload.url
   }
@@ -30,6 +32,7 @@ export class InlineKeyboardButton implements Structure {
    * An HTTP URL used to automatically authorize the user.
    * Can be used as a replacement for the Telegram Login Widget.
    */
+  @Inspect({ nullable: false })
   get loginUrl () {
     const { login_url } = this.payload
 
@@ -44,6 +47,7 @@ export class InlineKeyboardButton implements Structure {
    * Data to be sent in a callback query to the bot when button is pressed,
    * 1-64 bytes
    */
+  @Inspect({ nullable: false })
   get callbackData () {
     return this.payload.callback_data
   }
@@ -60,6 +64,7 @@ export class InlineKeyboardButton implements Structure {
    * be automatically returned to the chat they switched from, skipping the
    * chat selection screen.
    */
+  @Inspect({ nullable: false })
   get switchInlineQuery () {
     return this.payload.switch_inline_query
   }
@@ -72,6 +77,7 @@ export class InlineKeyboardButton implements Structure {
    * This offers a quick way for the user to open your bot in inline mode in
    * the same chat – good for selecting something from multiple options.
    */
+  @Inspect({ nullable: false })
   get switchInlineQueryCurrentChat () {
     return this.payload.switch_inline_query_current_chat
   }
@@ -83,6 +89,7 @@ export class InlineKeyboardButton implements Structure {
    * **NOTE**: This type of button **must** always be the first button in the
    * first row.
    */
+  @Inspect({ nullable: false })
   get callbackGame () {
     const { callback_game } = this.payload
 
@@ -98,6 +105,7 @@ export class InlineKeyboardButton implements Structure {
    *
    * **NOTE**: This type of button **must** always be the first button in the first row.
    */
+  @Inspect({ nullable: false })
   get pay () {
     return this.payload.pay
   }
@@ -106,20 +114,3 @@ export class InlineKeyboardButton implements Structure {
     return this.payload
   }
 }
-
-inspectable(InlineKeyboardButton, {
-  serialize (struct) {
-    const payload = {
-      text: struct.text,
-      url: struct.url,
-      loginUrl: struct.loginUrl,
-      callbackData: struct.callbackData,
-      switchInlineQuery: struct.switchInlineQuery,
-      switchInlineQueryCurrentChat: struct.switchInlineQueryCurrentChat,
-      callbackGame: struct.callbackGame,
-      pay: struct.pay
-    }
-
-    return filterPayload(payload)
-  }
-})

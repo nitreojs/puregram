@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -9,6 +8,7 @@ import { Structure } from '../../types/interfaces'
  * Describes actions that a non-administrator user is allowed to take in a
  * chat.
  */
+@Inspectable()
 export class ChatPermissions implements Structure {
   constructor (public payload: Interfaces.TelegramChatPermissions) { }
 
@@ -20,7 +20,8 @@ export class ChatPermissions implements Structure {
    * `true`, if the user is allowed to send text messages, contacts, locations
    * and venues
    */
-  canSendMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canSendMessages (): boolean | undefined {
     return this.payload.can_send_messages
   }
 
@@ -28,14 +29,16 @@ export class ChatPermissions implements Structure {
    * `true`, if the user is allowed to send audios, documents, photos, videos,
    * video notes and voice notes, implies `can_send_messages`
    */
-  canSendMediaMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canSendMediaMessages (): boolean | undefined {
     return this.payload.can_send_media_messages
   }
 
   /**
    * `true`, if the user is allowed to send polls, implies `can_send_messages`
    */
-  canSendPolls () {
+  @Inspect({ compute: true, nullable: false })
+  canSendPolls (): boolean | undefined {
     return this.payload.can_send_polls
   }
 
@@ -43,7 +46,8 @@ export class ChatPermissions implements Structure {
    * `true`, if the user is allowed to send animations, games, stickers and use
    * inline bots, implies `can_send_media_messages`
    */
-  canSendOtherMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canSendOtherMessages (): boolean | undefined {
     return this.payload.can_send_other_messages
   }
 
@@ -51,7 +55,8 @@ export class ChatPermissions implements Structure {
    * `true`, if the user is allowed to add web page previews to their messages,
    * implies `can_send_media_messages`
    */
-  canAddWebPagePreviews () {
+  @Inspect({ compute: true, nullable: false })
+  canAddWebPagePreviews (): boolean | undefined {
     return this.payload.can_add_web_page_previews
   }
 
@@ -59,12 +64,14 @@ export class ChatPermissions implements Structure {
    * `true`, if the user is allowed to change the chat title, photo and other
    * settings. Ignored in public supergroups
    */
-  canChangeInfo () {
+  @Inspect({ compute: true, nullable: false })
+  canChangeInfo (): boolean | undefined {
     return this.payload.can_change_info
   }
 
   /** `true`, if the user is allowed to invite new users to the chat */
-  canInviteUsers () {
+  @Inspect({ compute: true, nullable: false })
+  canInviteUsers (): boolean | undefined {
     return this.payload.can_invite_users
   }
 
@@ -72,12 +79,14 @@ export class ChatPermissions implements Structure {
    * `true`, if the user is allowed to pin messages. Ignored in public
    * supergroups
    */
-  canPinMessages () {
+  @Inspect({ compute: true, nullable: false })
+  canPinMessages (): boolean | undefined {
     return this.payload.can_pin_messages
   }
 
   /** `true`, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages */
-  canManageTopics () {
+  @Inspect({ compute: true, nullable: false })
+  canManageTopics (): boolean | undefined {
     return this.payload.can_manage_topics
   }
 
@@ -85,21 +94,3 @@ export class ChatPermissions implements Structure {
     return this.payload
   }
 }
-
-inspectable(ChatPermissions, {
-  serialize (struct) {
-    const payload = {
-      canSendMessages: struct.canSendMessages(),
-      canSendMediaMessages: struct.canSendMediaMessages(),
-      canSendPolls: struct.canSendPolls(),
-      canSendOtherMessages: struct.canSendOtherMessages(),
-      canAddWebPagePreviews: struct.canAddWebPagePreviews(),
-      canChangeInfo: struct.canChangeInfo(),
-      canInviteUsers: struct.canInviteUsers(),
-      canPinMessages: struct.canPinMessages(),
-      canManageTopics: struct.canManageTopics()
-    }
-
-    return filterPayload(payload)
-  }
-})

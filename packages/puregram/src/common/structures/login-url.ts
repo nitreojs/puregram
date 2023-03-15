@@ -1,14 +1,13 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
-
 import { Structure } from '../../types/interfaces'
 
 /**
  * This object represents a parameter of the inline keyboard button used to
  * automatically authorize a user.
  */
+@Inspectable()
 export class LoginUrl implements Structure {
   constructor (public payload: Interfaces.TelegramLoginUrl) { }
 
@@ -27,11 +26,13 @@ export class LoginUrl implements Structure {
    * verify the authentication and the integrity of the data as described in
    * Checking authorization.
    */
+  @Inspect()
   get url () {
     return this.payload.url
   }
 
   /** New text of the button in forwarded messages. */
+  @Inspect({ nullable: false })
   get forwardText () {
     return this.payload.forward_text
   }
@@ -43,6 +44,7 @@ export class LoginUrl implements Structure {
    * domain linked with the bot. See Linking your domain to the bot for more
    * details.
    */
+  @Inspect({ nullable: false })
   get botUsername () {
     return this.payload.bot_username
   }
@@ -51,6 +53,7 @@ export class LoginUrl implements Structure {
    * Pass `true` to request the permission for your bot to send messages to the
    * user.
    */
+  @Inspect({ nullable: false })
   get requestWriteAccess () {
     return this.payload.request_write_access
   }
@@ -59,16 +62,3 @@ export class LoginUrl implements Structure {
     return this.payload
   }
 }
-
-inspectable(LoginUrl, {
-  serialize (struct) {
-    const payload = {
-      url: struct.url,
-      forwardText: struct.forwardText,
-      botUsername: struct.botUsername,
-      requestWriteAccess: struct.requestWriteAccess
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,14 +1,16 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents a unique message identifier. */
+@Inspectable()
 export class MessageId implements Structure {
   constructor (public payload: Interfaces.TelegramMessageId) { }
 
   /** Unique message identifier */
+  @Inspect()
   get id () {
     return this.payload.message_id
   }
@@ -17,11 +19,3 @@ export class MessageId implements Structure {
     return this.payload
   }
 }
-
-inspectable(MessageId, {
-  serialize (struct) {
-    return {
-      id: struct.id
-    }
-  }
-})

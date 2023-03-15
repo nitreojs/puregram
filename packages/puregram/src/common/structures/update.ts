@@ -1,10 +1,9 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
-import { filterPayload } from '../../utils/helpers'
 import { CallbackQuery } from './callback-query'
 
 import { ChatJoinRequest } from './chat-join-request'
@@ -23,6 +22,7 @@ import { ShippingQuery } from './shipping-query'
  * At most **one** of the optional parameters can be present in any given
  * update.
  */
+@Inspectable()
 export class Update implements Structure {
   constructor (public payload: Interfaces.TelegramUpdate) { }
 
@@ -39,6 +39,7 @@ export class Update implements Structure {
    * new updates for at least a week, then identifier of the next update will
    * be chosen randomly instead of sequentially.
    */
+  @Inspect()
   get id () {
     return this.payload.update_id
   }
@@ -46,6 +47,7 @@ export class Update implements Structure {
   /**
    * New incoming message of any kind — text, photo, sticker, etc.
    */
+  @Inspect({ nullable: false })
   get message () {
     const { message } = this.payload
 
@@ -57,6 +59,7 @@ export class Update implements Structure {
   }
 
   /** New version of a message that is known to the bot and was edited */
+  @Inspect({ nullable: false })
   get editedMessage () {
     const { edited_message } = this.payload
 
@@ -68,6 +71,7 @@ export class Update implements Structure {
   }
 
   /** New incoming channel post of any kind — text, photo, sticker, etc. */
+  @Inspect({ nullable: false })
   get channelPost () {
     const { channel_post } = this.payload
 
@@ -79,6 +83,7 @@ export class Update implements Structure {
   }
 
   /** New version of a channel post that is known to the bot and was edited */
+  @Inspect({ nullable: false })
   get editedChannelPost () {
     const { edited_channel_post } = this.payload
 
@@ -90,6 +95,7 @@ export class Update implements Structure {
   }
 
   /** New incoming inline query */
+  @Inspect({ nullable: false })
   get inlineQuery () {
     const { inline_query } = this.payload
 
@@ -105,6 +111,7 @@ export class Update implements Structure {
    * chat partner. Please see our documentation on the feedback collecting for
    * details on how to enable these updates for your bot.
    */
+  @Inspect({ nullable: false })
   get chosenInlineResult () {
     const { chosen_inline_result } = this.payload
 
@@ -116,6 +123,7 @@ export class Update implements Structure {
   }
 
   /** New incoming callback query */
+  @Inspect({ nullable: false })
   get callbackQuery () {
     const { callback_query } = this.payload
 
@@ -127,6 +135,7 @@ export class Update implements Structure {
   }
 
   /** New incoming shipping query. Only for invoices with flexible price */
+  @Inspect({ nullable: false })
   get shippingQuery () {
     const { shipping_query } = this.payload
 
@@ -140,6 +149,7 @@ export class Update implements Structure {
   /**
    * New incoming pre-checkout query. Contains full information about checkout
    */
+  @Inspect({ nullable: false })
   get preCheckoutQuery () {
     const { pre_checkout_query } = this.payload
 
@@ -154,6 +164,7 @@ export class Update implements Structure {
    * New poll state. Bots receive only updates about stopped polls and polls,
    * which are sent by the bot
    */
+  @Inspect({ nullable: false })
   get poll () {
     const { poll } = this.payload
 
@@ -168,6 +179,7 @@ export class Update implements Structure {
    * A user changed their answer in a non-anonymous poll. Bots receive new
    * votes only in polls that were sent by the bot itself.
    */
+  @Inspect({ nullable: false })
   get pollAnswer () {
     const { poll_answer } = this.payload
 
@@ -178,6 +190,8 @@ export class Update implements Structure {
     return new PollAnswer(poll_answer)
   }
 
+  /** The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user. */
+  @Inspect({ nullable: false })
   get myChatMember () {
     const { my_chat_member } = this.payload
 
@@ -188,6 +202,12 @@ export class Update implements Structure {
     return new ChatMemberUpdated(my_chat_member)
   }
 
+  /**
+   * A chat member's status was updated in a chat.
+   *
+   * The bot must be an administrator in the chat and must explicitly specify `chat_member` in the list of `allowed_updates` to receive these updates.
+   */
+  @Inspect({ nullable: false })
   get chatMember () {
     const { chat_member } = this.payload
 
@@ -198,6 +218,8 @@ export class Update implements Structure {
     return new ChatMemberUpdated(chat_member)
   }
 
+  /** A request to join the chat has been sent. The bot must have the `can_invite_users` administrator right in the chat to receive these updates. */
+  @Inspect({ nullable: false })
   get chatJoinRequest () {
     const { chat_join_request } = this.payload
 
@@ -212,24 +234,3 @@ export class Update implements Structure {
     return this.payload
   }
 }
-
-inspectable(Update, {
-  serialize (struct) {
-    const payload = {
-      id: struct.id,
-      message: struct.message,
-      editedMessage: struct.editedMessage,
-      channelPost: struct.channelPost,
-      editedChannelPost: struct.editedChannelPost,
-      inlineQuery: struct.inlineQuery,
-      chosenInlineResult: struct.chosenInlineResult,
-      callbackQuery: struct.callbackQuery,
-      shippingQuery: struct.shippingQuery,
-      preCheckoutQuery: struct.preCheckoutQuery,
-      poll: struct.poll,
-      pollAnswer: struct.pollAnswer
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Methods from '../../generated/methods'
 import * as Interfaces from '../../generated/telegram-interfaces'
@@ -6,6 +6,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 /** This object represents an animated emoji that displays a random value. */
+@Inspectable()
 export class Dice implements Structure {
   constructor (public payload: Interfaces.TelegramDice) { }
 
@@ -14,6 +15,7 @@ export class Dice implements Structure {
   }
 
   /** Emoji on which the dice throw animation is based */
+  @Inspect()
   get emoji () {
     return this.payload.emoji as NonNullable<Methods.SendDiceParams['emoji']>
   }
@@ -24,6 +26,7 @@ export class Dice implements Structure {
    * `1-5` for `🏀` and `⚽️` base emoji,
    * `1-64` for `🎰` base emoji
    */
+  @Inspect()
   get value () {
     return this.payload.value
   }
@@ -32,12 +35,3 @@ export class Dice implements Structure {
     return this.payload
   }
 }
-
-inspectable(Dice, {
-  serialize (struct) {
-    return {
-      emoji: struct.emoji,
-      value: struct.value
-    }
-  }
-})

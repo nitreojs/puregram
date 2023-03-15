@@ -1,10 +1,8 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
-
-import { filterPayload } from '../../utils/helpers'
 
 import { PassportFile } from './passport-file'
 
@@ -12,6 +10,7 @@ import { PassportFile } from './passport-file'
  * Contains information about documents or other Telegram Passport elements
  * shared with the bot by the user.
  */
+@Inspectable()
 export class EncryptedPassportElement implements Structure {
   constructor (public payload: Interfaces.TelegramEncryptedPassportElement) { }
 
@@ -25,6 +24,7 @@ export class EncryptedPassportElement implements Structure {
    * `bank_statement`, `rental_agreement`, `passport_registration`,
    * `temporary_registration`, `phone_number`, `email`.
    */
+  @Inspect()
   get type () {
     return this.payload.type
   }
@@ -36,16 +36,19 @@ export class EncryptedPassportElement implements Structure {
    * Can be decrypted and verified using the accompanying
    * `EncryptedCredentials`.
    */
+  @Inspect()
   get data () {
     return this.payload.data
   }
 
   /** User's verified phone number, available only for `phone_number` type */
+  @Inspect({ nullable: false })
   get phoneNumber () {
     return this.payload.phone_number
   }
 
   /** User's verified email address, available only for `email` type */
+  @Inspect()
   get email () {
     return this.payload.email
   }
@@ -56,6 +59,7 @@ export class EncryptedPassportElement implements Structure {
    * `passport_registration` and `temporary_registration` types. Files can be
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
+  @Inspect({ nullable: false })
   get files () {
     const { files } = this.payload
 
@@ -72,6 +76,7 @@ export class EncryptedPassportElement implements Structure {
    * `internal_passport`. The file can be decrypted and verified using the
    * accompanying `EncryptedCredentials`.
    */
+  @Inspect({ nullable: false })
   get frontSide () {
     const { front_side } = this.payload
 
@@ -87,6 +92,7 @@ export class EncryptedPassportElement implements Structure {
    * user. Available for `driver_license` and `identity_card`. The file can be
    * decrypted and verified using the accompanying `EncryptedCredentials`.
    */
+  @Inspect({ nullable: false })
   get reverseSide () {
     const { reverse_side } = this.payload
 
@@ -103,6 +109,7 @@ export class EncryptedPassportElement implements Structure {
    * `internal_passport`. The file can be decrypted and verified using the
    * accompanying `EncryptedCredentials`.
    */
+  @Inspect({ nullable: false })
   get selfie () {
     const { selfie } = this.payload
 
@@ -121,6 +128,7 @@ export class EncryptedPassportElement implements Structure {
    * types. Files can be decrypted and verified using the accompanying
    * `EncryptedCredentials`.
    */
+  @Inspect()
   get translation () {
     const { translation } = this.payload
 
@@ -134,6 +142,7 @@ export class EncryptedPassportElement implements Structure {
   /**
    * Base64-encoded element hash for using in `PassportElementErrorUnspecified`
    */
+  @Inspect()
   get hash () {
     return this.payload.hash
   }
@@ -142,22 +151,3 @@ export class EncryptedPassportElement implements Structure {
     return this.payload
   }
 }
-
-inspectable(EncryptedPassportElement, {
-  serialize (struct) {
-    const payload = {
-      type: struct.type,
-      data: struct.data,
-      phoneNumber: struct.phoneNumber,
-      email: struct.email,
-      files: struct.files,
-      frontSide: struct.frontSide,
-      reverseSide: struct.reverseSide,
-      selfie: struct.selfie,
-      translation: struct.translation,
-      hash: struct.hash
-    }
-
-    return filterPayload(payload)
-  }
-})

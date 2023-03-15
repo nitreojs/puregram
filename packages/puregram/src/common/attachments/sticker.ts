@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { AttachmentType, Require } from '../../types/types'
@@ -8,6 +8,8 @@ import { PhotoSize, MaskPosition, File } from '../structures'
 import { FileAttachment } from './file-attachment'
 
 /** This object represents a sticker. */
+// TODO: extended: ['fileId', 'fileUniqueId']
+@Inspectable()
 export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker> {
   attachmentType: AttachmentType = 'sticker'
 
@@ -16,31 +18,37 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
    *
    * The type of the sticker is independent from its format, which is determined by the fields `is_animated` and `is_video`.
    */
+  @Inspect()
   get type () {
     return this.payload.type
   }
 
   /** Sticker width */
+  @Inspect()
   get width () {
     return this.payload.width
   }
 
   /** Sticker height */
+  @Inspect()
   get height () {
     return this.payload.height
   }
 
   /** `true`, if the sticker is animated */
+  @Inspect({ compute: true })
   isAnimated () {
     return this.payload.is_animated
   }
 
   /** `true`, if the sticker is a video sticker */
+  @Inspect({ compute: true })
   isVideo () {
     return this.payload.is_video
   }
 
   /** Sticker thumbnail in the .WEBP or .JPG format */
+  @Inspect({ nullable: false })
   get thumbnail () {
     const { thumbnail } = this.payload
 
@@ -52,11 +60,13 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** Emoji associated with the sticker */
+  @Inspect({ nullable: false })
   get emoji () {
     return this.payload.emoji
   }
 
   /** Name of the sticker set to which the sticker belongs */
+  @Inspect({ nullable: false })
   get setName () {
     return this.payload.set_name
   }
@@ -67,6 +77,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** Premium animation for the sticker, if the sticker is premium */
+  @Inspect({ nullable: false })
   get premiumAnimation () {
     const { premium_animation } = this.payload
 
@@ -78,6 +89,7 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** For mask stickers, the position where the mask should be placed */
+  @Inspect({ nullable: false })
   get maskPosition () {
     const { mask_position } = this.payload
 
@@ -89,16 +101,19 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
   }
 
   /** For custom emoji stickers, unique identifier of the custom emoji */
+  @Inspect({ nullable: false })
   get customEmojiId () {
     return this.payload.custom_emoji_id
   }
 
   /** `true`, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places */
+  @Inspect({ nullable: false })
   get needs_repainting () {
     return this.payload.needs_repainting as true | undefined
   }
 
   /** File size */
+  @Inspect({ nullable: false })
   get fileSize () {
     return this.payload.file_size
   }
@@ -107,21 +122,3 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
     return this.payload
   }
 }
-
-inspectable(StickerAttachment, {
-  serialize (attachment) {
-    return {
-      fileId: attachment.fileId,
-      fileUniqueId: attachment.fileUniqueId,
-      width: attachment.width,
-      height: attachment.height,
-      isAnimated: attachment.isAnimated(),
-      isVideo: attachment.isVideo(),
-      thumbnail: attachment.thumbnail,
-      emoji: attachment.emoji,
-      setName: attachment.setName,
-      maskPosition: attachment.maskPosition,
-      fileSize: attachment.fileSize
-    }
-  }
-})

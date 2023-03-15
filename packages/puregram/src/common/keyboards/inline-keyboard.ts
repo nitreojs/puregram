@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -45,7 +45,9 @@ interface LoginButtonParams {
 }
 
 /** Inline keyboard */
+@Inspectable()
 export class InlineKeyboard {
+  @Inspect({ as: 'inline_keyboard' })
   private buttons: Interfaces.TelegramInlineKeyboardButton[][] = []
 
   get [Symbol.toStringTag] () {
@@ -161,9 +163,3 @@ export class InlineKeyboard {
     return JSON.stringify(this)
   }
 }
-
-inspectable(InlineKeyboard, {
-  serialize (keyboard) {
-    return keyboard.toJSON()
-  }
-})

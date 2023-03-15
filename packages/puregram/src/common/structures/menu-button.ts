@@ -1,13 +1,13 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 import { WebAppInfo } from './web-app-info'
 
 /** This object describes the bot's menu button in a private chat. */
+@Inspectable()
 export class MenuButton implements Structure {
   constructor (public payload: Interfaces.TelegramMenuButton) { }
 
@@ -16,11 +16,13 @@ export class MenuButton implements Structure {
   }
 
   /** Type of the button */
+  @Inspect()
   get type () {
     return this.payload.type
   }
 
   /** Text on the button */
+  @Inspect()
   get text () {
     return this.payload.text
   }
@@ -30,6 +32,7 @@ export class MenuButton implements Structure {
    * The Web App will be able to send an arbitrary message on behalf of the user
    * using the method `answerWebAppQuery`.
    */
+  @Inspect({ nullable: false })
   get webApp () {
     const { web_app } = this.payload
 
@@ -44,15 +47,3 @@ export class MenuButton implements Structure {
     return this.payload
   }
 }
-
-inspectable(MenuButton, {
-  serialize (struct) {
-    const payload = {
-      type: struct.type,
-      text: struct.text,
-      webApp: struct.webApp
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents a service message about an edited forum topic. */
+@Inspectable()
 export class ForumTopicReopened implements Structure {
   constructor (public payload: Interfaces.TelegramForumTopicReopened) { }
 
@@ -16,9 +17,3 @@ export class ForumTopicReopened implements Structure {
     return this.payload
   }
 }
-
-inspectable(ForumTopicReopened, {
-  serialize (struct) {
-    return {}
-  }
-})

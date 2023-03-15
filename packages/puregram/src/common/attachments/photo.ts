@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import { AttachmentType } from '../../types/types'
 
@@ -7,6 +7,7 @@ import { PhotoSize } from '../structures'
 import { Attachment } from './attachment'
 
 /** This object represents a photo file with it's sizes */
+@Inspectable()
 export class PhotoAttachment extends Attachment {
   private payload: PhotoSize[]
 
@@ -30,16 +31,19 @@ export class PhotoAttachment extends Attachment {
   }
 
   /** Biggest size of the photo */
+  @Inspect()
   get bigSize () {
     return this.sorted[0]
   }
 
   /** Medium size of the photo */
+  @Inspect()
   get mediumSize () {
     return this.sorted[Math.floor(this.sorted.length / 2)]
   }
 
   /** Smallest size of the photo */
+  @Inspect()
   get smallSize () {
     return this.sorted[this.sorted.length - 1]
   }
@@ -52,13 +56,3 @@ export class PhotoAttachment extends Attachment {
     ]
   }
 }
-
-inspectable(PhotoAttachment, {
-  serialize (attachment) {
-    return {
-      smallSize: attachment.smallSize,
-      mediumSize: attachment.mediumSize,
-      bigSize: attachment.bigSize
-    }
-  }
-})

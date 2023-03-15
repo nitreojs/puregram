@@ -1,13 +1,13 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 import { Location } from './location'
 
 /** This object represents a venue. */
+@Inspectable()
 export class Venue implements Structure {
   constructor (public payload: Interfaces.TelegramVenue) { }
 
@@ -16,31 +16,37 @@ export class Venue implements Structure {
   }
 
   /** Venue location */
+  @Inspect()
   get location () {
     return new Location(this.payload.location)
   }
 
   /** Name of the venue */
+  @Inspect()
   get title () {
     return this.payload.title
   }
 
   /** Address of the venue */
+  @Inspect()
   get address () {
     return this.payload.address
   }
 
   /** Foursquare identifier of the venue */
+  @Inspect({ nullable: false })
   get foursquareId () {
     return this.payload.foursquare_id
   }
 
   /** Foursquare type of the venue */
+  @Inspect({ nullable: false })
   get foursquareType () {
     return this.payload.foursquare_type
   }
 
   /** Google Places identifier of the venue */
+  @Inspect({ nullable: false })
   get googlePlaceId () {
     return this.payload.google_place_id
   }
@@ -49,6 +55,7 @@ export class Venue implements Structure {
    * Google Places type of the venue.
    * (See [supported types](https://developers.google.com/places/web-service/supported_types).)
    */
+  @Inspect({ nullable: false })
   get googlePlaceType () {
     return this.payload.google_place_type
   }
@@ -57,19 +64,3 @@ export class Venue implements Structure {
     return this.payload
   }
 }
-
-inspectable(Venue, {
-  serialize (struct) {
-    const payload = {
-      location: struct.location,
-      title: struct.title,
-      address: struct.address,
-      foursquareId: struct.foursquareId,
-      foursquareType: struct.foursquareType,
-      googlePlaceId: struct.googlePlaceId,
-      googlePlaceType: struct.googlePlaceType
-    }
-
-    return filterPayload(payload)
-  }
-})

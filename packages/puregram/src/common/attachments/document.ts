@@ -1,4 +1,4 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 import { AttachmentType } from '../../types/types'
@@ -11,10 +11,13 @@ import { FileAttachment } from './file-attachment'
  * This object represents a general file (as opposed to photos, voice messages
  * and audio files).
  */
+// TODO: extended: ['fileId', 'fileUniqueId']
+@Inspectable()
 export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocument> {
   attachmentType: AttachmentType = 'document'
 
   /** Document thumbnail as defined by sender */
+  @Inspect({ nullable: false })
   get thumbnail () {
     const { thumbnail } = this.payload
 
@@ -26,16 +29,19 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
   }
 
   /** Original filename as defined by sender */
+  @Inspect({ nullable: false })
   get fileName () {
     return this.payload.file_name
   }
 
   /** MIME type of the file as defined by sender */
+  @Inspect({ nullable: false })
   get mimeType () {
     return this.payload.mime_type
   }
 
   /** File size */
+  @Inspect({ nullable: false })
   get fileSize () {
     return this.payload.file_size
   }
@@ -44,16 +50,3 @@ export class DocumentAttachment extends FileAttachment<Interfaces.TelegramDocume
     return this.payload
   }
 }
-
-inspectable(DocumentAttachment, {
-  serialize (attachment) {
-    return {
-      fileId: attachment.fileId,
-      fileUniqueId: attachment.fileUniqueId,
-      thumbnail: attachment.thumbnail,
-      fileName: attachment.fileName,
-      mimeType: attachment.mimeType,
-      fileSize: attachment.fileSize
-    }
-  }
-})

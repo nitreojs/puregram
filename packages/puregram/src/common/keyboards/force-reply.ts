@@ -1,10 +1,14 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 /** Force reply keyboard */
+@Inspectable()
 export class ForceReply {
+  @Inspect({ as: 'selective', nullable: false })
   private isSelective = false
+
+  @Inspect({ as: 'input_field_placeholder', nullable: false })
   private placeholder?: string
 
   /** Use this parameter if you want to show the keyboard to specific users only */
@@ -34,9 +38,3 @@ export class ForceReply {
     return JSON.stringify(this)
   }
 }
-
-inspectable(ForceReply, {
-  serialize (keyboard) {
-    return keyboard.toJSON()
-  }
-})

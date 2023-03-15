@@ -1,11 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents a file ready to be downloaded. The file can be downloaded via the link `https://api.telegram.org/file/bot<token>/<file_path>`. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling `getFile`. */
+@Inspectable()
 export class File implements Structure {
   constructor (public payload: Interfaces.TelegramFile) { }
 
@@ -16,6 +16,7 @@ export class File implements Structure {
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
+  @Inspect()
   get fileId () {
     return this.payload.file_id
   }
@@ -24,11 +25,13 @@ export class File implements Structure {
    * Unique identifier for this file, which is supposed to be the same over
    * time and for different bots. Can't be used to download or reuse the file.
    */
+  @Inspect()
   get fileUniqueId () {
     return this.payload.file_unique_id
   }
 
   /** File size, if known */
+  @Inspect()
   get fileSize () {
     return this.payload.file_size
   }
@@ -38,6 +41,7 @@ export class File implements Structure {
    * Use `https://api.telegram.org/file/bot<token>/<file_path>` to get the
    * file.
    */
+  @Inspect({ nullable: false })
   get filePath () {
     return this.payload.file_path
   }
@@ -46,16 +50,3 @@ export class File implements Structure {
     return this.payload
   }
 }
-
-inspectable(File, {
-  serialize (struct) {
-    const payload = {
-      fileId: struct.fileId,
-      fileUniqueId: struct.fileUniqueId,
-      fileSize: struct.fileSize,
-      filePath: struct.filePath
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,7 +1,6 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { filterPayload } from '../../utils/helpers'
 
 import { Structure } from '../../types/interfaces'
 
@@ -11,6 +10,7 @@ import { ChatMember } from './chat-member'
 import { User } from './user'
 
 /** This object represents changes in the status of a chat member. */
+@Inspectable()
 export class ChatMemberUpdated implements Structure {
   constructor (public payload: Interfaces.TelegramChatMemberUpdated) { }
 
@@ -19,26 +19,31 @@ export class ChatMemberUpdated implements Structure {
   }
 
   /** Chat the user belongs to */
+  @Inspect()
   get chat () {
     return new Chat(this.payload.chat)
   }
 
   /** Performer of the action, which resulted in the change */
+  @Inspect()
   get from () {
     return new User(this.payload.from)
   }
 
   /** Date the change was done in Unix time */
+  @Inspect()
   get date () {
     return this.payload.date
   }
 
   /** Previous information about the chat member */
+  @Inspect()
   get oldChatMember () {
     return new ChatMember(this.payload.old_chat_member)
   }
 
   /** New information about the chat member */
+  @Inspect()
   get newChatMember () {
     return new ChatMember(this.payload.new_chat_member)
   }
@@ -47,6 +52,7 @@ export class ChatMemberUpdated implements Structure {
    * Chat invite link, which was used by the user to join the chat;
    * for joining by invite link events only.
    */
+  @Inspect({ nullable: false })
   get inviteLink () {
     const { invite_link } = this.payload
 
@@ -61,18 +67,3 @@ export class ChatMemberUpdated implements Structure {
     return this.payload
   }
 }
-
-inspectable(ChatMemberUpdated, {
-  serialize (struct) {
-    const payload = {
-      chat: struct.chat,
-      from: struct.from,
-      date: struct.date,
-      oldChatMember: struct.oldChatMember,
-      newChatMember: struct.newChatMember,
-      inviteLink: struct.inviteLink
-    }
-
-    return filterPayload(payload)
-  }
-})

@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents a service message about a video chat ended in the chat. */
+@Inspectable()
 export class VideoChatEnded implements Structure {
   constructor (public payload: Interfaces.TelegramVideoChatEnded) { }
 
@@ -13,6 +14,7 @@ export class VideoChatEnded implements Structure {
   }
 
   /** Video chat duration; in seconds */
+  @Inspect()
   get duration () {
     return this.payload.duration
   }
@@ -21,11 +23,3 @@ export class VideoChatEnded implements Structure {
     return this.payload
   }
 }
-
-inspectable(VideoChatEnded, {
-  serialize (struct) {
-    return {
-      duration: struct.duration
-    }
-  }
-})

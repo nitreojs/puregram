@@ -1,10 +1,11 @@
-import { inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 
 /** This object represents a service message about a change in auto-delete timer settings */
+@Inspectable()
 export class MessageAutoDeleteTimerChanged implements Structure {
   constructor (public payload: Interfaces.TelegramMessageAutoDeleteTimerChanged) { }
 
@@ -13,6 +14,7 @@ export class MessageAutoDeleteTimerChanged implements Structure {
   }
 
   /** New auto-delete time for messages in the chat */
+  @Inspect()
   get messageAutoDeleteTime () {
     return this.payload.message_auto_delete_time
   }
@@ -21,9 +23,3 @@ export class MessageAutoDeleteTimerChanged implements Structure {
     return this.payload
   }
 }
-
-inspectable(MessageAutoDeleteTimerChanged, {
-  serialize (struct) {
-    return {}
-  }
-})

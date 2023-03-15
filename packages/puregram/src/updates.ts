@@ -1,6 +1,6 @@
 import { debug } from 'debug'
 
-import { inspectable } from 'inspectable'
+import { Inspectable } from 'inspectable'
 import { compose, Middleware, NextMiddleware, noopNext } from 'middleware-io'
 import http from 'node:http'
 import { MediaGroup } from './common/media-group'
@@ -109,6 +109,7 @@ const events = makeContexts()
  * telegram.updates.startPolling()
  * ```
  */
+@Inspectable()
 export class Updates {
   private readonly telegram: Telegram
   private retries = 0
@@ -570,9 +571,3 @@ export class Updates {
     }
   }
 }
-
-inspectable(Updates, {
-  serialize (updates) {
-    return {}
-  }
-})

@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 export * from './telegram'
 export * from './contexts'
 export * from './errors'

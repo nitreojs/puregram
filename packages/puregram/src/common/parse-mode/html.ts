@@ -73,4 +73,9 @@ export class HTML {
   static pre (source: string, escape = true) {
     return `<pre>${escape ? HTML.escape(source) : source}</pre>`
   }
+
+  /** Custom emoji */
+  static emoji (emoji: string, id: string) {
+    return `<tg-emoji emoji-id="${id}">${emoji}</tg-emoji>`
+  }
 }

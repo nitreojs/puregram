@@ -63,6 +63,12 @@ export class ChatMemberUpdated implements Structure {
     return new ChatInviteLink(invite_link)
   }
 
+  /** `true`, if the user joined the chat via a chat folder invite link */
+  @Inspect({ nullable: false })
+  get viaChatFolderInviteLink () {
+    return this.payload.via_chat_folder_invite_link
+  }
+
   toJSON () {
     return this.payload
   }

@@ -115,4 +115,9 @@ export class MarkdownV2 {
 
     return `${quotes}${language || ''}\n${escape ? MarkdownV2.escape(source) : source}\n${quotes}`
   }
+
+  /** Custom emoji */
+  static emoji (emoji: string, id: string) {
+    return `![${emoji}](tg://emoji?id=${id})`
+  }
 }

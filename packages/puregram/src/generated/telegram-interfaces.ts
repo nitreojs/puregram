@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.6.0, 09.03.2023
-/// Generation date: 10.03.2023 04:10:27 MSK
+/// Based on Bot API v6.7.0, 21.04.2023
+/// Generation date: 21.04.2023 15:19:08 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -1248,9 +1248,16 @@ export interface TelegramChatShared {
 }
 
 /**
- * This object represents a service message about a user allowing a bot added to the attachment menu to write messages. Currently holds no information.
+ * This object represents a service message about a user allowing a bot to write messages after adding the bot to the attachment menu or launching a Web App from a link.
  */
-export interface TelegramWriteAccessAllowed { }
+export interface TelegramWriteAccessAllowed {
+  /**
+   * *Optional*. Name of the Web App which was launched from a link
+   */
+  web_app_name?: string
+
+  [key: string]: any
+}
 
 /**
  * This object represents a service message about a video chat scheduled in the chat.
@@ -1418,7 +1425,7 @@ export interface TelegramKeyboardButton {
 }
 
 /**
- * This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed.
+ * This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed. [More about requesting users »](https://core.telegram.org/bots/features#chat-and-user-selection)
  */
 export interface TelegramKeyboardButtonRequestUser {
   /**
@@ -1438,7 +1445,7 @@ export interface TelegramKeyboardButtonRequestUser {
 }
 
 /**
- * This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed.
+ * This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. [More about requesting chats »](https://core.telegram.org/bots/features#chat-and-user-selection)
  */
 export interface TelegramKeyboardButtonRequestChat {
   /**
@@ -1556,6 +1563,10 @@ export interface TelegramInlineKeyboardButton {
    */
   switch_inline_query_current_chat?: string
   /**
+   * *Optional*. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field
+   */
+  switch_inline_query_chosen_chat?: TelegramSwitchInlineQueryChosenChat
+  /**
    * *Optional*. Description of the game that will be launched when the user presses the button.  
    * 
    * **NOTE:** This type of button **must** always be the first button in the first row.
@@ -1597,6 +1608,34 @@ export interface TelegramLoginUrl {
    * *Optional*. Pass *True* to request the permission for your bot to send messages to the user.
    */
   request_write_access?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * This object represents an inline button that switches the current user to inline mode in a chosen chat, with an optional default inline query.
+ */
+export interface TelegramSwitchInlineQueryChosenChat {
+  /**
+   * *Optional*. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
+   */
+  query?: string
+  /**
+   * *Optional*. True, if private chats with users can be chosen
+   */
+  allow_user_chats?: boolean
+  /**
+   * *Optional*. True, if private chats with bots can be chosen
+   */
+  allow_bot_chats?: boolean
+  /**
+   * *Optional*. True, if group and supergroup chats can be chosen
+   */
+  allow_group_chats?: boolean
+  /**
+   * *Optional*. True, if channel chats can be chosen
+   */
+  allow_channel_chats?: boolean
 
   [key: string]: any
 }
@@ -2037,6 +2076,10 @@ export interface TelegramChatMemberUpdated {
    * *Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
    */
   invite_link?: TelegramChatInviteLink
+  /**
+   * *Optional*. True, if the user joined the chat via a chat folder invite link
+   */
+  via_chat_folder_invite_link?: boolean
 
   [key: string]: any
 }
@@ -2289,6 +2332,18 @@ export interface TelegramBotCommandScopeChatMember {
    * Unique identifier of the target user
    */
   user_id: number
+
+  [key: string]: any
+}
+
+/**
+ * This object represents the bot's name.
+ */
+export interface TelegramBotName {
+  /**
+   * The bot's name
+   */
+  name: string
 
   [key: string]: any
 }
@@ -2733,7 +2788,7 @@ export interface TelegramMaskPosition {
  */
 export interface TelegramInputSticker {
   /**
-   * The added sticker. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. Animated and video stickers can't be uploaded via HTTP URL. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
+   * The added sticker. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, upload a new one using multipart/form-data, or pass “attach://\<file\_attach\_name\>” to upload a new one using multipart/form-data under \<file\_attach\_name\> name. Animated and video stickers can't be uploaded via HTTP URL. [More information on Sending Files »](https://core.telegram.org/bots/api/#sending-files)
    */
   sticker: MediaInput
   /**
@@ -2782,6 +2837,28 @@ export interface TelegramInlineQuery {
    * *Optional*. Sender location, only for bots that request user location
    */
   location?: TelegramLocation
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a button to be shown above inline query results. You **must** use exactly one of the optional fields.
+ */
+export interface TelegramInlineQueryResultsButton {
+  /**
+   * Label text on the button
+   */
+  text: string
+  /**
+   * *Optional*. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method *web\_app\_switch\_inline\_query* inside the Web App.
+   */
+  web_app?: TelegramWebAppInfo
+  /**
+   * *Optional*. [Deep-linking](https://core.telegram.org/bots/features#deep-linking) parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.  
+   * 
+   * *Example:* An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a [*switch\_inline*](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
+   */
+  start_parameter?: string
 
   [key: string]: any
 }

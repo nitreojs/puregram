@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.6.0, 09.03.2023
-/// Generation date: 10.03.2023 04:10:27 MSK
+/// Based on Bot API v6.7.0, 21.04.2023
+/// Generation date: 21.04.2023 15:19:08 MSK
 
 import * as api from './methods'
 
@@ -578,6 +578,22 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#getmycommands)
    */
   getMyCommands: api.getMyCommands
+  /**
+   * Use this method to change the bot's name. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setmyname)
+   */
+  setMyName: api.setMyName
+  /**
+   * Use this method to get the current bot name for the given user language. Returns [BotName](https://core.telegram.org/bots/api/#botname) on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getmyname)
+   */
+  getMyName: api.getMyName
   /**
    * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns *True* on success.
    * 

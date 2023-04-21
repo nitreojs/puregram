@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.6.0, 09.03.2023
-/// Generation date: 10.03.2023 04:10:27 MSK
+/// Based on Bot API v6.7.0, 21.04.2023
+/// Generation date: 21.04.2023 15:19:08 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -14,7 +14,7 @@ import { MessageEntity } from '../common/structures'
 
 export interface GetUpdatesParams {
   /**
-   * Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as [getUpdates](https://core.telegram.org/bots/api/#getupdates) is called with an *offset* higher than its *update\_id*. The negative offset can be specified to retrieve updates starting from *-offset* update from the end of the updates queue. All previous updates will forgotten.
+   * Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as [getUpdates](https://core.telegram.org/bots/api/#getupdates) is called with an *offset* higher than its *update\_id*. The negative offset can be specified to retrieve updates starting from *-offset* update from the end of the updates queue. All previous updates will be forgotten.
    */
   offset?: number
   /**
@@ -2296,6 +2296,46 @@ export interface GetMyCommandsParams {
  */
 export type getMyCommands = (params?: GetMyCommandsParams) => Promise<Interfaces.TelegramBotCommand[]>
 
+export interface SetMyNameParams {
+  /**
+   * New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language.
+   */
+  name?: string
+  /**
+   * A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
+   */
+  language_code?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to change the bot's name. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setmyname)
+ */
+export type setMyName = (params?: SetMyNameParams) => Promise<true>
+
+export interface GetMyNameParams {
+  /**
+   * A two-letter ISO 639-1 language code or an empty string
+   */
+  language_code?: string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to get the current bot name for the given user language. Returns [BotName](https://core.telegram.org/bots/api/#botname) on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#getmyname)
+ */
+export type getMyName = (params?: GetMyNameParams) => Promise<Interfaces.TelegramBotName>
+
 export interface SetMyDescriptionParams {
   /**
    * New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
@@ -3138,7 +3178,7 @@ export interface AnswerInlineQueryParams {
    */
   cache_time?: number
   /**
-   * Pass *True* if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
+   * Pass *True* if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query.
    */
   is_personal?: boolean
   /**
@@ -3146,15 +3186,9 @@ export interface AnswerInlineQueryParams {
    */
   next_offset?: string
   /**
-   * If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter *switch\_pm\_parameter*
+   * A JSON-serialized object describing a button to be shown above inline query results
    */
-  switch_pm_text?: string
-  /**
-   * [Deep-linking](https://core.telegram.org/bots/features#deep-linking) parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.  
-   * 
-   * *Example:* An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a [*switch\_inline*](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
-   */
-  switch_pm_parameter?: string
+  button?: Interfaces.TelegramInlineQueryResultsButton
 
   [key: string]: any
 }

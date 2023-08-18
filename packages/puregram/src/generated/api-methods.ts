@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.7.0, 21.04.2023
-/// Generation date: 21.04.2023 15:19:08 MSK
+/// Based on Bot API v6.8.0, 18.08.2023
+/// Generation date: 18.08.2023 19:47:38 MSK
 
 import * as api from './methods'
 
@@ -544,6 +544,14 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#unhidegeneralforumtopic)
    */
   unhideGeneralForumTopic: api.unhideGeneralForumTopic
+  /**
+   * Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the *can\_pin\_messages* administrator right in the supergroup. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#unpinallgeneralforumtopicmessages)
+   */
+  unpinAllGeneralForumTopicMessages: api.unpinAllGeneralForumTopicMessages
   /**
    * Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots/features#inline-keyboards). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
    * 

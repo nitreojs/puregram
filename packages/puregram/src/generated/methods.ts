@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.7.0, 21.04.2023
-/// Generation date: 21.04.2023 15:19:08 MSK
+/// Based on Bot API v6.8.0, 18.08.2023
+/// Generation date: 18.08.2023 19:47:38 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -2187,6 +2187,24 @@ export interface UnhideGeneralForumTopicParams {
  * [**Documentation**](https://core.telegram.org/bots/api/#unhidegeneralforumtopic)
  */
 export type unhideGeneralForumTopic = (params: UnhideGeneralForumTopicParams) => Promise<true>
+
+export interface UnpinAllGeneralForumTopicMessagesParams {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
+   */
+  chat_id: number | string
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the *can\_pin\_messages* administrator right in the supergroup. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#unpinallgeneralforumtopicmessages)
+ */
+export type unpinAllGeneralForumTopicMessages = (params: UnpinAllGeneralForumTopicMessagesParams) => Promise<true>
 
 export interface AnswerCallbackQueryParams {
   /**

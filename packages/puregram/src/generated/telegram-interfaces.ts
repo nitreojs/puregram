@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.7.0, 21.04.2023
-/// Generation date: 21.04.2023 15:19:08 MSK
+/// Based on Bot API v6.8.0, 18.08.2023
+/// Generation date: 18.08.2023 19:47:38 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -232,6 +232,10 @@ export interface TelegramChat {
    */
   emoji_status_custom_emoji_id?: string
   /**
+   * *Optional*. Expiration date of the emoji status of the other party in a private chat, if any. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  emoji_status_expiration_date?: number
+  /**
    * *Optional*. Bio of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   bio?: string
@@ -419,6 +423,10 @@ export interface TelegramMessage {
    * *Optional*. Message is a sticker, information about the sticker
    */
   sticker?: TelegramSticker
+  /**
+   * *Optional*. Message is a forwarded story
+   */
+  story?: TelegramStory
   /**
    * *Optional*. Message is a video, information about the video
    */
@@ -798,6 +806,11 @@ export interface TelegramDocument {
 }
 
 /**
+ * This object represents a message about a forwarded story in the chat. Currently holds no information.
+ */
+export interface TelegramStory { }
+
+/**
  * This object represents a video file.
  */
 export interface TelegramVideo {
@@ -970,11 +983,15 @@ export interface TelegramPollAnswer {
    */
   poll_id: string
   /**
-   * The user, who changed the answer to the poll
+   * *Optional*. The chat that changed the answer to the poll, if the voter is anonymous
    */
-  user: TelegramUser
+  voter_chat?: TelegramChat
   /**
-   * 0-based identifiers of answer options, chosen by the user. May be empty if the user retracted their vote.
+   * *Optional*. The user that changed the answer to the poll, if the voter isn't anonymous
+   */
+  user?: TelegramUser
+  /**
+   * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
    */
   option_ids: number[]
 
@@ -1551,9 +1568,7 @@ export interface TelegramInlineKeyboardButton {
    */
   login_url?: TelegramLoginUrl
   /**
-   * *Optional*. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted.  
-   * 
-   * **Note:** This offers an easy way for users to start using your bot in [inline mode](https://core.telegram.org/bots/inline) when they are currently in a private chat with it. Especially useful when combined with [*switch\_pm…*](https://core.telegram.org/bots/api/#answerinlinequery) actions - in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
+   * *Optional*. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted.
    */
   switch_inline_query?: string
   /**
@@ -2850,7 +2865,7 @@ export interface TelegramInlineQueryResultsButton {
    */
   text: string
   /**
-   * *Optional*. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method *web\_app\_switch\_inline\_query* inside the Web App.
+   * *Optional*. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method [switchInlineQuery](https://core.telegram.org/bots/webapps#initializing-web-apps) inside the Web App.
    */
   web_app?: TelegramWebAppInfo
   /**

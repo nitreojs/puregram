@@ -7,6 +7,7 @@ export enum AttachmentType {
   Photo = 'photo',
   Poll = 'poll',
   Sticker = 'sticker',
+  Story = 'story',
   Venue = 'venue',
   VideoNote = 'video_note',
   Video = 'video',

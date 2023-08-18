@@ -38,7 +38,8 @@ import {
   VideoAttachment,
   VideoNoteAttachment,
   StickerAttachment,
-  VoiceAttachment
+  VoiceAttachment,
+  StoryAttachment
 } from '../attachments'
 import { WriteAccessAllowed } from './write-access-allowed'
 import { GeneralForumTopicHidden } from './general-forum-topic-hidden'
@@ -272,6 +273,18 @@ export class Message implements Structure {
     }
 
     return new StickerAttachment(sticker)
+  }
+
+  /** Message is a forwarded story */
+  @Inspect({ nullable: false })
+  get story () {
+    const { story } = this.payload
+
+    if (!story) {
+      return
+    }
+
+    return new StoryAttachment(story)
   }
 
   /** Message is a video, information about the video */

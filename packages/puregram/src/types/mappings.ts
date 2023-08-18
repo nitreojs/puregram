@@ -64,6 +64,7 @@ export interface AttachmentsMapping {
   photo: Attachments.PhotoAttachment
   poll: Attachments.PollAttachment
   sticker: Attachments.StickerAttachment
+  story: Attachments.StoryAttachment
   venue: Attachments.VenueAttachment
   video_note: Attachments.VideoNoteAttachment
   video: Attachments.VideoAttachment

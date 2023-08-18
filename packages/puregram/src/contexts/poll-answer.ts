@@ -3,7 +3,7 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { applyMixins } from '../utils/helpers'
-import { Constructor } from '../types/types'
+import { Constructor, Require } from '../types/types'
 import { Telegram } from '../telegram'
 import { PollAnswer } from '../common/structures'
 
@@ -29,6 +29,16 @@ class PollAnswerContext extends Context {
     })
 
     this.payload = options.payload
+  }
+
+  /** Checks whether the current answer was non-anonymous and contains `user` field */
+  isFromUser (): this is Require<this, 'user'> {
+    return this.user !== undefined
+  }
+
+  /** Checks if current answer was answered anonymously and the `voterChat` is available */
+  isFromChat (): this is Require<this, 'voterChat'> {
+    return this.voterChat !== undefined
   }
 }
 

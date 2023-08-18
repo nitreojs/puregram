@@ -105,6 +105,16 @@ export class Chat implements Structure {
   }
 
   /**
+   * Expiration date of the emoji status of the other party in a private chat, if any.
+   *
+   * Returned only in `getChat`.
+   */
+  @Inspect({ nullable: false })
+  get emojiStatusExpirationDate () {
+    return this.payload.emoji_status_expiration_date
+  }
+
+  /**
    * Bio of the other party in a private chat.
    *
    * Returned only in `getChat`.

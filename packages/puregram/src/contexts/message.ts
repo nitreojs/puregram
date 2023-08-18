@@ -10,6 +10,7 @@ import {
   PhotoAttachment,
   PollAttachment,
   StickerAttachment,
+  StoryAttachment,
   VenueAttachment,
   VideoAttachment,
   VideoNoteAttachment,
@@ -196,7 +197,7 @@ class MessageContext extends Context {
       return new LocationAttachment(this.payload.location as Interfaces.TelegramLocation)
     }
 
-    return this.sticker ?? this.animation ?? this.audio ?? this.document ?? this.video ?? this.videoNote ?? this.voice
+    return this.sticker ?? this.story ?? this.animation ?? this.audio ?? this.document ?? this.video ?? this.videoNote ?? this.voice
   }
 
   /** Does this message have an attachment with a specific type `type`? */
@@ -278,9 +279,14 @@ class MessageContext extends Context {
   /** @deprecated */
   getAttachments(type: AttachmentTypeEnum.Animation | 'animation'): AnimationAttachment[]
   getAttachments(type: AttachmentTypeEnum.Audio | 'audio'): AudioAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Contact | 'contact'): ContactAttachment[]
   getAttachments(type: AttachmentTypeEnum.Document | 'document'): DocumentAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Location | 'location'): LocationAttachment[]
   getAttachments(type: AttachmentTypeEnum.Photo | 'photo'): PhotoAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Poll | 'poll'): PollAttachment[]
   getAttachments(type: AttachmentTypeEnum.Sticker | 'sticker'): StickerAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Story | 'story'): StoryAttachment[]
+  getAttachments(type: AttachmentTypeEnum.Venue | 'venue'): VenueAttachment[]
   getAttachments(type: AttachmentTypeEnum.Video | 'video'): VideoAttachment[]
   getAttachments(type: AttachmentTypeEnum.VideoNote | 'video_note'): VideoNoteAttachment[]
   getAttachments(type: AttachmentTypeEnum.Voice | 'voice'): VoiceAttachment[]

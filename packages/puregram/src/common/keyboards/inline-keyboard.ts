@@ -130,7 +130,7 @@ export class InlineKeyboard {
   }
 
   /** Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
-  static switchToChosenChat (
+  static switchToChosenChatButton (
     params: SwitchToChosenChatButtonParams
   ): Interfaces.TelegramInlineKeyboardButton {
     return {

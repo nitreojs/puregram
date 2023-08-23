@@ -29,6 +29,15 @@ interface SwitchToChatButtonParams {
   query: string
 }
 
+interface SwitchToChosenChatButtonParams {
+  text: string
+  query?: string
+  allowUserChats?: boolean
+  allowBotChats?: boolean
+  allowGroupChats?: boolean
+  allowChannelChats?: boolean
+}
+
 interface GameButtonParams {
   text: string
   game: Interfaces.TelegramCallbackGame
@@ -101,6 +110,20 @@ export class InlineKeyboardBuilder {
     return this.addButton({
       text: params.text,
       switch_inline_query: params.query
+    })
+  }
+
+  /** Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
+  switchToChosenChatButton (params: SwitchToChosenChatButtonParams) {
+    this.addButton({
+      text: params.text,
+      switch_inline_query_chosen_chat: {
+        query: params.query,
+        allow_bot_chats: params.allowBotChats,
+        allow_channel_chats: params.allowChannelChats,
+        allow_group_chats: params.allowGroupChats,
+        allow_user_chats: params.allowUserChats
+      }
     })
   }
 

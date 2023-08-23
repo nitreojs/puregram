@@ -115,7 +115,7 @@ export class InlineKeyboardBuilder {
 
   /** Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
   switchToChosenChatButton (params: SwitchToChosenChatButtonParams) {
-    this.addButton({
+    return this.addButton({
       text: params.text,
       switch_inline_query_chosen_chat: {
         query: params.query,

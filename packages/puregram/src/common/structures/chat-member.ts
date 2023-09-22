@@ -167,6 +167,24 @@ export class ChatMember implements Structure {
     return this.payload.can_pin_messages
   }
 
+  /** `true`, if the administrator can post stories in the channel; channels only */
+  @Inspect({ compute: true })
+  canPostStories () {
+    return this.payload.can_post_stories
+  }
+
+  /** `true`, if the administrator can edit stories posted by other users; channels only */
+  @Inspect({ compute: true })
+  canEditStories () {
+    return this.payload.can_edit_stories
+  }
+
+  /** `true`, if the administrator can delete stories posted by other users; channels only */
+  @Inspect({ compute: true })
+  canDeleteStories () {
+    return this.payload.can_delete_stories
+  }
+
   /** `true`, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only */
   @Inspect({ compute: true, nullable: false })
   canManageTopics (): boolean | undefined {

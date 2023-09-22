@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.8.0, 18.08.2023
-/// Generation date: 18.08.2023 19:47:38 MSK
+/// Based on Bot API v6.9.0, 22.09.2023
+/// Generation date: 23.09.2023 01:47:08 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -1251,7 +1251,7 @@ export interface BanChatMemberParams {
    */
   user_id: number
   /**
-   * Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
+   * Date when the user will be unbanned; Unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
    */
   until_date?: number
   /**
@@ -1315,7 +1315,7 @@ export interface RestrictChatMemberParams {
    */
   use_independent_chat_permissions?: boolean
   /**
-   * Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+   * Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
    */
   until_date?: number
 

@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.8.0, 18.08.2023
-/// Generation date: 18.08.2023 19:47:38 MSK
+/// Based on Bot API v6.9.0, 22.09.2023
+/// Generation date: 23.09.2023 01:47:08 MSK
 
 import * as api from './methods'
 

@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.8.0, 18.08.2023
-/// Generation date: 18.08.2023 19:47:38 MSK
+/// Based on Bot API v6.9.0, 22.09.2023
+/// Generation date: 23.09.2023 01:47:08 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -232,7 +232,7 @@ export interface TelegramChat {
    */
   emoji_status_custom_emoji_id?: string
   /**
-   * *Optional*. Expiration date of the emoji status of the other party in a private chat, if any. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   * *Optional*. Expiration date of the emoji status of the other party in a private chat in Unix time, if any. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   emoji_status_expiration_date?: number
   /**
@@ -544,7 +544,7 @@ export interface TelegramMessage {
    */
   connected_website?: string
   /**
-   * *Optional*. Service message: the user allowed the bot added to the attachment menu to write messages
+   * *Optional*. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method [requestWriteAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps)
    */
   write_access_allowed?: TelegramWriteAccessAllowed
   /**
@@ -1265,13 +1265,21 @@ export interface TelegramChatShared {
 }
 
 /**
- * This object represents a service message about a user allowing a bot to write messages after adding the bot to the attachment menu or launching a Web App from a link.
+ * This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method [requestWriteAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps).
  */
 export interface TelegramWriteAccessAllowed {
   /**
-   * *Optional*. Name of the Web App which was launched from a link
+   * *Optional*. True, if the access was granted after the user accepted an explicit request from a Web App sent by the method [requestWriteAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps)
+   */
+  from_request?: boolean
+  /**
+   * *Optional*. Name of the Web App, if the access was granted when the Web App was launched from a link
    */
   web_app_name?: string
+  /**
+   * *Optional*. True, if the access was granted when the bot was added to the attachment or side menu
+   */
+  from_attachment_menu?: boolean
 
   [key: string]: any
 }
@@ -1364,7 +1372,7 @@ export interface TelegramFile {
  */
 export interface TelegramWebAppInfo {
   /**
-   * An HTTPS URL of a Web App to be opened with additional data as specified in [Initializing Web Apps](https://core.telegram.org/bots/webapps#initializing-web-apps)
+   * An HTTPS URL of a Web App to be opened with additional data as specified in [Initializing Web Apps](https://core.telegram.org/bots/webapps#initializing-mini-apps)
    */
   url: string
 
@@ -1788,7 +1796,7 @@ export interface TelegramChatAdministratorRights {
    */
   is_anonymous: boolean
   /**
-   * *True*, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * *True*, if the administrator can access the chat event log, chat statistics, boost list in channels, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat: boolean
   /**
@@ -1816,7 +1824,7 @@ export interface TelegramChatAdministratorRights {
    */
   can_invite_users: boolean
   /**
-   * *Optional*. *True*, if the administrator can post in the channel; channels only
+   * *Optional*. *True*, if the administrator can post messages in the channel; channels only
    */
   can_post_messages?: boolean
   /**
@@ -1827,6 +1835,18 @@ export interface TelegramChatAdministratorRights {
    * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
    */
   can_pin_messages?: boolean
+  /**
+   * *Optional*. *True*, if the administrator can post stories in the channel; channels only
+   */
+  can_post_stories?: boolean
+  /**
+   * *Optional*. *True*, if the administrator can edit stories posted by other users; channels only
+   */
+  can_edit_stories?: boolean
+  /**
+   * *Optional*. *True*, if the administrator can delete stories posted by other users
+   */
+  can_delete_stories?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
    */
@@ -1880,7 +1900,7 @@ export interface TelegramChatMemberAdministrator {
    */
   is_anonymous: boolean
   /**
-   * *True*, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * *True*, if the administrator can access the chat event log, chat statistics, boost list in channels, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat: boolean
   /**
@@ -1908,7 +1928,7 @@ export interface TelegramChatMemberAdministrator {
    */
   can_invite_users: boolean
   /**
-   * *Optional*. *True*, if the administrator can post in the channel; channels only
+   * *Optional*. *True*, if the administrator can post messages in the channel; channels only
    */
   can_post_messages?: boolean
   /**
@@ -1919,6 +1939,18 @@ export interface TelegramChatMemberAdministrator {
    * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
    */
   can_pin_messages?: boolean
+  /**
+   * *Optional*. *True*, if the administrator can post stories in the channel; channels only
+   */
+  can_post_stories?: boolean
+  /**
+   * *Optional*. *True*, if the administrator can edit stories posted by other users; channels only
+   */
+  can_edit_stories?: boolean
+  /**
+   * *Optional*. *True*, if the administrator can delete stories posted by other users
+   */
+  can_delete_stories?: boolean
   /**
    * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
    */
@@ -2020,7 +2052,7 @@ export interface TelegramChatMemberRestricted {
    */
   can_manage_topics: boolean
   /**
-   * Date when restrictions will be lifted for this user; unix time. If 0, then the user is restricted forever
+   * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
    */
   until_date: number
 
@@ -2056,7 +2088,7 @@ export interface TelegramChatMemberBanned {
    */
   user: TelegramUser
   /**
-   * Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever
+   * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever
    */
   until_date: number
 
@@ -2865,7 +2897,7 @@ export interface TelegramInlineQueryResultsButton {
    */
   text: string
   /**
-   * *Optional*. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method [switchInlineQuery](https://core.telegram.org/bots/webapps#initializing-web-apps) inside the Web App.
+   * *Optional*. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method [switchInlineQuery](https://core.telegram.org/bots/webapps#initializing-mini-apps) inside the Web App.
    */
   web_app?: TelegramWebAppInfo
   /**

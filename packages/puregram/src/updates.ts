@@ -327,8 +327,9 @@ export class Updates {
   }
 
   // FIXME: unacceptable return type
-  getWebhookMiddleware (): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
+  getWebhookMiddleware (secret?: string): (req: http.IncomingMessage, res: http.ServerResponse) => Promise<void> {
     return async (req: http.IncomingMessage, res: http.ServerResponse) => {
+      // INFO: Telegram sends only POST requests
       if (req.method !== 'POST') {
         return
       }
@@ -345,6 +346,7 @@ export class Updates {
         return
       }
 
+      // INFO: failed to parse the update body
       if (update === undefined) {
         res.writeHead(500)
         res.end()
@@ -354,6 +356,15 @@ export class Updates {
 
       res.writeHead(200)
       res.end()
+
+      const secretToken = req.headers['x-telegram-bot-api-secret-token'] as string
+
+      // INFO: secrets do not match
+      if (secret !== undefined && secretToken !== secret) {
+        debug_webhook(`received X-Telegram-Bot-API-Secret-Token="${secretToken}", but it does not match with our secret="${secret}", ignoring`)
+
+        return
+      }
 
       setImmediate(() => this.handleUpdate(update))
     }
@@ -466,14 +477,26 @@ export class Updates {
   }
 
   // FIXME: unacceptable return type
-  getKoaMiddleware (): (context: any) => Promise<void> {
+  getKoaMiddleware (secret?: string): (context: any) => Promise<void> {
     return async (context: any) => {
       const update = context.request.body
 
+      // INFO: failed to parse the update body
       if (update === undefined) {
         context.status = 500
 
         throw new Error('request.body is undefined. are you sure you parsed it (e.g. via koa-body)?')
+      }
+
+      const secretToken = context.headers['x-telegram-bot-api-secret-token'] as string
+
+      // INFO: secrets do not match
+      if (secret !== undefined && secretToken !== secret) {
+        debug_webhook(`received X-Telegram-Bot-API-Secret-Token="${secretToken}", but it does not match with our secret="${secret}", ignoring`)
+
+        context.status = 200
+
+        return
       }
 
       context.status = 200

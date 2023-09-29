@@ -63,6 +63,9 @@ export class InlineKeyboard {
     return this.constructor.name
   }
 
+  /** Empty inline keyboard. That's literally it. */
+  static empty = InlineKeyboard.keyboard([])
+
   /** Assemble a builder of buttons */
   static keyboard (
     rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[]

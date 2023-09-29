@@ -12,6 +12,6 @@ const server = http.createServer(telegram.updates.getWebhookMiddleware())
 
 telegram.updates.on('message', context => context.send('handled message via `http[s]`'))
 
-// INFO: Remember that Telegram supports only these ports for Webhook: 443, 80, 88, 8443
+// INFO: remember that Telegram supports only these ports for Webhook: 443, 80, 88, 8443
 // INFO: https://core.telegram.org/bots/api#setwebhook
 server.listen(8443, () => console.log('started'))

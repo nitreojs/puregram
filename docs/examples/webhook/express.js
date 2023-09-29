@@ -13,6 +13,6 @@ app.use(telegram.updates.getWebhookMiddleware())
 
 telegram.updates.on('message', context => context.send('handled message via `express`'))
 
-// INFO: Remember that Telegram supports only these ports for Webhook: 443, 80, 88, 8443
+// INFO: remember that Telegram supports only these ports for Webhook: 443, 80, 88, 8443
 // INFO: https://core.telegram.org/bots/api#setwebhook
 app.listen(8443, () => console.log('started'))

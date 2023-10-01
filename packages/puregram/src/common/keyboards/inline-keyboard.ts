@@ -11,8 +11,6 @@ interface TextButtonParams {
 interface UrlButtonParams {
   text: string
   url: string
-
-  payload?: Record<string, any> | string
 }
 
 interface WebAppButtonParams {
@@ -93,14 +91,9 @@ export class InlineKeyboard {
 
   /** Generate URL button */
   static urlButton (params: UrlButtonParams): Interfaces.TelegramInlineKeyboardButton {
-    if (typeof params.payload === 'object') {
-      params.payload = JSON.stringify(params.payload)
-    }
-
     return {
       text: params.text,
-      url: params.url,
-      callback_data: params.payload || ''
+      url: params.url
     }
   }
 

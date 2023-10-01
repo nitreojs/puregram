@@ -15,7 +15,7 @@
     "inspectable": "^2.0.0",
     "middleware-io": "^2.8.0",
     "reflect-metadata": "^0.1.13",
-    "undici": "5.19.1"
+    "undici": "^5.25.3"
   },
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -104,13 +104,14 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
-    "@fastify/middie": "^8.3.0",
+    "@types/common-tags": "^1.8.1",
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "common-tags": "^1.8.0",
     "eslint": "^8.20.0",
+    "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",

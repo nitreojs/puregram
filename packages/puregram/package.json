@@ -6,7 +6,7 @@
   "author": "starkow",
   "license": "MIT",
   "engines": {
-    "node": ">=16.5.0"
+    "node": ">=18.18.0"
   },
   "dependencies": {
     "debug": "^4.3.2",

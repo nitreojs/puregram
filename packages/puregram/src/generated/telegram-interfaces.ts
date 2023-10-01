@@ -3,9 +3,11 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.9.0, 22.09.2023
-/// Generation date: 23.09.2023 01:47:08 MSK
+/// Generation date: 01.10.2023 23:30:11 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
+
+import * as Enums from '../types/enums'
 
 import { SoftString } from '../types/types'
 
@@ -628,7 +630,7 @@ export interface TelegramMessageEntity {
   /**
    * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag`), “cashtag” (`$USD`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom\_emoji” (for inline custom emoji stickers)
    */
-  type: SoftString<TelegramMessageEntityType>
+  type: SoftString<TelegramMessageEntityType> | Enums.MessageEntityType
   /**
    * Offset in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length) to the start of the entity
    */
@@ -1796,7 +1798,7 @@ export interface TelegramChatAdministratorRights {
    */
   is_anonymous: boolean
   /**
-   * *True*, if the administrator can access the chat event log, chat statistics, boost list in channels, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * *True*, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat: boolean
   /**
@@ -1808,7 +1810,7 @@ export interface TelegramChatAdministratorRights {
    */
   can_manage_video_chats: boolean
   /**
-   * *True*, if the administrator can restrict, ban or unban chat members
+   * *True*, if the administrator can restrict, ban or unban chat members, or access supergroup statistics
    */
   can_restrict_members: boolean
   /**
@@ -1824,7 +1826,7 @@ export interface TelegramChatAdministratorRights {
    */
   can_invite_users: boolean
   /**
-   * *Optional*. *True*, if the administrator can post messages in the channel; channels only
+   * *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; channels only
    */
   can_post_messages?: boolean
   /**
@@ -1844,7 +1846,7 @@ export interface TelegramChatAdministratorRights {
    */
   can_edit_stories?: boolean
   /**
-   * *Optional*. *True*, if the administrator can delete stories posted by other users
+   * *Optional*. *True*, if the administrator can delete stories posted by other users; channels only
    */
   can_delete_stories?: boolean
   /**
@@ -1862,7 +1864,7 @@ export interface TelegramChatMemberOwner {
   /**
    * The member's status in the chat, always “creator”
    */
-  status: 'creator'
+  status: 'creator' | Enums.ChatMemberStatus.Creator
   /**
    * Information about the user
    */
@@ -1886,7 +1888,7 @@ export interface TelegramChatMemberAdministrator {
   /**
    * The member's status in the chat, always “administrator”
    */
-  status: 'administrator'
+  status: 'administrator' | Enums.ChatMemberStatus.Administrator
   /**
    * Information about the user
    */
@@ -1900,7 +1902,7 @@ export interface TelegramChatMemberAdministrator {
    */
   is_anonymous: boolean
   /**
-   * *True*, if the administrator can access the chat event log, chat statistics, boost list in channels, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * *True*, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat: boolean
   /**
@@ -1912,7 +1914,7 @@ export interface TelegramChatMemberAdministrator {
    */
   can_manage_video_chats: boolean
   /**
-   * *True*, if the administrator can restrict, ban or unban chat members
+   * *True*, if the administrator can restrict, ban or unban chat members, or access supergroup statistics
    */
   can_restrict_members: boolean
   /**
@@ -1928,7 +1930,7 @@ export interface TelegramChatMemberAdministrator {
    */
   can_invite_users: boolean
   /**
-   * *Optional*. *True*, if the administrator can post messages in the channel; channels only
+   * *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; channels only
    */
   can_post_messages?: boolean
   /**
@@ -1948,7 +1950,7 @@ export interface TelegramChatMemberAdministrator {
    */
   can_edit_stories?: boolean
   /**
-   * *Optional*. *True*, if the administrator can delete stories posted by other users
+   * *Optional*. *True*, if the administrator can delete stories posted by other users; channels only
    */
   can_delete_stories?: boolean
   /**
@@ -1970,7 +1972,7 @@ export interface TelegramChatMemberMember {
   /**
    * The member's status in the chat, always “member”
    */
-  status: 'member'
+  status: 'member' | Enums.ChatMemberStatus.Member
   /**
    * Information about the user
    */
@@ -1986,7 +1988,7 @@ export interface TelegramChatMemberRestricted {
   /**
    * The member's status in the chat, always “restricted”
    */
-  status: 'restricted'
+  status: 'restricted' | Enums.ChatMemberStatus.Restricted
   /**
    * Information about the user
    */
@@ -2066,7 +2068,7 @@ export interface TelegramChatMemberLeft {
   /**
    * The member's status in the chat, always “left”
    */
-  status: 'left'
+  status: 'left' | Enums.ChatMemberStatus.Left
   /**
    * Information about the user
    */
@@ -2082,7 +2084,7 @@ export interface TelegramChatMemberBanned {
   /**
    * The member's status in the chat, always “kicked”
    */
-  status: 'kicked'
+  status: 'kicked' | Enums.ChatMemberStatus.Kicked
   /**
    * Information about the user
    */
@@ -2144,7 +2146,7 @@ export interface TelegramChatJoinRequest {
    */
   from: TelegramUser
   /**
-   * Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 24 hours to send messages until the join request is processed, assuming no other administrator contacted the user.
+   * Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 5 minutes to send messages until the join request is processed, assuming no other administrator contacted the user.
    */
   user_chat_id: number
   /**
@@ -2290,7 +2292,7 @@ export interface TelegramBotCommandScopeDefault {
   /**
    * Scope type, must be *default*
    */
-  type: 'default'
+  type: 'default' | Enums.BotCommandScopeType.Default
 
   [key: string]: any
 }
@@ -2302,7 +2304,7 @@ export interface TelegramBotCommandScopeAllPrivateChats {
   /**
    * Scope type, must be *all\_private\_chats*
    */
-  type: 'all_private_chats'
+  type: 'all_private_chats' | Enums.BotCommandScopeType.AllPrivateChats
 
   [key: string]: any
 }
@@ -2314,7 +2316,7 @@ export interface TelegramBotCommandScopeAllGroupChats {
   /**
    * Scope type, must be *all\_group\_chats*
    */
-  type: 'all_group_chats'
+  type: 'all_group_chats' | Enums.BotCommandScopeType.AllGroupChats
 
   [key: string]: any
 }
@@ -2326,7 +2328,7 @@ export interface TelegramBotCommandScopeAllChatAdministrators {
   /**
    * Scope type, must be *all\_chat\_administrators*
    */
-  type: 'all_chat_administrators'
+  type: 'all_chat_administrators' | Enums.BotCommandScopeType.AllChatAdministrators
 
   [key: string]: any
 }
@@ -2338,7 +2340,7 @@ export interface TelegramBotCommandScopeChat {
   /**
    * Scope type, must be *chat*
    */
-  type: 'chat'
+  type: 'chat' | Enums.BotCommandScopeType.Chat
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
@@ -2354,7 +2356,7 @@ export interface TelegramBotCommandScopeChatAdministrators {
   /**
    * Scope type, must be *chat\_administrators*
    */
-  type: 'chat_administrators'
+  type: 'chat_administrators' | Enums.BotCommandScopeType.ChatAdministrators
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
@@ -2370,7 +2372,7 @@ export interface TelegramBotCommandScopeChatMember {
   /**
    * Scope type, must be *chat\_member*
    */
-  type: 'chat_member'
+  type: 'chat_member' | Enums.BotCommandScopeType.ChatMember
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)
    */
@@ -2498,7 +2500,7 @@ export interface TelegramInputMediaPhoto {
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -2534,7 +2536,7 @@ export interface TelegramInputMediaVideo {
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -2586,7 +2588,7 @@ export interface TelegramInputMediaAnimation {
   /**
    * *Optional*. Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -2634,7 +2636,7 @@ export interface TelegramInputMediaAudio {
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -2678,7 +2680,7 @@ export interface TelegramInputMediaDocument {
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -2713,7 +2715,7 @@ export interface TelegramSticker {
   /**
    * Type of the sticker, currently one of “regular”, “mask”, “custom\_emoji”. The type of the sticker is independent from its format, which is determined by the fields *is\_animated* and *is\_video*.
    */
-  type: SoftString<TelegramStickerType>
+  type: SoftString<TelegramStickerType> | Enums.StickerType
   /**
    * Sticker width
    */
@@ -3005,7 +3007,7 @@ export interface TelegramInlineQueryResultPhoto {
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3071,7 +3073,7 @@ export interface TelegramInlineQueryResultGif {
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3137,7 +3139,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3193,7 +3195,7 @@ export interface TelegramInlineQueryResultVideo {
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3253,7 +3255,7 @@ export interface TelegramInlineQueryResultAudio {
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3305,7 +3307,7 @@ export interface TelegramInlineQueryResultVoice {
   /**
    * *Optional*. Mode for parsing entities in the voice message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3351,7 +3353,7 @@ export interface TelegramInlineQueryResultDocument {
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3631,7 +3633,7 @@ export interface TelegramInlineQueryResultCachedPhoto {
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3675,7 +3677,7 @@ export interface TelegramInlineQueryResultCachedGif {
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3719,7 +3721,7 @@ export interface TelegramInlineQueryResultCachedMpeg4Gif {
   /**
    * *Optional*. Mode for parsing entities in the caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3795,7 +3797,7 @@ export interface TelegramInlineQueryResultCachedDocument {
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3843,7 +3845,7 @@ export interface TelegramInlineQueryResultCachedVideo {
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3887,7 +3889,7 @@ export interface TelegramInlineQueryResultCachedVoice {
   /**
    * *Optional*. Mode for parsing entities in the voice message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3927,7 +3929,7 @@ export interface TelegramInlineQueryResultCachedAudio {
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*
    */
@@ -3955,7 +3957,7 @@ export interface TelegramInputTextMessageContent {
   /**
    * *Optional*. Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
-  parse_mode?: string
+  parse_mode?: PossibleParseMode
   /**
    * *Optional*. List of special entities that appear in message text, which can be specified instead of *parse\_mode*
    */
@@ -4812,7 +4814,7 @@ export interface TelegramGameHighScore {
 }
 
 export type InputFile = string | Record<string, any> | Buffer | Readable
-export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2'>
+export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2'> | Enums.ParseMode
 export type ReplyMarkupUnion =
   | TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply
   | Keyboard | KeyboardBuilder | InlineKeyboard | InlineKeyboardBuilder | ForceReply | RemoveKeyboard

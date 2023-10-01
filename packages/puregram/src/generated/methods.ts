@@ -3,9 +3,11 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.9.0, 22.09.2023
-/// Generation date: 23.09.2023 01:47:08 MSK
+/// Generation date: 01.10.2023 23:30:11 MSK
 
 import * as Interfaces from './telegram-interfaces'
+
+import * as Enums from '../types/enums'
 
 import { SoftString } from '../types/types'
 
@@ -1131,7 +1133,7 @@ export interface SendDiceParams {
   /**
    * Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
    */
-  emoji?: SoftString<SendDiceEmoji>
+  emoji?: SoftString<SendDiceEmoji> | Enums.DiceEmoji
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -1179,7 +1181,7 @@ export interface SendChatActionParams {
   /**
    * Type of action to broadcast. Choose one, depending on what the user is about to receive: *typing* for [text messages](https://core.telegram.org/bots/api/#sendmessage), *upload\_photo* for [photos](https://core.telegram.org/bots/api/#sendphoto), *record\_video* or *upload\_video* for [videos](https://core.telegram.org/bots/api/#sendvideo), *record\_voice* or *upload\_voice* for [voice notes](https://core.telegram.org/bots/api/#sendvoice), *upload\_document* for [general files](https://core.telegram.org/bots/api/#senddocument), *choose\_sticker* for [stickers](https://core.telegram.org/bots/api/#sendsticker), *find\_location* for [location data](https://core.telegram.org/bots/api/#sendlocation), *record\_video\_note* or *upload\_video\_note* for [video notes](https://core.telegram.org/bots/api/#sendvideonote).
    */
-  action: SoftString<SendChatActionAction>
+  action: SoftString<SendChatActionAction> | Enums.ChatAction
 
   [key: string]: any
 }
@@ -1345,17 +1347,9 @@ export interface PromoteChatMemberParams {
    */
   is_anonymous?: boolean
   /**
-   * Pass *True* if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * Pass *True* if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
    */
   can_manage_chat?: boolean
-  /**
-   * Pass *True* if the administrator can create channel posts, channels only
-   */
-  can_post_messages?: boolean
-  /**
-   * Pass *True* if the administrator can edit messages of other users and can pin messages, channels only
-   */
-  can_edit_messages?: boolean
   /**
    * Pass *True* if the administrator can delete messages of other users
    */
@@ -1365,7 +1359,7 @@ export interface PromoteChatMemberParams {
    */
   can_manage_video_chats?: boolean
   /**
-   * Pass *True* if the administrator can restrict, ban or unban chat members
+   * Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics
    */
   can_restrict_members?: boolean
   /**
@@ -1381,9 +1375,29 @@ export interface PromoteChatMemberParams {
    */
   can_invite_users?: boolean
   /**
+   * Pass *True* if the administrator can post messages in the channel, or access channel statistics; channels only
+   */
+  can_post_messages?: boolean
+  /**
+   * Pass *True* if the administrator can edit messages of other users and can pin messages; channels only
+   */
+  can_edit_messages?: boolean
+  /**
    * Pass *True* if the administrator can pin messages, supergroups only
    */
   can_pin_messages?: boolean
+  /**
+   * Pass *True* if the administrator can post stories in the channel; channels only
+   */
+  can_post_stories?: boolean
+  /**
+   * Pass *True* if the administrator can edit stories posted by other users; channels only
+   */
+  can_edit_stories?: boolean
+  /**
+   * Pass *True* if the administrator can delete stories posted by other users; channels only
+   */
+  can_delete_stories?: boolean
   /**
    * Pass *True* if the user is allowed to create, rename, close, and reopen forum topics, supergroups only
    */
@@ -2903,7 +2917,7 @@ export interface UploadStickerFileParams {
   /**
    * Format of the sticker, must be one of “static”, “animated”, “video”
    */
-  sticker_format: SoftString<UploadStickerFileStickerFormat>
+  sticker_format: SoftString<UploadStickerFileStickerFormat> | Enums.StickerFormat
 
   [key: string]: any
 }
@@ -2940,7 +2954,7 @@ export interface CreateNewStickerSetParams {
   /**
    * Format of stickers in the set, must be one of “static”, “animated”, “video”
    */
-  sticker_format: SoftString<CreateNewStickerSetStickerFormat>
+  sticker_format: SoftString<CreateNewStickerSetStickerFormat> | Enums.StickerFormat
   /**
    * Type of stickers in the set, pass “regular”, “mask”, or “custom\_emoji”. By default, a regular sticker set is created.
    */

@@ -4,8 +4,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 interface TextButtonParams {
   text: string
-
-  payload?: Record<string, any> | string
+  payload: Record<string, any> | string
 }
 
 interface UrlButtonParams {
@@ -85,7 +84,7 @@ export class InlineKeyboard {
 
     return {
       text: params.text,
-      callback_data: params.payload || ''
+      callback_data: params.payload
     }
   }
 

@@ -92,3 +92,83 @@ export enum PollType {
   Regular = 'regular',
   Quiz = 'quiz'
 }
+
+export enum DiceEmoji {
+  Dice = '🎲',
+  Dart = '🎯',
+  Basketball = '🏀',
+  Football = '⚽',
+  SlotMachine = '🎰',
+  Bowling = '🎳'
+}
+
+export enum ChatAction {
+  Typing = 'typing',
+  UploadPhoto = 'upload_photo',
+  RecordVideo = 'record_video',
+  UploadVideo = 'upload_video',
+  RecordVoice = 'record_voice',
+  UploadVoice = 'upload_voice',
+  RecordVideoNote = 'record_video_note',
+  UploadVideoNote = 'upload_video_note',
+  UploadDocument = 'upload_document',
+  ChooseSticker = 'choose_sticker',
+  FindLocation = 'find_location'
+}
+
+export enum ChatMemberStatus {
+  Creator = 'creator',
+  Administrator = 'administrator',
+  Member = 'member',
+  Restricted = 'restricted',
+  Left = 'left',
+  Kicked = 'kicked'
+}
+
+export enum MessageEntityType {
+  Mention = 'mention',
+  Hashtag = 'hashtag',
+  Cashtag = 'cashtag',
+  BotCommand = 'bot_command',
+  Url = 'url',
+  Email = 'email',
+  PhoneNumber = 'phone_number',
+  Bold = 'bold',
+  Italic = 'italic',
+  Underline = 'underline',
+  Strikethrough = 'strikethrough',
+  Spoiler = 'spoiler',
+  Code = 'code',
+  Pre = 'pre',
+  TextLink = 'text_link',
+  TextMention = 'text_mention',
+  CustomEmoji = 'custom_emoji'
+}
+
+export enum ParseMode {
+  Markdown = 'Markdown',
+  MarkdownV2 = 'MarkdownV2',
+  HTML = 'HTML'
+}
+
+export enum StickerFormat {
+  Static = 'static',
+  Animated = 'animated',
+  Video = 'video'
+}
+
+export enum StickerType {
+  Regular = 'regular',
+  Mask = 'mask',
+  CustomEmoji = 'custom_emoji'
+}
+
+export enum BotCommandScopeType {
+  Default = 'default',
+  AllPrivateChats = 'all_private_chats',
+  AllGroupChats = 'all_group_chats',
+  AllChatAdministrators = 'all_chat_administrators',
+  Chat = 'chat',
+  ChatAdministrators = 'chat_administrators',
+  ChatMember = 'chat_member'
+}

@@ -6,7 +6,7 @@ import { stripIndent, stripIndents } from 'common-tags'
 
 import * as Types from './types'
 
-// const SCHEMA_URL = `${__dirname}/custom.min.json`
+// const SCHEMA_URL = resolve(__dirname, 'custom.min.json')
 const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
 const CURRENCIES_URL = 'https://core.telegram.org/bots/payments/currencies.json'
 
@@ -112,6 +112,10 @@ class InterfaceService {
         type = `SoftString<${typeName}>`
       }
 
+      if (field.name === 'parse_mode') {
+        type = 'PossibleParseMode'
+      }
+
       // INFO: any [TelegramInputFile] must be replaced with [MediaInput]
       if (type === 'TelegramInputFile | string') {
         type = 'MediaInput'
@@ -130,6 +134,25 @@ class InterfaceService {
       // INFO: keyboards must have [ReplyMarkupUnion] type
       if (field.name === 'reply_markup' && iface.name !== 'Message') {
         type = 'ReplyMarkupUnion'
+      }
+
+      // INFO: additional enums for IDE suggestions...
+      // TODO: probably autogenerate some of these from types into enums?
+
+      if (field.name === 'type' && iface.name === 'MessageEntity') {
+        type += ' | Enums.MessageEntityType'
+      }
+
+      if (field.name === 'status' && iface.name.startsWith('ChatMember')) {
+        type += ' | Enums.ChatMemberStatus.' + uppercaseFirst((field as Types.SchemaObjectString).default!)
+      }
+
+      if (field.name === 'type' && iface.name === 'Sticker') {
+        type += ' | Enums.StickerType'
+      }
+
+      if (field.name === 'type' && iface.name.startsWith('BotCommandScope')) {
+        type += ' | Enums.BotCommandScopeType.' + uppercaseFirst(undoSnakeCase((field as Types.SchemaObjectString).default!))
       }
 
       const description = InterfaceService.generateDescription(field.description, 2)
@@ -230,6 +253,21 @@ class MethodService {
       // INFO: replace [currency]'s [string] with a list of actual currencies
       if (field.name === 'currency') {
         returnType = 'Interfaces.Currency'
+      }
+
+      // INFO: additional enums for IDE suggestions...
+      // TODO: probably autogenerate some of these from types into enums?
+
+      if (field.name === 'emoji' && method.name === 'sendDice') {
+        returnType += ' | Enums.DiceEmoji'
+      }
+
+      if (field.name === 'action' && method.name === 'sendChatAction') {
+        returnType += ' | Enums.ChatAction'
+      }
+
+      if (field.name === 'sticker_format') {
+        returnType += ' | Enums.StickerFormat'
       }
 
       const property = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${returnType}`
@@ -348,6 +386,8 @@ class GenerationService {
     return stripIndent`
       import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
+      import * as Enums from '../types/enums'
+
       import { SoftString } from '../types/types'
 
       import { MediaInput } from '../common/media-source'
@@ -367,6 +407,8 @@ class GenerationService {
     return stripIndent`
       import * as Interfaces from './telegram-interfaces'
 
+      import * as Enums from '../types/enums'
+
       import { SoftString } from '../types/types'
 
       import { MediaInput } from '../common/media-source'
@@ -377,7 +419,7 @@ class GenerationService {
   static generateAdditionalTypes () {
     return stripIndent`
       export type InputFile = string | Record<string, any> | Buffer | Readable
-      export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2'>
+      export type PossibleParseMode = SoftString<'HTML' | 'Markdown' | 'MarkdownV2'> | Enums.ParseMode
       export type ReplyMarkupUnion =
         | TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply
         | Keyboard | KeyboardBuilder | InlineKeyboard | InlineKeyboardBuilder | ForceReply | RemoveKeyboard

@@ -2,6 +2,8 @@ import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { MaybeArray } from '../../types/types'
+
 /** Keyboard */
 @Inspectable()
 export class Keyboard {
@@ -28,7 +30,7 @@ export class Keyboard {
   }
 
   /** Assemble a builder of buttons */
-  static keyboard (rows: (Interfaces.TelegramKeyboardButton | Interfaces.TelegramKeyboardButton[])[]): Keyboard {
+  static keyboard (rows: MaybeArray<Interfaces.TelegramKeyboardButton | string>[]): Keyboard {
     const keyboard = new Keyboard()
 
     for (const row of rows) {
@@ -149,10 +151,10 @@ export class Keyboard {
     }
   }
 
-  private addRow (row: Interfaces.TelegramKeyboardButton[] | Interfaces.TelegramKeyboardButton) {
+  private addRow (row: MaybeArray<Interfaces.TelegramKeyboardButton | string>) {
     if (!Array.isArray(row)) row = [row]
 
-    this.buttons.push(row)
+    this.buttons.push(row.map(e => typeof e === 'string' ? Keyboard.textButton(e) : e))
 
     return this
   }

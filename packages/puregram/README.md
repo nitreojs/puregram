@@ -47,7 +47,7 @@ telegram.updates.on('message', context => context.reply('hey!'))
 telegram.updates.startPolling()
 ```
 
-> **Note**
+> **note**
 > you can find more examples [here][examples]
 
 [examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples
@@ -158,7 +158,7 @@ server.listen(8443, () => console.log('started'))
 
 remember that there are only four accepted ports for now: `443`, `80`, `88` and `8443`. they are listed [here][setWebhook] under the **notes** section.
 
-> **Note**
+> **note**
 > more webhook examples are available [here][webhook-examples]
 
 [getting-updates]: https://core.telegram.org/bots/api#getting-updates
@@ -345,7 +345,7 @@ const message = MarkdownV2.build`
 `
 ```
 
-> **Note**
+> **note**
 > more markdown examples are available [here][markdown]
 
 [markdown]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/markdown
@@ -393,7 +393,7 @@ const keyboard = Keyboard.keyboard([
 ]).resize()
 ```
 
-> **Note**
+> **note**
 > starting from `puregram@2.14.0`, you can even use simple strings instead of `Keyboard.textButton`s!
 >
 > ```js
@@ -531,7 +531,7 @@ const context = new MessageContext({
 })
 ```
 
-> **Note**
+> **note**
 > every context is listed [here][contexts]
 
 [contexts]: https://github.com/nitreojs/puregram/tree/lord/packages/puregram/src/contexts

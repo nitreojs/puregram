@@ -253,7 +253,7 @@ const me = await telegram.api.getMe()
 3. using context methods:
 
 ```js
-telegram.updates.on('message', context => context.send('13² = 169! i mean "169", not "169!'))
+telegram.updates.on('message', context => context.send('13² = 169! well, i mean "169", not "169!"... fuck.'))
 ```
 
 ### sending media

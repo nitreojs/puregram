@@ -274,7 +274,7 @@ const url = 'https://puppies.com/random-puppy'
 telegram.updates.on('message', (context) => {
   await Promise.all([
     context.sendPhoto(MediaSource.path(path), { caption: 'puppy via path!' })
-    context.sendDocument(MediaSource.stream(stream, /* filename: */ 'puppy.jpg'), { caption: 'more puppies via stream!' })
+    context.sendDocument(MediaSource.stream(stream, { filename: 'puppy.jpg' }), { caption: 'more puppies via stream!' })
     context.sendPhoto(MediaSource.buffer(buffer), { caption: 'one more puppy via buffer!' })
     context.sendPhoto(MediaSource.url(url), { caption: 'some random puppy sent using an url!!!' })
   ])

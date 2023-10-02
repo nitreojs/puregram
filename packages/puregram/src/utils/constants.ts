@@ -74,6 +74,7 @@ export const SERVICE_MESSAGE_EVENTS: MessageEventName[] = [
   'forum_topic_closed', 'forum_topic_created', 'forum_topic_edited', 'forum_topic_reopened', 'general_forum_topic_hidden', 'general_forum_topic_unhidden',
   'video_chat_scheduled', 'video_chat_started', 'video_chat_ended', 'video_chat_participants_invited',
   'web_app_data',
+
   'migrate_from_chat_id', 'migrate_to_chat_id',
   'pinned_message', 'successful_payment', 'proximity_alert_triggered'
   // passport_data?

@@ -3,7 +3,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { applyMixins, filterPayload } from '../utils/helpers'
-import { Constructor, Require } from '../types/types'
+import { Constructor, Require, RequireValue } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
@@ -32,6 +32,11 @@ class ForumTopicCreatedContext extends Context {
 
     this.payload = options.payload
     this.event = this.payload.forum_topic_created as Interfaces.TelegramForumTopicCreated
+  }
+
+  /** Checks whether this topic is actually a 'General' one */
+  isGeneralTopic (): this is RequireValue<this, 'threadId', undefined> {
+    return this.threadId === undefined
   }
 
   /** Name of the topic */

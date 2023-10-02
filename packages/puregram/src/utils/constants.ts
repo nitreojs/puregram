@@ -77,7 +77,8 @@ export const SERVICE_MESSAGE_EVENTS: MessageEventName[] = [
   'proximity_alert_triggered',
   'video_chat_scheduled', 'video_chat_started',
   'video_chat_ended', 'video_chat_participants_invited',
-  'web_app_data'
+  'web_app_data',
+  'forum_topic_closed', 'forum_topic_created', 'forum_topic_edited', 'forum_topic_reopened'
   // passport_data?
 ]
 

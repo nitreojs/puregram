@@ -43,12 +43,12 @@ const { Telegram } = require('puregram')
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
 telegram.updates.on('message', context => context.reply('hey!'))
-telegram.updates.on('callback_query', context => context.answerCallbackQuery())
 
 telegram.updates.startPolling()
 ```
 
-you can find more examples [here][examples]
+> **Note**
+> you can find more examples [here][examples]
 
 [examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples
 
@@ -71,6 +71,7 @@ you can find more examples [here][examples]
 - [middlewares](#middlewares)
 - [**typescript usage**](#typescript-usage)
 - [**faq**](#faq)
+- [ecosystem](#ecosystem)
 
 ---
 
@@ -157,7 +158,8 @@ server.listen(8443, () => console.log('started'))
 
 remember that there are only four accepted ports for now: `443`, `80`, `88` and `8443`. they are listed [here][setWebhook] under the **notes** section.
 
-more webhook examples are available [here][webhook-examples]
+> **Note**
+> more webhook examples are available [here][webhook-examples]
 
 [getting-updates]: https://core.telegram.org/bots/api#getting-updates
 [getUpdates]: https://core.telegram.org/bots/api#getupdates
@@ -343,7 +345,8 @@ const message = MarkdownV2.build`
 `
 ```
 
-more markdown examples are available [here][markdown]
+> **Note**
+> more markdown examples are available [here][markdown]
 
 [markdown]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/markdown
 
@@ -387,8 +390,23 @@ const keyboard = InlineKeyboard.keyboard([
 const keyboard = Keyboard.keyboard([
   Keyboard.textButton('some one-row keyboard'),
   Keyboard.textButton('with some buttons')
-])
+]).resize()
 ```
+
+> **Note**
+> starting from `puregram@2.14.0`, you can even use simple strings instead of `Keyboard.textButton`s!
+>
+> ```js
+> // two-row keyboard with one button on each row via strings!
+> const keyboard = Keyboard.keyboard([
+>   [
+>     'first row, one button'
+>   ],
+>   [
+>     'second row, still one button!'
+>   ]
+> ]).resize()
+> ```
 
 #### keyboard builders
 
@@ -413,7 +431,8 @@ to send keyboard, you simply need to pass the generated value in `reply_markup` 
 context.send('look, here\'s a keyboard!', { reply_markup: keyboard })
 ```
 
-more keyboard examples are available [here][keyboards]
+> **Note*
+> more keyboard examples are available [here][keyboards]
 
 [keyboards]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/keyboards
 
@@ -512,7 +531,8 @@ const context = new MessageContext({
 })
 ```
 
-every context is listed [here][contexts]
+> **Note**
+> every context is listed [here][contexts]
 
 [contexts]: https://github.com/nitreojs/puregram/tree/lord/packages/puregram/src/contexts
 
@@ -617,7 +637,7 @@ telegram.updates.on<ExtraData>('message', (context) => {
 
 ### `TypeError: Cannot read property '__scene' of undefined`
 
-you are trying to use [`@puregram/scenes`][@scenes] or [`@puregram/hear`][@hear] with [`@puregram/session`][@session], but you're the confusing middlewares order.
+you are trying to use [`@puregram/scenes`][@scenes] or [`@puregram/hear`][@hear] with [`@puregram/session`][@session], but you're confusing the middlewares order
 
 you should firstly initialize `@puregram/session`'s middleware and only then initialize other middlewares, depending on it:
 
@@ -631,11 +651,6 @@ telegram.updates.on('message', sessionManager.middleware)
 // 2. hear middleware second
 telegram.updates.on('message', hearManager.middleware)
 ```
-
-### `ExperimentalWarning: buffer.Blob is an experimental feature.`
-
-yes, this is because `^2.5.0` versions are using `undici`'s `fetch` which is experimental atm.
-you can look it up [here](https://undici.nodejs.org/#/?id=undicifetchinput-init-promise) for future changes
 
 ### how do i enable debugging?
 
@@ -670,14 +685,12 @@ $ DEBUG=puregram:all node index
 
 ### are there any telegram chats or channels?
 
-yeah, there are.
+totally! recently `puregram` has created its own forum! it has every topic needed and
+will be expanding if it needs to!
 
-| what               | how to get here                                         |
-| ------------------ | ------------------------------------------------------- |
-| **channel 📢**      | [click](https://t.me/puregram)                          |
-| **russian chat 🇷🇺** | [press](https://t.me/puregram_chat_ru)                  |
-| **english chat 🇬🇧** | [☆*: .｡. o(≧▽≦)o .｡.:*☆](https://t.me/puregram_chat_en) |
-| **offtop chat 👀**  | [ᕦ( ⊡ 益 ⊡ )ᕤ](https://t.me/puregram_offtop)            |
+if you ¯\_(ツ)_/¯ what to do and want to ask a question, **[@pureforum](pureforum) is definitely the way!**
+
+[pureforum]: https://t.me/pureforum
 
 ### why is your readme lowercased?
 
@@ -691,7 +704,7 @@ they confirm im against anything that looks kinda too official 😉
 
 ---
 
-## community
+## ecosystem
 
 these packages are created by the `puregram` community _(and not only)_ and are expanding packages functionality _(i guess)_.
 

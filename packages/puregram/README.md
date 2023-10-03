@@ -431,7 +431,7 @@ to send keyboard, you simply need to pass the generated value in `reply_markup` 
 context.send('look, here\'s a keyboard!', { reply_markup: keyboard })
 ```
 
-> **Note*
+> **Note**
 > more keyboard examples are available [here][keyboards]
 
 [keyboards]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/keyboards
@@ -688,7 +688,7 @@ $ DEBUG=puregram:all node index
 totally! recently `puregram` has created its own forum! it has every topic needed and
 will be expanding if it needs to!
 
-if you ¯\_(ツ)_/¯ what to do and want to ask a question, **[@pureforum](pureforum) is definitely the way!**
+if you ¯\\\_(ツ)_/¯ what to do and want to ask a question, **[@pureforum](pureforum) is definitely the way!**
 
 [pureforum]: https://t.me/pureforum
 

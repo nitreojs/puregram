@@ -101,10 +101,7 @@ export class MediaSource {
    *
    * context.sendMediaGroup(
    *   group.map(
-   *     element => ({
-   *       type: 'photo',
-   *       media: MediaSource.buffer(element)
-   *     })
+   *     element => InputMedia.photo(MediaSource.buffer(element))
    *   )
    * )
    * ```

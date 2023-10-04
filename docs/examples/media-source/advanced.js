@@ -1,4 +1,4 @@
-import { Telegram, MediaSource } from 'puregram'
+import { Telegram, MediaSource, InputMedia } from 'puregram'
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
@@ -8,9 +8,7 @@ telegram.updates.on('message', (context) => {
     const urls = []
 
     const results = urls.map(
-      (url, i) => ({
-        type: 'photo',
-        media: MediaSource.url(url, { forceUpload: true }), // INFO: forceUpload: true in case Telegram does not accept that MIME type
+      (url, i) => InputMedia.photo(MediaSource.url(url, { forceUpload: true }), {
         caption: i === 0 ? 'caption for a media' : undefined
       })
     )

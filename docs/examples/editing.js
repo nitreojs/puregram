@@ -1,4 +1,4 @@
-import { Telegram, InlineKeyboard, MediaSource } from 'puregram'
+import { Telegram, InlineKeyboard, MediaSource, InputMedia } from 'puregram'
 import { HearManager } from '@puregram/hear'
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
@@ -50,11 +50,11 @@ hearManager.hear('/media', async (context) => {
   })
 
   setTimeout(
-    () => sentMessage.editMessageMedia({
-      type: 'document',
-      media: documents[1],
-      caption: 'document #2'
-    }),
+    () => sentMessage.editMessageMedia(
+      InputMedia.document(documents[1], {
+        caption: 'document #2'
+      })
+    ),
     1000
   )
 })

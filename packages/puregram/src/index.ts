@@ -12,5 +12,6 @@ export * from './common/parse-mode'
 export * from './common/structures'
 export * from './common/keyboards'
 
+export * from './common/updates-filter'
 export * from './common/input-media'
 export * from './common/media-group'

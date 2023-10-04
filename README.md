@@ -374,7 +374,7 @@ const message = '*very bold, such markdown*'
 
 [formatting-options]: https://core.telegram.org/bots/api#formatting-options
 
-anyways, after writing the text you **need** to add `parse_mode` field. there are also **two ways** of doing that _¯\\\_(ツ)\_/¯_:
+anyways, after writing the text you **need** to add `parse_mode` field. there are ~~also **two ways**~~ actually, there are three ways of of doing that!
 
 3. writing actual parse mode code _like a boss_:
 
@@ -387,6 +387,18 @@ anyways, after writing the text you **need** to add `parse_mode` field. there ar
 ```js
 { parse_mode: HTML }
 ```
+
+- passing a value from `ParseMode` enum _like a chad would do_:
+
+```js
+{ parse_mode: ParseMode.Markdown }
+```
+
+> **note**
+> yeah also `ParseMode` can be imported from `puregram` natively:
+> ```js
+> const { ParseMode } = require('puregram')
+> ```
 
 final api request will look like this:
 
@@ -404,6 +416,8 @@ context.send(`imagine using _classes_ for parse mode, *lol*!`, { parse_mode: 'ma
   <summary><i>the truth...</i></summary>
   <br />
   <img src="https://i.imgur.com/x6EFfCH.png" />
+  <br />
+  <s>fuck this meme is obsolete now that i added <code>ParseMode</code> enum</s>
 </details>
 
 since markdown-v2 requires a lot of chars to be escaped, i've came up with a beautiful idea...
@@ -587,6 +601,19 @@ interface ContextOptions {
 }
 ```
 
+> **note**
+> some contexts may be combined by a single structure because of how telegram bot api is built. **what does this mean?**
+>
+> simplest examples are [extra contexts](extra-events):
+> their payload lies inside of `Message` structure itself, so they are naturally also `Message`s, meaning that they are also `MessageContext`s.
+>
+> ```js
+> telegram.updates.on('forum_topic_created', (context) => {
+>   // technically speaking, context is `ForumTopicCreatedContext`, but internally it was almost constructed
+>   // into MessageContext because of the `forum_topic_created` property lying inside of `Message` so yeah
+> })
+> ```
+
 you can also create any context manually:
 
 ```js
@@ -606,16 +633,16 @@ const context = new MessageContext({
 > every context is listed [here][contexts]
 
 [contexts]: https://github.com/nitreojs/puregram/tree/lord/packages/puregram/src/contexts
+[extra-events]: https://github.com/nitreojs/puregram/blob/lord/docs/supported-events.md#extra-events
 
 ---
 
 ## middlewares
 
-`puregram` uses middlewares, so you can use them to expand your `context` variables or measure other middlewares.
+`puregram` implements middlewares logic, so you can use them to expand your `context` variables or measure other middlewares.
+`next()` is used to call the next middleware on the chain and wait until it's done
 
-- `next()` is used to call the next middleware on the chain and wait until it's done
-
-measuring the time it takes to proceed the update:
+- measuring the time it takes to proceed the update:
 
 ```js
 telegram.updates.use(async (context, next) => {
@@ -629,7 +656,7 @@ telegram.updates.use(async (context, next) => {
 })
 ```
 
-extending the context:
+- extending the context:
 
 ```js
 telegram.updates.use(async (context, next) => {
@@ -647,24 +674,6 @@ telegram.updates.on('message', (context) => {
 ---
 
 ## typescript usage
-
-### importing Telegram interfaces
-
-all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for api methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
-also there's a `puregram/generated` export which exports everything from `lib/generated` folder (all of those listed before).
-
-```ts
-import { TelegramUpdate, TelegramMessage } from 'puregram/generated'
-```
-
-```ts
-import { SendDocumentParams } from 'puregram/generated'
-```
-
-```ts
-import { CopyMessageParams } from 'puregram/methods'
-import { InputFile, TelegramUpdate } from 'puregram/telegram-interfaces'
-```
 
 ### extending contexts
 
@@ -703,6 +712,67 @@ telegram.updates.on<ExtraData>('message', (context) => {
 ```
 
 ---
+
+### importing Telegram interfaces
+
+all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for api methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
+also there's a `puregram/generated` export which exports everything from `lib/generated` folder (all of those listed before).
+
+```ts
+import { TelegramUpdate, TelegramMessage } from 'puregram/generated'
+```
+
+```ts
+import { SendDocumentParams } from 'puregram/generated'
+```
+
+```ts
+import { CopyMessageParams } from 'puregram/methods'
+import { InputFile, TelegramUpdate } from 'puregram/telegram-interfaces'
+```
+
+### type predicates
+
+`puregram` implements [type predicates](typescript-type-predicates) (so-called *type guards*)
+on some context methods (mostly on those that have `is`/`has`/`can` at the start of the field name) in order to
+keep connection between types and actual values
+
+```ts
+telegram.updates.on('message', (context) => {
+  const originalText = context.text
+  // if we look at the `originalText`'s type we will see `string | undefined`
+
+  // but luckily for us there is such type predicate as `hasText()` which tells typescript that `context.text` is definitely a `string`!
+  if (context.hasText()) {
+    const text = context.text
+    // `text`'s type is now `string`. `undefined` is gone! hurray!!
+  }
+})
+```
+
+also, `Context.is` is also a type guard! this means that you can do this and get a proper context typing whenever you want:
+
+```ts
+if (context.is('callback_query')) {
+  // context is now CallbackQueryContext
+}
+```
+
+this is pretty useful when you have `context: Context` and especially convenient because you don't have to import
+the right contexts just to do this boring thing:
+
+```ts
+if (context instanceof CallbackQueryContext) {
+  // this sucks! context.is('callback_query') is better   👍😎👍
+}
+```
+
+> **note**
+> because of type guards, it was decided to transition all getters starting with `is`/`has`/`can` into methods in all structures.
+> this means that if you see a field starting with aforementioned parts **you can be sure** that this is definitely a method
+> and not a getter or a property!
+
+[typescript-type-predicates]: https://www.typescriptlang.org/docs/handbook/advanced-types.html#using-type-predicates
 
 ## faq
 

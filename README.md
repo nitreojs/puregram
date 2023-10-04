@@ -61,8 +61,10 @@ telegram.updates.startPolling()
   - [getting token](#getting-token)
   - [installation](#installation)
   - [usage](#usage)
+  - [what is `UpdatesFilter`?](#what-is-updatesfilter)
   - [calling api methods](#calling-api-methods)
   - [sending media (`MediaSource`)](#sending-media)
+  - [sending input media (`InputMedia`)](#sending-input-media)
   - [using markdown (`parse_mode`)](#using-markdown)
   - [keyboards (`reply_markup`)](#keyboards)
 - [bot information](#bot-information)
@@ -234,6 +236,51 @@ try {
 // (or you don't if the event is not supported 😢)
 ```
 
+### what is `UpdatesFilter`?
+
+as mentioned in [`getUpdates`](https://core.telegram.org/bots/api#getupdates) documentation, 
+
+> Specify an empty list to receive all update types **except `chat_member`** (default).
+> If not specified, the previous setting will be used.
+
+as you can see, you **have** to specify `chat_member` in order to receive `chat_member` updates...
+but you also will have to specify **every single update type** that you're going to handle like this:
+
+```js
+{
+  allowedUpdates: ['chat_member', 'message', 'callback_query', 'channel_post', 'edited_message', 'edited_channel_post', ...]
+}
+```
+
+**not very convenient, is it?** that's why we've createed `UpdatesFilter`: a class containing a few static methods
+that will allow you to **specify all update types** or even **exclude** some!
+
+```js
+const { Telegram, UpdatesFilter } = require('puregram')
+
+const telegram = Telegram.fromToken(process.env.TOKEN, {
+  allowedUpdates: UpdatesFilter.all()
+})
+
+// puregram will now handle every single update including `chat_member` and others (if they're listed under the `UpdateType` enum)
+```
+
+```js
+const { Telegram, UpdatesFilter } = require('puregram')
+
+const telegram = Telegram.fromToken(process.env.TOKEN)
+
+telegram.updates.startPolling({
+  allowedUpdates: UpdatesFilter.except('callback_query')
+})
+
+telegram.updates.on('callback_query', (context) => {
+  // this will never be called.
+
+  return cry()
+})
+```
+
 ### calling api methods
 
 there are **three ways** of calling telegram bot api methods:
@@ -282,6 +329,30 @@ telegram.updates.on('message', (context) => {
 ```
 
 this works for every method that can send media.
+
+### sending input media
+
+some of the methods (like `editMessageMedia` or `sendMediaGroup`) require such objects
+like `TelegramInputMediaPhoto`, `TelegramInputMediaVideo` and so on
+
+`puregram` provides `InputMedia` class which allows you to easily map your `MediaSource` value to a piece of input media!
+
+```js
+const { InputMedia, MediaSource } = require('puregram')
+
+telegram.api.editMessageMedia({
+  chat_id: 398859857,
+  message_id: 12345,
+  media: InputMedia.document(MediaSource.path('./README.md'), {
+    caption: 'Epic' shit
+  })
+})
+
+context.sendMediaGroup([
+  InputMedia.photo(MediaSource.path('./image.png')),
+  InputMedia.video(MediaSource.url('https://example.com/path/to/video.mp4'), { caption: 'here goes caption' })
+])
+```
 
 ---
 

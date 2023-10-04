@@ -344,7 +344,7 @@ telegram.api.editMessageMedia({
   chat_id: 398859857,
   message_id: 12345,
   media: InputMedia.document(MediaSource.path('./README.md'), {
-    caption: 'Epic' shit
+    caption: 'Epic shit'
   })
 })
 

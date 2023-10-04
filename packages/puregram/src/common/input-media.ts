@@ -19,7 +19,7 @@ import { MediaInput } from './media-source'
  */
 @Inspectable()
 export class InputMedia {
-  static animation (media: MediaInput, params: Optional<Interfaces.TelegramInputMediaAnimation, 'type' | 'media'>):
+  static animation (media: MediaInput, params?: Optional<Interfaces.TelegramInputMediaAnimation, 'type' | 'media'>):
     Interfaces.TelegramInputMediaAnimation {
     return {
       type: 'animation',
@@ -28,7 +28,7 @@ export class InputMedia {
     }
   }
 
-  static document (media: MediaInput, params: Optional<Interfaces.TelegramInputMediaDocument, 'type' | 'media'>):
+  static document (media: MediaInput, params?: Optional<Interfaces.TelegramInputMediaDocument, 'type' | 'media'>):
     Interfaces.TelegramInputMediaDocument {
     return {
       type: 'document',
@@ -37,7 +37,7 @@ export class InputMedia {
     }
   }
 
-  static audio (media: MediaInput, params: Optional<Interfaces.TelegramInputMediaAudio, 'type' | 'media'>):
+  static audio (media: MediaInput, params?: Optional<Interfaces.TelegramInputMediaAudio, 'type' | 'media'>):
     Interfaces.TelegramInputMediaAudio {
     return {
       type: 'audio',
@@ -46,7 +46,7 @@ export class InputMedia {
     }
   }
 
-  static photo (media: MediaInput, params: Optional<Interfaces.TelegramInputMediaPhoto, 'type' | 'media'>):
+  static photo (media: MediaInput, params?: Optional<Interfaces.TelegramInputMediaPhoto, 'type' | 'media'>):
     Interfaces.TelegramInputMediaPhoto {
     return {
       type: 'photo',
@@ -55,7 +55,7 @@ export class InputMedia {
     }
   }
 
-  static video (media: MediaInput, params: Optional<Interfaces.TelegramInputMediaVideo, 'type' | 'media'>):
+  static video (media: MediaInput, params?: Optional<Interfaces.TelegramInputMediaVideo, 'type' | 'media'>):
     Interfaces.TelegramInputMediaVideo {
     return {
       type: 'video',

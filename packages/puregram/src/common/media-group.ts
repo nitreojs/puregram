@@ -7,7 +7,7 @@ interface MediaGroupOptions {
   contexts: Contexts.MessageContext[]
 }
 
-/** This object represent a media group: a group of contexts with some attachments in it */
+/** This object represents a media group: a group of contexts with some attachments in it */
 @Inspectable()
 export class MediaGroup {
   constructor (private options: MediaGroupOptions) { }

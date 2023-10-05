@@ -38,9 +38,7 @@ export const EVENTS: [keyof Message, MessageEventName][] = [
   ['newChatPhoto', 'new_chat_photo'],
   ['deleteChatPhoto', 'delete_chat_photo'],
   ['groupChatCreated', 'group_chat_created'],
-  ['supergroupChatCreated', 'supergroup_chat_created'],
   ['messageAutoDeleteTimerChanged', 'message_auto_delete_timer_changed'],
-  ['channelChatCreated', 'channel_chat_created'],
   ['migrateToChatId', 'migrate_to_chat_id'],
   ['migrateFromChatId', 'migrate_from_chat_id'],
   ['pinnedMessage', 'pinned_message'],
@@ -68,7 +66,7 @@ export const EVENTS: [keyof Message, MessageEventName][] = [
 
 export const SERVICE_MESSAGE_EVENTS: MessageEventName[] = [
   'new_chat_members', 'left_chat_member', 'new_chat_title', 'new_chat_photo',
-  'delete_chat_photo', 'group_chat_created', 'supergroup_chat_created', 'channel_chat_created',
+  'delete_chat_photo', 'group_chat_created',
   'message_auto_delete_timer_changed',
   'user_shared', 'chat_shared', 'write_access_allowed',
   'forum_topic_closed', 'forum_topic_created', 'forum_topic_edited', 'forum_topic_reopened', 'general_forum_topic_hidden', 'general_forum_topic_unhidden',

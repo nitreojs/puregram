@@ -373,30 +373,6 @@ telegram.updates.on('group_chat_created', (context: GroupChatCreatedContext) => 
 telegram.updates.on(UpdateType.GroupChatCreated, (context: GroupChatCreatedContext) => {})
 ```
 
-### `supergroup_chat_created`
-
-- **type**: `'supergroup_chat_created'`, `UpdateType.SupergroupChatCreated`
-- **context**: `SupergroupChatCreatedContext`
-- **how to trigger**: create a supergroup chat with bot as a member
-- **getter**: *none*
-
-```ts
-telegram.updates.on('supregroup_chat_created', (context: SupergroupChatCreatedContext) => {})
-telegram.updates.on(UpdateType.SupergroupChatCreated, (context: SupergroupChatCreatedContext) => {})
-```
-
-### `channel_chat_created`
-
-- **type**: `'channel_chat_created'`, `UpdateType.ChannelChatCreated`
-- **context**: `ChannelChatCreatedContext`
-- **how to trigger**: create a channel chat with bot as a member
-- **getters**: `id`, `createdAt`
-
-```ts
-telegram.updates.on('channel_chat_created', (context: ChannelChatCreatedContext) => console.log(context.id, context.createdAt))
-telegram.updates.on(UpdateType.ChannelChatCreated, (context: ChannelChatCreatedContext) => console.log(context.id, context.createdAt))
-```
-
 ### `migrate_to_chat_id`
 
 - **type**: `'migrate_to_chat_id'`, `UpdateType.MigrateToChatId`

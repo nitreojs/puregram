@@ -34,7 +34,6 @@ export enum EntityType {
 
 export enum UpdateType {
   CallbackQuery = 'callback_query',
-  ChannelChatCreated = 'channel_chat_created',
   ChatJoinRequest = 'chat_join_request',
   ChatMember = 'chat_member',
   MyChatMember = 'my_chat_member',
@@ -72,7 +71,6 @@ export enum UpdateType {
   SuccessfulPayment = 'successful_payment',
   UserShared = 'user_shared',
   ChatShared = 'chat_shared',
-  SupergroupChatCreated = 'supergroup_chat_created',
   VideoChatEnded = 'video_chat_ended',
   VideoChatParticipantsInvited = 'video_chat_participants_invited',
   VideoChatScheduled = 'video_chat_scheduled',

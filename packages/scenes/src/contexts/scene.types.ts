@@ -24,7 +24,7 @@ export interface SceneContextLeaveOptions {
 }
 
 export enum LastAction {
-  NONE = 'none',
-  ENTER = 'enter',
-  LEAVE = 'leave'
+  None = 'none',
+  Enter = 'enter',
+  Leave = 'leave'
 }

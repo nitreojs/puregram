@@ -37,7 +37,7 @@ export class StepScene<T = MessageContext> implements SceneInterface {
 
     await this.onEnterHandler(context)
 
-    if (context.scene.lastAction !== LastAction.LEAVE) {
+    if (context.scene.lastAction !== LastAction.Leave) {
       await context.scene.step.reenter()
     }
   }

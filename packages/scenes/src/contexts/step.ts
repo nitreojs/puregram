@@ -58,7 +58,7 @@ export class StepSceneContext<S extends Record<string, unknown> = Record<string,
 
     await current(this.context)
 
-    if (this.context.scene.lastAction !== LastAction.LEAVE && !this.stepChanged) {
+    if (this.context.scene.lastAction !== LastAction.Leave && !this.stepChanged) {
       this.context.scene.session.firstTime = false
     }
   }

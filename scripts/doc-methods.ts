@@ -68,13 +68,13 @@ export const dasherize = (rawSource: string) => {
 // # Utilities
 
 export enum Token {
-  BACKTICK = '`',
-  CODE_START = '<code>',
-  CODE_END = '</code>',
-  BOLD = '**',
-  ITALIC = '_',
-  NEWLINE = '\n',
-  PRE = '```'
+  Backtick = '`',
+  CodeStart = '<code>',
+  CodeEnd = '</code>',
+  Bold = '**',
+  Italic = '_',
+  Newline = '\n',
+  Pre = '```'
 }
 
 export const tokenize = (rawSource: string | string[], token: Token, language = '') => {
@@ -84,13 +84,13 @@ export const tokenize = (rawSource: string | string[], token: Token, language = 
       : rawSource
   )
 
-  const leftAddition = (language ? language + Token.NEWLINE : '')
+  const leftAddition = (language ? language + Token.Newline : '')
   const rightAddition = (language ? '\n' : '')
 
   const leftToken = token
   let rightToken = token
 
-  if (leftToken === Token.CODE_START) rightToken = Token.CODE_END
+  if (leftToken === Token.CodeStart) rightToken = Token.CodeEnd
 
   return leftToken + leftAddition + source + rightAddition + rightToken
 }
@@ -196,8 +196,8 @@ export const code = (...args: string[]) => (
   tokenize(
     args.map(element => element.replace(/\|/g, '&#124;')),
     args.some(element => element.includes('&#124;'))
-      ? Token.CODE_START
-      : Token.BACKTICK
+      ? Token.CodeStart
+      : Token.Backtick
   )
 )
 
@@ -208,7 +208,7 @@ export const code = (...args: string[]) => (
  *
  * **Triggered when new message occurs**
  */
-export const bold = (...args: string[]) => tokenize(args, Token.BOLD)
+export const bold = (...args: string[]) => tokenize(args, Token.Bold)
 
 /**
  * ```ts
@@ -217,7 +217,7 @@ export const bold = (...args: string[]) => tokenize(args, Token.BOLD)
  *
  * _May be `undefined`_
  */
-export const italic = (...args: string[]) => tokenize(args, Token.ITALIC)
+export const italic = (...args: string[]) => tokenize(args, Token.Italic)
 
 /**
  * ```ts
@@ -231,7 +231,7 @@ export const italic = (...args: string[]) => tokenize(args, Token.ITALIC)
  * import { Telegram } from "puregram";
  * ```
  */
-export const pre = (language = '', ...args: string[]) => tokenize(args, Token.PRE, language)
+export const pre = (language = '', ...args: string[]) => tokenize(args, Token.Pre, language)
 
 /**
  * ```ts

@@ -15,7 +15,7 @@ export class SceneContext<S extends Record<string, unknown> = Record<string, any
   state!: S
   /** Is the scene cancelled? Used in `leaveHandler()` */
   cancelled = false
-  lastAction: LastAction = LastAction.NONE
+  lastAction: LastAction = LastAction.None
   /** Controlled behavior leave */
   leaving = false
 
@@ -54,7 +54,7 @@ export class SceneContext<S extends Record<string, unknown> = Record<string, any
       }
     }
 
-    this.lastAction = LastAction.ENTER
+    this.lastAction = LastAction.Enter
 
     this.session.current = scene.slug
 
@@ -87,7 +87,7 @@ export class SceneContext<S extends Record<string, unknown> = Record<string, any
     }
 
     this.leaving = true
-    this.lastAction = LastAction.LEAVE
+    this.lastAction = LastAction.Leave
 
     if (!options.silent) {
       this.cancelled = options.cancelled ?? false

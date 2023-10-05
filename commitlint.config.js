@@ -18,6 +18,7 @@ module.exports = {
 
       'keyboards',
       'contexts',
+      'mixins',
       'attachments',
       'structures',
       'parse-mode',

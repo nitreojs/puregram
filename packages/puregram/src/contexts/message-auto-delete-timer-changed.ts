@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, PinsMixin } from './mixins'
 
 interface MessageAutoDeleteTimerChangedContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class MessageAutoDeleteTimerChangedContext extends Context {
   }
 }
 
-interface MessageAutoDeleteTimerChangedContext extends Constructor<MessageAutoDeleteTimerChangedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<MessageAutoDeleteTimerChangedContext, MessageAutoDeleteTimerChangedContextOptions> { }
-applyMixins(MessageAutoDeleteTimerChangedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface MessageAutoDeleteTimerChangedContext extends Constructor<MessageAutoDeleteTimerChangedContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin<MessageAutoDeleteTimerChangedContext, MessageAutoDeleteTimerChangedContextOptions> { }
+applyMixins(MessageAutoDeleteTimerChangedContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin])
 
 inspectable(MessageAutoDeleteTimerChangedContext, {
   serialize (context) {

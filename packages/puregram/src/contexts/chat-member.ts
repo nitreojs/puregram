@@ -8,7 +8,7 @@ import { UpdateName, Constructor, Require } from '../types/types'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { SendMixin, TargetMixin, CloneMixin, ChatControlMixin } from './mixins'
 
 interface ChatMemberContextOptions {
   telegram: Telegram
@@ -39,8 +39,8 @@ class ChatMemberContext extends Context {
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface ChatMemberContext extends Constructor<ChatMemberContext>, ChatMemberUpdated, TargetMixin, SendMixin, CloneMixin<ChatMemberContext, ChatMemberContextOptions> { }
-applyMixins(ChatMemberContext, [ChatMemberUpdated, TargetMixin, SendMixin, CloneMixin])
+interface ChatMemberContext extends Constructor<ChatMemberContext>, ChatMemberUpdated, TargetMixin, SendMixin, ChatControlMixin, CloneMixin<ChatMemberContext, ChatMemberContextOptions> { }
+applyMixins(ChatMemberContext, [ChatMemberUpdated, TargetMixin, SendMixin, ChatControlMixin, CloneMixin])
 
 inspectable(ChatMemberContext, {
   serialize (context) {

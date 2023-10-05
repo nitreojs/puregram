@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, PinsMixin } from './mixins'
 
 interface InvoiceContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class InvoiceContext extends Context {
   }
 }
 
-interface InvoiceContext extends Constructor<InvoiceContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<InvoiceContext, InvoiceContextOptions> { }
-applyMixins(InvoiceContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface InvoiceContext extends Constructor<InvoiceContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin<InvoiceContext, InvoiceContextOptions> { }
+applyMixins(InvoiceContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin])
 
 inspectable(InvoiceContext, {
   serialize (context) {

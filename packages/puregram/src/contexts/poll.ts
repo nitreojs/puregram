@@ -68,6 +68,7 @@ class PollContext extends Context {
   }
 }
 
+// TODO: why the fuck is this not a Message.poll?
 interface PollContext extends Constructor<PollContext>, Poll, CloneMixin<PollContext, PollContextOptions> { }
 applyMixins(PollContext, [Poll, CloneMixin])
 

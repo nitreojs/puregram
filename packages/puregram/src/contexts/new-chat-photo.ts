@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin, PinsMixin, ChatControlMixin, ChatInviteControlMixin, ChatSenderControlMixin } from './mixins'
 
 interface NewChatPhotoContextOptions {
   telegram: Telegram
@@ -39,8 +39,8 @@ class NewChatPhotoContext extends Context {
   }
 }
 
-interface NewChatPhotoContext extends Constructor<NewChatPhotoContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<NewChatPhotoContext, NewChatPhotoContextOptions> { }
-applyMixins(NewChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
+interface NewChatPhotoContext extends Constructor<NewChatPhotoContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<NewChatPhotoContext, NewChatPhotoContextOptions> { }
+applyMixins(NewChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 inspectable(NewChatPhotoContext, {
   serialize (context) {

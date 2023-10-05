@@ -7,7 +7,7 @@ import { Constructor } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { CloneMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { CloneMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
 
 interface UserSharedContextOptions {
   telegram: Telegram
@@ -45,8 +45,8 @@ class UserSharedContext extends Context {
   }
 }
 
-interface UserSharedContext extends Constructor<UserSharedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<UserSharedContext, UserSharedContextOptions> { }
-applyMixins(UserSharedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface UserSharedContext extends Constructor<UserSharedContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin<UserSharedContext, UserSharedContextOptions> { }
+applyMixins(UserSharedContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin])
 
 inspectable(UserSharedContext, {
   serialize (context) {

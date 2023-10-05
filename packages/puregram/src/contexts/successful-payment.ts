@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, PinsMixin } from './mixins'
 
 interface SuccessfulPaymentContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class SuccessfulPaymentContext extends Context {
   }
 }
 
-interface SuccessfulPaymentContext extends Constructor<SuccessfulPaymentContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<SuccessfulPaymentContext, SuccessfulPaymentContextOptions> { }
-applyMixins(SuccessfulPaymentContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface SuccessfulPaymentContext extends Constructor<SuccessfulPaymentContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin<SuccessfulPaymentContext, SuccessfulPaymentContextOptions> { }
+applyMixins(SuccessfulPaymentContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin])
 
 inspectable(SuccessfulPaymentContext, {
   serialize (context) {

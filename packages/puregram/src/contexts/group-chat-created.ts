@@ -8,7 +8,7 @@ import { Message } from '../common/structures'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin, PinsMixin, ChatControlMixin, ChatInviteControlMixin, ChatSenderControlMixin } from './mixins'
 
 interface GroupChatCreatedContextOptions {
   telegram: Telegram
@@ -32,8 +32,8 @@ class GroupChatCreatedContext extends Context {
   }
 }
 
-interface GroupChatCreatedContext extends Constructor<GroupChatCreatedContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<GroupChatCreatedContext, GroupChatCreatedContextOptions> { }
-applyMixins(GroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
+interface GroupChatCreatedContext extends Constructor<GroupChatCreatedContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<GroupChatCreatedContext, GroupChatCreatedContextOptions> { }
+applyMixins(GroupChatCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 inspectable(GroupChatCreatedContext, {
   serialize (context) {

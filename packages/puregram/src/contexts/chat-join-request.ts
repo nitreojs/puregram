@@ -9,7 +9,7 @@ import { ChatJoinRequest } from '../common/structures'
 import { Telegram } from '../telegram'
 
 import { Context } from './context'
-import { SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { SendMixin, TargetMixin, CloneMixin, ChatInviteControlMixin } from './mixins'
 
 interface ChatJoinRequestContextOptions {
   telegram: Telegram
@@ -31,11 +31,27 @@ class ChatJoinRequestContext extends Context {
 
     this.payload = options.payload
   }
+
+  /** Approves chat join request */
+  approve () {
+    return this.telegram.api.approveChatJoinRequest({
+      chat_id: this.chatId,
+      user_id: this.userChatId
+    })
+  }
+
+  /** Declines chat join request */
+  decline () {
+    return this.telegram.api.declineChatJoinRequest({
+      chat_id: this.chatId,
+      user_id: this.userChatId
+    })
+  }
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface ChatJoinRequestContext extends Constructor<ChatJoinRequestContext>, ChatJoinRequest, TargetMixin, SendMixin, CloneMixin<ChatJoinRequestContext, ChatJoinRequestContextOptions> { }
-applyMixins(ChatJoinRequestContext, [ChatJoinRequest, TargetMixin, SendMixin, CloneMixin])
+interface ChatJoinRequestContext extends Constructor<ChatJoinRequestContext>, ChatJoinRequest, TargetMixin, SendMixin, ChatInviteControlMixin, CloneMixin<ChatJoinRequestContext, ChatJoinRequestContextOptions> { }
+applyMixins(ChatJoinRequestContext, [ChatJoinRequest, TargetMixin, SendMixin, ChatInviteControlMixin, CloneMixin])
 
 inspectable(ChatJoinRequestContext, {
   serialize (context) {

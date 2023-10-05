@@ -7,7 +7,7 @@ import { Constructor, Require, RequireValue } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { CloneMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { CloneMixin, ForumMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
 
 interface ForumTopicCreatedContextOptions {
   telegram: Telegram
@@ -34,11 +34,6 @@ class ForumTopicCreatedContext extends Context {
     this.event = this.payload.forum_topic_created as Interfaces.TelegramForumTopicCreated
   }
 
-  /** Checks whether this topic is actually a 'General' one */
-  isGeneralTopic (): this is RequireValue<this, 'threadId', undefined> {
-    return this.threadId === undefined
-  }
-
   /** Name of the topic */
   get name () {
     return this.event.name
@@ -60,8 +55,8 @@ class ForumTopicCreatedContext extends Context {
   }
 }
 
-interface ForumTopicCreatedContext extends Constructor<ForumTopicCreatedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<ForumTopicCreatedContext, ForumTopicCreatedContextOptions> { }
-applyMixins(ForumTopicCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface ForumTopicCreatedContext extends Constructor<ForumTopicCreatedContext>, Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, CloneMixin<ForumTopicCreatedContext, ForumTopicCreatedContextOptions> { }
+applyMixins(ForumTopicCreatedContext, [Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, CloneMixin])
 
 inspectable(ForumTopicCreatedContext, {
   serialize (context) {

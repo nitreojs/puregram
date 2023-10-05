@@ -3,11 +3,11 @@ import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { applyMixins } from '../utils/helpers'
-import { Constructor, RequireValue } from '../types/types'
+import { Constructor } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { CloneMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { CloneMixin, ForumMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
 
 interface ForumTopicClosedContextOptions {
   telegram: Telegram
@@ -30,15 +30,10 @@ class ForumTopicClosedContext extends Context {
 
     this.payload = options.payload
   }
-
-  /** Checks whether this topic is actually a 'General' one */
-  isGeneralTopic (): this is RequireValue<this, 'threadId', undefined> {
-    return this.threadId === undefined
-  }
 }
 
-interface ForumTopicClosedContext extends Constructor<ForumTopicClosedContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<ForumTopicClosedContext, ForumTopicClosedContextOptions> { }
-applyMixins(ForumTopicClosedContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface ForumTopicClosedContext extends Constructor<ForumTopicClosedContext>, Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, CloneMixin<ForumTopicClosedContext, ForumTopicClosedContextOptions> { }
+applyMixins(ForumTopicClosedContext, [Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, CloneMixin])
 
 inspectable(ForumTopicClosedContext, {
   serialize (context) {

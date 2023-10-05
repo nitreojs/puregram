@@ -7,7 +7,7 @@ import { Constructor } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { CloneMixin, ForumMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
+import { ChatMemberControlMixin, CloneMixin, ForumMixin, NodeMixin, SendMixin, TargetMixin } from './mixins'
 
 interface ForumTopicClosedContextOptions {
   telegram: Telegram
@@ -32,8 +32,8 @@ class ForumTopicClosedContext extends Context {
   }
 }
 
-interface ForumTopicClosedContext extends Constructor<ForumTopicClosedContext>, Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, CloneMixin<ForumTopicClosedContext, ForumTopicClosedContextOptions> { }
-applyMixins(ForumTopicClosedContext, [Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, CloneMixin])
+interface ForumTopicClosedContext extends Constructor<ForumTopicClosedContext>, Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, ChatMemberControlMixin, CloneMixin<ForumTopicClosedContext, ForumTopicClosedContextOptions> { }
+applyMixins(ForumTopicClosedContext, [Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, ChatMemberControlMixin, CloneMixin])
 
 inspectable(ForumTopicClosedContext, {
   serialize (context) {

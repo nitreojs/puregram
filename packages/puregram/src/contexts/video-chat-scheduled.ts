@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
 
 interface VideoChatScheduledContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class VideoChatScheduledContext extends Context {
   }
 }
 
-interface VideoChatScheduledContext extends Constructor<VideoChatScheduledContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<VideoChatScheduledContext, VideoChatScheduledContextOptions> { }
-applyMixins(VideoChatScheduledContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface VideoChatScheduledContext extends Constructor<VideoChatScheduledContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<VideoChatScheduledContext, VideoChatScheduledContextOptions> { }
+applyMixins(VideoChatScheduledContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
 
 inspectable(VideoChatScheduledContext, {
   serialize (context) {

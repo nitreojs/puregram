@@ -1,3 +1,4 @@
+export * from './chat-member-control'
 export * from './clone'
 export * from './forum'
 export * from './node'

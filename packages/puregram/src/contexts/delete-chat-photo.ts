@@ -8,7 +8,7 @@ import { Message } from '../common/structures'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
 
 interface DeleteChatPhotoContextOptions {
   telegram: Telegram
@@ -32,8 +32,8 @@ class DeleteChatPhotoContext extends Context {
   }
 }
 
-interface DeleteChatPhotoContext extends Constructor<DeleteChatPhotoContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<DeleteChatPhotoContext, DeleteChatPhotoContextOptions> { }
-applyMixins(DeleteChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface DeleteChatPhotoContext extends Constructor<DeleteChatPhotoContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<DeleteChatPhotoContext, DeleteChatPhotoContextOptions> { }
+applyMixins(DeleteChatPhotoContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
 
 inspectable(DeleteChatPhotoContext, {
   serialize (context) {

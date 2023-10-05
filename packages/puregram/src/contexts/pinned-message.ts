@@ -9,7 +9,7 @@ import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
 import { MessageContext } from './message'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
 
 interface PinnedMessageContextOptions {
   telegram: Telegram
@@ -41,8 +41,8 @@ class PinnedMessageContext extends Context {
   }
 }
 
-interface PinnedMessageContext extends Constructor<PinnedMessageContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<PinnedMessageContext, PinnedMessageContextOptions> { }
-applyMixins(PinnedMessageContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface PinnedMessageContext extends Constructor<PinnedMessageContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<PinnedMessageContext, PinnedMessageContextOptions> { }
+applyMixins(PinnedMessageContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
 
 inspectable(PinnedMessageContext, {
   serialize (context) {

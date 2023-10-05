@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
 
 interface LeftChatMemberContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class LeftChatMemberContext extends Context {
   }
 }
 
-interface LeftChatMemberContext extends Constructor<LeftChatMemberContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<LeftChatMemberContext, LeftChatMemberContextOptions> { }
-applyMixins(LeftChatMemberContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface LeftChatMemberContext extends Constructor<LeftChatMemberContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<LeftChatMemberContext, LeftChatMemberContextOptions> { }
+applyMixins(LeftChatMemberContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
 
 inspectable(LeftChatMemberContext, {
   serialize (context) {

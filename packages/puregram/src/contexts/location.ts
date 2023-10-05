@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
 
 interface LocationContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class LocationContext extends Context {
   }
 }
 
-interface LocationContext extends Constructor<LocationContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<LocationContext, LocationContextOptions> { }
-applyMixins(LocationContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface LocationContext extends Constructor<LocationContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<LocationContext, LocationContextOptions> { }
+applyMixins(LocationContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
 
 inspectable(LocationContext, {
   serialize (context) {

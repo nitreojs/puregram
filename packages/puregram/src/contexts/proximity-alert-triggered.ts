@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin } from './mixins'
 
 interface ProximityAlertTriggeredContextOptions {
   telegram: Telegram
@@ -41,8 +41,8 @@ class ProximityAlertTriggeredContext extends Context {
   }
 }
 
-interface ProximityAlertTriggeredContext extends Constructor<ProximityAlertTriggeredContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<ProximityAlertTriggeredContext, ProximityAlertTriggeredContextOptions> { }
-applyMixins(ProximityAlertTriggeredContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface ProximityAlertTriggeredContext extends Constructor<ProximityAlertTriggeredContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin<ProximityAlertTriggeredContext, ProximityAlertTriggeredContextOptions> { }
+applyMixins(ProximityAlertTriggeredContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatMemberControlMixin, CloneMixin])
 
 inspectable(ProximityAlertTriggeredContext, {
   serialize (context) {

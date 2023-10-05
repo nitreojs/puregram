@@ -53,85 +53,94 @@ class ForumMixin {
   }
 
   /** Closes topic */
-  closeTopic () {
+  closeTopic (params?: Optional<Methods.CloseForumTopicParams, 'chat_id' | 'message_thread_id'>) {
     if (this.isGeneralTopic()) {
       throw new TypeError('called `closeTopic` on a General topic; use `closeGeneralTopic` instead')
     }
 
     return this.telegram.api.closeForumTopic({
       chat_id: this.chatId,
-      message_thread_id: this.threadId!
+      message_thread_id: this.threadId!,
+      ...params
     })
   }
 
   /** Closes General topic */
-  closeGeneralTopic () {
+  closeGeneralTopic (params?: Optional<Methods.CloseGeneralForumTopicParams, 'chat_id'>) {
     return this.telegram.api.closeGeneralForumTopic({
-      chat_id: this.chatId
+      chat_id: this.chatId,
+      ...params
     })
   }
 
   /** Reopens topic */
-  reopenTopic () {
+  reopenTopic (params?: Optional<Methods.ReopenForumTopicParams, 'chat_id' | 'message_thread_id'>) {
     if (this.isGeneralTopic()) {
       throw new TypeError('called `reopenTopic` on a General topic; use `reopenGeneralTopic` instead')
     }
 
     return this.telegram.api.reopenForumTopic({
       chat_id: this.chatId,
-      message_thread_id: this.threadId!
+      message_thread_id: this.threadId!,
+      ...params
     })
   }
 
   /** Reopens General topic */
-  reopenGeneralTopic () {
+  reopenGeneralTopic (params?: Optional<Methods.ReopenGeneralForumTopicParams, 'chat_id'>) {
     return this.telegram.api.reopenGeneralForumTopic({
-      chat_id: this.chatId
+      chat_id: this.chatId,
+      ...params
     })
   }
 
   /** Deletes topic along with all its messages */
-  deleteTopic () {
+  deleteTopic (params?: Optional<Methods.DeleteForumTopicParams, 'chat_id' | 'message_thread_id'>) {
     if (this.isGeneralTopic()) {
       throw new TypeError('called `deleteTopic` on a General topic')
     }
 
     return this.telegram.api.deleteForumTopic({
       chat_id: this.chatId,
-      message_thread_id: this.threadId!
+      message_thread_id: this.threadId!,
+      ...params
     })
   }
 
   /** Clears the list of pinned messages */
-  unpinAllTopicMessages () {
+  unpinAllTopicMessages (params?: Optional<Methods.UnpinAllForumTopicMessagesParams, 'chat_id' | 'message_thread_id'>) {
     if (this.isGeneralTopic()) {
       throw new TypeError('called `unpinAllTopicMessages` on a General topic; use `unpinAllGeneralTopicMessages` instead')
     }
 
     return this.telegram.api.unpinAllForumTopicMessages({
       chat_id: this.chatId,
-      message_thread_id: this.threadId!
+      message_thread_id: this.threadId!,
+      ...params
     })
   }
 
   /** Clears the list of pinned messages in a General topic */
-  unpinAllGeneralTopicMessages () {
+  unpinAllGeneralTopicMessages (params?: Optional<Methods.UnpinAllGeneralForumTopicMessagesParams, 'chat_id'>) {
     return this.telegram.api.unpinAllGeneralForumTopicMessages({
-      chat_id: this.chatId
+      chat_id: this.chatId,
+      ...params
     })
   }
 
   /** Hides General topic */
-  hideGeneralTopic () {
+  hideGeneralTopic (params?: Optional<Methods.HideGeneralForumTopicParams, 'chat_id'>) {
     return this.telegram.api.hideGeneralForumTopic({
-      chat_id: this.chatId
+      chat_id: this.chatId,
+      ...params
     })
   }
 
   /** Unhides General topic */
-  unhideGeneralTopic () {
+  unhideGeneralTopic (params?: Optional<Methods.UnhideGeneralForumTopicParams, 'chat_id'>) {
     return this.telegram.api.unhideGeneralForumTopic({
-      chat_id: this.chatId
+      chat_id: this.chatId,
+      ...params
     })
   }
 }

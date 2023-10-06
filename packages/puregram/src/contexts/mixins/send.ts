@@ -4,6 +4,8 @@ import { MediaInput } from '../../common/media-source'
 import { Optional } from '../../types/types'
 import { Poll } from '../../common/structures'
 
+import type { tSendAnimation, tSendAudio, tSendContact, tSendDocument, tSendLocation, tSendMethods, tSendPhoto, tSendPoll, tSendSticker, tSendVenue, tSendVideoNote } from '../../types/send-media'
+
 import { MessageContext } from '../message'
 import { Context } from '../context'
 
@@ -150,23 +152,6 @@ class SendMixin {
     })
   }
 
-  /** Sends media group to current chat */
-  async sendMediaGroup (
-    mediaGroup: Methods.SendMediaGroupParams['media'],
-    params?: Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>
-  ) {
-    const response = await this.telegram.api.sendMediaGroup({
-      chat_id: this.chatId || this.senderId || 0,
-      media: mediaGroup,
-      ...params
-    })
-
-    return response.map(message => new MessageContext({
-      telegram: this.telegram,
-      payload: message
-    }))
-  }
-
   /** Sends location to current chat */
   async sendLocation (
     latitude: number,
@@ -240,6 +225,23 @@ class SendMixin {
     })
   }
 
+  /** Sends sticker */
+  async sendSticker (
+    sticker: MediaInput,
+    params?: Optional<Methods.SendStickerParams, 'sticker' | 'chat_id'>
+  ) {
+    const response = await this.telegram.api.sendSticker({
+      chat_id: this.chatId || this.senderId || 0,
+      sticker,
+      ...params
+    })
+
+    return new MessageContext({
+      telegram: this.telegram,
+      payload: response
+    })
+  }
+
   /** Stops poll in current chat */
   async stopPoll (
     messageId: number,
@@ -266,23 +268,6 @@ class SendMixin {
     })
   }
 
-  /** Sends sticker */
-  async sendSticker (
-    sticker: MediaInput,
-    params?: Optional<Methods.SendStickerParams, 'sticker' | 'chat_id'>
-  ) {
-    const response = await this.telegram.api.sendSticker({
-      chat_id: this.chatId || this.senderId || 0,
-      sticker,
-      ...params
-    })
-
-    return new MessageContext({
-      telegram: this.telegram,
-      payload: response
-    })
-  }
-
   /** Sends dice */
   async sendDice (
     emoji: Methods.SendDiceParams['emoji'],
@@ -298,6 +283,107 @@ class SendMixin {
       telegram: this.telegram,
       payload: response
     })
+  }
+
+  /** Sends media group to current chat */
+  async sendMediaGroup (
+    mediaGroup: Methods.SendMediaGroupParams['media'],
+    params?: Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>
+  ) {
+    const response = await this.telegram.api.sendMediaGroup({
+      chat_id: this.chatId || this.senderId || 0,
+      media: mediaGroup,
+      ...params
+    })
+
+    return response.map(message => new MessageContext({
+      telegram: this.telegram,
+      payload: message
+    }))
+  }
+
+  /**
+   * Automatically uses correct media method to send media
+   *
+   * @example
+   * ```js
+   * context.sendMedia({
+   *   type: 'photo',
+   *   photo: MediaSource.path('./image.png'),
+   *   caption: 'good image yes yes'
+   * })
+   * ```
+   */
+  sendMedia<T>(query: { type: T } & (
+    | tSendAnimation
+    | tSendAudio
+    | tSendContact
+    | tSendDocument
+    | tSendLocation
+    | tSendPhoto
+    | tSendPoll
+    | tSendSticker
+    | tSendVenue
+    | tSendVideoNote
+  )): ReturnType<
+    T extends 'animation' ? typeof this.sendAnimation :
+    T extends 'audio' ? typeof this.sendAudio :
+    T extends 'contact' ? typeof this.sendContact :
+    T extends 'document' ? typeof this.sendDocument :
+    T extends 'location' ? typeof this.sendLocation :
+    T extends 'photo' ? typeof this.sendPhoto :
+    T extends 'poll' ? typeof this.sendPoll :
+    T extends 'sticker' ? typeof this.sendSticker :
+    T extends 'venue' ? typeof this.sendVenue :
+    T extends 'video_note' ? typeof this.sendVideoNote :
+    T extends 'video' ? typeof this.sendVideo :
+    T extends 'voice' ? typeof this.sendVoice :
+    () => never
+  >
+
+  sendMedia (query: tSendMethods) {
+    if (query.type === 'location') {
+      return this.sendLocation(query.latitude, query.longitude, query)
+    }
+
+    if (query.type === 'animation') {
+      return this.sendAnimation(query.animation, query)
+    }
+
+    if (query.type === 'audio') {
+      return this.sendAudio(query.audio, query)
+    }
+
+    if (query.type === 'document') {
+      return this.sendDocument(query.document, query)
+    }
+
+    if (query.type === 'photo') {
+      return this.sendPhoto(query.photo, query)
+    }
+
+    if (query.type === 'sticker') {
+      return this.sendSticker(query.sticker, query)
+    }
+
+    if (query.type === 'video_note') {
+      return this.sendVideoNote(query.video_note, query)
+    }
+
+    if (query.type === 'contact') {
+      return this.sendContact(query)
+    }
+
+    if (query.type === 'poll') {
+      return this.sendPoll(query)
+    }
+
+    if (query.type === 'venue') {
+      return this.sendVenue(query)
+    }
+
+    // @ts-expect-error impossible type
+    throw new TypeError(`[sendMedia] unhandled media type ${query.type}`)
   }
 }
 

@@ -4,7 +4,7 @@ import { MediaInput } from '../../common/media-source'
 import { Optional } from '../../types/types'
 import { Poll } from '../../common/structures'
 
-import type { tSendAnimation, tSendAudio, tSendContact, tSendDocument, tSendLocation, tSendMethods, tSendPhoto, tSendPoll, tSendSticker, tSendVenue, tSendVideoNote } from '../../types/send-media'
+import type { tSendMethods } from '../../types/send-media'
 
 import { MessageContext } from '../message'
 import { Context } from '../context'
@@ -314,18 +314,7 @@ class SendMixin {
    * })
    * ```
    */
-  sendMedia<T>(query: { type: T } & (
-    | tSendAnimation
-    | tSendAudio
-    | tSendContact
-    | tSendDocument
-    | tSendLocation
-    | tSendPhoto
-    | tSendPoll
-    | tSendSticker
-    | tSendVenue
-    | tSendVideoNote
-  )): ReturnType<
+  sendMedia<T>(query: { type: T } & tSendMethods): ReturnType<
     T extends 'animation' ? typeof this.sendAnimation :
     T extends 'audio' ? typeof this.sendAudio :
     T extends 'contact' ? typeof this.sendContact :

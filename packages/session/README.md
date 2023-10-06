@@ -9,7 +9,7 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>typescript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>telegram channel</b></a>
+  <a href='https://t.me/pureforum'><b>telegram forum</b></a>
 </div>
 
 ## @puregram/session

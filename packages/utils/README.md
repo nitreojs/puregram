@@ -9,7 +9,7 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#list-of-utilities'><b>list of utilities</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/puregram'><b>telegram channel</b></a>
+  <a href='https://t.me/pureforum'><b>telegram forum</b></a>
 </div>
 
 ## @puregram/utils

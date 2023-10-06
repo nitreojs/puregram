@@ -184,4 +184,26 @@ export class MediaSource {
       ...options
     }
   }
+
+  /**
+   * Use this static method for uploading media via [base64].
+   * It will try to convert [base64] into a [Buffer] because it is not possible to
+   * upload media via [base64] in Telegram
+   *
+   * @example
+   * ```js
+   * const base64 = await getBase64() // somehow
+   *
+   * context.sendDocument(MediaSource.base64(base64))
+   * ```
+   */
+  static base64 (b64: string, options: MediaInputOptions = {}) {
+    if (typeof b64 !== 'string') {
+      throw new TypeError(`expected 'b64' to be string, found ${typeof b64}`)
+    }
+
+    const buffer = Buffer.from(b64, 'base64')
+
+    return MediaSource.buffer(buffer, options)
+  }
 }

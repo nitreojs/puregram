@@ -295,12 +295,12 @@ export class Telegram {
       init.dispatcher = this.options.agent
     }
 
-    const debug_api = $debugger.extend(path, '/')
+    const debug$api = $debugger.extend(path, '/')
 
     try {
-      debug_api('HTTP ›')
-      debug_api('url: %s', url.replace(this.options.token as string, '[token]'))
-      debug_api('params: %j', decomplexified)
+      debug$api('HTTP ›')
+      debug$api('url: %s', url.replace(this.options.token as string, '[token]'))
+      debug$api('params: %j', decomplexified)
 
       // INFO: ---- detecting media methods ----
 
@@ -334,8 +334,8 @@ export class Telegram {
       const response = await fetch(url, init)
       const json = await response.json() as ApiResponseUnion
 
-      debug_api('‹ HTTP %d', response.status)
-      debug_api('response: %j', json)
+      debug$api('‹ HTTP %d', response.status)
+      debug$api('response: %j', json)
 
       if (!json.ok) {
         throw new APIError(json)

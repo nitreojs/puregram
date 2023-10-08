@@ -9,7 +9,7 @@ import { Composer, User } from './common/structures'
 
 import * as Contexts from './contexts'
 
-import { TelegramError } from './errors'
+import { APIError, TelegramError } from './errors'
 
 import { GetUpdatesParams, TelegramMessage, TelegramUpdate, TelegramUser } from './generated'
 import { Telegram } from './telegram'
@@ -28,12 +28,12 @@ if ($debugger.enabled || debug.enabled('puregram:all')) {
   updateDebugFlags(['puregram:updates:*'])
 }
 
-const debug_startPolling = $debugger.extend('startPolling')
-const debug_startFetchLoop = $debugger.extend('startFetchLoop')
-const debug_fetchUpdates = $debugger.extend('fetchUpdates')
-const debug_handleUpdate = $debugger.extend('handleUpdate')
-const debug_webhook = $debugger.extend('webhook')
-const debug_mediaEvents = $debugger.extend('mediaEvents')
+const debug$startPolling = $debugger.extend('startPolling')
+const debug$startFetchLoop = $debugger.extend('startFetchLoop')
+const debug$fetchUpdates = $debugger.extend('fetchUpdates')
+const debug$handleUpdate = $debugger.extend('handleUpdate')
+const debug$webhook = $debugger.extend('webhook')
+const debug$mediaEvents = $debugger.extend('mediaEvents')
 
 // THIS PART OF FILE IS AUTO-GENERATED!
 // SOURCE: scripts/generate-updates
@@ -245,14 +245,14 @@ export class Updates {
     }
 
     if (!this.telegram.bot) {
-      debug_startPolling('fetching bot data...')
+      debug$startPolling('fetching bot data...')
 
       let me!: TelegramUser
 
       try {
         me = await this.telegram.api.getMe()
       } catch (error) {
-        debug_startPolling('unable to fetch bot info, perhaps no internet connection?')
+        debug$startPolling('unable to fetch bot info, perhaps no internet connection?')
 
         throw new TelegramError({
           error_code: -1,
@@ -265,7 +265,7 @@ export class Updates {
 
       this.telegram.bot = bot
 
-      debug_startPolling('bot data fetched successfully: %O', bot)
+      debug$startPolling('bot data fetched successfully: %O', bot)
     }
 
     this.isStarted = true
@@ -318,7 +318,7 @@ export class Updates {
     }
 
     if (skippedUpdates !== 0) {
-      debug_startFetchLoop('skipped %d updates', skippedUpdates)
+      debug$startFetchLoop('skipped %d updates', skippedUpdates)
     }
 
     return skippedUpdates
@@ -339,9 +339,7 @@ export class Updates {
       try {
         update = typeof reqBody === 'object' ? reqBody : await parseRequestJSON(req)
       } catch (error) {
-        debug_webhook('an error has occurred: %O', error)
-
-        return
+        return debug$webhook('an error has occurred: %O', error)
       }
 
       // INFO: failed to parse the update body
@@ -359,9 +357,7 @@ export class Updates {
 
       // INFO: secrets do not match
       if (secret !== undefined && secretToken !== secret) {
-        debug_webhook(`received X-Telegram-Bot-API-Secret-Token="${secretToken}", but it does not match with our secret="${secret}", ignoring`)
-
-        return
+        return debug$webhook(`received X-Telegram-Bot-API-Secret-Token="${secretToken}", but it does not match with our secret="${secret}", ignoring`)
       }
 
       setImmediate(() => this.handleUpdate(update))
@@ -378,20 +374,26 @@ export class Updates {
         await this.fetchUpdates(options)
       }
     } catch (error) {
-      debug_startFetchLoop('an error has occurred: %O', error)
+      debug$startFetchLoop('an error has occurred: %O', error)
+
+      if (error instanceof APIError && error.code === 409) {
+        if (this.telegram.options.apiRetryLimit !== -1) {
+          return debug$startFetchLoop('unable to start the fetch loop: other bot is probably using `getUpdates` already')
+        }
+      }
 
       if (this.telegram.options.apiRetryLimit === -1) {
-        debug_startFetchLoop('trying to reconnect...')
+        debug$startFetchLoop('trying to reconnect...')
       } else if (this.retries === this.telegram.options.apiRetryLimit) {
         if (this.telegram.options.apiRetryLimit === 0) {
-          return debug_startFetchLoop('`apiRetryLimit` is set to %d, not trying to reconnect', 0)
+          return debug$startFetchLoop('`apiRetryLimit` is set to %d, not trying to reconnect', 0)
         }
 
-        return debug_startFetchLoop('tried to reconnect %d times but it didn\'t work, cya next time', this.retries)
+        return debug$startFetchLoop('tried to reconnect %d times but it didn\'t work, cya next time', this.retries)
       } else {
         this.retries += 1
 
-        debug_startFetchLoop('trying to reconnect, %d/%d try', this.retries, this.telegram.options.apiRetryLimit)
+        debug$startFetchLoop('trying to reconnect, %d/%d try', this.retries, this.telegram.options.apiRetryLimit)
       }
 
       await delay(this.telegram.options.apiWait as number)
@@ -430,12 +432,12 @@ export class Updates {
     let UpdateContext = events[type]
 
     if (!UpdateContext) {
-      debug_handleUpdate('unsupported context type `%s`', type)
+      debug$handleUpdate('unsupported context type `%s`', type)
 
       return
     }
 
-    debug_handleUpdate('update payload: %j', update[type])
+    debug$handleUpdate('update payload: %j', update[type])
 
     interface ContextAddition {
       isEvent?: boolean
@@ -451,7 +453,7 @@ export class Updates {
     })
 
     if (context.isEvent && context.eventType !== undefined) {
-      debug_handleUpdate('is event: %s, updating context', context.eventType)
+      debug$handleUpdate('is event: %s, updating context', context.eventType)
 
       UpdateContext = events[context.eventType]
 
@@ -464,7 +466,7 @@ export class Updates {
       })
     }
 
-    debug_handleUpdate('constructed context: %O', context)
+    debug$handleUpdate('constructed context: %O', context)
 
     // INFO: this sends the built context to the middleware chain
     if (dispatch) {
@@ -490,7 +492,7 @@ export class Updates {
 
       // INFO: secrets do not match
       if (secret !== undefined && secretToken !== secret) {
-        debug_webhook(`received X-Telegram-Bot-API-Secret-Token="${secretToken}", but it does not match with our secret="${secret}", ignoring`)
+        debug$webhook(`received X-Telegram-Bot-API-Secret-Token="${secretToken}", but it does not match with our secret="${secret}", ignoring`)
 
         context.status = 200
 
@@ -525,7 +527,7 @@ export class Updates {
     if (!updates) {
       // INFO: something is wrong with the internet connection I can feel it...
 
-      debug_fetchUpdates('unable to get updates')
+      debug$fetchUpdates('unable to get updates')
 
       this.stopPolling()
       this.startPolling()
@@ -562,7 +564,7 @@ export class Updates {
           mediaGroupIdsMap.set(meId, updates)
         }
 
-        debug_mediaEvents('MG map: %O', mediaGroupIdsMap)
+        debug$mediaEvents('MG map: %O', mediaGroupIdsMap)
 
         for (const [mgId, mgUpdates] of mediaGroupIdsMap.entries()) {
           const contexts = await Promise.all(mgUpdates.map(mgu => this.handleUpdate(mgu, false))) as Contexts.MessageContext[]
@@ -581,13 +583,13 @@ export class Updates {
       }
     }
 
-    debug_fetchUpdates('updates: %O', updates)
+    debug$fetchUpdates('updates: %O', updates)
 
     for (const update of updates) {
       try {
         await this.handleUpdate(update)
       } catch (error) {
-        debug_fetchUpdates('an error has occurred: %O', error)
+        debug$fetchUpdates('an error has occurred: %O', error)
       }
     }
   }

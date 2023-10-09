@@ -354,6 +354,14 @@ context.sendMediaGroup([
 ])
 ```
 
+you can even use `InputMedia` on `context.sendMedia`!
+
+```js
+context.sendMedia(
+  InputMedia.photo(MediaSource.path('./image.png'), { caption: 'EPIC!!❕❕❕❕❕❗️❗️' })
+)
+```
+
 ---
 
 ### using markdown

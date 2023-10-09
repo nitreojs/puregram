@@ -314,25 +314,37 @@ class SendMixin {
    * })
    * ```
    */
-  sendMedia<T>(query: { type: T } & tSendMethods): ReturnType<
+  sendMedia<T extends string>(query: { type: T } & tSendMethods): ReturnType<
     T extends 'animation' ? typeof this.sendAnimation :
     T extends 'audio' ? typeof this.sendAudio :
-    T extends 'contact' ? typeof this.sendContact :
     T extends 'document' ? typeof this.sendDocument :
-    T extends 'location' ? typeof this.sendLocation :
     T extends 'photo' ? typeof this.sendPhoto :
-    T extends 'poll' ? typeof this.sendPoll :
     T extends 'sticker' ? typeof this.sendSticker :
-    T extends 'venue' ? typeof this.sendVenue :
     T extends 'video_note' ? typeof this.sendVideoNote :
     T extends 'video' ? typeof this.sendVideo :
     T extends 'voice' ? typeof this.sendVoice :
     () => never
   >
 
+  sendMedia<T extends { type: string }>(media: T): ReturnType<
+    T extends { type: 'animation' } ? typeof this.sendAnimation :
+    T extends { type: 'audio' } ? typeof this.sendAudio :
+    T extends { type: 'document' } ? typeof this.sendDocument :
+    T extends { type: 'photo' } ? typeof this.sendPhoto :
+    T extends { type: 'sticker' } ? typeof this.sendSticker :
+    T extends { type: 'video_note' } ? typeof this.sendVideoNote :
+    T extends { type: 'video' } ? typeof this.sendVideo :
+    T extends { type: 'voice' } ? typeof this.sendVoice :
+    () => never
+  >
+
   sendMedia (query: tSendMethods) {
-    if (query.type === 'location') {
-      return this.sendLocation(query.latitude, query.longitude, query)
+    // INFO: kind of a hack for interoperability between TelegramInputMedia objects and sendMedia
+
+    if ('media' in query) {
+      query[query.type] = query.media
+
+      delete query.media
     }
 
     if (query.type === 'animation') {
@@ -359,16 +371,12 @@ class SendMixin {
       return this.sendVideoNote(query.video_note, query)
     }
 
-    if (query.type === 'contact') {
-      return this.sendContact(query)
+    if (query.type === 'video') {
+      return this.sendVideo(query.video, query)
     }
 
-    if (query.type === 'poll') {
-      return this.sendPoll(query)
-    }
-
-    if (query.type === 'venue') {
-      return this.sendVenue(query)
+    if (query.type === 'voice') {
+      return this.sendVoice(query.voice, query)
     }
 
     // @ts-expect-error impossible type

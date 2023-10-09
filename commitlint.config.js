@@ -22,6 +22,7 @@ module.exports = {
       'attachments',
       'structures',
       'parse-mode',
+      'input-media',
       'media-source',
       'media-group',
 

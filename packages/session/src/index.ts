@@ -1,4 +1,4 @@
 export * from './storages'
 export * from './types'
 
-export { SessionManager } from './session-manager'
+export { session } from './session'

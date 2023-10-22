@@ -2,9 +2,8 @@ import { SessionStorage } from './storage'
 
 export interface MemoryStoreLike<K, V> {
   get(key: K): V | undefined
-
   set(key: K, value: V): this | undefined
-
+  has(key: K): boolean
   delete(key: K): boolean
 }
 
@@ -19,19 +18,23 @@ export class MemoryStorage implements SessionStorage {
     this.store = store
   }
 
-  async get (key: string): Promise<object | undefined> {
+  async get (key: string) {
     return this.store.get(key)
   }
 
-  async set (key: string, value: object): Promise<boolean> {
+  async set (key: string, value: object) {
     this.store.set(key, value)
 
     return true
   }
 
-  async delete (key: string): Promise<boolean> {
+  async has (key: string) {
+    return this.store.has(key)
+  }
+
+  async delete (key: string) {
     return this.store.delete(key)
   }
 
-  async touch (): Promise<void> { }
+  async touch () { }
 }

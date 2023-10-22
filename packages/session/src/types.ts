@@ -1,29 +1,24 @@
 import { Context } from 'puregram'
 
-import { SessionStorage } from './storages'
-
 export type Middleware<T> = (context: T, next: Function) => unknown
-
-export type SessionForceUpdate = () => Promise<boolean>
 
 export interface ContextInterface extends Context {
   [key: string]: any
 }
 
-export interface SessionContext {
+export type SessionContext<S = {}> = S & {
   $forceUpdate(): Promise<boolean>
 
   [key: string]: any
 }
 
-export interface SessionInterface {
-  session: SessionContext
+export interface SessionLayer<S = unknown> {
+  session: SessionContext<S>
 }
 
-export interface SessionManagerOptions<T = {}> {
-  /** Storage based on SessionStorage interface */
-  storage: SessionStorage
-
-  /** Returns the key for session storage */
-  getStorageKey(context: ContextInterface & T): string
+// extending contexts! :3 :3333 >_<
+declare module 'puregram' {
+  interface Context {
+    session: SessionContext
+  }
 }

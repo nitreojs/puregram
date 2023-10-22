@@ -1,7 +1,7 @@
 {
   "name": "@puregram/session",
-  "version": "2.0.1-rc.1",
-  "description": "Simple implementation of sessions for puregram",
+  "version": "3.0.0",
+  "description": "puregram sessions available to everyone!",
   "main": "lib/index",
   "engines": {
     "node": ">=12.0.0"
@@ -17,8 +17,8 @@
   "files": [
     "lib"
   ],
-  "author": "nitrojs",
-  "license": "MIT",
+  "author": "starkow",
+  "license": "WTFPL",
   "peerDependencies": {
     "puregram": "^2.0.0"
   },

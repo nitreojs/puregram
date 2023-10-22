@@ -23,7 +23,7 @@ class TargetMixin {
   }
 
   /** Checks if the instance has `senderChat` property */
-  hasSenderChat (): this is Require<TargetMixin, 'senderChat'> {
+  hasSenderChat (): this is Require<this, 'senderChat'> {
     return this.payload.sender_chat !== undefined
   }
 

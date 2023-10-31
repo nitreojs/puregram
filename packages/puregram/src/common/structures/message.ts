@@ -30,6 +30,11 @@ import { ForumTopicCreated } from './forum-topic-created'
 import { ForumTopicEdited } from './forum-topic-edited'
 import { ForumTopicClosed } from './forum-topic-closed'
 import { ForumTopicReopened } from './forum-topic-reopened'
+import { WriteAccessAllowed } from './write-access-allowed'
+import { GeneralForumTopicHidden } from './general-forum-topic-hidden'
+import { GeneralForumTopicUnhidden } from './general-forum-topic-unhidden'
+import { UserShared } from './user-shared'
+import { ChatShared } from './chat-shared'
 
 import {
   AnimationAttachment,
@@ -41,11 +46,8 @@ import {
   VoiceAttachment,
   StoryAttachment
 } from '../attachments'
-import { WriteAccessAllowed } from './write-access-allowed'
-import { GeneralForumTopicHidden } from './general-forum-topic-hidden'
-import { GeneralForumTopicUnhidden } from './general-forum-topic-unhidden'
-import { UserShared } from './user-shared'
-import { ChatShared } from './chat-shared'
+
+import { MessageEntities } from '../message-entities'
 
 /** This object represents a message. */
 @Inspectable()
@@ -209,7 +211,7 @@ export class Message implements Structure {
       return
     }
 
-    return entities.map(entity => new MessageEntity(entity))
+    return new MessageEntities(...entities.map(entity => new MessageEntity(entity)))
   }
 
   /**
@@ -344,7 +346,7 @@ export class Message implements Structure {
       return
     }
 
-    return caption_entities.map(entity => new MessageEntity(entity))
+    return new MessageEntities(...caption_entities.map(entity => new MessageEntity(entity)))
   }
 
   /** `true`, if the message media is covered by a spoiler animation */

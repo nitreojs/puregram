@@ -32,6 +32,7 @@ import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { Context } from './context'
 import { ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
+import { MessageEntities } from '../common'
 
 interface MessageContextOptions {
   telegram: Telegram
@@ -145,7 +146,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any entities (with specified type) */
-  hasEntities (type?: EntityType | MessageEntity['type']) {
+  hasEntities (type?: EntityType | MessageEntity['type']): this is Require<this, 'entities'> {
     if (this.entities === undefined) {
       return false
     }
@@ -158,7 +159,7 @@ class MessageContext extends Context {
   }
 
   /** Checks if there are any caption entities (with specified type) */
-  hasCaptionEntities (type?: EntityType | MessageEntity['type']) {
+  hasCaptionEntities (type?: EntityType | MessageEntity['type']): this is Require<this, 'captionEntities'> {
     if (this.captionEntities === undefined) {
       return false
     }

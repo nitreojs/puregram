@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { MessageEntity } from './message-entity'
 import { PollOption } from './poll-option'
+import { MessageEntities } from '../message-entities'
 
 /** This object contains information about a poll. */
 @Inspectable()
@@ -95,7 +96,7 @@ export class Poll implements Structure {
       return
     }
 
-    return explanation_entities.map(entity => new MessageEntity(entity))
+    return new MessageEntities(...explanation_entities.map(entity => new MessageEntity(entity)))
   }
 
   /** Amount of time in seconds the poll will be active after creation */

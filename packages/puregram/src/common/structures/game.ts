@@ -8,6 +8,7 @@ import { AnimationAttachment } from '../attachments'
 
 import { PhotoSize } from './photo-size'
 import { MessageEntity } from './message-entity'
+import { MessageEntities } from '../message-entities'
 
 /** This object represents a game. */
 @Inspectable()
@@ -65,7 +66,7 @@ export class Game implements Structure {
       return
     }
 
-    return text_entities.map(entity => new MessageEntity(entity))
+    return new MessageEntities(...text_entities.map(entity => new MessageEntity(entity)))
   }
 
   /**

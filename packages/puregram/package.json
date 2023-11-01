@@ -37,6 +37,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./types": "./lib/types/types.js",
+    "./hooks": "./lib/types/hooks.js",
     "./enums": "./lib/types/enums.js",
     "./interfaces": "./lib/types/interfaces.js",
     "./contexts": "./lib/contexts/index.js",
@@ -56,6 +57,9 @@
     "*": {
       "types": [
         "./lib/types/types"
+      ],
+      "hooks": [
+        "./lib/types/hooks"
       ],
       "enums": [
         "./lib/types/enums"

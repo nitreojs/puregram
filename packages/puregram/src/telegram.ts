@@ -1,23 +1,25 @@
+import { Readable } from 'node:stream'
+import { deprecate } from 'node:util'
+
 import { debug } from 'debug'
 import { FormDataEncoder } from 'form-data-encoder'
 import { File, FormData } from 'formdata-node'
 import { fileFromPath } from 'formdata-node/file-from-path'
 import { inspectable } from 'inspectable'
-import { Readable } from 'node:stream'
-import { deprecate } from 'node:util'
-
 import { fetch, RequestInit } from 'undici'
+
 import { MediaInput, MediaSourceType } from './common/media-source'
 import { User } from './common/structures'
-import { APIError } from './errors'
 
+import { APIError } from './errors'
 import { ApiMethods } from './generated'
-import { ApiResponseUnion, TelegramOptions } from './types/interfaces'
-import { ApiMethod, SoftString } from './types/types'
 import { Updates } from './updates'
 
-import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
+import { ApiResponseOk, ApiResponseUnion, TelegramOptions } from './types/interfaces'
+import { ApiMethod, SoftString } from './types/types'
+import * as Hooks from './types/hooks'
 
+import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, updateDebugFlags } from './utils/helpers'
 
 const $debugger = debug('puregram:api')
@@ -76,6 +78,14 @@ export class Telegram {
   /** Bot data. You are able to access it only after `updates.startPolling()` succeeded! */
   bot!: User
 
+  protected hooks: Hooks.Hooks = {
+    onBeforeRequest: [],
+    onRequestIntercept: [],
+    onResponseIntercept: [],
+    onAfterRequest: [],
+    onError: []
+  }
+
   constructor (options: Partial<TelegramOptions> = {}) {
     Object.assign(this.options, options)
 
@@ -98,6 +108,49 @@ export class Telegram {
       token,
       ...options
     })
+  }
+
+  /** Hook that is processed first before anything has even been set up */
+  onBeforeRequest (fn: Hooks.OnBeforeRequestHandler) {
+    this.hooks.onBeforeRequest.push(fn)
+  }
+
+  /** Hook that is executed right before the API call is made  */
+  onRequestIntercept (fn: Hooks.OnRequestInterceptHandler) {
+    this.hooks.onRequestIntercept.push(fn)
+  }
+
+  /** Once the response is received from the API, this hook will be executed */
+  onResponseIntercept (fn: Hooks.OnResponseInterceptHandler) {
+    this.hooks.onResponseIntercept.push(fn)
+  }
+
+  /** After everything has been done, this hook is called */
+  onAfterRequest (fn: Hooks.OnAfterRequestHandler) {
+    this.hooks.onAfterRequest.push(fn)
+  }
+
+  /** If an API error has happened, this hook will be triggered */
+  onError (fn: Hooks.OnErrorHandler) {
+    this.hooks.onError.push(fn)
+  }
+
+  /**
+   * Applies a set of hooks. Useful when reusing a bunch of hooks
+   *
+   * The order of processing hooks:
+   * 1. `onBeforeRequest`
+   * 2. `onRequestIntercept`
+   * 3. API request
+   * 4. `onResponseIntercept`
+   * 5. `onAfterRequest`
+   *
+   * On top of that, `onError` works across `onRequestIntercept` to `onAfterRequest`
+   */
+  useHooks (hooks: Partial<Hooks.Hooks>) {
+    for (const [hook, handlers] of Object.entries(hooks)) {
+      (this.hooks[hook as keyof Hooks.Hooks] as Hooks.HookHandler[]).push(...handlers)
+    }
   }
 
   /** @deprecated */
@@ -273,15 +326,19 @@ export class Telegram {
     }
   }
 
+  /** Runs specific hooks */
+  private async runHooks<C extends Hooks.HookContext> (hooks: Hooks.RequestContext<C>[], data: C) {
+    let context = data
+
+    for (const hook of hooks) {
+      context = await hook(context)
+    }
+
+    return context
+  }
+
   /** Invokes Telegram Bot API `path` method [with `params`] */
   private async _callAPI (path: string, params: Record<string, any> = {}) {
-    // INFO: convert complex values in [params] into something readable
-    // INFO: note it will remove [Buffer] and [Readable] objects
-    const decomplexified = decomplexify(params)
-
-    const query = new URLSearchParams(decomplexified).toString()
-    const url = `${this.options.apiBaseUrl}${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${path}?${query}`
-
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), this.options.apiTimeout)
 
@@ -297,10 +354,24 @@ export class Telegram {
 
     const debug$api = $debugger.extend(path, '/')
 
+    let context$beforeRequest: Hooks.BeforeRequestContext = {
+      controller,
+      init,
+      path,
+      params
+    }
+
+    context$beforeRequest = await this.runHooks(this.hooks.onBeforeRequest, context$beforeRequest)
+
+    // INFO: convert complex values in [params] into something readable
+    // INFO: note it will remove [Buffer] and [Readable] objects
+    const decomplexified = decomplexify(params)
+
+    const query = new URLSearchParams(decomplexified).toString()
+    const url = `${this.options.apiBaseUrl}${this.options.token}/${this.options.useTestDc ? 'test/' : ''}${path}?${query}`
+
     try {
       debug$api('HTTP ›')
-      debug$api('url: %s', url.replace(this.options.token as string, '[token]'))
-      debug$api('params: %j', decomplexified)
 
       // INFO: ---- detecting media methods ----
 
@@ -331,8 +402,27 @@ export class Telegram {
         }
       }
 
-      const response = await fetch(url, init)
+      let context$requestIntercept: Hooks.RequestInterceptHandler = {
+        ...context$beforeRequest,
+        query,
+        url
+      }
+
+      context$requestIntercept = await this.runHooks(this.hooks.onRequestIntercept, context$requestIntercept)
+
+      debug$api('url: %s', context$requestIntercept.url.replace(this.options.token as string, '[token]'))
+      debug$api('params: %j', decomplexified)
+
+      const response = await fetch(context$requestIntercept.url, context$requestIntercept.init)
       const json = await response.json() as ApiResponseUnion
+
+      let context$responseIntercept: Hooks.ResponseInterceptHandler = {
+        ...context$requestIntercept,
+        response,
+        json
+      }
+
+      context$responseIntercept = await this.runHooks(this.hooks.onResponseIntercept, context$responseIntercept)
 
       debug$api('‹ HTTP %d', response.status)
       debug$api('response: %j', json)
@@ -341,7 +431,21 @@ export class Telegram {
         throw new APIError(json)
       }
 
-      return json.result
+      let context$afterRequest: Hooks.AfterRequestHandler = {
+        ...context$responseIntercept
+      }
+
+      context$afterRequest = await this.runHooks(this.hooks.onAfterRequest, context$afterRequest)
+
+      return (context$afterRequest.json as ApiResponseOk).result
+    } catch (error) {
+      let context$error: Hooks.ErrorHandler = {
+        error: error as Error
+      }
+
+      context$error = await this.runHooks(this.hooks.onError, context$error)
+
+      throw context$error.error
     } finally {
       clearTimeout(timeout)
     }

@@ -25,6 +25,7 @@ module.exports = {
       'input-media',
       'media-source',
       'media-group',
+      'hooks',
 
       'scripts',
       'docs'

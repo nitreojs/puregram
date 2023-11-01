@@ -71,6 +71,7 @@ telegram.updates.startPolling()
 - [what are contexts?](#what-are-contexts)
 - [`Context` and its varieties](#context-and-its-varieties)
 - [middlewares](#middlewares)
+- [hooks]()
 - [**typescript usage**](#typescript-usage)
 - [**faq**](#faq)
 - [ecosystem](#ecosystem)
@@ -650,7 +651,7 @@ const context = new MessageContext({
 `puregram` implements middlewares logic, so you can use them to expand your `context` variables or measure other middlewares.
 `next()` is used to call the next middleware on the chain and wait until it's done
 
-- measuring the time it takes to proceed the update:
+- measuring the time it takes to process the update:
 
 ```js
 telegram.updates.use(async (context, next) => {
@@ -660,7 +661,7 @@ telegram.updates.use(async (context, next) => {
 
   const end = Date.now()
 
-  console.log(`${context.updateId ?? '[unknown]'} proceeded in ${end - start}ms`)
+  console.log(`${context.updateId ?? '[unknown]'} processed in ${end - start}ms`)
 })
 ```
 
@@ -678,6 +679,111 @@ telegram.updates.on('message', (context) => {
   return context.send(`hey, ${context.user.name}!`)
 })
 ```
+
+---
+
+## hooks
+
+since `v2.19.0`, `puregram` has **hooks** - a way to intercept the outgoing *(and ingoing soon)* requests
+and manipulate data in them. this means that you can create such an interceptor that will, for example,
+always add `parse_mode: 'html'` to your `sendMessage` calls, or even abort (cancel) the requests!
+
+```js
+telegram.onBeforeRequest((context) => {
+  if (context.path === 'sendMessage') {
+    context.params.parse_mode = 'html'
+  }
+
+  return context
+})
+
+telegram.updates.on('message', (context) => {
+  return context.reply('this <b>will be</b> <i>parsed</i> correctly!')
+})
+```
+
+### deeper into the ~~woods~~ hooks!
+
+there are currently **five** hooks that you can use. each of them has their own set
+of variables called *context*. **you need to return the same structure of an object that was given to you when you caught it**
+
+each and every *context* has keys that the previous interceptor had. for example,
+take this `BaseContext` that every other context extends off of:
+
+| key          | type                 | description                                              |
+| ------------ | -------------------- | -------------------------------------------------------- |
+| `controller` | `AbortController`    | basic `AbortController`, allows to `abort()` the request |
+| `init`       | `undici.RequestInit` | `fetch()`'s params object                                |
+
+every context listed below will have those `controller` and `init` keys PLUS their own keys
+
+hooks are listed below in order of their execution from top to bottom:
+
+1. `onBeforeRequest`: this hook is processed when the API request has been just caught and is starting to set everything up
+
+| key      | type                  | description                                |
+| -------- | --------------------- | ------------------------------------------ |
+| `path`   | `string`              | API method path, `sendMessage` for example |
+| `params` | `Record<string, any>` | API method params                          |
+
+2. `onRequestIntercept`: hook that is executed right before the API call happens to be processed
+
+| key     | type     | description                              |
+| ------- | -------- | ---------------------------------------- |
+| `query` | `string` | URL query that was built by the `params` |
+| `url`   | `string` | full API request URL                     |
+
+3. API call. no hook for this, sorry!
+
+4. `onResponseIntercept`: API call has succeeded (probably), `response` and `json` are yours to experiment with
+
+| key        | type               | description                            |
+| ---------- | ------------------ | -------------------------------------- |
+| `response` | `undici.Response`  | HTTP response that came from API       |
+| `json`     | `ApiResponseUnion` | HTTP response that morphed into JSON 👻 |
+
+5. `onAfterRequest`: everything that has to be done had been done, literally cleaning time
+
+*no additional keys are provided for `onAfterRequest`*
+
+and one more, `onError`, which is covering the area between `onRequestIntercept` and `onAfterRequest` hooks
+
+| key     | type    | description                   |
+| ------- | ------- | ----------------------------- |
+| `error` | `Error` | simply an error that happened |
+
+### exporting hooks into packages
+
+*... or, to put simply, "how do i export more than one hook and use it easily?"*
+
+`puregram` provides `telegram.useHooks(hooks)` method that allows you to pass multiple hooks of different types
+easily and instantly. this gradually helps importing several hooks at once if you're, for example, importing them
+from another package:
+
+```js
+// lets pretend `hooks` is a function that returns `puregram.Hooks` object (will be discussed below)
+import { hooks as imagination } from 'imaginary-package'
+
+telegram.useHooks(imagination())
+
+// ... that's literally it!
+```
+
+under the *imaginary* hood, `hooks` (a.k.a. `imagination` in this case) is a function (does not need to be a function though)
+that returns `puregram.Hooks` interface - an object that you can import from `puregram/hooks`:
+
+```ts
+import { Hooks } from 'puregram/hooks'
+
+export function imagination(): Hooks {
+  return () => ({
+    onBeforeRequest(context) { ... },
+    onAfterRequest(context) { ... }
+  })
+}
+```
+
+*that's it!*
 
 ---
 

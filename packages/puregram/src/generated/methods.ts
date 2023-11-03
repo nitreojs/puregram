@@ -3,13 +3,13 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v6.9.0, 22.09.2023
-/// Generation date: 01.10.2023 23:30:11 MSK
+/// Generation date: 03.11.2023 18:39:08 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
 import * as Enums from '../types/enums'
 
-import { SoftString } from '../types/types'
+import { SoftString, Formattable } from '../types/types'
 
 import { MediaInput } from '../common/media-source'
 import { MessageEntity } from '../common/structures'
@@ -28,7 +28,7 @@ export interface GetUpdatesParams {
    */
   timeout?: number
   /**
-   * A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited\_channel\_post”, “callback\_query”] to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member* (default). If not specified, the previous setting will be used.  
+   * A JSON-serialized list of the update types you want your bot to receive. For example, specify `["message", "edited_channel_post", "callback_query"]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member* (default). If not specified, the previous setting will be used.  
    * 
    * Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
    */
@@ -64,7 +64,7 @@ export interface SetWebhookParams {
    */
   max_connections?: number
   /**
-   * A JSON-serialized list of the update types you want your bot to receive. For example, specify [“message”, “edited\_channel\_post”, “callback\_query”] to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member* (default). If not specified, the previous setting will be used.  
+   * A JSON-serialized list of the update types you want your bot to receive. For example, specify `["message", "edited_channel_post", "callback_query"]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member* (default). If not specified, the previous setting will be used.  
    * Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
    */
   allowed_updates?: string[]
@@ -157,7 +157,7 @@ export interface SendMessageParams {
   /**
    * Text of the message to be sent, 1-4096 characters after entities parsing
    */
-  text: string
+  text: string | Formattable
   /**
    * Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -261,7 +261,7 @@ export interface CopyMessageParams {
   /**
    * New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the new caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -319,7 +319,7 @@ export interface SendPhotoParams {
   /**
    * Photo caption (may also be used when resending photos by *file\_id*), 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -381,7 +381,7 @@ export interface SendAudioParams {
   /**
    * Audio caption, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -461,7 +461,7 @@ export interface SendDocumentParams {
   /**
    * Document caption (may also be used when resending documents by *file\_id*), 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -539,7 +539,7 @@ export interface SendVideoParams {
   /**
    * Video caption (may also be used when resending videos by *file\_id*), 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -621,7 +621,7 @@ export interface SendAnimationParams {
   /**
    * Animation caption (may also be used when resending animation by *file\_id*), 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -683,7 +683,7 @@ export interface SendVoiceParams {
   /**
    * Voice message caption, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the voice message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -2544,7 +2544,7 @@ export interface EditMessageTextParams {
   /**
    * New text of the message, 1-4096 characters after entities parsing
    */
-  text: string
+  text: string | Formattable
   /**
    * Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -2590,7 +2590,7 @@ export interface EditMessageCaptionParams {
   /**
    * New caption of the message, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * Mode for parsing entities in the message caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */

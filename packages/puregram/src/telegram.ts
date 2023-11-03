@@ -342,7 +342,7 @@ export class Telegram {
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), this.options.apiTimeout)
 
-    let init: RequestInit = {
+    const init: RequestInit = {
       method: 'GET',
       signal: controller.signal,
       duplex: 'half'
@@ -379,7 +379,7 @@ export class Telegram {
       if (['sendMediaGroup', 'editMessageMedia'].includes(path)) {
         const newInit = await this.uploadWithMedia(params)
 
-        init = {
+        context$beforeRequest.init = {
           ...init,
           ...newInit
         }
@@ -395,7 +395,7 @@ export class Telegram {
         if (hasMediaProperties) {
           const newInit = await this.uploadMedia(params, mediaEntity)
 
-          init = {
+          context$beforeRequest.init = {
             ...init, // INFO: saving [signal] since we don't have access to it in [uploadMedia]
             ...newInit
           }

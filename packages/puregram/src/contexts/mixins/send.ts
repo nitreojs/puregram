@@ -18,7 +18,7 @@ interface SendMixinMetadata {
 class SendMixin {
   /** Sends message to current chat */
   async send (
-    text: string,
+    text: Methods.SendMessageParams['text'],
     params?: Optional<Methods.SendMessageParams, 'chat_id' | 'text'>
   ) {
     const response = await this.telegram.api.sendMessage({
@@ -35,7 +35,7 @@ class SendMixin {
 
   /** Sends photo to current chat */
   async sendPhoto (
-    photo: MediaInput,
+    photo: Methods.SendPhotoParams['photo'],
     params?: Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>
   ) {
     const response = await this.telegram.api.sendPhoto({
@@ -52,7 +52,7 @@ class SendMixin {
 
   /** Sends document to current chat */
   async sendDocument (
-    document: MediaInput,
+    document: Methods.SendDocumentParams['document'],
     params?: Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>
   ) {
     const response = await this.telegram.api.sendDocument({
@@ -69,7 +69,7 @@ class SendMixin {
 
   /** Sends audio to current chat */
   async sendAudio (
-    audio: MediaInput,
+    audio: Methods.SendAudioParams['audio'],
     params?: Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>
   ) {
     const response = await this.telegram.api.sendAudio({
@@ -86,7 +86,7 @@ class SendMixin {
 
   /** Sends video to current chat */
   async sendVideo (
-    video: MediaInput,
+    video: Methods.SendVideoParams['video'],
     params?: Optional<Methods.SendVideoParams, 'chat_id' | 'video'>
   ) {
     const response = await this.telegram.api.sendVideo({
@@ -103,7 +103,7 @@ class SendMixin {
 
   /** Sends animation to current chat */
   async sendAnimation (
-    animation: MediaInput,
+    animation: Methods.SendAnimationParams['animation'],
     params?: Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>
   ) {
     const response = await this.telegram.api.sendAnimation({
@@ -120,7 +120,7 @@ class SendMixin {
 
   /** Sends video note to current chat */
   async sendVideoNote (
-    videoNote: MediaInput,
+    videoNote: Methods.SendVideoNoteParams['video_note'],
     params?: Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>
   ) {
     const response = await this.telegram.api.sendVideoNote({
@@ -137,7 +137,7 @@ class SendMixin {
 
   /** Sends voice to current chat */
   async sendVoice (
-    voice: MediaInput,
+    voice: Methods.SendVoiceParams['voice'],
     params?: Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>
   ) {
     const response = await this.telegram.api.sendVoice({
@@ -172,9 +172,7 @@ class SendMixin {
   }
 
   /** Sends invoice to current user */
-  async sendInvoice (
-    params: Optional<Methods.SendInvoiceParams, 'chat_id'>
-  ) {
+  async sendInvoice (params: Optional<Methods.SendInvoiceParams, 'chat_id'>) {
     const response = await this.telegram.api.sendInvoice({
       chat_id: this.chatId || this.senderId || 0,
       ...params
@@ -227,7 +225,7 @@ class SendMixin {
 
   /** Sends sticker */
   async sendSticker (
-    sticker: MediaInput,
+    sticker: Methods.SendStickerParams['sticker'],
     params?: Optional<Methods.SendStickerParams, 'sticker' | 'chat_id'>
   ) {
     const response = await this.telegram.api.sendSticker({

@@ -943,7 +943,7 @@ $ DEBUG=puregram:all node index
 totally! recently `puregram` has created its own forum! it has every topic needed and
 will be expanding if it needs to!
 
-if you ¯\\\_(ツ)_/¯ what to do and want to ask a question, **[@pureforum](pureforum) is definitely the way!**
+if you ¯\\\_(ツ)_/¯ what to do and want to ask a question, **[@pureforum][pureforum] is definitely the way!**
 
 [pureforum]: https://t.me/pureforum
 

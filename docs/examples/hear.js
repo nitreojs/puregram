@@ -31,7 +31,7 @@ hearManager.hear(
 hearManager.hear(
   {
     text: '/test',
-    isPM: true
+    isPM: () => true
   },
 
   (context) => context.send('triggered only if text is equal to "/test" and it is private messages')

@@ -255,6 +255,11 @@ class MethodService {
         returnType = 'Interfaces.Currency'
       }
 
+      // INFO: allow passing [Formattable] values to [text] or [caption] params
+      if (field.name === 'caption' || (field.name === 'text' && field.required)) {
+        returnType += ' | Formattable'
+      }
+
       // INFO: additional enums for IDE suggestions...
       // TODO: probably autogenerate some of these from types into enums?
 
@@ -409,7 +414,7 @@ class GenerationService {
 
       import * as Enums from '../types/enums'
 
-      import { SoftString } from '../types/types'
+      import { SoftString, Formattable } from '../types/types'
 
       import { MediaInput } from '../common/media-source'
       import { MessageEntity } from '../common/structures'

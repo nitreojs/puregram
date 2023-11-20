@@ -59,19 +59,19 @@ export class HTML {
   }
 
   /** Preformatted code */
-  static code (source: string, language?: string, escape = true) {
-    const additional = (
-      language
-        ? ` class="language-${language}"`
-        : ''
-    )
-
-    return `<code${additional}>${escape ? HTML.escape(source) : source}</code>`
+  static code (source: string, escape = true) {
+    return `<code>${escape ? HTML.escape(source) : source}</code>`
   }
 
   /** Preformatted code */
-  static pre (source: string, escape = true) {
-    return `<pre>${escape ? HTML.escape(source) : source}</pre>`
+  static pre (source: string, language?: string, escape = true) {
+    const string = escape ? HTML.escape(source) : source
+
+    if (language !== undefined) {
+      return `<pre><code class="language-${language}">${string}</code></pre>`
+    }
+
+    return `<pre>${string}</pre>`
   }
 
   /** Custom emoji */

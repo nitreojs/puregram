@@ -970,12 +970,14 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 - [`@puregram/session`][@session]: simple implementation of sessions
 - [`@puregram/utils`][@utils]: useful utilities
 - [`@puregram/prompt`][@prompt]: basic prompt system implementation
+- [`@puregram/callback-data`][@callback-data]: basic callback data validation and serialization
 
 [@hear]: https://github.com/nitreojs/puregram/tree/lord/packages/hear
 [@scenes]: https://github.com/nitreojs/puregram/tree/lord/packages/scenes
 [@session]: https://github.com/nitreojs/puregram/tree/lord/packages/session
 [@utils]: https://github.com/nitreojs/puregram/tree/lord/packages/utils
 [@prompt]: https://github.com/nitreojs/puregram/tree/lord/packages/prompt
+[@callback-data]: https://github.com/nitreojs/puregram/tree/lord/packages/callback-data
 
 ### non-official ones
 

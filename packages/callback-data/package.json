@@ -1,0 +1,32 @@
+{
+  "name": "@puregram/callback-data",
+  "version": "1.0.0",
+  "description": "basic callback data validation and serialization for puregram",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "puregram",
+    "callback-data",
+    "serialization",
+    "validation"
+  ],
+  "author": "starkow",
+  "license": "WTFPL",
+  "types": "./lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitreojs/puregram.git",
+    "directory": "packages/callback-data"
+  },
+  "peerDependencies": {
+    "puregram": "^2.20.0"
+  }
+}

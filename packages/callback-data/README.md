@@ -127,9 +127,25 @@ telegram.updates.use(
 )
 ```
 
-ez stuff $$$
-
 [filtering]: #filtering
+
+##### `default`
+
+yeah so
+
+```js
+const CounterPayload = CallbackDataBuilder.create('counter')
+  .number('clicks', { default: 0 })
+
+const counterKeyboard = InlineKeyboard.keyboard([
+  InlineKeyboard.textButton({
+    text: 'click!',
+    payload: CounterPayload.pack({}) // no need to provide `clicks` value!
+  })
+])
+```
+
+ez stuff $$$
 
 ### filtering
 

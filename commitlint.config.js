@@ -8,6 +8,7 @@ module.exports = {
       'scenes',
       'session',
       'utils',
+      'callback-data',
 
       'api',
       'updates',

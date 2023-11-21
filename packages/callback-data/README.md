@@ -85,7 +85,51 @@ $ npm i -S @puregram/callback-data
 
 ### `optional` or `default`ed values
 
-...
+it's possible that you will need a value that may not be present at all times (basically
+an `optional` value, right?)
+
+`@puregram/callback-data` has tools for handling `optional` values and values that have
+a `default` value
+
+##### `optional`
+
+```js
+const BanPayload = CallbackDataBuilder.create('...')
+  .number('user_id')
+  .string('reason', { optional: true })
+
+telegram.updates.use(
+  BanPayload.handle((context) => {
+    const payload = context.unpackedPayload
+    //    payload: { user_id: number, reason?: string | undefined }
+  })
+)
+```
+
+you can also use [filtering][filtering] and [literally filters][literally-filters] to handle
+specific cases like when you have the reason for ban and when you dont
+
+```js
+telegram.updates.use(
+  BanPayload.filter({ reason: filters.exists() }).handle((context) => {
+    const payload = context.unpackedPayload
+    //    payload: { user_id: number, reason: string }
+    // reason will always be present in this case!
+  })
+)
+
+telegram.updates.use(
+  BanPayload.filter({ reason: filters.exists(false) }).handle((context) => {
+    const payload = context.unpackedPayload
+    //    payload: { user_id: number, reason: undefined }
+    // reason will always be undefined here no matter what
+  })
+)
+```
+
+ez stuff $$$
+
+[filtering]: #filtering
 
 ### filtering
 

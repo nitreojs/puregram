@@ -1,0 +1,34 @@
+{
+  "name": "@puregram/markup",
+  "version": "1.0.0",
+  "description": "simple yet powerful markup system for puregram",
+  "main": "./lib/index.js",
+  "scripts": {
+    "clear-lib": "rm -rf lib/",
+    "build": "yarn clear-lib && tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitreojs/puregram.git",
+    "directory": "packages/markup"
+  },
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "puregram",
+    "markup",
+    "telegram",
+    "bot-api"
+  ],
+  "author": "starkow",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/nitreojs/puregram/issues"
+  },
+  "homepage": "https://github.com/nitreojs/puregram#readme",
+  "dependencies": {
+    "puregram": "^2.19.0"
+  }
+}

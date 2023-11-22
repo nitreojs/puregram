@@ -6,9 +6,9 @@ import { MarkupItem } from './item'
 
 import { Formatted } from './format'
 
-type Parseable =
-  | { toString(): string }
-  | { toJSON(): any }
+interface StringLike {
+  toString(): string
+}
 
 const buildEntities = (index: number, item: MarkupItem): MessageEntity[] => {
   const entities: MessageEntity[] = (
@@ -43,7 +43,7 @@ const buildEntities = (index: number, item: MarkupItem): MessageEntity[] => {
  *
  * See? No need to pass that `parse_mode: ...` thing! Very cool.
  */
-export function format (strings: TemplateStringsArray, ...rest: (MarkupItem | Parseable)[]) {
+export function format (strings: TemplateStringsArray, ...rest: (MarkupItem | StringLike)[]) {
   const response = new Formatted()
 
   let size = 0
@@ -64,17 +64,15 @@ export function format (strings: TemplateStringsArray, ...rest: (MarkupItem | Pa
 
     if (parameter instanceof MarkupItem) {
       // MarkupItem
-      const item = parameter as MarkupItem
+      response.addText(parameter.text)
 
-      response.addText(item.text)
+      const entities = buildEntities(size, parameter)
 
-      const entities = buildEntities(size, item)
-
-      size += item.text.length
+      size += parameter.text.length
 
       response.addEntities(entities)
     } else {
-      // Parseable
+      // StringLike
       const value = parameter.toString()
 
       size += value.length
@@ -86,11 +84,11 @@ export function format (strings: TemplateStringsArray, ...rest: (MarkupItem | Pa
   return response
 }
 
-type Acceptable = MarkupItem | Parseable
+type Acceptable = MarkupItem | StringLike
 
 type Tagged = (strings: TemplateStringsArray, ...formatArgs: Acceptable[]) => MarkupItem
 
-type TaggedOrDefault = { (strings: TemplateStringsArray, ...formatArgs: Parseable[]): MarkupItem; (arg: Parseable): MarkupItem }
+type TaggedOrDefault = { (strings: TemplateStringsArray, ...formatArgs: StringLike[]): MarkupItem; (arg: StringLike): MarkupItem }
 type NestedTagged<T extends any[]> = { (...keys: T): Tagged; (strings: TemplateStringsArray): MarkupItem }
 type TaggedFn<T extends any[]> = ((...keys: T) => Tagged)
 
@@ -115,7 +113,7 @@ function join (strings: TemplateStringsArray, ...rest: Acceptable[]) {
   return strings.flatMap((e, i) => [e, rest[i]]).filter(Boolean) as Acceptable[]
 }
 
-const build = (<O extends Parseable[] = never>(type: TelegramMessageEntityType, ...outer: O) => {
+const build = (<O extends StringLike[] = never>(type: TelegramMessageEntityType, ...outer: O) => {
   // (type: TelegramMessageEntityType): Tagged
   if (outer.length === 0) {
     return <I extends Acceptable[]>(...args: [arg: Acceptable] | [strings: TemplateStringsArray, ...inner: I]): MarkupItem => {
@@ -151,7 +149,7 @@ const build = (<O extends Parseable[] = never>(type: TelegramMessageEntityType, 
         return new MarkupItem({ type, text: item.text, items: [item] })
       }
 
-      // (arg: Parseable): MarkupItem
+      // (arg: StringLike): MarkupItem
       const text = args[0].toString()
 
       return new MarkupItem({ type, text })
@@ -159,7 +157,7 @@ const build = (<O extends Parseable[] = never>(type: TelegramMessageEntityType, 
   }
 
   // { (...keys: T): Tagged; (strings: TemplateStringsArray): MarkupItem } | ((...keys: T) => Tagged)
-  return <I extends Parseable[]>(...args: [...keys: O] | [strings: TemplateStringsArray, ...inner: I]) => {
+  return <I extends StringLike[]>(...args: [...keys: O] | [strings: TemplateStringsArray, ...inner: I]) => {
     // (strings: TemplateStringsArray): MarkupItem
     if (Array.isArray(args[0])) {
       const [strings, ...inner] = args as [strings: TemplateStringsArray, ...inner: I]

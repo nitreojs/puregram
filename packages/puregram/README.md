@@ -971,6 +971,7 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 - [`@puregram/utils`][@utils]: useful utilities
 - [`@puregram/prompt`][@prompt]: basic prompt system implementation
 - [`@puregram/callback-data`][@callback-data]: basic callback data validation and serialization
+- [`@puregram/markup`][@markup]: simple yet powerful markup system
 
 [@hear]: https://github.com/nitreojs/puregram/tree/lord/packages/hear
 [@scenes]: https://github.com/nitreojs/puregram/tree/lord/packages/scenes
@@ -978,6 +979,7 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 [@utils]: https://github.com/nitreojs/puregram/tree/lord/packages/utils
 [@prompt]: https://github.com/nitreojs/puregram/tree/lord/packages/prompt
 [@callback-data]: https://github.com/nitreojs/puregram/tree/lord/packages/callback-data
+[@markup]: https://github.com/nitreojs/puregram/tree/lord/packages/markup
 
 ### non-official ones
 

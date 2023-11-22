@@ -9,6 +9,7 @@ module.exports = {
       'session',
       'utils',
       'callback-data',
+      'markup',
 
       'api',
       'updates',

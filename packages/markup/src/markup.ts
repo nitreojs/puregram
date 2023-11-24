@@ -3,7 +3,6 @@ import { Hooks } from 'puregram/hooks'
 import { TelegramMessageEntityType, TelegramUser } from 'puregram/generated'
 
 import { MarkupItem } from './item'
-
 import { Formatted } from './format'
 
 interface StringLike {
@@ -30,7 +29,7 @@ const buildEntities = (index: number, item: MarkupItem): MessageEntity[] => {
 }
 
 /**
- * Formats provided text using **entities**, not **formatting mode**.
+ * Formats provided text using **entities**, not **formatting mode**. Also supports multiline text.
  *
  * **What's the difference?** When using `parse_mode`, you are obliged to use only certain markup formatting options.
  * The thing is, not every formatting style supports everything. For example, `'Markdown'` does not even support spoilers
@@ -40,10 +39,42 @@ const buildEntities = (index: number, item: MarkupItem): MessageEntity[] => {
  *
  * @example
  * context.send(format`${bold('Welcome!')} Feel yourself at home.`)
+ * // see? no need to pass that `parse_mode: ...` thing! very cool
  *
- * See? No need to pass that `parse_mode: ...` thing! Very cool.
+ * @example
+ * context.send(
+ *   format`
+ *     ${bold('Welcome!')}
+ *     Feel yourself at home.
+ *   `
+ * )
  */
-export function format (strings: TemplateStringsArray, ...rest: (MarkupItem | StringLike)[]) {
+export function format (rawStrings: TemplateStringsArray, ...rest: (MarkupItem | StringLike)[]) {
+  let amountOfSpaces = 0
+
+  const strings = [...rawStrings]
+
+  // format`
+  //   foo
+  // `
+  // strings: [ '\n  foo\n' ]
+  if (rawStrings[0].startsWith('\n')) {
+    const spacedString = rawStrings[0].split(/^\n+/, 2)[1]
+
+    // '  foo\n'
+    if (/^\s/s.test(spacedString)) {
+      amountOfSpaces = spacedString.match(/^\s+/)?.[0].length ?? 0
+    }
+  }
+
+  if (amountOfSpaces > 0) {
+    for (let i = 0; i < rawStrings.length; i++) {
+      strings[i] = rawStrings[i].replace(new RegExp(`\\n\\s{${amountOfSpaces}}`, 'g'), '\n')
+    }
+  }
+
+  console.log({ amountOfSpaces, rawStrings, strings })
+
   const response = new Formatted()
 
   let size = 0
@@ -181,12 +212,25 @@ const build = (<O extends StringLike[] = never>(type: TelegramMessageEntityType,
   }
 }) as BuildInterface
 
+/** **bold** */
 export const bold = build('bold')
+
+/** _italic_ */
 export const italic = build('italic')
+
+/** `code` */
 export const code = build('code')
+
+/** _underline_ */
 export const underline = build('underline')
+
+/** ~~strikethrough~~ */
 export const strikethrough = build('strikethrough')
+
+/** _spoiler_ */
 export const spoiler = build('spoiler')
+
+/** @mention */
 export const mention = build('mention')
 
 export const pre = build<[language?: string]>('pre', 'language')

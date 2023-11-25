@@ -1,0 +1,36 @@
+{
+  "name": "@puregram/media-cacher",
+  "version": "1.0.0",
+  "description": "cache sent media `file_id`s with ease for puregram!",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "puregram",
+    "media",
+    "cache",
+    "file_id"
+  ],
+  "author": "starkow",
+  "license": "WTFPL",
+  "types": "./lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitreojs/puregram.git",
+    "directory": "packages/media-cacher"
+  },
+  "bugs": {
+    "url": "https://github.com/nitreojs/puregram/issues"
+  },
+  "homepage": "https://github.com/nitreojs/puregram#readme",
+  "dependencies": {
+    "puregram": "^2.20.1"
+  }
+}

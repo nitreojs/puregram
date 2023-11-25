@@ -11,7 +11,7 @@ interface SessionOptions<S = unknown, C extends Context = Context> {
 
 export const PROXY_SYM = Symbol('proxy')
 
-export const session = <S, C extends Context>(options: SessionOptions<S> = {}): Middleware<C> => {
+export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}): Middleware<C> => {
   const {
     getStorageKey = (context: ContextInterface) => context.senderId.toString(),
     storage = new MemoryStorage(),

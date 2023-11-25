@@ -8,7 +8,7 @@ export interface MemoryStoreLike<K, V> {
 }
 
 export interface MemoryStorageOptions {
-  store: MemoryStoreLike<string, object>
+  store: MemoryStoreLike<string, any>
 }
 
 export class MemoryStorage implements SessionStorage {
@@ -22,7 +22,7 @@ export class MemoryStorage implements SessionStorage {
     return this.store.get(key)
   }
 
-  async set (key: string, value: object) {
+  async set (key: string, value: any) {
     this.store.set(key, value)
 
     return true

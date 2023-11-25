@@ -1,6 +1,6 @@
 {
   "name": "@puregram/markup",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "simple yet powerful markup system for puregram",
   "main": "./lib/index.js",
   "scripts": {

@@ -73,8 +73,6 @@ export function format (rawStrings: TemplateStringsArray, ...rest: (MarkupItem |
     }
   }
 
-  console.log({ amountOfSpaces, rawStrings, strings })
-
   const response = new Formatted()
 
   let size = 0

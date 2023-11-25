@@ -213,8 +213,6 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
       if (typeof value === 'function') {
         const evaluated: Accepted = value(parsedValue)
 
-        console.log({ evaluated, parsedValue })
-
         if (typeof evaluated === typeof parsedValue) {
           return evaluated === parsedValue
         }

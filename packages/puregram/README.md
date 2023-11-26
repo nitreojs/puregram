@@ -228,7 +228,7 @@ const update = await getUpdate(...)
 let context
 
 try {
-  context = await telegram.updates.handleUpdate(update)
+  context = telegram.updates.handleUpdate(update)
 } catch (error) {
   console.log('update is not supported', update)
 }

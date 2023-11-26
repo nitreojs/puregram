@@ -413,7 +413,7 @@ export class Updates {
    * @example
    * ```js
    * const [update] = await telegram.api.getUpdates(params)
-   * const context = await telegram.updates.handleUpdate(update, false)
+   * const context = telegram.updates.handleUpdate(update, false)
    *
    * if (context === undefined) {
    *   console.log(':sadface: context not found for this update!')
@@ -424,8 +424,10 @@ export class Updates {
    * console.log('hell yeah im pro')
    * ```
    */
-  async handleUpdate (update: TelegramUpdate, dispatch = true): Promise<Contexts.Context | undefined> {
-    this.offset = update.update_id + 1
+  handleUpdate (update: TelegramUpdate, dispatch = true): Contexts.Context | undefined {
+    if (dispatch) {
+      this.offset = update.update_id + 1
+    }
 
     const type = (Object.keys(update) as UpdateName[])[1]
 

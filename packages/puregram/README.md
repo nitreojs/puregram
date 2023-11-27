@@ -23,7 +23,7 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>typescript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/pureforum'><b>telegram forum</b></a>
+  <a href='https://forum.puregram.cool'><b>telegram forum</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#faq'><b>faq</b></a>
 </div>
@@ -945,7 +945,7 @@ will be expanding if it needs to!
 
 if you ¯\\\_(ツ)_/¯ what to do and want to ask a question, **[@pureforum][pureforum] is definitely the way!**
 
-[pureforum]: https://t.me/pureforum
+[pureforum]: https://forum.puregram.cool
 
 ### why is your readme lowercased?
 
@@ -972,14 +972,16 @@ these packages are created by the `puregram` community _(and not only)_ and are 
 - [`@puregram/prompt`][@prompt]: basic prompt system implementation
 - [`@puregram/callback-data`][@callback-data]: basic callback data validation and serialization
 - [`@puregram/markup`][@markup]: simple yet powerful markup system
+- [`@puregram/media-cacher`][@media-cacher]: cache sent media `file_id`s with ease!
 
-[@hear]: https://github.com/nitreojs/puregram/tree/lord/packages/hear
-[@scenes]: https://github.com/nitreojs/puregram/tree/lord/packages/scenes
-[@session]: https://github.com/nitreojs/puregram/tree/lord/packages/session
-[@utils]: https://github.com/nitreojs/puregram/tree/lord/packages/utils
-[@prompt]: https://github.com/nitreojs/puregram/tree/lord/packages/prompt
-[@callback-data]: https://github.com/nitreojs/puregram/tree/lord/packages/callback-data
-[@markup]: https://github.com/nitreojs/puregram/tree/lord/packages/markup
+[@hear]: https://github.puregram.cool/hear
+[@scenes]: https://github.puregram.cool/scenes
+[@session]: https://github.puregram.cool/session
+[@utils]: https://github.puregram.cool/utils
+[@prompt]: https://github.puregram.cool/prompt
+[@callback-data]: https://github.puregram.cool/callback-data
+[@markup]: https://github.puregram.cool/markup
+[@media-cacher]: https://github.puregram.cool/media-cacher
 
 ### non-official ones
 

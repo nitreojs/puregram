@@ -1,4 +1,4 @@
-import { type BeforeRequestContext, type Hooks, MediaSourceType, MediaSource } from 'puregram'
+import { type BeforeRequestContext, type Hooks, MediaSourceType, MediaSource, MediaInput } from 'puregram'
 
 import { MemoryStorage, type SessionStorage } from './storages'
 import { isMediaInput } from './utils'
@@ -40,7 +40,7 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
           return context
         }
 
-        const key = getStorageKey(context)
+        const storageKey = getStorageKey(context)
 
         if (context.path in MEDIA_METHOD_TO_KEY_MAP) {
           const mediaKey = MEDIA_METHOD_TO_KEY_MAP[context.path as AllowedMediaMethod]
@@ -55,15 +55,17 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
             return context
           }
 
-          const hasKey = await storage.has(key)
+          const storageHasValueByKey = await storage.has(storageKey)
 
-          if (!hasKey) {
+          if (!storageHasValueByKey) {
             // `Type 'unique symbol' cannot be used as an index type.`
             // what a shame
             context.params[REQUIRES_PROCESSING_SYM] = true
 
             return context
           }
+
+          const key = `${storageKey}:${media.value}`
 
           const fileId = await storage.get(key) as string
 
@@ -84,10 +86,14 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
           return context
         }
 
-        const key = getStorageKey(context)
+        const storageKey = getStorageKey(context)
 
         const mediaKey = MEDIA_METHOD_TO_KEY_MAP[context.path as AllowedMediaMethod]
+        const media = context.params[mediaKey] as MediaInput
+
         const response = (context.json.result as Record<string, any>)[mediaKey]
+
+        const key = `${storageKey}:${media.value}`
 
         await storage.set(key, response.file_id as string)
 

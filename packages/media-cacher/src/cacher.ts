@@ -36,6 +36,10 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
   return {
     onBeforeRequest: [
       async (context) => {
+        if (!('chat_id' in context.params)) {
+          return context
+        }
+
         const key = getStorageKey(context)
 
         if (context.path in MEDIA_METHOD_TO_KEY_MAP) {

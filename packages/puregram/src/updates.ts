@@ -146,12 +146,20 @@ export class Updates {
    * })
    * ```
    */
-  use<T = {}> (middleware: Middleware<Contexts.Context & T>) {
-    if (typeof middleware !== 'function') {
-      throw new TypeError('middleware must be a function')
+  use<T = {}> (middleware: Middleware<Contexts.Context & T>): this
+  use<T = {}> (middlewares: Middleware<Contexts.Context & T>[]): this
+
+  use<T = {}> (rawMiddlewares: MaybeArray<Contexts.Context & T>): this {
+    const middlewares = Array.isArray(rawMiddlewares) ? rawMiddlewares : [rawMiddlewares]
+
+    for (const middleware of middlewares) {
+      if (typeof middleware !== 'function') {
+        throw new TypeError('middleware must be a function')
+      }
+
+      this.composer.use(middleware)
     }
 
-    this.composer.use(middleware)
     this.recompose()
 
     return this
@@ -167,7 +175,12 @@ export class Updates {
    */
   on<K extends keyof Known<ContextsMapping>, T = {}>(
     events: MaybeArray<K>,
-    handler: MaybeArray<Middleware<ContextsMapping[K] & T>>
+    handler: Middleware<ContextsMapping[K] & T>
+  ): this
+
+  on<K extends keyof Known<ContextsMapping>, T = {}>(
+    events: MaybeArray<K>,
+    handlers: Middleware<ContextsMapping[K] & T>[]
   ): this
 
   on<T = {}> (

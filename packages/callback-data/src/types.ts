@@ -45,6 +45,10 @@ export type ValidateConditions<Conditions extends ConditionalObject<Record<strin
       : Conditions[Key]
 }
 
+export interface WrongPayloadHandler {
+  _$: 'wrong'
+}
+
 export interface CallbackLayer<S> {
   unpackedPayload: Extract<S>
 }

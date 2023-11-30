@@ -1,7 +1,7 @@
 import type { Middleware, NextMiddleware } from 'puregram'
 import type { CallbackQueryContext, Context } from 'puregram/contexts'
 
-import type { Accepted, CallbackLayer, ConditionalObject, Simplify, ValidateConditions } from './types'
+import type { Accepted, CallbackLayer, ConditionalObject, Simplify, ValidateConditions, WrongPayloadHandler } from './types'
 
 // charset must consist of 2^7-1 characters
 const CHARSET = [...Array(128).keys()].map(i => String.fromCharCode(i))
@@ -165,7 +165,7 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
       // if it's the first field, check if the value matches the slug
       if (prevOffset === 0) {
         if (value !== this.slug) {
-          throw new TypeError(`'${this.slug}' cannot parse data of '${value}'`)
+          return { _$: 'wrong' } as unknown as State
         }
 
         continue
@@ -201,6 +201,10 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
     const filters = [...this.filters]
 
     this.filters = []
+
+    const isWrongPayload = (p: State | WrongPayloadHandler): p is WrongPayloadHandler => (
+      p._$ === 'wrong'
+    )
 
     // nice typings there bud
     const evaluate = (value: any, parsedValue: any): boolean => {
@@ -246,7 +250,11 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
       }
 
       try {
-        const parsed = this.unpack(payload) as State
+        const parsed = this.unpack(payload) as State | WrongPayloadHandler
+
+        if (isWrongPayload(parsed)) {
+          return next()
+        }
 
         for (const filter of filters) {
           for (const [key, value] of Object.entries(filter)) {

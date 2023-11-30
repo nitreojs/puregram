@@ -1,6 +1,6 @@
 {
   "name": "@puregram/media-cacher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "cache sent media `file_id`s with ease for puregram!",
   "main": "./lib/index.js",
   "scripts": {

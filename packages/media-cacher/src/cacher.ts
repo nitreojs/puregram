@@ -88,8 +88,14 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
 
         const storageKey = getStorageKey(context)
 
-        const mediaKey = MEDIA_METHOD_TO_KEY_MAP[context.path as AllowedMediaMethod]
+        let mediaKey = MEDIA_METHOD_TO_KEY_MAP[context.path as AllowedMediaMethod]
+
         const media = context.params[mediaKey] as MediaInput
+
+        // for some reason telegram uses `document` instead of `animation`
+        if (mediaKey === 'animation' && !(mediaKey in context.json.result)) {
+          mediaKey = 'document'
+        }
 
         const response = (context.json.result as Record<string, any>)[mediaKey]
 

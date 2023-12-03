@@ -1,7 +1,7 @@
 import { MessageEntity } from 'puregram'
+import { Formattable } from 'puregram/types'
 
-// TODO:               implements Formattable
-export class Formatted {
+export class Formatted implements Formattable {
   constructor (public text = '', public entities: MessageEntity[] = []) { }
 
   addText (text: string) {

@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto'
+
 import type { Middleware, NextMiddleware } from 'puregram'
 import type { CallbackQueryContext, Context } from 'puregram/contexts'
 
@@ -53,10 +55,14 @@ interface FieldSettings {
  * )
  */
 export class CallbackDataBuilder<State extends Record<string, any> = Record<never, never>> {
+  public slug: string
   private fields: [string, FieldSettings][] = []
   private filters: ConditionalObject<State>[] = []
 
-  constructor (public slug: string) { }
+  constructor (slug: string) {
+    // base64(md5(slug)).slice(0, 6)
+    this.slug = Buffer.from(createHash('md5').update(slug).digest()).toString('base64').slice(0, 6)
+  }
 
   /** A simple `CallbackDataBuilder` factory */
   static create (slug: string) {
@@ -98,8 +104,6 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
 
   /** Packs this callback data into a string */
   pack (params: State): string {
-    const prefix = CHARSET[this.slug.length] + this.slug
-
     let skipped = false
 
     const parts: string[] = []
@@ -129,7 +133,7 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
       parts.push(prefixChar + fieldIndex + value)
     }
 
-    const result = prefix + parts.join('')
+    const result = this.slug + parts.join('')
 
     return result
   }
@@ -138,10 +142,14 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
   unpack (data: string): State {
     const fields: [string, Accepted][] = []
 
-    let offset = 0
+    // check if the value matches the slug
+    if (data.slice(0, 6) !== this.slug) {
+      return { _$: 'wrong' } as unknown as State
+    }
+
+    let offset = 6
 
     while (offset < data.length) {
-      const prevOffset = offset
       const shifted = data.slice(offset)
 
       // extract the raw length of the field from the first character
@@ -161,15 +169,6 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
       let value: Accepted = shifted.slice(shiftIndexStart, length + shiftIndexStart)
 
       offset += 1 + Number(fieldIndex !== undefined) + length
-
-      // if it's the first field, check if the value matches the slug
-      if (prevOffset === 0) {
-        if (value !== this.slug) {
-          return { _$: 'wrong' } as unknown as State
-        }
-
-        continue
-      }
 
       // get the field and its settings based on the field index
       const field = this.fields[fieldIndex ?? fields.length]

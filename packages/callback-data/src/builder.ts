@@ -61,7 +61,7 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
 
   constructor (slug: string) {
     // base64(md5(slug)).slice(0, 6)
-    this.slug = Buffer.from(createHash('md5').update(slug).digest()).toString('base64').slice(0, 6)
+    this.slug = createHash('md5').update(slug).digest('base64').slice(0, 6)
   }
 
   /** A simple `CallbackDataBuilder` factory */

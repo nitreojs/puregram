@@ -32,7 +32,6 @@ import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { Context } from './context'
 import { ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
-import { MessageEntities } from '../common'
 
 interface MessageContextOptions {
   telegram: Telegram

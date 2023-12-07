@@ -2,7 +2,6 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import * as Methods from '../../generated/methods'
 
 import { InlineKeyboard, InlineKeyboardBuilder } from '../../common/keyboards'
-import { MediaInput } from '../../common/media-source'
 import { MessageId } from '../../common/structures'
 import { Optional } from '../../types/types'
 

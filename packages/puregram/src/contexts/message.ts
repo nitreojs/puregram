@@ -31,7 +31,7 @@ import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
 
 import { Context } from './context'
-import { ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
+import { DownloadMixin, ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
 
 interface MessageContextOptions {
   telegram: Telegram
@@ -307,8 +307,8 @@ class MessageContext extends Context {
   }
 }
 
-interface MessageContext extends Constructor<MessageContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<MessageContext, MessageContextOptions> { }
-applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+interface MessageContext extends Constructor<MessageContext>, Message, TargetMixin, SendMixin, NodeMixin, DownloadMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<MessageContext, MessageContextOptions> { }
+applyMixins(MessageContext, [Message, TargetMixin, SendMixin, NodeMixin, DownloadMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 inspectable(MessageContext, {
   serialize: function (context) {

@@ -1,3 +1,3 @@
-export { MediaSource } from './media-source'
+export { MediaSource, MediaSourceTo } from './media-source'
 
 export * from './types'

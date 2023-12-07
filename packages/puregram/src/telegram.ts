@@ -1,5 +1,6 @@
-import { Readable } from 'node:stream'
+import { Readable, Writable } from 'node:stream'
 import { deprecate } from 'node:util'
+import { writeFile } from 'node:fs/promises'
 
 import { debug } from 'debug'
 import { FormDataEncoder } from 'form-data-encoder'
@@ -8,7 +9,7 @@ import { fileFromPath } from 'formdata-node/file-from-path'
 import { inspectable } from 'inspectable'
 import { fetch, RequestInit } from 'undici'
 
-import { MediaInput, MediaSourceType } from './common/media-source'
+import { MediaInput, MediaInputTo, MediaSourceToBuffer, MediaSourceToPath, MediaSourceToStream, MediaSourceType, MediaSourceTo } from './common/media-source'
 import { User } from './common/structures'
 
 import { APIError } from './errors'
@@ -21,6 +22,7 @@ import * as Hooks from './types/hooks'
 
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, updateDebugFlags } from './utils/helpers'
+import { Attachment, FileAttachment, PhotoAttachment } from './common/attachments'
 
 const $debugger = debug('puregram:api')
 
@@ -75,6 +77,18 @@ type SuppressableApiMethods = {
 
 type ProxyAPIMethods = APICallMethod & SuppressableApiMethods
 
+const getAttachmentFileId = (attachment: Attachment) => {
+  if (attachment instanceof PhotoAttachment) {
+    return attachment.bigSize.fileId
+  }
+
+  if (attachment instanceof FileAttachment) {
+    return attachment.fileId
+  }
+
+  throw new TypeError('invalid attachment provided')
+}
+
 /**
  * Telegram class. Actually, this class is a set of other classes such as `Updates` and (uh that's it. `api` is not a class, it's a `Proxy` object :P)
  */
@@ -125,13 +139,13 @@ export class Telegram {
 
     this.callApi = deprecate(
       Telegram.prototype.callApi,
-      '`callApi` is deprecated and will be removed in puregram@3.0.0, use `api.call` instead',
+      '`callApi` is deprecated and will be removed in the next major update, use `api.call` instead',
       'puregram'
     )
 
     this.setOptions = deprecate(
       Telegram.prototype.setOptions,
-      '`setOptions` is deprecated and will be removed in puregram@3.0.0',
+      '`setOptions` is deprecated and will be removed in the next major update',
       'puregram'
     ) as typeof this.setOptions
   }
@@ -142,6 +156,21 @@ export class Telegram {
       token,
       ...options
     })
+  }
+
+  /**
+   * Returns `true` if the provided `data` is an `ApiResponseError`.
+   * Useful when dealing with `suppress: true` parameter when calling API methods.
+   *
+   * @example
+   * const result = await context.sendChatAction('typing', { suppress: true })
+   *
+   * if (Telegram.isErrorResponse(result)) {
+   *   // TODO
+   * }
+   */
+  static isErrorResponse (data: any): data is ApiResponseError {
+    return data && 'ok' in data && data.ok === false && 'error_code' in data
   }
 
   /** Hook that is processed first before anything has even been set up */
@@ -185,6 +214,59 @@ export class Telegram {
     for (const [hook, handlers] of Object.entries(hooks)) {
       (this.hooks[hook as keyof Hooks.Hooks] as Hooks.HookHandler[]).push(...handlers)
     }
+  }
+
+  /**
+   * Downloads file from Telegram servers
+   *
+   * @example
+   * const buffer = await telegram.downloadFile(context.attachment, MediaSourceTo.buffer())
+   */
+  async downloadFile (attachment: Attachment, to?: MediaSourceToBuffer): Promise<Buffer | null>
+  async downloadFile (attachment: Attachment, to: MediaSourceToPath): Promise<void | null>
+  async downloadFile (attachment: Attachment, to: MediaSourceToStream): Promise<void | null>
+  async downloadFile (attachment: Attachment, to: MediaInputTo): Promise<Buffer | void | null>
+
+  async downloadFile (fileId: string, to?: MediaSourceToBuffer): Promise<Buffer | null>
+  async downloadFile (fileId: string, to: MediaSourceToPath): Promise<void | null>
+  async downloadFile (fileId: string, to: MediaSourceToStream): Promise<void | null>
+  async downloadFile (fileId: string, to: MediaInputTo): Promise<Buffer | void | null>
+
+  async downloadFile (attachment: Attachment | string, to: MediaInputTo = MediaSourceTo.buffer()) {
+    const fileId = typeof attachment === 'string'
+      ? attachment // assuming its fileId
+      : getAttachmentFileId(attachment)
+
+    const file = await this.api.getFile({ file_id: fileId, suppress: true })
+
+    if (Telegram.isErrorResponse(file)) {
+      return null
+    }
+
+    // TODO: simplify
+    const path = this.options.apiBaseUrl!.slice(0, -4) + '/file/bot' + this.options.token + '/' + file.file_path
+
+    const response = await fetch(path)
+
+    const ab = await response.arrayBuffer()
+    const buffer = Buffer.from(ab)
+
+    if (to.type === MediaSourceType.Buffer) {
+      return buffer
+    }
+
+    if (to.type === MediaSourceType.Path) {
+      return writeFile(to.value, buffer)
+    }
+
+    if (to.type === MediaSourceType.Stream) {
+      to.value.write(buffer)
+      to.value.end()
+
+      return
+    }
+
+    throw new TypeError('invalid `to` provided')
   }
 
   /** @deprecated */

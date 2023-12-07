@@ -1,4 +1,4 @@
-import { Readable } from 'node:stream'
+import { Readable, Writable } from 'node:stream'
 import { File } from 'undici'
 
 export interface MediaInputOptions {
@@ -71,3 +71,22 @@ export type MediaInput =
   | MediaSourceStream
   | MediaSourceFile
   | MediaSourceArrayBuffer
+
+export interface MediaSourceToPath extends MediaSourceBase {
+  type: MediaSourceType.Path
+  value: string
+}
+
+export interface MediaSourceToBuffer extends MediaSourceBase {
+  type: MediaSourceType.Buffer
+}
+
+export interface MediaSourceToStream extends MediaSourceBase {
+  type: MediaSourceType.Stream
+  value: Writable
+}
+
+export type MediaInputTo =
+  | MediaSourceToPath
+  | MediaSourceToBuffer
+  | MediaSourceToStream

@@ -1,7 +1,7 @@
 import { Inspectable } from 'inspectable'
 
-import { Structure } from '../../types/interfaces'
-import { AttachmentType } from '../../types/types'
+import type { Structure } from '../../types/interfaces'
+import type { AttachmentType } from '../../types/types'
 
 /** Simple attachment */
 @Inspectable()

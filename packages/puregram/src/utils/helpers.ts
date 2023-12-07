@@ -5,6 +5,7 @@ import { PassThrough, Readable } from 'node:stream'
 import { debug } from 'debug'
 
 import { MediaInput, MediaSourceType } from '../common/media-source'
+import { Attachment, FileAttachment, PhotoAttachment } from '../common'
 
 export const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
   for (const baseCtor of baseCtors) {
@@ -170,4 +171,16 @@ export const updateDebugFlags = (additional: string[]) => {
   const namespaces = debug.disable()
 
   debug.enable([namespaces, ...additional].join(','))
+}
+
+export const getAttachmentFileId = (attachment: Attachment) => {
+  if (attachment instanceof PhotoAttachment) {
+    return attachment.bigSize.fileId
+  }
+
+  if (attachment instanceof FileAttachment) {
+    return attachment.fileId
+  }
+
+  throw new TypeError('invalid attachment provided')
 }

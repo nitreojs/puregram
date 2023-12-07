@@ -1,8 +1,8 @@
 import { Inspect, Inspectable } from 'inspectable'
 
-import { AttachmentType } from '../../types/types'
+import type { AttachmentType } from '../../types/types'
 
-import { PhotoSize } from '../structures'
+import type { PhotoSize } from '../structures'
 
 import { Attachment } from './attachment'
 

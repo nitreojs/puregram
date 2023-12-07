@@ -1,7 +1,8 @@
-import { Readable } from 'node:stream'
+import { Readable, Writable } from 'node:stream'
+
 import { File } from 'undici'
 
-import { MediaInputOptions, MediaInputUrlOptions, MediaSourceArrayBuffer, MediaSourceBuffer, MediaSourceFile, MediaSourceFileId, MediaSourcePath, MediaSourceStream, MediaSourceType, MediaSourceUrl } from './types'
+import { MediaInputOptions, MediaInputUrlOptions, MediaSourceArrayBuffer, MediaSourceBuffer, MediaSourceFile, MediaSourceFileId, MediaSourcePath, MediaSourceStream, MediaSourceToBuffer, MediaSourceToPath, MediaSourceToStream, MediaSourceType, MediaSourceUrl } from './types'
 
 /**
  * This object includes static methods which you can use to upload media
@@ -205,5 +206,39 @@ export class MediaSource {
     const buffer = Buffer.from(b64, 'base64')
 
     return MediaSource.buffer(buffer, options)
+  }
+}
+
+export class MediaSourceTo {
+  /**
+   * Use this to specify the output file's path.
+   */
+  static path (path: string, options: MediaInputOptions = {}): MediaSourceToPath {
+    return {
+      type: MediaSourceType.Path,
+      value: path,
+      ...options
+    }
+  }
+
+  /**
+   * Use this to specify that the output must be returned as a buffer.
+   */
+  static buffer (options: MediaInputOptions = {}): MediaSourceToBuffer {
+    return {
+      type: MediaSourceType.Buffer,
+      ...options
+    }
+  }
+
+  /**
+   * Use this to specify that the output will be written to the provided stream.
+   */
+  static stream (stream: Writable, options: MediaInputOptions = {}): MediaSourceToStream {
+    return {
+      type: MediaSourceType.Stream,
+      value: stream,
+      ...options
+    }
   }
 }

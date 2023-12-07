@@ -15,7 +15,7 @@ import { APIError } from './errors'
 import { ApiMethods } from './generated'
 import { Updates } from './updates'
 
-import { ApiResponseOk, ApiResponseUnion, TelegramOptions } from './types/interfaces'
+import { ApiResponseError, ApiResponseOk, ApiResponseUnion, TelegramOptions } from './types/interfaces'
 import { ApiMethod, SoftString } from './types/types'
 import * as Hooks from './types/hooks'
 
@@ -39,7 +39,41 @@ interface APICreateAttachMediaInput {
   key: string
 }
 
-type ProxyAPIMethods = ApiMethods & APICallMethod
+// prod. by 😎@evaqum😎
+// TODO: refactor and "nicen"
+interface SuppressAddition<B> {
+  /**
+   * Pass `true` if you don't want failed API requests to throw an error.
+   * Instead, in those cases, the method will return `ApiResponseError`.
+   *
+   * @default false
+   */
+  suppress?: B
+}
+
+type SuppressMethodReturnType<R, B extends boolean | undefined> =
+  void extends R ? void
+  : undefined extends B ? R
+  : false extends B ? R
+  : R | ApiResponseError
+
+type SuppressedMethodParams<P, B extends boolean | undefined> = P & SuppressAddition<B>
+type IsSuppressedMethodParamsNullable<P> = unknown extends P ? true : undefined extends P ? true : false
+
+type SuppressedMethod<
+  M extends (p?: any) => Promise<any>,
+> =
+  M extends (p: infer P) => Promise<infer R>
+    ? true extends IsSuppressedMethodParamsNullable<P>
+      ? <B extends boolean | undefined>(params?: SuppressedMethodParams<P, B>) => Promise<SuppressMethodReturnType<R, B>>
+      : <B extends boolean | undefined>(params: SuppressedMethodParams<P, B>) => Promise<SuppressMethodReturnType<R, B>>
+    : never
+
+type SuppressableApiMethods = {
+  [K in keyof ApiMethods]: SuppressedMethod<ApiMethods[K]>;
+}
+
+type ProxyAPIMethods = APICallMethod & SuppressableApiMethods
 
 /**
  * Telegram class. Actually, this class is a set of other classes such as `Updates` and (uh that's it. `api` is not a class, it's a `Proxy` object :P)
@@ -73,7 +107,7 @@ export class Telegram {
   })
 
   /** Updates instance */
-  updates: Updates = new Updates(this)
+  updates = new Updates(this)
 
   /** Bot data. You are able to access it only after `updates.startPolling()` succeeded! */
   bot!: User
@@ -427,7 +461,9 @@ export class Telegram {
       debug$api('‹ HTTP %d', response.status)
       debug$api('response: %j', json)
 
-      if (!json.ok) {
+      if (!json.ok && params.suppress === true) {
+        return json
+      } else if (!json.ok) {
         throw new APIError(json)
       }
 

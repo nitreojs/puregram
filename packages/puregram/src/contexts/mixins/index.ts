@@ -5,6 +5,7 @@ export * from './chat-sender-control'
 
 export * from './forum'
 export * from './pins'
+export * from './chat-action'
 
 export * from './clone'
 export * from './node'

@@ -9,7 +9,7 @@ import { PreCheckoutQuery } from '../common/structures'
 import { Optional, Constructor, Require } from '../types/types'
 
 import { Context } from './context'
-import { SendMixin, CloneMixin } from './mixins'
+import { SendMixin, ChatActionMixin, CloneMixin } from './mixins'
 
 interface PreCheckoutQueryContextOptions {
   telegram: Telegram
@@ -52,8 +52,8 @@ class PreCheckoutQueryContext extends Context {
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface PreCheckoutQueryContext extends Constructor<PreCheckoutQueryContext>, PreCheckoutQuery, SendMixin, CloneMixin<PreCheckoutQueryContext, PreCheckoutQueryContextOptions> { }
-applyMixins(PreCheckoutQueryContext, [PreCheckoutQuery, SendMixin, CloneMixin])
+interface PreCheckoutQueryContext extends Constructor<PreCheckoutQueryContext>, PreCheckoutQuery, SendMixin, ChatActionMixin, CloneMixin<PreCheckoutQueryContext, PreCheckoutQueryContextOptions> { }
+applyMixins(PreCheckoutQueryContext, [PreCheckoutQuery, SendMixin, ChatActionMixin, CloneMixin])
 
 inspectable(PreCheckoutQueryContext, {
   serialize (context) {

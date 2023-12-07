@@ -8,7 +8,7 @@ import { filterPayload, applyMixins } from '../utils/helpers'
 import { Constructor, Require } from '../types/types'
 
 import { Context } from './context'
-import { SendMixin, CloneMixin } from './mixins'
+import { SendMixin, ChatActionMixin, CloneMixin } from './mixins'
 
 interface ChosenInlineResultContextOptions {
   telegram: Telegram
@@ -47,8 +47,8 @@ class ChosenInlineResultContext extends Context {
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface ChosenInlineResultContext extends Constructor<ChosenInlineResultContext>, ChosenInlineResult, SendMixin, CloneMixin<ChosenInlineResultContext, ChosenInlineResultContextOptions> { }
-applyMixins(ChosenInlineResultContext, [ChosenInlineResult, SendMixin, CloneMixin])
+interface ChosenInlineResultContext extends Constructor<ChosenInlineResultContext>, ChosenInlineResult, SendMixin, ChatActionMixin, CloneMixin<ChosenInlineResultContext, ChosenInlineResultContextOptions> { }
+applyMixins(ChosenInlineResultContext, [ChosenInlineResult, SendMixin, ChatActionMixin, CloneMixin])
 
 inspectable(ChosenInlineResultContext, {
   serialize (result) {

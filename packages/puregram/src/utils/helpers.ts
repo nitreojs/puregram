@@ -184,3 +184,5 @@ export const getAttachmentFileId = (attachment: Attachment) => {
 
   throw new TypeError('invalid attachment provided')
 }
+
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))

@@ -8,7 +8,7 @@ import { Constructor } from '../types/types'
 import { applyMixins } from '../utils/helpers'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin, PinsMixin } from './mixins'
+import { NodeMixin, SendMixin, ChatActionMixin, TargetMixin, CloneMixin, PinsMixin } from './mixins'
 
 interface PassportDataContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class PassportDataContext extends Context {
   }
 }
 
-interface PassportDataContext extends Constructor<PassportDataContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin<PassportDataContext, PassportDataContextOptions> { }
-applyMixins(PassportDataContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin])
+interface PassportDataContext extends Constructor<PassportDataContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<PassportDataContext, PassportDataContextOptions> { }
+applyMixins(PassportDataContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
 
 inspectable(PassportDataContext, {
   serialize (context) {

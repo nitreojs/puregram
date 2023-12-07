@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin, PinsMixin, ChatControlMixin, ChatInviteControlMixin, ChatSenderControlMixin } from './mixins'
+import { NodeMixin, SendMixin, ChatActionMixin, TargetMixin, CloneMixin, ChatMemberControlMixin, PinsMixin, ChatControlMixin, ChatInviteControlMixin, ChatSenderControlMixin } from './mixins'
 
 interface VideoChatStartedContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class VideoChatStartedContext extends Context {
   }
 }
 
-interface VideoChatStartedContext extends Constructor<VideoChatStartedContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<VideoChatStartedContext, VideoChatStartedContextOptions> { }
-applyMixins(VideoChatStartedContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+interface VideoChatStartedContext extends Constructor<VideoChatStartedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<VideoChatStartedContext, VideoChatStartedContextOptions> { }
+applyMixins(VideoChatStartedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 inspectable(VideoChatStartedContext, {
   serialize (context) {

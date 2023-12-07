@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin, ChatMemberControlMixin, PinsMixin, ChatControlMixin, ChatInviteControlMixin, ChatSenderControlMixin } from './mixins'
+import { NodeMixin, SendMixin, ChatActionMixin, TargetMixin, CloneMixin, ChatMemberControlMixin, PinsMixin, ChatControlMixin, ChatInviteControlMixin, ChatSenderControlMixin } from './mixins'
 
 interface VideoChatParticipantsInvitedContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class VideoChatParticipantsInvitedContext extends Context {
   }
 }
 
-interface VideoChatParticipantsInvitedContext extends Constructor<VideoChatParticipantsInvitedContext>, Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<VideoChatParticipantsInvitedContext, VideoChatParticipantsInvitedContextOptions> { }
-applyMixins(VideoChatParticipantsInvitedContext, [Message, TargetMixin, SendMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+interface VideoChatParticipantsInvitedContext extends Constructor<VideoChatParticipantsInvitedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<VideoChatParticipantsInvitedContext, VideoChatParticipantsInvitedContextOptions> { }
+applyMixins(VideoChatParticipantsInvitedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 inspectable(VideoChatParticipantsInvitedContext, {
   serialize (context) {

@@ -7,7 +7,7 @@ import { Constructor } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { CloneMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
+import { CloneMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
 
 interface ChatSharedContextOptions {
   telegram: Telegram
@@ -45,8 +45,8 @@ class ChatSharedContext extends Context {
   }
 }
 
-interface ChatSharedContext extends Constructor<ChatSharedContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin<ChatSharedContext, ChatSharedContextOptions> { }
-applyMixins(ChatSharedContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin])
+interface ChatSharedContext extends Constructor<ChatSharedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<ChatSharedContext, ChatSharedContextOptions> { }
+applyMixins(ChatSharedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
 
 inspectable(ChatSharedContext, {
   serialize (context) {

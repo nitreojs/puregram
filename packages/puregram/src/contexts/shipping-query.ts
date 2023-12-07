@@ -8,7 +8,7 @@ import { Constructor } from '../types/types'
 import { ShippingQuery } from '../common/structures'
 
 import { Context } from './context'
-import { SendMixin, CloneMixin } from './mixins'
+import { SendMixin, ChatActionMixin, CloneMixin } from './mixins'
 
 interface ShippingQueryContextOptions {
   telegram: Telegram
@@ -33,8 +33,8 @@ class ShippingQueryContext extends Context {
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface ShippingQueryContext extends Constructor<ShippingQueryContext>, ShippingQuery, SendMixin, CloneMixin<ShippingQueryContext, ShippingQueryContextOptions> { }
-applyMixins(ShippingQueryContext, [ShippingQuery, SendMixin, CloneMixin])
+interface ShippingQueryContext extends Constructor<ShippingQueryContext>, ShippingQuery, SendMixin, ChatActionMixin, CloneMixin<ShippingQueryContext, ShippingQueryContextOptions> { }
+applyMixins(ShippingQueryContext, [ShippingQuery, SendMixin, ChatActionMixin, CloneMixin])
 
 inspectable(ShippingQueryContext, {
   serialize (context) {

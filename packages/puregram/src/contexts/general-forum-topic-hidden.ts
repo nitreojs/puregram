@@ -7,7 +7,7 @@ import { Constructor, RequireValue } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, ForumMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
+import { ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, ForumMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
 
 interface GeneralForumTopicHiddenContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class GeneralForumTopicHiddenContext extends Context {
   }
 }
 
-interface GeneralForumTopicHiddenContext extends Constructor<GeneralForumTopicHiddenContext>, Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<GeneralForumTopicHiddenContext, GeneralForumTopicHiddenContextOptions> { }
-applyMixins(GeneralForumTopicHiddenContext, [Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+interface GeneralForumTopicHiddenContext extends Constructor<GeneralForumTopicHiddenContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<GeneralForumTopicHiddenContext, GeneralForumTopicHiddenContextOptions> { }
+applyMixins(GeneralForumTopicHiddenContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 inspectable(GeneralForumTopicHiddenContext, {
   serialize (context) {

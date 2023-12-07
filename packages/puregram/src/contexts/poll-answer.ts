@@ -8,7 +8,7 @@ import { Telegram } from '../telegram'
 import { PollAnswer } from '../common/structures'
 
 import { Context } from './context'
-import { SendMixin, CloneMixin } from './mixins'
+import { SendMixin, ChatActionMixin, CloneMixin } from './mixins'
 
 interface PollAnswerContextOptions {
   telegram: Telegram
@@ -43,8 +43,8 @@ class PollAnswerContext extends Context {
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:
-interface PollAnswerContext extends Constructor<PollAnswerContext>, PollAnswer, SendMixin, CloneMixin<PollAnswerContext, PollAnswerContextOptions> { }
-applyMixins(PollAnswerContext, [PollAnswer, SendMixin, CloneMixin])
+interface PollAnswerContext extends Constructor<PollAnswerContext>, PollAnswer, SendMixin, ChatActionMixin, CloneMixin<PollAnswerContext, PollAnswerContextOptions> { }
+applyMixins(PollAnswerContext, [PollAnswer, SendMixin, ChatActionMixin, CloneMixin])
 
 inspectable(PollAnswerContext, {
   serialize (context) {

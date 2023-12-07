@@ -8,7 +8,7 @@ import { applyMixins } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin, PinsMixin, ChatInviteControlMixin } from './mixins'
+import { NodeMixin, SendMixin, ChatActionMixin, TargetMixin, CloneMixin, PinsMixin, ChatInviteControlMixin } from './mixins'
 
 interface MigrateToChatIdContextOptions {
   telegram: Telegram
@@ -37,8 +37,8 @@ class MigrateToChatIdContext extends Context {
   }
 }
 
-interface MigrateToChatIdContext extends Constructor<MigrateToChatIdContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, ChatInviteControlMixin, CloneMixin<MigrateToChatIdContext, MigrateToChatIdContextOptions> { }
-applyMixins(MigrateToChatIdContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, ChatInviteControlMixin, CloneMixin])
+interface MigrateToChatIdContext extends Constructor<MigrateToChatIdContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, ChatInviteControlMixin, CloneMixin<MigrateToChatIdContext, MigrateToChatIdContextOptions> { }
+applyMixins(MigrateToChatIdContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, ChatInviteControlMixin, CloneMixin])
 
 inspectable(MigrateToChatIdContext, {
   serialize (context) {

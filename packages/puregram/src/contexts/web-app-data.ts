@@ -8,7 +8,7 @@ import { Constructor } from '../types/types'
 import { Message } from '../common/structures'
 
 import { Context } from './context'
-import { NodeMixin, SendMixin, TargetMixin, CloneMixin } from './mixins'
+import { NodeMixin, SendMixin, ChatActionMixin, TargetMixin, CloneMixin } from './mixins'
 
 interface WebAppDataContextOptions {
   telegram: Telegram
@@ -49,8 +49,8 @@ class WebAppDataContext extends Context {
   }
 }
 
-interface WebAppDataContext extends Constructor<WebAppDataContext>, Message, TargetMixin, SendMixin, NodeMixin, CloneMixin<WebAppDataContext, WebAppDataContextOptions> { }
-applyMixins(WebAppDataContext, [Message, TargetMixin, SendMixin, NodeMixin, CloneMixin])
+interface WebAppDataContext extends Constructor<WebAppDataContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, CloneMixin<WebAppDataContext, WebAppDataContextOptions> { }
+applyMixins(WebAppDataContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, CloneMixin])
 
 inspectable(WebAppDataContext, {
   serialize (context) {

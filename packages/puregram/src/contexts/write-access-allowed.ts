@@ -7,7 +7,7 @@ import { Constructor } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { CloneMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
+import { CloneMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
 
 interface WriteAccessAllowedContextOptions {
   telegram: Telegram
@@ -36,8 +36,8 @@ class WriteAccessAllowedContext extends Context {
   }
 }
 
-interface WriteAccessAllowedContext extends Constructor<WriteAccessAllowedContext>, Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin<WriteAccessAllowedContext, WriteAccessAllowedContextOptions> { }
-applyMixins(WriteAccessAllowedContext, [Message, TargetMixin, SendMixin, NodeMixin, PinsMixin, CloneMixin])
+interface WriteAccessAllowedContext extends Constructor<WriteAccessAllowedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<WriteAccessAllowedContext, WriteAccessAllowedContextOptions> { }
+applyMixins(WriteAccessAllowedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
 
 inspectable(WriteAccessAllowedContext, {
   serialize (context) {

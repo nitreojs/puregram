@@ -7,7 +7,7 @@ import { Constructor, Require, RequireValue } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
-import { ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, ForumMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
+import { ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, ForumMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
 
 interface ForumTopicEditedContextOptions {
   telegram: Telegram
@@ -55,8 +55,8 @@ class ForumTopicEditedContext extends Context {
   }
 }
 
-interface ForumTopicEditedContext extends Constructor<ForumTopicEditedContext>, Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<ForumTopicEditedContext, ForumTopicEditedContextOptions> { }
-applyMixins(ForumTopicEditedContext, [Message, TargetMixin, SendMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+interface ForumTopicEditedContext extends Constructor<ForumTopicEditedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<ForumTopicEditedContext, ForumTopicEditedContextOptions> { }
+applyMixins(ForumTopicEditedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 inspectable(ForumTopicEditedContext, {
   serialize (context) {

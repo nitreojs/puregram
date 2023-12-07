@@ -31,7 +31,7 @@ export class MediaGroup {
   /** Returns a list of attachments (mapped through `contexts`) */
   @Inspect()
   get attachments () {
-    const attachments = this.contexts.map(context => context.attachments).flat()
+    const attachments = this.contexts.map(context => context.attachment)
 
     return attachments
   }

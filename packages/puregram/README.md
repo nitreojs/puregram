@@ -72,6 +72,7 @@ telegram.updates.startPolling()
   - [keyboards (`reply_markup`)](#keyboards)
 - [bot information](#bot-information)
 - [what are contexts?](#what-are-contexts)
+- [action controller](#action-controller)
 - [`Context` and its varieties](#context-and-its-varieties)
 - [middlewares](#middlewares)
 - [hooks](#hooks)
@@ -708,6 +709,39 @@ telegram.updates.on('message', async (context) => {
   const me = await context.telegram.api.getMe()
 })
 ```
+
+---
+
+## action controller
+
+`sendChatAction` is a method that requires to be called every **5** seconds
+before the action is complete. but how do you actually implement that?
+
+even the simplest solutions require some _hacky_ workarounds. that's why
+`puregram` encapsulates these _hacks_ and you can use them right away,
+even with a **controller**!
+
+```js
+telegram.updates.on('message', (context) => {
+  // this thing will be sending `context.sendChatAction('typing')`
+  // every 5 seconds until `controller.abort()` is called
+  const controller = context.createActionController('typing')
+
+  await sleep(14_000) // just to make sure everything works
+
+  controller.abort() // make sure to call that!!!
+
+  return context.send('yeah so we are unable to deliver your message rn sorry')
+})
+```
+
+#### `createActionController` options
+
+| key        | type     | required? | default | description                                                                    |
+| ---------- | -------- | --------- | ------- | ------------------------------------------------------------------------------ |
+| `interval` | `number` | no        | `5000`  | Interval between `sendChatAction` calls, in milliseconds                       |
+| `wait`     | `number` | no        | `0`     | Initial wait before the first cycle of `sendChatAction` calls, in milliseconds |
+| `timeout`  | `number` | no        | `30000` | Timeout for `sendChatAction` calls, in milliseconds                            |
 
 ---
 

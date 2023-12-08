@@ -1,10 +1,11 @@
 import { inspectable } from 'inspectable'
 
 import * as Interfaces from '../generated/telegram-interfaces'
+import * as Methods from '../generated/methods'
 
 import { Telegram } from '../telegram'
 import { filterPayload, applyMixins } from '../utils/helpers'
-import { Constructor } from '../types/types'
+import { Constructor, Optional } from '../types/types'
 import { ShippingQuery } from '../common/structures'
 
 import { Context } from './context'
@@ -29,6 +30,28 @@ class ShippingQueryContext extends Context {
     })
 
     this.payload = options.payload
+  }
+
+  /** Replies to shipping queries */
+  answerShippingQuery <Ok extends boolean> (
+    ok: Ok = true as Ok,
+    params?: Optional<Methods.AnswerShippingQueryParams, 'shipping_query_id' | 'ok'>
+      & Required<Pick<Methods.AnswerShippingQueryParams, true extends Ok ? 'shipping_options' : 'error_message'>>
+  ) {
+    return this.telegram.api.answerShippingQuery({
+      shipping_query_id: this.id,
+      ok,
+      ...params
+    })
+  }
+
+  /** Replies to shipping queries. An alias for `answerShippingQuery` */
+  answer <Ok extends boolean> (
+    ok: Ok = true as Ok,
+    params?: Optional<Methods.AnswerShippingQueryParams, 'shipping_query_id' | 'ok'>
+      & Required<Pick<Methods.AnswerShippingQueryParams, true extends Ok ? 'shipping_options' : 'error_message'>>
+  ) {
+    return this.answerShippingQuery(ok, params)
   }
 }
 

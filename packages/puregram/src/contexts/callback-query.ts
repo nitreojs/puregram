@@ -106,6 +106,11 @@ class CallbackQueryContext extends Context {
     })
   }
 
+  /** Sets the result of an interaction with a Web App and sends a corresponding message  */
+  answerWebAppQuery (params: Methods.AnswerWebAppQueryParams) {
+    return this.telegram.api.answerWebAppQuery(params)
+  }
+
   /** Answers to current callback query. An alias for `answerCallbackQuery` */
   answer (params?: Partial<Methods.AnswerCallbackQueryParams>) {
     return this.answerCallbackQuery(params)

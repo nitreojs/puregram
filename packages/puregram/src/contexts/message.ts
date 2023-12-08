@@ -28,7 +28,7 @@ import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums
 import { AttachmentsMapping } from '../types/mappings'
 import { AttachmentType, Constructor, Require, RequireValue, UpdateName } from '../types/types'
 import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
-import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
+import { applyMixins, filterPayload, isParsable } from '../utils/helpers'
 
 import { Context } from './context'
 import { DownloadMixin, ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
@@ -127,7 +127,7 @@ class MessageContext extends Context {
 
     if (!Number.isNaN(+payload)) {
       payload = Number.parseInt(payload, 10)
-    } else if (isParseable(payload)) {
+    } else if (isParsable(payload)) {
       payload = JSON.parse(payload)
     }
 

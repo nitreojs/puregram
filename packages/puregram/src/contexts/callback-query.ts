@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { inspectable } from 'inspectable'
 
-import { applyMixins, filterPayload, isParseable } from '../utils/helpers'
+import { applyMixins, filterPayload, isParsable } from '../utils/helpers'
 
 import { CallbackQuery } from '../common/structures'
 import { Constructor, Require } from '../types/types'
@@ -76,7 +76,7 @@ class CallbackQueryContext extends Context {
       return
     }
 
-    if (isParseable(data)) {
+    if (isParsable(data)) {
       return JSON.parse(data)
     }
 

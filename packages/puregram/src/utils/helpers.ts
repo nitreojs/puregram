@@ -50,7 +50,7 @@ export const filterPayload = (payload: Record<string, any>) => {
   return filteredPayload
 }
 
-export const isParseable = (source: string) => {
+export const isParsable = (source: string) => {
   try {
     JSON.parse(source)
   } catch (e) {

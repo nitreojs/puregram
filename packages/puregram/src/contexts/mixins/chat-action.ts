@@ -21,6 +21,12 @@ interface CreateActionControllerParams {
    * @default 0
    */
   wait?: number
+
+  /**
+   * Timeout for `sendChatAction` calls, in milliseconds
+   * @default 30000
+   */
+  timeout?: number
 }
 
 class ChatActionMixin {
@@ -29,11 +35,13 @@ class ChatActionMixin {
     action: Methods.SendChatActionParams['action'],
     params: Optional<Methods.SendChatActionParams, 'chat_id' | 'action'> & CreateActionControllerParams = {}
   ) {
-    const { interval = 5000, wait = 0 } = params
+    const { interval = 5_000, wait = 0, timeout = 30_000 } = params
 
     const controller = new AbortController()
 
     setImmediate(async () => {
+      const start = Date.now()
+
       if (wait > 0) {
         await sleep(wait)
       }
@@ -43,7 +51,13 @@ class ChatActionMixin {
 
         await sleep(interval)
 
+        // stop if we hit an error
         if (Telegram.isErrorResponse(result)) {
+          break
+        }
+
+        // stop if we hit the timeout mark
+        if (Date.now() - start > timeout) {
           break
         }
       }

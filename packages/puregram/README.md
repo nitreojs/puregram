@@ -727,13 +727,17 @@ telegram.updates.on('message', (context) => {
   // every 5 seconds until `controller.abort()` is called
   const controller = context.createActionController('typing')
 
+  controller.start()
+
   await sleep(14_000) // just to make sure everything works
 
-  controller.abort() // make sure to call that!!!
+  controller.stop() // make sure to call that!!!
 
   return context.send('yeah so we are unable to deliver your message rn sorry')
 })
 ```
+
+of course, you are able to change `controller.action` and all the options mentioned below while the controller is running
 
 #### `createActionController` options
 

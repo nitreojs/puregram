@@ -49,6 +49,11 @@ class PreCheckoutQueryContext extends Context {
       ...params
     })
   }
+
+  /** Answers to the pending pre-checkout query. An alias for `answerPreCheckoutQuery` */
+  answer (params: Optional<Methods.AnswerPreCheckoutQueryParams, 'pre_checkout_query_id'>) {
+    return this.answerPreCheckoutQuery(params)
+  }
 }
 
 // @ts-expect-error [senderId: number] is not compatible with [senderId: number | undefined] :shrug:

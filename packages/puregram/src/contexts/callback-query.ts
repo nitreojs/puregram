@@ -105,6 +105,11 @@ class CallbackQueryContext extends Context {
       ...params
     })
   }
+
+  /** Answers to current callback query. An alias for `answerCallbackQuery` */
+  answer (params?: Partial<Methods.AnswerCallbackQueryParams>) {
+    return this.answerCallbackQuery(params)
+  }
 }
 
 interface CallbackQueryContext extends Constructor<CallbackQueryContext>, CallbackQuery, CloneMixin<CallbackQueryContext, CallbackQueryContextOptions> { }

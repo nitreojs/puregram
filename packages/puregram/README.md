@@ -63,8 +63,11 @@ telegram.updates.startPolling()
   - [usage](#usage)
   - [what is `UpdatesFilter`?](#what-is-updatesfilter)
   - [calling api methods](#calling-api-methods)
-  - [sending media (`MediaSource`)](#sending-media)
-  - [sending input media (`InputMedia`)](#sending-input-media)
+    - [`suppress`ing api errors](#suppressing-errors)
+  - media
+    - [sending media (`MediaSource`)](#sending-media)
+    - [downloading media (`MediaSourceTo`)](#downloading-media)
+    - [sending input media (`InputMedia`)](#sending-input-media)
   - [using markdown (`parse_mode`)](#using-markdown)
   - [keyboards (`reply_markup`)](#keyboards)
 - [bot information](#bot-information)
@@ -304,6 +307,44 @@ const me = await telegram.api.getMe()
 telegram.updates.on('message', context => context.send('13² = 169! well, i mean "169", not "169!"... fuck.'))
 ```
 
+#### suppressing errors
+
+sometimes you dont want to deal with the errors sent by the api,
+sometimes you just dont want to create an empty `try/catch` statement for that.
+this is where `suppress` parameter in the api call params comes in!
+you can pass `suppress: true` to **any** api method and in case the error happens
+`puregram` will not throw an error, but will return json object with `ok: false` and `error_code` and `description` properties.
+
+##### `telegram.api` usage
+
+```js
+const result = await telegram.api.sendChatAction({
+  chat_id: getRandomInt(1, 999_999_999),
+  action: 'typing',
+  suppress: true // <- the
+})
+
+// if the method was successfully executed, `result` will be `true`
+// otherwise, a `{ ok: false, error_code: ..., description: ... }` object will be returned
+// of course, there is a static method for that:
+if (Telegram.isErrorResponse(result)) {
+  // result is ApiResponseError
+  // TODO: handle error
+}
+
+// result is true
+```
+
+##### `context` methods
+
+```js
+const result = await context.sendChatAction('typing', { suppress: true })
+
+if (Telegram.isErrorResponse(result)) {
+  return
+}
+```
+
 ### sending media
 
 `puregram` allows you to send your local media by using `MediaSource` class.
@@ -330,6 +371,99 @@ telegram.updates.on('message', (context) => {
 ```
 
 this works for every method that can send media.
+
+### downloading media
+
+telegram bot api allows you to download any media you want by simply calling `getFile({ file_id })`,
+extracting `file_path` from it and constructing a certain URL that you can then fetch and receive
+the result, the final media.
+
+that's a little **too much work** just for one file, isn't it? because of this, `puregram` has a mixin that allows just that.
+
+```js
+telegram.updates.on('message', async (context) => {
+  if (!context.hasAttachmentType('photo')) {
+    return
+  }
+
+  const buffer = await context.download()
+
+  // just for sake of testing...
+  return context.sendDocument(MediaSource.buffer(buffer, { filename: 'photo.png' }))
+})
+```
+
+of course, you can download an attachment not only via `Buffer`s, but via `path` and a `stream`. we use `MediaSourceTo` (not `MediaSource`) for that.
+
+##### `MediaSourceTo.path`, via path
+
+```js
+telegram.updates.on('message', async (context) => {
+  if (!context.hasAttachmentType('photo')) {
+    return
+  }
+
+  const PATH = resolve(__dirname, 'photo.png')
+
+  // save a photo to {__dirname}/photo.png
+  await context.download(MediaSourceTo.path(PATH))
+
+  return context.sendDocument(MediaSource.path(PATH, { filename: 'photo.png' }))
+})
+```
+
+##### `MediaSourceTo.stream`, via stream
+
+```js
+telegram.updates.on('message', async (context) => {
+  if (!context.hasAttachmentType('photo')) {
+    return
+  }
+
+  // process the photo via stream
+  const stream = new PassThrough() // bidirectional stream
+
+  await context.download(MediaSourceTo.stream(stream))
+
+  return context.sendDocument(MediaSource.stream(stream, { filename: 'photo.png' }))
+})
+```
+
+##### `MediaSourceTo.buffer`, via buffer
+
+```js
+telegram.updates.on('message', async (context) => {
+  if (!context.hasAttachmentType('photo')) {
+    return
+  }
+
+  const buffer = await context.download(MediaSourceTo.buffer())
+
+  return context.sendDocument(MediaSource.buffer(buffer, { filename: 'photo.png' }))
+})
+```
+
+#### more internal api
+
+under the hood `context.download(...)` uses `telegram.downloadFile(...)` method. it can be called with either `file_id` or an attachment
+
+##### `file_id` & `Buffer`
+
+```js
+const fileId = getFileIdSomehow()
+
+const result = await telegram.downloadFile(fileId, MediaSourceTo.buffer())
+```
+
+##### `Attachment` & `path`
+
+```js
+const attachment = context.attachment
+
+const PATH = resolve(__dirname, 'test.png')
+
+const result = await telegram.downloadFile(attachment, MediaSourceTo.path(PATH))
+```
 
 ### sending input media
 

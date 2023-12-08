@@ -1,4 +1,4 @@
-import { Telegram } from 'puregram'
+import { Telegram } from '../../telegram'
 
 import * as Methods from '../../generated/methods'
 

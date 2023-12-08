@@ -1,6 +1,6 @@
-import { Telegram } from '../../telegram'
-
 import * as Methods from '../../generated/methods'
+
+import { Telegram } from '../../telegram'
 
 import { Optional } from '../../types/types'
 import { sleep } from '../../utils/helpers'
@@ -29,27 +29,53 @@ interface CreateActionControllerParams {
   timeout?: number
 }
 
-class ChatActionMixin {
-  /** Creates controller that sends `action` every `interval` milliseconds until `abort()`ed */
-  createActionController (
-    action: Methods.SendChatActionParams['action'],
-    params: Optional<Methods.SendChatActionParams, 'chat_id' | 'action'> & CreateActionControllerParams = {}
-  ) {
-    const { interval = 5_000, wait = 0, timeout = 30_000 } = params
+interface ControllerOptions {
+  action: Methods.SendChatActionParams['action']
+  params: Optional<Methods.SendChatActionParams, 'chat_id' | 'action'> & CreateActionControllerParams
+  context: Context & SendMixin
+}
 
-    const controller = new AbortController()
+class ChatActionController {
+  private abortController = new AbortController()
+
+  action: Methods.SendChatActionParams['action']
+  interval: number
+  wait: number
+  timeout: number
+
+  private context: Context & SendMixin
+
+  constructor (options: ControllerOptions) {
+    const { interval = 5_000, wait = 0, timeout = 30_000 } = options.params
+
+    this.action = options.action
+    this.interval = interval
+    this.wait = wait
+    this.timeout = timeout
+    this.context = options.context
+  }
+
+  started = false
+
+  /** Starts the `sendChatAction(action)` loop until `stop()` is called */
+  start () {
+    if (this.started) {
+      return
+    }
+
+    this.started = true
 
     setImmediate(async () => {
       const start = Date.now()
 
-      if (wait > 0) {
-        await sleep(wait)
+      if (this.wait > 0) {
+        await sleep(this.wait)
       }
 
-      while (!controller.signal.aborted) {
-        const result = await this.sendChatAction(action, { suppress: true })
+      while (!this.abortController.signal.aborted) {
+        const result = await this.context.sendChatAction(this.action, { suppress: true })
 
-        await sleep(interval)
+        await sleep(this.interval)
 
         // stop if we hit an error
         if (Telegram.isErrorResponse(result)) {
@@ -57,13 +83,32 @@ class ChatActionMixin {
         }
 
         // stop if we hit the timeout mark
-        if (Date.now() - start > timeout) {
+        if (Date.now() - start > this.timeout) {
           break
         }
       }
     })
+  }
 
-    return controller
+  /** Stops the loop */
+  stop () {
+    this.started = false
+
+    this.abortController.abort()
+  }
+}
+
+class ChatActionMixin {
+  /** Creates a controller that when `start()`ed executes `sendChatAction(action)` every `interval` milliseconds until `stop()`ped */
+  createActionController (
+    action: Methods.SendChatActionParams['action'],
+    params: Optional<Methods.SendChatActionParams, 'chat_id' | 'action'> & CreateActionControllerParams = {}
+  ) {
+    return new ChatActionController({
+      action,
+      params,
+      context: this
+    })
   }
 }
 

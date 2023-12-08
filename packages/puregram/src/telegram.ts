@@ -21,7 +21,7 @@ import { ApiMethod, SoftString } from './types/types'
 import * as Hooks from './types/hooks'
 
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
-import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, updateDebugFlags } from './utils/helpers'
+import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, isPlainObject, updateDebugFlags } from './utils/helpers'
 import { Attachment, FileAttachment, PhotoAttachment } from './common/attachments'
 
 const $debugger = debug('puregram:api')
@@ -170,7 +170,7 @@ export class Telegram {
    * }
    */
   static isErrorResponse (data: any): data is ApiResponseError {
-    return data && 'ok' in data && data.ok === false && 'error_code' in data
+    return isPlainObject(data) && 'ok' in data && data.ok === false && 'error_code' in data
   }
 
   /** Hook that is processed first before anything has even been set up */
@@ -243,10 +243,9 @@ export class Telegram {
       return null
     }
 
-    // TODO: simplify
-    const path = this.options.apiBaseUrl!.slice(0, -4) + '/file/bot' + this.options.token + '/' + file.file_path
+    const url = this.getFileURL(file.file_path!)
 
-    const response = await fetch(path)
+    const response = await fetch(url)
 
     const ab = await response.arrayBuffer()
     const buffer = Buffer.from(ab)
@@ -267,6 +266,11 @@ export class Telegram {
     }
 
     throw new TypeError('invalid `to` provided')
+  }
+
+  getFileURL (path: string) {
+    // TODO: simplify
+    return this.options.apiBaseUrl!.slice(0, -4) + '/file/bot' + this.options.token + '/' + path
   }
 
   /** @deprecated */

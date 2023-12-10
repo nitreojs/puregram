@@ -1,7 +1,7 @@
 {
   "name": "@puregram/hear",
-  "version": "2.0.2",
-  "description": "Simple implementation of hearing messages system for puregram",
+  "version": "2.1.0-rc.1",
+  "description": "simple implementation of hearing messages system for puregram",
   "main": "lib/index",
   "engines": {
     "node": ">=12.0.0"
@@ -17,13 +17,11 @@
   "files": [
     "lib"
   ],
-  "author": "nitrojs",
+  "author": "starkow",
   "license": "MIT",
   "dependencies": {
-    "middleware-io": "^2.8.1"
-  },
-  "peerDependencies": {
-    "puregram": "^2.0.0"
+    "middleware-io": "^2.8.1",
+    "reflect-metadata": "^0.1.14"
   },
   "types": "./lib/index.d.ts",
   "repository": {

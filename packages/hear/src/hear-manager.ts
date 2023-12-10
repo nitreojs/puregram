@@ -1,4 +1,7 @@
-import { Composer, MessageContext } from 'puregram'
+import 'reflect-metadata'
+
+import { Composer } from 'puregram'
+import type { MessageContext } from 'puregram'
 
 import {
   Middleware,

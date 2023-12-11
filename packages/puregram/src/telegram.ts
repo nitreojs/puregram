@@ -237,13 +237,11 @@ export class Telegram {
       ? attachment // assuming its fileId
       : getAttachmentFileId(attachment)
 
-    const file = await this.api.getFile({ file_id: fileId, suppress: true })
+    const url = await this.getAttachmentURL(fileId)
 
-    if (Telegram.isErrorResponse(file)) {
+    if (url === null) {
       return null
     }
-
-    const url = this.getFileURL(file.file_path!)
 
     const response = await fetch(url)
 
@@ -271,6 +269,18 @@ export class Telegram {
   getFileURL (path: string) {
     // TODO: simplify
     return this.options.apiBaseUrl!.slice(0, -4) + '/file/bot' + this.options.token + '/' + path
+  }
+
+  async getAttachmentURL (fileId: string) {
+    const file = await this.api.getFile({ file_id: fileId, suppress: true })
+
+    if (Telegram.isErrorResponse(file)) {
+      return null
+    }
+
+    const url = this.getFileURL(file.file_path!)
+
+    return url
   }
 
   /** @deprecated */

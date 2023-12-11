@@ -15,7 +15,7 @@
     "inspectable": "^2.0.0",
     "middleware-io": "^2.8.0",
     "reflect-metadata": "^0.1.13",
-    "undici": "^5.25.3"
+    "undici": "^5.26.2"
   },
   "types": "./lib/index.d.ts",
   "scripts": {

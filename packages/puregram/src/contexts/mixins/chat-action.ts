@@ -23,8 +23,8 @@ interface CreateActionControllerParams {
   wait?: number
 
   /**
-   * Timeout for `sendChatAction` calls, in milliseconds
-   * @default 30000
+   * Timeout for `sendChatAction` calls, in milliseconds. `0` to disable
+   * @default 0
    */
   timeout?: number
 }
@@ -46,7 +46,7 @@ class ChatActionController {
   private context: Context & SendMixin
 
   constructor (options: ControllerOptions) {
-    const { interval = 5_000, wait = 0, timeout = 30_000 } = options.params
+    const { interval = 5_000, wait = 0, timeout = 0 } = options.params
 
     this.action = options.action
     this.interval = interval
@@ -83,7 +83,7 @@ class ChatActionController {
         }
 
         // stop if we hit the timeout mark
-        if (Date.now() - start > this.timeout) {
+        if (this.timeout !== 0 && Date.now() - start > this.timeout) {
           break
         }
       }

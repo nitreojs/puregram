@@ -1,4 +1,4 @@
-import { TelegramUpdate, ApiMethods } from '../generated'
+import type { TelegramUpdate, ApiMethods } from '../generated'
 
 export type MaybeArray<T> = T | T[]
 export type MaybePromise<T> = T | Promise<T>

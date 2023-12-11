@@ -1,7 +1,7 @@
 import { Agent, Dispatcher, ProxyAgent } from 'undici'
 
-import { TelegramResponseParameters } from '../generated'
-import { SoftString, UpdateName } from './types'
+import type { TelegramResponseParameters } from '../generated'
+import type { SoftString, UpdateName } from './types'
 
 export interface TelegramOptions {
   /** Bots token */

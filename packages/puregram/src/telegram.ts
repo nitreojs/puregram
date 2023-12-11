@@ -1,4 +1,4 @@
-import { Readable, Writable } from 'node:stream'
+import { Readable } from 'node:stream'
 import { deprecate } from 'node:util'
 import { writeFile } from 'node:fs/promises'
 
@@ -10,7 +10,7 @@ import { inspectable } from 'inspectable'
 import { fetch, RequestInit } from 'undici'
 
 import { MediaInput, MediaInputTo, MediaSourceToBuffer, MediaSourceToPath, MediaSourceToStream, MediaSourceType, MediaSourceTo } from './common/media-source'
-import { User } from './common/structures'
+import { User } from './common/structures/user'
 
 import { APIError } from './errors'
 import { ApiMethods } from './generated'

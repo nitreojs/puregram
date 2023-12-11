@@ -2,7 +2,7 @@ import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
-import { Structure } from '../../types/interfaces'
+import type { Structure } from '../../types/interfaces'
 
 /** This object represents a Telegram user or bot. */
 @Inspectable()

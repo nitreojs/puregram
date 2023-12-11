@@ -1,9 +1,10 @@
 import { Agent } from 'undici'
 
-import { TelegramOptions } from '../types/interfaces'
-import { Message } from '../common/structures'
+import { Message } from '../common/structures/message'
 
-import { MessageEventName } from '../types/types'
+import type { TelegramOptions } from '../types/interfaces'
+
+import type { MessageEventName } from '../types/types'
 
 // @ts-expect-error JSON non-resolvable
 import { version } from '../../package.json'

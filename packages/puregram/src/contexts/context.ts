@@ -3,9 +3,10 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { ContextsMapping } from '../types/mappings'
-import { MaybeArray, SoftString, UpdateName } from '../types/types'
 import { SERVICE_MESSAGE_EVENTS } from '../utils/constants'
+
+import type { ContextsMapping } from '../types/mappings'
+import type { MaybeArray, SoftString, UpdateName } from '../types/types'
 
 interface ContextOptions {
   telegram: Telegram

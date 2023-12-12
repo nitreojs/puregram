@@ -173,6 +173,14 @@ export class Telegram {
     return isPlainObject(data) && 'ok' in data && data.ok === false && 'error_code' in data
   }
 
+  /**
+   * Executes `method` with provided `params` without creating a `Telegram` instance.
+   * Useful when you don't have an instance hanging around and don't need to create it.
+   */
+  static execute <Method extends ApiMethod> (token: string, method: Method, ...args: Parameters<ApiMethods[Method]>) {
+    return Telegram.fromToken(token).api.call(method, args) as ReturnType<ApiMethods[Method]>
+  }
+
   /** Hook that is processed first before anything has even been set up */
   onBeforeRequest (fn: Hooks.OnBeforeRequestHandler) {
     this.hooks.onBeforeRequest.push(fn)

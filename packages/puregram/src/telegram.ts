@@ -178,7 +178,7 @@ export class Telegram {
    * Useful when you don't have an instance hanging around and don't need to create it.
    */
   static execute <Method extends ApiMethod> (token: string, method: Method, ...args: Parameters<ApiMethods[Method]>) {
-    return Telegram.fromToken(token).api.call(method, args) as ReturnType<ApiMethods[Method]>
+    return Telegram.fromToken(token).api.call(method, ...args) as ReturnType<ApiMethods[Method]>
   }
 
   /** Hook that is processed first before anything has even been set up */

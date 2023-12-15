@@ -189,6 +189,17 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
     return Object.fromEntries(fields) as State
   }
 
+  /** Returns `true` if the provided `data` may be used to unpack this payload */
+  validate (data: string) {
+    try {
+      this.unpack(data)
+
+      return true
+    } catch (error) {
+      return false
+    }
+  }
+
   filter<Conditions extends ConditionalObject<State>> (conditions: Conditions) {
     this.filters.push(conditions)
 

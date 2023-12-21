@@ -1,4 +1,5 @@
 import { type BeforeRequestContext, type Hooks, MediaSourceType, MediaSource, MediaInput } from 'puregram'
+import type { ApiMethods } from 'puregram/generated'
 
 import { MemoryStorage, type SessionStorage } from './storages'
 import { isMediaInput } from './utils'
@@ -55,7 +56,9 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
             return context
           }
 
-          const storageHasValueByKey = await storage.has(storageKey)
+          const key = `${storageKey}:${media.value}`
+
+          const storageHasValueByKey = await storage.has(key)
 
           if (!storageHasValueByKey) {
             // `Type 'unique symbol' cannot be used as an index type.`
@@ -64,8 +67,6 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
 
             return context
           }
-
-          const key = `${storageKey}:${media.value}`
 
           const fileId = await storage.get(key) as string
 
@@ -97,11 +98,16 @@ export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
           mediaKey = 'document'
         }
 
-        const response = (context.json.result as Record<string, any>)[mediaKey]
+        const result = context.json.result as Awaited<ReturnType<ApiMethods[AllowedMediaMethod]>>
+        const response = result[mediaKey]
+
+        const fileId = Array.isArray(response) // PhotoAttachment?
+          ? response[response.length - 1].file_id
+          : response.file_id
 
         const key = `${storageKey}:${media.value}`
 
-        await storage.set(key, response.file_id as string)
+        await storage.set(key, fileId)
 
         return context
       }

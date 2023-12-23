@@ -44,6 +44,11 @@ export type Require<O, K extends keyof O> = { [P in K]-?: NonNullable<O[P]> }
 /** Like `Require<O, K>` but it sets `V` as the value for `K` values */
 export type RequireValue<O, K extends keyof O, V> = Omit<O, K> & { [P in K]-?: V }
 
+/** Creates a 'one of' situational record */
+export type OneOf<T, K extends keyof T = keyof T> = Id<{
+  [P in K]-?: Pick<Known<T>, Exclude<keyof Known<T>, K>> & Required<Pick<T, P>>
+}[K]>
+
 /**
  * Represents any value that has `format` method and is generally able to be converted into a string.
  * Can be used for methods that allow passing `text: string` or `caption: string`

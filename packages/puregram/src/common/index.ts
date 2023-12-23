@@ -1,4 +1,5 @@
 export * from './attachments'
+export * from './inline-query'
 export * from './input-media'
 export * from './keyboards'
 export * from './media-source'

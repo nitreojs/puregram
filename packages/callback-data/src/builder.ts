@@ -56,6 +56,7 @@ interface FieldSettings {
  */
 export class CallbackDataBuilder<State extends Record<string, any> = Record<never, never>> {
   public slug: string
+
   private fields: [string, FieldSettings][] = []
   private filters: ConditionalObject<State>[] = []
 
@@ -100,6 +101,16 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
     }])
 
     return this
+  }
+
+  clone () {
+    const clone = new CallbackDataBuilder(this.slug)
+
+    clone.slug = this.slug
+    clone.fields = [...this.fields]
+    clone.filters = [...this.filters]
+
+    return clone as CallbackDataBuilder<State>
   }
 
   /** Packs this callback data into a string */
@@ -189,12 +200,67 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
     return Object.fromEntries(fields) as State
   }
 
+  private isWrongPayload (p: State | WrongPayloadHandler): p is WrongPayloadHandler {
+    return p._$ === 'wrong'
+  }
+
+  private evaluate (value: unknown, parsedValue: unknown): boolean {
+    // Initial
+    if (typeof value === typeof parsedValue) {
+      return value === parsedValue
+    }
+
+    // (value: Initial) => Initial | boolean
+    if (typeof value === 'function') {
+      const evaluated: Accepted = value(parsedValue)
+
+      if (typeof evaluated === typeof parsedValue) {
+        return evaluated === parsedValue
+      }
+
+      return evaluated !== false
+    }
+
+    // AllowedConditionValue<Initial>[]
+    if (Array.isArray(value)) {
+      const conditions = value.map(v => this.evaluate(v, parsedValue))
+
+      return conditions.some(v => v !== false)
+    }
+
+    throw new Error('invalid value passed')
+  }
+
+  private filtersPass (filters: ConditionalObject<State>[], parsed: State) {
+    for (const filter of filters) {
+      for (const [key, value] of Object.entries(filter)) {
+        const passed = this.evaluate(value, parsed[key])
+
+        if (!passed) {
+          return false
+        }
+      }
+    }
+
+    return true
+  }
+
   /** Returns `true` if the provided `data` may be used to unpack this payload */
   validate (data: string) {
     try {
-      const unpacked = this.unpack(data)
+      const unpacked: State | WrongPayloadHandler = this.unpack(data)
 
-      return unpacked._$ !== 'wrong'
+      // console.log({ unpacked })
+
+      if (this.isWrongPayload(unpacked)) {
+        return false
+      }
+
+      if (!this.filtersPass(this.filters, unpacked)) {
+        return false
+      }
+
+      return true
     } catch (error) {
       return false
     }
@@ -211,38 +277,6 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
     const filters = [...this.filters]
 
     this.filters = []
-
-    const isWrongPayload = (p: State | WrongPayloadHandler): p is WrongPayloadHandler => (
-      p._$ === 'wrong'
-    )
-
-    // nice typings there bud
-    const evaluate = (value: any, parsedValue: any): boolean => {
-      // Initial
-      if (typeof value === typeof parsedValue) {
-        return value === parsedValue
-      }
-
-      // (value: Initial) => Initial | boolean
-      if (typeof value === 'function') {
-        const evaluated: Accepted = value(parsedValue)
-
-        if (typeof evaluated === typeof parsedValue) {
-          return evaluated === parsedValue
-        }
-
-        return evaluated !== false
-      }
-
-      // AllowedConditionValue<Initial>[]
-      if (Array.isArray(value)) {
-        const conditions = value.map(v => evaluate(v, parsedValue))
-
-        return conditions.some(v => v !== false)
-      }
-
-      throw new Error('invalid value passed')
-    }
 
     return (context: Context, next: NextMiddleware) => {
       if (!context.is('callback_query')) {
@@ -262,18 +296,12 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
       try {
         const parsed = this.unpack(payload) as State | WrongPayloadHandler
 
-        if (isWrongPayload(parsed)) {
+        if (this.isWrongPayload(parsed)) {
           return next()
         }
 
-        for (const filter of filters) {
-          for (const [key, value] of Object.entries(filter)) {
-            const passed = evaluate(value, parsed[key])
-
-            if (!passed) {
-              return next()
-            }
-          }
+        if (!this.filtersPass(filters, parsed)) {
+          return next()
         }
 
         context.unpackedPayload = parsed

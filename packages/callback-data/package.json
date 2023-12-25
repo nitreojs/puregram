@@ -1,6 +1,6 @@
 {
   "name": "@puregram/callback-data",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "basic callback data validation and serialization for puregram",
   "main": "./lib/index.js",
   "scripts": {

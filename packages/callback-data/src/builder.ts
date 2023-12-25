@@ -250,8 +250,6 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
     try {
       const unpacked: State | WrongPayloadHandler = this.unpack(data)
 
-      // console.log({ unpacked })
-
       if (this.isWrongPayload(unpacked)) {
         return false
       }

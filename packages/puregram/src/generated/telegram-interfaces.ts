@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.9.0, 22.09.2023
-/// Generation date: 01.10.2023 23:30:11 MSK
+/// Based on Bot API v7.0.0, 29.12.2023
+/// Generation date: 29.12.2023 17:26:04 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -48,6 +48,14 @@ export interface TelegramUpdate {
    */
   edited_channel_post?: TelegramMessage
   /**
+   * *Optional*. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify `"message_reaction"` in the list of *allowed\_updates* to receive these updates. The update isn't received for reactions set by bots.
+   */
+  message_reaction?: TelegramMessageReactionUpdated
+  /**
+   * *Optional*. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify `"message_reaction_count"` in the list of *allowed\_updates* to receive these updates.
+   */
+  message_reaction_count?: TelegramMessageReactionCountUpdated
+  /**
    * *Optional*. New incoming [inline](https://core.telegram.org/bots/api/#inline-mode) query
    */
   inline_query?: TelegramInlineQuery
@@ -80,13 +88,21 @@ export interface TelegramUpdate {
    */
   my_chat_member?: TelegramChatMemberUpdated
   /**
-   * *Optional*. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat\_member” in the list of *allowed\_updates* to receive these updates.
+   * *Optional*. A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify `"chat_member"` in the list of *allowed\_updates* to receive these updates.
    */
   chat_member?: TelegramChatMemberUpdated
   /**
    * *Optional*. A request to join the chat has been sent. The bot must have the *can\_invite\_users* administrator right in the chat to receive these updates.
    */
   chat_join_request?: TelegramChatJoinRequest
+  /**
+   * *Optional*. A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates.
+   */
+  chat_boost?: TelegramChatBoostUpdated
+  /**
+   * *Optional*. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.
+   */
+  removed_chat_boost?: TelegramChatBoostRemoved
 
   [key: string]: any
 }
@@ -230,11 +246,31 @@ export interface TelegramChat {
    */
   active_usernames?: string[]
   /**
-   * *Optional*. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   * *Optional*. List of available reactions allowed in the chat. If omitted, then all [emoji reactions](https://core.telegram.org/bots/api/#reactiontypeemoji) are allowed. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  available_reactions?: TelegramReactionType[]
+  /**
+   * *Optional*. Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See [accent colors](https://core.telegram.org/bots/api/#accent-colors) for more details. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat). Always returned in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  accent_color_id?: number
+  /**
+   * *Optional*. Custom emoji identifier of emoji chosen by the chat for the reply header and link preview background. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  background_custom_emoji_id?: string
+  /**
+   * *Optional*. Identifier of the accent color for the chat's profile background. See [profile accent colors](https://core.telegram.org/bots/api/#profile-accent-colors) for more details. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  profile_accent_color_id?: number
+  /**
+   * *Optional*. Custom emoji identifier of the emoji chosen by the chat for its profile background. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  profile_background_custom_emoji_id?: string
+  /**
+   * *Optional*. Custom emoji identifier of the emoji status of the chat or the other party in a private chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   emoji_status_custom_emoji_id?: string
   /**
-   * *Optional*. Expiration date of the emoji status of the other party in a private chat in Unix time, if any. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   * *Optional*. Expiration date of the emoji status of the chat or the other party in a private chat, in Unix time, if any. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   emoji_status_expiration_date?: number
   /**
@@ -294,6 +330,10 @@ export interface TelegramChat {
    */
   has_protected_content?: boolean
   /**
+   * *Optional*. *True*, if new chat members will have access to old messages; available only to chat administrators. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  has_visible_history?: boolean
+  /**
    * *Optional*. For supergroups, name of group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   sticker_set_name?: string
@@ -334,37 +374,17 @@ export interface TelegramMessage {
    */
   sender_chat?: TelegramChat
   /**
-   * Date the message was sent in Unix time
+   * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
    */
   date: number
   /**
-   * Conversation the message belongs to
+   * Chat the message belongs to
    */
   chat: TelegramChat
   /**
-   * *Optional*. For forwarded messages, sender of the original message
+   * *Optional*. Information about the original message for forwarded messages
    */
-  forward_from?: TelegramUser
-  /**
-   * *Optional*. For messages forwarded from channels or from anonymous administrators, information about the original sender chat
-   */
-  forward_from_chat?: TelegramChat
-  /**
-   * *Optional*. For messages forwarded from channels, identifier of the original message in the channel
-   */
-  forward_from_message_id?: number
-  /**
-   * *Optional*. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
-   */
-  forward_signature?: string
-  /**
-   * *Optional*. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
-   */
-  forward_sender_name?: string
-  /**
-   * *Optional*. For forwarded messages, date the original message was sent in Unix time
-   */
-  forward_date?: number
+  forward_origin?: TelegramMessageOrigin
   /**
    * *Optional*. *True*, if the message is sent to a forum topic
    */
@@ -374,9 +394,17 @@ export interface TelegramMessage {
    */
   is_automatic_forward?: boolean
   /**
-   * *Optional*. For replies, the original message. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
+   * *Optional*. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
    */
   reply_to_message?: TelegramMessage
+  /**
+   * *Optional*. Information about the message that is being replied to, which may come from another chat or forum topic
+   */
+  external_reply?: TelegramExternalReplyInfo
+  /**
+   * *Optional*. For replies that quote part of the original message, the quoted part of the message
+   */
+  quote?: TelegramTextQuote
   /**
    * *Optional*. Bot through which the message was sent
    */
@@ -405,6 +433,10 @@ export interface TelegramMessage {
    * *Optional*. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
    */
   entities?: TelegramMessageEntity[]
+  /**
+   * *Optional*. Options used for link preview generation for the message, if it is a text message and link preview options were changed
+   */
+  link_preview_options?: TelegramLinkPreviewOptions
   /**
    * *Optional*. Message is an animation, information about the animation. For backward compatibility, when this field is set, the *document* field will also be set
    */
@@ -522,9 +554,9 @@ export interface TelegramMessage {
    */
   migrate_from_chat_id?: number
   /**
-   * *Optional*. Specified message was pinned. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it is itself a reply.
+   * *Optional*. Specified message was pinned. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
    */
-  pinned_message?: TelegramMessage
+  pinned_message?: TelegramMaybeInaccessibleMessage
   /**
    * *Optional*. Message is an invoice for a [payment](https://core.telegram.org/bots/api/#payments), information about the invoice. [More about payments »](https://core.telegram.org/bots/api/#payments)
    */
@@ -534,9 +566,9 @@ export interface TelegramMessage {
    */
   successful_payment?: TelegramSuccessfulPayment
   /**
-   * *Optional*. Service message: a user was shared with the bot
+   * *Optional*. Service message: users were shared with the bot
    */
-  user_shared?: TelegramUserShared
+  users_shared?: TelegramUsersShared
   /**
    * *Optional*. Service message: a chat was shared with the bot
    */
@@ -582,6 +614,22 @@ export interface TelegramMessage {
    */
   general_forum_topic_unhidden?: TelegramGeneralForumTopicUnhidden
   /**
+   * *Optional*. Service message: a scheduled giveaway was created
+   */
+  giveaway_created?: TelegramGiveawayCreated
+  /**
+   * *Optional*. The message is a scheduled giveaway message
+   */
+  giveaway?: TelegramGiveaway
+  /**
+   * *Optional*. A giveaway with public winners was completed
+   */
+  giveaway_winners?: TelegramGiveawayWinners
+  /**
+   * *Optional*. Service message: a giveaway without public winners was completed
+   */
+  giveaway_completed?: TelegramGiveawayCompleted
+  /**
    * *Optional*. Service message: video chat scheduled
    */
   video_chat_scheduled?: TelegramVideoChatScheduled
@@ -621,14 +669,34 @@ export interface TelegramMessageId {
   [key: string]: any
 }
 
-export type TelegramMessageEntityType = 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'code' | 'pre' | 'text_link' | 'text_mention' | 'custom_emoji'
+/**
+ * This object describes a message that was deleted or is otherwise inaccessible to the bot.
+ */
+export interface TelegramInaccessibleMessage {
+  /**
+   * Chat the message belonged to
+   */
+  chat: TelegramChat
+  /**
+   * Unique message identifier inside the chat
+   */
+  message_id: number
+  /**
+   * Always 0. The field can be used to differentiate regular and inaccessible messages.
+   */
+  date: number
+
+  [key: string]: any
+}
+
+export type TelegramMessageEntityType = 'mention' | 'hashtag' | 'cashtag' | 'bot_command' | 'url' | 'email' | 'phone_number' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler' | 'blockquote' | 'code' | 'pre' | 'text_link' | 'text_mention' | 'custom_emoji'
 
 /**
  * This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
  */
 export interface TelegramMessageEntity {
   /**
-   * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag`), “cashtag” (`$USD`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom\_emoji” (for inline custom emoji stickers)
+   * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (`#hashtag`), “cashtag” (`$USD`), “bot\_command” (`/start@jobs_bot`), “url” (`https://telegram.org`), “email” (`do-not-reply@telegram.org`), “phone\_number” (`+1-212-555-0123`), “bold” (**bold text**), “italic” (*italic text*), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “code” (monowidth string), “pre” (monowidth block), “text\_link” (for clickable text URLs), “text\_mention” (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), “custom\_emoji” (for inline custom emoji stickers)
    */
   type: SoftString<TelegramMessageEntityType> | Enums.MessageEntityType
   /**
@@ -655,6 +723,258 @@ export interface TelegramMessageEntity {
    * *Optional*. For “custom\_emoji” only, unique identifier of the custom emoji. Use [getCustomEmojiStickers](https://core.telegram.org/bots/api/#getcustomemojistickers) to get full information about the sticker
    */
   custom_emoji_id?: string
+
+  [key: string]: any
+}
+
+/**
+ * This object contains information about the quoted part of a message that is replied to by the given message.
+ */
+export interface TelegramTextQuote {
+  /**
+   * Text of the quoted part of a message that is replied to by the given message
+   */
+  text: string
+  /**
+   * *Optional*. Special entities that appear in the quote. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities are kept in quotes.
+   */
+  entities?: TelegramMessageEntity[]
+  /**
+   * Approximate quote position in the original message in UTF-16 code units as specified by the sender
+   */
+  position: number
+  /**
+   * *Optional*. True, if the quote was chosen manually by the message sender. Otherwise, the quote was added automatically by the server.
+   */
+  is_manual?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * This object contains information about a message that is being replied to, which may come from another chat or forum topic.
+ */
+export interface TelegramExternalReplyInfo {
+  /**
+   * Origin of the message replied to by the given message
+   */
+  origin: TelegramMessageOrigin
+  /**
+   * *Optional*. Chat the original message belongs to. Available only if the chat is a supergroup or a channel.
+   */
+  chat?: TelegramChat
+  /**
+   * *Optional*. Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel.
+   */
+  message_id?: number
+  /**
+   * *Optional*. Options used for link preview generation for the original message, if it is a text message
+   */
+  link_preview_options?: TelegramLinkPreviewOptions
+  /**
+   * *Optional*. Message is an animation, information about the animation
+   */
+  animation?: TelegramAnimation
+  /**
+   * *Optional*. Message is an audio file, information about the file
+   */
+  audio?: TelegramAudio
+  /**
+   * *Optional*. Message is a general file, information about the file
+   */
+  document?: TelegramDocument
+  /**
+   * *Optional*. Message is a photo, available sizes of the photo
+   */
+  photo?: TelegramPhotoSize[]
+  /**
+   * *Optional*. Message is a sticker, information about the sticker
+   */
+  sticker?: TelegramSticker
+  /**
+   * *Optional*. Message is a forwarded story
+   */
+  story?: TelegramStory
+  /**
+   * *Optional*. Message is a video, information about the video
+   */
+  video?: TelegramVideo
+  /**
+   * *Optional*. Message is a [video note](https://telegram.org/blog/video-messages-and-telescope), information about the video message
+   */
+  video_note?: TelegramVideoNote
+  /**
+   * *Optional*. Message is a voice message, information about the file
+   */
+  voice?: TelegramVoice
+  /**
+   * *Optional*. *True*, if the message media is covered by a spoiler animation
+   */
+  has_media_spoiler?: boolean
+  /**
+   * *Optional*. Message is a shared contact, information about the contact
+   */
+  contact?: TelegramContact
+  /**
+   * *Optional*. Message is a dice with random value
+   */
+  dice?: TelegramDice
+  /**
+   * *Optional*. Message is a game, information about the game. [More about games »](https://core.telegram.org/bots/api/#games)
+   */
+  game?: TelegramGame
+  /**
+   * *Optional*. Message is a scheduled giveaway, information about the giveaway
+   */
+  giveaway?: TelegramGiveaway
+  /**
+   * *Optional*. A giveaway with public winners was completed
+   */
+  giveaway_winners?: TelegramGiveawayWinners
+  /**
+   * *Optional*. Message is an invoice for a [payment](https://core.telegram.org/bots/api/#payments), information about the invoice. [More about payments »](https://core.telegram.org/bots/api/#payments)
+   */
+  invoice?: TelegramInvoice
+  /**
+   * *Optional*. Message is a shared location, information about the location
+   */
+  location?: TelegramLocation
+  /**
+   * *Optional*. Message is a native poll, information about the poll
+   */
+  poll?: TelegramPoll
+  /**
+   * *Optional*. Message is a venue, information about the venue
+   */
+  venue?: TelegramVenue
+
+  [key: string]: any
+}
+
+/**
+ * Describes reply parameters for the message that is being sent.
+ */
+export interface TelegramReplyParameters {
+  /**
+   * Identifier of the message that will be replied to in the current chat, or in the chat *chat\_id* if it is specified
+   */
+  message_id: number
+  /**
+   * *Optional*. If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format `@channelusername`)
+   */
+  chat_id?: number | string
+  /**
+   * *Optional*. Pass *True* if the message should be sent even if the specified message to be replied to is not found; can be used only for replies in the same chat and forum topic.
+   */
+  allow_sending_without_reply?: boolean
+  /**
+   * *Optional*. Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities. The message will fail to send if the quote isn't found in the original message.
+   */
+  quote?: string
+  /**
+   * *Optional*. Mode for parsing entities in the quote. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
+   */
+  quote_parse_mode?: string
+  /**
+   * *Optional*. A JSON-serialized list of special entities that appear in the quote. It can be specified instead of *quote\_parse\_mode*.
+   */
+  quote_entities?: TelegramMessageEntity[]
+  /**
+   * *Optional*. Position of the quote in the original message in UTF-16 code units
+   */
+  quote_position?: number
+
+  [key: string]: any
+}
+
+/**
+ * The message was originally sent by a known user.
+ */
+export interface TelegramMessageOriginUser {
+  /**
+   * Type of the message origin, always “user”
+   */
+  type: 'user'
+  /**
+   * Date the message was sent originally in Unix time
+   */
+  date: number
+  /**
+   * User that sent the message originally
+   */
+  sender_user: TelegramUser
+
+  [key: string]: any
+}
+
+/**
+ * The message was originally sent by an unknown user.
+ */
+export interface TelegramMessageOriginHiddenUser {
+  /**
+   * Type of the message origin, always “hidden\_user”
+   */
+  type: 'hidden_user'
+  /**
+   * Date the message was sent originally in Unix time
+   */
+  date: number
+  /**
+   * Name of the user that sent the message originally
+   */
+  sender_user_name: string
+
+  [key: string]: any
+}
+
+/**
+ * The message was originally sent on behalf of a chat to a group chat.
+ */
+export interface TelegramMessageOriginChat {
+  /**
+   * Type of the message origin, always “chat”
+   */
+  type: 'chat'
+  /**
+   * Date the message was sent originally in Unix time
+   */
+  date: number
+  /**
+   * Chat that sent the message originally
+   */
+  sender_chat: TelegramChat
+  /**
+   * *Optional*. For messages originally sent by an anonymous chat administrator, original message author signature
+   */
+  author_signature?: string
+
+  [key: string]: any
+}
+
+/**
+ * The message was originally sent to a channel chat.
+ */
+export interface TelegramMessageOriginChannel {
+  /**
+   * Type of the message origin, always “channel”
+   */
+  type: 'channel'
+  /**
+   * Date the message was sent originally in Unix time
+   */
+  date: number
+  /**
+   * Channel chat to which the message was originally sent
+   */
+  chat: TelegramChat
+  /**
+   * Unique message identifier inside the chat
+   */
+  message_id: number
+  /**
+   * *Optional*. Signature of the original post author
+   */
+  author_signature?: string
 
   [key: string]: any
 }
@@ -1235,17 +1555,17 @@ export interface TelegramGeneralForumTopicHidden { }
 export interface TelegramGeneralForumTopicUnhidden { }
 
 /**
- * This object contains information about the user whose identifier was shared with the bot using a [KeyboardButtonRequestUser](https://core.telegram.org/bots/api/#keyboardbuttonrequestuser) button.
+ * This object contains information about the users whose identifiers were shared with the bot using a [KeyboardButtonRequestUsers](https://core.telegram.org/bots/api/#keyboardbuttonrequestusers) button.
  */
-export interface TelegramUserShared {
+export interface TelegramUsersShared {
   /**
    * Identifier of the request
    */
   request_id: number
   /**
-   * Identifier of the shared user. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot may not have access to the user and could be unable to use this identifier, unless the user is already known to the bot by some other means.
+   * Identifiers of the shared users. These numbers may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting them. But they have at most 52 significant bits, so 64-bit integers or double-precision float types are safe for storing these identifiers. The bot may not have access to the users and could be unable to use these identifiers, unless the users are already known to the bot by some other means.
    */
-  user_id: number
+  user_ids: number[]
 
   [key: string]: any
 }
@@ -1323,6 +1643,151 @@ export interface TelegramVideoChatParticipantsInvited {
    * New members that were invited to the video chat
    */
   users: TelegramUser[]
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a service message about the creation of a scheduled giveaway. Currently holds no information.
+ */
+export interface TelegramGiveawayCreated { }
+
+/**
+ * This object represents a message about a scheduled giveaway.
+ */
+export interface TelegramGiveaway {
+  /**
+   * The list of chats which the user must join to participate in the giveaway
+   */
+  chats: TelegramChat[]
+  /**
+   * Point in time (Unix timestamp) when winners of the giveaway will be selected
+   */
+  winners_selection_date: number
+  /**
+   * The number of users which are supposed to be selected as winners of the giveaway
+   */
+  winner_count: number
+  /**
+   * *Optional*. *True*, if only users who join the chats after the giveaway started should be eligible to win
+   */
+  only_new_members?: boolean
+  /**
+   * *Optional*. *True*, if the list of giveaway winners will be visible to everyone
+   */
+  has_public_winners?: boolean
+  /**
+   * *Optional*. Description of additional giveaway prize
+   */
+  prize_description?: string
+  /**
+   * *Optional*. A list of two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country codes indicating the countries from which eligible users for the giveaway must come. If empty, then all users can participate in the giveaway. Users with a phone number that was bought on Fragment can always participate in giveaways.
+   */
+  country_codes?: string[]
+  /**
+   * *Optional*. The number of months the Telegram Premium subscription won from the giveaway will be active for
+   */
+  premium_subscription_month_count?: number
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a message about the completion of a giveaway with public winners.
+ */
+export interface TelegramGiveawayWinners {
+  /**
+   * The chat that created the giveaway
+   */
+  chat: TelegramChat
+  /**
+   * Identifier of the messsage with the giveaway in the chat
+   */
+  giveaway_message_id: number
+  /**
+   * Point in time (Unix timestamp) when winners of the giveaway were selected
+   */
+  winners_selection_date: number
+  /**
+   * Total number of winners in the giveaway
+   */
+  winner_count: number
+  /**
+   * List of up to 100 winners of the giveaway
+   */
+  winners: TelegramUser[]
+  /**
+   * *Optional*. The number of other chats the user had to join in order to be eligible for the giveaway
+   */
+  additional_chat_count?: number
+  /**
+   * *Optional*. The number of months the Telegram Premium subscription won from the giveaway will be active for
+   */
+  premium_subscription_month_count?: number
+  /**
+   * *Optional*. Number of undistributed prizes
+   */
+  unclaimed_prize_count?: number
+  /**
+   * *Optional*. *True*, if only users who had joined the chats after the giveaway started were eligible to win
+   */
+  only_new_members?: boolean
+  /**
+   * *Optional*. *True*, if the giveaway was canceled because the payment for it was refunded
+   */
+  was_refunded?: boolean
+  /**
+   * *Optional*. Description of additional giveaway prize
+   */
+  prize_description?: string
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a service message about the completion of a giveaway without public winners.
+ */
+export interface TelegramGiveawayCompleted {
+  /**
+   * Number of winners in the giveaway
+   */
+  winner_count: number
+  /**
+   * *Optional*. Number of undistributed prizes
+   */
+  unclaimed_prize_count?: number
+  /**
+   * *Optional*. Message with the giveaway that was completed, if it wasn't deleted
+   */
+  giveaway_message?: TelegramMessage
+
+  [key: string]: any
+}
+
+/**
+ * Describes the options used for link preview generation.
+ */
+export interface TelegramLinkPreviewOptions {
+  /**
+   * *Optional*. *True*, if the link preview is disabled
+   */
+  is_disabled?: boolean
+  /**
+   * *Optional*. URL to use for the link preview. If empty, then the first URL found in the message text will be used
+   */
+  url?: string
+  /**
+   * *Optional*. *True*, if the media in the link preview is suppposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
+   */
+  prefer_small_media?: boolean
+  /**
+   * *Optional*. *True*, if the media in the link preview is suppposed to be enlarged; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
+   */
+  prefer_large_media?: boolean
+  /**
+   * *Optional*. *True*, if the link preview must be shown above the message text; otherwise, the link preview will be shown below the message text
+   */
+  show_above_text?: boolean
 
   [key: string]: any
 }
@@ -1424,9 +1889,9 @@ export interface TelegramKeyboardButton {
    */
   text: string
   /**
-   * *Optional.* If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user\_shared” service message. Available in private chats only.
+   * *Optional.* If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users\_shared” service message. Available in private chats only.
    */
-  request_user?: TelegramKeyboardButtonRequestUser
+  request_users?: TelegramKeyboardButtonRequestUsers
   /**
    * *Optional.* If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat\_shared” service message. Available in private chats only.
    */
@@ -1452,21 +1917,25 @@ export interface TelegramKeyboardButton {
 }
 
 /**
- * This object defines the criteria used to request a suitable user. The identifier of the selected user will be shared with the bot when the corresponding button is pressed. [More about requesting users »](https://core.telegram.org/bots/features#chat-and-user-selection)
+ * This object defines the criteria used to request suitable users. The identifiers of the selected users will be shared with the bot when the corresponding button is pressed. [More about requesting users »](https://core.telegram.org/bots/features#chat-and-user-selection)
  */
-export interface TelegramKeyboardButtonRequestUser {
+export interface TelegramKeyboardButtonRequestUsers {
   /**
-   * Signed 32-bit identifier of the request, which will be received back in the [UserShared](https://core.telegram.org/bots/api/#usershared) object. Must be unique within the message
+   * Signed 32-bit identifier of the request that will be received back in the [UsersShared](https://core.telegram.org/bots/api/#usersshared) object. Must be unique within the message
    */
   request_id: number
   /**
-   * *Optional*. Pass *True* to request a bot, pass *False* to request a regular user. If not specified, no additional restrictions are applied.
+   * *Optional*. Pass *True* to request bots, pass *False* to request regular users. If not specified, no additional restrictions are applied.
    */
   user_is_bot?: boolean
   /**
-   * *Optional*. Pass *True* to request a premium user, pass *False* to request a non-premium user. If not specified, no additional restrictions are applied.
+   * *Optional*. Pass *True* to request premium users, pass *False* to request non-premium users. If not specified, no additional restrictions are applied.
    */
   user_is_premium?: boolean
+  /**
+   * *Optional*. The maximum number of users to be selected; 1-10. Defaults to 1.
+   */
+  max_quantity?: number
 
   [key: string]: any
 }
@@ -1678,9 +2147,9 @@ export interface TelegramCallbackQuery {
    */
   from: TelegramUser
   /**
-   * *Optional*. Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
+   * *Optional*. Message sent by the bot with the callback button that originated the query
    */
-  message?: TelegramMessage
+  message?: TelegramMaybeInaccessibleMessage
   /**
    * *Optional*. Identifier of the message sent via the bot in inline mode, that originated the query.
    */
@@ -1858,6 +2327,42 @@ export interface TelegramChatAdministratorRights {
 }
 
 /**
+ * This object represents changes in the status of a chat member.
+ */
+export interface TelegramChatMemberUpdated {
+  /**
+   * Chat the user belongs to
+   */
+  chat: TelegramChat
+  /**
+   * Performer of the action, which resulted in the change
+   */
+  from: TelegramUser
+  /**
+   * Date the change was done in Unix time
+   */
+  date: number
+  /**
+   * Previous information about the chat member
+   */
+  old_chat_member: TelegramChatMember
+  /**
+   * New information about the chat member
+   */
+  new_chat_member: TelegramChatMember
+  /**
+   * *Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+   */
+  invite_link?: TelegramChatInviteLink
+  /**
+   * *Optional*. True, if the user joined the chat via a chat folder invite link
+   */
+  via_chat_folder_invite_link?: boolean
+
+  [key: string]: any
+}
+
+/**
  * Represents a [chat member](https://core.telegram.org/bots/api/#chatmember) that owns the chat and has all administrator privileges.
  */
 export interface TelegramChatMemberOwner {
@@ -1998,7 +2503,7 @@ export interface TelegramChatMemberRestricted {
    */
   is_member: boolean
   /**
-   * *True*, if the user is allowed to send text messages, contacts, invoices, locations and venues
+   * *True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
    */
   can_send_messages: boolean
   /**
@@ -2098,42 +2603,6 @@ export interface TelegramChatMemberBanned {
 }
 
 /**
- * This object represents changes in the status of a chat member.
- */
-export interface TelegramChatMemberUpdated {
-  /**
-   * Chat the user belongs to
-   */
-  chat: TelegramChat
-  /**
-   * Performer of the action, which resulted in the change
-   */
-  from: TelegramUser
-  /**
-   * Date the change was done in Unix time
-   */
-  date: number
-  /**
-   * Previous information about the chat member
-   */
-  old_chat_member: TelegramChatMember
-  /**
-   * New information about the chat member
-   */
-  new_chat_member: TelegramChatMember
-  /**
-   * *Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
-   */
-  invite_link?: TelegramChatInviteLink
-  /**
-   * *Optional*. True, if the user joined the chat via a chat folder invite link
-   */
-  via_chat_folder_invite_link?: boolean
-
-  [key: string]: any
-}
-
-/**
  * Represents a join request sent to a chat.
  */
 export interface TelegramChatJoinRequest {
@@ -2170,7 +2639,7 @@ export interface TelegramChatJoinRequest {
  */
 export interface TelegramChatPermissions {
   /**
-   * *Optional*. *True*, if the user is allowed to send text messages, contacts, invoices, locations and venues
+   * *Optional*. *True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
    */
   can_send_messages?: boolean
   /**
@@ -2241,6 +2710,116 @@ export interface TelegramChatLocation {
    * Location address; 1-64 characters, as defined by the chat owner
    */
   address: string
+
+  [key: string]: any
+}
+
+export type TelegramReactionTypeEmojiEmoji = '👍' | '👎' | '❤' | '🔥' | '🥰' | '👏' | '😁' | '🤔' | '🤯' | '😱' | '🤬' | '😢' | '🎉' | '🤩' | '🤮' | '💩' | '🙏' | '👌' | '🕊' | '🤡' | '🥱' | '🥴' | '😍' | '🐳' | '❤‍🔥' | '🌚' | '🌭' | '💯' | '🤣' | '⚡' | '🍌' | '🏆' | '💔' | '🤨' | '😐' | '🍓' | '🍾' | '💋' | '🖕' | '😈' | '😴' | '😭' | '🤓' | '👻' | '👨‍💻' | '👀' | '🎃' | '🙈' | '😇' | '😨' | '🤝' | '✍' | '🤗' | '🫡' | '🎅' | '🎄' | '☃' | '💅' | '🤪' | '🗿' | '🆒' | '💘' | '🙉' | '🦄' | '😘' | '💊' | '🙊' | '😎' | '👾' | '🤷‍♂' | '🤷' | '🤷‍♀' | '😡'
+
+/**
+ * The reaction is based on an emoji.
+ */
+export interface TelegramReactionTypeEmoji {
+  /**
+   * Type of the reaction, always “emoji”
+   */
+  type: 'emoji'
+  /**
+   * Reaction emoji. Currently, it can be one of "👍", "👎", "❤", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡"
+   */
+  emoji: SoftString<TelegramReactionTypeEmojiEmoji>
+
+  [key: string]: any
+}
+
+/**
+ * The reaction is based on a custom emoji.
+ */
+export interface TelegramReactionTypeCustomEmoji {
+  /**
+   * Type of the reaction, always “custom\_emoji”
+   */
+  type: 'custom_emoji'
+  /**
+   * Custom emoji identifier
+   */
+  custom_emoji: string
+
+  [key: string]: any
+}
+
+/**
+ * Represents a reaction added to a message along with the number of times it was added.
+ */
+export interface TelegramReactionCount {
+  /**
+   * Type of the reaction
+   */
+  type: TelegramReactionType
+  /**
+   * Number of times the reaction was added
+   */
+  total_count: number
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a change of a reaction on a message performed by a user.
+ */
+export interface TelegramMessageReactionUpdated {
+  /**
+   * The chat containing the message the user reacted to
+   */
+  chat: TelegramChat
+  /**
+   * Unique identifier of the message inside the chat
+   */
+  message_id: number
+  /**
+   * *Optional*. The user that changed the reaction, if the user isn't anonymous
+   */
+  user?: TelegramUser
+  /**
+   * *Optional*. The chat on behalf of which the reaction was changed, if the user is anonymous
+   */
+  actor_chat?: TelegramChat
+  /**
+   * Date of the change in Unix time
+   */
+  date: number
+  /**
+   * Previous list of reaction types that were set by the user
+   */
+  old_reaction: TelegramReactionType[]
+  /**
+   * New list of reaction types that have been set by the user
+   */
+  new_reaction: TelegramReactionType[]
+
+  [key: string]: any
+}
+
+/**
+ * This object represents reaction changes on a message with anonymous reactions.
+ */
+export interface TelegramMessageReactionCountUpdated {
+  /**
+   * The chat containing the message
+   */
+  chat: TelegramChat
+  /**
+   * Unique message identifier inside the chat
+   */
+  message_id: number
+  /**
+   * Date of the change in Unix time
+   */
+  date: number
+  /**
+   * List of reactions that are present on the message
+   */
+  reactions: TelegramReactionCount[]
 
   [key: string]: any
 }
@@ -2461,6 +3040,138 @@ export interface TelegramMenuButtonDefault {
    * Type of the button, must be *default*
    */
   type: 'default'
+
+  [key: string]: any
+}
+
+/**
+ * The boost was obtained by subscribing to Telegram Premium or by gifting a Telegram Premium subscription to another user.
+ */
+export interface TelegramChatBoostSourcePremium {
+  /**
+   * Source of the boost, always “premium”
+   */
+  source: 'premium'
+  /**
+   * User that boosted the chat
+   */
+  user: TelegramUser
+
+  [key: string]: any
+}
+
+/**
+ * The boost was obtained by the creation of Telegram Premium gift codes to boost a chat. Each such code boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription.
+ */
+export interface TelegramChatBoostSourceGiftCode {
+  /**
+   * Source of the boost, always “gift\_code”
+   */
+  source: 'gift_code'
+  /**
+   * User for which the gift code was created
+   */
+  user: TelegramUser
+
+  [key: string]: any
+}
+
+/**
+ * The boost was obtained by the creation of a Telegram Premium giveaway. This boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription.
+ */
+export interface TelegramChatBoostSourceGiveaway {
+  /**
+   * Source of the boost, always “giveaway”
+   */
+  source: 'giveaway'
+  /**
+   * Identifier of a message in the chat with the giveaway; the message could have been deleted already. May be 0 if the message isn't sent yet.
+   */
+  giveaway_message_id: number
+  /**
+   * *Optional*. User that won the prize in the giveaway if any
+   */
+  user?: TelegramUser
+  /**
+   * *Optional*. True, if the giveaway was completed, but there was no user to win the prize
+   */
+  is_unclaimed?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * This object contains information about a chat boost.
+ */
+export interface TelegramChatBoost {
+  /**
+   * Unique identifier of the boost
+   */
+  boost_id: string
+  /**
+   * Point in time (Unix timestamp) when the chat was boosted
+   */
+  add_date: number
+  /**
+   * Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged
+   */
+  expiration_date: number
+  /**
+   * Source of the added boost
+   */
+  source: TelegramChatBoostSource
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a boost added to a chat or changed.
+ */
+export interface TelegramChatBoostUpdated {
+  /**
+   * Chat which was boosted
+   */
+  chat: TelegramChat
+  /**
+   * Infomation about the chat boost
+   */
+  boost: TelegramChatBoost
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a boost removed from a chat.
+ */
+export interface TelegramChatBoostRemoved {
+  /**
+   * Chat which was boosted
+   */
+  chat: TelegramChat
+  /**
+   * Unique identifier of the boost
+   */
+  boost_id: string
+  /**
+   * Point in time (Unix timestamp) when the boost was removed
+   */
+  remove_date: number
+  /**
+   * Source of the removed boost
+   */
+  source: TelegramChatBoostSource
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a list of boosts added to a chat by a user.
+ */
+export interface TelegramUserChatBoosts {
+  /**
+   * The list of boosts added to the chat by the user
+   */
+  boosts: TelegramChatBoost[]
 
   [key: string]: any
 }
@@ -3963,9 +4674,9 @@ export interface TelegramInputTextMessageContent {
    */
   entities?: TelegramMessageEntity[]
   /**
-   * *Optional*. Disables link previews for links in the sent message
+   * *Optional*. Link preview generation options for the message
    */
-  disable_web_page_preview?: boolean
+  link_preview_options?: TelegramLinkPreviewOptions
 
   [key: string]: any
 }
@@ -4243,7 +4954,7 @@ export interface TelegramInvoice {
  */
 export interface TelegramShippingAddress {
   /**
-   * Two-letter ISO 3166-1 alpha-2 country code
+   * Two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code
    */
   country_code: string
   /**
@@ -4822,6 +5533,30 @@ export type ReplyMarkupUnion =
 export type Currency = SoftString<'AED' | 'AFN' | 'ALL' | 'AMD' | 'ARS' | 'AUD' | 'AZN' | 'BAM' | 'BDT' | 'BGN' | 'BND' | 'BOB' | 'BRL' | 'BYN' | 'CAD' | 'CHF' | 'CLP' | 'CNY' | 'COP' | 'CRC' | 'CZK' | 'DKK' | 'DOP' | 'DZD' | 'EGP' | 'ETB' | 'EUR' | 'GBP' | 'GEL' | 'GTQ' | 'HKD' | 'HNL' | 'HRK' | 'HUF' | 'IDR' | 'ILS' | 'INR' | 'ISK' | 'JMD' | 'JPY' | 'KES' | 'KGS' | 'KRW' | 'KZT' | 'LBP' | 'LKR' | 'MAD' | 'MDL' | 'MNT' | 'MUR' | 'MVR' | 'MXN' | 'MYR' | 'MZN' | 'NGN' | 'NIO' | 'NOK' | 'NPR' | 'NZD' | 'PAB' | 'PEN' | 'PHP' | 'PKR' | 'PLN' | 'PYG' | 'QAR' | 'RON' | 'RSD' | 'RUB' | 'SAR' | 'SEK' | 'SGD' | 'THB' | 'TJS' | 'TRY' | 'TTD' | 'TWD' | 'TZS' | 'UAH' | 'UGX' | 'USD' | 'UYU' | 'UZS' | 'VND' | 'YER' | 'ZAR'>
 
 /**
+ * This object describes a message that can be inaccessible to the bot. It can be one of
+ * 
+ * * [Message](https://core.telegram.org/bots/api/#message)
+ * * [InaccessibleMessage](https://core.telegram.org/bots/api/#inaccessiblemessage)
+ */
+export type TelegramMaybeInaccessibleMessage =
+  | TelegramMessage
+  | TelegramInaccessibleMessage
+
+/**
+ * This object describes the origin of a message. It can be one of
+ * 
+ * * [MessageOriginUser](https://core.telegram.org/bots/api/#messageoriginuser)
+ * * [MessageOriginHiddenUser](https://core.telegram.org/bots/api/#messageoriginhiddenuser)
+ * * [MessageOriginChat](https://core.telegram.org/bots/api/#messageoriginchat)
+ * * [MessageOriginChannel](https://core.telegram.org/bots/api/#messageoriginchannel)
+ */
+export type TelegramMessageOrigin =
+  | TelegramMessageOriginUser
+  | TelegramMessageOriginHiddenUser
+  | TelegramMessageOriginChat
+  | TelegramMessageOriginChannel
+
+/**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  * 
  * * [ChatMemberOwner](https://core.telegram.org/bots/api/#chatmemberowner)
@@ -4838,6 +5573,16 @@ export type TelegramChatMember =
   | TelegramChatMemberRestricted
   | TelegramChatMemberLeft
   | TelegramChatMemberBanned
+
+/**
+ * This object describes the type of a reaction. Currently, it can be one of
+ * 
+ * * [ReactionTypeEmoji](https://core.telegram.org/bots/api/#reactiontypeemoji)
+ * * [ReactionTypeCustomEmoji](https://core.telegram.org/bots/api/#reactiontypecustomemoji)
+ */
+export type TelegramReactionType =
+  | TelegramReactionTypeEmoji
+  | TelegramReactionTypeCustomEmoji
 
 /**
  * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
@@ -4870,6 +5615,18 @@ export type TelegramMenuButton =
   | TelegramMenuButtonCommands
   | TelegramMenuButtonWebApp
   | TelegramMenuButtonDefault
+
+/**
+ * This object describes the source of a chat boost. It can be one of
+ * 
+ * * [ChatBoostSourcePremium](https://core.telegram.org/bots/api/#chatboostsourcepremium)
+ * * [ChatBoostSourceGiftCode](https://core.telegram.org/bots/api/#chatboostsourcegiftcode)
+ * * [ChatBoostSourceGiveaway](https://core.telegram.org/bots/api/#chatboostsourcegiveaway)
+ */
+export type TelegramChatBoostSource =
+  | TelegramChatBoostSourcePremium
+  | TelegramChatBoostSourceGiftCode
+  | TelegramChatBoostSourceGiveaway
 
 /**
  * This object represents the content of a media message to be sent. It should be one of

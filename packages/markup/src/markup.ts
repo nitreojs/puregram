@@ -231,6 +231,9 @@ export const spoiler = build('spoiler')
 /** @mention */
 export const mention = build('mention')
 
+/** > blockquote */
+export const blockquote = build('blockquote')
+
 export const pre = build<[language?: string]>('pre', 'language')
 
 // @ts-expect-error uhh this should be valid but its not so ok

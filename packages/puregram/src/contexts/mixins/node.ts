@@ -408,7 +408,7 @@ class NodeMixin {
 
   /** Clears reactions from the message */
   clearReactions (params: Optional<Methods.SetMessageReactionParams, 'chat_id' | 'message_id'> = {}) {
-    return this.telegram.api.deleteMessageReaction({
+    return this.telegram.api.setMessageReaction({
       chat_id: this.chatId || this.senderId || 0,
       message_id: this.id,
       ...params

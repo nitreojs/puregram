@@ -21,7 +21,9 @@ class NodeMixin {
     params?: Optional<Methods.SendMessageParams, 'chat_id' | 'text'>
   ) {
     return this.send(text, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -32,7 +34,9 @@ class NodeMixin {
     params?: Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>
   ) {
     return this.sendPhoto(photo, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -43,7 +47,9 @@ class NodeMixin {
     params?: Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>
   ) {
     return this.sendDocument(document, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -54,7 +60,9 @@ class NodeMixin {
     params?: Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>
   ) {
     return this.sendAudio(audio, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -65,7 +73,9 @@ class NodeMixin {
     params?: Optional<Methods.SendVideoParams, 'chat_id' | 'video'>
   ) {
     return this.sendVideo(video, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -76,7 +86,9 @@ class NodeMixin {
     params?: Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>
   ) {
     return this.sendAnimation(animation, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -87,7 +99,9 @@ class NodeMixin {
     params?: Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>
   ) {
     return this.sendVideoNote(videoNote, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -98,7 +112,9 @@ class NodeMixin {
     params?: Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>
   ) {
     return this.sendVoice(voice, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -109,7 +125,9 @@ class NodeMixin {
     params?: Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>
   ) {
     return this.sendMediaGroup(mediaGroup, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -121,7 +139,9 @@ class NodeMixin {
     params?: Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
   ) {
     return this.sendLocation(latitude, longitude, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -129,7 +149,9 @@ class NodeMixin {
   /** Replies to current message with invoice */
   replyWithInvoice (params: Optional<Methods.SendInvoiceParams, 'chat_id'>) {
     return this.sendInvoice({
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -137,7 +159,9 @@ class NodeMixin {
   /** Replies to current message with venue */
   replyWithVenue (params: Optional<Methods.SendVenueParams, 'chat_id'>) {
     return this.sendVenue({
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -145,7 +169,9 @@ class NodeMixin {
   /** Replies to current message with contact */
   replyWithContact (params: Optional<Methods.SendContactParams, 'chat_id'>) {
     return this.sendContact({
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -153,7 +179,9 @@ class NodeMixin {
   /** Replies to current message with poll */
   replyWithPoll (params: Optional<Methods.SendPollParams, 'chat_id'>) {
     return this.sendPoll({
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -164,7 +192,9 @@ class NodeMixin {
     params: Optional<Methods.SendStickerParams, 'chat_id'>
   ) {
     return this.sendSticker(sticker, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }
@@ -175,7 +205,9 @@ class NodeMixin {
     params?: Partial<Methods.SendDiceParams>
   ) {
     return this.sendDice(emoji, {
-      reply_to_message_id: this.id,
+      reply_parameters: {
+        message_id: this.id
+      },
       ...params
     })
   }

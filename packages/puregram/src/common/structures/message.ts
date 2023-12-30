@@ -35,6 +35,8 @@ import { GeneralForumTopicHidden } from './general-forum-topic-hidden'
 import { GeneralForumTopicUnhidden } from './general-forum-topic-unhidden'
 import { UserShared } from './user-shared'
 import { ChatShared } from './chat-shared'
+import { ExternalReplyInfo } from './external-reply-info'
+import { TextQuote } from './text-quote'
 
 import {
   AnimationAttachment,
@@ -150,6 +152,30 @@ export class Message implements Structure {
     }
 
     return new Message(reply_to_message)
+  }
+
+  /** Information about the message that is being replied to, which may come from another chat or forum topic */
+  @Inspect({ nullable: false })
+  get externalReply () {
+    const { external_reply } = this.payload
+
+    if (!external_reply) {
+      return
+    }
+
+    return new ExternalReplyInfo(external_reply)
+  }
+
+  /** For replies that quote part of the original message, the quoted part of the message */
+  @Inspect({ nullable: false })
+  get quote () {
+    const { quote } = this.payload
+
+    if (!quote) {
+      return
+    }
+
+    return new TextQuote(quote)
   }
 
   /** Bot through which the message was sent */

@@ -376,6 +376,44 @@ class NodeMixin {
       payload: response
     })
   }
+
+  /** Sets a reaction on a message */
+  setReaction (reaction: Interfaces.TelegramReactionTypeEmoji['emoji'] | Interfaces.TelegramReactionType, params: Optional<Methods.SetMessageReactionParams, 'chat_id' | 'message_id'> = {}) {
+    if (typeof reaction === 'string') {
+      reaction = {
+        type: 'emoji',
+        emoji: reaction
+      }
+    }
+
+    return this.telegram.api.setMessageReaction({
+      chat_id: this.chatId || this.senderId || 0,
+      message_id: this.id,
+      reaction: [reaction],
+      ...params
+    })
+  }
+
+  /** Sets multiple amount of reactions on a message */
+  setReactions (rawReactions: (Interfaces.TelegramReactionTypeEmoji['emoji'] | Interfaces.TelegramReactionType)[], params: Optional<Methods.SetMessageReactionParams, 'chat_id' | 'message_id'> = {}) {
+    const reactions = rawReactions.map(r => typeof r === 'string' ? { type: 'emoji', emoji: r } as Interfaces.TelegramReactionTypeEmoji : r)
+
+    return this.telegram.api.setMessageReaction({
+      chat_id: this.chatId || this.senderId || 0,
+      message_id: this.id,
+      reaction: reactions,
+      ...params
+    })
+  }
+
+  /** Clears reactions from the message */
+  clearReactions (params: Optional<Methods.SetMessageReactionParams, 'chat_id' | 'message_id'> = {}) {
+    return this.telegram.api.deleteMessageReaction({
+      chat_id: this.chatId || this.senderId || 0,
+      message_id: this.id,
+      ...params
+    })
+  }
 }
 
 interface NodeMixin extends Context, NodeMixinMetadata, SendMixin { }

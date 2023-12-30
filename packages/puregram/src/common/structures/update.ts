@@ -15,6 +15,8 @@ import { Poll } from './poll'
 import { PollAnswer } from './poll-answer'
 import { PreCheckoutQuery } from './pre-checkout-query'
 import { ShippingQuery } from './shipping-query'
+import { MessageReactionUpdated } from './message-reaction-updated'
+import { MessageReactionCountUpdated } from './message-reaction-count-updated'
 
 /**
  * This object represents an incoming update.
@@ -92,6 +94,30 @@ export class Update implements Structure {
     }
 
     return new Message(edited_channel_post)
+  }
+
+  /** A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify `message_reaction` in the list of allowed_updates to receive these updates. The update isn't received for reactions set by bots. */
+  @Inspect({ nullable: false })
+  get messageReaction () {
+    const { message_reaction } = this.payload
+
+    if (!message_reaction) {
+      return
+    }
+
+    return new MessageReactionUpdated(message_reaction)
+  }
+
+  /** Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify `message_reaction_count` in the list of allowed_updates to receive these updates. */
+  @Inspect({ nullable: false })
+  get messageReactionCount () {
+    const { message_reaction_count } = this.payload
+
+    if (!message_reaction_count) {
+      return
+    }
+
+    return new MessageReactionCountUpdated(message_reaction_count)
   }
 
   /** New incoming inline query */

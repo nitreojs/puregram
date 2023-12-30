@@ -49,6 +49,8 @@ export enum UpdateType {
   ChannelPost = 'channel_post',
   EditedMessage = 'edited_message',
   EditedChannelPost = 'edited_channel_post',
+  MessageReaction = 'message_reaction',
+  MessageReactionCount = 'message_reaction_count',
   MigrateFromChatId = 'migrate_from_chat_id',
   MigrateToChatId = 'migrate_to_chat_id',
   NewChatMembers = 'new_chat_members',

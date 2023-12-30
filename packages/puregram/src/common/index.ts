@@ -8,4 +8,5 @@ export * from './structures'
 
 export * from './media-group'
 export * from './message-entities'
+export * from './reaction'
 export * from './updates-filter'

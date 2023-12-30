@@ -78,6 +78,9 @@ export enum UpdateType {
   VideoChatScheduled = 'video_chat_scheduled',
   VideoChatStarted = 'video_chat_started',
   WebAppData = 'web_app_data',
+  GiveawayCreated = 'giveaway_created',
+  GiveawayCompleted = 'giveaway_completed',
+  GiveawayWinners = 'giveaway_winners',
   ServiceMessage = 'service_message',
   ChatBoost = 'chat_boost_updated',
   RemovedChatBoost = 'removed_chat_boost'

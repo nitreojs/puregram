@@ -39,7 +39,7 @@ export interface ContextsMapping {
   general_forum_topic_unhidden: Contexts.GeneralForumTopicUnhiddenContext
   shipping_query: Contexts.ShippingQueryContext
   successful_payment: Contexts.SuccessfulPaymentContext
-  user_shared: Contexts.UserSharedContext
+  users_shared: Contexts.UsersSharedContext
   chat_shared: Contexts.ChatSharedContext
   video_chat_ended: Contexts.VideoChatEndedContext
   video_chat_participants_invited: Contexts.VideoChatParticipantsInvitedContext

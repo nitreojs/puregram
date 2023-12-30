@@ -69,7 +69,7 @@ export enum UpdateType {
   GeneralForumTopicUnhidden = 'general_forum_topic_unhidden',
   ShippingQuery = 'shipping_query',
   SuccessfulPayment = 'successful_payment',
-  UserShared = 'user_shared',
+  UsersShared = 'users_shared',
   ChatShared = 'chat_shared',
   VideoChatEnded = 'video_chat_ended',
   VideoChatParticipantsInvited = 'video_chat_participants_invited',

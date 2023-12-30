@@ -33,7 +33,7 @@ import { ForumTopicReopened } from './forum-topic-reopened'
 import { WriteAccessAllowed } from './write-access-allowed'
 import { GeneralForumTopicHidden } from './general-forum-topic-hidden'
 import { GeneralForumTopicUnhidden } from './general-forum-topic-unhidden'
-import { UserShared } from './user-shared'
+import { UsersShared } from './users-shared'
 import { ChatShared } from './chat-shared'
 import { ExternalReplyInfo } from './external-reply-info'
 import { TextQuote } from './text-quote'
@@ -670,14 +670,14 @@ export class Message implements Structure {
 
   /** Service message: a user was shared with the bot */
   @Inspect({ nullable: false })
-  get userShared () {
-    const { user_shared } = this.payload
+  get usersShared () {
+    const { users_shared } = this.payload
 
-    if (!user_shared) {
+    if (!users_shared) {
       return
     }
 
-    return new UserShared(user_shared)
+    return new UsersShared(users_shared)
   }
 
   /** Service message: a chat was shared with the bot */

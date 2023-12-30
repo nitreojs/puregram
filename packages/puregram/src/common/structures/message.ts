@@ -37,6 +37,7 @@ import { UserShared } from './user-shared'
 import { ChatShared } from './chat-shared'
 import { ExternalReplyInfo } from './external-reply-info'
 import { TextQuote } from './text-quote'
+import { LinkPreviewOptions } from './link-preview-options'
 
 import {
   AnimationAttachment,
@@ -238,6 +239,18 @@ export class Message implements Structure {
     }
 
     return new MessageEntities(...entities.map(entity => new MessageEntity(entity)))
+  }
+
+  /** Options used for link preview generation for the message, if it is a text message and link preview options were changed */
+  @Inspect({ nullable: false })
+  get linkPreviewOptions () {
+    const { link_preview_options } = this.payload
+
+    if (!link_preview_options) {
+      return
+    }
+
+    return new LinkPreviewOptions(link_preview_options)
   }
 
   /**

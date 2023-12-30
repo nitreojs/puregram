@@ -74,6 +74,11 @@ export class HTML {
     return `<pre>${string}</pre>`
   }
 
+  /** Quotation */
+  static blockquote (source: string, escape = true) {
+    return `<blockquote>${escape ? HTML.escape(source) : source}</blockquote>`
+  }
+
   /** Custom emoji */
   static emoji (emoji: string, id: string) {
     return `<tg-emoji emoji-id="${id}">${emoji}</tg-emoji>`

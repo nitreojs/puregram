@@ -2,7 +2,7 @@ import * as Methods from '../../generated/methods'
 
 import { Optional } from '../../types/types'
 
-export type NonMediaParams = 'chat_id' | 'message_thread_id' | 'disable_notification' | 'protect_content' | 'reply_to_message_id' | 'allow_sending_without_reply' | 'reply_markup'
+export type NonMediaParams = 'chat_id' | 'message_thread_id' | 'disable_notification' | 'protect_content' | 'reply_markup' | 'reply_parameters'
 
 type InputMediaParams<T> = Exclude<T, NonMediaParams>
 

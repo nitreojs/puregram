@@ -1,4 +1,4 @@
-import { ChatBoostRemoved } from '../common'
+import { ChatBoostRemoved } from '../common/structures/chat-boost-removed'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'

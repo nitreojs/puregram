@@ -1,5 +1,5 @@
 import { Require, Constructor } from '../types/types'
-import { MessageReactionUpdated } from '../common'
+import { MessageReactionUpdated } from '../common/structures/message-reaction-updated'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'

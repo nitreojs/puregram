@@ -1,4 +1,4 @@
-import { MessageReactionCountUpdated } from '../common'
+import { MessageReactionCountUpdated } from '../common/structures/message-reaction-count-updated'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'

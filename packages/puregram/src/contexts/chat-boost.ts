@@ -1,9 +1,9 @@
-import { ChatBoostUpdated } from '../common'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { Constructor } from '../types/types'
 import { applyMixins } from '../utils/helpers'
+import { ChatBoostUpdated } from '../common/structures/chat-boost-updated'
 
 import { Context } from './context'
 import { CloneMixin, SendMixin } from './mixins'

@@ -6,7 +6,7 @@ import { Constructor, Require } from '../types/types'
 import { applyMixins } from '../utils/helpers'
 import { Context } from './context'
 import { CloneMixin } from './mixins'
-import { GiveawayCompleted } from '../common'
+import { GiveawayCompleted } from '../common/structures/giveaway-completed'
 
 interface GiveawayCompletedContextOptions {
   telegram: Telegram

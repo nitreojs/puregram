@@ -6,7 +6,7 @@ import { Constructor } from '../types/types'
 import { applyMixins } from '../utils/helpers'
 import { Context } from './context'
 import { CloneMixin } from './mixins'
-import { GiveawayCreated } from '../common'
+import { GiveawayCreated } from '../common/structures/giveaway-created'
 
 interface GiveawayCreatedContextOptions {
   telegram: Telegram

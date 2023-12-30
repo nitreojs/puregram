@@ -14,6 +14,8 @@ import { Game } from './game'
 import { Invoice } from './invoice'
 import { Location } from './location'
 import { Venue } from './venue'
+import { Giveaway } from './giveaway'
+import { GiveawayWinners } from './giveaway-winners'
 
 /** This object contains information about a message that is being replied to, which may come from another chat or forum topic. */
 @Inspectable()

@@ -9,7 +9,7 @@ import { MessageOrigin } from './message-origin'
 /** The message was originally sent to a channel chat. */
 @Inspectable()
 export class MessageOriginChannel extends MessageOrigin {
-  constructor (payload: Interfaces.TelegramMessageOriginChannel) {
+  constructor (public payload: Interfaces.TelegramMessageOriginChannel) {
     super(payload)
   }
 

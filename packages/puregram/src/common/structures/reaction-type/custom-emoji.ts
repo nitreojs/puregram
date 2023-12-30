@@ -3,7 +3,7 @@ import * as Interfaces from '../../../generated/telegram-interfaces'
 import { ReactionType } from './reaction-type'
 
 export class ReactionTypeCustomEmoji extends ReactionType {
-  constructor (payload: Interfaces.TelegramReactionTypeCustomEmoji) {
+  constructor (public payload: Interfaces.TelegramReactionTypeCustomEmoji) {
     super(payload)
   }
 

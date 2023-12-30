@@ -7,7 +7,7 @@ import { MessageOrigin } from './message-origin'
 /** The message was originally sent by an unknown user. */
 @Inspectable()
 export class MessageOriginHiddenUser extends MessageOrigin {
-  constructor (payload: Interfaces.TelegramMessageOriginHiddenUser) {
+  constructor (public payload: Interfaces.TelegramMessageOriginHiddenUser) {
     super(payload)
   }
 

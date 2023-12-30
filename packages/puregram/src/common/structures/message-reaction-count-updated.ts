@@ -23,7 +23,7 @@ export class MessageReactionCountUpdated implements Structure {
 
   /** Unique identifier of the message inside the chat */
   @Inspect()
-  get messageId () {
+  get id () {
     return this.payload.message_id
   }
 

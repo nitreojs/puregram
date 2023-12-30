@@ -1,3 +1,4 @@
+import { inspectable } from 'inspectable'
 import { MessageReactionCountUpdated } from '../common/structures/message-reaction-count-updated'
 import * as Interfaces from '../generated/telegram-interfaces'
 
@@ -34,3 +35,16 @@ interface MessageReactionCountContext extends Constructor<MessageReactionCountCo
 applyMixins(MessageReactionCountContext, [MessageReactionCountUpdated, SendMixin, NodeMixin, CloneMixin])
 
 export { MessageReactionCountContext }
+
+inspectable(MessageReactionCountContext, {
+  serialize (context: MessageReactionCountContext) {
+    const payload = {
+      id: context.id,
+      chat: context.chat,
+      date: context.date,
+      reactions: context.reactions
+    }
+
+    return payload
+  }
+})

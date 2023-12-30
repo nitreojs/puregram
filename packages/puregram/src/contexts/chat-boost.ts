@@ -7,6 +7,7 @@ import { ChatBoostUpdated } from '../common/structures/chat-boost-updated'
 
 import { Context } from './context'
 import { CloneMixin, SendMixin } from './mixins'
+import { inspectable } from 'inspectable'
 
 interface ChatBoostContextOptions {
   telegram: Telegram
@@ -35,3 +36,14 @@ interface ChatBoostContext extends Constructor<ChatBoostContext>, ChatBoostUpdat
 applyMixins(ChatBoostContext, [ChatBoostUpdated, SendMixin, CloneMixin])
 
 export { ChatBoostContext }
+
+inspectable(ChatBoostContext, {
+  serialize (context: ChatBoostContext) {
+    const payload = {
+      chat: context.chat,
+      boost: context.boost
+    }
+
+    return payload
+  }
+})

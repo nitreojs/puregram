@@ -1,3 +1,4 @@
+import { inspectable } from 'inspectable'
 import { ChatBoostRemoved } from '../common/structures/chat-boost-removed'
 import * as Interfaces from '../generated/telegram-interfaces'
 
@@ -35,3 +36,16 @@ interface RemovedChatBoostContext extends Constructor<RemovedChatBoostContext>, 
 applyMixins(RemovedChatBoostContext, [ChatBoostRemoved, SendMixin, CloneMixin])
 
 export { RemovedChatBoostContext }
+
+inspectable(RemovedChatBoostContext, {
+  serialize (context: RemovedChatBoostContext) {
+    const payload = {
+      id: context.id,
+      chat: context.chat,
+      removeDate: context.removeDate,
+      source: context.source
+    }
+
+    return payload
+  }
+})

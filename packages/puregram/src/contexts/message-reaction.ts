@@ -3,9 +3,10 @@ import { MessageReactionUpdated } from '../common/structures/message-reaction-up
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, filterPayload } from '../utils/helpers'
 import { Context } from './context'
 import { CloneMixin, NodeMixin, SendMixin } from './mixins'
+import { inspectable } from 'inspectable'
 
 interface MessageReactionContextOptions {
   telegram: Telegram
@@ -44,3 +45,19 @@ interface MessageReactionContext extends Constructor<MessageReactionContext>, Me
 applyMixins(MessageReactionContext, [MessageReactionUpdated, SendMixin, NodeMixin, CloneMixin])
 
 export { MessageReactionContext }
+
+inspectable(MessageReactionContext, {
+  serialize (context: MessageReactionContext) {
+    const payload = {
+      id: context.id,
+      chat: context.chat,
+      user: context.user,
+      actorChat: context.actorChat,
+      date: context.date,
+      oldReactions: context.oldReactions,
+      newReactions: context.newReactions
+    }
+
+    return filterPayload(payload)
+  }
+})

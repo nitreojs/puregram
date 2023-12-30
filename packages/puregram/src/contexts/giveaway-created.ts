@@ -1,4 +1,4 @@
-import { Inspectable } from 'inspectable'
+import { Inspectable, inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
@@ -36,3 +36,9 @@ interface GiveawayCreatedContext extends Constructor<GiveawayCreatedContext>, Gi
 applyMixins(GiveawayCreatedContext, [GiveawayCreated, CloneMixin])
 
 export { GiveawayCreatedContext }
+
+inspectable(GiveawayCreatedContext, {
+  serialize (context: GiveawayCreatedContext) {
+    return {}
+  }
+})

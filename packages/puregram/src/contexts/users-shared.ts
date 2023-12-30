@@ -52,7 +52,7 @@ inspectable(UsersSharedContext, {
   serialize (context) {
     return {
       requestId: context.requestId,
-      sharedUserId: context.sharedUserIds
+      sharedUserIds: context.sharedUserIds
     }
   }
 })

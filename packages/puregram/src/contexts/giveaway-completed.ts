@@ -1,9 +1,9 @@
-import { Inspectable } from 'inspectable'
+import { Inspectable, inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 import { Constructor, Require } from '../types/types'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, filterPayload } from '../utils/helpers'
 import { Context } from './context'
 import { CloneMixin } from './mixins'
 import { GiveawayCompleted } from '../common/structures/giveaway-completed'
@@ -46,3 +46,15 @@ interface GiveawayCompletedContext extends Constructor<GiveawayCompletedContext>
 applyMixins(GiveawayCompletedContext, [GiveawayCompleted, CloneMixin])
 
 export { GiveawayCompletedContext }
+
+inspectable(GiveawayCompletedContext, {
+  serialize (context: GiveawayCompletedContext) {
+    const payload = {
+      winnerCount: context.winnerCount,
+      unclaimedPrizeCount: context.unclaimedPrizeCount,
+      message: context.message
+    }
+
+    return filterPayload(payload)
+  }
+})

@@ -1,4 +1,4 @@
-import { Inspectable, inspectable } from 'inspectable'
+import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
@@ -16,7 +16,6 @@ interface GiveawayWinnersContextOptions {
 }
 
 /** This object represents a message about the completion of a giveaway with public winners. */
-@Inspectable()
 class GiveawayWinnersContext extends Context {
   payload: Interfaces.TelegramGiveawayWinners
 

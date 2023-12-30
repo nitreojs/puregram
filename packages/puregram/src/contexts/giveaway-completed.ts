@@ -1,4 +1,4 @@
-import { Inspectable, inspectable } from 'inspectable'
+import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
@@ -16,7 +16,6 @@ interface GiveawayCompletedContextOptions {
 }
 
 /** This object represents a service message about the creation of a scheduled giveaway. Currently holds no information. */
-@Inspectable()
 class GiveawayCompletedContext extends Context {
   payload: Interfaces.TelegramGiveawayCompleted
 

@@ -51,6 +51,8 @@ import {
 } from '../attachments'
 
 import { MessageEntities } from '../message-entities'
+import { MessageOriginChannel, MessageOriginChat, MessageOriginHiddenUser, MessageOriginUser } from './message-origin'
+import { InaccessibleMessage } from '..'
 
 /** This object represents a message. */
 @Inspectable()
@@ -114,12 +116,46 @@ export class Message implements Structure {
     return new Chat(this.payload.chat)
   }
 
+  /** Information about the original message for forwarded messages */
+  @Inspect({ nullable: false })
+  get forwardOrigin () {
+    const { forward_origin } = this.payload
+
+    if (!forward_origin) {
+      return
+    }
+
+    // TODO: simplify
+
+    if (this.payload.origin.type === 'user') {
+      return new MessageOriginUser(this.payload.origin)
+    }
+
+    if (this.payload.origin.type === 'chat') {
+      return new MessageOriginChat(this.payload.origin)
+    }
+
+    if (this.payload.origin.type === 'channel') {
+      return new MessageOriginChannel(this.payload.origin)
+    }
+
+    if (this.payload.origin.type === 'hidden_user') {
+      return new MessageOriginHiddenUser(this.payload.origin)
+    }
+
+    throw new TypeError('unknown message origin type')
+  }
+
   /** @deprecated use `forwardedMessage` instead */
   get forwardMessage () {
     return this.forwardedMessage
   }
 
-  /** Forwarded message if there is any */
+  /**
+   * Forwarded message if there is any
+   *
+   * @deprecated use `forwardOrigin` from now on
+   */
   @Inspect({ nullable: false })
   get forwardedMessage () {
     const { forward_date } = this.payload
@@ -631,11 +667,15 @@ export class Message implements Structure {
    * reply.
    */
   @Inspect({ nullable: false })
-  get pinnedMessage (): Omit<Message, 'replyMessage'> | undefined {
+  get pinnedMessage (): InaccessibleMessage | Omit<Message, 'replyMessage'> | undefined {
     const { pinned_message } = this.payload
 
     if (!pinned_message) {
       return
+    }
+
+    if (pinned_message.date === 0) {
+      return new InaccessibleMessage(pinned_message)
     }
 
     return new Message(pinned_message)

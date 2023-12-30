@@ -95,6 +95,48 @@ export class Chat implements Structure {
   }
 
   /**
+   * Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See accent colors for more details.
+   *
+   * Returned only in `getChat`.
+   *
+   * Always returned in `getChat`.
+   */
+  @Inspect({ nullable: false })
+  get accentColorId () {
+    return this.payload.accent_color_id
+  }
+
+  /**
+   * Custom emoji identifier of emoji chosen by the chat for the reply header and link preview background.
+   *
+   * Returned only in `getChat`.
+   */
+  @Inspect({ nullable: false })
+  get backgroundCustomEmojiId () {
+    return this.payload.background_custom_emoji_id
+  }
+
+  /**
+   * Identifier of the accent color for the chat's profile background. See profile accent colors for more details.
+   *
+   * Returned only in `getChat`.
+   */
+  @Inspect({ nullable: false })
+  get profileAccentColorId () {
+    return this.payload.profile_accent_color_id
+  }
+
+  /**
+   * Custom emoji identifier of the emoji chosen by the chat for its profile background.
+   *
+   * Returned only in `getChat`.
+   */
+  @Inspect({ nullable: false })
+  get profileBackgroundCustomEmojiId () {
+    return this.payload.profile_background_custom_emoji_id
+  }
+
+  /**
    * Custom emoji identifier of emoji status of the other party in a private chat.
    *
    * Returned only in `getChat`.
@@ -285,6 +327,16 @@ export class Chat implements Structure {
   @Inspect({ compute: true, nullable: false })
   hasProtectedContent () {
     return this.payload.has_protected_content
+  }
+
+  /**
+   * `true`, if new chat members will have access to old messages; available only to chat administrators.
+   *
+   * Returned only in `getChat`.
+   */
+  @Inspect({ compute: true, nullable: false })
+  hasVisibleHistory () {
+    return this.payload.has_visible_history
   }
 
   /**

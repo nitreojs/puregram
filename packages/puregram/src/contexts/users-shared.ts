@@ -9,29 +9,29 @@ import { Context } from './context'
 import { inspectable } from 'inspectable'
 import { CloneMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
 
-interface UserSharedContextOptions {
+interface UsersSharedContextOptions {
   telegram: Telegram
   update: Interfaces.TelegramUpdate
   payload: Interfaces.TelegramMessage
   updateId: number
 }
 
-/** This object contains information about the user whose identifier was shared with the bot using a `KeyboardButtonRequestUser` button. */
-class UserSharedContext extends Context {
+/** This object contains information about the users whose identifiers were shared with the bot using a `KeyboardButtonRequestUsers` button. */
+class UsersSharedContext extends Context {
   payload: Interfaces.TelegramMessage
 
-  private event: Interfaces.TelegramUserShared
+  private event: Interfaces.TelegramUsersShared
 
-  constructor (options: UserSharedContextOptions) {
+  constructor (options: UsersSharedContextOptions) {
     super({
       telegram: options.telegram,
-      updateType: 'user_shared',
+      updateType: 'users_shared',
       updateId: options.updateId,
       update: options.update
     })
 
     this.payload = options.payload
-    this.event = this.payload.user_shared as Interfaces.TelegramUserShared
+    this.event = this.payload.user_shared as Interfaces.TelegramUsersShared
   }
 
   /** Identifier of the request */
@@ -40,21 +40,21 @@ class UserSharedContext extends Context {
   }
 
   /** Identifier of the shared user. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot may not have access to the user and could be unable to use this identifier, unless the user is already known to the bot by some other means. */
-  get sharedUserId () {
-    return this.event.user_id
+  get sharedUserIds () {
+    return this.event.user_ids
   }
 }
 
-interface UserSharedContext extends Constructor<UserSharedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<UserSharedContext, UserSharedContextOptions> { }
-applyMixins(UserSharedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
+interface UsersSharedContext extends Constructor<UsersSharedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<UsersSharedContext, UsersSharedContextOptions> { }
+applyMixins(UsersSharedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
 
-inspectable(UserSharedContext, {
+inspectable(UsersSharedContext, {
   serialize (context) {
     return {
       requestId: context.requestId,
-      sharedUserId: context.sharedUserId
+      sharedUserIds: context.sharedUserIds
     }
   }
 })
 
-export { UserSharedContext }
+export { UsersSharedContext }

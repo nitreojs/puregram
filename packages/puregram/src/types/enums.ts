@@ -49,6 +49,8 @@ export enum UpdateType {
   ChannelPost = 'channel_post',
   EditedMessage = 'edited_message',
   EditedChannelPost = 'edited_channel_post',
+  MessageReaction = 'message_reaction',
+  MessageReactionCount = 'message_reaction_count',
   MigrateFromChatId = 'migrate_from_chat_id',
   MigrateToChatId = 'migrate_to_chat_id',
   NewChatMembers = 'new_chat_members',
@@ -69,14 +71,19 @@ export enum UpdateType {
   GeneralForumTopicUnhidden = 'general_forum_topic_unhidden',
   ShippingQuery = 'shipping_query',
   SuccessfulPayment = 'successful_payment',
-  UserShared = 'user_shared',
+  UsersShared = 'users_shared',
   ChatShared = 'chat_shared',
   VideoChatEnded = 'video_chat_ended',
   VideoChatParticipantsInvited = 'video_chat_participants_invited',
   VideoChatScheduled = 'video_chat_scheduled',
   VideoChatStarted = 'video_chat_started',
   WebAppData = 'web_app_data',
-  ServiceMessage = 'service_message'
+  GiveawayCreated = 'giveaway_created',
+  GiveawayCompleted = 'giveaway_completed',
+  GiveawayWinners = 'giveaway_winners',
+  ServiceMessage = 'service_message',
+  ChatBoost = 'chat_boost_updated',
+  RemovedChatBoost = 'removed_chat_boost'
 }
 
 export enum ChatType {

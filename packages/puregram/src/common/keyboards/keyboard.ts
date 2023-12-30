@@ -85,10 +85,10 @@ export class Keyboard {
   }
 
   /** If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user_shared” service message. Available in private chats only. */
-  static requestUserButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUser): Interfaces.TelegramKeyboardButton {
+  static requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers): Interfaces.TelegramKeyboardButton {
     return {
       text,
-      request_user: params
+      request_users: params
     }
   }
 

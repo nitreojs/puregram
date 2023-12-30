@@ -39,7 +39,7 @@ export interface ContextsMapping {
   general_forum_topic_unhidden: Contexts.GeneralForumTopicUnhiddenContext
   shipping_query: Contexts.ShippingQueryContext
   successful_payment: Contexts.SuccessfulPaymentContext
-  user_shared: Contexts.UserSharedContext
+  users_shared: Contexts.UsersSharedContext
   chat_shared: Contexts.ChatSharedContext
   video_chat_ended: Contexts.VideoChatEndedContext
   video_chat_participants_invited: Contexts.VideoChatParticipantsInvitedContext
@@ -47,6 +47,14 @@ export interface ContextsMapping {
   video_chat_started: Contexts.VideoChatStartedContext
   web_app_data: Contexts.WebAppDataContext
   service_message: Contexts.MessageContext
+
+  message_reaction: Contexts.MessageReactionContext
+  message_reaction_count: Contexts.MessageReactionCountContext
+  chat_boost: Contexts.ChatBoostContext
+  removed_chat_boost: Contexts.RemovedChatBoostContext
+  giveaway_created: Contexts.GiveawayCreatedContext
+  giveaway_completed: Contexts.GiveawayCompletedContext
+  giveaway_winners: Contexts.GiveawayWinnersContext
 
   [key: string]: Contexts.Context
 }

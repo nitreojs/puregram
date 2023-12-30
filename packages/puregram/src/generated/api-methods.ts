@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.9.0, 22.09.2023
-/// Generation date: 23.09.2023 01:47:08 MSK
+/// Based on Bot API v7.0.0, 29.12.2023
+/// Generation date: 29.12.2023 17:26:04 MSK
 
 import * as api from './methods'
 
@@ -75,7 +75,7 @@ export interface ApiMethods {
    */
   sendMessage: api.sendMessage
   /**
-   * Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
+   * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
    * 
    * ---
    * 
@@ -83,13 +83,29 @@ export interface ApiMethods {
    */
   forwardMessage: api.forwardMessage
   /**
-   * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api/#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent message on success.
+   * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent messages is returned.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#forwardmessages)
+   */
+  forwardMessages: api.forwardMessages
+  /**
+   * Use this method to copy messages of any kind. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api/#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent message on success.
    * 
    * ---
    * 
    * [**Documentation**](https://core.telegram.org/bots/api/#copymessage)
    */
   copyMessage: api.copyMessage
+  /**
+   * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api/#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent messages is returned.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#copymessages)
+   */
+  copyMessages: api.copyMessages
   /**
    * Use this method to send photos. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
    * 
@@ -208,6 +224,14 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#sendchataction)
    */
   sendChatAction: api.sendChatAction
+  /**
+   * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. In albums, bots must react to the first message. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#setmessagereaction)
+   */
+  setMessageReaction: api.setMessageReaction
   /**
    * Use this method to get a list of profile pictures for a user. Returns a [UserProfilePhotos](https://core.telegram.org/bots/api/#userprofilephotos) object.
    * 
@@ -401,7 +425,7 @@ export interface ApiMethods {
    */
   leaveChat: api.leaveChat
   /**
-   * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a [Chat](https://core.telegram.org/bots/api/#chat) object on success.
+   * Use this method to get up to date information about the chat. Returns a [Chat](https://core.telegram.org/bots/api/#chat) object on success.
    * 
    * ---
    * 
@@ -562,6 +586,14 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#answercallbackquery)
    */
   answerCallbackQuery: api.answerCallbackQuery
+  /**
+   * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a [UserChatBoosts](https://core.telegram.org/bots/api/#userchatboosts) object.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getuserchatboosts)
+   */
+  getUserChatBoosts: api.getUserChatBoosts
   /**
    * Use this method to change the list of the bot's commands. See [this manual](https://core.telegram.org/bots/features#commands) for more details about bot commands. Returns *True* on success.
    * 
@@ -739,6 +771,14 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#deletemessage)
    */
   deleteMessage: api.deleteMessage
+  /**
+   * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#deletemessages)
+   */
+  deleteMessages: api.deleteMessages
   /**
    * Use this method to send static .WEBP, [animated](https://telegram.org/blog/animated-stickers) .TGS, or [video](https://telegram.org/blog/video-stickers-better-reactions) .WEBM stickers. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
    * 

@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { Message } from './message'
 import { User } from './user'
+import { InaccessibleMessage } from '..'
 
 /**
  * This object represents an incoming callback query from a callback button in
@@ -41,9 +42,7 @@ export class CallbackQuery implements Structure {
   }
 
   /**
-   * Message with the callback button that originated the query.
-   * Note that message content and message date will not be available
-   * if the message is too old
+   * Message sent by the bot with the callback button that originated the query
    */
   @Inspect({ nullable: false })
   get message () {
@@ -51,6 +50,10 @@ export class CallbackQuery implements Structure {
 
     if (!message) {
       return
+    }
+
+    if (message.date === 0) {
+      return new InaccessibleMessage(message)
     }
 
     return new Message(message)

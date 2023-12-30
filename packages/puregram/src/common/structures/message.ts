@@ -33,8 +33,11 @@ import { ForumTopicReopened } from './forum-topic-reopened'
 import { WriteAccessAllowed } from './write-access-allowed'
 import { GeneralForumTopicHidden } from './general-forum-topic-hidden'
 import { GeneralForumTopicUnhidden } from './general-forum-topic-unhidden'
-import { UserShared } from './user-shared'
+import { UsersShared } from './users-shared'
 import { ChatShared } from './chat-shared'
+import { ExternalReplyInfo } from './external-reply-info'
+import { TextQuote } from './text-quote'
+import { LinkPreviewOptions } from './link-preview-options'
 
 import {
   AnimationAttachment,
@@ -48,6 +51,8 @@ import {
 } from '../attachments'
 
 import { MessageEntities } from '../message-entities'
+import { MessageOriginChannel, MessageOriginChat, MessageOriginHiddenUser, MessageOriginUser } from './message-origin'
+import { InaccessibleMessage } from '..'
 
 /** This object represents a message. */
 @Inspectable()
@@ -111,12 +116,46 @@ export class Message implements Structure {
     return new Chat(this.payload.chat)
   }
 
+  /** Information about the original message for forwarded messages */
+  @Inspect({ nullable: false })
+  get forwardOrigin () {
+    const { forward_origin } = this.payload
+
+    if (!forward_origin) {
+      return
+    }
+
+    // TODO: simplify
+
+    if (this.payload.origin.type === 'user') {
+      return new MessageOriginUser(this.payload.origin)
+    }
+
+    if (this.payload.origin.type === 'chat') {
+      return new MessageOriginChat(this.payload.origin)
+    }
+
+    if (this.payload.origin.type === 'channel') {
+      return new MessageOriginChannel(this.payload.origin)
+    }
+
+    if (this.payload.origin.type === 'hidden_user') {
+      return new MessageOriginHiddenUser(this.payload.origin)
+    }
+
+    throw new TypeError('unknown message origin type')
+  }
+
   /** @deprecated use `forwardedMessage` instead */
   get forwardMessage () {
     return this.forwardedMessage
   }
 
-  /** Forwarded message if there is any */
+  /**
+   * Forwarded message if there is any
+   *
+   * @deprecated use `forwardOrigin` from now on
+   */
   @Inspect({ nullable: false })
   get forwardedMessage () {
     const { forward_date } = this.payload
@@ -150,6 +189,30 @@ export class Message implements Structure {
     }
 
     return new Message(reply_to_message)
+  }
+
+  /** Information about the message that is being replied to, which may come from another chat or forum topic */
+  @Inspect({ nullable: false })
+  get externalReply () {
+    const { external_reply } = this.payload
+
+    if (!external_reply) {
+      return
+    }
+
+    return new ExternalReplyInfo(external_reply)
+  }
+
+  /** For replies that quote part of the original message, the quoted part of the message */
+  @Inspect({ nullable: false })
+  get quote () {
+    const { quote } = this.payload
+
+    if (!quote) {
+      return
+    }
+
+    return new TextQuote(quote)
   }
 
   /** Bot through which the message was sent */
@@ -212,6 +275,18 @@ export class Message implements Structure {
     }
 
     return new MessageEntities(...entities.map(entity => new MessageEntity(entity)))
+  }
+
+  /** Options used for link preview generation for the message, if it is a text message and link preview options were changed */
+  @Inspect({ nullable: false })
+  get linkPreviewOptions () {
+    const { link_preview_options } = this.payload
+
+    if (!link_preview_options) {
+      return
+    }
+
+    return new LinkPreviewOptions(link_preview_options)
   }
 
   /**
@@ -592,11 +667,15 @@ export class Message implements Structure {
    * reply.
    */
   @Inspect({ nullable: false })
-  get pinnedMessage (): Omit<Message, 'replyMessage'> | undefined {
+  get pinnedMessage (): InaccessibleMessage | Omit<Message, 'replyMessage'> | undefined {
     const { pinned_message } = this.payload
 
     if (!pinned_message) {
       return
+    }
+
+    if (pinned_message.date === 0) {
+      return new InaccessibleMessage(pinned_message)
     }
 
     return new Message(pinned_message)
@@ -631,14 +710,14 @@ export class Message implements Structure {
 
   /** Service message: a user was shared with the bot */
   @Inspect({ nullable: false })
-  get userShared () {
-    const { user_shared } = this.payload
+  get usersShared () {
+    const { users_shared } = this.payload
 
-    if (!user_shared) {
+    if (!users_shared) {
       return
     }
 
-    return new UserShared(user_shared)
+    return new UsersShared(users_shared)
   }
 
   /** Service message: a chat was shared with the bot */

@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v6.9.0, 22.09.2023
-/// Generation date: 03.11.2023 18:39:08 MSK
+/// Based on Bot API v7.0.0, 29.12.2023
+/// Generation date: 29.12.2023 17:26:04 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
@@ -28,7 +28,7 @@ export interface GetUpdatesParams {
    */
   timeout?: number
   /**
-   * A JSON-serialized list of the update types you want your bot to receive. For example, specify `["message", "edited_channel_post", "callback_query"]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member* (default). If not specified, the previous setting will be used.  
+   * A JSON-serialized list of the update types you want your bot to receive. For example, specify `["message", "edited_channel_post", "callback_query"]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member*, *message\_reaction*, and *message\_reaction\_count* (default). If not specified, the previous setting will be used.  
    * 
    * Please note that this parameter doesn't affect updates created before the call to the getUpdates, so unwanted updates may be received for a short period of time.
    */
@@ -64,7 +64,7 @@ export interface SetWebhookParams {
    */
   max_connections?: number
   /**
-   * A JSON-serialized list of the update types you want your bot to receive. For example, specify `["message", "edited_channel_post", "callback_query"]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member* (default). If not specified, the previous setting will be used.  
+   * A JSON-serialized list of the update types you want your bot to receive. For example, specify `["message", "edited_channel_post", "callback_query"]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api/#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member*, *message\_reaction*, and *message\_reaction\_count* (default). If not specified, the previous setting will be used.  
    * Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
    */
   allowed_updates?: string[]
@@ -167,9 +167,9 @@ export interface SendMessageParams {
    */
   entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
-   * Disables link previews for links in this message
+   * Link preview generation options for the message
    */
-  disable_web_page_preview?: boolean
+  link_preview_options?: Interfaces.TelegramLinkPreviewOptions
   /**
    * Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
    */
@@ -179,13 +179,9 @@ export interface SendMessageParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -233,13 +229,51 @@ export interface ForwardMessageParams {
 }
 
 /**
- * Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
+ * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
  * 
  * ---
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#forwardmessage)
  */
 export type forwardMessage = (params: ForwardMessageParams) => Promise<Interfaces.TelegramMessage>
+
+export interface ForwardMessagesParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
+   * Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)
+   */
+  from_chat_id: number | string
+  /**
+   * Identifiers of 1-100 messages in the chat *from\_chat\_id* to forward. The identifiers must be specified in a strictly increasing order.
+   */
+  message_ids: number[]
+  /**
+   * Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+   */
+  disable_notification?: boolean
+  /**
+   * Protects the contents of the forwarded messages from forwarding and saving
+   */
+  protect_content?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent messages is returned.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#forwardmessages)
+ */
+export type forwardMessages = (params: ForwardMessagesParams) => Promise<Interfaces.TelegramMessageId[]>
 
 export interface CopyMessageParams {
   /**
@@ -279,13 +313,9 @@ export interface CopyMessageParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -295,13 +325,55 @@ export interface CopyMessageParams {
 }
 
 /**
- * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api/#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent message on success.
+ * Use this method to copy messages of any kind. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api/#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent message on success.
  * 
  * ---
  * 
  * [**Documentation**](https://core.telegram.org/bots/api/#copymessage)
  */
 export type copyMessage = (params: CopyMessageParams) => Promise<Interfaces.TelegramMessageId>
+
+export interface CopyMessagesParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   */
+  message_thread_id?: number
+  /**
+   * Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)
+   */
+  from_chat_id: number | string
+  /**
+   * Identifiers of 1-100 messages in the chat *from\_chat\_id* to copy. The identifiers must be specified in a strictly increasing order.
+   */
+  message_ids: number[]
+  /**
+   * Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+   */
+  disable_notification?: boolean
+  /**
+   * Protects the contents of the sent messages from forwarding and saving
+   */
+  protect_content?: boolean
+  /**
+   * Pass *True* to copy the messages without their captions
+   */
+  remove_caption?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api/#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent messages is returned.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#copymessages)
+ */
+export type copyMessages = (params: CopyMessagesParams) => Promise<Interfaces.TelegramMessageId[]>
 
 export interface SendPhotoParams {
   /**
@@ -341,13 +413,9 @@ export interface SendPhotoParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -415,13 +483,9 @@ export interface SendAudioParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -483,13 +547,9 @@ export interface SendDocumentParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -565,13 +625,9 @@ export interface SendVideoParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -643,13 +699,9 @@ export interface SendAnimationParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -705,13 +757,9 @@ export interface SendVoiceParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -763,13 +811,9 @@ export interface SendVideoNoteParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -809,13 +853,9 @@ export interface SendMediaGroupParams {
    */
   protect_content?: boolean
   /**
-   * If the messages are a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
 
   [key: string]: any
 }
@@ -871,13 +911,9 @@ export interface SendLocationParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -945,13 +981,9 @@ export interface SendVenueParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -1003,13 +1035,9 @@ export interface SendContactParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -1095,13 +1123,9 @@ export interface SendPollParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -1143,13 +1167,9 @@ export interface SendDiceParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -1198,6 +1218,36 @@ export interface SendChatActionParams {
  * [**Documentation**](https://core.telegram.org/bots/api/#sendchataction)
  */
 export type sendChatAction = (params: SendChatActionParams) => Promise<true>
+
+export interface SetMessageReactionParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string
+  /**
+   * Identifier of the target message
+   */
+  message_id: number
+  /**
+   * New list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators.
+   */
+  reaction?: Interfaces.TelegramReactionType[]
+  /**
+   * Pass *True* to set the reaction with a big animation
+   */
+  is_big?: boolean
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. In albums, bots must react to the first message. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#setmessagereaction)
+ */
+export type setMessageReaction = (params: SetMessageReactionParams) => Promise<true>
 
 export interface GetUserProfilePhotosParams {
   /**
@@ -1845,7 +1895,7 @@ export interface GetChatParams {
 }
 
 /**
- * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a [Chat](https://core.telegram.org/bots/api/#chat) object on success.
+ * Use this method to get up to date information about the chat. Returns a [Chat](https://core.telegram.org/bots/api/#chat) object on success.
  * 
  * ---
  * 
@@ -2258,6 +2308,28 @@ export interface AnswerCallbackQueryParams {
  */
 export type answerCallbackQuery = (params: AnswerCallbackQueryParams) => Promise<true>
 
+export interface GetUserChatBoostsParams {
+  /**
+   * Unique identifier for the chat or username of the channel (in the format `@channelusername`)
+   */
+  chat_id: number | string
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a [UserChatBoosts](https://core.telegram.org/bots/api/#userchatboosts) object.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#getuserchatboosts)
+ */
+export type getUserChatBoosts = (params: GetUserChatBoostsParams) => Promise<Interfaces.TelegramUserChatBoosts>
+
 export interface SetMyCommandsParams {
   /**
    * A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
@@ -2554,9 +2626,9 @@ export interface EditMessageTextParams {
    */
   entities?: (MessageEntity | Interfaces.TelegramMessageEntity)[]
   /**
-   * Disables link previews for links in this message
+   * Link preview generation options for the message
    */
-  disable_web_page_preview?: boolean
+  link_preview_options?: Interfaces.TelegramLinkPreviewOptions
   /**
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards).
    */
@@ -2817,6 +2889,28 @@ export interface DeleteMessageParams {
  */
 export type deleteMessage = (params: DeleteMessageParams) => Promise<true>
 
+export interface DeleteMessagesParams {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   */
+  chat_id: number | string
+  /**
+   * Identifiers of 1-100 messages to delete. See [deleteMessage](https://core.telegram.org/bots/api/#deletemessage) for limitations on which messages can be deleted
+   */
+  message_ids: number[]
+
+  [key: string]: any
+}
+
+/**
+ * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns *True* on success.
+ * 
+ * ---
+ * 
+ * [**Documentation**](https://core.telegram.org/bots/api/#deletemessages)
+ */
+export type deleteMessages = (params: DeleteMessagesParams) => Promise<true>
+
 export interface SendStickerParams {
   /**
    * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
@@ -2843,13 +2937,9 @@ export interface SendStickerParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove reply keyboard or to force a reply from the user.
    */
@@ -3359,13 +3449,9 @@ export interface SendInvoiceParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Pay `total price`' button will be shown. If not empty, the first button must be a Pay button.
    */
@@ -3579,13 +3665,9 @@ export interface SendGameParams {
    */
   protect_content?: boolean
   /**
-   * If the message is a reply, ID of the original message
+   * Description of the message to reply to
    */
-  reply_to_message_id?: number
-  /**
-   * Pass *True* if the message should be sent even if the specified replied-to message is not found
-   */
-  allow_sending_without_reply?: boolean
+  reply_parameters?: Interfaces.TelegramReplyParameters
   /**
    * A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards). If empty, one 'Play game\_title' button will be shown. If not empty, the first button must launch the game.
    */

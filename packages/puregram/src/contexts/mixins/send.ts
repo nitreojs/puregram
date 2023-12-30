@@ -379,6 +379,14 @@ class SendMixin {
     // @ts-expect-error impossible type
     throw new TypeError(`[sendMedia] unhandled media type ${query.type}`)
   }
+
+  /** Returns chat boosts by the user */
+  getChatBoosts (userId: number) {
+    return this.telegram.api.getUserChatBoosts({
+      chat_id: this.chatId || this.senderId || 0,
+      user_id: userId
+    })
+  }
 }
 
 interface SendMixin extends Context, SendMixinMetadata { }

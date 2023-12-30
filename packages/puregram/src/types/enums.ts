@@ -78,7 +78,9 @@ export enum UpdateType {
   VideoChatScheduled = 'video_chat_scheduled',
   VideoChatStarted = 'video_chat_started',
   WebAppData = 'web_app_data',
-  ServiceMessage = 'service_message'
+  ServiceMessage = 'service_message',
+  ChatBoost = 'chat_boost_updated',
+  RemovedChatBoost = 'removed_chat_boost'
 }
 
 export enum ChatType {

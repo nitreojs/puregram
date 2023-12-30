@@ -17,6 +17,8 @@ import { PreCheckoutQuery } from './pre-checkout-query'
 import { ShippingQuery } from './shipping-query'
 import { MessageReactionUpdated } from './message-reaction-updated'
 import { MessageReactionCountUpdated } from './message-reaction-count-updated'
+import { ChatBoostRemoved } from './chat-boost-removed'
+import { ChatBoostUpdated } from './chat-boost-updated'
 
 /**
  * This object represents an incoming update.
@@ -254,6 +256,30 @@ export class Update implements Structure {
     }
 
     return new ChatJoinRequest(chat_join_request)
+  }
+
+  /** A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates. */
+  @Inspect()
+  get chatBoost () {
+    const { chat_boost } = this.payload
+
+    if (!chat_boost) {
+      return
+    }
+
+    return new ChatBoostUpdated(chat_boost)
+  }
+
+  /** A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates. */
+  @Inspect()
+  get removedChatBoost () {
+    const { removed_chat_boost } = this.payload
+
+    if (!removed_chat_boost) {
+      return
+    }
+
+    return new ChatBoostRemoved(removed_chat_boost)
   }
 
   toJSON () {

@@ -53,6 +53,14 @@ class InlineQueryContext extends Context {
       ...params
     })
   }
+
+  /** Answers to inline query. An alias for `answerInlineQuery` */
+  answer (
+    results: Interfaces.TelegramInlineQueryResult[],
+    params?: Partial<Methods.AnswerInlineQueryParams>
+  ) {
+    return this.answerInlineQuery(results, params)
+  }
 }
 
 interface InlineQueryContext extends Constructor<InlineQueryContext>, InlineQuery, CloneMixin<InlineQueryContext, InlineQueryContextOptions> { }

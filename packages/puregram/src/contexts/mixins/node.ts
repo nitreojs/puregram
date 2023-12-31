@@ -3,7 +3,7 @@ import * as Methods from '../../generated/methods'
 
 import { InlineKeyboard, InlineKeyboardBuilder } from '../../common/keyboards'
 import { MessageId } from '../../common/structures'
-import { Optional } from '../../types/types'
+import { MaybeArray, Optional } from '../../types/types'
 
 import { Context } from '../context'
 import { SendMixin } from './send'
@@ -397,6 +397,20 @@ class NodeMixin {
   /** Sets multiple amount of reactions on a message */
   setReactions (rawReactions: (Interfaces.TelegramReactionTypeEmoji['emoji'] | Interfaces.TelegramReactionType)[], params: Optional<Methods.SetMessageReactionParams, 'chat_id' | 'message_id'> = {}) {
     const reactions = rawReactions.map(r => typeof r === 'string' ? { type: 'emoji', emoji: r } as Interfaces.TelegramReactionTypeEmoji : r)
+
+    return this.telegram.api.setMessageReaction({
+      chat_id: this.chatId || this.senderId || 0,
+      message_id: this.id,
+      reaction: reactions,
+      ...params
+    })
+  }
+
+  /** Reacts to a message */
+  react (rawReactions: MaybeArray<Interfaces.TelegramReactionTypeEmoji['emoji'] | Interfaces.TelegramReactionType>, params: Optional<Methods.SetMessageReactionParams, 'chat_id' | 'message_id'> = {}) {
+    const reactions = (
+      Array.isArray(rawReactions) ? rawReactions : [rawReactions]
+    ).map(r => typeof r === 'string' ? { type: 'emoji', emoji: r } as Interfaces.TelegramReactionTypeEmoji : r)
 
     return this.telegram.api.setMessageReaction({
       chat_id: this.chatId || this.senderId || 0,

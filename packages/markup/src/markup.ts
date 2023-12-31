@@ -1,6 +1,6 @@
 import { MessageEntity, User } from 'puregram'
 import { Hooks } from 'puregram/hooks'
-import { TelegramMessageEntityType, TelegramUser } from 'puregram/generated'
+import { AnswerInlineQueryParams, TelegramMessageEntityType, TelegramUser } from 'puregram/generated'
 
 import { MarkupItem } from './item'
 import { Formatted } from './format'
@@ -246,10 +246,29 @@ export const hooks: (() => Partial<Hooks>) = () => ({
     (context) => {
       for (const [key, value] of [['text', 'entities'], ['caption', 'caption_entities']]) {
         if (key in context.params && context.params[key] instanceof Formatted) {
-          const formatted = context.params[key] as Formatted
+          const fmt = context.params[key] as Formatted
 
-          context.params[value] = formatted.text
-          context.params[value] = formatted.entities
+          context.params[value] = fmt.entities
+        }
+      }
+
+      if (context.path === 'answerInlineQuery') {
+        const params = context.params as AnswerInlineQueryParams
+        const results = params.results
+
+        const isResultFormatted = (result: AnswerInlineQueryParams['results'][number]) => (
+          'input_message_content' in result &&
+          result.input_message_content.message_text instanceof Formatted
+        )
+
+        for (let i = 0; i < results.length; i++) {
+          if (isResultFormatted(results[i])) {
+            const result = results[i]
+            const fmt = result.input_message_content.message_text as Formatted
+
+            result.input_message_content.message_text = fmt.text
+            result.input_message_content.entities = fmt.entities
+          }
         }
       }
 

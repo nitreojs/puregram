@@ -155,6 +155,10 @@ class InterfaceService {
         type += ' | Enums.BotCommandScopeType.' + uppercaseFirst(undoSnakeCase((field as Types.SchemaObjectString).default!))
       }
 
+      if (field.name === 'message_text') {
+        type += ' | Formattable'
+      }
+
       const description = InterfaceService.generateDescription(field.description, 2)
       const property = `${description}\n${tab(field.name)}${field.required ? '' : '?'}: ${type}`
 
@@ -393,7 +397,7 @@ class GenerationService {
 
       import * as Enums from '../types/enums'
 
-      import { SoftString } from '../types/types'
+      import { SoftString, Formattable } from '../types/types'
 
       import { MediaInput } from '../common/media-source'
 

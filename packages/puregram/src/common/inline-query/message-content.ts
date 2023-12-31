@@ -1,3 +1,4 @@
+import type { Formattable } from 'puregram/types'
 import * as Interfaces from '../../generated'
 
 import type { Optional } from '../../types/types'
@@ -17,7 +18,7 @@ import type { Optional } from '../../types/types'
 export class InputMessageContent {
   /** Creates a `TelegramInputTextMessageContent` object */
   static text (
-    text: string,
+    text: string | Formattable,
     params: Optional<Interfaces.TelegramInputTextMessageContent, 'message_text'> = {}
   ): Interfaces.TelegramInputTextMessageContent {
     return {

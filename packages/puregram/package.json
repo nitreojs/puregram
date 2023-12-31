@@ -1,6 +1,6 @@
 {
   "name": "puregram",
-  "version": "2.23.2",
+  "version": "2.24.0-beta.2",
   "description": "powerful and modern telegram bot api sdk for node.js and typescript 😁",
   "main": "./lib/index.js",
   "author": "starkow",
@@ -26,8 +26,9 @@
     "telegram",
     "telegram-api",
     "telegram-bot-api",
-    "session",
-    "scenes",
+    "telegram bot api",
+    "bot api",
+    "botapi",
     "typescript",
     "bot"
   ],
@@ -114,6 +115,7 @@
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "common-tags": "^1.8.0",
+    "dpdm": "^3.14.0",
     "eslint": "^8.20.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.25.2",

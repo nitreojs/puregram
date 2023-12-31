@@ -1,4 +1,3 @@
-import { Inspectable } from 'inspectable'
 import * as Interfaces from '../../../generated/telegram-interfaces'
 
 import { Structure } from '../../../types/interfaces'

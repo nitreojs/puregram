@@ -1,4 +1,4 @@
-import { AttachmentType } from '../../types/types'
+import type { AttachmentType } from '../../types/types'
 import { applyMixins } from '../../utils/helpers'
 
 import { Contact } from '../structures/contact'

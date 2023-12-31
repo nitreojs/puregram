@@ -38,6 +38,8 @@ import { ChatShared } from './chat-shared'
 import { ExternalReplyInfo } from './external-reply-info'
 import { TextQuote } from './text-quote'
 import { LinkPreviewOptions } from './link-preview-options'
+import { MessageOriginChannel, MessageOriginChat, MessageOriginHiddenUser, MessageOriginUser } from './message-origin'
+import { InaccessibleMessage } from './inaccessible-message'
 
 import {
   AnimationAttachment,
@@ -51,8 +53,6 @@ import {
 } from '../attachments'
 
 import { MessageEntities } from '../message-entities'
-import { MessageOriginChannel, MessageOriginChat, MessageOriginHiddenUser, MessageOriginUser } from './message-origin'
-import { InaccessibleMessage } from '..'
 
 /** This object represents a message. */
 @Inspectable()

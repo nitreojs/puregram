@@ -1,6 +1,6 @@
 {
   "name": "@puregram/markup",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "simple yet powerful markup system for puregram",
   "main": "./lib/index.js",
   "scripts": {
@@ -29,6 +29,6 @@
   },
   "homepage": "https://github.com/nitreojs/puregram#readme",
   "dependencies": {
-    "puregram": "^2.19.0"
+    "puregram": "^2.24.0-beta.1"
   }
 }

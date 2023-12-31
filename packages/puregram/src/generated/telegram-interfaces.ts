@@ -3,13 +3,13 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v7.0.0, 29.12.2023
-/// Generation date: 29.12.2023 17:26:04 MSK
+/// Generation date: 31.12.2023 17:57:57 MSK
 
 import { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
 import * as Enums from '../types/enums'
 
-import { SoftString } from '../types/types'
+import { SoftString, Formattable } from '../types/types'
 
 import { MediaInput } from '../common/media-source'
 
@@ -4664,7 +4664,7 @@ export interface TelegramInputTextMessageContent {
   /**
    * Text of the message to be sent, 1-4096 characters
    */
-  message_text: string
+  message_text: string | Formattable
   /**
    * *Optional*. Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */

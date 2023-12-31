@@ -5,7 +5,10 @@ import { PassThrough, Readable } from 'node:stream'
 import { debug } from 'debug'
 
 import { MediaInput, MediaSourceType } from '../common/media-source'
-import { Attachment, FileAttachment, PhotoAttachment } from '../common/attachments'
+
+import { Attachment } from '../common/attachments/attachment'
+import { FileAttachment } from '../common/attachments/file-attachment'
+import { PhotoAttachment } from '../common/attachments/photo'
 
 export const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
   for (const baseCtor of baseCtors) {

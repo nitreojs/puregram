@@ -1,9 +1,9 @@
 import { Inspect, Inspectable } from 'inspectable'
 
-import { Message } from '../../common/structures'
+import { Message } from '../../common/structures/message'
 import * as Interfaces from '../../generated/telegram-interfaces'
 
-import { Structure } from '../../types/interfaces'
+import type { Structure } from '../../types/interfaces'
 
 import { ChatPhoto } from './chat-photo'
 import { ChatPermissions } from './chat-permissions'

@@ -2,11 +2,11 @@ import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
-import { Structure } from '../../types/interfaces'
+import type { Structure } from '../../types/interfaces'
 
 import { Message } from './message'
 import { User } from './user'
-import { InaccessibleMessage } from '..'
+import { InaccessibleMessage } from './inaccessible-message'
 
 /**
  * This object represents an incoming callback query from a callback button in

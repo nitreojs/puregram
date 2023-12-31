@@ -1,9 +1,11 @@
 import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
-import { AttachmentType, Require } from '../../types/types'
+import type { AttachmentType, Require } from '../../types/types'
 
-import { PhotoSize, MaskPosition, File } from '../structures'
+import { PhotoSize } from '../structures/photo-size'
+import { MaskPosition } from '../structures/mask-position'
+import { File } from '../structures/file'
 
 import { FileAttachment } from './file-attachment'
 

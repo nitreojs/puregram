@@ -6,8 +6,8 @@ import { stripIndent, stripIndents } from 'common-tags'
 
 import * as Types from './types'
 
-// const SCHEMA_URL = resolve(__dirname, 'custom.min.json')
-const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
+const SCHEMA_URL = resolve(__dirname, 'custom.min.json')
+// const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
 const CURRENCIES_URL = 'https://core.telegram.org/bots/payments/currencies.json'
 
 ///           SERVICES           ///
@@ -389,15 +389,15 @@ class GenerationService {
 
   static generateInterfacesImports () {
     return stripIndent`
-      import { Readable } from 'stream' // INFO: for Interfaces.InputFile
+      import type { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
       import * as Enums from '../types/enums'
 
-      import { SoftString } from '../types/types'
+      import type { SoftString } from '../types/types'
 
-      import { MediaInput } from '../common/media-source'
+      import type { MediaInput } from '../common/media-source'
 
-      import {
+      import type {
         Keyboard,
         KeyboardBuilder,
         InlineKeyboardBuilder,
@@ -414,10 +414,10 @@ class GenerationService {
 
       import * as Enums from '../types/enums'
 
-      import { SoftString, Formattable } from '../types/types'
+      import type { SoftString, Formattable } from '../types/types'
 
-      import { MediaInput } from '../common/media-source'
-      import { MessageEntity } from '../common/structures'
+      import type { MediaInput } from '../common/media-source'
+      import type { MessageEntity } from '../common/structures/message-entity'
     `
   }
 
@@ -501,7 +501,7 @@ export async function getJson (fromFile = false) {
 }
 
 export async function generate () {
-  const { objects: interfaces, methods } = await getJson()
+  const { objects: interfaces, methods } = await getJson(true)
 
   const _generation_start = Date.now()
 
@@ -561,7 +561,7 @@ export function generateHeader (version: Types.SchemaVersion, recentChanges: Typ
 }
 
 async function _generate (generateFiles = true) {
-  const { version, recent_changes, methods } = await getJson()
+  const { version, recent_changes, methods } = await getJson(true)
 
   const _generation_start = Date.now()
 
@@ -660,4 +660,4 @@ async function _generate (generateFiles = true) {
   return 0
 }
 
-_generate().catch(console.error)
+_generate(true).catch(console.error)

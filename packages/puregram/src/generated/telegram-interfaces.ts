@@ -3,17 +3,17 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v7.0.0, 29.12.2023
-/// Generation date: 29.12.2023 17:26:04 MSK
+/// Generation date: 31.12.2023 15:15:11 MSK
 
-import { Readable } from 'stream' // INFO: for Interfaces.InputFile
+import type { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
 import * as Enums from '../types/enums'
 
-import { SoftString } from '../types/types'
+import type { SoftString } from '../types/types'
 
-import { MediaInput } from '../common/media-source'
+import type { MediaInput } from '../common/media-source'
 
-import {
+import type {
   Keyboard,
   KeyboardBuilder,
   InlineKeyboardBuilder,

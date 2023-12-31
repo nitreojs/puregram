@@ -3,16 +3,16 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v7.0.0, 29.12.2023
-/// Generation date: 29.12.2023 17:26:04 MSK
+/// Generation date: 31.12.2023 15:15:11 MSK
 
 import * as Interfaces from './telegram-interfaces'
 
 import * as Enums from '../types/enums'
 
-import { SoftString, Formattable } from '../types/types'
+import type { SoftString, Formattable } from '../types/types'
 
-import { MediaInput } from '../common/media-source'
-import { MessageEntity } from '../common/structures'
+import type { MediaInput } from '../common/media-source'
+import type { MessageEntity } from '../common/structures/message-entity'
 
 export interface GetUpdatesParams {
   /**

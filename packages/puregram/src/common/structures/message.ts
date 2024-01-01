@@ -53,6 +53,10 @@ import {
 } from '../attachments'
 
 import { MessageEntities } from '../message-entities'
+import { Giveaway } from './giveaway'
+import { GiveawayCreated } from './giveaway-created'
+import { GiveawayCompleted } from './giveaway-completed'
+import { GiveawayWinners } from './giveaway-winners'
 
 /** This object represents a message. */
 @Inspectable()
@@ -830,6 +834,54 @@ export class Message implements Structure {
     }
 
     return new GeneralForumTopicUnhidden(general_forum_topic_unhidden)
+  }
+
+  /** The message is a scheduled giveaway message */
+  @Inspect({ nullable: false })
+  get giveaway () {
+    const { giveaway } = this.payload
+
+    if (!giveaway) {
+      return
+    }
+
+    return new Giveaway(giveaway)
+  }
+
+  /** Service message: a scheduled giveaway was created */
+  @Inspect({ nullable: false })
+  get giveawayCreated () {
+    const { giveaway_created } = this.payload
+
+    if (!giveaway_created) {
+      return
+    }
+
+    return new GiveawayCreated(giveaway_created)
+  }
+
+  /** Service message: a giveaway without public winners was completed */
+  @Inspect({ nullable: false })
+  get giveawayCompleted () {
+    const { giveaway_completed } = this.payload
+
+    if (!giveaway_completed) {
+      return
+    }
+
+    return new GiveawayCompleted(giveaway_completed)
+  }
+
+  /** A giveaway with public winners was completed */
+  @Inspect({ nullable: false })
+  get giveawayWinners () {
+    const { giveaway_winners } = this.payload
+
+    if (!giveaway_winners) {
+      return
+    }
+
+    return new GiveawayWinners(giveaway_winners)
   }
 
   /** Service message: video chat scheduled */

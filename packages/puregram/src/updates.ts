@@ -479,12 +479,16 @@ export class Updates {
 
       UpdateContext = events[context.eventType]
 
+      // debug$handleUpdate('UpdateContext: %O, update.message: %O', UpdateContext, update.message)
+      // debug$handleUpdate('update: %O, context: %O', update, context)
+
       context = new UpdateContext({
         update,
         updateId: update.update_id,
         type: context.eventType,
         telegram: this.telegram,
-        payload: update.message ?? update.edited_message
+        // TODO: detect actual key
+        payload: update.message ?? update.edited_message ?? update.channel_post ?? update.edited_channel_post
       })
     }
 

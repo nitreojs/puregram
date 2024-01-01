@@ -82,7 +82,7 @@ export enum UpdateType {
   GiveawayCompleted = 'giveaway_completed',
   GiveawayWinners = 'giveaway_winners',
   ServiceMessage = 'service_message',
-  ChatBoost = 'chat_boost_updated',
+  ChatBoost = 'chat_boost',
   RemovedChatBoost = 'removed_chat_boost'
 }
 

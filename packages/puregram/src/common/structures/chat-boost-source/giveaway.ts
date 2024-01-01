@@ -8,7 +8,7 @@ import { ChatBoostSource } from './chat-boost-source'
 /** The boost was obtained by the creation of a Telegram Premium giveaway. This boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription. */
 @Inspectable()
 export class ChatBoostSourceGiveaway extends ChatBoostSource {
-  constructor (payload: Interfaces.TelegramChatBoostSourceGiveaway) {
+  constructor (public payload: Interfaces.TelegramChatBoostSourceGiveaway) {
     super(payload)
   }
 
@@ -35,7 +35,7 @@ export class ChatBoostSourceGiveaway extends ChatBoostSource {
   }
 
   /** `true`, if the giveaway was completed, but there was no user to win the prize */
-  @Inspect()
+  @Inspect({ compute: true, nullable: false })
   isUnclaimed () {
     return this.payload.is_unclaimed
   }

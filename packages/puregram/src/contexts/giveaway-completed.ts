@@ -2,22 +2,22 @@ import { inspectable } from 'inspectable'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { Constructor, Require } from '../types/types'
+import { Constructor } from '../types/types'
 import { applyMixins, filterPayload } from '../utils/helpers'
 import { Context } from './context'
-import { CloneMixin } from './mixins'
-import { GiveawayCompleted } from '../common/structures/giveaway-completed'
+import { ChatActionMixin, ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, ForumMixin, NodeMixin, PinsMixin, SendMixin, TargetMixin } from './mixins'
+import { Message } from '../common/structures/message'
 
 interface GiveawayCompletedContextOptions {
   telegram: Telegram
   update: Interfaces.TelegramUpdate
-  payload: Interfaces.TelegramGiveawayCompleted
+  payload: Interfaces.TelegramMessage
   updateId: number
 }
 
 /** This object represents a service message about the creation of a scheduled giveaway. Currently holds no information. */
 class GiveawayCompletedContext extends Context {
-  payload: Interfaces.TelegramGiveawayCompleted
+  payload: Interfaces.TelegramMessage
 
   constructor (options: GiveawayCompletedContextOptions) {
     super({
@@ -30,28 +30,26 @@ class GiveawayCompletedContext extends Context {
     this.payload = options.payload
   }
 
-  /** Checks if context has `unclaimedPrizeCount` property */
-  hasUnclaimedPrizeCount (): this is Require<this, 'unclaimedPrizeCount'> {
-    return this.payload.unclaimed_prize_count !== undefined
-  }
-
-  /** Checks if context has `message` property */
-  hasMessage (): this is Require<this, 'message'> {
-    return this.payload.giveaway_message !== undefined
+  /** Giveaway completed */
+  get eventGiveaway () {
+    return this.giveawayCompleted!
   }
 }
 
-interface GiveawayCompletedContext extends Constructor<GiveawayCompletedContext>, GiveawayCompleted, CloneMixin<GiveawayCompletedContext, GiveawayCompletedContextOptions> {}
-applyMixins(GiveawayCompletedContext, [GiveawayCompleted, CloneMixin])
+interface GiveawayCompletedContext extends Constructor<GiveawayCompletedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<GiveawayCompletedContext, GiveawayCompletedContextOptions> {}
+applyMixins(GiveawayCompletedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ForumMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
 
 export { GiveawayCompletedContext }
 
 inspectable(GiveawayCompletedContext, {
   serialize (context: GiveawayCompletedContext) {
     const payload = {
-      winnerCount: context.winnerCount,
-      unclaimedPrizeCount: context.unclaimedPrizeCount,
-      message: context.message
+      id: context.id,
+      createdAt: context.createdAt,
+      chat: context.chat,
+      chatId: context.chatId,
+      chatType: context.chatType,
+      eventGiveaway: context.eventGiveaway
     }
 
     return filterPayload(payload)

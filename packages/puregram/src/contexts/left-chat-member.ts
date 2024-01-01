@@ -44,8 +44,6 @@ inspectable(LeftChatMemberContext, {
   serialize (context) {
     return {
       id: context.id,
-      from: context.from,
-      senderId: context.senderId,
       createdAt: context.createdAt,
       chat: context.chat,
       chatId: context.chatId,

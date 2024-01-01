@@ -2,6 +2,7 @@ import { Inspect, Inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
+import { Message } from './message'
 
 /** This object represents a service message about the completion of a giveaway without public winners. */
 @Inspectable()
@@ -26,8 +27,14 @@ export class GiveawayCompleted implements Structure {
 
   /** Message with the giveaway that was completed, if it wasn't deleted */
   @Inspect({ nullable: false })
-  get message () {
-    return this.payload.giveaway_message
+  get message (): Message | undefined {
+    const { giveaway_message } = this.payload
+
+    if (!giveaway_message) {
+      return
+    }
+
+    return new Message(giveaway_message)
   }
 
   toJSON () {

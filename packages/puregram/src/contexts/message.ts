@@ -250,6 +250,21 @@ class MessageContext extends Context {
     return this.forwardedMessage !== undefined
   }
 
+  /** Does this message have a quote? */
+  hasQuote (): this is Require<this, 'quote'> {
+    return this.quote !== undefined
+  }
+
+  /** Does this message have link preview options? */
+  hasLinkPreviewOptions (): this is Require<this, 'linkPreviewOptions'> {
+    return this.linkPreviewOptions !== undefined
+  }
+
+  /** Does this message have external reply info? */
+  hasReplyInfo (): this is Require<this, 'externalReply'> {
+    return this.externalReply !== undefined
+  }
+
   /** Does this message have reply message? */
   hasReplyMessage (): this is Require<this, 'replyMessage'> {
     return this.replyMessage !== undefined

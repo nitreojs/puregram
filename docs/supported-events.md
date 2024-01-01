@@ -289,11 +289,106 @@ called whenever a 'General' forum topic has been unhidden
 
 - **type**: `'general_forum_topic_unhidden'`, `UpdateType.GeneralForumTopicUnhidden`
 - **context**: `GeneralForumTopicUnhiddenContext`
-- **hot to trigger**: unhide a 'General' forum topic
+- **how to trigger**: unhide a 'General' forum topic
 
 ```ts
 telegram.updates.on('general_forum_topic_unhidden', (context: GeneralForumTopicUnhiddenContext) => {})
 telegram.updates.on(UpdateType.GeneralForumTopicUnhidden, (context: GeneralForumTopicUnhiddenContext) => {})
+```
+
+### `message_reaction`
+
+called whenever your bot receives a non-anonymous reaction.
+the bot must be an administrator in the chat and **must explicitly specify** `'message_reaction'` in the list of `allowed_updates` to receive these updates.
+
+- **type**: `'message_reaction'`, `UpdateType.MessageReaction`
+- **context**: `MessageReactionContext`
+- **how to trigger**: set a reaction on a bot's message
+
+```ts
+telegram.updates.on('message_reaction', (context: MessageReactionContext) => {})
+telegram.updates.on(UpdateType.MessageReaction, (context: MessageReactionContext) => {})
+```
+
+### `message_reaction_count`
+
+called whenever your bot receives an anonymous reaction.
+the bot must be an administrator in the chat and **must explicitly specify** `'message_reaction_count'` in the list of `allowed_updates` to receive these updates.
+
+- **type**: `'message_reaction_count'`, `UpdateType.MessageReactionCount`
+- **context**: `MessageReactionCountContext`
+- **how to trigger**: set a reaction on a message with anonymous reactions (e.g. a channel post)
+
+```ts
+telegram.updates.on('message_reaction_count', (context: MessageReactionCountContext) => {})
+telegram.updates.on(UpdateType.MessageReactionCount, (context: MessageReactionCountContext) => {})
+```
+
+### `chat_boost`
+
+called whenever a chat boost was added or changed.
+the bot must be an administrator in the chat.
+
+- **type**: `'chat_boost'`, `UpdateType.ChatBoost`
+- **context**: `ChatBoostContext`
+- **how to trigger**: boost a chat
+
+```ts
+telegram.updates.on('chat_boost', (context: ChatBoostContext) => {})
+telegram.updates.on(UpdateType.ChatBoost, (context: ChatBoostContext) => {})
+```
+
+### `removed_chat_boost`
+
+called whenever a chat boost was removed.
+the bot must be an administrator in the chat.
+
+- **type**: `'removed_chat_boost'`, `UpdateType.RemovedChatBoost`
+- **context**: `RemovedChatBoostContext`
+- **how to trigger**: remove a boost from a chat
+
+```ts
+telegram.updates.on('removed_chat_boost', (context: RemovedChatBoostContext) => {})
+telegram.updates.on(UpdateType.RemovedChatBoost, (context: RemovedChatBoostContext) => {})
+```
+
+### `giveaway_created`
+
+called whenever a giveaway was created.
+
+- **type**: `'giveaway_created'`, `UpdateType.GiveawayCreated`
+- **context**: `GiveawayCreatedContext`
+- **how to trigger**: create a giveaway
+
+```ts
+telegram.updates.on('giveaway_created', (context: GiveawayCreatedContext) => {})
+telegram.updates.on(UpdateType.GiveawayCreated, (context: GiveawayCreatedContext) => {})
+```
+
+### `giveaway_completed`
+
+called whenever a giveaway was completed.
+
+- **type**: `'giveaway_completed'`, `UpdateType.GiveawayCompleted`
+- **context**: `GiveawayCompletedContext`
+- **how to trigger**: wait for a giveaway to complete
+
+```ts
+telegram.updates.on('giveaway_completed', (context: GiveawayCompletedContext) => {})
+telegram.updates.on(UpdateType.GiveawayCompleted, (context: GiveawayCompletedContext) => {})
+```
+
+### `giveaway_winners`
+
+called whenever a giveaway with public winners was completed.
+
+- **type**: `'giveaway_winners'`, `UpdateType.GiveawayWinners`
+- **context**: `GiveawayWinnersContext`
+- **how to trigger**: wait for a giveaway with public winners was completed
+
+```ts
+telegram.updates.on('giveaway_winners', (context: GiveawayWinnersContext) => {})
+telegram.updates.on(UpdateType.GiveawayWinners, (context: GiveawayWinnersContext) => {})
 ```
 
 ## extra events

@@ -210,6 +210,11 @@ class MessageContext extends Context {
     return this.attachment !== undefined
   }
 
+  /** Is this message a giveaway */
+  isGiveaway (): this is Require<this, 'giveaway'> {
+    return this.giveaway !== undefined
+  }
+
   /** Is this message an event? */
   isEvent () {
     return EVENTS.some(event => this[event[0]] !== undefined)
@@ -243,6 +248,11 @@ class MessageContext extends Context {
   /** Is this message a service one? */
   isServiceMessage () {
     return SERVICE_MESSAGE_EVENTS.some(event => this.payload[event] !== undefined)
+  }
+
+  /** Does this message have a forward origin? */
+  hasForwardOrigin (): this is Require<this, 'forwardOrigin'> {
+    return this.forwardOrigin !== undefined
   }
 
   /** Is this message a forwarded one? */

@@ -92,3 +92,4 @@ scripts/generate-interfaces/*.json
 .DS_Store
 **/yarn.lock
 **/package-lock.json
+**/test.ts

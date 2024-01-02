@@ -595,13 +595,19 @@ export class Updates {
         for (const [mgId, mgUpdates] of mediaGroupIdsMap.entries()) {
           const contexts = await Promise.all(mgUpdates.map(mgu => this.handleUpdate(mgu, false))) as Contexts.MessageContext[]
 
-          const mediaGroup = new MediaGroup({ id: mgId, contexts })
+          const mediaGroup = new MediaGroup({
+            id: mgId,
+            contexts,
+            telegram: this.telegram
+          })
 
           // INFO: creating [MediaGroup] on top of the first context
           const context = contexts[0].clone()
           context.mediaGroup = mediaGroup
 
-          this.dispatchMiddleware(context)
+          await this.dispatchMiddleware(context)
+
+          this.offset = mgUpdates.at(-1)!.update_id + 1
         }
 
         // INFO: clearing out original [updates]
@@ -613,7 +619,7 @@ export class Updates {
 
     for (const update of updates) {
       try {
-        await this.handleUpdate(update)
+        this.handleUpdate(update)
       } catch (error) {
         debug$fetchUpdates('an error has occurred: %O', error)
       }

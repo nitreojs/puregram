@@ -360,13 +360,15 @@ const path = './puppy.jpg'
 const stream = createReadStream(path)
 const buffer = getBuffer(path)
 const url = 'https://puppies.com/random-puppy'
+const fileId = 'this-is-probably-a-real-file-id-for-sure'
 
 telegram.updates.on('message', (context) => {
   await Promise.all([
-    context.sendPhoto(MediaSource.path(path), { caption: 'puppy via path!' })
-    context.sendDocument(MediaSource.stream(stream, { filename: 'puppy.jpg' }), { caption: 'more puppies via stream!' })
-    context.sendPhoto(MediaSource.buffer(buffer), { caption: 'one more puppy via buffer!' })
-    context.sendPhoto(MediaSource.url(url), { caption: 'some random puppy sent using an url!!!' })
+    context.sendPhoto(MediaSource.path(path), { caption: 'puppy via path!' }),
+    context.sendDocument(MediaSource.stream(stream, { filename: 'puppy.jpg' }), { caption: 'more puppies via stream!' }),
+    context.sendPhoto(MediaSource.buffer(buffer), { caption: 'one more puppy via buffer!' }),
+    context.sendPhoto(MediaSource.url(url), { caption: 'some random puppy sent using an url!!!' }),
+    context.sendVideo(MediaSource.fileId(fileId), { caption: 'a video sent via file ID' })
   ])
 })
 ```

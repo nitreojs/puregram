@@ -488,7 +488,9 @@ telegram.api.editMessageMedia({
 
 context.sendMediaGroup([
   InputMedia.photo(MediaSource.path('./image.png')),
-  InputMedia.video(MediaSource.url('https://example.com/path/to/video.mp4'), { caption: 'here goes caption' })
+  InputMedia.video(MediaSource.url('https://example.com/path/to/video.mp4'), {
+    caption: 'here goes caption'
+  })
 ])
 ```
 
@@ -496,7 +498,9 @@ you can even use `InputMedia` on `context.sendMedia`!
 
 ```js
 context.sendMedia(
-  InputMedia.photo(MediaSource.path('./image.png'), { caption: 'EPIC!!❕❕❕❕❕❗️❗️' })
+  InputMedia.photo(MediaSource.path('./image.png'), {
+    caption: 'EPIC!!❕❕❕❕❕❗️❗️'
+  })
 )
 ```
 

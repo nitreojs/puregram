@@ -1,31 +1,257 @@
-import { MessageEntity, User } from 'puregram'
+import { MessageEntity } from 'puregram'
 import { Hooks } from 'puregram/hooks'
-import { AnswerInlineQueryParams, TelegramMessageEntityType, TelegramUser } from 'puregram/generated'
+import { AnswerInlineQueryParams, TelegramUser, TelegramMessageEntityType } from 'puregram/generated'
 
-import { MarkupItem } from './item'
 import { Formatted } from './format'
+
+interface Entity {
+  type: TelegramMessageEntityType
+  offset: number
+  length: number
+
+  url?: string // text_link
+  user?: TelegramUser // text_mention
+  language?: string // pre
+  custom_emoji_id?: string // custom_emoji
+}
+
+interface MarkupRepresentativeOptions {
+  text: string
+  entities: Entity[]
+}
+
+class MarkupRepresentative {
+  constructor (private options: MarkupRepresentativeOptions) {}
+
+  get text () {
+    return this.options.text
+  }
+
+  get entities () {
+    return this.options.entities
+  }
+}
 
 interface StringLike {
   toString(): string
 }
 
-const buildEntities = (index: number, item: MarkupItem): MessageEntity[] => {
-  const entities: MessageEntity[] = (
-    item.items !== undefined
-      ? item.items.flatMap(i => buildEntities(index, i))
-      : []
-  )
+const constructMarkup = (type: TelegramMessageEntityType, strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]) => {
+  let text = ''
+  let offset = 0
 
-  entities.push(
-    new MessageEntity({
-      type: item.type,
-      offset: item.index || index,
-      length: item.text.length,
-      ...item.additional
+  const entities: Entity[] = []
+
+  text += strings[0]
+  offset += text.length
+
+  for (let i = 0; i < rest.length; i++) {
+    const frame = strings[i + 1]
+    const arg = rest[i]
+
+    if (arg instanceof MarkupRepresentative) {
+      for (const entity of arg.entities) {
+        entity.offset += offset
+      }
+
+      text += arg.text + frame
+      entities.push(...arg.entities)
+    } else {
+      const addition = arg + frame
+
+      text += addition
+      offset += addition.length
+    }
+  }
+
+  return new MarkupRepresentative({
+    text,
+    entities: [
+      {
+        type,
+        offset: 0,
+        length: text.length
+      },
+      ...entities
+    ]
+  })
+}
+
+interface MarkupElement {
+  // bold('hello!')
+  (text: string): MarkupRepresentative
+  // bold(italic('hello!'))
+  (markup: MarkupRepresentative): MarkupRepresentative
+  // bold`hello ${italic('world')}!`
+  (strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]): MarkupRepresentative
+}
+
+interface MarkupRequiredElement<Fields extends string[]> {
+  // link('hello!', 'https://example.com')
+  (text: string, ...fields: Fields): MarkupRepresentative
+}
+
+const build = (type: TelegramMessageEntityType) => (
+  (...args: [markup: MarkupRepresentative] | [text: string] | [strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]]) => {
+    if (typeof args[0] === 'string') {
+      const text = args[0]
+
+      return new MarkupRepresentative({
+        text,
+        entities: [
+          {
+            type,
+            offset: 0,
+            length: text.length
+          }
+        ]
+      })
+    }
+
+    // bold(italic('hello'))
+    if (args[0] instanceof MarkupRepresentative) {
+      const markup = args[0]
+
+      return new MarkupRepresentative({
+        text: markup.text,
+        entities: [
+          {
+            type,
+            offset: 0,
+            length: markup.text.length
+          },
+          ...markup.entities
+        ]
+      })
+    }
+
+    // bold`hello ${italic('world')}!`
+    const [strings, ...rest] = args
+
+    return constructMarkup(type, strings, ...rest)
+  }
+) as MarkupElement
+
+const buildWithField = <Field extends string[]>(type: TelegramMessageEntityType, ...outer: Field) => (
+  (text: string, ...fields: Field) => {
+    const key = outer[0]
+    const value = fields[0]
+
+    return new MarkupRepresentative({
+      text,
+      entities: [
+        {
+          type,
+          [key]: value,
+          offset: 0,
+          length: text.length
+        }
+      ]
     })
-  )
+  }
+) as MarkupRequiredElement<Field>
 
-  return entities
+/** **bold** */
+export const bold = build('bold')
+/** _italic_ */
+export const italic = build('italic')
+/** underline */
+export const underline = build('underline')
+/** ~strikethrough~ */
+export const strikethrough = build('strikethrough')
+/** spoiler */
+export const spoiler = build('spoiler')
+/** > blockquote */
+export const blockquote = build('blockquote')
+/** > quote */
+export const quote = build('blockquote')
+/** `code` */
+export const code = build('code')
+
+/**
+ * Mentions a user
+ *
+ * @example
+ * context.send(format`This is a ${textMention('mention', { id: 1337, is_bot: false, first_name: '😎' })}.`)
+ */
+// @ts-expect-error i dont know how to fix this but this is ok trust me
+export const textMention = buildWithField<[user: User]>('text_mention', 'user')
+
+/**
+ * Links a text to a URL
+ *
+ * @example
+ * context.send(format`This is a ${link('link', 'https://example.com')}.`)
+ */
+export const link = buildWithField<[url: string]>('text_link', 'url')
+
+/**
+ * Renders a custom emoji by its ID
+ *
+ * @example
+ * context.send(format`This is a ${customEmoji('😎', CUSTOM_EMOJI_ID)}. Very cool.`)
+ */
+export const customEmoji = buildWithField<[id: string]>('custom_emoji', 'custom_emoji_id')
+
+/**
+ * Mentions a user via `text_mention` entity
+ *
+ * @example
+ * context.send(format`This text will mention ${mentionUser('starkow', 398859857)} like it's a username.`)
+ */
+export const mentionUser = (text: string, id: number) => textMention(text, { id, first_name: text, is_bot: false })
+
+/**
+ * Mentions a bot via `text_mention` entity
+ *
+ * @example
+ * context.send(format`This text will mention ${mentionBot('me', telegram.bot.id)} like it's a username.`)
+ */
+export const mentionBot = (text: string, id: number) => textMention(text, { id, first_name: text, is_bot: true })
+
+/**
+ * Renders a pre-formatted text, optionally with a language
+ *
+ * @example
+ * context.send(format`This is a ${pre('pre-formatted text')}.`)
+ * context.send(format`This is a ${pre('pre-formatted JS code', 'js')}.`)
+ */
+// @ts-expect-error i dont know how to fix this but this is ok trust me
+export const pre = buildWithField<[language?: string]>('pre', 'language')
+
+function process (parts: string[], ...rest: (StringLike | MarkupRepresentative)[]) {
+  let result = ''
+  let offset = 0
+
+  result += parts[0]
+  offset += result.length
+
+  const entities: Entity[] = []
+
+  for (let i = 0; i < rest.length; i++) {
+    const frame = parts[i + 1]
+    const arg = rest[i]
+
+    if (arg instanceof MarkupRepresentative) {
+      for (const entity of arg.entities) {
+        entity.offset += offset
+      }
+
+      const addition = arg.text + frame
+
+      result += addition
+      offset += addition.length
+
+      entities.push(...arg.entities)
+    } else {
+      const addition = arg + frame
+
+      result += addition
+      offset += addition.length
+    }
+  }
+
+  return new Formatted(result, entities.map(e => new MessageEntity(e)))
 }
 
 /**
@@ -49,197 +275,52 @@ const buildEntities = (index: number, item: MarkupItem): MessageEntity[] => {
  *   `
  * )
  */
-export function format (rawStrings: TemplateStringsArray, ...rest: (MarkupItem | StringLike)[]) {
-  let amountOfSpaces = 0
+export function format (strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]) {
+  const parts = [...strings]
 
-  const strings = [...rawStrings]
+  if (strings[0].startsWith('\n')) {
+    const spaces = (strings[0].match(/\n([ \t]*)/)?.[1] ?? '').length
+    const re = new RegExp(`\\n[ \t]{${spaces}}`, 'g')
 
-  // format`
-  //   foo
-  // `
-  // strings: [ '\n  foo\n' ]
-  if (rawStrings[0].startsWith('\n')) {
-    const spacedString = rawStrings[0].split(/^\n+/, 2)[1]
-
-    // '  foo\n'
-    if (/^\s/s.test(spacedString)) {
-      amountOfSpaces = spacedString.match(/^\s+/)?.[0].length ?? 0
+    for (let i = 0; i < parts.length; i++) {
+      parts[i] = parts[i].replace(re, '\n')
     }
   }
 
-  if (amountOfSpaces > 0) {
-    for (let i = 0; i < rawStrings.length; i++) {
-      strings[i] = rawStrings[i].replace(new RegExp(`\\n\\s{${amountOfSpaces}}`, 'g'), '\n')
-    }
-  }
-
-  const response = new Formatted()
-
-  let size = 0
-
-  for (let i = 0; i < strings.length; i++) {
-    const string = strings[i]
-    const parameter = rest[i]
-
-    const isLast = i >= rest.length || parameter === undefined
-
-    size += string.length
-
-    response.addText(string)
-
-    if (isLast) {
-      break
-    }
-
-    if (parameter instanceof MarkupItem) {
-      // MarkupItem
-      response.addText(parameter.text)
-
-      const entities = buildEntities(size, parameter)
-
-      size += parameter.text.length
-
-      response.addEntities(entities)
-    } else {
-      // StringLike
-      const value = parameter.toString()
-
-      size += value.length
-
-      response.addText(value)
-    }
-  }
-
-  return response
+  return process(parts, ...rest)
 }
 
-type Acceptable = MarkupItem | StringLike
+/**
+ * The same as `format`, but this one strips all the leading spaces, not just the first group of spaces.
+ *
+ * @example
+ * context.send(
+ *   format`
+ *     ${bold('Welcome!')}
+ *       This is a staircase.
+ *         It will be preserved by \`format\`.
+ *   `
+ * )
+ *
+ * context.send(
+ *   formatDedent`
+ *     ${bold('Welcome!')}
+ *       This is not a staircase anymore.
+ *         \`formatDedent\` will strip all the leading spaces.
+ *   `
+ * )
+ */
+export function formatDedent (strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]) {
+  const parts = [...strings]
 
-type Tagged = (strings: TemplateStringsArray, ...formatArgs: Acceptable[]) => MarkupItem
-
-type TaggedOrDefault = { (strings: TemplateStringsArray, ...formatArgs: StringLike[]): MarkupItem; (arg: StringLike): MarkupItem }
-type NestedTagged<T extends any[]> = { (...keys: T): Tagged; (strings: TemplateStringsArray): MarkupItem }
-type TaggedFn<T extends any[]> = ((...keys: T) => Tagged)
-
-// holy fuck this truly is an interesting thing
-interface BuildInterface {
-  (type: TelegramMessageEntityType): TaggedOrDefault
-  <T extends any[]> (type: TelegramMessageEntityType, ...outer: T): undefined extends T[number] ? NestedTagged<T> : TaggedFn<T>
-}
-
-function unwrapText <T extends Acceptable[]> (strings: TemplateStringsArray, ...rest: T) {
-  return strings.map(
-    (string, i) => string + (
-      rest[i] instanceof MarkupItem
-        ? (rest[i] as MarkupItem).text
-        : rest[i] ||
-      ''
-    )
-  ).join('')
-}
-
-function join (strings: TemplateStringsArray, ...rest: Acceptable[]) {
-  return strings.flatMap((e, i) => [e, rest[i]]).filter(Boolean) as Acceptable[]
-}
-
-const build = (<O extends StringLike[] = never>(type: TelegramMessageEntityType, ...outer: O) => {
-  // (type: TelegramMessageEntityType): Tagged
-  if (outer.length === 0) {
-    return <I extends Acceptable[]>(...args: [arg: Acceptable] | [strings: TemplateStringsArray, ...inner: I]): MarkupItem => {
-      // (strings: TemplateStringsArray, ...inner: I): MarkupItem
-      if (Array.isArray(args[0])) {
-        const [strings, ...inner] = args as [strings: TemplateStringsArray, ...inner: I]
-
-        const text = unwrapText(strings, ...inner)
-        const innerJoined = join(strings, ...inner)
-
-        let size = 0
-
-        for (const item of innerJoined) {
-          if (item instanceof MarkupItem) {
-            item.index += size
-            size += item.text.length
-          } else {
-            size += item.toString().length
-          }
-        }
-
-        return new MarkupItem({
-          type,
-          text,
-          items: inner.filter(e => e instanceof MarkupItem) as MarkupItem[]
-        })
-      }
-
-      // (arg: MarkupItem): MarkupItem
-      if (args[0] instanceof MarkupItem) {
-        const item = args[0] as MarkupItem
-
-        return new MarkupItem({ type, text: item.text, items: [item] })
-      }
-
-      // (arg: StringLike): MarkupItem
-      const text = args[0].toString()
-
-      return new MarkupItem({ type, text })
+  if (strings[0].startsWith('\n')) {
+    for (let i = 0; i < parts.length; i++) {
+      parts[i] = parts[i].replace(/\n[ \t]+/g, '\n')
     }
   }
 
-  // { (...keys: T): Tagged; (strings: TemplateStringsArray): MarkupItem } | ((...keys: T) => Tagged)
-  return <I extends StringLike[]>(...args: [...keys: O] | [strings: TemplateStringsArray, ...inner: I]) => {
-    // (strings: TemplateStringsArray): MarkupItem
-    if (Array.isArray(args[0])) {
-      const [strings, ...inner] = args as [strings: TemplateStringsArray, ...inner: I]
-
-      const text = unwrapText(strings, ...inner)
-
-      return new MarkupItem({ type, text })
-    }
-
-    // ((...keys: T) => Tagged)
-    return (strings: TemplateStringsArray, ...inner: I): MarkupItem => {
-      const text = unwrapText(strings, ...inner)
-
-      const additional = outer.reduce(
-        (acc, val, i) => ({ ...acc, [val.toString()]: args[i] }),
-        {}
-      ) as Record<string, any>
-
-      return new MarkupItem({ type, text, additional })
-    }
-  }
-}) as BuildInterface
-
-/** **bold** */
-export const bold = build('bold')
-
-/** _italic_ */
-export const italic = build('italic')
-
-/** `code` */
-export const code = build('code')
-
-/** _underline_ */
-export const underline = build('underline')
-
-/** ~~strikethrough~~ */
-export const strikethrough = build('strikethrough')
-
-/** _spoiler_ */
-export const spoiler = build('spoiler')
-
-/** @mention */
-export const mention = build('mention')
-
-/** > blockquote */
-export const blockquote = build('blockquote')
-
-export const pre = build<[language?: string]>('pre', 'language')
-
-// @ts-expect-error uhh this should be valid but its not so ok
-export const mentionUser = build<[user: TelegramUser | User]>('text_mention', 'user')
-export const link = build<[url: string]>('text_link', 'url')
-export const customEmoji = build<[id: string]>('custom_emoji', 'custom_emoji_id')
+  return process(parts, ...rest)
+}
 
 export const hooks: (() => Partial<Hooks>) = () => ({
   onBeforeRequest: [

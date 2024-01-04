@@ -147,7 +147,8 @@ export enum MessageEntityType {
   Pre = 'pre',
   TextLink = 'text_link',
   TextMention = 'text_mention',
-  CustomEmoji = 'custom_emoji'
+  CustomEmoji = 'custom_emoji',
+  Blockquote = 'blockquote'
 }
 
 export enum ParseMode {

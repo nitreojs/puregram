@@ -1,6 +1,6 @@
 ---
 name: puregram
-about: report an issue with the 'puregram' package.
+about: report an issue with the 'puregram' package
 title: ''
 labels: puregram
 assignees: nitreojs

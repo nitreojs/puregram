@@ -1,6 +1,6 @@
 ---
 name: feature request
-about: suggest an idea for this project.
+about: suggest an idea for this project
 title: ''
 labels: enhancement
 assignees: nitreojs

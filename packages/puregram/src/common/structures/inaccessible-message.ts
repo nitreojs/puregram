@@ -3,6 +3,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 import type { Structure } from '../../types/interfaces'
 import { Chat } from './chat'
+import { memoizeGetters } from '../../utils/helpers'
 
 @Inspectable()
 export class InaccessibleMessage implements Structure {
@@ -34,3 +35,5 @@ export class InaccessibleMessage implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(InaccessibleMessage, ['chat'])

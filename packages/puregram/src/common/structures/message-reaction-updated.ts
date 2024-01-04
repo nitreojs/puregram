@@ -4,6 +4,7 @@ import { Structure } from '../../types/interfaces'
 import { User } from './user'
 import { Chat } from './chat'
 import { Inspect, Inspectable } from 'inspectable'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a change of a reaction on a message performed by a user. */
 @Inspectable()
@@ -72,3 +73,5 @@ export class MessageReactionUpdated implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(MessageReactionUpdated, ['chat', 'user', 'actorChat'])

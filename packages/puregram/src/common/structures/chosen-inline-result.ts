@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
 import { Location } from './location'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** Represents a result of an inline query that was chosen by the user and sent to their chat partner. */
 @Inspectable()
@@ -66,3 +67,5 @@ export class ChosenInlineResult implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ChosenInlineResult, ['from', 'location'])

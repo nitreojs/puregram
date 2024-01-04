@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { PassportFile } from './passport-file'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * Contains information about documents or other Telegram Passport elements
@@ -151,3 +152,5 @@ export class EncryptedPassportElement implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(EncryptedPassportElement, ['frontSide', 'reverseSide', 'selfie'])

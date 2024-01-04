@@ -4,7 +4,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { Invoice, Message } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, memoizeGetters } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
@@ -39,6 +39,7 @@ class InvoiceContext extends Context {
 
 interface InvoiceContext extends Constructor<InvoiceContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<InvoiceContext, InvoiceContextOptions> { }
 applyMixins(InvoiceContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
+memoizeGetters(InvoiceContext, ['eventInvoice'])
 
 inspectable(InvoiceContext, {
   serialize (context) {

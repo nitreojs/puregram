@@ -6,6 +6,7 @@ import type { AttachmentType } from '../../types/types'
 import { PhotoSize } from '../structures/photo-size'
 
 import { FileAttachment } from './file-attachment'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a video message. */
 // TODO: extended: ['fileId', 'fileUniqueId']
@@ -50,3 +51,5 @@ export class VideoNoteAttachment extends FileAttachment<Interfaces.TelegramVideo
     return this.payload
   }
 }
+
+memoizeGetters(VideoNoteAttachment, ['thumbnail'])

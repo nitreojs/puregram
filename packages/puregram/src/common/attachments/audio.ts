@@ -6,6 +6,7 @@ import type { AttachmentType } from '../../types/types'
 import { PhotoSize } from '../structures/photo-size'
 
 import { FileAttachment } from './file-attachment'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object represents an audio file to be treated as music by the Telegram
@@ -68,3 +69,5 @@ export class AudioAttachment extends FileAttachment<Interfaces.TelegramAudio> {
     return this.payload
   }
 }
+
+memoizeGetters(AudioAttachment, ['thumbnail'])

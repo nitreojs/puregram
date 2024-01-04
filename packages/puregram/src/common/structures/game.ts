@@ -9,6 +9,7 @@ import { AnimationAttachment } from '../attachments'
 import { PhotoSize } from './photo-size'
 import { MessageEntity } from './message-entity'
 import { MessageEntities } from '../message-entities'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a game. */
 @Inspectable()
@@ -88,3 +89,5 @@ export class Game implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(Game, ['textEntities', 'animation'])

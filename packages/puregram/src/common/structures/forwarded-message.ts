@@ -4,6 +4,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { User } from './user'
 import { Chat } from './chat'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a forwarded message. */
 @Inspectable()
@@ -82,3 +83,5 @@ export class ForwardedMessage {
     return this.payload.is_automatic_forward
   }
 }
+
+memoizeGetters(ForwardedMessage, ['from', 'chat'])

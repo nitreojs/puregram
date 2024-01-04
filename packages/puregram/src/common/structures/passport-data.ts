@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { EncryptedPassportElement } from './encrypted-passport-element'
 import { EncryptedCredentials } from './encrypted-credentials'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * Contains information about Telegram Passport data shared with the bot by the
@@ -44,3 +45,5 @@ export class PassportData implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(PassportData, ['credentials'])

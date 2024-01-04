@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object represents the content of a service message,
@@ -36,3 +37,5 @@ export class ProximityAlertTriggered implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ProximityAlertTriggered, ['traveler', 'watcher'])

@@ -4,7 +4,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { User, Message } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, memoizeGetters } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
@@ -39,6 +39,7 @@ class LeftChatMemberContext extends Context {
 
 interface LeftChatMemberContext extends Constructor<LeftChatMemberContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<LeftChatMemberContext, LeftChatMemberContextOptions> { }
 applyMixins(LeftChatMemberContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+memoizeGetters(LeftChatMemberContext, ['eventMember'])
 
 inspectable(LeftChatMemberContext, {
   serialize (context) {

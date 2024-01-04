@@ -3,6 +3,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 import { Message } from './message'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a service message about the completion of a giveaway without public winners. */
 @Inspectable()
@@ -41,3 +42,5 @@ export class GiveawayCompleted implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(GiveawayCompleted, ['message'])

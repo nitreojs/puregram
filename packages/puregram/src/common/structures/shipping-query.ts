@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
 import { ShippingAddress } from './shipping-address'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object contains information about an incoming shipping query. */
 @Inspectable()
@@ -50,3 +51,5 @@ export class ShippingQuery implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ShippingQuery, ['from', 'shippingAddress'])

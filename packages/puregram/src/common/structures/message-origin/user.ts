@@ -5,6 +5,7 @@ import * as Interfaces from '../../../generated'
 import { User } from '../user'
 
 import { MessageOrigin } from './message-origin'
+import { memoizeGetters } from '../../../utils/helpers'
 
 /** The message was originally sent by a known user. */
 @Inspectable()
@@ -31,3 +32,5 @@ export class MessageOriginUser extends MessageOrigin {
     return new User(this.payload.sender_user)
   }
 }
+
+memoizeGetters(MessageOriginUser, ['senderUser'])

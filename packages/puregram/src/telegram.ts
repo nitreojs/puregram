@@ -36,7 +36,7 @@ interface APICallMethod {
 }
 
 interface APICreateAttachMediaInput {
-  fd: FormData,
+  fd: FormData
   input: Record<string, any>
   key: string
 }

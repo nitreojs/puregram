@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { OrderInfo } from './order-info'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object contains basic information about a successful payment. */
 @Inspectable()
@@ -74,3 +75,5 @@ export class SuccessfulPayment implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(SuccessfulPayment, ['orderInfo'])

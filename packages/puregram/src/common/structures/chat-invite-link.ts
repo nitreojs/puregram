@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** Represents an invite link for a chat. */
 @Inspectable()
@@ -80,3 +81,5 @@ export class ChatInviteLink implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ChatInviteLink, ['creator'])

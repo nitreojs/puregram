@@ -4,7 +4,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { Location, Message } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, memoizeGetters } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
@@ -39,6 +39,7 @@ class LocationContext extends Context {
 
 interface LocationContext extends Constructor<LocationContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<LocationContext, LocationContextOptions> { }
 applyMixins(LocationContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+memoizeGetters(LocationContext, ['eventLocation'])
 
 inspectable(LocationContext, {
   serialize (context) {

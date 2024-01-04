@@ -28,7 +28,7 @@ import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums
 import { AttachmentsMapping } from '../types/mappings'
 import { AttachmentType, Constructor, Require, RequireValue, UpdateName } from '../types/types'
 import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
-import { applyMixins, filterPayload, isParsable } from '../utils/helpers'
+import { applyMixins, filterPayload, isParsable, memoizeGetters } from '../utils/helpers'
 
 import { Context } from './context'
 import { DownloadMixin, ChatControlMixin, ChatInviteControlMixin, ChatMemberControlMixin, ChatSenderControlMixin, CloneMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
@@ -334,6 +334,7 @@ class MessageContext extends Context {
 
 interface MessageContext extends Constructor<MessageContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, DownloadMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<MessageContext, MessageContextOptions> { }
 applyMixins(MessageContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, DownloadMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+memoizeGetters(MessageContext, ['attachment'])
 
 inspectable(MessageContext, {
   serialize: function (context) {

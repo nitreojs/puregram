@@ -4,6 +4,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 import { Chat } from './chat'
 import { User } from './user'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a message about the completion of a giveaway with public winners. */
 @Inspectable()
@@ -81,3 +82,5 @@ export class GiveawayWinners implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(GiveawayWinners, ['chat'])

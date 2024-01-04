@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { ShippingAddress } from './shipping-address'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents information about an order. */
 @Inspectable()
@@ -49,3 +50,5 @@ export class OrderInfo implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(OrderInfo, ['shippingAddress'])

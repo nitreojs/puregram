@@ -7,6 +7,7 @@ import { Structure } from '../../types/interfaces'
 import { MessageEntity } from './message-entity'
 import { PollOption } from './poll-option'
 import { MessageEntities } from '../message-entities'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object contains information about a poll. */
 @Inspectable()
@@ -117,3 +118,5 @@ export class Poll implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(Poll, ['explanationEntities'])

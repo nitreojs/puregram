@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 import { MessageEntities } from '../message-entities'
 
 import { MessageEntity } from './message-entity'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object contains information about the quoted part of a message that is replied to by the given message. */
 @Inspectable()
@@ -50,3 +51,5 @@ export class TextQuote implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(TextQuote, ['entities'])

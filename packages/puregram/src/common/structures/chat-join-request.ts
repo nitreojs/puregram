@@ -7,6 +7,7 @@ import { Structure } from '../../types/interfaces'
 import { Chat } from './chat'
 import { User } from './user'
 import { ChatInviteLink } from './chat-invite-link'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** Represents a join request sent to a chat. */
 @Inspectable()
@@ -63,3 +64,5 @@ export class ChatJoinRequest implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ChatJoinRequest, ['chat', 'from', 'inviteLink'])

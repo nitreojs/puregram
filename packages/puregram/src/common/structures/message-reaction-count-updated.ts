@@ -5,6 +5,7 @@ import { Structure } from '../../types/interfaces'
 import { Chat } from './chat'
 import { ReactionType } from './reaction-type/reaction-type'
 import { ReactionTypeCustomEmoji, ReactionTypeEmoji } from './reaction-type'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents reaction changes on a message with anonymous reactions. */
 @Inspectable()
@@ -55,3 +56,5 @@ export class MessageReactionCountUpdated implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(MessageReactionCountUpdated, ['chat'])

@@ -8,6 +8,7 @@ import { Chat } from './chat'
 import { ChatInviteLink } from './chat-invite-link'
 import { ChatMember } from './chat-member'
 import { User } from './user'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents changes in the status of a chat member. */
 @Inspectable()
@@ -73,3 +74,5 @@ export class ChatMemberUpdated implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ChatMemberUpdated, ['chat', 'from', 'oldChatMember', 'newChatMember', 'inviteLink'])

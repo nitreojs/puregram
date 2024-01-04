@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { WebAppInfo } from './web-app-info'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object describes the bot's menu button in a private chat. */
 @Inspectable()
@@ -47,3 +48,5 @@ export class MenuButton implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(MenuButton, ['webApp'])

@@ -4,7 +4,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { VideoChatParticipantsInvited, Message } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, memoizeGetters } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
@@ -39,6 +39,7 @@ class VideoChatParticipantsInvitedContext extends Context {
 
 interface VideoChatParticipantsInvitedContext extends Constructor<VideoChatParticipantsInvitedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<VideoChatParticipantsInvitedContext, VideoChatParticipantsInvitedContextOptions> { }
 applyMixins(VideoChatParticipantsInvitedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+memoizeGetters(VideoChatParticipantsInvitedContext, ['eventParticipantsInvited'])
 
 inspectable(VideoChatParticipantsInvitedContext, {
   serialize (context) {

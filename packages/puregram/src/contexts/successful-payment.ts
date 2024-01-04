@@ -4,7 +4,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { SuccessfulPayment, Message } from '../common/structures'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, memoizeGetters } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
@@ -39,6 +39,7 @@ class SuccessfulPaymentContext extends Context {
 
 interface SuccessfulPaymentContext extends Constructor<SuccessfulPaymentContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<SuccessfulPaymentContext, SuccessfulPaymentContextOptions> { }
 applyMixins(SuccessfulPaymentContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
+memoizeGetters(SuccessfulPaymentContext, ['eventPayment'])
 
 inspectable(SuccessfulPaymentContext, {
   serialize (context) {

@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
 import { OrderInfo } from './order-info'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object contains information about an incoming pre-checkout query. */
 @Inspectable()
@@ -81,3 +82,5 @@ export class PreCheckoutQuery implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(PreCheckoutQuery, ['from', 'orderInfo'])

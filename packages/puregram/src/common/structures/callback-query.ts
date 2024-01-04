@@ -7,6 +7,7 @@ import type { Structure } from '../../types/interfaces'
 import { Message } from './message'
 import { User } from './user'
 import { InaccessibleMessage } from './inaccessible-message'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object represents an incoming callback query from a callback button in
@@ -99,3 +100,5 @@ export class CallbackQuery implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(CallbackQuery, ['from', 'message'])

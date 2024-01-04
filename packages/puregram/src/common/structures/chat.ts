@@ -8,6 +8,7 @@ import type { Structure } from '../../types/interfaces'
 import { ChatPhoto } from './chat-photo'
 import { ChatPermissions } from './chat-permissions'
 import { ChatLocation } from './chat-location'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a chat. */
 @Inspectable()
@@ -379,3 +380,5 @@ export class Chat implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(Chat, ['photo', 'location', 'pinnedMessage', 'permissions'])

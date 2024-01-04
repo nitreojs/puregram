@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { LoginUrl } from './login-url'
 import { CallbackGame } from './callback-game'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents one button of an inline keyboard. You must use exactly one of the optional fields. */
 @Inspectable()
@@ -114,3 +115,5 @@ export class InlineKeyboardButton implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(InlineKeyboardButton, ['loginUrl', 'callbackGame'])

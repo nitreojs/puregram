@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { Location } from './location'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a venue. */
 @Inspectable()
@@ -64,3 +65,5 @@ export class Venue implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(Venue, ['location'])

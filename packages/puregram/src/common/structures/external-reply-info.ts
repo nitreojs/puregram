@@ -16,6 +16,7 @@ import { Location } from './location'
 import { Venue } from './venue'
 import { Giveaway } from './giveaway'
 import { GiveawayWinners } from './giveaway-winners'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object contains information about a message that is being replied to, which may come from another chat or forum topic. */
 @Inspectable()
@@ -304,3 +305,5 @@ export class ExternalReplyInfo implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ExternalReplyInfo, ['origin', 'chat', 'linkPreviewOptions', 'animation', 'audio', 'document', 'photo', 'sticker', 'story', 'video', 'videoNote', 'voice', 'contact', 'dice', 'game', 'giveaway', 'giveawayWinners', 'invoice', 'location', 'poll', 'venue'])

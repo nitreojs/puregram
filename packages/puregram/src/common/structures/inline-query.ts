@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
 import { Location } from './location'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object represents an incoming inline query.
@@ -60,3 +61,5 @@ export class InlineQuery implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(InlineQuery, ['from', 'location'])

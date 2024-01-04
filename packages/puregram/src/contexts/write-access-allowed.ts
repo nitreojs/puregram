@@ -2,7 +2,7 @@ import { Message, WriteAccessAllowed } from '../common/structures'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, memoizeGetters } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
@@ -38,6 +38,7 @@ class WriteAccessAllowedContext extends Context {
 
 interface WriteAccessAllowedContext extends Constructor<WriteAccessAllowedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<WriteAccessAllowedContext, WriteAccessAllowedContextOptions> { }
 applyMixins(WriteAccessAllowedContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin])
+memoizeGetters(WriteAccessAllowedContext, ['eventAllowance'])
 
 inspectable(WriteAccessAllowedContext, {
   serialize (context) {

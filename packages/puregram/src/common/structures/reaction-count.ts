@@ -3,6 +3,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 import { ReactionTypeCustomEmoji, ReactionTypeEmoji } from './reaction-type'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** Represents a reaction added to a message along with the number of times it was added. */
 @Inspectable()
@@ -37,3 +38,5 @@ export class ReactionCount implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ReactionCount, ['type'])

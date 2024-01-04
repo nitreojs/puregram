@@ -6,6 +6,7 @@ import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
 import { Chat } from './chat'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents an answer of a user in a non-anonymous poll. */
 @Inspectable()
@@ -65,3 +66,5 @@ export class PollAnswer implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(PollAnswer, ['voterChat', 'user'])

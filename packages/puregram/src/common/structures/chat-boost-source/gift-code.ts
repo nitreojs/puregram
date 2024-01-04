@@ -4,6 +4,7 @@ import * as Interfaces from '../../../generated/telegram-interfaces'
 import { User } from '../user'
 
 import { ChatBoostSource } from './chat-boost-source'
+import { memoizeGetters } from '../../../utils/helpers'
 
 /** The boost was obtained by the creation of Telegram Premium gift codes to boost a chat. Each such code boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription. */
 @Inspectable()
@@ -24,3 +25,5 @@ export class ChatBoostSourceGiftCode extends ChatBoostSource {
     return new User(this.payload.user)
   }
 }
+
+memoizeGetters(ChatBoostSourceGiftCode, ['user'])

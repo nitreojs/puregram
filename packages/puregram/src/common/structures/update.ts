@@ -19,6 +19,7 @@ import { MessageReactionUpdated } from './message-reaction-updated'
 import { MessageReactionCountUpdated } from './message-reaction-count-updated'
 import { ChatBoostRemoved } from './chat-boost-removed'
 import { ChatBoostUpdated } from './chat-boost-updated'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object represents an incoming update.
@@ -286,3 +287,5 @@ export class Update implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(Update, ['message', 'editedMessage', 'channelPost', 'editedChannelPost', 'messageReaction', 'messageReactionCount', 'inlineQuery', 'chosenInlineResult', 'callbackQuery', 'shippingQuery', 'preCheckoutQuery', 'poll', 'pollAnswer', 'chatMember', 'myChatMember', 'chatJoinRequest', 'chatBoost', 'removedChatBoost'])

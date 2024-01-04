@@ -7,6 +7,7 @@ import { Structure } from '../../types/interfaces'
 import { StickerAttachment } from '../attachments'
 
 import { PhotoSize } from './photo-size'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a sticker set. */
 @Inspectable()
@@ -75,3 +76,5 @@ export class StickerSet implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(StickerSet, ['thumbnail'])

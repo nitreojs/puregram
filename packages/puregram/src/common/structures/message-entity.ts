@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object represents one special entity in a text message.
@@ -87,3 +88,5 @@ export class MessageEntity implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(MessageEntity, ['user'])

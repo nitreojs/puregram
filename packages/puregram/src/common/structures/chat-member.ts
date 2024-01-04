@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { User } from './user'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
@@ -274,3 +275,5 @@ export class ChatMember implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ChatMember, ['user'])

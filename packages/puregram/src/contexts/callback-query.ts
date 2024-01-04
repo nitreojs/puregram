@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { inspectable } from 'inspectable'
 
-import { applyMixins, filterPayload, isParsable } from '../utils/helpers'
+import { applyMixins, filterPayload, isParsable, memoizeGetters } from '../utils/helpers'
 
 import { CallbackQuery } from '../common/structures'
 import { Constructor, Require } from '../types/types'
@@ -119,6 +119,7 @@ class CallbackQueryContext extends Context {
 
 interface CallbackQueryContext extends Constructor<CallbackQueryContext>, CallbackQuery, CloneMixin<CallbackQueryContext, CallbackQueryContextOptions> { }
 applyMixins(CallbackQueryContext, [CallbackQuery, CloneMixin])
+memoizeGetters(CallbackQueryContext, ['message'])
 
 inspectable(CallbackQueryContext, {
   serialize (context) {

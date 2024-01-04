@@ -57,6 +57,7 @@ import { Giveaway } from './giveaway'
 import { GiveawayCreated } from './giveaway-created'
 import { GiveawayCompleted } from './giveaway-completed'
 import { GiveawayWinners } from './giveaway-winners'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a message. */
 @Inspectable()
@@ -948,3 +949,5 @@ export class Message implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(Message, ['from', 'senderChat', 'chat', 'forwardOrigin', 'forwardMessage', 'replyMessage', 'externalReply', 'quote', 'viaBot', 'entities', 'linkPreviewOptions', 'animation', 'audio', 'document', 'sticker', 'story', 'video', 'videoNote', 'voice', 'captionEntities', 'contact', 'dice', 'game', 'poll', 'venue', 'location', 'replyMarkup', 'passportData', 'newChatMembers', 'leftChatMember', 'newChatPhoto', 'messageAutoDeleteTimerChanged', 'pinnedMessage', 'invoice', 'successfulPayment', 'usersShared', 'chatShared', 'proximityAlertTriggered', 'writeAccessAllowed', 'forumTopicClosed', 'forumTopicCreated', 'forumTopicEdited', 'forumTopicReopened', 'generalForumTopicHidden', 'generalForumTopicUnhidden', 'giveaway', 'giveawayCompleted', 'giveawayCreated', 'giveawayWinners', 'videoChatEnded', 'videoChatParticipantsInvited', 'videoChatScheduled', 'videoChatStarted', 'webAppData'])

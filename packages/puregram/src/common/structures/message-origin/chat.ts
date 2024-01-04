@@ -5,6 +5,7 @@ import * as Interfaces from '../../../generated'
 import { Chat } from '../chat'
 
 import { MessageOrigin } from './message-origin'
+import { memoizeGetters } from '../../../utils/helpers'
 
 /** The message was originally sent on behalf of a chat to a group chat. */
 @Inspectable()
@@ -37,3 +38,5 @@ export class MessageOriginChat extends MessageOrigin {
     return this.payload.author_signature
   }
 }
+
+memoizeGetters(MessageOriginChat, ['senderChat'])

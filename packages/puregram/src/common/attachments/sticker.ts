@@ -8,6 +8,7 @@ import { MaskPosition } from '../structures/mask-position'
 import { File } from '../structures/file'
 
 import { FileAttachment } from './file-attachment'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a sticker. */
 // TODO: extended: ['fileId', 'fileUniqueId']
@@ -124,3 +125,5 @@ export class StickerAttachment extends FileAttachment<Interfaces.TelegramSticker
     return this.payload
   }
 }
+
+memoizeGetters(StickerAttachment, ['thumbnail', 'premiumAnimation', 'maskPosition'])

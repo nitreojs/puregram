@@ -3,6 +3,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { Structure } from '../../types/interfaces'
 import { ChatBoostSourceGiftCode, ChatBoostSourceGiveaway, ChatBoostSourcePremium } from './chat-boost-source'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object contains information about a chat boost. */
 @Inspectable()
@@ -53,3 +54,5 @@ export class ChatBoost implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ChatBoost, ['source'])

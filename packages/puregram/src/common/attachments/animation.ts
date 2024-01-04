@@ -6,6 +6,7 @@ import type { AttachmentType } from '../../types/types'
 import { PhotoSize } from '../structures/photo-size'
 
 import { FileAttachment } from './file-attachment'
+import { memoizeGetters } from '../../utils/helpers'
 
 /**
  * This object represents an animation file
@@ -68,3 +69,5 @@ export class AnimationAttachment extends FileAttachment<Interfaces.TelegramAnima
     return this.payload
   }
 }
+
+memoizeGetters(AnimationAttachment, ['thumbnail'])

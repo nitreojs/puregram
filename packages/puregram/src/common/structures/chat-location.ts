@@ -5,6 +5,7 @@ import * as Interfaces from '../../generated/telegram-interfaces'
 import { Structure } from '../../types/interfaces'
 
 import { Location } from './location'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** Represents a location to which a chat is connected. */
 @Inspectable()
@@ -31,3 +32,5 @@ export class ChatLocation implements Structure {
     return this.payload
   }
 }
+
+memoizeGetters(ChatLocation, ['location'])

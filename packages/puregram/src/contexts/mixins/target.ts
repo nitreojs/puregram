@@ -1,6 +1,7 @@
 import { Chat, User } from '../../common/structures'
 import { ChatType } from '../../types/enums'
 import { Require, RequireValue } from '../../types/types'
+import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a mixin which has sender data (e.g. `senderId`, `from` etc.) */
 class TargetMixin {
@@ -85,5 +86,6 @@ class TargetMixin {
 }
 
 interface TargetMixin { }
+memoizeGetters(TargetMixin, ['from', 'senderChat', 'chat'])
 
 export { TargetMixin }

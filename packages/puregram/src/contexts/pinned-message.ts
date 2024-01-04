@@ -5,7 +5,7 @@ import * as Interfaces from '../generated/telegram-interfaces'
 import { Telegram } from '../telegram'
 import { Constructor } from '../types/types'
 import { Message } from '../common/structures'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, memoizeGetters } from '../utils/helpers'
 
 import { Context } from './context'
 import { MessageContext } from './message'
@@ -43,6 +43,7 @@ class PinnedMessageContext extends Context {
 
 interface PinnedMessageContext extends Constructor<PinnedMessageContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin<PinnedMessageContext, PinnedMessageContextOptions> { }
 applyMixins(PinnedMessageContext, [Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, ChatInviteControlMixin, ChatControlMixin, ChatSenderControlMixin, ChatMemberControlMixin, PinsMixin, CloneMixin])
+memoizeGetters(PinnedMessageContext, ['eventMessage'])
 
 inspectable(PinnedMessageContext, {
   serialize (context) {

@@ -53,20 +53,33 @@ $ npm i -S @puregram/markup
 
 ## usage
 
-most of the functions can be used via template strings, basic ones
-can be used via the, you know, parentheses
+all of the functions except those that require two or more arguments
+can be called either via template strings or like basic functions
 
 ```js
 // template strings
 bold`foo ${italic`bar`}`
 
 // parentheses
-bold(`foo ${italic('bar')}`)
+bold(italic('bar'))
 ```
 
-there's literally no distinction between them i suppose
+there's literally no distinction between them, however if you are going
+to do embedded markup, you should use template strings:
 
-also dont use **nested** template strings, they may have a few bugs
+```js
+
+// ✅ works
+bold`foo ${italic`bar`}`
+bold`${italic`bar`}`
+bold(italic('bar'))
+
+// ❌ does not work
+bold(`foo ${italic('bar')}`)
+bold(`${italic('foo')}`)
+```
+
+the last one does not work simply because javascript compiles `foo ${italic('bar')}` into a single string which becomes 'foo [object Object]' soo yeah
 
 ---
 
@@ -142,32 +155,42 @@ mention('@username')
 mention`@username`
 ```
 
-### `pre(text: TemplateStringsArray)`
+### `pre(text: string, language?: string)`
 
 ```js
-pre`const x = 5\nconst y = x ** 2`
+pre('im cool')
 ```
 
-### `pre(language?: string)(text: TemplateStringsArray)`
-
 ```js
-pre('js')`const x = 5\nconst y = x ** 2`
+pre('im cool but in bash', 'sh')
 ```
 
-### `link(url: string)(text: TemplateStringsArray)`
+### `link(text: string, url: string)`
 
 ```js
-link('github.puregram.cool')`epic!`
+link('epic!', 'https://github.puregram.cool')
 ```
 
-### `mentionUser(user: Interfaces.TelegramUser | Structures.User)(text: TemplateStringsArray)`
+### `mentionUser(text: string, userId: number)`
 
 ```js
-mentionUser({ id: 123, is_bot: false, first_name: 'dude' })`dude`
+mentionUser('dude', 398859857)
 ```
 
-### `customEmoji(id: string)(text: TemplateStringsArray)`
+### `mentionBot(text: string, userId: number)`
 
 ```js
-customEmoji('...')`😁`
+mentionUser('robodude', telegram.bot.id)
+```
+
+### `textMention(text: string, user: Interfaces.TelegramUser)`
+
+```js
+mentionUser('dude', { id: 398859857, is_bot: false, first_name: 'dude' })
+```
+
+### `customEmoji(text: string, id: string)`
+
+```js
+customEmoji('😁', '...')
 ```

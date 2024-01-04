@@ -1,8 +1,8 @@
 ---
-name: "@puregram/session"
-about: 'report an issue with the ''@puregram/session'' package'
+name: "@puregram/markup"
+about: 'report an issue with the ''@puregram/markup'' package'
 title: ''
-labels: "@puregram/session"
+labels: "@puregram/markup"
 assignees: nitreojs
 ---
 
@@ -23,12 +23,12 @@ a clear and concise description of what you expected to happen
 if applicable, add screenshots to help explain your problem
 
 ## environment
-|       package       | version |
-| :-----------------: | :-----: |
-| `@puregram/session` | `X.Y.Z` |
-|       `node`        | `X.Y.Z` |
-|    `TypeScript`     | `X.Y.Z` |
-|   `yarn` or `npm`   | `X.Y.Z` |
+|      package       | version |
+| :----------------: | :-----: |
+| `@puregram/markup` | `X.Y.Z` |
+|       `node`       | `X.Y.Z` |
+|    `TypeScript`    | `X.Y.Z` |
+|  `yarn` or `npm`   | `X.Y.Z` |
 
 ## additional context
 add any other context about the problem here

@@ -1,8 +1,8 @@
 ---
-name: "@puregram/session"
-about: 'report an issue with the ''@puregram/session'' package'
+name: "@puregram/callback-data"
+about: 'report an issue with the ''@puregram/callback-data'' package'
 title: ''
-labels: "@puregram/session"
+labels: "@puregram/callback-data"
 assignees: nitreojs
 ---
 
@@ -23,12 +23,12 @@ a clear and concise description of what you expected to happen
 if applicable, add screenshots to help explain your problem
 
 ## environment
-|       package       | version |
-| :-----------------: | :-----: |
-| `@puregram/session` | `X.Y.Z` |
-|       `node`        | `X.Y.Z` |
-|    `TypeScript`     | `X.Y.Z` |
-|   `yarn` or `npm`   | `X.Y.Z` |
+|          package          | version |
+| :-----------------------: | :-----: |
+| `@puregram/callback-data` | `X.Y.Z` |
+|          `node`           | `X.Y.Z` |
+|       `TypeScript`        | `X.Y.Z` |
+|      `yarn` or `npm`      | `X.Y.Z` |
 
 ## additional context
 add any other context about the problem here

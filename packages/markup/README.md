@@ -85,6 +85,33 @@ the last one does not work simply because javascript compiles `foo ${italic('bar
 
 ## available functions
 
+### `format(strings: TemplateStringsArray, ...rest: Rest)`
+
+formats the template and strips first pack of spaces from all lines *(`stripIndent`-like)*
+
+```js
+format`
+  hello!
+  those two spaces at the start will be stripped
+    but those additional two spaces wont
+`
+```
+
+### `formatDedent(strings: TemplateStringsArray, ...rest: Rest)`
+
+this one acts like `format` except it... ugh just roll the ~~credits~~ code example
+
+```js
+format`
+  hello!
+  those two spaces at the start will be stripped
+    those additional two will also be stripped
+                      and those additional 18 spaces too!
+`
+```
+
+*(`stripIndents`-like)*
+
 ### `bold(text: string)`
 
 ```js

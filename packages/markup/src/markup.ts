@@ -36,7 +36,9 @@ interface StringLike {
   toString(): string
 }
 
-const constructMarkup = (type: TelegramMessageEntityType, strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]) => {
+type Rest = (StringLike | MarkupRepresentative)[]
+
+const constructMarkup = (type: TelegramMessageEntityType, strings: TemplateStringsArray, ...rest: Rest) => {
   let text = ''
   let offset = 0
 
@@ -83,7 +85,7 @@ interface MarkupElement {
   // bold(italic('hello!'))
   (markup: MarkupRepresentative): MarkupRepresentative
   // bold`hello ${italic('world')}!`
-  (strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]): MarkupRepresentative
+  (strings: TemplateStringsArray, ...rest: Rest): MarkupRepresentative
 }
 
 interface MarkupRequiredElement<Fields extends string[]> {
@@ -92,7 +94,7 @@ interface MarkupRequiredElement<Fields extends string[]> {
 }
 
 const build = (type: TelegramMessageEntityType) => (
-  (...args: [markup: MarkupRepresentative] | [text: string] | [strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]]) => {
+  (...args: [markup: MarkupRepresentative] | [text: string] | [strings: TemplateStringsArray, ...rest: Rest]) => {
     if (typeof args[0] === 'string') {
       const text = args[0]
 
@@ -219,7 +221,7 @@ export const mentionBot = (text: string, id: number) => textMention(text, { id, 
 // @ts-expect-error i dont know how to fix this but this is ok trust me
 export const pre = buildWithField<[language?: string]>('pre', 'language')
 
-function process (parts: string[], ...rest: (StringLike | MarkupRepresentative)[]) {
+function process (parts: string[], ...rest: Rest) {
   let result = ''
   let offset = 0
 
@@ -275,7 +277,7 @@ function process (parts: string[], ...rest: (StringLike | MarkupRepresentative)[
  *   `
  * )
  */
-export function format (strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]) {
+export function format (strings: TemplateStringsArray, ...rest: Rest) {
   const parts = [...strings]
 
   if (strings[0].startsWith('\n')) {
@@ -310,7 +312,7 @@ export function format (strings: TemplateStringsArray, ...rest: (StringLike | Ma
  *   `
  * )
  */
-export function formatDedent (strings: TemplateStringsArray, ...rest: (StringLike | MarkupRepresentative)[]) {
+export function formatDedent (strings: TemplateStringsArray, ...rest: Rest) {
   const parts = [...strings]
 
   if (strings[0].startsWith('\n')) {

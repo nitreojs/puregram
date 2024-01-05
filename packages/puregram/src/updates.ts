@@ -18,15 +18,11 @@ import { ContextsMapping } from './types/mappings'
 
 import { Constructor, Known, MaybeArray, MessageEventName, UpdateName } from './types/types'
 
-import { delay, parseRequestJSON, updateDebugFlags } from './utils/helpers'
+import { delay, parseRequestJSON } from './utils/helpers'
 
 type ContextConstructor = Constructor<Contexts.Context>
 
 const $debugger = debug('puregram:updates')
-
-if ($debugger.enabled || debug.enabled('puregram:all')) {
-  updateDebugFlags(['puregram:updates:*'])
-}
 
 const debug$startPolling = $debugger.extend('startPolling')
 const debug$startFetchLoop = $debugger.extend('startFetchLoop')

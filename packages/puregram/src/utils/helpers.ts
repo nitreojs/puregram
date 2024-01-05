@@ -170,12 +170,6 @@ export const convertStreamToBuffer = async (rawStream: Readable) => {
   return Buffer.concat(chunks, size)
 }
 
-export const updateDebugFlags = (additional: string[]) => {
-  const namespaces = debug.disable()
-
-  debug.enable([namespaces, ...additional].join(','))
-}
-
 export const getAttachmentFileId = (attachment: Attachment) => {
   if (attachment instanceof PhotoAttachment) {
     return attachment.bigSize.fileId

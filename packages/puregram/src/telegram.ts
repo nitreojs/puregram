@@ -21,14 +21,10 @@ import { ApiMethod, SoftString } from './types/types'
 import * as Hooks from './types/hooks'
 
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
-import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, isPlainObject, updateDebugFlags } from './utils/helpers'
+import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, isPlainObject } from './utils/helpers'
 import { Attachment, FileAttachment, PhotoAttachment } from './common/attachments'
 
 const $debugger = debug('puregram:api')
-
-if ($debugger.enabled || debug.enabled('puregram:all')) {
-  updateDebugFlags(['puregram:api/*', 'puregram:api/*:*'])
-}
 
 interface APICallMethod {
   /** Use this method to invoke Telegram Bot API `method` [with prompted `params`] */
@@ -251,7 +247,13 @@ export class Telegram {
       return null
     }
 
-    const response = await fetch(url)
+    let response
+
+    if (this.options.useLocal) {
+      response = await fileFromPath(url)
+    } else {
+      response = await fetch(url)
+    }
 
     const ab = await response.arrayBuffer()
     const buffer = Buffer.from(ab)
@@ -275,6 +277,10 @@ export class Telegram {
   }
 
   getFileURL (path: string) {
+    if (this.options.useLocal) {
+      return path
+    }
+
     // TODO: simplify
     return this.options.apiBaseUrl!.slice(0, -4) + '/file/bot' + this.options.token + '/' + path
   }

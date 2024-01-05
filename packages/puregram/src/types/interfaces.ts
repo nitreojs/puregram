@@ -61,6 +61,13 @@ export interface TelegramOptions {
   useTestDc?: boolean
 
   /**
+   * Are we [using a local Bot API server](https://core.telegram.org/bots/api#using-a-local-bot-api-server)?
+   *
+   * @default false
+   */
+  useLocal?: boolean
+
+  /**
    * Should we merge events with the same `mediaGroupId` into one context with `mediaGroup` field?
    *
    * @default false

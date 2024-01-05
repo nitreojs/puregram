@@ -38,17 +38,14 @@ interface StringLike {
 
 type Rest = (StringLike | MarkupRepresentative)[]
 
-const constructMarkup = (type: TelegramMessageEntityType, strings: TemplateStringsArray, ...rest: Rest) => {
-  let text = ''
-  let offset = 0
+function process (parts: string[] | TemplateStringsArray, ...rest: Rest) {
+  let result = parts[0]
+  let offset = result.length
 
   const entities: Entity[] = []
 
-  text += strings[0]
-  offset += text.length
-
   for (let i = 0; i < rest.length; i++) {
-    const frame = strings[i + 1]
+    const frame = parts[i + 1]
     const arg = rest[i]
 
     if (arg instanceof MarkupRepresentative) {
@@ -56,15 +53,25 @@ const constructMarkup = (type: TelegramMessageEntityType, strings: TemplateStrin
         entity.offset += offset
       }
 
-      text += arg.text + frame
+      const addition = arg.text + frame
+
+      result += addition
+      offset += addition.length
+
       entities.push(...arg.entities)
     } else {
       const addition = arg + frame
 
-      text += addition
+      result += addition
       offset += addition.length
     }
   }
+
+  return { text: result, entities }
+}
+
+const constructMarkup = (type: TelegramMessageEntityType, strings: TemplateStringsArray, ...rest: Rest) => {
+  const { text, entities } = process(strings, ...rest)
 
   return new MarkupRepresentative({
     text,
@@ -221,41 +228,6 @@ export const mentionBot = (text: string, id: number) => textMention(text, { id, 
 // @ts-expect-error i dont know how to fix this but this is ok trust me
 export const pre = buildWithField<[language?: string]>('pre', 'language')
 
-function process (parts: string[], ...rest: Rest) {
-  let result = ''
-  let offset = 0
-
-  result += parts[0]
-  offset += result.length
-
-  const entities: Entity[] = []
-
-  for (let i = 0; i < rest.length; i++) {
-    const frame = parts[i + 1]
-    const arg = rest[i]
-
-    if (arg instanceof MarkupRepresentative) {
-      for (const entity of arg.entities) {
-        entity.offset += offset
-      }
-
-      const addition = arg.text + frame
-
-      result += addition
-      offset += addition.length
-
-      entities.push(...arg.entities)
-    } else {
-      const addition = arg + frame
-
-      result += addition
-      offset += addition.length
-    }
-  }
-
-  return new Formatted(result, entities.map(e => new MessageEntity(e)))
-}
-
 /**
  * Formats provided text using **entities**, not **formatting mode**. Also supports multiline text.
  *
@@ -289,7 +261,9 @@ export function format (strings: TemplateStringsArray, ...rest: Rest) {
     }
   }
 
-  return process(parts, ...rest)
+  const { text, entities } = process(parts, ...rest)
+
+  return new Formatted(text, entities.map(e => new MessageEntity(e)))
 }
 
 /**
@@ -321,9 +295,12 @@ export function formatDedent (strings: TemplateStringsArray, ...rest: Rest) {
     }
   }
 
-  return process(parts, ...rest)
+  const { text, entities } = process(parts, ...rest)
+
+  return new Formatted(text, entities.map(e => new MessageEntity(e)))
 }
 
+// TODO: simplify...?
 export const hooks: (() => Partial<Hooks>) = () => ({
   onBeforeRequest: [
     (context) => {

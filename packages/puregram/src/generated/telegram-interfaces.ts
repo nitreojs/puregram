@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v7.0.0, 29.12.2023
-/// Generation date: 31.12.2023 17:57:57 MSK
+/// Generation date: 05.01.2024 14:57:37 MSK
 
 import type { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -23,7 +23,7 @@ import type {
 } from '../common/keyboards'
 
 /**
- * This [object](https://core.telegram.org/bots/api/#available-types) represents an incoming update.
+ * This [object](https://core.telegram.org/bots/api/#available-types) represents an incoming update.  
  * At most **one** of the optional parameters can be present in any given update.
  */
 export interface TelegramUpdate {
@@ -1810,7 +1810,7 @@ export interface TelegramUserProfilePhotos {
 
 /**
  * This object represents a file ready to be downloaded. The file can be downloaded via the link `https://api.telegram.org/file/bot<token>/<file_path>`. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling [getFile](https://core.telegram.org/bots/api/#getfile).
- *
+ * 
  * The maximum file size to download is 20 MB
  */
 export interface TelegramFile {
@@ -1871,8 +1871,8 @@ export interface TelegramReplyKeyboardMarkup {
    */
   input_field_placeholder?: string
   /**
-   * *Optional*. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.
-   *
+   * *Optional*. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.  
+   * 
    * *Example:* A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
   selective?: boolean
@@ -2001,8 +2001,8 @@ export interface TelegramReplyKeyboardRemove {
    */
   remove_keyboard: boolean
   /**
-   * *Optional*. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.
-   *
+   * *Optional*. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.  
+   * 
    * *Example:* A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
   selective?: boolean
@@ -2051,8 +2051,8 @@ export interface TelegramInlineKeyboardButton {
    */
   switch_inline_query?: string
   /**
-   * *Optional*. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.
-   *
+   * *Optional*. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.  
+   * 
    * This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options.
    */
   switch_inline_query_current_chat?: string
@@ -2061,14 +2061,14 @@ export interface TelegramInlineKeyboardButton {
    */
   switch_inline_query_chosen_chat?: TelegramSwitchInlineQueryChosenChat
   /**
-   * *Optional*. Description of the game that will be launched when the user presses the button.
-   *
+   * *Optional*. Description of the game that will be launched when the user presses the button.  
+   * 
    * **NOTE:** This type of button **must** always be the first button in the first row.
    */
   callback_game?: TelegramCallbackGame
   /**
-   * *Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api/#payments).
-   *
+   * *Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api/#payments).  
+   * 
    * **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages.
    */
   pay?: boolean
@@ -2078,15 +2078,15 @@ export interface TelegramInlineKeyboardButton {
 
 /**
  * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login) when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:
- *
+ * 
  * Telegram apps support these buttons as of [version 5.7](https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots).
- *
+ * 
  * Sample bot: [@discussbot](https://t.me/discussbot)
  */
 export interface TelegramLoginUrl {
   /**
-   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://core.telegram.org/widgets/login#receiving-authorization-data).
-   *
+   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://core.telegram.org/widgets/login#receiving-authorization-data).  
+   * 
    * **NOTE:** You **must** always check the hash of the received data to verify the authentication and the integrity of the data as described in [Checking authorization](https://core.telegram.org/widgets/login#checking-authorization).
    */
   url: string
@@ -3207,7 +3207,7 @@ export interface TelegramInputMediaPhoto {
   /**
    * *Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3243,7 +3243,7 @@ export interface TelegramInputMediaVideo {
   /**
    * *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3295,7 +3295,7 @@ export interface TelegramInputMediaAnimation {
   /**
    * *Optional*. Caption of the animation to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * *Optional*. Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3343,7 +3343,7 @@ export interface TelegramInputMediaAudio {
   /**
    * *Optional*. Caption of the audio to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3387,7 +3387,7 @@ export interface TelegramInputMediaDocument {
   /**
    * *Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string
+  caption?: string | Formattable
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3614,8 +3614,8 @@ export interface TelegramInlineQueryResultsButton {
    */
   web_app?: TelegramWebAppInfo
   /**
-   * *Optional*. [Deep-linking](https://core.telegram.org/bots/features#deep-linking) parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.
-   *
+   * *Optional*. [Deep-linking](https://core.telegram.org/bots/features#deep-linking) parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.  
+   * 
    * *Example:* An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a [*switch\_inline*](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
    */
   start_parameter?: string
@@ -3871,7 +3871,7 @@ export type TelegramInlineQueryResultVideoMimeType = 'text/html' | 'video/mp4'
 
 /**
  * Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the video.
- *
+ * 
  * If an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you **must** replace its content using *input\_message\_content*.
  */
 export interface TelegramInlineQueryResultVideo {
@@ -5534,7 +5534,7 @@ export type Currency = SoftString<'AED' | 'AFN' | 'ALL' | 'AMD' | 'ARS' | 'AUD' 
 
 /**
  * This object describes a message that can be inaccessible to the bot. It can be one of
- *
+ * 
  * * [Message](https://core.telegram.org/bots/api/#message)
  * * [InaccessibleMessage](https://core.telegram.org/bots/api/#inaccessiblemessage)
  */
@@ -5544,7 +5544,7 @@ export type TelegramMaybeInaccessibleMessage =
 
 /**
  * This object describes the origin of a message. It can be one of
- *
+ * 
  * * [MessageOriginUser](https://core.telegram.org/bots/api/#messageoriginuser)
  * * [MessageOriginHiddenUser](https://core.telegram.org/bots/api/#messageoriginhiddenuser)
  * * [MessageOriginChat](https://core.telegram.org/bots/api/#messageoriginchat)
@@ -5558,7 +5558,7 @@ export type TelegramMessageOrigin =
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
- *
+ * 
  * * [ChatMemberOwner](https://core.telegram.org/bots/api/#chatmemberowner)
  * * [ChatMemberAdministrator](https://core.telegram.org/bots/api/#chatmemberadministrator)
  * * [ChatMemberMember](https://core.telegram.org/bots/api/#chatmembermember)
@@ -5576,7 +5576,7 @@ export type TelegramChatMember =
 
 /**
  * This object describes the type of a reaction. Currently, it can be one of
- *
+ * 
  * * [ReactionTypeEmoji](https://core.telegram.org/bots/api/#reactiontypeemoji)
  * * [ReactionTypeCustomEmoji](https://core.telegram.org/bots/api/#reactiontypecustomemoji)
  */
@@ -5586,7 +5586,7 @@ export type TelegramReactionType =
 
 /**
  * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
- *
+ * 
  * * [BotCommandScopeDefault](https://core.telegram.org/bots/api/#botcommandscopedefault)
  * * [BotCommandScopeAllPrivateChats](https://core.telegram.org/bots/api/#botcommandscopeallprivatechats)
  * * [BotCommandScopeAllGroupChats](https://core.telegram.org/bots/api/#botcommandscopeallgroupchats)
@@ -5606,7 +5606,7 @@ export type TelegramBotCommandScope =
 
 /**
  * This object describes the bot's menu button in a private chat. It should be one of
- *
+ * 
  * * [MenuButtonCommands](https://core.telegram.org/bots/api/#menubuttoncommands)
  * * [MenuButtonWebApp](https://core.telegram.org/bots/api/#menubuttonwebapp)
  * * [MenuButtonDefault](https://core.telegram.org/bots/api/#menubuttondefault)
@@ -5618,7 +5618,7 @@ export type TelegramMenuButton =
 
 /**
  * This object describes the source of a chat boost. It can be one of
- *
+ * 
  * * [ChatBoostSourcePremium](https://core.telegram.org/bots/api/#chatboostsourcepremium)
  * * [ChatBoostSourceGiftCode](https://core.telegram.org/bots/api/#chatboostsourcegiftcode)
  * * [ChatBoostSourceGiveaway](https://core.telegram.org/bots/api/#chatboostsourcegiveaway)
@@ -5630,7 +5630,7 @@ export type TelegramChatBoostSource =
 
 /**
  * This object represents the content of a media message to be sent. It should be one of
- *
+ * 
  * * [InputMediaAnimation](https://core.telegram.org/bots/api/#inputmediaanimation)
  * * [InputMediaDocument](https://core.telegram.org/bots/api/#inputmediadocument)
  * * [InputMediaAudio](https://core.telegram.org/bots/api/#inputmediaaudio)
@@ -5646,7 +5646,7 @@ export type TelegramInputMedia =
 
 /**
  * This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
- *
+ * 
  * * [InlineQueryResultCachedAudio](https://core.telegram.org/bots/api/#inlinequeryresultcachedaudio)
  * * [InlineQueryResultCachedDocument](https://core.telegram.org/bots/api/#inlinequeryresultcacheddocument)
  * * [InlineQueryResultCachedGif](https://core.telegram.org/bots/api/#inlinequeryresultcachedgif)
@@ -5692,7 +5692,7 @@ export type TelegramInlineQueryResult =
 
 /**
  * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:
- *
+ * 
  * * [InputTextMessageContent](https://core.telegram.org/bots/api/#inputtextmessagecontent)
  * * [InputLocationMessageContent](https://core.telegram.org/bots/api/#inputlocationmessagecontent)
  * * [InputVenueMessageContent](https://core.telegram.org/bots/api/#inputvenuemessagecontent)
@@ -5708,7 +5708,7 @@ export type TelegramInputMessageContent =
 
 /**
  * This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
- *
+ * 
  * * [PassportElementErrorDataField](https://core.telegram.org/bots/api/#passportelementerrordatafield)
  * * [PassportElementErrorFrontSide](https://core.telegram.org/bots/api/#passportelementerrorfrontside)
  * * [PassportElementErrorReverseSide](https://core.telegram.org/bots/api/#passportelementerrorreverseside)

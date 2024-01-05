@@ -300,37 +300,55 @@ export function formatDedent (strings: TemplateStringsArray, ...rest: Rest) {
   return new Formatted(text, entities.map(e => new MessageEntity(e)))
 }
 
-// TODO: simplify...?
+// TODO: refactor
+function processParams (path: string, params: Record<string, any>) {
+  for (const [key, value] of [['text', 'entities'], ['caption', 'caption_entities']]) {
+    if (path === 'sendMediaGroup') {
+      for (const entity of params.media) {
+        if (key in entity && entity[key] instanceof Formatted) {
+          const fmt = entity[key] as Formatted
+
+          entity[key] = fmt.format()
+          entity[value] = fmt.entities
+        }
+      }
+    } else {
+      if (key in params && params[key] instanceof Formatted) {
+        const fmt = params[key] as Formatted
+
+        params[key] = fmt.format()
+        params[value] = fmt.entities
+      }
+    }
+  }
+
+  if (path === 'answerInlineQuery') {
+    const iqp = params as AnswerInlineQueryParams
+    const results = iqp.results
+
+    const isResultFormatted = (result: AnswerInlineQueryParams['results'][number]) => (
+      'input_message_content' in result &&
+      result.input_message_content.message_text instanceof Formatted
+    )
+
+    for (let i = 0; i < results.length; i++) {
+      if (isResultFormatted(results[i])) {
+        const result = results[i]
+        const fmt = result.input_message_content.message_text as Formatted
+
+        result.input_message_content.message_text = fmt.text
+        result.input_message_content.entities = fmt.entities
+      }
+    }
+  }
+
+  return params
+}
+
 export const hooks: (() => Partial<Hooks>) = () => ({
   onBeforeRequest: [
     (context) => {
-      for (const [key, value] of [['text', 'entities'], ['caption', 'caption_entities']]) {
-        if (key in context.params && context.params[key] instanceof Formatted) {
-          const fmt = context.params[key] as Formatted
-
-          context.params[value] = fmt.entities
-        }
-      }
-
-      if (context.path === 'answerInlineQuery') {
-        const params = context.params as AnswerInlineQueryParams
-        const results = params.results
-
-        const isResultFormatted = (result: AnswerInlineQueryParams['results'][number]) => (
-          'input_message_content' in result &&
-          result.input_message_content.message_text instanceof Formatted
-        )
-
-        for (let i = 0; i < results.length; i++) {
-          if (isResultFormatted(results[i])) {
-            const result = results[i]
-            const fmt = result.input_message_content.message_text as Formatted
-
-            result.input_message_content.message_text = fmt.text
-            result.input_message_content.entities = fmt.entities
-          }
-        }
-      }
+      context.params = processParams(context.path, context.params)
 
       return context
     }

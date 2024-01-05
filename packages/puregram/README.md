@@ -1093,10 +1093,9 @@ if you want to inspect out- and ingoing requests made by `puregram`, you will ne
 
 | namespace   | example (unix)             | description                                                                       |
 | ----------- | -------------------------- | --------------------------------------------------------------------------------- |
-| `api`       | `DEBUG=puregram:api`       | enables debugging api out- and ingoing requests                                   |
 | `api/getMe` | `DEBUG=puregram:api/getMe` | enables debugging `getMe` update (you can set whichever method you want to debug) |
 | `updates`   | `DEBUG=puregram:updates`   | enables debugging ingoing updates                                                 |
-| `all`       | `DEBUG=puregram:all`       | enables debugging all of the listed types above                                   |
+| `all`       | `DEBUG=puregram:*`         | enables debugging all of the listed types above                                   |
 
 ##### cmd
 

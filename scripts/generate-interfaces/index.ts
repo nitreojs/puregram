@@ -6,8 +6,11 @@ import { stripIndent, stripIndents } from 'common-tags'
 
 import * as Types from './types'
 
-// const SCHEMA_URL = resolve(__dirname, 'custom.min.json')
-const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
+const LOAD_FROM_FILE = true
+const GENERATE_FILES = true
+
+const SCHEMA_URL = resolve(__dirname, 'custom.min.json')
+// const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
 const CURRENCIES_URL = 'https://core.telegram.org/bots/payments/currencies.json'
 
 ///           SERVICES           ///
@@ -155,7 +158,7 @@ class InterfaceService {
         type += ' | Enums.BotCommandScopeType.' + uppercaseFirst(undoSnakeCase((field as Types.SchemaObjectString).default!))
       }
 
-      if (field.name === 'message_text') {
+      if (field.name === 'message_text' || (field.name === 'caption' && iface.name.startsWith('Input'))) {
         type += ' | Formattable'
       }
 
@@ -490,10 +493,10 @@ const buildEnumeration = (currencies: Types.CurrenciesResponse): Types.SchemaObj
   }
 }
 
-export async function getJson (fromFile = false) {
+export async function getJson () {
   let json: Types.SchemaResponse
 
-  if (fromFile) {
+  if (LOAD_FROM_FILE) {
     const response = (await readFile(SCHEMA_URL)).toString()
     json = JSON.parse(response)
   } else {
@@ -505,7 +508,7 @@ export async function getJson (fromFile = false) {
 }
 
 export async function generate () {
-  const { objects: interfaces, methods } = await getJson(true)
+  const { objects: interfaces, methods } = await getJson()
 
   const _generation_start = Date.now()
 
@@ -564,8 +567,8 @@ export function generateHeader (version: Types.SchemaVersion, recentChanges: Typ
   return header
 }
 
-async function _generate (generateFiles = true) {
-  const { version, recent_changes, methods } = await getJson(true)
+async function _generate () {
+  const { version, recent_changes, methods } = await getJson()
 
   const _generation_start = Date.now()
 
@@ -610,7 +613,7 @@ async function _generate (generateFiles = true) {
 
   /// FILES GENERATION ----------
 
-  if (generateFiles) {
+  if (GENERATE_FILES) {
     const mainPath = resolve(__dirname, '..', '..', 'packages', 'puregram', 'src', 'generated')
 
     const currencies = await loadCurrencies()
@@ -664,4 +667,4 @@ async function _generate (generateFiles = true) {
   return 0
 }
 
-_generate(true).catch(console.error)
+_generate().catch(console.error)

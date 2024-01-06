@@ -139,6 +139,14 @@ class InterfaceService {
         type = 'ReplyMarkupUnion'
       }
 
+      if (field.name === 'message_text' || (field.name === 'caption' && iface.name.startsWith('Input'))) {
+        type = 'AvailableText'
+      }
+
+      if (field.name === 'quote' && iface.name === 'ReplyParameters') {
+        type = 'AvailableText'
+      }
+
       // INFO: additional enums for IDE suggestions...
       // TODO: probably autogenerate some of these from types into enums?
 
@@ -156,10 +164,6 @@ class InterfaceService {
 
       if (field.name === 'type' && iface.name.startsWith('BotCommandScope')) {
         type += ' | Enums.BotCommandScopeType.' + uppercaseFirst(undoSnakeCase((field as Types.SchemaObjectString).default!))
-      }
-
-      if (field.name === 'message_text' || (field.name === 'caption' && iface.name.startsWith('Input'))) {
-        type = 'AvailableText'
       }
 
       const description = InterfaceService.generateDescription(field.description, 2)

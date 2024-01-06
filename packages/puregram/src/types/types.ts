@@ -56,3 +56,5 @@ export type OneOf<T, K extends keyof T = keyof T> = Id<{
 export interface Formattable {
   format(): string
 }
+
+export type AvailableText = string | Formattable

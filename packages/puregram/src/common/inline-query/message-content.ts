@@ -1,6 +1,6 @@
 import * as Interfaces from '../../generated'
 
-import type { Optional, Formattable } from '../../types/types'
+import type { Optional, Formattable, AvailableText } from '../../types/types'
 
 /**
  * This object represents the content of a message to be sent as a result of an inline query
@@ -17,7 +17,7 @@ import type { Optional, Formattable } from '../../types/types'
 export class InputMessageContent {
   /** Creates a `TelegramInputTextMessageContent` object */
   static text (
-    text: string | Formattable,
+    text: AvailableText,
     params: Optional<Interfaces.TelegramInputTextMessageContent, 'message_text'> = {}
   ): Interfaces.TelegramInputTextMessageContent {
     return {

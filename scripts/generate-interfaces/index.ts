@@ -159,7 +159,7 @@ class InterfaceService {
       }
 
       if (field.name === 'message_text' || (field.name === 'caption' && iface.name.startsWith('Input'))) {
-        type += ' | Formattable'
+        type = 'AvailableText'
       }
 
       const description = InterfaceService.generateDescription(field.description, 2)
@@ -264,7 +264,7 @@ class MethodService {
 
       // INFO: allow passing [Formattable] values to [text] or [caption] params
       if (field.name === 'caption' || (field.name === 'text' && field.required)) {
-        returnType += ' | Formattable'
+        returnType = 'AvailableText'
       }
 
       // INFO: additional enums for IDE suggestions...
@@ -400,7 +400,7 @@ class GenerationService {
 
       import * as Enums from '../types/enums'
 
-      import { SoftString, Formattable } from '../types/types'
+      import type { SoftString, AvailableText } from '../types/types'
 
       import type { MediaInput } from '../common/media-source'
 
@@ -421,7 +421,7 @@ class GenerationService {
 
       import * as Enums from '../types/enums'
 
-      import type { SoftString, Formattable } from '../types/types'
+      import type { SoftString, AvailableText } from '../types/types'
 
       import type { MediaInput } from '../common/media-source'
       import type { MessageEntity } from '../common/structures/message-entity'

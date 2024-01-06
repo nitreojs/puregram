@@ -14,6 +14,7 @@ import { Telegram } from '../telegram'
 import { Context } from './context'
 import { MessageContext } from './message'
 import { CloneMixin } from './mixins'
+import { InlineKeyboard, InlineKeyboardBuilder } from '../common'
 
 interface CallbackQueryContextOptions {
   telegram: Telegram
@@ -114,6 +115,118 @@ class CallbackQueryContext extends Context {
   /** Answers to current callback query. An alias for `answerCallbackQuery` */
   answer (params?: Partial<Methods.AnswerCallbackQueryParams>) {
     return this.answerCallbackQuery(params)
+  }
+
+  /** Edits a callback query messages text */
+  editText (
+    text: Methods.EditMessageTextParams['text'],
+    params?: Partial<Methods.EditMessageTextParams>
+  ) {
+    if (this.hasMessage()) {
+      return this.message.editText(text, params)
+    }
+
+    if (!this.hasInlineMessageId()) {
+      throw new TypeError('cannot edit a message without `message` and `inlineMessageId` properties')
+    }
+
+    return this.telegram.api.editMessageText({
+      inline_message_id: this.inlineMessageId,
+      text,
+      ...params
+    })
+  }
+
+  /** Edits a callback query messages caption */
+  editCaption (
+    caption: NonNullable<Methods.EditMessageCaptionParams['caption']>,
+    params?: Partial<Methods.EditMessageCaptionParams>
+  ) {
+    if (this.hasMessage()) {
+      return this.message.editCaption(caption, params)
+    }
+
+    if (!this.hasInlineMessageId()) {
+      throw new TypeError('cannot edit a message without `message` and `inlineMessageId` properties')
+    }
+
+    return this.telegram.api.editMessageCaption({
+      inline_message_id: this.inlineMessageId,
+      caption,
+      ...params
+    })
+  }
+
+  /** Edits a callback query messages media */
+  editMedia (
+    media: Methods.EditMessageMediaParams['media'],
+    params?: Partial<Methods.EditMessageMediaParams>
+  ) {
+    if (this.hasMessage()) {
+      return this.message.editMedia(media, params)
+    }
+
+    if (!this.hasInlineMessageId()) {
+      throw new TypeError('cannot edit a message without `message` and `inlineMessageId` properties')
+    }
+
+    return this.telegram.api.editMessageMedia({
+      inline_message_id: this.inlineMessageId,
+      media,
+      ...params
+    })
+  }
+
+  /** Edits a callback query messages live location */
+  editLiveLocation (params: Methods.EditMessageLiveLocationParams) {
+    if (this.hasMessage()) {
+      return this.message.editLiveLocation(params)
+    }
+
+    if (!this.hasInlineMessageId()) {
+      throw new TypeError('cannot edit a message without `message` and `inlineMessageId` properties')
+    }
+
+    return this.telegram.api.editMessageLiveLocation({
+      inline_message_id: this.inlineMessageId,
+      ...params
+    })
+  }
+
+  /** Stops a callback query messages live location */
+  stopLiveLocation (params?: Methods.StopMessageLiveLocationParams) {
+    if (this.hasMessage()) {
+      return this.message.stopLiveLocation(params)
+    }
+
+    if (!this.hasInlineMessageId()) {
+      throw new TypeError('cannot edit a message without `message` and `inlineMessageId` properties')
+    }
+
+    return this.telegram.api.stopMessageLiveLocation({
+      inline_message_id: this.inlineMessageId,
+      ...params
+    })
+  }
+
+  /** Edits a callback query messages reply markup */
+  editReplyMarkup (
+    replyMarkup: InlineKeyboard | InlineKeyboardBuilder | Interfaces.TelegramInlineKeyboardMarkup,
+    params?: Partial<Methods.EditMessageReplyMarkupParams>
+  ) {
+    if (this.hasMessage()) {
+      return this.message.editReplyMarkup(replyMarkup, params)
+    }
+
+    if (!this.hasInlineMessageId()) {
+      throw new TypeError('cannot edit a message without `message` and `inlineMessageId` properties')
+    }
+
+    return this.telegram.api.editMessageReplyMarkup({
+      inline_message_id: this.inlineMessageId,
+      reply_markup: replyMarkup,
+      ...params
+    })
   }
 }
 

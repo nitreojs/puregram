@@ -3,7 +3,7 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v7.0.0, 29.12.2023
-/// Generation date: 07.01.2024 01:27:54 MSK
+/// Generation date: 07.01.2024 01:48:08 MSK
 
 import type { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -870,7 +870,7 @@ export interface TelegramReplyParameters {
   /**
    * *Optional*. Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities. The message will fail to send if the quote isn't found in the original message.
    */
-  quote?: string
+  quote?: AvailableText
   /**
    * *Optional*. Mode for parsing entities in the quote. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */

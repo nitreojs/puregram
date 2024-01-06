@@ -300,26 +300,29 @@ export function formatDedent (strings: TemplateStringsArray, ...rest: Rest) {
   return new Formatted(text, entities.map(e => new MessageEntity(e)))
 }
 
+function processEntity (entity: Record<string, any>) {
+  for (const [key, value] of [['text', 'entities'], ['caption', 'caption_entities'], ['quote', 'quote_entities']]) {
+    if (key in entity && entity[key] instanceof Formatted) {
+      const fmt = entity[key] as Formatted
+
+      entity[key] = fmt.format()
+      entity[value] = fmt.entities
+    }
+  }
+}
+
 // TODO: refactor
 function processParams (path: string, params: Record<string, any>) {
-  for (const [key, value] of [['text', 'entities'], ['caption', 'caption_entities']]) {
-    if (path === 'sendMediaGroup') {
-      for (const entity of params.media) {
-        if (key in entity && entity[key] instanceof Formatted) {
-          const fmt = entity[key] as Formatted
-
-          entity[key] = fmt.format()
-          entity[value] = fmt.entities
-        }
-      }
-    } else {
-      if (key in params && params[key] instanceof Formatted) {
-        const fmt = params[key] as Formatted
-
-        params[key] = fmt.format()
-        params[value] = fmt.entities
-      }
+  if (path === 'sendMediaGroup') {
+    for (const entity of params.media) {
+      processEntity(entity)
     }
+  } else {
+    processEntity(params)
+  }
+
+  if ('reply_parameters' in params && 'quote' in params.reply_parameters) {
+    processEntity(params.reply_parameters)
   }
 
   if (path === 'answerInlineQuery') {

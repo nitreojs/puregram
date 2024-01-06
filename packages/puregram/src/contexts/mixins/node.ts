@@ -3,7 +3,7 @@ import * as Methods from '../../generated/methods'
 
 import { InlineKeyboard, InlineKeyboardBuilder } from '../../common/keyboards'
 import { MessageId } from '../../common/structures'
-import { MaybeArray, Optional } from '../../types/types'
+import { Known, MaybeArray, Optional } from '../../types/types'
 
 import { Context } from '../context'
 import { SendMixin } from './send'
@@ -13,122 +13,155 @@ interface NodeMixinMetadata {
   get id(): number
 }
 
+/** Construct a type that has `reply_parameters` `Partial` */
+type WithPartialReplyParameters<T> =
+  & Omit<Known<T>, 'reply_parameters'>
+  & { reply_parameters?: Partial<Interfaces.TelegramReplyParameters> }
+  & Record<string, any>
+
 /** This object represents a mixin which has `id` field and can invoke `id`-dependent methods */
 class NodeMixin {
   /** Replies to current message */
   reply (
     text: Methods.SendMessageParams['text'],
-    params?: Optional<Methods.SendMessageParams, 'chat_id' | 'text'>
+    params: WithPartialReplyParameters<Optional<Methods.SendMessageParams, 'chat_id' | 'text'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.send(text, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with photo */
   replyWithPhoto (
     photo: Methods.SendPhotoParams['photo'],
-    params?: Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>
+    params: WithPartialReplyParameters<Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendPhoto(photo, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with document */
   replyWithDocument (
     document: Methods.SendDocumentParams['document'],
-    params?: Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>
+    params: WithPartialReplyParameters<Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendDocument(document, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with audio */
   replyWithAudio (
     audio: Methods.SendAudioParams['audio'],
-    params?: Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>
+    params: WithPartialReplyParameters<Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendAudio(audio, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with video */
   replyWithVideo (
     video: Methods.SendVideoParams['video'],
-    params?: Optional<Methods.SendVideoParams, 'chat_id' | 'video'>
+    params: WithPartialReplyParameters<Optional<Methods.SendVideoParams, 'chat_id' | 'video'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendVideo(video, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with animation */
   replyWithAnimation (
     animation: Methods.SendAnimationParams['animation'],
-    params?: Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>
+    params: WithPartialReplyParameters<Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendAnimation(animation, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with video note */
   replyWithVideoNote (
     videoNote: Methods.SendVideoNoteParams['video_note'],
-    params?: Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>
+    params: WithPartialReplyParameters<Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendVideoNote(videoNote, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with voice */
   replyWithVoice (
     voice: Methods.SendVoiceParams['voice'],
-    params?: Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>
+    params: WithPartialReplyParameters<Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendVoice(voice, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with media group */
   replyWithMediaGroup (
     mediaGroup: Methods.SendMediaGroupParams['media'],
-    params?: Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>
+    params: WithPartialReplyParameters<Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendMediaGroup(mediaGroup, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
@@ -136,79 +169,100 @@ class NodeMixin {
   replyWithLocation (
     latitude: number,
     longitude: number,
-    params?: Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>
+    params: WithPartialReplyParameters<Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendLocation(latitude, longitude, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with invoice */
-  replyWithInvoice (params: Optional<Methods.SendInvoiceParams, 'chat_id'>) {
+  replyWithInvoice (params: WithPartialReplyParameters<Optional<Methods.SendInvoiceParams, 'chat_id'>>) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendInvoice({
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with venue */
-  replyWithVenue (params: Optional<Methods.SendVenueParams, 'chat_id'>) {
+  replyWithVenue (params: WithPartialReplyParameters<Optional<Methods.SendVenueParams, 'chat_id'>>) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendVenue({
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with contact */
-  replyWithContact (params: Optional<Methods.SendContactParams, 'chat_id'>) {
+  replyWithContact (params: WithPartialReplyParameters<Optional<Methods.SendContactParams, 'chat_id'>>) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendContact({
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with poll */
-  replyWithPoll (params: Optional<Methods.SendPollParams, 'chat_id'>) {
+  replyWithPoll (params: WithPartialReplyParameters<Optional<Methods.SendPollParams, 'chat_id'>>) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendPoll({
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with sticker */
   replyWithSticker (
     sticker: Methods.SendStickerParams['sticker'],
-    params: Optional<Methods.SendStickerParams, 'chat_id'>
+    params: WithPartialReplyParameters<Optional<Methods.SendStickerParams, 'chat_id'>>
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendSticker(sticker, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 
   /** Replies to current message with a dice */
   replyWithDice (
     emoji: Methods.SendDiceParams['emoji'],
-    params?: Partial<Methods.SendDiceParams>
+    params: WithPartialReplyParameters<Partial<Methods.SendDiceParams>> = {}
   ) {
+    const { reply_parameters, ...rest } = params
+
     return this.sendDice(emoji, {
       reply_parameters: {
-        message_id: this.id
+        message_id: this.id,
+        ...reply_parameters
       },
-      ...params
+      ...rest
     })
   }
 

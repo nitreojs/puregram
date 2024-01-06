@@ -1,7 +1,6 @@
-import type { Formattable } from 'puregram/types'
 import * as Interfaces from '../../generated'
 
-import type { Optional } from '../../types/types'
+import type { Optional, Formattable } from '../../types/types'
 
 /**
  * This object represents the content of a message to be sent as a result of an inline query

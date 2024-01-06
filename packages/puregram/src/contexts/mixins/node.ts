@@ -244,6 +244,11 @@ class NodeMixin {
     })
   }
 
+  /** Edits current message live location. An alias for `editMessageLiveLocation` */
+  editLiveLocation (params: Methods.EditMessageLiveLocationParams) {
+    return this.editMessageLiveLocation(params)
+  }
+
   /** Stops current message live location */
   async stopMessageLiveLocation (params?: Methods.StopMessageLiveLocationParams) {
     const response = await this.telegram.api.stopMessageLiveLocation({
@@ -260,6 +265,11 @@ class NodeMixin {
       telegram: this.telegram,
       payload: response
     })
+  }
+
+  /** Stops current message live location. An alias for `stopMessageLiveLocation` */
+  stopLiveLocation (params?: Methods.StopMessageLiveLocationParams) {
+    return this.stopMessageLiveLocation(params)
   }
 
   /** Edits current message text */
@@ -284,6 +294,14 @@ class NodeMixin {
     })
   }
 
+  /** Edits current message text. An alias for `editMessageText` */
+  editText (
+    text: Methods.EditMessageTextParams['text'],
+    params?: Partial<Methods.EditMessageTextParams>
+  ) {
+    return this.editMessageText(text, params)
+  }
+
   /** Edits current message caption */
   async editMessageCaption (
     caption: NonNullable<Methods.EditMessageCaptionParams['caption']>,
@@ -304,6 +322,14 @@ class NodeMixin {
       telegram: this.telegram,
       payload: response
     })
+  }
+
+  /** Edits current message caption. An alias for `editMessageCaption` */
+  editCaption (
+    caption: NonNullable<Methods.EditMessageCaptionParams['caption']>,
+    params?: Partial<Methods.EditMessageCaptionParams>
+  ) {
+    return this.editMessageCaption(caption, params)
   }
 
   /** Edits current message media */
@@ -328,6 +354,14 @@ class NodeMixin {
     })
   }
 
+  /** Edits current message media. An alias for `editMessageMedia` */
+  editMedia (
+    media: Methods.EditMessageMediaParams['media'],
+    params?: Partial<Methods.EditMessageMediaParams>
+  ) {
+    return this.editMessageMedia(media, params)
+  }
+
   /** Edits current message reply markup */
   async editMessageReplyMarkup (
     replyMarkup: InlineKeyboard | InlineKeyboardBuilder | Interfaces.TelegramInlineKeyboardMarkup,
@@ -348,6 +382,14 @@ class NodeMixin {
       telegram: this.telegram,
       payload: response
     })
+  }
+
+  /** Edits current message reply markup. An alias for `editMessageReplyMarkup` */
+  editReplyMarkup (
+    replyMarkup: InlineKeyboard | InlineKeyboardBuilder | Interfaces.TelegramInlineKeyboardMarkup,
+    params?: Partial<Methods.EditMessageReplyMarkupParams>
+  ) {
+    return this.editMessageReplyMarkup(replyMarkup, params)
   }
 
   /** Copies current message [into other chat if `chatId` is provided] */

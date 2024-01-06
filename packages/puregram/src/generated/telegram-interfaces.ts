@@ -3,13 +3,13 @@
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
 /// Based on Bot API v7.0.0, 29.12.2023
-/// Generation date: 05.01.2024 14:57:37 MSK
+/// Generation date: 07.01.2024 01:27:54 MSK
 
 import type { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
 import * as Enums from '../types/enums'
 
-import { SoftString, Formattable } from '../types/types'
+import type { SoftString, AvailableText } from '../types/types'
 
 import type { MediaInput } from '../common/media-source'
 
@@ -3207,7 +3207,7 @@ export interface TelegramInputMediaPhoto {
   /**
    * *Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string | Formattable
+  caption?: AvailableText
   /**
    * *Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3243,7 +3243,7 @@ export interface TelegramInputMediaVideo {
   /**
    * *Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string | Formattable
+  caption?: AvailableText
   /**
    * *Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3295,7 +3295,7 @@ export interface TelegramInputMediaAnimation {
   /**
    * *Optional*. Caption of the animation to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string | Formattable
+  caption?: AvailableText
   /**
    * *Optional*. Mode for parsing entities in the animation caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3343,7 +3343,7 @@ export interface TelegramInputMediaAudio {
   /**
    * *Optional*. Caption of the audio to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string | Formattable
+  caption?: AvailableText
   /**
    * *Optional*. Mode for parsing entities in the audio caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -3387,7 +3387,7 @@ export interface TelegramInputMediaDocument {
   /**
    * *Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string | Formattable
+  caption?: AvailableText
   /**
    * *Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */
@@ -4664,7 +4664,7 @@ export interface TelegramInputTextMessageContent {
   /**
    * Text of the message to be sent, 1-4096 characters
    */
-  message_text: string | Formattable
+  message_text: AvailableText
   /**
    * *Optional*. Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api/#formatting-options) for more details.
    */

@@ -3,7 +3,7 @@ import * as Methods from '../../generated/methods'
 
 import { InlineKeyboard, InlineKeyboardBuilder } from '../../common/keyboards'
 import { MessageId } from '../../common/structures'
-import { Known, MaybeArray, Optional } from '../../types/types'
+import { AvailableText, Known, MaybeArray, Optional } from '../../types/types'
 
 import { Context } from '../context'
 import { SendMixin } from './send'
@@ -18,6 +18,10 @@ type WithPartialReplyParameters<T> =
   & Omit<Known<T>, 'reply_parameters'>
   & { reply_parameters?: Partial<Interfaces.TelegramReplyParameters> }
   & Record<string, any>
+
+type WithQuote<T = {}> =
+  & { quote: AvailableText }
+  & T
 
 /** This object represents a mixin which has `id` field and can invoke `id`-dependent methods */
 class NodeMixin {
@@ -237,7 +241,7 @@ class NodeMixin {
   /** Replies to current message with sticker */
   replyWithSticker (
     sticker: Methods.SendStickerParams['sticker'],
-    params: WithPartialReplyParameters<Optional<Methods.SendStickerParams, 'chat_id'>>
+    params: WithPartialReplyParameters<Optional<Methods.SendStickerParams, 'chat_id' | 'sticker'>>
   ) {
     const { reply_parameters, ...rest } = params
 
@@ -260,6 +264,278 @@ class NodeMixin {
     return this.sendDice(emoji, {
       reply_parameters: {
         message_id: this.id,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote */
+  replyWithQuote (
+    params:
+      & WithQuote<{ text: AvailableText }>
+      & WithPartialReplyParameters<Optional<Methods.SendMessageParams, 'chat_id' | 'text'>>
+  ) {
+    const { text, quote, reply_parameters, ...rest } = params
+
+    return this.reply(text, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a photo */
+  quoteWithPhoto (
+    params:
+      & WithQuote<{ photo: Methods.SendPhotoParams['photo'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendPhotoParams, 'chat_id' | 'photo'>>
+  ) {
+    const { photo, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithPhoto(photo, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a document */
+  quoteWithDocument (
+    params:
+      & WithQuote<{ document: Methods.SendDocumentParams['document'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendDocumentParams, 'chat_id' | 'document'>>
+  ) {
+    const { document, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithDocument(document, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and an audio */
+  quoteWithAudio (
+    params:
+      & WithQuote<{ audio: Methods.SendAudioParams['audio'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendAudioParams, 'chat_id' | 'audio'>>
+  ) {
+    const { audio, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithAudio(audio, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a video */
+  quoteWithVideo (
+    params:
+      & WithQuote<{ video: Methods.SendVideoParams['video'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendVideoParams, 'chat_id' | 'video'>>
+  ) {
+    const { video, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithVideo(video, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and an animation */
+  quoteWithAnimation (
+    params:
+      & WithQuote<{ animation: Methods.SendAnimationParams['animation'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendAnimationParams, 'chat_id' | 'animation'>>
+  ) {
+    const { animation, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithAnimation(animation, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a video note */
+  quoteWithVideoNote (
+    params:
+      & WithQuote<{ videoNote: Methods.SendVideoNoteParams['video_note'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendVideoNoteParams, 'chat_id' | 'video_note'>>
+  ) {
+    const { videoNote, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithVideoNote(videoNote, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a voice */
+  quoteWithVoice (
+    params:
+      & WithQuote<{ voice: Methods.SendVoiceParams['voice'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendVoiceParams, 'chat_id' | 'voice'>>
+  ) {
+    const { voice, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithVoice(voice, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a media group */
+  quoteWithMediaGroup (
+    params:
+      & WithQuote<{ mediaGroup: Methods.SendMediaGroupParams['media'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendMediaGroupParams, 'chat_id' | 'media'>>
+  ) {
+    const { mediaGroup, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithMediaGroup(mediaGroup, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a location */
+  quoteWithLocation (
+    params:
+      & WithQuote<{ latitude: number, longitude: number }>
+      & WithPartialReplyParameters<Optional<Methods.SendLocationParams, 'chat_id' | 'latitude' | 'longitude'>>
+  ) {
+    const { latitude, longitude, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithLocation(latitude, longitude, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and an invoice */
+  quoteWithInvoice (
+    params:
+      & WithQuote
+      & WithPartialReplyParameters<Optional<Methods.SendInvoiceParams, 'chat_id'>>
+  ) {
+    const { quote, reply_parameters, ...rest } = params
+
+    return this.replyWithInvoice({
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a venue */
+  quoteWithVenue (
+    params:
+      & WithQuote
+      & WithPartialReplyParameters<Optional<Methods.SendVenueParams, 'chat_id'>>
+  ) {
+    const { quote, reply_parameters, ...rest } = params
+
+    return this.replyWithVenue({
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a contact */
+  quoteWithContact (
+    params:
+      & WithQuote
+      & WithPartialReplyParameters<Optional<Methods.SendContactParams, 'chat_id'>>
+  ) {
+    const { quote, reply_parameters, ...rest } = params
+
+    return this.replyWithContact({
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a poll */
+  quoteWithPoll (
+    params:
+      & WithQuote
+      & WithPartialReplyParameters<Optional<Methods.SendPollParams, 'chat_id'>>
+  ) {
+    const { quote, reply_parameters, ...rest } = params
+
+    return this.replyWithPoll({
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a sticker */
+  quoteWithSticker (
+    params:
+      & WithQuote<{ sticker: Methods.SendStickerParams['sticker'] }>
+      & WithPartialReplyParameters<Optional<Methods.SendStickerParams, 'chat_id' | 'sticker'>>
+  ) {
+    const { sticker, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithSticker(sticker, {
+      reply_parameters: {
+        quote,
+        ...reply_parameters
+      },
+      ...rest
+    })
+  }
+
+  /** Replies to current message with a quote and a dice */
+  quoteWithDice (
+    params:
+      & WithQuote<{ emoji: Methods.SendDiceParams['emoji'] }>
+      & WithPartialReplyParameters<Partial<Methods.SendDiceParams>>
+  ) {
+    const { emoji, quote, reply_parameters, ...rest } = params
+
+    return this.replyWithDice(emoji, {
+      reply_parameters: {
+        quote,
         ...reply_parameters
       },
       ...rest

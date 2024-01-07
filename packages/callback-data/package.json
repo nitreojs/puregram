@@ -23,8 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nitreojs/puregram.git",
-    "directory": "packages/callback-data"
+    "url": "https://github.com/nitreojs/puregram/tree/lord/packages/callback-data"
   },
   "peerDependencies": {
     "puregram": "^2.20.0"

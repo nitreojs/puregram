@@ -28,7 +28,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nitreojs/puregram.git",
-    "directory": "packages/utils"
+    "url": "https://github.com/nitreojs/puregram/tree/lord/packages/utils"
   }
 }

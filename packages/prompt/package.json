@@ -30,7 +30,6 @@
   "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nitreojs/puregram.git",
-    "directory": "packages/i18n"
+    "url": "https://github.com/nitreojs/puregram/tree/lord/packages/prompt"
   }
 }

@@ -52,13 +52,13 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
       }
 
       // dont ask me why and how
-      const createProxy = <T> (object: any): T => {
+      const createProxy = <T extends Record<string, unknown>> (object: any): T => {
         if (typeof object !== 'object' || object === null) {
           return object
         }
 
         return new Proxy(object, {
-          get (target, key: keyof typeof target) {
+          get (target, key) {
             if (key === PROXY_SYM) {
               return true
             }

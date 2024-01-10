@@ -85,7 +85,9 @@ interface SessionData {
 
 type MyContext<C extends Context> = C & SessionLayer<SessionData>
 
-telegram.updates.use(session())
+telegram.updates.use(session({
+  initial: () => ({ counter: 0 })
+}))
 
 telegram.updates.on('message', (context: MyContext<MessageContext>) => {
   // `context.session` is `{ counter: number }`

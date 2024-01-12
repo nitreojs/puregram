@@ -49,7 +49,7 @@ export interface Hooks {
   onError: OnErrorHandler[]
 }
 
-type Extract<T> = T extends (infer R)[] ? R : never
+type Extract<T> = T extends Array<infer R> ? R : never
 
 export type HookHandler = Extract<Hooks[keyof Hooks]>
 export type HookContext = BeforeRequestContext | RequestInterceptHandler | ResponseInterceptHandler | AfterRequestHandler | ErrorHandler

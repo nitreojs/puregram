@@ -953,10 +953,10 @@ that returns `puregram.Hooks` interface - an object that you can import from `pu
 ```ts
 import { Hooks } from 'puregram/hooks'
 
-export function imagination(): Hooks {
+export function hooks(): Hooks {
   return () => ({
-    onBeforeRequest(context) { ... },
-    onAfterRequest(context) { ... }
+    onBeforeRequest: [(context) => { ... }],
+    onAfterRequest: [(context) => { ... }]
   })
 }
 ```

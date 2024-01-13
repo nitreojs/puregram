@@ -3,6 +3,7 @@ import { Inspect, Inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { MaybeArray } from '../../types/types'
+import { RemoveKeyboard } from 'puregram'
 
 /** Keyboard */
 @Inspectable()
@@ -27,6 +28,14 @@ export class Keyboard {
 
   get [Symbol.toStringTag] () {
     return this.constructor.name
+  }
+
+  /** Returns an "empty" keyboard (literally a `RemoveKeyboard` alias) */
+  static empty = new RemoveKeyboard()
+
+  /** "Removes" a keyboard (literally a `RemoveKeyboard` alias) */
+  static remove () {
+    return Keyboard.empty
   }
 
   /** Assemble a builder of buttons */

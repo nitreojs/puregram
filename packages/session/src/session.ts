@@ -9,14 +9,36 @@ interface SessionOptions<S = unknown, C extends Context = Context> {
   storage?: SessionStorage;
 }
 
-export const PROXY_SYM = Symbol('proxy')
+interface TtlData {
+  t: number
+  at: number
+}
 
+export const PROXY_SYM = Symbol('proxy')
+export const TTL_SYM = Symbol('ttl')
+
+/** sets that this key should expire when `t` milliseconds will pass */
+export const ttl = <T>(value: T, t = 30_000) => {
+  if (t < 0) {
+    throw new Error('could not ttl a value with t < 1')
+  }
+
+  return {
+    [TTL_SYM]: true,
+    value,
+    t
+  } as T
+}
+
+/** loads session */
 export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}): Middleware<C> => {
   const {
     getStorageKey = (context: ContextInterface) => context.senderId.toString(),
     storage = new MemoryStorage(),
     initial = () => ({})
   } = options
+
+  const ttlMap = new Map<string, TtlData>()
 
   return async (context, next) => {
     const key = getStorageKey(context)
@@ -43,7 +65,93 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
     // kinda hacky and stuff, i know, but after ~8h of thinking me and @evaqum couldnt come up with something better :P
     // still better that vue3's problem with proxies, isnt it?
 
-    const wrap = (session: Record<string, unknown>): SessionContext => {
+    // dont ask me why and how
+    const createProxy = <T extends Record<string, unknown>> (object: any): T => {
+      if (typeof object !== 'object' || object === null) {
+        return object
+      }
+
+      const proxy = new Proxy({} as any, {
+        get (target, key) {
+          if (key === PROXY_SYM) {
+            return true
+          }
+
+          const value = target[key]
+
+          if (value === undefined || value === null || typeof key === 'symbol') {
+            return value
+          }
+
+          if (ttlMap.has(key)) {
+            const ttlValue = ttlMap.get(key)!
+
+            const elapsed = Date.now() - ttlValue.at
+
+            if (elapsed > ttlValue.t) {
+              delete target[key]
+
+              return undefined
+            }
+          }
+
+          if (typeof value === 'object' && !value[PROXY_SYM]) {
+            target[key] = createProxy(value)
+          }
+
+          return target[key]
+        },
+
+        set (target, key, value) {
+          if (typeof key === 'symbol') {
+            return false
+          }
+
+          changed = true
+
+          if (value[TTL_SYM]) {
+            if (value.t < 1) {
+              // ttl(value, 0)
+              ttlMap.delete(key)
+            } else {
+              // ttl(value, 5_000)
+              ttlMap.set(key, { t: value.t, at: Date.now() })
+            }
+
+            target[key] = value.value
+          } else {
+            if (ttlMap.has(key)) {
+              // updating date
+              const entry = ttlMap.get(key)!
+
+              entry.at = Date.now()
+
+              ttlMap.set(key, entry)
+            }
+
+            target[key] = value
+          }
+
+          return true
+        },
+
+        deleteProperty (target, key) {
+          changed = true
+
+          delete target[key]
+
+          return true
+        }
+      })
+
+      for (const [key, value] of Object.entries(object)) {
+        proxy[key] = value
+      }
+
+      return proxy
+    }
+
+    const wrap = (session: SessionContext): SessionContext => {
       if (!('$forceUpdate' in session)) {
         Object.defineProperty(session, '$forceUpdate', {
           value: $forceUpdate,
@@ -51,54 +159,11 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
         })
       }
 
-      // dont ask me why and how
-      const createProxy = <T extends Record<string, unknown>> (object: any): T => {
-        if (typeof object !== 'object' || object === null) {
-          return object
-        }
-
-        return new Proxy(object, {
-          get (target, key) {
-            if (key === PROXY_SYM) {
-              return true
-            }
-
-            const property = target[key]
-
-            if (property === undefined || property === null || typeof key === 'symbol') {
-              return property
-            }
-
-            if (typeof property === 'object' && !property[PROXY_SYM]) {
-              target[key] = createProxy(property)
-            }
-
-            return target[key]
-          },
-
-          set (target, key, value) {
-            changed = true
-
-            target[key] = value
-
-            return true
-          },
-
-          deleteProperty (target, key) {
-            changed = true
-
-            delete target[key]
-
-            return true
-          }
-        })
-      }
-
       if (session[PROXY_SYM as any]) {
-        return session as SessionContext
+        return session
       }
 
-      return createProxy(session as SessionContext)
+      return createProxy(session)
     }
 
     const $forceUpdate = () => {

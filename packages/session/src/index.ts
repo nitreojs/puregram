@@ -1,4 +1,4 @@
 export * from './storages'
 export * from './types'
 
-export { session } from './session'
+export { session, ttl } from './session'

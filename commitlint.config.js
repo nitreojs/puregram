@@ -11,26 +11,11 @@ module.exports = {
       'callback-data',
       'markup',
 
-      'api',
-      'updates',
-
       'eslint',
       'commitlint',
       'husky',
 
-      'keyboards',
-      'contexts',
-      'mixins',
-      'attachments',
-      'structures',
-      'parse-mode',
-      'input-media',
-      'media-source',
-      'media-group',
-      'hooks',
-
-      'scripts',
-      'docs'
+      'scripts'
     ]],
     'scope-case': [2, 'always', 'kebab-case']
   }

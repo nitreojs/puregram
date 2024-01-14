@@ -3,7 +3,8 @@ import { Inspect, Inspectable } from 'inspectable'
 import * as Interfaces from '../../generated/telegram-interfaces'
 
 import { MaybeArray } from '../../types/types'
-import { RemoveKeyboard } from 'puregram'
+
+import { RemoveKeyboard } from './remove'
 
 /** Keyboard */
 @Inspectable()

@@ -18,6 +18,7 @@
     "alwaysStrict": true,
 
     "esModuleInterop": true,
+    "importHelpers": true,
 
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true

@@ -126,6 +126,12 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
         continue
       }
 
+      if (settings.optional && !(key in params)) {
+        skipped = true
+
+        continue
+      }
+
       const flag = Number(skipped) << 6
 
       let value: string = (params[key] ?? settings.default).toString()

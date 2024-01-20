@@ -103,7 +103,7 @@ export class CallbackDataBuilder<State extends Record<string, any> = Record<neve
     return this
   }
 
-  clone () {
+  clone (): CallbackDataBuilder<State> {
     const clone = new CallbackDataBuilder(this.slug)
 
     clone.slug = this.slug

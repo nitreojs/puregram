@@ -109,7 +109,7 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
 
           changed = true
 
-          if (value[TTL_SYM]) {
+          if (value?.[TTL_SYM]) {
             if (value.t < 1) {
               // ttl(value, 0)
               ttlMap.delete(key)

@@ -2,8 +2,6 @@ import { IncomingMessage } from 'node:http'
 import { randomBytes } from 'node:crypto'
 import { PassThrough, Readable } from 'node:stream'
 
-import { debug } from 'debug'
-
 import { MediaInput, MediaSourceType } from '../common/media-source'
 
 import { Attachment } from '../common/attachments/attachment'

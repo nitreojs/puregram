@@ -75,6 +75,12 @@ export class MessageEntities extends Array<MessageEntity> {
   }
 
   toJSON () {
-    return this.map(e => e.toJSON())
+    const json = []
+
+    for (const entity of this) {
+      json.push(entity.toJSON())
+    }
+
+    return json
   }
 }

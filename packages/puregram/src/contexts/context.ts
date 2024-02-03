@@ -33,7 +33,7 @@ class Context {
     return this.constructor.name
   }
 
-  is<T extends UpdateName> (rawTypes: MaybeArray<SoftString<T>>) {
+  is <T extends UpdateName> (rawTypes: MaybeArray<SoftString<T>>): this is ContextsMapping[T] {
     const types = Array.isArray(rawTypes)
       ? rawTypes
       : [rawTypes]
@@ -45,10 +45,6 @@ class Context {
 
     return types.includes(this.updateType)
   }
-}
-
-interface Context {
-  is<T extends UpdateName>(rawTypes: MaybeArray<SoftString<T>>): this is ContextsMapping[T]
 }
 
 inspectable(Context, {

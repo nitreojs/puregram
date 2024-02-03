@@ -185,15 +185,21 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 export function memoizeGetters<T> (cls: new (...args: any[]) => T, fields: (keyof T)[]) {
   for (const field of fields) {
     const desc = Object.getOwnPropertyDescriptor(cls.prototype, field)
-    if (!desc) continue
+
+    if (!desc) {
+      continue
+    }
 
     const { get } = desc
 
-    if (!get) continue
+    if (!get) {
+      continue
+    }
 
     Object.defineProperty(cls.prototype, field, {
       get () {
         const val = get.call(this)
+
         Object.defineProperty(this, field, {
           value: val,
           enumerable: true,
@@ -202,6 +208,7 @@ export function memoizeGetters<T> (cls: new (...args: any[]) => T, fields: (keyo
 
         return val
       },
+
       enumerable: true,
       configurable: true
     })

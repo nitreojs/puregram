@@ -132,20 +132,20 @@ export class Message implements Structure {
 
     // TODO: simplify
 
-    if (this.payload.origin.type === 'user') {
-      return new MessageOriginUser(this.payload.origin)
+    if (forward_origin.type === 'user') {
+      return new MessageOriginUser(forward_origin)
     }
 
-    if (this.payload.origin.type === 'chat') {
-      return new MessageOriginChat(this.payload.origin)
+    if (forward_origin.type === 'chat') {
+      return new MessageOriginChat(forward_origin)
     }
 
-    if (this.payload.origin.type === 'channel') {
-      return new MessageOriginChannel(this.payload.origin)
+    if (forward_origin.type === 'channel') {
+      return new MessageOriginChannel(forward_origin)
     }
 
-    if (this.payload.origin.type === 'hidden_user') {
-      return new MessageOriginHiddenUser(this.payload.origin)
+    if (forward_origin.type === 'hidden_user') {
+      return new MessageOriginHiddenUser(forward_origin)
     }
 
     throw new TypeError('unknown message origin type')

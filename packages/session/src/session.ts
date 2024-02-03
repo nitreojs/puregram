@@ -116,17 +116,17 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
 
             if (value?.[TTL_SYM]) {
               if (value.t < 1) {
-              // ttl(value, 0)
+                // ttl(value, 0)
                 ttlMap.delete(key)
               } else {
-              // ttl(value, 5_000)
+                // ttl(value, 5_000)
                 ttlMap.set(key, { t: value.t, at: Date.now() })
               }
 
               target[key] = value.value
             } else {
               if (ttlMap.has(key)) {
-              // updating date
+                // updating date
                 const entry = ttlMap.get(key)!
 
                 entry.at = Date.now()

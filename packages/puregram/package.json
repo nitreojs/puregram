@@ -16,7 +16,7 @@
     "middleware-io": "^2.8.0",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.6.2",
-    "undici": "^5.26.2"
+    "undici": "^5.28.3"
   },
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -129,7 +129,7 @@
     "ts-node": "^10.9.1",
     "typedoc": "^0.22.5",
     "typescript": "^4.9.1-beta",
-    "undici": "^5.26.2"
+    "undici": "^5.28.3"
   },
   "directories": {
     "lib": "lib"

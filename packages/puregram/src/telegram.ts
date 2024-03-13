@@ -17,7 +17,7 @@ import { ApiMethods } from './generated'
 import { Updates } from './updates'
 
 import { ApiResponseError, ApiResponseOk, ApiResponseUnion, TelegramOptions } from './types/interfaces'
-import { ApiMethod, SoftString } from './types/types'
+import { ApiMethod, MaybeArray, SoftString } from './types/types'
 import * as Hooks from './types/hooks'
 
 import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
@@ -395,7 +395,7 @@ export class Telegram {
   }
 
   /** Validates media and creates it under `attach://<attach-id>` ID if necessary */
-  private async createAttachMediaInput (params: APICreateAttachMediaInput) {
+  private async createAttachMediaInput (params: APICreateAttachMediaInput): Promise<Record<string, any>> {
     const media = params.input[params.key] as MediaInput
 
     // INFO: we allow only [MediaInput] media values since [puregram@2.5.0]
@@ -403,24 +403,20 @@ export class Telegram {
       throw new TypeError('expected media to be created via `MediaSource`')
     }
 
-    // INFO: we don't need to generate `attach://` clause if we are working with file IDs
-    if (media.type === MediaSourceType.FileId) {
-      params.input[params.key] = media.value
+    if (media.type === MediaSourceType.FileId || (media.type === MediaSourceType.Url && !media.forceUpload)) {
+      // INFO: we don't need to generate `attach://` clause if we are working with file IDs or native URLs
 
-      // INFO: we are dealing with URLs and we are not forced to upload them manually,
-      // INFO: so we should just put it as is
-    } else if (media.type === MediaSourceType.Url && !media.forceUpload) {
-      params.input[params.key] = media.value
-
-      // INFO: otherwise...
-    } else {
-      const attachId = generateAttachId()
-
-      const fdValue = await this.createMediaInput(media)
-
-      params.fd.set(attachId, fdValue)
-      params.input[params.key] = `attach://${attachId}`
+      return { type: params.input.type, [params.key]: media.value }
     }
+
+    // INFO: otherwise...
+    const attachId = generateAttachId()
+
+    const fdValue = await this.createMediaInput(media)
+
+    params.fd.set(attachId, fdValue)
+
+    return { type: params.input.type, [params.key]: `attach://${attachId}` }
   }
 
   /**
@@ -430,10 +426,10 @@ export class Telegram {
   private async processUploadWithMedia (fd: FormData, input: Record<string, any>) {
     // INFO: [thumb] property might exist and we need to also handle it
     if (input.thumb !== undefined) {
-      await this.createAttachMediaInput({ fd, input, key: 'thumb' })
+      return this.createAttachMediaInput({ fd, input, key: 'thumb' })
     }
 
-    await this.createAttachMediaInput({ fd, input, key: 'media' })
+    return this.createAttachMediaInput({ fd, input, key: 'media' })
   }
 
   /**
@@ -445,21 +441,25 @@ export class Telegram {
 
     const { media } = params
 
+    let modifiedMedia!: MaybeArray<Record<string, any>>
+
     if (Array.isArray(media)) {
       // INFO: `media: MediaInput[]`, probably `sendMediaGroup`
+
+      modifiedMedia = []
 
       for (let i = 0; i < media.length; i++) {
         const input = media[i]
 
-        await this.processUploadWithMedia(fd, input)
+        modifiedMedia.push(await this.processUploadWithMedia(fd, input))
       }
     } else {
       // INFO: `media: MediaInput`, probably `editMessageMedia`
 
-      await this.processUploadWithMedia(fd, media)
+      modifiedMedia = await this.processUploadWithMedia(fd, media)
     }
 
-    fd.set('media', JSON.stringify(media))
+    fd.set('media', JSON.stringify(modifiedMedia))
 
     const encoder = new FormDataEncoder(fd)
 

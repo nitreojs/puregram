@@ -58,6 +58,8 @@ import { GiveawayCreated } from './giveaway-created'
 import { GiveawayCompleted } from './giveaway-completed'
 import { GiveawayWinners } from './giveaway-winners'
 import { memoizeGetters } from '../../utils/helpers'
+import { Story } from './story'
+import { ChatBoostAdded } from './chat-boost-added'
 
 /** This object represents a message. */
 @Inspectable()
@@ -107,6 +109,12 @@ export class Message implements Structure {
     }
 
     return new Chat(sender_chat)
+  }
+
+  /** If the sender of the message boosted the chat, the number of boosts added by the user */
+  @Inspect({ nullable: false })
+  get senderBoostCount () {
+    return this.payload.sender_boost_count
   }
 
   /** Date the message was sent in Unix time */
@@ -186,7 +194,7 @@ export class Message implements Structure {
 
   /** For replies, the original message */
   @Inspect({ nullable: false })
-  get replyMessage (): Omit<Message, 'replyMessage'> | undefined {
+  get replyToMessage (): Omit<Message, 'replyMessage'> | undefined {
     const { reply_to_message } = this.payload
 
     if (!reply_to_message) {
@@ -194,6 +202,16 @@ export class Message implements Structure {
     }
 
     return new Message(reply_to_message)
+  }
+
+  /**
+   * For replies, the original message
+   *
+   * @deprecated use `replyToMessage` instead
+   */
+  @Inspect({ nullable: false })
+  get replyMessage (): Omit<Message, 'replyMessage'> | undefined {
+    return this.replyToMessage
   }
 
   /** Information about the message that is being replied to, which may come from another chat or forum topic */
@@ -218,6 +236,28 @@ export class Message implements Structure {
     }
 
     return new TextQuote(quote)
+  }
+
+  /** For replies to a story, the original story */
+  @Inspect({ nullable: false })
+  get replyToStory () {
+    const { reply_to_story } = this.payload
+
+    if (!reply_to_story) {
+      return
+    }
+
+    return new Story(reply_to_story)
+  }
+
+  /**
+   * For replies to a story, the original story
+   *
+   * @deprecated use `replyToStory` instead
+   */
+  @Inspect({ nullable: false })
+  get replyStory () {
+    return this.replyToStory
   }
 
   /** Bot through which the message was sent */
@@ -753,6 +793,18 @@ export class Message implements Structure {
     return new ProximityAlertTriggered(proximity_alert_triggered)
   }
 
+  /** Service message: user boosted the chat */
+  @Inspect({ nullable: false })
+  get boostAdded () {
+    const { boost_added } = this.payload
+
+    if (!boost_added) {
+      return
+    }
+
+    return new ChatBoostAdded(boost_added)
+  }
+
   /** Service message: the user allowed the bot added to the attachment menu to write messages */
   @Inspect({ nullable: false })
   get writeAccessAllowed () {
@@ -950,4 +1002,4 @@ export class Message implements Structure {
   }
 }
 
-memoizeGetters(Message, ['from', 'senderChat', 'chat', 'forwardOrigin', 'forwardMessage', 'replyMessage', 'externalReply', 'quote', 'viaBot', 'entities', 'linkPreviewOptions', 'animation', 'audio', 'document', 'sticker', 'story', 'video', 'videoNote', 'voice', 'captionEntities', 'contact', 'dice', 'game', 'poll', 'venue', 'location', 'replyMarkup', 'passportData', 'newChatMembers', 'leftChatMember', 'newChatPhoto', 'messageAutoDeleteTimerChanged', 'pinnedMessage', 'invoice', 'successfulPayment', 'usersShared', 'chatShared', 'proximityAlertTriggered', 'writeAccessAllowed', 'forumTopicClosed', 'forumTopicCreated', 'forumTopicEdited', 'forumTopicReopened', 'generalForumTopicHidden', 'generalForumTopicUnhidden', 'giveaway', 'giveawayCompleted', 'giveawayCreated', 'giveawayWinners', 'videoChatEnded', 'videoChatParticipantsInvited', 'videoChatScheduled', 'videoChatStarted', 'webAppData'])
+memoizeGetters(Message, ['from', 'senderChat', 'chat', 'forwardOrigin', 'forwardMessage', 'replyToMessage', 'externalReply', 'quote', 'replyToStory', 'viaBot', 'entities', 'linkPreviewOptions', 'animation', 'audio', 'document', 'sticker', 'story', 'video', 'videoNote', 'voice', 'captionEntities', 'contact', 'dice', 'game', 'poll', 'venue', 'location', 'replyMarkup', 'passportData', 'newChatMembers', 'leftChatMember', 'newChatPhoto', 'messageAutoDeleteTimerChanged', 'pinnedMessage', 'invoice', 'successfulPayment', 'usersShared', 'chatShared', 'proximityAlertTriggered', 'writeAccessAllowed', 'forumTopicClosed', 'forumTopicCreated', 'forumTopicEdited', 'forumTopicReopened', 'generalForumTopicHidden', 'generalForumTopicUnhidden', 'giveaway', 'giveawayCompleted', 'giveawayCreated', 'giveawayWinners', 'videoChatEnded', 'videoChatParticipantsInvited', 'videoChatScheduled', 'videoChatStarted', 'webAppData'])

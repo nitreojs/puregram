@@ -1,4 +1,4 @@
-import { Inspectable } from 'inspectable'
+import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
@@ -10,6 +10,18 @@ export class Story implements Structure {
 
   get [Symbol.toStringTag] () {
     return this.constructor.name
+  }
+
+  /** Unique identifier for the story in the chat */
+  @Inspect()
+  get id () {
+    return this.payload.id
+  }
+
+  /** Chat that posted the story */
+  @Inspect()
+  get chat () {
+    return this.payload.chat
   }
 
   toJSON () {

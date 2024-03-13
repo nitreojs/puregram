@@ -1,4 +1,5 @@
 export * from './callback-query'
+export * from './chat-boost-added'
 export * from './chat-boost'
 export * from './chat-join-request'
 export * from './chat-member'

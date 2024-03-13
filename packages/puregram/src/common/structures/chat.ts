@@ -291,6 +291,16 @@ export class Chat implements Structure {
   }
 
   /**
+   * For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions.
+   *
+   * Returned only in `getChat`.
+   */
+  @Inspect({ nullable: false })
+  get unrestrictBoostCount () {
+    return this.payload.unrestrict_boost_count
+  }
+
+  /**
    * The time after which all messages sent to the chat will be automatically deleted; in seconds.
    *
    * Returned only in `getChat`.
@@ -358,6 +368,16 @@ export class Chat implements Structure {
   @Inspect({ compute: true, nullable: false })
   canSetStickerSet () {
     return this.payload.can_set_sticker_set
+  }
+
+  /**
+   * For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group.
+   *
+   * Returned only in `getChat`.
+   */
+  @Inspect({ nullable: false })
+  get customEmojiStickerSetName () {
+    return this.payload.custom_emoji_sticker_set_name
   }
 
   /**

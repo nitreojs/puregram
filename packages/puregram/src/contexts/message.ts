@@ -275,14 +275,42 @@ class MessageContext extends Context {
     return this.externalReply !== undefined
   }
 
+  /** Does this message have external reply info? An alias for `hasReplyInfo()` */
+  hasExternalReply (): this is Require<this, 'externalReply'> {
+    return this.hasReplyInfo()
+  }
+
   /** Does this message have reply message? */
-  hasReplyMessage (): this is Require<this, 'replyMessage'> {
-    return this.replyMessage !== undefined
+  hasReplyToMessage (): this is Require<this, 'replyToMessage'> {
+    return this.replyToMessage !== undefined
+  }
+
+  /**
+   * Does this message have reply message?
+   *
+   * @deprecated use `hasReplyToMessage` instead
+   */
+  hasReplyMessage (): this is Require<this, 'replyToMessage'> {
+    return this.hasReplyToMessage()
   }
 
   /** Checks if the sent message has `via_bot` property */
   hasViaBot (): this is Require<this, 'viaBot'> {
     return this.viaBot !== undefined
+  }
+
+  /** Does this message have a reply to story? */
+  hasReplyToStory (): this is Require<this, 'replyToStory'> {
+    return this.replyToStory !== undefined
+  }
+
+  /**
+   * Does this message have a reply to story?
+   *
+   * @deprecated use `hasReplyToStory` instead
+   */
+  hasReplyStory (): this is Require<this, 'replyToStory'> {
+    return this.hasReplyToStory()
   }
 
   // INFO: deprecated methods
@@ -343,8 +371,9 @@ inspectable(MessageContext, {
       from: context.from,
       createdAt: context.createdAt,
       chat: context.chat,
-      forwardMessage: context.forwardedMessage,
-      replyMessage: context.replyMessage,
+      replyToMessage: context.replyToMessage,
+      forwardOrigin: context.forwardOrigin,
+      replyToStory: context.replyToStory,
       viaBot: context.viaBot,
       updatedAt: context.updatedAt,
       authorSignature: context.authorSignature,

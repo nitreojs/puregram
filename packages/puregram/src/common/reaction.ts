@@ -14,7 +14,7 @@ export class Reaction {
   static customEmoji (id: string): Interfaces.TelegramReactionTypeCustomEmoji {
     return {
       type: 'custom_emoji',
-      custom_emoji: id
+      custom_emoji_id: id
     }
   }
 }

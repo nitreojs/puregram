@@ -6,11 +6,11 @@ import { stripIndent, stripIndents } from 'common-tags'
 
 import * as Types from './types'
 
-const LOAD_FROM_FILE = true
+const LOAD_FROM_FILE = false
 const GENERATE_FILES = true
 
-const SCHEMA_URL = resolve(__dirname, 'custom.min.json')
-// const SCHEMA_URL = 'https://ark0f.github.io/tg-bot-api/custom.min.json'
+// const SCHEMA_URL = resolve(__dirname, 'custom.min.json')
+const SCHEMA_URL = LOAD_FROM_FILE ? resolve(__dirname, 'custom.min.json') : 'https://ark0f.github.io/tg-bot-api/custom.min.json'
 const CURRENCIES_URL = 'https://core.telegram.org/bots/payments/currencies.json'
 
 ///           SERVICES           ///

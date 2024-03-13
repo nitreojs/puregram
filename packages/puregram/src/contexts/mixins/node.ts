@@ -241,7 +241,7 @@ class NodeMixin {
   /** Replies to current message with sticker */
   replyWithSticker (
     sticker: Methods.SendStickerParams['sticker'],
-    params: WithPartialReplyParameters<Optional<Methods.SendStickerParams, 'chat_id' | 'sticker'>>
+    params: WithPartialReplyParameters<Optional<Methods.SendStickerParams, 'chat_id' | 'sticker'>> = {}
   ) {
     const { reply_parameters, ...rest } = params
 

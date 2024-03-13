@@ -37,7 +37,7 @@ export const ttl = <T>(value: T, t = 30_000) => {
 /** loads session */
 export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}): Middleware<C> => {
   const {
-    getStorageKey = (context: ContextInterface) => context.senderId.toString(),
+    getStorageKey = (context: ContextInterface) => (context.from ?? context.senderChat).id.toString(),
     storage = new MemoryStorage(),
     initial = () => ({})
   } = options

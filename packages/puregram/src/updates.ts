@@ -186,6 +186,17 @@ export class Updates {
     handlers: Middleware<ContextsMapping[K] & T>[]
   ): this
 
+  // unsupported context
+  on<K extends string, T = {}>(
+    events: Exclude<K, keyof Known<ContextsMapping>>,
+    handler: Middleware<Contexts.UnsupportedContext & T>
+  ): this
+
+  on<K extends string, T = {}>(
+    events: Exclude<K, keyof Known<ContextsMapping>>,
+    handlers: Middleware<Contexts.UnsupportedContext & T>[]
+  ): this
+
   on<T = {}> (
     rawOnEvents: MaybeArray<string>,
     rawHandlers: MaybeArray<Middleware<Contexts.Context & T>>
@@ -445,15 +456,15 @@ export class Updates {
       this.offset = update.update_id + 1
     }
 
+    // TODO: is it actually safe? probably
     const type = (Object.keys(update) as UpdateName[])[1]
 
     let UpdateContext = events[type]
 
-    // TODO: UnresolvedContext or UnsupportedContext
     if (!UpdateContext) {
       debug$handleUpdate('unsupported context type `%s`', type)
 
-      return
+      UpdateContext = Contexts.UnsupportedContext
     }
 
     debug$handleUpdate('update payload: %j', update[type])

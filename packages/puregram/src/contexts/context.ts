@@ -11,7 +11,7 @@ import type { MaybeArray, SoftString, UpdateName } from '../types/types'
 interface ContextOptions {
   telegram: Telegram
   update?: Interfaces.TelegramUpdate
-  updateType: UpdateName
+  updateType: UpdateName | 'unknown'
   updateId?: number
 }
 
@@ -20,7 +20,7 @@ class Context {
   updateId?: number
   update?: Interfaces.TelegramUpdate
 
-  protected updateType: UpdateName
+  protected updateType: UpdateName | 'unknown'
 
   constructor (options: ContextOptions) {
     this.telegram = options.telegram

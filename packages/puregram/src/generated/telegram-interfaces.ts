@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v7.0.0, 29.12.2023
-/// Generation date: 07.01.2024 01:48:08 MSK
+/// Based on Bot API v7.1.0, 16.02.2024
+/// Generation date: 13.03.2024 03:27:26 MSK
 
 import type { Readable } from 'stream' // INFO: for Interfaces.InputFile
 
@@ -23,12 +23,12 @@ import type {
 } from '../common/keyboards'
 
 /**
- * This [object](https://core.telegram.org/bots/api/#available-types) represents an incoming update.  
+ * This [object](https://core.telegram.org/bots/api/#available-types) represents an incoming update.
  * At most **one** of the optional parameters can be present in any given update.
  */
 export interface TelegramUpdate {
   /**
-   * The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you're using [webhooks](https://core.telegram.org/bots/api/#setwebhook), since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
+   * The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This identifier becomes especially handy if you're using [webhooks](https://core.telegram.org/bots/api/#setwebhook), since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
    */
   update_id: number
   /**
@@ -36,7 +36,7 @@ export interface TelegramUpdate {
    */
   message?: TelegramMessage
   /**
-   * *Optional*. New version of a message that is known to the bot and was edited
+   * *Optional*. New version of a message that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
    */
   edited_message?: TelegramMessage
   /**
@@ -44,7 +44,7 @@ export interface TelegramUpdate {
    */
   channel_post?: TelegramMessage
   /**
-   * *Optional*. New version of a channel post that is known to the bot and was edited
+   * *Optional*. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
    */
   edited_channel_post?: TelegramMessage
   /**
@@ -52,7 +52,7 @@ export interface TelegramUpdate {
    */
   message_reaction?: TelegramMessageReactionUpdated
   /**
-   * *Optional*. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify `"message_reaction_count"` in the list of *allowed\_updates* to receive these updates.
+   * *Optional*. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify `"message_reaction_count"` in the list of *allowed\_updates* to receive these updates. The updates are grouped and can be sent with delay up to a few minutes.
    */
   message_reaction_count?: TelegramMessageReactionCountUpdated
   /**
@@ -76,7 +76,7 @@ export interface TelegramUpdate {
    */
   pre_checkout_query?: TelegramPreCheckoutQuery
   /**
-   * *Optional*. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot
+   * *Optional*. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot
    */
   poll?: TelegramPoll
   /**
@@ -182,11 +182,11 @@ export interface TelegramUser {
   /**
    * *Optional*. *True*, if this user is a Telegram Premium user
    */
-  is_premium?: boolean
+  is_premium?: true
   /**
    * *Optional*. *True*, if this user added the bot to the attachment menu
    */
-  added_to_attachment_menu?: boolean
+  added_to_attachment_menu?: true
   /**
    * *Optional*. *True*, if the bot can be invited to groups. Returned only in [getMe](https://core.telegram.org/bots/api/#getme).
    */
@@ -236,7 +236,7 @@ export interface TelegramChat {
   /**
    * *Optional*. *True*, if the supergroup chat is a forum (has [topics](https://telegram.org/blog/topics-in-groups-collectible-usernames#topics-in-groups) enabled)
    */
-  is_forum?: boolean
+  is_forum?: true
   /**
    * *Optional*. Chat photo. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
@@ -280,19 +280,19 @@ export interface TelegramChat {
   /**
    * *Optional*. *True*, if privacy settings of the other party in the private chat allows to use `tg://user?id=<user_id>` links only in chats with the user. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_private_forwards?: boolean
+  has_private_forwards?: true
   /**
    * *Optional*. *True*, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_restricted_voice_and_video_messages?: boolean
+  has_restricted_voice_and_video_messages?: true
   /**
    * *Optional*. *True*, if users need to join the supergroup before they can send messages. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  join_to_send_messages?: boolean
+  join_to_send_messages?: true
   /**
    * *Optional*. *True*, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  join_by_request?: boolean
+  join_by_request?: true
   /**
    * *Optional*. Description, for groups, supergroups and channel chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
@@ -310,9 +310,13 @@ export interface TelegramChat {
    */
   permissions?: TelegramChatPermissions
   /**
-   * *Optional*. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   * *Optional*. For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
   slow_mode_delay?: number
+  /**
+   * *Optional*. For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  unrestrict_boost_count?: number
   /**
    * *Optional*. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
@@ -320,19 +324,19 @@ export interface TelegramChat {
   /**
    * *Optional*. *True*, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_aggressive_anti_spam_enabled?: boolean
+  has_aggressive_anti_spam_enabled?: true
   /**
    * *Optional*. *True*, if non-administrators can only get the list of bots and administrators in the chat. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_hidden_members?: boolean
+  has_hidden_members?: true
   /**
    * *Optional*. *True*, if messages from the chat can't be forwarded to other chats. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_protected_content?: boolean
+  has_protected_content?: true
   /**
    * *Optional*. *True*, if new chat members will have access to old messages; available only to chat administrators. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  has_visible_history?: boolean
+  has_visible_history?: true
   /**
    * *Optional*. For supergroups, name of group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
@@ -340,7 +344,11 @@ export interface TelegramChat {
   /**
    * *Optional*. *True*, if the bot can change the group sticker set. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
-  can_set_sticker_set?: boolean
+  can_set_sticker_set?: true
+  /**
+   * *Optional*. For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
+   */
+  custom_emoji_sticker_set_name?: string
   /**
    * *Optional*. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in [getChat](https://core.telegram.org/bots/api/#getchat).
    */
@@ -374,6 +382,10 @@ export interface TelegramMessage {
    */
   sender_chat?: TelegramChat
   /**
+   * *Optional*. If the sender of the message boosted the chat, the number of boosts added by the user
+   */
+  sender_boost_count?: number
+  /**
    * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
    */
   date: number
@@ -388,11 +400,11 @@ export interface TelegramMessage {
   /**
    * *Optional*. *True*, if the message is sent to a forum topic
    */
-  is_topic_message?: boolean
+  is_topic_message?: true
   /**
    * *Optional*. *True*, if the message is a channel post that was automatically forwarded to the connected discussion group
    */
-  is_automatic_forward?: boolean
+  is_automatic_forward?: true
   /**
    * *Optional*. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply.
    */
@@ -406,6 +418,10 @@ export interface TelegramMessage {
    */
   quote?: TelegramTextQuote
   /**
+   * *Optional*. For replies to a story, the original story
+   */
+  reply_to_story?: TelegramStory
+  /**
    * *Optional*. Bot through which the message was sent
    */
   via_bot?: TelegramUser
@@ -416,7 +432,7 @@ export interface TelegramMessage {
   /**
    * *Optional*. *True*, if the message can't be forwarded
    */
-  has_protected_content?: boolean
+  has_protected_content?: true
   /**
    * *Optional*. The unique identifier of a media message group this message belongs to
    */
@@ -484,7 +500,7 @@ export interface TelegramMessage {
   /**
    * *Optional*. *True*, if the message media is covered by a spoiler animation
    */
-  has_media_spoiler?: boolean
+  has_media_spoiler?: true
   /**
    * *Optional*. Message is a shared contact, information about the contact
    */
@@ -528,19 +544,19 @@ export interface TelegramMessage {
   /**
    * *Optional*. Service message: the chat photo was deleted
    */
-  delete_chat_photo?: boolean
+  delete_chat_photo?: true
   /**
    * *Optional*. Service message: the group has been created
    */
-  group_chat_created?: boolean
+  group_chat_created?: true
   /**
    * *Optional*. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply\_to\_message if someone replies to a very first message in a directly created supergroup.
    */
-  supergroup_chat_created?: boolean
+  supergroup_chat_created?: true
   /**
    * *Optional*. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply\_to\_message if someone replies to a very first message in a channel.
    */
-  channel_chat_created?: boolean
+  channel_chat_created?: true
   /**
    * *Optional*. Service message: auto-delete timer settings changed in the chat
    */
@@ -589,6 +605,10 @@ export interface TelegramMessage {
    * *Optional*. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
    */
   proximity_alert_triggered?: TelegramProximityAlertTriggered
+  /**
+   * *Optional*. Service message: user boosted the chat
+   */
+  boost_added?: TelegramChatBoostAdded
   /**
    * *Optional*. Service message: forum topic created
    */
@@ -746,7 +766,7 @@ export interface TelegramTextQuote {
   /**
    * *Optional*. True, if the quote was chosen manually by the message sender. Otherwise, the quote was added automatically by the server.
    */
-  is_manual?: boolean
+  is_manual?: true
 
   [key: string]: any
 }
@@ -810,7 +830,7 @@ export interface TelegramExternalReplyInfo {
   /**
    * *Optional*. *True*, if the message media is covered by a spoiler animation
    */
-  has_media_spoiler?: boolean
+  has_media_spoiler?: true
   /**
    * *Optional*. Message is a shared contact, information about the contact
    */
@@ -1128,9 +1148,20 @@ export interface TelegramDocument {
 }
 
 /**
- * This object represents a message about a forwarded story in the chat. Currently holds no information.
+ * This object represents a story.
  */
-export interface TelegramStory { }
+export interface TelegramStory {
+  /**
+   * Chat that posted the story
+   */
+  chat: TelegramChat
+  /**
+   * Unique identifier for the story in the chat
+   */
+  id: number
+
+  [key: string]: any
+}
 
 /**
  * This object represents a video file.
@@ -1387,13 +1418,13 @@ export interface TelegramPoll {
  */
 export interface TelegramLocation {
   /**
-   * Longitude as defined by sender
-   */
-  longitude: number
-  /**
    * Latitude as defined by sender
    */
   latitude: number
+  /**
+   * Longitude as defined by sender
+   */
+  longitude: number
   /**
    * *Optional*. The radius of uncertainty for the location, measured in meters; 0-1500
    */
@@ -1494,6 +1525,18 @@ export interface TelegramMessageAutoDeleteTimerChanged {
    * New auto-delete time for messages in the chat; in seconds
    */
   message_auto_delete_time: number
+
+  [key: string]: any
+}
+
+/**
+ * This object represents a service message about a user boosting a chat.
+ */
+export interface TelegramChatBoostAdded {
+  /**
+   * Number of boosts added by the user
+   */
+  boost_count: number
 
   [key: string]: any
 }
@@ -1671,11 +1714,11 @@ export interface TelegramGiveaway {
   /**
    * *Optional*. *True*, if only users who join the chats after the giveaway started should be eligible to win
    */
-  only_new_members?: boolean
+  only_new_members?: true
   /**
    * *Optional*. *True*, if the list of giveaway winners will be visible to everyone
    */
-  has_public_winners?: boolean
+  has_public_winners?: true
   /**
    * *Optional*. Description of additional giveaway prize
    */
@@ -1701,7 +1744,7 @@ export interface TelegramGiveawayWinners {
    */
   chat: TelegramChat
   /**
-   * Identifier of the messsage with the giveaway in the chat
+   * Identifier of the message with the giveaway in the chat
    */
   giveaway_message_id: number
   /**
@@ -1731,11 +1774,11 @@ export interface TelegramGiveawayWinners {
   /**
    * *Optional*. *True*, if only users who had joined the chats after the giveaway started were eligible to win
    */
-  only_new_members?: boolean
+  only_new_members?: true
   /**
    * *Optional*. *True*, if the giveaway was canceled because the payment for it was refunded
    */
-  was_refunded?: boolean
+  was_refunded?: true
   /**
    * *Optional*. Description of additional giveaway prize
    */
@@ -1777,11 +1820,11 @@ export interface TelegramLinkPreviewOptions {
    */
   url?: string
   /**
-   * *Optional*. *True*, if the media in the link preview is suppposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
+   * *Optional*. *True*, if the media in the link preview is supposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
    */
   prefer_small_media?: boolean
   /**
-   * *Optional*. *True*, if the media in the link preview is suppposed to be enlarged; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
+   * *Optional*. *True*, if the media in the link preview is supposed to be enlarged; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
    */
   prefer_large_media?: boolean
   /**
@@ -1810,7 +1853,7 @@ export interface TelegramUserProfilePhotos {
 
 /**
  * This object represents a file ready to be downloaded. The file can be downloaded via the link `https://api.telegram.org/file/bot<token>/<file_path>`. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling [getFile](https://core.telegram.org/bots/api/#getfile).
- * 
+ *
  * The maximum file size to download is 20 MB
  */
 export interface TelegramFile {
@@ -1871,8 +1914,8 @@ export interface TelegramReplyKeyboardMarkup {
    */
   input_field_placeholder?: string
   /**
-   * *Optional*. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.  
-   * 
+   * *Optional*. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+   *
    * *Example:* A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
   selective?: boolean
@@ -1881,7 +1924,7 @@ export interface TelegramReplyKeyboardMarkup {
 }
 
 /**
- * This object represents one button of the reply keyboard. For simple text buttons, *String* can be used instead of this object to specify the button text. The optional fields *web\_app*, *request\_user*, *request\_chat*, *request\_contact*, *request\_location*, and *request\_poll* are mutually exclusive.
+ * This object represents one button of the reply keyboard. For simple text buttons, *String* can be used instead of this object to specify the button text. The optional fields *web\_app*, *request\_users*, *request\_chat*, *request\_contact*, *request\_location*, and *request\_poll* are mutually exclusive.
  */
 export interface TelegramKeyboardButton {
   /**
@@ -1999,10 +2042,10 @@ export interface TelegramReplyKeyboardRemove {
   /**
    * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use *one\_time\_keyboard* in [ReplyKeyboardMarkup](https://core.telegram.org/bots/api/#replykeyboardmarkup))
    */
-  remove_keyboard: boolean
+  remove_keyboard: true
   /**
-   * *Optional*. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.  
-   * 
+   * *Optional*. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+   *
    * *Example:* A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
   selective?: boolean
@@ -2031,7 +2074,7 @@ export interface TelegramInlineKeyboardButton {
    */
   text: string
   /**
-   * *Optional*. HTTP or tg:// URL to be opened when the button is pressed. Links `tg://user?id=<user_id>` can be used to mention a user by their ID without using a username, if this is allowed by their privacy settings.
+   * *Optional*. HTTP or tg:// URL to be opened when the button is pressed. Links `tg://user?id=<user_id>` can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
    */
   url?: string
   /**
@@ -2051,8 +2094,8 @@ export interface TelegramInlineKeyboardButton {
    */
   switch_inline_query?: string
   /**
-   * *Optional*. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.  
-   * 
+   * *Optional*. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.
+   *
    * This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options.
    */
   switch_inline_query_current_chat?: string
@@ -2061,14 +2104,14 @@ export interface TelegramInlineKeyboardButton {
    */
   switch_inline_query_chosen_chat?: TelegramSwitchInlineQueryChosenChat
   /**
-   * *Optional*. Description of the game that will be launched when the user presses the button.  
-   * 
+   * *Optional*. Description of the game that will be launched when the user presses the button.
+   *
    * **NOTE:** This type of button **must** always be the first button in the first row.
    */
   callback_game?: TelegramCallbackGame
   /**
-   * *Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api/#payments).  
-   * 
+   * *Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api/#payments).
+   *
    * **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages.
    */
   pay?: boolean
@@ -2078,15 +2121,15 @@ export interface TelegramInlineKeyboardButton {
 
 /**
  * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login) when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:
- * 
+ *
  * Telegram apps support these buttons as of [version 5.7](https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots).
- * 
+ *
  * Sample bot: [@discussbot](https://t.me/discussbot)
  */
 export interface TelegramLoginUrl {
   /**
-   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://core.telegram.org/widgets/login#receiving-authorization-data).  
-   * 
+   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in [Receiving authorization data](https://core.telegram.org/widgets/login#receiving-authorization-data).
+   *
    * **NOTE:** You **must** always check the hash of the received data to verify the authentication and the integrity of the data as described in [Checking authorization](https://core.telegram.org/widgets/login#checking-authorization).
    */
   url: string
@@ -2177,13 +2220,13 @@ export interface TelegramForceReply {
   /**
    * Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'
    */
-  force_reply: boolean
+  force_reply: true
   /**
    * *Optional*. The placeholder to be shown in the input field when the reply is active; 1-64 characters
    */
   input_field_placeholder?: string
   /**
-   * *Optional*. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply (has *reply\_to\_message\_id*), sender of the original message.
+   * *Optional*. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
    */
   selective?: boolean
 
@@ -2267,7 +2310,7 @@ export interface TelegramChatAdministratorRights {
    */
   is_anonymous: boolean
   /**
-   * *True*, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * *True*, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
    */
   can_manage_chat: boolean
   /**
@@ -2295,31 +2338,31 @@ export interface TelegramChatAdministratorRights {
    */
   can_invite_users: boolean
   /**
-   * *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; channels only
+   * *True*, if the administrator can post stories to the chat
+   */
+  can_post_stories: boolean
+  /**
+   * *True*, if the administrator can edit stories posted by other users
+   */
+  can_edit_stories: boolean
+  /**
+   * *True*, if the administrator can delete stories posted by other users
+   */
+  can_delete_stories: boolean
+  /**
+   * *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; for channels only
    */
   can_post_messages?: boolean
   /**
-   * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; channels only
+   * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; for channels only
    */
   can_edit_messages?: boolean
   /**
-   * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
+   * *Optional*. *True*, if the user is allowed to pin messages; for groups and supergroups only
    */
   can_pin_messages?: boolean
   /**
-   * *Optional*. *True*, if the administrator can post stories in the channel; channels only
-   */
-  can_post_stories?: boolean
-  /**
-   * *Optional*. *True*, if the administrator can edit stories posted by other users; channels only
-   */
-  can_edit_stories?: boolean
-  /**
-   * *Optional*. *True*, if the administrator can delete stories posted by other users; channels only
-   */
-  can_delete_stories?: boolean
-  /**
-   * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+   * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
    */
   can_manage_topics?: boolean
 
@@ -2407,7 +2450,7 @@ export interface TelegramChatMemberAdministrator {
    */
   is_anonymous: boolean
   /**
-   * *True*, if the administrator can access the chat event log, boost list in channels, see channel members, report spam messages, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * *True*, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
    */
   can_manage_chat: boolean
   /**
@@ -2435,31 +2478,31 @@ export interface TelegramChatMemberAdministrator {
    */
   can_invite_users: boolean
   /**
-   * *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; channels only
+   * *True*, if the administrator can post stories to the chat
+   */
+  can_post_stories: boolean
+  /**
+   * *True*, if the administrator can edit stories posted by other users
+   */
+  can_edit_stories: boolean
+  /**
+   * *True*, if the administrator can delete stories posted by other users
+   */
+  can_delete_stories: boolean
+  /**
+   * *Optional*. *True*, if the administrator can post messages in the channel, or access channel statistics; for channels only
    */
   can_post_messages?: boolean
   /**
-   * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; channels only
+   * *Optional*. *True*, if the administrator can edit messages of other users and can pin messages; for channels only
    */
   can_edit_messages?: boolean
   /**
-   * *Optional*. *True*, if the user is allowed to pin messages; groups and supergroups only
+   * *Optional*. *True*, if the user is allowed to pin messages; for groups and supergroups only
    */
   can_pin_messages?: boolean
   /**
-   * *Optional*. *True*, if the administrator can post stories in the channel; channels only
-   */
-  can_post_stories?: boolean
-  /**
-   * *Optional*. *True*, if the administrator can edit stories posted by other users; channels only
-   */
-  can_edit_stories?: boolean
-  /**
-   * *Optional*. *True*, if the administrator can delete stories posted by other users; channels only
-   */
-  can_delete_stories?: boolean
-  /**
-   * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+   * *Optional*. *True*, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
    */
   can_manage_topics?: boolean
   /**
@@ -2743,7 +2786,7 @@ export interface TelegramReactionTypeCustomEmoji {
   /**
    * Custom emoji identifier
    */
-  custom_emoji: string
+  custom_emoji_id: string
 
   [key: string]: any
 }
@@ -3095,7 +3138,7 @@ export interface TelegramChatBoostSourceGiveaway {
   /**
    * *Optional*. True, if the giveaway was completed, but there was no user to win the prize
    */
-  is_unclaimed?: boolean
+  is_unclaimed?: true
 
   [key: string]: any
 }
@@ -3133,7 +3176,7 @@ export interface TelegramChatBoostUpdated {
    */
   chat: TelegramChat
   /**
-   * Infomation about the chat boost
+   * Information about the chat boost
    */
   boost: TelegramChatBoost
 
@@ -3470,7 +3513,7 @@ export interface TelegramSticker {
   /**
    * *Optional*. *True*, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
    */
-  needs_repainting?: boolean
+  needs_repainting?: true
   /**
    * *Optional*. File size in bytes
    */
@@ -3614,8 +3657,8 @@ export interface TelegramInlineQueryResultsButton {
    */
   web_app?: TelegramWebAppInfo
   /**
-   * *Optional*. [Deep-linking](https://core.telegram.org/bots/features#deep-linking) parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.  
-   * 
+   * *Optional*. [Deep-linking](https://core.telegram.org/bots/features#deep-linking) parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed.
+   *
    * *Example:* An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a [*switch\_inline*](https://core.telegram.org/bots/api/#inlinekeyboardmarkup) button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
    */
   start_parameter?: string
@@ -3871,7 +3914,7 @@ export type TelegramInlineQueryResultVideoMimeType = 'text/html' | 'video/mp4'
 
 /**
  * Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the video.
- * 
+ *
  * If an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you **must** replace its content using *input\_message\_content*.
  */
 export interface TelegramInlineQueryResultVideo {
@@ -5172,35 +5215,35 @@ export interface TelegramEncryptedPassportElement {
    */
   type: SoftString<TelegramEncryptedPassportElementType>
   /**
-   * *Optional*. Base64-encoded encrypted Telegram Passport element data provided by the user, available for “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport” and “address” types. Can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
+   * *Optional*. Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport” and “address” types. Can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
   data?: string
   /**
-   * *Optional*. User's verified phone number, available only for “phone\_number” type
+   * *Optional*. User's verified phone number; available only for “phone\_number” type
    */
   phone_number?: string
   /**
-   * *Optional*. User's verified email address, available only for “email” type
+   * *Optional*. User's verified email address; available only for “email” type
    */
   email?: string
   /**
-   * *Optional*. Array of encrypted files with documents provided by the user, available for “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration” and “temporary\_registration” types. Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
+   * *Optional*. Array of encrypted files with documents provided by the user; available only for “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration” and “temporary\_registration” types. Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
   files?: TelegramPassportFile[]
   /**
-   * *Optional*. Encrypted file with the front side of the document, provided by the user. Available for “passport”, “driver\_license”, “identity\_card” and “internal\_passport”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
+   * *Optional*. Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver\_license”, “identity\_card” and “internal\_passport”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
   front_side?: TelegramPassportFile
   /**
-   * *Optional*. Encrypted file with the reverse side of the document, provided by the user. Available for “driver\_license” and “identity\_card”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
+   * *Optional*. Encrypted file with the reverse side of the document, provided by the user; available only for “driver\_license” and “identity\_card”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
   reverse_side?: TelegramPassportFile
   /**
-   * *Optional*. Encrypted file with the selfie of the user holding a document, provided by the user; available for “passport”, “driver\_license”, “identity\_card” and “internal\_passport”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
+   * *Optional*. Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver\_license”, “identity\_card” and “internal\_passport”. The file can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
   selfie?: TelegramPassportFile
   /**
-   * *Optional*. Array of encrypted files with translated versions of documents provided by the user. Available if requested for “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration” and “temporary\_registration” types. Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
+   * *Optional*. Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration” and “temporary\_registration” types. Files can be decrypted and verified using the accompanying [EncryptedCredentials](https://core.telegram.org/bots/api/#encryptedcredentials).
    */
   translation?: TelegramPassportFile[]
   /**
@@ -5534,7 +5577,7 @@ export type Currency = SoftString<'AED' | 'AFN' | 'ALL' | 'AMD' | 'ARS' | 'AUD' 
 
 /**
  * This object describes a message that can be inaccessible to the bot. It can be one of
- * 
+ *
  * * [Message](https://core.telegram.org/bots/api/#message)
  * * [InaccessibleMessage](https://core.telegram.org/bots/api/#inaccessiblemessage)
  */
@@ -5544,7 +5587,7 @@ export type TelegramMaybeInaccessibleMessage =
 
 /**
  * This object describes the origin of a message. It can be one of
- * 
+ *
  * * [MessageOriginUser](https://core.telegram.org/bots/api/#messageoriginuser)
  * * [MessageOriginHiddenUser](https://core.telegram.org/bots/api/#messageoriginhiddenuser)
  * * [MessageOriginChat](https://core.telegram.org/bots/api/#messageoriginchat)
@@ -5558,7 +5601,7 @@ export type TelegramMessageOrigin =
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
- * 
+ *
  * * [ChatMemberOwner](https://core.telegram.org/bots/api/#chatmemberowner)
  * * [ChatMemberAdministrator](https://core.telegram.org/bots/api/#chatmemberadministrator)
  * * [ChatMemberMember](https://core.telegram.org/bots/api/#chatmembermember)
@@ -5576,7 +5619,7 @@ export type TelegramChatMember =
 
 /**
  * This object describes the type of a reaction. Currently, it can be one of
- * 
+ *
  * * [ReactionTypeEmoji](https://core.telegram.org/bots/api/#reactiontypeemoji)
  * * [ReactionTypeCustomEmoji](https://core.telegram.org/bots/api/#reactiontypecustomemoji)
  */
@@ -5586,7 +5629,7 @@ export type TelegramReactionType =
 
 /**
  * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
- * 
+ *
  * * [BotCommandScopeDefault](https://core.telegram.org/bots/api/#botcommandscopedefault)
  * * [BotCommandScopeAllPrivateChats](https://core.telegram.org/bots/api/#botcommandscopeallprivatechats)
  * * [BotCommandScopeAllGroupChats](https://core.telegram.org/bots/api/#botcommandscopeallgroupchats)
@@ -5606,7 +5649,7 @@ export type TelegramBotCommandScope =
 
 /**
  * This object describes the bot's menu button in a private chat. It should be one of
- * 
+ *
  * * [MenuButtonCommands](https://core.telegram.org/bots/api/#menubuttoncommands)
  * * [MenuButtonWebApp](https://core.telegram.org/bots/api/#menubuttonwebapp)
  * * [MenuButtonDefault](https://core.telegram.org/bots/api/#menubuttondefault)
@@ -5618,7 +5661,7 @@ export type TelegramMenuButton =
 
 /**
  * This object describes the source of a chat boost. It can be one of
- * 
+ *
  * * [ChatBoostSourcePremium](https://core.telegram.org/bots/api/#chatboostsourcepremium)
  * * [ChatBoostSourceGiftCode](https://core.telegram.org/bots/api/#chatboostsourcegiftcode)
  * * [ChatBoostSourceGiveaway](https://core.telegram.org/bots/api/#chatboostsourcegiveaway)
@@ -5630,7 +5673,7 @@ export type TelegramChatBoostSource =
 
 /**
  * This object represents the content of a media message to be sent. It should be one of
- * 
+ *
  * * [InputMediaAnimation](https://core.telegram.org/bots/api/#inputmediaanimation)
  * * [InputMediaDocument](https://core.telegram.org/bots/api/#inputmediadocument)
  * * [InputMediaAudio](https://core.telegram.org/bots/api/#inputmediaaudio)
@@ -5646,7 +5689,7 @@ export type TelegramInputMedia =
 
 /**
  * This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
- * 
+ *
  * * [InlineQueryResultCachedAudio](https://core.telegram.org/bots/api/#inlinequeryresultcachedaudio)
  * * [InlineQueryResultCachedDocument](https://core.telegram.org/bots/api/#inlinequeryresultcacheddocument)
  * * [InlineQueryResultCachedGif](https://core.telegram.org/bots/api/#inlinequeryresultcachedgif)
@@ -5692,7 +5735,7 @@ export type TelegramInlineQueryResult =
 
 /**
  * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:
- * 
+ *
  * * [InputTextMessageContent](https://core.telegram.org/bots/api/#inputtextmessagecontent)
  * * [InputLocationMessageContent](https://core.telegram.org/bots/api/#inputlocationmessagecontent)
  * * [InputVenueMessageContent](https://core.telegram.org/bots/api/#inputvenuemessagecontent)
@@ -5708,7 +5751,7 @@ export type TelegramInputMessageContent =
 
 /**
  * This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
- * 
+ *
  * * [PassportElementErrorDataField](https://core.telegram.org/bots/api/#passportelementerrordatafield)
  * * [PassportElementErrorFrontSide](https://core.telegram.org/bots/api/#passportelementerrorfrontside)
  * * [PassportElementErrorReverseSide](https://core.telegram.org/bots/api/#passportelementerrorreverseside)

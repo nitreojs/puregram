@@ -449,6 +449,7 @@ export class Updates {
 
     let UpdateContext = events[type]
 
+    // TODO: UnresolvedContext or UnsupportedContext
     if (!UpdateContext) {
       debug$handleUpdate('unsupported context type `%s`', type)
 

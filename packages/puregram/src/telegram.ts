@@ -398,6 +398,8 @@ export class Telegram {
   private async createAttachMediaInput (params: APICreateAttachMediaInput): Promise<Record<string, any>> {
     const media = params.input[params.key] as MediaInput
 
+    const { type: _, [params.key]: __, ...rest } = params.input
+
     // INFO: we allow only [MediaInput] media values since [puregram@2.5.0]
     if (!isMediaInput(media)) {
       throw new TypeError('expected media to be created via `MediaSource`')
@@ -406,7 +408,7 @@ export class Telegram {
     if (media.type === MediaSourceType.FileId || (media.type === MediaSourceType.Url && !media.forceUpload)) {
       // INFO: we don't need to generate `attach://` clause if we are working with file IDs or native URLs
 
-      return { type: params.input.type, [params.key]: media.value }
+      return { type: params.input.type, [params.key]: media.value, ...rest }
     }
 
     // INFO: otherwise...
@@ -416,7 +418,7 @@ export class Telegram {
 
     params.fd.set(attachId, fdValue)
 
-    return { type: params.input.type, [params.key]: `attach://${attachId}` }
+    return { type: params.input.type, [params.key]: `attach://${attachId}`, ...rest }
   }
 
   /**

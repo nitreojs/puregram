@@ -1075,11 +1075,10 @@ you are trying to use [`@puregram/scenes`][@scenes] or [`@puregram/hear`][@hear]
 you should firstly initialize `@puregram/session`'s middleware and only then initialize other middlewares, depending on it:
 
 ```js
-const sessionManager = new SessionManager()
 const hearManager = new HearManager()
 
 // 1. session middleware first
-telegram.updates.on('message', sessionManager.middleware)
+telegram.updates.use(session())
 
 // 2. hear middleware second
 telegram.updates.on('message', hearManager.middleware)

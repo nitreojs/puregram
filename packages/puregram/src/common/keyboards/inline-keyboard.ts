@@ -60,6 +60,12 @@ export class InlineKeyboard {
     return this.constructor.name
   }
 
+  constructor (rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[] = []) {
+    for (const row of rows) {
+      this.addRow(row)
+    }
+  }
+
   /** Empty inline keyboard. That's literally it. */
   static empty = InlineKeyboard.keyboard([])
 
@@ -67,13 +73,7 @@ export class InlineKeyboard {
   static keyboard (
     rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[]
   ): InlineKeyboard {
-    const inlineKeyboard = new InlineKeyboard()
-
-    for (const row of rows) {
-      inlineKeyboard.addRow(row)
-    }
-
-    return inlineKeyboard
+    return new InlineKeyboard(rows)
   }
 
   /** Generate text button */
@@ -88,6 +88,15 @@ export class InlineKeyboard {
     }
   }
 
+  /**
+   * Generate text button
+   *
+   * An alias for `textButton`.
+   */
+  static text (params: TextButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.textButton(params)
+  }
+
   /** Generate URL button */
   static urlButton (params: UrlButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
@@ -96,12 +105,30 @@ export class InlineKeyboard {
     }
   }
 
+  /**
+   * Generate URL button
+   *
+   * An alias for `urlButton`.
+   */
+  static url (params: UrlButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.urlButton(params)
+  }
+
   /** Generate Web App button */
   static webAppButton (params: WebAppButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
       text: params.text,
       web_app: { url: params.url }
     }
+  }
+
+  /**
+   * Generate Web App button
+   *
+   * An alias for `webAppButton`.
+   */
+  static webApp (params: WebAppButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.webAppButton(params)
   }
 
   /** Generate button that will switch to current chat and type the query */
@@ -114,6 +141,15 @@ export class InlineKeyboard {
     }
   }
 
+  /**
+   * Generate button that will switch to current chat and type the query
+   *
+   * An alias for `switchToCurrentChatButton`.
+   */
+  static switchToCurrentChat (params: SwitchToCurrentChatButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.switchToCurrentChatButton(params)
+  }
+
   /** Generate button that will prompt user to select one of their chats */
   static switchToChatButton (
     params: SwitchToChatButtonParams
@@ -122,6 +158,15 @@ export class InlineKeyboard {
       text: params.text,
       switch_inline_query: params.query
     }
+  }
+
+  /**
+   * Generate button that will prompt user to select one of their chats
+   *
+   * An alias for `switchToChatButton`.
+   */
+  static switchToChat (params: SwitchToChatButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.switchToChatButton(params)
   }
 
   /** Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
@@ -140,12 +185,30 @@ export class InlineKeyboard {
     }
   }
 
+  /**
+   * Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field
+   *
+   * An alias for `switchToChosenChatButton`.
+   */
+  static switchToChosenChat (params: SwitchToChosenChatButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.switchToChosenChatButton(params)
+  }
+
   /** Generate game button */
   static gameButton (params: GameButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
       text: params.text,
       callback_game: params.game
     }
+  }
+
+  /**
+   * Generate game button
+   *
+   * An alias for `gameButton`.
+   */
+  static game (params: GameButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.gameButton(params)
   }
 
   /** Generate pay button */
@@ -156,12 +219,30 @@ export class InlineKeyboard {
     }
   }
 
+  /**
+   * Generate pay button
+   *
+   * An alias for `payButton`.
+   */
+  static pay (params: PayButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.payButton(params)
+  }
+
   /** Generate login button */
   static loginButton (params: LoginButtonParams): Interfaces.TelegramInlineKeyboardButton {
     return {
       login_url: params.loginUrl,
       text: params.text
     }
+  }
+
+  /**
+   * Generate login button
+   *
+   * An alias for `loginButton`.
+   */
+  static login (params: LoginButtonParams): Interfaces.TelegramInlineKeyboardButton {
+    return InlineKeyboard.loginButton(params)
   }
 
   private addRow (row: Interfaces.TelegramInlineKeyboardButton[] | Interfaces.TelegramInlineKeyboardButton) {

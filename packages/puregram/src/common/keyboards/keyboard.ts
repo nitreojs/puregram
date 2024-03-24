@@ -31,6 +31,12 @@ export class Keyboard {
     return this.constructor.name
   }
 
+  constructor (rows: MaybeArray<Interfaces.TelegramKeyboardButton | string>[] = []) {
+    for (const row of rows) {
+      this.addRow(row)
+    }
+  }
+
   /** Returns an "empty" keyboard (literally a `RemoveKeyboard` alias) */
   static empty = new RemoveKeyboard()
 
@@ -40,14 +46,8 @@ export class Keyboard {
   }
 
   /** Assemble a builder of buttons */
-  static keyboard (rows: MaybeArray<Interfaces.TelegramKeyboardButton | string>[]): Keyboard {
-    const keyboard = new Keyboard()
-
-    for (const row of rows) {
-      keyboard.addRow(row)
-    }
-
-    return keyboard
+  static keyboard (rows: MaybeArray<Interfaces.TelegramKeyboardButton | string>[]) {
+    return new Keyboard(rows)
   }
 
   /** Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to `false`, in which case the custom keyboard is always of the same height as the app's standard keyboard */
@@ -94,6 +94,17 @@ export class Keyboard {
     return { text }
   }
 
+  /**
+   * Generates text button.
+   * If none of the optional fields are used,
+   * it will be sent as a message when the button is pressed
+   *
+   * An alias for `textButton`.
+   */
+  static text (text: string): Interfaces.TelegramKeyboardButton {
+    return Keyboard.textButton(text)
+  }
+
   /** If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user_shared” service message. Available in private chats only. */
   static requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers): Interfaces.TelegramKeyboardButton {
     return {
@@ -102,12 +113,30 @@ export class Keyboard {
     }
   }
 
+  /**
+   * If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user_shared” service message. Available in private chats only.
+   *
+   * An alias for `requestUsersButton`.
+   */
+  static requestUsers (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers): Interfaces.TelegramKeyboardButton {
+    return Keyboard.requestUsersButton(text, params)
+  }
+
   /** If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only. */
   static requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat): Interfaces.TelegramKeyboardButton {
     return {
       text,
       request_chat: params
     }
+  }
+
+  /**
+   * If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only.
+   *
+   * An alias for `requestChatButton`.
+   */
+  static requestChat (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat): Interfaces.TelegramKeyboardButton {
+    return Keyboard.requestChatButton(text, params)
   }
 
   /**
@@ -124,6 +153,18 @@ export class Keyboard {
   }
 
   /**
+   * The user's phone number will be sent as a contact when
+   * the button is pressed.
+   *
+   * Available in private chats only
+   *
+   * An alias for `requestContactButton`.
+   */
+  static requestContact (text: string): Interfaces.TelegramKeyboardButton {
+    return Keyboard.requestContactButton(text)
+  }
+
+  /**
    * The user's current location will be sent when the button is pressed.
    *
    * Available in private chats only
@@ -133,6 +174,17 @@ export class Keyboard {
       text,
       request_location: true
     }
+  }
+
+  /**
+   * The user's current location will be sent when the button is pressed.
+   *
+   * Available in private chats only
+   *
+   * An alias for `requestLocationButton`.
+   */
+  static requestLocation (text: string): Interfaces.TelegramKeyboardButton {
+    return Keyboard.requestLocationButton(text)
   }
 
   /**
@@ -149,6 +201,18 @@ export class Keyboard {
   }
 
   /**
+   * The user will be asked to create a poll and send it to the bot
+   * when the button is pressed.
+   *
+   * Available in private chats only
+   *
+   * An alias for `requestPollButton`.
+   */
+  static requestPoll (text: string, type?: Interfaces.TelegramPoll['type']): Interfaces.TelegramKeyboardButton {
+    return Keyboard.requestPollButton(text, type)
+  }
+
+  /**
    * The described Web App will be launched when the button is pressed.
    * The Web App will be able to send a `web_app_data` service message.
    *
@@ -159,6 +223,18 @@ export class Keyboard {
       text,
       web_app: { url }
     }
+  }
+
+  /**
+   * The described Web App will be launched when the button is pressed.
+   * The Web App will be able to send a `web_app_data` service message.
+   *
+   * Available in private chats only.
+   *
+   * An alias for `webAppButton`.
+   */
+  static webApp (text: string, url: string): Interfaces.TelegramKeyboardButton {
+    return Keyboard.webAppButton(text, url)
   }
 
   private addRow (row: MaybeArray<Interfaces.TelegramKeyboardButton | string>) {

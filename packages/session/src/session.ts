@@ -49,6 +49,16 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
 
     let changed = false
 
+    const $forceUpdate = () => {
+      if (Object.keys(session).length !== 0) {
+        changed = false
+
+        return storage.set(key, session)
+      }
+
+      return storage.delete(key)
+    }
+
     // this requires some description because there are serious hacks going on here
     // well first of all the idea of having any other external storages may seem very cool
     // until you realize you need to support calling proper methods when the session changes
@@ -80,6 +90,10 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
           get (target, key) {
             if (key === PROXY_SYM) {
               return true
+            }
+
+            if (key === '$forceUpdate') {
+              return $forceUpdate
             }
 
             const value = target[key]
@@ -164,28 +178,11 @@ export const session = <S, C extends Context>(options: SessionOptions<S, C> = {}
     }
 
     const wrap = (session: SessionContext): SessionContext => {
-      if (!('$forceUpdate' in session)) {
-        Object.defineProperty(session, '$forceUpdate', {
-          value: $forceUpdate,
-          enumerable: false
-        })
-      }
-
       if (session[PROXY_SYM as any]) {
         return session
       }
 
       return createProxy(session)
-    }
-
-    const $forceUpdate = () => {
-      if (Object.keys(session).length !== 0) {
-        changed = false
-
-        return storage.set(key, session)
-      }
-
-      return storage.delete(key)
     }
 
     const storageSession = await storage.get(key)

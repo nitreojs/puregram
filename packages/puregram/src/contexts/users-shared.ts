@@ -31,7 +31,7 @@ class UsersSharedContext extends Context {
     })
 
     this.payload = options.payload
-    this.event = this.payload.user_shared as Interfaces.TelegramUsersShared
+    this.event = this.payload.users_shared!
   }
 
   /** Identifier of the request */

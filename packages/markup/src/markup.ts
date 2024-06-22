@@ -59,6 +59,24 @@ function process (parts: string[] | TemplateStringsArray, ...rest: Rest) {
       offset += addition.length
 
       entities.push(...arg.entities)
+    } else if (arg instanceof Formatted) {
+      const actualEntities: MessageEntity[] = []
+
+      for (const entity of arg.entities) {
+        const payload = {
+          ...entity.payload,
+          offset: entity.payload.offset + offset - 1 /* because of \n trimming at the start */
+        }
+
+        actualEntities.push(new MessageEntity(payload))
+      }
+
+      const addition = arg.text.trim() + frame
+
+      result += addition
+      offset += addition.length
+
+      entities.push(...actualEntities.map(e => e.payload as Entity))
     } else {
       const addition = arg + frame
 

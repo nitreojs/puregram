@@ -84,21 +84,9 @@ export const SERVICE_MESSAGE_EVENTS: MessageEventName[] = [
   // passport_data?
 ]
 
-export const METHODS_WITH_MEDIA: [string, string[]][] = [
-  ['sendPhoto', ['photo']],
-  ['sendAudio', ['audio', 'thumb']],
-  ['sendDocument', ['document', 'thumb']],
-  ['sendVoice', ['voice']],
-  ['sendVideo', ['video', 'thumb']],
-  ['sendAnimation', ['animation', 'thumb']],
-  ['sendVideoNote', ['video_note', 'thumb']],
-  ['sendMediaGroup', ['media']], // INFO: needs special logic because of 'attach://<attachname>' stuff
-  ['sendSticker', ['sticker']],
-  ['uploadStickerFile', ['png_sticker']],
-  ['createNewStickerSet', ['png_sticker', 'tgs_sticker', 'webm_sticker']],
-  ['addStickerToSet', ['png_sticker', 'tgs_sticker', 'webm_sticker']],
-  ['setStickerSetThumb', ['thumb']],
-  ['editMessageMedia', ['media']],
-  ['setWebhook', ['certificate']],
-  ['setChatPhoto', ['photo']]
+export const MEDIA_PARAMS: string[] = [
+  'thumb',
+  'photo', 'audio', 'document', 'voice', 'video', 'animation', 'video_note', 'sticker',
+  'png_sticker', 'tgs_sticker', 'webm_sticker',
+  'certificate'
 ]

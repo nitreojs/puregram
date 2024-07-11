@@ -20,7 +20,7 @@ import { ApiResponseError, ApiResponseOk, ApiResponseUnion, TelegramOptions } fr
 import { ApiMethod, MaybeArray, SoftString } from './types/types'
 import * as Hooks from './types/hooks'
 
-import { DEFAULT_OPTIONS, METHODS_WITH_MEDIA } from './utils/constants'
+import { DEFAULT_OPTIONS, MEDIA_PARAMS } from './utils/constants'
 import { convertStreamToBuffer, decomplexify, generateAttachId, isMediaInput, isPlainObject } from './utils/helpers'
 import { Attachment, FileAttachment, PhotoAttachment } from './common/attachments'
 
@@ -366,13 +366,11 @@ export class Telegram {
   }
 
   /** Uploads media as usual, returning `RequestInit` */
-  private async uploadMedia (params: Record<string, any>, entity: [string, string[]]): Promise<RequestInit> {
+  private async uploadMedia (params: Record<string, any>): Promise<RequestInit> {
     const fd = new FormData()
 
     // INFO: clears [params] object and keeps only media values from it
-    const mediaEntries = Object.entries(params).filter(
-      ([key]) => entity[1].includes(key)
-    )
+    const mediaEntries = Object.entries(params).filter(([key]) => MEDIA_PARAMS.includes(key))
 
     for (const [key, input] of mediaEntries) {
       // INFO: we allow only [MediaInput] media values since [puregram@2.5.0]
@@ -521,8 +519,9 @@ export class Telegram {
 
       // INFO: ---- detecting media methods ----
 
-      // INFO: [sendMediaGroup] and [editMessageMedia] requires special logic
-      if (['sendMediaGroup', 'editMessageMedia'].includes(path)) {
+      // UNPOPULAR OPINION: detect whether or not the method is working with [media] by checking if it has [media] property (wow!)
+      // if (['sendMediaGroup', 'editMessageMedia'].includes(path)) {
+      if (Object.keys(params).includes('media')) {
         const newInit = await this.uploadWithMedia(params)
 
         context$beforeRequest.init = {
@@ -530,16 +529,20 @@ export class Telegram {
           ...newInit
         }
       } else {
-        const mediaEntity = METHODS_WITH_MEDIA.find(entity => entity[0] === path)
+        // INFO: METHODS_WITH_MEDIA is not a reliable way to detect media methods, actually
+        // const mediaEntity = METHODS_WITH_MEDIA.find(entity => entity[0] === path)
 
-        const hasMediaProperties = mediaEntity !== undefined && (
-          Object.keys(params).some(value => mediaEntity[1].includes(value))
-        )
+        // const hasMediaProperties = mediaEntity !== undefined && (
+        //   Object.keys(params).some(value => mediaEntity[1].includes(value))
+        // )
 
-        // INFO: if current [path] is a method with possible media properties
-        // INFO: and we have those media properties in our [params] (not [decomplexified]!) object
+        // INFO: uhh this allows us to mmm detect media methods by parameters
+        // INFO: so for example if we have [thumb] or [photo] in our [params] object
+        // INFO: we can assume that we are working with media
+        const hasMediaProperties = Object.keys(params).some(value => MEDIA_PARAMS.includes(value))
+
         if (hasMediaProperties) {
-          const newInit = await this.uploadMedia(params, mediaEntity)
+          const newInit = await this.uploadMedia(params)
 
           context$beforeRequest.init = {
             ...init, // INFO: saving [signal] since we don't have access to it in [uploadMedia]

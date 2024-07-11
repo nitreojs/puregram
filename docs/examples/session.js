@@ -1,14 +1,13 @@
 import { Telegram } from 'puregram'
-import { SessionManager } from '@puregram/session'
+import { session } from '@puregram/session'
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
-const sessionManager = new SessionManager()
-
-telegram.updates.on('message', sessionManager.middleware)
+telegram.updates.on('message', session()) // will have `session` property in `context` on every `message` update
 
 telegram.updates.on('message', (context) => {
-  if (!context.session.counter) {
+  // since this is a `message` update, we can be sure that `context.session` will be present
+  if (!('counter' in context.session)) {
     context.session.counter = 0
   }
 

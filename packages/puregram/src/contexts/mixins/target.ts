@@ -1,6 +1,7 @@
-import { Chat, User } from '../../common/structures'
+import { Chat } from '../../common/structures/chat'
+import { User } from '../../common/structures/user'
 import { ChatType } from '../../types/enums'
-import { Require, RequireValue } from '../../types/types'
+import type { Require, RequireValue } from '../../types/types'
 import { memoizeGetters } from '../../utils/helpers'
 
 /** This object represents a mixin which has sender data (e.g. `senderId`, `from` etc.) */

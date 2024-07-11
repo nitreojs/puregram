@@ -20,13 +20,13 @@ import {
 import { MediaGroup } from '../common/media-group'
 import { Message, MessageEntity } from '../common/structures'
 
-import * as Interfaces from '../generated/telegram-interfaces'
+import type * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
 
-import { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
-import { AttachmentsMapping } from '../types/mappings'
-import { AttachmentType, Constructor, Require, RequireValue, UpdateName } from '../types/types'
+import type { AttachmentType as AttachmentTypeEnum, EntityType } from '../types/enums'
+import type { AttachmentsMapping } from '../types/mappings'
+import type { AttachmentType, Constructor, Require, RequireValue, UpdateName } from '../types/types'
 import { EVENTS, SERVICE_MESSAGE_EVENTS } from '../utils/constants'
 import { applyMixins, filterPayload, isParsable, memoizeGetters } from '../utils/helpers'
 

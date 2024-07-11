@@ -1,6 +1,6 @@
 import * as Methods from '../../generated/methods'
 
-import { Optional } from '../../types/types'
+import type { Optional } from '../../types/types'
 import { Poll } from '../../common/structures'
 
 import type { tSendMethods } from '../../types/send-media'
@@ -15,6 +15,8 @@ interface SendMixinMetadata {
 
 /** This object represents a mixin which can invoke `chatId`/`senderId`-dependent methods */
 class SendMixin {
+  payload!: Record<string, any>
+
   /** Sends message to current chat */
   async send (
     text: Methods.SendMessageParams['text'],
@@ -22,6 +24,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendMessage({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       text,
       ...params
     })
@@ -39,6 +42,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendPhoto({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       photo,
       ...params
     })
@@ -56,6 +60,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendDocument({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       document,
       ...params
     })
@@ -73,6 +78,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendAudio({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       audio,
       ...params
     })
@@ -90,6 +96,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendVideo({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       video,
       ...params
     })
@@ -107,6 +114,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendAnimation({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       animation,
       ...params
     })
@@ -124,6 +132,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendVideoNote({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       video_note: videoNote,
       ...params
     })
@@ -141,6 +150,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendVoice({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       voice,
       ...params
     })
@@ -159,6 +169,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendLocation({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       latitude,
       longitude,
       ...params
@@ -187,6 +198,7 @@ class SendMixin {
   async sendVenue (params: Optional<Methods.SendVenueParams, 'chat_id'>) {
     const response = await this.telegram.api.sendVenue({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       ...params
     })
 
@@ -200,6 +212,7 @@ class SendMixin {
   async sendContact (params: Optional<Methods.SendContactParams, 'chat_id'>) {
     const response = await this.telegram.api.sendContact({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       ...params
     })
 
@@ -213,6 +226,7 @@ class SendMixin {
   async sendPoll (params: Optional<Methods.SendPollParams, 'chat_id'>) {
     const response = await this.telegram.api.sendPoll({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       ...params
     })
 
@@ -229,6 +243,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendSticker({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       sticker,
       ...params
     })
@@ -260,6 +275,7 @@ class SendMixin {
   ) {
     return this.telegram.api.sendChatAction({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       action,
       ...params
     })
@@ -272,6 +288,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendDice({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       emoji,
       ...params
     })
@@ -289,6 +306,7 @@ class SendMixin {
   ) {
     const response = await this.telegram.api.sendMediaGroup({
       chat_id: this.chatId || this.senderId || 0,
+      business_connection_id: this.payload.business_connection_id,
       media: mediaGroup,
       ...params
     })

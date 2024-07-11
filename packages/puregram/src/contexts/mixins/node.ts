@@ -3,7 +3,7 @@ import * as Methods from '../../generated/methods'
 
 import { InlineKeyboard, InlineKeyboardBuilder } from '../../common/keyboards'
 import { MessageId } from '../../common/structures'
-import { AvailableText, Known, MaybeArray, Optional } from '../../types/types'
+import type { AvailableText, Known, MaybeArray, Optional } from '../../types/types'
 
 import { Context } from '../context'
 import { SendMixin } from './send'

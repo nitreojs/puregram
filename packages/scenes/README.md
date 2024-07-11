@@ -28,15 +28,14 @@ _simple implementation of middleware-based scene management for `puregram` packa
 const { Telegram } = require('puregram')
 
 // @puregram/scenes requires @puregram/session
-const { SessionManager } = require('@puregram/session')
+const { session } = require('@puregram/session')
 const { SceneManager, StepScene } = require('@puregram/scenes')
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
-const sessionManager = new SessionManager()
 const sceneManager = new SceneManager()
 
-telegram.updates.on('message', sessionManager.middleware)
+telegram.updates.on('message', session())
 
 telegram.updates.on('message', sceneManager.middleware)
 telegram.updates.on('message', sceneManager.middlewareIntercept) // default scene entry handler

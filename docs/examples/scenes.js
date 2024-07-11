@@ -1,11 +1,10 @@
 import { Telegram, InlineKeyboard } from 'puregram'
-import { SessionManager } from '@puregram/session'
+import { session } from '@puregram/session'
 import { SceneManager, StepScene } from '@puregram/scenes'
 import { HearManager } from '@puregram/hear'
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
-const sessionManager = new SessionManager()
 const sceneManager = new SceneManager()
 const hearManager = new HearManager()
 
@@ -13,7 +12,7 @@ const hearManager = new HearManager()
 // INFO: handle messages and inline keyboard button taps
 const events = ['message', 'callback_query']
 
-telegram.updates.on(events, sessionManager.middleware)
+telegram.updates.on(events, session())
 telegram.updates.on(events, sceneManager.middleware)
 telegram.updates.on(events, sceneManager.middlewareIntercept)
 telegram.updates.on('message', hearManager.middleware)

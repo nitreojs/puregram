@@ -2,8 +2,8 @@
 /// DO NOT EDIT MANUALLY
 ///
 /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-/// Based on Bot API v7.1.0, 16.02.2024
-/// Generation date: 13.03.2024 03:27:26 MSK
+/// Based on Bot API v7.7.0, 07.07.2024
+/// Generation date: 14.07.2024 01:56:44 MSK
 
 import * as api from './methods'
 
@@ -91,7 +91,7 @@ export interface ApiMethods {
    */
   forwardMessages: api.forwardMessages
   /**
-   * Use this method to copy messages of any kind. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api/#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent message on success.
+   * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api/#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent message on success.
    * 
    * ---
    * 
@@ -99,7 +99,7 @@ export interface ApiMethods {
    */
   copyMessage: api.copyMessage
   /**
-   * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api/#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent messages is returned.
+   * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api/#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api/#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of [MessageId](https://core.telegram.org/bots/api/#messageid) of the sent messages is returned.
    * 
    * ---
    * 
@@ -149,7 +149,7 @@ export interface ApiMethods {
    */
   sendAnimation: api.sendAnimation
   /**
-   * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS (other formats may be sent as [Audio](https://core.telegram.org/bots/api/#audio) or [Document](https://core.telegram.org/bots/api/#document)). On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
+   * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as [Audio](https://core.telegram.org/bots/api/#audio) or [Document](https://core.telegram.org/bots/api/#document)). On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
    * 
    * ---
    * 
@@ -164,6 +164,14 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#sendvideonote)
    */
   sendVideoNote: api.sendVideoNote
+  /**
+   * Use this method to send paid media to channel chats. On success, the sent [Message](https://core.telegram.org/bots/api/#message) is returned.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#sendpaidmedia)
+   */
+  sendPaidMedia: api.sendPaidMedia
   /**
    * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Messages](https://core.telegram.org/bots/api/#message) that were sent is returned.
    * 
@@ -425,7 +433,7 @@ export interface ApiMethods {
    */
   leaveChat: api.leaveChat
   /**
-   * Use this method to get up to date information about the chat. Returns a [Chat](https://core.telegram.org/bots/api/#chat) object on success.
+   * Use this method to get up-to-date information about the chat. Returns a [ChatFullInfo](https://core.telegram.org/bots/api/#chatfullinfo) object on success.
    * 
    * ---
    * 
@@ -595,6 +603,14 @@ export interface ApiMethods {
    */
   getUserChatBoosts: api.getUserChatBoosts
   /**
+   * Use this method to get information about the connection of the bot with a business account. Returns a [BusinessConnection](https://core.telegram.org/bots/api/#businessconnection) object on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getbusinessconnection)
+   */
+  getBusinessConnection: api.getBusinessConnection
+  /**
    * Use this method to change the list of the bot's commands. See [this manual](https://core.telegram.org/bots/features#commands) for more details about bot commands. Returns *True* on success.
    * 
    * ---
@@ -699,7 +715,7 @@ export interface ApiMethods {
    */
   getMyDefaultAdministratorRights: api.getMyDefaultAdministratorRights
   /**
-   * Use this method to edit text and [game](https://core.telegram.org/bots/api/#games) messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * Use this method to edit text and [game](https://core.telegram.org/bots/api/#games) messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
    * 
    * ---
    * 
@@ -707,7 +723,7 @@ export interface ApiMethods {
    */
   editMessageText: api.editMessageText
   /**
-   * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
    * 
    * ---
    * 
@@ -715,7 +731,7 @@ export interface ApiMethods {
    */
   editMessageCaption: api.editMessageCaption
   /**
-   * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file\_id or specify a URL. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
    * 
    * ---
    * 
@@ -739,7 +755,7 @@ export interface ApiMethods {
    */
   stopMessageLiveLocation: api.stopMessageLiveLocation
   /**
-   * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned.
+   * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited [Message](https://core.telegram.org/bots/api/#message) is returned, otherwise *True* is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within **48 hours** from the time they were sent.
    * 
    * ---
    * 
@@ -804,7 +820,7 @@ export interface ApiMethods {
    */
   getCustomEmojiStickers: api.getCustomEmojiStickers
   /**
-   * Use this method to upload a file with a sticker for later use in the [createNewStickerSet](https://core.telegram.org/bots/api/#createnewstickerset) and [addStickerToSet](https://core.telegram.org/bots/api/#addstickertoset) methods (the file can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api/#file) on success.
+   * Use this method to upload a file with a sticker for later use in the [createNewStickerSet](https://core.telegram.org/bots/api/#createnewstickerset), [addStickerToSet](https://core.telegram.org/bots/api/#addstickertoset), or [replaceStickerInSet](https://core.telegram.org/bots/api/#replacestickerinset) methods (the file can be used multiple times). Returns the uploaded [File](https://core.telegram.org/bots/api/#file) on success.
    * 
    * ---
    * 
@@ -820,7 +836,7 @@ export interface ApiMethods {
    */
   createNewStickerSet: api.createNewStickerSet
   /**
-   * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns *True* on success.
+   * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns *True* on success.
    * 
    * ---
    * 
@@ -843,6 +859,14 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#deletestickerfromset)
    */
   deleteStickerFromSet: api.deleteStickerFromSet
+  /**
+   * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling [deleteStickerFromSet](https://core.telegram.org/bots/api/#deletestickerfromset), then [addStickerToSet](https://core.telegram.org/bots/api/#addstickertoset), then [setStickerPositionInSet](https://core.telegram.org/bots/api/#setstickerpositioninset). Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#replacestickerinset)
+   */
+  replaceStickerInSet: api.replaceStickerInSet
   /**
    * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns *True* on success.
    * 
@@ -948,6 +972,22 @@ export interface ApiMethods {
    * [**Documentation**](https://core.telegram.org/bots/api/#answerprecheckoutquery)
    */
   answerPreCheckoutQuery: api.answerPreCheckoutQuery
+  /**
+   * Returns the bot's Telegram Star transactions in chronological order. On success, returns a [StarTransactions](https://core.telegram.org/bots/api/#startransactions) object.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#getstartransactions)
+   */
+  getStarTransactions: api.getStarTransactions
+  /**
+   * Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90). Returns *True* on success.
+   * 
+   * ---
+   * 
+   * [**Documentation**](https://core.telegram.org/bots/api/#refundstarpayment)
+   */
+  refundStarPayment: api.refundStarPayment
   /**
    * Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change). Returns *True* on success.
    * 

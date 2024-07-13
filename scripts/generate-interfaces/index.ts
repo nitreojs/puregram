@@ -181,7 +181,12 @@ class MethodService {
     // TODO: simplify
 
     const mTypeDescription = InterfaceService.generateDescription(kMethod.description, 0, kMethod.documentation_link)
-    const mReturnType = TypeResolver.resolve(kMethod.return_type as Types.SchemaObject, 'Interfaces')
+
+    let mReturnType = TypeResolver.resolve(kMethod.return_type as Types.SchemaObject, 'Interfaces')
+
+    if (kMethod.name === 'getStarTransactions') {
+      mReturnType = TypeResolver.resolve({ type: 'reference', reference: 'StarTransactions' } as Types.SchemaObject, 'Interfaces')
+    }
 
     let content = `${mTypeDescription}\nexport type ${kMethod.name} = () => Promise<${mReturnType}>`
 
@@ -563,9 +568,12 @@ export function generateHeader (version: Types.SchemaVersion, recentChanges: Typ
     /// AUTO-GENERATED FILE
     /// DO NOT EDIT MANUALLY
     ///
-    /// This file was auto-generated using https://github.com/ark0f/tg-bot-api
-    /// Based on Bot API ${apiVersion}, ${apiUpdateDate}
-    /// Generation date: ${generationDate}
+    /// this file was auto-generated using https://github.com/ark0f/tg-bot-api
+    /// based on Bot API ${apiVersion}, ${apiUpdateDate}
+    /// generation date: ${generationDate}
+    ///
+    /// all the auto-generation tools can be found at
+    /// https://github.com/nitreojs/puregram/tree/lord/scripts/generate-interfaces
   `
 
   return header

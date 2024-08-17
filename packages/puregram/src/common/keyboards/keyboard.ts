@@ -257,6 +257,25 @@ export class Keyboard {
     }
   }
 
+  /** Deletes a button with the specified payload */
+  delete (text: string) {
+    const rowIndex = this.buttons.findIndex(row => row.findIndex(button => button.text === text) !== -1)
+    const buttonIndex = this.buttons[rowIndex].findIndex(button => button.text === text)
+
+    this.buttons[rowIndex].splice(buttonIndex, 1)
+
+    if (this.buttons[rowIndex].length === 0) {
+      this.buttons.splice(rowIndex, 1)
+    }
+
+    return this
+  }
+
+  /** Clones the keyboard (creates a new one with the same set of buttons) */
+  clone () {
+    return Keyboard.keyboard(this.buttons)
+  }
+
   toString () {
     return JSON.stringify(this)
   }

@@ -260,6 +260,25 @@ export class InlineKeyboard {
     }
   }
 
+  /** Clones the keyboard (creates a new one with the same set of buttons) */
+  clone () {
+    return InlineKeyboard.keyboard(this.buttons)
+  }
+
+  /** Deletes a button with the specified payload */
+  delete (payload: string) {
+    const rowIndex = this.buttons.findIndex(row => row.findIndex(button => button.callback_data === payload) !== -1)
+    const buttonIndex = this.buttons[rowIndex].findIndex(button => button.callback_data === payload)
+
+    this.buttons[rowIndex].splice(buttonIndex, 1)
+
+    if (this.buttons[rowIndex].length === 0) {
+      this.buttons.splice(rowIndex, 1)
+    }
+
+    return this
+  }
+
   toString () {
     return JSON.stringify(this)
   }

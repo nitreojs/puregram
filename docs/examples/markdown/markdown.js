@@ -2,7 +2,7 @@ import { Telegram, Markdown } from 'puregram'
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
-telegram.updates.on('message', (context) => {
+telegram.updates.on('message', async (context) => {
   const message = `a ${Markdown.bold('message')} with ${Markdown.italic('markdown')}!`
   const anotherMessage = 'one more *message* with _markdown_, but without a class!'
 

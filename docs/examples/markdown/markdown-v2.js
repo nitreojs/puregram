@@ -9,7 +9,7 @@ const telegram = Telegram.fromToken(process.env.TOKEN)
 // INFO: are you sure you want to use it?
 // -> https://core.telegram.org/bots/api#markdownv2-style <-
 
-telegram.updates.on('message', (context) => {
+telegram.updates.on('message', async (context) => {
   const message = `a ${MarkdownV2.bold('message')} with some ${MarkdownV2.strikethrough('epic')} ${MarkdownV2.underline('markdown')}\\!`
   const anotherMessage = 'same *message* with ~epic~ __markdown__\\.'
   const oneMoreMessage = MarkdownV2.build`

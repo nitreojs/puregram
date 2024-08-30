@@ -2,7 +2,7 @@ import { Telegram, HTML } from 'puregram'
 
 const telegram = Telegram.fromToken(process.env.TOKEN)
 
-telegram.updates.on('message', (context) => {
+telegram.updates.on('message', async (context) => {
   const message = `a ${HTML.bold('message')} with ${HTML.italic('html markdown')}!`
   const anotherMessage = 'another <b>message</b> with <i>html markdown</i>.'
 

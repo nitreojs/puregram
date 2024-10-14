@@ -52,6 +52,9 @@ telegram.updates.startPolling()
 
 [examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples
 
+> **MEMORANDUM**
+> Should the reader of this document experience difficulty in comprehending the informal style of presentation, said individual is directed to refer to the [LEGAL.md](LEGAL.md) file for further information.
+
 ---
 
 ## table of contents

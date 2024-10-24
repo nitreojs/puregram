@@ -54,6 +54,17 @@ class ChatSharedContext extends Context {
   get sharedUsername () {
     return this.event.username
   }
+
+  /** Available sizes of the chat photo, if the photo was requested by the bot */
+  get sharedPhoto () {
+    const { photo } = this.event
+
+    if (photo === undefined) {
+      return
+    }
+
+    return new PhotoAttachment(photo.map(size => new PhotoSize(size)))
+  }
 }
 
 interface ChatSharedContext extends Constructor<ChatSharedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<ChatSharedContext, ChatSharedContextOptions> { }

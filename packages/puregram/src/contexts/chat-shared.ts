@@ -1,13 +1,14 @@
-import { Message } from '../common/structures'
+import { Message, PhotoSize } from '../common/structures'
 import * as Interfaces from '../generated/telegram-interfaces'
 
 import { Telegram } from '../telegram'
-import { applyMixins } from '../utils/helpers'
+import { applyMixins, filterPayload } from '../utils/helpers'
 import { Constructor } from '../types/types'
 
 import { Context } from './context'
 import { inspectable } from 'inspectable'
 import { CloneMixin, NodeMixin, PinsMixin, SendMixin, ChatActionMixin, TargetMixin } from './mixins'
+import { PhotoAttachment } from '../common'
 
 interface ChatSharedContextOptions {
   telegram: Telegram
@@ -43,6 +44,16 @@ class ChatSharedContext extends Context {
   get sharedChatId () {
     return this.event.chat_id
   }
+
+  /** Title of the chat, if the title was requested by the bot. */
+  get sharedTitle () {
+    return this.event.title
+  }
+
+  /** Username of the chat, if the username was requested by the bot and available. */
+  get sharedUsername () {
+    return this.event.username
+  }
 }
 
 interface ChatSharedContext extends Constructor<ChatSharedContext>, Message, TargetMixin, SendMixin, ChatActionMixin, NodeMixin, PinsMixin, CloneMixin<ChatSharedContext, ChatSharedContextOptions> { }
@@ -50,10 +61,14 @@ applyMixins(ChatSharedContext, [Message, TargetMixin, SendMixin, ChatActionMixin
 
 inspectable(ChatSharedContext, {
   serialize (context) {
-    return {
+    const payload = {
       requestId: context.requestId,
-      sharedChatId: context.sharedChatId
+      sharedChatId: context.sharedChatId,
+      sharedTitle: context.sharedTitle,
+      sharedUsername: context.sharedUsername
     }
+
+    return filterPayload(payload)
   }
 })
 

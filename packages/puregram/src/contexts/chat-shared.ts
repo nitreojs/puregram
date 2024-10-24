@@ -76,7 +76,8 @@ inspectable(ChatSharedContext, {
       requestId: context.requestId,
       sharedChatId: context.sharedChatId,
       sharedTitle: context.sharedTitle,
-      sharedUsername: context.sharedUsername
+      sharedUsername: context.sharedUsername,
+      sharedPhoto: context.sharedPhoto
     }
 
     return filterPayload(payload)

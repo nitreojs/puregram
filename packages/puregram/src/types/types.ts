@@ -58,3 +58,8 @@ export interface Formattable {
 }
 
 export type AvailableText = string | Formattable
+
+export interface ButtonStyleParams {
+  style?: 'primary' | 'danger' | 'success'
+  iconCustomEmojiId?: string
+}

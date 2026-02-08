@@ -2,6 +2,8 @@ import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { ButtonStyleParams } from '../../types/types'
+
 /** Keyboard builder */
 @Inspectable()
 export class KeyboardBuilder {
@@ -35,24 +37,39 @@ export class KeyboardBuilder {
    * If none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
-  textButton (text: string) {
-    return this.addButton({ text })
+  textButton (text: string, params?: ButtonStyleParams) {
+    const button: Interfaces.TelegramKeyboardButton = { text }
+
+    if (params?.style) button.style = params.style
+    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return this.addButton(button)
   }
 
-  /** If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a “user_shared” service message. Available in private chats only. */
-  requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers) {
-    return this.addWideButton({
+  /** If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a "user_shared" service message. Available in private chats only. */
+  requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers & ButtonStyleParams) {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_users: params
-    })
+    }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return this.addWideButton(button)
   }
 
-  /** If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only. */
-  requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat) {
-    return this.addWideButton({
+  /** If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a "chat_shared" service message. Available in private chats only. */
+  requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat & ButtonStyleParams) {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_chat: params
-    })
+    }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return this.addWideButton(button)
   }
 
   /**
@@ -60,11 +77,16 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  requestLocationButton (text: string) {
-    return this.addWideButton({
+  requestLocationButton (text: string, params?: ButtonStyleParams) {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_location: true
-    })
+    }
+
+    if (params?.style) button.style = params.style
+    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return this.addWideButton(button)
   }
 
   /**
@@ -73,11 +95,26 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  requestPollButton (text: string, type?: Interfaces.TelegramPoll['type']) {
-    return this.addWideButton({
+  requestPollButton (text: string, params?: (Interfaces.TelegramPoll['type'] | { type?: Interfaces.TelegramPoll['type'] } & ButtonStyleParams)) {
+    let type: Interfaces.TelegramPoll['type'] | undefined
+    let styleParams: ButtonStyleParams | undefined
+
+    if (typeof params === 'string') {
+      type = params
+    } else if (params) {
+      type = params.type
+      styleParams = params
+    }
+
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_poll: { type }
-    })
+    }
+
+    if (styleParams?.style) button.style = styleParams.style
+    if (styleParams?.iconCustomEmojiId) button.icon_custom_emoji_id = styleParams.iconCustomEmojiId
+
+    return this.addWideButton(button)
   }
 
   /**
@@ -86,11 +123,16 @@ export class KeyboardBuilder {
    *
    * Available in private chats only
    */
-  requestContactButton (text: string) {
-    return this.addWideButton({
+  requestContactButton (text: string, params?: ButtonStyleParams) {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_contact: true
-    })
+    }
+
+    if (params?.style) button.style = params.style
+    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return this.addWideButton(button)
   }
 
   /**
@@ -99,11 +141,16 @@ export class KeyboardBuilder {
    *
    * Available in private chats only.
    */
-  webAppButton (text: string, url: string) {
-    return this.addWideButton({
+  webAppButton (text: string, url: string, params?: ButtonStyleParams) {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       web_app: { url }
-    })
+    }
+
+    if (params?.style) button.style = params.style
+    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return this.addWideButton(button)
   }
 
   /** Save current row of buttons in the general rows */

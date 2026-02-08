@@ -2,6 +2,8 @@ import { Inspect, Inspectable } from 'inspectable'
 
 import * as Interfaces from '../../generated/telegram-interfaces'
 
+import { ButtonStyleParams } from '../../types/types'
+
 interface TextButtonParams {
   text: string
   payload: Record<string, any> | string
@@ -55,6 +57,17 @@ interface LoginButtonParams {
   loginUrl: Interfaces.TelegramLoginUrl
 }
 
+type TextButtonParamsWithStyle = TextButtonParams & ButtonStyleParams
+type UrlButtonParamsWithStyle = UrlButtonParams & ButtonStyleParams
+type WebAppButtonParamsWithStyle = WebAppButtonParams & ButtonStyleParams
+type SwitchToCurrentChatButtonParamsWithStyle = SwitchToCurrentChatButtonParams & ButtonStyleParams
+type SwitchToChatButtonParamsWithStyle = SwitchToChatButtonParams & ButtonStyleParams
+type SwitchToChosenChatButtonParamsWithStyle = SwitchToChosenChatButtonParams & ButtonStyleParams
+type CopyButtonParamsWithStyle = CopyButtonParams & ButtonStyleParams
+type GameButtonParamsWithStyle = GameButtonParams & ButtonStyleParams
+type PayButtonParamsWithStyle = PayButtonParams & ButtonStyleParams
+type LoginButtonParamsWithStyle = LoginButtonParams & ButtonStyleParams
+
 /** Inline keyboard */
 @Inspectable()
 export class InlineKeyboard {
@@ -82,15 +95,20 @@ export class InlineKeyboard {
   }
 
   /** Generate text button */
-  static textButton (params: TextButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static textButton (params: TextButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
 
-    return {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       callback_data: params.payload
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -98,16 +116,21 @@ export class InlineKeyboard {
    *
    * An alias for `textButton`.
    */
-  static text (params: TextButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static text (params: TextButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.textButton(params)
   }
 
   /** Generate URL button */
-  static urlButton (params: UrlButtonParams): Interfaces.TelegramInlineKeyboardButton {
-    return {
+  static urlButton (params: UrlButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       url: params.url
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -115,16 +138,21 @@ export class InlineKeyboard {
    *
    * An alias for `urlButton`.
    */
-  static url (params: UrlButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static url (params: UrlButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.urlButton(params)
   }
 
   /** Generate Web App button */
-  static webAppButton (params: WebAppButtonParams): Interfaces.TelegramInlineKeyboardButton {
-    return {
+  static webAppButton (params: WebAppButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       web_app: { url: params.url }
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -132,18 +160,23 @@ export class InlineKeyboard {
    *
    * An alias for `webAppButton`.
    */
-  static webApp (params: WebAppButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static webApp (params: WebAppButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.webAppButton(params)
   }
 
   /** Generate button that will switch to current chat and type the query */
   static switchToCurrentChatButton (
-    params: SwitchToCurrentChatButtonParams
+    params: SwitchToCurrentChatButtonParamsWithStyle
   ): Interfaces.TelegramInlineKeyboardButton {
-    return {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_current_chat: params.query
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -151,18 +184,23 @@ export class InlineKeyboard {
    *
    * An alias for `switchToCurrentChatButton`.
    */
-  static switchToCurrentChat (params: SwitchToCurrentChatButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static switchToCurrentChat (params: SwitchToCurrentChatButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.switchToCurrentChatButton(params)
   }
 
   /** Generate button that will prompt user to select one of their chats */
   static switchToChatButton (
-    params: SwitchToChatButtonParams
+    params: SwitchToChatButtonParamsWithStyle
   ): Interfaces.TelegramInlineKeyboardButton {
-    return {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query: params.query
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -170,15 +208,15 @@ export class InlineKeyboard {
    *
    * An alias for `switchToChatButton`.
    */
-  static switchToChat (params: SwitchToChatButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static switchToChat (params: SwitchToChatButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.switchToChatButton(params)
   }
 
   /** Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
   static switchToChosenChatButton (
-    params: SwitchToChosenChatButtonParams
+    params: SwitchToChosenChatButtonParamsWithStyle
   ): Interfaces.TelegramInlineKeyboardButton {
-    return {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_chosen_chat: {
         query: params.query,
@@ -188,6 +226,11 @@ export class InlineKeyboard {
         allow_user_chats: params.allowUserChats
       }
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -195,20 +238,25 @@ export class InlineKeyboard {
    *
    * An alias for `switchToChosenChatButton`.
    */
-  static switchToChosenChat (params: SwitchToChosenChatButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static switchToChosenChat (params: SwitchToChosenChatButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.switchToChosenChatButton(params)
   }
 
   /**
    * Description of the button that copies the specified text to the clipboard.
    */
-  static copyButton (params: CopyButtonParams): Interfaces.TelegramInlineKeyboardButton {
-    return {
+  static copyButton (params: CopyButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       copy_text: {
         text: params.copy
       }
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -216,16 +264,21 @@ export class InlineKeyboard {
    *
    * An alias for `copyButton`.
    */
-  static copy (params: CopyButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static copy (params: CopyButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.copyButton(params)
   }
 
   /** Generate game button */
-  static gameButton (params: GameButtonParams): Interfaces.TelegramInlineKeyboardButton {
-    return {
+  static gameButton (params: GameButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       callback_game: params.game
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -233,16 +286,21 @@ export class InlineKeyboard {
    *
    * An alias for `gameButton`.
    */
-  static game (params: GameButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static game (params: GameButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.gameButton(params)
   }
 
   /** Generate pay button */
-  static payButton (params: PayButtonParams): Interfaces.TelegramInlineKeyboardButton {
-    return {
+  static payButton (params: PayButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       pay: true,
       text: params.text
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -250,16 +308,21 @@ export class InlineKeyboard {
    *
    * An alias for `payButton`.
    */
-  static pay (params: PayButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static pay (params: PayButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.payButton(params)
   }
 
   /** Generate login button */
-  static loginButton (params: LoginButtonParams): Interfaces.TelegramInlineKeyboardButton {
-    return {
+  static loginButton (params: LoginButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       login_url: params.loginUrl,
       text: params.text
     }
+
+    if (params.style) button.style = params.style
+    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+
+    return button
   }
 
   /**
@@ -267,7 +330,7 @@ export class InlineKeyboard {
    *
    * An alias for `loginButton`.
    */
-  static login (params: LoginButtonParams): Interfaces.TelegramInlineKeyboardButton {
+  static login (params: LoginButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
     return InlineKeyboard.loginButton(params)
   }
 

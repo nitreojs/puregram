@@ -2382,6 +2382,12 @@ export interface TelegramReplyKeyboardMarkup {
 /**
  * This object represents one button of the reply keyboard. At most one of the optional fields must be used to specify type of the button. For simple text buttons, *String* can be used instead of this object to specify the button text.
  */
+
+/**
+ * The style of a keyboard button.
+ */
+export type TelegramKeyboardButtonStyle = 'primary' | 'danger' | 'success'
+
 export interface TelegramKeyboardButton {
   /**
    * Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
@@ -2408,9 +2414,17 @@ export interface TelegramKeyboardButton {
    */
   request_poll?: TelegramKeyboardButtonPollType
   /**
-   * *Optional*. If specified, the described [Web App](https://core.telegram.org/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a “web\_app\_data” service message. Available in private chats only.
+   * *Optional*. If specified, the described [Web App](https://core.telegram.org/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a "web\_app\_data" service message. Available in private chats only.
    */
   web_app?: TelegramWebAppInfo
+  /**
+   * *Optional.* If specified, the button will be displayed in a specific style.
+   */
+  style?: TelegramKeyboardButtonStyle
+  /**
+   * *Optional.* If specified, the icon will be displayed on the button.
+   */
+  icon_custom_emoji_id?: string
 
   [key: string]: any
 }
@@ -2599,6 +2613,14 @@ export interface TelegramInlineKeyboardButton {
    * **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages.
    */
   pay?: boolean
+  /**
+   * *Optional.* If specified, the button will be displayed in a specific style.
+   */
+  style?: TelegramKeyboardButtonStyle
+  /**
+   * *Optional.* If specified, the icon will be displayed on the button.
+   */
+  icon_custom_emoji_id?: string
 
   [key: string]: any
 }

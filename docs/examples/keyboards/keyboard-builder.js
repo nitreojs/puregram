@@ -8,6 +8,13 @@ telegram.updates.on('message', (context) => {
     .row()
     .textButton('two buttons')
     .textButton('in one row')
+    .row()
+    .textButton('primary', { style: 'primary' })
+    .textButton('danger', { style: 'danger' })
+    .textButton('success', { style: 'success' })
+    .row()
+    .textButton('with icon', { iconCustomEmojiId: '5456557315920518340' })
+    .textButton('styled + icon', { iconCustomEmojiId: '5456557315920518340', style: 'primary' })
     .resize() // INFO: keyboard will be much smaller
 
   return context.send('sending you a keyboard, generated using `KeyboardBuilder`!', {

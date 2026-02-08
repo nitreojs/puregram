@@ -31,6 +31,34 @@ telegram.updates.on('message', (context) => {
       text: 'switch to chat button',
       query: 'test tost'
     })
+    .row()
+    .textButton({
+      text: 'primary',
+      payload: 'primary',
+      style: 'primary'
+    })
+    .textButton({
+      text: 'danger',
+      payload: 'danger',
+      style: 'danger'
+    })
+    .textButton({
+      text: 'success',
+      payload: 'success',
+      style: 'success'
+    })
+    .row()
+    .textButton({
+      text: 'with icon',
+      payload: 'icon',
+      iconCustomEmojiId: '5456557315920518340'
+    })
+    .textButton({
+      text: 'styled + icon',
+      payload: 'styled-icon',
+      iconCustomEmojiId: '5456557315920518340',
+      style: 'primary'
+    })
 
   return context.send('sending you an inline-keyboard using `InlineKeyboardBuilder`!', {
     reply_markup: keyboard,

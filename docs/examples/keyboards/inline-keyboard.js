@@ -40,6 +40,41 @@ telegram.updates.on('message', (context) => {
         text: 'switch to chat button',
         query: 'test tost'
       })
+    ],
+
+    [
+      InlineKeyboard.textButton({
+        text: 'primary button',
+        payload: 'primary',
+        style: 'primary'
+      }),
+
+      InlineKeyboard.textButton({
+        text: 'danger button',
+        payload: 'danger',
+        style: 'danger'
+      }),
+
+      InlineKeyboard.textButton({
+        text: 'success button',
+        payload: 'success',
+        style: 'success'
+      })
+    ],
+
+    [
+      InlineKeyboard.textButton({
+        text: 'button with icon',
+        payload: 'icon',
+        iconCustomEmojiId: '5456557315920518340'
+      }),
+
+      InlineKeyboard.textButton({
+        text: 'styled button with icon',
+        payload: 'styled-icon',
+        iconCustomEmojiId: '5456557315920518340',
+        style: 'primary'
+      })
     ]
   ])
 

@@ -11,6 +11,17 @@ telegram.updates.on('message', (context) => {
     [
       Keyboard.textButton('two buttons'),
       Keyboard.textButton('in one row')
+    ],
+
+    [
+      Keyboard.textButton('primary button', { style: 'primary' }),
+      Keyboard.textButton('danger button', { style: 'danger' }),
+      Keyboard.textButton('success button', { style: 'success' })
+    ],
+
+    [
+      Keyboard.textButton('button with icon', { iconCustomEmojiId: '5456557315920518340' }),
+      Keyboard.textButton('styled with icon', { iconCustomEmojiId: '5456557315920518340', style: 'primary' })
     ]
   ]).resize() // INFO: keyboard will be much smaller
 

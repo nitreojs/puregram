@@ -1,33 +1,41 @@
 {
   "name": "@puregram/session",
-  "version": "3.2.4",
-  "description": "puregram sessions available to everyone!",
-  "main": "lib/index",
+  "version": "3.0.0-alpha.0",
+  "description": "transparent persistent session plugin for puregram v3",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
   "engines": {
-    "node": ">=18.18.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json"
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
-  "keywords": [
-    "puregram",
-    "telegram",
-    "session"
-  ],
-  "files": [
-    "lib"
-  ],
-  "author": "starkow",
+  "dependencies": {
+    "puregram": "3.0.0-alpha.0",
+    "@puregram/api": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
   "license": "WTFPL",
-  "peerDependencies": {
-    "puregram": "^2.25.0"
-  },
-  "types": "./lib/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
+  "author": "starkow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nitreojs/puregram/tree/lord/packages/session"
-  }
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/session"
+  },
+  "keywords": [
+    "telegram", "telegram-bot-api", "puregram", "plugin", "session"
+  ]
 }

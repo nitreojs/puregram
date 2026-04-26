@@ -116,14 +116,16 @@ export class PollingTransport {
       return
     }
 
+    // dispatch each update without awaiting — keeping this serial deadlocks any handler that
+    // awaits a future update (e.g. tg.flow.waitFor / prompt called mid-handler). middleware onion
+    // semantics still hold per-dispatch; only the cross-update ordering is relaxed.
     for (const update of updates) {
       this.offset = update.update_id + 1
 
-      try {
-        await this.deps.buildAndDispatch(update as unknown as Record<string, unknown>)
-      } catch (error) {
-        debug('handler threw: %O', error)
-      }
+      this.deps.buildAndDispatch(update as unknown as Record<string, unknown>)
+        .catch(error => {
+          debug('handler threw: %O', error)
+        })
     }
 
     this.retries = 0

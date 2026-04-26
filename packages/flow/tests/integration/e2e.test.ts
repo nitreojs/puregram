@@ -175,6 +175,71 @@ describe('@puregram/flow — e2e', () => {
     await mock.stop()
   })
 
+  it('prompt resolves when called from inside a tg.on handler (no polling deadlock)', async () => {
+    const { tg, mock } = await makeTg(t => t.extend(flow()))
+
+    mock.expect('sendMessage', params => ({
+      ok: true,
+      result: { message_id: 99, date: 0, chat: { id: params.chat_id, type: 'private' }, text: params.text }
+    }))
+
+    let pulls = 0
+
+    mock.expect('getUpdates', () => {
+      pulls++
+
+      if (pulls === 1) {
+        return {
+          ok: true,
+          result: [
+            { update_id: 1, message: { message_id: 1, date: 0, chat: { id: 100, type: 'private' }, text: '/ask' } }
+          ]
+        }
+      }
+
+      if (pulls === 2) {
+        return {
+          ok: true,
+          result: [
+            { update_id: 2, message: { message_id: 2, date: 0, chat: { id: 100, type: 'private' }, text: 'alice' } }
+          ]
+        }
+      }
+
+      return { ok: true, result: [] }
+    })
+
+    let resolvedReply: any = null
+
+    tg.on('message', async msg => {
+      if (msg.raw.text !== '/ask') {
+        return
+      }
+
+      // awaited prompt from inside a handler — must not deadlock
+      resolvedReply = await (tg as any).flow.prompt(msg.raw.chat.id, 'name?')
+    })
+
+    await tg.start()
+
+    tg.startPolling().catch(() => {})
+
+    // give polling a moment to deliver both batches and resolve the prompt
+    const start = Date.now()
+
+    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler closure
+    while (resolvedReply === null && Date.now() - start < 2000) {
+      await new Promise(resolve => setTimeout(resolve, 20))
+    }
+
+    tg.stopPolling()
+
+    expect(resolvedReply).not.toBeNull()
+    expect(resolvedReply.raw.text).toBe('alice')
+
+    await mock.stop()
+  })
+
   it('flow + mediaGroup compose: waitFor("message") still works for non-album messages', async () => {
     const { tg, mock } = await makeTg(t => t.extend(flow()).extend(mediaGroup({ window: 100 })))
 

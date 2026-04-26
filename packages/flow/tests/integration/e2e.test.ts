@@ -89,7 +89,8 @@ describe('@puregram/flow — e2e', () => {
   })
 
   it('mediaGroup buffers album messages and emits one composite', async () => {
-    const { tg, mock } = await makeTg(t => t.extend(mediaGroup({ window: 50 })))
+    // window is huge so the natural timer never fires; we drive emission via tg.media_group.flush()
+    const { tg, mock } = await makeTg(t => t.extend(mediaGroup({ window: 60_000 })))
 
     let pulls = 0
 
@@ -153,8 +154,14 @@ describe('@puregram/flow — e2e', () => {
 
     const startPromise = tg.startPolling()
 
-    // wait long enough for polling to deliver the batch and the 50ms window to elapse
-    await sleep(200)
+    // give polling enough real time to deliver the batch over loopback http
+    await sleep(50)
+
+    // force emission deterministically rather than waiting on the album window
+    ;(tg as any).media_group.flush()
+
+    // let the synthesised media_group dispatch settle through the chain
+    await new Promise(resolve => setImmediate(resolve))
 
     tg.stopPolling()
     await startPromise

@@ -1,4 +1,4 @@
-import type * as Interfaces from '@puregram/api/types'
+import type * as Interfaces from '@puregram/api'
 
 /** Force reply keyboard */
 export class ForceReply {
@@ -20,12 +20,16 @@ export class ForceReply {
   }
 
   /** Returns JSON which is compatible with Telegram's `ForceReply` interface */
-  toJSON (): Interfaces.TelegramForceReply {
+  toJSON () {
     const json: Interfaces.TelegramForceReply = {
       force_reply: true,
       selective: this.isSelective
     }
-    if (this.placeholder !== undefined) json.input_field_placeholder = this.placeholder
+
+    if (this.placeholder !== undefined) {
+      json.input_field_placeholder = this.placeholder
+    }
+
     return json
   }
 

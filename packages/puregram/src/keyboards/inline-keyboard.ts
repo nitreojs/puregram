@@ -1,10 +1,10 @@
-import type * as Interfaces from '@puregram/api/types'
+import type * as Interfaces from '@puregram/api'
 
-import type { ButtonStyleParams } from './types'
+import type { ButtonStyleParams, PuregramInlineKeyboardButton } from './types'
 
 interface TextButtonParams {
   text: string
-  payload: Record<string, any> | string
+  payload: Record<string, unknown> | string
 }
 
 interface UrlButtonParams {
@@ -68,275 +68,294 @@ type LoginButtonParamsWithStyle = LoginButtonParams & ButtonStyleParams
 
 /** Inline keyboard */
 export class InlineKeyboard {
-  private buttons: Interfaces.TelegramInlineKeyboardButton[][] = []
+  /** Empty inline keyboard. That's literally it. */
+  static empty = new InlineKeyboard()
 
-  constructor (rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[] = []) {
+  private buttons: PuregramInlineKeyboardButton[][] = []
+
+  constructor (rows: (PuregramInlineKeyboardButton | PuregramInlineKeyboardButton[])[] = []) {
     for (const row of rows) {
       this.addRow(row)
     }
   }
 
-  /** Empty inline keyboard. That's literally it. */
-  static empty = InlineKeyboard.keyboard([])
-
   /** Assemble a builder of buttons */
   static keyboard (
-    rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[]
-  ): InlineKeyboard {
+    rows: (PuregramInlineKeyboardButton | PuregramInlineKeyboardButton[])[]
+  ) {
     return new InlineKeyboard(rows)
   }
 
   /** Generate text button */
-  static textButton (params: TextButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  static textButton (params: TextButtonParamsWithStyle) {
     if (typeof params.payload === 'object') {
       params.payload = JSON.stringify(params.payload)
     }
 
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       callback_data: params.payload
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate text button
-   *
-   * An alias for `textButton`.
-   */
-  static text (params: TextButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `textButton`. */
+  static text (params: TextButtonParamsWithStyle) {
     return InlineKeyboard.textButton(params)
   }
 
   /** Generate URL button */
-  static urlButton (params: UrlButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  static urlButton (params: UrlButtonParamsWithStyle) {
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       url: params.url
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate URL button
-   *
-   * An alias for `urlButton`.
-   */
-  static url (params: UrlButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `urlButton`. */
+  static url (params: UrlButtonParamsWithStyle) {
     return InlineKeyboard.urlButton(params)
   }
 
   /** Generate Web App button */
-  static webAppButton (params: WebAppButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  static webAppButton (params: WebAppButtonParamsWithStyle) {
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       web_app: { url: params.url }
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate Web App button
-   *
-   * An alias for `webAppButton`.
-   */
-  static webApp (params: WebAppButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `webAppButton`. */
+  static webApp (params: WebAppButtonParamsWithStyle) {
     return InlineKeyboard.webAppButton(params)
   }
 
   /** Generate button that will switch to current chat and type the query */
   static switchToCurrentChatButton (
     params: SwitchToCurrentChatButtonParamsWithStyle
-  ): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  ) {
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_current_chat: params.query
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate button that will switch to current chat and type the query
-   *
-   * An alias for `switchToCurrentChatButton`.
-   */
-  static switchToCurrentChat (params: SwitchToCurrentChatButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `switchToCurrentChatButton`. */
+  static switchToCurrentChat (params: SwitchToCurrentChatButtonParamsWithStyle) {
     return InlineKeyboard.switchToCurrentChatButton(params)
   }
 
   /** Generate button that will prompt user to select one of their chats */
   static switchToChatButton (
     params: SwitchToChatButtonParamsWithStyle
-  ): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  ) {
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query: params.query
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate button that will prompt user to select one of their chats
-   *
-   * An alias for `switchToChatButton`.
-   */
-  static switchToChat (params: SwitchToChatButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `switchToChatButton`. */
+  static switchToChat (params: SwitchToChatButtonParamsWithStyle) {
     return InlineKeyboard.switchToChatButton(params)
   }
 
-  /** Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field */
+  /**
+   * Generate button that will prompt user to select one of their chats of the
+   * specified type, open that chat and insert the bot's username and the
+   * specified inline query in the input field.
+   */
   static switchToChosenChatButton (
     params: SwitchToChosenChatButtonParamsWithStyle
-  ): Interfaces.TelegramInlineKeyboardButton {
+  ) {
     const chosenChat: Interfaces.TelegramSwitchInlineQueryChosenChat = {}
-    if (params.query !== undefined) chosenChat.query = params.query
-    if (params.allowBotChats !== undefined) chosenChat.allow_bot_chats = params.allowBotChats
-    if (params.allowChannelChats !== undefined) chosenChat.allow_channel_chats = params.allowChannelChats
-    if (params.allowGroupChats !== undefined) chosenChat.allow_group_chats = params.allowGroupChats
-    if (params.allowUserChats !== undefined) chosenChat.allow_user_chats = params.allowUserChats
 
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    if (params.query !== undefined) {
+      chosenChat.query = params.query
+    }
+
+    if (params.allowBotChats !== undefined) {
+      chosenChat.allow_bot_chats = params.allowBotChats
+    }
+
+    if (params.allowChannelChats !== undefined) {
+      chosenChat.allow_channel_chats = params.allowChannelChats
+    }
+
+    if (params.allowGroupChats !== undefined) {
+      chosenChat.allow_group_chats = params.allowGroupChats
+    }
+
+    if (params.allowUserChats !== undefined) {
+      chosenChat.allow_user_chats = params.allowUserChats
+    }
+
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_chosen_chat: chosenChat
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate button that will prompt user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field
-   *
-   * An alias for `switchToChosenChatButton`.
-   */
-  static switchToChosenChat (params: SwitchToChosenChatButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `switchToChosenChatButton`. */
+  static switchToChosenChat (params: SwitchToChosenChatButtonParamsWithStyle) {
     return InlineKeyboard.switchToChosenChatButton(params)
   }
 
-  /**
-   * Description of the button that copies the specified text to the clipboard.
-   */
-  static copyButton (params: CopyButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  /** Description of the button that copies the specified text to the clipboard. */
+  static copyButton (params: CopyButtonParamsWithStyle) {
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       copy_text: {
         text: params.copy
       }
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Description of the button that copies the specified text to the clipboard.
-   *
-   * An alias for `copyButton`.
-   */
-  static copy (params: CopyButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `copyButton`. */
+  static copy (params: CopyButtonParamsWithStyle) {
     return InlineKeyboard.copyButton(params)
   }
 
   /** Generate game button */
-  static gameButton (params: GameButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  static gameButton (params: GameButtonParamsWithStyle) {
+    const button: PuregramInlineKeyboardButton = {
       text: params.text,
       callback_game: params.game
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate game button
-   *
-   * An alias for `gameButton`.
-   */
-  static game (params: GameButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `gameButton`. */
+  static game (params: GameButtonParamsWithStyle) {
     return InlineKeyboard.gameButton(params)
   }
 
   /** Generate pay button */
-  static payButton (params: PayButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  static payButton (params: PayButtonParamsWithStyle) {
+    const button: PuregramInlineKeyboardButton = {
       pay: true,
       text: params.text
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate pay button
-   *
-   * An alias for `payButton`.
-   */
-  static pay (params: PayButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `payButton`. */
+  static pay (params: PayButtonParamsWithStyle) {
     return InlineKeyboard.payButton(params)
   }
 
   /** Generate login button */
-  static loginButton (params: LoginButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+  static loginButton (params: LoginButtonParamsWithStyle) {
+    const button: PuregramInlineKeyboardButton = {
       login_url: params.loginUrl,
       text: params.text
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return button
   }
 
-  /**
-   * Generate login button
-   *
-   * An alias for `loginButton`.
-   */
-  static login (params: LoginButtonParamsWithStyle): Interfaces.TelegramInlineKeyboardButton {
+  /** An alias for `loginButton`. */
+  static login (params: LoginButtonParamsWithStyle) {
     return InlineKeyboard.loginButton(params)
   }
 
-  private addRow (row: Interfaces.TelegramInlineKeyboardButton[] | Interfaces.TelegramInlineKeyboardButton) {
-    if (!Array.isArray(row)) row = [row]
-
-    this.buttons.push(row)
-
-    return this
-  }
-
   /** Returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
-  toJSON (): Interfaces.TelegramInlineKeyboardMarkup {
+  toJSON () {
     return {
       inline_keyboard: this.buttons
     }
@@ -350,9 +369,17 @@ export class InlineKeyboard {
   /** Deletes a button with the specified payload */
   delete (payload: string) {
     const rowIndex = this.buttons.findIndex(row => row.findIndex(button => button.callback_data === payload) !== -1)
-    if (rowIndex === -1) return this
 
-    const row = this.buttons[rowIndex]!
+    if (rowIndex === -1) {
+      return this
+    }
+
+    const row = this.buttons[rowIndex]
+
+    if (!row) {
+      return this
+    }
+
     const buttonIndex = row.findIndex(button => button.callback_data === payload)
 
     row.splice(buttonIndex, 1)
@@ -366,5 +393,15 @@ export class InlineKeyboard {
 
   toString () {
     return JSON.stringify(this)
+  }
+
+  private addRow (row: PuregramInlineKeyboardButton[] | PuregramInlineKeyboardButton) {
+    if (!Array.isArray(row)) {
+      row = [row]
+    }
+
+    this.buttons.push(row)
+
+    return this
   }
 }

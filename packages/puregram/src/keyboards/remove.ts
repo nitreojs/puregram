@@ -1,8 +1,3 @@
-interface RemoveKeyboardJSON {
-  remove_keyboard: true
-  selective: boolean
-}
-
 /** Remove keyboard */
 export class RemoveKeyboard {
   private isSelective = false
@@ -15,9 +10,9 @@ export class RemoveKeyboard {
   }
 
   /** Returns JSON which is compatible with Telegram's `RemoveKeyboard` interface */
-  toJSON (): RemoveKeyboardJSON {
+  toJSON () {
     return {
-      remove_keyboard: true,
+      remove_keyboard: true as const,
       selective: this.isSelective
     }
   }

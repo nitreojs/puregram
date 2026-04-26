@@ -1,11 +1,11 @@
-import type * as Interfaces from '@puregram/api/types'
+import type * as Interfaces from '@puregram/api'
 
-import type { ButtonStyleParams } from './types'
+import type { ButtonStyleParams, PuregramKeyboardButton } from './types'
 
 /** Keyboard builder */
 export class KeyboardBuilder {
-  private rows: Interfaces.TelegramKeyboardButton[][] = []
-  private currentRow: Interfaces.TelegramKeyboardButton[] = []
+  private rows: PuregramKeyboardButton[][] = []
+  private currentRow: PuregramKeyboardButton[] = []
   private isOneTime = false
   private isResized = false
   private isSelective = false
@@ -18,36 +18,59 @@ export class KeyboardBuilder {
    * it will be sent as a message when the button is pressed
    */
   textButton (text: string, params?: ButtonStyleParams) {
-    const button: Interfaces.TelegramKeyboardButton = { text }
+    const button: PuregramKeyboardButton = { text }
 
-    if (params?.style) button.style = params.style
-    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params?.style) {
+      button.style = params.style
+    }
+
+    if (params?.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return this.addButton(button)
   }
 
-  /** If specified, pressing the button will open a list of suitable users. Tapping on any user will send their identifier to the bot in a "user_shared" service message. Available in private chats only. */
+  /**
+   * If specified, pressing the button will open a list of suitable users.
+   * Tapping on any user will send their identifier to the bot in a "user_shared"
+   * service message. Available in private chats only.
+   */
   requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers & ButtonStyleParams) {
-    const button: Interfaces.TelegramKeyboardButton = {
+    const button: PuregramKeyboardButton = {
       text,
       request_users: params
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return this.addWideButton(button)
   }
 
-  /** If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a "chat_shared" service message. Available in private chats only. */
+  /**
+   * If specified, pressing the button will open a list of suitable chats.
+   * Tapping on a chat will send its identifier to the bot in a "chat_shared"
+   * service message. Available in private chats only.
+   */
   requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat & ButtonStyleParams) {
-    const button: Interfaces.TelegramKeyboardButton = {
+    const button: PuregramKeyboardButton = {
       text,
       request_chat: params
     }
 
-    if (params.style) button.style = params.style
-    if (params.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params.style) {
+      button.style = params.style
+    }
+
+    if (params.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return this.addWideButton(button)
   }
@@ -58,13 +81,18 @@ export class KeyboardBuilder {
    * Available in private chats only
    */
   requestLocationButton (text: string, params?: ButtonStyleParams) {
-    const button: Interfaces.TelegramKeyboardButton = {
+    const button: PuregramKeyboardButton = {
       text,
       request_location: true
     }
 
-    if (params?.style) button.style = params.style
-    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params?.style) {
+      button.style = params.style
+    }
+
+    if (params?.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return this.addWideButton(button)
   }
@@ -86,13 +114,18 @@ export class KeyboardBuilder {
       styleParams = params
     }
 
-    const button: Interfaces.TelegramKeyboardButton = {
+    const button: PuregramKeyboardButton = {
       text,
       request_poll: type === undefined ? {} : { type }
     }
 
-    if (styleParams?.style) button.style = styleParams.style
-    if (styleParams?.iconCustomEmojiId) button.icon_custom_emoji_id = styleParams.iconCustomEmojiId
+    if (styleParams?.style) {
+      button.style = styleParams.style
+    }
+
+    if (styleParams?.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = styleParams.iconCustomEmojiId
+    }
 
     return this.addWideButton(button)
   }
@@ -104,13 +137,18 @@ export class KeyboardBuilder {
    * Available in private chats only
    */
   requestContactButton (text: string, params?: ButtonStyleParams) {
-    const button: Interfaces.TelegramKeyboardButton = {
+    const button: PuregramKeyboardButton = {
       text,
       request_contact: true
     }
 
-    if (params?.style) button.style = params.style
-    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params?.style) {
+      button.style = params.style
+    }
+
+    if (params?.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return this.addWideButton(button)
   }
@@ -122,13 +160,18 @@ export class KeyboardBuilder {
    * Available in private chats only.
    */
   webAppButton (text: string, url: string, params?: ButtonStyleParams) {
-    const button: Interfaces.TelegramKeyboardButton = {
+    const button: PuregramKeyboardButton = {
       text,
       web_app: { url }
     }
 
-    if (params?.style) button.style = params.style
-    if (params?.iconCustomEmojiId) button.icon_custom_emoji_id = params.iconCustomEmojiId
+    if (params?.style) {
+      button.style = params.style
+    }
+
+    if (params?.iconCustomEmojiId) {
+      button.icon_custom_emoji_id = params.iconCustomEmojiId
+    }
 
     return this.addWideButton(button)
   }
@@ -145,14 +188,25 @@ export class KeyboardBuilder {
     return this
   }
 
-  /** Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to `false` */
+  /**
+   * Requests clients to hide the keyboard as soon as it's been used. The
+   * keyboard will still be available, but clients will automatically display
+   * the usual letter-keyboard in the chat — the user can press a special
+   * button in the input field to see the custom keyboard again. Defaults to
+   * `false`.
+   */
   oneTime (oneTime = true) {
     this.isOneTime = oneTime
 
     return this
   }
 
-  /** Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to `false`, in which case the custom keyboard is always of the same height as the app's standard keyboard */
+  /**
+   * Requests clients to resize the keyboard vertically for optimal fit (e.g.,
+   * make the keyboard smaller if there are just two rows of buttons). Defaults
+   * to `false`, in which case the custom keyboard is always of the same height
+   * as the app's standard keyboard.
+   */
   resize (resize = true) {
     this.isResized = resize
 
@@ -166,7 +220,11 @@ export class KeyboardBuilder {
     return this
   }
 
-  /** Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to `false`, in which case the custom keyboard can be hidden and opened with a keyboard icon */
+  /**
+   * Requests clients to always show the keyboard when the regular keyboard is
+   * hidden. Defaults to `false`, in which case the custom keyboard can be
+   * hidden and opened with a keyboard icon.
+   */
   persistent (persistent = true) {
     this.isPersistent = persistent
 
@@ -180,22 +238,8 @@ export class KeyboardBuilder {
     return this
   }
 
-  private addButton (button: Interfaces.TelegramKeyboardButton) {
-    this.currentRow.push(button)
-
-    return this
-  }
-
-  private addWideButton (button: Interfaces.TelegramKeyboardButton) {
-    if (this.currentRow.length !== 0) this.row()
-
-    this.addButton(button)
-
-    return this.row()
-  }
-
   /** Clone current builder to new instance */
-  clone (): KeyboardBuilder {
+  clone () {
     const builder = new KeyboardBuilder()
 
     builder.oneTime(this.isOneTime)
@@ -213,7 +257,7 @@ export class KeyboardBuilder {
   }
 
   /** Returns JSON which is compatible with Telegram's `ReplyKeyboardMarkup` interface */
-  toJSON (): Interfaces.TelegramReplyKeyboardMarkup {
+  toJSON () {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]
       : this.rows
@@ -225,11 +269,31 @@ export class KeyboardBuilder {
       one_time_keyboard: this.isOneTime,
       selective: this.isSelective
     }
-    if (this.placeholder !== undefined) json.input_field_placeholder = this.placeholder
+
+    if (this.placeholder !== undefined) {
+      json.input_field_placeholder = this.placeholder
+    }
+
     return json
   }
 
   toString () {
     return JSON.stringify(this)
+  }
+
+  private addButton (button: PuregramKeyboardButton) {
+    this.currentRow.push(button)
+
+    return this
+  }
+
+  private addWideButton (button: PuregramKeyboardButton) {
+    if (this.currentRow.length !== 0) {
+      this.row()
+    }
+
+    this.addButton(button)
+
+    return this.row()
   }
 }

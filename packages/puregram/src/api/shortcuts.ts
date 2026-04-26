@@ -1,6 +1,6 @@
 import type { Telegram } from '../telegram'
 
-export function installShortcuts (tg: Telegram): void {
+export function installShortcuts (tg: Telegram) {
   define(tg, 'send', function (this: Telegram, chat: number | string, text: string, params: Record<string, unknown> = {}) {
     return (this.api as any).sendMessage({ chat_id: chat, text, ...params })
   })
@@ -37,12 +37,23 @@ export function installShortcuts (tg: Telegram): void {
     return (this.api as any).unbanChatMember({ chat_id: chat, user_id: user, ...params })
   })
 
-  define(tg, 'react', function (this: Telegram, chat: number | string, messageId: number, reactions: unknown, params: Record<string, unknown> = {}) {
-    return (this.api as any).setMessageReaction({ chat_id: chat, message_id: messageId, reaction: reactions, ...params })
+  define(tg, 'react', function (
+    this: Telegram,
+    chat: number | string,
+    messageId: number,
+    reactions: unknown,
+    params: Record<string, unknown> = {}
+  ) {
+    return (this.api as any).setMessageReaction({
+      chat_id: chat,
+      message_id: messageId,
+      reaction: reactions,
+      ...params
+    })
   })
 }
 
-function define (target: Telegram, name: string, fn: (...args: any[]) => unknown): void {
+function define (target: Telegram, name: string, fn: (...args: any[]) => unknown) {
   Object.defineProperty(Object.getPrototypeOf(target), name, {
     value: fn,
     writable: true,

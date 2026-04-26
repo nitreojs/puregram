@@ -1,31 +1,37 @@
-import type { ApiResponseError } from './errors'
-import type { Plugin } from './plugins/plugin'
-import type { TelegramApi } from './api/proxy'
-import type { Middleware, ErrorHandler, HookOptions, RequestHookName } from './dispatch/hooks'
-import type { TelegramOptions, ResolvedTelegramOptions } from './options'
-import type { HttpClient } from './http/client'
-import type { UpdateHandler } from './dispatch/on'
-import type { TelegramShortcuts, UpdateKind, UpdateKindMap } from '@puregram/api'
+import type { TelegramShortcuts, TelegramUser, UpdateKind, UpdateKindMap } from '@puregram/api'
 
-import { resolveOptions } from './options'
-import { defaultHttpClient } from './http/client'
-import { createApiProxy } from './api/proxy'
 import { runRequest } from './api/lifecycle'
+import type { TelegramApi } from './api/proxy'
+import { createApiProxy } from './api/proxy'
 import { installShortcuts } from './api/shortcuts'
-import { HookRegistry } from './dispatch/hooks'
-import { Dispatcher } from './dispatch/on'
 import { CustomUpdateRegistry } from './dispatch/custom-updates'
+import type { Middleware, ErrorHandler, HookOptions, RequestHookName } from './dispatch/hooks'
+import { HookRegistry } from './dispatch/hooks'
+import type { UpdateHandler } from './dispatch/on'
+import { Dispatcher } from './dispatch/on'
+import { buildUpdate } from './dispatch/update-builder'
+import type { ApiResponseError } from './errors'
+import type { HttpClient } from './http/client'
+import { defaultHttpClient } from './http/client'
+import type { TelegramOptions, ResolvedTelegramOptions } from './options'
+import { resolveOptions } from './options'
 import { resolveInstallOrder } from './plugins/installer'
+import type { Plugin } from './plugins/plugin'
 import { PluginRegistry } from './plugins/registry'
 import { PollingTransport, type StartPollingOptions } from './transport/polling'
-import { createWebhookCallback, type WebhookCallback } from './transport/webhook'
-import { buildUpdate } from './dispatch/update-builder'
+import { createWebhookCallback } from './transport/webhook'
 
-export interface Telegram<Ext = {}> extends TelegramShortcuts {}
+/* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
+export interface Telegram<Ext = Record<string, unknown>> extends TelegramShortcuts {}
+/* eslint-enable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
 
-export class Telegram<Ext = {}> {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
+export class Telegram<Ext = Record<string, unknown>> {
   readonly options: ResolvedTelegramOptions
   readonly api: TelegramApi
+
+  /** populated by startPolling on first getMe call */
+  bot!: TelegramUser
 
   protected readonly hooks = new HookRegistry()
   protected readonly dispatcher = new Dispatcher()
@@ -43,20 +49,21 @@ export class Telegram<Ext = {}> {
     this.api = createApiProxy((method, params) => runRequest(
       { options: this.options, hooks: this.hooks, httpClient: this.httpClient },
       method,
-      params as Record<string, unknown> | undefined
+      params
     ))
 
     installShortcuts(this as Telegram)
   }
 
-  static fromToken (token: string, options: Partial<TelegramOptions> = {}): Telegram {
+  static fromToken (token: string, options: Partial<TelegramOptions> = {}) {
     return new Telegram({ token, ...options })
   }
 
+  // eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate is needed for narrowing
   static isErrorResponse (value: unknown): value is ApiResponseError {
-    return typeof value === 'object' && value !== null
-      && 'ok' in value && (value as { ok: unknown }).ok === false
-      && 'error_code' in value
+    return typeof value === 'object' && value !== null &&
+      'ok' in value && (value as { ok: unknown }).ok === false &&
+      'error_code' in value
   }
 
   extend<N extends string, Ext2> (
@@ -65,7 +72,9 @@ export class Telegram<Ext = {}> {
     if (this.started) {
       throw new Error('cannot extend after .start() — plugins must be queued before start')
     }
+
     this.pendingPlugins.push(plugin as Plugin)
+
     return this as unknown as Telegram<Ext & { [K in N]: Awaited<Ext2> }>
   }
 
@@ -73,12 +82,16 @@ export class Telegram<Ext = {}> {
     return this.plugins.has(pluginName)
   }
 
-  async start (): Promise<void> {
-    if (this.started) return
+  async start () {
+    if (this.started) {
+      return
+    }
 
     const order = resolveInstallOrder(this.pendingPlugins)
+
     for (const plugin of order) {
       const ext = await plugin.install(this)
+
       this.plugins.set(plugin.name, ext)
       Object.defineProperty(this, plugin.name, {
         value: ext, enumerable: true, configurable: false
@@ -89,8 +102,11 @@ export class Telegram<Ext = {}> {
     this.started = true
   }
 
-  async shutdown (): Promise<void> {
-    if (!this.started) return
+  async shutdown () {
+    if (!this.started) {
+      return
+    }
+
     await this.hooks.run('onShutdown', { tg: this })
     this.started = false
   }
@@ -100,44 +116,51 @@ export class Telegram<Ext = {}> {
     handler: UpdateHandler<UpdateKindMap[K]>
   ): this {
     this.dispatcher.on(kind, handler as UpdateHandler)
+
     return this
   }
 
   off (kind: string, handler: UpdateHandler): this {
     this.dispatcher.off(kind, handler)
+
     return this
   }
 
-  useHook (name: RequestHookName | 'onUpdate', fn: Middleware<any>, options?: HookOptions): this
+  useHook (name: RequestHookName | 'onUpdate', fn: Middleware<unknown>, options?: HookOptions): this
   useHook (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): this
   useHook (name: 'onError', fn: ErrorHandler): this
+  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
   useHook (name: string, fn: any, options?: HookOptions): this {
     this.hooks.add(name as never, fn, options)
+
     return this
   }
+  /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
 
-  defineUpdate<N extends string> (kind: N): this {
+  defineUpdate<N extends string> (kind: N) {
     this.customUpdates.define(kind)
+
     return this
   }
 
-  emit (kind: string, payload: Record<string, unknown>): void {
+  emit (kind: string, payload: Record<string, unknown>) {
     const update = this.customUpdates.build(kind, payload)
-    void this.dispatch(update)
+
+    this.dispatch(update).catch(() => undefined)
   }
 
-  async startPolling (options: StartPollingOptions = {}): Promise<void> {
+  async startPolling (options: StartPollingOptions = {}) {
     await this.start()
 
-    if (!(this as any).bot) {
-      const me = await (this.api as any).getMe()
-      ;(this as any).bot = me
+    if (!this.bot) {
+      this.bot = await this.api.getMe()
     }
 
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
-      buildAndDispatch: async (rawUpdate) => {
+      buildAndDispatch: async rawUpdate => {
         const update = buildUpdate(rawUpdate, this) as { kind: string }
+
         await this.dispatch(update)
       }
     })
@@ -145,28 +168,30 @@ export class Telegram<Ext = {}> {
     await this.polling.start(options)
   }
 
-  stopPolling (): void {
+  stopPolling () {
     this.polling?.stop()
   }
 
-  getWebhookCallback (secret?: string): WebhookCallback {
+  getWebhookCallback (secret?: string) {
     return createWebhookCallback({
-      buildAndDispatch: async (rawUpdate) => {
+      buildAndDispatch: async rawUpdate => {
         const update = buildUpdate(rawUpdate, this) as { kind: string }
+
         await this.dispatch(update)
       }
     }, secret)
   }
 
-  async dropPendingUpdates (value?: boolean | string[]): Promise<number> {
+  async dropPendingUpdates (value?: boolean | string[]) {
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
       buildAndDispatch: async () => {}
     })
+
     return this.polling.drop(value)
   }
 
-  protected async dispatch (update: { kind: string }): Promise<void> {
+  protected async dispatch (update: { kind: string }) {
     await this.hooks.runUpdate(update, async (_, next) => {
       await this.dispatcher.runUserHandlers(update)
       await next()

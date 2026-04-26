@@ -1,4 +1,5 @@
 import type { ApiMethods } from '@puregram/api'
+
 import type { ApiResponseError } from '../errors'
 
 export type ApiCaller = (method: string, params?: Record<string, unknown>) => Promise<unknown>
@@ -28,18 +29,20 @@ export type SuppressableApi = {
 }
 
 export interface ApiCallEscape {
-  call (method: string, params?: Record<string, unknown>): Promise<unknown>
+  call: (method: string, params?: Record<string, unknown>) => Promise<unknown>
 }
 
 export type TelegramApi = SuppressableApi & ApiCallEscape
 
-export function createApiProxy (caller: ApiCaller): TelegramApi {
+export function createApiProxy (caller: ApiCaller) {
   const target = {} as TelegramApi
+
   return new Proxy(target, {
     get (_target, prop: string) {
       if (prop === 'call') {
         return (method: string, params?: Record<string, unknown>) => caller(method, params)
       }
+
       return (params?: Record<string, unknown>) => caller(prop, params)
     }
   })

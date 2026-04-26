@@ -9,9 +9,9 @@ export interface RequestContext {
   json?: unknown
 }
 
-export interface ErrorContext extends Partial<RequestContext> {}
+export type ErrorContext = Partial<RequestContext>
 
-export type Middleware<C> = (ctx: C, next: () => Promise<void>) => unknown | Promise<unknown>
+export type Middleware<C> = (ctx: C, next: () => Promise<void>) => unknown
 export type ErrorHandler = (err: Error, ctx: ErrorContext) => Error | void | Promise<Error | void>
 
 export interface HookOptions {
@@ -32,6 +32,7 @@ interface Bucket<C> {
   low: Middleware<C>[]
 }
 
+// eslint-disable-next-line local-rules/no-redundant-return-type -- C is consumed only via the return type
 const newBucket = <C>(): Bucket<C> => ({ high: [], normal: [], low: [] })
 
 const REQUEST_HOOKS: ReadonlySet<RequestHookName> = new Set([
@@ -58,74 +59,118 @@ export class HookRegistry {
   add (name: 'onUpdate', fn: Middleware<unknown>, opts?: HookOptions): void
   add (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): void
   add (name: 'onError', fn: ErrorHandler): void
+  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
   add (name: string, fn: any, opts?: HookOptions): void {
     const priority = opts?.priority ?? 'normal'
 
     if (REQUEST_HOOKS.has(name as RequestHookName)) {
       this.request[name as RequestHookName][priority].push(fn)
+
       return
     }
+
     if (name === 'onUpdate') {
       this.update[priority].push(fn)
+
       return
     }
-    if (name === 'onInit') { this.init.push(fn); return }
-    if (name === 'onShutdown') { this.shutdown.push(fn); return }
-    if (name === 'onError') { this.error.push(fn); return }
+
+    if (name === 'onInit') {
+      this.init.push(fn)
+
+      return
+    }
+
+    if (name === 'onShutdown') {
+      this.shutdown.push(fn)
+
+      return
+    }
+
+    if (name === 'onError') {
+      this.error.push(fn)
+
+      return
+    }
+
     throw new Error(`unknown hook: ${name}`)
   }
+  /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
 
   async run (name: RequestHookName, ctx: RequestContext): Promise<void>
   async run (name: 'onUpdate', ctx: unknown): Promise<void>
   async run (name: 'onInit' | 'onShutdown', ctx: { tg: unknown }): Promise<void>
+  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
   async run (name: string, ctx: any): Promise<void> {
     if (REQUEST_HOOKS.has(name as RequestHookName)) {
       const bucket = this.request[name as RequestHookName]
+
       await runChain([...bucket.high, ...bucket.normal, ...bucket.low], ctx)
+
       return
     }
+
     if (name === 'onUpdate') {
       await runChain([...this.update.high, ...this.update.normal, ...this.update.low], ctx)
+
       return
     }
+
     if (name === 'onInit') {
       await runChain(this.init, ctx)
+
       return
     }
+
     if (name === 'onShutdown') {
       await runChain(this.shutdown, ctx)
+
       return
     }
+
     throw new Error(`unknown hook: ${name}`)
   }
+  /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
 
   /**
    * runs onUpdate chain but inserts a fixed slot for user `tg.on(...)` handlers
    * between the 'normal' and 'low' priority middleware
    */
-  async runUpdate (ctx: unknown, userHandlers: Middleware<unknown>): Promise<void> {
+  async runUpdate (ctx: unknown, userHandlers: Middleware<unknown>) {
     await runChain(
       [...this.update.high, ...this.update.normal, userHandlers, ...this.update.low],
       ctx
     )
   }
 
-  async runError (err: Error, ctx: ErrorContext): Promise<Error> {
+  async runError (err: Error, ctx: ErrorContext) {
     let current = err
+
     for (const handler of this.error) {
       const replacement = await handler(current, ctx)
-      if (replacement instanceof Error) current = replacement
+
+      if (replacement instanceof Error) {
+        current = replacement
+      }
     }
+
     return current
   }
 }
 
-async function runChain<C> (chain: Middleware<C>[], ctx: C): Promise<void> {
+async function runChain<C> (chain: Middleware<C>[], ctx: C) {
   let i = 0
   const next = async (): Promise<void> => {
-    if (i >= chain.length) return
-    const fn = chain[i++]!
-    await fn(ctx, next)
+    if (i >= chain.length) {
+      return
+    }
+
+    const fn = chain[i++]
+
+    if (fn) {
+      await fn(ctx, next)
+    }
   }
+
   await next()
 }

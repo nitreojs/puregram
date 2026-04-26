@@ -1,27 +1,47 @@
-export type UpdateHandler<U = unknown> = (update: U) => unknown | Promise<unknown>
+export type UpdateHandler<U = unknown> = (update: U) => unknown
 
-interface KindLike { kind: string }
+interface KindLike {
+ kind: string
+}
 
 export class Dispatcher {
   private readonly handlers = new Map<string, UpdateHandler[]>()
 
-  on (kind: string, fn: UpdateHandler): void {
+  on (kind: string, fn: UpdateHandler) {
     const list = this.handlers.get(kind)
-    if (list) list.push(fn)
-    else this.handlers.set(kind, [fn])
+
+    if (list) {
+      list.push(fn)
+    } else {
+      this.handlers.set(kind, [fn])
+    }
   }
 
-  off (kind: string, fn: UpdateHandler): void {
+  off (kind: string, fn: UpdateHandler) {
     const list = this.handlers.get(kind)
-    if (!list) return
+
+    if (!list) {
+      return
+    }
+
     const idx = list.indexOf(fn)
-    if (idx >= 0) list.splice(idx, 1)
-    if (list.length === 0) this.handlers.delete(kind)
+
+    if (idx >= 0) {
+      list.splice(idx, 1)
+    }
+
+    if (list.length === 0) {
+      this.handlers.delete(kind)
+    }
   }
 
-  async runUserHandlers (update: KindLike): Promise<void> {
+  async runUserHandlers (update: KindLike) {
     const list = this.handlers.get(update.kind)
-    if (!list) return
+
+    if (!list) {
+      return
+    }
+
     for (const handler of list) {
       await handler(update)
     }

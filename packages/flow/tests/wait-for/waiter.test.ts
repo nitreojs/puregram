@@ -1,0 +1,78 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { WaitForCancelled, WaitForTimeout } from '../../src/errors'
+import { Waiter } from '../../src/wait-for/waiter'
+
+describe('Waiter', () => {
+  beforeEach(() => { vi.useFakeTimers() })
+  afterEach(() => { vi.useRealTimers() })
+
+  it('resolves with the matched update', async () => {
+    const waiter = new Waiter<'message'>('message', { filter: u => (u as any).id === 1 })
+
+    waiter.resolve({ id: 1 } as any)
+
+    await expect(waiter.promise).resolves.toEqual({ id: 1 })
+  })
+
+  it('match() returns true only when filter matches', () => {
+    const waiter = new Waiter<'message'>('message', { filter: u => (u as any).id === 1 })
+
+    expect(waiter.match({ id: 1 } as any)).toBe(true)
+    expect(waiter.match({ id: 2 } as any)).toBe(false)
+  })
+
+  it('match() returns true unconditionally when no filter is provided', () => {
+    const waiter = new Waiter<'message'>('message', {})
+
+    expect(waiter.match({ id: 99 } as any)).toBe(true)
+  })
+
+  it('schedules a timeout that rejects with WaitForTimeout', async () => {
+    const waiter = new Waiter<'message'>('message', { timeout: 1000 })
+
+    vi.advanceTimersByTime(1000)
+
+    await expect(waiter.promise).rejects.toBeInstanceOf(WaitForTimeout)
+  })
+
+  it('returns null on timeout when nullOnTimeout is true', async () => {
+    const waiter = new Waiter<'message'>('message', { timeout: 1000, nullOnTimeout: true })
+
+    vi.advanceTimersByTime(1000)
+
+    await expect(waiter.promise).resolves.toBeNull()
+  })
+
+  it('cancel() rejects with WaitForCancelled and clears the timer', async () => {
+    const waiter = new Waiter<'message'>('message', { timeout: 5000 })
+
+    waiter.cancel()
+
+    await expect(waiter.promise).rejects.toBeInstanceOf(WaitForCancelled)
+
+    // advancing past the timeout must not double-settle
+    vi.advanceTimersByTime(5000)
+  })
+
+  it('resolve() clears the timer', async () => {
+    const waiter = new Waiter<'message'>('message', { timeout: 5000 })
+
+    waiter.resolve({ id: 1 } as any)
+
+    await expect(waiter.promise).resolves.toEqual({ id: 1 })
+
+    // would have rejected if timer still live
+    vi.advanceTimersByTime(5000)
+  })
+
+  it('consume defaults to true; consume:false respected', () => {
+    const a = new Waiter<'message'>('message', {})
+
+    expect(a.consume).toBe(true)
+
+    const b = new Waiter<'message'>('message', { consume: false })
+
+    expect(b.consume).toBe(false)
+  })
+})

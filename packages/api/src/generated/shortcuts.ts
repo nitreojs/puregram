@@ -5,7 +5,7 @@
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramMessage, TelegramMessageId, TelegramReactionType } from "./types";
-import type { BanChatMemberParams, CopyMessageParams, ForwardMessageParams, PinChatMessageParams, SendMessageParams, SetMessageReactionParams, UnbanChatMemberParams, UnpinChatMessageParams } from "./methods";
+import type { BanChatMemberParams, CopyMessageParams, DeleteMessageParams, ForwardMessageParams, PinChatMessageParams, SendMessageParams, SetMessageReactionParams, UnbanChatMemberParams, UnpinChatMessageParams } from "./methods";
 export interface TelegramShortcuts {
     /**
      * Shortcut for `tg.api.sendMessage`. Use this method to send text messages. On success, the sent Message is returned.
@@ -19,6 +19,10 @@ export interface TelegramShortcuts {
      * Shortcut for `tg.api.copyMessage`. Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
      */
     copy(from: number | string, to: number | string, messageId: number, params?: Omit<CopyMessageParams, "from_chat_id" | "chat_id" | "message_id">): Promise<TelegramMessageId>;
+    /**
+     * Shortcut for `tg.api.deleteMessage`. Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there.- If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat.Returns True on success.
+     */
+    delete(chat: number | string, messageId: number, params?: Omit<DeleteMessageParams, "chat_id" | "message_id">): Promise<true>;
     /**
      * Shortcut for `tg.api.pinChatMessage`. Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to pin messages in groups and channels respectively. Returns True on success.
      */

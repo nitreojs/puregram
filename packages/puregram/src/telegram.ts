@@ -5,17 +5,20 @@ import type { Middleware, ErrorHandler, HookOptions, RequestHookName } from './d
 import type { TelegramOptions, ResolvedTelegramOptions } from './options'
 import type { HttpClient } from './http/client'
 import type { UpdateHandler } from './dispatch/on'
-import type { UpdateKind, UpdateKindMap } from '@puregram/api'
+import type { TelegramShortcuts, UpdateKind, UpdateKindMap } from '@puregram/api'
 
 import { resolveOptions } from './options'
 import { defaultHttpClient } from './http/client'
 import { createApiProxy } from './api/proxy'
 import { runRequest } from './api/lifecycle'
+import { installShortcuts } from './api/shortcuts'
 import { HookRegistry } from './dispatch/hooks'
 import { Dispatcher } from './dispatch/on'
 import { CustomUpdateRegistry } from './dispatch/custom-updates'
 import { resolveInstallOrder } from './plugins/installer'
 import { PluginRegistry } from './plugins/registry'
+
+export interface Telegram<Ext = {}> extends TelegramShortcuts {}
 
 export class Telegram<Ext = {}> {
   readonly options: ResolvedTelegramOptions
@@ -38,6 +41,8 @@ export class Telegram<Ext = {}> {
       method,
       params as Record<string, unknown> | undefined
     ))
+
+    installShortcuts(this as Telegram)
   }
 
   static fromToken (token: string, options: Partial<TelegramOptions> = {}): Telegram {

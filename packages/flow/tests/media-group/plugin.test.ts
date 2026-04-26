@@ -4,9 +4,11 @@ import { describe, expect, it } from 'vitest'
 import type { MediaGroupUpdate } from '../../src'
 import { mediaGroup } from '../../src'
 
+const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
+
 describe('mediaGroup plugin', () => {
   it('install registers tg.media_group with flush + accepts media_group emissions', async () => {
-    const t = new Telegram({ token: 'TEST' }).extend(mediaGroup({ window: 1000 }))
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(mediaGroup({ window: 1000 }))
 
     await t.start()
 
@@ -32,7 +34,7 @@ describe('mediaGroup plugin', () => {
   })
 
   it('plugin install does not blow up; extension is registered under tg.media_group', async () => {
-    const t = new Telegram({ token: 'TEST' }).extend(mediaGroup({ window: 1000 }))
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(mediaGroup({ window: 1000 }))
 
     await t.start()
 

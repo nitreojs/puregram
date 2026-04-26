@@ -3,6 +3,8 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { flow } from '../../src'
 
+const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
+
 // declare-module-merge a test-local kind into UpdateKindMap so tg.on('probe', h) typechecks
 // (UpdateKind = keyof UpdateKindMap, so this widens both)
 declare module '@puregram/api' {
@@ -13,7 +15,7 @@ declare module '@puregram/api' {
 
 describe('waitFor — consume semantics', () => {
   it('consume: true (default) prevents user tg.on handler from firing', async () => {
-    const t = new Telegram({ token: 'TEST' }).extend(flow())
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
 
     await t.start()
 
@@ -37,7 +39,7 @@ describe('waitFor — consume semantics', () => {
   })
 
   it('consume: false lets the user handler fire AND resolves the waiter', async () => {
-    const t = new Telegram({ token: 'TEST' }).extend(flow())
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
 
     await t.start()
 
@@ -60,7 +62,7 @@ describe('waitFor — consume semantics', () => {
   })
 
   it('unmatched updates always propagate to user handlers', async () => {
-    const t = new Telegram({ token: 'TEST' }).extend(flow())
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
 
     await t.start()
 

@@ -3,7 +3,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { flow, WaitForTimeout } from '../../src'
 
-const tg = () => new Telegram({ token: 'TEST' }).extend(flow())
+const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
+
+const tg = () => new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
 
 describe('waitFor — timeout', () => {
   beforeEach(() => {

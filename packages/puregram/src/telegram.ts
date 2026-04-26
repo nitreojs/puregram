@@ -52,6 +52,10 @@ export class Telegram<Ext = Record<string, unknown>> {
       params
     ))
 
+    if (this.options.bot) {
+      this.bot = this.options.bot
+    }
+
     installShortcuts(this as Telegram)
   }
 
@@ -96,6 +100,10 @@ export class Telegram<Ext = Record<string, unknown>> {
       Object.defineProperty(this, plugin.name, {
         value: ext, enumerable: true, configurable: false
       })
+    }
+
+    if (!this.bot) {
+      this.bot = await this.api.getMe()
     }
 
     await this.hooks.run('onInit', { tg: this })
@@ -151,10 +159,6 @@ export class Telegram<Ext = Record<string, unknown>> {
 
   async startPolling (options: StartPollingOptions = {}) {
     await this.start()
-
-    if (!this.bot) {
-      this.bot = await this.api.getMe()
-    }
 
     this.polling ??= new PollingTransport({
       tg: this as Telegram,

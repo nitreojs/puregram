@@ -3,9 +3,11 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { flow } from '../src'
 
+const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
+
 describe('prompt', () => {
   it('sends a message via tg.send and registers a waiter', async () => {
-    const t = new Telegram({ token: 'TEST' }).extend(flow())
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
 
     await t.start()
 
@@ -33,7 +35,7 @@ describe('prompt', () => {
   })
 
   it('forwards from + timeout into the underlying waiter', async () => {
-    const t = new Telegram({ token: 'TEST' }).extend(flow())
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
 
     await t.start()
 

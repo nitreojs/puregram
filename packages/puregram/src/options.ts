@@ -1,8 +1,12 @@
+import type { TelegramUser } from '@puregram/api'
+
 import type { HttpClient } from './http/client'
 
 export interface TelegramOptions {
   token: string
   httpClient?: HttpClient
+  /** pre-populate `tg.bot` and skip the start-time getMe call */
+  bot?: TelegramUser
   allowedUpdates?: string[]
   apiBaseUrl?: string
   apiTimeout?: number
@@ -13,8 +17,9 @@ export interface TelegramOptions {
   useLocal?: boolean
 }
 
-export interface ResolvedTelegramOptions extends Required<Omit<TelegramOptions, 'httpClient'>> {
+export interface ResolvedTelegramOptions extends Required<Omit<TelegramOptions, 'httpClient' | 'bot'>> {
   httpClient: HttpClient | undefined
+  bot?: TelegramUser
 }
 
 const VERSION = '3.0.0-alpha.0'
@@ -38,6 +43,7 @@ export function resolveOptions (input: TelegramOptions) {
     ...DEFAULT_OPTIONS,
     ...input,
     apiHeaders: { ...DEFAULT_OPTIONS.apiHeaders, ...(input.apiHeaders ?? {}) },
-    httpClient: input.httpClient
+    httpClient: input.httpClient,
+    bot: input.bot
   } as ResolvedTelegramOptions
 }

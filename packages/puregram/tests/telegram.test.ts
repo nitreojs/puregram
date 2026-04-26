@@ -3,6 +3,8 @@ import { describe, it, expect } from 'vitest'
 import { createPlugin } from '../src/plugins/plugin'
 import { Telegram } from '../src/telegram'
 
+const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
+
 describe('Telegram', () => {
   it('constructs with token + applies defaults', () => {
     const tg = new Telegram({ token: 'TEST' })
@@ -29,7 +31,7 @@ describe('Telegram', () => {
       install: () => ({ get: (k: string) => k.toUpperCase() })
     })
 
-    const tg = new Telegram({ token: 'X' }).extend(session)
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT }).extend(session)
 
     await tg.start()
     expect((tg as any).session.get('hello')).toBe('HELLO')
@@ -37,7 +39,7 @@ describe('Telegram', () => {
 
   it('.start runs onInit hooks', async () => {
     const trace: string[] = []
-    const tg = new Telegram({ token: 'X' })
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
 
     tg.useHook('onInit', () => {
       trace.push('init')
@@ -48,7 +50,7 @@ describe('Telegram', () => {
 
   it('.shutdown runs onShutdown hooks', async () => {
     const trace: string[] = []
-    const tg = new Telegram({ token: 'X' })
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
 
     tg.useHook('onShutdown', () => {
       trace.push('shutdown')
@@ -60,7 +62,7 @@ describe('Telegram', () => {
 
   it('.has reflects installed plugins', async () => {
     const session = createPlugin({ name: 'session', install: () => ({}) })
-    const tg = new Telegram({ token: 'X' }).extend(session)
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT }).extend(session)
 
     expect(tg.has('session')).toBe(false)
     await tg.start()
@@ -70,8 +72,16 @@ describe('Telegram', () => {
   it('throws PluginConflict on duplicate plugin', async () => {
     const a = createPlugin({ name: 'session', install: () => ({}) })
     const b = createPlugin({ name: 'session', install: () => ({}) })
-    const tg = new Telegram({ token: 'X' }).extend(a).extend(b)
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT }).extend(a).extend(b)
 
     await expect(tg.start()).rejects.toThrow(/conflict/)
+  })
+
+  it('pre-populates tg.bot from options.bot, no getMe call', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+
+    expect(tg.bot).toBe(STUB_BOT)
+    await tg.start()
+    expect(tg.bot).toBe(STUB_BOT)
   })
 })

@@ -45,11 +45,11 @@ export class Waiter<K extends keyof UpdateKindMap> {
   }
 
   // true once the waiter has resolved, rejected, or timed out — registry uses this to evict
-  get settled (): boolean {
+  get settled () {
     return this.settledFlag
   }
 
-  match (update: UpdateKindMap[K]): boolean {
+  match (update: UpdateKindMap[K]) {
     if (this.filterFn === undefined) {
       return true
     }
@@ -57,7 +57,7 @@ export class Waiter<K extends keyof UpdateKindMap> {
     return this.filterFn(update)
   }
 
-  resolve (update: UpdateKindMap[K]): void {
+  resolve (update: UpdateKindMap[K]) {
     if (this.settledFlag) {
       return
     }
@@ -71,7 +71,7 @@ export class Waiter<K extends keyof UpdateKindMap> {
     this.resolveFn(update)
   }
 
-  cancel (): void {
+  cancel () {
     if (this.settledFlag) {
       return
     }

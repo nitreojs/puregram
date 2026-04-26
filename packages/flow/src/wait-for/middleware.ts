@@ -7,10 +7,12 @@ interface KindLike {
   kind: string
 }
 
+// eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate is needed for narrowing
 function hasKind (value: unknown): value is KindLike {
   return typeof value === 'object' && value !== null && typeof (value as KindLike).kind === 'string'
 }
 
+// eslint-disable-next-line local-rules/no-redundant-return-type -- Middleware<unknown> documents the contract
 export function createWaitForMiddleware (registry: WaiterRegistry): Middleware<unknown> {
   return async (update, next) => {
     if (!hasKind(update)) {

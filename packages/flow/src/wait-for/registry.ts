@@ -7,7 +7,7 @@ export class WaiterRegistry {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- intentional erasure across update kinds
   private readonly queues = new Map<string, Waiter<any>[]>()
 
-  register<K extends keyof UpdateKindMap> (waiter: Waiter<K>): void {
+  register<K extends keyof UpdateKindMap> (waiter: Waiter<K>) {
     const queue = this.queues.get(waiter.kind as string)
 
     if (queue) {
@@ -49,11 +49,11 @@ export class WaiterRegistry {
     return undefined
   }
 
-  size (kind: string): number {
+  size (kind: string) {
     return this.queues.get(kind)?.length ?? 0
   }
 
-  cancelAll (): void {
+  cancelAll () {
     for (const queue of this.queues.values()) {
       for (const waiter of queue) {
         waiter.cancel()
@@ -65,7 +65,7 @@ export class WaiterRegistry {
 
   // strip already-settled waiters (timed out, externally cancelled) from a kind's queue.
   // uses the public Waiter.settled accessor — no structural casts.
-  private evictSettled (kind: string): void {
+  private evictSettled (kind: string) {
     const queue = this.queues.get(kind)
 
     if (!queue) {

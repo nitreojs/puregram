@@ -4,8 +4,13 @@ import { WaiterRegistry } from '../../src/wait-for/registry'
 import { Waiter } from '../../src/wait-for/waiter'
 
 describe('WaiterRegistry', () => {
-  beforeEach(() => { vi.useFakeTimers() })
-  afterEach(() => { vi.useRealTimers() })
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
 
   it('match returns first matching waiter and removes it', () => {
     const reg = new WaiterRegistry()

@@ -4,8 +4,13 @@ import { WaitForCancelled, WaitForTimeout } from '../../src/errors'
 import { Waiter } from '../../src/wait-for/waiter'
 
 describe('Waiter', () => {
-  beforeEach(() => { vi.useFakeTimers() })
-  afterEach(() => { vi.useRealTimers() })
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
 
   it('resolves with the matched update', async () => {
     const waiter = new Waiter<'message'>('message', { filter: u => (u as any).id === 1 })

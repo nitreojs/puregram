@@ -1,11 +1,14 @@
 import { describe, it, expect, vi } from 'vitest'
+
 import { Telegram } from '../../src/telegram'
 
-const stubApi = (tg: Telegram, methods: Record<string, (...args: any[]) => any>): void => {
+const stubApi = (tg: Telegram, methods: Record<string, (...args: any[]) => any>) => {
   const stub: Record<string, any> = {}
+
   for (const [name, fn] of Object.entries(methods)) {
     stub[name] = vi.fn().mockImplementation(fn)
   }
+
   Object.defineProperty(tg, 'api', { value: stub, configurable: true })
 }
 
@@ -18,20 +21,27 @@ describe('polling', () => {
     ]
 
     let calls = 0
+
     stubApi(tg, {
-      getMe: async () => ({ id: 0, is_bot: true, first_name: 'bot', username: 'testbot' }),
-      getUpdates: async () => {
+      getMe: () => ({ id: 0, is_bot: true, first_name: 'bot', username: 'testbot' }),
+      getUpdates: () => {
         calls++
+
         if (calls > 1) {
           tg.stopPolling()
+
           return []
         }
+
         return updates
       }
     })
 
     const received: unknown[] = []
-    tg.on('message', (u) => { received.push(u) })
+
+    tg.on('message', u => {
+      received.push(u)
+    })
 
     await tg.startPolling()
 
@@ -43,16 +53,25 @@ describe('polling', () => {
     const tg = new Telegram({ token: 'X' })
 
     let pulls = 0
+
     stubApi(tg, {
-      getUpdates: async () => {
+      getUpdates: () => {
         pulls++
-        if (pulls === 1) return [{ update_id: 1 }, { update_id: 2 }]
-        if (pulls === 2) return [{ update_id: 3 }]
+
+        if (pulls === 1) {
+          return [{ update_id: 1 }, { update_id: 2 }]
+        }
+
+        if (pulls === 2) {
+          return [{ update_id: 3 }]
+        }
+
         return []
       }
     })
 
     const dropped = await tg.dropPendingUpdates()
+
     expect(dropped).toBe(3)
   })
 })

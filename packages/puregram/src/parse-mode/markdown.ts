@@ -47,6 +47,6 @@ export class Markdown {
   static pre (source: string, language?: string) {
     const quotes = '```'
 
-    return `${quotes}${language || ''}\n${source}\n${quotes}`
+    return `${quotes}${language ?? ''}\n${source}\n${quotes}`
   }
 }

@@ -1,13 +1,13 @@
 import { replaceChars } from './escape'
 
-const join = (template: TemplateStringsArray, ...args: any[]) => {
+const join = (template: TemplateStringsArray, ...args: unknown[]) => {
   let result = ''
 
   for (let i = 0; i < template.length; i++) {
     result += MarkdownV2.escape(template[i] ?? '')
 
     if (args[i] !== undefined) {
-      result += args[i].toString()
+      result += String(args[i])
     }
   }
 
@@ -23,7 +23,8 @@ export class MarkdownV2 {
   }
 
   /**
-   * Since MarkdownV2 requires escaping a lot of chars you can use this static method for easier usage of MarkdownV2 via template strings
+   * Since MarkdownV2 requires escaping a lot of chars you can use this static
+   * method for easier usage of MarkdownV2 via template strings.
    *
    * @example
    * ```js
@@ -33,7 +34,7 @@ export class MarkdownV2 {
    * // NOTE: "foo! bar~" part will be automatically escaped!
    * ```
    */
-  static build (template: TemplateStringsArray, ...args: any[]) {
+  static build (template: TemplateStringsArray, ...args: unknown[]) {
     const first = template[0] ?? ''
     const isMultilineTemplate = first[0] === '\n'
 
@@ -43,8 +44,8 @@ export class MarkdownV2 {
       const spacesLine = first.replace(/\n+/, '')
       const matches = spacesLine.match(/^(\s+)/g)
 
-      if (matches !== null) {
-        startSpaces = matches[0]!.length
+      if (matches?.[0] !== undefined) {
+        startSpaces = matches[0].length
       }
     }
 
@@ -114,7 +115,7 @@ export class MarkdownV2 {
   static pre (source: string, language?: string, escape = true) {
     const quotes = '```'
 
-    return `${quotes}${language || ''}\n${escape ? MarkdownV2.escape(source) : source}\n${quotes}`
+    return `${quotes}${language ?? ''}\n${escape ? MarkdownV2.escape(source) : source}\n${quotes}`
   }
 
   /** Quotation */

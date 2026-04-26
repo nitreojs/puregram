@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+
 import { HookRegistry } from '../../src/dispatch/hooks'
 
 describe('HookRegistry', () => {
@@ -25,9 +26,15 @@ describe('HookRegistry', () => {
     const reg = new HookRegistry()
     const trace: string[] = []
 
-    reg.add('onUpdate', async (_, next) => { trace.push('low'); await next() }, { priority: 'low' })
-    reg.add('onUpdate', async (_, next) => { trace.push('high'); await next() }, { priority: 'high' })
-    reg.add('onUpdate', async (_, next) => { trace.push('normal'); await next() })
+    reg.add('onUpdate', async (_, next) => {
+      trace.push('low'); await next()
+    }, { priority: 'low' })
+    reg.add('onUpdate', async (_, next) => {
+      trace.push('high'); await next()
+    }, { priority: 'high' })
+    reg.add('onUpdate', async (_, next) => {
+      trace.push('normal'); await next()
+    })
 
     await reg.run('onUpdate', {} as any)
     expect(trace).toEqual(['high', 'normal', 'low'])
@@ -37,8 +44,12 @@ describe('HookRegistry', () => {
     const reg = new HookRegistry()
     const trace: string[] = []
 
-    reg.add('onUpdate', async () => { trace.push('a') })
-    reg.add('onUpdate', async (_, next) => { trace.push('b'); await next() })
+    reg.add('onUpdate', () => {
+      trace.push('a')
+    })
+    reg.add('onUpdate', async (_, next) => {
+      trace.push('b'); await next()
+    })
 
     await reg.run('onUpdate', {} as any)
     expect(trace).toEqual(['a'])
@@ -46,9 +57,11 @@ describe('HookRegistry', () => {
 
   it('onError returns possibly-replaced error', async () => {
     const reg = new HookRegistry()
-    reg.add('onError', (err) => new Error(`wrapped: ${err.message}`))
+
+    reg.add('onError', err => new Error(`wrapped: ${err.message}`))
 
     const result = await reg.runError(new Error('original'), {} as any)
+
     expect(result.message).toBe('wrapped: original')
   })
 })

@@ -1,0 +1,83 @@
+{
+  "version": { "major": 8, "minor": 0, "patch": 0 },
+  "recentChanges": { "year": 2026, "month": 4, "day": 1 },
+  "source": {
+    "corefork": "https://corefork.telegram.org/bots/api",
+    "core": "https://core.telegram.org/bots/api",
+    "fetchedAt": "2026-04-26T00:00:00.000Z"
+  },
+  "methods": [
+    {
+      "name": "getMe",
+      "description": "Returns basic information about the bot.",
+      "documentationLink": "https://core.telegram.org/bots/api#getme",
+      "multipartOnly": false,
+      "arguments": [],
+      "returnType": { "kind": "reference", "name": "User" }
+    },
+    {
+      "name": "sendMessage",
+      "description": "Sends a text message.",
+      "documentationLink": "https://core.telegram.org/bots/api#sendmessage",
+      "multipartOnly": false,
+      "arguments": [
+        {
+          "name": "chat_id",
+          "description": "Target chat id.",
+          "required": true,
+          "type": { "kind": "union", "of": [{ "kind": "integer" }, { "kind": "string" }] }
+        },
+        {
+          "name": "text",
+          "description": "Message text.",
+          "required": true,
+          "type": { "kind": "string" }
+        }
+      ],
+      "returnType": { "kind": "reference", "name": "Message" }
+    }
+  ],
+  "objects": [
+    {
+      "kind": "object",
+      "name": "User",
+      "description": "Represents a user.",
+      "fields": [
+        { "name": "id", "description": "Unique identifier.", "required": true, "type": { "kind": "integer" } },
+        { "name": "is_bot", "description": "Is bot.", "required": true, "type": { "kind": "bool" } },
+        { "name": "first_name", "description": "First name.", "required": true, "type": { "kind": "string" } },
+        { "name": "last_name", "description": "Last name.", "required": false, "type": { "kind": "string" } }
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "Chat",
+      "description": "Represents a chat.",
+      "fields": [
+        { "name": "id", "description": "Chat id.", "required": true, "type": { "kind": "integer" } },
+        { "name": "type", "description": "Chat type.", "required": true, "type": { "kind": "string", "enumeration": ["private", "group", "supergroup", "channel"] } }
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "Message",
+      "description": "Represents a message.",
+      "fields": [
+        { "name": "message_id", "description": "Message id.", "required": true, "type": { "kind": "integer" } },
+        { "name": "date", "description": "Date.", "required": true, "type": { "kind": "integer" } },
+        { "name": "chat", "description": "Chat.", "required": true, "type": { "kind": "reference", "name": "Chat" } },
+        { "name": "from", "description": "Sender.", "required": false, "type": { "kind": "reference", "name": "User" } },
+        { "name": "text", "description": "Text.", "required": false, "type": { "kind": "string" } }
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "Update",
+      "description": "Represents an incoming update.",
+      "fields": [
+        { "name": "update_id", "description": "Update id.", "required": true, "type": { "kind": "integer" } },
+        { "name": "message", "description": "New incoming message.", "required": false, "type": { "kind": "reference", "name": "Message" } }
+      ]
+    }
+  ]
+}

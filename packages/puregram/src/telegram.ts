@@ -22,11 +22,11 @@ import { PollingTransport, type StartPollingOptions } from './transport/polling'
 import { createWebhookCallback } from './transport/webhook'
 
 /* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
-export interface Telegram<Ext = Record<string, unknown>> extends TelegramShortcuts {}
+export interface Telegram<Ext = unknown> extends TelegramShortcuts {}
 /* eslint-enable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export class Telegram<Ext = Record<string, unknown>> {
+export class Telegram<Ext = unknown> {
   readonly options: ResolvedTelegramOptions
   readonly api: TelegramApi
 
@@ -72,14 +72,15 @@ export class Telegram<Ext = Record<string, unknown>> {
 
   extend<N extends string, Ext2> (
     plugin: Plugin<N, Ext2>
-  ): Telegram<Ext & { [K in N]: Awaited<Ext2> }> {
+  ): Telegram<Ext & { [K in N]: Awaited<Ext2> }> & Ext & { [K in N]: Awaited<Ext2> } {
     if (this.started) {
       throw new Error('cannot extend after .start() — plugins must be queued before start')
     }
 
     this.pendingPlugins.push(plugin as Plugin)
 
-    return this as unknown as Telegram<Ext & { [K in N]: Awaited<Ext2> }>
+    return this as unknown as
+      Telegram<Ext & { [K in N]: Awaited<Ext2> }> & Ext & { [K in N]: Awaited<Ext2> }
   }
 
   has (pluginName: string): boolean {

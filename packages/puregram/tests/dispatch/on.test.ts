@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
+
 import { Dispatcher } from '../../src/dispatch/on'
 
 describe('Dispatcher', () => {
@@ -18,6 +19,7 @@ describe('Dispatcher', () => {
   it('supports off()', async () => {
     const d = new Dispatcher()
     const h = vi.fn()
+
     d.on('message', h)
     d.off('message', h)
     await d.runUserHandlers({ kind: 'message' } as any)
@@ -27,8 +29,13 @@ describe('Dispatcher', () => {
   it('runs multiple handlers in registration order', async () => {
     const d = new Dispatcher()
     const trace: string[] = []
-    d.on('message', () => { trace.push('a') })
-    d.on('message', () => { trace.push('b') })
+
+    d.on('message', () => {
+      trace.push('a')
+    })
+    d.on('message', () => {
+      trace.push('b')
+    })
     await d.runUserHandlers({ kind: 'message' } as any)
     expect(trace).toEqual(['a', 'b'])
   })

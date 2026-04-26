@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+
 import { createPlugin } from '../../src/plugins/plugin'
 
 describe('createPlugin', () => {
@@ -7,6 +8,7 @@ describe('createPlugin', () => {
       name: 'my-plugin',
       install: () => ({ hello: () => 'world' })
     })
+
     expect(p.name).toBe('my-plugin')
     expect(typeof p.install).toBe('function')
   })
@@ -17,6 +19,7 @@ describe('createPlugin', () => {
       dependsOn: ['session', 'flow'],
       install: () => ({})
     })
+
     expect(p.dependsOn).toEqual(['session', 'flow'])
   })
 
@@ -26,6 +29,7 @@ describe('createPlugin', () => {
       install: () => ({ get: (k: string) => k.toUpperCase() })
     })
     const ext = p.install({} as never) as { get: (k: string) => string }
+
     expect(ext.get('x')).toBe('X')
   })
 })

@@ -13,7 +13,7 @@ export class PluginRegistry {
     return this.installed.has(name)
   }
 
-  names (): string[] {
+  names () {
     return [...this.installed.keys()]
   }
 }

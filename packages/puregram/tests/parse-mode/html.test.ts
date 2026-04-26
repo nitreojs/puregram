@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+
 import { HTML } from '../../src/parse-mode'
 
 describe('HTML', () => {

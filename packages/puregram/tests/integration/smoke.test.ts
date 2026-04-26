@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+
 import { Telegram, createPlugin } from '../../src'
 import { MockTelegram } from '../helpers/mock-telegram'
 
@@ -11,8 +12,10 @@ describe('integration smoke', () => {
       mock.expect('getMe', { ok: true, result: { id: 1, is_bot: true, first_name: 'bot', username: 'testbot' } })
 
       let pulls = 0
+
       mock.expect('getUpdates', () => {
         pulls++
+
         if (pulls === 1) {
           return {
             ok: true,
@@ -21,6 +24,7 @@ describe('integration smoke', () => {
             ]
           }
         }
+
         return { ok: true, result: [] }
       })
 
@@ -33,10 +37,14 @@ describe('integration smoke', () => {
         .extend(session)
 
       const received: unknown[] = []
-      tg.on('message', (u) => {
+
+      tg.on('message', u => {
         received.push(u)
         ;(tg as any).session.greetings++
-        if (pulls >= 1) tg.stopPolling()
+
+        if (pulls >= 1) {
+          tg.stopPolling()
+        }
       })
 
       await tg.startPolling()
@@ -53,13 +61,14 @@ describe('integration smoke', () => {
     const baseUrl = await mock.start()
 
     try {
-      mock.expect('sendMessage', (params) => ({
+      mock.expect('sendMessage', params => ({
         ok: true,
         result: { message_id: 42, date: 0, chat: { id: params.chat_id, type: 'private' }, text: params.text }
       }))
 
       const tg = new Telegram({ token: 'TEST', apiBaseUrl: baseUrl })
       const sent = await tg.send(100, 'hello')
+
       expect((sent as any).message_id).toBe(42)
     } finally {
       await mock.stop()
@@ -75,8 +84,9 @@ describe('integration smoke', () => {
 
       const tg = new Telegram({ token: 'TEST', apiBaseUrl: baseUrl })
       const result = await (tg.api as any).sendMessage({ chat_id: 1, text: 'x', suppress: true })
+
       expect(Telegram.isErrorResponse(result)).toBe(true)
-      expect((result as any).error_code).toBe(403)
+      expect((result).error_code).toBe(403)
     } finally {
       await mock.stop()
     }

@@ -1,10 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
-import { runRequest, type RunRequestDeps } from '../../src/api/lifecycle'
+
+import { runRequest } from '../../src/api/lifecycle'
 import { HookRegistry } from '../../src/dispatch/hooks'
 import { defaultHttpClient } from '../../src/http/client'
 import type { HttpClient } from '../../src/http/client'
 
-const baseDeps = (httpClient: HttpClient = defaultHttpClient): RunRequestDeps => ({
+const baseDeps = (httpClient: HttpClient = defaultHttpClient) => ({
   options: {
     token: 'TEST',
     httpClient: undefined,
@@ -32,6 +33,7 @@ describe('runRequest', () => {
     const deps = baseDeps(httpClient)
 
     const result = await runRequest(deps, 'getMe', undefined)
+
     expect(result).toEqual({ id: 1 })
   })
 
@@ -60,6 +62,7 @@ describe('runRequest', () => {
     const deps = baseDeps(httpClient)
 
     const out = await runRequest(deps, 'sendMessage', { chat_id: 1, text: 'hi', suppress: true })
+
     expect(out).toEqual({ ok: false, error_code: 400, description: 'bad' })
   })
 
@@ -72,10 +75,19 @@ describe('runRequest', () => {
     }
     const deps = baseDeps(httpClient)
     const trace: string[] = []
-    deps.hooks.add('onBeforeRequest', async (_ctx, next) => { trace.push('before'); await next() })
-    deps.hooks.add('onRequestIntercept', async (_ctx, next) => { trace.push('intercept-req'); await next() })
-    deps.hooks.add('onResponseIntercept', async (_ctx, next) => { trace.push('intercept-res'); await next() })
-    deps.hooks.add('onAfterRequest', async (_ctx, next) => { trace.push('after'); await next() })
+
+    deps.hooks.add('onBeforeRequest', async (_ctx, next) => {
+      trace.push('before'); await next()
+    })
+    deps.hooks.add('onRequestIntercept', async (_ctx, next) => {
+      trace.push('intercept-req'); await next()
+    })
+    deps.hooks.add('onResponseIntercept', async (_ctx, next) => {
+      trace.push('intercept-res'); await next()
+    })
+    deps.hooks.add('onAfterRequest', async (_ctx, next) => {
+      trace.push('after'); await next()
+    })
 
     await runRequest(deps, 'getMe', undefined)
     expect(trace).toEqual(['before', 'intercept-req', 'intercept-res', 'after'])

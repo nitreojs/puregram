@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
+
 import { defaultHttpClient } from '../../src/http/client'
 
 describe('defaultHttpClient', () => {
@@ -8,6 +9,7 @@ describe('defaultHttpClient', () => {
 
   it('returns status + json from a fetch response', async () => {
     const mockJson = { ok: true, result: { foo: 1 } }
+
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
       status: 200,
       json: () => Promise.resolve(mockJson)

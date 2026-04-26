@@ -33,7 +33,7 @@ export const DEFAULT_OPTIONS: Omit<ResolvedTelegramOptions, 'token' | 'httpClien
   useLocal: false
 }
 
-export function resolveOptions (input: TelegramOptions): ResolvedTelegramOptions {
+export function resolveOptions (input: TelegramOptions) {
   return {
     ...DEFAULT_OPTIONS,
     ...input,

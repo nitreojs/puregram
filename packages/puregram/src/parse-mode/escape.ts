@@ -12,7 +12,7 @@ const replaceRegexpChar = (char: string) => (
     .replace(/\|/g, '\\|')
 )
 
-export const replaceChars = (source: string, chars: string[] | string): string => {
+export const replaceChars = (source: string, chars: string[] | string) => {
   let edited = source
   const actualChars = !Array.isArray(chars) ? chars.split('') : chars
 

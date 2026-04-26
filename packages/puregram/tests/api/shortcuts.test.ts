@@ -1,12 +1,15 @@
 import { describe, it, expect, vi } from 'vitest'
+
 import { Telegram } from '../../src/telegram'
 
 const stubApi = (tg: Telegram, method: string, returns: unknown = undefined) => {
   const fn = vi.fn().mockResolvedValue(returns)
+
   Object.defineProperty(tg, 'api', {
     value: { [method]: fn },
     configurable: true
   })
+
   return fn
 }
 

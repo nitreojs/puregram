@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
+
 import { createApiProxy, type ApiCaller } from '../../src/api/proxy'
 
 describe('createApiProxy', () => {
@@ -7,6 +8,7 @@ describe('createApiProxy', () => {
     const api = createApiProxy(caller)
 
     const result = await (api as any).getMe()
+
     expect(caller).toHaveBeenCalledWith('getMe', undefined)
     expect(result).toEqual({ id: 1, is_bot: true })
   })

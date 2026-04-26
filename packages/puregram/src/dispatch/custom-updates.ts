@@ -12,7 +12,7 @@ export class CustomUpdate<N extends string = string, P extends Record<string, un
 export class CustomUpdateRegistry {
   private readonly defined = new Set<string>()
 
-  define (kind: string): void {
+  define (kind: string) {
     this.defined.add(kind)
   }
 
@@ -20,10 +20,11 @@ export class CustomUpdateRegistry {
     return this.defined.has(kind)
   }
 
-  build (kind: string, payload: Record<string, unknown>): CustomUpdate {
+  build (kind: string, payload: Record<string, unknown>) {
     if (!this.defined.has(kind)) {
       throw new Error(`custom update kind '${kind}' is not defined; call tg.defineUpdate('${kind}') first`)
     }
+
     return new CustomUpdate(kind, payload)
   }
 }

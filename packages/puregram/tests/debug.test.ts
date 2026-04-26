@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+
 import { createDebug } from '../src/debug'
 
 describe('createDebug', () => {
@@ -10,6 +11,7 @@ describe('createDebug', () => {
     stderr = []
     vi.spyOn(process.stderr, 'write').mockImplementation((chunk: any) => {
       stderr.push(String(chunk))
+
       return true
     })
   })
@@ -22,6 +24,7 @@ describe('createDebug', () => {
   it('does nothing when env is unset', () => {
     delete process.env.PUREGRAM_DEBUG
     const log = createDebug('puregram:api')
+
     log('hello %s', 'world')
     expect(stderr).toHaveLength(0)
   })
@@ -29,6 +32,7 @@ describe('createDebug', () => {
   it('writes when env matches namespace', () => {
     process.env.PUREGRAM_DEBUG = 'puregram:api'
     const log = createDebug('puregram:api')
+
     log('hello %s', 'world')
     expect(stderr.join('')).toContain('puregram:api')
     expect(stderr.join('')).toContain('hello world')
@@ -37,6 +41,7 @@ describe('createDebug', () => {
   it('matches via wildcard', () => {
     process.env.PUREGRAM_DEBUG = 'puregram:*'
     const log = createDebug('puregram:updates')
+
     log('x')
     expect(stderr.join('')).toContain('x')
   })
@@ -45,6 +50,7 @@ describe('createDebug', () => {
     process.env.PUREGRAM_DEBUG = 'puregram:api:*'
     const log = createDebug('puregram:api')
     const ext = log.extend('sendMessage')
+
     ext('called')
     expect(stderr.join('')).toContain('puregram:api:sendMessage')
   })

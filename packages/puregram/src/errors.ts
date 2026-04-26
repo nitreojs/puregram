@@ -13,12 +13,16 @@ export class TelegramError extends Error {
   constructor (options: TelegramErrorOptions) {
     super(options.description)
     this.code = options.error_code
-    if (options.cause !== undefined) this.cause = options.cause
+
+    if (options.cause !== undefined) {
+      this.cause = options.cause
+    }
+
     this.name = this.constructor.name
     Error.captureStackTrace(this, this.constructor)
   }
 
-  toJSON (): { name: string, code: number, message: string, cause?: unknown } {
+  toJSON () {
     return {
       name: this.name,
       code: this.code,
@@ -40,6 +44,9 @@ export class ApiError extends TelegramError {
 
   constructor (response: ApiResponseError) {
     super({ error_code: response.error_code, description: response.description })
-    if (response.parameters !== undefined) this.parameters = response.parameters
+
+    if (response.parameters !== undefined) {
+      this.parameters = response.parameters
+    }
   }
 }

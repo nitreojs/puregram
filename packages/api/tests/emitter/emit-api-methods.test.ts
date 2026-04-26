@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { describe, it, expect } from 'vitest'
+
 import { emitApiMethods } from '../../scripts/lib/emitter/emit-api-methods'
 import type { Schema } from '../../scripts/lib/schema-types'
 
@@ -18,6 +20,6 @@ describe('emitApiMethods', () => {
     expect(out).toContain('export interface ApiMethods')
     expect(out).toContain('sendMessage: api.sendMessage')
     expect(out).toContain('getMe: api.getMe')
-    expect(out).toContain("import * as api from \"./methods\"")
+    expect(out).toContain('import * as api from "./methods"')
   })
 })

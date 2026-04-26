@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import { mergeFragments } from '../../scripts/lib/parser/merge'
+
 import type { SchemaFragment } from '../../scripts/lib/parser/corefork'
+import { mergeFragments } from '../../scripts/lib/parser/merge'
 
 const baseFragment: SchemaFragment = {
   version: { major: 8, minor: 0, patch: 0 },
@@ -37,6 +38,7 @@ describe('mergeFragments', () => {
     }
 
     const schema = mergeFragments(corefork, core)
+
     expect(schema.methods).toHaveLength(1)
     expect(schema.methods[0].description).toBe('core desc')
     expect(schema.version.minor).toBe(6)
@@ -69,6 +71,7 @@ describe('mergeFragments', () => {
     }
 
     const schema = mergeFragments(corefork, core)
+
     expect(schema.methods[0].description).toBe('corefork desc')
     expect(schema.version.minor).toBe(7)
   })
@@ -102,6 +105,7 @@ describe('mergeFragments', () => {
     }
 
     const schema = mergeFragments(corefork, core)
+
     expect(schema.methods[0].description).toBe('core desc')
   })
 
@@ -116,6 +120,7 @@ describe('mergeFragments', () => {
     }
 
     const schema = mergeFragments(corefork, core)
+
     expect(schema.methods.map(m => m.name).sort()).toEqual(['newBetaMethod', 'oldStableMethod'])
   })
 })

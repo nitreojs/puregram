@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest'
 import { readFile, readdir } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { describe, it, expect } from 'vitest'
+
 import type { Schema } from '../scripts/lib/schema-types'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -11,6 +13,7 @@ describe('schema checkpoint', () => {
     const schemaDir = resolve(__dirname, '..', 'schema')
     const files = await readdir(schemaDir)
     const versionFiles = files.filter(f => /^\d+\.\d+\.\d+\.json$/.test(f))
+
     expect(versionFiles.length).toBeGreaterThan(0)
   })
 
@@ -32,6 +35,7 @@ describe('schema checkpoint', () => {
     }
 
     const sendMessage = schema.methods.find(m => m.name === 'sendMessage')!
+
     expect(sendMessage.arguments.find(a => a.name === 'chat_id')).toBeDefined()
     expect(sendMessage.arguments.find(a => a.name === 'text')).toBeDefined()
   })

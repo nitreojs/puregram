@@ -12,7 +12,7 @@ describe('MediaGroupBuffer', () => {
   })
 
   it('flushes after the window with all accumulated messages', () => {
-    const emits: Array<{ id: string, count: number }> = []
+    const emits: { id: string, count: number }[] = []
     const buf = new MediaGroupBuffer(1000, (id, messages) => {
       emits.push({ id, count: messages.length })
     })

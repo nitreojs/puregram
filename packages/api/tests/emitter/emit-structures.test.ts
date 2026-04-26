@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { describe, it, expect } from 'vitest'
+
 import { emitStructures } from '../../scripts/lib/emitter/emit-structures'
 import type { Schema } from '../../scripts/lib/schema-types'
 
@@ -31,7 +33,7 @@ describe('emitStructures', () => {
 
     expect(out).toContain('[INSPECT]()')
 
-    expect(out).toContain("import type {")
-    expect(out).toContain("import { INSPECT, makeInspect } from \"./inspect\"")
+    expect(out).toContain('import type {')
+    expect(out).toContain('import { INSPECT, makeInspect } from "./inspect"')
   })
 })

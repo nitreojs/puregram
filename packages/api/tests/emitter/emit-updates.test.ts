@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { describe, it, expect } from 'vitest'
+
 import { emitUpdates } from '../../scripts/lib/emitter/emit-updates'
 import type { Schema } from '../../scripts/lib/schema-types'
 
@@ -26,7 +28,7 @@ describe('emitUpdates', () => {
     expect(out).toContain('this.tg.api.sendMessage')
     expect(out).toContain('chat_id: this.raw.chat.id')
 
-    expect(out).toContain("import type { TelegramLike } from \"../telegram-like\"")
-    expect(out).toContain("import { INSPECT, makeInspect } from \"./inspect\"")
+    expect(out).toContain('import type { TelegramLike } from "../telegram-like"')
+    expect(out).toContain('import { INSPECT, makeInspect } from "./inspect"')
   })
 })

@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { describe, it, expect } from 'vitest'
+
 import { emitFactories } from '../../scripts/lib/emitter/emit-factories'
 import type { Schema } from '../../scripts/lib/schema-types'
 
@@ -14,6 +16,7 @@ describe('emitFactories', () => {
     ) as Schema
 
     const out = emitFactories(schema)
+
     expect(out).toContain('AUTO-GENERATED')
     expect(out).not.toContain('export class InputMedia')
   })
@@ -26,7 +29,8 @@ describe('emitFactories', () => {
       methods: [],
       objects: [
         {
-          kind: 'object', name: 'InputMediaPhoto',
+          kind: 'object',
+          name: 'InputMediaPhoto',
           description: 'A photo to be sent.',
           fields: [
             { name: 'type', description: '', required: true, type: { kind: 'string', enumeration: ['photo'] } },
@@ -35,7 +39,8 @@ describe('emitFactories', () => {
           ]
         },
         {
-          kind: 'object', name: 'InputMediaVideo',
+          kind: 'object',
+          name: 'InputMediaVideo',
           description: 'A video to be sent.',
           fields: [
             { name: 'type', description: '', required: true, type: { kind: 'string', enumeration: ['video'] } },
@@ -46,6 +51,7 @@ describe('emitFactories', () => {
     }
 
     const out = emitFactories(schema)
+
     expect(out).toContain('export class InputMedia')
     expect(out).toContain('static photo(')
     expect(out).toContain('static video(')

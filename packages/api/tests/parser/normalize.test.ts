@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+
 import { parseTypeRef } from '../../scripts/lib/parser/normalize'
 
 describe('parseTypeRef', () => {

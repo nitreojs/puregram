@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { describe, it, expect } from 'vitest'
+
 import { analyzeShortcuts } from '../../scripts/lib/emitter/shortcut-analyzer'
 import type { Schema } from '../../scripts/lib/schema-types'
 
@@ -14,9 +16,10 @@ describe('analyzeShortcuts', () => {
     ) as Schema
 
     const result = analyzeShortcuts(schema)
-    const onMessage = result.byKind['message'] ?? []
+    const onMessage = result.byKind.message ?? []
 
     const send = onMessage.find(s => s.method === 'sendMessage')
+
     expect(send).toBeDefined()
     expect(send!.filledArgs.map(a => a.schemaArg).sort()).toEqual(['chat_id'])
     expect(send!.userArgs.map(a => a.name)).toContain('text')
@@ -28,7 +31,8 @@ describe('analyzeShortcuts', () => {
     ) as Schema
 
     const result = analyzeShortcuts(schema)
-    const onCallbackQuery = result.byKind['callback_query'] ?? []
+    const onCallbackQuery = result.byKind.callback_query ?? []
+
     expect(onCallbackQuery.find(s => s.method === 'sendMessage')).toBeUndefined()
   })
 })

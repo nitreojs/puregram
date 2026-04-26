@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
 import ts from 'typescript'
+import { describe, it, expect } from 'vitest'
+
 import { formatModule } from '../../scripts/lib/emitter/format'
 
 describe('formatModule', () => {

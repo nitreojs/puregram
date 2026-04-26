@@ -17,7 +17,8 @@
     "sourceType": "module",
     "project": [
       "./tsconfig.json",
-      "./packages/*/tsconfig.json"
+      "./packages/*/tsconfig.json",
+      "./packages/*/tsconfig.eslint.json"
     ]
   },
   "plugins": [

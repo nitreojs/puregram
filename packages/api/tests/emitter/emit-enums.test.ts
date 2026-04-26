@@ -1,7 +1,9 @@
-import { describe, it, expect } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import { describe, it, expect } from 'vitest'
+
 import { emitEnums } from '../../scripts/lib/emitter/emit-enums'
 import type { Schema } from '../../scripts/lib/schema-types'
 

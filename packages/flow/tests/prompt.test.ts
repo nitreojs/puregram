@@ -9,12 +9,12 @@ describe('prompt', () => {
 
     await t.start()
 
-    const sent: Array<{ chat: number | string, text: string }> = []
+    const sent: { chat: number | string, text: string }[] = []
 
-    ;(t as any).send = async (chat: number, text: string) => {
+    ;(t as any).send = (chat: number, text: string) => {
       sent.push({ chat, text })
 
-      return { message_id: 1, chat: { id: chat }, text }
+      return Promise.resolve({ message_id: 1, chat: { id: chat }, text })
     }
 
     const promptPromise = (t as any).flow.prompt(100, 'name?', {

@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
 import ts from 'typescript'
+import { describe, it, expect } from 'vitest'
+
 import { typeRefToTs, jsDoc, tsExportInterface } from '../../scripts/lib/emitter/ts-factory'
 import type { SchemaTypeRef } from '../../scripts/lib/schema-types'
 
@@ -17,6 +18,7 @@ describe('typeRefToTs', () => {
       [{ kind: 'float' }, 'number'],
       [{ kind: 'true' }, 'true']
     ]
+
     for (const [input, expected] of cases) {
       expect(print(typeRefToTs(input))).toBe(expected)
     }
@@ -55,6 +57,7 @@ describe('jsDoc', () => {
     )
     const withDoc = jsDoc('hello\nworld', decl)
     const out = print(withDoc)
+
     expect(out).toContain('/**')
     expect(out).toContain('* hello')
     expect(out).toContain('* world')
@@ -67,6 +70,7 @@ describe('tsExportInterface', () => {
       { name: 'x', type: ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword), optional: false }
     ])
     const out = print(decl)
+
     expect(out).toContain('export interface Foo')
     expect(out).toContain('x: number')
   })

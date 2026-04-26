@@ -3,17 +3,20 @@ import { describe, it, expect } from 'vitest'
 describe('generated output smoke', () => {
   it('imports the package entrypoint without throwing', async () => {
     const mod = await import('../src/index')
+
     expect(mod).toBeDefined()
   })
 
   it('exposes canonical types', async () => {
     const types = await import('../src/generated/types')
+
     expect(types).toBeDefined()
   })
 
   it('exposes a User wrapper class', async () => {
     const { User } = await import('../src/generated/structures')
     const u = new User({ id: 1, is_bot: false, first_name: 'foo' })
+
     expect(u.id).toBe(1)
     expect(u.firstName).toBe('foo')
     expect(u.isBot).toBe(false)
@@ -22,6 +25,7 @@ describe('generated output smoke', () => {
   it('User wrapper has fromPayload factory', async () => {
     const { User } = await import('../src/generated/structures')
     const u = User.fromPayload({ id: 7, is_bot: true, first_name: 'bot' })
+
     expect(u).toBeInstanceOf(User)
     expect(u.id).toBe(7)
   })
@@ -42,8 +46,10 @@ describe('generated output smoke', () => {
 
   it('exposes the InputMedia factory if InputMedia objects are in schema', async () => {
     const factories = await import('../src/generated/factories')
+
     if ((factories as any).InputMedia) {
       const result = (factories as any).InputMedia.photo({ media: 'cat.jpg' })
+
       expect(result.type).toBe('photo')
       expect(result.media).toBe('cat.jpg')
     }

@@ -1,0 +1,41 @@
+{
+  "name": "@puregram/flow",
+  "version": "3.0.0-alpha.0",
+  "description": "conversational primitives plugin for puregram v3 — waitFor, prompt, mediaGroup",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "puregram": "*",
+    "@puregram/api": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/flow"
+  },
+  "keywords": [
+    "telegram", "telegram-bot-api", "puregram", "plugin", "waitFor", "prompt", "media-group"
+  ]
+}

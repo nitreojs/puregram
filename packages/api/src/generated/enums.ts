@@ -1,0 +1,69 @@
+/// AUTO-GENERATED FILE — do not edit by hand
+/// Bot API 9.6.0
+/// source: https://corefork.telegram.org/bots/api
+/// generated at: 2026-04-26T09:30:18.745Z
+/// see scripts/emit.ts in @puregram/api
+
+export enum AttachmentType {
+    Animation = "animation",
+    Audio = "audio",
+    Contact = "contact",
+    Document = "document",
+    Location = "location",
+    Photo = "photo",
+    Poll = "poll",
+    Sticker = "sticker",
+    Story = "story",
+    Venue = "venue",
+    VideoNote = "video_note",
+    Video = "video",
+    Voice = "voice"
+}
+
+export enum ParseMode {
+    Markdown = "Markdown",
+    MarkdownV2 = "MarkdownV2",
+    HTML = "HTML"
+}
+
+export enum ChatAction {
+    Typing = "typing",
+    UploadPhoto = "upload_photo",
+    RecordVideo = "record_video",
+    UploadVideo = "upload_video",
+    RecordVoice = "record_voice",
+    UploadVoice = "upload_voice",
+    RecordVideoNote = "record_video_note",
+    UploadVideoNote = "upload_video_note",
+    UploadDocument = "upload_document",
+    ChooseSticker = "choose_sticker",
+    FindLocation = "find_location"
+}
+
+export enum ChatMemberStatus {
+    Creator = "creator",
+    Administrator = "administrator",
+    Member = "member",
+    Restricted = "restricted",
+    Left = "left",
+    Kicked = "kicked"
+}
+
+export enum BotCommandScopeType {
+    Default = "default",
+    AllPrivateChats = "all_private_chats",
+    AllGroupChats = "all_group_chats",
+    AllChatAdministrators = "all_chat_administrators",
+    Chat = "chat",
+    ChatAdministrators = "chat_administrators",
+    ChatMember = "chat_member"
+}
+
+export enum DiceEmoji {
+    Dice = "\uD83C\uDFB2",
+    Dart = "\uD83C\uDFAF",
+    Basketball = "\uD83C\uDFC0",
+    Football = "\u26BD",
+    SlotMachine = "\uD83C\uDFB0",
+    Bowling = "\uD83C\uDFB3"
+}

@@ -415,10 +415,9 @@ function emitUpdateKindUnion (): ts.TypeAliasDeclaration {
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier('UpdateKind'),
     undefined,
-    ts.factory.createUnionTypeNode(
-      UPDATE_KINDS.map(k =>
-        ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(k.kindName))
-      )
+    ts.factory.createTypeOperatorNode(
+      ts.SyntaxKind.KeyOfKeyword,
+      ts.factory.createTypeReferenceNode('UpdateKindMap')
     )
   )
 }

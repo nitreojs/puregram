@@ -1,6 +1,7 @@
 import type { UpdateKindMap } from '@puregram/api'
 import { createPlugin, type Telegram } from 'puregram'
 
+import { createPrompt, type PromptOptions } from './prompt'
 import { createWaitForMiddleware } from './wait-for/middleware'
 import { WaiterRegistry } from './wait-for/registry'
 import type { WaitForOptions } from './wait-for/types'
@@ -11,6 +12,11 @@ export interface FlowExtension {
     kind: K,
     options?: WaitForOptions<K>
   ) => Promise<UpdateKindMap[K] | null>
+  prompt: (
+    chat: number | string,
+    text: string,
+    options?: PromptOptions
+  ) => Promise<UpdateKindMap['message'] | null>
   cancelAll: () => void
 }
 
@@ -25,7 +31,9 @@ export function flow () {
         registry.cancelAll()
       })
 
-      return {
+      const prompt = createPrompt(tg, registry)
+
+      const ext: FlowExtension = {
         waitFor: <K extends keyof UpdateKindMap> (kind: K, options: WaitForOptions<K> = {}) => {
           const waiter = new Waiter<K>(kind, options)
 
@@ -33,10 +41,13 @@ export function flow () {
 
           return waiter.promise
         },
+        prompt,
         cancelAll: () => {
           registry.cancelAll()
         }
       }
+
+      return ext
     }
   })
 }

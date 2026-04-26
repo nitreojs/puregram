@@ -1,11 +1,10 @@
-import type { Schema, SchemaVersion } from '../schema-types'
+import type { Schema, SchemaVersion, SchemaRecentChanges } from '../schema-types'
 import type { SchemaFragment } from './corefork'
 
-// pick the newer-version side as primary so its descriptions / argument shapes win on conflict
+// pick the newer-version side as primary; tied versions fall back to whichever side
+// reports a more recent `recentChanges` date so we don't randomly favour one source
 export function mergeFragments (corefork: SchemaFragment, core: SchemaFragment): Omit<Schema, 'source'> {
-  const [primary, secondary] = compareVersions(corefork.version, core.version) >= 0
-    ? [corefork, core]
-    : [core, corefork]
+  const [primary, secondary] = pickPrimary(corefork, core)
 
   const methodsByName = new Map<string, Schema['methods'][number]>()
   for (const m of secondary.methods) methodsByName.set(m.name, m)
@@ -23,8 +22,24 @@ export function mergeFragments (corefork: SchemaFragment, core: SchemaFragment):
   }
 }
 
+function pickPrimary (corefork: SchemaFragment, core: SchemaFragment): [SchemaFragment, SchemaFragment] {
+  const cmp = compareVersions(corefork.version, core.version)
+  if (cmp > 0) return [corefork, core]
+  if (cmp < 0) return [core, corefork]
+
+  const dateCmp = compareDates(corefork.recentChanges, core.recentChanges)
+  if (dateCmp >= 0) return [corefork, core]
+  return [core, corefork]
+}
+
 function compareVersions (a: SchemaVersion, b: SchemaVersion): number {
   if (a.major !== b.major) return a.major - b.major
   if (a.minor !== b.minor) return a.minor - b.minor
   return a.patch - b.patch
+}
+
+function compareDates (a: SchemaRecentChanges, b: SchemaRecentChanges): number {
+  if (a.year !== b.year) return a.year - b.year
+  if (a.month !== b.month) return a.month - b.month
+  return a.day - b.day
 }

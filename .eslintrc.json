@@ -30,7 +30,8 @@
     "**/dist/**",
     "**/node_modules/**",
     "**/coverage/**",
-    "**/.turbo/**"
+    "**/.turbo/**",
+    "**/src/generated/**"
   ],
   "rules": {
     "@typescript-eslint/no-explicit-any": "error",

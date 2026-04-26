@@ -380,7 +380,9 @@ export interface CopyMessageParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -1024,7 +1026,9 @@ export interface EditMessageCaptionParams {
     /**
      * A JSON-serialized object for an inline keyboard.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -1055,7 +1059,9 @@ export interface EditMessageChecklistParams {
     /**
      * A JSON-serialized object for the new inline keyboard for the message
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -1110,7 +1116,9 @@ export interface EditMessageLiveLocationParams {
     /**
      * A JSON-serialized object for a new inline keyboard.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -1145,7 +1153,9 @@ export interface EditMessageMediaParams {
     /**
      * A JSON-serialized object for a new inline keyboard.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -1176,7 +1186,9 @@ export interface EditMessageReplyMarkupParams {
     /**
      * A JSON-serialized object for an inline keyboard.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -1223,7 +1235,9 @@ export interface EditMessageTextParams {
     /**
      * A JSON-serialized object for an inline keyboard.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -2595,7 +2609,9 @@ export interface SendAnimationParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -2683,7 +2699,9 @@ export interface SendAudioParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -2756,7 +2774,9 @@ export interface SendChecklistParams {
     /**
      * A JSON-serialized object for an inline keyboard
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -2827,7 +2847,9 @@ export interface SendContactParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -2886,7 +2908,9 @@ export interface SendDiceParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -2965,7 +2989,9 @@ export interface SendDocumentParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3016,7 +3042,9 @@ export interface SendGameParams {
     /**
      * A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -3190,7 +3218,9 @@ export interface SendInvoiceParams {
     /**
      * A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -3269,7 +3299,9 @@ export interface SendLocationParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3391,7 +3423,9 @@ export interface SendMessageParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3505,7 +3539,9 @@ export interface SendPaidMediaParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3584,7 +3620,9 @@ export interface SendPhotoParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3715,7 +3753,9 @@ export interface SendPollParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3778,7 +3818,9 @@ export interface SendStickerParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3865,7 +3907,9 @@ export interface SendVenueParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -3972,7 +4016,9 @@ export interface SendVideoParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -4043,7 +4089,9 @@ export interface SendVideoNoteParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -4118,7 +4166,9 @@ export interface SendVoiceParams {
     /**
      * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
      */
-    reply_markup?: TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
 }
 
 /**
@@ -4826,7 +4876,9 @@ export interface StopMessageLiveLocationParams {
     /**
      * A JSON-serialized object for a new inline keyboard.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**
@@ -4853,7 +4905,9 @@ export interface StopPollParams {
     /**
      * A JSON-serialized object for a new message inline keyboard.
      */
-    reply_markup?: TelegramInlineKeyboardMarkup;
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
 }
 
 /**

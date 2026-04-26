@@ -51,12 +51,30 @@ function emitParamsInterface (method: SchemaMethod): ts.Node {
     `${pascalCase(method.name)}Params`,
     method.arguments.map(a => ({
       name: a.name,
-      type: typeRefToTs(a.type),
+      // reply_markup accepts either the bot-api shape directly or anything with a matching
+      // toJSON() — covers Keyboard / InlineKeyboard / ForceReply / RemoveKeyboard class instances
+      // without forcing the user to call .toJSON() at every call site
+      type: a.name === 'reply_markup'
+        ? wrapWithToJSON(typeRefToTs(a.type))
+        : typeRefToTs(a.type),
       optional: !a.required,
       doc: a.description
     })),
     method.description
   )
+}
+
+function wrapWithToJSON (inner: ts.TypeNode): ts.TypeNode {
+  const toJSONShape = ts.factory.createTypeLiteralNode([
+    ts.factory.createPropertySignature(
+      undefined,
+      ts.factory.createIdentifier('toJSON'),
+      undefined,
+      ts.factory.createFunctionTypeNode(undefined, [], inner)
+    )
+  ])
+
+  return ts.factory.createUnionTypeNode([inner, toJSONShape])
 }
 
 function emitMethodAlias (method: SchemaMethod): ts.Node {

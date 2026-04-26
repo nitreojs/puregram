@@ -9,6 +9,6 @@ export interface TelegramLike {
       ? (...args: A) => R
       : never
   } & {
-    call: (method: string, params?: Record<string, any>) => Promise<unknown>
+    call: (method: string, params?: Record<string, unknown>) => Promise<unknown>
   }
 }

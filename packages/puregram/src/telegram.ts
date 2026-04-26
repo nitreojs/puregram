@@ -17,6 +17,9 @@ import { Dispatcher } from './dispatch/on'
 import { CustomUpdateRegistry } from './dispatch/custom-updates'
 import { resolveInstallOrder } from './plugins/installer'
 import { PluginRegistry } from './plugins/registry'
+import { PollingTransport, type StartPollingOptions } from './transport/polling'
+import { createWebhookCallback, type WebhookCallback } from './transport/webhook'
+import { buildUpdate } from './dispatch/update-builder'
 
 export interface Telegram<Ext = {}> extends TelegramShortcuts {}
 
@@ -30,6 +33,7 @@ export class Telegram<Ext = {}> {
   protected readonly plugins = new PluginRegistry()
   protected readonly pendingPlugins: Plugin[] = []
   protected readonly httpClient: HttpClient
+  protected polling: PollingTransport | undefined
 
   protected started = false
 
@@ -120,6 +124,46 @@ export class Telegram<Ext = {}> {
   emit (kind: string, payload: Record<string, unknown>): void {
     const update = this.customUpdates.build(kind, payload)
     void this.dispatch(update)
+  }
+
+  async startPolling (options: StartPollingOptions = {}): Promise<void> {
+    await this.start()
+
+    if (!(this as any).bot) {
+      const me = await (this.api as any).getMe()
+      ;(this as any).bot = me
+    }
+
+    this.polling ??= new PollingTransport({
+      tg: this as Telegram,
+      buildAndDispatch: async (rawUpdate) => {
+        const update = buildUpdate(rawUpdate, this) as { kind: string }
+        await this.dispatch(update)
+      }
+    })
+
+    await this.polling.start(options)
+  }
+
+  stopPolling (): void {
+    this.polling?.stop()
+  }
+
+  getWebhookCallback (secret?: string): WebhookCallback {
+    return createWebhookCallback({
+      buildAndDispatch: async (rawUpdate) => {
+        const update = buildUpdate(rawUpdate, this) as { kind: string }
+        await this.dispatch(update)
+      }
+    }, secret)
+  }
+
+  async dropPendingUpdates (value?: boolean | string[]): Promise<number> {
+    this.polling ??= new PollingTransport({
+      tg: this as Telegram,
+      buildAndDispatch: async () => {}
+    })
+    return this.polling.drop(value)
   }
 
   protected async dispatch (update: { kind: string }): Promise<void> {

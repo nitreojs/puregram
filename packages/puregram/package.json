@@ -1,145 +1,55 @@
 {
   "name": "puregram",
-  "version": "2.27.0",
+  "version": "3.0.0-alpha.0",
   "description": "powerful and modern telegram bot api sdk for node.js and typescript 😁",
+  "type": "module",
   "main": "./lib/index.js",
-  "author": "starkow",
-  "license": "WTFPL",
-  "engines": {
-    "node": ">=18.18.0"
-  },
-  "dependencies": {
-    "debug": "^4.3.2",
-    "form-data-encoder": "^1.7.2",
-    "formdata-node": "^4.3.2",
-    "inspectable": "^2.0.0",
-    "middleware-io": "^2.8.0",
-    "reflect-metadata": "^0.1.13",
-    "tslib": "^2.6.2",
-    "undici": "^5.26.2"
-  },
   "types": "./lib/index.d.ts",
-  "scripts": {
-    "clear-lib": "rm -rf lib/",
-    "build": "yarn clear-lib && tsc --project tsconfig.json"
-  },
-  "keywords": [
-    "telegram",
-    "telegram-api",
-    "telegram-bot-api",
-    "telegram bot api",
-    "bot api",
-    "botapi",
-    "typescript",
-    "bot"
-  ],
-  "files": [
-    "lib"
-  ],
   "exports": {
-    ".": "./lib/index.js",
-    "./types": "./lib/types/types.js",
-    "./hooks": "./lib/types/hooks.js",
-    "./enums": "./lib/types/enums.js",
-    "./interfaces": "./lib/types/interfaces.js",
-    "./contexts": "./lib/contexts/index.js",
-    "./keyboards": "./lib/common/keyboards/index.js",
-    "./structures": "./lib/common/structures/index.js",
-    "./parse-mode": "./lib/common/parse-mode/index.js",
-    "./attachments": "./lib/common/attachments/index.js",
-    "./generated": "./lib/generated/index.js",
-    "./generated/methods": "./lib/generated/methods.js",
-    "./generated/api-methods": "./lib/generated/api-methods.js",
-    "./generated/telegram-interfaces": "./lib/generated/telegram-interfaces.js",
-    "./api-methods": "./lib/generated/api-methods.js",
-    "./methods": "./lib/generated/methods.js",
-    "./telegram-interfaces": "./lib/generated/telegram-interfaces.js"
-  },
-  "typesVersions": {
-    "*": {
-      "types": [
-        "./lib/types/types"
-      ],
-      "hooks": [
-        "./lib/types/hooks"
-      ],
-      "enums": [
-        "./lib/types/enums"
-      ],
-      "interfaces": [
-        "./lib/types/interfaces"
-      ],
-      "contexts": [
-        "./lib/contexts"
-      ],
-      "keyboards": [
-        "./lib/common/keyboards"
-      ],
-      "structures": [
-        "./lib/common/structures"
-      ],
-      "parse-mode": [
-        "./lib/common/parse-mode"
-      ],
-      "attachments": [
-        "./lib/common/attachments"
-      ],
-      "generated": [
-        "./lib/generated"
-      ],
-      "generated/methods": [
-        "./lib/generated/methods"
-      ],
-      "generated/api-methods": [
-        "./lib/generated/api-methods"
-      ],
-      "generated/telegram-interfaces": [
-        "./lib/generated/telegram-interfaces"
-      ],
-      "api-methods": [
-        "./lib/generated/api-methods"
-      ],
-      "methods": [
-        "./lib/generated/methods"
-      ],
-      "telegram-interfaces": [
-        "./lib/generated/telegram-interfaces"
-      ]
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./keyboards": {
+      "types": "./lib/keyboards/index.d.ts",
+      "import": "./lib/keyboards/index.js"
+    },
+    "./parse-mode": {
+      "types": "./lib/parse-mode/index.d.ts",
+      "import": "./lib/parse-mode/index.js"
+    },
+    "./plugin": {
+      "types": "./lib/plugins/plugin.d.ts",
+      "import": "./lib/plugins/plugin.js"
     }
   },
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@puregram/api": "*",
+    "form-data-encoder": "^4.0.2",
+    "formdata-node": "^6.0.3"
+  },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
-    "@types/common-tags": "^1.8.1",
-    "@types/debug": "^4.1.7",
-    "@types/jest": "^27.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "common-tags": "^1.8.0",
-    "dpdm": "^3.14.0",
-    "eslint": "^8.20.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "fastify": "^4.23.2",
-    "husky": "^8.0.1",
-    "jest": "^27.2.4",
-    "ts-jest": "^27.0.5",
-    "ts-node": "^10.9.1",
-    "tslib": "^2.6.2",
-    "typedoc": "^0.22.5",
-    "typescript": "^4.9.1-beta",
-    "undici": "^5.26.2"
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
   },
-  "directories": {
-    "lib": "lib"
-  },
+  "license": "WTFPL",
+  "author": "starkow",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nitreojs/puregram.git",
+    "url": "https://github.com/nitreojs/puregram",
     "directory": "packages/puregram"
   },
-  "bugs": "https://github.com/nitreojs/puregram/issues",
-  "homepage": "https://github.com/nitreojs/puregram#readme"
+  "keywords": [
+    "telegram", "telegram-api", "telegram-bot-api", "bot api", "bot", "typescript"
+  ]
 }

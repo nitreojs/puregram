@@ -1,11 +1,3 @@
-import 'reflect-metadata'
-
-export { Middleware, NextMiddleware } from 'middleware-io'
-
-export * from './telegram'
-export * from './contexts'
-export * from './errors'
-export * from './common'
-
-export * from './types/enums'
-export * from './types/hooks'
+// puregram v3 — runtime core
+// real exports filled in as sections complete
+export {}

@@ -1,4 +1,5 @@
 // @puregram/flow — conversational primitives plugin
-// real exports filled in as sections complete
 
-export {}
+export { WaitForCancelled, WaitForTimeout } from './errors'
+export { flow, type FlowExtension } from './flow'
+export type { Filter, WaitForOptions, WaitForResult } from './wait-for/types'

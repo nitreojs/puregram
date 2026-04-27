@@ -16,6 +16,7 @@ export type { WebhookCallback } from './transport/webhook'
 
 export { CustomUpdate } from './dispatch/custom-updates'
 export { UnsupportedUpdate } from './dispatch/update-builder'
+export { attach } from './dispatch/attach'
 
 export * from './keyboards'
 export * from './parse-mode'

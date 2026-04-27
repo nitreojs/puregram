@@ -4,6 +4,7 @@ import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
 import { installShortcuts } from './api/shortcuts'
+import { attach } from './dispatch/attach'
 import { CustomUpdateRegistry } from './dispatch/custom-updates'
 import type { Middleware, ErrorHandler, HookOptions, RequestHookName } from './dispatch/hooks'
 import { HookRegistry } from './dispatch/hooks'
@@ -121,11 +122,11 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * register a handler for one or more update kinds.
+   * register a handler for one or more update kinds
    *
    * handlers compose middleware-style: each handler receives `(update, next)`. calling
    * `next()` lets the next registered handler run, returning without calling `next()`
-   * halts the chain. order of registration is order of execution.
+   * halts the chain. order of registration is order of execution
    *
    * @example
    * tg.on('message', async (message, next) => {
@@ -156,21 +157,30 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * register a handler that fires when a `message` update's text matches `/<name>`,
-   * `/<name> <args>`, or `/<name>@<bot>` (group mention form). non-matching messages
-   * are passed through to the next handler via `next()`. matching messages run the
-   * handler and stop the chain unless the handler itself calls `next()`.
+   * register a regex-matched message handler
+   *
+   * - string form — `tg.command('hello', …)` matches `/hello`, `/hello arg`,
+   *   `/hello@bot`, or a `/hello`-prefixed line break (Telegram command conventions)
+   * - regex form — `tg.command(/^\/h(?:e|i)/, …)` runs against `message.text` directly
+   *
+   * non-matching messages call `next()` so the chain continues. matching messages get
+   * a `match: RegExpMatchArray` attached to the update before the handler runs, so
+   * `message.match.groups?.foo` works for named-capture regexes
    *
    * @example
-   * tg.command('start', async (message) => {
-   *   await message.send('hello')
+   * tg.command(/^\/say(?:\s+(?<text>.+))?$/i, async (message) => {
+   *   await message.send(message.match?.groups?.text ?? 'silence')
    * })
    */
+  command (name: string, handler: UpdateHandler<UpdateKindMap['message']>): this
+  command (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['message']>): this
   command (
-    name: string,
+    nameOrPattern: string | RegExp,
     handler: UpdateHandler<UpdateKindMap['message']>
-  ) {
-    const prefix = `/${name}`
+  ): this {
+    const pattern = typeof nameOrPattern === 'string'
+      ? buildCommandPattern(nameOrPattern)
+      : nameOrPattern
 
     return this.on('message', async (message, next) => {
       const text = message.raw.text
@@ -181,17 +191,15 @@ export class Telegram<Ext = unknown> {
         return
       }
 
-      const matched = text === prefix ||
-        text.startsWith(`${prefix} `) ||
-        text.startsWith(`${prefix}@`) ||
-        text.startsWith(`${prefix}\n`)
+      const result = pattern.exec(text)
 
-      if (!matched) {
+      if (result === null) {
         await next()
 
         return
       }
 
+      attach(message, 'match', result)
       await handler(message, next)
     })
   }
@@ -285,5 +293,27 @@ export class Telegram<Ext = unknown> {
       await this.dispatcher.runUserHandlers(update)
       await next()
     })
+  }
+}
+
+// build the canonical telegram command regex for a string-form `tg.command(name, …)`
+// matches `/<name>`, `/<name> args`, `/<name>@bot`, or `/<name>\nstuff`
+// case-insensitive because telegram clients sometimes uppercase commands sent via auto-complete
+function buildCommandPattern (name: string) {
+  return new RegExp(`^/${escapeRegExp(name)}(?:[\\s@\\n]|$)`, 'i')
+}
+
+function escapeRegExp (s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+declare module '@puregram/api' {
+  interface MessageUpdate {
+    /**
+     * regex match attached by `tg.command(pattern, handler)` when the pattern matched
+     *
+     * undefined for messages that didn't reach a `command` matcher
+     */
+    match?: RegExpMatchArray
   }
 }

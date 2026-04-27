@@ -125,4 +125,69 @@ describe('Telegram', () => {
 
     expect(trace).toEqual(['use', 'handler'])
   })
+
+  it('command(name) matches `/<name>` and the canonical variants, passes others to next()', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const seen: string[] = []
+    const fellThrough: string[] = []
+
+    tg.command('hello', (message) => {
+      seen.push(message.raw.text!)
+    })
+    tg.on('message', (message) => {
+      fellThrough.push(message.raw.text!)
+    })
+
+    const dispatch = (text: string) => (tg as any).dispatch({
+      kind: 'message',
+      raw: { message_id: 1, date: 0, chat: { id: 100, type: 'private' }, text }
+    })
+
+    await dispatch('/hello')
+    await dispatch('/hello world')
+    await dispatch('/hello@stubbot')
+    await dispatch('/HELLO')
+    await dispatch('/hi')
+    await dispatch('not a command')
+
+    expect(seen).toEqual(['/hello', '/hello world', '/hello@stubbot', '/HELLO'])
+    expect(fellThrough).toEqual(['/hi', 'not a command'])
+  })
+
+  it('command(regex) attaches RegExpMatchArray to message.match while the handler runs', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    let captured: string | undefined
+
+    tg.command(/^\/say(?:\s+(?<text>.+))?$/i, (message) => {
+      captured = message.match?.groups?.text
+    })
+
+    await (tg as any).dispatch({
+      kind: 'message',
+      raw: { message_id: 1, date: 0, chat: { id: 100, type: 'private' }, text: '/say hello world' }
+    })
+
+    expect(captured).toBe('hello world')
+  })
+
+  it('command(name) does nothing when message.text is missing (e.g. photo-only message)', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const seen: string[] = []
+    let fellThrough = false
+
+    tg.command('hello', () => {
+      seen.push('matched')
+    })
+    tg.on('message', () => {
+      fellThrough = true
+    })
+
+    await (tg as any).dispatch({
+      kind: 'message',
+      raw: { message_id: 1, date: 0, chat: { id: 100, type: 'private' } }
+    })
+
+    expect(seen).toEqual([])
+    expect(fellThrough).toBe(true)
+  })
 })

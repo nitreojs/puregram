@@ -7,11 +7,13 @@ import { MockTelegram } from '../../../puregram/tests/helpers/mock-telegram'
 
 export { MockTelegram }
 
-export async function makeTg (extras: (t: Telegram) => Telegram = t => t) {
+// generic over the extras return so `t => t.extend(flow())` keeps the typed
+// extension on tg (e.g. tg.flow.{waitFor,prompt,cancelAll}, tg.media_group.flush)
+export async function makeTg<T = Telegram> (extras: (t: Telegram) => T = t => t as unknown as T) {
   const mock = new MockTelegram()
   const baseUrl = await mock.start()
 
-  // canned getMe so .startPolling() works
+  // canned getMe so .start() / .startPolling() resolve
   mock.expect('getMe', {
     ok: true,
     result: { id: 1, is_bot: true, first_name: 'bot', username: 'testbot' }

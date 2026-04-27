@@ -30,13 +30,13 @@ describe('@puregram/flow — e2e', () => {
     await tg.start()
 
     const startPromise = tg.startPolling()
-    const matched = await (tg as any).flow.waitFor('message')
+    const matched = await tg.flow.waitFor('message')
 
     tg.stopPolling()
     await startPromise
 
-    expect(matched.kind).toBe('message')
-    expect(matched.raw.text).toBe('hello')
+    expect(matched?.kind).toBe('message')
+    expect(matched?.raw.text).toBe('hello')
 
     await mock.stop()
   })
@@ -78,12 +78,12 @@ describe('@puregram/flow — e2e', () => {
     await tg.start()
 
     const startPromise = tg.startPolling()
-    const reply = await (tg as any).flow.prompt(100, 'name?', { from: 7 })
+    const reply = await tg.flow.prompt(100, 'name?', { from: 7 })
 
     tg.stopPolling()
     await startPromise
 
-    expect(reply.raw.text).toBe('alice')
+    expect(reply?.raw.text).toBe('alice')
 
     await mock.stop()
   })
@@ -158,7 +158,7 @@ describe('@puregram/flow — e2e', () => {
     await sleep(50)
 
     // force emission deterministically rather than waiting on the album window
-    ;(tg as any).media_group.flush()
+    tg.media_group.flush()
 
     // let the synthesised media_group dispatch settle through the chain
     await new Promise(resolve => setImmediate(resolve))
@@ -217,7 +217,7 @@ describe('@puregram/flow — e2e', () => {
       }
 
       // awaited prompt from inside a handler — must not deadlock
-      resolvedReply = await (tg as any).flow.prompt(msg.raw.chat.id, 'name?')
+      resolvedReply = await tg.flow.prompt(msg.raw.chat.id, 'name?')
     })
 
     await tg.start()
@@ -263,12 +263,12 @@ describe('@puregram/flow — e2e', () => {
     await tg.start()
 
     const startPromise = tg.startPolling()
-    const matched = await (tg as any).flow.waitFor('message')
+    const matched = await tg.flow.waitFor('message')
 
     tg.stopPolling()
     await startPromise
 
-    expect(matched.raw.text).toBe('plain')
+    expect(matched?.raw.text).toBe('plain')
 
     await mock.stop()
   })

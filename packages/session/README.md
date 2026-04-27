@@ -8,6 +8,8 @@ transparent persistent session plugin for puregram v3:
 - `ttl(value, ms)` — wrap a value to make it expire on read after `ms` milliseconds. lazy, no background timer.
 - `MemoryStorage` — default in-memory backend. ships out of the box. plug your own `SessionStorage` for redis/sql/etc.
 
+> **future:** non-memory backends (`RedisStorage`, `PostgresStorage`, `SqliteStorage`, `RedisJsonStorage`, ...) will land in a separate `@puregram/storage` package once there are 2+ confirmed backends. for now `SessionStorage` is the public interface — implement it against your store and pass it via `session({ storage: yourStorage })`.
+
 ## typing
 
 `update.session` is typed via declaration-merging: importing `@puregram/session` augments every supported update class (`MessageUpdate`, `CallbackQueryUpdate`, ...) with a required `session: SessionContext` field. **importing the package implies usage** — there is no per-file opt-out. if you don't want session typing on every handler, don't import `@puregram/session`.

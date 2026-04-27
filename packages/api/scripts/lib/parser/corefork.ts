@@ -1,5 +1,6 @@
-import { extractFromHtml } from './normalize'
 import type { Schema, SchemaVersion, SchemaRecentChanges } from '../schema-types'
+
+import { extractFromHtml } from './normalize'
 
 export interface SchemaFragment {
   methods: Schema['methods']
@@ -8,7 +9,7 @@ export interface SchemaFragment {
   recentChanges: SchemaRecentChanges
 }
 
-export function parseCorefork (html: string): SchemaFragment {
+export function parseCorefork (html: string) {
   const { methods, objects } = extractFromHtml(html)
   const version = parseVersion(html)
   const recentChanges = parseRecentChanges(html)
@@ -16,7 +17,7 @@ export function parseCorefork (html: string): SchemaFragment {
   return { methods, objects, version, recentChanges }
 }
 
-function parseVersion (html: string): SchemaVersion {
+function parseVersion (html: string) {
   const match = html.match(/Bot API\s+(\d+)\.(\d+)(?:\.(\d+))?/i)
 
   if (!match) {
@@ -30,15 +31,16 @@ function parseVersion (html: string): SchemaVersion {
   }
 }
 
-function parseRecentChanges (html: string): SchemaRecentChanges {
+function parseRecentChanges (html: string) {
   const match = html.match(/(\w+)\s+(\d{1,2}),\s+(\d{4})/)
 
   if (!match) {
     const now = new Date()
+
     return { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }
   }
 
-  const monthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December'].indexOf(match[1])
+  const monthIndex = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].indexOf(match[1])
 
   return {
     year: Number(match[3]),

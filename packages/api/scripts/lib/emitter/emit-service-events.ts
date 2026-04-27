@@ -1,14 +1,17 @@
 import ts from 'typescript'
+
 import type { Schema } from '../schema-types'
-import { UPDATE_KINDS } from './updates-config'
+
 import { formatModule } from './format'
 import { versionString } from './load-schema'
+import { UPDATE_KINDS } from './updates-config'
 
-export function emitServiceEvents (schema: Schema): string {
+export function emitServiceEvents (schema: Schema) {
   const derived = UPDATE_KINDS.filter(k => k.source.kind === 'derived')
 
-  const mapEntries = derived.map(k => {
+  const mapEntries = derived.map((k) => {
     const messageField = (k.source as { kind: 'derived', messageField: string }).messageField
+
     return ts.factory.createPropertyAssignment(
       ts.factory.createStringLiteral(messageField),
       ts.factory.createStringLiteral(k.kindName)
@@ -40,8 +43,9 @@ export function emitServiceEvents (schema: Schema): string {
         undefined,
         ts.factory.createAsExpression(
           ts.factory.createArrayLiteralExpression(
-            derived.map(k => {
+            derived.map((k) => {
               const messageField = (k.source as { kind: 'derived', messageField: string }).messageField
+
               return ts.factory.createStringLiteral(messageField)
             }),
             false

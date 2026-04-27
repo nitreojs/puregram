@@ -10,7 +10,7 @@ export interface FormatModuleInput {
 
 const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed })
 
-export function formatModule (input: FormatModuleInput): string {
+export function formatModule (input: FormatModuleInput) {
   const file = ts.createSourceFile('out.ts', '', ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS)
 
   const banner = [

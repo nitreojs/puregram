@@ -70,6 +70,6 @@ export const WRAPPED_STRUCTURES = [
 
 export type WrappedStructureName = typeof WRAPPED_STRUCTURES[number]
 
-export function isWrappedStructure (name: string): boolean {
+export function isWrappedStructure (name: string) {
   return (WRAPPED_STRUCTURES as readonly string[]).includes(name)
 }

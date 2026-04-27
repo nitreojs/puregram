@@ -1,10 +1,12 @@
 import ts from 'typescript'
+
 import type { Schema, SchemaObject } from '../schema-types'
-import { typeRefToTs, tsExportInterface, tsExportTypeAlias } from './ts-factory'
+
 import { formatModule } from './format'
 import { versionString } from './load-schema'
+import { typeRefToTs, tsExportInterface, tsExportTypeAlias } from './ts-factory'
 
-export function emitTypes (schema: Schema): string {
+export function emitTypes (schema: Schema) {
   const nodes: ts.Node[] = []
 
   for (const obj of schema.objects) {
@@ -19,7 +21,7 @@ export function emitTypes (schema: Schema): string {
   })
 }
 
-function emitObject (obj: SchemaObject): ts.Node {
+function emitObject (obj: SchemaObject) {
   const name = `Telegram${obj.name}`
 
   if (obj.kind === 'object') {

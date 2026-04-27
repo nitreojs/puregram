@@ -4,7 +4,7 @@
 /// generated at: 2026-04-26T09:30:18.745Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBoostRemoved, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatPermissions, TelegramChosenInlineResult, TelegramForceReply, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPoll, TelegramPollAnswer, TelegramPreCheckoutQuery, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramShippingOption, TelegramShippingQuery, TelegramSuggestedPostParameters } from "./types";
+import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted, TelegramVideoNote, TelegramVoice } from "./types";
 import type { AnswerCallbackQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
 import type { TelegramLike } from "../telegram-like";
 import { Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, WebAppData, WriteAccessAllowed } from "./structures";
@@ -58,6 +58,24 @@ export class MessageUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -70,16 +88,58 @@ export class MessageUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -106,10 +166,70 @@ export class MessageUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -122,6 +242,42 @@ export class MessageUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -148,10 +304,46 @@ export class MessageUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -202,10 +394,70 @@ export class MessageUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -220,6 +472,12 @@ export class MessageUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -230,6 +488,30 @@ export class MessageUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -250,6 +532,36 @@ export class MessageUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -260,6 +572,36 @@ export class MessageUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -280,10 +622,70 @@ export class MessageUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -308,6 +710,60 @@ export class MessageUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -1207,6 +1663,24 @@ export class EditedMessageUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -1219,16 +1693,58 @@ export class EditedMessageUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -1255,10 +1771,70 @@ export class EditedMessageUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -1271,6 +1847,42 @@ export class EditedMessageUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -1297,10 +1909,46 @@ export class EditedMessageUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -1351,10 +1999,70 @@ export class EditedMessageUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -1369,6 +2077,12 @@ export class EditedMessageUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -1379,6 +2093,30 @@ export class EditedMessageUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -1399,6 +2137,36 @@ export class EditedMessageUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -1409,6 +2177,36 @@ export class EditedMessageUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -1429,10 +2227,70 @@ export class EditedMessageUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -1457,6 +2315,60 @@ export class EditedMessageUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -2356,6 +3268,24 @@ export class ChannelPostUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -2368,16 +3298,58 @@ export class ChannelPostUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -2404,10 +3376,70 @@ export class ChannelPostUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -2420,6 +3452,42 @@ export class ChannelPostUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -2446,10 +3514,46 @@ export class ChannelPostUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -2500,10 +3604,70 @@ export class ChannelPostUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -2518,6 +3682,12 @@ export class ChannelPostUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -2528,6 +3698,30 @@ export class ChannelPostUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -2548,6 +3742,36 @@ export class ChannelPostUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -2558,6 +3782,36 @@ export class ChannelPostUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -2578,10 +3832,70 @@ export class ChannelPostUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -2606,6 +3920,60 @@ export class ChannelPostUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -3505,6 +4873,24 @@ export class EditedChannelPostUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -3517,16 +4903,58 @@ export class EditedChannelPostUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -3553,10 +4981,70 @@ export class EditedChannelPostUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -3569,6 +5057,42 @@ export class EditedChannelPostUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -3595,10 +5119,46 @@ export class EditedChannelPostUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -3649,10 +5209,70 @@ export class EditedChannelPostUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -3667,6 +5287,12 @@ export class EditedChannelPostUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -3677,6 +5303,30 @@ export class EditedChannelPostUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -3697,6 +5347,36 @@ export class EditedChannelPostUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -3707,6 +5387,36 @@ export class EditedChannelPostUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -3727,10 +5437,70 @@ export class EditedChannelPostUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -3755,6 +5525,60 @@ export class EditedChannelPostUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -4613,10 +6437,40 @@ export class BusinessConnectionUpdate {
     private _user?: User;
     constructor(public raw: TelegramBusinessConnection, private tg: TelegramLike) { }
     /**
+     * Unique identifier of the business connection
+     */
+    get id(): string {
+        return this.raw.id;
+    }
+    /**
      * Business account user that created the business connection
      */
     get user(): User {
         return this._user ??= new User(this.raw.user);
+    }
+    /**
+     * Identifier of a private chat with the user who created the business connection. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get userChatId(): number {
+        return this.raw.user_chat_id;
+    }
+    /**
+     * Date the connection was established in Unix time
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Rights of the business bot
+     */
+    get rights(): TelegramBusinessBotRights | undefined {
+        return this.raw.rights;
+    }
+    /**
+     * True, if the connection is active
+     */
+    get isEnabled(): boolean {
+        return this.raw.is_enabled;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -4678,6 +6532,24 @@ export class BusinessMessageUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -4690,16 +6562,58 @@ export class BusinessMessageUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -4726,10 +6640,70 @@ export class BusinessMessageUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -4742,6 +6716,42 @@ export class BusinessMessageUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -4768,10 +6778,46 @@ export class BusinessMessageUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -4822,10 +6868,70 @@ export class BusinessMessageUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -4840,6 +6946,12 @@ export class BusinessMessageUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -4850,6 +6962,30 @@ export class BusinessMessageUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -4870,6 +7006,36 @@ export class BusinessMessageUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -4880,6 +7046,36 @@ export class BusinessMessageUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -4900,10 +7096,70 @@ export class BusinessMessageUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -4928,6 +7184,60 @@ export class BusinessMessageUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -5827,6 +8137,24 @@ export class EditedBusinessMessageUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -5839,16 +8167,58 @@ export class EditedBusinessMessageUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -5875,10 +8245,70 @@ export class EditedBusinessMessageUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -5891,6 +8321,42 @@ export class EditedBusinessMessageUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -5917,10 +8383,46 @@ export class EditedBusinessMessageUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -5971,10 +8473,70 @@ export class EditedBusinessMessageUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -5989,6 +8551,12 @@ export class EditedBusinessMessageUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -5999,6 +8567,30 @@ export class EditedBusinessMessageUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -6019,6 +8611,36 @@ export class EditedBusinessMessageUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -6029,6 +8651,36 @@ export class EditedBusinessMessageUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -6049,10 +8701,70 @@ export class EditedBusinessMessageUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -6077,6 +8789,60 @@ export class EditedBusinessMessageUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -6935,10 +9701,22 @@ export class DeletedBusinessMessagesUpdate {
     private _chat?: Chat;
     constructor(public raw: TelegramBusinessMessagesDeleted, private tg: TelegramLike) { }
     /**
+     * Unique identifier of the business connection
+     */
+    get businessConnectionId(): string {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Information about a chat in the business account. The bot may not have access to the chat or the corresponding user.
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * The list of identifiers of deleted messages in the chat of the business account
+     */
+    get messageIds(): number[] {
+        return this.raw.message_ids;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -6967,6 +9745,12 @@ export class MessageReactionUpdate {
         return this._chat ??= new Chat(this.raw.chat);
     }
     /**
+     * Unique identifier of the message inside the chat
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
      * Optional. The user that changed the reaction, if the user isn't anonymous
      */
     get user(): User | undefined {
@@ -6977,6 +9761,24 @@ export class MessageReactionUpdate {
      */
     get actorChat(): Chat | undefined {
         return this.raw.actor_chat ? (this._actorChat ??= new Chat(this.raw.actor_chat)) : undefined;
+    }
+    /**
+     * Date of the change in Unix time
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Previous list of reaction types that were set by the user
+     */
+    get oldReaction(): TelegramReactionType[] {
+        return this.raw.old_reaction;
+    }
+    /**
+     * New list of reaction types that have been set by the user
+     */
+    get newReaction(): TelegramReactionType[] {
+        return this.raw.new_reaction;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -7004,6 +9806,18 @@ export class MessageReactionCountUpdate {
         return this._chat ??= new Chat(this.raw.chat);
     }
     /**
+     * Unique message identifier inside the chat
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Date of the change in Unix time
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
      * List of reactions that are present on the message
      */
     get reactions(): ReactionCount[] {
@@ -7029,10 +9843,34 @@ export class InlineQueryUpdate {
     private _location?: Location;
     constructor(public raw: TelegramInlineQuery, private tg: TelegramLike) { }
     /**
+     * Unique identifier for this query
+     */
+    get id(): string {
+        return this.raw.id;
+    }
+    /**
      * Sender
      */
     get from(): User {
         return this._from ??= new User(this.raw.from);
+    }
+    /**
+     * Text of the query (up to 256 characters)
+     */
+    get query(): string {
+        return this.raw.query;
+    }
+    /**
+     * Offset of the results to be returned, can be controlled by the bot
+     */
+    get offset(): string {
+        return this.raw.offset;
+    }
+    /**
+     * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+     */
+    get chatType(): string | undefined {
+        return this.raw.chat_type;
     }
     /**
      * Optional. Sender location, only for bots that request user location
@@ -7069,6 +9907,12 @@ export class ChosenInlineResultUpdate {
     private _location?: Location;
     constructor(public raw: TelegramChosenInlineResult, private tg: TelegramLike) { }
     /**
+     * The unique identifier for the result that was chosen
+     */
+    get resultId(): string {
+        return this.raw.result_id;
+    }
+    /**
      * The user that chose the result
      */
     get from(): User {
@@ -7079,6 +9923,18 @@ export class ChosenInlineResultUpdate {
      */
     get location(): Location | undefined {
         return this.raw.location ? (this._location ??= new Location(this.raw.location)) : undefined;
+    }
+    /**
+     * Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
+     */
+    get inlineMessageId(): string | undefined {
+        return this.raw.inline_message_id;
+    }
+    /**
+     * The query that was used to obtain the result
+     */
+    get query(): string {
+        return this.raw.query;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -7099,10 +9955,64 @@ export class CallbackQueryUpdate {
     private _from?: User;
     constructor(public raw: TelegramCallbackQuery, private tg: TelegramLike) { }
     /**
+     * Unique identifier for this query
+     */
+    get id(): string {
+        return this.raw.id;
+    }
+    /**
      * Sender
      */
     get from(): User {
         return this._from ??= new User(this.raw.from);
+    }
+    /**
+     * Optional. Message sent by the bot with the callback button that originated the query
+     */
+    get message(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.message;
+    }
+    /**
+     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query.
+     */
+    get inlineMessageId(): string | undefined {
+        return this.raw.inline_message_id;
+    }
+    /**
+     * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
+     */
+    get chatInstance(): string {
+        return this.raw.chat_instance;
+    }
+    /**
+     * Optional. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
+     */
+    get data(): string | undefined {
+        return this.raw.data;
+    }
+    /**
+     * Optional. Short name of a Game to be returned, serves as the unique identifier for the game
+     */
+    get gameShortName(): string | undefined {
+        return this.raw.game_short_name;
+    }
+    /**
+     * Shortcut for `message?.chat.id`.
+     */
+    get chatId(): number | undefined {
+        return this.raw.message?.chat.id;
+    }
+    /**
+     * Shortcut for `message?.message_id`.
+     */
+    get messageId(): number | undefined {
+        return this.raw.message?.message_id;
+    }
+    /**
+     * Shortcut for `from.id`.
+     */
+    get userId(): number {
+        return this.raw.from.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -7133,10 +10043,22 @@ export class ShippingQueryUpdate {
     private _shippingAddress?: ShippingAddress;
     constructor(public raw: TelegramShippingQuery, private tg: TelegramLike) { }
     /**
+     * Unique query identifier
+     */
+    get id(): string {
+        return this.raw.id;
+    }
+    /**
      * User who sent the query
      */
     get from(): User {
         return this._from ??= new User(this.raw.from);
+    }
+    /**
+     * Bot-specified invoice payload
+     */
+    get invoicePayload(): string {
+        return this.raw.invoice_payload;
     }
     /**
      * User specified shipping address
@@ -7173,10 +10095,40 @@ export class PreCheckoutQueryUpdate {
     private _orderInfo?: OrderInfo;
     constructor(public raw: TelegramPreCheckoutQuery, private tg: TelegramLike) { }
     /**
+     * Unique query identifier
+     */
+    get id(): string {
+        return this.raw.id;
+    }
+    /**
      * User who sent the query
      */
     get from(): User {
         return this._from ??= new User(this.raw.from);
+    }
+    /**
+     * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars
+     */
+    get currency(): string {
+        return this.raw.currency;
+    }
+    /**
+     * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+     */
+    get totalAmount(): number {
+        return this.raw.total_amount;
+    }
+    /**
+     * Bot-specified invoice payload
+     */
+    get invoicePayload(): string {
+        return this.raw.invoice_payload;
+    }
+    /**
+     * Optional. Identifier of the shipping option chosen by the user
+     */
+    get shippingOptionId(): string | undefined {
+        return this.raw.shipping_option_id;
     }
     /**
      * Optional. Order information provided by the user
@@ -7215,6 +10167,18 @@ export class PollUpdate {
     private _descriptionEntities?: MessageEntity[];
     constructor(public raw: TelegramPoll, private tg: TelegramLike) { }
     /**
+     * Unique poll identifier
+     */
+    get id(): string {
+        return this.raw.id;
+    }
+    /**
+     * Poll question, 1-300 characters
+     */
+    get question(): string {
+        return this.raw.question;
+    }
+    /**
      * Optional. Special entities that appear in the question. Currently, only custom emoji entities are allowed in poll questions
      */
     get questionEntities(): MessageEntity[] | undefined {
@@ -7227,10 +10191,76 @@ export class PollUpdate {
         return this._options ??= this.raw.options.map(x => new PollOption(x));
     }
     /**
+     * Total number of users that voted in the poll
+     */
+    get totalVoterCount(): number {
+        return this.raw.total_voter_count;
+    }
+    /**
+     * True, if the poll is closed
+     */
+    get isClosed(): boolean {
+        return this.raw.is_closed;
+    }
+    /**
+     * True, if the poll is anonymous
+     */
+    get isAnonymous(): boolean {
+        return this.raw.is_anonymous;
+    }
+    /**
+     * Poll type, currently can be “regular” or “quiz”
+     */
+    get type(): string {
+        return this.raw.type;
+    }
+    /**
+     * True, if the poll allows multiple answers
+     */
+    get allowsMultipleAnswers(): boolean {
+        return this.raw.allows_multiple_answers;
+    }
+    /**
+     * True, if the poll allows to change the chosen answer options
+     */
+    get allowsRevoting(): boolean {
+        return this.raw.allows_revoting;
+    }
+    /**
+     * Optional. Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
+     */
+    get correctOptionIds(): number[] | undefined {
+        return this.raw.correct_option_ids;
+    }
+    /**
+     * Optional. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
+     */
+    get explanation(): string | undefined {
+        return this.raw.explanation;
+    }
+    /**
      * Optional. Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
      */
     get explanationEntities(): MessageEntity[] | undefined {
         return this.raw.explanation_entities ? (this._explanationEntities ??= this.raw.explanation_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. Amount of time in seconds the poll will be active after creation
+     */
+    get openPeriod(): number | undefined {
+        return this.raw.open_period;
+    }
+    /**
+     * Optional. Point in time (Unix timestamp) when the poll will be automatically closed
+     */
+    get closeDate(): number | undefined {
+        return this.raw.close_date;
+    }
+    /**
+     * Optional. Description of the poll; for polls inside the Message object only
+     */
+    get description(): string | undefined {
+        return this.raw.description;
     }
     /**
      * Optional. Special entities like usernames, URLs, bot commands, etc. that appear in the description
@@ -7258,6 +10288,12 @@ export class PollAnswerUpdate {
     private _user?: User;
     constructor(public raw: TelegramPollAnswer, private tg: TelegramLike) { }
     /**
+     * Unique poll identifier
+     */
+    get pollId(): string {
+        return this.raw.poll_id;
+    }
+    /**
      * Optional. The chat that changed the answer to the poll, if the voter is anonymous
      */
     get voterChat(): Chat | undefined {
@@ -7268,6 +10304,18 @@ export class PollAnswerUpdate {
      */
     get user(): User | undefined {
         return this.raw.user ? (this._user ??= new User(this.raw.user)) : undefined;
+    }
+    /**
+     * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
+     */
+    get optionIds(): number[] {
+        return this.raw.option_ids;
+    }
+    /**
+     * Persistent identifiers of the chosen answer options. May be empty if the vote was retracted.
+     */
+    get optionPersistentIds(): string[] {
+        return this.raw.option_persistent_ids;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -7304,6 +10352,12 @@ export class MyChatMemberUpdate {
         return this._from ??= new User(this.raw.from);
     }
     /**
+     * Date the change was done in Unix time
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
      * Previous information about the chat member
      */
     get oldChatMember(): ChatMember {
@@ -7320,6 +10374,18 @@ export class MyChatMemberUpdate {
      */
     get inviteLink(): ChatInviteLink | undefined {
         return this.raw.invite_link ? (this._inviteLink ??= new ChatInviteLink(this.raw.invite_link)) : undefined;
+    }
+    /**
+     * Optional. True, if the user joined the chat after sending a direct join request without using an invite link and being approved by an administrator
+     */
+    get viaJoinRequest(): boolean | undefined {
+        return this.raw.via_join_request;
+    }
+    /**
+     * Optional. True, if the user joined the chat via a chat folder invite link
+     */
+    get viaChatFolderInviteLink(): boolean | undefined {
+        return this.raw.via_chat_folder_invite_link;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -8175,6 +11241,12 @@ export class ChatMemberUpdate {
         return this._from ??= new User(this.raw.from);
     }
     /**
+     * Date the change was done in Unix time
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
      * Previous information about the chat member
      */
     get oldChatMember(): ChatMember {
@@ -8191,6 +11263,18 @@ export class ChatMemberUpdate {
      */
     get inviteLink(): ChatInviteLink | undefined {
         return this.raw.invite_link ? (this._inviteLink ??= new ChatInviteLink(this.raw.invite_link)) : undefined;
+    }
+    /**
+     * Optional. True, if the user joined the chat after sending a direct join request without using an invite link and being approved by an administrator
+     */
+    get viaJoinRequest(): boolean | undefined {
+        return this.raw.via_join_request;
+    }
+    /**
+     * Optional. True, if the user joined the chat via a chat folder invite link
+     */
+    get viaChatFolderInviteLink(): boolean | undefined {
+        return this.raw.via_chat_folder_invite_link;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -9042,6 +12126,24 @@ export class ChatJoinRequestUpdate {
      */
     get from(): User {
         return this._from ??= new User(this.raw.from);
+    }
+    /**
+     * Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 5 minutes to send messages until the join request is processed, assuming no other administrator contacted the user.
+     */
+    get userChatId(): number {
+        return this.raw.user_chat_id;
+    }
+    /**
+     * Date the request was sent in Unix time
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Bio of the user.
+     */
+    get bio(): string | undefined {
+        return this.raw.bio;
     }
     /**
      * Optional. Chat invite link that was used by the user to send the join request
@@ -9923,6 +13025,24 @@ export class RemovedChatBoostUpdate {
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
     }
+    /**
+     * Unique identifier of the boost
+     */
+    get boostId(): string {
+        return this.raw.boost_id;
+    }
+    /**
+     * Point in time (Unix timestamp) when the boost was removed
+     */
+    get removeDate(): number {
+        return this.raw.remove_date;
+    }
+    /**
+     * Source of the removed boost
+     */
+    get source(): TelegramChatBoostSource {
+        return this.raw.source;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -9983,6 +13103,24 @@ export class NewChatMembersUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -9995,16 +13133,58 @@ export class NewChatMembersUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -10031,10 +13211,70 @@ export class NewChatMembersUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -10047,6 +13287,42 @@ export class NewChatMembersUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -10073,10 +13349,46 @@ export class NewChatMembersUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -10127,10 +13439,70 @@ export class NewChatMembersUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -10145,6 +13517,12 @@ export class NewChatMembersUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -10155,6 +13533,30 @@ export class NewChatMembersUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -10175,6 +13577,36 @@ export class NewChatMembersUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -10185,6 +13617,36 @@ export class NewChatMembersUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -10205,10 +13667,70 @@ export class NewChatMembersUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -10233,6 +13755,60 @@ export class NewChatMembersUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -11132,6 +14708,24 @@ export class LeftChatMemberUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -11144,16 +14738,58 @@ export class LeftChatMemberUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -11180,10 +14816,70 @@ export class LeftChatMemberUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -11196,6 +14892,42 @@ export class LeftChatMemberUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -11222,10 +14954,46 @@ export class LeftChatMemberUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -11276,10 +15044,70 @@ export class LeftChatMemberUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -11294,6 +15122,12 @@ export class LeftChatMemberUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -11304,6 +15138,30 @@ export class LeftChatMemberUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -11324,6 +15182,36 @@ export class LeftChatMemberUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -11334,6 +15222,36 @@ export class LeftChatMemberUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -11354,10 +15272,70 @@ export class LeftChatMemberUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -11382,6 +15360,60 @@ export class LeftChatMemberUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -12281,6 +16313,24 @@ export class NewChatTitleUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -12293,16 +16343,58 @@ export class NewChatTitleUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -12329,10 +16421,70 @@ export class NewChatTitleUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -12345,6 +16497,42 @@ export class NewChatTitleUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -12371,10 +16559,46 @@ export class NewChatTitleUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -12425,10 +16649,70 @@ export class NewChatTitleUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -12443,6 +16727,12 @@ export class NewChatTitleUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -12453,6 +16743,30 @@ export class NewChatTitleUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -12473,6 +16787,36 @@ export class NewChatTitleUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -12483,6 +16827,36 @@ export class NewChatTitleUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -12503,10 +16877,70 @@ export class NewChatTitleUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -12531,6 +16965,60 @@ export class NewChatTitleUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -13430,6 +17918,24 @@ export class NewChatPhotoUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -13442,16 +17948,58 @@ export class NewChatPhotoUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -13478,10 +18026,70 @@ export class NewChatPhotoUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -13494,6 +18102,42 @@ export class NewChatPhotoUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -13520,10 +18164,46 @@ export class NewChatPhotoUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -13574,10 +18254,70 @@ export class NewChatPhotoUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -13592,6 +18332,12 @@ export class NewChatPhotoUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -13602,6 +18348,30 @@ export class NewChatPhotoUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -13622,6 +18392,36 @@ export class NewChatPhotoUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -13632,6 +18432,36 @@ export class NewChatPhotoUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -13652,10 +18482,70 @@ export class NewChatPhotoUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -13680,6 +18570,60 @@ export class NewChatPhotoUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -14579,6 +19523,24 @@ export class DeleteChatPhotoUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -14591,16 +19553,58 @@ export class DeleteChatPhotoUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -14627,10 +19631,70 @@ export class DeleteChatPhotoUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -14643,6 +19707,42 @@ export class DeleteChatPhotoUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -14669,10 +19769,46 @@ export class DeleteChatPhotoUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -14723,10 +19859,70 @@ export class DeleteChatPhotoUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -14741,6 +19937,12 @@ export class DeleteChatPhotoUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -14751,6 +19953,30 @@ export class DeleteChatPhotoUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -14771,6 +19997,36 @@ export class DeleteChatPhotoUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -14781,6 +20037,36 @@ export class DeleteChatPhotoUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -14801,10 +20087,70 @@ export class DeleteChatPhotoUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -14829,6 +20175,60 @@ export class DeleteChatPhotoUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15728,6 +21128,24 @@ export class GroupChatCreatedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -15740,16 +21158,58 @@ export class GroupChatCreatedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -15776,10 +21236,70 @@ export class GroupChatCreatedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -15792,6 +21312,42 @@ export class GroupChatCreatedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -15818,10 +21374,46 @@ export class GroupChatCreatedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -15872,10 +21464,70 @@ export class GroupChatCreatedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -15890,6 +21542,12 @@ export class GroupChatCreatedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -15900,6 +21558,30 @@ export class GroupChatCreatedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -15920,6 +21602,36 @@ export class GroupChatCreatedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -15930,6 +21642,36 @@ export class GroupChatCreatedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -15950,10 +21692,70 @@ export class GroupChatCreatedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -15978,6 +21780,60 @@ export class GroupChatCreatedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -16877,6 +22733,24 @@ export class PinnedMessageUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -16889,16 +22763,58 @@ export class PinnedMessageUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -16925,10 +22841,70 @@ export class PinnedMessageUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -16941,6 +22917,42 @@ export class PinnedMessageUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -16967,10 +22979,46 @@ export class PinnedMessageUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -17021,10 +23069,70 @@ export class PinnedMessageUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -17039,6 +23147,12 @@ export class PinnedMessageUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -17049,6 +23163,30 @@ export class PinnedMessageUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -17069,6 +23207,36 @@ export class PinnedMessageUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -17079,6 +23247,36 @@ export class PinnedMessageUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -17099,10 +23297,70 @@ export class PinnedMessageUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -17127,6 +23385,60 @@ export class PinnedMessageUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -18026,6 +24338,24 @@ export class InvoiceUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -18038,16 +24368,58 @@ export class InvoiceUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -18074,10 +24446,70 @@ export class InvoiceUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -18090,6 +24522,42 @@ export class InvoiceUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -18116,10 +24584,46 @@ export class InvoiceUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -18170,10 +24674,70 @@ export class InvoiceUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -18188,6 +24752,12 @@ export class InvoiceUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -18198,6 +24768,30 @@ export class InvoiceUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -18218,6 +24812,36 @@ export class InvoiceUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -18228,6 +24852,36 @@ export class InvoiceUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -18248,10 +24902,70 @@ export class InvoiceUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -18276,6 +24990,60 @@ export class InvoiceUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -19175,6 +25943,24 @@ export class SuccessfulPaymentUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -19187,16 +25973,58 @@ export class SuccessfulPaymentUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -19223,10 +26051,70 @@ export class SuccessfulPaymentUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -19239,6 +26127,42 @@ export class SuccessfulPaymentUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -19265,10 +26189,46 @@ export class SuccessfulPaymentUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -19319,10 +26279,70 @@ export class SuccessfulPaymentUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -19337,6 +26357,12 @@ export class SuccessfulPaymentUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -19347,6 +26373,30 @@ export class SuccessfulPaymentUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -19367,6 +26417,36 @@ export class SuccessfulPaymentUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -19377,6 +26457,36 @@ export class SuccessfulPaymentUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -19397,10 +26507,70 @@ export class SuccessfulPaymentUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -19425,6 +26595,60 @@ export class SuccessfulPaymentUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -20324,6 +27548,24 @@ export class UsersSharedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -20336,16 +27578,58 @@ export class UsersSharedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -20372,10 +27656,70 @@ export class UsersSharedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -20388,6 +27732,42 @@ export class UsersSharedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -20414,10 +27794,46 @@ export class UsersSharedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -20468,10 +27884,70 @@ export class UsersSharedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -20486,6 +27962,12 @@ export class UsersSharedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -20496,6 +27978,30 @@ export class UsersSharedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -20516,6 +28022,36 @@ export class UsersSharedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -20526,6 +28062,36 @@ export class UsersSharedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -20546,10 +28112,70 @@ export class UsersSharedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -20574,6 +28200,60 @@ export class UsersSharedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -21473,6 +29153,24 @@ export class ChatSharedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -21485,16 +29183,58 @@ export class ChatSharedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -21521,10 +29261,70 @@ export class ChatSharedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -21537,6 +29337,42 @@ export class ChatSharedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -21563,10 +29399,46 @@ export class ChatSharedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -21617,10 +29489,70 @@ export class ChatSharedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -21635,6 +29567,12 @@ export class ChatSharedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -21645,6 +29583,30 @@ export class ChatSharedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -21665,6 +29627,36 @@ export class ChatSharedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -21675,6 +29667,36 @@ export class ChatSharedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -21695,10 +29717,70 @@ export class ChatSharedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -21723,6 +29805,60 @@ export class ChatSharedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -22622,6 +30758,24 @@ export class WebAppDataUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -22634,16 +30788,58 @@ export class WebAppDataUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -22670,10 +30866,70 @@ export class WebAppDataUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -22686,6 +30942,42 @@ export class WebAppDataUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -22712,10 +31004,46 @@ export class WebAppDataUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -22766,10 +31094,70 @@ export class WebAppDataUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -22784,6 +31172,12 @@ export class WebAppDataUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -22794,6 +31188,30 @@ export class WebAppDataUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -22814,6 +31232,36 @@ export class WebAppDataUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -22824,6 +31272,36 @@ export class WebAppDataUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -22844,10 +31322,70 @@ export class WebAppDataUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -22872,6 +31410,60 @@ export class WebAppDataUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -23771,6 +32363,24 @@ export class VideoChatScheduledUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -23783,16 +32393,58 @@ export class VideoChatScheduledUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -23819,10 +32471,70 @@ export class VideoChatScheduledUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -23835,6 +32547,42 @@ export class VideoChatScheduledUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -23861,10 +32609,46 @@ export class VideoChatScheduledUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -23915,10 +32699,70 @@ export class VideoChatScheduledUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -23933,6 +32777,12 @@ export class VideoChatScheduledUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -23943,6 +32793,30 @@ export class VideoChatScheduledUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -23963,6 +32837,36 @@ export class VideoChatScheduledUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -23973,6 +32877,36 @@ export class VideoChatScheduledUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -23993,10 +32927,70 @@ export class VideoChatScheduledUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -24021,6 +33015,60 @@ export class VideoChatScheduledUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -24920,6 +33968,24 @@ export class VideoChatStartedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -24932,16 +33998,58 @@ export class VideoChatStartedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -24968,10 +34076,70 @@ export class VideoChatStartedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -24984,6 +34152,42 @@ export class VideoChatStartedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -25010,10 +34214,46 @@ export class VideoChatStartedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -25064,10 +34304,70 @@ export class VideoChatStartedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -25082,6 +34382,12 @@ export class VideoChatStartedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -25092,6 +34398,30 @@ export class VideoChatStartedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -25112,6 +34442,36 @@ export class VideoChatStartedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -25122,6 +34482,36 @@ export class VideoChatStartedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -25142,10 +34532,70 @@ export class VideoChatStartedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -25170,6 +34620,60 @@ export class VideoChatStartedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -26069,6 +35573,24 @@ export class VideoChatEndedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -26081,16 +35603,58 @@ export class VideoChatEndedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -26117,10 +35681,70 @@ export class VideoChatEndedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -26133,6 +35757,42 @@ export class VideoChatEndedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -26159,10 +35819,46 @@ export class VideoChatEndedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -26213,10 +35909,70 @@ export class VideoChatEndedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -26231,6 +35987,12 @@ export class VideoChatEndedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -26241,6 +36003,30 @@ export class VideoChatEndedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -26261,6 +36047,36 @@ export class VideoChatEndedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -26271,6 +36087,36 @@ export class VideoChatEndedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -26291,10 +36137,70 @@ export class VideoChatEndedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -26319,6 +36225,60 @@ export class VideoChatEndedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -27218,6 +37178,24 @@ export class VideoChatParticipantsInvitedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -27230,16 +37208,58 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -27266,10 +37286,70 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -27282,6 +37362,42 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -27308,10 +37424,46 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -27362,10 +37514,70 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -27380,6 +37592,12 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -27390,6 +37608,30 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -27410,6 +37652,36 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -27420,6 +37692,36 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -27440,10 +37742,70 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -27468,6 +37830,60 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -28367,6 +38783,24 @@ export class ForumTopicCreatedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -28379,16 +38813,58 @@ export class ForumTopicCreatedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -28415,10 +38891,70 @@ export class ForumTopicCreatedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -28431,6 +38967,42 @@ export class ForumTopicCreatedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -28457,10 +39029,46 @@ export class ForumTopicCreatedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -28511,10 +39119,70 @@ export class ForumTopicCreatedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -28529,6 +39197,12 @@ export class ForumTopicCreatedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -28539,6 +39213,30 @@ export class ForumTopicCreatedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -28559,6 +39257,36 @@ export class ForumTopicCreatedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -28569,6 +39297,36 @@ export class ForumTopicCreatedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -28589,10 +39347,70 @@ export class ForumTopicCreatedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -28617,6 +39435,60 @@ export class ForumTopicCreatedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -29516,6 +40388,24 @@ export class ForumTopicEditedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -29528,16 +40418,58 @@ export class ForumTopicEditedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -29564,10 +40496,70 @@ export class ForumTopicEditedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -29580,6 +40572,42 @@ export class ForumTopicEditedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -29606,10 +40634,46 @@ export class ForumTopicEditedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -29660,10 +40724,70 @@ export class ForumTopicEditedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -29678,6 +40802,12 @@ export class ForumTopicEditedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -29688,6 +40818,30 @@ export class ForumTopicEditedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -29708,6 +40862,36 @@ export class ForumTopicEditedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -29718,6 +40902,36 @@ export class ForumTopicEditedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -29738,10 +40952,70 @@ export class ForumTopicEditedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -29766,6 +41040,60 @@ export class ForumTopicEditedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -30665,6 +41993,24 @@ export class ForumTopicClosedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -30677,16 +42023,58 @@ export class ForumTopicClosedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -30713,10 +42101,70 @@ export class ForumTopicClosedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -30729,6 +42177,42 @@ export class ForumTopicClosedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -30755,10 +42239,46 @@ export class ForumTopicClosedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -30809,10 +42329,70 @@ export class ForumTopicClosedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -30827,6 +42407,12 @@ export class ForumTopicClosedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -30837,6 +42423,30 @@ export class ForumTopicClosedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -30857,6 +42467,36 @@ export class ForumTopicClosedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -30867,6 +42507,36 @@ export class ForumTopicClosedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -30887,10 +42557,70 @@ export class ForumTopicClosedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -30915,6 +42645,60 @@ export class ForumTopicClosedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -31814,6 +43598,24 @@ export class ForumTopicReopenedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -31826,16 +43628,58 @@ export class ForumTopicReopenedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -31862,10 +43706,70 @@ export class ForumTopicReopenedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -31878,6 +43782,42 @@ export class ForumTopicReopenedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -31904,10 +43844,46 @@ export class ForumTopicReopenedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -31958,10 +43934,70 @@ export class ForumTopicReopenedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -31976,6 +44012,12 @@ export class ForumTopicReopenedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -31986,6 +44028,30 @@ export class ForumTopicReopenedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -32006,6 +44072,36 @@ export class ForumTopicReopenedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -32016,6 +44112,36 @@ export class ForumTopicReopenedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -32036,10 +44162,70 @@ export class ForumTopicReopenedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -32064,6 +44250,60 @@ export class ForumTopicReopenedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -32963,6 +45203,24 @@ export class GeneralForumTopicHiddenUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -32975,16 +45233,58 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -33011,10 +45311,70 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -33027,6 +45387,42 @@ export class GeneralForumTopicHiddenUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -33053,10 +45449,46 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -33107,10 +45539,70 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -33125,6 +45617,12 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -33135,6 +45633,30 @@ export class GeneralForumTopicHiddenUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -33155,6 +45677,36 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -33165,6 +45717,36 @@ export class GeneralForumTopicHiddenUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -33185,10 +45767,70 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -33213,6 +45855,60 @@ export class GeneralForumTopicHiddenUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -34112,6 +46808,24 @@ export class GeneralForumTopicUnhiddenUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -34124,16 +46838,58 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -34160,10 +46916,70 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -34176,6 +46992,42 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -34202,10 +47054,46 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -34256,10 +47144,70 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -34274,6 +47222,12 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -34284,6 +47238,30 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -34304,6 +47282,36 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -34314,6 +47322,36 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -34334,10 +47372,70 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -34362,6 +47460,60 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -35261,6 +48413,24 @@ export class GiveawayCreatedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -35273,16 +48443,58 @@ export class GiveawayCreatedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -35309,10 +48521,70 @@ export class GiveawayCreatedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -35325,6 +48597,42 @@ export class GiveawayCreatedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -35351,10 +48659,46 @@ export class GiveawayCreatedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -35405,10 +48749,70 @@ export class GiveawayCreatedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -35423,6 +48827,12 @@ export class GiveawayCreatedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -35433,6 +48843,30 @@ export class GiveawayCreatedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -35453,6 +48887,36 @@ export class GiveawayCreatedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -35463,6 +48927,36 @@ export class GiveawayCreatedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -35483,10 +48977,70 @@ export class GiveawayCreatedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -35511,6 +49065,60 @@ export class GiveawayCreatedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -36410,6 +50018,24 @@ export class GiveawayCompletedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -36422,16 +50048,58 @@ export class GiveawayCompletedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -36458,10 +50126,70 @@ export class GiveawayCompletedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -36474,6 +50202,42 @@ export class GiveawayCompletedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -36500,10 +50264,46 @@ export class GiveawayCompletedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -36554,10 +50354,70 @@ export class GiveawayCompletedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -36572,6 +50432,12 @@ export class GiveawayCompletedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -36582,6 +50448,30 @@ export class GiveawayCompletedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -36602,6 +50492,36 @@ export class GiveawayCompletedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -36612,6 +50532,36 @@ export class GiveawayCompletedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -36632,10 +50582,70 @@ export class GiveawayCompletedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -36660,6 +50670,60 @@ export class GiveawayCompletedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -37559,6 +51623,24 @@ export class GiveawayWinnersUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -37571,16 +51653,58 @@ export class GiveawayWinnersUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -37607,10 +51731,70 @@ export class GiveawayWinnersUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -37623,6 +51807,42 @@ export class GiveawayWinnersUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -37649,10 +51869,46 @@ export class GiveawayWinnersUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -37703,10 +51959,70 @@ export class GiveawayWinnersUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -37721,6 +52037,12 @@ export class GiveawayWinnersUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -37731,6 +52053,30 @@ export class GiveawayWinnersUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -37751,6 +52097,36 @@ export class GiveawayWinnersUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -37761,6 +52137,36 @@ export class GiveawayWinnersUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -37781,10 +52187,70 @@ export class GiveawayWinnersUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -37809,6 +52275,60 @@ export class GiveawayWinnersUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -38708,6 +53228,24 @@ export class BoostAddedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -38720,16 +53258,58 @@ export class BoostAddedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -38756,10 +53336,70 @@ export class BoostAddedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -38772,6 +53412,42 @@ export class BoostAddedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -38798,10 +53474,46 @@ export class BoostAddedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -38852,10 +53564,70 @@ export class BoostAddedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -38870,6 +53642,12 @@ export class BoostAddedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -38880,6 +53658,30 @@ export class BoostAddedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -38900,6 +53702,36 @@ export class BoostAddedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -38910,6 +53742,36 @@ export class BoostAddedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -38930,10 +53792,70 @@ export class BoostAddedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -38958,6 +53880,60 @@ export class BoostAddedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -39857,6 +54833,24 @@ export class MessageAutoDeleteTimerChangedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -39869,16 +54863,58 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -39905,10 +54941,70 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -39921,6 +55017,42 @@ export class MessageAutoDeleteTimerChangedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -39947,10 +55079,46 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -40001,10 +55169,70 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -40019,6 +55247,12 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -40029,6 +55263,30 @@ export class MessageAutoDeleteTimerChangedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -40049,6 +55307,36 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -40059,6 +55347,36 @@ export class MessageAutoDeleteTimerChangedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -40079,10 +55397,70 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -40107,6 +55485,60 @@ export class MessageAutoDeleteTimerChangedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -41006,6 +56438,24 @@ export class MigrateToChatIdUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -41018,16 +56468,58 @@ export class MigrateToChatIdUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -41054,10 +56546,70 @@ export class MigrateToChatIdUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -41070,6 +56622,42 @@ export class MigrateToChatIdUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -41096,10 +56684,46 @@ export class MigrateToChatIdUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -41150,10 +56774,70 @@ export class MigrateToChatIdUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -41168,6 +56852,12 @@ export class MigrateToChatIdUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -41178,6 +56868,30 @@ export class MigrateToChatIdUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -41198,6 +56912,36 @@ export class MigrateToChatIdUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -41208,6 +56952,36 @@ export class MigrateToChatIdUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -41228,10 +57002,70 @@ export class MigrateToChatIdUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -41256,6 +57090,60 @@ export class MigrateToChatIdUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -42155,6 +58043,24 @@ export class MigrateFromChatIdUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -42167,16 +58073,58 @@ export class MigrateFromChatIdUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -42203,10 +58151,70 @@ export class MigrateFromChatIdUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -42219,6 +58227,42 @@ export class MigrateFromChatIdUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -42245,10 +58289,46 @@ export class MigrateFromChatIdUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -42299,10 +58379,70 @@ export class MigrateFromChatIdUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -42317,6 +58457,12 @@ export class MigrateFromChatIdUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -42327,6 +58473,30 @@ export class MigrateFromChatIdUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -42347,6 +58517,36 @@ export class MigrateFromChatIdUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -42357,6 +58557,36 @@ export class MigrateFromChatIdUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -42377,10 +58607,70 @@ export class MigrateFromChatIdUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -42405,6 +58695,60 @@ export class MigrateFromChatIdUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -43304,6 +59648,24 @@ export class PassportDataUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -43316,16 +59678,58 @@ export class PassportDataUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -43352,10 +59756,70 @@ export class PassportDataUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -43368,6 +59832,42 @@ export class PassportDataUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -43394,10 +59894,46 @@ export class PassportDataUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -43448,10 +59984,70 @@ export class PassportDataUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -43466,6 +60062,12 @@ export class PassportDataUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -43476,6 +60078,30 @@ export class PassportDataUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -43496,6 +60122,36 @@ export class PassportDataUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -43506,6 +60162,36 @@ export class PassportDataUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -43526,10 +60212,70 @@ export class PassportDataUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -43554,6 +60300,60 @@ export class PassportDataUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -44453,6 +61253,24 @@ export class ProximityAlertTriggeredUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -44465,16 +61283,58 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -44501,10 +61361,70 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -44517,6 +61437,42 @@ export class ProximityAlertTriggeredUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -44543,10 +61499,46 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -44597,10 +61589,70 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -44615,6 +61667,12 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -44625,6 +61683,30 @@ export class ProximityAlertTriggeredUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -44645,6 +61727,36 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -44655,6 +61767,36 @@ export class ProximityAlertTriggeredUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -44675,10 +61817,70 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -44703,6 +61905,60 @@ export class ProximityAlertTriggeredUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -45602,6 +62858,24 @@ export class WriteAccessAllowedUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
     /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get messageId(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
      * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
      */
     get from(): User | undefined {
@@ -45614,16 +62888,58 @@ export class WriteAccessAllowedUpdate {
         return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
     }
     /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
      * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
      */
     get senderBusinessBot(): User | undefined {
         return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
     }
     /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
      * Chat the message belongs to
      */
     get chat(): Chat {
         return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
     }
     /**
      * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
@@ -45650,10 +62966,70 @@ export class WriteAccessAllowedUpdate {
         return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
     }
     /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
      * Optional. Bot through which the message was sent
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
     }
     /**
      * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
@@ -45666,6 +63042,42 @@ export class WriteAccessAllowedUpdate {
      */
     get linkPreviewOptions(): LinkPreviewOptions | undefined {
         return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): TelegramAnimation | undefined {
+        return this.raw.animation;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): TelegramAudio | undefined {
+        return this.raw.audio;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): TelegramDocument | undefined {
+        return this.raw.document;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
     }
     /**
      * Optional. Message is a photo, available sizes of the photo
@@ -45692,10 +63104,46 @@ export class WriteAccessAllowedUpdate {
         return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
     }
     /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): TelegramVideoNote | undefined {
+        return this.raw.video_note;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): TelegramVoice | undefined {
+        return this.raw.voice;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
      * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
      */
     get captionEntities(): MessageEntity[] | undefined {
         return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
     }
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -45746,10 +63194,70 @@ export class WriteAccessAllowedUpdate {
         return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
     }
     /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
      * Optional. A chat photo was change to this value
      */
     get newChatPhoto(): PhotoSize[] | undefined {
         return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
     }
     /**
      * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
@@ -45764,6 +63272,12 @@ export class WriteAccessAllowedUpdate {
         return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
     }
     /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
      * Optional. Service message: users were shared with the bot
      */
     get usersShared(): UsersShared | undefined {
@@ -45774,6 +63288,30 @@ export class WriteAccessAllowedUpdate {
      */
     get chatShared(): ChatShared | undefined {
         return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
     }
     /**
      * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
@@ -45794,6 +63332,36 @@ export class WriteAccessAllowedUpdate {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
     }
     /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
      * Optional. Service message: forum topic created
      */
     get forumTopicCreated(): ForumTopicCreated | undefined {
@@ -45804,6 +63372,36 @@ export class WriteAccessAllowedUpdate {
      */
     get forumTopicEdited(): ForumTopicEdited | undefined {
         return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
     }
     /**
      * Optional. The message is a scheduled giveaway message
@@ -45824,10 +63422,70 @@ export class WriteAccessAllowedUpdate {
         return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
     }
     /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
      * Optional. Service message: video chat scheduled
      */
     get videoChatScheduled(): VideoChatScheduled | undefined {
         return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
     }
     /**
      * Optional. Service message: video chat ended
@@ -45852,6 +63510,60 @@ export class WriteAccessAllowedUpdate {
      */
     get replyMarkup(): InlineKeyboardMarkup | undefined {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * Shortcut for `chat.id`.
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * Shortcut for `reply_to_message?.message_id`.
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): boolean {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album).
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `chat.type === "private"`.
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * True if `chat.type === "group"` (strict — supergroups excluded).
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * True if `chat.type === "supergroup"`.
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * True if `chat.type === "channel"`.
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;

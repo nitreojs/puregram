@@ -1,11 +1,13 @@
 import ts from 'typescript'
+
 import type { Schema, SchemaMethod, SchemaTypeRef } from '../schema-types'
-import { SHORTCUTS, type ShortcutSpec } from './shortcuts-config'
-import { typeRefToTs, jsDoc, importTypeNamed } from './ts-factory'
+
 import { formatModule } from './format'
 import { versionString } from './load-schema'
+import { SHORTCUTS, type ShortcutSpec } from './shortcuts-config'
+import { typeRefToTs, jsDoc, importTypeNamed } from './ts-factory'
 
-export function emitShortcuts (schema: Schema): string {
+export function emitShortcuts (schema: Schema) {
   const methodsByName = new Map<string, SchemaMethod>(schema.methods.map(m => [m.name, m]))
   const referencedTypes = new Set<string>()
 
@@ -13,7 +15,11 @@ export function emitShortcuts (schema: Schema): string {
 
   for (const sc of SHORTCUTS) {
     const method = methodsByName.get(sc.method)
-    if (!method) continue
+
+    if (!method) {
+      continue
+    }
+
     memberSigs.push(buildShortcutSignature(sc, method, referencedTypes))
   }
 
@@ -47,13 +53,16 @@ function buildShortcutSignature (
   sc: ShortcutSpec,
   method: SchemaMethod,
   referencedTypes: Set<string>
-): ts.MethodSignature {
-  const positionalParams: ts.ParameterDeclaration[] = sc.positional.map(p => {
+) {
+  const positionalParams: ts.ParameterDeclaration[] = sc.positional.map((p) => {
     const schemaArg = method.arguments.find(a => a.name === p.schemaArg)
+
     if (!schemaArg) {
       throw new Error(`shortcut ${sc.verb}: schema arg ${p.schemaArg} not found on ${method.name}`)
     }
+
     collectRefs(schemaArg.type, referencedTypes)
+
     return ts.factory.createParameterDeclaration(
       undefined, undefined,
       ts.factory.createIdentifier(p.name),
@@ -92,15 +101,19 @@ function buildShortcutSignature (
       [...positionalParams, optionalParam],
       returnType
     )
-  ) as ts.MethodSignature
+  )
 }
 
-function pascal (s: string): string {
+function pascal (s: string) {
   return s[0].toUpperCase() + s.slice(1)
 }
 
 function collectRefs (ref: SchemaTypeRef, into: Set<string>): void {
-  if (ref.kind === 'reference') into.add(`Telegram${ref.name}`)
-  else if (ref.kind === 'array') collectRefs(ref.of, into)
-  else if (ref.kind === 'union') ref.of.forEach(t => collectRefs(t, into))
+  if (ref.kind === 'reference') {
+    into.add(`Telegram${ref.name}`)
+  } else if (ref.kind === 'array') {
+    collectRefs(ref.of, into)
+  } else if (ref.kind === 'union') {
+    ref.of.forEach(t => collectRefs(t, into))
+  }
 }

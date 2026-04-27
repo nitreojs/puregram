@@ -1,12 +1,15 @@
 import ts from 'typescript'
+
 import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema-types'
-import { isWrappedStructure } from './structures-config'
-import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
+
 import { formatModule } from './format'
 import { versionString } from './load-schema'
+import { isWrappedStructure } from './structures-config'
+import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
 
-export function emitStructures (schema: Schema): string {
+export function emitStructures (schema: Schema) {
   const wrappedObjects = schema.objects.filter(
+    // eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate needed for union narrowing
     (o): o is Extract<SchemaObject, { kind: 'object' }> =>
       o.kind === 'object' && isWrappedStructure(o.name)
   )
@@ -18,9 +21,13 @@ export function emitStructures (schema: Schema): string {
   const nodes: ts.Node[] = wrappedObjects.map(o => emitClass(o, wrappedClassNames))
 
   const referencedTypes = new Set<string>()
+
   for (const obj of wrappedObjects) {
     referencedTypes.add(`Telegram${obj.name}`)
-    for (const f of obj.fields) collectReferencedTypeNames(f.type, referencedTypes)
+
+    for (const f of obj.fields) {
+      collectReferencedTypeNames(f.type, referencedTypes)
+    }
   }
 
   const imports = [
@@ -38,16 +45,20 @@ export function emitStructures (schema: Schema): string {
 }
 
 function collectReferencedTypeNames (ref: SchemaTypeRef, into: Set<string>): void {
-  if (ref.kind === 'reference') into.add(`Telegram${ref.name}`)
-  else if (ref.kind === 'array') collectReferencedTypeNames(ref.of, into)
-  else if (ref.kind === 'union') ref.of.forEach(t => collectReferencedTypeNames(t, into))
+  if (ref.kind === 'reference') {
+    into.add(`Telegram${ref.name}`)
+  } else if (ref.kind === 'array') {
+    collectReferencedTypeNames(ref.of, into)
+  } else if (ref.kind === 'union') {
+    ref.of.forEach(t => collectReferencedTypeNames(t, into))
+  }
 }
 
-function camelCase (snake: string): string {
-  return snake.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+function camelCase (snake: string) {
+  return snake.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
 }
 
-function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClassNames: Set<string>): ts.ClassDeclaration {
+function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClassNames: Set<string>) {
   const className = obj.name
   const rawTypeName = `Telegram${obj.name}`
 
@@ -56,6 +67,7 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
   // private _x?: Wrapper
   for (const f of obj.fields) {
     const wrapperName = wrapperNameFor(f.type, wrappedClassNames)
+
     if (wrapperName) {
       members.push(ts.factory.createPropertyDeclaration(
         [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
@@ -128,15 +140,24 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
   )
 }
 
-function wrapperNameFor (ref: SchemaTypeRef, wrappedClassNames: Set<string>): string | undefined {
-  if (ref.kind === 'reference' && wrappedClassNames.has(ref.name)) return ref.name
-  if (ref.kind === 'array' && ref.of.kind === 'reference' && wrappedClassNames.has(ref.of.name)) return ref.of.name
+function wrapperNameFor (ref: SchemaTypeRef, wrappedClassNames: Set<string>) {
+  if (ref.kind === 'reference' && wrappedClassNames.has(ref.name)) {
+    return ref.name
+  }
+
+  if (ref.kind === 'array' && ref.of.kind === 'reference' && wrappedClassNames.has(ref.of.name)) {
+    return ref.of.name
+  }
+
   return undefined
 }
 
-function wrapperReturnType (ref: SchemaTypeRef, wrapperName: string, optional: boolean): ts.TypeNode {
+function wrapperReturnType (ref: SchemaTypeRef, wrapperName: string, optional: boolean) {
   let inner: ts.TypeNode = ts.factory.createTypeReferenceNode(wrapperName)
-  if (ref.kind === 'array') inner = ts.factory.createArrayTypeNode(inner)
+
+  if (ref.kind === 'array') {
+    inner = ts.factory.createArrayTypeNode(inner)
+  }
 
   if (optional) {
     return ts.factory.createUnionTypeNode([
@@ -144,10 +165,11 @@ function wrapperReturnType (ref: SchemaTypeRef, wrapperName: string, optional: b
       ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)
     ])
   }
+
   return inner
 }
 
-function emitGetter (f: SchemaField, wrappedClassNames: Set<string>): ts.GetAccessorDeclaration {
+function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
   const camelName = camelCase(f.name)
   const wrapperName = wrapperNameFor(f.type, wrappedClassNames)
 
@@ -155,7 +177,10 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>): ts.GetAcce
     ? wrapperReturnType(f.type, wrapperName, !f.required)
     : (() => {
         const t = typeRefToTs(f.type)
-        return f.required ? t : ts.factory.createUnionTypeNode([t, ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)])
+
+        return f.required
+          ? t
+          : ts.factory.createUnionTypeNode([t, ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)])
       })()
 
   let body: ts.Statement[]
@@ -172,6 +197,7 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>): ts.GetAcce
         ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
         f.name
       )
+
       body = f.required
         ? [ts.factory.createReturnStatement(memoAssign)]
         : [
@@ -261,10 +287,10 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>): ts.GetAcce
     ts.factory.createBlock(body, true)
   )
 
-  return jsDoc(f.description, getter) as ts.GetAccessorDeclaration
+  return jsDoc(f.description, getter)
 }
 
-function buildArrayMap (rawField: string, wrapperName: string): ts.Expression {
+function buildArrayMap (rawField: string, wrapperName: string) {
   return ts.factory.createCallExpression(
     ts.factory.createPropertyAccessExpression(
       ts.factory.createPropertyAccessExpression(
@@ -296,7 +322,7 @@ function buildArrayMap (rawField: string, wrapperName: string): ts.Expression {
   )
 }
 
-function emitInspectMethod (obj: Extract<SchemaObject, { kind: 'object' }>): ts.MethodDeclaration {
+function emitInspectMethod (obj: Extract<SchemaObject, { kind: 'object' }>) {
   return ts.factory.createMethodDeclaration(
     undefined,
     undefined,

@@ -1,10 +1,12 @@
 import ts from 'typescript'
+
 import type { Schema } from '../schema-types'
-import { jsDoc } from './ts-factory'
+
 import { formatModule } from './format'
 import { versionString } from './load-schema'
+import { jsDoc } from './ts-factory'
 
-export function emitApiMethods (schema: Schema): string {
+export function emitApiMethods (schema: Schema) {
   const namespaceImport = ts.factory.createImportDeclaration(
     undefined,
     ts.factory.createImportClause(
@@ -16,13 +18,14 @@ export function emitApiMethods (schema: Schema): string {
     undefined
   )
 
-  const members: ts.TypeElement[] = schema.methods.map(m => {
+  const members: ts.TypeElement[] = schema.methods.map((m) => {
     const sig = ts.factory.createPropertySignature(
       undefined,
       ts.factory.createIdentifier(m.name),
       undefined,
       ts.factory.createTypeReferenceNode(`api.${m.name}`)
     )
+
     return jsDoc(`${m.description}\n\n[bot api docs](${m.documentationLink})`, sig)
   })
 

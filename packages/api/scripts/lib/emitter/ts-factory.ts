@@ -1,4 +1,5 @@
 import ts from 'typescript'
+
 import type { SchemaTypeRef } from '../schema-types'
 
 export function typeRefToTs (ref: SchemaTypeRef): ts.TypeNode {
@@ -14,6 +15,7 @@ export function typeRefToTs (ref: SchemaTypeRef): ts.TypeNode {
           )
         )
       }
+
       return ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
     case 'bool':
       return ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword)
@@ -28,9 +30,10 @@ export function typeRefToTs (ref: SchemaTypeRef): ts.TypeNode {
   }
 }
 
-export function jsDoc<N extends ts.Node> (text: string, node: N): N {
+export function jsDoc<N extends ts.Node> (text: string, node: N) {
   const lines = text.split('\n').map(l => ` * ${l}`).join('\n')
   const comment = `*\n${lines}\n `
+
   return ts.addSyntheticLeadingComment(
     node,
     ts.SyntaxKind.MultiLineCommentTrivia,
@@ -46,14 +49,15 @@ export interface MemberSpec {
   doc?: string
 }
 
-export function tsExportInterface (name: string, members: MemberSpec[], doc?: string): ts.InterfaceDeclaration {
-  const memberNodes: ts.TypeElement[] = members.map(m => {
+export function tsExportInterface (name: string, members: MemberSpec[], doc?: string) {
+  const memberNodes: ts.TypeElement[] = members.map((m) => {
     const sig = ts.factory.createPropertySignature(
       undefined,
       ts.factory.createIdentifier(m.name),
       m.optional ? ts.factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
       m.type
     )
+
     return m.doc ? jsDoc(m.doc, sig) : sig
   })
 
@@ -68,17 +72,18 @@ export function tsExportInterface (name: string, members: MemberSpec[], doc?: st
   return doc ? jsDoc(doc, decl) : decl
 }
 
-export function tsExportTypeAlias (name: string, type: ts.TypeNode, doc?: string): ts.TypeAliasDeclaration {
+export function tsExportTypeAlias (name: string, type: ts.TypeNode, doc?: string) {
   const decl = ts.factory.createTypeAliasDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier(name),
     undefined,
     type
   )
+
   return doc ? jsDoc(doc, decl) : decl
 }
 
-export function importNamed (names: string[], from: string): ts.ImportDeclaration {
+export function importNamed (names: string[], from: string) {
   return ts.factory.createImportDeclaration(
     undefined,
     ts.factory.createImportClause(
@@ -93,7 +98,7 @@ export function importNamed (names: string[], from: string): ts.ImportDeclaratio
   )
 }
 
-export function importTypeNamed (names: string[], from: string): ts.ImportDeclaration {
+export function importTypeNamed (names: string[], from: string) {
   return ts.factory.createImportDeclaration(
     undefined,
     ts.factory.createImportClause(

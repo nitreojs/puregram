@@ -1,15 +1,21 @@
 import ts from 'typescript'
+
 import type { Schema } from '../schema-types'
+
 import { ENUMS, type EnumSpec } from './enums-config'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 
-export function emitEnums (schema: Schema): string {
+export function emitEnums (schema: Schema) {
   const nodes: ts.Node[] = []
 
   for (const spec of ENUMS) {
     const values = resolveValues(spec, schema)
-    if (values.length === 0) continue
+
+    if (values.length === 0) {
+      continue
+    }
+
     nodes.push(emitEnum(spec.exportName, values))
   }
 
@@ -21,21 +27,30 @@ export function emitEnums (schema: Schema): string {
   })
 }
 
-function resolveValues (spec: EnumSpec, schema: Schema): string[] {
+function resolveValues (spec: EnumSpec, schema: Schema) {
   const source = spec.source
-  if (source.kind === 'literal') return source.values
+
+  if (source.kind === 'literal') {
+    return source.values
+  }
 
   const obj = schema.objects.find(o => o.kind === 'object' && o.name === source.object)
-  if (!obj || obj.kind !== 'object') return []
+
+  if (!obj || obj.kind !== 'object') {
+    return []
+  }
 
   const field = obj.fields.find(f => f.name === source.field)
-  if (!field || field.type.kind !== 'string' || !field.type.enumeration) return []
+
+  if (!field || field.type.kind !== 'string' || !field.type.enumeration) {
+    return []
+  }
 
   return field.type.enumeration
 }
 
 // 'private' → 'Private', 'all_private_chats' → 'AllPrivateChats', '🎲' → 'Dice'
-function memberName (value: string): string {
+function memberName (value: string) {
   const emojiMap: Record<string, string> = {
     '🎲': 'Dice',
     '🎯': 'Dart',
@@ -44,7 +59,10 @@ function memberName (value: string): string {
     '🎰': 'SlotMachine',
     '🎳': 'Bowling'
   }
-  if (emojiMap[value]) return emojiMap[value]
+
+  if (emojiMap[value]) {
+    return emojiMap[value]
+  }
 
   return value
     .split(/[_-]/)
@@ -52,7 +70,7 @@ function memberName (value: string): string {
     .join('')
 }
 
-function emitEnum (name: string, values: string[]): ts.EnumDeclaration {
+function emitEnum (name: string, values: string[]) {
   const members = values.map(v =>
     ts.factory.createEnumMember(
       ts.factory.createIdentifier(memberName(v)),

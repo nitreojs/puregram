@@ -1,14 +1,12 @@
 import { mkdir, writeFile } from 'node:fs/promises'
-import { resolve, dirname } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { fetchHtml } from './lib/parser/fetch'
-import { parseCorefork } from './lib/parser/corefork'
 import { parseCore } from './lib/parser/core'
+import { parseCorefork } from './lib/parser/corefork'
+import { fetchHtml } from './lib/parser/fetch'
 import { mergeFragments } from './lib/parser/merge'
 import type { Schema } from './lib/schema-types'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const COREFORK_URL = 'https://corefork.telegram.org/bots/api'
 const CORE_URL = 'https://core.telegram.org/bots/api'
@@ -36,7 +34,8 @@ async function main () {
   }
 
   const versionString = `${schema.version.major}.${schema.version.minor}.${schema.version.patch}`
-  const outDir = resolve(__dirname, '..', 'schema')
+  const here = dirname(fileURLToPath(import.meta.url))
+  const outDir = resolve(here, '..', 'schema')
   const outFile = resolve(outDir, `${versionString}.json`)
 
   await mkdir(outDir, { recursive: true })

@@ -1,9 +1,11 @@
 import ts from 'typescript'
+
 import type { Schema, SchemaObject } from '../schema-types'
+
 import { FACTORY_FAMILIES } from './factories-config'
-import { jsDoc, importTypeNamed } from './ts-factory'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
+import { jsDoc, importTypeNamed } from './ts-factory'
 
 interface VariantSpec {
   schemaName: string
@@ -11,17 +13,22 @@ interface VariantSpec {
   obj: Extract<SchemaObject, { kind: 'object' }>
 }
 
-export function emitFactories (schema: Schema): string {
+export function emitFactories (schema: Schema) {
   const nodes: ts.Node[] = []
   const referencedTypes = new Set<string>()
 
   for (const fam of FACTORY_FAMILIES) {
     const variants = collectVariants(schema, fam.prefix)
-    if (variants.length === 0) continue
+
+    if (variants.length === 0) {
+      continue
+    }
 
     nodes.push(emitFactoryClass(fam.emit, variants))
 
-    for (const v of variants) referencedTypes.add(`Telegram${v.schemaName}`)
+    for (const v of variants) {
+      referencedTypes.add(`Telegram${v.schemaName}`)
+    }
   }
 
   const imports = referencedTypes.size > 0
@@ -37,20 +44,33 @@ export function emitFactories (schema: Schema): string {
   })
 }
 
-function collectVariants (schema: Schema, prefix: string): VariantSpec[] {
+function collectVariants (schema: Schema, prefix: string) {
   const variants: VariantSpec[] = []
 
   for (const obj of schema.objects) {
-    if (obj.kind !== 'object') continue
-    if (!obj.name.startsWith(prefix)) continue
-    if (obj.name === prefix) continue
+    if (obj.kind !== 'object') {
+      continue
+    }
+
+    if (!obj.name.startsWith(prefix)) {
+      continue
+    }
+
+    if (obj.name === prefix) {
+      continue
+    }
 
     // for `InlineQueryResult` family, exclude the `InlineQueryResultCached*` variants —
     // they belong to the separate cached family
-    if (prefix === 'InlineQueryResult' && obj.name.startsWith('InlineQueryResultCached')) continue
+    if (prefix === 'InlineQueryResult' && obj.name.startsWith('InlineQueryResultCached')) {
+      continue
+    }
 
     const typeField = obj.fields.find(f => f.name === 'type')
-    if (!typeField || typeField.type.kind !== 'string' || !typeField.type.enumeration) continue
+
+    if (!typeField || typeField.type.kind !== 'string' || !typeField.type.enumeration) {
+      continue
+    }
 
     variants.push({
       schemaName: obj.name,
@@ -62,7 +82,7 @@ function collectVariants (schema: Schema, prefix: string): VariantSpec[] {
   return variants
 }
 
-function emitFactoryClass (className: string, variants: VariantSpec[]): ts.ClassDeclaration {
+function emitFactoryClass (className: string, variants: VariantSpec[]) {
   const methods = variants.map(v => emitVariantMethod(v))
 
   return ts.factory.createClassDeclaration(
@@ -74,8 +94,8 @@ function emitFactoryClass (className: string, variants: VariantSpec[]): ts.Class
   )
 }
 
-function emitVariantMethod (v: VariantSpec): ts.MethodDeclaration {
-  const camelVariant = v.variant.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+function emitVariantMethod (v: VariantSpec) {
+  const camelVariant = v.variant.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
 
   const omitTypeNode = ts.factory.createTypeReferenceNode('Omit', [
     ts.factory.createTypeReferenceNode(`Telegram${v.schemaName}`),
@@ -109,5 +129,5 @@ function emitVariantMethod (v: VariantSpec): ts.MethodDeclaration {
       ts.factory.createTypeReferenceNode(`Telegram${v.schemaName}`),
       body
     )
-  ) as ts.MethodDeclaration
+  )
 }

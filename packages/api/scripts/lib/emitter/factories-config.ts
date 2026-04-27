@@ -6,8 +6,8 @@ export interface FactoryFamily {
 }
 
 export const FACTORY_FAMILIES: FactoryFamily[] = [
-  { emit: 'InputMedia',              prefix: 'InputMedia' },
-  { emit: 'InlineQueryResult',       prefix: 'InlineQueryResult' },
+  { emit: 'InputMedia', prefix: 'InputMedia' },
+  { emit: 'InlineQueryResult', prefix: 'InlineQueryResult' },
   { emit: 'InlineQueryResultCached', prefix: 'InlineQueryResultCached' },
-  { emit: 'InputMessageContent',     prefix: 'InputMessageContent' }
+  { emit: 'InputMessageContent', prefix: 'InputMessageContent' }
 ]

@@ -5,7 +5,7 @@ export interface FetchOptions {
   timeoutMs?: number
 }
 
-export async function fetchHtml (url: string, options: FetchOptions = {}): Promise<string> {
+export async function fetchHtml (url: string, options: FetchOptions = {}) {
   const retries = options.retries ?? 2
   const timeoutMs = options.timeoutMs ?? 30_000
 
@@ -31,7 +31,7 @@ export async function fetchHtml (url: string, options: FetchOptions = {}): Promi
       lastError = error
 
       if (attempt < retries) {
-        await new Promise(r => setTimeout(r, 1000 * (attempt + 1)))
+        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)))
       }
     }
   }

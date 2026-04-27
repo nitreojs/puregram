@@ -1,11 +1,13 @@
 import ts from 'typescript'
-import type { Schema, SchemaObject, SchemaTypeRef } from '../schema-types'
-import { UPDATE_KINDS, type UpdateKindSpec } from './updates-config'
-import { analyzeShortcuts, type BoundShortcut } from './shortcut-analyzer'
-import { isWrappedStructure } from './structures-config'
-import { jsDoc, importTypeNamed, importNamed } from './ts-factory'
+
+import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema-types'
+
 import { formatModule } from './format'
 import { versionString } from './load-schema'
+import { analyzeShortcuts, type BoundShortcut } from './shortcut-analyzer'
+import { isWrappedStructure } from './structures-config'
+import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
+import { UPDATE_KINDS, type UpdateExtra, type UpdateKindSpec } from './updates-config'
 
 const SHORTCUT_RENAMES: Record<string, string> = {
   sendMessage: 'send',
@@ -30,11 +32,11 @@ const SHORTCUT_RENAMES: Record<string, string> = {
   answerPreCheckoutQuery: 'answer'
 }
 
-function shortcutNameFor (method: string): string {
+function shortcutNameFor (method: string) {
   return SHORTCUT_RENAMES[method] ?? method
 }
 
-export function emitUpdates (schema: Schema): string {
+export function emitUpdates (schema: Schema) {
   const analysis = analyzeShortcuts(schema)
   const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
 
@@ -48,31 +50,57 @@ export function emitUpdates (schema: Schema): string {
   nodes.push(emitUpdateKindMap())
 
   const referencedTypes = new Set<string>()
-  for (const k of UPDATE_KINDS) referencedTypes.add(k.payloadType)
 
-  for (const list of Object.values(analysis.byKind)) {
-    for (const sc of list) {
-      for (const a of sc.userArgs) collectReferencedTypeNames(a.type, referencedTypes, name => `Telegram${name}`)
+  for (const k of UPDATE_KINDS) {
+    referencedTypes.add(k.payloadType)
+  }
+
+  // primitive-field getters pass-through `this.raw.<field>` and emit `typeRefToTs(field.type)`
+  // as the return — sweep only the non-wrapped fields so any referenced Telegram* type lands
+  // in the import set. wrapped fields use the structures import instead, so adding them here
+  // would just produce unused imports
+  for (const k of UPDATE_KINDS) {
+    const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
+
+    if (obj?.kind === 'object') {
+      for (const f of obj.fields) {
+        if (refToObjectClassName(f.type, objectsByName) !== undefined) {
+          continue
+        }
+
+        collectReferencedTypeNames(f.type, referencedTypes, name => `Telegram${name}`)
+      }
     }
   }
 
   // emit-structures only produces classes for object-kind schema entries; drop union-kind names
   // (MessageOrigin, ChatBoostSource) so wrapper getters fall back to raw types
   const wrappedNames = new Set<string>()
+
   for (const k of UPDATE_KINDS) {
     const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
+
     if (obj?.kind === 'object') {
-      for (const f of obj.fields) collectWrapperNames(f.type, wrappedNames)
+      for (const f of obj.fields) {
+        collectWrapperNames(f.type, wrappedNames)
+      }
     }
   }
+
   for (const name of [...wrappedNames]) {
     const obj = objectsByName.get(name)
-    if (!obj || obj.kind !== 'object') wrappedNames.delete(name)
+
+    if (!obj || obj.kind !== 'object') {
+      wrappedNames.delete(name)
+    }
   }
 
   const paramsImports = new Set<string>()
+
   for (const list of Object.values(analysis.byKind)) {
-    for (const sc of list) paramsImports.add(`${sc.method[0].toUpperCase()}${sc.method.slice(1)}Params`)
+    for (const sc of list) {
+      paramsImports.add(`${sc.method[0].toUpperCase()}${sc.method.slice(1)}Params`)
+    }
   }
 
   const imports = [
@@ -97,26 +125,44 @@ function collectReferencedTypeNames (
   into: Set<string>,
   format: (name: string) => string
 ): void {
-  if (ref.kind === 'reference') into.add(format(ref.name))
-  else if (ref.kind === 'array') collectReferencedTypeNames(ref.of, into, format)
-  else if (ref.kind === 'union') ref.of.forEach(t => collectReferencedTypeNames(t, into, format))
+  if (ref.kind === 'reference') {
+    into.add(format(ref.name))
+  } else if (ref.kind === 'array') {
+    collectReferencedTypeNames(ref.of, into, format)
+  } else if (ref.kind === 'union') {
+    ref.of.forEach(t => collectReferencedTypeNames(t, into, format))
+  }
 }
 
 function collectWrapperNames (ref: SchemaTypeRef, into: Set<string>): void {
-  if (ref.kind === 'reference' && isWrappedStructure(ref.name)) into.add(ref.name)
-  else if (ref.kind === 'array') collectWrapperNames(ref.of, into)
-  else if (ref.kind === 'union') ref.of.forEach(t => collectWrapperNames(t, into))
+  if (ref.kind === 'reference' && isWrappedStructure(ref.name)) {
+    into.add(ref.name)
+  } else if (ref.kind === 'array') {
+    collectWrapperNames(ref.of, into)
+  } else if (ref.kind === 'union') {
+    ref.of.forEach(t => collectWrapperNames(t, into))
+  }
 }
 
-function isWrappedObjectClass (objectsByName: Map<string, SchemaObject>, name: string): boolean {
-  if (!isWrappedStructure(name)) return false
+function isWrappedObjectClass (objectsByName: Map<string, SchemaObject>, name: string) {
+  if (!isWrappedStructure(name)) {
+    return false
+  }
+
   const obj = objectsByName.get(name)
+
   return obj?.kind === 'object'
 }
 
-function refToObjectClassName (ref: SchemaTypeRef, objectsByName: Map<string, SchemaObject>): string | undefined {
-  if (ref.kind === 'reference' && isWrappedObjectClass(objectsByName, ref.name)) return ref.name
-  if (ref.kind === 'array' && ref.of.kind === 'reference' && isWrappedObjectClass(objectsByName, ref.of.name)) return ref.of.name
+function refToObjectClassName (ref: SchemaTypeRef, objectsByName: Map<string, SchemaObject>) {
+  if (ref.kind === 'reference' && isWrappedObjectClass(objectsByName, ref.name)) {
+    return ref.name
+  }
+
+  if (ref.kind === 'array' && ref.of.kind === 'reference' && isWrappedObjectClass(objectsByName, ref.of.name)) {
+    return ref.of.name
+  }
+
   return undefined
 }
 
@@ -124,7 +170,7 @@ function emitUpdateClass (
   kind: UpdateKindSpec,
   objectsByName: Map<string, SchemaObject>,
   shortcuts: BoundShortcut[]
-): ts.ClassDeclaration {
+) {
   const members: ts.ClassElement[] = []
 
   // readonly kind = '<kindName>' as const
@@ -146,11 +192,13 @@ function emitUpdateClass (
   if (payloadObject?.kind === 'object') {
     for (const f of payloadObject.fields) {
       const wrapperName = refToObjectClassName(f.type, objectsByName)
+
       if (wrapperName) {
         const isArray = f.type.kind === 'array'
         const memoType: ts.TypeNode = isArray
           ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(wrapperName))
           : ts.factory.createTypeReferenceNode(wrapperName)
+
         members.push(ts.factory.createPropertyDeclaration(
           [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
           ts.factory.createIdentifier(`_${camelCase(f.name)}`),
@@ -186,88 +234,46 @@ function emitUpdateClass (
     ts.factory.createBlock([], false)
   ))
 
-  // get x() — lazy-wrap each payload field whose schema entry is a wrapper class
+  // names already taken by class members emitted above and below — used to suppress
+  // schema-driven getters that would otherwise collide
+  const reservedNames = new Set<string>(['kind', 'raw', 'tg', 'is'])
+
+  for (const sc of shortcuts) {
+    reservedNames.add(shortcutNameFor(sc.method))
+  }
+
+  // emit one getter per payload field — wrapper-class fields get a memoized lazy
+  // wrap, primitive (and other non-wrapped) fields get a plain pass-through so
+  // user code never has to dig through .raw for scalar values
   if (payloadObject?.kind === 'object') {
     for (const f of payloadObject.fields) {
-      const wrapperName = refToObjectClassName(f.type, objectsByName)
-      if (!wrapperName) continue
-
       const camelName = camelCase(f.name)
-      const isArray = f.type.kind === 'array'
 
-      const baseReturn: ts.TypeNode = isArray
-        ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(wrapperName))
-        : ts.factory.createTypeReferenceNode(wrapperName)
+      if (reservedNames.has(camelName)) {
+        continue
+      }
 
-      const returnType: ts.TypeNode = f.required
-        ? baseReturn
-        : ts.factory.createUnionTypeNode([
-            baseReturn,
-            ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)
-          ])
+      reservedNames.add(camelName)
 
-      const rawAccess = ts.factory.createPropertyAccessExpression(
-        ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
-        f.name
-      )
+      const wrapperName = refToObjectClassName(f.type, objectsByName)
 
-      // new Wrapper(this.raw.x), or this.raw.x.map(x => new Wrapper(x))
-      const wrapExpr: ts.Expression = isArray
-        ? ts.factory.createCallExpression(
-            ts.factory.createPropertyAccessExpression(rawAccess, 'map'),
-            undefined,
-            [ts.factory.createArrowFunction(
-              undefined, undefined,
-              [ts.factory.createParameterDeclaration(
-                undefined, undefined,
-                ts.factory.createIdentifier('x'),
-                undefined, undefined, undefined
-              )],
-              undefined,
-              ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
-              ts.factory.createNewExpression(
-                ts.factory.createIdentifier(wrapperName),
-                undefined,
-                [ts.factory.createIdentifier('x')]
-              )
-            )]
-          )
-        : ts.factory.createNewExpression(
-            ts.factory.createIdentifier(wrapperName),
-            undefined,
-            [rawAccess]
-          )
-
-      const memoAssign = ts.factory.createBinaryExpression(
-        ts.factory.createPropertyAccessExpression(ts.factory.createThis(), `_${camelName}`),
-        ts.SyntaxKind.QuestionQuestionEqualsToken,
-        wrapExpr
-      )
-
-      // required: return memoAssign
-      // optional: return rawAccess ? memoAssign : undefined
-      const body: ts.Statement[] = f.required
-        ? [ts.factory.createReturnStatement(memoAssign)]
-        : [
-            ts.factory.createReturnStatement(
-              ts.factory.createConditionalExpression(
-                rawAccess,
-                undefined,
-                ts.factory.createParenthesizedExpression(memoAssign),
-                undefined,
-                ts.factory.createIdentifier('undefined')
-              )
-            )
-          ]
-
-      members.push(jsDoc(f.description, ts.factory.createGetAccessorDeclaration(
-        undefined,
-        ts.factory.createIdentifier(camelName),
-        [],
-        returnType,
-        ts.factory.createBlock(body, true)
-      ) as ts.GetAccessorDeclaration))
+      if (wrapperName) {
+        members.push(emitWrapperGetter(f, camelName, wrapperName))
+      } else {
+        members.push(emitPrimitiveGetter(f, camelName))
+      }
     }
+  }
+
+  // hand-curated helpers from updates-config — `chatId`, `senderId`, `isReply()`,
+  // and so on. extras are emitted last so codegen-driven names always win on collision
+  for (const extra of kind.extras ?? []) {
+    if (reservedNames.has(extra.name)) {
+      throw new Error(`extras collision: ${kind.className}.${extra.name} clashes with a generated member`)
+    }
+
+    reservedNames.add(extra.name)
+    members.push(emitExtra(extra))
   }
 
   // is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K]
@@ -346,12 +352,181 @@ function emitUpdateClass (
   )
 }
 
-function emitShortcutMethod (sc: BoundShortcut): ts.MethodDeclaration {
-  const filledProps = sc.filledArgs.map(anchor => {
+function parseTypeNode (src: string) {
+  const file = ts.createSourceFile('extra.ts', `let _: ${src}`, ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS)
+  const stmt = file.statements[0] as ts.VariableStatement
+  const type = stmt.declarationList.declarations[0].type
+
+  if (!type) {
+    throw new Error(`failed to parse extras returnType: ${src}`)
+  }
+
+  return type
+}
+
+function parseStatements (src: string) {
+  const file = ts.createSourceFile('extra.ts', `(()=>{${src}})()`, ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS)
+  const stmt = file.statements[0] as ts.ExpressionStatement
+  const callee = (stmt.expression as ts.CallExpression).expression as ts.ParenthesizedExpression
+  const fn = callee.expression as ts.ArrowFunction
+
+  if (!ts.isBlock(fn.body)) {
+    throw new Error(`failed to parse extras body: ${src}`)
+  }
+
+  return [...fn.body.statements]
+}
+
+function parseExpression (src: string) {
+  const file = ts.createSourceFile('extra.ts', `(${src})`, ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS)
+  const stmt = file.statements[0]
+
+  if (!stmt || !ts.isExpressionStatement(stmt) || !ts.isParenthesizedExpression(stmt.expression)) {
+    throw new Error(`failed to parse extras expression: ${src}`)
+  }
+
+  return stmt.expression.expression
+}
+
+function emitExtra (extra: UpdateExtra) {
+  const returnType = parseTypeNode(extra.returnType)
+  const doc = extra.jsdoc
+
+  if (extra.kind === 'getter') {
+    const body = ts.factory.createBlock(
+      [ts.factory.createReturnStatement(parseExpression(extra.expression))],
+      true
+    )
+    const node = ts.factory.createGetAccessorDeclaration(
+      undefined,
+      ts.factory.createIdentifier(extra.name),
+      [],
+      returnType,
+      body
+    )
+
+    return doc ? jsDoc(doc, node) : node
+  }
+
+  const body = ts.factory.createBlock(parseStatements(extra.body), true)
+  const node = ts.factory.createMethodDeclaration(
+    undefined, undefined,
+    ts.factory.createIdentifier(extra.name),
+    undefined, undefined, [],
+    returnType,
+    body
+  )
+
+  return doc ? jsDoc(doc, node) : node
+}
+
+function emitWrapperGetter (f: SchemaField, camelName: string, wrapperName: string) {
+  const isArray = f.type.kind === 'array'
+
+  const baseReturn: ts.TypeNode = isArray
+    ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(wrapperName))
+    : ts.factory.createTypeReferenceNode(wrapperName)
+
+  const returnType: ts.TypeNode = f.required
+    ? baseReturn
+    : ts.factory.createUnionTypeNode([
+      baseReturn,
+      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)
+    ])
+
+  const rawAccess = ts.factory.createPropertyAccessExpression(
+    ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+    f.name
+  )
+
+  const wrapExpr: ts.Expression = isArray
+    ? ts.factory.createCallExpression(
+      ts.factory.createPropertyAccessExpression(rawAccess, 'map'),
+      undefined,
+      [ts.factory.createArrowFunction(
+        undefined, undefined,
+        [ts.factory.createParameterDeclaration(
+          undefined, undefined,
+          ts.factory.createIdentifier('x'),
+          undefined, undefined, undefined
+        )],
+        undefined,
+        ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+        ts.factory.createNewExpression(
+          ts.factory.createIdentifier(wrapperName),
+          undefined,
+          [ts.factory.createIdentifier('x')]
+        )
+      )]
+    )
+    : ts.factory.createNewExpression(
+      ts.factory.createIdentifier(wrapperName),
+      undefined,
+      [rawAccess]
+    )
+
+  const memoAssign = ts.factory.createBinaryExpression(
+    ts.factory.createPropertyAccessExpression(ts.factory.createThis(), `_${camelName}`),
+    ts.SyntaxKind.QuestionQuestionEqualsToken,
+    wrapExpr
+  )
+
+  // required: return memoAssign
+  // optional: return rawAccess ? memoAssign : undefined
+  const body: ts.Statement[] = f.required
+    ? [ts.factory.createReturnStatement(memoAssign)]
+    : [
+        ts.factory.createReturnStatement(
+          ts.factory.createConditionalExpression(
+            rawAccess,
+            undefined,
+            ts.factory.createParenthesizedExpression(memoAssign),
+            undefined,
+            ts.factory.createIdentifier('undefined')
+          )
+        )
+      ]
+
+  return jsDoc(f.description, ts.factory.createGetAccessorDeclaration(
+    undefined,
+    ts.factory.createIdentifier(camelName),
+    [],
+    returnType,
+    ts.factory.createBlock(body, true)
+  ))
+}
+
+function emitPrimitiveGetter (f: SchemaField, camelName: string) {
+  const baseReturn = typeRefToTs(f.type)
+  const returnType: ts.TypeNode = f.required
+    ? baseReturn
+    : ts.factory.createUnionTypeNode([
+      baseReturn,
+      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)
+    ])
+
+  const rawAccess = ts.factory.createPropertyAccessExpression(
+    ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+    f.name
+  )
+
+  return jsDoc(f.description, ts.factory.createGetAccessorDeclaration(
+    undefined,
+    ts.factory.createIdentifier(camelName),
+    [],
+    returnType,
+    ts.factory.createBlock([ts.factory.createReturnStatement(rawAccess)], true)
+  ))
+}
+
+function emitShortcutMethod (sc: BoundShortcut) {
+  const filledProps = sc.filledArgs.map((anchor) => {
     let access: ts.Expression = ts.factory.createThis()
+
     for (const part of anchor.accessPath) {
       access = ts.factory.createPropertyAccessExpression(access, part)
     }
+
     return ts.factory.createPropertyAssignment(anchor.schemaArg, access)
   })
 
@@ -407,10 +582,10 @@ function emitShortcutMethod (sc: BoundShortcut): ts.MethodDeclaration {
     body
   )
 
-  return jsDoc(`Shortcut for \`tg.api.${sc.method}\`.`, method) as ts.MethodDeclaration
+  return jsDoc(`Shortcut for \`tg.api.${sc.method}\`.`, method)
 }
 
-function emitUpdateKindUnion (): ts.TypeAliasDeclaration {
+function emitUpdateKindUnion () {
   return ts.factory.createTypeAliasDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier('UpdateKind'),
@@ -422,7 +597,7 @@ function emitUpdateKindUnion (): ts.TypeAliasDeclaration {
   )
 }
 
-function emitUpdateKindMap (): ts.InterfaceDeclaration {
+function emitUpdateKindMap () {
   return ts.factory.createInterfaceDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier('UpdateKindMap'),
@@ -439,6 +614,6 @@ function emitUpdateKindMap (): ts.InterfaceDeclaration {
   )
 }
 
-function camelCase (snake: string): string {
-  return snake.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+function camelCase (snake: string) {
+  return snake.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
 }

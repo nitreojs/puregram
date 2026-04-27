@@ -90,7 +90,7 @@ const entries: [string, string][] = []
 for (const line of body.split('\n')) {
   const m = /^\s*"([^"]+)":\s*([A-Z][A-Za-z0-9]+);/.exec(line)
 
-  if (m && m[1] && m[2]) {
+  if (m?.[1] && m[2]) {
     entries.push([m[1], m[2]])
   }
 }

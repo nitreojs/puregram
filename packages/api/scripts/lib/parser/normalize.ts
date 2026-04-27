@@ -1,15 +1,17 @@
 import * as cheerio from 'cheerio'
+import type { AnyNode } from 'domhandler'
+
 import type { SchemaField, SchemaMethod, SchemaObject, SchemaTypeRef } from '../schema-types'
 
 const PRIMITIVE_MAP: Record<string, SchemaTypeRef> = {
-  'Integer': { kind: 'integer' },
-  'Int': { kind: 'integer' },
-  'String': { kind: 'string' },
-  'Boolean': { kind: 'bool' },
-  'Bool': { kind: 'bool' },
-  'Float': { kind: 'float' },
+  Integer: { kind: 'integer' },
+  Int: { kind: 'integer' },
+  String: { kind: 'string' },
+  Boolean: { kind: 'bool' },
+  Bool: { kind: 'bool' },
+  Float: { kind: 'float' },
   'Float number': { kind: 'float' },
-  'True': { kind: 'true' }
+  True: { kind: 'true' }
 }
 
 export function parseTypeRef (text: string): SchemaTypeRef {
@@ -18,12 +20,14 @@ export function parseTypeRef (text: string): SchemaTypeRef {
   // array first: commas inside the inner type stay scoped to a single splitUnion call
   if (trimmed.startsWith('Array of ')) {
     const inner = trimmed.slice('Array of '.length)
+
     return { kind: 'array', of: parseTypeRef(inner) }
   }
 
   // union: "X or Y", "X, Y or Z", or "X, Y, Z and W"
   if (/\s+or\s+|,|\s+and\s+/.test(trimmed)) {
     const parts = splitUnion(trimmed)
+
     if (parts.length > 1) {
       return { kind: 'union', of: parts.map(parseTypeRef) }
     }
@@ -40,7 +44,7 @@ export function parseTypeRef (text: string): SchemaTypeRef {
   throw new Error(`unrecognized type: "${text}"`)
 }
 
-function splitUnion (text: string): string[] {
+function splitUnion (text: string) {
   // bot-api docs use simple comma + or/and at the top level — no nested unions inside an "Array of X"
   return text.split(/\s*,\s*|\s+or\s+|\s+and\s+/g).map(s => s.trim()).filter(Boolean)
 }
@@ -50,7 +54,7 @@ export interface ExtractedSchema {
   objects: SchemaObject[]
 }
 
-export function extractFromHtml (html: string): ExtractedSchema {
+export function extractFromHtml (html: string) {
   const $ = cheerio.load(html)
 
   const methods: SchemaMethod[] = []
@@ -60,7 +64,9 @@ export function extractFromHtml (html: string): ExtractedSchema {
     const $h4 = $(h4)
     const name = $h4.text().trim()
 
-    if (!name) return
+    if (!name) {
+      return
+    }
 
     const description = collectDescription($, $h4)
     const descriptionLinks = collectDescriptionLinks($, $h4)
@@ -78,35 +84,59 @@ export function extractFromHtml (html: string): ExtractedSchema {
   return { methods, objects }
 }
 
-function isMethodName (name: string): boolean {
+function isMethodName (name: string) {
   return /^[a-z][a-zA-Z0-9]*$/.test(name)
 }
 
-function isObjectName (name: string): boolean {
+function isObjectName (name: string) {
   return /^[A-Z][a-zA-Z0-9]*$/.test(name)
 }
 
-function findSectionTable ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<any>): cheerio.Cheerio<any> {
+// `AnyNode` is a discriminated union — only `Element` carries a tagName, so narrow
+// before reading it. plain elements yield UPPER tag names; text/comment nodes yield undefined
+function tagOf (node: AnyNode | undefined) {
+  if (node && 'tagName' in node) {
+    return node.tagName.toUpperCase()
+  }
+
+  return undefined
+}
+
+function findSectionTable ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<AnyNode>) {
   let $cursor = $h4.next()
+
   while ($cursor.length) {
-    const tag = ($cursor[0] as any).tagName?.toUpperCase()
-    if (tag === 'H4' || tag === 'H3') break
-    if (tag === 'TABLE') return $cursor
+    const tag = tagOf($cursor[0])
+
+    if (tag === 'H4' || tag === 'H3') {
+      break
+    }
+
+    if (tag === 'TABLE') {
+      return $cursor
+    }
+
     $cursor = $cursor.next()
   }
+
   return $('<table></table>').remove()
 }
 
-function collectDescription (_$: cheerio.CheerioAPI, $h4: cheerio.Cheerio<any>): string {
+function collectDescription (_$: cheerio.CheerioAPI, $h4: cheerio.Cheerio<AnyNode>) {
   const parts: string[] = []
   let $cursor = $h4.next()
 
   while ($cursor.length) {
-    const tag = ($cursor[0] as any).tagName?.toUpperCase()
-    if (tag === 'H4' || tag === 'H3' || tag === 'TABLE') break
+    const tag = tagOf($cursor[0])
+
+    if (tag === 'H4' || tag === 'H3' || tag === 'TABLE') {
+      break
+    }
+
     if (tag === 'P') {
       parts.push($cursor.text().trim())
     }
+
     $cursor = $cursor.next()
   }
 
@@ -114,38 +144,54 @@ function collectDescription (_$: cheerio.CheerioAPI, $h4: cheerio.Cheerio<any>):
 }
 
 // recovers union members for objects like `BackgroundFill` that list variants in adjacent `<ul>`
-function collectSectionLinks ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<any>): string[] {
+function collectSectionLinks ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<AnyNode>) {
   const links: string[] = []
   let $cursor = $h4.next()
 
   while ($cursor.length) {
-    const tag = ($cursor[0] as any).tagName?.toUpperCase()
-    if (tag === 'H4' || tag === 'H3') break
+    const tag = tagOf($cursor[0])
+
+    if (tag === 'H4' || tag === 'H3') {
+      break
+    }
+
     if (tag === 'P' || tag === 'UL' || tag === 'OL') {
       $cursor.find('a').each((_, a) => {
         const text = $(a).text().trim()
-        if (/^[A-Z][A-Za-z0-9]*$/.test(text) && !links.includes(text)) links.push(text)
+
+        if (/^[A-Z][A-Za-z0-9]*$/.test(text) && !links.includes(text)) {
+          links.push(text)
+        }
       })
     }
+
     $cursor = $cursor.next()
   }
 
   return links
 }
 
-function collectDescriptionLinks ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<any>): string[] {
+function collectDescriptionLinks ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<AnyNode>) {
   const links: string[] = []
   let $cursor = $h4.next()
 
   while ($cursor.length) {
-    const tag = ($cursor[0] as any).tagName?.toUpperCase()
-    if (tag === 'H4' || tag === 'H3' || tag === 'TABLE') break
+    const tag = tagOf($cursor[0])
+
+    if (tag === 'H4' || tag === 'H3' || tag === 'TABLE') {
+      break
+    }
+
     if (tag === 'P') {
       $cursor.find('a').each((_, a) => {
         const text = $(a).text().trim()
-        if (/^[A-Z][A-Za-z0-9]*$/.test(text)) links.push(text)
+
+        if (/^[A-Z][A-Za-z0-9]*$/.test(text)) {
+          links.push(text)
+        }
       })
     }
+
     $cursor = $cursor.next()
   }
 
@@ -157,17 +203,18 @@ function extractMethod (
   name: string,
   description: string,
   descriptionLinks: string[],
-  $table: cheerio.Cheerio<any>
-): SchemaMethod {
+  $table: cheerio.Cheerio<AnyNode>
+) {
   const argumentRows = $table.find('tbody > tr').toArray()
 
   // method tables: Parameter | Type | Required | Description
-  const arguments_: SchemaField[] = argumentRows.map(row => {
+  const args: SchemaField[] = argumentRows.map((row) => {
     const cols = $(row).find('td').toArray()
     const fieldName = $(cols[0]).text().trim()
     const typeText = $(cols[1]).text().trim()
     const requiredText = $(cols[2]).text().trim()
     const desc = $(cols[3]).text().trim()
+
     return {
       name: fieldName,
       description: desc,
@@ -183,7 +230,7 @@ function extractMethod (
     description,
     documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
     multipartOnly: /multipart/i.test(description),
-    arguments: arguments_,
+    arguments: args,
     returnType
   }
 }
@@ -193,20 +240,22 @@ function extractObject (
   name: string,
   description: string,
   sectionLinks: string[],
-  $table: cheerio.Cheerio<any>
-): SchemaObject {
+  $table: cheerio.Cheerio<AnyNode>
+) {
   const fieldRows = $table.find('tbody > tr').toArray()
 
   // some objects are unions (e.g. ChatMember, BackgroundFill) — they don't have field tables;
   // members live either inline ("must be one of: A, B, C") or in an adjacent <ul> list of links
   if (fieldRows.length === 0 && /one of/i.test(description)) {
     let members = extractUnionMembersFromDescription(description)
+
     if (members.length === 0 && sectionLinks.length > 0) {
       // exclude self-reference (the union name itself often appears in description anchors)
       members = sectionLinks.filter(l => l !== name).map(n => parseTypeRef(n))
     }
+
     return {
-      kind: 'union',
+      kind: 'union' as const,
       name,
       description,
       documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
@@ -215,7 +264,7 @@ function extractObject (
   }
 
   // object tables: Field | Type | Description
-  const fields: SchemaField[] = fieldRows.map(row => {
+  const fields: SchemaField[] = fieldRows.map((row) => {
     const cols = $(row).find('td').toArray()
     const fieldName = $(cols[0]).text().trim()
     const typeText = $(cols[1]).text().trim()
@@ -227,6 +276,7 @@ function extractObject (
     // so factory codegen and discriminated-union typing both work
     if (type.kind === 'string' && !type.enumeration && fieldName === 'type') {
       const single = desc.match(/(?:must be|always)\s+["']?([a-z][a-z0-9_]*)["']?/i)
+
       if (single) {
         type = { kind: 'string', enumeration: [single[1]] }
       }
@@ -241,7 +291,7 @@ function extractObject (
   })
 
   return {
-    kind: 'object',
+    kind: 'object' as const,
     name,
     description,
     documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
@@ -249,7 +299,7 @@ function extractObject (
   }
 }
 
-function parseReturnTypeFromDescription (description: string, links: string[]): SchemaTypeRef {
+function parseReturnTypeFromDescription (description: string, links: string[]) {
   // common phrasings:
   //   "Returns X" / "Returns an X" / "Returns the X"
   //   "On success, the X is returned" / "On success, returns X"
@@ -266,7 +316,10 @@ function parseReturnTypeFromDescription (description: string, links: string[]): 
 
   for (const pattern of patterns) {
     const match = description.match(pattern)
-    if (match) return parseTypeRef(match[1])
+
+    if (match) {
+      return parseTypeRef(match[1])
+    }
   }
 
   // fallback for phrasings like "returns the bot's information in form of a User object" —
@@ -276,19 +329,25 @@ function parseReturnTypeFromDescription (description: string, links: string[]): 
   }
 
   // most no-return-value methods document themselves as returning `True`
-  return { kind: 'true' }
+  return { kind: 'true' as const }
 }
 
-function extractUnionMembersFromDescription (description: string): SchemaTypeRef[] {
+function extractUnionMembersFromDescription (description: string) {
   // require strict PascalCase identifiers — anything looser (e.g. "the menu button opens") false-matches
   const match = description.match(/one of[\s\S]*?:\s*([A-Z][A-Za-z0-9]+(?:\s*,\s*[A-Z][A-Za-z0-9]+)*(?:\s*(?:,|\sand)\s*[A-Z][A-Za-z0-9]+)?)/)
-  if (!match) return []
+
+  if (!match) {
+    return []
+  }
 
   const candidates = match[1]
     .split(/\s*,\s*|\s+and\s+|\s+or\s+/g)
     .map(s => s.trim())
     .filter(s => /^[A-Z][A-Za-z0-9]+$/.test(s))
 
-  if (candidates.length === 0) return []
+  if (candidates.length === 0) {
+    return []
+  }
+
   return candidates.map(name => parseTypeRef(name))
 }

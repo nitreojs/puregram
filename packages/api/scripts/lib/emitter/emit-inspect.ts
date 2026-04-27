@@ -1,5 +1,6 @@
-import { formatModule } from './format'
 import type { Schema } from '../schema-types'
+
+import { formatModule } from './format'
 import { versionString } from './load-schema'
 
 const INSPECT_BODY = `
@@ -29,7 +30,7 @@ export function makeInspect (input: InspectableInput): string {
 export { INSPECT }
 `.trim()
 
-export function emitInspect (schema: Schema): string {
+export function emitInspect (schema: Schema) {
   return formatModule({
     nodes: [],
     botApiVersion: versionString(schema),

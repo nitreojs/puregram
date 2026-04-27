@@ -1,10 +1,7 @@
 import { Telegram } from 'puregram'
 
-// the MockTelegram helper from stage 2 isn't published as a package export
-// we import it via a relative path — the workspace ensures the source is on disk
-// TODO: extract to @puregram/test-utils when 3+ satellite packages need this
-// (likely after stage 4 session adds the second consumer; stage 7 media-cacher
-// would be the third)
+// MockTelegram lives in puregram tests; relative-import until 3+ satellite
+// packages need it and we extract @puregram/test-utils
 // eslint-disable-next-line import/no-relative-packages -- internal test helper, not part of public api
 import { MockTelegram } from '../../../puregram/tests/helpers/mock-telegram'
 

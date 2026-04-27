@@ -1,5 +1,6 @@
 import type { MessageUpdate, UpdateKindMap } from '@puregram/api'
 
+import type { CollectMediaGroupOptions } from '../flow'
 import type { PromptOptions } from '../prompt'
 import type { WaitForOptions } from '../wait-for/types'
 
@@ -26,6 +27,13 @@ export interface UpdateFlowExtension {
     kind: K,
     options?: AugmentedWaitForOptions<K>
   ) => Promise<UpdateKindMap[K] | null>
+  /**
+   * collect every message that shares a `media_group_id` with this update into one array.
+   * meaningful only on message-payload updates (message/edited_message/channel_post/etc.) —
+   * a non-message update with no `media_group_id` resolves immediately with a single-item
+   * array containing the source update cast as a MessageUpdate
+   */
+  collectMediaGroup: (options?: CollectMediaGroupOptions) => Promise<MessageUpdate[]>
 }
 
 // declaration-merge augmentations live in src/generated/augmentations.ts

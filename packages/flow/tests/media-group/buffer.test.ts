@@ -2,6 +2,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { MediaGroupBuffer } from '../../src/media-group/buffer'
 
+const fakeMessage = (id: string, text: string) => (
+  { raw: { media_group_id: id, text } } as any
+)
+
 describe('MediaGroupBuffer', () => {
   beforeEach(() => {
     vi.useFakeTimers()
@@ -11,72 +15,122 @@ describe('MediaGroupBuffer', () => {
     vi.useRealTimers()
   })
 
-  it('flushes after the window with all accumulated messages', () => {
-    const emits: { id: string, count: number }[] = []
-    const buf = new MediaGroupBuffer(1000, (id, messages) => {
-      emits.push({ id, count: messages.length })
+  it('resolves with all accumulated messages once the window settles', async () => {
+    const buf = new MediaGroupBuffer()
+    const m1 = fakeMessage('a', '1')
+    const m2 = fakeMessage('a', '2')
+
+    const p = buf.collect('a', m1, 1000)
+
+    buf.collect('a', m2, 1000)
+
+    let resolved: any[] | null = null
+
+    p.then((m) => {
+      resolved = m
     })
 
-    buf.add('group-a', { raw: { media_group_id: 'group-a', text: '1' } } as any)
-    buf.add('group-a', { raw: { media_group_id: 'group-a', text: '2' } } as any)
-    buf.add('group-a', { raw: { media_group_id: 'group-a', text: '3' } } as any)
-
-    expect(emits).toHaveLength(0)
+    expect(resolved).toBeNull()
 
     vi.advanceTimersByTime(1000)
+    await Promise.resolve()
+    await Promise.resolve()
 
-    expect(emits).toEqual([{ id: 'group-a', count: 3 }])
+    expect(resolved).toEqual([m1, m2])
   })
 
-  it('keeps separate buckets for different ids and flushes independently', () => {
-    const emits: string[] = []
-    const buf = new MediaGroupBuffer(1000, (id) => {
-      emits.push(id)
+  it('resets the timer on each subsequent collect (sliding window)', async () => {
+    const buf = new MediaGroupBuffer()
+    const m1 = fakeMessage('a', '1')
+    const m2 = fakeMessage('a', '2')
+
+    const p = buf.collect('a', m1, 1000)
+
+    let resolved: any[] | null = null
+
+    p.then((m) => {
+      resolved = m
     })
 
-    buf.add('a', { raw: { media_group_id: 'a' } } as any)
+    vi.advanceTimersByTime(800)
+    buf.collect('a', m2, 1000)
+    vi.advanceTimersByTime(800)
+    await Promise.resolve()
 
-    vi.advanceTimersByTime(500)
+    // total elapsed: 1600ms, but timer was reset at 800ms — still pending
+    expect(resolved).toBeNull()
 
-    buf.add('b', { raw: { media_group_id: 'b' } } as any)
+    vi.advanceTimersByTime(200)
+    await Promise.resolve()
+    await Promise.resolve()
 
-    vi.advanceTimersByTime(500)
-
-    expect(emits).toEqual(['a'])
-
-    vi.advanceTimersByTime(500)
-
-    expect(emits).toEqual(['a', 'b'])
+    expect(resolved).toEqual([m1, m2])
   })
 
-  it('flushAll forces immediate emission for all buckets', () => {
-    const emits: string[] = []
-    const buf = new MediaGroupBuffer(10_000, (id) => {
-      emits.push(id)
+  it('returns the same promise for repeated collects on the same id', () => {
+    const buf = new MediaGroupBuffer()
+    const m = fakeMessage('a', 'x')
+
+    const a = buf.collect('a', m, 1000)
+    const b = buf.collect('a', m, 1000)
+
+    expect(a).toBe(b)
+  })
+
+  it('keeps separate buckets per id and resolves them independently', async () => {
+    const buf = new MediaGroupBuffer()
+
+    const pa = buf.collect('a', fakeMessage('a', '1'), 1000)
+    const pb = buf.collect('b', fakeMessage('b', '1'), 1000)
+
+    let aDone = false
+    let bDone = false
+
+    pa.then(() => {
+      aDone = true
+    })
+    pb.then(() => {
+      bDone = true
     })
 
-    buf.add('a', { raw: { media_group_id: 'a' } } as any)
-    buf.add('b', { raw: { media_group_id: 'b' } } as any)
+    vi.advanceTimersByTime(1000)
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(aDone).toBe(true)
+    expect(bDone).toBe(true)
+  })
+
+  it('flushAll resolves every pending bucket immediately', async () => {
+    const buf = new MediaGroupBuffer()
+
+    const pa = buf.collect('a', fakeMessage('a', '1'), 60_000)
+    const pb = buf.collect('b', fakeMessage('b', '1'), 60_000)
 
     buf.flushAll()
 
-    expect(emits.sort()).toEqual(['a', 'b'])
+    await expect(pa).resolves.toHaveLength(1)
+    await expect(pb).resolves.toHaveLength(1)
   })
 
-  it('does not double-emit if flushAll is called after a window already fired', () => {
-    const emits: string[] = []
-    const buf = new MediaGroupBuffer(1000, (id) => {
-      emits.push(id)
+  it('dedupes when the same message is collected twice', async () => {
+    const buf = new MediaGroupBuffer()
+    const m = fakeMessage('a', '1')
+
+    const p = buf.collect('a', m, 1000)
+
+    buf.collect('a', m, 1000)
+
+    let resolved: any[] | null = null
+
+    p.then((messages) => {
+      resolved = messages
     })
 
-    buf.add('a', { raw: { media_group_id: 'a' } } as any)
-
     vi.advanceTimersByTime(1000)
+    await Promise.resolve()
+    await Promise.resolve()
 
-    expect(emits).toEqual(['a'])
-
-    buf.flushAll()
-
-    expect(emits).toEqual(['a'])
+    expect(resolved).toHaveLength(1)
   })
 })

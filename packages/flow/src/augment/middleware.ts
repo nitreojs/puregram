@@ -1,6 +1,7 @@
-import type { UpdateKindMap } from '@puregram/api'
+import type { MessageUpdate, UpdateKindMap } from '@puregram/api'
 import type { Middleware } from 'puregram'
 
+import type { CollectMediaGroupOptions } from '../flow'
 import type { Filter, WaitForOptions } from '../wait-for/types'
 
 import { EXTRACTORS, type ExtractedScope } from './extractors'
@@ -18,6 +19,7 @@ interface KindRaw {
 interface FlowApi {
   prompt: (chat: number | string, text: string, options?: { from?: number, timeout?: number, nullOnTimeout?: boolean }) => Promise<UpdateKindMap['message'] | null>
   waitFor: <K extends keyof UpdateKindMap> (kind: K, options?: WaitForOptions<K>) => Promise<UpdateKindMap[K] | null>
+  collectMediaGroup: (message: MessageUpdate, options?: CollectMediaGroupOptions) => Promise<MessageUpdate[]>
 }
 
 // attaches a context-bound `flow` to every incoming update whose kind has an
@@ -56,7 +58,7 @@ export function createAugmentMiddleware (flow: FlowApi) {
     const scope = extractor(candidate as KindRaw)
 
     Object.defineProperty(update, 'flow', {
-      value: createUpdateFlowExtension(flow, scope),
+      value: createUpdateFlowExtension(flow, scope, update as MessageUpdate),
       enumerable: false,
       configurable: false,
       writable: false
@@ -68,7 +70,7 @@ export function createAugmentMiddleware (flow: FlowApi) {
   return middleware
 }
 
-function createUpdateFlowExtension (flow: FlowApi, scope: ExtractedScope) {
+function createUpdateFlowExtension (flow: FlowApi, scope: ExtractedScope, source: MessageUpdate) {
   const ext: UpdateFlowExtension = {
     prompt: (text, options = {}) => {
       const { chat, from, ...rest } = options
@@ -101,7 +103,9 @@ function createUpdateFlowExtension (flow: FlowApi, scope: ExtractedScope) {
         : rest
 
       return flow.waitFor(kind, passthrough)
-    }
+    },
+
+    collectMediaGroup: options => flow.collectMediaGroup(source, options)
   }
 
   return ext

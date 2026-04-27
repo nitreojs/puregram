@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import type { MediaGroupUpdate } from '../../src'
-import { flow, mediaGroup } from '../../src'
+import { flow } from '../../src'
 import { makeTg } from '../helpers/make-tg'
 
 const sleep = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
@@ -88,9 +87,8 @@ describe('@puregram/flow — e2e', () => {
     await mock.stop()
   })
 
-  it('mediaGroup buffers album messages and emits one composite', async () => {
-    // window is huge so the natural timer never fires; we drive emission via tg.media_group.flush()
-    const { tg, mock } = await makeTg(t => t.extend(mediaGroup({ window: 60_000 })))
+  it('message.flow.collectMediaGroup assembles every message in the album', async () => {
+    const { tg, mock } = await makeTg(t => t.extend(flow({ mediaGroupWindow: 100 })))
 
     let pulls = 0
 
@@ -138,39 +136,82 @@ describe('@puregram/flow — e2e', () => {
       return { ok: true, result: [] }
     })
 
+    let assembled: any[] | null = null
+    const seenMessageIds: number[] = []
+
+    // every album message reaches `tg.on('message')` (no suppression). only the
+    // first handler invocation actually proceeds with the assembled album to
+    // avoid acting N times per group
+    tg.on('message', async (message) => {
+      seenMessageIds.push(message.raw.message_id)
+
+      if (message.mediaGroupId === undefined) {
+        return
+      }
+
+      const group = await message.flow.collectMediaGroup()
+
+      if (group[0]?.raw.message_id !== message.raw.message_id) {
+        return
+      }
+
+      assembled = group
+    })
+
     await tg.start()
 
-    const composites: MediaGroupUpdate[] = []
+    tg.startPolling().catch(() => {})
 
-    tg.on('media_group', (u) => {
-      composites.push(u)
-    })
+    const start = Date.now()
 
-    const singletons: unknown[] = []
-
-    tg.on('message', (u) => {
-      singletons.push(u)
-    })
-
-    const startPromise = tg.startPolling()
-
-    // give polling enough real time to deliver the batch over loopback http
-    await sleep(50)
-
-    // force emission deterministically rather than waiting on the album window
-    tg.media_group.flush()
-
-    // let the synthesised media_group dispatch settle through the chain
-    await new Promise(resolve => setImmediate(resolve))
+    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler
+    while (assembled === null && Date.now() - start < 2000) {
+      await sleep(20)
+    }
 
     tg.stopPolling()
-    await startPromise
 
-    expect(singletons).toHaveLength(0)
-    expect(composites).toHaveLength(1)
-    expect(composites[0]?.kind).toBe('media_group')
-    expect(composites[0]?.messages).toHaveLength(3)
-    expect(composites[0]?.id).toBe('album-1')
+    expect(seenMessageIds).toEqual([1, 2, 3])
+    expect(assembled).not.toBeNull()
+    expect(assembled).toHaveLength(3)
+    expect(assembled?.map((m: any) => m.raw.message_id)).toEqual([1, 2, 3])
+
+    await mock.stop()
+  })
+
+  it('collectMediaGroup resolves immediately with [message] when no media_group_id is set', async () => {
+    const { tg, mock } = await makeTg(t => t.extend(flow()))
+
+    mock.expect('getUpdates', () => {
+      return {
+        ok: true,
+        result: [
+          { update_id: 1, message: { message_id: 1, date: 0, chat: { id: 100, type: 'private' }, text: 'plain' } }
+        ]
+      }
+    })
+
+    let resolved: any[] | null = null
+
+    tg.on('message', async (message) => {
+      resolved = await message.flow.collectMediaGroup()
+    })
+
+    await tg.start()
+
+    tg.startPolling().catch(() => {})
+
+    const start = Date.now()
+
+    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler
+    while (resolved === null && Date.now() - start < 1000) {
+      await sleep(20)
+    }
+
+    tg.stopPolling()
+
+    expect(resolved).toHaveLength(1)
+    expect(resolved?.[0]?.raw.text).toBe('plain')
 
     await mock.stop()
   })
@@ -438,8 +479,8 @@ describe('@puregram/flow — e2e', () => {
     await mock.stop()
   })
 
-  it('flow + mediaGroup compose: waitFor("message") still works for non-album messages', async () => {
-    const { tg, mock } = await makeTg(t => t.extend(flow()).extend(mediaGroup({ window: 100 })))
+  it('waitFor("message") still resolves on a plain (non-album) message', async () => {
+    const { tg, mock } = await makeTg(t => t.extend(flow({ mediaGroupWindow: 100 })))
 
     let pulls = 0
 

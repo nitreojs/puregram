@@ -1,37 +1,50 @@
 import type { MessageUpdate } from '@puregram/api'
 
-export type MediaGroupEmit = (id: string, messages: MessageUpdate[]) => void
-
 interface Bucket {
   messages: MessageUpdate[]
+  promise: Promise<MessageUpdate[]>
+  resolve: (messages: MessageUpdate[]) => void
   timer: ReturnType<typeof setTimeout>
 }
 
+// promise-based aggregator keyed by `media_group_id`. each `collect(message, window)`
+// call adds the message to its bucket, resets the bucket's sliding timer, and returns
+// the same promise that resolves with the full message list once the window settles.
+//
+// callers that hand the same group_id from multiple handler invocations get the same
+// resolved array, so handlers can converge on the assembled album without external sync.
 export class MediaGroupBuffer {
   private readonly buckets = new Map<string, Bucket>()
-  private readonly window: number
-  private readonly emit: MediaGroupEmit
 
-  constructor (window: number, emit: MediaGroupEmit) {
-    this.window = window
-    this.emit = emit
-  }
+  collect (id: string, message: MessageUpdate, window: number) {
+    let bucket = this.buckets.get(id)
 
-  add (id: string, message: MessageUpdate) {
-    const existing = this.buckets.get(id)
+    if (!bucket) {
+      let resolveBucket!: (messages: MessageUpdate[]) => void
+      const promise = new Promise<MessageUpdate[]>((resolve) => {
+        resolveBucket = resolve
+      })
 
-    if (existing) {
-      existing.messages.push(message)
+      bucket = {
+        messages: [],
+        promise,
+        resolve: resolveBucket,
+        timer: setTimeout(() => this.flush(id), window)
+      }
 
-      return
+      this.buckets.set(id, bucket)
+    } else {
+      clearTimeout(bucket.timer)
+      bucket.timer = setTimeout(() => this.flush(id), window)
     }
 
-    const bucket: Bucket = {
-      messages: [message],
-      timer: setTimeout(() => this.flush(id), this.window)
+    // dedupe — the same message object can be passed via both the global tg.flow handler
+    // and a per-update message.flow.collectMediaGroup() in the same tick
+    if (!bucket.messages.includes(message)) {
+      bucket.messages.push(message)
     }
 
-    this.buckets.set(id, bucket)
+    return bucket.promise
   }
 
   flushAll () {
@@ -49,6 +62,6 @@ export class MediaGroupBuffer {
 
     clearTimeout(bucket.timer)
     this.buckets.delete(id)
-    this.emit(id, bucket.messages)
+    bucket.resolve(bucket.messages)
   }
 }

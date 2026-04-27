@@ -1,5 +1,5 @@
 import type { MessageUpdate, UpdateKindMap } from '@puregram/api'
-import type { Middleware } from 'puregram'
+import { attach, type Middleware } from 'puregram'
 
 import type { CollectMediaGroupOptions } from '../flow'
 import type { Filter, WaitForOptions } from '../wait-for/types'
@@ -57,12 +57,7 @@ export function createAugmentMiddleware (flow: FlowApi) {
 
     const scope = extractor(candidate as KindRaw)
 
-    Object.defineProperty(update, 'flow', {
-      value: createUpdateFlowExtension(flow, scope, update as MessageUpdate),
-      enumerable: false,
-      configurable: false,
-      writable: false
-    })
+    attach(update, 'flow', createUpdateFlowExtension(flow, scope, update as MessageUpdate))
 
     await next()
   }

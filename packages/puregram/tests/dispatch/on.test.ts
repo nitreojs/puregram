@@ -26,7 +26,27 @@ describe('Dispatcher', () => {
     expect(h).not.toHaveBeenCalled()
   })
 
-  it('runs multiple handlers in registration order', async () => {
+  it('chains handlers in registration order when each calls next()', async () => {
+    const d = new Dispatcher()
+    const trace: string[] = []
+
+    d.on('message', async (_u, next) => {
+      trace.push('a')
+      await next()
+    })
+    d.on('message', async (_u, next) => {
+      trace.push('b')
+      await next()
+    })
+    d.on('message', () => {
+      trace.push('c')
+    })
+
+    await d.runUserHandlers({ kind: 'message' } as any)
+    expect(trace).toEqual(['a', 'b', 'c'])
+  })
+
+  it('halts the chain when a handler returns without calling next()', async () => {
     const d = new Dispatcher()
     const trace: string[] = []
 
@@ -36,7 +56,8 @@ describe('Dispatcher', () => {
     d.on('message', () => {
       trace.push('b')
     })
+
     await d.runUserHandlers({ kind: 'message' } as any)
-    expect(trace).toEqual(['a', 'b'])
+    expect(trace).toEqual(['a'])
   })
 })

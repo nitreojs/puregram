@@ -120,6 +120,24 @@ export class Telegram<Ext = unknown> {
     this.started = false
   }
 
+  /**
+   * register a handler for one or more update kinds.
+   *
+   * handlers compose middleware-style: each handler receives `(update, next)`. calling
+   * `next()` lets the next registered handler run, returning without calling `next()`
+   * halts the chain. order of registration is order of execution.
+   *
+   * @example
+   * tg.on('message', async (message, next) => {
+   *   console.log('[message]', message.text)
+   *   await next()  // pass through to subsequent handlers
+   * })
+   *
+   * tg.on('message', async (message) => {
+   *   if (message.text !== '/cmd') return  // ← chain stops here, no further handlers run
+   *   await message.send('hi')
+   * })
+   */
   on<K extends UpdateKind> (kind: K, handler: UpdateHandler<UpdateKindMap[K]>): this
   on<K extends UpdateKind> (kinds: readonly K[], handler: UpdateHandler<UpdateKindMap[K]>): this
   on<K extends UpdateKind> (
@@ -135,6 +153,47 @@ export class Telegram<Ext = unknown> {
     }
 
     return this
+  }
+
+  /**
+   * register a handler that fires when a `message` update's text matches `/<name>`,
+   * `/<name> <args>`, or `/<name>@<bot>` (group mention form). non-matching messages
+   * are passed through to the next handler via `next()`. matching messages run the
+   * handler and stop the chain unless the handler itself calls `next()`.
+   *
+   * @example
+   * tg.command('start', async (message) => {
+   *   await message.send('hello')
+   * })
+   */
+  command (
+    name: string,
+    handler: UpdateHandler<UpdateKindMap['message']>
+  ) {
+    const prefix = `/${name}`
+
+    return this.on('message', async (message, next) => {
+      const text = message.raw.text
+
+      if (typeof text !== 'string') {
+        await next()
+
+        return
+      }
+
+      const matched = text === prefix ||
+        text.startsWith(`${prefix} `) ||
+        text.startsWith(`${prefix}@`) ||
+        text.startsWith(`${prefix}\n`)
+
+      if (!matched) {
+        await next()
+
+        return
+      }
+
+      await handler(message, next)
+    })
   }
 
   off (kind: string, handler: UpdateHandler): this {

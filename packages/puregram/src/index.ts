@@ -1,5 +1,3 @@
-// puregram v3 — runtime core
-
 export { Telegram } from './telegram'
 export type { TelegramOptions } from './options'
 export { TelegramError, ApiError } from './errors'

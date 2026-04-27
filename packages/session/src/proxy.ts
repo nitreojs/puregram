@@ -137,15 +137,5 @@ export function wrap (
     })
   )
 
-  if (isPlainObject(value)) {
-    const proxy = proxify({})
-
-    for (const [k, v] of Object.entries(value)) {
-      proxy[k] = v
-    }
-
-    return proxy
-  }
-
   return proxify(value)
 }

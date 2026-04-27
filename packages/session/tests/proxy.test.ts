@@ -4,9 +4,9 @@ import { wrap } from '../src/proxy'
 import { ttl } from '../src/ttl'
 
 describe('wrap()', () => {
-  it('reads and writes pass through the proxy (defensive copy on wrap)', () => {
-    // wrap() defensively copies into a fresh internal target — mutations on the
-    // proxy do NOT propagate to the original `data` reference. v2 behavior.
+  it('reads and writes pass through to the underlying object', () => {
+    // proxy operates on the passed-in target directly — mutations flow through to `data`.
+    // (no defensive copy: lets storage.set(key, data) save the actually-mutated state.)
     const onChange = vi.fn()
     const $forceUpdate = vi.fn()
     const data: Record<string, unknown> = { a: 1 }
@@ -17,8 +17,7 @@ describe('wrap()', () => {
     proxy.b = 2
 
     expect(proxy.b).toBe(2)
-    // raw `data` is the seed-source, not the live target — unchanged
-    expect(data.b).toBeUndefined()
+    expect(data.b).toBe(2)
   })
 
   it('writes flip onChange', () => {
@@ -172,7 +171,7 @@ describe('wrap()', () => {
 
     it('detects writes inside objects nested inside arrays', () => {
       const onChange = vi.fn()
-      const proxy = wrap({ users: [{ name: 'a' }] }, vi.fn(), new Map(), onChange) as { users: Array<{ name: string }> }
+      const proxy = wrap({ users: [{ name: 'a' }] }, vi.fn(), new Map(), onChange) as { users: { name: string }[] }
 
       onChange.mockClear()
 

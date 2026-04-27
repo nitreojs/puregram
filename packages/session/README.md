@@ -43,6 +43,14 @@ mutations on:
 
 if you need to force a flush regardless, call `session.$forceUpdate()` mid-handler.
 
+## behavior changes from v2
+
+if you're moving from v2 with a serializing backend (redis, sql, anything that re-serializes session data on `get`/`set`), one important difference: **v3 mutates the underlying object directly through the proxy.** writes to `update.session.foo = 1` flow through to the same data object that `storage.set(key, data)` saves at end-of-dispatch.
+
+v2 used a defensive entry-copy inside the proxy wrapper that made the proxy operate on a fresh internal target — separate from the object handed back to storage. with `MemoryStorage` this happened to work because `Map` preserves the proxy reference itself across `get`/`set`, but with any backend that JSON-roundtrips your session, **v2 silently dropped writes**. v3 makes writes observable everywhere, including outside the dispatch path: storing a session reference and reading it elsewhere observes live mutations.
+
+if you depended on v2's accidental isolation (you shouldn't have), wrap session reads in a snapshot before passing them around: `const snap = JSON.parse(JSON.stringify(update.session))`.
+
 ## concurrency
 
 session is per-update: each dispatched update gets its own `update.session` proxy backed by a fresh `storage.get` → wrap → `storage.set` cycle. v3's polling layer dispatches updates in a batch concurrently (per `polling.ts`), so two updates from the same key delivered in the same batch will race on `storage.get`/`set` — both load the same baseline, both write, last-writer-wins. this matches v2's behavior. for strict serialization use a custom `SessionStorage` with locking, or run polling with `batchSize: 1`.

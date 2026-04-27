@@ -68,7 +68,7 @@ type LoginButtonParamsWithStyle = LoginButtonParams & ButtonStyleParams
 
 /** Inline keyboard */
 export class InlineKeyboard {
-  /** Empty inline keyboard. That's literally it. */
+  /** Empty inline keyboard. That's literally it */
   static empty = new InlineKeyboard()
 
   private buttons: PuregramInlineKeyboardButton[][] = []
@@ -108,7 +108,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `textButton`. */
+  /** An alias for `textButton` */
   static text (params: TextButtonParamsWithStyle) {
     return InlineKeyboard.textButton(params)
   }
@@ -131,7 +131,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `urlButton`. */
+  /** An alias for `urlButton` */
   static url (params: UrlButtonParamsWithStyle) {
     return InlineKeyboard.urlButton(params)
   }
@@ -154,7 +154,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `webAppButton`. */
+  /** An alias for `webAppButton` */
   static webApp (params: WebAppButtonParamsWithStyle) {
     return InlineKeyboard.webAppButton(params)
   }
@@ -179,7 +179,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `switchToCurrentChatButton`. */
+  /** An alias for `switchToCurrentChatButton` */
   static switchToCurrentChat (params: SwitchToCurrentChatButtonParamsWithStyle) {
     return InlineKeyboard.switchToCurrentChatButton(params)
   }
@@ -204,7 +204,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `switchToChatButton`. */
+  /** An alias for `switchToChatButton` */
   static switchToChat (params: SwitchToChatButtonParamsWithStyle) {
     return InlineKeyboard.switchToChatButton(params)
   }
@@ -212,7 +212,7 @@ export class InlineKeyboard {
   /**
    * Generate button that will prompt user to select one of their chats of the
    * specified type, open that chat and insert the bot's username and the
-   * specified inline query in the input field.
+   * specified inline query in the input field
    */
   static switchToChosenChatButton (
     params: SwitchToChosenChatButtonParamsWithStyle
@@ -255,12 +255,12 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `switchToChosenChatButton`. */
+  /** An alias for `switchToChosenChatButton` */
   static switchToChosenChat (params: SwitchToChosenChatButtonParamsWithStyle) {
     return InlineKeyboard.switchToChosenChatButton(params)
   }
 
-  /** Description of the button that copies the specified text to the clipboard. */
+  /** Description of the button that copies the specified text to the clipboard */
   static copyButton (params: CopyButtonParamsWithStyle) {
     const button: PuregramInlineKeyboardButton = {
       text: params.text,
@@ -280,7 +280,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `copyButton`. */
+  /** An alias for `copyButton` */
   static copy (params: CopyButtonParamsWithStyle) {
     return InlineKeyboard.copyButton(params)
   }
@@ -303,7 +303,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `gameButton`. */
+  /** An alias for `gameButton` */
   static game (params: GameButtonParamsWithStyle) {
     return InlineKeyboard.gameButton(params)
   }
@@ -326,7 +326,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `payButton`. */
+  /** An alias for `payButton` */
   static pay (params: PayButtonParamsWithStyle) {
     return InlineKeyboard.payButton(params)
   }
@@ -349,7 +349,7 @@ export class InlineKeyboard {
     return button
   }
 
-  /** An alias for `loginButton`. */
+  /** An alias for `loginButton` */
   static login (params: LoginButtonParamsWithStyle) {
     return InlineKeyboard.loginButton(params)
   }

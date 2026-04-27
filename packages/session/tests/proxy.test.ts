@@ -5,7 +5,7 @@ import { ttl } from '../src/ttl'
 
 describe('wrap()', () => {
   it('reads and writes pass through to the underlying object', () => {
-    // proxy operates on the passed-in target directly — mutations flow through to `data`.
+    // proxy operates on the passed-in target directly — mutations flow through to `data`
     // (no defensive copy: lets storage.set(key, data) save the actually-mutated state.)
     const onChange = vi.fn()
     const $forceUpdate = vi.fn()

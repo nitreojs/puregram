@@ -24,7 +24,7 @@ export class MarkdownV2 {
 
   /**
    * Since MarkdownV2 requires escaping a lot of chars you can use this static
-   * method for easier usage of MarkdownV2 via template strings.
+   * method for easier usage of MarkdownV2 via template strings
    *
    * @example
    * ```js

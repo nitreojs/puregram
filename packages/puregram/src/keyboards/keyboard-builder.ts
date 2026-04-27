@@ -13,7 +13,7 @@ export class KeyboardBuilder {
   private placeholder?: string
 
   /**
-   * Generate text button.
+   * Generate text button
    * If none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
@@ -32,9 +32,9 @@ export class KeyboardBuilder {
   }
 
   /**
-   * If specified, pressing the button will open a list of suitable users.
+   * If specified, pressing the button will open a list of suitable users
    * Tapping on any user will send their identifier to the bot in a "user_shared"
-   * service message. Available in private chats only.
+   * service message. Available in private chats only
    */
   requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers & ButtonStyleParams) {
     const button: PuregramKeyboardButton = {
@@ -54,9 +54,9 @@ export class KeyboardBuilder {
   }
 
   /**
-   * If specified, pressing the button will open a list of suitable chats.
+   * If specified, pressing the button will open a list of suitable chats
    * Tapping on a chat will send its identifier to the bot in a "chat_shared"
-   * service message. Available in private chats only.
+   * service message. Available in private chats only
    */
   requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat & ButtonStyleParams) {
     const button: PuregramKeyboardButton = {
@@ -76,7 +76,7 @@ export class KeyboardBuilder {
   }
 
   /**
-   * The user's current location will be sent when the button is pressed.
+   * The user's current location will be sent when the button is pressed
    *
    * Available in private chats only
    */
@@ -99,7 +99,7 @@ export class KeyboardBuilder {
 
   /**
    * The user will be asked to create a poll and send it to the bot
-   * when the button is pressed.
+   * when the button is pressed
    *
    * Available in private chats only
    */
@@ -132,7 +132,7 @@ export class KeyboardBuilder {
 
   /**
    * The user's phone number will be sent as a contact when
-   * the button is pressed.
+   * the button is pressed
    *
    * Available in private chats only
    */
@@ -154,10 +154,10 @@ export class KeyboardBuilder {
   }
 
   /**
-   * The described Web App will be launched when the button is pressed.
-   * The Web App will be able to send a `web_app_data` service message.
+   * The described Web App will be launched when the button is pressed
+   * The Web App will be able to send a `web_app_data` service message
    *
-   * Available in private chats only.
+   * Available in private chats only
    */
   webAppButton (text: string, url: string, params?: ButtonStyleParams) {
     const button: PuregramKeyboardButton = {
@@ -193,7 +193,7 @@ export class KeyboardBuilder {
    * keyboard will still be available, but clients will automatically display
    * the usual letter-keyboard in the chat — the user can press a special
    * button in the input field to see the custom keyboard again. Defaults to
-   * `false`.
+   * `false`
    */
   oneTime (oneTime = true) {
     this.isOneTime = oneTime
@@ -205,7 +205,7 @@ export class KeyboardBuilder {
    * Requests clients to resize the keyboard vertically for optimal fit (e.g.,
    * make the keyboard smaller if there are just two rows of buttons). Defaults
    * to `false`, in which case the custom keyboard is always of the same height
-   * as the app's standard keyboard.
+   * as the app's standard keyboard
    */
   resize (resize = true) {
     this.isResized = resize
@@ -223,7 +223,7 @@ export class KeyboardBuilder {
   /**
    * Requests clients to always show the keyboard when the regular keyboard is
    * hidden. Defaults to `false`, in which case the custom keyboard can be
-   * hidden and opened with a keyboard icon.
+   * hidden and opened with a keyboard icon
    */
   persistent (persistent = true) {
     this.isPersistent = persistent

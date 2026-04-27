@@ -1,9 +1,9 @@
-// type-only test — checked by tsc (when included in a project) and consumed by IDE LSP.
-// vitest's test.include glob (`tests/**/*.test.ts`) does not pick up `*.test-d.ts`.
+// type-only test — checked by tsc (when included in a project) and consumed by IDE LSP
+// vitest's test.include glob (`tests/**/*.test.ts`) does not pick up `*.test-d.ts`
 // the SessionData augmentation here is intentionally module-scoped — it leaks to other
 // test files via the eslint tsconfig (`tests/**/*`). keep the augmented shape minimal
 // and aligned with what session.test.ts's `initial: () => ({ counter: 100 })` returns,
-// so cross-file consistency is preserved.
+// so cross-file consistency is preserved
 
 import type { CallbackQueryUpdate, MessageUpdate } from '@puregram/api'
 import type { Telegram } from 'puregram'

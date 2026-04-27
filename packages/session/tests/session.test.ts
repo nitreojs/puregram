@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { session } from '../src/session'
 import { MemoryStorage } from '../src/storage/memory'
 
-// declare-merge custom test kinds so tg.on('probe', h) typechecks without per-call casts.
+// declare-merge custom test kinds so tg.on('probe', h) typechecks without per-call casts
 // (each interface uses index signature first to keep member-ordering happy.)
 interface ProbeUpdate {
   [key: string]: unknown

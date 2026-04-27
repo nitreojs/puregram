@@ -63,8 +63,8 @@ export class WaiterRegistry {
     this.queues.clear()
   }
 
-  // strip already-settled waiters (timed out, externally cancelled) from a kind's queue.
-  // uses the public Waiter.settled accessor — no structural casts.
+  // strip already-settled waiters (timed out, externally cancelled) from a kind's queue
+  // uses the public Waiter.settled accessor — no structural casts
   private evictSettled (kind: string) {
     const queue = this.queues.get(kind)
 

@@ -13,8 +13,8 @@ export interface TtlWrapped<T> {
 }
 
 /**
- * marks a value to expire `t` ms after it was last set (lazy — checked on read).
- * `t === 0` clears any existing ttl for the key on assignment.
+ * marks a value to expire `t` ms after it was last set (lazy — checked on read)
+ * `t === 0` clears any existing ttl for the key on assignment
  */
 export function ttl<T> (value: T, t = 30_000): T {
   if (t < 0) {

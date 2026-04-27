@@ -146,6 +146,23 @@ export class Telegram<Ext = unknown> {
   }
   /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
 
+  /**
+   * register a dispatch middleware
+   *
+   * shorthand for `useHook('onUpdate', fn, options)`. defaults to `'normal'` priority,
+   * which runs before `tg.on(...)` handlers and after `'high'` middleware like waitFor/session
+   *
+   * @example
+   * tg.use(async (update, next) => {
+   *   const start = Date.now()
+   *   await next()
+   *   console.log(`update took ${Date.now() - start}ms`)
+   * })
+   */
+  use (fn: Middleware<unknown>, options?: HookOptions) {
+    return this.useHook('onUpdate', fn, options)
+  }
+
   defineUpdate<N extends string> (kind: N) {
     this.customUpdates.define(kind)
 

@@ -84,4 +84,25 @@ describe('Telegram', () => {
     await tg.start()
     expect(tg.bot).toBe(STUB_BOT)
   })
+
+  it('use(fn) registers a middleware that runs before tg.on handlers', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const trace: string[] = []
+
+    tg.use((_update, next) => {
+      trace.push('use')
+
+      return next()
+    })
+    tg.on('message', () => {
+      trace.push('handler')
+    })
+
+    await (tg as any).dispatch({
+      kind: 'message',
+      raw: { message_id: 1, date: 0, chat: { id: 100, type: 'private' } }
+    })
+
+    expect(trace).toEqual(['use', 'handler'])
+  })
 })

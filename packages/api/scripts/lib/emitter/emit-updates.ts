@@ -5,10 +5,14 @@ import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { analyzeShortcuts, type BoundShortcut } from './shortcut-analyzer'
+import { METHOD_POSITIONALS } from './shortcuts-config'
 import { isWrappedStructure } from './structures-config'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
 import { UPDATE_KINDS, type UpdateExtra, type UpdateKindSpec } from './updates-config'
 
+// per-update verb renames — keep separate from telegram-level SHORTCUTS so that
+// a method can be a per-update shortcut (e.g. `answer` on CallbackQueryUpdate)
+// without also being on the curated telegram-level list
 const SHORTCUT_RENAMES: Record<string, string> = {
   sendMessage: 'send',
   forwardMessage: 'forward',
@@ -69,6 +73,26 @@ export function emitUpdates (schema: Schema) {
         }
 
         collectReferencedTypeNames(f.type, referencedTypes, name => `Telegram${name}`)
+      }
+    }
+  }
+
+  // positional shortcut args inline `typeRefToTs(arg.type)` as the parameter type,
+  // so any referenced Telegram* type needs to be imported alongside the payload types
+  for (const list of Object.values(analysis.byKind)) {
+    for (const sc of list) {
+      const anchorArgs = new Set(sc.filledArgs.map(a => a.schemaArg))
+
+      for (const p of METHOD_POSITIONALS[sc.method] ?? []) {
+        if (anchorArgs.has(p.schemaArg)) {
+          continue
+        }
+
+        const arg = sc.userArgs.find(a => a.name === p.schemaArg)
+
+        if (arg) {
+          collectReferencedTypeNames(arg.type, referencedTypes, name => `Telegram${name}`)
+        }
       }
     }
   }
@@ -530,6 +554,37 @@ function emitShortcutMethod (sc: BoundShortcut) {
     return ts.factory.createPropertyAssignment(anchor.schemaArg, access)
   })
 
+  // primary positional args (e.g. `text` for sendMessage, `latitude`/`longitude` for sendLocation)
+  // — drop entries already covered by the update's anchor map; the remaining ones become
+  // positional method params and are also forwarded into the api call as named properties
+  const anchorArgs = new Set(sc.filledArgs.map(a => a.schemaArg))
+  const positionals = (METHOD_POSITIONALS[sc.method] ?? [])
+    .filter(p => !anchorArgs.has(p.schemaArg))
+    .flatMap((p) => {
+      const arg = sc.userArgs.find(a => a.name === p.schemaArg)
+
+      return arg ? [{ ...p, arg }] : []
+    })
+
+  // positional args are always required at the call site even if the schema
+  // marks them optional — `exactOptionalPropertyTypes` rejects an explicit
+  // `undefined` for an optional property, and a primary positional like
+  // `setMessageReaction.reaction` is conventionally always supplied (pass `[]`
+  // to clear). callers who want to omit it can drop down to `tg.api.<method>`
+  const positionalParams = positionals.map(p =>
+    ts.factory.createParameterDeclaration(
+      undefined, undefined,
+      ts.factory.createIdentifier(p.name),
+      undefined,
+      typeRefToTs(p.arg.type),
+      undefined
+    )
+  )
+
+  const positionalProps = positionals.map(p =>
+    ts.factory.createPropertyAssignment(p.schemaArg, ts.factory.createIdentifier(p.name))
+  )
+
   const body = ts.factory.createBlock([
     ts.factory.createReturnStatement(
       ts.factory.createCallExpression(
@@ -544,6 +599,7 @@ function emitShortcutMethod (sc: BoundShortcut) {
         [
           ts.factory.createObjectLiteralExpression([
             ...filledProps,
+            ...positionalProps,
             ts.factory.createSpreadAssignment(ts.factory.createIdentifier('params'))
           ], true)
         ]
@@ -552,32 +608,46 @@ function emitShortcutMethod (sc: BoundShortcut) {
   ], true)
 
   const paramTypeName = sc.method[0].toUpperCase() + sc.method.slice(1) + 'Params'
+  const omittedNames = [
+    ...sc.filledArgs.map(a => a.schemaArg),
+    ...positionals.map(p => p.schemaArg)
+  ]
 
   const omitTypeNode = ts.factory.createTypeReferenceNode('Omit', [
     ts.factory.createTypeReferenceNode(paramTypeName),
     ts.factory.createUnionTypeNode(
-      sc.filledArgs.map(a => ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(a.schemaArg)))
+      omittedNames.map(n => ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(n)))
     )
   ])
 
-  // only default to `{}` when no required user args remain — otherwise a call like `update.send()`
-  // would type-check but blow up at runtime instead of erroring at the call site
-  const allUserArgsOptional = sc.userArgs.every(a => !a.required)
-  const defaultInit = allUserArgsOptional
+  // remaining user args = everything not anchored and not positional
+  const positionalArgs = new Set(positionals.map(p => p.schemaArg))
+  const restArgs = sc.userArgs.filter(a => !positionalArgs.has(a.name))
+
+  // only default `params` to `{}` when no remaining user args are required —
+  // otherwise calling `update.send(text)` should error at the call site if a
+  // required user arg is missing rather than blow up at runtime
+  const allRestOptional = restArgs.every(a => !a.required)
+  const defaultInit = allRestOptional
     ? ts.factory.createObjectLiteralExpression([], false)
     : undefined
+
+  // `params?: ... = {}` is a syntax error — pick exactly one optionality marker.
+  // default-init when all rest args are optional so callers can omit `params` entirely
+  // and still get a typed empty object inside the api call
+  const paramsParam = ts.factory.createParameterDeclaration(
+    undefined, undefined,
+    ts.factory.createIdentifier('params'),
+    undefined,
+    omitTypeNode,
+    defaultInit
+  )
 
   const method = ts.factory.createMethodDeclaration(
     undefined, undefined,
     ts.factory.createIdentifier(shortcutNameFor(sc.method)),
     undefined, undefined,
-    [ts.factory.createParameterDeclaration(
-      undefined, undefined,
-      ts.factory.createIdentifier('params'),
-      undefined,
-      omitTypeNode,
-      defaultInit
-    )],
+    [...positionalParams, paramsParam],
     undefined,
     body
   )

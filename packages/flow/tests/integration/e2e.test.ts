@@ -240,6 +240,204 @@ describe('@puregram/flow — e2e', () => {
     await mock.stop()
   })
 
+  it('update.flow.prompt auto-fills chat + sender from the source message', async () => {
+    const { tg, mock } = await makeTg(t => t.extend(flow()))
+
+    mock.expect('sendMessage', params => ({
+      ok: true,
+      result: { message_id: 99, date: 0, chat: { id: params.chat_id, type: 'private' }, text: params.text }
+    }))
+
+    let pulls = 0
+
+    mock.expect('getUpdates', () => {
+      pulls++
+
+      if (pulls === 1) {
+        return {
+          ok: true,
+          result: [
+            {
+              update_id: 1,
+              message: {
+                message_id: 1,
+                date: 0,
+                from: { id: 7, is_bot: false, first_name: 'a' },
+                chat: { id: 100, type: 'private' },
+                text: '/ask'
+              }
+            }
+          ]
+        }
+      }
+
+      // intentionally include a second message from a different sender — it must
+      // NOT match the prompt because the augment middleware pinned `from: 7`
+      if (pulls === 2) {
+        return {
+          ok: true,
+          result: [
+            {
+              update_id: 2,
+              message: {
+                message_id: 2,
+                date: 0,
+                from: { id: 8, is_bot: false, first_name: 'b' },
+                chat: { id: 100, type: 'private' },
+                text: 'wrong sender'
+              }
+            }
+          ]
+        }
+      }
+
+      if (pulls === 3) {
+        return {
+          ok: true,
+          result: [
+            {
+              update_id: 3,
+              message: {
+                message_id: 3,
+                date: 0,
+                from: { id: 7, is_bot: false, first_name: 'a' },
+                chat: { id: 100, type: 'private' },
+                text: 'alice'
+              }
+            }
+          ]
+        }
+      }
+
+      return { ok: true, result: [] }
+    })
+
+    let resolvedReply: any = null
+
+    tg.on('message', async (msg) => {
+      if (msg.raw.text !== '/ask') {
+        return
+      }
+
+      resolvedReply = await msg.flow.prompt('name?')
+    })
+
+    await tg.start()
+
+    tg.startPolling().catch(() => {})
+
+    const start = Date.now()
+
+    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler closure
+    while (resolvedReply === null && Date.now() - start < 2000) {
+      await new Promise(resolve => setTimeout(resolve, 20))
+    }
+
+    tg.stopPolling()
+
+    expect(resolvedReply).not.toBeNull()
+    expect(resolvedReply.raw.text).toBe('alice')
+    expect(resolvedReply.raw.from.id).toBe(7)
+
+    await mock.stop()
+  })
+
+  it('update.flow.waitFor scopes by chat (match: "chat") and matches a callback_query in same chat', async () => {
+    const { tg, mock } = await makeTg(t => t.extend(flow()))
+
+    let pulls = 0
+
+    mock.expect('getUpdates', () => {
+      pulls++
+
+      if (pulls === 1) {
+        return {
+          ok: true,
+          result: [
+            {
+              update_id: 1,
+              message: {
+                message_id: 1,
+                date: 0,
+                from: { id: 7, is_bot: false, first_name: 'a' },
+                chat: { id: 100, type: 'private' },
+                text: '/wait'
+              }
+            }
+          ]
+        }
+      }
+
+      // callback_query from a different chat — must not match
+      if (pulls === 2) {
+        return {
+          ok: true,
+          result: [
+            {
+              update_id: 2,
+              callback_query: {
+                id: 'cq-other',
+                from: { id: 9, is_bot: false, first_name: 'c' },
+                message: { message_id: 1, date: 0, chat: { id: 999, type: 'private' } },
+                chat_instance: 'inst',
+                data: 'red'
+              }
+            }
+          ]
+        }
+      }
+
+      if (pulls === 3) {
+        return {
+          ok: true,
+          result: [
+            {
+              update_id: 3,
+              callback_query: {
+                id: 'cq-match',
+                from: { id: 8, is_bot: false, first_name: 'b' },
+                message: { message_id: 1, date: 0, chat: { id: 100, type: 'private' } },
+                chat_instance: 'inst',
+                data: 'blue'
+              }
+            }
+          ]
+        }
+      }
+
+      return { ok: true, result: [] }
+    })
+
+    let resolvedCq: any = null
+
+    tg.on('message', async (msg) => {
+      if (msg.raw.text !== '/wait') {
+        return
+      }
+
+      resolvedCq = await msg.flow.waitFor('callback_query', { match: 'chat' })
+    })
+
+    await tg.start()
+
+    tg.startPolling().catch(() => {})
+
+    const start = Date.now()
+
+    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler closure
+    while (resolvedCq === null && Date.now() - start < 2000) {
+      await new Promise(resolve => setTimeout(resolve, 20))
+    }
+
+    tg.stopPolling()
+
+    expect(resolvedCq).not.toBeNull()
+    expect(resolvedCq.raw.id).toBe('cq-match')
+    expect(resolvedCq.raw.data).toBe('blue')
+
+    await mock.stop()
+  })
+
   it('flow + mediaGroup compose: waitFor("message") still works for non-album messages', async () => {
     const { tg, mock } = await makeTg(t => t.extend(flow()).extend(mediaGroup({ window: 100 })))
 

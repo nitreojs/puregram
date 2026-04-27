@@ -4,7 +4,7 @@ import type { Schema, SchemaMethod, SchemaTypeRef } from '../schema-types'
 
 import { formatModule } from './format'
 import { versionString } from './load-schema'
-import { SHORTCUTS, type ShortcutSpec } from './shortcuts-config'
+import { METHOD_POSITIONALS, SHORTCUTS, type ShortcutSpec } from './shortcuts-config'
 import { typeRefToTs, jsDoc, importTypeNamed } from './ts-factory'
 
 export function emitShortcuts (schema: Schema) {
@@ -54,7 +54,9 @@ function buildShortcutSignature (
   method: SchemaMethod,
   referencedTypes: Set<string>
 ) {
-  const positionalParams: ts.ParameterDeclaration[] = sc.positional.map((p) => {
+  const positionals = METHOD_POSITIONALS[sc.method] ?? []
+
+  const positionalParams: ts.ParameterDeclaration[] = positionals.map((p) => {
     const schemaArg = method.arguments.find(a => a.name === p.schemaArg)
 
     if (!schemaArg) {
@@ -72,7 +74,7 @@ function buildShortcutSignature (
     )
   })
 
-  const filledNames = sc.positional.map(p => p.schemaArg)
+  const filledNames = positionals.map(p => p.schemaArg)
   const omitType = ts.factory.createTypeReferenceNode('Omit', [
     ts.factory.createTypeReferenceNode(`${pascal(sc.method)}Params`),
     ts.factory.createUnionTypeNode(

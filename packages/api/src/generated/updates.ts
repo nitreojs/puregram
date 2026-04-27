@@ -4,7 +4,7 @@
 /// generated at: 2026-04-26T09:30:18.745Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted, TelegramVideoNote, TelegramVoice } from "./types";
+import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted, TelegramVideoNote, TelegramVoice } from "./types";
 import type { AnswerCallbackQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
 import type { TelegramLike } from "../telegram-like";
 import { Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, WebAppData, WriteAccessAllowed } from "./structures";
@@ -790,9 +790,10 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -826,19 +827,22 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -928,9 +932,10 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -993,20 +998,23 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -1023,10 +1031,11 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -1042,19 +1051,22 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -1226,45 +1238,51 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -1280,18 +1298,20 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -1316,108 +1336,126 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -1506,10 +1544,11 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -1536,9 +1575,10 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -2395,9 +2435,10 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -2431,19 +2472,22 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -2533,9 +2577,10 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -2598,20 +2643,23 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -2628,10 +2676,11 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -2647,19 +2696,22 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -2831,45 +2883,51 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -2885,18 +2943,20 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -2921,108 +2981,126 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -3111,10 +3189,11 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -3141,9 +3220,10 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -4000,9 +4080,10 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -4036,19 +4117,22 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -4138,9 +4222,10 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -4203,20 +4288,23 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -4233,10 +4321,11 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -4252,19 +4341,22 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -4436,45 +4528,51 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -4490,18 +4588,20 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -4526,108 +4626,126 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -4716,10 +4834,11 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -4746,9 +4865,10 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -5605,9 +5725,10 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -5641,19 +5762,22 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -5743,9 +5867,10 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -5808,20 +5933,23 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -5838,10 +5966,11 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -5857,19 +5986,22 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -6041,45 +6173,51 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -6095,18 +6233,20 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -6131,108 +6271,126 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -6321,10 +6479,11 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -6351,9 +6510,10 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -7264,9 +7424,10 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -7300,19 +7461,22 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -7402,9 +7566,10 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -7467,20 +7632,23 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -7497,10 +7665,11 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -7516,19 +7685,22 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -7700,45 +7872,51 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -7754,18 +7932,20 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -7790,108 +7970,126 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -7980,10 +8178,11 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -8010,9 +8209,10 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -8869,9 +9069,10 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -8905,19 +9106,22 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -9007,9 +9211,10 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -9072,20 +9277,23 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -9102,10 +9310,11 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -9121,19 +9330,22 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -9305,45 +9517,51 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -9359,18 +9577,20 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -9395,108 +9615,126 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -9585,10 +9823,11 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -9615,9 +9854,10 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -10411,9 +10651,10 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -10447,18 +10688,22 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id">) {
+    copy(from: number | string, messageId: number, params: Omit<CopyMessageParams, "chat_id" | "from_chat_id" | "message_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -10537,18 +10782,20 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.deleteMessage`.
      */
-    delete(params: Omit<DeleteMessageParams, "chat_id">) {
+    delete(messageId: number, params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -10609,18 +10856,21 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
@@ -10636,9 +10886,10 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
@@ -10654,18 +10905,22 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id">) {
+    forward(from: number | string, messageId: number, params: Omit<ForwardMessageParams, "chat_id" | "from_chat_id" | "message_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -10762,9 +11017,10 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.pinChatMessage`.
      */
-    pin(params: Omit<PinChatMessageParams, "chat_id">) {
+    pin(messageId: number, params: Omit<PinChatMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.pinChatMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -10834,45 +11090,51 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -10888,18 +11150,20 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -10924,108 +11188,126 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -11113,9 +11395,11 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id">) {
+    react(messageId: number, reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
+            reaction: reactions,
             ...params
         });
     }
@@ -11140,9 +11424,10 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -11194,9 +11479,10 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.unpinChatMessage`.
      */
-    unpin(params: Omit<UnpinChatMessageParams, "chat_id"> = {}) {
+    unpin(messageId: number, params: Omit<UnpinChatMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.unpinChatMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -11300,9 +11586,10 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -11336,18 +11623,22 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id">) {
+    copy(from: number | string, messageId: number, params: Omit<CopyMessageParams, "chat_id" | "from_chat_id" | "message_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -11426,18 +11717,20 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.deleteMessage`.
      */
-    delete(params: Omit<DeleteMessageParams, "chat_id">) {
+    delete(messageId: number, params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -11498,18 +11791,21 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
@@ -11525,9 +11821,10 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
@@ -11543,18 +11840,22 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id">) {
+    forward(from: number | string, messageId: number, params: Omit<ForwardMessageParams, "chat_id" | "from_chat_id" | "message_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -11651,9 +11952,10 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.pinChatMessage`.
      */
-    pin(params: Omit<PinChatMessageParams, "chat_id">) {
+    pin(messageId: number, params: Omit<PinChatMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.pinChatMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -11723,45 +12025,51 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -11777,18 +12085,20 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -11813,108 +12123,126 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -12002,9 +12330,11 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id">) {
+    react(messageId: number, reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
+            reaction: reactions,
             ...params
         });
     }
@@ -12029,9 +12359,10 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -12083,9 +12414,10 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.unpinChatMessage`.
      */
-    unpin(params: Omit<UnpinChatMessageParams, "chat_id"> = {}) {
+    unpin(messageId: number, params: Omit<UnpinChatMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.unpinChatMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -12175,9 +12507,10 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -12211,18 +12544,22 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id">) {
+    copy(from: number | string, messageId: number, params: Omit<CopyMessageParams, "chat_id" | "from_chat_id" | "message_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -12301,18 +12638,20 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.deleteMessage`.
      */
-    delete(params: Omit<DeleteMessageParams, "chat_id">) {
+    delete(messageId: number, params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -12373,18 +12712,21 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
@@ -12400,9 +12742,10 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
@@ -12418,18 +12761,22 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id">) {
+    forward(from: number | string, messageId: number, params: Omit<ForwardMessageParams, "chat_id" | "from_chat_id" | "message_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_id: messageId,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -12526,9 +12873,10 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.pinChatMessage`.
      */
-    pin(params: Omit<PinChatMessageParams, "chat_id">) {
+    pin(messageId: number, params: Omit<PinChatMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.pinChatMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -12598,45 +12946,51 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -12652,18 +13006,20 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -12688,108 +13044,126 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -12877,9 +13251,11 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id">) {
+    react(messageId: number, reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
+            reaction: reactions,
             ...params
         });
     }
@@ -12904,9 +13280,10 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -12958,9 +13335,10 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.unpinChatMessage`.
      */
-    unpin(params: Omit<UnpinChatMessageParams, "chat_id"> = {}) {
+    unpin(messageId: number, params: Omit<UnpinChatMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.unpinChatMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -13835,9 +14213,10 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -13871,19 +14250,22 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -13973,9 +14355,10 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -14038,20 +14421,23 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -14068,10 +14454,11 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -14087,19 +14474,22 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -14271,45 +14661,51 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -14325,18 +14721,20 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -14361,108 +14759,126 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -14551,10 +14967,11 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -14581,9 +14998,10 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -15440,9 +15858,10 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -15476,19 +15895,22 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -15578,9 +16000,10 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -15643,20 +16066,23 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -15673,10 +16099,11 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -15692,19 +16119,22 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -15876,45 +16306,51 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -15930,18 +16366,20 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -15966,108 +16404,126 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -16156,10 +16612,11 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -16186,9 +16643,10 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -17045,9 +17503,10 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -17081,19 +17540,22 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -17183,9 +17645,10 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -17248,20 +17711,23 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -17278,10 +17744,11 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -17297,19 +17764,22 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -17481,45 +17951,51 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -17535,18 +18011,20 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -17571,108 +18049,126 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -17761,10 +18257,11 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -17791,9 +18288,10 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -18650,9 +19148,10 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -18686,19 +19185,22 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -18788,9 +19290,10 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -18853,20 +19356,23 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -18883,10 +19389,11 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -18902,19 +19409,22 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -19086,45 +19596,51 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -19140,18 +19656,20 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -19176,108 +19694,126 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -19366,10 +19902,11 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -19396,9 +19933,10 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -20255,9 +20793,10 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -20291,19 +20830,22 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -20393,9 +20935,10 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -20458,20 +21001,23 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -20488,10 +21034,11 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -20507,19 +21054,22 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -20691,45 +21241,51 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -20745,18 +21301,20 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -20781,108 +21339,126 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -20971,10 +21547,11 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -21001,9 +21578,10 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -21860,9 +22438,10 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -21896,19 +22475,22 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -21998,9 +22580,10 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -22063,20 +22646,23 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -22093,10 +22679,11 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -22112,19 +22699,22 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -22296,45 +22886,51 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -22350,18 +22946,20 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -22386,108 +22984,126 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -22576,10 +23192,11 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -22606,9 +23223,10 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -23465,9 +24083,10 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -23501,19 +24120,22 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -23603,9 +24225,10 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -23668,20 +24291,23 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -23698,10 +24324,11 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -23717,19 +24344,22 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -23901,45 +24531,51 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -23955,18 +24591,20 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -23991,108 +24629,126 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -24181,10 +24837,11 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -24211,9 +24868,10 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -25070,9 +25728,10 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -25106,19 +25765,22 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -25208,9 +25870,10 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -25273,20 +25936,23 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -25303,10 +25969,11 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -25322,19 +25989,22 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -25506,45 +26176,51 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -25560,18 +26236,20 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -25596,108 +26274,126 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -25786,10 +26482,11 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -25816,9 +26513,10 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -26675,9 +27373,10 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -26711,19 +27410,22 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -26813,9 +27515,10 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -26878,20 +27581,23 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -26908,10 +27614,11 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -26927,19 +27634,22 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -27111,45 +27821,51 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -27165,18 +27881,20 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -27201,108 +27919,126 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -27391,10 +28127,11 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -27421,9 +28158,10 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -28280,9 +29018,10 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -28316,19 +29055,22 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -28418,9 +29160,10 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -28483,20 +29226,23 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -28513,10 +29259,11 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -28532,19 +29279,22 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -28716,45 +29466,51 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -28770,18 +29526,20 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -28806,108 +29564,126 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -28996,10 +29772,11 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -29026,9 +29803,10 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -29885,9 +30663,10 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -29921,19 +30700,22 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -30023,9 +30805,10 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -30088,20 +30871,23 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -30118,10 +30904,11 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -30137,19 +30924,22 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -30321,45 +31111,51 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -30375,18 +31171,20 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -30411,108 +31209,126 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -30601,10 +31417,11 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -30631,9 +31448,10 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -31490,9 +32308,10 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -31526,19 +32345,22 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -31628,9 +32450,10 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -31693,20 +32516,23 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -31723,10 +32549,11 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -31742,19 +32569,22 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -31926,45 +32756,51 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -31980,18 +32816,20 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -32016,108 +32854,126 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -32206,10 +33062,11 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -32236,9 +33093,10 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -33095,9 +33953,10 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -33131,19 +33990,22 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -33233,9 +34095,10 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -33298,20 +34161,23 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -33328,10 +34194,11 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -33347,19 +34214,22 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -33531,45 +34401,51 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -33585,18 +34461,20 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -33621,108 +34499,126 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -33811,10 +34707,11 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -33841,9 +34738,10 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -34700,9 +35598,10 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -34736,19 +35635,22 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -34838,9 +35740,10 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -34903,20 +35806,23 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -34933,10 +35839,11 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -34952,19 +35859,22 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -35136,45 +36046,51 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -35190,18 +36106,20 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -35226,108 +36144,126 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -35416,10 +36352,11 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -35446,9 +36383,10 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -36305,9 +37243,10 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -36341,19 +37280,22 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -36443,9 +37385,10 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -36508,20 +37451,23 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -36538,10 +37484,11 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -36557,19 +37504,22 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -36741,45 +37691,51 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -36795,18 +37751,20 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -36831,108 +37789,126 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -37021,10 +37997,11 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -37051,9 +38028,10 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -37910,9 +38888,10 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -37946,19 +38925,22 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -38048,9 +39030,10 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -38113,20 +39096,23 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -38143,10 +39129,11 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -38162,19 +39149,22 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -38346,45 +39336,51 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -38400,18 +39396,20 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -38436,108 +39434,126 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -38626,10 +39642,11 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -38656,9 +39673,10 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -39515,9 +40533,10 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -39551,19 +40570,22 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -39653,9 +40675,10 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -39718,20 +40741,23 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -39748,10 +40774,11 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -39767,19 +40794,22 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -39951,45 +40981,51 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -40005,18 +41041,20 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -40041,108 +41079,126 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -40231,10 +41287,11 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -40261,9 +41318,10 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -41120,9 +42178,10 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -41156,19 +42215,22 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -41258,9 +42320,10 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -41323,20 +42386,23 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -41353,10 +42419,11 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -41372,19 +42439,22 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -41556,45 +42626,51 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -41610,18 +42686,20 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -41646,108 +42724,126 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -41836,10 +42932,11 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -41866,9 +42963,10 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -42725,9 +43823,10 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -42761,19 +43860,22 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -42863,9 +43965,10 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -42928,20 +44031,23 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -42958,10 +44064,11 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -42977,19 +44084,22 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -43161,45 +44271,51 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -43215,18 +44331,20 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -43251,108 +44369,126 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -43441,10 +44577,11 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -43471,9 +44608,10 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -44330,9 +45468,10 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -44366,19 +45505,22 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -44468,9 +45610,10 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -44533,20 +45676,23 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -44563,10 +45709,11 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -44582,19 +45729,22 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -44766,45 +45916,51 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -44820,18 +45976,20 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -44856,108 +46014,126 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -45046,10 +46222,11 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -45076,9 +46253,10 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -45935,9 +47113,10 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -45971,19 +47150,22 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -46073,9 +47255,10 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -46138,20 +47321,23 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -46168,10 +47354,11 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -46187,19 +47374,22 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -46371,45 +47561,51 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -46425,18 +47621,20 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -46461,108 +47659,126 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -46651,10 +47867,11 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -46681,9 +47898,10 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -47540,9 +48758,10 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -47576,19 +48795,22 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -47678,9 +48900,10 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -47743,20 +48966,23 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -47773,10 +48999,11 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -47792,19 +49019,22 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -47976,45 +49206,51 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -48030,18 +49266,20 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -48066,108 +49304,126 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -48256,10 +49512,11 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -48286,9 +49543,10 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -49145,9 +50403,10 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -49181,19 +50440,22 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -49283,9 +50545,10 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -49348,20 +50611,23 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -49378,10 +50644,11 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -49397,19 +50664,22 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -49581,45 +50851,51 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -49635,18 +50911,20 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -49671,108 +50949,126 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -49861,10 +51157,11 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -49891,9 +51188,10 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -50750,9 +52048,10 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -50786,19 +52085,22 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -50888,9 +52190,10 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -50953,20 +52256,23 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -50983,10 +52289,11 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -51002,19 +52309,22 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -51186,45 +52496,51 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -51240,18 +52556,20 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -51276,108 +52594,126 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -51466,10 +52802,11 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -51496,9 +52833,10 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -52355,9 +53693,10 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -52391,19 +53730,22 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -52493,9 +53835,10 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -52558,20 +53901,23 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -52588,10 +53934,11 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -52607,19 +53954,22 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -52791,45 +54141,51 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -52845,18 +54201,20 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -52881,108 +54239,126 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -53071,10 +54447,11 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -53101,9 +54478,10 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -53960,9 +55338,10 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -53996,19 +55375,22 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -54098,9 +55480,10 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -54163,20 +55546,23 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -54193,10 +55579,11 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -54212,19 +55599,22 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -54396,45 +55786,51 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -54450,18 +55846,20 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -54486,108 +55884,126 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -54676,10 +56092,11 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -54706,9 +56123,10 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -55565,9 +56983,10 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -55601,19 +57020,22 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -55703,9 +57125,10 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -55768,20 +57191,23 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -55798,10 +57224,11 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -55817,19 +57244,22 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -56001,45 +57431,51 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -56055,18 +57491,20 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -56091,108 +57529,126 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -56281,10 +57737,11 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -56311,9 +57768,10 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -57170,9 +58628,10 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -57206,19 +58665,22 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -57308,9 +58770,10 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -57373,20 +58836,23 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -57403,10 +58869,11 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -57422,19 +58889,22 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -57606,45 +59076,51 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -57660,18 +59136,20 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -57696,108 +59174,126 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -57886,10 +59382,11 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -57916,9 +59413,10 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -58775,9 +60273,10 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -58811,19 +60310,22 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -58913,9 +60415,10 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -58978,20 +60481,23 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -59008,10 +60514,11 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -59027,19 +60534,22 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -59211,45 +60721,51 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -59265,18 +60781,20 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -59301,108 +60819,126 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -59491,10 +61027,11 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -59521,9 +61058,10 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -60380,9 +61918,10 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -60416,19 +61955,22 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -60518,9 +62060,10 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -60583,20 +62126,23 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -60613,10 +62159,11 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -60632,19 +62179,22 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -60816,45 +62366,51 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -60870,18 +62426,20 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -60906,108 +62464,126 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -61096,10 +62672,11 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -61126,9 +62703,10 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -61985,9 +63563,10 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -62021,19 +63600,22 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -62123,9 +63705,10 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -62188,20 +63771,23 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -62218,10 +63804,11 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -62237,19 +63824,22 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -62421,45 +64011,51 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -62475,18 +64071,20 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -62511,108 +64109,126 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -62701,10 +64317,11 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -62731,9 +64348,10 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -63590,9 +65208,10 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.banChatMember`.
      */
-    banChatMember(params: Omit<BanChatMemberParams, "chat_id">) {
+    banChatMember(user: number, params: Omit<BanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.banChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -63626,19 +65245,22 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.copyMessage`.
      */
-    copy(params: Omit<CopyMessageParams, "chat_id" | "message_id">) {
+    copy(from: number | string, params: Omit<CopyMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.copyMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.copyMessages`.
      */
-    copyMany(params: Omit<CopyMessagesParams, "chat_id">) {
+    copyMany(from: number | string, messageIds: number[], params: Omit<CopyMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.copyMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -63728,9 +65350,10 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.deleteMessages`.
      */
-    deleteMany(params: Omit<DeleteMessagesParams, "chat_id">) {
+    deleteMany(messageIds: number[], params: Omit<DeleteMessagesParams, "chat_id" | "message_ids"> = {}) {
         return this.tg.api.deleteMessages({
             chat_id: this.raw.chat.id,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -63793,20 +65416,23 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.editMessageLiveLocation`.
      */
-    editLiveLocation(params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id">) {
+    editLiveLocation(latitude: number, longitude: number, params: Omit<EditMessageLiveLocationParams, "chat_id" | "message_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.editMessageMedia`.
      */
-    editMedia(params: Omit<EditMessageMediaParams, "chat_id" | "message_id">) {
+    editMedia(media: TelegramInputMedia, params: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "media"> = {}) {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            media: media,
             ...params
         });
     }
@@ -63823,10 +65449,11 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(params: Omit<EditMessageTextParams, "chat_id" | "message_id">) {
+    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            text: text,
             ...params
         });
     }
@@ -63842,19 +65469,22 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.forwardMessage`.
      */
-    forward(params: Omit<ForwardMessageParams, "chat_id" | "message_id">) {
+    forward(from: number | string, params: Omit<ForwardMessageParams, "chat_id" | "message_id" | "from_chat_id"> = {}) {
         return this.tg.api.forwardMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            from_chat_id: from,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.forwardMessages`.
      */
-    forwardMany(params: Omit<ForwardMessagesParams, "chat_id">) {
+    forwardMany(from: number | string, messageIds: number[], params: Omit<ForwardMessagesParams, "chat_id" | "from_chat_id" | "message_ids"> = {}) {
         return this.tg.api.forwardMessages({
             chat_id: this.raw.chat.id,
+            from_chat_id: from,
+            message_ids: messageIds,
             ...params
         });
     }
@@ -64026,45 +65656,51 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.sendAnimation`.
      */
-    sendAnimation(params: Omit<SendAnimationParams, "chat_id">) {
+    sendAnimation(animation: TelegramInputFile | string, params: Omit<SendAnimationParams, "chat_id" | "animation"> = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            animation: animation,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendAudio`.
      */
-    sendAudio(params: Omit<SendAudioParams, "chat_id">) {
+    sendAudio(audio: TelegramInputFile | string, params: Omit<SendAudioParams, "chat_id" | "audio"> = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            audio: audio,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChatAction`.
      */
-    sendChatAction(params: Omit<SendChatActionParams, "chat_id">) {
+    sendChatAction(action: string, params: Omit<SendChatActionParams, "chat_id" | "action"> = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            action: action,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendChecklist`.
      */
-    sendChecklist(params: Omit<SendChecklistParams, "chat_id">) {
+    sendChecklist(checklist: TelegramInputChecklist, params: Omit<SendChecklistParams, "chat_id" | "checklist">) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            checklist: checklist,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendContact`.
      */
-    sendContact(params: Omit<SendContactParams, "chat_id">) {
+    sendContact(phoneNumber: string, firstName: string, params: Omit<SendContactParams, "chat_id" | "phone_number" | "first_name"> = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
             ...params
         });
     }
@@ -64080,18 +65716,20 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.sendDocument`.
      */
-    sendDocument(params: Omit<SendDocumentParams, "chat_id">) {
+    sendDocument(document: TelegramInputFile | string, params: Omit<SendDocumentParams, "chat_id" | "document"> = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            document: document,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendGame`.
      */
-    sendGame(params: Omit<SendGameParams, "chat_id">) {
+    sendGame(gameShortName: string, params: Omit<SendGameParams, "chat_id" | "game_short_name"> = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
             ...params
         });
     }
@@ -64116,108 +65754,126 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.sendLocation`.
      */
-    sendLocation(params: Omit<SendLocationParams, "chat_id">) {
+    sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMediaGroup`.
      */
-    sendMediaGroup(params: Omit<SendMediaGroupParams, "chat_id">) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(params: Omit<SendMessageParams, "chat_id">) {
+    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(params: Omit<SendMessageDraftParams, "chat_id">) {
+    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            text: text,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPaidMedia`.
      */
-    sendPaidMedia(params: Omit<SendPaidMediaParams, "chat_id">) {
+    sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: Omit<SendPaidMediaParams, "chat_id" | "star_count" | "media"> = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPhoto`.
      */
-    sendPhoto(params: Omit<SendPhotoParams, "chat_id">) {
+    sendPhoto(photo: TelegramInputFile | string, params: Omit<SendPhotoParams, "chat_id" | "photo"> = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(params: Omit<SendPollParams, "chat_id">) {
+    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendSticker`.
      */
-    sendSticker(params: Omit<SendStickerParams, "chat_id">) {
+    sendSticker(sticker: TelegramInputFile | string, params: Omit<SendStickerParams, "chat_id" | "sticker"> = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            sticker: sticker,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVenue`.
      */
-    sendVenue(params: Omit<SendVenueParams, "chat_id">) {
+    sendVenue(latitude: number, longitude: number, title: string, address: string, params: Omit<SendVenueParams, "chat_id" | "latitude" | "longitude" | "title" | "address"> = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideo`.
      */
-    sendVideo(params: Omit<SendVideoParams, "chat_id">) {
+    sendVideo(video: TelegramInputFile | string, params: Omit<SendVideoParams, "chat_id" | "video"> = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            video: video,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVideoNote`.
      */
-    sendVideoNote(params: Omit<SendVideoNoteParams, "chat_id">) {
+    sendVideoNote(videoNote: TelegramInputFile | string, params: Omit<SendVideoNoteParams, "chat_id" | "video_note"> = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            video_note: videoNote,
             ...params
         });
     }
     /**
      * Shortcut for `tg.api.sendVoice`.
      */
-    sendVoice(params: Omit<SendVoiceParams, "chat_id">) {
+    sendVoice(voice: TelegramInputFile | string, params: Omit<SendVoiceParams, "chat_id" | "voice"> = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            voice: voice,
             ...params
         });
     }
@@ -64306,10 +65962,11 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.setMessageReaction`.
      */
-    react(params: Omit<SetMessageReactionParams, "chat_id" | "message_id"> = {}) {
+    react(reactions: TelegramReactionType[], params: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction"> = {}) {
         return this.tg.api.setMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            reaction: reactions,
             ...params
         });
     }
@@ -64336,9 +65993,10 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.unbanChatMember`.
      */
-    unbanChatMember(params: Omit<UnbanChatMemberParams, "chat_id">) {
+    unbanChatMember(user: number, params: Omit<UnbanChatMemberParams, "chat_id" | "user_id"> = {}) {
         return this.tg.api.unbanChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }

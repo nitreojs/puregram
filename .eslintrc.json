@@ -17,8 +17,8 @@
     "sourceType": "module",
     "project": [
       "./tsconfig.json",
-      "./packages/*/tsconfig.json",
-      "./packages/*/tsconfig.eslint.json"
+      "./packages/*/tsconfig.eslint.json",
+      "./packages/*/tsconfig.json"
     ]
   },
   "plugins": [
@@ -168,7 +168,8 @@
         "import/order": "off",
         "eol-last": "off",
         "arrow-parens": "off",
-        "curly": "off"
+        "curly": "off",
+        "object-shorthand": "off"
       }
     },
     {

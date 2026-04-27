@@ -1,6 +1,7 @@
 import type { UpdateKindMap } from '@puregram/api'
 import { createPlugin, type Telegram } from 'puregram'
 
+import { createAugmentMiddleware } from './augment/middleware'
 import { createPrompt, type PromptOptions } from './prompt'
 import { createWaitForMiddleware } from './wait-for/middleware'
 import { WaiterRegistry } from './wait-for/registry'
@@ -26,11 +27,6 @@ export function flow () {
     install: (tg: Telegram) => {
       const registry = new WaiterRegistry()
 
-      tg.useHook('onUpdate', createWaitForMiddleware(registry), { priority: 'high' })
-      tg.useHook('onShutdown', () => {
-        registry.cancelAll()
-      })
-
       const prompt = createPrompt(tg, registry)
 
       const ext: FlowExtension = {
@@ -46,6 +42,14 @@ export function flow () {
           registry.cancelAll()
         }
       }
+
+      // augment must register before wait-for so an `update.flow.waitFor(...)`
+      // call from inside a high-priority handler still operates on a fully-augmented update
+      tg.useHook('onUpdate', createAugmentMiddleware(ext), { priority: 'high' })
+      tg.useHook('onUpdate', createWaitForMiddleware(registry), { priority: 'high' })
+      tg.useHook('onShutdown', () => {
+        registry.cancelAll()
+      })
 
       return ext
     }

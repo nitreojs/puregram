@@ -85,6 +85,26 @@ describe('Telegram', () => {
     expect(tg.bot).toBe(STUB_BOT)
   })
 
+  it('on(kinds[]) registers a handler against multiple update kinds', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const trace: string[] = []
+
+    tg.on(['message', 'edited_message'], (u) => {
+      trace.push(u.kind)
+    })
+
+    await (tg as any).dispatch({
+      kind: 'message',
+      raw: { message_id: 1, date: 0, chat: { id: 100, type: 'private' } }
+    })
+    await (tg as any).dispatch({
+      kind: 'edited_message',
+      raw: { message_id: 1, date: 0, chat: { id: 100, type: 'private' } }
+    })
+
+    expect(trace).toEqual(['message', 'edited_message'])
+  })
+
   it('use(fn) registers a middleware that runs before tg.on handlers', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const trace: string[] = []

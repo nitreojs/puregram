@@ -120,11 +120,19 @@ export class Telegram<Ext = unknown> {
     this.started = false
   }
 
+  on<K extends UpdateKind> (kind: K, handler: UpdateHandler<UpdateKindMap[K]>): this
+  on<K extends UpdateKind> (kinds: readonly K[], handler: UpdateHandler<UpdateKindMap[K]>): this
   on<K extends UpdateKind> (
-    kind: K,
+    kindOrKinds: K | readonly K[],
     handler: UpdateHandler<UpdateKindMap[K]>
   ): this {
-    this.dispatcher.on(kind, handler as UpdateHandler)
+    const kinds: readonly K[] = Array.isArray(kindOrKinds)
+      ? (kindOrKinds as readonly K[])
+      : [kindOrKinds as K]
+
+    for (const kind of kinds) {
+      this.dispatcher.on(kind, handler as UpdateHandler)
+    }
 
     return this
   }

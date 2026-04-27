@@ -1,0 +1,36 @@
+# @puregram/session
+
+> v3 alpha — work in progress.
+
+transparent persistent session plugin for puregram v3:
+
+- `session()` plugin — `tg.extend(session())` attaches `update.session` (a transparent proxy of stored data) and `tg.session.{get, set, delete}` (direct storage access).
+- `ttl(value, ms)` — wrap a value to make it expire on read after `ms` milliseconds. lazy, no background timer.
+- `MemoryStorage` — default in-memory backend. ships out of the box. plug your own `SessionStorage` for redis/sql/etc.
+
+## typing
+
+`update.session` is typed via declaration-merging: importing `@puregram/session` augments every supported update class (`MessageUpdate`, `CallbackQueryUpdate`, ...) with a required `session: SessionContext` field. **importing the package implies usage** — there is no per-file opt-out. if you don't want session typing on every handler, don't import `@puregram/session`.
+
+users widen the typed surface by augmenting the empty `SessionData` interface:
+
+```ts
+declare module '@puregram/session' {
+  interface SessionData {
+    counter: number
+    user: { name: string }
+  }
+}
+
+tg.on('message', async msg => {
+  msg.session.counter = (msg.session.counter ?? 0) + 1
+})
+```
+
+`SessionData` is a **single global shape** — every augmented update kind sees the same fields. for per-kind shapes, add your own private declaration-merge directly on the relevant update interface.
+
+## concurrency
+
+session is per-update: each dispatched update gets its own `update.session` proxy backed by a fresh `storage.get` → wrap → `storage.set` cycle. v3's polling layer dispatches updates in a batch concurrently (per `polling.ts`), so two updates from the same key delivered in the same batch will race on `storage.get`/`set` — both load the same baseline, both write, last-writer-wins. this matches v2's behavior. for strict serialization use a custom `SessionStorage` with locking, or run polling with `batchSize: 1`.
+
+documentation, examples, and a v2-to-v3 migration note will land alongside the v3 stable release. for now see `.claude/V3_DESIGN.md` (§7.7) in the repo for the architecture spec.

@@ -18,7 +18,8 @@
   "scripts": {
     "build": "rm -rf lib && tsc --project tsconfig.json",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "generate:augmentations": "tsx scripts/emit-augmentations.ts"
   },
   "dependencies": {
     "puregram": "3.0.0-alpha.0",

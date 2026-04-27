@@ -44,3 +44,7 @@ export interface SessionOptions {
   /** initial session value when the storage key is empty. defaults to () => ({}). */
   initial?: (update: AnyUpdate) => SessionData
 }
+
+// per-update-kind augmentations (`declare module '@puregram/api' { interface XUpdate { session: SessionContext } }`)
+// are codegenerated into `src/generated/augmentations.ts` by `scripts/emit-augmentations.ts`.
+// regenerate via `yarn generate:augmentations` after a @puregram/api version bump.

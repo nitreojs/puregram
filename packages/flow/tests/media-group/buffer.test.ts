@@ -30,7 +30,7 @@ describe('MediaGroupBuffer', () => {
 
   it('keeps separate buckets for different ids and flushes independently', () => {
     const emits: string[] = []
-    const buf = new MediaGroupBuffer(1000, id => {
+    const buf = new MediaGroupBuffer(1000, (id) => {
       emits.push(id)
     })
 
@@ -51,7 +51,7 @@ describe('MediaGroupBuffer', () => {
 
   it('flushAll forces immediate emission for all buckets', () => {
     const emits: string[] = []
-    const buf = new MediaGroupBuffer(10_000, id => {
+    const buf = new MediaGroupBuffer(10_000, (id) => {
       emits.push(id)
     })
 
@@ -65,7 +65,7 @@ describe('MediaGroupBuffer', () => {
 
   it('does not double-emit if flushAll is called after a window already fired', () => {
     const emits: string[] = []
-    const buf = new MediaGroupBuffer(1000, id => {
+    const buf = new MediaGroupBuffer(1000, (id) => {
       emits.push(id)
     })
 

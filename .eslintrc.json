@@ -108,7 +108,7 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "local-rules/no-redundant-return-type": "error",
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
     "@typescript-eslint/array-type": ["error", { "default": "array" }],
     "@typescript-eslint/method-signature-style": ["error", "property"],
     "@typescript-eslint/member-ordering": "error",

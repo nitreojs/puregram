@@ -24,7 +24,7 @@ export function createPrompt (tg: Telegram, registry: WaiterRegistry) {
     const expectedFrom = options.from
 
     const waiterOptions: WaitForOptions<'message'> = {
-      filter: m => {
+      filter: (m) => {
         // chat scoping is mandatory: prompt is per-chat
         if (m.chat?.id !== chat) {
           return false

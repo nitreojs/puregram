@@ -163,7 +163,7 @@ export class Telegram<Ext = unknown> {
 
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
-      buildAndDispatch: async rawUpdate => {
+      buildAndDispatch: async (rawUpdate) => {
         const update = buildUpdate(rawUpdate, this) as { kind: string }
 
         await this.dispatch(update)
@@ -179,7 +179,7 @@ export class Telegram<Ext = unknown> {
 
   getWebhookCallback (secret?: string) {
     return createWebhookCallback({
-      buildAndDispatch: async rawUpdate => {
+      buildAndDispatch: async (rawUpdate) => {
         const update = buildUpdate(rawUpdate, this) as { kind: string }
 
         await this.dispatch(update)

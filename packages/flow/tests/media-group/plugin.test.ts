@@ -18,7 +18,7 @@ describe('mediaGroup plugin', () => {
 
     const composites: MediaGroupUpdate[] = []
 
-    t.on('media_group', u => {
+    t.on('media_group', (u) => {
       composites.push(u)
     })
 

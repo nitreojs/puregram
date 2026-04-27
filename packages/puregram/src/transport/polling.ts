@@ -123,7 +123,7 @@ export class PollingTransport {
       this.offset = update.update_id + 1
 
       this.deps.buildAndDispatch(update as unknown as Record<string, unknown>)
-        .catch(error => {
+        .catch((error) => {
           debug('handler threw: %O', error)
         })
     }

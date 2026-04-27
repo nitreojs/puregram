@@ -142,13 +142,13 @@ describe('@puregram/flow — e2e', () => {
 
     const composites: MediaGroupUpdate[] = []
 
-    tg.on('media_group', u => {
+    tg.on('media_group', (u) => {
       composites.push(u)
     })
 
     const singletons: unknown[] = []
 
-    tg.on('message', u => {
+    tg.on('message', (u) => {
       singletons.push(u)
     })
 
@@ -211,7 +211,7 @@ describe('@puregram/flow — e2e', () => {
 
     let resolvedReply: any = null
 
-    tg.on('message', async msg => {
+    tg.on('message', async (msg) => {
       if (msg.raw.text !== '/ask') {
         return
       }

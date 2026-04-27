@@ -56,7 +56,7 @@ describe('@puregram/session — e2e', () => {
 
     const observed: number[] = []
 
-    tg.on('message', u => {
+    tg.on('message', (u) => {
       const counter = ((u.session.counter as number | undefined) ?? 0) + 1
 
       u.session.counter = counter
@@ -146,7 +146,7 @@ describe('@puregram/session — e2e', () => {
 
     const processed: number[] = []
 
-    tg.on('message', u => {
+    tg.on('message', (u) => {
       const profile = (u.session.profile as { hits: number } | undefined) ?? { hits: 0 }
 
       profile.hits++
@@ -201,7 +201,7 @@ describe('@puregram/session — e2e', () => {
 
     const snapshot: { initial?: unknown, expired?: unknown, done?: boolean } = {}
 
-    tg.on('message', async u => {
+    tg.on('message', async (u) => {
       u.session.token = ttl('s3cret', 50)
       snapshot.initial = u.session.token
 
@@ -282,7 +282,7 @@ describe('@puregram/session — e2e', () => {
 
     const seen: number[] = []
 
-    tg.on('message', u => {
+    tg.on('message', (u) => {
       u.session.hits = ((u.session.hits as number | undefined) ?? 0) + 1
       seen.push(u.session.hits as number)
     })

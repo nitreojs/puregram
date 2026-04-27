@@ -62,7 +62,7 @@ describe('MemoryStorage', () => {
     const calls: string[] = []
 
     const fakeStore: MemoryStoreLike<string, unknown> = {
-      get: k => {
+      get: (k) => {
         calls.push(`get:${k}`)
 
         return undefined
@@ -72,12 +72,12 @@ describe('MemoryStorage', () => {
 
         return this
       },
-      has: k => {
+      has: (k) => {
         calls.push(`has:${k}`)
 
         return false
       },
-      delete: k => {
+      delete: (k) => {
         calls.push(`del:${k}`)
 
         return false

@@ -53,28 +53,28 @@ const CALLBACK_QUERY_EXTRAS: UpdateExtra[] = [
 ]
 
 const CHAT_MEMBER_EXTRAS: UpdateExtra[] = [
-  { kind: 'getter', name: 'oldStatus', expression: 'this.raw.old_chat_member.status', returnType: 'string', jsdoc: 'Shortcut for `old_chat_member.status`' },
-  { kind: 'getter', name: 'newStatus', expression: 'this.raw.new_chat_member.status', returnType: 'string', jsdoc: 'Shortcut for `new_chat_member.status`' },
+  { kind: 'getter', name: 'oldStatus', expression: '(this.raw.old_chat_member as { status: string }).status', returnType: 'string', jsdoc: 'Shortcut for `old_chat_member.status`' },
+  { kind: 'getter', name: 'newStatus', expression: '(this.raw.new_chat_member as { status: string }).status', returnType: 'string', jsdoc: 'Shortcut for `new_chat_member.status`' },
 
-  { kind: 'method', name: 'wasCreator', body: "return this.raw.old_chat_member.status === 'creator'", returnType: 'boolean', jsdoc: 'True if old status is `creator`' },
-  { kind: 'method', name: 'isNowCreator', body: "return this.raw.new_chat_member.status === 'creator'", returnType: 'boolean', jsdoc: 'True if new status is `creator`' },
-  { kind: 'method', name: 'wasAdmin', body: "return this.raw.old_chat_member.status === 'administrator'", returnType: 'boolean', jsdoc: 'True if old status is `administrator`' },
-  { kind: 'method', name: 'isNowAdmin', body: "return this.raw.new_chat_member.status === 'administrator'", returnType: 'boolean', jsdoc: 'True if new status is `administrator`' },
-  { kind: 'method', name: 'wasMember', body: "return this.raw.old_chat_member.status === 'member'", returnType: 'boolean', jsdoc: 'True if old status is `member`' },
-  { kind: 'method', name: 'isNowMember', body: "return this.raw.new_chat_member.status === 'member'", returnType: 'boolean', jsdoc: 'True if new status is `member`' },
-  { kind: 'method', name: 'wasRestricted', body: "return this.raw.old_chat_member.status === 'restricted'", returnType: 'boolean', jsdoc: 'True if old status is `restricted`' },
-  { kind: 'method', name: 'isNowRestricted', body: "return this.raw.new_chat_member.status === 'restricted'", returnType: 'boolean', jsdoc: 'True if new status is `restricted`' },
-  { kind: 'method', name: 'wasLeft', body: "return this.raw.old_chat_member.status === 'left'", returnType: 'boolean', jsdoc: 'True if old status is `left`' },
-  { kind: 'method', name: 'isNowLeft', body: "return this.raw.new_chat_member.status === 'left'", returnType: 'boolean', jsdoc: 'True if new status is `left`' },
-  { kind: 'method', name: 'wasKicked', body: "return this.raw.old_chat_member.status === 'kicked'", returnType: 'boolean', jsdoc: 'True if old status is `kicked` (banned)' },
-  { kind: 'method', name: 'isNowKicked', body: "return this.raw.new_chat_member.status === 'kicked'", returnType: 'boolean', jsdoc: 'True if new status is `kicked` (banned)' },
+  { kind: 'method', name: 'wasCreator', body: "return (this.raw.old_chat_member as { status: string }).status === 'creator'", returnType: 'boolean', jsdoc: 'True if old status is `creator`' },
+  { kind: 'method', name: 'isNowCreator', body: "return (this.raw.new_chat_member as { status: string }).status === 'creator'", returnType: 'boolean', jsdoc: 'True if new status is `creator`' },
+  { kind: 'method', name: 'wasAdmin', body: "return (this.raw.old_chat_member as { status: string }).status === 'administrator'", returnType: 'boolean', jsdoc: 'True if old status is `administrator`' },
+  { kind: 'method', name: 'isNowAdmin', body: "return (this.raw.new_chat_member as { status: string }).status === 'administrator'", returnType: 'boolean', jsdoc: 'True if new status is `administrator`' },
+  { kind: 'method', name: 'wasMember', body: "return (this.raw.old_chat_member as { status: string }).status === 'member'", returnType: 'boolean', jsdoc: 'True if old status is `member`' },
+  { kind: 'method', name: 'isNowMember', body: "return (this.raw.new_chat_member as { status: string }).status === 'member'", returnType: 'boolean', jsdoc: 'True if new status is `member`' },
+  { kind: 'method', name: 'wasRestricted', body: "return (this.raw.old_chat_member as { status: string }).status === 'restricted'", returnType: 'boolean', jsdoc: 'True if old status is `restricted`' },
+  { kind: 'method', name: 'isNowRestricted', body: "return (this.raw.new_chat_member as { status: string }).status === 'restricted'", returnType: 'boolean', jsdoc: 'True if new status is `restricted`' },
+  { kind: 'method', name: 'wasLeft', body: "return (this.raw.old_chat_member as { status: string }).status === 'left'", returnType: 'boolean', jsdoc: 'True if old status is `left`' },
+  { kind: 'method', name: 'isNowLeft', body: "return (this.raw.new_chat_member as { status: string }).status === 'left'", returnType: 'boolean', jsdoc: 'True if new status is `left`' },
+  { kind: 'method', name: 'wasKicked', body: "return (this.raw.old_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'True if old status is `kicked` (banned)' },
+  { kind: 'method', name: 'isNowKicked', body: "return (this.raw.new_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'True if new status is `kicked` (banned)' },
 
-  { kind: 'method', name: 'didJoinChat', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return (o === 'left' || o === 'kicked') && n !== 'left' && n !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was outside the chat (`left`/`kicked`) and is now in it' },
-  { kind: 'method', name: 'didLeaveChat', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return o !== 'left' && o !== 'kicked' && (n === 'left' || n === 'kicked')", returnType: 'boolean', jsdoc: 'True if the user was in the chat and is now outside it (`left`/`kicked`)' },
-  { kind: 'method', name: 'wasPromoted', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return o !== 'creator' && o !== 'administrator' && (n === 'creator' || n === 'administrator')", returnType: 'boolean', jsdoc: 'True if the user gained `creator` or `administrator` status' },
-  { kind: 'method', name: 'wasDemoted', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return (o === 'creator' || o === 'administrator') && n !== 'creator' && n !== 'administrator'", returnType: 'boolean', jsdoc: 'True if the user lost `creator` or `administrator` status' },
-  { kind: 'method', name: 'wasBanned', body: "return this.raw.old_chat_member.status !== 'kicked' && this.raw.new_chat_member.status === 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was just kicked (banned)' },
-  { kind: 'method', name: 'wasUnbanned', body: "return this.raw.old_chat_member.status === 'kicked' && this.raw.new_chat_member.status !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was kicked and no longer is' }
+  { kind: 'method', name: 'didJoinChat', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return (o === 'left' || o === 'kicked') && n !== 'left' && n !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was outside the chat (`left`/`kicked`) and is now in it' },
+  { kind: 'method', name: 'didLeaveChat', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return o !== 'left' && o !== 'kicked' && (n === 'left' || n === 'kicked')", returnType: 'boolean', jsdoc: 'True if the user was in the chat and is now outside it (`left`/`kicked`)' },
+  { kind: 'method', name: 'wasPromoted', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return o !== 'creator' && o !== 'administrator' && (n === 'creator' || n === 'administrator')", returnType: 'boolean', jsdoc: 'True if the user gained `creator` or `administrator` status' },
+  { kind: 'method', name: 'wasDemoted', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return (o === 'creator' || o === 'administrator') && n !== 'creator' && n !== 'administrator'", returnType: 'boolean', jsdoc: 'True if the user lost `creator` or `administrator` status' },
+  { kind: 'method', name: 'wasBanned', body: "return (this.raw.old_chat_member as { status: string }).status !== 'kicked' && (this.raw.new_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was just kicked (banned)' },
+  { kind: 'method', name: 'wasUnbanned', body: "return (this.raw.old_chat_member as { status: string }).status === 'kicked' && (this.raw.new_chat_member as { status: string }).status !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was kicked and no longer is' }
 ]
 
 export const UPDATE_KINDS: UpdateKindSpec[] = [

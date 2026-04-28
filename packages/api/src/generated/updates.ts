@@ -14482,129 +14482,181 @@ export class MyChatMemberUpdate {
      * Shortcut for `old_chat_member.status`
      */
     get oldStatus(): string {
-        return this.raw.old_chat_member.status;
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status;
     }
     /**
      * Shortcut for `new_chat_member.status`
      */
     get newStatus(): string {
-        return this.raw.new_chat_member.status;
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status;
     }
     /**
      * True if old status is `creator`
      */
     wasCreator(): boolean {
-        return this.raw.old_chat_member.status === "creator";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "creator";
     }
     /**
      * True if new status is `creator`
      */
     isNowCreator(): boolean {
-        return this.raw.new_chat_member.status === "creator";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "creator";
     }
     /**
      * True if old status is `administrator`
      */
     wasAdmin(): boolean {
-        return this.raw.old_chat_member.status === "administrator";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "administrator";
     }
     /**
      * True if new status is `administrator`
      */
     isNowAdmin(): boolean {
-        return this.raw.new_chat_member.status === "administrator";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "administrator";
     }
     /**
      * True if old status is `member`
      */
     wasMember(): boolean {
-        return this.raw.old_chat_member.status === "member";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "member";
     }
     /**
      * True if new status is `member`
      */
     isNowMember(): boolean {
-        return this.raw.new_chat_member.status === "member";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "member";
     }
     /**
      * True if old status is `restricted`
      */
     wasRestricted(): boolean {
-        return this.raw.old_chat_member.status === "restricted";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "restricted";
     }
     /**
      * True if new status is `restricted`
      */
     isNowRestricted(): boolean {
-        return this.raw.new_chat_member.status === "restricted";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "restricted";
     }
     /**
      * True if old status is `left`
      */
     wasLeft(): boolean {
-        return this.raw.old_chat_member.status === "left";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "left";
     }
     /**
      * True if new status is `left`
      */
     isNowLeft(): boolean {
-        return this.raw.new_chat_member.status === "left";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "left";
     }
     /**
      * True if old status is `kicked` (banned)
      */
     wasKicked(): boolean {
-        return this.raw.old_chat_member.status === "kicked";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "kicked";
     }
     /**
      * True if new status is `kicked` (banned)
      */
     isNowKicked(): boolean {
-        return this.raw.new_chat_member.status === "kicked";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "kicked";
     }
     /**
      * True if the user was outside the chat (`left`/`kicked`) and is now in it
      */
     didJoinChat(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return (o === "left" || o === "kicked") && n !== "left" && n !== "kicked";
     }
     /**
      * True if the user was in the chat and is now outside it (`left`/`kicked`)
      */
     didLeaveChat(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return o !== "left" && o !== "kicked" && (n === "left" || n === "kicked");
     }
     /**
      * True if the user gained `creator` or `administrator` status
      */
     wasPromoted(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return o !== "creator" && o !== "administrator" && (n === "creator" || n === "administrator");
     }
     /**
      * True if the user lost `creator` or `administrator` status
      */
     wasDemoted(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return (o === "creator" || o === "administrator") && n !== "creator" && n !== "administrator";
     }
     /**
      * True if the user was just kicked (banned)
      */
     wasBanned(): boolean {
-        return this.raw.old_chat_member.status !== "kicked" && this.raw.new_chat_member.status === "kicked";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status !== "kicked" && (this.raw.new_chat_member as {
+            status: string;
+        }).status === "kicked";
     }
     /**
      * True if the user was kicked and no longer is
      */
     wasUnbanned(): boolean {
-        return this.raw.old_chat_member.status === "kicked" && this.raw.new_chat_member.status !== "kicked";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "kicked" && (this.raw.new_chat_member as {
+            status: string;
+        }).status !== "kicked";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15560,129 +15612,181 @@ export class ChatMemberUpdate {
      * Shortcut for `old_chat_member.status`
      */
     get oldStatus(): string {
-        return this.raw.old_chat_member.status;
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status;
     }
     /**
      * Shortcut for `new_chat_member.status`
      */
     get newStatus(): string {
-        return this.raw.new_chat_member.status;
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status;
     }
     /**
      * True if old status is `creator`
      */
     wasCreator(): boolean {
-        return this.raw.old_chat_member.status === "creator";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "creator";
     }
     /**
      * True if new status is `creator`
      */
     isNowCreator(): boolean {
-        return this.raw.new_chat_member.status === "creator";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "creator";
     }
     /**
      * True if old status is `administrator`
      */
     wasAdmin(): boolean {
-        return this.raw.old_chat_member.status === "administrator";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "administrator";
     }
     /**
      * True if new status is `administrator`
      */
     isNowAdmin(): boolean {
-        return this.raw.new_chat_member.status === "administrator";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "administrator";
     }
     /**
      * True if old status is `member`
      */
     wasMember(): boolean {
-        return this.raw.old_chat_member.status === "member";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "member";
     }
     /**
      * True if new status is `member`
      */
     isNowMember(): boolean {
-        return this.raw.new_chat_member.status === "member";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "member";
     }
     /**
      * True if old status is `restricted`
      */
     wasRestricted(): boolean {
-        return this.raw.old_chat_member.status === "restricted";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "restricted";
     }
     /**
      * True if new status is `restricted`
      */
     isNowRestricted(): boolean {
-        return this.raw.new_chat_member.status === "restricted";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "restricted";
     }
     /**
      * True if old status is `left`
      */
     wasLeft(): boolean {
-        return this.raw.old_chat_member.status === "left";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "left";
     }
     /**
      * True if new status is `left`
      */
     isNowLeft(): boolean {
-        return this.raw.new_chat_member.status === "left";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "left";
     }
     /**
      * True if old status is `kicked` (banned)
      */
     wasKicked(): boolean {
-        return this.raw.old_chat_member.status === "kicked";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "kicked";
     }
     /**
      * True if new status is `kicked` (banned)
      */
     isNowKicked(): boolean {
-        return this.raw.new_chat_member.status === "kicked";
+        return (this.raw.new_chat_member as {
+            status: string;
+        }).status === "kicked";
     }
     /**
      * True if the user was outside the chat (`left`/`kicked`) and is now in it
      */
     didJoinChat(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return (o === "left" || o === "kicked") && n !== "left" && n !== "kicked";
     }
     /**
      * True if the user was in the chat and is now outside it (`left`/`kicked`)
      */
     didLeaveChat(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return o !== "left" && o !== "kicked" && (n === "left" || n === "kicked");
     }
     /**
      * True if the user gained `creator` or `administrator` status
      */
     wasPromoted(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return o !== "creator" && o !== "administrator" && (n === "creator" || n === "administrator");
     }
     /**
      * True if the user lost `creator` or `administrator` status
      */
     wasDemoted(): boolean {
-        const o = this.raw.old_chat_member.status;
-        const n = this.raw.new_chat_member.status;
+        const o = (this.raw.old_chat_member as {
+            status: string;
+        }).status;
+        const n = (this.raw.new_chat_member as {
+            status: string;
+        }).status;
         return (o === "creator" || o === "administrator") && n !== "creator" && n !== "administrator";
     }
     /**
      * True if the user was just kicked (banned)
      */
     wasBanned(): boolean {
-        return this.raw.old_chat_member.status !== "kicked" && this.raw.new_chat_member.status === "kicked";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status !== "kicked" && (this.raw.new_chat_member as {
+            status: string;
+        }).status === "kicked";
     }
     /**
      * True if the user was kicked and no longer is
      */
     wasUnbanned(): boolean {
-        return this.raw.old_chat_member.status === "kicked" && this.raw.new_chat_member.status !== "kicked";
+        return (this.raw.old_chat_member as {
+            status: string;
+        }).status === "kicked" && (this.raw.new_chat_member as {
+            status: string;
+        }).status !== "kicked";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;

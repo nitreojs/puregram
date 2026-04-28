@@ -81,3 +81,46 @@ describe('Waiter', () => {
     expect(b.consume).toBe(false)
   })
 })
+
+describe('Waiter validate/transform', () => {
+  it('match() returns false when validate returns false', () => {
+    const waiter = new Waiter<'message'>('message', {
+      validate: m => (m as any).text === 'ok'
+    })
+
+    expect(waiter.match({ text: 'no' } as any)).toBe(false)
+    expect(waiter.match({ text: 'ok' } as any)).toBe(true)
+  })
+
+  it('exposes validate string feedback via the lastValidationFeedback channel', () => {
+    const waiter = new Waiter<'message'>('message', {
+      validate: () => 'must be a number'
+    })
+
+    waiter.match({ text: 'x' } as any)
+
+    expect(waiter.lastValidationFeedback).toBe('must be a number')
+  })
+
+  it('clears lastValidationFeedback on a subsequent passing match', () => {
+    const waiter = new Waiter<'message'>('message', {
+      validate: m => (m as any).text === 'ok' || 'must say ok'
+    })
+
+    waiter.match({ text: 'no' } as any)
+    expect(waiter.lastValidationFeedback).toBe('must say ok')
+
+    waiter.match({ text: 'ok' } as any)
+    expect(waiter.lastValidationFeedback).toBeUndefined()
+  })
+
+  it('resolve() applies transform to the update before settling the promise', async () => {
+    const waiter = new Waiter<'message', number>('message', {
+      transform: m => Number((m as any).text)
+    })
+
+    waiter.resolve({ text: '42' } as any)
+
+    await expect(waiter.promise).resolves.toBe(42)
+  })
+})

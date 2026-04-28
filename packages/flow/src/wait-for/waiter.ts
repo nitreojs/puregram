@@ -4,23 +4,30 @@ import { WaitForCancelled, WaitForTimeout } from '../errors'
 
 import type { Filter, WaitForOptions } from './types'
 
-export class Waiter<K extends keyof UpdateKindMap> {
+export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
   readonly kind: K
   readonly consume: boolean
-  readonly promise: Promise<UpdateKindMap[K] | null>
+  readonly promise: Promise<T | null>
+
+  /** last truthy string returned by `validate` — consumed by the matcher to send feedback */
+  lastValidationFeedback: string | undefined
 
   private readonly filterFn: Filter<UpdateKindMap[K]> | undefined
-  private resolveFn!: (value: UpdateKindMap[K] | null) => void
+  private readonly validateFn: WaitForOptions<K, T>['validate']
+  private readonly transformFn: WaitForOptions<K, T>['transform']
+  private resolveFn!: (value: T | null) => void
   private rejectFn!: (reason: unknown) => void
   private timer: ReturnType<typeof setTimeout> | undefined
   private settledFlag = false
 
-  constructor (kind: K, options: WaitForOptions<K>) {
+  constructor (kind: K, options: WaitForOptions<K, T>) {
     this.kind = kind
     this.consume = options.consume ?? true
     this.filterFn = options.filter
+    this.validateFn = options.validate
+    this.transformFn = options.transform
 
-    this.promise = new Promise<UpdateKindMap[K] | null>((resolve, reject) => {
+    this.promise = new Promise<T | null>((resolve, reject) => {
       this.resolveFn = resolve
       this.rejectFn = reject
     })
@@ -44,17 +51,32 @@ export class Waiter<K extends keyof UpdateKindMap> {
     }
   }
 
-  // true once the waiter has resolved, rejected, or timed out — registry uses this to evict
   get settled () {
     return this.settledFlag
   }
 
   match (update: UpdateKindMap[K]) {
-    if (this.filterFn === undefined) {
+    if (this.filterFn !== undefined && !this.filterFn(update)) {
+      return false
+    }
+
+    if (this.validateFn === undefined) {
+      this.lastValidationFeedback = undefined
+
       return true
     }
 
-    return this.filterFn(update)
+    const result = this.validateFn(update)
+
+    if (result === true) {
+      this.lastValidationFeedback = undefined
+
+      return true
+    }
+
+    this.lastValidationFeedback = typeof result === 'string' ? result : undefined
+
+    return false
   }
 
   resolve (update: UpdateKindMap[K]) {
@@ -68,7 +90,11 @@ export class Waiter<K extends keyof UpdateKindMap> {
       clearTimeout(this.timer)
     }
 
-    this.resolveFn(update)
+    const value = this.transformFn !== undefined
+      ? this.transformFn(update)
+      : (update as unknown as T)
+
+    this.resolveFn(value)
   }
 
   cancel () {

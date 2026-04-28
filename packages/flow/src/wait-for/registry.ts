@@ -2,6 +2,11 @@ import type { UpdateKindMap } from '@puregram/api'
 
 import type { Waiter } from './waiter'
 
+export type MatchOutcome<K extends keyof UpdateKindMap> =
+  | { outcome: 'none' }
+  | { outcome: 'rejected', feedback: string | undefined }
+  | { outcome: 'matched', waiter: Waiter<K> }
+
 export class WaiterRegistry {
   // queue is heterogeneous over K — each kind owns its own queue of typed waiters
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- intentional erasure across update kinds
@@ -47,6 +52,40 @@ export class WaiterRegistry {
     }
 
     return undefined
+  }
+
+  // peeks at the head of the queue; if the head's filter+validate accepts, matches and removes
+  // it. otherwise surfaces any validate-string feedback so the caller can echo it to the chat
+  // and leave the waiter armed for the next inbound update
+  // eslint-disable-next-line local-rules/no-redundant-return-type -- discriminated outcome documents the contract
+  matchOrPeek<K extends keyof UpdateKindMap> (kind: K, update: UpdateKindMap[K]): MatchOutcome<K> {
+    const queue = this.queues.get(kind as string)
+
+    if (!queue || queue.length === 0) {
+      return { outcome: 'none' }
+    }
+
+    this.evictSettled(kind as string)
+
+    const live = this.queues.get(kind as string)
+
+    if (!live || live.length === 0) {
+      return { outcome: 'none' }
+    }
+
+    const head = live[0] as Waiter<K>
+
+    if (head.match(update)) {
+      live.splice(0, 1)
+
+      if (live.length === 0) {
+        this.queues.delete(kind as string)
+      }
+
+      return { outcome: 'matched', waiter: head }
+    }
+
+    return { outcome: 'rejected', feedback: head.lastValidationFeedback }
   }
 
   size (kind: string) {

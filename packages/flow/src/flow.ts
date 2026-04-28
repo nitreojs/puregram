@@ -79,7 +79,7 @@ export function flow (options: FlowOptions = {}) {
       // augment must register before wait-for so an `update.flow.waitFor(...)`
       // call from inside a high-priority handler still operates on a fully-augmented update
       tg.useHook('onUpdate', createAugmentMiddleware(ext), { priority: 'high' })
-      tg.useHook('onUpdate', createWaitForMiddleware(registry), { priority: 'high' })
+      tg.useHook('onUpdate', createWaitForMiddleware(registry, tg), { priority: 'high' })
       tg.useHook('onShutdown', () => {
         registry.cancelAll()
         buffer.flushAll()

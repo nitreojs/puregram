@@ -1,3 +1,4 @@
+import type { Telegram } from 'puregram'
 import { describe, expect, it, vi } from 'vitest'
 
 import { createWaitForMiddleware } from '../../src/wait-for/middleware'
@@ -55,5 +56,26 @@ describe('createWaitForMiddleware', () => {
     await mw({} as any, next)
 
     expect(next).toHaveBeenCalledOnce()
+  })
+
+  it('sends validate feedback to the originating chat and re-arms the waiter', async () => {
+    const reg = new WaiterRegistry()
+    const waiter = new Waiter<'message'>('message', {
+      validate: () => 'must be a number'
+    })
+
+    reg.register(waiter)
+
+    const send = vi.fn(() => Promise.resolve({}))
+    const tg = { send } as unknown as Telegram
+    const mw = createWaitForMiddleware(reg, tg)
+    const next = vi.fn(async () => {})
+    const update = { kind: 'message', chat: { id: 42 }, text: 'foo' } as any
+
+    await mw(update, next)
+
+    expect(send).toHaveBeenCalledWith(42, 'must be a number')
+    expect(next).toHaveBeenCalledOnce()
+    expect(reg.size('message')).toBe(1)
   })
 })

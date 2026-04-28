@@ -5,7 +5,13 @@
 // the augmentations
 import './generated/augmentations'
 
-export { WaitForCancelled, WaitForTimeout } from './errors'
+export {
+  FlowHandlerMissing,
+  FlowKindMismatch,
+  FlowPersistenceUnconfigured,
+  WaitForCancelled,
+  WaitForTimeout
+} from './errors'
 export { flow, type CollectMediaGroupOptions, type FlowExtension, type FlowOptions } from './flow'
 export type { PromptOptions } from './prompt'
 export type { Filter, WaitForOptions, WaitForResult } from './wait-for/types'

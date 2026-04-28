@@ -4,6 +4,7 @@ import type { Middleware, Telegram } from 'puregram'
 
 import { FlowHandlerMissing } from '../errors'
 
+import { persistentPrompt, persistentWaitFor } from './dispatch'
 import type { HandlerRegistry } from './handlers'
 import { bumpAttempts, deleteRecord, isExpired, readRecord } from './persist'
 import { buildKey } from './storage-keys'
@@ -147,9 +148,59 @@ function makeContext (
     fromId: recordFromId,
     payload: record.payload,
     update,
-    open: () => {
-      // wired in section K — ctx.open chaining
-      return Promise.reject(new Error('ctx.open not yet wired (section K)'))
+    open: async (id, openOptions = {}) => {
+      const persistDeps = {
+        storage: deps.storage,
+        handlers: deps.handlers,
+        defaultTtl: deps.defaultTtl
+      }
+
+      if (openOptions.text !== undefined) {
+        const promptOpts: Parameters<typeof persistentPrompt>[4] = { id }
+
+        if (openOptions.payload !== undefined) {
+          promptOpts.payload = openOptions.payload
+        }
+
+        if (openOptions.ttl !== undefined) {
+          promptOpts.ttl = openOptions.ttl
+        }
+
+        if (openOptions.kind !== undefined) {
+          promptOpts.kind = openOptions.kind
+        }
+
+        if (recordFromId !== undefined) {
+          promptOpts.from = recordFromId
+        }
+
+        if (openOptions.reply_markup !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          promptOpts.reply_markup = openOptions.reply_markup
+        }
+
+        await persistentPrompt(deps.tg, persistDeps, record.chatId, openOptions.text, promptOpts)
+
+        return
+      }
+
+      const waitForOpts: Parameters<typeof persistentWaitFor>[2] = { id }
+
+      if (openOptions.payload !== undefined) {
+        waitForOpts.payload = openOptions.payload
+      }
+
+      if (openOptions.ttl !== undefined) {
+        waitForOpts.ttl = openOptions.ttl
+      }
+
+      waitForOpts.chatId = record.chatId
+
+      if (recordFromId !== undefined) {
+        waitForOpts.fromId = recordFromId
+      }
+
+      await persistentWaitFor(persistDeps, openOptions.kind ?? 'message', waitForOpts)
     },
     close: async () => {
       await deleteRecord(deps.storage, record.chatId, recordFromId, record.kind)

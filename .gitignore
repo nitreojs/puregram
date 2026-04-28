@@ -86,7 +86,7 @@ jspm_packages/
 .dynamodb/
 
 # Other
-packages/**/lib
+packages/*/lib/
 .vscode/
 scripts/generate-interfaces/*.json
 .DS_Store

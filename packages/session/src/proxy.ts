@@ -22,7 +22,7 @@ const isProxied = (value: unknown) => (
   typeof value === 'object' && value !== null && (value as { [PROXY_SYM]?: unknown })[PROXY_SYM] === true
 )
 
-export type ForceUpdate = () => Promise<boolean>
+export type ForceUpdate = () => Promise<void>
 export type OnChange = () => void
 
 /**

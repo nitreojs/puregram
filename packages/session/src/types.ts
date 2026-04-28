@@ -1,7 +1,6 @@
 import type { UpdateKindMap } from '@puregram/api'
+import type { KVStorage } from '@puregram/storage'
 import type { CustomUpdate } from 'puregram'
-
-import type { SessionStorage } from './storage'
 
 /**
  * empty user-augmentable interface. users widen the typed surface of `update.session`
@@ -26,7 +25,7 @@ export interface SessionData {}
  * carry runtime keys not declared on SessionData
  */
 export type SessionContext = SessionData & {
-  $forceUpdate: () => Promise<boolean>
+  $forceUpdate: () => Promise<void>
 } & {
   [key: string]: unknown
 }
@@ -34,8 +33,12 @@ export type SessionContext = SessionData & {
 export type AnyUpdate = UpdateKindMap[keyof UpdateKindMap] | CustomUpdate
 
 export interface SessionOptions {
-  /** persistent backend. defaults to MemoryStorage */
-  storage?: SessionStorage
+  /**
+   * persistent backend. defaults to a fresh `MemoryStorage` from `@puregram/storage`.
+   * pass any `KVStorage<unknown>` (or `TtlStorage<unknown>` for sliding-window expiry)
+   * implementation to swap in redis/sql/etc
+   */
+  storage?: KVStorage<unknown>
   /**
    * how to derive the storage key per update
    * default: from.id ?? senderChat.id ?? chat.id; undefined → no session attached

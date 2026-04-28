@@ -1,8 +1,7 @@
+import { isTtlStorage, type KVStorage, MemoryStorage } from '@puregram/storage'
 import { createPlugin, type Telegram } from 'puregram'
 
 import { wrap } from './proxy'
-import { MemoryStorage } from './storage/memory'
-import type { SessionStorage } from './storage/storage'
 import type { TtlData } from './ttl'
 import type { AnyUpdate, SessionContext, SessionOptions } from './types'
 
@@ -35,14 +34,20 @@ const defaultGetStorageKey = (update: AnyUpdate) => {
   return undefined
 }
 
+/**
+ * direct storage handle exposed as `tg.session`. methods proxy through to the
+ * configured `KVStorage<unknown>` (matching its async-void contract — failure
+ * throws, absence-on-delete is silent)
+ */
 export interface SessionExtension {
   get: (key: string) => Promise<unknown>
-  set: (key: string, value: unknown) => Promise<boolean>
-  delete: (key: string) => Promise<boolean>
+  set: (key: string, value: unknown) => Promise<void>
+  delete: (key: string) => Promise<void>
+  has: (key: string) => Promise<boolean>
 }
 
 export function session (options: SessionOptions = {}) {
-  const storage: SessionStorage = options.storage ?? new MemoryStorage()
+  const storage: KVStorage<unknown> = options.storage ?? new MemoryStorage<unknown>()
   const getStorageKey = options.getStorageKey ?? defaultGetStorageKey
   const initial = options.initial ?? (() => ({}))
 
@@ -73,11 +78,12 @@ export function session (options: SessionOptions = {}) {
         const $forceUpdate = async () => {
           if (Object.keys(sessionData).length !== 0) {
             changed = false
+            await storage.set(key, sessionData)
 
-            return storage.set(key, sessionData)
+            return
           }
 
-          return storage.delete(key)
+          await storage.delete(key)
         }
 
         const proxy = wrap(sessionData, $forceUpdate, ttlMap, onChange) as SessionContext
@@ -92,7 +98,7 @@ export function session (options: SessionOptions = {}) {
 
         if (changed || stored === undefined) {
           await $forceUpdate()
-        } else {
+        } else if (isTtlStorage(storage)) {
           await storage.touch(key)
         }
       }, { priority: 'high' })
@@ -100,7 +106,8 @@ export function session (options: SessionOptions = {}) {
       const ext: SessionExtension = {
         get: (key: string) => storage.get(key),
         set: (key: string, value: unknown) => storage.set(key, value),
-        delete: (key: string) => storage.delete(key)
+        delete: (key: string) => storage.delete(key),
+        has: (key: string) => storage.has(key)
       }
 
       return ext

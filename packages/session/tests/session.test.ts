@@ -1,8 +1,20 @@
+import { MemoryStorage, type TtlStorage } from '@puregram/storage'
 import { Telegram } from 'puregram'
 import { describe, expect, it, vi } from 'vitest'
 
 import { session } from '../src/session'
-import { MemoryStorage } from '../src/storage/memory'
+
+// MemoryStorage doesn't implement TtlStorage, so the "touch instead of flush" test
+// uses this minimal subclass to verify session calls touch when isTtlStorage(storage)
+class TouchableMemoryStorage<V = unknown> extends MemoryStorage<V> implements TtlStorage<V> {
+  readonly touched: string[] = []
+
+  touch (key: string) {
+    this.touched.push(key)
+
+    return Promise.resolve()
+  }
+}
 
 // declare-merge custom test kinds so tg.on('probe', h) typechecks without per-call casts
 // (each interface uses index signature first to keep member-ordering happy.)
@@ -149,8 +161,8 @@ describe('session() — onUpdate middleware', () => {
     await t.shutdown()
   })
 
-  it('does not flush when nothing changed (touch instead)', async () => {
-    const storage = new MemoryStorage()
+  it('does not flush when nothing changed; calls touch on TtlStorage backends', async () => {
+    const storage = new TouchableMemoryStorage()
 
     await storage.set('7', { existing: true })
 
@@ -174,6 +186,33 @@ describe('session() — onUpdate middleware', () => {
 
     expect(setSpy).not.toHaveBeenCalled()
     expect(touchSpy).toHaveBeenCalledWith('7')
+
+    await t.shutdown()
+  })
+
+  it('does not flush or touch when nothing changed on a plain KVStorage backend', async () => {
+    const storage = new MemoryStorage()
+
+    await storage.set('7', { existing: true })
+
+    const setSpy = vi.spyOn(storage, 'set')
+
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({ storage }))
+
+    await t.start()
+
+    t.defineUpdate('readonly')
+    t.on('readonly', (u: any) => {
+      const _read = u.session.existing as boolean
+
+      return _read
+    })
+
+    setSpy.mockClear()
+    t.emit('readonly', { from: { id: 7 } })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(setSpy).not.toHaveBeenCalled()
 
     await t.shutdown()
   })

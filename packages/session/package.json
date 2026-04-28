@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "puregram": "3.0.0-alpha.0",
-    "@puregram/api": "*"
+    "@puregram/api": "*",
+    "@puregram/storage": "3.0.0-alpha.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

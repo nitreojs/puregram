@@ -1,6 +1,7 @@
+import { MemoryStorage } from '@puregram/storage'
 import { describe, expect, it } from 'vitest'
 
-import { MemoryStorage, session, ttl } from '../../src'
+import { session, ttl } from '../../src'
 import { makeTg } from '../helpers/make-tg'
 
 const sleep = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))

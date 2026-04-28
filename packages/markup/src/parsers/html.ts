@@ -260,3 +260,36 @@ export function html (first: string | TemplateStringsArray, ...rest: readonly un
 
   return parseHtml(first)
 }
+
+// 0x02 (STX) survives the html lexer's whitespace collapse since it is non-whitespace,
+// and it is distinct from the sentinel module's 0x01 marker. we substitute <br> with
+// it pre-parse, then swap back to '\n' post-parse — same char length, no offset shift
+const BR_PLACEHOLDER = '\u0002'
+const BR_RE = /\s*<br\s*\/?\s*>\s*/gi
+
+function preprocessHtmlb (source: string): string {
+  return source.replace(BR_RE, BR_PLACEHOLDER)
+}
+
+function postprocessHtmlb (formatted: Formatted): Formatted {
+  return new Formatted(formatted.text.replaceAll(BR_PLACEHOLDER, '\n'), formatted.entities)
+}
+
+function htmlbTagged (strings: TemplateStringsArray, rest: readonly unknown[]): Formatted {
+  const { source, slots } = composeWithSentinels(strings, rest, preprocessHtmlb)
+  const parsed = parseHtml(source)
+  const expanded = expandSentinels(parsed, slots)
+
+  return postprocessHtmlb(expanded)
+}
+
+/** parses telegram html with explicit `<br>` for newlines (whitespace otherwise collapses) */
+export function htmlb (source: string): Formatted
+export function htmlb (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
+export function htmlb (first: string | TemplateStringsArray, ...rest: readonly unknown[]): Formatted {
+  if (isTemplateStringsArray(first)) {
+    return htmlbTagged(first, rest)
+  }
+
+  return postprocessHtmlb(parseHtml(preprocessHtmlb(first)))
+}

@@ -88,6 +88,8 @@ jspm_packages/
 # Other
 packages/*/lib/
 .vscode/
+.claude/
+/playground/
 scripts/generate-interfaces/*.json
 .DS_Store
 **/yarn.lock

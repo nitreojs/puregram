@@ -4,6 +4,7 @@
 /// generated at: 2026-04-26T09:30:18.745Z
 /// see scripts/emit.ts in @puregram/api
 
+import type { Formattable } from "../formattable";
 /**
  * This object describes the types of gifts that can be gifted to a user or a chat.
  */
@@ -3621,7 +3622,7 @@ export interface TelegramInputChecklist {
     /**
      * Title of the checklist; 1-255 characters after entities parsing
      */
-    title: string;
+    title: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the title. See formatting options for more details.
      */
@@ -3655,7 +3656,7 @@ export interface TelegramInputChecklistTask {
     /**
      * Text of the task; 1-100 characters after entities parsing
      */
-    text: string;
+    text: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the text. See formatting options for more details.
      */
@@ -3834,7 +3835,7 @@ export interface TelegramInputMediaAnimation {
     /**
      * Optional. Caption of the animation to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the animation caption. See formatting options for more details.
      */
@@ -3884,7 +3885,7 @@ export interface TelegramInputMediaAudio {
     /**
      * Optional. Caption of the audio to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
      */
@@ -3926,7 +3927,7 @@ export interface TelegramInputMediaDocument {
     /**
      * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the document caption. See formatting options for more details.
      */
@@ -3956,7 +3957,7 @@ export interface TelegramInputMediaPhoto {
     /**
      * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
      */
@@ -4002,7 +4003,7 @@ export interface TelegramInputMediaVideo {
     /**
      * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the video caption. See formatting options for more details.
      */
@@ -4111,7 +4112,7 @@ export interface TelegramInputPollOption {
     /**
      * Option text, 1-100 characters
      */
-    text: string;
+    text: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed
      */
@@ -6252,7 +6253,7 @@ export interface TelegramReplyParameters {
     /**
      * Optional. Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities. The message will fail to send if the quote isn't found in the original message.
      */
-    quote?: string;
+    quote?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the quote. See formatting options for more details.
      */

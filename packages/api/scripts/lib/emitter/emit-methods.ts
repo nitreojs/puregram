@@ -2,6 +2,7 @@ import ts from 'typescript'
 
 import type { Schema, SchemaMethod, SchemaTypeRef } from '../schema-types'
 
+import { detectWidenedMethodArgs } from './formattable-detect'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { typeRefToTs, tsExportInterface, tsExportTypeAlias, importTypeNamed } from './ts-factory'
@@ -9,14 +10,21 @@ import { typeRefToTs, tsExportInterface, tsExportTypeAlias, importTypeNamed } fr
 export function emitMethods (schema: Schema) {
   const nodes: ts.Node[] = []
 
+  const widenedArgs = detectWidenedMethodArgs(schema)
   const referencedNames = collectReferencedTypeNames(schema)
-  const imports = referencedNames.length > 0
-    ? [importTypeNamed(referencedNames.map(n => `Telegram${n}`), './types')]
-    : []
+  const imports: ts.ImportDeclaration[] = []
+
+  if (referencedNames.length > 0) {
+    imports.push(importTypeNamed(referencedNames.map(n => `Telegram${n}`), './types'))
+  }
+
+  if (widenedArgs.size > 0) {
+    imports.push(importTypeNamed(['Formattable'], '../formattable'))
+  }
 
   for (const method of schema.methods) {
     if (method.arguments.length > 0) {
-      nodes.push(emitParamsInterface(method))
+      nodes.push(emitParamsInterface(method, widenedArgs.get(method.name) ?? new Set()))
     }
 
     nodes.push(emitMethodAlias(method))
@@ -58,20 +66,31 @@ function pascalCase (name: string) {
   return name[0].toUpperCase() + name.slice(1)
 }
 
-function emitParamsInterface (method: SchemaMethod) {
+function emitParamsInterface (method: SchemaMethod, widened: ReadonlySet<string>) {
   return tsExportInterface(
     `${pascalCase(method.name)}Params`,
-    method.arguments.map(a => ({
-      name: a.name,
-      // reply_markup accepts either the bot-api shape directly or anything with a matching
-      // toJSON() — covers Keyboard / InlineKeyboard / ForceReply / RemoveKeyboard class instances
-      // without forcing the user to call .toJSON() at every call site
-      type: a.name === 'reply_markup'
-        ? wrapWithToJSON(typeRefToTs(a.type))
-        : typeRefToTs(a.type),
-      optional: !a.required,
-      doc: a.description
-    })),
+    method.arguments.map((a) => {
+      let type = typeRefToTs(a.type)
+
+      if (a.name === 'reply_markup') {
+        // reply_markup accepts either the bot-api shape directly or anything with a matching
+        // toJSON() — covers Keyboard / InlineKeyboard / ForceReply / RemoveKeyboard class instances
+        // without forcing the user to call .toJSON() at every call site
+        type = wrapWithToJSON(type)
+      } else if (widened.has(a.name)) {
+        type = ts.factory.createUnionTypeNode([
+          type,
+          ts.factory.createTypeReferenceNode('Formattable')
+        ])
+      }
+
+      return {
+        name: a.name,
+        type,
+        optional: !a.required,
+        doc: a.description
+      }
+    }),
     method.description
   )
 }

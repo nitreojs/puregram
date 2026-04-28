@@ -5,6 +5,7 @@
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAcceptedGiftTypes, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
+import type { Formattable } from "../formattable";
 /**
  * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
  */
@@ -340,7 +341,7 @@ export interface CopyMessageParams {
     /**
      * New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the new caption. See formatting options for more details.
      */
@@ -1010,7 +1011,7 @@ export interface EditMessageCaptionParams {
     /**
      * New caption of the message, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the message caption. See formatting options for more details.
      */
@@ -1219,7 +1220,7 @@ export interface EditMessageTextParams {
     /**
      * New text of the message, 1-4096 characters after entities parsing
      */
-    text: string;
+    text: string | Formattable;
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
@@ -1264,7 +1265,7 @@ export interface EditStoryParams {
     /**
      * Caption of the story, 0-2048 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the story caption. See formatting options for more details.
      */
@@ -1999,7 +2000,7 @@ export interface GiftPremiumSubscriptionParams {
     /**
      * Text that will be shown along with the service message about the subscription; 0-128 characters
      */
-    text?: string;
+    text?: string | Formattable;
     /**
      * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      */
@@ -2096,7 +2097,7 @@ export interface PostStoryParams {
     /**
      * Caption of the story, 0-2048 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the story caption. See formatting options for more details.
      */
@@ -2565,7 +2566,7 @@ export interface SendAnimationParams {
     /**
      * Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the animation caption. See formatting options for more details.
      */
@@ -2647,7 +2648,7 @@ export interface SendAudioParams {
     /**
      * Audio caption, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the audio caption. See formatting options for more details.
      */
@@ -2949,7 +2950,7 @@ export interface SendDocumentParams {
     /**
      * Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the document caption. See formatting options for more details.
      */
@@ -3075,7 +3076,7 @@ export interface SendGiftParams {
     /**
      * Text that will be shown along with the gift; 0-128 characters
      */
-    text?: string;
+    text?: string | Formattable;
     /**
      * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      */
@@ -3383,7 +3384,7 @@ export interface SendMessageParams {
     /**
      * Text of the message to be sent, 1-4096 characters after entities parsing
      */
-    text: string;
+    text: string | Formattable;
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
@@ -3452,7 +3453,7 @@ export interface SendMessageDraftParams {
     /**
      * Text of the message to be sent, 1-4096 characters after entities parsing
      */
-    text: string;
+    text: string | Formattable;
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
@@ -3503,7 +3504,7 @@ export interface SendPaidMediaParams {
     /**
      * Media caption, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the media caption. See formatting options for more details.
      */
@@ -3576,7 +3577,7 @@ export interface SendPhotoParams {
     /**
      * Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the photo caption. See formatting options for more details.
      */
@@ -3649,7 +3650,7 @@ export interface SendPollParams {
     /**
      * Poll question, 1-300 characters
      */
-    question: string;
+    question: string | Formattable;
     /**
      * Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
      */
@@ -3697,7 +3698,7 @@ export interface SendPollParams {
     /**
      * Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
      */
-    explanation?: string;
+    explanation?: string | Formattable;
     /**
      * Mode for parsing entities in the explanation. See formatting options for more details.
      */
@@ -3721,7 +3722,7 @@ export interface SendPollParams {
     /**
      * Description of the poll to be sent, 0-1024 characters after entities parsing
      */
-    description?: string;
+    description?: string | Formattable;
     /**
      * Mode for parsing entities in the poll description. See formatting options for more details.
      */
@@ -3968,7 +3969,7 @@ export interface SendVideoParams {
     /**
      * Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the video caption. See formatting options for more details.
      */
@@ -4126,7 +4127,7 @@ export interface SendVoiceParams {
     /**
      * Voice message caption, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Mode for parsing entities in the voice message caption. See formatting options for more details.
      */

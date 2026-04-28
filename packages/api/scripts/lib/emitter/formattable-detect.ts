@@ -107,6 +107,38 @@ export function detectFormattableFields (schema: Schema): Map<string, Formattabl
   return out
 }
 
+/** returns the set of object names that are reachable from any method's argument list */
+export function detectOutgoingObjectNames (schema: Schema): Set<string> {
+  const objectsByName = new Map(schema.objects.map(o => [o.name, o] as const))
+  const reached = new Set<string>()
+
+  const walkRef = (ref: SchemaTypeRef): void => {
+    if (ref.kind === 'reference' && !reached.has(ref.name)) {
+      reached.add(ref.name)
+
+      const obj = objectsByName.get(ref.name)
+
+      if (obj === undefined) return
+
+      if (obj.kind === 'object') {
+        for (const f of obj.fields) walkRef(f.type)
+      } else if (obj.kind === 'union') {
+        for (const m of obj.members) walkRef(m)
+      }
+    } else if (ref.kind === 'array') {
+      walkRef(ref.of)
+    } else if (ref.kind === 'union') {
+      for (const m of ref.of) walkRef(m)
+    }
+  }
+
+  for (const method of schema.methods) {
+    for (const a of method.arguments) walkRef(a.type)
+  }
+
+  return reached
+}
+
 function widenedFieldsForFields (fields: readonly SchemaField[]): Set<string> {
   const stringFields: string[] = []
   const entityFieldNames = new Set<string>()

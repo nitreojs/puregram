@@ -10,7 +10,7 @@ const INSPECT = Symbol.for('nodejs.util.inspect.custom')
 
 type InspectFn = (value: unknown, options: InspectOptionsStylized) => string
 
-const SKIP_KEYS = new Set(['raw', 'tg'])
+const SKIP_KEYS = new Set(['raw', 'tg', 'kind'])
 
 export function makeInspect (
   className: string,

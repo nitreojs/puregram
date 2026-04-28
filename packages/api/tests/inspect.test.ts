@@ -50,7 +50,7 @@ describe('makeInspect runtime output', () => {
     expect(out).toContain('MessageUpdate {')
     expect(out).toContain('from: User {')
     expect(out).toContain('chat: Chat {')
-    expect(out).toContain("kind: 'message'")
+    expect(out).not.toContain("kind: 'message'")
   })
 
   it('falls back to raw payload for wrapper classes with no schema fields', () => {

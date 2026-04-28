@@ -8,7 +8,10 @@ import {
 import { FileIdParseError } from '../errors'
 import { parsePhotoSizeSource } from '../photo-size-source/parse'
 
-export function parseFileId (input: string) {
+import type { ParsedFileId } from './types'
+
+// eslint-disable-next-line local-rules/no-redundant-return-type -- discriminant unions need explicit kind to narrow
+export function parseFileId (input: string): ParsedFileId {
   const decoded = rleDecode(base64urlDecode(input))
 
   if (decoded.byteLength < 2) {

@@ -2,7 +2,10 @@ import { FILE_TYPE_TO_UNIQUE, FileUniqueType } from '../constants'
 import { FileIdParseError } from '../errors'
 import type { ParsedFileId } from '../file-id/types'
 
-export function fileUniqueIdFromFileId (file: ParsedFileId) {
+import type { ParsedFileUniqueId } from './types'
+
+// eslint-disable-next-line local-rules/no-redundant-return-type -- discriminant unions need explicit kind to narrow
+export function fileUniqueIdFromFileId (file: ParsedFileId): ParsedFileUniqueId {
   if (file.kind === 'web') {
     return { kind: 'web', source: '', url: file.url }
   }

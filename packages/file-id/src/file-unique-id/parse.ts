@@ -7,6 +7,8 @@ import {
 } from '../encoding'
 import { FileIdParseError } from '../errors'
 
+import type { ParsedFileUniqueId } from './types'
+
 // some legacy unique_ids in the wild were rle-encoded with a bug that dropped trailing zeros
 // pad to the expected length so the bigint reader doesn't fall off the end
 function padTrailingZeros (decoded: Uint8Array) {
@@ -34,7 +36,8 @@ function padTrailingZeros (decoded: Uint8Array) {
   return padded
 }
 
-export function parseFileUniqueId (input: string) {
+// eslint-disable-next-line local-rules/no-redundant-return-type -- discriminant unions need explicit kind to narrow
+export function parseFileUniqueId (input: string): ParsedFileUniqueId {
   const decoded = padTrailingZeros(rleDecode(base64urlDecode(input)))
   const reader = new BinaryReader(decoded)
   const typeId = reader.readI32() as FileUniqueType

@@ -1,3 +1,4 @@
+export { FileUniqueId } from './class'
 export { fileUniqueIdFromFileId } from './from-file-id'
 export {
   isDocumentUniqueId,

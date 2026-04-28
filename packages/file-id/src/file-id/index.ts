@@ -1,3 +1,4 @@
+export { FileId } from './class'
 export {
   isDocumentFileId,
   isPhotoFileId,

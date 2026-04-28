@@ -215,4 +215,33 @@ describe('html`` tagged-template form', () => {
   it('skips null/undefined/false', () => {
     expect(html`a${null}b${undefined}c${false}d`.text).toBe('abcd')
   })
+
+  it('resolves interpolated attribute values across entity payload fields', () => {
+    const unix = 1647531900
+    const id = 'cei_42'
+    const lang = 'js'
+    const fmt = 'wDT'
+
+    expect(html`<tg-time unix="${unix}" format="${fmt}">when</tg-time>`.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: unix,
+      date_time_format: fmt
+    })
+
+    expect(html`<time unix="${unix}" relative>when</time>`.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: unix,
+      date_time_format: 'r'
+    })
+
+    expect(html`<tg-emoji emoji-id="${id}">x</tg-emoji>`.entities[0]).toMatchObject({
+      type: 'custom_emoji',
+      custom_emoji_id: id
+    })
+
+    expect(html`<pre language="${lang}">x</pre>`.entities[0]).toMatchObject({
+      type: 'pre',
+      language: lang
+    })
+  })
 })

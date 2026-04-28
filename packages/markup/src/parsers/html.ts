@@ -4,13 +4,20 @@ import { MarkupParseError } from '../error'
 import { type Entity, Formatted } from '../formatted'
 
 import { TAG_TO_ENTITY, canonicalTag } from './html-tags'
-import { composeWithSentinels, expandSentinels, isTemplateStringsArray } from './sentinel'
+import { composeWithSentinels, expandSentinels, isTemplateStringsArray, SENTINEL_PREFIX } from './sentinel'
 
 const TIME_NAMED_ATTRS = ['weekday', 'date-style', 'time-style', 'relative'] as const
 
+// sentinel-laden attribute values arrive from tagged-template interpolation;
+// in that case we defer the numeric parse to expandSentinels by storing the raw string.
+// the entity.unix_time runtime cast is sound because expandSentinels resolves the string back to a number
 function parseTimeUnix (raw: string | undefined, sourceOffset: number, source: string) {
   if (raw === undefined) {
     throw new MarkupParseError('<tg-time>/<time> requires a unix attribute', sourceOffset, source)
+  }
+
+  if (raw.includes(SENTINEL_PREFIX)) {
+    return raw
   }
 
   const unix = parseInt(raw, 10)
@@ -174,7 +181,7 @@ function buildEntity (tag: OpenTag, length: number, source: string) {
       }
     }
 
-    entity.unix_time = parseTimeUnix(tag.attrs.unix, tag.sourceOffset, source)
+    entity.unix_time = parseTimeUnix(tag.attrs.unix, tag.sourceOffset, source) as number
 
     const fmt = tag.attrs.format
 
@@ -184,7 +191,7 @@ function buildEntity (tag: OpenTag, length: number, source: string) {
   }
 
   if (canonical === 'time') {
-    entity.unix_time = parseTimeUnix(tag.attrs.unix, tag.sourceOffset, source)
+    entity.unix_time = parseTimeUnix(tag.attrs.unix, tag.sourceOffset, source) as number
 
     const fmt = tag.attrs.format
     const hasNamed = TIME_NAMED_ATTRS.some(name => name in tag.attrs)

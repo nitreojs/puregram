@@ -110,12 +110,12 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
       }
     }
 
-    // expand sentinels embedded in entity url fields too — interpolated values
-    // inside `[Alice](tg://user?id=${id})` arrive as sentinels in the url
-    let newUrl = e.url
+    const resolveString = (value: string) => {
+      if (!value.includes(SENTINEL_PREFIX)) {
+        return value
+      }
 
-    if (newUrl !== undefined && newUrl.includes(SENTINEL_PREFIX)) {
-      newUrl = newUrl.replace(SENTINEL_RE, (_match, idx: string) => {
+      return value.replace(SENTINEL_RE, (_match, idx: string) => {
         const slot = slots[parseInt(idx, 10)]
 
         if (slot === undefined) {
@@ -128,9 +128,37 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
 
     const next: Entity = { ...e, offset: newOffset, length: newLength }
 
-    if (newUrl !== undefined) {
-      next.url = newUrl
+    // resolve sentinels in interpolated entity payloads
+    // (e.g. `[Alice](tg://user?id=${id})`, `<tg-emoji emoji-id="${id}">`, `<pre language="${lang}">`)
+    if (next.url !== undefined) {
+      next.url = resolveString(next.url)
     }
+
+    if (next.custom_emoji_id !== undefined) {
+      next.custom_emoji_id = resolveString(next.custom_emoji_id)
+    }
+
+    if (next.language !== undefined) {
+      next.language = resolveString(next.language)
+    }
+
+    if (next.date_time_format !== undefined) {
+      next.date_time_format = resolveString(next.date_time_format)
+    }
+
+    // unix_time may be a deferred string (sentinel-laden); resolve and parseInt back to number
+    if (typeof (next.unix_time as unknown) === 'string') {
+      const resolved = resolveString(next.unix_time as unknown as string)
+      const num = parseInt(resolved, 10)
+
+      if (Number.isNaN(num)) {
+        throw new TypeError(`<tg-time>/<time> unix="${resolved}" is not a valid integer after interpolation`)
+      }
+
+      next.unix_time = num
+    }
+
+    const newUrl = next.url
 
     // reclassify text_link → text_mention when url is now a valid tg://user?id=N
     if (next.type === 'text_link' && newUrl !== undefined && newUrl.startsWith('tg://user?id=')) {

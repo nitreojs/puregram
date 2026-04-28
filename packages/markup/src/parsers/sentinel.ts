@@ -110,7 +110,36 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
       }
     }
 
-    outEntities.push({ ...e, offset: newOffset, length: newLength })
+    // expand sentinels embedded in entity url fields too — interpolated values
+    // inside `[Alice](tg://user?id=${id})` arrive as sentinels in the url
+    let newUrl = e.url
+
+    if (newUrl !== undefined && newUrl.includes(SENTINEL_PREFIX)) {
+      newUrl = newUrl.replace(SENTINEL_RE, (_match, idx: string) => {
+        const slot = slots[parseInt(idx, 10)]
+
+        if (slot === undefined) return ''
+
+        return interpolate([slot]).text
+      })
+    }
+
+    const next: Entity = { ...e, offset: newOffset, length: newLength }
+
+    if (newUrl !== undefined) next.url = newUrl
+
+    // reclassify text_link → text_mention when url is now a valid tg://user?id=N
+    if (next.type === 'text_link' && newUrl !== undefined && newUrl.startsWith('tg://user?id=')) {
+      const id = parseInt(newUrl.slice('tg://user?id='.length), 10)
+
+      if (!Number.isNaN(id)) {
+        next.type = 'text_mention'
+        next.user = { id, first_name: outText.slice(next.offset, next.offset + next.length), is_bot: false }
+        delete next.url
+      }
+    }
+
+    outEntities.push(next)
   }
 
   // splice in entities from each slot's Formatted, anchored at its newStart

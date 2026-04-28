@@ -79,8 +79,11 @@ describe('html() function form', () => {
     expect(html('&#65;').text).toBe('A')
   })
 
-  it('collapses whitespace runs to a single space', () => {
-    expect(html('foo   bar\n\n  baz').text).toBe('foo bar baz')
+  it('collapses horizontal whitespace runs to a single space, preserves newlines', () => {
+    expect(html('foo   bar  baz').text).toBe('foo bar baz')
+    expect(html('foo\nbar').text).toBe('foo\nbar')
+    expect(html('foo \n  bar').text).toBe('foo\nbar')
+    expect(html('foo\n\nbar').text).toBe('foo\n\nbar')
   })
 
   it('strips leading/trailing whitespace', () => {

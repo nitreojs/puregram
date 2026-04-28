@@ -121,12 +121,21 @@ export function parseHtml (source: string) {
   const stack: OpenTag[] = []
   let i = 0
 
-  // appends a character to `text` while collapsing whitespace runs to a single space.
-  // skips leading whitespace; trailing whitespace stripped after the loop
+  // collapses runs of horizontal whitespace to a single space, but preserves newlines.
+  // skips leading whitespace at the start of the document and after each newline; strips
+  // trailing whitespace before each newline. trailing-end whitespace stripped post-loop
   const appendText = (s: string) => {
     for (const ch of s) {
-      if (/\s/.test(ch)) {
-        if (text !== '' && !text.endsWith(' ')) {
+      if (ch === '\n') {
+        // strip trailing space before the newline
+        if (text.endsWith(' ')) {
+          text = text.slice(0, -1)
+        }
+
+        text += '\n'
+      } else if (/\s/.test(ch)) {
+        // horizontal whitespace: collapse runs, skip after newline or at start
+        if (text !== '' && !text.endsWith(' ') && !text.endsWith('\n')) {
           text += ' '
         }
       } else {
@@ -234,10 +243,8 @@ export function parseHtml (source: string) {
     throw new MarkupParseError(`unclosed tag <${top.canonical}>`, top.sourceOffset, source)
   }
 
-  // strip a single trailing space (leading was already skipped during accumulation)
-  if (text.endsWith(' ')) {
-    text = text.slice(0, -1)
-  }
+  // strip trailing whitespace (any combo of spaces and newlines)
+  text = text.replace(/[\s]+$/, '')
 
   entities.sort((a, b) => a.offset - b.offset)
 

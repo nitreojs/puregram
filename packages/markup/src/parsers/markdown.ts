@@ -166,18 +166,19 @@ function parseLink (s: State) {
   if (url.startsWith('tg://user?id=')) {
     const id = parseInt(url.slice('tg://user?id='.length), 10)
 
-    if (Number.isNaN(id)) {
-      fail(s, 'malformed tg://user url', openPos)
+    // when an interpolation embeds a sentinel inside the url, parseInt sees the sentinel
+    // and returns NaN. emit a text_link in that case — the post-expansion pass converts
+    // any text_link with a now-valid tg://user?id=N url into a text_mention
+    if (!Number.isNaN(id)) {
+      s.entities.push({
+        type: 'text_mention',
+        offset: start,
+        length: s.text.length - start,
+        user: { id, first_name: s.text.slice(start), is_bot: false }
+      })
+
+      return
     }
-
-    s.entities.push({
-      type: 'text_mention',
-      offset: start,
-      length: s.text.length - start,
-      user: { id, first_name: s.text.slice(start), is_bot: false }
-    })
-
-    return
   }
 
   s.entities.push({ type: 'text_link', offset: start, length: s.text.length - start, url })

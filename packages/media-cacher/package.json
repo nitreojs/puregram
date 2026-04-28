@@ -1,35 +1,46 @@
 {
   "name": "@puregram/media-cacher",
-  "version": "1.0.4",
-  "description": "cache sent media `file_id`s with ease for puregram!",
+  "version": "3.0.0-alpha.0",
+  "description": "transparent file_id caching plugin for puregram v3 — skips re-uploading repeated media",
+  "type": "module",
   "main": "./lib/index.js",
-  "scripts": {
-    "build": "tsc --project tsconfig.json"
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "puregram": "3.0.0-alpha.0",
+    "@puregram/storage": "3.0.0-alpha.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/media-cacher"
+  },
   "keywords": [
+    "telegram",
+    "telegram-bot-api",
     "puregram",
     "media",
     "cache",
     "file_id"
-  ],
-  "author": "starkow",
-  "license": "WTFPL",
-  "types": "./lib/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nitreojs/puregram/tree/lord/packages/media-cacher"
-  },
-  "bugs": {
-    "url": "https://github.com/nitreojs/puregram/issues"
-  },
-  "homepage": "https://github.com/nitreojs/puregram#readme",
-  "dependencies": {
-    "puregram": "^2.20.1"
-  }
+  ]
 }

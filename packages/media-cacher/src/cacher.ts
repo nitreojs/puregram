@@ -1,116 +1,172 @@
-import { type BeforeRequestContext, type Hooks, MediaSourceType, MediaSource, MediaInput } from 'puregram'
-import type { ApiMethods } from 'puregram/generated'
+import { type KVStorage, MemoryStorage } from '@puregram/storage'
+import {
+  createPlugin, type MediaInput, MediaSource, MediaSourceType, type RequestContext, type Telegram
+} from 'puregram'
 
-import { MemoryStorage, type SessionStorage } from './storages'
-import { isMediaInput } from './utils'
+import { type AllowedMediaMethod, MEDIA_METHOD_TO_KEY_MAP } from './method-map'
 
-type AllowedMediaMethod = 'sendPhoto' | 'sendVideo' | 'sendAnimation' | 'sendVideoNote' | 'sendAudio' | 'sendDocument' | 'sendSticker'
+type GetStorageKey = (ctx: RequestContext) => string
 
-const MEDIA_METHOD_TO_KEY_MAP: Record<AllowedMediaMethod, string> = {
-  sendPhoto: 'photo',
-  sendVideo: 'video',
-  sendAnimation: 'animation',
-  sendVideoNote: 'video_note',
-  sendAudio: 'audio',
-  sendDocument: 'document',
-  sendSticker: 'sticker'
-}
+const defaultGetStorageKey = (ctx: RequestContext) => {
+  const chatId = ctx.params?.chat_id
 
-const ALLOWED_MEDIA_TYPES: MediaSourceType[] = [
-  MediaSourceType.Path,
-  MediaSourceType.Url
-]
-
-const REQUIRES_PROCESSING_SYM = Symbol('requires_processing') as any
-
-interface CacheOptions {
-  getStorageKey?: (context: BeforeRequestContext) => string;
-  storage?: SessionStorage
-}
-
-export const hooks = (options: CacheOptions = {}): Partial<Hooks> => {
-  const {
-    getStorageKey = (context: BeforeRequestContext) => context.params.chat_id.toString(),
-    storage = new MemoryStorage()
-  } = options
-
-  return {
-    onBeforeRequest: [
-      async (context) => {
-        if (!('chat_id' in context.params)) {
-          return context
-        }
-
-        const storageKey = getStorageKey(context)
-
-        if (context.path in MEDIA_METHOD_TO_KEY_MAP) {
-          const mediaKey = MEDIA_METHOD_TO_KEY_MAP[context.path as AllowedMediaMethod]
-          const media = context.params[mediaKey]
-
-          if (!isMediaInput(media)) {
-            throw new TypeError('expected media to be created via `MediaSource`')
-          }
-
-          // skipping
-          if (!ALLOWED_MEDIA_TYPES.includes(media.type)) {
-            return context
-          }
-
-          const key = `${storageKey}:${media.value}`
-
-          const storageHasValueByKey = await storage.has(key)
-
-          if (!storageHasValueByKey) {
-            // `Type 'unique symbol' cannot be used as an index type.`
-            // what a shame
-            context.params[REQUIRES_PROCESSING_SYM] = true
-
-            return context
-          }
-
-          const fileId = await storage.get(key) as string
-
-          context.params[mediaKey] = MediaSource.fileId(fileId, { filename: media.filename })
-        }
-
-        return context
-      }
-    ],
-
-    onResponseIntercept: [
-      async (context) => {
-        if (!context.params[REQUIRES_PROCESSING_SYM]) {
-          return context
-        }
-
-        if (!context.json.ok) {
-          return context
-        }
-
-        const storageKey = getStorageKey(context)
-
-        let mediaKey = MEDIA_METHOD_TO_KEY_MAP[context.path as AllowedMediaMethod]
-
-        const media = context.params[mediaKey] as MediaInput
-
-        // for some reason telegram uses `document` instead of `animation`
-        if (mediaKey === 'animation' && !(mediaKey in context.json.result)) {
-          mediaKey = 'document'
-        }
-
-        const result = context.json.result as Awaited<ReturnType<ApiMethods[AllowedMediaMethod]>>
-        const response = result[mediaKey]
-
-        const fileId = Array.isArray(response) // PhotoAttachment?
-          ? response[response.length - 1].file_id
-          : response.file_id
-
-        const key = `${storageKey}:${media.value}`
-
-        await storage.set(key, fileId)
-
-        return context
-      }
-    ]
+  if (chatId === undefined) {
+    throw new TypeError('mediaCacher: request has no chat_id; supply getStorageKey to derive a key from a different field')
   }
+
+  return String(chatId)
+}
+
+export interface MediaCacherOptions {
+  /** override the storage key derivation. default: `String(ctx.params.chat_id)` */
+  getStorageKey?: GetStorageKey
+  /** backing store. default: `MemoryStorage<string>` from `@puregram/storage` */
+  storage?: KVStorage<string>
+}
+
+/** handle attached as `tg.mediaCacher` for manual cache inspection and eviction */
+export interface MediaCacherExtension {
+  /** look up the cached `file_id` for `(storageKey, sourceValue)`, or undefined if absent */
+  get: (storageKey: string, sourceValue: string) => Promise<string | undefined>
+  /** drop the cache entry for `(storageKey, sourceValue)` */
+  invalidate: (storageKey: string, sourceValue: string) => Promise<void>
+  /** the configured `KVStorage<string>` instance */
+  storage: KVStorage<string>
+}
+
+interface PendingMark {
+  cacheKey: string
+  responseKey: string
+}
+
+// eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate is needed for narrowing
+function isMediaInput (value: unknown): value is MediaInput {
+  if (typeof value !== 'object' || value === null) {
+    return false
+  }
+
+  const v = value as { type?: unknown, value?: unknown }
+
+  return typeof v.type === 'string' && v.value !== undefined
+}
+
+function pickFileId (mediaKey: string, result: Record<string, unknown>) {
+  // animation comes back under `document` instead of `animation`
+  let key = mediaKey
+
+  if (mediaKey === 'animation' && !(mediaKey in result) && 'document' in result) {
+    key = 'document'
+  }
+
+  const slot = result[key]
+
+  // photos return an array of size variants — telegram convention is to take the largest (last)
+  if (Array.isArray(slot)) {
+    const last = slot[slot.length - 1] as { file_id?: unknown } | undefined
+
+    return typeof last?.file_id === 'string' ? last.file_id : undefined
+  }
+
+  if (slot !== null && typeof slot === 'object') {
+    const fileId = (slot as { file_id?: unknown }).file_id
+
+    return typeof fileId === 'string' ? fileId : undefined
+  }
+
+  return undefined
+}
+
+/** transparent file_id caching plugin. on cache hit, swaps `Path`/`Url` media for `MediaSource.fileId` */
+export function mediaCacher (options: MediaCacherOptions = {}) {
+  const storage = options.storage ?? new MemoryStorage<string>()
+  const getStorageKey = options.getStorageKey ?? defaultGetStorageKey
+  const pending = new WeakMap<RequestContext, PendingMark>()
+
+  return createPlugin({
+    name: 'mediaCacher',
+    install: (tg: Telegram) => {
+      tg.useHook('onBeforeRequest', async (raw, next) => {
+        const ctx = raw as RequestContext
+
+        if (!(ctx.method in MEDIA_METHOD_TO_KEY_MAP)) {
+          await next()
+
+          return
+        }
+
+        const mediaKey = MEDIA_METHOD_TO_KEY_MAP[ctx.method as AllowedMediaMethod]
+        const params = ctx.params
+
+        if (params === undefined) {
+          await next()
+
+          return
+        }
+
+        const media = params[mediaKey]
+
+        if (!isMediaInput(media)) {
+          throw new TypeError(`mediaCacher: ${ctx.method}.${mediaKey} must be created via MediaSource.*`)
+        }
+
+        if (media.type !== MediaSourceType.Path && media.type !== MediaSourceType.Url) {
+          await next()
+
+          return
+        }
+
+        const storageKey = getStorageKey(ctx)
+        const cacheKey = `${storageKey}:${media.value}`
+        const cached = await storage.get(cacheKey)
+        const filenameOpts = media.filename !== undefined ? { filename: media.filename } : {}
+
+        if (cached !== undefined) {
+          params[mediaKey] = MediaSource.fileId(cached, filenameOpts)
+          await next()
+
+          return
+        }
+
+        pending.set(ctx, { cacheKey, responseKey: mediaKey })
+        await next()
+      }, { priority: 'high' })
+
+      tg.useHook('onResponseIntercept', async (raw, next) => {
+        const ctx = raw as RequestContext
+        const mark = pending.get(ctx)
+
+        if (mark === undefined) {
+          await next()
+
+          return
+        }
+
+        pending.delete(ctx)
+
+        const json = ctx.json as { ok?: boolean, result?: unknown } | undefined
+
+        if (json?.ok !== true || typeof json.result !== 'object' || json.result === null) {
+          await next()
+
+          return
+        }
+
+        const fileId = pickFileId(mark.responseKey, json.result as Record<string, unknown>)
+
+        if (fileId !== undefined) {
+          await storage.set(mark.cacheKey, fileId)
+        }
+
+        await next()
+      })
+
+      const ext: MediaCacherExtension = {
+        get: (storageKey, sourceValue) => storage.get(`${storageKey}:${sourceValue}`),
+        invalidate: (storageKey, sourceValue) => storage.delete(`${storageKey}:${sourceValue}`),
+        storage
+      }
+
+      return ext
+    }
+  })
 }

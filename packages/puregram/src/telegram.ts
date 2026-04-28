@@ -181,6 +181,7 @@ export class Telegram<Ext = unknown> {
     const pattern = typeof nameOrPattern === 'string'
       ? buildCommandPattern(nameOrPattern)
       : nameOrPattern
+    const isStringForm = typeof nameOrPattern === 'string'
 
     return this.on('message', async (message, next) => {
       const text = message.raw.text
@@ -197,6 +198,25 @@ export class Telegram<Ext = unknown> {
         await next()
 
         return
+      }
+
+      // string form auto-validates the `@botname` suffix when present:
+      //   /cmd          → match (for this bot)
+      //   /cmd@us       → match (explicitly addressed to this bot)
+      //   /cmd@them     → skip, the command is for a different bot in the same group
+      // regex form leaves @-validation to the caller's pattern
+      if (isStringForm) {
+        const mentioned = result.groups?.mention
+
+        if (mentioned !== undefined) {
+          const ourUsername = this.bot?.username
+
+          if (ourUsername === undefined || mentioned.toLowerCase() !== ourUsername.toLowerCase()) {
+            await next()
+
+            return
+          }
+        }
       }
 
       attach(message, 'match', result)
@@ -297,10 +317,12 @@ export class Telegram<Ext = unknown> {
 }
 
 // build the canonical telegram command regex for a string-form `tg.command(name, …)`
-// matches `/<name>`, `/<name> args`, `/<name>@bot`, or `/<name>\nstuff`
+// matches `/<name>`, `/<name> args`, `/<name>@bot args`, or `/<name>\nstuff`
+// the optional `mention` named group captures the `@bot` suffix so the command
+// dispatcher can filter out commands addressed to a different bot in the same chat
 // case-insensitive because telegram clients sometimes uppercase commands sent via auto-complete
 function buildCommandPattern (name: string) {
-  return new RegExp(`^/${escapeRegExp(name)}(?:[\\s@\\n]|$)`, 'i')
+  return new RegExp(`^/${escapeRegExp(name)}(?:@(?<mention>\\S+))?(?:[\\s\\n]|$)`, 'i')
 }
 
 function escapeRegExp (s: string) {

@@ -146,12 +146,38 @@ describe('Telegram', () => {
     await dispatch('/hello')
     await dispatch('/hello world')
     await dispatch('/hello@stubbot')
+    await dispatch('/hello@StubBot args')
     await dispatch('/HELLO')
     await dispatch('/hi')
     await dispatch('not a command')
 
-    expect(seen).toEqual(['/hello', '/hello world', '/hello@stubbot', '/HELLO'])
+    expect(seen).toEqual(['/hello', '/hello world', '/hello@stubbot', '/hello@StubBot args', '/HELLO'])
     expect(fellThrough).toEqual(['/hi', 'not a command'])
+  })
+
+  it('command(name) skips `/<name>@<otherbot>` so commands addressed to other bots fall through', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const seen: string[] = []
+    const fellThrough: string[] = []
+
+    tg.command('ask', (message) => {
+      seen.push(message.raw.text!)
+    })
+    tg.on('message', (message) => {
+      fellThrough.push(message.raw.text!)
+    })
+
+    const dispatch = (text: string) => (tg as any).dispatch({
+      kind: 'message',
+      raw: { message_id: 1, date: 0, chat: { id: 100, type: 'private' }, text }
+    })
+
+    await dispatch('/ask@otherbot')
+    await dispatch('/ask@OtherBot args')
+    await dispatch('/ask@stubbot')
+
+    expect(seen).toEqual(['/ask@stubbot'])
+    expect(fellThrough).toEqual(['/ask@otherbot', '/ask@OtherBot args'])
   })
 
   it('command(regex) attaches RegExpMatchArray to message.match while the handler runs', async () => {

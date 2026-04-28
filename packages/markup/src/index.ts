@@ -9,6 +9,7 @@ export {
   link, textMention, customEmoji, pre,
   mentionUser, mentionBot
 } from './builders/field'
+export { time, type TimeFormat } from './builders/time'
 export type { Modifier, ModifierName } from './builders/chain'
 export { html, htmlb } from './parsers/html'
 export { md, markdown } from './parsers/markdown'

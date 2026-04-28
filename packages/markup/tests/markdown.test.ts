@@ -77,6 +77,52 @@ describe('md() function form', () => {
     expect(md('\\*not bold\\*').entities).toEqual([])
   })
 
+  it('parses [text](tg://emoji?id=N) as custom_emoji', () => {
+    expect(md('[😎](tg://emoji?id=cei_42)').entities[0]).toMatchObject({
+      type: 'custom_emoji',
+      custom_emoji_id: 'cei_42'
+    })
+  })
+
+  it('parses [text](tg://time?unix=N&format=F) as date_time', () => {
+    const f = md('[22:45 tomorrow](tg://time?unix=1647531900&format=wDT)')
+
+    expect(f.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: 1647531900,
+      date_time_format: 'wDT'
+    })
+  })
+
+  it('parses [text](tg://time?unix=N) without format', () => {
+    const f = md('[22:45 tomorrow](tg://time?unix=1647531900)')
+
+    expect(f.entities[0]).toMatchObject({ type: 'date_time', unix_time: 1647531900 })
+    expect(f.entities[0].date_time_format).toBeUndefined()
+  })
+
+  it('parses ![text](tg://emoji?id=N) with bang prefix', () => {
+    const f = md('![😎](tg://emoji?id=cei_42)')
+
+    expect(f.text).toBe('😎')
+    expect(f.entities[0]).toMatchObject({ type: 'custom_emoji', custom_emoji_id: 'cei_42' })
+  })
+
+  it('parses ![text](tg://time?unix=N) with bang prefix', () => {
+    const f = md('![22:45 tomorrow](tg://time?unix=1647531900&format=r)')
+
+    expect(f.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: 1647531900,
+      date_time_format: 'r'
+    })
+  })
+
+  it('throws on bang prefix with non-time/non-emoji url', () => {
+    expect(() => md('![hi](https://x.com)')).toThrow(MarkupParseError)
+    expect(() => md('![Alice](tg://user?id=42)')).toThrow(MarkupParseError)
+  })
+
   it('throws on unmatched delimiter', () => {
     expect(() => md('**oops')).toThrow(MarkupParseError)
   })

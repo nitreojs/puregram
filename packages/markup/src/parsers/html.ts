@@ -1,9 +1,66 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+import { composeTimeFormat, type TimeFormat } from '../builders/time'
 import { MarkupParseError } from '../error'
 import { type Entity, Formatted } from '../formatted'
 
 import { TAG_TO_ENTITY, canonicalTag } from './html-tags'
 import { composeWithSentinels, expandSentinels, isTemplateStringsArray } from './sentinel'
+
+const TIME_NAMED_ATTRS = ['weekday', 'date-style', 'time-style', 'relative'] as const
+
+function parseTimeUnix (raw: string | undefined, sourceOffset: number, source: string) {
+  if (raw === undefined) {
+    throw new MarkupParseError('<tg-time>/<time> requires a unix attribute', sourceOffset, source)
+  }
+
+  const unix = parseInt(raw, 10)
+
+  if (Number.isNaN(unix)) {
+    throw new MarkupParseError(`<tg-time>/<time> unix="${raw}" is not a valid integer`, sourceOffset, source)
+  }
+
+  return unix
+}
+
+function namedTimeFormat (attrs: Record<string, string>, tag: string, sourceOffset: number, source: string) {
+  const opts: TimeFormat = {}
+
+  if ('relative' in attrs) {
+    opts.relative = true
+  }
+
+  if ('weekday' in attrs) {
+    opts.weekday = true
+  }
+
+  const dateStyle = attrs['date-style']
+
+  if (dateStyle !== undefined) {
+    if (dateStyle !== 'short' && dateStyle !== 'long') {
+      throw new MarkupParseError(`<${tag}> date-style must be "short" or "long"`, sourceOffset, source)
+    }
+
+    opts.dateStyle = dateStyle
+  }
+
+  const timeStyle = attrs['time-style']
+
+  if (timeStyle !== undefined) {
+    if (timeStyle !== 'short' && timeStyle !== 'long') {
+      throw new MarkupParseError(`<${tag}> time-style must be "short" or "long"`, sourceOffset, source)
+    }
+
+    opts.timeStyle = timeStyle
+  }
+
+  try {
+    return composeTimeFormat(opts)
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+
+    throw new MarkupParseError(`<${tag}>: ${message}`, sourceOffset, source)
+  }
+}
 
 interface OpenTag {
   canonical: string
@@ -105,6 +162,51 @@ function buildEntity (tag: OpenTag, length: number, source: string) {
 
   if (canonical === 'pre' && tag.attrs.language !== undefined) {
     entity.language = tag.attrs.language
+  }
+
+  if (canonical === 'tg-time') {
+    for (const named of TIME_NAMED_ATTRS) {
+      if (named in tag.attrs) {
+        throw new MarkupParseError(
+          `<tg-time> does not accept ${named}; use <time> for the extended form`,
+          tag.sourceOffset, source
+        )
+      }
+    }
+
+    entity.unix_time = parseTimeUnix(tag.attrs.unix, tag.sourceOffset, source)
+
+    const fmt = tag.attrs.format
+
+    if (fmt !== undefined && fmt !== '') {
+      entity.date_time_format = fmt
+    }
+  }
+
+  if (canonical === 'time') {
+    entity.unix_time = parseTimeUnix(tag.attrs.unix, tag.sourceOffset, source)
+
+    const fmt = tag.attrs.format
+    const hasNamed = TIME_NAMED_ATTRS.some(name => name in tag.attrs)
+
+    if (fmt !== undefined && hasNamed) {
+      throw new MarkupParseError(
+        '<time> accepts either format="…" or named flags (weekday/date-style/time-style/relative), not both',
+        tag.sourceOffset, source
+      )
+    }
+
+    if (fmt !== undefined) {
+      if (fmt !== '') {
+        entity.date_time_format = fmt
+      }
+    } else if (hasNamed) {
+      const composed = namedTimeFormat(tag.attrs, 'time', tag.sourceOffset, source)
+
+      if (composed !== '') {
+        entity.date_time_format = composed
+      }
+    }
   }
 
   return entity

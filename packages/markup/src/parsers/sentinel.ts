@@ -143,6 +143,37 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
       }
     }
 
+    // reclassify text_link → custom_emoji when url is now a valid tg://emoji?id=…
+    if (next.type === 'text_link' && newUrl !== undefined && newUrl.startsWith('tg://emoji?')) {
+      const id = readQueryParam(newUrl.slice('tg://emoji?'.length), 'id')
+
+      if (id !== undefined && id !== '') {
+        next.type = 'custom_emoji'
+        next.custom_emoji_id = id
+        delete next.url
+      }
+    }
+
+    // reclassify text_link → date_time when url is now a valid tg://time?unix=N(&format=F)
+    if (next.type === 'text_link' && newUrl !== undefined && newUrl.startsWith('tg://time?')) {
+      const query = newUrl.slice('tg://time?'.length)
+      const unixRaw = readQueryParam(query, 'unix')
+      const unix = unixRaw !== undefined ? parseInt(unixRaw, 10) : NaN
+
+      if (!Number.isNaN(unix)) {
+        next.type = 'date_time'
+        next.unix_time = unix
+
+        const format = readQueryParam(query, 'format')
+
+        if (format !== undefined && format !== '') {
+          next.date_time_format = format
+        }
+
+        delete next.url
+      }
+    }
+
     outEntities.push(next)
   }
 
@@ -160,6 +191,22 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
   outEntities.sort((a, b) => a.offset - b.offset)
 
   return new Formatted(outText, outEntities)
+}
+
+function readQueryParam (query: string, key: string) {
+  for (const part of query.split('&')) {
+    const eq = part.indexOf('=')
+
+    if (eq === -1) {
+      continue
+    }
+
+    if (part.slice(0, eq) === key) {
+      return part.slice(eq + 1)
+    }
+  }
+
+  return undefined
 }
 
 /** builds a sentinel-laden source string from a tagged-template invocation */

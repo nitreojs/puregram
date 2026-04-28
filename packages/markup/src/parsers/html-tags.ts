@@ -9,7 +9,9 @@ export const TAG_TO_ENTITY: Readonly<Record<string, string>> = {
   code: 'code',
   pre: 'pre',
   blockquote: 'blockquote',
-  'tg-emoji': 'custom_emoji'
+  'tg-emoji': 'custom_emoji',
+  'tg-time': 'date_time',
+  time: 'date_time'
 }
 
 /** alias tag → canonical tag */

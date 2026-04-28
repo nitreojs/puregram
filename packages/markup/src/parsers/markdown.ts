@@ -86,7 +86,13 @@ function parseInline (s: State, stopAt: string | null) {
     }
 
     if (ch === '[') {
-      parseLink(s)
+      parseLink(s, false)
+      continue
+    }
+
+    if (ch === '!' && peek(s, 1) === '[') {
+      s.pos += 1
+      parseLink(s, true)
       continue
     }
 
@@ -146,7 +152,7 @@ function parseInlineCode (s: State) {
   s.entities.push({ type: 'code', offset: start, length: s.text.length - start })
 }
 
-function parseLink (s: State) {
+function parseLink (s: State, bang: boolean) {
   const openPos = s.pos
   const start = s.text.length
 
@@ -166,10 +172,15 @@ function parseLink (s: State) {
   }
 
   const url = s.src.slice(s.pos, close)
+  const length = s.text.length - start
 
   s.pos = close + 1
 
   if (url.startsWith('tg://user?id=')) {
+    if (bang) {
+      fail(s, '! prefix is only valid for tg://time and tg://emoji urls', openPos)
+    }
+
     const id = parseInt(url.slice('tg://user?id='.length), 10)
 
     // when an interpolation embeds a sentinel inside the url, parseInt sees the sentinel
@@ -179,15 +190,81 @@ function parseLink (s: State) {
       s.entities.push({
         type: 'text_mention',
         offset: start,
-        length: s.text.length - start,
+        length,
         user: { id, first_name: s.text.slice(start), is_bot: false }
       })
 
       return
     }
+
+    s.entities.push({ type: 'text_link', offset: start, length, url })
+
+    return
   }
 
-  s.entities.push({ type: 'text_link', offset: start, length: s.text.length - start, url })
+  if (url.startsWith('tg://emoji?')) {
+    const id = readQuery(url.slice('tg://emoji?'.length), 'id')
+
+    if (id !== undefined) {
+      s.entities.push({ type: 'custom_emoji', offset: start, length, custom_emoji_id: id })
+
+      return
+    }
+
+    // unresolved (likely sentinel-laden interpolation) — keep as text_link, post-expand reclassifies
+    s.entities.push({ type: 'text_link', offset: start, length, url })
+
+    return
+  }
+
+  if (url.startsWith('tg://time?')) {
+    const query = url.slice('tg://time?'.length)
+    const unixRaw = readQuery(query, 'unix')
+
+    if (unixRaw !== undefined) {
+      const unix = parseInt(unixRaw, 10)
+
+      if (!Number.isNaN(unix)) {
+        const entity: Entity = { type: 'date_time', offset: start, length, unix_time: unix }
+        const format = readQuery(query, 'format')
+
+        if (format !== undefined && format !== '') {
+          entity.date_time_format = format
+        }
+
+        s.entities.push(entity)
+
+        return
+      }
+    }
+
+    // unresolved (likely sentinel-laden interpolation) — keep as text_link for post-expansion
+    s.entities.push({ type: 'text_link', offset: start, length, url })
+
+    return
+  }
+
+  if (bang) {
+    fail(s, '! prefix is only valid for tg://time and tg://emoji urls', openPos)
+  }
+
+  s.entities.push({ type: 'text_link', offset: start, length, url })
+}
+
+function readQuery (query: string, key: string) {
+  for (const part of query.split('&')) {
+    const eq = part.indexOf('=')
+
+    if (eq === -1) {
+      continue
+    }
+
+    if (part.slice(0, eq) === key) {
+      return part.slice(eq + 1)
+    }
+  }
+
+  return undefined
 }
 
 /** parses our MarkdownV2-flavored dialect into a Formatted */

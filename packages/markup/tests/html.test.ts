@@ -63,6 +63,78 @@ describe('html() function form', () => {
     expect(html('<emoji id="99">x</emoji>').entities[0]).toMatchObject({ type: 'custom_emoji', custom_emoji_id: '99' })
   })
 
+  it('parses <tg-time unix="…"> as date_time', () => {
+    const f = html('<tg-time unix="1647531900">22:45 tomorrow</tg-time>')
+
+    expect(f.text).toBe('22:45 tomorrow')
+    expect(f.entities[0]).toMatchObject({ type: 'date_time', unix_time: 1647531900 })
+    expect(f.entities[0].date_time_format).toBeUndefined()
+  })
+
+  it('parses <tg-time unix="…" format="wDT">', () => {
+    const f = html('<tg-time unix="1647531900" format="wDT">22:45 tomorrow</tg-time>')
+
+    expect(f.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: 1647531900,
+      date_time_format: 'wDT'
+    })
+  })
+
+  it('throws on <tg-time> with named-flag attr (extended-form attrs not allowed)', () => {
+    expect(() => html('<tg-time unix="1" relative>x</tg-time>')).toThrow(MarkupParseError)
+    expect(() => html('<tg-time unix="1" weekday>x</tg-time>')).toThrow(MarkupParseError)
+    expect(() => html('<tg-time unix="1" date-style="long">x</tg-time>')).toThrow(MarkupParseError)
+  })
+
+  it('throws on <tg-time> without unix', () => {
+    expect(() => html('<tg-time>x</tg-time>')).toThrow(MarkupParseError)
+  })
+
+  it('parses <time unix="…" format="…"> (extended form, format passthrough)', () => {
+    const f = html('<time unix="1647531900" format="r">in 5m</time>')
+
+    expect(f.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: 1647531900,
+      date_time_format: 'r'
+    })
+  })
+
+  it('parses <time unix="…" weekday date-style="long" time-style="long">', () => {
+    const f = html('<time unix="1647531900" weekday date-style="long" time-style="long">22:45 tomorrow</time>')
+
+    expect(f.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: 1647531900,
+      date_time_format: 'wDT'
+    })
+  })
+
+  it('parses <time unix="…" relative>', () => {
+    const f = html('<time unix="1647531900" relative>in 5m</time>')
+
+    expect(f.entities[0]).toMatchObject({ type: 'date_time', date_time_format: 'r' })
+  })
+
+  it('throws on <time> with both format and named flags', () => {
+    expect(() => html('<time unix="1" format="r" weekday>x</time>')).toThrow(MarkupParseError)
+  })
+
+  it('throws on <time> with relative + another named flag', () => {
+    expect(() => html('<time unix="1" relative weekday>x</time>')).toThrow(MarkupParseError)
+  })
+
+  it('throws on <time> with bad date-style/time-style values', () => {
+    expect(() => html('<time unix="1" date-style="huge">x</time>')).toThrow(MarkupParseError)
+    expect(() => html('<time unix="1" time-style="huge">x</time>')).toThrow(MarkupParseError)
+  })
+
+  it('throws on <time>/<tg-time> with non-numeric unix', () => {
+    expect(() => html('<time unix="abc">x</time>')).toThrow(MarkupParseError)
+    expect(() => html('<tg-time unix="abc">x</tg-time>')).toThrow(MarkupParseError)
+  })
+
   it('handles nested entities — <b>foo <i>bar</i></b>', () => {
     const f = html('<b>foo <i>bar</i></b>')
 

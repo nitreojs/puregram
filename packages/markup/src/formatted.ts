@@ -6,6 +6,8 @@ export interface Entity {
   user?: { id: number, is_bot: boolean, first_name: string, last_name?: string, username?: string }
   language?: string
   custom_emoji_id?: string
+  unix_time?: number
+  date_time_format?: string
 }
 
 export class Formatted {

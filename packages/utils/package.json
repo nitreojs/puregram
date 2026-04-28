@@ -1,33 +1,42 @@
 {
   "name": "@puregram/utils",
-  "version": "1.0.1",
-  "description": "Package, containing some useful utilities for puregram",
-  "main": "lib/index",
+  "version": "3.0.0-alpha.0",
+  "description": "small standalone utilities for puregram v3 — slot-machine value decoder + telegram web app initData validation",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json"
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
-  "keywords": [
-    "puregram",
-    "telegram",
-    "utils"
-  ],
-  "files": [
-    "lib"
-  ],
-  "author": "nitrojs",
-  "license": "MIT",
-  "peerDependencies": {
-    "puregram": "^2.0.0"
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
   },
-  "types": "./lib/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
+  "license": "WTFPL",
+  "author": "starkow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nitreojs/puregram/tree/lord/packages/utils"
-  }
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/utils"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot-api",
+    "puregram",
+    "utils",
+    "web-app",
+    "casino"
+  ]
 }

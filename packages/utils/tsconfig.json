@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "module": "commonjs",
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "declaration": true,
-    "outDir": "lib",
-    "pretty": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./lib",
+    "rootDir": "./src",
 
     "strict": true,
     "noImplicitAny": true,
@@ -14,12 +17,14 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
 
     "esModuleInterop": true,
-
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   },
-
-  "include": ["./src"]
+  "include": ["src/**/*"],
+  "exclude": ["**/*.test.ts", "lib", "node_modules"]
 }

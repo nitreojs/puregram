@@ -5,6 +5,7 @@ import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { isWrappedStructure } from './structures-config'
+import { renderStructureExtras } from './structures-extras'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
 
 export function emitStructures (schema: Schema) {
@@ -35,13 +36,48 @@ export function emitStructures (schema: Schema) {
     importNamed(['INSPECT', 'makeInspect'], './inspect')
   ]
 
-  return formatModule({
+  const printed = formatModule({
     nodes,
     imports,
     botApiVersion: versionString(schema),
     sourceUrl: schema.source.corefork,
     generatedAt: schema.source.fetchedAt
   })
+
+  return spliceExtrasIntoPrinted(printed, wrappedObjects.map(o => o.name))
+}
+
+// extras are kept as raw ts text rather than ast nodes because the typescript printer drops
+// literal text from cross-source-file ast nodes; splicing post-print sidesteps that entirely
+function spliceExtrasIntoPrinted (printed: string, classNames: string[]) {
+  let out = printed
+
+  for (const className of classNames) {
+    const extrasText = renderStructureExtras(className)
+
+    if (!extrasText) {
+      continue
+    }
+
+    // anchor on the inspect tail of this specific class (4-space body indent + computed name)
+    const classOpen = new RegExp(`^export class ${className} \\{`, 'm')
+    const openMatch = classOpen.exec(out)
+
+    if (!openMatch) {
+      continue
+    }
+
+    const inspectAnchor = '    [INSPECT]()'
+    const inspectIndex = out.indexOf(inspectAnchor, openMatch.index)
+
+    if (inspectIndex === -1) {
+      continue
+    }
+
+    out = out.slice(0, inspectIndex) + extrasText + out.slice(inspectIndex)
+  }
+
+  return out
 }
 
 function collectReferencedTypeNames (ref: SchemaTypeRef, into: Set<string>): void {

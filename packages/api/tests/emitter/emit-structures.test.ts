@@ -36,4 +36,22 @@ describe('emitStructures', () => {
     expect(out).toContain('import type {')
     expect(out).toContain('import { INSPECT, makeInspect } from "./inspect"')
   })
+
+  it('splices hand-rolled extras (User.displayName, User.mention) before the inspect tail', async () => {
+    const schema = JSON.parse(
+      await readFile(resolve(__dirname, '../fixtures/small-schema.json'), 'utf8')
+    ) as Schema
+
+    const out = emitStructures(schema)
+
+    expect(out).toContain('get displayName(): string')
+    expect(out).toContain("mention(parseMode?: 'html' | 'markdown' | 'markdownv2'): string")
+
+    const userClassStart = out.indexOf('export class User')
+    const userExtras = out.indexOf('get displayName(): string', userClassStart)
+    const userInspect = out.indexOf('[INSPECT]()', userClassStart)
+
+    expect(userExtras).toBeGreaterThan(userClassStart)
+    expect(userExtras).toBeLessThan(userInspect)
+  })
 })

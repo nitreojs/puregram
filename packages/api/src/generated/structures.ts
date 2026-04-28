@@ -359,6 +359,24 @@ export class ChatMember {
     static fromPayload(raw: TelegramChatMember): ChatMember {
         return new ChatMember(raw);
     }
+    /**
+     * true when the member's status is 'administrator'
+     */
+    isAdmin(): boolean {
+        return (this.raw as { status?: string }).status === 'administrator';
+    }
+    /**
+     * true when the member's status is 'creator' (chat owner)
+     */
+    isCreator(): boolean {
+        return (this.raw as { status?: string }).status === 'creator';
+    }
+    /**
+     * true when the member's status is 'member' (regular non-admin participant)
+     */
+    isMember(): boolean {
+        return (this.raw as { status?: string }).status === 'member';
+    }
     [INSPECT]() {
         return makeInspect({
             className: "ChatMember",
@@ -721,6 +739,12 @@ export class Contact {
     get vcard(): string | undefined {
         return this.raw.vcard;
     }
+    /**
+     * display name; first name plus last name when present, otherwise just first name
+     */
+    get displayName(): string {
+        return this.raw.last_name ? `${this.raw.first_name} ${this.raw.last_name}` : this.raw.first_name;
+    }
     [INSPECT]() {
         return makeInspect({
             className: "Contact",
@@ -1011,6 +1035,12 @@ export class File {
      */
     get filePath(): string | undefined {
         return this.raw.file_path;
+    }
+    /**
+     * full download url for this file using the given bot token; undefined when file_path is missing
+     */
+    link(token: string): string | undefined {
+        return this.raw.file_path ? `https://api.telegram.org/file/bot${token}/${this.raw.file_path}` : undefined;
     }
     [INSPECT]() {
         return makeInspect({
@@ -1659,6 +1689,12 @@ export class Location {
      */
     get proximityAlertRadius(): number | undefined {
         return this.raw.proximity_alert_radius;
+    }
+    /**
+     * tuple of [latitude, longitude]
+     */
+    get coordinates(): [number, number] {
+        return [this.raw.latitude, this.raw.longitude];
     }
     [INSPECT]() {
         return makeInspect({
@@ -3743,6 +3779,32 @@ export class User {
      */
     get canManageBots(): boolean | undefined {
         return this.raw.can_manage_bots;
+    }
+    /**
+     * display name; first name plus last name when present, otherwise just first name
+     */
+    get displayName(): string {
+        return this.raw.last_name ? `${this.raw.first_name} ${this.raw.last_name}` : this.raw.first_name;
+    }
+    /**
+     * render a clickable mention pointing at this user; defaults to 'html'
+     */
+    mention(parseMode?: 'html' | 'markdown' | 'markdownv2'): string {
+        const mode = parseMode ?? 'html';
+        const name = this.raw.last_name
+            ? `${this.raw.first_name} ${this.raw.last_name}`
+            : this.raw.first_name;
+        const id = this.raw.id;
+        if (mode === 'html') {
+            const escaped = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return `<a href="tg://user?id=${id}">${escaped}</a>`;
+        }
+        if (mode === 'markdownv2') {
+            const escaped = name.replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\$&');
+            return `[${escaped}](tg://user?id=${id})`;
+        }
+        const escaped = name.replace(/[[\]\\]/g, '\\$&');
+        return `[${escaped}](tg://user?id=${id})`;
     }
     [INSPECT]() {
         return makeInspect({

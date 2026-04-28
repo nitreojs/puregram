@@ -1,7 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { MemoryStorage } from '@puregram/storage'
+import { describe, expect, it, vi } from 'vitest'
 
 import { flow } from '../../src'
+import type { PersistedFlow } from '../../src/persistent/types'
 import { makeTg } from '../helpers/make-tg'
+import { makeUpdate } from '../helpers/make-update'
 
 const sleep = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
 
@@ -509,6 +512,42 @@ describe('@puregram/flow — e2e', () => {
 
     expect(matched?.raw.text).toBe('plain')
 
+    await mock.stop()
+  })
+})
+
+describe('persistent flow e2e', () => {
+  it('ephemeral and persistent waiters coexist on the same Telegram', async () => {
+    const storage = new MemoryStorage<PersistedFlow>()
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage })))
+
+    await tg.start()
+
+    ;(tg as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
+
+    const onPersistent = vi.fn()
+
+    tg.flow.handle('persistent', { onAnswer: onPersistent })
+
+    await tg.flow.prompt(100, 'persistent', { id: 'persistent', from: 9 })
+
+    expect(await storage.has('100:9:message')).toBe(true)
+
+    // an unrelated chat triggers an ephemeral prompt — different (chat, user, kind) triple
+    const ephemeral = tg.flow.prompt(200, 'ephemeral')
+
+    await new Promise(resolve => setImmediate(resolve))
+
+    await (tg as any).dispatch(makeUpdate('message', { chat: { id: 200 }, text: 'hi' }))
+
+    const ephemResult = await ephemeral
+
+    expect((ephemResult as any).chat.id).toBe(200)
+
+    // and the persistent record is still open
+    expect(await storage.has('100:9:message')).toBe(true)
+
+    await tg.shutdown()
     await mock.stop()
   })
 })

@@ -5,6 +5,7 @@
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLinkPreviewOptions, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
+import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
 /**
  * This object represents a chat.
@@ -61,6 +62,30 @@ export class Chat {
      */
     get isDirectMessages(): true | undefined {
         return this.raw.is_direct_messages;
+    }
+    /**
+     * True if `title` is set.
+     */
+    hasTitle(): this is Has<this, "title"> {
+        return this.raw.title != null;
+    }
+    /**
+     * True if `username` is set.
+     */
+    hasUsername(): this is Has<this, "username"> {
+        return this.raw.username != null;
+    }
+    /**
+     * True if `first_name` is set.
+     */
+    hasFirstName(): this is Has<this, "firstName"> {
+        return this.raw.first_name != null;
+    }
+    /**
+     * True if `last_name` is set.
+     */
+    hasLastName(): this is Has<this, "lastName"> {
+        return this.raw.last_name != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Chat", this, depth, options, inspect);
@@ -244,6 +269,42 @@ export class ChatInviteLink {
     get subscriptionPrice(): number | undefined {
         return this.raw.subscription_price;
     }
+    /**
+     * True if `name` is set.
+     */
+    hasName(): this is Has<this, "name"> {
+        return this.raw.name != null;
+    }
+    /**
+     * True if `expire_date` is set.
+     */
+    hasExpireDate(): this is Has<this, "expireDate"> {
+        return this.raw.expire_date != null;
+    }
+    /**
+     * True if `member_limit` is set.
+     */
+    hasMemberLimit(): this is Has<this, "memberLimit"> {
+        return this.raw.member_limit != null;
+    }
+    /**
+     * True if `pending_join_request_count` is set.
+     */
+    hasPendingJoinRequestCount(): this is Has<this, "pendingJoinRequestCount"> {
+        return this.raw.pending_join_request_count != null;
+    }
+    /**
+     * True if `subscription_period` is set.
+     */
+    hasSubscriptionPeriod(): this is Has<this, "subscriptionPeriod"> {
+        return this.raw.subscription_period != null;
+    }
+    /**
+     * True if `subscription_price` is set.
+     */
+    hasSubscriptionPrice(): this is Has<this, "subscriptionPrice"> {
+        return this.raw.subscription_price != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ChatInviteLink", this, depth, options, inspect);
     }
@@ -298,6 +359,18 @@ export class ChatJoinRequest {
             this._inviteLink = this.raw.invite_link ? new ChatInviteLink(this.raw.invite_link) : undefined;
         }
         return this._inviteLink;
+    }
+    /**
+     * True if `bio` is set.
+     */
+    hasBio(): this is Has<this, "bio"> {
+        return this.raw.bio != null;
+    }
+    /**
+     * True if `invite_link` is set.
+     */
+    hasInviteLink(): this is Has<this, "inviteLink"> {
+        return this.raw.invite_link != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ChatJoinRequest", this, depth, options, inspect);
@@ -425,6 +498,24 @@ export class ChatMemberUpdated {
     get viaChatFolderInviteLink(): boolean | undefined {
         return this.raw.via_chat_folder_invite_link;
     }
+    /**
+     * True if `invite_link` is set.
+     */
+    hasInviteLink(): this is Has<this, "inviteLink"> {
+        return this.raw.invite_link != null;
+    }
+    /**
+     * True if `via_join_request` is set.
+     */
+    hasViaJoinRequest(): this is Has<this, "viaJoinRequest"> {
+        return this.raw.via_join_request != null;
+    }
+    /**
+     * True if `via_chat_folder_invite_link` is set.
+     */
+    hasViaChatFolderInviteLink(): this is Has<this, "viaChatFolderInviteLink"> {
+        return this.raw.via_chat_folder_invite_link != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ChatMemberUpdated", this, depth, options, inspect);
     }
@@ -528,6 +619,96 @@ export class ChatPermissions {
     get canManageTopics(): boolean | undefined {
         return this.raw.can_manage_topics;
     }
+    /**
+     * True if `can_send_messages` is set.
+     */
+    hasCanSendMessages(): this is Has<this, "canSendMessages"> {
+        return this.raw.can_send_messages != null;
+    }
+    /**
+     * True if `can_send_audios` is set.
+     */
+    hasCanSendAudios(): this is Has<this, "canSendAudios"> {
+        return this.raw.can_send_audios != null;
+    }
+    /**
+     * True if `can_send_documents` is set.
+     */
+    hasCanSendDocuments(): this is Has<this, "canSendDocuments"> {
+        return this.raw.can_send_documents != null;
+    }
+    /**
+     * True if `can_send_photos` is set.
+     */
+    hasCanSendPhotos(): this is Has<this, "canSendPhotos"> {
+        return this.raw.can_send_photos != null;
+    }
+    /**
+     * True if `can_send_videos` is set.
+     */
+    hasCanSendVideos(): this is Has<this, "canSendVideos"> {
+        return this.raw.can_send_videos != null;
+    }
+    /**
+     * True if `can_send_video_notes` is set.
+     */
+    hasCanSendVideoNotes(): this is Has<this, "canSendVideoNotes"> {
+        return this.raw.can_send_video_notes != null;
+    }
+    /**
+     * True if `can_send_voice_notes` is set.
+     */
+    hasCanSendVoiceNotes(): this is Has<this, "canSendVoiceNotes"> {
+        return this.raw.can_send_voice_notes != null;
+    }
+    /**
+     * True if `can_send_polls` is set.
+     */
+    hasCanSendPolls(): this is Has<this, "canSendPolls"> {
+        return this.raw.can_send_polls != null;
+    }
+    /**
+     * True if `can_send_other_messages` is set.
+     */
+    hasCanSendOtherMessages(): this is Has<this, "canSendOtherMessages"> {
+        return this.raw.can_send_other_messages != null;
+    }
+    /**
+     * True if `can_add_web_page_previews` is set.
+     */
+    hasCanAddWebPagePreviews(): this is Has<this, "canAddWebPagePreviews"> {
+        return this.raw.can_add_web_page_previews != null;
+    }
+    /**
+     * True if `can_edit_tag` is set.
+     */
+    hasCanEditTag(): this is Has<this, "canEditTag"> {
+        return this.raw.can_edit_tag != null;
+    }
+    /**
+     * True if `can_change_info` is set.
+     */
+    hasCanChangeInfo(): this is Has<this, "canChangeInfo"> {
+        return this.raw.can_change_info != null;
+    }
+    /**
+     * True if `can_invite_users` is set.
+     */
+    hasCanInviteUsers(): this is Has<this, "canInviteUsers"> {
+        return this.raw.can_invite_users != null;
+    }
+    /**
+     * True if `can_pin_messages` is set.
+     */
+    hasCanPinMessages(): this is Has<this, "canPinMessages"> {
+        return this.raw.can_pin_messages != null;
+    }
+    /**
+     * True if `can_manage_topics` is set.
+     */
+    hasCanManageTopics(): this is Has<this, "canManageTopics"> {
+        return this.raw.can_manage_topics != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ChatPermissions", this, depth, options, inspect);
     }
@@ -609,6 +790,24 @@ export class ChatShared {
     get photo(): PhotoSize[] | undefined {
         return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
     }
+    /**
+     * True if `title` is set.
+     */
+    hasTitle(): this is Has<this, "title"> {
+        return this.raw.title != null;
+    }
+    /**
+     * True if `username` is set.
+     */
+    hasUsername(): this is Has<this, "username"> {
+        return this.raw.username != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ChatShared", this, depth, options, inspect);
     }
@@ -657,6 +856,18 @@ export class ChosenInlineResult {
     get query(): string {
         return this.raw.query;
     }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `inline_message_id` is set.
+     */
+    hasInlineMessageId(): this is Has<this, "inlineMessageId"> {
+        return this.raw.inline_message_id != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ChosenInlineResult", this, depth, options, inspect);
     }
@@ -699,6 +910,24 @@ export class Contact {
      */
     get vcard(): string | undefined {
         return this.raw.vcard;
+    }
+    /**
+     * True if `last_name` is set.
+     */
+    hasLastName(): this is Has<this, "lastName"> {
+        return this.raw.last_name != null;
+    }
+    /**
+     * True if `user_id` is set.
+     */
+    hasUserId(): this is Has<this, "userId"> {
+        return this.raw.user_id != null;
+    }
+    /**
+     * True if `vcard` is set.
+     */
+    hasVcard(): this is Has<this, "vcard"> {
+        return this.raw.vcard != null;
     }
     /**
      * display name; first name plus last name when present, otherwise just first name
@@ -951,6 +1180,144 @@ export class ExternalReplyInfo {
         }
         return this._venue;
     }
+    /**
+     * True if `chat` is set.
+     */
+    hasChat(): this is Has<this, "chat"> {
+        return this.raw.chat != null;
+    }
+    /**
+     * True if `message_id` is set.
+     */
+    hasId(): this is Has<this, "id"> {
+        return this.raw.message_id != null;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ExternalReplyInfo", this, depth, options, inspect);
     }
@@ -987,6 +1354,18 @@ export class File {
      */
     get filePath(): string | undefined {
         return this.raw.file_path;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is Has<this, "fileSize"> {
+        return this.raw.file_size != null;
+    }
+    /**
+     * True if `file_path` is set.
+     */
+    hasFilePath(): this is Has<this, "filePath"> {
+        return this.raw.file_path != null;
     }
     /**
      * full download url for this file using the given bot token; undefined when file_path is missing
@@ -1031,6 +1410,12 @@ export class ForumTopicCreated {
     get isNameImplicit(): true | undefined {
         return this.raw.is_name_implicit;
     }
+    /**
+     * True if `icon_custom_emoji_id` is set.
+     */
+    hasIconCustomEmojiId(): this is Has<this, "iconCustomEmojiId"> {
+        return this.raw.icon_custom_emoji_id != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ForumTopicCreated", this, depth, options, inspect);
     }
@@ -1055,6 +1440,18 @@ export class ForumTopicEdited {
      */
     get iconCustomEmojiId(): string | undefined {
         return this.raw.icon_custom_emoji_id;
+    }
+    /**
+     * True if `name` is set.
+     */
+    hasName(): this is Has<this, "name"> {
+        return this.raw.name != null;
+    }
+    /**
+     * True if `icon_custom_emoji_id` is set.
+     */
+    hasIconCustomEmojiId(): this is Has<this, "iconCustomEmojiId"> {
+        return this.raw.icon_custom_emoji_id != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ForumTopicEdited", this, depth, options, inspect);
@@ -1106,6 +1503,24 @@ export class Game {
      */
     get animation(): TelegramAnimation | undefined {
         return this.raw.animation;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `text_entities` has at least one item.
+     */
+    hasTextEntities(): this is Has<this, "textEntities"> {
+        return this.raw.text_entities != null && this.raw.text_entities.length > 0;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Game", this, depth, options, inspect);
@@ -1175,6 +1590,36 @@ export class Giveaway {
     get premiumSubscriptionMonthCount(): number | undefined {
         return this.raw.premium_subscription_month_count;
     }
+    /**
+     * True if `only_new_members` is set.
+     */
+    hasOnlyNewMembers(): this is Has<this, "onlyNewMembers"> {
+        return this.raw.only_new_members != null;
+    }
+    /**
+     * True if `prize_description` is set.
+     */
+    hasPrizeDescription(): this is Has<this, "prizeDescription"> {
+        return this.raw.prize_description != null;
+    }
+    /**
+     * True if `country_codes` has at least one item.
+     */
+    hasCountryCodes(): this is Has<this, "countryCodes"> {
+        return this.raw.country_codes != null && this.raw.country_codes.length > 0;
+    }
+    /**
+     * True if `prize_star_count` is set.
+     */
+    hasPrizeStarCount(): this is Has<this, "prizeStarCount"> {
+        return this.raw.prize_star_count != null;
+    }
+    /**
+     * True if `premium_subscription_month_count` is set.
+     */
+    hasPremiumSubscriptionMonthCount(): this is Has<this, "premiumSubscriptionMonthCount"> {
+        return this.raw.premium_subscription_month_count != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Giveaway", this, depth, options, inspect);
     }
@@ -1215,6 +1660,18 @@ export class GiveawayCompleted {
      */
     get isStarGiveaway(): true | undefined {
         return this.raw.is_star_giveaway;
+    }
+    /**
+     * True if `unclaimed_prize_count` is set.
+     */
+    hasUnclaimedPrizeCount(): this is Has<this, "unclaimedPrizeCount"> {
+        return this.raw.unclaimed_prize_count != null;
+    }
+    /**
+     * True if `giveaway_message` is set.
+     */
+    hasGiveawayMessage(): this is Has<this, "giveawayMessage"> {
+        return this.raw.giveaway_message != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("GiveawayCompleted", this, depth, options, inspect);
@@ -1302,6 +1759,48 @@ export class GiveawayWinners {
      */
     get prizeDescription(): string | undefined {
         return this.raw.prize_description;
+    }
+    /**
+     * True if `additional_chat_count` is set.
+     */
+    hasAdditionalChatCount(): this is Has<this, "additionalChatCount"> {
+        return this.raw.additional_chat_count != null;
+    }
+    /**
+     * True if `prize_star_count` is set.
+     */
+    hasPrizeStarCount(): this is Has<this, "prizeStarCount"> {
+        return this.raw.prize_star_count != null;
+    }
+    /**
+     * True if `premium_subscription_month_count` is set.
+     */
+    hasPremiumSubscriptionMonthCount(): this is Has<this, "premiumSubscriptionMonthCount"> {
+        return this.raw.premium_subscription_month_count != null;
+    }
+    /**
+     * True if `unclaimed_prize_count` is set.
+     */
+    hasUnclaimedPrizeCount(): this is Has<this, "unclaimedPrizeCount"> {
+        return this.raw.unclaimed_prize_count != null;
+    }
+    /**
+     * True if `only_new_members` is set.
+     */
+    hasOnlyNewMembers(): this is Has<this, "onlyNewMembers"> {
+        return this.raw.only_new_members != null;
+    }
+    /**
+     * True if `was_refunded` is set.
+     */
+    hasWasRefunded(): this is Has<this, "wasRefunded"> {
+        return this.raw.was_refunded != null;
+    }
+    /**
+     * True if `prize_description` is set.
+     */
+    hasPrizeDescription(): this is Has<this, "prizeDescription"> {
+        return this.raw.prize_description != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("GiveawayWinners", this, depth, options, inspect);
@@ -1398,6 +1897,78 @@ export class InlineKeyboardButton {
     get pay(): boolean | undefined {
         return this.raw.pay;
     }
+    /**
+     * True if `icon_custom_emoji_id` is set.
+     */
+    hasIconCustomEmojiId(): this is Has<this, "iconCustomEmojiId"> {
+        return this.raw.icon_custom_emoji_id != null;
+    }
+    /**
+     * True if `style` is set.
+     */
+    hasStyle(): this is Has<this, "style"> {
+        return this.raw.style != null;
+    }
+    /**
+     * True if `url` is set.
+     */
+    hasUrl(): this is Has<this, "url"> {
+        return this.raw.url != null;
+    }
+    /**
+     * True if `callback_data` is set.
+     */
+    hasCallbackData(): this is Has<this, "callbackData"> {
+        return this.raw.callback_data != null;
+    }
+    /**
+     * True if `web_app` is set.
+     */
+    hasWebApp(): this is Has<this, "webApp"> {
+        return this.raw.web_app != null;
+    }
+    /**
+     * True if `login_url` is set.
+     */
+    hasLoginUrl(): this is Has<this, "loginUrl"> {
+        return this.raw.login_url != null;
+    }
+    /**
+     * True if `switch_inline_query` is set.
+     */
+    hasSwitchInlineQuery(): this is Has<this, "switchInlineQuery"> {
+        return this.raw.switch_inline_query != null;
+    }
+    /**
+     * True if `switch_inline_query_current_chat` is set.
+     */
+    hasSwitchInlineQueryCurrentChat(): this is Has<this, "switchInlineQueryCurrentChat"> {
+        return this.raw.switch_inline_query_current_chat != null;
+    }
+    /**
+     * True if `switch_inline_query_chosen_chat` is set.
+     */
+    hasSwitchInlineQueryChosenChat(): this is Has<this, "switchInlineQueryChosenChat"> {
+        return this.raw.switch_inline_query_chosen_chat != null;
+    }
+    /**
+     * True if `copy_text` is set.
+     */
+    hasCopyText(): this is Has<this, "copyText"> {
+        return this.raw.copy_text != null;
+    }
+    /**
+     * True if `callback_game` is set.
+     */
+    hasCallbackGame(): this is Has<this, "callbackGame"> {
+        return this.raw.callback_game != null;
+    }
+    /**
+     * True if `pay` is set.
+     */
+    hasPay(): this is Has<this, "pay"> {
+        return this.raw.pay != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("InlineKeyboardButton", this, depth, options, inspect);
     }
@@ -1470,6 +2041,18 @@ export class InlineQuery {
             this._location = this.raw.location ? new Location(this.raw.location) : undefined;
         }
         return this._location;
+    }
+    /**
+     * True if `chat_type` is set.
+     */
+    hasChatType(): this is Has<this, "chatType"> {
+        return this.raw.chat_type != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("InlineQuery", this, depth, options, inspect);
@@ -1557,6 +2140,30 @@ export class LinkPreviewOptions {
     get showAboveText(): boolean | undefined {
         return this.raw.show_above_text;
     }
+    /**
+     * True if `url` is set.
+     */
+    hasUrl(): this is Has<this, "url"> {
+        return this.raw.url != null;
+    }
+    /**
+     * True if `prefer_small_media` is set.
+     */
+    hasPreferSmallMedia(): this is Has<this, "preferSmallMedia"> {
+        return this.raw.prefer_small_media != null;
+    }
+    /**
+     * True if `prefer_large_media` is set.
+     */
+    hasPreferLargeMedia(): this is Has<this, "preferLargeMedia"> {
+        return this.raw.prefer_large_media != null;
+    }
+    /**
+     * True if `show_above_text` is set.
+     */
+    hasShowAboveText(): this is Has<this, "showAboveText"> {
+        return this.raw.show_above_text != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("LinkPreviewOptions", this, depth, options, inspect);
     }
@@ -1605,6 +2212,30 @@ export class Location {
      */
     get proximityAlertRadius(): number | undefined {
         return this.raw.proximity_alert_radius;
+    }
+    /**
+     * True if `horizontal_accuracy` is set.
+     */
+    hasHorizontalAccuracy(): this is Has<this, "horizontalAccuracy"> {
+        return this.raw.horizontal_accuracy != null;
+    }
+    /**
+     * True if `live_period` is set.
+     */
+    hasLivePeriod(): this is Has<this, "livePeriod"> {
+        return this.raw.live_period != null;
+    }
+    /**
+     * True if `heading` is set.
+     */
+    hasHeading(): this is Has<this, "heading"> {
+        return this.raw.heading != null;
+    }
+    /**
+     * True if `proximity_alert_radius` is set.
+     */
+    hasProximityAlertRadius(): this is Has<this, "proximityAlertRadius"> {
+        return this.raw.proximity_alert_radius != null;
     }
     /**
      * tuple of [latitude, longitude]
@@ -2472,6 +3103,612 @@ export class Message {
         }
         return this._replyMarkup;
     }
+    /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `reply_to_message` is set.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Message", this, depth, options, inspect);
     }
@@ -2542,6 +3779,42 @@ export class MessageEntity {
      */
     get dateTimeFormat(): string | undefined {
         return this.raw.date_time_format;
+    }
+    /**
+     * True if `url` is set.
+     */
+    hasUrl(): this is Has<this, "url"> {
+        return this.raw.url != null;
+    }
+    /**
+     * True if `user` is set.
+     */
+    hasUser(): this is Has<this, "user"> {
+        return this.raw.user != null;
+    }
+    /**
+     * True if `language` is set.
+     */
+    hasLanguage(): this is Has<this, "language"> {
+        return this.raw.language != null;
+    }
+    /**
+     * True if `custom_emoji_id` is set.
+     */
+    hasCustomEmojiId(): this is Has<this, "customEmojiId"> {
+        return this.raw.custom_emoji_id != null;
+    }
+    /**
+     * True if `unix_time` is set.
+     */
+    hasUnixTime(): this is Has<this, "unixTime"> {
+        return this.raw.unix_time != null;
+    }
+    /**
+     * True if `date_time_format` is set.
+     */
+    hasDateTimeFormat(): this is Has<this, "dateTimeFormat"> {
+        return this.raw.date_time_format != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("MessageEntity", this, depth, options, inspect);
@@ -2665,6 +3938,18 @@ export class MessageReactionUpdated {
     get newReaction(): TelegramReactionType[] {
         return this.raw.new_reaction;
     }
+    /**
+     * True if `user` is set.
+     */
+    hasUser(): this is Has<this, "user"> {
+        return this.raw.user != null;
+    }
+    /**
+     * True if `actor_chat` is set.
+     */
+    hasActorChat(): this is Has<this, "actorChat"> {
+        return this.raw.actor_chat != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("MessageReactionUpdated", this, depth, options, inspect);
     }
@@ -2705,6 +3990,30 @@ export class OrderInfo {
             this._shippingAddress = this.raw.shipping_address ? new ShippingAddress(this.raw.shipping_address) : undefined;
         }
         return this._shippingAddress;
+    }
+    /**
+     * True if `name` is set.
+     */
+    hasName(): this is Has<this, "name"> {
+        return this.raw.name != null;
+    }
+    /**
+     * True if `phone_number` is set.
+     */
+    hasPhoneNumber(): this is Has<this, "phoneNumber"> {
+        return this.raw.phone_number != null;
+    }
+    /**
+     * True if `email` is set.
+     */
+    hasEmail(): this is Has<this, "email"> {
+        return this.raw.email != null;
+    }
+    /**
+     * True if `shipping_address` is set.
+     */
+    hasShippingAddress(): this is Has<this, "shippingAddress"> {
+        return this.raw.shipping_address != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("OrderInfo", this, depth, options, inspect);
@@ -2773,6 +4082,12 @@ export class PhotoSize {
      */
     get fileSize(): number | undefined {
         return this.raw.file_size;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is Has<this, "fileSize"> {
+        return this.raw.file_size != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("PhotoSize", this, depth, options, inspect);
@@ -2893,6 +4208,54 @@ export class Poll {
     get descriptionEntities(): MessageEntity[] | undefined {
         return this.raw.description_entities ? (this._descriptionEntities ??= this.raw.description_entities.map(x => new MessageEntity(x))) : undefined;
     }
+    /**
+     * True if `question_entities` has at least one item.
+     */
+    hasQuestionEntities(): this is Has<this, "questionEntities"> {
+        return this.raw.question_entities != null && this.raw.question_entities.length > 0;
+    }
+    /**
+     * True if `correct_option_ids` has at least one item.
+     */
+    hasCorrectOptionIds(): this is Has<this, "correctOptionIds"> {
+        return this.raw.correct_option_ids != null && this.raw.correct_option_ids.length > 0;
+    }
+    /**
+     * True if `explanation` is set.
+     */
+    hasExplanation(): this is Has<this, "explanation"> {
+        return this.raw.explanation != null;
+    }
+    /**
+     * True if `explanation_entities` has at least one item.
+     */
+    hasExplanationEntities(): this is Has<this, "explanationEntities"> {
+        return this.raw.explanation_entities != null && this.raw.explanation_entities.length > 0;
+    }
+    /**
+     * True if `open_period` is set.
+     */
+    hasOpenPeriod(): this is Has<this, "openPeriod"> {
+        return this.raw.open_period != null;
+    }
+    /**
+     * True if `close_date` is set.
+     */
+    hasCloseDate(): this is Has<this, "closeDate"> {
+        return this.raw.close_date != null;
+    }
+    /**
+     * True if `description` is set.
+     */
+    hasDescription(): this is Has<this, "description"> {
+        return this.raw.description != null;
+    }
+    /**
+     * True if `description_entities` has at least one item.
+     */
+    hasDescriptionEntities(): this is Has<this, "descriptionEntities"> {
+        return this.raw.description_entities != null && this.raw.description_entities.length > 0;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Poll", this, depth, options, inspect);
     }
@@ -2943,6 +4306,18 @@ export class PollAnswer {
      */
     get optionPersistentIds(): string[] {
         return this.raw.option_persistent_ids;
+    }
+    /**
+     * True if `voter_chat` is set.
+     */
+    hasVoterChat(): this is Has<this, "voterChat"> {
+        return this.raw.voter_chat != null;
+    }
+    /**
+     * True if `user` is set.
+     */
+    hasUser(): this is Has<this, "user"> {
+        return this.raw.user != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("PollAnswer", this, depth, options, inspect);
@@ -3008,6 +4383,30 @@ export class PollOption {
     get additionDate(): number | undefined {
         return this.raw.addition_date;
     }
+    /**
+     * True if `text_entities` has at least one item.
+     */
+    hasTextEntities(): this is Has<this, "textEntities"> {
+        return this.raw.text_entities != null && this.raw.text_entities.length > 0;
+    }
+    /**
+     * True if `added_by_user` is set.
+     */
+    hasAddedByUser(): this is Has<this, "addedByUser"> {
+        return this.raw.added_by_user != null;
+    }
+    /**
+     * True if `added_by_chat` is set.
+     */
+    hasAddedByChat(): this is Has<this, "addedByChat"> {
+        return this.raw.added_by_chat != null;
+    }
+    /**
+     * True if `addition_date` is set.
+     */
+    hasAdditionDate(): this is Has<this, "additionDate"> {
+        return this.raw.addition_date != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("PollOption", this, depth, options, inspect);
     }
@@ -3067,6 +4466,18 @@ export class PreCheckoutQuery {
             this._orderInfo = this.raw.order_info ? new OrderInfo(this.raw.order_info) : undefined;
         }
         return this._orderInfo;
+    }
+    /**
+     * True if `shipping_option_id` is set.
+     */
+    hasShippingOptionId(): this is Has<this, "shippingOptionId"> {
+        return this.raw.shipping_option_id != null;
+    }
+    /**
+     * True if `order_info` is set.
+     */
+    hasOrderInfo(): this is Has<this, "orderInfo"> {
+        return this.raw.order_info != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("PreCheckoutQuery", this, depth, options, inspect);
@@ -3329,6 +4740,54 @@ export class Sticker {
     get fileSize(): number | undefined {
         return this.raw.file_size;
     }
+    /**
+     * True if `thumbnail` is set.
+     */
+    hasThumbnail(): this is Has<this, "thumbnail"> {
+        return this.raw.thumbnail != null;
+    }
+    /**
+     * True if `emoji` is set.
+     */
+    hasEmoji(): this is Has<this, "emoji"> {
+        return this.raw.emoji != null;
+    }
+    /**
+     * True if `set_name` is set.
+     */
+    hasSetName(): this is Has<this, "setName"> {
+        return this.raw.set_name != null;
+    }
+    /**
+     * True if `premium_animation` is set.
+     */
+    hasPremiumAnimation(): this is Has<this, "premiumAnimation"> {
+        return this.raw.premium_animation != null;
+    }
+    /**
+     * True if `mask_position` is set.
+     */
+    hasMaskPosition(): this is Has<this, "maskPosition"> {
+        return this.raw.mask_position != null;
+    }
+    /**
+     * True if `custom_emoji_id` is set.
+     */
+    hasCustomEmojiId(): this is Has<this, "customEmojiId"> {
+        return this.raw.custom_emoji_id != null;
+    }
+    /**
+     * True if `needs_repainting` is set.
+     */
+    hasNeedsRepainting(): this is Has<this, "needsRepainting"> {
+        return this.raw.needs_repainting != null;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is Has<this, "fileSize"> {
+        return this.raw.file_size != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Sticker", this, depth, options, inspect);
     }
@@ -3376,6 +4835,12 @@ export class StickerSet {
             this._thumbnail = this.raw.thumbnail ? new PhotoSize(this.raw.thumbnail) : undefined;
         }
         return this._thumbnail;
+    }
+    /**
+     * True if `thumbnail` is set.
+     */
+    hasThumbnail(): this is Has<this, "thumbnail"> {
+        return this.raw.thumbnail != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("StickerSet", this, depth, options, inspect);
@@ -3480,6 +4945,24 @@ export class SuccessfulPayment {
     get providerPaymentChargeId(): string {
         return this.raw.provider_payment_charge_id;
     }
+    /**
+     * True if `subscription_expiration_date` is set.
+     */
+    hasSubscriptionExpirationDate(): this is Has<this, "subscriptionExpirationDate"> {
+        return this.raw.subscription_expiration_date != null;
+    }
+    /**
+     * True if `shipping_option_id` is set.
+     */
+    hasShippingOptionId(): this is Has<this, "shippingOptionId"> {
+        return this.raw.shipping_option_id != null;
+    }
+    /**
+     * True if `order_info` is set.
+     */
+    hasOrderInfo(): this is Has<this, "orderInfo"> {
+        return this.raw.order_info != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("SuccessfulPayment", this, depth, options, inspect);
     }
@@ -3517,6 +5000,12 @@ export class TextQuote {
      */
     get isManual(): true | undefined {
         return this.raw.is_manual;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("TextQuote", this, depth, options, inspect);
@@ -3626,6 +5115,66 @@ export class User {
      */
     get canManageBots(): boolean | undefined {
         return this.raw.can_manage_bots;
+    }
+    /**
+     * True if `last_name` is set.
+     */
+    hasLastName(): this is Has<this, "lastName"> {
+        return this.raw.last_name != null;
+    }
+    /**
+     * True if `username` is set.
+     */
+    hasUsername(): this is Has<this, "username"> {
+        return this.raw.username != null;
+    }
+    /**
+     * True if `language_code` is set.
+     */
+    hasLanguageCode(): this is Has<this, "languageCode"> {
+        return this.raw.language_code != null;
+    }
+    /**
+     * True if `added_to_attachment_menu` is set.
+     */
+    hasAddedToAttachmentMenu(): this is Has<this, "addedToAttachmentMenu"> {
+        return this.raw.added_to_attachment_menu != null;
+    }
+    /**
+     * True if `can_join_groups` is set.
+     */
+    hasCanJoinGroups(): this is Has<this, "canJoinGroups"> {
+        return this.raw.can_join_groups != null;
+    }
+    /**
+     * True if `can_read_all_group_messages` is set.
+     */
+    hasCanReadAllGroupMessages(): this is Has<this, "canReadAllGroupMessages"> {
+        return this.raw.can_read_all_group_messages != null;
+    }
+    /**
+     * True if `supports_inline_queries` is set.
+     */
+    hasSupportsInlineQueries(): this is Has<this, "supportsInlineQueries"> {
+        return this.raw.supports_inline_queries != null;
+    }
+    /**
+     * True if `can_connect_to_business` is set.
+     */
+    hasCanConnectToBusiness(): this is Has<this, "canConnectToBusiness"> {
+        return this.raw.can_connect_to_business != null;
+    }
+    /**
+     * True if `allows_users_to_create_topics` is set.
+     */
+    hasAllowsUsersToCreateTopics(): this is Has<this, "allowsUsersToCreateTopics"> {
+        return this.raw.allows_users_to_create_topics != null;
+    }
+    /**
+     * True if `can_manage_bots` is set.
+     */
+    hasCanManageBots(): this is Has<this, "canManageBots"> {
+        return this.raw.can_manage_bots != null;
     }
     /**
      * display name; first name plus last name when present, otherwise just first name
@@ -3759,6 +5308,30 @@ export class Venue {
     get googlePlaceType(): string | undefined {
         return this.raw.google_place_type;
     }
+    /**
+     * True if `foursquare_id` is set.
+     */
+    hasFoursquareId(): this is Has<this, "foursquareId"> {
+        return this.raw.foursquare_id != null;
+    }
+    /**
+     * True if `foursquare_type` is set.
+     */
+    hasFoursquareType(): this is Has<this, "foursquareType"> {
+        return this.raw.foursquare_type != null;
+    }
+    /**
+     * True if `google_place_id` is set.
+     */
+    hasGooglePlaceId(): this is Has<this, "googlePlaceId"> {
+        return this.raw.google_place_id != null;
+    }
+    /**
+     * True if `google_place_type` is set.
+     */
+    hasGooglePlaceType(): this is Has<this, "googlePlaceType"> {
+        return this.raw.google_place_type != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Venue", this, depth, options, inspect);
     }
@@ -3848,6 +5421,48 @@ export class Video {
      */
     get fileSize(): number | undefined {
         return this.raw.file_size;
+    }
+    /**
+     * True if `thumbnail` is set.
+     */
+    hasThumbnail(): this is Has<this, "thumbnail"> {
+        return this.raw.thumbnail != null;
+    }
+    /**
+     * True if `cover` has at least one item.
+     */
+    hasCover(): this is Has<this, "cover"> {
+        return this.raw.cover != null && this.raw.cover.length > 0;
+    }
+    /**
+     * True if `start_timestamp` is set.
+     */
+    hasStartTimestamp(): this is Has<this, "startTimestamp"> {
+        return this.raw.start_timestamp != null;
+    }
+    /**
+     * True if `qualities` has at least one item.
+     */
+    hasQualities(): this is Has<this, "qualities"> {
+        return this.raw.qualities != null && this.raw.qualities.length > 0;
+    }
+    /**
+     * True if `file_name` is set.
+     */
+    hasFileName(): this is Has<this, "fileName"> {
+        return this.raw.file_name != null;
+    }
+    /**
+     * True if `mime_type` is set.
+     */
+    hasMimeType(): this is Has<this, "mimeType"> {
+        return this.raw.mime_type != null;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is Has<this, "fileSize"> {
+        return this.raw.file_size != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Video", this, depth, options, inspect);
@@ -3981,6 +5596,24 @@ export class WriteAccessAllowed {
      */
     get fromAttachmentMenu(): boolean | undefined {
         return this.raw.from_attachment_menu;
+    }
+    /**
+     * True if `from_request` is set.
+     */
+    hasFromRequest(): this is Has<this, "fromRequest"> {
+        return this.raw.from_request != null;
+    }
+    /**
+     * True if `web_app_name` is set.
+     */
+    hasWebAppName(): this is Has<this, "webAppName"> {
+        return this.raw.web_app_name != null;
+    }
+    /**
+     * True if `from_attachment_menu` is set.
+     */
+    hasFromAttachmentMenu(): this is Has<this, "fromAttachmentMenu"> {
+        return this.raw.from_attachment_menu != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("WriteAccessAllowed", this, depth, options, inspect);

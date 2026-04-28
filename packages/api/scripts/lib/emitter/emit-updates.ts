@@ -130,7 +130,19 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
-  const usesHas = UPDATE_KINDS.some(k => k.extras?.some(e => e.returnType.includes('Has<')))
+  const usesHas = UPDATE_KINDS.some((k) => {
+    if (k.extras?.some(e => e.returnType.includes('Has<'))) {
+      return true
+    }
+
+    const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
+
+    if (obj?.kind !== 'object') {
+      return false
+    }
+
+    return obj.fields.some(f => !f.required && !/^(has|is)[A-Z]/.test(getterNameFor(f.name)))
+  })
   const usesFormattable = [...paramsImports].some((paramsName) => {
     const methodName = paramsName.charAt(0).toLowerCase() + paramsName.slice(1, -'Params'.length)
 
@@ -279,6 +291,9 @@ function emitUpdateClass (
     reservedNames.add(shortcutNameFor(sc.method))
   }
 
+  // extras win over auto-emitted has*() — pre-compute names for the skip check below
+  const extrasNames = new Set((kind.extras ?? []).map(e => e.name))
+
   // emit one getter per payload field — wrapper-class fields get a memoized lazy
   // wrap, primitive (and other non-wrapped) fields get a plain pass-through so
   // user code never has to dig through .raw for scalar values
@@ -299,6 +314,31 @@ function emitUpdateClass (
       } else {
         members.push(emitPrimitiveGetter(f, camelName))
       }
+    }
+  }
+
+  // hasField() predicates for every optional payload field; has_*/is_* skipped
+  // since flag-style true|undefined fields narrow on their own
+  if (payloadObject?.kind === 'object') {
+    for (const f of payloadObject.fields) {
+      if (f.required) {
+        continue
+      }
+
+      const camelName = getterNameFor(f.name)
+
+      if (/^(has|is)[A-Z]/.test(camelName)) {
+        continue
+      }
+
+      const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
+
+      if (reservedNames.has(hasName) || extrasNames.has(hasName)) {
+        continue
+      }
+
+      reservedNames.add(hasName)
+      members.push(emitAutoHasMethod(f, camelName, hasName))
     }
   }
 
@@ -479,6 +519,56 @@ function parseParams (src: string) {
   return stmt.parameters.map(p => ts.factory.createParameterDeclaration(
     undefined, undefined, p.name, p.questionToken, p.type, p.initializer
   ))
+}
+
+function emitAutoHasMethod (f: SchemaField, camelName: string, hasName: string) {
+  const isArray = f.type.kind === 'array'
+
+  const rawAccess = ts.factory.createPropertyAccessExpression(
+    ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+    f.name
+  )
+
+  const notNull = ts.factory.createBinaryExpression(
+    rawAccess,
+    ts.SyntaxKind.ExclamationEqualsToken,
+    ts.factory.createNull()
+  )
+
+  const expression: ts.Expression = isArray
+    ? ts.factory.createBinaryExpression(
+      notNull,
+      ts.SyntaxKind.AmpersandAmpersandToken,
+      ts.factory.createBinaryExpression(
+        ts.factory.createPropertyAccessExpression(rawAccess, 'length'),
+        ts.SyntaxKind.GreaterThanToken,
+        ts.factory.createNumericLiteral('0')
+      )
+    )
+    : notNull
+
+  const returnType = ts.factory.createTypePredicateNode(
+    undefined,
+    ts.factory.createThisTypeNode(),
+    ts.factory.createTypeReferenceNode('Has', [
+      ts.factory.createThisTypeNode(),
+      ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(camelName))
+    ])
+  )
+
+  const method = ts.factory.createMethodDeclaration(
+    undefined, undefined,
+    ts.factory.createIdentifier(hasName),
+    undefined, undefined, [],
+    returnType,
+    ts.factory.createBlock([ts.factory.createReturnStatement(expression)], true)
+  )
+
+  const doc = isArray
+    ? `True if \`${f.name}\` has at least one item.`
+    : `True if \`${f.name}\` is set.`
+
+  return jsDoc(doc, method)
 }
 
 function emitWrapperGetter (f: SchemaField, camelName: string, wrapperName: string) {

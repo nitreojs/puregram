@@ -30,25 +30,14 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'senderId', expression: 'this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id', returnType: 'number', jsdoc: 'Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.' },
   { kind: 'getter', name: 'replyToMessageId', expression: 'this.raw.reply_to_message?.message_id', returnType: 'number | undefined', jsdoc: 'Shortcut for `reply_to_message?.message_id`.' },
 
-  // narrowing predicates — calling these in an `if` narrows the corresponding wrapper
-  // getter from `T | undefined` to `T`
-  { kind: 'method', name: 'hasText', body: 'return this.raw.text != null', returnType: "this is Has<this, 'text'>", jsdoc: 'True if this message has `text`.' },
-  { kind: 'method', name: 'hasCaption', body: 'return this.raw.caption != null', returnType: "this is Has<this, 'caption'>", jsdoc: 'True if this message has `caption`.' },
-  { kind: 'method', name: 'hasDice', body: 'return this.raw.dice != null', returnType: "this is Has<this, 'dice'>", jsdoc: 'True if this message has `dice`.' },
-  { kind: 'method', name: 'hasAuthorSignature', body: 'return this.raw.author_signature != null', returnType: "this is Has<this, 'authorSignature'>", jsdoc: 'True if this message has `author_signature`.' },
-  { kind: 'method', name: 'hasEntities', body: 'return this.raw.entities != null && this.raw.entities.length > 0', returnType: "this is Has<this, 'entities'>", jsdoc: 'True if this message has at least one `entities` item.' },
-  { kind: 'method', name: 'hasCaptionEntities', body: 'return this.raw.caption_entities != null && this.raw.caption_entities.length > 0', returnType: "this is Has<this, 'captionEntities'>", jsdoc: 'True if this message has at least one `caption_entities` item.' },
+  // hasReplyToMessage narrows the derived replyToMessageId getter alongside replyToMessage,
+  // which the auto-emitted predicate can't do (it only knows about literal payload fields)
+  { kind: 'method', name: 'hasReplyToMessage', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'True if this message has `reply_to_message`.' },
+
   { kind: 'method', name: 'hasEntitiesOf', params: 'type: string', body: 'return this.raw.entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'True if any `entities` item has the given `type`.' },
   { kind: 'method', name: 'hasCaptionEntitiesOf', params: 'type: string', body: 'return this.raw.caption_entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'True if any `caption_entities` item has the given `type`.' },
-  { kind: 'method', name: 'hasForwardOrigin', body: 'return this.raw.forward_origin != null', returnType: "this is Has<this, 'forwardOrigin'>", jsdoc: 'True if this message has `forward_origin`.' },
-  { kind: 'method', name: 'isForwarded', body: 'return this.raw.forward_origin != null', returnType: "this is Has<this, 'forwardOrigin'>", jsdoc: 'Alias for `hasForwardOrigin()`.' },
-  { kind: 'method', name: 'hasQuote', body: 'return this.raw.quote != null', returnType: "this is Has<this, 'quote'>", jsdoc: 'True if this reply quotes part of the original message.' },
-  { kind: 'method', name: 'hasExternalReply', body: 'return this.raw.external_reply != null', returnType: "this is Has<this, 'externalReply'>", jsdoc: 'True if this message has `external_reply`.' },
-  { kind: 'method', name: 'hasReplyToMessage', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'True if this message has `reply_to_message`.' },
-  { kind: 'method', name: 'hasViaBot', body: 'return this.raw.via_bot != null', returnType: "this is Has<this, 'viaBot'>", jsdoc: 'True if this message was sent via an inline bot.' },
-  { kind: 'method', name: 'hasReplyToStory', body: 'return this.raw.reply_to_story != null', returnType: "this is Has<this, 'replyToStory'>", jsdoc: 'True if this message replies to a story.' },
-  { kind: 'method', name: 'hasLinkPreviewOptions', body: 'return this.raw.link_preview_options != null', returnType: "this is Has<this, 'linkPreviewOptions'>", jsdoc: 'True if this message has `link_preview_options`.' },
 
+  { kind: 'method', name: 'isForwarded', body: 'return this.raw.forward_origin != null', returnType: "this is Has<this, 'forwardOrigin'>", jsdoc: 'Alias for `hasForwardOrigin()`.' },
   { kind: 'method', name: 'isReply', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'True if this message is a reply.' },
   { kind: 'method', name: 'isMediaGroup', body: 'return this.raw.media_group_id != null', returnType: 'boolean', jsdoc: 'True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.' },
   { kind: 'method', name: 'isPrivate', body: "return this.raw.chat.type === 'private'", returnType: 'boolean', jsdoc: 'True if `chat.type === "private"`.' },
@@ -60,31 +49,32 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
 const CALLBACK_QUERY_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'chatId', expression: 'this.raw.message?.chat.id', returnType: 'number | undefined', jsdoc: 'Shortcut for `message?.chat.id`.' },
   { kind: 'getter', name: 'messageId', expression: 'this.raw.message?.message_id', returnType: 'number | undefined', jsdoc: 'Shortcut for `message?.message_id`.' },
-  { kind: 'getter', name: 'userId', expression: 'this.raw.from.id', returnType: 'number', jsdoc: 'Shortcut for `from.id`.' },
-
-  { kind: 'method', name: 'hasMessage', body: 'return this.raw.message != null', returnType: "this is Has<this, 'message'>", jsdoc: 'True if the callback query carries a `message`.' },
-  { kind: 'method', name: 'hasInlineMessageId', body: 'return this.raw.inline_message_id != null', returnType: "this is Has<this, 'inlineMessageId'>", jsdoc: 'True if the callback query has `inline_message_id` (came from an inline-mode bot message).' },
-  { kind: 'method', name: 'hasData', body: 'return this.raw.data != null', returnType: "this is Has<this, 'data'>", jsdoc: 'True if the callback query has `data`.' },
-  { kind: 'method', name: 'hasGameShortName', body: 'return this.raw.game_short_name != null', returnType: "this is Has<this, 'gameShortName'>", jsdoc: 'True if the callback query has `game_short_name`.' }
+  { kind: 'getter', name: 'userId', expression: 'this.raw.from.id', returnType: 'number', jsdoc: 'Shortcut for `from.id`.' }
 ]
 
-const INLINE_QUERY_EXTRAS: UpdateExtra[] = [
-  { kind: 'method', name: 'hasLocation', body: 'return this.raw.location != null', returnType: "this is Has<this, 'location'>", jsdoc: 'True if the inline query has `location`.' }
-]
+const CHAT_MEMBER_EXTRAS: UpdateExtra[] = [
+  { kind: 'getter', name: 'oldStatus', expression: 'this.raw.old_chat_member.status', returnType: 'string', jsdoc: 'Shortcut for `old_chat_member.status`' },
+  { kind: 'getter', name: 'newStatus', expression: 'this.raw.new_chat_member.status', returnType: 'string', jsdoc: 'Shortcut for `new_chat_member.status`' },
 
-const CHOSEN_INLINE_RESULT_EXTRAS: UpdateExtra[] = [
-  { kind: 'method', name: 'hasLocation', body: 'return this.raw.location != null', returnType: "this is Has<this, 'location'>", jsdoc: 'True if the chosen inline result has `location`.' },
-  { kind: 'method', name: 'hasInlineMessageId', body: 'return this.raw.inline_message_id != null', returnType: "this is Has<this, 'inlineMessageId'>", jsdoc: 'True if the chosen inline result has `inline_message_id`.' }
-]
+  { kind: 'method', name: 'wasCreator', body: "return this.raw.old_chat_member.status === 'creator'", returnType: 'boolean', jsdoc: 'True if old status is `creator`' },
+  { kind: 'method', name: 'isNowCreator', body: "return this.raw.new_chat_member.status === 'creator'", returnType: 'boolean', jsdoc: 'True if new status is `creator`' },
+  { kind: 'method', name: 'wasAdmin', body: "return this.raw.old_chat_member.status === 'administrator'", returnType: 'boolean', jsdoc: 'True if old status is `administrator`' },
+  { kind: 'method', name: 'isNowAdmin', body: "return this.raw.new_chat_member.status === 'administrator'", returnType: 'boolean', jsdoc: 'True if new status is `administrator`' },
+  { kind: 'method', name: 'wasMember', body: "return this.raw.old_chat_member.status === 'member'", returnType: 'boolean', jsdoc: 'True if old status is `member`' },
+  { kind: 'method', name: 'isNowMember', body: "return this.raw.new_chat_member.status === 'member'", returnType: 'boolean', jsdoc: 'True if new status is `member`' },
+  { kind: 'method', name: 'wasRestricted', body: "return this.raw.old_chat_member.status === 'restricted'", returnType: 'boolean', jsdoc: 'True if old status is `restricted`' },
+  { kind: 'method', name: 'isNowRestricted', body: "return this.raw.new_chat_member.status === 'restricted'", returnType: 'boolean', jsdoc: 'True if new status is `restricted`' },
+  { kind: 'method', name: 'wasLeft', body: "return this.raw.old_chat_member.status === 'left'", returnType: 'boolean', jsdoc: 'True if old status is `left`' },
+  { kind: 'method', name: 'isNowLeft', body: "return this.raw.new_chat_member.status === 'left'", returnType: 'boolean', jsdoc: 'True if new status is `left`' },
+  { kind: 'method', name: 'wasKicked', body: "return this.raw.old_chat_member.status === 'kicked'", returnType: 'boolean', jsdoc: 'True if old status is `kicked` (banned)' },
+  { kind: 'method', name: 'isNowKicked', body: "return this.raw.new_chat_member.status === 'kicked'", returnType: 'boolean', jsdoc: 'True if new status is `kicked` (banned)' },
 
-const MESSAGE_REACTION_EXTRAS: UpdateExtra[] = [
-  { kind: 'method', name: 'hasUser', body: 'return this.raw.user != null', returnType: "this is Has<this, 'user'>", jsdoc: 'True if the reaction was made by a `user`.' },
-  { kind: 'method', name: 'hasActorChat', body: 'return this.raw.actor_chat != null', returnType: "this is Has<this, 'actorChat'>", jsdoc: 'True if the reaction was made by an anonymous channel admin (`actor_chat`).' }
-]
-
-const POLL_ANSWER_EXTRAS: UpdateExtra[] = [
-  { kind: 'method', name: 'hasUser', body: 'return this.raw.user != null', returnType: "this is Has<this, 'user'>", jsdoc: 'True if the poll answer was cast by a `user`.' },
-  { kind: 'method', name: 'hasVoterChat', body: 'return this.raw.voter_chat != null', returnType: "this is Has<this, 'voterChat'>", jsdoc: 'True if the poll answer was cast by an anonymous channel (`voter_chat`).' }
+  { kind: 'method', name: 'didJoinChat', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return (o === 'left' || o === 'kicked') && n !== 'left' && n !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was outside the chat (`left`/`kicked`) and is now in it' },
+  { kind: 'method', name: 'didLeaveChat', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return o !== 'left' && o !== 'kicked' && (n === 'left' || n === 'kicked')", returnType: 'boolean', jsdoc: 'True if the user was in the chat and is now outside it (`left`/`kicked`)' },
+  { kind: 'method', name: 'wasPromoted', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return o !== 'creator' && o !== 'administrator' && (n === 'creator' || n === 'administrator')", returnType: 'boolean', jsdoc: 'True if the user gained `creator` or `administrator` status' },
+  { kind: 'method', name: 'wasDemoted', body: "const o = this.raw.old_chat_member.status; const n = this.raw.new_chat_member.status; return (o === 'creator' || o === 'administrator') && n !== 'creator' && n !== 'administrator'", returnType: 'boolean', jsdoc: 'True if the user lost `creator` or `administrator` status' },
+  { kind: 'method', name: 'wasBanned', body: "return this.raw.old_chat_member.status !== 'kicked' && this.raw.new_chat_member.status === 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was just kicked (banned)' },
+  { kind: 'method', name: 'wasUnbanned', body: "return this.raw.old_chat_member.status === 'kicked' && this.raw.new_chat_member.status !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was kicked and no longer is' }
 ]
 
 export const UPDATE_KINDS: UpdateKindSpec[] = [
@@ -152,10 +142,8 @@ export const UPDATE_KINDS: UpdateKindSpec[] = [
 // payload gets MESSAGE_EXTRAS). per-kind overrides go inline if needed
 const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   callback_query: CALLBACK_QUERY_EXTRAS,
-  inline_query: INLINE_QUERY_EXTRAS,
-  chosen_inline_result: CHOSEN_INLINE_RESULT_EXTRAS,
-  message_reaction: MESSAGE_REACTION_EXTRAS,
-  poll_answer: POLL_ANSWER_EXTRAS
+  chat_member: CHAT_MEMBER_EXTRAS,
+  my_chat_member: CHAT_MEMBER_EXTRAS
 }
 
 for (const k of UPDATE_KINDS) {

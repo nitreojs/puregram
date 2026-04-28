@@ -714,6 +714,606 @@ export class MessageUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -732,40 +1332,10 @@ export class MessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -780,52 +1350,10 @@ export class MessageUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -2452,6 +2980,606 @@ export class EditedMessageUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -2470,40 +3598,10 @@ export class EditedMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -2518,52 +3616,10 @@ export class EditedMessageUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -4190,6 +5246,606 @@ export class ChannelPostUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -4208,40 +5864,10 @@ export class ChannelPostUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -4256,52 +5882,10 @@ export class ChannelPostUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -5928,6 +7512,606 @@ export class EditedChannelPostUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -5946,40 +8130,10 @@ export class EditedChannelPostUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -5994,52 +8148,10 @@ export class EditedChannelPostUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -7006,6 +9118,12 @@ export class BusinessConnectionUpdate {
     get isEnabled(): boolean {
         return this.raw.is_enabled;
     }
+    /**
+     * True if `rights` is set.
+     */
+    hasRights(): this is Has<this, "rights"> {
+        return this.raw.rights != null;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -7717,6 +9835,606 @@ export class BusinessMessageUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -7735,40 +10453,10 @@ export class BusinessMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -7783,52 +10471,10 @@ export class BusinessMessageUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -9455,6 +12101,606 @@ export class EditedBusinessMessageUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -9473,40 +12719,10 @@ export class EditedBusinessMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -9521,52 +12737,10 @@ export class EditedBusinessMessageUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -10575,13 +13749,13 @@ export class MessageReactionUpdate {
         return this.raw.new_reaction;
     }
     /**
-     * True if the reaction was made by a `user`.
+     * True if `user` is set.
      */
     hasUser(): this is Has<this, "user"> {
         return this.raw.user != null;
     }
     /**
-     * True if the reaction was made by an anonymous channel admin (`actor_chat`).
+     * True if `actor_chat` is set.
      */
     hasActorChat(): this is Has<this, "actorChat"> {
         return this.raw.actor_chat != null;
@@ -10679,7 +13853,13 @@ export class InlineQueryUpdate {
         return this.raw.location ? (this._location ??= new Location(this.raw.location)) : undefined;
     }
     /**
-     * True if the inline query has `location`.
+     * True if `chat_type` is set.
+     */
+    hasChatType(): this is Has<this, "chatType"> {
+        return this.raw.chat_type != null;
+    }
+    /**
+     * True if `location` is set.
      */
     hasLocation(): this is Has<this, "location"> {
         return this.raw.location != null;
@@ -10740,13 +13920,13 @@ export class ChosenInlineResultUpdate {
         return this.raw.query;
     }
     /**
-     * True if the chosen inline result has `location`.
+     * True if `location` is set.
      */
     hasLocation(): this is Has<this, "location"> {
         return this.raw.location != null;
     }
     /**
-     * True if the chosen inline result has `inline_message_id`.
+     * True if `inline_message_id` is set.
      */
     hasInlineMessageId(): this is Has<this, "inlineMessageId"> {
         return this.raw.inline_message_id != null;
@@ -10809,6 +13989,30 @@ export class CallbackQueryUpdate {
         return this.raw.game_short_name;
     }
     /**
+     * True if `message` is set.
+     */
+    hasMessage(): this is Has<this, "message"> {
+        return this.raw.message != null;
+    }
+    /**
+     * True if `inline_message_id` is set.
+     */
+    hasInlineMessageId(): this is Has<this, "inlineMessageId"> {
+        return this.raw.inline_message_id != null;
+    }
+    /**
+     * True if `data` is set.
+     */
+    hasData(): this is Has<this, "data"> {
+        return this.raw.data != null;
+    }
+    /**
+     * True if `game_short_name` is set.
+     */
+    hasGameShortName(): this is Has<this, "gameShortName"> {
+        return this.raw.game_short_name != null;
+    }
+    /**
      * Shortcut for `message?.chat.id`.
      */
     get chatId(): number | undefined {
@@ -10825,30 +14029,6 @@ export class CallbackQueryUpdate {
      */
     get userId(): number {
         return this.raw.from.id;
-    }
-    /**
-     * True if the callback query carries a `message`.
-     */
-    hasMessage(): this is Has<this, "message"> {
-        return this.raw.message != null;
-    }
-    /**
-     * True if the callback query has `inline_message_id` (came from an inline-mode bot message).
-     */
-    hasInlineMessageId(): this is Has<this, "inlineMessageId"> {
-        return this.raw.inline_message_id != null;
-    }
-    /**
-     * True if the callback query has `data`.
-     */
-    hasData(): this is Has<this, "data"> {
-        return this.raw.data != null;
-    }
-    /**
-     * True if the callback query has `game_short_name`.
-     */
-    hasGameShortName(): this is Has<this, "gameShortName"> {
-        return this.raw.game_short_name != null;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -10965,6 +14145,18 @@ export class PreCheckoutQueryUpdate {
      */
     get orderInfo(): OrderInfo | undefined {
         return this.raw.order_info ? (this._orderInfo ??= new OrderInfo(this.raw.order_info)) : undefined;
+    }
+    /**
+     * True if `shipping_option_id` is set.
+     */
+    hasShippingOptionId(): this is Has<this, "shippingOptionId"> {
+        return this.raw.shipping_option_id != null;
+    }
+    /**
+     * True if `order_info` is set.
+     */
+    hasOrderInfo(): this is Has<this, "orderInfo"> {
+        return this.raw.order_info != null;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -11095,6 +14287,54 @@ export class PollUpdate {
     get descriptionEntities(): MessageEntity[] | undefined {
         return this.raw.description_entities ? (this._descriptionEntities ??= this.raw.description_entities.map(x => new MessageEntity(x))) : undefined;
     }
+    /**
+     * True if `question_entities` has at least one item.
+     */
+    hasQuestionEntities(): this is Has<this, "questionEntities"> {
+        return this.raw.question_entities != null && this.raw.question_entities.length > 0;
+    }
+    /**
+     * True if `correct_option_ids` has at least one item.
+     */
+    hasCorrectOptionIds(): this is Has<this, "correctOptionIds"> {
+        return this.raw.correct_option_ids != null && this.raw.correct_option_ids.length > 0;
+    }
+    /**
+     * True if `explanation` is set.
+     */
+    hasExplanation(): this is Has<this, "explanation"> {
+        return this.raw.explanation != null;
+    }
+    /**
+     * True if `explanation_entities` has at least one item.
+     */
+    hasExplanationEntities(): this is Has<this, "explanationEntities"> {
+        return this.raw.explanation_entities != null && this.raw.explanation_entities.length > 0;
+    }
+    /**
+     * True if `open_period` is set.
+     */
+    hasOpenPeriod(): this is Has<this, "openPeriod"> {
+        return this.raw.open_period != null;
+    }
+    /**
+     * True if `close_date` is set.
+     */
+    hasCloseDate(): this is Has<this, "closeDate"> {
+        return this.raw.close_date != null;
+    }
+    /**
+     * True if `description` is set.
+     */
+    hasDescription(): this is Has<this, "description"> {
+        return this.raw.description != null;
+    }
+    /**
+     * True if `description_entities` has at least one item.
+     */
+    hasDescriptionEntities(): this is Has<this, "descriptionEntities"> {
+        return this.raw.description_entities != null && this.raw.description_entities.length > 0;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -11142,16 +14382,16 @@ export class PollAnswerUpdate {
         return this.raw.option_persistent_ids;
     }
     /**
-     * True if the poll answer was cast by a `user`.
-     */
-    hasUser(): this is Has<this, "user"> {
-        return this.raw.user != null;
-    }
-    /**
-     * True if the poll answer was cast by an anonymous channel (`voter_chat`).
+     * True if `voter_chat` is set.
      */
     hasVoterChat(): this is Has<this, "voterChat"> {
         return this.raw.voter_chat != null;
+    }
+    /**
+     * True if `user` is set.
+     */
+    hasUser(): this is Has<this, "user"> {
+        return this.raw.user != null;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -11219,6 +14459,152 @@ export class MyChatMemberUpdate {
      */
     get viaChatFolderInviteLink(): boolean | undefined {
         return this.raw.via_chat_folder_invite_link;
+    }
+    /**
+     * True if `invite_link` is set.
+     */
+    hasInviteLink(): this is Has<this, "inviteLink"> {
+        return this.raw.invite_link != null;
+    }
+    /**
+     * True if `via_join_request` is set.
+     */
+    hasViaJoinRequest(): this is Has<this, "viaJoinRequest"> {
+        return this.raw.via_join_request != null;
+    }
+    /**
+     * True if `via_chat_folder_invite_link` is set.
+     */
+    hasViaChatFolderInviteLink(): this is Has<this, "viaChatFolderInviteLink"> {
+        return this.raw.via_chat_folder_invite_link != null;
+    }
+    /**
+     * Shortcut for `old_chat_member.status`
+     */
+    get oldStatus(): string {
+        return this.raw.old_chat_member.status;
+    }
+    /**
+     * Shortcut for `new_chat_member.status`
+     */
+    get newStatus(): string {
+        return this.raw.new_chat_member.status;
+    }
+    /**
+     * True if old status is `creator`
+     */
+    wasCreator(): boolean {
+        return this.raw.old_chat_member.status === "creator";
+    }
+    /**
+     * True if new status is `creator`
+     */
+    isNowCreator(): boolean {
+        return this.raw.new_chat_member.status === "creator";
+    }
+    /**
+     * True if old status is `administrator`
+     */
+    wasAdmin(): boolean {
+        return this.raw.old_chat_member.status === "administrator";
+    }
+    /**
+     * True if new status is `administrator`
+     */
+    isNowAdmin(): boolean {
+        return this.raw.new_chat_member.status === "administrator";
+    }
+    /**
+     * True if old status is `member`
+     */
+    wasMember(): boolean {
+        return this.raw.old_chat_member.status === "member";
+    }
+    /**
+     * True if new status is `member`
+     */
+    isNowMember(): boolean {
+        return this.raw.new_chat_member.status === "member";
+    }
+    /**
+     * True if old status is `restricted`
+     */
+    wasRestricted(): boolean {
+        return this.raw.old_chat_member.status === "restricted";
+    }
+    /**
+     * True if new status is `restricted`
+     */
+    isNowRestricted(): boolean {
+        return this.raw.new_chat_member.status === "restricted";
+    }
+    /**
+     * True if old status is `left`
+     */
+    wasLeft(): boolean {
+        return this.raw.old_chat_member.status === "left";
+    }
+    /**
+     * True if new status is `left`
+     */
+    isNowLeft(): boolean {
+        return this.raw.new_chat_member.status === "left";
+    }
+    /**
+     * True if old status is `kicked` (banned)
+     */
+    wasKicked(): boolean {
+        return this.raw.old_chat_member.status === "kicked";
+    }
+    /**
+     * True if new status is `kicked` (banned)
+     */
+    isNowKicked(): boolean {
+        return this.raw.new_chat_member.status === "kicked";
+    }
+    /**
+     * True if the user was outside the chat (`left`/`kicked`) and is now in it
+     */
+    didJoinChat(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return (o === "left" || o === "kicked") && n !== "left" && n !== "kicked";
+    }
+    /**
+     * True if the user was in the chat and is now outside it (`left`/`kicked`)
+     */
+    didLeaveChat(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return o !== "left" && o !== "kicked" && (n === "left" || n === "kicked");
+    }
+    /**
+     * True if the user gained `creator` or `administrator` status
+     */
+    wasPromoted(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return o !== "creator" && o !== "administrator" && (n === "creator" || n === "administrator");
+    }
+    /**
+     * True if the user lost `creator` or `administrator` status
+     */
+    wasDemoted(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return (o === "creator" || o === "administrator") && n !== "creator" && n !== "administrator";
+    }
+    /**
+     * True if the user was just kicked (banned)
+     */
+    wasBanned(): boolean {
+        return this.raw.old_chat_member.status !== "kicked" && this.raw.new_chat_member.status === "kicked";
+    }
+    /**
+     * True if the user was kicked and no longer is
+     */
+    wasUnbanned(): boolean {
+        return this.raw.old_chat_member.status === "kicked" && this.raw.new_chat_member.status !== "kicked";
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -12152,6 +15538,152 @@ export class ChatMemberUpdate {
     get viaChatFolderInviteLink(): boolean | undefined {
         return this.raw.via_chat_folder_invite_link;
     }
+    /**
+     * True if `invite_link` is set.
+     */
+    hasInviteLink(): this is Has<this, "inviteLink"> {
+        return this.raw.invite_link != null;
+    }
+    /**
+     * True if `via_join_request` is set.
+     */
+    hasViaJoinRequest(): this is Has<this, "viaJoinRequest"> {
+        return this.raw.via_join_request != null;
+    }
+    /**
+     * True if `via_chat_folder_invite_link` is set.
+     */
+    hasViaChatFolderInviteLink(): this is Has<this, "viaChatFolderInviteLink"> {
+        return this.raw.via_chat_folder_invite_link != null;
+    }
+    /**
+     * Shortcut for `old_chat_member.status`
+     */
+    get oldStatus(): string {
+        return this.raw.old_chat_member.status;
+    }
+    /**
+     * Shortcut for `new_chat_member.status`
+     */
+    get newStatus(): string {
+        return this.raw.new_chat_member.status;
+    }
+    /**
+     * True if old status is `creator`
+     */
+    wasCreator(): boolean {
+        return this.raw.old_chat_member.status === "creator";
+    }
+    /**
+     * True if new status is `creator`
+     */
+    isNowCreator(): boolean {
+        return this.raw.new_chat_member.status === "creator";
+    }
+    /**
+     * True if old status is `administrator`
+     */
+    wasAdmin(): boolean {
+        return this.raw.old_chat_member.status === "administrator";
+    }
+    /**
+     * True if new status is `administrator`
+     */
+    isNowAdmin(): boolean {
+        return this.raw.new_chat_member.status === "administrator";
+    }
+    /**
+     * True if old status is `member`
+     */
+    wasMember(): boolean {
+        return this.raw.old_chat_member.status === "member";
+    }
+    /**
+     * True if new status is `member`
+     */
+    isNowMember(): boolean {
+        return this.raw.new_chat_member.status === "member";
+    }
+    /**
+     * True if old status is `restricted`
+     */
+    wasRestricted(): boolean {
+        return this.raw.old_chat_member.status === "restricted";
+    }
+    /**
+     * True if new status is `restricted`
+     */
+    isNowRestricted(): boolean {
+        return this.raw.new_chat_member.status === "restricted";
+    }
+    /**
+     * True if old status is `left`
+     */
+    wasLeft(): boolean {
+        return this.raw.old_chat_member.status === "left";
+    }
+    /**
+     * True if new status is `left`
+     */
+    isNowLeft(): boolean {
+        return this.raw.new_chat_member.status === "left";
+    }
+    /**
+     * True if old status is `kicked` (banned)
+     */
+    wasKicked(): boolean {
+        return this.raw.old_chat_member.status === "kicked";
+    }
+    /**
+     * True if new status is `kicked` (banned)
+     */
+    isNowKicked(): boolean {
+        return this.raw.new_chat_member.status === "kicked";
+    }
+    /**
+     * True if the user was outside the chat (`left`/`kicked`) and is now in it
+     */
+    didJoinChat(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return (o === "left" || o === "kicked") && n !== "left" && n !== "kicked";
+    }
+    /**
+     * True if the user was in the chat and is now outside it (`left`/`kicked`)
+     */
+    didLeaveChat(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return o !== "left" && o !== "kicked" && (n === "left" || n === "kicked");
+    }
+    /**
+     * True if the user gained `creator` or `administrator` status
+     */
+    wasPromoted(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return o !== "creator" && o !== "administrator" && (n === "creator" || n === "administrator");
+    }
+    /**
+     * True if the user lost `creator` or `administrator` status
+     */
+    wasDemoted(): boolean {
+        const o = this.raw.old_chat_member.status;
+        const n = this.raw.new_chat_member.status;
+        return (o === "creator" || o === "administrator") && n !== "creator" && n !== "administrator";
+    }
+    /**
+     * True if the user was just kicked (banned)
+     */
+    wasBanned(): boolean {
+        return this.raw.old_chat_member.status !== "kicked" && this.raw.new_chat_member.status === "kicked";
+    }
+    /**
+     * True if the user was kicked and no longer is
+     */
+    wasUnbanned(): boolean {
+        return this.raw.old_chat_member.status === "kicked" && this.raw.new_chat_member.status !== "kicked";
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -13069,6 +16601,18 @@ export class ChatJoinRequestUpdate {
      */
     get inviteLink(): ChatInviteLink | undefined {
         return this.raw.invite_link ? (this._inviteLink ??= new ChatInviteLink(this.raw.invite_link)) : undefined;
+    }
+    /**
+     * True if `bio` is set.
+     */
+    hasBio(): this is Has<this, "bio"> {
+        return this.raw.bio != null;
+    }
+    /**
+     * True if `invite_link` is set.
+     */
+    hasInviteLink(): this is Has<this, "inviteLink"> {
+        return this.raw.invite_link != null;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -14713,6 +18257,606 @@ export class NewChatMembersUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -14731,40 +18875,10 @@ export class NewChatMembersUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -14779,52 +18893,10 @@ export class NewChatMembersUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -16451,6 +20523,606 @@ export class LeftChatMemberUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -16469,40 +21141,10 @@ export class LeftChatMemberUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -16517,52 +21159,10 @@ export class LeftChatMemberUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -18189,6 +22789,606 @@ export class NewChatTitleUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -18207,40 +23407,10 @@ export class NewChatTitleUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -18255,52 +23425,10 @@ export class NewChatTitleUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -19927,6 +25055,606 @@ export class NewChatPhotoUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -19945,40 +25673,10 @@ export class NewChatPhotoUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -19993,52 +25691,10 @@ export class NewChatPhotoUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -21665,6 +27321,606 @@ export class DeleteChatPhotoUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -21683,40 +27939,10 @@ export class DeleteChatPhotoUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -21731,52 +27957,10 @@ export class DeleteChatPhotoUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -23403,6 +29587,606 @@ export class GroupChatCreatedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -23421,40 +30205,10 @@ export class GroupChatCreatedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -23469,52 +30223,10 @@ export class GroupChatCreatedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -25141,6 +31853,606 @@ export class PinnedMessageUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -25159,40 +32471,10 @@ export class PinnedMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -25207,52 +32489,10 @@ export class PinnedMessageUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -26879,6 +34119,606 @@ export class InvoiceUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -26897,40 +34737,10 @@ export class InvoiceUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -26945,52 +34755,10 @@ export class InvoiceUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -28617,6 +36385,606 @@ export class SuccessfulPaymentUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -28635,40 +37003,10 @@ export class SuccessfulPaymentUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -28683,52 +37021,10 @@ export class SuccessfulPaymentUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -30355,6 +38651,606 @@ export class UsersSharedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -30373,40 +39269,10 @@ export class UsersSharedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -30421,52 +39287,10 @@ export class UsersSharedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -32093,6 +40917,606 @@ export class ChatSharedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -32111,40 +41535,10 @@ export class ChatSharedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -32159,52 +41553,10 @@ export class ChatSharedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -33831,6 +43183,606 @@ export class WebAppDataUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -33849,40 +43801,10 @@ export class WebAppDataUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -33897,52 +43819,10 @@ export class WebAppDataUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -35569,6 +45449,606 @@ export class VideoChatScheduledUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -35587,40 +46067,10 @@ export class VideoChatScheduledUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -35635,52 +46085,10 @@ export class VideoChatScheduledUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -37307,6 +47715,606 @@ export class VideoChatStartedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -37325,40 +48333,10 @@ export class VideoChatStartedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -37373,52 +48351,10 @@ export class VideoChatStartedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -39045,6 +49981,606 @@ export class VideoChatEndedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -39063,40 +50599,10 @@ export class VideoChatEndedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -39111,52 +50617,10 @@ export class VideoChatEndedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -40783,6 +52247,606 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -40801,40 +52865,10 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -40849,52 +52883,10 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -42521,6 +54513,606 @@ export class ForumTopicCreatedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -42539,40 +55131,10 @@ export class ForumTopicCreatedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -42587,52 +55149,10 @@ export class ForumTopicCreatedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -44259,6 +56779,606 @@ export class ForumTopicEditedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -44277,40 +57397,10 @@ export class ForumTopicEditedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -44325,52 +57415,10 @@ export class ForumTopicEditedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -45997,6 +59045,606 @@ export class ForumTopicClosedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -46015,40 +59663,10 @@ export class ForumTopicClosedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -46063,52 +59681,10 @@ export class ForumTopicClosedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -47735,6 +61311,606 @@ export class ForumTopicReopenedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -47753,40 +61929,10 @@ export class ForumTopicReopenedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -47801,52 +61947,10 @@ export class ForumTopicReopenedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -49473,6 +63577,606 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -49491,40 +64195,10 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -49539,52 +64213,10 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -51211,6 +65843,606 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -51229,40 +66461,10 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -51277,52 +66479,10 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -52949,6 +68109,606 @@ export class GiveawayCreatedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -52967,40 +68727,10 @@ export class GiveawayCreatedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -53015,52 +68745,10 @@ export class GiveawayCreatedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -54687,6 +70375,606 @@ export class GiveawayCompletedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -54705,40 +70993,10 @@ export class GiveawayCompletedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -54753,52 +71011,10 @@ export class GiveawayCompletedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -56425,6 +72641,606 @@ export class GiveawayWinnersUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -56443,40 +73259,10 @@ export class GiveawayWinnersUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -56491,52 +73277,10 @@ export class GiveawayWinnersUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -58163,6 +74907,606 @@ export class BoostAddedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -58181,40 +75525,10 @@ export class BoostAddedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -58229,52 +75543,10 @@ export class BoostAddedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -59901,6 +77173,606 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -59919,40 +77791,10 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -59967,52 +77809,10 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -61639,6 +79439,606 @@ export class MigrateToChatIdUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -61657,40 +80057,10 @@ export class MigrateToChatIdUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -61705,52 +80075,10 @@ export class MigrateToChatIdUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -63377,6 +81705,606 @@ export class MigrateFromChatIdUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -63395,40 +82323,10 @@ export class MigrateFromChatIdUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -63443,52 +82341,10 @@ export class MigrateFromChatIdUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -65115,6 +83971,606 @@ export class PassportDataUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -65133,40 +84589,10 @@ export class PassportDataUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -65181,52 +84607,10 @@ export class PassportDataUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -66853,6 +86237,606 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -66871,40 +86855,10 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -66919,52 +86873,10 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.
@@ -68591,6 +88503,606 @@ export class WriteAccessAllowedUpdate {
         return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
     }
     /**
+     * True if `message_thread_id` is set.
+     */
+    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * True if `direct_messages_topic` is set.
+     */
+    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * True if `from` is set.
+     */
+    hasFrom(): this is Has<this, "from"> {
+        return this.raw.from != null;
+    }
+    /**
+     * True if `sender_chat` is set.
+     */
+    hasSenderChat(): this is Has<this, "senderChat"> {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * True if `sender_boost_count` is set.
+     */
+    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * True if `sender_business_bot` is set.
+     */
+    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * True if `sender_tag` is set.
+     */
+    hasSenderTag(): this is Has<this, "senderTag"> {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * True if `business_connection_id` is set.
+     */
+    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * True if `forward_origin` is set.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if `external_reply` is set.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if `quote` is set.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if `reply_to_story` is set.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if `reply_to_checklist_task_id` is set.
+     */
+    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * True if `reply_to_poll_option_id` is set.
+     */
+    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * True if `via_bot` is set.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if `edit_date` is set.
+     */
+    hasEditDate(): this is Has<this, "editDate"> {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * True if `media_group_id` is set.
+     */
+    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * True if `author_signature` is set.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if `paid_star_count` is set.
+     */
+    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * True if `text` is set.
+     */
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if `entities` has at least one item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if `link_preview_options` is set.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if `suggested_post_info` is set.
+     */
+    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * True if `effect_id` is set.
+     */
+    hasEffectId(): this is Has<this, "effectId"> {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * True if `animation` is set.
+     */
+    hasAnimation(): this is Has<this, "animation"> {
+        return this.raw.animation != null;
+    }
+    /**
+     * True if `audio` is set.
+     */
+    hasAudio(): this is Has<this, "audio"> {
+        return this.raw.audio != null;
+    }
+    /**
+     * True if `document` is set.
+     */
+    hasDocument(): this is Has<this, "document"> {
+        return this.raw.document != null;
+    }
+    /**
+     * True if `paid_media` is set.
+     */
+    hasPaidMedia(): this is Has<this, "paidMedia"> {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * True if `photo` has at least one item.
+     */
+    hasPhoto(): this is Has<this, "photo"> {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * True if `sticker` is set.
+     */
+    hasSticker(): this is Has<this, "sticker"> {
+        return this.raw.sticker != null;
+    }
+    /**
+     * True if `story` is set.
+     */
+    hasStory(): this is Has<this, "story"> {
+        return this.raw.story != null;
+    }
+    /**
+     * True if `video` is set.
+     */
+    hasVideo(): this is Has<this, "video"> {
+        return this.raw.video != null;
+    }
+    /**
+     * True if `video_note` is set.
+     */
+    hasVideoNote(): this is Has<this, "videoNote"> {
+        return this.raw.video_note != null;
+    }
+    /**
+     * True if `voice` is set.
+     */
+    hasVoice(): this is Has<this, "voice"> {
+        return this.raw.voice != null;
+    }
+    /**
+     * True if `caption` is set.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if `caption_entities` has at least one item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if `show_caption_above_media` is set.
+     */
+    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * True if `checklist` is set.
+     */
+    hasChecklist(): this is Has<this, "checklist"> {
+        return this.raw.checklist != null;
+    }
+    /**
+     * True if `contact` is set.
+     */
+    hasContact(): this is Has<this, "contact"> {
+        return this.raw.contact != null;
+    }
+    /**
+     * True if `dice` is set.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if `game` is set.
+     */
+    hasGame(): this is Has<this, "game"> {
+        return this.raw.game != null;
+    }
+    /**
+     * True if `poll` is set.
+     */
+    hasPoll(): this is Has<this, "poll"> {
+        return this.raw.poll != null;
+    }
+    /**
+     * True if `venue` is set.
+     */
+    hasVenue(): this is Has<this, "venue"> {
+        return this.raw.venue != null;
+    }
+    /**
+     * True if `location` is set.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if `new_chat_members` has at least one item.
+     */
+    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * True if `left_chat_member` is set.
+     */
+    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * True if `chat_owner_left` is set.
+     */
+    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * True if `chat_owner_changed` is set.
+     */
+    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * True if `new_chat_title` is set.
+     */
+    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * True if `new_chat_photo` has at least one item.
+     */
+    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * True if `delete_chat_photo` is set.
+     */
+    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * True if `group_chat_created` is set.
+     */
+    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * True if `supergroup_chat_created` is set.
+     */
+    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * True if `channel_chat_created` is set.
+     */
+    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * True if `message_auto_delete_timer_changed` is set.
+     */
+    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * True if `migrate_to_chat_id` is set.
+     */
+    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * True if `migrate_from_chat_id` is set.
+     */
+    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * True if `pinned_message` is set.
+     */
+    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * True if `invoice` is set.
+     */
+    hasInvoice(): this is Has<this, "invoice"> {
+        return this.raw.invoice != null;
+    }
+    /**
+     * True if `successful_payment` is set.
+     */
+    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * True if `refunded_payment` is set.
+     */
+    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * True if `users_shared` is set.
+     */
+    hasUsersShared(): this is Has<this, "usersShared"> {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * True if `chat_shared` is set.
+     */
+    hasChatShared(): this is Has<this, "chatShared"> {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * True if `gift` is set.
+     */
+    hasGift(): this is Has<this, "gift"> {
+        return this.raw.gift != null;
+    }
+    /**
+     * True if `unique_gift` is set.
+     */
+    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * True if `gift_upgrade_sent` is set.
+     */
+    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * True if `connected_website` is set.
+     */
+    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * True if `write_access_allowed` is set.
+     */
+    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * True if `passport_data` is set.
+     */
+    hasPassportData(): this is Has<this, "passportData"> {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * True if `proximity_alert_triggered` is set.
+     */
+    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * True if `boost_added` is set.
+     */
+    hasBoostAdded(): this is Has<this, "boostAdded"> {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * True if `chat_background_set` is set.
+     */
+    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * True if `checklist_tasks_done` is set.
+     */
+    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * True if `checklist_tasks_added` is set.
+     */
+    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * True if `direct_message_price_changed` is set.
+     */
+    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * True if `forum_topic_created` is set.
+     */
+    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * True if `forum_topic_edited` is set.
+     */
+    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * True if `forum_topic_closed` is set.
+     */
+    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * True if `forum_topic_reopened` is set.
+     */
+    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * True if `general_forum_topic_hidden` is set.
+     */
+    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * True if `general_forum_topic_unhidden` is set.
+     */
+    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * True if `giveaway_created` is set.
+     */
+    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * True if `giveaway` is set.
+     */
+    hasGiveaway(): this is Has<this, "giveaway"> {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * True if `giveaway_winners` is set.
+     */
+    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * True if `giveaway_completed` is set.
+     */
+    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * True if `managed_bot_created` is set.
+     */
+    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * True if `paid_message_price_changed` is set.
+     */
+    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * True if `poll_option_added` is set.
+     */
+    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * True if `poll_option_deleted` is set.
+     */
+    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * True if `suggested_post_approved` is set.
+     */
+    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * True if `suggested_post_approval_failed` is set.
+     */
+    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * True if `suggested_post_declined` is set.
+     */
+    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * True if `suggested_post_paid` is set.
+     */
+    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * True if `suggested_post_refunded` is set.
+     */
+    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * True if `video_chat_scheduled` is set.
+     */
+    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * True if `video_chat_started` is set.
+     */
+    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * True if `video_chat_ended` is set.
+     */
+    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * True if `video_chat_participants_invited` is set.
+     */
+    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * True if `web_app_data` is set.
+     */
+    hasWebAppData(): this is Has<this, "webAppData"> {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * True if `reply_markup` is set.
+     */
+    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+        return this.raw.reply_markup != null;
+    }
+    /**
      * Shortcut for `chat.id`.
      */
     get chatId(): number {
@@ -68609,40 +89121,10 @@ export class WriteAccessAllowedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message has `text`.
+     * True if this message has `reply_to_message`.
      */
-    hasText(): this is Has<this, "text"> {
-        return this.raw.text != null;
-    }
-    /**
-     * True if this message has `caption`.
-     */
-    hasCaption(): this is Has<this, "caption"> {
-        return this.raw.caption != null;
-    }
-    /**
-     * True if this message has `dice`.
-     */
-    hasDice(): this is Has<this, "dice"> {
-        return this.raw.dice != null;
-    }
-    /**
-     * True if this message has `author_signature`.
-     */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
-        return this.raw.author_signature != null;
-    }
-    /**
-     * True if this message has at least one `entities` item.
-     */
-    hasEntities(): this is Has<this, "entities"> {
-        return this.raw.entities != null && this.raw.entities.length > 0;
-    }
-    /**
-     * True if this message has at least one `caption_entities` item.
-     */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
-        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
     }
     /**
      * True if any `entities` item has the given `type`.
@@ -68657,52 +89139,10 @@ export class WriteAccessAllowedUpdate {
         return this.raw.caption_entities?.some(e => e.type === type) ?? false;
     }
     /**
-     * True if this message has `forward_origin`.
-     */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
-        return this.raw.forward_origin != null;
-    }
-    /**
      * Alias for `hasForwardOrigin()`.
      */
     isForwarded(): this is Has<this, "forwardOrigin"> {
         return this.raw.forward_origin != null;
-    }
-    /**
-     * True if this reply quotes part of the original message.
-     */
-    hasQuote(): this is Has<this, "quote"> {
-        return this.raw.quote != null;
-    }
-    /**
-     * True if this message has `external_reply`.
-     */
-    hasExternalReply(): this is Has<this, "externalReply"> {
-        return this.raw.external_reply != null;
-    }
-    /**
-     * True if this message has `reply_to_message`.
-     */
-    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
-        return this.raw.reply_to_message != null;
-    }
-    /**
-     * True if this message was sent via an inline bot.
-     */
-    hasViaBot(): this is Has<this, "viaBot"> {
-        return this.raw.via_bot != null;
-    }
-    /**
-     * True if this message replies to a story.
-     */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
-        return this.raw.reply_to_story != null;
-    }
-    /**
-     * True if this message has `link_preview_options`.
-     */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
-        return this.raw.link_preview_options != null;
     }
     /**
      * True if this message is a reply.

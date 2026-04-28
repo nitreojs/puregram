@@ -32,8 +32,13 @@ export function emitStructures (schema: Schema) {
     }
   }
 
+  const usesHas = wrappedObjects.some(o =>
+    o.fields.some(f => !f.required && !/^(has|is)[A-Z]/.test(getterNameFor(f.name)))
+  )
+
   const imports = [
     importTypeNamed([...referencedTypes].sort(), './types'),
+    ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
     importNamed(['INSPECT', 'makeInspect'], './inspect')
   ]
 
@@ -156,6 +161,22 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
   // get x() / get y() / and so on
   for (const f of obj.fields) {
     members.push(emitGetter(f, wrappedClassNames))
+  }
+
+  for (const f of obj.fields) {
+    if (f.required) {
+      continue
+    }
+
+    const getterName = getterNameFor(f.name)
+
+    if (/^(has|is)[A-Z]/.test(getterName)) {
+      continue
+    }
+
+    const hasName = `has${getterName[0].toUpperCase()}${getterName.slice(1)}`
+
+    members.push(emitAutoHasMethod(f, getterName, hasName))
   }
 
   // [INSPECT]()
@@ -321,6 +342,56 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
   )
 
   return jsDoc(f.description, getter)
+}
+
+function emitAutoHasMethod (f: SchemaField, camelName: string, hasName: string) {
+  const isArray = f.type.kind === 'array'
+
+  const rawAccess = ts.factory.createPropertyAccessExpression(
+    ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+    f.name
+  )
+
+  const notNull = ts.factory.createBinaryExpression(
+    rawAccess,
+    ts.SyntaxKind.ExclamationEqualsToken,
+    ts.factory.createNull()
+  )
+
+  const expression: ts.Expression = isArray
+    ? ts.factory.createBinaryExpression(
+      notNull,
+      ts.SyntaxKind.AmpersandAmpersandToken,
+      ts.factory.createBinaryExpression(
+        ts.factory.createPropertyAccessExpression(rawAccess, 'length'),
+        ts.SyntaxKind.GreaterThanToken,
+        ts.factory.createNumericLiteral('0')
+      )
+    )
+    : notNull
+
+  const returnType = ts.factory.createTypePredicateNode(
+    undefined,
+    ts.factory.createThisTypeNode(),
+    ts.factory.createTypeReferenceNode('Has', [
+      ts.factory.createThisTypeNode(),
+      ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(camelName))
+    ])
+  )
+
+  const method = ts.factory.createMethodDeclaration(
+    undefined, undefined,
+    ts.factory.createIdentifier(hasName),
+    undefined, undefined, [],
+    returnType,
+    ts.factory.createBlock([ts.factory.createReturnStatement(expression)], true)
+  )
+
+  const doc = isArray
+    ? `True if \`${f.name}\` has at least one item.`
+    : `True if \`${f.name}\` is set.`
+
+  return jsDoc(doc, method)
 }
 
 function buildArrayMap (rawField: string, wrapperName: string) {

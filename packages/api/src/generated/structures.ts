@@ -777,7 +777,7 @@ export class ExternalReplyInfo {
     /**
      * Optional. Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel.
      */
-    get messageId(): number | undefined {
+    get id(): number | undefined {
         return this.raw.message_id;
     }
     /**
@@ -1707,7 +1707,7 @@ export class Message {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -2559,7 +2559,7 @@ export class MessageId {
     /**
      * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -2586,7 +2586,7 @@ export class MessageReactionCountUpdated {
     /**
      * Unique message identifier inside the chat
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -2626,7 +2626,7 @@ export class MessageReactionUpdated {
     /**
      * Unique identifier of the message inside the chat
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**

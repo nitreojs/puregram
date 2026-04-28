@@ -62,7 +62,7 @@ export class MessageUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -1800,7 +1800,7 @@ export class EditedMessageUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -3538,7 +3538,7 @@ export class ChannelPostUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -5276,7 +5276,7 @@ export class EditedChannelPostUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -7065,7 +7065,7 @@ export class BusinessMessageUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -8803,7 +8803,7 @@ export class EditedBusinessMessageUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -10541,7 +10541,7 @@ export class MessageReactionUpdate {
     /**
      * Unique identifier of the message inside the chat
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -10611,7 +10611,7 @@ export class MessageReactionCountUpdate {
     /**
      * Unique message identifier inside the chat
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -14061,7 +14061,7 @@ export class NewChatMembersUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -15799,7 +15799,7 @@ export class LeftChatMemberUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -17537,7 +17537,7 @@ export class NewChatTitleUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -19275,7 +19275,7 @@ export class NewChatPhotoUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -21013,7 +21013,7 @@ export class DeleteChatPhotoUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -22751,7 +22751,7 @@ export class GroupChatCreatedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -24489,7 +24489,7 @@ export class PinnedMessageUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -26227,7 +26227,7 @@ export class InvoiceUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -27965,7 +27965,7 @@ export class SuccessfulPaymentUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -29703,7 +29703,7 @@ export class UsersSharedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -31441,7 +31441,7 @@ export class ChatSharedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -33179,7 +33179,7 @@ export class WebAppDataUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -34917,7 +34917,7 @@ export class VideoChatScheduledUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -36655,7 +36655,7 @@ export class VideoChatStartedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -38393,7 +38393,7 @@ export class VideoChatEndedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -40131,7 +40131,7 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -41869,7 +41869,7 @@ export class ForumTopicCreatedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -43607,7 +43607,7 @@ export class ForumTopicEditedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -45345,7 +45345,7 @@ export class ForumTopicClosedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -47083,7 +47083,7 @@ export class ForumTopicReopenedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -48821,7 +48821,7 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -50559,7 +50559,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -52297,7 +52297,7 @@ export class GiveawayCreatedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -54035,7 +54035,7 @@ export class GiveawayCompletedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -55773,7 +55773,7 @@ export class GiveawayWinnersUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -57511,7 +57511,7 @@ export class BoostAddedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -59249,7 +59249,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -60987,7 +60987,7 @@ export class MigrateToChatIdUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -62725,7 +62725,7 @@ export class MigrateFromChatIdUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -64463,7 +64463,7 @@ export class PassportDataUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -66201,7 +66201,7 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**
@@ -67939,7 +67939,7 @@ export class WriteAccessAllowedUpdate {
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
-    get messageId(): number {
+    get id(): number {
         return this.raw.message_id;
     }
     /**

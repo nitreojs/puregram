@@ -2,6 +2,7 @@ import ts from 'typescript'
 
 import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema-types'
 
+import { camelCase, getterNameFor } from './field-names'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { isWrappedStructure } from './structures-config'
@@ -88,10 +89,6 @@ function collectReferencedTypeNames (ref: SchemaTypeRef, into: Set<string>): voi
   } else if (ref.kind === 'union') {
     ref.of.forEach(t => collectReferencedTypeNames(t, into))
   }
-}
-
-function camelCase (snake: string) {
-  return snake.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
 }
 
 function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClassNames: Set<string>) {
@@ -206,7 +203,7 @@ function wrapperReturnType (ref: SchemaTypeRef, wrapperName: string, optional: b
 }
 
 function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
-  const camelName = camelCase(f.name)
+  const camelName = getterNameFor(f.name)
   const wrapperName = wrapperNameFor(f.type, wrappedClassNames)
 
   const returnType = wrapperName

@@ -2,6 +2,7 @@ import ts from 'typescript'
 
 import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema-types'
 
+import { camelCase, getterNameFor } from './field-names'
 import { detectWidenedMethodArgs } from './formattable-detect'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
@@ -283,7 +284,7 @@ function emitUpdateClass (
   // user code never has to dig through .raw for scalar values
   if (payloadObject?.kind === 'object') {
     for (const f of payloadObject.fields) {
-      const camelName = camelCase(f.name)
+      const camelName = getterNameFor(f.name)
 
       if (reservedNames.has(camelName)) {
         continue
@@ -730,6 +731,3 @@ function emitUpdateKindMap () {
   )
 }
 
-function camelCase (snake: string) {
-  return snake.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
-}

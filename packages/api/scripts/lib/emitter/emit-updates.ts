@@ -2,6 +2,7 @@ import ts from 'typescript'
 
 import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema-types'
 
+import { detectWidenedMethodArgs } from './formattable-detect'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { analyzeShortcuts, type BoundShortcut } from './shortcut-analyzer'
@@ -43,11 +44,12 @@ function shortcutNameFor (method: string) {
 export function emitUpdates (schema: Schema) {
   const analysis = analyzeShortcuts(schema)
   const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
+  const widenedArgs = detectWidenedMethodArgs(schema)
 
   const nodes: ts.Node[] = []
 
   for (const kind of UPDATE_KINDS) {
-    nodes.push(emitUpdateClass(kind, objectsByName, analysis.byKind[kind.kindName] ?? []))
+    nodes.push(emitUpdateClass(kind, objectsByName, analysis.byKind[kind.kindName] ?? [], widenedArgs))
   }
 
   nodes.push(emitUpdateKindUnion())
@@ -128,12 +130,18 @@ export function emitUpdates (schema: Schema) {
   }
 
   const usesHas = UPDATE_KINDS.some(k => k.extras?.some(e => e.returnType.includes('Has<')))
+  const usesFormattable = [...paramsImports].some((paramsName) => {
+    const methodName = paramsName.charAt(0).toLowerCase() + paramsName.slice(1, -'Params'.length)
+
+    return widenedArgs.has(methodName)
+  })
 
   const imports = [
     importTypeNamed([...referencedTypes].sort(), './types'),
     ...(paramsImports.size > 0 ? [importTypeNamed([...paramsImports].sort(), './methods')] : []),
     importTypeNamed(['TelegramLike'], '../telegram-like'),
     ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
+    ...(usesFormattable ? [importTypeNamed(['Formattable'], '../formattable')] : []),
     ...(wrappedNames.size > 0 ? [importNamed([...wrappedNames].sort(), './structures')] : []),
     importNamed(['INSPECT', 'makeInspect'], './inspect')
   ]
@@ -196,7 +204,8 @@ function refToObjectClassName (ref: SchemaTypeRef, objectsByName: Map<string, Sc
 function emitUpdateClass (
   kind: UpdateKindSpec,
   objectsByName: Map<string, SchemaObject>,
-  shortcuts: BoundShortcut[]
+  shortcuts: BoundShortcut[],
+  widenedArgs: Map<string, Set<string>>
 ) {
   const members: ts.ClassElement[] = []
 
@@ -345,7 +354,7 @@ function emitUpdateClass (
 
   // codegen'd shortcut methods — send(), forward(), answer(), and so on
   for (const sc of shortcuts) {
-    members.push(emitShortcutMethod(sc))
+    members.push(emitShortcutMethod(sc, widenedArgs))
   }
 
   // [INSPECT]()
@@ -560,7 +569,7 @@ function emitPrimitiveGetter (f: SchemaField, camelName: string) {
   ))
 }
 
-function emitShortcutMethod (sc: BoundShortcut) {
+function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<string>>) {
   const filledProps = sc.filledArgs.map((anchor) => {
     let access: ts.Expression = ts.factory.createThis()
 
@@ -588,15 +597,25 @@ function emitShortcutMethod (sc: BoundShortcut) {
   // `undefined` for an optional property, and a primary positional like
   // `setMessageReaction.reaction` is conventionally always supplied (pass `[]`
   // to clear). callers who want to omit it can drop down to `tg.api.<method>`
-  const positionalParams = positionals.map(p =>
-    ts.factory.createParameterDeclaration(
+  const widened = widenedArgs.get(sc.method) ?? new Set<string>()
+  const positionalParams = positionals.map((p) => {
+    let type = typeRefToTs(p.arg.type)
+
+    if (widened.has(p.schemaArg)) {
+      type = ts.factory.createUnionTypeNode([
+        type,
+        ts.factory.createTypeReferenceNode('Formattable')
+      ])
+    }
+
+    return ts.factory.createParameterDeclaration(
       undefined, undefined,
       ts.factory.createIdentifier(p.name),
       undefined,
-      typeRefToTs(p.arg.type),
+      type,
       undefined
     )
-  )
+  })
 
   const positionalProps = positionals.map(p =>
     ts.factory.createPropertyAssignment(p.schemaArg, ts.factory.createIdentifier(p.name))

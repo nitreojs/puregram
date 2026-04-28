@@ -2,6 +2,7 @@ import ts from 'typescript'
 
 import type { Schema, SchemaMethod, SchemaTypeRef } from '../schema-types'
 
+import { detectWidenedMethodArgs } from './formattable-detect'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { METHOD_POSITIONALS, SHORTCUTS, type ShortcutSpec } from './shortcuts-config'
@@ -9,7 +10,9 @@ import { typeRefToTs, jsDoc, importTypeNamed } from './ts-factory'
 
 export function emitShortcuts (schema: Schema) {
   const methodsByName = new Map<string, SchemaMethod>(schema.methods.map(m => [m.name, m]))
+  const widenedArgs = detectWidenedMethodArgs(schema)
   const referencedTypes = new Set<string>()
+  let usesFormattable = false
 
   const memberSigs: ts.TypeElement[] = []
 
@@ -20,7 +23,13 @@ export function emitShortcuts (schema: Schema) {
       continue
     }
 
-    memberSigs.push(buildShortcutSignature(sc, method, referencedTypes))
+    const widened = widenedArgs.get(sc.method) ?? new Set<string>()
+
+    if (widened.size > 0 && (METHOD_POSITIONALS[sc.method] ?? []).some(p => widened.has(p.schemaArg))) {
+      usesFormattable = true
+    }
+
+    memberSigs.push(buildShortcutSignature(sc, method, referencedTypes, widened))
   }
 
   const iface = ts.factory.createInterfaceDeclaration(
@@ -37,7 +46,8 @@ export function emitShortcuts (schema: Schema) {
 
   const imports = [
     ...(referencedTypes.size > 0 ? [importTypeNamed([...referencedTypes].sort(), './types')] : []),
-    ...(paramsImports.length > 0 ? [importTypeNamed([...new Set(paramsImports)].sort(), './methods')] : [])
+    ...(paramsImports.length > 0 ? [importTypeNamed([...new Set(paramsImports)].sort(), './methods')] : []),
+    ...(usesFormattable ? [importTypeNamed(['Formattable'], '../formattable')] : [])
   ]
 
   return formatModule({
@@ -52,7 +62,8 @@ export function emitShortcuts (schema: Schema) {
 function buildShortcutSignature (
   sc: ShortcutSpec,
   method: SchemaMethod,
-  referencedTypes: Set<string>
+  referencedTypes: Set<string>,
+  widened: ReadonlySet<string>
 ) {
   const positionals = METHOD_POSITIONALS[sc.method] ?? []
 
@@ -65,11 +76,20 @@ function buildShortcutSignature (
 
     collectRefs(schemaArg.type, referencedTypes)
 
+    let type = typeRefToTs(schemaArg.type)
+
+    if (widened.has(p.schemaArg)) {
+      type = ts.factory.createUnionTypeNode([
+        type,
+        ts.factory.createTypeReferenceNode('Formattable')
+      ])
+    }
+
     return ts.factory.createParameterDeclaration(
       undefined, undefined,
       ts.factory.createIdentifier(p.name),
       undefined,
-      typeRefToTs(schemaArg.type),
+      type,
       undefined
     )
   })

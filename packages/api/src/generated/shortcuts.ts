@@ -6,11 +6,12 @@
 
 import type { TelegramInputFile, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPollOption, TelegramMessage, TelegramMessageId, TelegramReactionType } from "./types";
 import type { BanChatMemberParams, CopyMessageParams, CopyMessagesParams, DeleteMessageParams, DeleteMessagesParams, ForwardMessageParams, ForwardMessagesParams, PinChatMessageParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendContactParams, SendDiceParams, SendDocumentParams, SendLocationParams, SendMediaGroupParams, SendMessageParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetMessageReactionParams, UnbanChatMemberParams, UnpinChatMessageParams } from "./methods";
+import type { Formattable } from "../formattable";
 export interface TelegramShortcuts {
     /**
      * Shortcut for `tg.api.sendMessage`. Use this method to send text messages. On success, the sent Message is returned.
      */
-    send(chat: number | string, text: string, params?: Omit<SendMessageParams, "chat_id" | "text">): Promise<TelegramMessage>;
+    send(chat: number | string, text: string | Formattable, params?: Omit<SendMessageParams, "chat_id" | "text">): Promise<TelegramMessage>;
     /**
      * Shortcut for `tg.api.sendPhoto`. Use this method to send photos. On success, the sent Message is returned.
      */
@@ -68,7 +69,7 @@ export interface TelegramShortcuts {
     /**
      * Shortcut for `tg.api.sendPoll`. Use this method to send a native poll. On success, the sent Message is returned.
      */
-    sendPoll(chat: number | string, question: string, options: TelegramInputPollOption[], params?: Omit<SendPollParams, "chat_id" | "question" | "options">): Promise<TelegramMessage>;
+    sendPoll(chat: number | string, question: string | Formattable, options: TelegramInputPollOption[], params?: Omit<SendPollParams, "chat_id" | "question" | "options">): Promise<TelegramMessage>;
     /**
      * Shortcut for `tg.api.sendMediaGroup`. Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
      */

@@ -8,6 +8,7 @@ import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, Teleg
 import type { AnswerCallbackQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
 import type { TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
+import type { Formattable } from "../formattable";
 import { Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, WebAppData, WriteAccessAllowed } from "./structures";
 import { INSPECT, makeInspect } from "./inspect";
 /**
@@ -1128,7 +1129,7 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -1454,7 +1455,7 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -1464,7 +1465,7 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -1495,7 +1496,7 @@ export class MessageUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -2869,7 +2870,7 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -3195,7 +3196,7 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -3205,7 +3206,7 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -3236,7 +3237,7 @@ export class EditedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -4610,7 +4611,7 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -4936,7 +4937,7 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -4946,7 +4947,7 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -4977,7 +4978,7 @@ export class ChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -6351,7 +6352,7 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -6677,7 +6678,7 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -6687,7 +6688,7 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -6718,7 +6719,7 @@ export class EditedChannelPostUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -8146,7 +8147,7 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -8472,7 +8473,7 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -8482,7 +8483,7 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -8513,7 +8514,7 @@ export class BusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -9887,7 +9888,7 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -10213,7 +10214,7 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -10223,7 +10224,7 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -10254,7 +10255,7 @@ export class EditedBusinessMessageUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -11529,7 +11530,7 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             text: text,
@@ -11852,7 +11853,7 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -11862,7 +11863,7 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -11893,7 +11894,7 @@ export class MyChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -12464,7 +12465,7 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             text: text,
@@ -12787,7 +12788,7 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -12797,7 +12798,7 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -12828,7 +12829,7 @@ export class ChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -13385,7 +13386,7 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             text: text,
@@ -13708,7 +13709,7 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -13718,7 +13719,7 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -13749,7 +13750,7 @@ export class ChatJoinRequestUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -15193,7 +15194,7 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -15519,7 +15520,7 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -15529,7 +15530,7 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -15560,7 +15561,7 @@ export class NewChatMembersUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -16934,7 +16935,7 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -17260,7 +17261,7 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -17270,7 +17271,7 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -17301,7 +17302,7 @@ export class LeftChatMemberUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -18675,7 +18676,7 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -19001,7 +19002,7 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -19011,7 +19012,7 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -19042,7 +19043,7 @@ export class NewChatTitleUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -20416,7 +20417,7 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -20742,7 +20743,7 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -20752,7 +20753,7 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -20783,7 +20784,7 @@ export class NewChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -22157,7 +22158,7 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -22483,7 +22484,7 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -22493,7 +22494,7 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -22524,7 +22525,7 @@ export class DeleteChatPhotoUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -23898,7 +23899,7 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -24224,7 +24225,7 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -24234,7 +24235,7 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -24265,7 +24266,7 @@ export class GroupChatCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -25639,7 +25640,7 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -25965,7 +25966,7 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -25975,7 +25976,7 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -26006,7 +26007,7 @@ export class PinnedMessageUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -27380,7 +27381,7 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -27706,7 +27707,7 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -27716,7 +27717,7 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -27747,7 +27748,7 @@ export class InvoiceUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -29121,7 +29122,7 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -29447,7 +29448,7 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -29457,7 +29458,7 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -29488,7 +29489,7 @@ export class SuccessfulPaymentUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -30862,7 +30863,7 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -31188,7 +31189,7 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -31198,7 +31199,7 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -31229,7 +31230,7 @@ export class UsersSharedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -32603,7 +32604,7 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -32929,7 +32930,7 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -32939,7 +32940,7 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -32970,7 +32971,7 @@ export class ChatSharedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -34344,7 +34345,7 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -34670,7 +34671,7 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -34680,7 +34681,7 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -34711,7 +34712,7 @@ export class WebAppDataUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -36085,7 +36086,7 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -36411,7 +36412,7 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -36421,7 +36422,7 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -36452,7 +36453,7 @@ export class VideoChatScheduledUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -37826,7 +37827,7 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -38152,7 +38153,7 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -38162,7 +38163,7 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -38193,7 +38194,7 @@ export class VideoChatStartedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -39567,7 +39568,7 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -39893,7 +39894,7 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -39903,7 +39904,7 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -39934,7 +39935,7 @@ export class VideoChatEndedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -41308,7 +41309,7 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -41634,7 +41635,7 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -41644,7 +41645,7 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -41675,7 +41676,7 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -43049,7 +43050,7 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -43375,7 +43376,7 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -43385,7 +43386,7 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -43416,7 +43417,7 @@ export class ForumTopicCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -44790,7 +44791,7 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -45116,7 +45117,7 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -45126,7 +45127,7 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -45157,7 +45158,7 @@ export class ForumTopicEditedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -46531,7 +46532,7 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -46857,7 +46858,7 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -46867,7 +46868,7 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -46898,7 +46899,7 @@ export class ForumTopicClosedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -48272,7 +48273,7 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -48598,7 +48599,7 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -48608,7 +48609,7 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -48639,7 +48640,7 @@ export class ForumTopicReopenedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -50013,7 +50014,7 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -50339,7 +50340,7 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -50349,7 +50350,7 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -50380,7 +50381,7 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -51754,7 +51755,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -52080,7 +52081,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -52090,7 +52091,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -52121,7 +52122,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -53495,7 +53496,7 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -53821,7 +53822,7 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -53831,7 +53832,7 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -53862,7 +53863,7 @@ export class GiveawayCreatedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -55236,7 +55237,7 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -55562,7 +55563,7 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -55572,7 +55573,7 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -55603,7 +55604,7 @@ export class GiveawayCompletedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -56977,7 +56978,7 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -57303,7 +57304,7 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -57313,7 +57314,7 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -57344,7 +57345,7 @@ export class GiveawayWinnersUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -58718,7 +58719,7 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -59044,7 +59045,7 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -59054,7 +59055,7 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -59085,7 +59086,7 @@ export class BoostAddedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -60459,7 +60460,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -60785,7 +60786,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -60795,7 +60796,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -60826,7 +60827,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -62200,7 +62201,7 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -62526,7 +62527,7 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -62536,7 +62537,7 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -62567,7 +62568,7 @@ export class MigrateToChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -63941,7 +63942,7 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -64267,7 +64268,7 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -64277,7 +64278,7 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -64308,7 +64309,7 @@ export class MigrateFromChatIdUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -65682,7 +65683,7 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -66008,7 +66009,7 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -66018,7 +66019,7 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -66049,7 +66050,7 @@ export class PassportDataUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -67423,7 +67424,7 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -67749,7 +67750,7 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -67759,7 +67760,7 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -67790,7 +67791,7 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,
@@ -69164,7 +69165,7 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.editMessageText`.
      */
-    edit(text: string, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
+    edit(text: string | Formattable, params: Omit<EditMessageTextParams, "chat_id" | "message_id" | "text"> = {}) {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -69490,7 +69491,7 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.sendMessage`.
      */
-    send(text: string, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
+    send(text: string | Formattable, params: Omit<SendMessageParams, "chat_id" | "text"> = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             text: text,
@@ -69500,7 +69501,7 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.sendMessageDraft`.
      */
-    sendMessageDraft(text: string, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
+    sendMessageDraft(text: string | Formattable, params: Omit<SendMessageDraftParams, "chat_id" | "text">) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             text: text,
@@ -69531,7 +69532,7 @@ export class WriteAccessAllowedUpdate {
     /**
      * Shortcut for `tg.api.sendPoll`.
      */
-    sendPoll(question: string, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
+    sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: Omit<SendPollParams, "chat_id" | "question" | "options"> = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             question: question,

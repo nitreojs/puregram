@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest'
 import {
   link, textMention, customEmoji, pre, mentionUser, mentionBot
 } from '../src/builders/field'
+import { Formatted } from '../src/formatted'
 
 describe('field builders', () => {
   it('link emits text_link with url', () => {
@@ -47,5 +48,99 @@ describe('field builders', () => {
 
     expect(f.entities[0].user!.is_bot).toBe(true)
     expect(f.entities[0].user!.id).toBe(999)
+  })
+})
+
+describe('field builders — curried form', () => {
+  it('link(url)(text) emits text_link', () => {
+    const f = link('https://x.com')('hi')
+
+    expect(f.text).toBe('hi')
+    expect(f.entities).toEqual([{ type: 'text_link', offset: 0, length: 2, url: 'https://x.com' }])
+  })
+
+  it('link(url) tagged-template interpolates and wraps', () => {
+    const f = link('https://x.com')`hi ${'there'}`
+
+    expect(f.text).toBe('hi there')
+    expect(f.entities).toEqual([{ type: 'text_link', offset: 0, length: 8, url: 'https://x.com' }])
+  })
+
+  it('link(url)(formatted) preserves inner entities', () => {
+    const inner = new Formatted('foo', [{ type: 'bold', offset: 0, length: 3 }])
+    const f = link('https://x.com')(inner)
+
+    expect(f.text).toBe('foo')
+    expect(f.entities).toEqual([
+      { type: 'text_link', offset: 0, length: 3, url: 'https://x.com' },
+      { type: 'bold', offset: 0, length: 3 }
+    ])
+  })
+
+  it('textMention(user)(text) emits text_mention', () => {
+    const user = { id: 1, is_bot: false, first_name: 'Alice' }
+    const f = textMention(user)('Alice')
+
+    expect(f.entities).toEqual([{ type: 'text_mention', offset: 0, length: 5, user }])
+  })
+
+  it('mentionUser(id)(text) emits text_mention with synthesized user', () => {
+    const f = mentionUser(42)('Alice')
+
+    expect(f.entities).toEqual([{
+      type: 'text_mention',
+      offset: 0,
+      length: 5,
+      user: { id: 42, first_name: 'Alice', is_bot: false }
+    }])
+  })
+
+  it('mentionBot(id)`text` works as tagged template', () => {
+    const f = mentionBot(99)`me`
+
+    expect(f.entities[0]).toMatchObject({
+      type: 'text_mention',
+      user: { id: 99, first_name: 'me', is_bot: true }
+    })
+  })
+
+  it('customEmoji(id)(text) emits custom_emoji', () => {
+    const f = customEmoji('cei_42')('😎')
+
+    expect(f.entities).toEqual([{ type: 'custom_emoji', offset: 0, length: '😎'.length, custom_emoji_id: 'cei_42' }])
+  })
+
+  it('pre()(text) emits pre with no language', () => {
+    const f = pre()('plain')
+
+    expect(f.text).toBe('plain')
+    expect(f.entities).toEqual([{ type: 'pre', offset: 0, length: 5 }])
+  })
+
+  it('pre`text` (tagged template) emits pre with no language', () => {
+    const f = pre`plain`
+
+    expect(f.text).toBe('plain')
+    expect(f.entities).toEqual([{ type: 'pre', offset: 0, length: 5 }])
+  })
+
+  it('pre(formatted) wraps an existing Formatted in pre with no language', () => {
+    const inner = new Formatted('x', [{ type: 'italic', offset: 0, length: 1 }])
+    const f = pre(inner)
+
+    expect(f.text).toBe('x')
+    expect(f.entities).toEqual([
+      { type: 'pre', offset: 0, length: 1 },
+      { type: 'italic', offset: 0, length: 1 }
+    ])
+  })
+
+  it('throws on bad arg shapes', () => {
+    // @ts-expect-error -- runtime check, intentionally wrong types
+    expect(() => link(42)).toThrow(TypeError)
+    // @ts-expect-error -- runtime check, intentionally wrong types
+    expect(() => textMention('Alice')).toThrow(TypeError)
+    // @ts-expect-error -- runtime check, intentionally wrong types
+    expect(() => mentionUser('Alice')).toThrow(TypeError)
   })
 })

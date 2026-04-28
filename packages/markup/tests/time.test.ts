@@ -45,6 +45,43 @@ describe('time builder', () => {
   })
 })
 
+describe('time builder — curried form', () => {
+  it('time(unix)(text) emits date_time', () => {
+    const f = time(1647531900)('22:45 tomorrow')
+
+    expect(f.text).toBe('22:45 tomorrow')
+    expect(f.entities).toEqual([
+      { type: 'date_time', offset: 0, length: 14, unix_time: 1647531900 }
+    ])
+  })
+
+  it('time(date, format)(text) accepts a Date and named flags', () => {
+    const date = new Date('2022-03-17T22:45:00Z')
+    const expected = Math.floor(date.getTime() / 1000)
+    const f = time(date, { weekday: true, dateStyle: 'long', timeStyle: 'long' })('22:45 tomorrow')
+
+    expect(f.entities[0]).toMatchObject({
+      type: 'date_time',
+      unix_time: expected,
+      date_time_format: 'wDT'
+    })
+  })
+
+  it('time(unix, { relative: true })`text` works as tagged template', () => {
+    const f = time(1647531900, { relative: true })`in 5m`
+
+    expect(f.text).toBe('in 5m')
+    expect(f.entities[0]).toMatchObject({ type: 'date_time', date_time_format: 'r' })
+  })
+
+  it('throws on bad arg shapes', () => {
+    // @ts-expect-error -- runtime check, intentionally no args
+    expect(() => time()).toThrow(TypeError)
+    // @ts-expect-error -- runtime check, first arg must be string|number|Date
+    expect(() => time({ weekday: true })).toThrow(TypeError)
+  })
+})
+
 describe('composeTimeFormat', () => {
   it('maps each flag combination to telegram chars', () => {
     expect(composeTimeFormat({})).toBe('')

@@ -1,5 +1,7 @@
 import { type Entity, Formatted } from '../formatted'
 
+import { makeWrap, type WrapFn } from './wrap'
+
 /** named-flag form for the telegram date_time format string `r|w?[dD]?[tT]?` */
 export interface TimeFormat {
   /** displays the time relative to the current time. cannot combine with any other flag */
@@ -43,10 +45,12 @@ export function composeTimeFormat (opts: TimeFormat) {
   return out
 }
 
-/** wraps text in a `date_time` entity. accepts a unix timestamp (seconds) or a `Date` */
-export function time (text: string, when: number | Date, format?: TimeFormat) {
-  const unix = when instanceof Date ? Math.floor(when.getTime() / 1000) : when
-  const entity: Entity = { type: 'date_time', offset: 0, length: text.length, unix_time: unix }
+function unixOf (when: number | Date) {
+  return when instanceof Date ? Math.floor(when.getTime() / 1000) : when
+}
+
+function buildTimeEntity (when: number | Date, format: TimeFormat | undefined, length: number) {
+  const entity: Entity = { type: 'date_time', offset: 0, length, unix_time: unixOf(when) }
 
   if (format !== undefined) {
     const composed = composeTimeFormat(format)
@@ -56,5 +60,40 @@ export function time (text: string, when: number | Date, format?: TimeFormat) {
     }
   }
 
-  return new Formatted(text, [entity])
+  return entity
+}
+
+/**
+ * wraps text in a `date_time` entity. accepts a unix timestamp (seconds) or a `Date`.
+ * dual-form: legacy `time(text, when, format?)` or curried `time(when, format?)(text)`
+ */
+export function time (text: string, when: number | Date, format?: TimeFormat): Formatted
+export function time (when: number | Date, format?: TimeFormat): WrapFn
+export function time (...args: unknown[]): Formatted | WrapFn {
+  if (args.length === 0) {
+    throw new TypeError('time expected (text, when, format?) or (when, format?)')
+  }
+
+  const first = args[0]
+
+  if (typeof first === 'string') {
+    if (args.length < 2 || (typeof args[1] !== 'number' && !(args[1] instanceof Date))) {
+      throw new TypeError('time(text, when, format?): when must be number or Date')
+    }
+
+    const text = first
+    const when = args[1]
+    const format = args[2] as TimeFormat | undefined
+
+    return new Formatted(text, [buildTimeEntity(when, format, text.length)])
+  }
+
+  if (typeof first === 'number' || first instanceof Date) {
+    const when = first
+    const format = args[1] as TimeFormat | undefined
+
+    return makeWrap(text => buildTimeEntity(when, format, text.length))
+  }
+
+  throw new TypeError('time expected (text, when, format?) or (when, format?)')
 }

@@ -1,3 +1,3 @@
-export * from './markup'
-
-export { Formatted } from './format'
+// @puregram/markup — entity-based text formatting plugin
+// public surface filled in by later tasks
+export {}

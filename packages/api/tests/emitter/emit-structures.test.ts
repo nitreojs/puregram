@@ -31,7 +31,7 @@ describe('emitStructures', () => {
 
     expect(out).toContain('get from(): User | undefined')
 
-    expect(out).toContain('[INSPECT]()')
+    expect(out).toContain('[INSPECT](depth: any, options: any, inspect: any)')
 
     expect(out).toContain('import type {')
     expect(out).toContain('import { INSPECT, makeInspect } from "./inspect"')
@@ -49,7 +49,7 @@ describe('emitStructures', () => {
 
     const userClassStart = out.indexOf('export class User')
     const userExtras = out.indexOf('get displayName(): string', userClassStart)
-    const userInspect = out.indexOf('[INSPECT]()', userClassStart)
+    const userInspect = out.indexOf('[INSPECT](depth: any, options: any, inspect: any)', userClassStart)
 
     expect(userExtras).toBeGreaterThan(userClassStart)
     expect(userExtras).toBeLessThan(userInspect)

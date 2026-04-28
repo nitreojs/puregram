@@ -62,11 +62,8 @@ export class Chat {
     get isDirectMessages(): true | undefined {
         return this.raw.is_direct_messages;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Chat",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Chat", this, depth, options, inspect);
     }
 }
 
@@ -102,11 +99,8 @@ export class ChatBoost {
     get source(): TelegramChatBoostSource {
         return this.raw.source;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatBoost",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatBoost", this, depth, options, inspect);
     }
 }
 
@@ -143,11 +137,8 @@ export class ChatBoostRemoved {
     get source(): TelegramChatBoostSource {
         return this.raw.source;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatBoostRemoved",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatBoostRemoved", this, depth, options, inspect);
     }
 }
 
@@ -173,11 +164,8 @@ export class ChatBoostUpdated {
     get boost(): ChatBoost {
         return this._boost ??= new ChatBoost(this.raw.boost);
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatBoostUpdated",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatBoostUpdated", this, depth, options, inspect);
     }
 }
 
@@ -256,11 +244,8 @@ export class ChatInviteLink {
     get subscriptionPrice(): number | undefined {
         return this.raw.subscription_price;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatInviteLink",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatInviteLink", this, depth, options, inspect);
     }
 }
 
@@ -314,11 +299,8 @@ export class ChatJoinRequest {
         }
         return this._inviteLink;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatJoinRequest",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatJoinRequest", this, depth, options, inspect);
     }
 }
 
@@ -343,11 +325,8 @@ export class ChatLocation {
     get address(): string {
         return this.raw.address;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatLocation",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatLocation", this, depth, options, inspect);
     }
 }
 
@@ -377,11 +356,8 @@ export class ChatMember {
     isMember(): boolean {
         return (this.raw as { status?: string }).status === 'member';
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatMember",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatMember", this, depth, options, inspect);
     }
 }
 
@@ -449,11 +425,8 @@ export class ChatMemberUpdated {
     get viaChatFolderInviteLink(): boolean | undefined {
         return this.raw.via_chat_folder_invite_link;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatMemberUpdated",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatMemberUpdated", this, depth, options, inspect);
     }
 }
 
@@ -555,11 +528,8 @@ export class ChatPermissions {
     get canManageTopics(): boolean | undefined {
         return this.raw.can_manage_topics;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatPermissions",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatPermissions", this, depth, options, inspect);
     }
 }
 
@@ -595,11 +565,8 @@ export class ChatPhoto {
     get bigFileUniqueId(): string {
         return this.raw.big_file_unique_id;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatPhoto",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatPhoto", this, depth, options, inspect);
     }
 }
 
@@ -642,11 +609,8 @@ export class ChatShared {
     get photo(): PhotoSize[] | undefined {
         return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatShared",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatShared", this, depth, options, inspect);
     }
 }
 
@@ -693,11 +657,8 @@ export class ChosenInlineResult {
     get query(): string {
         return this.raw.query;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChosenInlineResult",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChosenInlineResult", this, depth, options, inspect);
     }
 }
 
@@ -745,11 +706,8 @@ export class Contact {
     get displayName(): string {
         return this.raw.last_name ? `${this.raw.first_name} ${this.raw.last_name}` : this.raw.first_name;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Contact",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Contact", this, depth, options, inspect);
     }
 }
 
@@ -773,11 +731,8 @@ export class Dice {
     get value(): number {
         return this.raw.value;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Dice",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Dice", this, depth, options, inspect);
     }
 }
 
@@ -996,11 +951,8 @@ export class ExternalReplyInfo {
         }
         return this._venue;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ExternalReplyInfo",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ExternalReplyInfo", this, depth, options, inspect);
     }
 }
 
@@ -1042,11 +994,8 @@ export class File {
     link(token: string): string | undefined {
         return this.raw.file_path ? `https://api.telegram.org/file/bot${token}/${this.raw.file_path}` : undefined;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "File",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("File", this, depth, options, inspect);
     }
 }
 
@@ -1082,11 +1031,8 @@ export class ForumTopicCreated {
     get isNameImplicit(): true | undefined {
         return this.raw.is_name_implicit;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ForumTopicCreated",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ForumTopicCreated", this, depth, options, inspect);
     }
 }
 
@@ -1110,11 +1056,8 @@ export class ForumTopicEdited {
     get iconCustomEmojiId(): string | undefined {
         return this.raw.icon_custom_emoji_id;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ForumTopicEdited",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ForumTopicEdited", this, depth, options, inspect);
     }
 }
 
@@ -1164,11 +1107,8 @@ export class Game {
     get animation(): TelegramAnimation | undefined {
         return this.raw.animation;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Game",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Game", this, depth, options, inspect);
     }
 }
 
@@ -1235,11 +1175,8 @@ export class Giveaway {
     get premiumSubscriptionMonthCount(): number | undefined {
         return this.raw.premium_subscription_month_count;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Giveaway",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Giveaway", this, depth, options, inspect);
     }
 }
 
@@ -1279,11 +1216,8 @@ export class GiveawayCompleted {
     get isStarGiveaway(): true | undefined {
         return this.raw.is_star_giveaway;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GiveawayCompleted",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GiveawayCompleted", this, depth, options, inspect);
     }
 }
 
@@ -1369,11 +1303,8 @@ export class GiveawayWinners {
     get prizeDescription(): string | undefined {
         return this.raw.prize_description;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GiveawayWinners",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GiveawayWinners", this, depth, options, inspect);
     }
 }
 
@@ -1467,11 +1398,8 @@ export class InlineKeyboardButton {
     get pay(): boolean | undefined {
         return this.raw.pay;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "InlineKeyboardButton",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("InlineKeyboardButton", this, depth, options, inspect);
     }
 }
 
@@ -1489,11 +1417,8 @@ export class InlineKeyboardMarkup {
     get inlineKeyboard(): TelegramInlineKeyboardButton[][] {
         return this.raw.inline_keyboard;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "InlineKeyboardMarkup",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("InlineKeyboardMarkup", this, depth, options, inspect);
     }
 }
 
@@ -1546,11 +1471,8 @@ export class InlineQuery {
         }
         return this._location;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "InlineQuery",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("InlineQuery", this, depth, options, inspect);
     }
 }
 
@@ -1592,11 +1514,8 @@ export class Invoice {
     get totalAmount(): number {
         return this.raw.total_amount;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Invoice",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Invoice", this, depth, options, inspect);
     }
 }
 
@@ -1638,11 +1557,8 @@ export class LinkPreviewOptions {
     get showAboveText(): boolean | undefined {
         return this.raw.show_above_text;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "LinkPreviewOptions",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("LinkPreviewOptions", this, depth, options, inspect);
     }
 }
 
@@ -1696,11 +1612,8 @@ export class Location {
     get coordinates(): [number, number] {
         return [this.raw.latitude, this.raw.longitude];
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Location",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Location", this, depth, options, inspect);
     }
 }
 
@@ -1736,11 +1649,8 @@ export class MaskPosition {
     get scale(): number {
         return this.raw.scale;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MaskPosition",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MaskPosition", this, depth, options, inspect);
     }
 }
 
@@ -2562,11 +2472,8 @@ export class Message {
         }
         return this._replyMarkup;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Message",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Message", this, depth, options, inspect);
     }
 }
 
@@ -2636,11 +2543,8 @@ export class MessageEntity {
     get dateTimeFormat(): string | undefined {
         return this.raw.date_time_format;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageEntity",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageEntity", this, depth, options, inspect);
     }
 }
 
@@ -2658,11 +2562,8 @@ export class MessageId {
     get messageId(): number {
         return this.raw.message_id;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageId",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageId", this, depth, options, inspect);
     }
 }
 
@@ -2700,11 +2601,8 @@ export class MessageReactionCountUpdated {
     get reactions(): ReactionCount[] {
         return this._reactions ??= this.raw.reactions.map(x => new ReactionCount(x));
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageReactionCountUpdated",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageReactionCountUpdated", this, depth, options, inspect);
     }
 }
 
@@ -2767,11 +2665,8 @@ export class MessageReactionUpdated {
     get newReaction(): TelegramReactionType[] {
         return this.raw.new_reaction;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageReactionUpdated",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageReactionUpdated", this, depth, options, inspect);
     }
 }
 
@@ -2811,11 +2706,8 @@ export class OrderInfo {
         }
         return this._shippingAddress;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "OrderInfo",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("OrderInfo", this, depth, options, inspect);
     }
 }
 
@@ -2839,11 +2731,8 @@ export class PassportData {
     get credentials(): TelegramEncryptedCredentials {
         return this.raw.credentials;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PassportData",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PassportData", this, depth, options, inspect);
     }
 }
 
@@ -2885,11 +2774,8 @@ export class PhotoSize {
     get fileSize(): number | undefined {
         return this.raw.file_size;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PhotoSize",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PhotoSize", this, depth, options, inspect);
     }
 }
 
@@ -3007,11 +2893,8 @@ export class Poll {
     get descriptionEntities(): MessageEntity[] | undefined {
         return this.raw.description_entities ? (this._descriptionEntities ??= this.raw.description_entities.map(x => new MessageEntity(x))) : undefined;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Poll",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Poll", this, depth, options, inspect);
     }
 }
 
@@ -3061,11 +2944,8 @@ export class PollAnswer {
     get optionPersistentIds(): string[] {
         return this.raw.option_persistent_ids;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PollAnswer",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PollAnswer", this, depth, options, inspect);
     }
 }
 
@@ -3128,11 +3008,8 @@ export class PollOption {
     get additionDate(): number | undefined {
         return this.raw.addition_date;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PollOption",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PollOption", this, depth, options, inspect);
     }
 }
 
@@ -3191,11 +3068,8 @@ export class PreCheckoutQuery {
         }
         return this._orderInfo;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PreCheckoutQuery",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PreCheckoutQuery", this, depth, options, inspect);
     }
 }
 
@@ -3227,11 +3101,8 @@ export class ProximityAlertTriggered {
     get distance(): number {
         return this.raw.distance;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ProximityAlertTriggered",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ProximityAlertTriggered", this, depth, options, inspect);
     }
 }
 
@@ -3255,11 +3126,8 @@ export class ReactionCount {
     get totalCount(): number {
         return this.raw.total_count;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ReactionCount",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ReactionCount", this, depth, options, inspect);
     }
 }
 
@@ -3307,11 +3175,8 @@ export class ShippingAddress {
     get postCode(): string {
         return this.raw.post_code;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ShippingAddress",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ShippingAddress", this, depth, options, inspect);
     }
 }
 
@@ -3349,11 +3214,8 @@ export class ShippingQuery {
     get shippingAddress(): ShippingAddress {
         return this._shippingAddress ??= new ShippingAddress(this.raw.shipping_address);
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ShippingQuery",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ShippingQuery", this, depth, options, inspect);
     }
 }
 
@@ -3467,11 +3329,8 @@ export class Sticker {
     get fileSize(): number | undefined {
         return this.raw.file_size;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Sticker",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Sticker", this, depth, options, inspect);
     }
 }
 
@@ -3518,11 +3377,8 @@ export class StickerSet {
         }
         return this._thumbnail;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "StickerSet",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("StickerSet", this, depth, options, inspect);
     }
 }
 
@@ -3547,11 +3403,8 @@ export class Story {
     get id(): number {
         return this.raw.id;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Story",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Story", this, depth, options, inspect);
     }
 }
 
@@ -3627,11 +3480,8 @@ export class SuccessfulPayment {
     get providerPaymentChargeId(): string {
         return this.raw.provider_payment_charge_id;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "SuccessfulPayment",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("SuccessfulPayment", this, depth, options, inspect);
     }
 }
 
@@ -3668,11 +3518,8 @@ export class TextQuote {
     get isManual(): true | undefined {
         return this.raw.is_manual;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "TextQuote",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("TextQuote", this, depth, options, inspect);
     }
 }
 
@@ -3806,11 +3653,8 @@ export class User {
         const escaped = name.replace(/[[\]\\]/g, '\\$&');
         return `[${escaped}](tg://user?id=${id})`;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "User",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("User", this, depth, options, inspect);
     }
 }
 
@@ -3834,11 +3678,8 @@ export class UserProfilePhotos {
     get photos(): TelegramPhotoSize[][] {
         return this.raw.photos;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "UserProfilePhotos",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("UserProfilePhotos", this, depth, options, inspect);
     }
 }
 
@@ -3862,11 +3703,8 @@ export class UsersShared {
     get users(): TelegramSharedUser[] {
         return this.raw.users;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "UsersShared",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("UsersShared", this, depth, options, inspect);
     }
 }
 
@@ -3921,11 +3759,8 @@ export class Venue {
     get googlePlaceType(): string | undefined {
         return this.raw.google_place_type;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Venue",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Venue", this, depth, options, inspect);
     }
 }
 
@@ -4014,11 +3849,8 @@ export class Video {
     get fileSize(): number | undefined {
         return this.raw.file_size;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "Video",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Video", this, depth, options, inspect);
     }
 }
 
@@ -4036,11 +3868,8 @@ export class VideoChatEnded {
     get duration(): number {
         return this.raw.duration;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "VideoChatEnded",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoChatEnded", this, depth, options, inspect);
     }
 }
 
@@ -4059,11 +3888,8 @@ export class VideoChatParticipantsInvited {
     get users(): User[] {
         return this._users ??= this.raw.users.map(x => new User(x));
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "VideoChatParticipantsInvited",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoChatParticipantsInvited", this, depth, options, inspect);
     }
 }
 
@@ -4081,11 +3907,8 @@ export class VideoChatScheduled {
     get startDate(): number {
         return this.raw.start_date;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "VideoChatScheduled",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoChatScheduled", this, depth, options, inspect);
     }
 }
 
@@ -4109,11 +3932,8 @@ export class WebAppData {
     get buttonText(): string {
         return this.raw.button_text;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "WebAppData",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("WebAppData", this, depth, options, inspect);
     }
 }
 
@@ -4131,11 +3951,8 @@ export class WebAppInfo {
     get url(): string {
         return this.raw.url;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "WebAppInfo",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("WebAppInfo", this, depth, options, inspect);
     }
 }
 
@@ -4165,10 +3982,7 @@ export class WriteAccessAllowed {
     get fromAttachmentMenu(): boolean | undefined {
         return this.raw.from_attachment_menu;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "WriteAccessAllowed",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("WriteAccessAllowed", this, depth, options, inspect);
     }
 }

@@ -357,20 +357,30 @@ function emitUpdateClass (
     members.push(emitShortcutMethod(sc, widenedArgs))
   }
 
-  // [INSPECT]()
+  // [INSPECT](depth, options, inspect) — forwards node's stylize options for color + js-style output
+  const anyType = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
+  const inspectParam = (name: string) => ts.factory.createParameterDeclaration(
+    undefined, undefined, ts.factory.createIdentifier(name), undefined, anyType, undefined
+  )
+
   members.push(ts.factory.createMethodDeclaration(
     undefined, undefined,
     ts.factory.createComputedPropertyName(ts.factory.createIdentifier('INSPECT')),
-    undefined, undefined, [], undefined,
+    undefined, undefined,
+    [inspectParam('depth'), inspectParam('options'), inspectParam('inspect')],
+    undefined,
     ts.factory.createBlock([
       ts.factory.createReturnStatement(
         ts.factory.createCallExpression(
           ts.factory.createIdentifier('makeInspect'),
           undefined,
-          [ts.factory.createObjectLiteralExpression([
-            ts.factory.createPropertyAssignment('className', ts.factory.createStringLiteral(kind.className)),
-            ts.factory.createPropertyAssignment('payload', ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'))
-          ], true)]
+          [
+            ts.factory.createStringLiteral(kind.className),
+            ts.factory.createThis(),
+            ts.factory.createIdentifier('depth'),
+            ts.factory.createIdentifier('options'),
+            ts.factory.createIdentifier('inspect')
+          ]
         )
       )
     ], true)

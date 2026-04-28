@@ -67,7 +67,7 @@ function spliceExtrasIntoPrinted (printed: string, classNames: string[]) {
       continue
     }
 
-    const inspectAnchor = '    [INSPECT]()'
+    const inspectAnchor = '    [INSPECT]('
     const inspectIndex = out.indexOf(inspectAnchor, openMatch.index)
 
     if (inspectIndex === -1) {
@@ -359,23 +359,31 @@ function buildArrayMap (rawField: string, wrapperName: string) {
 }
 
 function emitInspectMethod (obj: Extract<SchemaObject, { kind: 'object' }>) {
+  const anyType = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
+  const param = (name: string) => ts.factory.createParameterDeclaration(
+    undefined, undefined, ts.factory.createIdentifier(name), undefined, anyType, undefined
+  )
+
   return ts.factory.createMethodDeclaration(
     undefined,
     undefined,
     ts.factory.createComputedPropertyName(ts.factory.createIdentifier('INSPECT')),
     undefined,
     undefined,
-    [],
+    [param('depth'), param('options'), param('inspect')],
     undefined,
     ts.factory.createBlock([
       ts.factory.createReturnStatement(
         ts.factory.createCallExpression(
           ts.factory.createIdentifier('makeInspect'),
           undefined,
-          [ts.factory.createObjectLiteralExpression([
-            ts.factory.createPropertyAssignment('className', ts.factory.createStringLiteral(obj.name)),
-            ts.factory.createPropertyAssignment('payload', ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'))
-          ], true)]
+          [
+            ts.factory.createStringLiteral(obj.name),
+            ts.factory.createThis(),
+            ts.factory.createIdentifier('depth'),
+            ts.factory.createIdentifier('options'),
+            ts.factory.createIdentifier('inspect')
+          ]
         )
       )
     ], true)

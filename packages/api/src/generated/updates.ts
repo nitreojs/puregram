@@ -1744,11 +1744,8 @@ export class MessageUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageUpdate", this, depth, options, inspect);
     }
 }
 
@@ -3485,11 +3482,8 @@ export class EditedMessageUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "EditedMessageUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("EditedMessageUpdate", this, depth, options, inspect);
     }
 }
 
@@ -5226,11 +5220,8 @@ export class ChannelPostUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChannelPostUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChannelPostUpdate", this, depth, options, inspect);
     }
 }
 
@@ -6967,11 +6958,8 @@ export class EditedChannelPostUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "EditedChannelPostUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("EditedChannelPostUpdate", this, depth, options, inspect);
     }
 }
 
@@ -7021,11 +7009,8 @@ export class BusinessConnectionUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "BusinessConnectionUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("BusinessConnectionUpdate", this, depth, options, inspect);
     }
 }
 
@@ -8762,11 +8747,8 @@ export class BusinessMessageUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "BusinessMessageUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("BusinessMessageUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10503,11 +10485,8 @@ export class EditedBusinessMessageUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "EditedBusinessMessageUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("EditedBusinessMessageUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10539,11 +10518,8 @@ export class DeletedBusinessMessagesUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "DeletedBusinessMessagesUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("DeletedBusinessMessagesUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10613,11 +10589,8 @@ export class MessageReactionUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageReactionUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageReactionUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10656,11 +10629,8 @@ export class MessageReactionCountUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageReactionCountUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageReactionCountUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10726,11 +10696,8 @@ export class InlineQueryUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "InlineQueryUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("InlineQueryUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10787,11 +10754,8 @@ export class ChosenInlineResultUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChosenInlineResultUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChosenInlineResultUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10898,11 +10862,8 @@ export class CallbackQueryUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "CallbackQueryUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("CallbackQueryUpdate", this, depth, options, inspect);
     }
 }
 
@@ -10950,11 +10911,8 @@ export class ShippingQueryUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ShippingQueryUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ShippingQueryUpdate", this, depth, options, inspect);
     }
 }
 
@@ -11020,11 +10978,8 @@ export class PreCheckoutQueryUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PreCheckoutQueryUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PreCheckoutQueryUpdate", this, depth, options, inspect);
     }
 }
 
@@ -11143,11 +11098,8 @@ export class PollUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PollUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PollUpdate", this, depth, options, inspect);
     }
 }
 
@@ -11204,11 +11156,8 @@ export class PollAnswerUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PollAnswerUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PollAnswerUpdate", this, depth, options, inspect);
     }
 }
 
@@ -12139,11 +12088,8 @@ export class MyChatMemberUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MyChatMemberUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MyChatMemberUpdate", this, depth, options, inspect);
     }
 }
 
@@ -13074,11 +13020,8 @@ export class ChatMemberUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatMemberUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatMemberUpdate", this, depth, options, inspect);
     }
 }
 
@@ -13995,11 +13938,8 @@ export class ChatJoinRequestUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatJoinRequestUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatJoinRequestUpdate", this, depth, options, inspect);
     }
 }
 
@@ -14026,11 +13966,8 @@ export class ChatBoostUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatBoostUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatBoostUpdate", this, depth, options, inspect);
     }
 }
 
@@ -14068,11 +14005,8 @@ export class RemovedChatBoostUpdate {
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "RemovedChatBoostUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("RemovedChatBoostUpdate", this, depth, options, inspect);
     }
 }
 
@@ -15809,11 +15743,8 @@ export class NewChatMembersUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "NewChatMembersUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("NewChatMembersUpdate", this, depth, options, inspect);
     }
 }
 
@@ -17550,11 +17481,8 @@ export class LeftChatMemberUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "LeftChatMemberUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("LeftChatMemberUpdate", this, depth, options, inspect);
     }
 }
 
@@ -19291,11 +19219,8 @@ export class NewChatTitleUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "NewChatTitleUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("NewChatTitleUpdate", this, depth, options, inspect);
     }
 }
 
@@ -21032,11 +20957,8 @@ export class NewChatPhotoUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "NewChatPhotoUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("NewChatPhotoUpdate", this, depth, options, inspect);
     }
 }
 
@@ -22773,11 +22695,8 @@ export class DeleteChatPhotoUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "DeleteChatPhotoUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("DeleteChatPhotoUpdate", this, depth, options, inspect);
     }
 }
 
@@ -24514,11 +24433,8 @@ export class GroupChatCreatedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GroupChatCreatedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GroupChatCreatedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -26255,11 +26171,8 @@ export class PinnedMessageUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PinnedMessageUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PinnedMessageUpdate", this, depth, options, inspect);
     }
 }
 
@@ -27996,11 +27909,8 @@ export class InvoiceUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "InvoiceUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("InvoiceUpdate", this, depth, options, inspect);
     }
 }
 
@@ -29737,11 +29647,8 @@ export class SuccessfulPaymentUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "SuccessfulPaymentUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("SuccessfulPaymentUpdate", this, depth, options, inspect);
     }
 }
 
@@ -31478,11 +31385,8 @@ export class UsersSharedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "UsersSharedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("UsersSharedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -33219,11 +33123,8 @@ export class ChatSharedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ChatSharedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ChatSharedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -34960,11 +34861,8 @@ export class WebAppDataUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "WebAppDataUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("WebAppDataUpdate", this, depth, options, inspect);
     }
 }
 
@@ -36701,11 +36599,8 @@ export class VideoChatScheduledUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "VideoChatScheduledUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoChatScheduledUpdate", this, depth, options, inspect);
     }
 }
 
@@ -38442,11 +38337,8 @@ export class VideoChatStartedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "VideoChatStartedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoChatStartedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -40183,11 +40075,8 @@ export class VideoChatEndedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "VideoChatEndedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoChatEndedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -41924,11 +41813,8 @@ export class VideoChatParticipantsInvitedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "VideoChatParticipantsInvitedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoChatParticipantsInvitedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -43665,11 +43551,8 @@ export class ForumTopicCreatedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ForumTopicCreatedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ForumTopicCreatedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -45406,11 +45289,8 @@ export class ForumTopicEditedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ForumTopicEditedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ForumTopicEditedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -47147,11 +47027,8 @@ export class ForumTopicClosedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ForumTopicClosedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ForumTopicClosedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -48888,11 +48765,8 @@ export class ForumTopicReopenedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ForumTopicReopenedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ForumTopicReopenedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -50629,11 +50503,8 @@ export class GeneralForumTopicHiddenUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GeneralForumTopicHiddenUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GeneralForumTopicHiddenUpdate", this, depth, options, inspect);
     }
 }
 
@@ -52370,11 +52241,8 @@ export class GeneralForumTopicUnhiddenUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GeneralForumTopicUnhiddenUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GeneralForumTopicUnhiddenUpdate", this, depth, options, inspect);
     }
 }
 
@@ -54111,11 +53979,8 @@ export class GiveawayCreatedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GiveawayCreatedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GiveawayCreatedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -55852,11 +55717,8 @@ export class GiveawayCompletedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GiveawayCompletedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GiveawayCompletedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -57593,11 +57455,8 @@ export class GiveawayWinnersUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "GiveawayWinnersUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GiveawayWinnersUpdate", this, depth, options, inspect);
     }
 }
 
@@ -59334,11 +59193,8 @@ export class BoostAddedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "BoostAddedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("BoostAddedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -61075,11 +60931,8 @@ export class MessageAutoDeleteTimerChangedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MessageAutoDeleteTimerChangedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MessageAutoDeleteTimerChangedUpdate", this, depth, options, inspect);
     }
 }
 
@@ -62816,11 +62669,8 @@ export class MigrateToChatIdUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MigrateToChatIdUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MigrateToChatIdUpdate", this, depth, options, inspect);
     }
 }
 
@@ -64557,11 +64407,8 @@ export class MigrateFromChatIdUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "MigrateFromChatIdUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("MigrateFromChatIdUpdate", this, depth, options, inspect);
     }
 }
 
@@ -66298,11 +66145,8 @@ export class PassportDataUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "PassportDataUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PassportDataUpdate", this, depth, options, inspect);
     }
 }
 
@@ -68039,11 +67883,8 @@ export class ProximityAlertTriggeredUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "ProximityAlertTriggeredUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("ProximityAlertTriggeredUpdate", this, depth, options, inspect);
     }
 }
 
@@ -69780,11 +69621,8 @@ export class WriteAccessAllowedUpdate {
             ...params
         });
     }
-    [INSPECT]() {
-        return makeInspect({
-            className: "WriteAccessAllowedUpdate",
-            payload: this.raw
-        });
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("WriteAccessAllowedUpdate", this, depth, options, inspect);
     }
 }
 

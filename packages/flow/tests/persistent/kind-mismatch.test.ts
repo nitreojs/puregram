@@ -1,27 +1,28 @@
 import { MemoryStorage } from '@puregram/storage'
-import { Telegram } from 'puregram'
 import { describe, expect, it, vi } from 'vitest'
 
 import { FlowKindMismatch, flow } from '../../src'
 import type { PersistedFlow } from '../../src/persistent/types'
-
-const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
+import { makeTg } from '../helpers/make-tg'
 
 describe('FlowKindMismatch', () => {
   it('throws when prompt kind does not match handle kind', async () => {
     const storage = new MemoryStorage<PersistedFlow>()
-    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow({ storage }))
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage })))
 
-    await t.start()
+    await tg.start()
 
-    ;(t as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
-    ;(t as any).flow.handle('confirm', { kind: 'callback_query', onAnswer: () => {} })
+    // override send to skip the wire — we only care about the kind-mismatch guard
+    ;(tg as { send: unknown }).send = vi.fn().mockResolvedValue({ message_id: 1 })
+
+    tg.flow.handle('confirm', { kind: 'callback_query', onAnswer: () => {} })
 
     // no kind override at the call site -> default 'message' -> mismatch with handle's 'callback_query'
     await expect(
-      (t as any).flow.prompt(100, 'pick', { id: 'confirm' })
+      tg.flow.prompt(100, 'pick', { id: 'confirm' })
     ).rejects.toBeInstanceOf(FlowKindMismatch)
 
-    await t.shutdown()
+    await tg.shutdown()
+    await mock.stop()
   })
 })

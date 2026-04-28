@@ -523,7 +523,7 @@ describe('persistent flow e2e', () => {
 
     await tg.start()
 
-    ;(tg as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
+    ;(tg as { send: unknown }).send = vi.fn().mockResolvedValue({ message_id: 1 })
 
     const onPersistent = vi.fn()
 
@@ -538,11 +538,14 @@ describe('persistent flow e2e', () => {
 
     await new Promise(resolve => setImmediate(resolve))
 
-    await (tg as any).dispatch(makeUpdate('message', { chat: { id: 200 }, text: 'hi' }))
+    const dispatch = (tg as unknown as { dispatch: (u: unknown) => Promise<void> }).dispatch.bind(tg)
+
+    await dispatch(makeUpdate('message', { chat: { id: 200 }, text: 'hi' }))
 
     const ephemResult = await ephemeral
 
-    expect((ephemResult as any).chat.id).toBe(200)
+    // ephemeral path returns the raw matched update; chat is on the synthetic update body
+    expect((ephemResult as { chat: { id: number } }).chat.id).toBe(200)
 
     // and the persistent record is still open
     expect(await storage.has('100:9:message')).toBe(true)

@@ -1,12 +1,14 @@
 import { MemoryStorage } from '@puregram/storage'
-import { Telegram } from 'puregram'
+import type { Telegram } from 'puregram'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { flow } from '../../src'
 import type { PersistedFlow } from '../../src/persistent/types'
+import { makeTg } from '../helpers/make-tg'
 import { makeUpdate } from '../helpers/make-update'
 
-const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
+const dispatchOf = (tg: Telegram) =>
+  (tg as unknown as { dispatch: (u: unknown) => Promise<void> }).dispatch.bind(tg)
 
 describe('persistent ttl', () => {
   beforeEach(() => {
@@ -21,84 +23,91 @@ describe('persistent ttl', () => {
     vi.setSystemTime(new Date(1000))
 
     const storage = new MemoryStorage<PersistedFlow>()
-    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow({ storage }))
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage })))
 
-    await t.start()
+    await tg.start()
 
-    ;(t as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
-    ;(t as any).flow.handle('age', { onAnswer: () => {} })
+    ;(tg as { send: unknown }).send = vi.fn().mockResolvedValue({ message_id: 1 })
 
-    await (t as any).flow.prompt(100, 'how old?', { id: 'age', from: 9, ttl: 5000 })
+    tg.flow.handle('age', { onAnswer: () => {} })
+
+    await tg.flow.prompt(100, 'how old?', { id: 'age', from: 9, ttl: 5000 })
 
     expect((await storage.get('100:9:message'))!.expiresAt).toBe(6000)
 
-    await t.shutdown()
+    await tg.shutdown()
+    await mock.stop()
   })
 
   it('defaultTtl falls back when ttl is omitted', async () => {
     vi.setSystemTime(new Date(1000))
 
     const storage = new MemoryStorage<PersistedFlow>()
-    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow({ storage, defaultTtl: 10_000 }))
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage, defaultTtl: 10_000 })))
 
-    await t.start()
+    await tg.start()
 
-    ;(t as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
-    ;(t as any).flow.handle('age', { onAnswer: () => {} })
+    ;(tg as { send: unknown }).send = vi.fn().mockResolvedValue({ message_id: 1 })
 
-    await (t as any).flow.prompt(100, 'how old?', { id: 'age', from: 9 })
+    tg.flow.handle('age', { onAnswer: () => {} })
+
+    await tg.flow.prompt(100, 'how old?', { id: 'age', from: 9 })
 
     expect((await storage.get('100:9:message'))!.expiresAt).toBe(11000)
 
-    await t.shutdown()
+    await tg.shutdown()
+    await mock.stop()
   })
 
   it('expired record runs onTimeout, deletes itself, propagates next', async () => {
     vi.setSystemTime(new Date(1000))
 
     const storage = new MemoryStorage<PersistedFlow>()
-    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow({ storage }))
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage })))
 
-    await t.start()
+    await tg.start()
 
-    ;(t as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
+    ;(tg as { send: unknown }).send = vi.fn().mockResolvedValue({ message_id: 1 })
 
     const onTimeout = vi.fn()
 
-    ;(t as any).flow.handle('age', { onAnswer: () => {}, onTimeout })
+    tg.flow.handle('age', { onAnswer: () => {}, onTimeout })
 
-    await (t as any).flow.prompt(100, 'how old?', { id: 'age', from: 9, ttl: 5000 })
+    await tg.flow.prompt(100, 'how old?', { id: 'age', from: 9, ttl: 5000 })
 
     vi.setSystemTime(new Date(20_000))
 
     const userHandler = vi.fn()
 
-    ;(t as any).on('message', userHandler)
+    tg.on('message', userHandler)
 
-    await (t as any).dispatch(makeUpdate('message', { chat: { id: 100 }, from: { id: 9 }, text: 'late' }))
+    await dispatchOf(tg)(makeUpdate('message', { chat: { id: 100 }, from: { id: 9 }, text: 'late' }))
 
     expect(onTimeout).toHaveBeenCalledOnce()
     expect(await storage.has('100:9:message')).toBe(false)
     expect(userHandler).toHaveBeenCalledOnce()
 
-    await t.shutdown()
+    await tg.shutdown()
+    await mock.stop()
   })
 
   it('no ttl + no defaultTtl = no expiresAt', async () => {
     vi.setSystemTime(new Date(1000))
 
     const storage = new MemoryStorage<PersistedFlow>()
-    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow({ storage }))
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage })))
 
-    await t.start()
+    await tg.start()
 
-    ;(t as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
-    ;(t as any).flow.handle('age', { onAnswer: () => {} })
+    ;(tg as { send: unknown }).send = vi.fn().mockResolvedValue({ message_id: 1 })
 
-    await (t as any).flow.prompt(100, 'how old?', { id: 'age', from: 9 })
+    tg.flow.handle('age', { onAnswer: () => {} })
+
+    await tg.flow.prompt(100, 'how old?', { id: 'age', from: 9 })
 
     expect((await storage.get('100:9:message'))!.expiresAt).toBeUndefined()
 
-    await t.shutdown()
+    await tg.shutdown()
+    await mock.stop()
   })
 })

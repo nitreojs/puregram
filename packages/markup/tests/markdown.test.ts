@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
 import { MarkupParseError } from '../src/error'
+import { Formatted } from '../src/formatted'
 import { md, markdown } from '../src/parsers/markdown'
 
 describe('md() function form', () => {
@@ -86,5 +87,29 @@ describe('md() function form', () => {
 
   it('markdown is an alias for md', () => {
     expect(markdown).toBe(md)
+  })
+})
+
+describe('md`` tagged-template form', () => {
+  it('treats string interpolations as literal text', () => {
+    expect(md`Hello, **${'**evil**'}**!`.text).toBe('Hello, **evil**!')
+  })
+
+  it('first-indent strip preserves staircase', () => {
+    const f = md`
+      hello
+      world
+        deeper
+    `
+
+    expect(f.text).toBe('hello\nworld\n  deeper')
+  })
+
+  it('merges Formatted interpolations', () => {
+    const inner = new Formatted('X', [{ type: 'italic', offset: 0, length: 1 }])
+    const f = md`a ${inner} b`
+
+    expect(f.text).toBe('a X b')
+    expect(f.entities).toEqual([{ type: 'italic', offset: 2, length: 1 }])
   })
 })

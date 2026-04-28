@@ -1,6 +1,8 @@
 import { MarkupParseError } from '../error'
 import { type Entity, Formatted } from '../formatted'
 
+import { composeWithSentinels, expandSentinels, isTemplateStringsArray } from './sentinel'
+
 const ESCAPABLE = new Set(['\\', '`', '*', '_', '~', '|', '[', ']', '(', ')', '>'])
 
 interface State {
@@ -338,9 +340,74 @@ function parseBlockContent (s: State): void {
   }
 }
 
-/** parses our MarkdownV2-flavored dialect (function-call form). tagged-template form added separately */
-export function md (source: string): Formatted {
-  return parseMarkdown(source)
+const RE_SPECIALS = /[.*+?^${}()|[\]\\]/g
+
+function escapeForRegExp (s: string): string {
+  return s.replace(RE_SPECIALS, '\\$&')
+}
+
+function detectFirstIndent (strings: TemplateStringsArray): string | null {
+  const first = strings[0] ?? ''
+
+  if (!first.startsWith('\n')) {
+    return null
+  }
+
+  const m = first.match(/^\n([ \t]+)/)
+
+  return m === null ? '' : m[1]!
+}
+
+function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]): Formatted {
+  const indent = detectFirstIndent(strings)
+  let firstSeen = false
+
+  const transform = (s: string): string => {
+    let out = s
+
+    if (!firstSeen) {
+      firstSeen = true
+
+      if (indent !== null) {
+        out = out.startsWith('\n') ? out.slice(1) : out
+
+        if (indent !== '' && out.startsWith(indent)) {
+          out = out.slice(indent.length)
+        }
+      }
+    }
+
+    if (indent !== null && indent !== '') {
+      out = out.replace(new RegExp(`\\n${escapeForRegExp(indent)}`, 'g'), '\n')
+    }
+
+    return out
+  }
+
+  const segments = Array.from(strings) as string[]
+
+  if (indent !== null && segments.length > 0) {
+    const last = segments.length - 1
+    segments[last] = segments[last]!.replace(/\n[ \t]*$/, '')
+  }
+
+  // composeWithSentinels expects a TemplateStringsArray-shaped object; it only
+  // reads .length and integer indices, so a plain array is acceptable
+  const { source, slots } = composeWithSentinels(segments as unknown as TemplateStringsArray, rest, transform)
+  const parsed = parseMarkdown(source)
+
+  return expandSentinels(parsed, slots)
+}
+
+/** parses our MarkdownV2-flavored dialect. accepts both function-call form and tagged-template form */
+export function md (source: string): Formatted
+export function md (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
+export function md (first: string | TemplateStringsArray, ...rest: readonly unknown[]): Formatted {
+  if (isTemplateStringsArray(first)) {
+    return mdTagged(first, rest)
+  }
+
+  return parseMarkdown(first)
 }
 
 /** alias for {@link md} */

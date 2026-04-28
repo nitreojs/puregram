@@ -127,10 +127,13 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
+  const usesHas = UPDATE_KINDS.some(k => k.extras?.some(e => e.returnType.includes('Has<')))
+
   const imports = [
     importTypeNamed([...referencedTypes].sort(), './types'),
     ...(paramsImports.size > 0 ? [importTypeNamed([...paramsImports].sort(), './methods')] : []),
     importTypeNamed(['TelegramLike'], '../telegram-like'),
+    ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
     ...(wrappedNames.size > 0 ? [importNamed([...wrappedNames].sort(), './structures')] : []),
     importNamed(['INSPECT', 'makeInspect'], './inspect')
   ]
@@ -433,15 +436,29 @@ function emitExtra (extra: UpdateExtra) {
   }
 
   const body = ts.factory.createBlock(parseStatements(extra.body), true)
+  const params = extra.params ? parseParams(extra.params) : []
   const node = ts.factory.createMethodDeclaration(
     undefined, undefined,
     ts.factory.createIdentifier(extra.name),
-    undefined, undefined, [],
+    undefined, undefined, params,
     returnType,
     body
   )
 
   return doc ? jsDoc(doc, node) : node
+}
+
+function parseParams (src: string) {
+  const file = ts.createSourceFile('extra.ts', `function _(${src}) {}`, ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS)
+  const stmt = file.statements[0] as ts.FunctionDeclaration
+
+  if (!stmt || !ts.isFunctionDeclaration(stmt)) {
+    throw new Error(`failed to parse extras params: ${src}`)
+  }
+
+  return stmt.parameters.map(p => ts.factory.createParameterDeclaration(
+    undefined, undefined, p.name, p.questionToken, p.type, p.initializer
+  ))
 }
 
 function emitWrapperGetter (f: SchemaField, camelName: string, wrapperName: string) {

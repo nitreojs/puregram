@@ -7,6 +7,7 @@
 import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted, TelegramVideoNote, TelegramVoice } from "./types";
 import type { AnswerCallbackQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
 import type { TelegramLike } from "../telegram-like";
+import type { Has } from "../util-types";
 import { Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, WebAppData, WriteAccessAllowed } from "./structures";
 import { INSPECT, makeInspect } from "./inspect";
 /**
@@ -730,13 +731,109 @@ export class MessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -2375,13 +2472,109 @@ export class EditedMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -4020,13 +4213,109 @@ export class ChannelPostUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -5665,13 +5954,109 @@ export class EditedChannelPostUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -7364,13 +7749,109 @@ export class BusinessMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -9009,13 +9490,109 @@ export class EditedBusinessMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -10020,6 +10597,18 @@ export class MessageReactionUpdate {
     get newReaction(): TelegramReactionType[] {
         return this.raw.new_reaction;
     }
+    /**
+     * True if the reaction was made by a `user`.
+     */
+    hasUser(): this is Has<this, "user"> {
+        return this.raw.user != null;
+    }
+    /**
+     * True if the reaction was made by an anonymous channel admin (`actor_chat`).
+     */
+    hasActorChat(): this is Has<this, "actorChat"> {
+        return this.raw.actor_chat != null;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -10118,6 +10707,12 @@ export class InlineQueryUpdate {
     get location(): Location | undefined {
         return this.raw.location ? (this._location ??= new Location(this.raw.location)) : undefined;
     }
+    /**
+     * True if the inline query has `location`.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -10175,6 +10770,18 @@ export class ChosenInlineResultUpdate {
      */
     get query(): string {
         return this.raw.query;
+    }
+    /**
+     * True if the chosen inline result has `location`.
+     */
+    hasLocation(): this is Has<this, "location"> {
+        return this.raw.location != null;
+    }
+    /**
+     * True if the chosen inline result has `inline_message_id`.
+     */
+    hasInlineMessageId(): this is Has<this, "inlineMessageId"> {
+        return this.raw.inline_message_id != null;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -10253,6 +10860,30 @@ export class CallbackQueryUpdate {
      */
     get userId(): number {
         return this.raw.from.id;
+    }
+    /**
+     * True if the callback query carries a `message`.
+     */
+    hasMessage(): this is Has<this, "message"> {
+        return this.raw.message != null;
+    }
+    /**
+     * True if the callback query has `inline_message_id` (came from an inline-mode bot message).
+     */
+    hasInlineMessageId(): this is Has<this, "inlineMessageId"> {
+        return this.raw.inline_message_id != null;
+    }
+    /**
+     * True if the callback query has `data`.
+     */
+    hasData(): this is Has<this, "data"> {
+        return this.raw.data != null;
+    }
+    /**
+     * True if the callback query has `game_short_name`.
+     */
+    hasGameShortName(): this is Has<this, "gameShortName"> {
+        return this.raw.game_short_name != null;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -10556,6 +11187,18 @@ export class PollAnswerUpdate {
      */
     get optionPersistentIds(): string[] {
         return this.raw.option_persistent_ids;
+    }
+    /**
+     * True if the poll answer was cast by a `user`.
+     */
+    hasUser(): this is Has<this, "user"> {
+        return this.raw.user != null;
+    }
+    /**
+     * True if the poll answer was cast by an anonymous channel (`voter_chat`).
+     */
+    hasVoterChat(): this is Has<this, "voterChat"> {
+        return this.raw.voter_chat != null;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -14153,13 +14796,109 @@ export class NewChatMembersUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -15798,13 +16537,109 @@ export class LeftChatMemberUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -17443,13 +18278,109 @@ export class NewChatTitleUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -19088,13 +20019,109 @@ export class NewChatPhotoUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -20733,13 +21760,109 @@ export class DeleteChatPhotoUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -22378,13 +23501,109 @@ export class GroupChatCreatedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -24023,13 +25242,109 @@ export class PinnedMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -25668,13 +26983,109 @@ export class InvoiceUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -27313,13 +28724,109 @@ export class SuccessfulPaymentUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -28958,13 +30465,109 @@ export class UsersSharedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -30603,13 +32206,109 @@ export class ChatSharedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -32248,13 +33947,109 @@ export class WebAppDataUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -33893,13 +35688,109 @@ export class VideoChatScheduledUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -35538,13 +37429,109 @@ export class VideoChatStartedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -37183,13 +39170,109 @@ export class VideoChatEndedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -38828,13 +40911,109 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -40473,13 +42652,109 @@ export class ForumTopicCreatedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -42118,13 +44393,109 @@ export class ForumTopicEditedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -43763,13 +46134,109 @@ export class ForumTopicClosedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -45408,13 +47875,109 @@ export class ForumTopicReopenedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -47053,13 +49616,109 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -48698,13 +51357,109 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -50343,13 +53098,109 @@ export class GiveawayCreatedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -51988,13 +54839,109 @@ export class GiveawayCompletedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -53633,13 +56580,109 @@ export class GiveawayWinnersUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -55278,13 +58321,109 @@ export class BoostAddedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -56923,13 +60062,109 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -58568,13 +61803,109 @@ export class MigrateToChatIdUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -60213,13 +63544,109 @@ export class MigrateFromChatIdUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -61858,13 +65285,109 @@ export class PassportDataUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -63503,13 +67026,109 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;
@@ -65148,13 +68767,109 @@ export class WriteAccessAllowedUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
-     * True if this message is a reply.
+     * True if this message has `text`.
      */
-    isReply(): boolean {
+    hasText(): this is Has<this, "text"> {
+        return this.raw.text != null;
+    }
+    /**
+     * True if this message has `caption`.
+     */
+    hasCaption(): this is Has<this, "caption"> {
+        return this.raw.caption != null;
+    }
+    /**
+     * True if this message has `dice`.
+     */
+    hasDice(): this is Has<this, "dice"> {
+        return this.raw.dice != null;
+    }
+    /**
+     * True if this message has `author_signature`.
+     */
+    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * True if this message has at least one `entities` item.
+     */
+    hasEntities(): this is Has<this, "entities"> {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * True if this message has at least one `caption_entities` item.
+     */
+    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * True if any `entities` item has the given `type`.
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if any `caption_entities` item has the given `type`.
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * True if this message has `forward_origin`.
+     */
+    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * Alias for `hasForwardOrigin()`.
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * True if this reply quotes part of the original message.
+     */
+    hasQuote(): this is Has<this, "quote"> {
+        return this.raw.quote != null;
+    }
+    /**
+     * True if this message has `external_reply`.
+     */
+    hasExternalReply(): this is Has<this, "externalReply"> {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * True if this message has `reply_to_message`.
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if this message is part of a media group (album).
+     * True if this message was sent via an inline bot.
+     */
+    hasViaBot(): this is Has<this, "viaBot"> {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * True if this message replies to a story.
+     */
+    hasReplyToStory(): this is Has<this, "replyToStory"> {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * True if this message has `link_preview_options`.
+     */
+    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * True if this message is a reply.
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.
      */
     isMediaGroup(): boolean {
         return this.raw.media_group_id != null;

@@ -3214,7 +3214,7 @@ punycode@^2.1.0:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
-puregram@^2.20.1, puregram@^2.26.8:
+puregram@^2.20.1:
   version "2.27.0"
   resolved "https://registry.yarnpkg.com/puregram/-/puregram-2.27.0.tgz#653fab7324b17a68d27a20ffe27b88ac7b5b8ccb"
   integrity sha512-AiLYrPKcrRB0xXhPi7AWypC97+wQo6Za3bPRRkywhbV4D2BvZ0hszjfP9n6MH2P8/TP2OEKaPiJjsToLtNFqEQ==

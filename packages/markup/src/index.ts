@@ -1,2 +1,16 @@
-// @puregram/markup — entity-based text formatting plugin
-export {}
+export { markup } from './plugin'
+export { Formatted, type Entity } from './formatted'
+export { format, formatDedent } from './compose'
+export {
+  bold, italic, underline, strikethrough,
+  spoiler, blockquote, expandableBlockquote, code
+} from './builders/modifier'
+export {
+  link, textMention, customEmoji, pre,
+  mentionUser, mentionBot
+} from './builders/field'
+export type { Modifier, ModifierName } from './builders/chain'
+export { html, htmlb } from './parsers/html'
+export { md, markdown } from './parsers/markdown'
+export { join, joinWithEntities } from './join'
+export { MarkupParseError } from './error'

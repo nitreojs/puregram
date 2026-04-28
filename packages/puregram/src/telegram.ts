@@ -4,9 +4,16 @@ import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
 import { installShortcuts } from './api/shortcuts'
+import { createDebug } from './debug'
 import { attach } from './dispatch/attach'
 import { CustomUpdateRegistry } from './dispatch/custom-updates'
-import type { Middleware, ErrorHandler, HookOptions, RequestHookName } from './dispatch/hooks'
+import type {
+  DispatchErrorHandler,
+  ErrorHandler,
+  HookOptions,
+  Middleware,
+  RequestHookName
+} from './dispatch/hooks'
 import { HookRegistry } from './dispatch/hooks'
 import type { UpdateHandler } from './dispatch/on'
 import { Dispatcher } from './dispatch/on'
@@ -21,6 +28,8 @@ import type { Plugin } from './plugins/plugin'
 import { PluginRegistry } from './plugins/registry'
 import { PollingTransport, type StartPollingOptions } from './transport/polling'
 import { createWebhookCallback } from './transport/webhook'
+
+const dispatchDebug = createDebug('puregram:dispatch')
 
 /* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
 export interface Telegram<Ext = unknown> extends TelegramShortcuts {}
@@ -233,6 +242,7 @@ export class Telegram<Ext = unknown> {
   useHook (name: RequestHookName | 'onUpdate', fn: Middleware<unknown>, options?: HookOptions): this
   useHook (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): this
   useHook (name: 'onError', fn: ErrorHandler): this
+  useHook (name: 'onDispatchError', fn: DispatchErrorHandler): this
   /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
   useHook (name: string, fn: any, options?: HookOptions): this {
     this.hooks.add(name as never, fn, options)
@@ -267,7 +277,9 @@ export class Telegram<Ext = unknown> {
   emit (kind: string, payload: Record<string, unknown>) {
     const update = this.customUpdates.build(kind, payload)
 
-    this.dispatch(update).catch(() => undefined)
+    this.dispatch(update).catch((error) => {
+      this.reportDispatchError(error as Error, payload)
+    })
   }
 
   async startPolling (options: StartPollingOptions = {}) {
@@ -279,6 +291,9 @@ export class Telegram<Ext = unknown> {
         const update = buildUpdate(rawUpdate, this) as { kind: string }
 
         await this.dispatch(update)
+      },
+      onError: (error, raw) => {
+        this.reportDispatchError(error, raw)
       }
     })
 
@@ -295,6 +310,9 @@ export class Telegram<Ext = unknown> {
         const update = buildUpdate(rawUpdate, this) as { kind: string }
 
         await this.dispatch(update)
+      },
+      onError: (error, raw) => {
+        this.reportDispatchError(error, raw)
       }
     }, secret)
   }
@@ -302,7 +320,10 @@ export class Telegram<Ext = unknown> {
   async dropPendingUpdates (value?: boolean | string[]) {
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
-      buildAndDispatch: async () => {}
+      buildAndDispatch: async () => {},
+      onError: (error, raw) => {
+        this.reportDispatchError(error, raw)
+      }
     })
 
     return this.polling.drop(value)
@@ -314,6 +335,28 @@ export class Telegram<Ext = unknown> {
       await next()
     })
   }
+
+  // funnel for dispatch errors. runs registered onDispatchError handlers; when
+  // none are registered, logs via debug and rethrows on a microtask so node's
+  // default uncaughtException semantics kick in (matches v2 loud-by-default)
+  private reportDispatchError (error: Error, raw: Record<string, unknown>) {
+    this.hooks.runDispatchError(error, { raw })
+      .then((handled) => {
+        if (!handled) {
+          dispatchDebug('handler threw: %O', error)
+          rethrowAsync(error)
+        }
+      })
+      .catch((handlerError: unknown) => {
+        rethrowAsync(handlerError as Error)
+      })
+  }
+}
+
+function rethrowAsync (error: Error) {
+  queueMicrotask(() => {
+    throw error
+  })
 }
 
 // build the canonical telegram command regex for a string-form `tg.command(name, …)`

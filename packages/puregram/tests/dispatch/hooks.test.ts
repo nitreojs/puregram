@@ -64,4 +64,35 @@ describe('HookRegistry', () => {
 
     expect(result.message).toBe('wrapped: original')
   })
+
+  it('runDispatchError returns false when no handlers are registered', async () => {
+    const reg = new HookRegistry()
+
+    const handled = await reg.runDispatchError(new Error('boom'), { raw: {} })
+
+    expect(handled).toBe(false)
+  })
+
+  it('runDispatchError invokes registered handlers and returns true', async () => {
+    const reg = new HookRegistry()
+    const seen: { msg: string, raw: Record<string, unknown> }[] = []
+
+    reg.add('onDispatchError', (err, ctx) => {
+      seen.push({ msg: err.message, raw: ctx.raw })
+    })
+    reg.add('onDispatchError', (err) => {
+      seen.push({ msg: `b:${err.message}`, raw: {} })
+    })
+
+    const handled = await reg.runDispatchError(
+      new Error('boom'),
+      { raw: { update_id: 7 } }
+    )
+
+    expect(handled).toBe(true)
+    expect(seen).toEqual([
+      { msg: 'boom', raw: { update_id: 7 } },
+      { msg: 'b:boom', raw: {} }
+    ])
+  })
 })

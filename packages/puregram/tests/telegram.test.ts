@@ -216,4 +216,75 @@ describe('Telegram', () => {
     expect(seen).toEqual([])
     expect(fellThrough).toBe(true)
   })
+
+  it('routes handler errors through onDispatchError with raw payload', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const seen: { msg: string, raw: Record<string, unknown> }[] = []
+
+    tg.useHook('onDispatchError', (err, ctx) => {
+      seen.push({ msg: err.message, raw: ctx.raw })
+    })
+
+    tg.on('message', () => {
+      throw new Error('handler boom')
+    })
+
+    const raw = {
+      update_id: 42,
+      message: { message_id: 1, date: 0, chat: { id: 100, type: 'private' }, text: 'hi' }
+    }
+
+    const callback = tg.getWebhookCallback()
+    const noopRes = {
+      writeHead: () => undefined,
+      end: () => undefined
+    } as any
+    const req: any = { method: 'POST', headers: {} }
+
+    req[Symbol.asyncIterator] = function * () {
+      yield Buffer.from(JSON.stringify(raw))
+    }
+
+    await callback(req, noopRes)
+    // webhook dispatches inside setImmediate; let it flush
+    await new Promise(resolve => setImmediate(resolve))
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(seen).toHaveLength(1)
+    expect(seen[0]?.msg).toBe('handler boom')
+    expect(seen[0]?.raw).toEqual(raw)
+  })
+
+  it('falls through to uncaughtException when no onDispatchError is registered', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+
+    const caught: Error[] = []
+    const listener = (err: Error) => {
+      caught.push(err)
+    }
+    const previous = process.listeners('uncaughtException')
+
+    process.removeAllListeners('uncaughtException')
+    process.on('uncaughtException', listener)
+
+    try {
+      const internal = tg as unknown as {
+        reportDispatchError: (err: Error, raw: Record<string, unknown>) => void
+      }
+
+      internal.reportDispatchError(new Error('uncaught boom'), { update_id: 1 })
+
+      // microtask schedules the rethrow; let it run
+      await new Promise(resolve => setImmediate(resolve))
+      await new Promise(resolve => setImmediate(resolve))
+
+      expect(caught.map(e => e.message)).toContain('uncaught boom')
+    } finally {
+      process.removeListener('uncaughtException', listener)
+
+      for (const fn of previous) {
+        process.on('uncaughtException', fn as (err: Error) => void)
+      }
+    }
+  })
 })

@@ -9,7 +9,15 @@ export type { Plugin } from './plugins/plugin'
 export { PluginConflict, PluginCycle, PluginMissingDep } from './plugins/installer'
 
 export type { HttpClient, HttpRequestInput, HttpResponse } from './http/client'
-export type { HookPriority, RequestContext, ErrorContext, Middleware, ErrorHandler } from './dispatch/hooks'
+export type {
+  DispatchErrorContext,
+  DispatchErrorHandler,
+  ErrorContext,
+  ErrorHandler,
+  HookPriority,
+  Middleware,
+  RequestContext
+} from './dispatch/hooks'
 export type { UpdateHandler } from './dispatch/on'
 export type { StartPollingOptions } from './transport/polling'
 export type { WebhookCallback } from './transport/webhook'

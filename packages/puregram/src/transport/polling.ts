@@ -14,6 +14,7 @@ export interface StartPollingOptions {
 export interface PollingDeps {
   tg: Telegram
   buildAndDispatch: (rawUpdate: Record<string, unknown>) => Promise<void>
+  onError: (error: Error, rawUpdate: Record<string, unknown>) => void
 }
 
 export class PollingTransport {
@@ -122,9 +123,12 @@ export class PollingTransport {
     for (const update of updates) {
       this.offset = update.update_id + 1
 
-      this.deps.buildAndDispatch(update as unknown as Record<string, unknown>)
+      const raw = update as unknown as Record<string, unknown>
+
+      this.deps.buildAndDispatch(raw)
         .catch((error) => {
           debug('handler threw: %O', error)
+          this.deps.onError(error as Error, raw)
         })
     }
 

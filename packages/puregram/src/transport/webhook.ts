@@ -4,6 +4,7 @@ export type WebhookCallback = (req: IncomingMessage, res: ServerResponse) => Pro
 
 export interface WebhookDeps {
   buildAndDispatch: (rawUpdate: Record<string, unknown>) => Promise<void>
+  onError: (error: Error, rawUpdate: Record<string, unknown>) => void
 }
 
 export function createWebhookCallback (deps: WebhookDeps, secret?: string) {
@@ -55,7 +56,9 @@ export function createWebhookCallback (deps: WebhookDeps, secret?: string) {
     res.end()
 
     setImmediate(() => {
-      deps.buildAndDispatch(update).catch(() => undefined)
+      deps.buildAndDispatch(update).catch((error: unknown) => {
+        deps.onError(error as Error, update)
+      })
     })
   }
 }

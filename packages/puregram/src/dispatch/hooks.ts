@@ -14,6 +14,13 @@ export type ErrorContext = Partial<RequestContext>
 export type Middleware<C> = (ctx: C, next: () => Promise<void>) => unknown
 export type ErrorHandler = (err: Error, ctx: ErrorContext) => Error | void | Promise<Error | void>
 
+export interface DispatchErrorContext {
+  /** the raw update payload that failed to dispatch, as received from telegram */
+  raw: Record<string, unknown>
+}
+
+export type DispatchErrorHandler = (err: Error, ctx: DispatchErrorContext) => unknown
+
 export interface HookOptions {
   priority?: HookPriority
 }
@@ -54,11 +61,13 @@ export class HookRegistry {
   private readonly init: Middleware<{ tg: unknown }>[] = []
   private readonly shutdown: Middleware<{ tg: unknown }>[] = []
   private readonly error: ErrorHandler[] = []
+  private readonly dispatchError: DispatchErrorHandler[] = []
 
   add (name: RequestHookName, fn: Middleware<RequestContext>, opts?: HookOptions): void
   add (name: 'onUpdate', fn: Middleware<unknown>, opts?: HookOptions): void
   add (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): void
   add (name: 'onError', fn: ErrorHandler): void
+  add (name: 'onDispatchError', fn: DispatchErrorHandler): void
   /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
   add (name: string, fn: any, opts?: HookOptions): void {
     const priority = opts?.priority ?? 'normal'
@@ -89,6 +98,12 @@ export class HookRegistry {
 
     if (name === 'onError') {
       this.error.push(fn)
+
+      return
+    }
+
+    if (name === 'onDispatchError') {
+      this.dispatchError.push(fn)
 
       return
     }
@@ -155,6 +170,23 @@ export class HookRegistry {
     }
 
     return current
+  }
+
+  /**
+   * runs registered onDispatchError handlers; returns true if any handler was
+   * registered (caller should treat the error as observed) and false if no
+   * handler was registered (caller should fall back to its default loud behavior)
+   */
+  async runDispatchError (err: Error, ctx: DispatchErrorContext) {
+    if (this.dispatchError.length === 0) {
+      return false
+    }
+
+    for (const handler of this.dispatchError) {
+      await handler(err, ctx)
+    }
+
+    return true
   }
 }
 

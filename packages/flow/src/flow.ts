@@ -5,7 +5,14 @@ import { createPlugin, type Telegram } from 'puregram'
 import { createAugmentMiddleware } from './augment/middleware'
 import { FlowPersistenceUnconfigured } from './errors'
 import { MediaGroupBuffer } from './media-group/buffer'
+import {
+  persistentPrompt,
+  persistentWaitFor,
+  type PersistentPromptOptions,
+  type PersistentWaitForOptions
+} from './persistent/dispatch'
 import { HandlerRegistry } from './persistent/handlers'
+import { createPersistentMiddleware } from './persistent/middleware'
 import type { FlowHandleConfig, PersistedFlow } from './persistent/types'
 import { createPrompt, type PromptOptions } from './prompt'
 import { createWaitForMiddleware } from './wait-for/middleware'
@@ -61,6 +68,7 @@ export interface FlowExtension {
 export function flow (options: FlowOptions = {}) {
   const defaultWindow = options.mediaGroupWindow ?? 1000
   const storage = options.storage
+  const defaultTtl = options.defaultTtl
 
   return createPlugin({
     name: 'flow',
@@ -74,15 +82,44 @@ export function flow (options: FlowOptions = {}) {
       const ext: FlowExtension = {
         waitFor: async <K extends keyof UpdateKindMap, T = UpdateKindMap[K]> (
           kind: K,
-          opts: WaitForOptions<K, T> & { id?: string } = {}
-        ): Promise<T | null> => {
+          opts: WaitForOptions<K, T> & {
+            id?: string
+            payload?: unknown
+            ttl?: number
+            chatId?: number
+            fromId?: number
+          } = {}
+        ) => {
           if (opts.id !== undefined) {
             if (storage === undefined) {
               throw new FlowPersistenceUnconfigured()
             }
 
-            // wired in section J — until then opting in to persistence throws so the gap is visible
-            throw new Error('persistent waitFor path not wired (section J)')
+            const waitForOpts: PersistentWaitForOptions = { id: opts.id }
+
+            if (opts.payload !== undefined) {
+              waitForOpts.payload = opts.payload
+            }
+
+            if (opts.ttl !== undefined) {
+              waitForOpts.ttl = opts.ttl
+            }
+
+            if (opts.chatId !== undefined) {
+              waitForOpts.chatId = opts.chatId
+            }
+
+            if (opts.fromId !== undefined) {
+              waitForOpts.fromId = opts.fromId
+            }
+
+            await persistentWaitFor(
+              { storage, handlers: handlerRegistry, defaultTtl },
+              kind,
+              waitForOpts
+            )
+
+            return null
           }
 
           const waiter = new Waiter<K, T>(kind, opts)
@@ -94,14 +131,45 @@ export function flow (options: FlowOptions = {}) {
         prompt: async <K extends keyof UpdateKindMap = 'message', T = UpdateKindMap[K]> (
           chat: number | string,
           text: string,
-          opts: PromptOptions<K, T> & { id?: string } = {}
-        ): Promise<T | null> => {
+          opts: PromptOptions<K, T> & { id?: string, payload?: unknown, ttl?: number } = {}
+        ) => {
           if (opts.id !== undefined) {
             if (storage === undefined) {
               throw new FlowPersistenceUnconfigured()
             }
 
-            throw new Error('persistent prompt path not wired (section J)')
+            const promptOpts: PersistentPromptOptions<K> = { id: opts.id }
+
+            if (opts.payload !== undefined) {
+              promptOpts.payload = opts.payload
+            }
+
+            if (opts.ttl !== undefined) {
+              promptOpts.ttl = opts.ttl
+            }
+
+            if (opts.kind !== undefined) {
+              promptOpts.kind = opts.kind
+            }
+
+            if (opts.from !== undefined) {
+              promptOpts.from = opts.from
+            }
+
+            if (opts.reply_markup !== undefined) {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              promptOpts.reply_markup = opts.reply_markup
+            }
+
+            await persistentPrompt<K>(
+              tg,
+              { storage, handlers: handlerRegistry, defaultTtl },
+              chat,
+              text,
+              promptOpts
+            )
+
+            return null
           }
 
           return inMemoryPrompt<K, T>(chat, text, opts)
@@ -126,6 +194,18 @@ export function flow (options: FlowOptions = {}) {
       // augment must register before wait-for so an `update.flow.waitFor(...)`
       // call from inside a high-priority handler still operates on a fully-augmented update
       tg.useHook('onUpdate', createAugmentMiddleware(ext), { priority: 'high' })
+
+      // persistent matcher runs before in-memory wait-for so a persisted record always
+      // wins over a freshly-armed in-memory waiter for the same (chat, user, kind) triple
+      if (storage !== undefined) {
+        tg.useHook('onUpdate', createPersistentMiddleware({
+          storage,
+          handlers: handlerRegistry,
+          tg,
+          defaultTtl
+        }), { priority: 'high' })
+      }
+
       tg.useHook('onUpdate', createWaitForMiddleware(registry, tg), { priority: 'high' })
       tg.useHook('onShutdown', () => {
         registry.cancelAll()

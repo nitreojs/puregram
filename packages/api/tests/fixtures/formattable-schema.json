@@ -1,0 +1,53 @@
+{
+  "version": { "major": 0, "minor": 0, "patch": 0 },
+  "recentChanges": { "year": 2026, "month": 1, "day": 1 },
+  "source": {
+    "corefork": "test",
+    "core": "test",
+    "fetchedAt": "2026-01-01T00:00:00.000Z"
+  },
+  "methods": [
+    {
+      "name": "sendMessage",
+      "description": "",
+      "multipartOnly": false,
+      "arguments": [
+        { "name": "text", "description": "", "required": true, "type": { "kind": "string" } },
+        { "name": "entities", "description": "", "required": false, "type": { "kind": "array", "of": { "kind": "reference", "name": "MessageEntity" } } }
+      ],
+      "returnType": { "kind": "reference", "name": "Message" }
+    },
+    {
+      "name": "sendMediaGroup",
+      "description": "",
+      "multipartOnly": false,
+      "arguments": [
+        { "name": "media", "description": "", "required": true, "type": { "kind": "array", "of": { "kind": "reference", "name": "InputMedia" } } }
+      ],
+      "returnType": { "kind": "reference", "name": "Message" }
+    }
+  ],
+  "objects": [
+    {
+      "kind": "object",
+      "name": "MessageEntity",
+      "description": "",
+      "fields": [{ "name": "type", "description": "", "required": true, "type": { "kind": "string" } }]
+    },
+    {
+      "kind": "object",
+      "name": "InputMedia",
+      "description": "",
+      "fields": [
+        { "name": "caption", "description": "", "required": false, "type": { "kind": "string" } },
+        { "name": "caption_entities", "description": "", "required": false, "type": { "kind": "array", "of": { "kind": "reference", "name": "MessageEntity" } } }
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "Message",
+      "description": "",
+      "fields": []
+    }
+  ]
+}

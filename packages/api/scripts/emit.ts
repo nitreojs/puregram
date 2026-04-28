@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { emitApiMethods } from './lib/emitter/emit-api-methods'
 import { emitEnums } from './lib/emitter/emit-enums'
 import { emitFactories } from './lib/emitter/emit-factories'
+import { emitFormattableFields } from './lib/emitter/emit-formattable-fields'
 import { emitInspect } from './lib/emitter/emit-inspect'
 import { emitMethods } from './lib/emitter/emit-methods'
 import { emitServiceEvents } from './lib/emitter/emit-service-events'
@@ -34,7 +35,8 @@ async function main () {
     ['updates.ts', emitUpdates(schema)],
     ['shortcuts.ts', emitShortcuts(schema)],
     ['service-events.ts', emitServiceEvents(schema)],
-    ['factories.ts', emitFactories(schema)]
+    ['factories.ts', emitFactories(schema)],
+    ['formattable-fields.ts', emitFormattableFields(schema)]
   ]
 
   for (const [name, content] of writes) {

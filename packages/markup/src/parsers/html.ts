@@ -2,6 +2,7 @@ import { MarkupParseError } from '../error'
 import { type Entity, Formatted } from '../formatted'
 
 import { TAG_TO_ENTITY, canonicalTag } from './html-tags'
+import { composeWithSentinels, expandSentinels, isTemplateStringsArray } from './sentinel'
 
 interface OpenTag {
   canonical: string
@@ -242,7 +243,20 @@ export function parseHtml (source: string): Formatted {
   return new Formatted(text, entities)
 }
 
-/** parses telegram html (function-call form). tagged-template form is added separately */
-export function html (source: string): Formatted {
-  return parseHtml(source)
+function htmlTagged (strings: TemplateStringsArray, rest: readonly unknown[]): Formatted {
+  const { source, slots } = composeWithSentinels(strings, rest)
+  const parsed = parseHtml(source)
+
+  return expandSentinels(parsed, slots)
+}
+
+/** parses telegram html. accepts both function-call form and tagged-template form */
+export function html (source: string): Formatted
+export function html (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
+export function html (first: string | TemplateStringsArray, ...rest: readonly unknown[]): Formatted {
+  if (isTemplateStringsArray(first)) {
+    return htmlTagged(first, rest)
+  }
+
+  return parseHtml(first)
 }

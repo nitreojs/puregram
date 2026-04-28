@@ -107,3 +107,37 @@ describe('html() function form', () => {
     expect(() => html('<a>x</a>')).toThrow(MarkupParseError)
   })
 })
+
+describe('html`` tagged-template form', () => {
+  it('treats string interpolations as literal text', () => {
+    const userName = 'A**lice**'
+    const f = html`<b>${userName}</b>`
+
+    expect(f.text).toBe('A**lice**')
+    expect(f.entities[0]!.length).toBe('A**lice**'.length)
+  })
+
+  it('does not let interpolated strings open or close tags', () => {
+    const evil = '</b>'
+    const f = html`<b>${evil}</b>`
+
+    expect(f.text).toBe('</b>')
+    expect(f.entities[0]).toMatchObject({ type: 'bold', offset: 0, length: 4 })
+  })
+
+  it('merges Formatted interpolations with offset shift', () => {
+    const inner = new Formatted('x', [{ type: 'italic', offset: 0, length: 1 }])
+    const f = html`a ${inner} b`
+
+    expect(f.text).toBe('a x b')
+    expect(f.entities).toEqual([{ type: 'italic', offset: 2, length: 1 }])
+  })
+
+  it('coerces numbers to literal text', () => {
+    expect(html`count=${42}`.text).toBe('count=42')
+  })
+
+  it('skips null/undefined/false', () => {
+    expect(html`a${null}b${undefined}c${false}d`.text).toBe('abcd')
+  })
+})

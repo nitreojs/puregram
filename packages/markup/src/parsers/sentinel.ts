@@ -54,7 +54,7 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
   let m: RegExpExecArray | null
 
   while ((m = SENTINEL_RE.exec(text)) !== null) {
-    const slotIdx = parseInt(m[1]!, 10)
+    const slotIdx = parseInt(m[1] ?? '0', 10)
     const slot = slots[slotIdx]
 
     if (slot === undefined) {
@@ -118,7 +118,9 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
       newUrl = newUrl.replace(SENTINEL_RE, (_match, idx: string) => {
         const slot = slots[parseInt(idx, 10)]
 
-        if (slot === undefined) return ''
+        if (slot === undefined) {
+          return ''
+        }
 
         return interpolate([slot]).text
       })
@@ -126,7 +128,9 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
 
     const next: Entity = { ...e, offset: newOffset, length: newLength }
 
-    if (newUrl !== undefined) next.url = newUrl
+    if (newUrl !== undefined) {
+      next.url = newUrl
+    }
 
     // reclassify text_link → text_mention when url is now a valid tg://user?id=N
     if (next.type === 'text_link' && newUrl !== undefined && newUrl.startsWith('tg://user?id=')) {

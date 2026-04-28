@@ -60,8 +60,8 @@ function parseAttrs (attrSrc: string) {
   let m: RegExpExecArray | null
 
   while ((m = ATTR_RE.exec(attrSrc)) !== null) {
-    const name = m[1]!.toLowerCase()
-    const value = m[2]! ?? m[3]! ?? m[4]! ?? ''
+    const name = (m[1] ?? '').toLowerCase()
+    const value = m[2] ?? m[3] ?? m[4] ?? ''
 
     attrs[name] = value
   }
@@ -145,7 +145,7 @@ export function parseHtml (source: string) {
   }
 
   while (i < source.length) {
-    const ch = source[i]!
+    const ch = source[i] as string
 
     if (ch === '<') {
       if (source[i + 1] === '/') {
@@ -164,11 +164,13 @@ export function parseHtml (source: string) {
         }
 
         // pre>code: transfer language attribute up to the outer <pre> and discard inner <code>
-        if (open.canonical === 'code' && stack.length > 0 && stack[stack.length - 1]!.canonical === 'pre') {
+        const top = stack[stack.length - 1]
+
+        if (open.canonical === 'code' && top !== undefined && top.canonical === 'pre') {
           const lang = (open.attrs.class ?? '').match(/language-([\w-]+)/)?.[1]
 
           if (lang !== undefined) {
-            stack[stack.length - 1]!.attrs.language = lang
+            top.attrs.language = lang
           }
 
           if (open.canonical !== canonical) {
@@ -237,10 +239,10 @@ export function parseHtml (source: string) {
     i += 1
   }
 
-  if (stack.length > 0) {
-    const top = stack[stack.length - 1]!
+  const unclosed = stack[stack.length - 1]
 
-    throw new MarkupParseError(`unclosed tag <${top.canonical}>`, top.sourceOffset, source)
+  if (unclosed !== undefined) {
+    throw new MarkupParseError(`unclosed tag <${unclosed.canonical}>`, unclosed.sourceOffset, source)
   }
 
   // strip trailing whitespace (any combo of spaces and newlines)

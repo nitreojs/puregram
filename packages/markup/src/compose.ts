@@ -66,7 +66,7 @@ function detectFirstIndent (strings: TemplateStringsArray) {
 
   const m = first.match(/^\n([ \t]+)/)
 
-  return m === null ? '' : m[1]!
+  return m === null ? '' : m[1] ?? ''
 }
 
 function applyFirstIndentStrip (s: string, indent: string, isFirst: boolean, isLast: boolean) {

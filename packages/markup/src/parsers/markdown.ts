@@ -21,6 +21,12 @@ function startsWith (s: State, str: string): boolean {
   return s.src.startsWith(str, s.pos)
 }
 
+// charAt always returns string ('' for OOB), avoiding the noUncheckedIndexedAccess
+// non-null-assertion pile-up that bracket access would force on every read
+function peek (s: State, offset = 0) {
+  return s.src.charAt(s.pos + offset)
+}
+
 interface Delim {
   open: string
   type: string
@@ -53,7 +59,7 @@ function parseInline (s: State, stopAt: string | null) {
       return
     }
 
-    const ch = s.src[s.pos]!
+    const ch = peek(s)
 
     if (ch === '\n' && stopAt === null) {
       // inline parser on a single line — let block-level handle newlines
@@ -61,9 +67,9 @@ function parseInline (s: State, stopAt: string | null) {
     }
 
     if (ch === '\\') {
-      const next = s.src[s.pos + 1]!
+      const next = peek(s, 1)
 
-      if (next !== undefined && ESCAPABLE.has(next)) {
+      if (next !== '' && ESCAPABLE.has(next)) {
         s.text += next
         s.pos += 2
         continue
@@ -117,9 +123,9 @@ function parseInlineCode (s: State) {
 
   s.pos += 1
 
-  while (s.pos < s.src.length && s.src[s.pos]! !== '`') {
-    if (s.src[s.pos]! === '\\' && s.src[s.pos + 1]! !== undefined) {
-      const next = s.src[s.pos + 1]!
+  while (s.pos < s.src.length && peek(s) !== '`') {
+    if (peek(s) === '\\' && peek(s, 1) !== '') {
+      const next = peek(s, 1)
 
       if (next === '`' || next === '\\') {
         s.text += next
@@ -128,11 +134,11 @@ function parseInlineCode (s: State) {
       }
     }
 
-    s.text += s.src[s.pos]!
+    s.text += peek(s)
     s.pos += 1
   }
 
-  if (s.src[s.pos]! !== '`') {
+  if (peek(s) !== '`') {
     fail(s, 'unmatched `', openPos)
   }
 
@@ -147,7 +153,7 @@ function parseLink (s: State) {
   s.pos += 1
   parseInline(s, ']')
 
-  if (s.src[s.pos]! !== ']' || s.src[s.pos + 1]! !== '(') {
+  if (peek(s) !== ']' || peek(s, 1) !== '(') {
     fail(s, 'malformed link — expected ](', openPos)
   }
 
@@ -204,8 +210,8 @@ export function parseMarkdown (src: string) {
   }
 
   while (i < lines.length) {
-    const line = lines[i]!
-    const lineStart = lineStarts[i]!
+    const line = lines[i] as string
+    const lineStart = lineStarts[i] as number
 
     advanceTo(lineStart)
 
@@ -218,8 +224,8 @@ export function parseMarkdown (src: string) {
 
       const buf: string[] = []
 
-      while (i < lines.length && !lines[i]!.startsWith('```')) {
-        buf.push(lines[i]!)
+      while (i < lines.length && !(lines[i] as string).startsWith('```')) {
+        buf.push(lines[i] as string)
         i += 1
       }
 
@@ -258,8 +264,8 @@ export function parseMarkdown (src: string) {
 
       const innerLines: string[] = []
 
-      while (i < lines.length && lines[i]!.startsWith('>>')) {
-        innerLines.push(lines[i]!.slice(2).replace(/^ /, ''))
+      while (i < lines.length && (lines[i] as string).startsWith('>>')) {
+        innerLines.push((lines[i] as string).slice(2).replace(/^ /, ''))
         i += 1
       }
 
@@ -289,8 +295,8 @@ export function parseMarkdown (src: string) {
 
       const innerLines: string[] = []
 
-      while (i < lines.length && lines[i]!.startsWith('>') && !lines[i]!.startsWith('>>')) {
-        innerLines.push(lines[i]!.slice(1).replace(/^ /, ''))
+      while (i < lines.length && (lines[i] as string).startsWith('>') && !(lines[i] as string).startsWith('>>')) {
+        innerLines.push((lines[i] as string).slice(1).replace(/^ /, ''))
         i += 1
       }
 
@@ -335,7 +341,7 @@ function parseBlockContent (s: State) {
   while (s.pos < s.src.length) {
     parseInline(s, null)
 
-    if (s.src[s.pos]! === '\n') {
+    if (peek(s) === '\n') {
       s.text += '\n'
       s.pos += 1
     }
@@ -357,7 +363,7 @@ function detectFirstIndent (strings: TemplateStringsArray) {
 
   const m = first.match(/^\n([ \t]+)/)
 
-  return m === null ? '' : m[1]!
+  return m === null ? '' : m[1] ?? ''
 }
 
 function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
@@ -391,7 +397,7 @@ function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
   if (indent !== null && segments.length > 0) {
     const last = segments.length - 1
 
-    segments[last] = segments[last]!.replace(/\n[ \t]*$/, '')
+    segments[last] = (segments[last] as string).replace(/\n[ \t]*$/, '')
   }
 
   // composeWithSentinels expects a TemplateStringsArray-shaped object; it only

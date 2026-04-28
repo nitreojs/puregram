@@ -52,7 +52,7 @@ function walkPath (root: unknown, path: readonly string[], slot: FormattableSlot
     return
   }
 
-  const head = path[0]!
+  const head = path[0] as string
   const tail = path.slice(1)
 
   if (head === '*') {

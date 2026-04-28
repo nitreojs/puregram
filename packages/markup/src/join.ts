@@ -43,7 +43,7 @@ export function join (parts: readonly Joinable[], separator: Joinable = '') {
       pieces.push(sepPiece)
     }
 
-    pieces.push(pieceFromJoinable(filtered[i]!))
+    pieces.push(pieceFromJoinable(filtered[i] as Joinable))
   }
 
   const { text, entities } = interpolate(pieces)

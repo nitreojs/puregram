@@ -13,7 +13,7 @@ export function parsePhotoSizeSource (reader: BinaryReader, version: number) {
       const secret = reader.readI64()
       const localId = reader.readI32()
 
-      return { type: 'legacy', volumeId, secret, localId }
+      return { type: 'legacy' as const, volumeId, secret, localId }
     }
 
     case PhotoSizeSourceType.Thumbnail: {
@@ -25,7 +25,7 @@ export function parsePhotoSizeSource (reader: BinaryReader, version: number) {
       const localId = reader.readI32()
 
       return {
-        type: 'thumbnail',
+        type: 'thumbnail' as const,
         volumeId,
         fileType: rawFileType as FileType,
         thumbnailType,
@@ -38,7 +38,9 @@ export function parsePhotoSizeSource (reader: BinaryReader, version: number) {
       const dialogId = reader.readI64()
       const dialogAccessHash = reader.readI64()
       const localId = reader.readI32()
-      const type = sourceType === PhotoSizeSourceType.DialogPhotoSmall ? 'dialog_photo_small' : 'dialog_photo_big'
+      const type = sourceType === PhotoSizeSourceType.DialogPhotoSmall
+        ? ('dialog_photo_small' as const)
+        : ('dialog_photo_big' as const)
 
       return { type, volumeId, dialogId, dialogAccessHash, localId }
     }
@@ -49,7 +51,7 @@ export function parsePhotoSizeSource (reader: BinaryReader, version: number) {
       const localId = reader.readI32()
 
       return {
-        type: 'sticker_set_thumbnail',
+        type: 'sticker_set_thumbnail' as const,
         volumeId,
         stickerSetId,
         stickerSetAccessHash,

@@ -14,7 +14,7 @@ describe('Formatted', () => {
     const f = new Formatted('hello', [])
 
     expect(f.toString()).toBe('hello')
-    expect(`${f}`).toBe('hello')
+    expect(String(f)).toBe('hello')
   })
 
   it('Formatted.from returns the same instance for a Formatted', () => {

@@ -6,15 +6,15 @@ export interface FormattableSlot {
   entitiesKey: string
 }
 
-function isStringType (ref: SchemaTypeRef): boolean {
+function isStringType (ref: SchemaTypeRef) {
   return ref.kind === 'string'
 }
 
-function isMessageEntityArray (ref: SchemaTypeRef): boolean {
+function isMessageEntityArray (ref: SchemaTypeRef) {
   return ref.kind === 'array' && ref.of.kind === 'reference' && ref.of.name === 'MessageEntity'
 }
 
-function refToObjectName (ref: SchemaTypeRef): { name: string, isArray: boolean } | null {
+function refToObjectName (ref: SchemaTypeRef) {
   if (ref.kind === 'reference') {
     return { name: ref.name, isArray: false }
   }
@@ -26,14 +26,18 @@ function refToObjectName (ref: SchemaTypeRef): { name: string, isArray: boolean 
   return null
 }
 
-function pairedEntitiesKey (textFieldName: string, entityFieldNames: ReadonlySet<string>): string | null {
+function pairedEntitiesKey (textFieldName: string, entityFieldNames: ReadonlySet<string>) {
   // primary rule: <name>_entities sibling
   const suffixed = `${textFieldName}_entities`
 
-  if (entityFieldNames.has(suffixed)) return suffixed
+  if (entityFieldNames.has(suffixed)) {
+    return suffixed
+  }
 
   // special case for the "text" field: paired with the bare "entities" array
-  if (textFieldName === 'text' && entityFieldNames.has('entities')) return 'entities'
+  if (textFieldName === 'text' && entityFieldNames.has('entities')) {
+    return 'entities'
+  }
 
   return null
 }
@@ -70,12 +74,19 @@ function findSlots (
   for (const f of fields) {
     const inner = refToObjectName(f.type)
 
-    if (inner === null) continue
-    if (visited.has(inner.name)) continue
+    if (inner === null) {
+      continue
+    }
+
+    if (visited.has(inner.name)) {
+      continue
+    }
 
     const obj = objectsByName.get(inner.name)
 
-    if (obj === undefined || obj.kind !== 'object') continue
+    if (obj === undefined || obj.kind !== 'object') {
+      continue
+    }
 
     const nextPath = inner.isArray ? [...pathSoFar, f.name, '*'] : [...pathSoFar, f.name]
     const nextVisited = new Set([...visited, inner.name])
@@ -87,7 +98,7 @@ function findSlots (
 }
 
 /** scans every method's arguments and returns a method→slots map describing every paired text/*_entities field */
-export function detectFormattableFields (schema: Schema): Map<string, FormattableSlot[]> {
+export function detectFormattableFields (schema: Schema) {
   const objectsByName = new Map<string, SchemaObject>()
 
   for (const obj of schema.objects) {
@@ -108,7 +119,7 @@ export function detectFormattableFields (schema: Schema): Map<string, Formattabl
 }
 
 /** returns the set of object names that are reachable from any method's argument list */
-export function detectOutgoingObjectNames (schema: Schema): Set<string> {
+export function detectOutgoingObjectNames (schema: Schema) {
   const objectsByName = new Map(schema.objects.map(o => [o.name, o] as const))
   const reached = new Set<string>()
 
@@ -118,68 +129,91 @@ export function detectOutgoingObjectNames (schema: Schema): Set<string> {
 
       const obj = objectsByName.get(ref.name)
 
-      if (obj === undefined) return
+      if (obj === undefined) {
+        return
+      }
 
       if (obj.kind === 'object') {
-        for (const f of obj.fields) walkRef(f.type)
+        for (const f of obj.fields) {
+          walkRef(f.type)
+        }
       } else if (obj.kind === 'union') {
-        for (const m of obj.members) walkRef(m)
+        for (const m of obj.members) {
+          walkRef(m)
+        }
       }
     } else if (ref.kind === 'array') {
       walkRef(ref.of)
     } else if (ref.kind === 'union') {
-      for (const m of ref.of) walkRef(m)
+      for (const m of ref.of) {
+        walkRef(m)
+      }
     }
   }
 
   for (const method of schema.methods) {
-    for (const a of method.arguments) walkRef(a.type)
+    for (const a of method.arguments) {
+      walkRef(a.type)
+    }
   }
 
   return reached
 }
 
-function widenedFieldsForFields (fields: readonly SchemaField[]): Set<string> {
+function widenedFieldsForFields (fields: readonly SchemaField[]) {
   const stringFields: string[] = []
   const entityFieldNames = new Set<string>()
 
   for (const f of fields) {
-    if (isStringType(f.type)) stringFields.push(f.name)
-    if (isMessageEntityArray(f.type)) entityFieldNames.add(f.name)
+    if (isStringType(f.type)) {
+      stringFields.push(f.name)
+    }
+
+    if (isMessageEntityArray(f.type)) {
+      entityFieldNames.add(f.name)
+    }
   }
 
   const widened = new Set<string>()
 
   for (const name of stringFields) {
-    if (pairedEntitiesKey(name, entityFieldNames) !== null) widened.add(name)
+    if (pairedEntitiesKey(name, entityFieldNames) !== null) {
+      widened.add(name)
+    }
   }
 
   return widened
 }
 
 /** returns the set of `text/caption/...` field names per object that should be widened to `string | Formattable` */
-export function detectWidenedFieldsByObject (schema: Schema): Map<string, Set<string>> {
+export function detectWidenedFieldsByObject (schema: Schema) {
   const out = new Map<string, Set<string>>()
 
   for (const obj of schema.objects) {
-    if (obj.kind !== 'object') continue
+    if (obj.kind !== 'object') {
+      continue
+    }
 
     const widened = widenedFieldsForFields(obj.fields)
 
-    if (widened.size > 0) out.set(obj.name, widened)
+    if (widened.size > 0) {
+      out.set(obj.name, widened)
+    }
   }
 
   return out
 }
 
 /** returns the set of widened field names for a given method's argument list */
-export function detectWidenedMethodArgs (schema: Schema): Map<string, Set<string>> {
+export function detectWidenedMethodArgs (schema: Schema) {
   const out = new Map<string, Set<string>>()
 
   for (const method of schema.methods) {
     const widened = widenedFieldsForFields(method.arguments)
 
-    if (widened.size > 0) out.set(method.name, widened)
+    if (widened.size > 0) {
+      out.set(method.name, widened)
+    }
   }
 
   return out

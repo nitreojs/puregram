@@ -13,24 +13,24 @@ describe('html() function form', () => {
   })
 
   it('accepts <strong> as alias for <b>', () => {
-    expect(html('<strong>x</strong>').entities[0]!.type).toBe('bold')
+    expect(html('<strong>x</strong>').entities[0].type).toBe('bold')
   })
 
   it('accepts <em>, <italic> as aliases for <i>', () => {
-    expect(html('<em>x</em>').entities[0]!.type).toBe('italic')
-    expect(html('<italic>x</italic>').entities[0]!.type).toBe('italic')
+    expect(html('<em>x</em>').entities[0].type).toBe('italic')
+    expect(html('<italic>x</italic>').entities[0].type).toBe('italic')
   })
 
   it('accepts <ins> as alias for <u> and <strike>/<del> as aliases for <s>', () => {
-    expect(html('<ins>x</ins>').entities[0]!.type).toBe('underline')
-    expect(html('<strike>x</strike>').entities[0]!.type).toBe('strikethrough')
-    expect(html('<del>x</del>').entities[0]!.type).toBe('strikethrough')
+    expect(html('<ins>x</ins>').entities[0].type).toBe('underline')
+    expect(html('<strike>x</strike>').entities[0].type).toBe('strikethrough')
+    expect(html('<del>x</del>').entities[0].type).toBe('strikethrough')
   })
 
   it('accepts <spoiler>, <tg-spoiler>, and <span class="tg-spoiler"> as spoiler', () => {
-    expect(html('<spoiler>x</spoiler>').entities[0]!.type).toBe('spoiler')
-    expect(html('<tg-spoiler>x</tg-spoiler>').entities[0]!.type).toBe('spoiler')
-    expect(html('<span class="tg-spoiler">x</span>').entities[0]!.type).toBe('spoiler')
+    expect(html('<spoiler>x</spoiler>').entities[0].type).toBe('spoiler')
+    expect(html('<tg-spoiler>x</tg-spoiler>').entities[0].type).toBe('spoiler')
+    expect(html('<span class="tg-spoiler">x</span>').entities[0].type).toBe('spoiler')
   })
 
   it('parses <a href="…"> as text_link', () => {
@@ -40,11 +40,11 @@ describe('html() function form', () => {
   })
 
   it('parses <code> as code', () => {
-    expect(html('<code>x</code>').entities[0]!.type).toBe('code')
+    expect(html('<code>x</code>').entities[0].type).toBe('code')
   })
 
   it('parses <pre> as pre', () => {
-    expect(html('<pre>x</pre>').entities[0]!.type).toBe('pre')
+    expect(html('<pre>x</pre>').entities[0].type).toBe('pre')
   })
 
   it('parses <pre><code class="language-js"> as pre with language', () => {
@@ -54,8 +54,8 @@ describe('html() function form', () => {
   })
 
   it('parses <blockquote> as blockquote and <blockquote expandable> as expandable_blockquote', () => {
-    expect(html('<blockquote>x</blockquote>').entities[0]!.type).toBe('blockquote')
-    expect(html('<blockquote expandable>x</blockquote>').entities[0]!.type).toBe('expandable_blockquote')
+    expect(html('<blockquote>x</blockquote>').entities[0].type).toBe('blockquote')
+    expect(html('<blockquote expandable>x</blockquote>').entities[0].type).toBe('expandable_blockquote')
   })
 
   it('parses <tg-emoji emoji-id="…"> and <emoji id="…">', () => {
@@ -114,7 +114,7 @@ describe('html`` tagged-template form', () => {
     const f = html`<b>${userName}</b>`
 
     expect(f.text).toBe('A**lice**')
-    expect(f.entities[0]!.length).toBe('A**lice**'.length)
+    expect(f.entities[0].length).toBe('A**lice**'.length)
   })
 
   it('does not let interpolated strings open or close tags', () => {

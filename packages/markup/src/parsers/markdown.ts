@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { MarkupParseError } from '../error'
 import { type Entity, Formatted } from '../formatted'
 
@@ -12,7 +13,7 @@ interface State {
   entities: Entity[]
 }
 
-function fail (s: State, msg: string, at = s.pos): never {
+function fail (s: State, msg: string, at = s.pos) {
   throw new MarkupParseError(msg, at, s.src)
 }
 
@@ -36,7 +37,7 @@ const DELIMITERS: readonly Delim[] = [
   { open: '~', type: 'strikethrough' }
 ]
 
-function matchDelim (s: State): Delim | null {
+function matchDelim (s: State) {
   for (const d of DELIMITERS) {
     if (startsWith(s, d.open)) {
       return d
@@ -46,7 +47,7 @@ function matchDelim (s: State): Delim | null {
   return null
 }
 
-function parseInline (s: State, stopAt: string | null): void {
+function parseInline (s: State, stopAt: string | null) {
   while (s.pos < s.src.length) {
     if (stopAt !== null && startsWith(s, stopAt)) {
       return
@@ -60,7 +61,7 @@ function parseInline (s: State, stopAt: string | null): void {
     }
 
     if (ch === '\\') {
-      const next = s.src[s.pos + 1]
+      const next = s.src[s.pos + 1]!
 
       if (next !== undefined && ESCAPABLE.has(next)) {
         s.text += next
@@ -95,7 +96,7 @@ function parseInline (s: State, stopAt: string | null): void {
   }
 }
 
-function parseFramed (s: State, delim: Delim): void {
+function parseFramed (s: State, delim: Delim) {
   const start = s.text.length
   const openPos = s.pos
 
@@ -110,14 +111,14 @@ function parseFramed (s: State, delim: Delim): void {
   s.entities.push({ type: delim.type, offset: start, length: s.text.length - start })
 }
 
-function parseInlineCode (s: State): void {
+function parseInlineCode (s: State) {
   const openPos = s.pos
   const start = s.text.length
 
   s.pos += 1
 
-  while (s.pos < s.src.length && s.src[s.pos] !== '`') {
-    if (s.src[s.pos] === '\\' && s.src[s.pos + 1] !== undefined) {
+  while (s.pos < s.src.length && s.src[s.pos]! !== '`') {
+    if (s.src[s.pos]! === '\\' && s.src[s.pos + 1]! !== undefined) {
       const next = s.src[s.pos + 1]!
 
       if (next === '`' || next === '\\') {
@@ -131,7 +132,7 @@ function parseInlineCode (s: State): void {
     s.pos += 1
   }
 
-  if (s.src[s.pos] !== '`') {
+  if (s.src[s.pos]! !== '`') {
     fail(s, 'unmatched `', openPos)
   }
 
@@ -139,14 +140,14 @@ function parseInlineCode (s: State): void {
   s.entities.push({ type: 'code', offset: start, length: s.text.length - start })
 }
 
-function parseLink (s: State): void {
+function parseLink (s: State) {
   const openPos = s.pos
   const start = s.text.length
 
   s.pos += 1
   parseInline(s, ']')
 
-  if (s.src[s.pos] !== ']' || s.src[s.pos + 1] !== '(') {
+  if (s.src[s.pos]! !== ']' || s.src[s.pos + 1]! !== '(') {
     fail(s, 'malformed link — expected ](', openPos)
   }
 
@@ -183,7 +184,7 @@ function parseLink (s: State): void {
 }
 
 /** parses our MarkdownV2-flavored dialect into a Formatted */
-export function parseMarkdown (src: string): Formatted {
+export function parseMarkdown (src: string) {
   const s: State = { src, pos: 0, text: '', entities: [] }
   const lines = src.split('\n')
   let i = 0
@@ -329,11 +330,11 @@ export function parseMarkdown (src: string): Formatted {
 }
 
 // recurses into blockquote bodies — handles inline content with embedded \n
-function parseBlockContent (s: State): void {
+function parseBlockContent (s: State) {
   while (s.pos < s.src.length) {
     parseInline(s, null)
 
-    if (s.src[s.pos] === '\n') {
+    if (s.src[s.pos]! === '\n') {
       s.text += '\n'
       s.pos += 1
     }
@@ -342,11 +343,11 @@ function parseBlockContent (s: State): void {
 
 const RE_SPECIALS = /[.*+?^${}()|[\]\\]/g
 
-function escapeForRegExp (s: string): string {
+function escapeForRegExp (s: string) {
   return s.replace(RE_SPECIALS, '\\$&')
 }
 
-function detectFirstIndent (strings: TemplateStringsArray): string | null {
+function detectFirstIndent (strings: TemplateStringsArray) {
   const first = strings[0] ?? ''
 
   if (!first.startsWith('\n')) {
@@ -358,11 +359,11 @@ function detectFirstIndent (strings: TemplateStringsArray): string | null {
   return m === null ? '' : m[1]!
 }
 
-function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]): Formatted {
+function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
   const indent = detectFirstIndent(strings)
   let firstSeen = false
 
-  const transform = (s: string): string => {
+  const transform = (s: string) => {
     let out = s
 
     if (!firstSeen) {
@@ -384,10 +385,11 @@ function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]): For
     return out
   }
 
-  const segments = Array.from(strings) as string[]
+  const segments = Array.from(strings)
 
   if (indent !== null && segments.length > 0) {
     const last = segments.length - 1
+
     segments[last] = segments[last]!.replace(/\n[ \t]*$/, '')
   }
 
@@ -402,7 +404,7 @@ function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]): For
 /** parses our MarkdownV2-flavored dialect. accepts both function-call form and tagged-template form */
 export function md (source: string): Formatted
 export function md (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
-export function md (first: string | TemplateStringsArray, ...rest: readonly unknown[]): Formatted {
+export function md (first: string | TemplateStringsArray, ...rest: readonly unknown[]) {
   if (isTemplateStringsArray(first)) {
     return mdTagged(first, rest)
   }

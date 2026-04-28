@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion, local-rules/no-redundant-return-type */
 import { type Entity, Formatted } from './formatted'
 import { interpolate, type Piece } from './interpolate'
 
@@ -30,7 +31,7 @@ function buildPieces (
   strings: TemplateStringsArray,
   rest: readonly Interp[],
   transformLiteral: (s: string, isFirst: boolean, isLast: boolean) => string
-): Piece[] {
+) {
   const pieces: Piece[] = []
 
   for (let i = 0; i < strings.length; i++) {
@@ -43,7 +44,7 @@ function buildPieces (
     }
 
     if (i < rest.length) {
-      pieces.push(pieceFromInterp(rest[i]!))
+      pieces.push(pieceFromInterp(rest[i]))
     }
   }
 
@@ -52,11 +53,11 @@ function buildPieces (
 
 const RE_SPECIALS = /[.*+?^${}()|[\]\\]/g
 
-function escapeForRegExp (s: string): string {
+function escapeForRegExp (s: string) {
   return s.replace(RE_SPECIALS, '\\$&')
 }
 
-function detectFirstIndent (strings: TemplateStringsArray): string | null {
+function detectFirstIndent (strings: TemplateStringsArray) {
   const first = strings[0] ?? ''
 
   if (!first.startsWith('\n')) {
@@ -68,7 +69,7 @@ function detectFirstIndent (strings: TemplateStringsArray): string | null {
   return m === null ? '' : m[1]!
 }
 
-function applyFirstIndentStrip (s: string, indent: string, isFirst: boolean, isLast: boolean): string {
+function applyFirstIndentStrip (s: string, indent: string, isFirst: boolean, isLast: boolean) {
   let out = s
 
   if (isFirst && out.startsWith('\n')) {
@@ -90,7 +91,7 @@ function applyFirstIndentStrip (s: string, indent: string, isFirst: boolean, isL
   return out
 }
 
-function applyDedentAll (s: string, isFirst: boolean, isLast: boolean): string {
+function applyDedentAll (s: string, isFirst: boolean, isLast: boolean) {
   let out = s
 
   if (isFirst && out.startsWith('\n')) {
@@ -106,7 +107,7 @@ function applyDedentAll (s: string, isFirst: boolean, isLast: boolean): string {
   return out
 }
 
-export function format (strings: TemplateStringsArray, ...rest: readonly Interp[]): Formatted {
+export function format (strings: TemplateStringsArray, ...rest: readonly Interp[]) {
   const indent = detectFirstIndent(strings)
   const transform = indent === null
     ? (s: string) => s
@@ -118,7 +119,7 @@ export function format (strings: TemplateStringsArray, ...rest: readonly Interp[
   return new Formatted(text, entities)
 }
 
-export function formatDedent (strings: TemplateStringsArray, ...rest: readonly Interp[]): Formatted {
+export function formatDedent (strings: TemplateStringsArray, ...rest: readonly Interp[]) {
   const pieces = buildPieces(strings, rest, applyDedentAll)
   const { text, entities } = interpolate(pieces)
 

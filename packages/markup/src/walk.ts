@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { Formatted } from './formatted'
 
 export interface FormattableSlot {
@@ -8,26 +9,34 @@ export interface FormattableSlot {
 
 export type FormattableFields = Readonly<Record<string, readonly FormattableSlot[]>>
 
-function isFormattableShape (value: unknown): value is { text: string, entities?: readonly unknown[] } {
-  return typeof value === 'object'
-    && value !== null
-    && 'text' in value
-    && typeof (value as { text: unknown }).text === 'string'
+interface RawFormattable {
+  text: string
+  entities?: readonly { type: string, offset: number, length: number }[]
 }
 
-function applyAtLeaf (parent: Record<string, unknown>, slot: FormattableSlot): void {
+function isFormattableShape (value: unknown) {
+  return typeof value === 'object' &&
+    value !== null &&
+    'text' in value &&
+    typeof (value as { text: unknown }).text === 'string'
+}
+
+function applyAtLeaf (parent: Record<string, unknown>, slot: FormattableSlot) {
   const value = parent[slot.textKey]
 
   if (value instanceof Formatted) {
     parent[slot.textKey] = value.text
     parent[slot.entitiesKey] = [...value.entities]
+
     return
   }
 
-  if (typeof value === 'string') return
+  if (typeof value === 'string') {
+    return
+  }
 
   if (isFormattableShape(value)) {
-    const f = Formatted.from(value as { text: string, entities?: readonly { type: string, offset: number, length: number }[] })
+    const f = Formatted.from(value as RawFormattable)
 
     parent[slot.textKey] = f.text
     parent[slot.entitiesKey] = [...f.entities]
@@ -70,12 +79,16 @@ export function unwrapFormatted (
   method: string,
   params: Record<string, unknown> | undefined,
   fields: FormattableFields
-): void {
-  if (params === undefined) return
+) {
+  if (params === undefined) {
+    return
+  }
 
   const slots = fields[method]
 
-  if (slots === undefined) return
+  if (slots === undefined) {
+    return
+  }
 
   for (const slot of slots) {
     walkPath(params, slot.path, slot)

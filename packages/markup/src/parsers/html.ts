@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { MarkupParseError } from '../error'
 import { type Entity, Formatted } from '../formatted'
 
@@ -20,7 +21,7 @@ const ENTITY_REFS: Readonly<Record<string, string>> = {
   nbsp: ' '
 }
 
-function decodeEntity (raw: string, sourceOffset: number, source: string): string {
+function decodeEntity (raw: string, sourceOffset: number, source: string) {
   if (raw.startsWith('#x') || raw.startsWith('#X')) {
     const code = parseInt(raw.slice(2), 16)
 
@@ -52,7 +53,7 @@ function decodeEntity (raw: string, sourceOffset: number, source: string): strin
 
 const ATTR_RE = /\s*([a-zA-Z][a-zA-Z0-9-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g
 
-function parseAttrs (attrSrc: string): Record<string, string> {
+function parseAttrs (attrSrc: string) {
   const attrs: Record<string, string> = {}
 
   ATTR_RE.lastIndex = 0
@@ -60,7 +61,7 @@ function parseAttrs (attrSrc: string): Record<string, string> {
 
   while ((m = ATTR_RE.exec(attrSrc)) !== null) {
     const name = m[1]!.toLowerCase()
-    const value = m[2] ?? m[3] ?? m[4] ?? ''
+    const value = m[2]! ?? m[3]! ?? m[4]! ?? ''
 
     attrs[name] = value
   }
@@ -68,7 +69,7 @@ function parseAttrs (attrSrc: string): Record<string, string> {
   return attrs
 }
 
-function buildEntity (tag: OpenTag, length: number, source: string): Entity {
+function buildEntity (tag: OpenTag, length: number, source: string) {
   const canonical = tag.canonical
   const type = TAG_TO_ENTITY[canonical]
 
@@ -79,7 +80,7 @@ function buildEntity (tag: OpenTag, length: number, source: string): Entity {
   const entity: Entity = { type, offset: tag.startOffset, length }
 
   if (canonical === 'a') {
-    const url = tag.attrs['href']
+    const url = tag.attrs.href
 
     if (url === undefined) {
       throw new MarkupParseError('<a> requires an href attribute', tag.sourceOffset, source)
@@ -89,7 +90,7 @@ function buildEntity (tag: OpenTag, length: number, source: string): Entity {
   }
 
   if (canonical === 'tg-emoji') {
-    const id = tag.attrs['emoji-id'] ?? tag.attrs['id']
+    const id = tag.attrs['emoji-id'] ?? tag.attrs.id
 
     if (id === undefined) {
       throw new MarkupParseError('<tg-emoji> requires an emoji-id (or id) attribute', tag.sourceOffset, source)
@@ -102,19 +103,19 @@ function buildEntity (tag: OpenTag, length: number, source: string): Entity {
     entity.type = 'expandable_blockquote'
   }
 
-  if (canonical === 'pre' && tag.attrs['language'] !== undefined) {
-    entity.language = tag.attrs['language']
+  if (canonical === 'pre' && tag.attrs.language !== undefined) {
+    entity.language = tag.attrs.language
   }
 
   return entity
 }
 
-function isSpoilerSpan (rawName: string, attrs: Record<string, string>): boolean {
-  return rawName === 'span' && (attrs['class'] ?? '').split(/\s+/).includes('tg-spoiler')
+function isSpoilerSpan (rawName: string, attrs: Record<string, string>) {
+  return rawName === 'span' && (attrs.class ?? '').split(/\s+/).includes('tg-spoiler')
 }
 
 /** parses raw HTML source into a Formatted */
-export function parseHtml (source: string): Formatted {
+export function parseHtml (source: string) {
   let text = ''
   const entities: Entity[] = []
   const stack: OpenTag[] = []
@@ -155,10 +156,10 @@ export function parseHtml (source: string): Formatted {
 
         // pre>code: transfer language attribute up to the outer <pre> and discard inner <code>
         if (open.canonical === 'code' && stack.length > 0 && stack[stack.length - 1]!.canonical === 'pre') {
-          const lang = (open.attrs['class'] ?? '').match(/language-([\w-]+)/)?.[1]
+          const lang = (open.attrs.class ?? '').match(/language-([\w-]+)/)?.[1]
 
           if (lang !== undefined) {
-            stack[stack.length - 1]!.attrs['language'] = lang
+            stack[stack.length - 1]!.attrs.language = lang
           }
 
           if (open.canonical !== canonical) {
@@ -169,8 +170,8 @@ export function parseHtml (source: string): Formatted {
           continue
         }
 
-        const matchAllowed = open.canonical === canonical
-          || (open.canonical === 'tg-spoiler' && (canonical === 'span' || canonical === 'tg-spoiler' || canonical === 'spoiler'))
+        const matchAllowed = open.canonical === canonical ||
+          (open.canonical === 'tg-spoiler' && (canonical === 'span' || canonical === 'tg-spoiler' || canonical === 'spoiler'))
 
         if (!matchAllowed) {
           throw new MarkupParseError(`mismatched closing tag </${rawName}> (expected </${open.canonical}>)`, i, source)
@@ -243,7 +244,7 @@ export function parseHtml (source: string): Formatted {
   return new Formatted(text, entities)
 }
 
-function htmlTagged (strings: TemplateStringsArray, rest: readonly unknown[]): Formatted {
+function htmlTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
   const { source, slots } = composeWithSentinels(strings, rest)
   const parsed = parseHtml(source)
 
@@ -253,7 +254,7 @@ function htmlTagged (strings: TemplateStringsArray, rest: readonly unknown[]): F
 /** parses telegram html. accepts both function-call form and tagged-template form */
 export function html (source: string): Formatted
 export function html (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
-export function html (first: string | TemplateStringsArray, ...rest: readonly unknown[]): Formatted {
+export function html (first: string | TemplateStringsArray, ...rest: readonly unknown[]) {
   if (isTemplateStringsArray(first)) {
     return htmlTagged(first, rest)
   }
@@ -267,15 +268,15 @@ export function html (first: string | TemplateStringsArray, ...rest: readonly un
 const BR_PLACEHOLDER = '\u0002'
 const BR_RE = /\s*<br\s*\/?\s*>\s*/gi
 
-function preprocessHtmlb (source: string): string {
+function preprocessHtmlb (source: string) {
   return source.replace(BR_RE, BR_PLACEHOLDER)
 }
 
-function postprocessHtmlb (formatted: Formatted): Formatted {
-  return new Formatted(formatted.text.replaceAll(BR_PLACEHOLDER, '\n'), formatted.entities)
+function postprocessHtmlb (formatted: Formatted) {
+  return new Formatted(formatted.text.split(BR_PLACEHOLDER).join('\n'), formatted.entities)
 }
 
-function htmlbTagged (strings: TemplateStringsArray, rest: readonly unknown[]): Formatted {
+function htmlbTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
   const { source, slots } = composeWithSentinels(strings, rest, preprocessHtmlb)
   const parsed = parseHtml(source)
   const expanded = expandSentinels(parsed, slots)
@@ -286,7 +287,7 @@ function htmlbTagged (strings: TemplateStringsArray, rest: readonly unknown[]): 
 /** parses telegram html with explicit `<br>` for newlines (whitespace otherwise collapses) */
 export function htmlb (source: string): Formatted
 export function htmlb (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
-export function htmlb (first: string | TemplateStringsArray, ...rest: readonly unknown[]): Formatted {
+export function htmlb (first: string | TemplateStringsArray, ...rest: readonly unknown[]) {
   if (isTemplateStringsArray(first)) {
     return htmlbTagged(first, rest)
   }

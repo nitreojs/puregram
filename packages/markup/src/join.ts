@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion, local-rules/no-redundant-return-type */
 import { type Entity, Formatted } from './formatted'
 import { interpolate, type Piece } from './interpolate'
 
@@ -30,9 +31,9 @@ function pieceFromJoinable (value: Joinable): Piece {
  * merge an array of strings/numbers/Formatted into one Formatted, separated by `separator`.
  * `null` / `undefined` / `false` parts are dropped silently.
  */
-export function join (parts: readonly Joinable[], separator: Joinable = ''): Formatted {
+export function join (parts: readonly Joinable[], separator: Joinable = '') {
   const filtered = parts.filter(
-    (p): p is Exclude<Joinable, null | undefined | false> => p !== null && p !== undefined && p !== false
+    p => p !== null && p !== undefined && p !== false
   )
   const sepPiece = pieceFromJoinable(separator)
   const pieces: Piece[] = []

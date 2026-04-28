@@ -45,7 +45,7 @@ describe('field builders', () => {
   it('mentionBot synthesizes a bot user (is_bot: true)', () => {
     const f = mentionBot('me', 999)
 
-    expect(f.entities[0]!.user!.is_bot).toBe(true)
-    expect(f.entities[0]!.user!.id).toBe(999)
+    expect(f.entities[0].user!.is_bot).toBe(true)
+    expect(f.entities[0].user!.id).toBe(999)
   })
 })

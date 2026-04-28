@@ -1,4 +1,4 @@
-import { type Entity, Formatted } from './formatted'
+import type { Entity, Formatted } from './formatted'
 
 export type Piece =
   | { kind: 'text', value: string }
@@ -10,7 +10,7 @@ export interface Interpolated {
   entities: Entity[]
 }
 
-export function interpolate (pieces: readonly Piece[]): Interpolated {
+export function interpolate (pieces: readonly Piece[]) {
   let text = ''
   const entities: Entity[] = []
 

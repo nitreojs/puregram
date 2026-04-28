@@ -2,11 +2,11 @@ import ts from 'typescript'
 
 import type { Schema } from '../schema-types'
 
-import { detectFormattableFields, type FormattableSlot } from './formattable-detect'
 import { formatModule } from './format'
+import { detectFormattableFields, type FormattableSlot } from './formattable-detect'
 import { versionString } from './load-schema'
 
-function slotLiteral (slot: FormattableSlot): ts.ObjectLiteralExpression {
+function slotLiteral (slot: FormattableSlot) {
   return ts.factory.createObjectLiteralExpression([
     ts.factory.createPropertyAssignment(
       'path',
@@ -17,7 +17,7 @@ function slotLiteral (slot: FormattableSlot): ts.ObjectLiteralExpression {
   ], true)
 }
 
-export function emitFormattableFields (schema: Schema): string {
+export function emitFormattableFields (schema: Schema) {
   const detected = detectFormattableFields(schema)
   const entries = [...detected.entries()].sort(([a], [b]) => a.localeCompare(b))
 

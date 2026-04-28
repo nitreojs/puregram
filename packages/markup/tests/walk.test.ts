@@ -17,8 +17,8 @@ describe('unwrapFormatted', () => {
 
     unwrapFormatted('sendMessage', params, FIELDS)
 
-    expect(params['text']).toBe('hi')
-    expect(params['entities']).toEqual([{ type: 'bold', offset: 0, length: 2 }])
+    expect(params.text).toBe('hi')
+    expect(params.entities).toEqual([{ type: 'bold', offset: 0, length: 2 }])
   })
 
   it('leaves plain-string params untouched', () => {
@@ -26,8 +26,8 @@ describe('unwrapFormatted', () => {
 
     unwrapFormatted('sendMessage', params, FIELDS)
 
-    expect(params['text']).toBe('plain')
-    expect(params['entities']).toBeUndefined()
+    expect(params.text).toBe('plain')
+    expect(params.entities).toBeUndefined()
   })
 
   it('walks array paths with `*`', () => {
@@ -41,11 +41,11 @@ describe('unwrapFormatted', () => {
 
     unwrapFormatted('sendMediaGroup', params, FIELDS)
 
-    const media = params['media'] as Array<Record<string, unknown>>
+    const media = params.media as Record<string, unknown>[]
 
-    expect(media[0]!['caption']).toBe('cap1')
-    expect(media[0]!['caption_entities']).toEqual([{ type: 'bold', offset: 0, length: 4 }])
-    expect(media[1]!['caption']).toBe('plain cap')
+    expect(media[0].caption).toBe('cap1')
+    expect(media[0].caption_entities).toEqual([{ type: 'bold', offset: 0, length: 4 }])
+    expect(media[1].caption).toBe('plain cap')
   })
 
   it('does nothing when method has no descriptor', () => {
@@ -63,7 +63,7 @@ describe('unwrapFormatted', () => {
 
     unwrapFormatted('sendMessage', params, FIELDS)
 
-    expect(params['text']).toBe('x')
-    expect(params['entities']).toEqual([{ type: 'italic', offset: 0, length: 1 }])
+    expect(params.text).toBe('x')
+    expect(params.entities).toEqual([{ type: 'italic', offset: 0, length: 1 }])
   })
 })

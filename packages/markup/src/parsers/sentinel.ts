@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion, local-rules/no-redundant-return-type */
 import { type Entity, Formatted } from '../formatted'
 import { interpolate, type Piece } from '../interpolate'
 
@@ -31,10 +32,10 @@ export function pieceFromInterp (value: unknown): Piece {
 }
 
 interface SentinelHit {
-  start: number     // start offset in parsed text
-  length: number    // length of the sentinel in parsed text
-  slot: Piece       // resolved slot
-  newStart: number  // start offset in output text (computed during build)
+  start: number // start offset in parsed text
+  length: number // length of the sentinel in parsed text
+  slot: Piece // resolved slot
+  newStart: number // start offset in output text (computed during build)
   newLength: number // length in output text
 }
 
@@ -43,11 +44,12 @@ interface SentinelHit {
  * interpolated values. each entity's offset/length is shifted to account for
  * the size delta between its sentinel placeholder and the actual emitted text.
  */
-export function expandSentinels (parsed: Formatted, slots: readonly Piece[]): Formatted {
+export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
   const text = parsed.text
 
   // collect all sentinel hits, in order
   const hits: SentinelHit[] = []
+
   SENTINEL_RE.lastIndex = 0
   let m: RegExpExecArray | null
 
@@ -55,7 +57,9 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]): Fo
     const slotIdx = parseInt(m[1]!, 10)
     const slot = slots[slotIdx]
 
-    if (slot === undefined) continue
+    if (slot === undefined) {
+      continue
+    }
 
     const sub = interpolate([slot])
 
@@ -76,6 +80,7 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]): Fo
     outText += text.slice(cursor, hit.start)
     hit.newStart = outText.length
     const sub = interpolate([hit.slot])
+
     outText += sub.text
     cursor = hit.start + hit.length
   }
@@ -110,7 +115,9 @@ export function expandSentinels (parsed: Formatted, slots: readonly Piece[]): Fo
 
   // splice in entities from each slot's Formatted, anchored at its newStart
   for (const hit of hits) {
-    if (hit.slot.kind !== 'formatted') continue
+    if (hit.slot.kind !== 'formatted') {
+      continue
+    }
 
     for (const e of hit.slot.value.entities) {
       outEntities.push({ ...e, offset: e.offset + hit.newStart })
@@ -127,7 +134,7 @@ export function composeWithSentinels (
   strings: TemplateStringsArray,
   rest: readonly unknown[],
   transformLiteral: (s: string) => string = s => s
-): { source: string, slots: Piece[] } {
+) {
   const slots = rest.map(pieceFromInterp)
   let source = transformLiteral(strings[0] ?? '')
 

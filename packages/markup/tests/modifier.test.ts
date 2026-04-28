@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
 
+import { makeModifier, MODIFIER_NAMES } from '../src/builders/chain'
 import {
   bold, italic, underline, strikethrough, spoiler,
   blockquote, expandableBlockquote, code
 } from '../src/builders/modifier'
-import { makeModifier, MODIFIER_NAMES } from '../src/builders/chain'
 
 describe('makeModifier (primitive)', () => {
   it('exposes a function that accepts a string and emits one entity per chain entry', () => {
@@ -42,6 +42,7 @@ describe('modifier exports', () => {
     expect(bold`foo`.entities).toEqual([{ type: 'bold', offset: 0, length: 3 }])
   })
 
+  // eslint-disable-next-line no-template-curly-in-string -- example string literal in test name
   it('bold`foo ${italic("bar")}` nests entities — bold[0,7] + italic[4,3]', () => {
     const out = bold`foo ${italic('bar')}`
 
@@ -66,6 +67,7 @@ describe('modifier exports', () => {
     ])
   })
 
+  // eslint-disable-next-line no-template-curly-in-string -- example string literal in test name
   it('bold.italic`foo ${underline("bar")}` — outer chain spans whole, inner only on bar', () => {
     const out = bold.italic`foo ${underline('bar')}`
 

@@ -8,22 +8,22 @@ interface UserLike {
   username?: string
 }
 
-function single (text: string, entity: Entity): Formatted {
+function single (text: string, entity: Entity) {
   return new Formatted(text, [entity])
 }
 
 /** wraps text in a `text_link` entity pointing at `url` */
-export function link (text: string, url: string): Formatted {
+export function link (text: string, url: string) {
   return single(text, { type: 'text_link', offset: 0, length: text.length, url })
 }
 
 /** wraps text in a `text_mention` entity carrying the full `user` object */
-export function textMention (text: string, user: UserLike): Formatted {
+export function textMention (text: string, user: UserLike) {
   return single(text, { type: 'text_mention', offset: 0, length: text.length, user })
 }
 
 /** wraps text in a `custom_emoji` entity referencing `customEmojiId` */
-export function customEmoji (text: string, customEmojiId: string): Formatted {
+export function customEmoji (text: string, customEmojiId: string) {
   return single(text, { type: 'custom_emoji', offset: 0, length: text.length, custom_emoji_id: customEmojiId })
 }
 
@@ -39,11 +39,11 @@ export function pre (text: string, language?: string): Formatted {
 }
 
 /** mentions a user by id; synthesises a minimal user with `first_name = text` */
-export function mentionUser (text: string, id: number): Formatted {
+export function mentionUser (text: string, id: number) {
   return textMention(text, { id, first_name: text, is_bot: false })
 }
 
 /** mentions a bot by id; synthesises a minimal user with `is_bot: true` */
-export function mentionBot (text: string, id: number): Formatted {
+export function mentionBot (text: string, id: number) {
   return textMention(text, { id, first_name: text, is_bot: true })
 }

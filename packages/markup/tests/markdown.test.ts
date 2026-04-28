@@ -13,21 +13,21 @@ describe('md() function form', () => {
   })
 
   it('parses _italic_ and *italic*', () => {
-    expect(md('_hi_').entities[0]!.type).toBe('italic')
-    expect(md('*hi*').entities[0]!.type).toBe('italic')
+    expect(md('_hi_').entities[0].type).toBe('italic')
+    expect(md('*hi*').entities[0].type).toBe('italic')
   })
 
   it('parses __underline__', () => {
-    expect(md('__hi__').entities[0]!.type).toBe('underline')
+    expect(md('__hi__').entities[0].type).toBe('underline')
   })
 
   it('parses ~~strike~~ and ~strike~', () => {
-    expect(md('~~x~~').entities[0]!.type).toBe('strikethrough')
-    expect(md('~x~').entities[0]!.type).toBe('strikethrough')
+    expect(md('~~x~~').entities[0].type).toBe('strikethrough')
+    expect(md('~x~').entities[0].type).toBe('strikethrough')
   })
 
   it('parses ||spoiler||', () => {
-    expect(md('||x||').entities[0]!.type).toBe('spoiler')
+    expect(md('||x||').entities[0].type).toBe('spoiler')
   })
 
   it('parses [text](url) as text_link', () => {
@@ -42,7 +42,7 @@ describe('md() function form', () => {
   })
 
   it('parses `code`', () => {
-    expect(md('`x`').entities[0]!.type).toBe('code')
+    expect(md('`x`').entities[0].type).toBe('code')
   })
 
   it('parses ```lang\\n…\\n``` as pre with language', () => {
@@ -56,7 +56,7 @@ describe('md() function form', () => {
     const f = md('```\nplain code\n```')
 
     expect(f.entities[0]).toMatchObject({ type: 'pre' })
-    expect(f.entities[0]!.language).toBeUndefined()
+    expect(f.entities[0].language).toBeUndefined()
   })
 
   it('parses > line as blockquote (consecutive lines merge)', () => {
@@ -69,7 +69,7 @@ describe('md() function form', () => {
   it('parses >> line as expandable_blockquote', () => {
     const f = md('>> a\n>> b')
 
-    expect(f.entities[0]!.type).toBe('expandable_blockquote')
+    expect(f.entities[0].type).toBe('expandable_blockquote')
   })
 
   it('honors backslash escapes', () => {

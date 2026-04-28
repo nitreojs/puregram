@@ -25,7 +25,7 @@ export const TAG_ALIASES: Readonly<Record<string, string>> = {
 }
 
 /** resolves an alias tag to its canonical form (lowercased) */
-export function canonicalTag (tag: string): string {
+export function canonicalTag (tag: string) {
   const lower = tag.toLowerCase()
 
   return TAG_ALIASES[lower] ?? lower

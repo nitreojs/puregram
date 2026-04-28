@@ -14,15 +14,15 @@ export class Formatted {
     readonly entities: readonly Entity[] = []
   ) {}
 
-  toString (): string {
-    return this.text
-  }
-
-  static from (source: Formatted | { text: string, entities?: readonly Entity[] }): Formatted {
+  static from (source: Formatted | { text: string, entities?: readonly Entity[] }) {
     if (source instanceof Formatted) {
       return source
     }
 
     return new Formatted(source.text, source.entities ?? [])
+  }
+
+  toString () {
+    return this.text
   }
 }

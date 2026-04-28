@@ -1,223 +1,66 @@
-<div align='center'>
-  <img src='https://i.imgur.com/ZzjmE8i.png' />
-</div>
+# @puregram/markup
 
-<br />
+> v3 alpha — work in progress.
 
-<div align='center'>
-  <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
-  <span>&nbsp;•&nbsp;</span>
-  <a href='https://t.me/pureforum'><b>telegram forum</b></a>
-</div>
+entity-based text formatting for puregram v3. produces telegram message entities directly, never relies on `parse_mode`.
 
-## @puregram/markup
+```ts
+import { Telegram } from 'puregram'
+import { markup, format, bold, italic, html, md, join } from '@puregram/markup'
 
-_simple yet powerful markup system for `puregram` package_
+const tg = Telegram.fromToken(TOKEN).extend(markup())
 
-### introduction
-
-you all know how you need to provide `parse_mode` every time you
-send a message with a markdown or html, right? it might get a
-little boring after first few hundreds of times, so i present
-to you `@puregram/markup`!
-
-### example
-
-```js
-const { format, bold, italic, code, hooks: formatHooks } = require('@puregram/markup')
-
-const { Telegram } = require('puregram')
-
-const telegram = Telegram.fromToken(process.env.TOKEN)
-
-// we use hooks for this one
-telegram.useHooks(formatHooks())
-
-telegram.updates.on('message', (context) => {
-  return context.send(
-    format`hey! this ${bold('message')} is ${italic('formatted')} without ${code('parse_mode')}!`
-  )
+await tg.api.sendMessage({
+  chat_id: CHAT,
+  text: format`Hello, ${bold('world')}! ${italic`How are you?`}`
 })
 
-telegram.updates.startPolling()
+await tg.api.sendMessage({
+  chat_id: CHAT,
+  text: html`Welcome <b>${userName}</b>! Visit <a href="https://x.com">our site</a>.`
+})
 ```
 
-### installation
+## composers
 
-```sh
-$ yarn add @puregram/markup
-$ npm i -S @puregram/markup
+- `format\`...\`` — strips the first indent, preserves nested staircase
+- `formatDedent\`...\`` — strips every leading whitespace run
+- `join(parts, sep?)` — merge an array of strings/Formatted with a separator (defaults to `''`)
+
+## builders
+
+modifier (chainable, callable as function or tagged template):
+`bold`, `italic`, `underline`, `strikethrough`, `spoiler`, `blockquote`, `expandableBlockquote`, `code`.
+
+```ts
+bold('foo')                          // Formatted: bold over 'foo'
+bold.italic('foo')                   // bold AND italic
+bold`hi ${italic`there`}`            // bold over the whole, italic on 'there'
+italic.bold('x')                     // chain order is preserved in entity emission order
 ```
 
----
+field-required (function-only):
+`link(text, url)`, `textMention(text, user)`, `customEmoji(emoji, id)`, `pre(text, lang?)`, `mentionUser(text, id)`, `mentionBot(text, id)`.
 
-## usage
+## parsers
 
-all of the functions except those that require two or more arguments
-can be called either via template strings or like basic functions
+`html\`\`` / `html(...)` — telegram's HTML parse_mode tags + a few aliases (`<strong>`, `<em>`, `<italic>`, `<ins>`, `<strike>`, `<del>`, `<spoiler>`, `<emoji>`). whitespace collapses like real HTML.
 
-```js
-// template strings
-bold`foo ${italic`bar`}`
+`htmlb\`\`` / `htmlb(...)` — same but `<br>` ↦ `\n`. use when authoring multi-line HTML in source.
 
-// parentheses
-bold(italic('bar'))
+`md\`\`` / `md(...)` (alias `markdown`) — MarkdownV2-flavored dialect with full entity coverage including `||spoiler||`, `> quote`, and `>> expandable quote`.
+
+in tagged-template form, **string interpolations are literal text** (no parsing, no escaping needed). only the outer literal is parsed.
+
+```ts
+html`Hello, <b>${userName}</b>!` // userName cannot inject tags
+md`Read **${title}** now`         // title is appended as plain text inside the bold span
 ```
 
-there's literally no distinction between them, however if you are going
-to do embedded markup, you should use template strings:
+## plugin
 
-```js
+`markup()` registers an `onBeforeRequest` hook that auto-unwraps `Formatted` instances at every Bot API param slot paired with a `*_entities` field. Detection is schema-driven from `@puregram/api`.
 
-// ✅ works
-bold`foo ${italic`bar`}`
-bold`${italic`bar`}`
-bold(italic('bar'))
+## license
 
-// ❌ does not work
-bold(`foo ${italic('bar')}`)
-bold(`${italic('foo')}`)
-```
-
-the last one does not work simply because javascript compiles `foo ${italic('bar')}` into a single string which becomes 'foo [object Object]' soo yeah
-
----
-
-## available functions
-
-### `format(strings: TemplateStringsArray, ...rest: Rest)`
-
-formats the template and strips first pack of spaces from all lines *(`stripIndent`-like)*
-
-```js
-format`
-  hello!
-  those two spaces at the start will be stripped
-    but those additional two spaces wont
-`
-```
-
-### `formatDedent(strings: TemplateStringsArray, ...rest: Rest)`
-
-this one acts like `format` except it... ugh just roll the ~~credits~~ code example
-
-```js
-format`
-  hello!
-  those two spaces at the start will be stripped
-    those additional two will also be stripped
-                      and those additional 18 spaces too!
-`
-```
-
-*(`stripIndents`-like)*
-
-### `bold(text: string)`
-
-```js
-bold('hey!')
-```
-
-```js
-bold`hey!`
-```
-
-### `italic(text: string)`
-
-```js
-italic('hey!')
-```
-
-```js
-italic`hey!`
-```
-
-### `code(code: string)`
-
-```js
-code('const x = 5')
-```
-
-```js
-code`const x = 5`
-```
-
-### `underline(text: string)`
-
-```js
-underline('hey!')
-```
-
-```js
-underline`hey!`
-```
-
-### `strikethrough(text: string)`
-
-```js
-strikethrough('hey!')
-```
-
-```js
-strikethrough`hey!`
-```
-
-### `spoiler(text: string)`
-
-```js
-spoiler('hey!')
-```
-
-```js
-spoiler`hey!`
-```
-
-### `mention(text: string)`
-
-```js
-mention('@username')
-```
-
-```js
-mention`@username`
-```
-
-### `pre(text: string, language?: string)`
-
-```js
-pre('im cool')
-```
-
-```js
-pre('im cool but in bash', 'sh')
-```
-
-### `link(text: string, url: string)`
-
-```js
-link('epic!', 'https://github.puregram.cool')
-```
-
-### `mentionUser(text: string, userId: number)`
-
-```js
-mentionUser('dude', 398859857)
-```
-
-### `mentionBot(text: string, userId: number)`
-
-```js
-mentionUser('robodude', telegram.bot.id)
-```
-
-### `textMention(text: string, user: Interfaces.TelegramUser)`
-
-```js
-mentionUser('dude', { id: 398859857, is_bot: false, first_name: 'dude' })
-```
-
-### `customEmoji(text: string, id: string)`
-
-```js
-customEmoji('😁', '...')
-```
+WTFPL

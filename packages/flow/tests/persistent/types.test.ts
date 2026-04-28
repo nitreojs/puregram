@@ -43,10 +43,9 @@ describe('persistent types', () => {
     expectTypeOf(cfg.transform!).parameter(0).toEqualTypeOf<MessageUpdate>()
   })
 
-  it('FlowHandlers is empty by default and overridable via declaration merge', () => {
-    // an empty interface accepts any object shape — just confirm it is exported and usable
-    const sentinel: FlowHandlers = {}
-
-    expectTypeOf(sentinel).toBeObject()
+  it('FlowHandlers is exported and consumable', () => {
+    // consumers declaration-merge their handle ids into this interface; concrete shape
+    // is project-dependent. typed-registry.test.ts demonstrates the merge pattern
+    expectTypeOf<FlowHandlers>().toBeObject()
   })
 })

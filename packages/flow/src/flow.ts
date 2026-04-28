@@ -20,15 +20,15 @@ export interface CollectMediaGroupOptions {
 }
 
 export interface FlowExtension {
-  waitFor: <K extends keyof UpdateKindMap> (
+  waitFor: <K extends keyof UpdateKindMap, T = UpdateKindMap[K]> (
     kind: K,
-    options?: WaitForOptions<K>
-  ) => Promise<UpdateKindMap[K] | null>
-  prompt: (
+    options?: WaitForOptions<K, T>
+  ) => Promise<T | null>
+  prompt: <K extends keyof UpdateKindMap = 'message', T = UpdateKindMap[K]> (
     chat: number | string,
     text: string,
-    options?: PromptOptions
-  ) => Promise<UpdateKindMap['message'] | null>
+    options?: PromptOptions<K, T>
+  ) => Promise<T | null>
   /**
    * collect every message that shares a `media_group_id` with the given message into one
    * array. resolves once a sliding window of inactivity passes (default 1000ms, override
@@ -54,8 +54,8 @@ export function flow (options: FlowOptions = {}) {
       const prompt = createPrompt(tg, registry)
 
       const ext: FlowExtension = {
-        waitFor: <K extends keyof UpdateKindMap> (kind: K, options: WaitForOptions<K> = {}) => {
-          const waiter = new Waiter<K>(kind, options)
+        waitFor: <K extends keyof UpdateKindMap, T = UpdateKindMap[K]> (kind: K, options: WaitForOptions<K, T> = {}) => {
+          const waiter = new Waiter<K, T>(kind, options)
 
           registry.register(waiter)
 

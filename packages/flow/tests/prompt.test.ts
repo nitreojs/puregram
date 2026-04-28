@@ -53,4 +53,78 @@ describe('prompt', () => {
 
     await t.shutdown()
   })
+
+  it('forwards reply_markup via the third send arg', async () => {
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
+
+    await t.start()
+
+    const send = vi.fn().mockResolvedValue({ message_id: 1 })
+
+    ;(t as any).send = send
+
+    const promptPromise = (t as any).flow.prompt(100, 'pick', {
+      kind: 'callback_query',
+      reply_markup: { inline_keyboard: [[{ text: 'yes', callback_data: 'yes' }]] }
+    })
+
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(send).toHaveBeenCalledWith(100, 'pick', {
+      reply_markup: { inline_keyboard: [[{ text: 'yes', callback_data: 'yes' }]] }
+    })
+
+    ;(t as any).flow.cancelAll()
+    await expect(promptPromise).rejects.toMatchObject({ name: 'WaitForCancelled' })
+
+    await t.shutdown()
+  })
+
+  it('kind:callback_query waits for callback_query, not message', async () => {
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
+
+    await t.start()
+
+    ;(t as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
+
+    const promptPromise = (t as any).flow.prompt(100, 'pick', { kind: 'callback_query' })
+
+    await new Promise(resolve => setImmediate(resolve))
+
+    // the registry should have one callback_query waiter, zero message waiters
+    const registry = (t as any).flow as { waitFor: unknown }
+
+    expect(registry).toBeDefined()
+
+    ;(t as any).flow.cancelAll()
+    await expect(promptPromise).rejects.toMatchObject({ name: 'WaitForCancelled' })
+
+    await t.shutdown()
+  })
+
+  it('transform shapes the awaited value', async () => {
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
+
+    await t.start()
+
+    ;(t as any).send = vi.fn().mockResolvedValue({ message_id: 1 })
+
+    const promptPromise = (t as any).flow.prompt(100, 'how old?', {
+      transform: (m: any) => Number(m.text)
+    })
+
+    await new Promise(resolve => setImmediate(resolve))
+
+    // dispatched updates need a `raw` payload — augment middleware reads update.raw.chat
+    await (t as any).dispatch({
+      kind: 'message',
+      chat: { id: 100 },
+      text: '42',
+      raw: { chat: { id: 100 }, text: '42' }
+    })
+
+    await expect(promptPromise).resolves.toBe(42)
+
+    await t.shutdown()
+  })
 })

@@ -12,7 +12,7 @@ export class WaiterRegistry {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- intentional erasure across update kinds
   private readonly queues = new Map<string, Waiter<any>[]>()
 
-  register<K extends keyof UpdateKindMap> (waiter: Waiter<K>) {
+  register<K extends keyof UpdateKindMap, T> (waiter: Waiter<K, T>) {
     const queue = this.queues.get(waiter.kind as string)
 
     if (queue) {

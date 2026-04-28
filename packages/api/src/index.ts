@@ -12,3 +12,4 @@ export * from './generated/factories'
 
 export type { TelegramLike } from './telegram-like'
 export type { Has } from './util-types'
+export type { Formattable } from './formattable'

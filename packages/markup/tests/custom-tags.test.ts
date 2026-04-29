@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest'
 
+import { format } from '../src/compose'
 import { MarkupParseError } from '../src/error'
 import { Formatted } from '../src/formatted'
 import { validateAndMerge, invokeHandler, scanCustomTags, countTagSiblings, indexOfSpan, MAX_DEPTH, parseHtmlInternal, type TagHandler, type TagInfo } from '../src/parsers/custom-tags'
@@ -567,5 +568,152 @@ describe('html.define / html.with', () => {
 
     expect(html('<h1>foo</h1>').text).toBe('H:foo')
     expect(html('<b>plain</b>').text).toBe('plain')
+  })
+})
+
+describe('custom-tag end-to-end scenarios', () => {
+  afterEach(() => {
+    __resetHtmlRegistryForTests()
+  })
+
+  it('numbered list pattern: ul + li with index', () => {
+    html.define({
+      ul: content => content,
+      li: (content, { index, siblingCount }) =>
+        format`${index + 1}. ${content}${index === siblingCount - 1 ? '' : '\n'}`
+    })
+
+    const out = html`<ul><li>first</li><li>second</li><li>third</li></ul>`
+
+    expect(out.text).toBe('1. first\n2. second\n3. third')
+  })
+
+  it('callout pattern with attrs branching', () => {
+    html.define({
+      callout: (content, { attrs }) =>
+        attrs.type === 'warn'
+          ? html`⚠ <b>${content}</b>`
+          : html`ℹ <i>${content}</i>`
+    })
+
+    const warn = html`<callout type="warn">careful</callout>`
+    const info = html`<callout type="info">heads up</callout>`
+
+    expect(warn.text).toBe('⚠ careful')
+    expect(warn.entities).toEqual([{ type: 'bold', offset: 2, length: 7 }])
+
+    expect(info.text).toBe('ℹ heads up')
+    expect(info.entities).toEqual([{ type: 'italic', offset: 2, length: 8 }])
+  })
+
+  it('preserves entities from interpolations into the handler', () => {
+    html.define({ h1: c => html`<b>${c}</b>` })
+
+    const out = html`<h1>${html`<i>x</i>`}</h1>`
+
+    expect(out.text).toBe('x')
+    const types = out.entities.map(e => e.type).sort()
+
+    expect(types).toEqual(['bold', 'italic'])
+  })
+
+  it('htmlb: <br> inside custom-tag content becomes \\n', () => {
+    htmlb.define({ block: c => c })
+
+    const out = htmlb`<block>line one<br>line two</block>`
+
+    expect(out.text).toBe('line one\nline two')
+  })
+
+  it('cyclic definition throws MarkupParseError with depth message', () => {
+    html.define({ loop: c => html`<loop>${c}</loop>` })
+
+    expect(() => html`<loop>x</loop>`).toThrow(MarkupParseError)
+    expect(() => html`<loop>x</loop>`).toThrow(/expansion depth exceeded \(32\); possible cycle in <loop>/)
+  })
+
+  it('mutual cycle (a ↔ b) throws', () => {
+    html.define({
+      'a-tag': c => html`<b-tag>${c}</b-tag>`,
+      'b-tag': c => html`<a-tag>${c}</a-tag>`
+    })
+
+    expect(() => html`<a-tag>x</a-tag>`).toThrow(/expansion depth exceeded/)
+  })
+
+  it('legitimate intentional nested-list expansion terminates correctly', () => {
+    html.define({
+      group: c => html`(${c})`
+    })
+
+    const out = html`<group><group><group>x</group></group></group>`
+
+    expect(out.text).toBe('(((x)))')
+  })
+
+  it('handler-thrown error is wrapped with cause', () => {
+    const original = new Error('handler logic failed')
+
+    html.define({
+      broken: () => {
+        throw original
+      }
+    })
+
+    let caught: unknown
+
+    try {
+      html`<broken>x</broken>`
+    } catch (err) {
+      caught = err
+    }
+
+    expect(caught).toBeInstanceOf(MarkupParseError)
+    expect((caught as MarkupParseError).message).toContain('custom-tag <broken> handler threw: handler logic failed')
+    expect((caught as { cause: unknown }).cause).toBe(original)
+  })
+
+  it('built-in tags inside custom tag work, custom tags inside built-in work', () => {
+    html.define({ h1: c => html`<u>${c}</u>` })
+
+    const out1 = html`<h1>foo <b>bar</b></h1>`
+
+    expect(out1.text).toBe('foo bar')
+
+    const types1 = out1.entities.map(e => e.type).sort()
+
+    expect(types1).toEqual(['bold', 'underline'])
+
+    const out2 = html`<b><h1>nested</h1></b>`
+
+    expect(out2.text).toBe('nested')
+
+    const types2 = out2.entities.map(e => e.type).sort()
+
+    expect(types2).toEqual(['bold', 'underline'])
+  })
+
+  it('text-content custom tag receives Formatted with .text accessible', () => {
+    let captured = ''
+
+    html.define({
+      raw: (c) => {
+        captured = c.text
+
+        return c
+      }
+    })
+
+    html`<raw>some text content</raw>`
+
+    expect(captured).toBe('some text content')
+  })
+
+  it('sentinel-laden interpolation passing through a custom tag is literal', () => {
+    html.define({ h1: c => c })
+
+    const out = html`<h1>${'</h1>'}</h1>`
+
+    expect(out.text).toBe('</h1>')
   })
 })

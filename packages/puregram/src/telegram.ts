@@ -414,13 +414,43 @@ function escapeRegExp (s: string) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
+// `match` is populated by the value/regex variants of the content/callback/inline
+// filter families and by `tg.command(...)`. surfaced via declaration merging so
+// userland handlers can read `update.match?.groups?.foo` without explicit casts
 declare module '@puregram/api' {
   interface MessageUpdate {
-    /**
-     * regex match attached by `tg.command(pattern, handler)` when the pattern matched
-     *
-     * undefined for messages that didn't reach a `command` matcher
-     */
+    match?: RegExpMatchArray
+  }
+
+  interface EditedMessageUpdate {
+    match?: RegExpMatchArray
+  }
+
+  interface ChannelPostUpdate {
+    match?: RegExpMatchArray
+  }
+
+  interface EditedChannelPostUpdate {
+    match?: RegExpMatchArray
+  }
+
+  interface BusinessMessageUpdate {
+    match?: RegExpMatchArray
+  }
+
+  interface EditedBusinessMessageUpdate {
+    match?: RegExpMatchArray
+  }
+
+  interface CallbackQueryUpdate {
+    match?: RegExpMatchArray
+  }
+
+  interface InlineQueryUpdate {
+    match?: RegExpMatchArray
+  }
+
+  interface ChosenInlineResultUpdate {
     match?: RegExpMatchArray
   }
 }

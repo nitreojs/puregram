@@ -395,6 +395,7 @@ describe('preprocessCustomTags + parseHtml integration', () => {
     expect(seen[0].text).toBe('')
     expect(seen[0].entities).toEqual([])
     expect(seen[1].text).toBe('')
+    expect(seen[1].entities).toEqual([])
   })
 
   it('passes attrs to info.attrs', () => {

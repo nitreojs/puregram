@@ -736,4 +736,50 @@ describe('custom-tag end-to-end scenarios', () => {
     expect(out.text).toBe('x')
     expect(out.entities).toEqual([{ type: 'bold', offset: 0, length: 1 }])
   })
+
+  it('strips structural whitespace inside a custom-tag parent (jsx-style)', () => {
+    html.define({
+      ul: content => content,
+      li: (content, { index, siblingCount }) =>
+        format`${index + 1}. ${content}${index === siblingCount - 1 ? '' : '\n'}`
+    })
+
+    // multi-line readable source should produce single newlines between items, not double.
+    // (the leading '\n' is parseHtml preserving the template literal's first newline —
+    // pre-existing behavior unrelated to custom tags)
+    const out = html`
+      <ul>
+        <li>first</li>
+        <li>second</li>
+        <li>third</li>
+      </ul>
+    `
+
+    expect(out.text).toBe('\n1. first\n2. second\n3. third')
+  })
+
+  it('preserves whitespace between custom-tag siblings at top level', () => {
+    html.define({
+      callout: content => html`ℹ ${content}`
+    })
+
+    // top-level: source whitespace is the user's literal intent, not structural
+    const out = html`<callout>x</callout>
+<callout>y</callout>`
+
+    expect(out.text).toBe('ℹ x\nℹ y')
+  })
+
+  it('preserves text between custom-tag siblings inside a custom parent', () => {
+    html.define({
+      wrapper: content => content,
+      item: content => format`[${content}]`
+    })
+
+    // text content with non-whitespace is preserved; surrounding whitespace stripping
+    // only applies to pure-whitespace runs
+    const out = html`<wrapper>intro<item>a</item> middle <item>b</item>tail</wrapper>`
+
+    expect(out.text).toBe('intro[a] middle [b]tail')
+  })
 })

@@ -314,11 +314,24 @@ export function preprocessCustomTags (
   const siblingCount = countTagSiblings(source)
   const parent = ancestors.length === 0 ? null : (ancestors[ancestors.length - 1] ?? null)
 
+  // jsx-style structural whitespace rule: inside a custom-tag parent, pure-whitespace
+  // text slices between siblings (or at the parent body's edges) are decorative
+  // indentation, not content, and get stripped. at the top level (ancestors=[])
+  // source whitespace is preserved verbatim
+  const insideCustomParent = ancestors.length > 0
+  const emitSlice = (slice: string) => {
+    if (insideCustomParent && /^\s*$/.test(slice)) {
+      return ''
+    }
+
+    return slice
+  }
+
   let out = ''
   let cursor = 0
 
   for (const span of spans) {
-    out += source.slice(cursor, span.openStart)
+    out += emitSlice(source.slice(cursor, span.openStart))
 
     const innerSrc = span.selfClosing
       ? ''
@@ -352,7 +365,7 @@ export function preprocessCustomTags (
     cursor = span.closeEnd
   }
 
-  out += source.slice(cursor)
+  out += emitSlice(source.slice(cursor))
 
   return out
 }

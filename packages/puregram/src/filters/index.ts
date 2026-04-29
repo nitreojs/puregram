@@ -8,4 +8,8 @@
 // authors who want a tighter import surface. this barrel routes everything through
 // `@puregram/api`'s root re-export so codegen additions land here without a manual edit
 
+export * from './chat'
+export * from './routing'
+export * from './sender'
+
 export * from '@puregram/api'

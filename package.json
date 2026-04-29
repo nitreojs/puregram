@@ -26,6 +26,8 @@
     "undici": "^5.26.2"
   },
   "scripts": {
+    "regenerate-all": "tsx scripts/regenerate-all.ts",
+
     "generate": "yarn generate-constants && yarn generate-updates && yarn generate-types",
     "generate-references": "ts-node scripts/generate-references/",
     "generate-constants": "ts-node scripts/generate-constants/",

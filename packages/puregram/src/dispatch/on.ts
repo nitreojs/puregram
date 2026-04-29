@@ -1,3 +1,7 @@
+import type { Update } from '@puregram/api'
+
+import type { CustomUpdate } from './custom-updates'
+
 // handlers compose middleware-style. each handler receives the update and a `next`
 // thunk; calling `next()` lets the next registered handler run, returning without
 // calling `next()` halts the chain. that lets command-style handlers terminate
@@ -8,70 +12,136 @@ export type UpdateHandler<U = unknown> = (
   next: () => Promise<void>
 ) => unknown
 
-interface KindLike {
- kind: string
+/**
+ * dispatch-side union of every update an incoming `tg.on(...)` handler can see —
+ * bot-api wrapped updates from `@puregram/api` plus any user-defined `CustomUpdate`
+ */
+export type AnyUpdate = Update | CustomUpdate
+
+/**
+ * predicate signature accepted by the `tg.on(predicate, handler, options?)` form.
+ * the type-guard variant narrows the handler arg automatically; the plain-boolean
+ * variant keeps it as `AnyUpdate`
+ */
+export type UpdatePredicate<T extends AnyUpdate = AnyUpdate> =
+  | ((update: AnyUpdate) => update is T)
+  | ((update: AnyUpdate) => boolean)
+
+export type Priority = 'high' | 'normal' | 'low'
+
+export interface OnOptions {
+  priority?: Priority
 }
 
+const PRIORITY_RANK: Record<Priority, number> = {
+  high: 0,
+  normal: 1,
+  low: 2
+}
+
+interface KindEntry {
+  type: 'kind'
+  kind: string
+  handler: UpdateHandler
+  priority: Priority
+  seq: number
+}
+
+interface PredicateEntry {
+  type: 'predicate'
+  predicate: (update: AnyUpdate) => boolean
+  handler: UpdateHandler
+  priority: Priority
+  seq: number
+}
+
+export type DispatchEntry = KindEntry | PredicateEntry
+
+export type DispatchEntryInput =
+  | Omit<KindEntry, 'seq'>
+  | Omit<PredicateEntry, 'seq'>
+
 export class Dispatcher {
-  private readonly handlers = new Map<string, UpdateHandler[]>()
+  private readonly entries: DispatchEntry[] = []
+  private nextSeq = 0
 
-  on (kind: string, fn: UpdateHandler) {
-    const list = this.handlers.get(kind)
+  add (entry: DispatchEntryInput) {
+    const seq = this.nextSeq++
 
-    if (list) {
-      list.push(fn)
-    } else {
-      this.handlers.set(kind, [fn])
-    }
+    this.entries.push({ ...entry, seq } as DispatchEntry)
   }
 
-  off (kind: string, fn: UpdateHandler) {
-    const list = this.handlers.get(kind)
+  on (kind: string, handler: UpdateHandler, priority: Priority = 'normal') {
+    this.add({ type: 'kind', kind, handler, priority })
+  }
 
-    if (!list) {
-      return
-    }
-
-    const idx = list.indexOf(fn)
+  off (kind: string, handler: UpdateHandler) {
+    const idx = this.entries.findIndex(
+      e => e.type === 'kind' && e.kind === kind && e.handler === handler
+    )
 
     if (idx >= 0) {
-      list.splice(idx, 1)
-    }
-
-    if (list.length === 0) {
-      this.handlers.delete(kind)
+      this.entries.splice(idx, 1)
     }
   }
 
-  async runUserHandlers (update: KindLike) {
-    const list = this.handlers.get(update.kind)
-
-    if (!list) {
+  async runUserHandlers (update: AnyUpdate) {
+    if (this.entries.length === 0) {
       return
     }
 
-    // snapshot the list so off() during dispatch can't shift the cursor
-    const snapshot = [...list]
+    // snapshot so registration changes during dispatch don't shift the cursor
+    const snapshot = this.entries.slice()
+    const matched: DispatchEntry[] = []
+
+    for (const entry of snapshot) {
+      if (entry.type === 'kind') {
+        if (entry.kind === update.kind) {
+          matched.push(entry)
+        }
+
+        continue
+      }
+
+      if (entry.predicate(update)) {
+        matched.push(entry)
+      }
+    }
+
+    if (matched.length === 0) {
+      return
+    }
+
+    matched.sort((a, b) => {
+      const rank = PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority]
+
+      if (rank !== 0) {
+        return rank
+      }
+
+      return a.seq - b.seq
+    })
+
     let i = 0
 
     const next = async (): Promise<void> => {
-      if (i >= snapshot.length) {
+      if (i >= matched.length) {
         return
       }
 
-      const handler = snapshot[i++]
+      const entry = matched[i++]
 
-      if (handler === undefined) {
+      if (entry === undefined) {
         return
       }
 
-      await handler(update, next)
+      await entry.handler(update, next)
     }
 
     await next()
   }
 
-  has (kind: string): boolean {
-    return this.handlers.has(kind)
+  has (kind: string) {
+    return this.entries.some(e => e.type === 'kind' && e.kind === kind)
   }
 }

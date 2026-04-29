@@ -15,7 +15,7 @@ import type {
   RequestHookName
 } from './dispatch/hooks'
 import { HookRegistry } from './dispatch/hooks'
-import type { UpdateHandler } from './dispatch/on'
+import type { AnyUpdate, OnOptions, UpdateHandler, UpdatePredicate } from './dispatch/on'
 import { Dispatcher } from './dispatch/on'
 import { buildUpdate } from './dispatch/update-builder'
 import type { ApiResponseError } from './errors'
@@ -147,19 +147,54 @@ export class Telegram<Ext = unknown> {
    *   if (message.text !== '/cmd') return  // ← chain stops here, no further handlers run
    *   await message.send('hi')
    * })
+   *
+   * tg.on(
+   *   (update): update is MessageUpdate => update.is('message') && update.hasText(),
+   *   (message) => message.send(`echo: ${message.text}`)
+   * )
    */
-  on<K extends UpdateKind> (kind: K, handler: UpdateHandler<UpdateKindMap[K]>): this
-  on<K extends UpdateKind> (kinds: readonly K[], handler: UpdateHandler<UpdateKindMap[K]>): this
   on<K extends UpdateKind> (
-    kindOrKinds: K | readonly K[],
-    handler: UpdateHandler<UpdateKindMap[K]>
+    kind: K,
+    handler: UpdateHandler<UpdateKindMap[K]>,
+    options?: OnOptions
+  ): this
+
+  on<K extends UpdateKind> (
+    kinds: readonly K[],
+    handler: UpdateHandler<UpdateKindMap[K]>,
+    options?: OnOptions
+  ): this
+
+  on<T extends AnyUpdate> (
+    predicate: (update: AnyUpdate) => update is T,
+    handler: UpdateHandler<T>,
+    options?: OnOptions
+  ): this
+
+  on (
+    predicate: (update: AnyUpdate) => boolean,
+    handler: UpdateHandler<AnyUpdate>,
+    options?: OnOptions
+  ): this
+
+  on (
+    first: string | readonly string[] | UpdatePredicate,
+    handler: UpdateHandler<never>,
+    options: OnOptions = {}
   ): this {
-    const kinds: readonly K[] = Array.isArray(kindOrKinds)
-      ? (kindOrKinds as readonly K[])
-      : [kindOrKinds as K]
+    const priority = options.priority ?? 'normal'
+    const fn = handler as UpdateHandler
+
+    if (typeof first === 'function') {
+      this.dispatcher.add({ type: 'predicate', predicate: first, handler: fn, priority })
+
+      return this
+    }
+
+    const kinds: readonly string[] = Array.isArray(first) ? first : [first as string]
 
     for (const kind of kinds) {
-      this.dispatcher.on(kind, handler as UpdateHandler)
+      this.dispatcher.on(kind, fn, priority)
     }
 
     return this
@@ -288,7 +323,7 @@ export class Telegram<Ext = unknown> {
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
       buildAndDispatch: async (rawUpdate) => {
-        const update = buildUpdate(rawUpdate, this) as { kind: string }
+        const update = buildUpdate(rawUpdate, this) as AnyUpdate
 
         await this.dispatch(update)
       },
@@ -307,7 +342,7 @@ export class Telegram<Ext = unknown> {
   getWebhookCallback (secret?: string) {
     return createWebhookCallback({
       buildAndDispatch: async (rawUpdate) => {
-        const update = buildUpdate(rawUpdate, this) as { kind: string }
+        const update = buildUpdate(rawUpdate, this) as AnyUpdate
 
         await this.dispatch(update)
       },
@@ -329,7 +364,7 @@ export class Telegram<Ext = unknown> {
     return this.polling.drop(value)
   }
 
-  protected async dispatch (update: { kind: string }) {
+  protected async dispatch (update: AnyUpdate) {
     await this.hooks.runUpdate(update, async (_, next) => {
       await this.dispatcher.runUserHandlers(update)
       await next()

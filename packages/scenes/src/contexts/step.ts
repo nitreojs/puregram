@@ -6,11 +6,15 @@ import type { StepContextGoOptions, StepContextOptions } from './step.types'
 export class StepSceneContext<S = SceneState> {
   private readonly payload: StepContextOptions<S>['payload']
   private readonly steps: StepContextOptions<S>['steps']
+  private readonly beforeStep: StepContextOptions<S>['beforeStep']
+  private readonly afterStep: StepContextOptions<S>['afterStep']
   private stepChanged = false
 
   constructor (options: StepContextOptions<S>) {
     this.payload = options.payload
     this.steps = options.steps
+    this.beforeStep = options.beforeStep
+    this.afterStep = options.afterStep
   }
 
   get firstTime () {
@@ -43,11 +47,32 @@ export class StepSceneContext<S = SceneState> {
     }
 
     this.stepChanged = false
+
+    if (this.beforeStep) {
+      await this.beforeStep(this.payload)
+
+      // beforeStep may have called scene.leave() or step.go/.next/.previous —
+      // in either case, skip the step body so we don't run a stale handler
+      if (this.shouldSkipBody()) {
+        return
+      }
+    }
+
     await current(this.payload)
 
-    if (this.payload.scene.lastAction !== LastAction.Leave && !this.stepChanged) {
-      this.payload.scene.session.firstTime = false
+    if (this.shouldSkipBody()) {
+      return
     }
+
+    if (this.afterStep) {
+      await this.afterStep(this.payload)
+
+      if (this.shouldSkipBody()) {
+        return
+      }
+    }
+
+    this.payload.scene.session.firstTime = false
   }
 
   async go (stepId: number, options: StepContextGoOptions = {}) {
@@ -66,5 +91,9 @@ export class StepSceneContext<S = SceneState> {
 
   previous (options?: StepContextGoOptions) {
     return this.go(this.stepId - 1, options)
+  }
+
+  private shouldSkipBody () {
+    return this.payload.scene.lastAction === LastAction.Leave || this.stepChanged
   }
 }

@@ -25,4 +25,15 @@ export interface StepSceneOptions<S = SceneState, U = ScenePayload> {
   steps: StepSceneHandler<S, U>[]
   enterHandler?: StepSceneHandler<S, U>
   leaveHandler?: StepSceneHandler<S, U>
+  /**
+   * runs before every step body. if it calls `scene.leave()` or `step.go/.next/
+   * .previous`, the step body is skipped. handy for global checks like /cancel
+   */
+  beforeStep?: StepSceneHandler<S, U>
+  /**
+   * runs after every step body, only if the step did not leave or navigate.
+   * runs before `firstTime` is cleared, so the hook still sees firstTime as it
+   * was during the step body
+   */
+  afterStep?: StepSceneHandler<S, U>
 }

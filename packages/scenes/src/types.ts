@@ -27,4 +27,12 @@ export interface SceneOptions {
    * (from.id ?? senderChat.id ?? chat.id). undefined ⇒ no scene attached for this update
    */
   getStorageKey?: (update: AnyUpdate) => string | undefined
+  /**
+   * predicate to bypass scene reentry for selected updates. when it returns true
+   * for an update belonging to a user with an active scene, the update flows to
+   * subsequent middleware (and `tg.on(...)` handlers) as if no scene were active.
+   * `update.scene` is still attached, so handlers can call `update.scene.leave()`
+   * etc. handy for global commands that must work mid-scene (/whoami, /help)
+   */
+  passthrough?: (update: AnyUpdate) => boolean
 }

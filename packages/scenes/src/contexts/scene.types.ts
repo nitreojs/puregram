@@ -1,10 +1,13 @@
 import type { SceneManager } from '../manager'
 import type { SceneState } from '../types'
 
-/** persisted under `update.session.__scene` */
-export interface SceneSessionState {
+/**
+ * persisted under `update.session.__scene`. parameterised over the per-scene
+ * user state shape (defaults to user-augmented `SceneState`)
+ */
+export interface SceneSessionState<S = SceneState> {
   current?: string
-  state?: Record<string, unknown>
+  state?: S
   stepId?: number
   firstTime?: boolean
 }

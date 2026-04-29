@@ -171,4 +171,40 @@ describe('scenes() — onUpdate middleware', () => {
     expect(stored?.__scene?.current).toBe('wizard')
     await t.shutdown()
   })
+
+  it('passthrough predicate lets matching updates skip scene reentry', async () => {
+    const enter = vi.fn()
+    const wizard = new StepScene('wizard', { enterHandler: enter, steps: [] })
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT })
+      .extend(session())
+      .extend(scenes({
+        scenes: [wizard],
+        passthrough: (u: any) => u.text === '/whoami'
+      }))
+
+    await t.start()
+    await t.session.set('7', { __scene: { current: 'wizard' } })
+
+    const userHandler = vi.fn()
+
+    t.defineUpdate('probe')
+    t.on('probe', userHandler)
+
+    // matches passthrough — user handler runs, scene does NOT reenter
+    t.emit('probe', { from: { id: 7 }, text: '/whoami' })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(userHandler).toHaveBeenCalledTimes(1)
+    expect(enter).not.toHaveBeenCalled()
+    expect((userHandler.mock.calls[0]?.[0] as { scene?: unknown }).scene).toBeDefined()
+
+    // does not match — scene reenters as usual
+    t.emit('probe', { from: { id: 7 }, text: 'hello' })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(enter).toHaveBeenCalledTimes(1)
+    expect(userHandler).toHaveBeenCalledTimes(1)
+
+    await t.shutdown()
+  })
 })

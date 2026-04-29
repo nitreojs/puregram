@@ -48,6 +48,7 @@ export interface ScenesExtension {
 export function scenes (options: SceneOptions = {}) {
   const manager = new SceneManager(options.scenes !== undefined ? { scenes: options.scenes } : {})
   const getStorageKey = options.getStorageKey ?? defaultGetStorageKey
+  const passthrough = options.passthrough ?? (() => false)
 
   return createPlugin({
     name: 'scenes',
@@ -73,8 +74,9 @@ export function scenes (options: SceneOptions = {}) {
           configurable: false
         })
 
-        if (ctx.current !== undefined) {
-          // active scene owns this update — consume it
+        // active scene owns this update unless the passthrough predicate exempts
+        // it (e.g. for global commands like /whoami)
+        if (ctx.current !== undefined && !passthrough(update as AnyUpdate)) {
           await ctx.reenter()
 
           return

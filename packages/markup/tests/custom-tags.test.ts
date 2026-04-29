@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 
 import { MarkupParseError } from '../src/error'
 import { Formatted } from '../src/formatted'
-import { validateAndMerge, invokeHandler, MAX_DEPTH, type TagHandler } from '../src/parsers/custom-tags'
+import { validateAndMerge, invokeHandler, scanCustomTags, MAX_DEPTH, type TagHandler } from '../src/parsers/custom-tags'
 
 const noop: TagHandler = content => content
 
@@ -192,5 +192,116 @@ describe('invokeHandler', () => {
     const out = invokeHandler(ok, new Formatted('post', []), blankInfo())
 
     expect(out.text).toBe('post')
+  })
+})
+
+const reg = (...names: string[]) => {
+  const m = new Map<string, TagHandler>()
+
+  for (const n of names) {
+    m.set(n, noop)
+  }
+
+  return m
+}
+
+describe('scanCustomTags', () => {
+  it('returns no spans when registry is empty', () => {
+    expect(scanCustomTags('<h1>x</h1>', new Map())).toEqual([])
+  })
+
+  it('returns no spans when source has no custom tags', () => {
+    expect(scanCustomTags('<b>plain</b>text', reg('h1'))).toEqual([])
+  })
+
+  it('finds a single custom-tag span', () => {
+    const spans = scanCustomTags('<h1>title</h1>', reg('h1'))
+
+    expect(spans).toHaveLength(1)
+    expect(spans[0]).toMatchObject({
+      tag: 'h1',
+      attrs: {},
+      openStart: 0,
+      contentStart: 4,
+      closeStart: 9,
+      closeEnd: 14,
+      selfClosing: false
+    })
+  })
+
+  it('parses attrs on the open tag', () => {
+    const spans = scanCustomTags('<callout type="warn">x</callout>', reg('callout'))
+
+    expect(spans).toHaveLength(1)
+    expect(spans[0].tag).toBe('callout')
+    expect(spans[0].attrs).toEqual({ type: 'warn' })
+  })
+
+  it('handles boolean attrs (no value)', () => {
+    const spans = scanCustomTags('<callout warn>x</callout>', reg('callout'))
+
+    expect(spans[0].attrs).toEqual({ warn: '' })
+  })
+
+  it('finds matching close past nested same-name custom tags', () => {
+    const src = '<h1>outer<h1>inner</h1>tail</h1>'
+    const spans = scanCustomTags(src, reg('h1'))
+
+    // only the outer is a top-level span; the inner h1 is inside outer's content
+    expect(spans).toHaveLength(1)
+    expect(spans[0].openStart).toBe(0)
+    expect(spans[0].contentStart).toBe(4)
+    // close tag position varies depending on byte offsets — assert relative to known string positions
+    expect(src.slice(spans[0].closeStart, spans[0].closeEnd)).toBe('</h1>')
+    expect(spans[0].closeEnd).toBe(src.length)
+  })
+
+  it('returns spans in document order for sibling custom tags', () => {
+    const spans = scanCustomTags('<h1>a</h1><h1>b</h1>', reg('h1'))
+
+    expect(spans).toHaveLength(2)
+    expect(spans[0].openStart).toBe(0)
+    expect(spans[1].openStart).toBe(10)
+  })
+
+  it('treats self-closing custom tags', () => {
+    const src = '<icon name="bell"/>after'
+    const spans = scanCustomTags(src, reg('icon'))
+
+    expect(spans).toHaveLength(1)
+    expect(spans[0].selfClosing).toBe(true)
+    expect(spans[0].attrs).toEqual({ name: 'bell' })
+    expect(spans[0].contentStart).toBe(spans[0].closeStart)
+    expect(spans[0].closeEnd).toBe('<icon name="bell"/>'.length)
+  })
+
+  it('throws on unclosed custom tag', () => {
+    expect(() => scanCustomTags('<h1>oops', reg('h1'))).toThrow(MarkupParseError)
+    expect(() => scanCustomTags('<h1>oops', reg('h1'))).toThrow(/unclosed custom tag <h1>/)
+  })
+
+  it('skips built-in tags entirely (does not see them as spans)', () => {
+    const spans = scanCustomTags('<b><h1>x</h1></b>', reg('h1'))
+
+    // <h1> is a top-level custom-tag span — not nested inside another custom tag
+    // (the surrounding <b> is built-in, doesn't shield)
+    expect(spans).toHaveLength(1)
+    expect(spans[0].tag).toBe('h1')
+  })
+
+  it('skips sentinel-laden segments (sentinels never start a tag)', () => {
+    // sentinels are SOH () — not '<' — so the scanner naturally ignores them
+    const src = '0<h1>x</h1>'
+    const spans = scanCustomTags(src, reg('h1'))
+
+    expect(spans).toHaveLength(1)
+    expect(spans[0].openStart).toBe(3)
+  })
+
+  it('treats lowercase canonical: <H1> matches registered "h1"', () => {
+    const spans = scanCustomTags('<H1>x</H1>', reg('h1'))
+
+    expect(spans).toHaveLength(1)
+    expect(spans[0].tag).toBe('h1')
   })
 })

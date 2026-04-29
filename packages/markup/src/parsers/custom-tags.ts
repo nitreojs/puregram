@@ -47,3 +47,43 @@ export function validateAndMerge (registry: Map<string, TagHandler>, tags: TagDe
     registry.set(name, handler)
   }
 }
+
+// module-level counter; single-threaded by design (node event loop is single-threaded for sync code)
+let handlerDepth = 0
+
+/**
+ * runs `handler` under the depth-tracking + error-wrapping discipline — all custom-tag
+ * handler calls go through here. when `handlerDepth >= MAX_DEPTH` we throw before
+ * invoking the handler, which catches both direct (`<h1>` → `<h1>`) and indirect
+ * (`<a>` → `<b>` → `<a>`) cycles
+ */
+export function invokeHandler (handler: TagHandler, content: Formatted, info: TagInfo) {
+  if (handlerDepth >= MAX_DEPTH) {
+    throw new MarkupParseError(
+      `custom-tag expansion depth exceeded (${MAX_DEPTH}); possible cycle in <${info.tag}>`,
+      0,
+      ''
+    )
+  }
+
+  handlerDepth += 1
+
+  try {
+    return handler(content, info)
+  } catch (err) {
+    if (err instanceof MarkupParseError) {
+      throw err
+    }
+
+    const message = err instanceof Error ? err.message : String(err)
+
+    throw new MarkupParseError(
+      `custom-tag <${info.tag}> handler threw: ${message}`,
+      0,
+      '',
+      { cause: err }
+    )
+  } finally {
+    handlerDepth -= 1
+  }
+}

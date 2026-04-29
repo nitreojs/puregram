@@ -3,9 +3,10 @@ export class MarkupParseError extends Error {
   constructor (
     message: string,
     readonly offset: number,
-    readonly source: string
+    readonly source: string,
+    options?: { cause?: unknown }
   ) {
-    super(`${message} at offset ${offset}`)
+    super(`${message} at offset ${offset}`, options)
     this.name = 'MarkupParseError'
   }
 }

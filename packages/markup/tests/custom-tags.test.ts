@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest'
 
 import { MarkupParseError } from '../src/error'
-import { validateAndMerge, type TagHandler } from '../src/parsers/custom-tags'
+import { Formatted } from '../src/formatted'
+import { validateAndMerge, invokeHandler, MAX_DEPTH, type TagHandler } from '../src/parsers/custom-tags'
 
 const noop: TagHandler = content => content
 
@@ -88,5 +89,108 @@ describe('validateAndMerge', () => {
       .toThrow(TypeError)
     expect(() => validateAndMerge(registry, { b: 42 as unknown as TagHandler }))
       .not.toThrow(MarkupParseError)
+  })
+})
+
+const blankInfo = (tag = 'h1') => ({
+  tag,
+  attrs: {},
+  parent: null,
+  ancestors: [],
+  index: 0,
+  siblingCount: 1
+})
+
+describe('invokeHandler', () => {
+  it('returns the handler result when handler succeeds', () => {
+    const handler: TagHandler = content => content
+    const result = invokeHandler(handler, new Formatted('hi', []), blankInfo())
+
+    expect(result).toBeInstanceOf(Formatted)
+    expect(result.text).toBe('hi')
+  })
+
+  it('rethrows MarkupParseError unchanged', () => {
+    const original = new MarkupParseError('inner failure', 5, 'src')
+    const handler: TagHandler = () => {
+      throw original
+    }
+
+    expect(() => invokeHandler(handler, new Formatted('', []), blankInfo()))
+      .toThrow(original)
+  })
+
+  it('wraps non-MarkupParseError thrown values with cause', () => {
+    const original = new Error('boom')
+    const handler: TagHandler = () => {
+      throw original
+    }
+
+    let caught: unknown
+
+    try {
+      invokeHandler(handler, new Formatted('', []), blankInfo('callout'))
+    } catch (err) {
+      caught = err
+    }
+
+    expect(caught).toBeInstanceOf(MarkupParseError)
+    expect((caught as MarkupParseError).message).toContain('custom-tag <callout> handler threw: boom')
+    expect((caught as { cause: unknown }).cause).toBe(original)
+  })
+
+  it('wraps non-Error thrown values (string)', () => {
+    const handler: TagHandler = () => {
+      // eslint-disable-next-line @typescript-eslint/no-throw-literal, no-throw-literal
+      throw 'string-error'
+    }
+
+    expect(() => invokeHandler(handler, new Formatted('', []), blankInfo()))
+      .toThrow(/custom-tag <h1> handler threw: string-error/)
+  })
+
+  it('throws MarkupParseError when depth would exceed MAX_DEPTH', () => {
+    let calls = 0
+    const handler: TagHandler = (content, info) => {
+      calls += 1
+
+      if (calls < MAX_DEPTH + 5) {
+        return invokeHandler(handler, content, info)
+      }
+
+      return content
+    }
+
+    expect(() => invokeHandler(handler, new Formatted('x', []), blankInfo()))
+      .toThrow(/custom-tag expansion depth exceeded \(32\); possible cycle in <h1>/)
+  })
+
+  it('decrements depth on success so subsequent invocations start fresh', () => {
+    const handler: TagHandler = content => content
+
+    for (let i = 0; i < MAX_DEPTH + 5; i++) {
+      invokeHandler(handler, new Formatted(String(i), []), blankInfo())
+    }
+
+    expect(true).toBe(true)
+  })
+
+  it('decrements depth on throw so a subsequent invocation works', () => {
+    const thrower: TagHandler = () => {
+      throw new Error('boom')
+    }
+    const ok: TagHandler = content => content
+
+    for (let i = 0; i < 5; i++) {
+      try {
+        invokeHandler(thrower, new Formatted('x', []), blankInfo())
+      } catch {
+        // intentional
+      }
+    }
+
+    const out = invokeHandler(ok, new Formatted('post', []), blankInfo())
+
+    expect(out.text).toBe('post')
   })
 })

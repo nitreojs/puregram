@@ -55,6 +55,7 @@ export function emitUpdates (schema: Schema) {
 
   nodes.push(emitUpdateKindUnion())
   nodes.push(emitUpdateKindMap())
+  nodes.push(emitUpdateUnion())
 
   const referencedTypes = new Set<string>()
 
@@ -817,6 +818,20 @@ function emitUpdateKindMap () {
         undefined,
         ts.factory.createTypeReferenceNode(k.className)
       )
+    )
+  )
+}
+
+// explicit union of every wrapped Update class. `UpdateKindMap[keyof UpdateKindMap]`
+// is equivalent at the tsc level but resolves to `any` under ts-eslint's
+// type-checked rules, so we emit the union by listing the classes directly
+function emitUpdateUnion () {
+  return ts.factory.createTypeAliasDeclaration(
+    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    ts.factory.createIdentifier('Update'),
+    undefined,
+    ts.factory.createUnionTypeNode(
+      UPDATE_KINDS.map(k => ts.factory.createTypeReferenceNode(k.className))
     )
   )
 }

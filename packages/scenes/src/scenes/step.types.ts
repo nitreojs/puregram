@@ -1,31 +1,27 @@
-import type { MessageUpdate } from '@puregram/api'
-
 import type { SceneContext } from '../contexts/scene'
 import type { StepSceneContext } from '../contexts/step'
-import type { SceneState } from '../types'
+import type { AnyUpdate, SceneState } from '../types'
 
 /**
  * the payload a step handler receives. parameterised over:
  *   S — the per-scene user state shape (see SceneState)
- *   U — the wrapped update kind(s) the scene handles. defaults to MessageUpdate
- *       for the common text-wizard case. pass a union (e.g.
- *       `MessageUpdate | CallbackQueryUpdate`) for mixed-kind scenes
- *
- * U fields surface directly on the payload, so handlers can use the wrapped
- * Update API (.text, .send(), .raw) without casts. the augmented `scene`
- * field is replaced with one carrying the StepSceneContext under .step
+ *   U — the wrapped update kind(s) the scene handles. defaults to AnyUpdate
+ *       since scenes can receive any kind whose storage key resolves; users
+ *       narrow with `u.is(kind)` inside step bodies. pass a tighter union
+ *       (e.g. `MessageUpdate`, or `MessageUpdate | CallbackQueryUpdate`) to
+ *       skip the narrow when a scene only handles specific kinds
  */
-export type StepContext<S = SceneState, U = MessageUpdate> = U & {
+export type StepContext<S = SceneState, U = AnyUpdate> = U & {
   scene: SceneContext<S> & {
     step: StepSceneContext<S>
   }
 }
 
-export type StepSceneHandler<S = SceneState, U = MessageUpdate> = (
+export type StepSceneHandler<S = SceneState, U = AnyUpdate> = (
   payload: StepContext<S, U>
 ) => unknown
 
-export interface StepSceneOptions<S = SceneState, U = MessageUpdate> {
+export interface StepSceneOptions<S = SceneState, U = AnyUpdate> {
   steps: StepSceneHandler<S, U>[]
   enterHandler?: StepSceneHandler<S, U>
   leaveHandler?: StepSceneHandler<S, U>

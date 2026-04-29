@@ -1,15 +1,13 @@
-import type { MessageUpdate } from '@puregram/api'
-
 import type { ScenePayload } from '../contexts/scene'
 import { LastAction } from '../contexts/scene.types'
 import { StepSceneContext } from '../contexts/step'
 import type { StepContextOptions } from '../contexts/step.types'
-import type { SceneState } from '../types'
+import type { AnyUpdate, SceneState } from '../types'
 
 import type { SceneHandlerPayload, SceneInterface } from './scene'
 import type { StepContext, StepSceneHandler, StepSceneOptions } from './step.types'
 
-export class StepScene<S = SceneState, U = MessageUpdate> implements SceneInterface {
+export class StepScene<S = SceneState, U = AnyUpdate> implements SceneInterface {
   readonly slug: string
 
   private readonly steps: StepSceneHandler<S, U>[]

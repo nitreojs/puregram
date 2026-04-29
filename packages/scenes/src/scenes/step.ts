@@ -1,3 +1,6 @@
+import type { MessageUpdate } from '@puregram/api'
+
+import type { ScenePayload } from '../contexts/scene'
 import { LastAction } from '../contexts/scene.types'
 import { StepSceneContext } from '../contexts/step'
 import type { StepContextOptions } from '../contexts/step.types'
@@ -6,7 +9,7 @@ import type { SceneState } from '../types'
 import type { SceneHandlerPayload, SceneInterface } from './scene'
 import type { StepContext, StepSceneHandler, StepSceneOptions } from './step.types'
 
-export class StepScene<S = SceneState, U = unknown> implements SceneInterface {
+export class StepScene<S = SceneState, U = MessageUpdate> implements SceneInterface {
   readonly slug: string
 
   private readonly steps: StepSceneHandler<S, U>[]
@@ -30,16 +33,16 @@ export class StepScene<S = SceneState, U = unknown> implements SceneInterface {
 
   enterHandler = async (payload: SceneHandlerPayload) => {
     const ctxOptions: StepContextOptions<S> = {
-      payload: payload as unknown as StepContext<S>,
-      steps: this.steps as unknown as StepSceneHandler<S>[]
+      payload: payload as unknown as StepContext<S, ScenePayload>,
+      steps: this.steps as unknown as StepSceneHandler<S, ScenePayload>[]
     }
 
     if (this.onBeforeStep !== undefined) {
-      ctxOptions.beforeStep = this.onBeforeStep as unknown as StepSceneHandler<S>
+      ctxOptions.beforeStep = this.onBeforeStep as unknown as StepSceneHandler<S, ScenePayload>
     }
 
     if (this.onAfterStep !== undefined) {
-      ctxOptions.afterStep = this.onAfterStep as unknown as StepSceneHandler<S>
+      ctxOptions.afterStep = this.onAfterStep as unknown as StepSceneHandler<S, ScenePayload>
     }
 
     const stepCtx = new StepSceneContext<S>(ctxOptions)

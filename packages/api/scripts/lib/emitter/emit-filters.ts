@@ -68,10 +68,8 @@ export function emitFilters (schema: Schema) {
     }
   }
 
-  const updateClassImports = new Set<string>()
   const nodes: ts.Node[] = []
 
-  // presence filters
   const presenceNames = [...presence.keys()].sort()
 
   for (const camelName of presenceNames) {
@@ -83,17 +81,7 @@ export function emitFilters (schema: Schema) {
 
     const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
 
-    for (const cls of entry.cls) {
-      updateClassImports.add(cls)
-    }
-
     nodes.push(emitPresenceFilter(hasName, camelName, entry.kinds, entry.cls))
-  }
-
-  // kind shorthand
-
-  for (const k of UPDATE_KINDS) {
-    updateClassImports.add(k.className)
   }
 
   nodes.push(emitKindCallable())
@@ -105,10 +93,11 @@ export function emitFilters (schema: Schema) {
 
   nodes.push(emitActionShorthand())
 
+  // presence filters and kind/action shorthands type via `UpdateKindMap[K]` and
+  // `Filter<unknown>` — no direct update-class refs needed at the .ts level
   const imports = [
     importNamed(['defineFilter'], '../filter-runtime'),
     importTypeNamed(['Filter'], '../filter-runtime'),
-    importTypeNamed([...updateClassImports].sort(), './updates'),
     importTypeNamed(['UpdateKind', 'UpdateKindMap'], './updates')
   ]
 
@@ -121,17 +110,13 @@ export function emitFilters (schema: Schema) {
   })
 }
 
-function emitPresenceFilter (hasName: string, camelName: string, kinds: string[], classNames: string[]) {
-  // `(u: unknown): u is X | Y => ...` — narrows to the union of update classes that have
-  // the field. the runtime check is `(u as { x?: unknown }).x != null`, which catches both
-  // undefined and null
-  const cls = [...new Set(classNames)].sort()
-
-  // export const hasX: Filter<C1 | C2 | ...> = defineFilter('hasX', predicate, { kinds })
+function emitPresenceFilter (hasName: string, camelName: string, kinds: string[], _classNames: string[]) {
+  // typed as `Filter<unknown>` rather than `Filter<C1 | C2 | … 37 classes>` — wide
+  // unions explode the type-checker (~125 filters × ~30 classes × 2 occurrences = OOM).
+  // narrowing happens at composition: `and(kind.message, hasText)` resolves to
+  // `Filter<MessageUpdate>` because `kind.message` carries the tight type
   const filterType = ts.factory.createTypeReferenceNode('Filter', [
-    cls.length === 1
-      ? ts.factory.createTypeReferenceNode(cls[0])
-      : ts.factory.createUnionTypeNode(cls.map(c => ts.factory.createTypeReferenceNode(c)))
+    ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
   ])
 
   const predicate = ts.factory.createArrowFunction(
@@ -144,9 +129,7 @@ function emitPresenceFilter (hasName: string, camelName: string, kinds: string[]
     ts.factory.createTypePredicateNode(
       undefined,
       ts.factory.createIdentifier('u'),
-      cls.length === 1
-        ? ts.factory.createTypeReferenceNode(cls[0])
-        : ts.factory.createUnionTypeNode(cls.map(c => ts.factory.createTypeReferenceNode(c)))
+      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
     ),
     ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
     ts.factory.createParenthesizedExpression(

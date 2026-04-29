@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 
 import { MarkupParseError } from '../src/error'
 import { Formatted } from '../src/formatted'
-import { validateAndMerge, invokeHandler, scanCustomTags, countTagSiblings, indexOfSpan, MAX_DEPTH, type TagHandler } from '../src/parsers/custom-tags'
+import { validateAndMerge, invokeHandler, scanCustomTags, countTagSiblings, indexOfSpan, MAX_DEPTH, parseHtmlInternal, type TagHandler, type TagInfo } from '../src/parsers/custom-tags'
 
 const noop: TagHandler = content => content
 
@@ -359,5 +359,139 @@ describe('indexOfSpan', () => {
     const src = '<b><i>deep</i></b><h1>x</h1>'
 
     expect(indexOfSpan(src, src.indexOf('<h1>'))).toBe(1)
+  })
+})
+
+describe('preprocessCustomTags + parseHtml integration', () => {
+  it('expands a single custom tag', () => {
+    const registry = new Map<string, TagHandler>()
+
+    registry.set('h1', (content) => {
+      return new Formatted(`# ${content.text}`, [
+        { type: 'bold', offset: 0, length: 2 + content.text.length }
+      ])
+    })
+
+    const out = parseHtmlInternal('<h1>hi</h1>', registry)
+
+    expect(out.text).toBe('# hi')
+    expect(out.entities).toEqual([{ type: 'bold', offset: 0, length: 4 }])
+  })
+
+  it('passes Formatted{"", []} for empty content', () => {
+    const seen: Formatted[] = []
+    const registry = new Map<string, TagHandler>()
+
+    registry.set('h1', (content) => {
+      seen.push(content)
+
+      return new Formatted('out', [])
+    })
+
+    parseHtmlInternal('<h1></h1>', registry)
+    parseHtmlInternal('<h1/>', registry)
+
+    expect(seen).toHaveLength(2)
+    expect(seen[0].text).toBe('')
+    expect(seen[0].entities).toEqual([])
+    expect(seen[1].text).toBe('')
+  })
+
+  it('passes attrs to info.attrs', () => {
+    let captured: TagInfo | undefined
+    const registry = new Map<string, TagHandler>()
+
+    registry.set('callout', (content, info) => {
+      captured = info
+
+      return content
+    })
+
+    parseHtmlInternal('<callout type="warn" expand>x</callout>', registry)
+
+    expect(captured?.attrs).toEqual({ type: 'warn', expand: '' })
+  })
+
+  it('preserves built-in entities from inner content', () => {
+    const registry = new Map<string, TagHandler>()
+
+    registry.set('h1', content => content)
+
+    const out = parseHtmlInternal('<h1>foo <b>bar</b></h1>', registry)
+
+    expect(out.text).toBe('foo bar')
+    expect(out.entities).toEqual([{ type: 'bold', offset: 4, length: 3 }])
+  })
+
+  it('threads parent and ancestors', () => {
+    const captured: TagInfo[] = []
+    const registry = new Map<string, TagHandler>()
+    const note: TagHandler = (content, info) => {
+      captured.push(info)
+
+      return content
+    }
+
+    registry.set('outer', note)
+    registry.set('mid', note)
+    registry.set('inner', note)
+
+    parseHtmlInternal('<outer><mid><inner>x</inner></mid></outer>', registry)
+
+    expect(captured.map(c => c.tag)).toEqual(['inner', 'mid', 'outer'])
+    expect(captured[0]).toMatchObject({ parent: 'mid', ancestors: ['outer', 'mid'] })
+    expect(captured[1]).toMatchObject({ parent: 'outer', ancestors: ['outer'] })
+    expect(captured[2]).toMatchObject({ parent: null, ancestors: [] })
+  })
+
+  it('threads index and siblingCount, ignoring text and counting built-ins', () => {
+    const captured: TagInfo[] = []
+    const registry = new Map<string, TagHandler>()
+
+    registry.set('li', (content, info) => {
+      captured.push(info)
+
+      return content
+    })
+
+    parseHtmlInternal('<li>a</li>noise<b>x</b>tail<li>b</li>', registry)
+
+    expect(captured).toHaveLength(2)
+    expect(captured[0]).toMatchObject({ index: 0, siblingCount: 3 })
+    expect(captured[1]).toMatchObject({ index: 2, siblingCount: 3 })
+  })
+
+  it('zero-overhead path: empty registry yields the same output as parseHtml', () => {
+    const out = parseHtmlInternal('<b>plain</b>', new Map())
+
+    expect(out.text).toBe('plain')
+    expect(out.entities).toEqual([{ type: 'bold', offset: 0, length: 5 }])
+  })
+
+  it('throws MarkupParseError on cyclic custom tag', () => {
+    const registry = new Map<string, TagHandler>()
+
+    registry.set('h1', () => {
+      return parseHtmlInternal('<h1>x</h1>', registry)
+    })
+
+    expect(() => parseHtmlInternal('<h1>start</h1>', registry))
+      .toThrow(/custom-tag expansion depth exceeded/)
+  })
+
+  it('terminates legitimate data-driven nesting', () => {
+    const registry = new Map<string, TagHandler>()
+
+    registry.set('node', content => content)
+
+    let src = 'leaf'
+
+    for (let i = 0; i < 10; i++) {
+      src = `<node>${src}</node>`
+    }
+
+    const out = parseHtmlInternal(src, registry)
+
+    expect(out.text).toBe('leaf')
   })
 })

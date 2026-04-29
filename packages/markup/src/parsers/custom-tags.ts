@@ -1,8 +1,10 @@
 import { MarkupParseError } from '../error'
-import type { Formatted } from '../formatted'
+import { Formatted } from '../formatted'
+import type { Piece } from '../interpolate'
 
-import { parseAttrs } from './html'
+import { parseAttrs, parseHtml } from './html'
 import { canonicalTag, BUILT_IN_TAG_NAMES } from './html-tags'
+import { SENTINEL_PREFIX, SENTINEL_SUFFIX, expandSentinels } from './sentinel'
 
 /** maximum number of nested handler invocations before we throw to break a cycle */
 export const MAX_DEPTH = 32
@@ -285,4 +287,88 @@ export function countTagSiblings (source: string, endOffset: number = source.len
 /** index of the tag sibling whose open is at `openStart` (i.e. count of preceding tag-sibling opens) */
 export function indexOfSpan (source: string, openStart: number) {
   return countTagSiblings(source, openStart)
+}
+
+/**
+ * preprocessing pass: replaces every custom-tag span in `source` with a sentinel
+ * whose slot contains the handler's expanded `Formatted`. built-in tags and
+ * upstream sentinels (already in `slots`) are passed through untouched.
+ *
+ * recurses into each span's inner content with `[...ancestors, span.tag]`, which
+ * propagates the parent/ancestors tracking required by `TagInfo`.
+ *
+ * `slots` is mutated in place: handler outputs are appended
+ */
+export function preprocessCustomTags (
+  source: string,
+  registry: ReadonlyMap<string, TagHandler>,
+  slots: Piece[],
+  ancestors: readonly string[]
+): string {
+  const spans = scanCustomTags(source, registry)
+
+  if (spans.length === 0) {
+    return source
+  }
+
+  const siblingCount = countTagSiblings(source)
+  const parent = ancestors.length === 0 ? null : (ancestors[ancestors.length - 1] ?? null)
+
+  let out = ''
+  let cursor = 0
+
+  for (const span of spans) {
+    out += source.slice(cursor, span.openStart)
+
+    const innerSrc = span.selfClosing
+      ? ''
+      : source.slice(span.contentStart, span.closeStart)
+
+    const innerRewritten = preprocessCustomTags(innerSrc, registry, slots, [...ancestors, span.tag])
+    const innerParsed = parseHtml(innerRewritten)
+    const innerResolved = expandSentinels(innerParsed, slots)
+
+    const handler = registry.get(span.tag)
+
+    if (handler === undefined) {
+      throw new MarkupParseError(`internal: handler missing for <${span.tag}>`, span.openStart, source)
+    }
+
+    const info: TagInfo = {
+      tag: span.tag,
+      attrs: span.attrs,
+      parent,
+      ancestors,
+      index: indexOfSpan(source, span.openStart),
+      siblingCount
+    }
+
+    const result = invokeHandler(handler, innerResolved, info)
+    const slotIdx = slots.length
+
+    slots.push({ kind: 'formatted', value: Formatted.from(result) })
+    out += `${SENTINEL_PREFIX}${slotIdx}${SENTINEL_SUFFIX}`
+
+    cursor = span.closeEnd
+  }
+
+  out += source.slice(cursor)
+
+  return out
+}
+
+/**
+ * top-level entry. when registry is empty, this is exactly `parseHtml(source)` —
+ * zero overhead. otherwise: preprocess, parse, expand all sentinels
+ */
+export function parseHtmlInternal (source: string, registry: ReadonlyMap<string, TagHandler>) {
+  if (registry.size === 0) {
+    return parseHtml(source)
+  }
+
+  const slots: Piece[] = []
+  const rewritten = preprocessCustomTags(source, registry, slots, [])
+  const parsed = parseHtml(rewritten)
+
+  return expandSentinels(parsed, slots)
 }

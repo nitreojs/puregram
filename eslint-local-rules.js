@@ -99,6 +99,12 @@ const noRedundantReturnType = {
         return
       }
 
+      // type predicates (`x is T`) are load-bearing: TS infers `boolean`, never the predicate
+      const annotation = node.returnType.typeAnnotation
+      if (annotation && annotation.type === 'TSTypePredicate') {
+        return
+      }
+
       if (isOverloadImplementation(node) || isMethodOverloadImplementation(node)) {
         return
       }

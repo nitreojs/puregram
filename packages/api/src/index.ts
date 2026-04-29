@@ -26,3 +26,5 @@ export {
   some
 } from './filter-runtime'
 export type { Filter, AsyncFilter, FilterMeta, FilterMethods } from './filter-runtime'
+export { CustomUpdate, CustomUpdateRegistry } from './custom-update'
+export type { AnyUpdate } from './custom-update'

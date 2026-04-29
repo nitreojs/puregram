@@ -18,7 +18,7 @@ import type { AnyUpdate } from '../dispatch/on'
  *   await next()
  * }), { priority: 'high' })
  */
-export function when<T> (filter: Filter<T>, mw: Middleware<T>) {
+export function when<T extends AnyUpdate> (filter: Filter<T>, mw: Middleware<T>) {
   const wrapped: Middleware<unknown> = async (update, next) => {
     const kinds = filter.kinds
 

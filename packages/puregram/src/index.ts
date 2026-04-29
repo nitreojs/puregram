@@ -24,7 +24,6 @@ export type { AnyUpdate, OnOptions, Priority, UpdateHandler, UpdatePredicate } f
 export type { StartPollingOptions } from './transport/polling'
 export type { WebhookCallback } from './transport/webhook'
 
-export { CustomUpdate } from './dispatch/custom-updates'
 export { UnsupportedUpdate } from './dispatch/update-builder'
 export { attach } from './dispatch/attach'
 

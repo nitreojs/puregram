@@ -1,6 +1,6 @@
-import type { Update } from '@puregram/api'
+import type { AnyUpdate } from '@puregram/api'
 
-import type { CustomUpdate } from './custom-updates'
+export type { AnyUpdate } from '@puregram/api'
 
 // handlers compose middleware-style. each handler receives the update and a `next`
 // thunk; calling `next()` lets the next registered handler run, returning without
@@ -11,12 +11,6 @@ export type UpdateHandler<U = unknown> = (
   update: U,
   next: () => Promise<void>
 ) => unknown
-
-/**
- * dispatch-side union of every update an incoming `tg.on(...)` handler can see —
- * bot-api wrapped updates from `@puregram/api` plus any user-defined `CustomUpdate`
- */
-export type AnyUpdate = Update | CustomUpdate
 
 /**
  * predicate signature accepted by the `tg.on(predicate, handler, options?)` form.

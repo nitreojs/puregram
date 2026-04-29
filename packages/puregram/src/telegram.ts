@@ -177,6 +177,12 @@ export class Telegram<Ext = unknown> {
    *
    * tg.on('message', logRequest, { priority: 'high' })
    */
+  on<T extends AnyUpdate> (
+    filter: Filter<T>,
+    handler: UpdateHandler<T>,
+    options?: OnOptions
+  ): this
+
   on<K extends UpdateKind> (
     kind: K,
     handler: UpdateHandler<UpdateKindMap[K]>,
@@ -401,7 +407,7 @@ export class Telegram<Ext = unknown> {
    * }, { priority: 'high' })
    */
   use (fn: Middleware<unknown>, options?: HookOptions): this
-  use<T> (filter: Filter<T>, mw: Middleware<T>, options?: HookOptions): this
+  use<T extends AnyUpdate> (filter: Filter<T>, mw: Middleware<T>, options?: HookOptions): this
   use (
     filterOrMw: Filter | Middleware<unknown>,
     mwOrOptions?: Middleware<unknown> | HookOptions,

@@ -3,6 +3,8 @@
 // for `defineFilter` without producing a reverse dependency on `puregram`. the
 // `puregram/filters` subpath re-exports everything here under a friendlier surface
 
+import type { AnyUpdate } from './custom-update'
+
 const ASYNC_TAG = Symbol.for('puregram.filter.async')
 
 /**
@@ -31,14 +33,14 @@ export interface FilterMeta {
  * the chained-form composition methods (`and`/`or`/`not`) delegate to the
  * corresponding factories — `a.and(b)` and `and(a, b)` produce equivalent results
  */
-export interface Filter<T = unknown> extends FilterMeta {
-  (update: unknown): update is T
+export interface Filter<T extends AnyUpdate = AnyUpdate> extends FilterMeta {
+  (update: AnyUpdate): update is T
   /** narrow further — match when `this` AND `other` match. result is typed as the intersection */
-  and: <U>(other: Filter<U>) => Filter<T & U>
+  and: <U extends AnyUpdate>(other: Filter<U>) => Filter<Extract<T & U, AnyUpdate>>
   /** widen — match when `this` OR `other` match. result is typed as the union */
-  or: <U>(other: Filter<U>) => Filter<T | U>
+  or: <U extends AnyUpdate>(other: Filter<U>) => Filter<T | U>
   /** negate — match when `this` does not match. result drops type narrowing */
-  not: () => Filter<unknown>
+  not: () => Filter<AnyUpdate>
 }
 
 /**
@@ -47,15 +49,15 @@ export interface Filter<T = unknown> extends FilterMeta {
  * filter is async if any operand is async (operands are awaited sequentially with
  * short-circuit, see `and` / `or`)
  */
-export interface AsyncFilter<T = unknown> extends FilterMeta {
-  (update: unknown): Promise<boolean>
-  and: <U>(other: Filter<U>) => Filter<T & U>
-  or: <U>(other: Filter<U>) => Filter<T | U>
-  not: () => Filter<unknown>
+export interface AsyncFilter<T extends AnyUpdate = AnyUpdate> extends FilterMeta {
+  (update: AnyUpdate): Promise<boolean>
+  and: <U extends AnyUpdate>(other: Filter<U>) => AsyncFilter<Extract<T & U, AnyUpdate>>
+  or: <U extends AnyUpdate>(other: Filter<U>) => AsyncFilter<T | U>
+  not: () => AsyncFilter<AnyUpdate>
 }
 
 /** structural type for the composition method set, exposed for filter shim authors */
-export type FilterMethods<T> = Pick<Filter<T>, 'and' | 'or' | 'not'>
+export type FilterMethods<T extends AnyUpdate> = Pick<Filter<T>, 'and' | 'or' | 'not'>
 
 /**
  * structural runtime check used by `tg.use(filter, mw)` overload routing — any
@@ -87,8 +89,8 @@ function isAsync (value: unknown) {
   return typeof value === 'function' && (value as AsyncTagged)[ASYNC_TAG] === true
 }
 
-function attachMethods<T> (
-  predicate: (update: unknown) => unknown,
+function attachMethods<T extends AnyUpdate = AnyUpdate> (
+  predicate: (update: AnyUpdate) => unknown,
   name: string,
   kinds: readonly string[] | undefined,
   async: boolean
@@ -105,16 +107,16 @@ function attachMethods<T> (
     tagged[ASYNC_TAG] = true
   }
 
-  tagged.and = function and<U> (other: Filter<U>) {
-    return andFilter(this as Filter<T>, other) as Filter<T & U>
+  tagged.and = function and<U extends AnyUpdate> (other: Filter<U>) {
+    return andFilter(this as Filter, other as Filter) as unknown as Filter<Extract<T & U, AnyUpdate>>
   }
 
-  tagged.or = function or<U> (other: Filter<U>) {
-    return orFilter(this as Filter<T>, other) as Filter<T | U>
+  tagged.or = function or<U extends AnyUpdate> (other: Filter<U>) {
+    return orFilter(this as Filter, other as Filter) as Filter<T | U>
   }
 
   tagged.not = function not () {
-    return notFilter(this as Filter<T>)
+    return notFilter(this as Filter)
   }
 
   return tagged as Filter<T>
@@ -126,9 +128,9 @@ function attachMethods<T> (
  * value is callable and behaves as a type-guard at the call site, so `if (filter(u))`
  * narrows `u` to `T`
  */
-export function defineFilter<T> (
+export function defineFilter<T extends AnyUpdate> (
   name: string,
-  predicate: (update: unknown) => update is T,
+  predicate: (update: AnyUpdate) => update is T,
   meta: DefineMeta = {}
 ) {
   return attachMethods<T>(predicate, name, meta.kinds, false)
@@ -139,15 +141,15 @@ export function defineFilter<T> (
  * does not narrow at the call site (TypeScript has no async type-guard); callers
  * either branch on the awaited boolean or compose with sync filters via `and`
  */
-export function defineAsyncFilter<T> (
+export function defineAsyncFilter<T extends AnyUpdate> (
   name: string,
-  predicate: (update: unknown) => Promise<boolean>,
+  predicate: (update: AnyUpdate) => Promise<boolean>,
   meta: DefineMeta = {}
 ) {
   return attachMethods<T>(predicate, name, meta.kinds, true) as unknown as AsyncFilter<T>
 }
 
-type AnyFilter = Filter<unknown> | AsyncFilter<unknown>
+type AnyFilter = Filter | AsyncFilter
 
 function intersectKinds (filters: readonly AnyFilter[]) {
   // intersection — if any operand is kind-agnostic (`undefined`), the result is also
@@ -201,7 +203,7 @@ function andFilter (...filters: readonly AnyFilter[]) {
   const kinds = intersectKinds(filters)
 
   if (anyAsync) {
-    const pred = async (update: unknown) => {
+    const pred = async (update: AnyUpdate) => {
       for (const f of filters) {
         const r = await (f as (u: unknown) => boolean | Promise<boolean>)(update)
 
@@ -213,10 +215,10 @@ function andFilter (...filters: readonly AnyFilter[]) {
       return true
     }
 
-    return attachMethods<unknown>(pred, name, kinds, true)
+    return attachMethods<AnyUpdate>(pred, name, kinds, true)
   }
 
-  const pred = (update: unknown): update is unknown => {
+  const pred = (update: AnyUpdate): update is AnyUpdate => {
     for (const f of filters) {
       if (!(f as Filter)(update)) {
         return false
@@ -226,7 +228,7 @@ function andFilter (...filters: readonly AnyFilter[]) {
     return true
   }
 
-  return attachMethods<unknown>(pred, name, kinds, false)
+  return attachMethods<AnyUpdate>(pred, name, kinds, false)
 }
 
 function orFilter (...filters: readonly AnyFilter[]) {
@@ -235,7 +237,7 @@ function orFilter (...filters: readonly AnyFilter[]) {
   const kinds = unionKinds(filters)
 
   if (anyAsync) {
-    const pred = async (update: unknown) => {
+    const pred = async (update: AnyUpdate) => {
       for (const f of filters) {
         const r = await (f as (u: unknown) => boolean | Promise<boolean>)(update)
 
@@ -247,10 +249,10 @@ function orFilter (...filters: readonly AnyFilter[]) {
       return false
     }
 
-    return attachMethods<unknown>(pred, name, kinds, true)
+    return attachMethods<AnyUpdate>(pred, name, kinds, true)
   }
 
-  const pred = (update: unknown): update is unknown => {
+  const pred = (update: AnyUpdate): update is AnyUpdate => {
     for (const f of filters) {
       if ((f as Filter)(update)) {
         return true
@@ -260,7 +262,7 @@ function orFilter (...filters: readonly AnyFilter[]) {
     return false
   }
 
-  return attachMethods<unknown>(pred, name, kinds, false)
+  return attachMethods<AnyUpdate>(pred, name, kinds, false)
 }
 
 function notFilter (filter: AnyFilter) {
@@ -269,18 +271,18 @@ function notFilter (filter: AnyFilter) {
   const async = isAsync(filter)
 
   if (async) {
-    const pred = async (update: unknown) => {
+    const pred = async (update: AnyUpdate) => {
       const r = await (filter as (u: unknown) => boolean | Promise<boolean>)(update)
 
       return !r
     }
 
-    return attachMethods<unknown>(pred, name, undefined, true)
+    return attachMethods<AnyUpdate>(pred, name, undefined, true)
   }
 
-  const pred = (update: unknown): update is unknown => !(filter as Filter)(update)
+  const pred = (update: AnyUpdate): update is AnyUpdate => !(filter as Filter)(update)
 
-  return attachMethods<unknown>(pred, name, undefined, false)
+  return attachMethods<AnyUpdate>(pred, name, undefined, false)
 }
 
 // public composition factories — overloaded for narrow return types in the small-arity
@@ -296,7 +298,7 @@ export function and<A> (a: Filter<A>): Filter<A>
 export function and<A, B> (a: Filter<A>, b: Filter<B>): Filter<A & B>
 export function and<A, B, C> (a: Filter<A>, b: Filter<B>, c: Filter<C>): Filter<A & B & C>
 export function and<A, B, C, D> (a: Filter<A>, b: Filter<B>, c: Filter<C>, d: Filter<D>): Filter<A & B & C & D>
-export function and (...filters: readonly AnyFilter[]): Filter<unknown>
+export function and (...filters: readonly AnyFilter[]): Filter<AnyUpdate>
 export function and (...filters: readonly AnyFilter[]) {
   return andFilter(...filters)
 }
@@ -309,7 +311,7 @@ export function or<A> (a: Filter<A>): Filter<A>
 export function or<A, B> (a: Filter<A>, b: Filter<B>): Filter<A | B>
 export function or<A, B, C> (a: Filter<A>, b: Filter<B>, c: Filter<C>): Filter<A | B | C>
 export function or<A, B, C, D> (a: Filter<A>, b: Filter<B>, c: Filter<C>, d: Filter<D>): Filter<A | B | C | D>
-export function or (...filters: readonly AnyFilter[]): Filter<unknown>
+export function or (...filters: readonly AnyFilter[]): Filter<AnyUpdate>
 export function or (...filters: readonly AnyFilter[]) {
   return orFilter(...filters)
 }

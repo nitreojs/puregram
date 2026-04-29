@@ -94,10 +94,11 @@ export function emitFilters (schema: Schema) {
   nodes.push(emitActionShorthand())
 
   // presence filters and kind/action shorthands type via `UpdateKindMap[K]` and
-  // `Filter<unknown>` — no direct update-class refs needed at the .ts level
+  // `Filter<AnyUpdate>` — no direct update-class refs needed at the .ts level
   const imports = [
     importNamed(['defineFilter'], '../filter-runtime'),
     importTypeNamed(['Filter'], '../filter-runtime'),
+    importTypeNamed(['AnyUpdate'], '../custom-update'),
     importTypeNamed(['UpdateKind', 'UpdateKindMap'], './updates')
   ]
 
@@ -111,12 +112,13 @@ export function emitFilters (schema: Schema) {
 }
 
 function emitPresenceFilter (hasName: string, camelName: string, kinds: string[], _classNames: string[]) {
-  // typed as `Filter<unknown>` rather than `Filter<C1 | C2 | … 37 classes>` — wide
+  // typed as `Filter<AnyUpdate>` rather than `Filter<C1 | C2 | … 37 classes>` — wide
   // unions explode the type-checker (~125 filters × ~30 classes × 2 occurrences = OOM).
   // narrowing happens at composition: `and(kind.message, hasText)` resolves to
-  // `Filter<MessageUpdate>` because `kind.message` carries the tight type
+  // `Filter<MessageUpdate>` because `kind.message` carries the tight type and
+  // `T & AnyUpdate` simplifies to `T` for any `T extends AnyUpdate`
   const filterType = ts.factory.createTypeReferenceNode('Filter', [
-    ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
+    ts.factory.createTypeReferenceNode('AnyUpdate')
   ])
 
   const predicate = ts.factory.createArrowFunction(
@@ -124,12 +126,12 @@ function emitPresenceFilter (hasName: string, camelName: string, kinds: string[]
     undefined,
     [ts.factory.createParameterDeclaration(
       undefined, undefined, ts.factory.createIdentifier('u'), undefined,
-      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword), undefined
+      ts.factory.createTypeReferenceNode('AnyUpdate'), undefined
     )],
     ts.factory.createTypePredicateNode(
       undefined,
       ts.factory.createIdentifier('u'),
-      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
+      ts.factory.createTypeReferenceNode('AnyUpdate')
     ),
     ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
     ts.factory.createParenthesizedExpression(
@@ -239,7 +241,7 @@ function emitKindCallable () {
                 undefined, undefined,
                 [ts.factory.createParameterDeclaration(
                   undefined, undefined, ts.factory.createIdentifier('u'), undefined,
-                  ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword), undefined
+                  ts.factory.createTypeReferenceNode('AnyUpdate'), undefined
                 )],
                 ts.factory.createTypePredicateNode(
                   undefined,

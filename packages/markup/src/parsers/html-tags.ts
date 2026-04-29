@@ -32,3 +32,10 @@ export function canonicalTag (tag: string) {
 
   return TAG_ALIASES[lower] ?? lower
 }
+
+/** all tag names that are reserved as built-ins (canonical + aliases + the spoiler-via-class span case) */
+export const BUILT_IN_TAG_NAMES: ReadonlySet<string> = new Set([
+  ...Object.keys(TAG_TO_ENTITY),
+  ...Object.keys(TAG_ALIASES),
+  'span'
+])

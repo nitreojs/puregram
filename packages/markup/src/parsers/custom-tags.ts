@@ -104,9 +104,9 @@ export function invokeHandler (handler: TagHandler, content: Formatted, info: Ta
 /**
  * scans `source` for top-level custom-tag spans (those whose name is in `registry`).
  * spans nested inside other custom-tag spans are NOT returned at this level — they
- * are discovered when their parent's inner content is recursively scanned.
+ * are discovered when their parent's inner content is recursively scanned
  *
- * built-in tags and sentinel sequences are skipped without inspection.
+ * built-in tags and sentinel sequences are skipped without inspection
  */
 export function scanCustomTags (
   source: string,
@@ -238,10 +238,10 @@ export function scanCustomTags (
 /**
  * counts top-level tag siblings (open tags only — closes not counted; self-closes count
  * as one). nested tags inside other top-level tags are not counted. text and sentinels
- * are skipped.
+ * are skipped
  *
  * `endOffset` (default end of source) limits the scan to `[0, endOffset)`. used by
- * `indexOfSpan` to count tag siblings strictly before a given span.
+ * `indexOfSpan` to count tag siblings strictly before a given span
  */
 export function countTagSiblings (source: string, endOffset: number = source.length) {
   let count = 0
@@ -292,10 +292,10 @@ export function indexOfSpan (source: string, openStart: number) {
 /**
  * preprocessing pass: replaces every custom-tag span in `source` with a sentinel
  * whose slot contains the handler's expanded `Formatted`. built-in tags and
- * upstream sentinels (already in `slots`) are passed through untouched.
+ * upstream sentinels (already in `slots`) are passed through untouched
  *
  * recurses into each span's inner content with `[...ancestors, span.tag]`, which
- * propagates the parent/ancestors tracking required by `TagInfo`.
+ * propagates the parent/ancestors tracking required by `TagInfo`
  *
  * `slots` is mutated in place: handler outputs are appended
  */

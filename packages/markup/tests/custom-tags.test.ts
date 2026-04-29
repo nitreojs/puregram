@@ -716,4 +716,24 @@ describe('custom-tag end-to-end scenarios', () => {
 
     expect(out.text).toBe('</h1>')
   })
+
+  it('htmlb.with preserves <br> handling on the cloned callable', () => {
+    const scoped = htmlb.with({ block: c => c })
+
+    const out = scoped`<block>line one<br>line two</block>`
+
+    expect(out.text).toBe('line one\nline two')
+  })
+
+  it('handler may emit a different custom tag without triggering depth limit', () => {
+    html.define({
+      outer: content => html`<inner>${content}</inner>`,
+      inner: content => html`<b>${content}</b>`
+    })
+
+    const out = html`<outer>x</outer>`
+
+    expect(out.text).toBe('x')
+    expect(out.entities).toEqual([{ type: 'bold', offset: 0, length: 1 }])
+  })
 })

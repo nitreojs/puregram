@@ -1,11 +1,12 @@
 import type {
+  Filter,
   ServiceActionKind,
   TelegramShortcuts,
   TelegramUser,
   UpdateKind,
   UpdateKindMap
 } from '@puregram/api'
-import { and, defineFilter, kind as kindFilter } from '@puregram/api'
+import { and, defineFilter, isFilter, kind as kindFilter } from '@puregram/api'
 
 import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
@@ -33,6 +34,7 @@ import {
   chosenInlineResult as chosenInlineResultFilter,
   inlineQuery as inlineQueryFilter
 } from './filters/inline'
+import { when } from './filters/when'
 import type { HttpClient } from './http/client'
 import { defaultHttpClient } from './http/client'
 import type { TelegramOptions, ResolvedTelegramOptions } from './options'
@@ -381,15 +383,37 @@ export class Telegram<Ext = unknown> {
    * shorthand for `useHook('onUpdate', fn, options)`. defaults to `'normal'` priority,
    * which runs before `tg.on(...)` handlers and after `'high'` middleware like waitFor/session
    *
+   * the 2-arg form gates the middleware on a `Filter` — when the filter matches, the
+   * middleware runs; otherwise the chain passes through. equivalent to wrapping the
+   * middleware in `when(filter, mw)` by hand. uses the filter's `kinds` metadata for
+   * the same dispatcher fast-path that `tg.on(filter, …)` benefits from
+   *
    * @example
    * tg.use(async (update, next) => {
    *   const start = Date.now()
    *   await next()
    *   console.log(`update took ${Date.now() - start}ms`)
    * })
+   *
+   * tg.use(f.chat.private, async (update, next) => {
+   *   console.log('[private]', update.kind)
+   *   await next()
+   * }, { priority: 'high' })
    */
-  use (fn: Middleware<unknown>, options?: HookOptions) {
-    return this.useHook('onUpdate', fn, options)
+  use (fn: Middleware<unknown>, options?: HookOptions): this
+  use<T> (filter: Filter<T>, mw: Middleware<T>, options?: HookOptions): this
+  use (
+    filterOrMw: Filter | Middleware<unknown>,
+    mwOrOptions?: Middleware<unknown> | HookOptions,
+    maybeOptions?: HookOptions
+  ): this {
+    if (isFilter(filterOrMw)) {
+      const mw = mwOrOptions as Middleware<unknown>
+
+      return this.useHook('onUpdate', when(filterOrMw, mw), maybeOptions)
+    }
+
+    return this.useHook('onUpdate', filterOrMw, mwOrOptions as HookOptions | undefined)
   }
 
   defineUpdate<N extends string> (kind: N) {

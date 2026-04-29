@@ -21,5 +21,6 @@ export * from './payments'
 export * from './reactions'
 export * from './routing'
 export * from './sender'
+export * from './when'
 
 export * from '@puregram/api'

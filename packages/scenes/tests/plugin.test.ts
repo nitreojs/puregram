@@ -2,7 +2,7 @@ import { session } from '@puregram/session'
 import { Telegram } from 'puregram'
 import { describe, expect, it, vi } from 'vitest'
 
-import { scenes } from '../src/scenes'
+import { scenes } from '../src/plugin'
 import { StepScene } from '../src/scenes/step'
 
 interface ProbeUpdate {

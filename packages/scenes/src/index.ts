@@ -3,7 +3,7 @@
 // side-effect: loads codegenerated `declare module '@puregram/api'` augmentations
 import './generated/augmentations'
 
-export { scenes, type ScenesExtension } from './scenes'
+export { scenes, type ScenesExtension } from './plugin'
 export { SceneContext } from './contexts/scene'
 export type { ScenePayload, SceneSessionState } from './contexts/scene'
 export {

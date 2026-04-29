@@ -18,6 +18,10 @@
       "types": "./lib/parse-mode/index.d.ts",
       "import": "./lib/parse-mode/index.js"
     },
+    "./filters": {
+      "types": "./lib/filters/index.d.ts",
+      "import": "./lib/filters/index.js"
+    },
     "./plugin": {
       "types": "./lib/plugins/plugin.d.ts",
       "import": "./lib/plugins/plugin.js"

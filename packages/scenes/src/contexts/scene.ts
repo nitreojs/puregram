@@ -1,0 +1,153 @@
+import type { SceneInterface } from '../scenes/scene'
+import type { SceneState } from '../types'
+import {
+  LastAction,
+  type SceneContextEnterOptions,
+  type SceneContextLeaveOptions,
+  type SceneContextOptions,
+  type ScenePayload,
+  type SceneSessionState
+} from './scene.types'
+
+export type { ScenePayload, SceneSessionState }
+
+/**
+ * per-update scene controller. attached at runtime to update.scene by the scenes()
+ * plugin's onUpdate middleware. methods mutate update.session.__scene (and thereby
+ * the session proxy, which flushes on dispatch end)
+ */
+export class SceneContext<S = SceneState> {
+  /** lazy proxy bound to payload.session.__scene */
+  session!: SceneSessionState
+  /** lazy proxy bound to payload.session.__scene.state */
+  state!: S
+  /** set during leave(), surfaced inside the scene's leaveHandler */
+  cancelled = false
+  lastAction: LastAction = LastAction.None
+  /** controlled-behavior leave flag — mirrors v2 */
+  leaving = false
+
+  private readonly payload: ScenePayload
+  private readonly manager: SceneContextOptions['manager']
+
+  constructor (options: SceneContextOptions) {
+    this.payload = options.payload
+    this.manager = options.manager
+    this.updateSession()
+  }
+
+  /** the currently-active scene resolved from session.__scene.current, or undefined */
+  get current (): SceneInterface | undefined {
+    const slug = this.session.current
+
+    if (slug === undefined) {
+      return undefined
+    }
+
+    return this.manager.get(slug)
+  }
+
+  async enter (slug: string, options: SceneContextEnterOptions<S> = {}) {
+    const scene = this.manager.strictGet(slug)
+    const isCurrent = this.current?.slug === scene.slug
+
+    if (!isCurrent) {
+      if (!this.leaving) {
+        const leaveOptions: SceneContextLeaveOptions = {}
+
+        if (options.silent !== undefined) {
+          leaveOptions.silent = options.silent
+        }
+
+        await this.leave(leaveOptions)
+      }
+
+      if (this.leaving) {
+        this.leaving = false
+        this.reset()
+      }
+    }
+
+    this.lastAction = LastAction.Enter
+    this.session.current = scene.slug
+    Object.assign(this.state as object, options.state ?? {})
+
+    if (options.silent) {
+      return
+    }
+
+    await scene.enterHandler(this.toHandlerPayload())
+  }
+
+  async reenter () {
+    const { current } = this
+
+    if (!current) {
+      throw new Error('there is no active scene to enter')
+    }
+
+    await this.enter(current.slug)
+  }
+
+  async leave (options: SceneContextLeaveOptions = {}) {
+    const { current } = this
+
+    if (!current) {
+      return
+    }
+
+    this.leaving = true
+    this.lastAction = LastAction.Leave
+
+    if (!options.silent) {
+      this.cancelled = options.cancelled ?? false
+      await current.leaveHandler(this.toHandlerPayload())
+    }
+
+    if (this.leaving) {
+      this.reset()
+    }
+
+    this.leaving = false
+    this.cancelled = false
+  }
+
+  private toHandlerPayload () {
+    // structural unwrapping: the runtime payload is the wrapped update, with
+    // session attached by @puregram/session and scene attached by us. handlers
+    // see a SceneHandlerPayload-shaped view, the underlying object is the same
+    return this.payload as unknown as Parameters<SceneInterface['enterHandler']>[0]
+  }
+
+  /** drops session.__scene; subsequent reads see a fresh empty proxy */
+  reset () {
+    delete this.payload.session.__scene
+    this.updateSession()
+  }
+
+  private updateSession () {
+    const sessionTarget: SceneSessionState = this.payload.session.__scene ?? {}
+
+    this.session = new Proxy<SceneSessionState>(sessionTarget, {
+      set: (target, key, value: unknown) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any -- proxy boundary write to the underlying session entry
+        ;(target as any)[key as string] = value
+        this.payload.session.__scene = target
+
+        return true
+      }
+    })
+
+    const stateTarget = (this.session.state ?? {}) as S & object
+
+    this.state = new Proxy<S & object>(stateTarget, {
+      set: (target, key, value: unknown) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any -- proxy boundary write into per-scene state
+        ;(target as any)[key as string] = value
+        this.session.state = target as Record<string, unknown>
+
+        return true
+      }
+    }) as S
+  }
+}

@@ -1,0 +1,70 @@
+import type { StepSceneHandler } from '../scenes/step.types'
+import type { SceneState } from '../types'
+import { LastAction } from './scene.types'
+import type { StepContextGoOptions, StepContextOptions } from './step.types'
+
+export class StepSceneContext<S = SceneState> {
+  private readonly payload: StepContextOptions<S>['payload']
+  private readonly steps: StepContextOptions<S>['steps']
+  private stepChanged = false
+
+  constructor (options: StepContextOptions<S>) {
+    this.payload = options.payload
+    this.steps = options.steps
+  }
+
+  get firstTime () {
+    return this.payload.scene.session.firstTime ?? true
+  }
+
+  get stepId () {
+    return this.payload.scene.session.stepId ?? 0
+  }
+
+  set stepId (stepId: number) {
+    const { session } = this.payload.scene
+
+    session.stepId = stepId
+    session.firstTime = true
+    this.stepChanged = true
+  }
+
+  get current (): StepSceneHandler<S> | undefined {
+    return this.steps[this.stepId]
+  }
+
+  async reenter () {
+    const { current } = this
+
+    if (!current) {
+      await this.payload.scene.leave()
+
+      return
+    }
+
+    this.stepChanged = false
+    await current(this.payload)
+
+    if (this.payload.scene.lastAction !== LastAction.Leave && !this.stepChanged) {
+      this.payload.scene.session.firstTime = false
+    }
+  }
+
+  async go (stepId: number, options: StepContextGoOptions = {}) {
+    this.stepId = stepId
+
+    if (options.silent) {
+      return
+    }
+
+    await this.reenter()
+  }
+
+  next (options?: StepContextGoOptions) {
+    return this.go(this.stepId + 1, options)
+  }
+
+  previous (options?: StepContextGoOptions) {
+    return this.go(this.stepId - 1, options)
+  }
+}

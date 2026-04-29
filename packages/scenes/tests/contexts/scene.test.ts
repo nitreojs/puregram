@@ -78,7 +78,7 @@ describe('SceneContext', () => {
 
     await ctx.enter('a', { state: { name: 'alice' } as never })
 
-    expect((ctx.state as Record<string, unknown>).name).toBe('alice')
+    expect((ctx.state as unknown as Record<string, unknown>).name).toBe('alice')
   })
 
   it('reenter() throws when no current scene', async () => {

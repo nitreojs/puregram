@@ -103,6 +103,16 @@ export class Dispatcher {
         continue
       }
 
+      // kinds-metadata fast-path — filters built via `defineFilter` carry an optional
+      // `kinds` hint listing the update kinds they can possibly match. when present,
+      // skip predicate eval entirely for incompatible kinds. bare predicates without
+      // metadata fall through and are always evaluated
+      const hint = (entry.predicate as { kinds?: readonly string[] }).kinds
+
+      if (hint !== undefined && !hint.includes(update.kind)) {
+        continue
+      }
+
       if (entry.predicate(update)) {
         matched.push(entry)
       }

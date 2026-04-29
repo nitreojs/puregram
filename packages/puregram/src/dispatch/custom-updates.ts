@@ -1,3 +1,5 @@
+import type { UpdateKind, UpdateKindMap } from '@puregram/api'
+
 export class CustomUpdate<N extends string = string, P extends Record<string, unknown> = Record<string, unknown>> {
   readonly kind: N
   readonly raw: P
@@ -6,6 +8,10 @@ export class CustomUpdate<N extends string = string, P extends Record<string, un
     this.kind = kind
     this.raw = raw
     Object.assign(this, raw)
+  }
+
+  is<K extends UpdateKind> (kind: K): this is UpdateKindMap[K] {
+    return (this.kind as string) === kind
   }
 }
 

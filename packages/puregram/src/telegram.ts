@@ -1,11 +1,11 @@
 import type { TelegramShortcuts, TelegramUser, UpdateKind, UpdateKindMap } from '@puregram/api'
+import { and, defineFilter } from '@puregram/api'
 
 import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
 import { installShortcuts } from './api/shortcuts'
 import { createDebug } from './debug'
-import { attach } from './dispatch/attach'
 import { CustomUpdateRegistry } from './dispatch/custom-updates'
 import type {
   DispatchErrorHandler,
@@ -19,6 +19,7 @@ import type { AnyUpdate, OnOptions, UpdateHandler, UpdatePredicate } from './dis
 import { Dispatcher } from './dispatch/on'
 import { buildUpdate } from './dispatch/update-builder'
 import type { ApiResponseError } from './errors'
+import { command as commandFilter } from './filters/content'
 import type { HttpClient } from './http/client'
 import { defaultHttpClient } from './http/client'
 import type { TelegramOptions, ResolvedTelegramOptions } from './options'
@@ -236,50 +237,13 @@ export class Telegram<Ext = unknown> {
     nameOrPattern: string | RegExp,
     handler: UpdateHandler<UpdateKindMap['message']>
   ): this {
-    const pattern = typeof nameOrPattern === 'string'
-      ? buildCommandPattern(nameOrPattern)
-      : nameOrPattern
-    const isStringForm = typeof nameOrPattern === 'string'
+    // string form layers in a `@botname` mention check that closes over
+    // `this.bot.username`; regex form leaves @-validation to the caller's pattern
+    const filter = typeof nameOrPattern === 'string'
+      ? and(commandFilter(nameOrPattern), botMentionFilter(this))
+      : commandFilter(nameOrPattern)
 
-    return this.on('message', async (message, next) => {
-      const text = message.raw.text
-
-      if (typeof text !== 'string') {
-        await next()
-
-        return
-      }
-
-      const result = pattern.exec(text)
-
-      if (result === null) {
-        await next()
-
-        return
-      }
-
-      // string form auto-validates the `@botname` suffix when present:
-      //   /cmd          → match (for this bot)
-      //   /cmd@us       → match (explicitly addressed to this bot)
-      //   /cmd@them     → skip, the command is for a different bot in the same group
-      // regex form leaves @-validation to the caller's pattern
-      if (isStringForm) {
-        const mentioned = result.groups?.mention
-
-        if (mentioned !== undefined) {
-          const ourUsername = this.bot?.username
-
-          if (ourUsername === undefined || mentioned.toLowerCase() !== ourUsername.toLowerCase()) {
-            await next()
-
-            return
-          }
-        }
-      }
-
-      attach(message, 'match', result)
-      await handler(message, next)
-    })
+    return this.on(filter, handler)
   }
 
   off (kind: string, handler: UpdateHandler): this {
@@ -408,17 +372,28 @@ function rethrowAsync (error: Error) {
   })
 }
 
-// build the canonical telegram command regex for a string-form `tg.command(name, …)`
-// matches `/<name>`, `/<name> args`, `/<name>@bot args`, or `/<name>\nstuff`
-// the optional `mention` named group captures the `@bot` suffix so the command
-// dispatcher can filter out commands addressed to a different bot in the same chat
-// case-insensitive because telegram clients sometimes uppercase commands sent via auto-complete
-function buildCommandPattern (name: string) {
-  return new RegExp(`^/${escapeRegExp(name)}(?:@(?<mention>\\S+))?(?:[\\s\\n]|$)`, 'i')
-}
+// `Telegram`-bound mention filter — closes over `tg.bot.username` so the string
+// form of `tg.command(...)` can validate the `@bot` suffix attached by the
+// preceding `command` filter. when no suffix was used (mention is undefined) the
+// command is implicitly for any bot in the chat and we accept; otherwise we
+// require the mention to match `tg.bot.username` case-insensitively. unbound
+// composition (`f.command('start')`) skips this layer and stays mention-agnostic
+function botMentionFilter (tg: Telegram) {
+  return defineFilter<UpdateKindMap['message']>(
+    'botMention',
+    (update: unknown): update is UpdateKindMap['message'] => {
+      const mentioned = (update as { match?: RegExpMatchArray }).match?.groups?.mention
 
-function escapeRegExp (s: string) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      if (mentioned === undefined) {
+        return true
+      }
+
+      const ours = tg.bot?.username
+
+      return ours !== undefined && mentioned.toLowerCase() === ours.toLowerCase()
+    },
+    { kinds: ['message'] }
+  )
 }
 
 // `match` is populated by the value/regex variants of the content/callback/inline

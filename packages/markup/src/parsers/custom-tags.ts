@@ -28,7 +28,7 @@ export type TagDefinitions = Readonly<Record<string, TagHandler>>
  * - invalid name shape (`MarkupParseError`)
  * - non-function handler (`TypeError`)
  *
- * second registration of the same custom name silently overwrites. useful for tests.
+ * second registration of the same custom name silently overwrites — useful for tests
  */
 export function validateAndMerge (registry: Map<string, TagHandler>, tags: TagDefinitions) {
   for (const [name, handler] of Object.entries(tags)) {

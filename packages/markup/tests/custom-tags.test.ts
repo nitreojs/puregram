@@ -80,4 +80,13 @@ describe('validateAndMerge', () => {
     expect(() => validateAndMerge(registry, { h1: 'not a fn' as unknown as TagHandler }))
       .toThrow(TypeError)
   })
+
+  it('throws TypeError (not MarkupParseError) when handler is non-function AND name is a built-in', () => {
+    const registry = new Map<string, TagHandler>()
+
+    expect(() => validateAndMerge(registry, { b: 42 as unknown as TagHandler }))
+      .toThrow(TypeError)
+    expect(() => validateAndMerge(registry, { b: 42 as unknown as TagHandler }))
+      .not.toThrow(MarkupParseError)
+  })
 })

@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { emitApiMethods } from './lib/emitter/emit-api-methods'
 import { emitEnums } from './lib/emitter/emit-enums'
 import { emitFactories } from './lib/emitter/emit-factories'
+import { emitFilters } from './lib/emitter/emit-filters'
 import { emitFormattableFields } from './lib/emitter/emit-formattable-fields'
 import { emitInspect } from './lib/emitter/emit-inspect'
 import { emitMethods } from './lib/emitter/emit-methods'
@@ -29,7 +30,8 @@ async function main () {
     ['shortcuts.ts', emitShortcuts(schema)],
     ['service-events.ts', emitServiceEvents(schema)],
     ['factories.ts', emitFactories(schema)],
-    ['formattable-fields.ts', emitFormattableFields(schema)]
+    ['formattable-fields.ts', emitFormattableFields(schema)],
+    ['filters.ts', emitFilters(schema)]
   ]
 
   const here = dirname(fileURLToPath(import.meta.url))

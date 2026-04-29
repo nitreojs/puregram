@@ -1,3 +1,5 @@
+import * as filters from './filters'
+
 export { Telegram } from './telegram'
 export type { TelegramOptions } from './options'
 export { TelegramError, ApiError } from './errors'
@@ -28,5 +30,7 @@ export { attach } from './dispatch/attach'
 
 export * from './keyboards'
 export * from './parse-mode'
+
+export { filters }
 
 export * from '@puregram/api'

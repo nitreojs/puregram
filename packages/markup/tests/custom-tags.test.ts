@@ -168,11 +168,11 @@ describe('invokeHandler', () => {
   it('decrements depth on success so subsequent invocations start fresh', () => {
     const handler: TagHandler = content => content
 
-    for (let i = 0; i < MAX_DEPTH + 5; i++) {
-      invokeHandler(handler, new Formatted(String(i), []), blankInfo())
-    }
-
-    expect(true).toBe(true)
+    expect(() => {
+      for (let i = 0; i < MAX_DEPTH + 5; i++) {
+        invokeHandler(handler, new Formatted(String(i), []), blankInfo())
+      }
+    }).not.toThrow()
   })
 
   it('decrements depth on throw so a subsequent invocation works', () => {

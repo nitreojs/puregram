@@ -232,3 +232,57 @@ export function scanCustomTags (
 
   return spans
 }
+
+/**
+ * counts top-level tag siblings (open tags only — closes not counted; self-closes count
+ * as one). nested tags inside other top-level tags are not counted. text and sentinels
+ * are skipped.
+ *
+ * `endOffset` (default end of source) limits the scan to `[0, endOffset)`. used by
+ * `indexOfSpan` to count tag siblings strictly before a given span.
+ */
+export function countTagSiblings (source: string, endOffset: number = source.length) {
+  let count = 0
+  let i = 0
+  let depth = 0
+
+  while (i < endOffset) {
+    if (source[i] !== '<') {
+      i += 1
+      continue
+    }
+
+    const end = source.indexOf('>', i)
+
+    if (end === -1 || end >= endOffset) {
+      break
+    }
+
+    const inner = source.slice(i + 1, end).trim()
+    const isClose = inner.startsWith('/')
+    const isSelfClose = !isClose && inner.endsWith('/')
+
+    if (isClose) {
+      if (depth > 0) {
+        depth -= 1
+      }
+    } else if (depth === 0) {
+      count += 1
+
+      if (!isSelfClose) {
+        depth += 1
+      }
+    } else if (!isSelfClose) {
+      depth += 1
+    }
+
+    i = end + 1
+  }
+
+  return count
+}
+
+/** index of the tag sibling whose open is at `openStart` (i.e. count of preceding tag-sibling opens) */
+export function indexOfSpan (source: string, openStart: number) {
+  return countTagSiblings(source, openStart)
+}

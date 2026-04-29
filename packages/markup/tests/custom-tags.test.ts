@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 
 import { MarkupParseError } from '../src/error'
 import { Formatted } from '../src/formatted'
-import { validateAndMerge, invokeHandler, scanCustomTags, MAX_DEPTH, type TagHandler } from '../src/parsers/custom-tags'
+import { validateAndMerge, invokeHandler, scanCustomTags, countTagSiblings, indexOfSpan, MAX_DEPTH, type TagHandler } from '../src/parsers/custom-tags'
 
 const noop: TagHandler = content => content
 
@@ -303,5 +303,61 @@ describe('scanCustomTags', () => {
 
     expect(spans).toHaveLength(1)
     expect(spans[0].tag).toBe('h1')
+  })
+})
+
+describe('countTagSiblings', () => {
+  it('counts open tags at the top level', () => {
+    expect(countTagSiblings('<b>x</b><i>y</i>')).toBe(2)
+  })
+
+  it('does not count text nodes', () => {
+    expect(countTagSiblings('text<b>x</b>more text<i>y</i>tail')).toBe(2)
+  })
+
+  it('does not count nested tags', () => {
+    expect(countTagSiblings('<b><i>nested</i></b>')).toBe(1)
+  })
+
+  it('does not count close tags', () => {
+    expect(countTagSiblings('</b>')).toBe(0)
+  })
+
+  it('counts a self-closing tag once', () => {
+    expect(countTagSiblings('<icon/>')).toBe(1)
+  })
+
+  it('counts mixed built-in + (would-be) custom names equally — count is name-agnostic', () => {
+    expect(countTagSiblings('<b>x</b><h1>y</h1><i>z</i>')).toBe(3)
+  })
+
+  it('returns 0 on empty source', () => {
+    expect(countTagSiblings('')).toBe(0)
+  })
+
+  it('returns 0 on text-only source', () => {
+    expect(countTagSiblings('plain text')).toBe(0)
+  })
+})
+
+describe('indexOfSpan', () => {
+  it('returns 0 for the first sibling', () => {
+    expect(indexOfSpan('<h1>x</h1><h1>y</h1>', 0)).toBe(0)
+  })
+
+  it('returns 1 for the second sibling when first is built-in', () => {
+    expect(indexOfSpan('<b>x</b><h1>y</h1>', '<b>x</b>'.length)).toBe(1)
+  })
+
+  it('counts text nodes as zero contribution to index', () => {
+    const src = 'text<b>a</b>more<h1>b</h1>'
+
+    expect(indexOfSpan(src, src.indexOf('<h1>'))).toBe(1)
+  })
+
+  it('does not count tags nested inside earlier siblings', () => {
+    const src = '<b><i>deep</i></b><h1>x</h1>'
+
+    expect(indexOfSpan(src, src.indexOf('<h1>'))).toBe(1)
   })
 })

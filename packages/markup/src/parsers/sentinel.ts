@@ -237,6 +237,28 @@ function readQueryParam (query: string, key: string) {
   return undefined
 }
 
+/**
+ * resolves any sentinel references inside a string against the given slots.
+ * used by consumers (e.g. custom-tag attribute values) that hold raw strings
+ * lifted from a sentinel-laden source and need them flattened to user values
+ * before the string flows into another `html`/`htmlb` call
+ */
+export function resolveSentinelString (value: string, slots: readonly Piece[]): string {
+  if (!value.includes(SENTINEL_PREFIX)) {
+    return value
+  }
+
+  return value.replace(SENTINEL_RE, (_match, idx: string) => {
+    const slot = slots[parseInt(idx, 10)]
+
+    if (slot === undefined) {
+      return ''
+    }
+
+    return interpolate([slot]).text
+  })
+}
+
 /** builds a sentinel-laden source string from a tagged-template invocation */
 export function composeWithSentinels (
   strings: TemplateStringsArray,

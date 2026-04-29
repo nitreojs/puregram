@@ -4,7 +4,7 @@ import type { Piece } from '../interpolate'
 
 import { parseAttrs, parseHtml } from './html'
 import { canonicalTag, BUILT_IN_TAG_NAMES } from './html-tags'
-import { SENTINEL_PREFIX, SENTINEL_SUFFIX, expandSentinels } from './sentinel'
+import { SENTINEL_PREFIX, SENTINEL_SUFFIX, expandSentinels, resolveSentinelString } from './sentinel'
 
 /** maximum number of nested handler invocations before we throw to break a cycle */
 export const MAX_DEPTH = 32
@@ -347,9 +347,18 @@ export function preprocessCustomTags (
       throw new MarkupParseError(`internal: handler missing for <${span.tag}>`, span.openStart, source)
     }
 
+    // flatten any sentinel chars in attribute values back to their interpolated source
+    // values, so the handler sees the raw user input (e.g. attrs.label === 'health',
+    // not the sentinel marker for 'health')
+    const resolvedAttrs: Record<string, string> = {}
+
+    for (const [key, value] of Object.entries(span.attrs)) {
+      resolvedAttrs[key] = resolveSentinelString(value, slots)
+    }
+
     const info: TagInfo = {
       tag: span.tag,
-      attrs: span.attrs,
+      attrs: resolvedAttrs,
       parent,
       ancestors,
       index: indexOfSpan(source, span.openStart),

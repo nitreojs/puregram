@@ -782,4 +782,21 @@ describe('custom-tag end-to-end scenarios', () => {
 
     expect(out.text).toBe('intro[a] middle [b]tail')
   })
+
+  it('flattens sentinel chars in attribute values before invoking handler', () => {
+    // regression: when an attribute value comes from an interpolation, parseAttrs
+    // captures the raw sentinel chars. without resolution the handler would see
+    // literal control chars and propagate them into a nested html`` call,
+    // surfacing as garbage like '[ 0 :  1 ]' in the final output
+    html.define({
+      badge: (_content, { attrs }) => html`[${attrs.label ?? '?'}: <b>${attrs.value ?? '0'}</b>]`
+    })
+
+    const label = 'health'
+    const value = '100'
+    const out = html`<badge label="${label}" value="${value}" />`
+
+    expect(out.text).toBe('[health: 100]')
+    expect(out.entities).toEqual([{ type: 'bold', offset: 9, length: 3 }])
+  })
 })

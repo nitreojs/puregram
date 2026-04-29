@@ -139,7 +139,8 @@ export class Telegram<Ext = unknown> {
    * groups dispatch `'high'` → `'normal'` → `'low'` (default `'normal'`)
    *
    * the predicate form runs against every update; type-guard predicates (`(u): u is T`)
-   * narrow the handler argument automatically. predicates must be synchronous; predicate
+   * narrow the handler argument automatically. predicates may return `boolean` or
+   * `Promise<boolean>` — async results are awaited before the handler runs. predicate
    * throws are routed through `onDispatchError` and halt the chain
    *
    * @example
@@ -180,6 +181,12 @@ export class Telegram<Ext = unknown> {
 
   on (
     predicate: (update: AnyUpdate) => boolean,
+    handler: UpdateHandler<AnyUpdate>,
+    options?: OnOptions
+  ): this
+
+  on (
+    predicate: (update: AnyUpdate) => Promise<boolean>,
     handler: UpdateHandler<AnyUpdate>,
     options?: OnOptions
   ): this

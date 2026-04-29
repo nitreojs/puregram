@@ -21,11 +21,13 @@ export type AnyUpdate = Update | CustomUpdate
 /**
  * predicate signature accepted by the `tg.on(predicate, handler, options?)` form.
  * the type-guard variant narrows the handler arg automatically; the plain-boolean
- * variant keeps it as `AnyUpdate`
+ * variant keeps it as `AnyUpdate`. predicates may also return `Promise<boolean>` —
+ * the dispatcher awaits the result before deciding whether to invoke the handler
  */
 export type UpdatePredicate<T extends AnyUpdate = AnyUpdate> =
   | ((update: AnyUpdate) => update is T)
   | ((update: AnyUpdate) => boolean)
+  | ((update: AnyUpdate) => Promise<boolean>)
 
 export type Priority = 'high' | 'normal' | 'low'
 
@@ -49,7 +51,7 @@ interface KindEntry {
 
 interface PredicateEntry {
   type: 'predicate'
-  predicate: (update: AnyUpdate) => boolean
+  predicate: (update: AnyUpdate) => boolean | Promise<boolean>
   handler: UpdateHandler
   priority: Priority
   seq: number
@@ -113,7 +115,16 @@ export class Dispatcher {
         continue
       }
 
-      if (entry.predicate(update)) {
+      // sync predicates stay on the hot path; only filters that return a thenable
+      // pay the await cost. lets `tg.on((u) => boolean, …)` keep zero-overhead
+      // dispatch while still supporting `defineAsyncFilter` and userland async predicates
+      const result = entry.predicate(update)
+
+      if (typeof result === 'object' && result !== null && 'then' in result) {
+        if (await result) {
+          matched.push(entry)
+        }
+      } else if (result) {
         matched.push(entry)
       }
     }

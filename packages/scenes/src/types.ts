@@ -1,4 +1,4 @@
-import type { UpdateKindMap } from '@puregram/api'
+import type { Update } from '@puregram/api'
 import type { CustomUpdate } from 'puregram'
 
 import type { SceneInterface } from './scenes/scene'
@@ -17,7 +17,7 @@ import type { SceneInterface } from './scenes/scene'
 // eslint-disable-next-line @typescript-eslint/no-empty-interface -- intentionally empty, user-augmentable
 export interface SceneState {}
 
-export type AnyUpdate = UpdateKindMap[keyof UpdateKindMap] | CustomUpdate
+export type AnyUpdate = Update | CustomUpdate
 
 export interface SceneOptions {
   /** initial scene set; runtime additions go through tg.scenes.add(scene) */

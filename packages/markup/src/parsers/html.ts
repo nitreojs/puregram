@@ -117,7 +117,8 @@ function decodeEntity (raw: string, sourceOffset: number, source: string) {
 
 const ATTR_RE = /\s*([a-zA-Z][a-zA-Z0-9-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g
 
-function parseAttrs (attrSrc: string) {
+/** internal: parses an html attribute substring. exported for reuse by the custom-tag preprocessor */
+export function parseAttrs (attrSrc: string) {
   const attrs: Record<string, string> = {}
 
   ATTR_RE.lastIndex = 0

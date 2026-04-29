@@ -1,5 +1,11 @@
-import type { TelegramShortcuts, TelegramUser, UpdateKind, UpdateKindMap } from '@puregram/api'
-import { and, defineFilter } from '@puregram/api'
+import type {
+  ServiceActionKind,
+  TelegramShortcuts,
+  TelegramUser,
+  UpdateKind,
+  UpdateKindMap
+} from '@puregram/api'
+import { and, defineFilter, kind as kindFilter } from '@puregram/api'
 
 import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
@@ -19,7 +25,14 @@ import type { AnyUpdate, OnOptions, UpdateHandler, UpdatePredicate } from './dis
 import { Dispatcher } from './dispatch/on'
 import { buildUpdate } from './dispatch/update-builder'
 import type { ApiResponseError } from './errors'
+import {
+  callbackData as callbackDataFilter
+} from './filters/callback'
 import { command as commandFilter } from './filters/content'
+import {
+  chosenInlineResult as chosenInlineResultFilter,
+  inlineQuery as inlineQueryFilter
+} from './filters/inline'
 import type { HttpClient } from './http/client'
 import { defaultHttpClient } from './http/client'
 import type { TelegramOptions, ResolvedTelegramOptions } from './options'
@@ -244,6 +257,104 @@ export class Telegram<Ext = unknown> {
       : commandFilter(nameOrPattern)
 
     return this.on(filter, handler)
+  }
+
+  /**
+   * register a handler against callback queries with matching data
+   *
+   * - string form — equality match against `update.raw.data`
+   * - regex form — runs against `update.raw.data`, attaching `match: RegExpMatchArray`
+   *   on success
+   *
+   * shorthand for `tg.on(callbackData(value), handler)`
+   *
+   * @example
+   * tg.callbackData(/^buy:(?<sku>.+)$/, async (q) => {
+   *   await q.answer({ text: `bought ${q.match?.groups?.sku}` })
+   * })
+   */
+  callbackData (value: string, handler: UpdateHandler<UpdateKindMap['callback_query']>): this
+  callbackData (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['callback_query']>): this
+  callbackData (
+    value: string | RegExp,
+    handler: UpdateHandler<UpdateKindMap['callback_query']>
+  ): this {
+    return this.on(
+      typeof value === 'string' ? callbackDataFilter(value) : callbackDataFilter(value),
+      handler
+    )
+  }
+
+  /**
+   * register a handler against inline queries with matching query text
+   *
+   * - string form — equality match against `update.raw.query`
+   * - regex form — runs against `update.raw.query`, attaching `match: RegExpMatchArray`
+   *   on success
+   *
+   * shorthand for `tg.on(inlineQuery(value), handler)`
+   *
+   * @example
+   * tg.inlineQuery(/^search\s+(?<term>.+)$/i, async (q) => {
+   *   await q.answer([], { switch_pm_text: q.match?.groups?.term })
+   * })
+   */
+  inlineQuery (value: string, handler: UpdateHandler<UpdateKindMap['inline_query']>): this
+  inlineQuery (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['inline_query']>): this
+  inlineQuery (
+    value: string | RegExp,
+    handler: UpdateHandler<UpdateKindMap['inline_query']>
+  ): this {
+    return this.on(
+      typeof value === 'string' ? inlineQueryFilter(value) : inlineQueryFilter(value),
+      handler
+    )
+  }
+
+  /**
+   * register a handler against chosen-inline-result updates with matching `result_id`
+   *
+   * - string form — equality match against `update.raw.result_id`
+   * - regex form — runs against `update.raw.result_id`, attaching
+   *   `match: RegExpMatchArray` on success
+   *
+   * shorthand for `tg.on(chosenInlineResult(value), handler)`
+   *
+   * @example
+   * tg.chosenInlineResult(/^article:(?<id>\d+)$/, (r) => {
+   *   console.log('chose article', r.match?.groups?.id)
+   * })
+   */
+  chosenInlineResult (value: string, handler: UpdateHandler<UpdateKindMap['chosen_inline_result']>): this
+  chosenInlineResult (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['chosen_inline_result']>): this
+  chosenInlineResult (
+    value: string | RegExp,
+    handler: UpdateHandler<UpdateKindMap['chosen_inline_result']>
+  ): this {
+    return this.on(
+      typeof value === 'string'
+        ? chosenInlineResultFilter(value)
+        : chosenInlineResultFilter(value),
+      handler
+    )
+  }
+
+  /**
+   * register a handler against a service-event update kind (derived
+   * `Message`-payload events like `new_chat_members`, `pinned_message`, etc)
+   *
+   * shorthand for `tg.on(kind(type), handler)` constrained to `ServiceActionKind`
+   *
+   * @example
+   * tg.action('new_chat_members', async (update) => {
+   *   await update.send(`welcome ${update.newChatMembers.length} new members`)
+   * })
+   */
+  action<T extends ServiceActionKind> (
+    type: T,
+    handler: UpdateHandler<UpdateKindMap[T]>
+  ) {
+    return this.on(kindFilter(type), handler)
   }
 
   off (kind: string, handler: UpdateHandler): this {

@@ -1,5 +1,5 @@
-import type { StepSceneHandler } from '../scenes/step.types'
 import type { SceneState } from '../types'
+
 import { LastAction } from './scene.types'
 import type { StepContextGoOptions, StepContextOptions } from './step.types'
 
@@ -21,16 +21,16 @@ export class StepSceneContext<S = SceneState> {
     return this.payload.scene.session.stepId ?? 0
   }
 
+  get current () {
+    return this.steps[this.stepId]
+  }
+
   set stepId (stepId: number) {
     const { session } = this.payload.scene
 
     session.stepId = stepId
     session.firstTime = true
     this.stepChanged = true
-  }
-
-  get current (): StepSceneHandler<S> | undefined {
-    return this.steps[this.stepId]
   }
 
   async reenter () {

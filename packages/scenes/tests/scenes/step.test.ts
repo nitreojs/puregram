@@ -7,6 +7,7 @@ import { StepScene } from '../../src/scenes/step'
 
 const makePayload = () => {
   const session: Record<string, unknown> = { __scene: { current: 'wizard' } }
+
   return { session }
 }
 
@@ -15,13 +16,15 @@ describe('StepScene', () => {
     const step = vi.fn()
     const scene = new StepScene('wizard', [step])
     const manager = new SceneManager()
+
     manager.add(scene)
 
     const payload = makePayload() as never
     const sceneCtx = new SceneContext({ payload, manager })
+
     ;(payload as { scene?: SceneContext }).scene = sceneCtx
 
-    await scene.enterHandler(payload as never)
+    await scene.enterHandler(payload)
 
     expect(step).toHaveBeenCalled()
   })
@@ -31,13 +34,15 @@ describe('StepScene', () => {
     const step0 = vi.fn()
     const scene = new StepScene('wizard', { enterHandler: enter, steps: [step0] })
     const manager = new SceneManager()
+
     manager.add(scene)
 
     const payload = makePayload() as never
     const sceneCtx = new SceneContext({ payload, manager })
+
     ;(payload as { scene?: SceneContext }).scene = sceneCtx
 
-    await scene.enterHandler(payload as never)
+    await scene.enterHandler(payload)
 
     expect(enter).toHaveBeenCalled()
     expect(step0).toHaveBeenCalled()
@@ -46,17 +51,21 @@ describe('StepScene', () => {
   it('does not invoke step[0] if enterHandler called scene.leave()', async () => {
     const step0 = vi.fn()
     const scene = new StepScene('wizard', {
-      enterHandler: (p) => { p.scene.lastAction = LastAction.Leave },
+      enterHandler: (p) => {
+        p.scene.lastAction = LastAction.Leave
+      },
       steps: [step0]
     })
     const manager = new SceneManager()
+
     manager.add(scene)
 
     const payload = makePayload() as never
     const sceneCtx = new SceneContext({ payload, manager })
+
     ;(payload as { scene?: SceneContext }).scene = sceneCtx
 
-    await scene.enterHandler(payload as never)
+    await scene.enterHandler(payload)
 
     expect(step0).not.toHaveBeenCalled()
   })
@@ -65,7 +74,7 @@ describe('StepScene', () => {
     const scene = new StepScene('wizard', [() => {}])
     const payload = makePayload() as never
 
-    await expect(scene.leaveHandler(payload as never)).resolves.toBeUndefined()
+    await expect(scene.leaveHandler(payload)).resolves.toBeUndefined()
   })
 
   it('leaveHandler runs user-supplied leaveHandler', async () => {
@@ -73,7 +82,7 @@ describe('StepScene', () => {
     const scene = new StepScene('wizard', { leaveHandler: leave, steps: [() => {}] })
     const payload = makePayload() as never
 
-    await scene.leaveHandler(payload as never)
+    await scene.leaveHandler(payload)
 
     expect(leave).toHaveBeenCalled()
   })

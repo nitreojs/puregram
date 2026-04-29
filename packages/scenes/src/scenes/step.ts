@@ -1,6 +1,7 @@
 import { LastAction } from '../contexts/scene.types'
 import { StepSceneContext } from '../contexts/step'
 import type { SceneState } from '../types'
+
 import type { SceneHandlerPayload, SceneInterface } from './scene'
 import type { StepContext, StepSceneHandler, StepSceneOptions } from './step.types'
 

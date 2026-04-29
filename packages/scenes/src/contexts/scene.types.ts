@@ -15,8 +15,8 @@ export interface SceneSessionState {
  * because scenes is generic over update kinds
  */
 export interface ScenePayload {
-  session: { __scene?: SceneSessionState } & Record<string, unknown>
   [key: string]: unknown
+  session: { __scene?: SceneSessionState } & Record<string, unknown>
 }
 
 export interface SceneContextOptions {

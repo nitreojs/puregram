@@ -1,5 +1,6 @@
 import type { SceneInterface } from '../scenes/scene'
 import type { SceneState } from '../types'
+
 import {
   LastAction,
   type SceneContextEnterOptions,
@@ -112,6 +113,12 @@ export class SceneContext<S = SceneState> {
     this.cancelled = false
   }
 
+  /** drops session.__scene; subsequent reads see a fresh empty proxy */
+  reset () {
+    delete this.payload.session.__scene
+    this.updateSession()
+  }
+
   private toHandlerPayload () {
     // structural unwrapping: the runtime payload is the wrapped update, with
     // session attached by @puregram/session and scene attached by us. handlers
@@ -119,19 +126,14 @@ export class SceneContext<S = SceneState> {
     return this.payload as unknown as Parameters<SceneInterface['enterHandler']>[0]
   }
 
-  /** drops session.__scene; subsequent reads see a fresh empty proxy */
-  reset () {
-    delete this.payload.session.__scene
-    this.updateSession()
-  }
-
   private updateSession () {
     const sessionTarget: SceneSessionState = this.payload.session.__scene ?? {}
 
     this.session = new Proxy<SceneSessionState>(sessionTarget, {
       set: (target, key, value: unknown) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any -- proxy boundary write to the underlying session entry
-        ;(target as any)[key as string] = value
+        const writable = target as Record<string, unknown>
+
+        writable[key as string] = value
         this.payload.session.__scene = target
 
         return true
@@ -142,8 +144,9 @@ export class SceneContext<S = SceneState> {
 
     this.state = new Proxy<S & object>(stateTarget, {
       set: (target, key, value: unknown) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any -- proxy boundary write into per-scene state
-        ;(target as any)[key as string] = value
+        const writable = target as unknown as Record<string, unknown>
+
+        writable[key as string] = value
         this.session.state = target as Record<string, unknown>
 
         return true

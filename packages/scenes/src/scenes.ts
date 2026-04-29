@@ -84,9 +84,11 @@ export function scenes (options: SceneOptions = {}) {
       }, { priority: 'high' })
 
       const ext: ScenesExtension = {
-        add: (scene) => { manager.add(scene) },
-        has: (slug) => manager.has(slug),
-        remove: (slug) => manager.remove(slug),
+        add: (scene) => {
+          manager.add(scene)
+        },
+        has: slug => manager.has(slug),
+        remove: slug => manager.remove(slug),
         all: () => manager.all()
       }
 

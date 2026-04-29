@@ -46,7 +46,7 @@ export class CacheRepository<Key, Value> {
     this.set(key, value)
   }
 
-  strictGet (key: Key): Value {
+  strictGet (key: Key) {
     const value = this.collection.get(key)
 
     if (value === undefined) {

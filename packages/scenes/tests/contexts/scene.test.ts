@@ -4,7 +4,7 @@ import { SceneContext, type ScenePayload } from '../../src/contexts/scene'
 import { LastAction } from '../../src/contexts/scene.types'
 import { SceneManager } from '../../src/manager'
 
-const makePayload = (initial: Record<string, unknown> = {}): ScenePayload => {
+const makePayload = (initial: Record<string, unknown> = {}) => {
   const session: Record<string, unknown> = { ...initial }
 
   return { session } as unknown as ScenePayload
@@ -13,6 +13,7 @@ const makePayload = (initial: Record<string, unknown> = {}): ScenePayload => {
 describe('SceneContext', () => {
   it('current is undefined when session has no __scene', () => {
     const manager = new SceneManager()
+
     manager.add({ slug: 'foo', enterHandler: () => {}, leaveHandler: () => {} })
 
     const payload = makePayload()
@@ -24,6 +25,7 @@ describe('SceneContext', () => {
   it('current resolves when session.__scene.current is a known slug', () => {
     const manager = new SceneManager()
     const foo = { slug: 'foo', enterHandler: () => {}, leaveHandler: () => {} }
+
     manager.add(foo)
 
     const payload = makePayload({ __scene: { current: 'foo' } })
@@ -35,6 +37,7 @@ describe('SceneContext', () => {
   it('enter() runs the scene enterHandler and persists current to session.__scene', async () => {
     const enterHandler = vi.fn()
     const manager = new SceneManager()
+
     manager.add({ slug: 'welcome', enterHandler, leaveHandler: () => {} })
 
     const payload = makePayload()
@@ -58,6 +61,7 @@ describe('SceneContext', () => {
   it('enter() with silent: true skips the handler but still updates session.__scene', async () => {
     const enterHandler = vi.fn()
     const manager = new SceneManager()
+
     manager.add({ slug: 'welcome', enterHandler, leaveHandler: () => {} })
 
     const payload = makePayload()
@@ -71,6 +75,7 @@ describe('SceneContext', () => {
 
   it('enter() merges options.state into ctx.state', async () => {
     const manager = new SceneManager()
+
     manager.add({ slug: 'a', enterHandler: () => {}, leaveHandler: () => {} })
 
     const payload = makePayload()
@@ -92,6 +97,7 @@ describe('SceneContext', () => {
   it('reenter() runs the current scene enterHandler again', async () => {
     const enterHandler = vi.fn()
     const manager = new SceneManager()
+
     manager.add({ slug: 'foo', enterHandler, leaveHandler: () => {} })
 
     const payload = makePayload({ __scene: { current: 'foo' } })
@@ -105,6 +111,7 @@ describe('SceneContext', () => {
   it('leave() runs leaveHandler and resets session.__scene', async () => {
     const leaveHandler = vi.fn()
     const manager = new SceneManager()
+
     manager.add({ slug: 'foo', enterHandler: () => {}, leaveHandler })
 
     const payload = makePayload({ __scene: { current: 'foo', state: { x: 1 } } })
@@ -120,14 +127,18 @@ describe('SceneContext', () => {
   it('leave() with cancelled: true surfaces ctx.cancelled inside the leaveHandler', async () => {
     let observed: boolean | undefined
     const manager = new SceneManager()
+
     manager.add({
       slug: 'foo',
       enterHandler: () => {},
-      leaveHandler: (p) => { observed = (p as { scene: { cancelled: boolean } }).scene.cancelled }
+      leaveHandler: (p) => {
+        observed = (p as { scene: { cancelled: boolean } }).scene.cancelled
+      }
     })
 
     const payload = makePayload({ __scene: { current: 'foo' } })
     const ctx = new SceneContext({ payload, manager })
+
     ;(payload as { scene?: typeof ctx }).scene = ctx
 
     await ctx.leave({ cancelled: true })
@@ -138,6 +149,7 @@ describe('SceneContext', () => {
   it('leave() with silent: true skips the handler but still resets', async () => {
     const leaveHandler = vi.fn()
     const manager = new SceneManager()
+
     manager.add({ slug: 'foo', enterHandler: () => {}, leaveHandler })
 
     const payload = makePayload({ __scene: { current: 'foo' } })
@@ -163,11 +175,13 @@ describe('SceneContext', () => {
     const aLeave = vi.fn()
     const bEnter = vi.fn()
     const manager = new SceneManager()
+
     manager.add({ slug: 'a', enterHandler: () => {}, leaveHandler: aLeave })
     manager.add({ slug: 'b', enterHandler: bEnter, leaveHandler: () => {} })
 
     const payload = makePayload({ __scene: { current: 'a' } })
     const ctx = new SceneContext({ payload, manager })
+
     ;(payload as { scene?: typeof ctx }).scene = ctx
 
     await ctx.enter('b')
@@ -181,6 +195,7 @@ describe('SceneContext', () => {
     const aLeave = vi.fn()
     const aEnter = vi.fn()
     const manager = new SceneManager()
+
     manager.add({ slug: 'a', enterHandler: aEnter, leaveHandler: aLeave })
 
     const payload = makePayload({ __scene: { current: 'a' } })

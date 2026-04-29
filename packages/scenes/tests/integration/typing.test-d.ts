@@ -1,6 +1,6 @@
 import type { CallbackQueryUpdate, MessageUpdate } from '@puregram/api'
 import { session } from '@puregram/session'
-import { Telegram } from 'puregram'
+import type { Telegram } from 'puregram'
 
 import { scenes, StepScene } from '../../src'
 
@@ -16,24 +16,27 @@ declare const tg: Telegram
 
 const wizard = new StepScene('wizard', {
   steps: [
-    (p) => {
+    async (p) => {
       p.scene.state.answers = []
       p.scene.state.name = 'alice'
-      void p.scene.step.next()
+      await p.scene.step.next()
     }
   ]
 })
 
 tg.extend(session()).extend(scenes({ scenes: [wizard] }))
 
-tg.on('message', (u: MessageUpdate) => {
-  void u.scene.enter('wizard')
-  void u.scene.leave()
-  const answers: string[] = u.scene.state.answers
-  void answers
+tg.on('message', async (u: MessageUpdate) => {
+  await u.scene.enter('wizard')
+  await u.scene.leave()
+  const _answers: string[] = u.scene.state.answers
+
+  return _answers
 })
 
 tg.on('callback_query', (u: CallbackQueryUpdate) => {
-  void u.scene.current
-  void u.scene.state.name
+  const _current = u.scene.current
+  const _name = u.scene.state.name
+
+  return [_current, _name]
 })

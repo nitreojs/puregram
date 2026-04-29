@@ -32,11 +32,13 @@ const makeTg = () => new Telegram({ token: 'TEST', bot: STUB_BOT })
 describe('scenes() — install shape', () => {
   it('throws if session is not installed (dependsOn enforcement)', async () => {
     const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(scenes())
+
     await expect(t.start()).rejects.toThrow(/session|depends/i)
   })
 
   it('returns { add, has, remove, all } under tg.scenes', async () => {
     const t = makeTg()
+
     await t.start()
     expect(typeof t.scenes.add).toBe('function')
     expect(typeof t.scenes.has).toBe('function')
@@ -50,6 +52,7 @@ describe('scenes() — install shape', () => {
     const t = new Telegram({ token: 'TEST', bot: STUB_BOT })
       .extend(session())
       .extend(scenes({ scenes: [wizard] }))
+
     await t.start()
     expect(t.scenes.has('wizard')).toBe(true)
     await t.shutdown()
@@ -58,6 +61,7 @@ describe('scenes() — install shape', () => {
   it('tg.scenes.add throws on duplicate slug', async () => {
     const wizard = new StepScene('wizard', [() => {}])
     const t = makeTg()
+
     await t.start()
     t.scenes.add(wizard)
     expect(() => t.scenes.add(wizard)).toThrow()
@@ -68,14 +72,18 @@ describe('scenes() — install shape', () => {
 describe('scenes() — onUpdate middleware', () => {
   it('attaches update.scene when the storage key resolves', async () => {
     const t = makeTg()
+
     await t.start()
 
     let received: any
+
     t.defineUpdate('probe')
-    t.on('probe', (u: any) => { received = u })
+    t.on('probe', (u: any) => {
+      received = u
+    })
 
     t.emit('probe', { from: { id: 7 } })
-    await new Promise(r => setImmediate(r))
+    await new Promise(resolve => setImmediate(resolve))
 
     expect(received.scene).toBeDefined()
     expect(typeof received.scene.enter).toBe('function')
@@ -84,14 +92,18 @@ describe('scenes() — onUpdate middleware', () => {
 
   it('does not attach update.scene when the storage key is undefined', async () => {
     const t = makeTg()
+
     await t.start()
 
     let received: any
+
     t.defineUpdate('orphan')
-    t.on('orphan', (u: any) => { received = u })
+    t.on('orphan', (u: any) => {
+      received = u
+    })
 
     t.emit('orphan', { x: 1 })
-    await new Promise(r => setImmediate(r))
+    await new Promise(resolve => setImmediate(resolve))
 
     expect(received.scene).toBeUndefined()
     await t.shutdown()
@@ -103,16 +115,18 @@ describe('scenes() — onUpdate middleware', () => {
     const t = new Telegram({ token: 'TEST', bot: STUB_BOT })
       .extend(session())
       .extend(scenes({ scenes: [wizard] }))
+
     await t.start()
 
     await t.session.set('7', { __scene: { current: 'wizard' } })
 
     const userHandler = vi.fn()
+
     t.defineUpdate('probe')
     t.on('probe', userHandler)
 
     t.emit('probe', { from: { id: 7 } })
-    await new Promise(r => setImmediate(r))
+    await new Promise(resolve => setImmediate(resolve))
 
     expect(enter).toHaveBeenCalled()
     expect(userHandler).not.toHaveBeenCalled()
@@ -121,14 +135,16 @@ describe('scenes() — onUpdate middleware', () => {
 
   it('does not consume the update when no scene is active (next() runs)', async () => {
     const t = makeTg()
+
     await t.start()
 
     const userHandler = vi.fn()
+
     t.defineUpdate('probe')
     t.on('probe', userHandler)
 
     t.emit('probe', { from: { id: 7 } })
-    await new Promise(r => setImmediate(r))
+    await new Promise(resolve => setImmediate(resolve))
 
     expect(userHandler).toHaveBeenCalled()
     await t.shutdown()
@@ -139,15 +155,19 @@ describe('scenes() — onUpdate middleware', () => {
     const t = new Telegram({ token: 'TEST', bot: STUB_BOT })
       .extend(session())
       .extend(scenes({ scenes: [wizard] }))
+
     await t.start()
 
     t.defineUpdate('probe')
-    t.on('probe', async (u: any) => { await u.scene.enter('wizard') })
+    t.on('probe', async (u: any) => {
+      await u.scene.enter('wizard')
+    })
 
     t.emit('probe', { from: { id: 7 } })
-    await new Promise(r => setImmediate(r))
+    await new Promise(resolve => setImmediate(resolve))
 
     const stored = await t.session.get('7') as { __scene?: { current?: string } } | undefined
+
     expect(stored?.__scene?.current).toBe('wizard')
     await t.shutdown()
   })

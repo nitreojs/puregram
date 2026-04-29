@@ -3,8 +3,8 @@ import type { SceneState } from '../types'
 
 /** the universal payload a scene handler receives — any update with `scene` augmented on */
 export interface SceneHandlerPayload {
-  scene: SceneContext<SceneState>
   [key: string]: unknown
+  scene: SceneContext<SceneState>
 }
 
 export interface SceneInterface {

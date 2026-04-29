@@ -18,6 +18,7 @@ describe('StepSceneContext', () => {
     const fake: FakeScene = { session: {}, lastAction: LastAction.None, leave: async () => {} }
     const payload = makePayload(fake)
     const ctx = new StepSceneContext({ payload: payload as never, steps: [() => {}] })
+
     expect(ctx.stepId).toBe(0)
   })
 
@@ -25,6 +26,7 @@ describe('StepSceneContext', () => {
     const fake: FakeScene = { session: {}, lastAction: LastAction.None, leave: async () => {} }
     const payload = makePayload(fake)
     const ctx = new StepSceneContext({ payload: payload as never, steps: [() => {}] })
+
     expect(ctx.firstTime).toBe(true)
   })
 
@@ -34,6 +36,7 @@ describe('StepSceneContext', () => {
     const fake: FakeScene = { session: { stepId: 1 }, lastAction: LastAction.None, leave: async () => {} }
     const payload = makePayload(fake)
     const ctx = new StepSceneContext({ payload: payload as never, steps: [a, b] })
+
     expect(ctx.current).toBe(b)
   })
 
@@ -114,7 +117,9 @@ describe('StepSceneContext', () => {
   it('reenter() does not clear firstTime when scene leaves mid-handler', async () => {
     const fake: FakeScene = { session: { stepId: 0, firstTime: true }, lastAction: LastAction.None, leave: async () => {} }
     const payload = makePayload(fake)
-    const handler = vi.fn().mockImplementation(() => { fake.lastAction = LastAction.Leave })
+    const handler = vi.fn().mockImplementation(() => {
+      fake.lastAction = LastAction.Leave
+    })
     const ctx = new StepSceneContext({ payload: payload as never, steps: [handler] })
 
     await ctx.reenter()
@@ -126,7 +131,9 @@ describe('StepSceneContext', () => {
   it('reenter() does not clear firstTime when go() ran inside the handler', async () => {
     const fake: FakeScene = { session: { stepId: 0, firstTime: true }, lastAction: LastAction.None, leave: async () => {} }
     const payload = makePayload(fake)
-    const handler = vi.fn().mockImplementation(async () => { await ctx.go(1, { silent: true }) })
+    const handler = vi.fn().mockImplementation(async () => {
+      await ctx.go(1, { silent: true })
+    })
     const ctx: StepSceneContext = new StepSceneContext({ payload: payload as never, steps: [handler, () => {}] })
 
     await ctx.reenter()

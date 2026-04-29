@@ -1,7 +1,3 @@
-export * from './scenes/index'
-export * from './contexts/index'
-
-export * from './types'
-export * from './scene-manager.types'
-
-export { SceneManager } from './scene-manager'
+// @puregram/scenes — multi-step scenes plugin
+// real exports filled in as sections complete
+export {}

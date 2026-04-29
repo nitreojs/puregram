@@ -12,6 +12,7 @@ export {
 export { time, type TimeFormat } from './builders/time'
 export type { Modifier, ModifierName } from './builders/chain'
 export { html, htmlb } from './parsers/html'
+export type { TagHandler, TagInfo, TagDefinitions } from './parsers/custom-tags'
 export { md, markdown } from './parsers/markdown'
 export { join, joinWithEntities } from './join'
 export { MarkupParseError } from './error'

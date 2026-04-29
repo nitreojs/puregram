@@ -131,20 +131,25 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * register a handler for one or more update kinds
+   * register a handler against a kind, a list of kinds, or an arbitrary predicate
    *
    * handlers compose middleware-style: each handler receives `(update, next)`. calling
    * `next()` lets the next registered handler run, returning without calling `next()`
-   * halts the chain. order of registration is order of execution
+   * halts the chain. order of registration is order of execution within a priority group;
+   * groups dispatch `'high'` → `'normal'` → `'low'` (default `'normal'`)
+   *
+   * the predicate form runs against every update; type-guard predicates (`(u): u is T`)
+   * narrow the handler argument automatically. predicates must be synchronous; predicate
+   * throws are routed through `onDispatchError` and halt the chain
    *
    * @example
    * tg.on('message', async (message, next) => {
    *   console.log('[message]', message.text)
-   *   await next()  // pass through to subsequent handlers
+   *   await next()
    * })
    *
    * tg.on('message', async (message) => {
-   *   if (message.text !== '/cmd') return  // ← chain stops here, no further handlers run
+   *   if (message.text !== '/cmd') return
    *   await message.send('hi')
    * })
    *
@@ -152,6 +157,8 @@ export class Telegram<Ext = unknown> {
    *   (update): update is MessageUpdate => update.is('message') && update.hasText(),
    *   (message) => message.send(`echo: ${message.text}`)
    * )
+   *
+   * tg.on('message', logRequest, { priority: 'high' })
    */
   on<K extends UpdateKind> (
     kind: K,

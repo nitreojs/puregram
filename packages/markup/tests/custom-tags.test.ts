@@ -1,8 +1,9 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, afterEach } from 'vitest'
 
 import { MarkupParseError } from '../src/error'
 import { Formatted } from '../src/formatted'
 import { validateAndMerge, invokeHandler, scanCustomTags, countTagSiblings, indexOfSpan, MAX_DEPTH, parseHtmlInternal, type TagHandler, type TagInfo } from '../src/parsers/custom-tags'
+import { html, htmlb, __resetHtmlRegistryForTests } from '../src/parsers/html'
 
 const noop: TagHandler = content => content
 
@@ -494,5 +495,77 @@ describe('preprocessCustomTags + parseHtml integration', () => {
     const out = parseHtmlInternal(src, registry)
 
     expect(out.text).toBe('leaf')
+  })
+})
+
+describe('html.define / html.with', () => {
+  afterEach(() => {
+    __resetHtmlRegistryForTests()
+  })
+
+  it('html.define mutates the global registry and returns the same callable', () => {
+    const ret = html.define({ h1: c => new Formatted(`H1:${c.text}`, []) })
+
+    expect(ret).toBe(html)
+
+    const out = html`<h1>x</h1>`
+
+    expect(out.text).toBe('H1:x')
+  })
+
+  it('html.define is chainable', () => {
+    html
+      .define({ h1: c => new Formatted(`H:${c.text}`, []) })
+      .define({ note: c => new Formatted(`N:${c.text}`, []) })
+
+    expect((html`<h1>a</h1>`).text).toBe('H:a')
+    expect((html`<note>b</note>`).text).toBe('N:b')
+  })
+
+  it('htmlb shares the registry with html', () => {
+    html.define({ h1: c => new Formatted(`H1:${c.text}`, []) })
+
+    const a = html`<h1>x</h1>`
+    const b = htmlb`<h1>x</h1>`
+
+    expect(a.text).toBe('H1:x')
+    expect(b.text).toBe('H1:x')
+  })
+
+  it('html.with returns a fresh callable with isolated registry', () => {
+    const fancy = html.with({ h1: c => new Formatted(`F:${c.text}`, []) })
+
+    expect((fancy`<h1>x</h1>`).text).toBe('F:x')
+    expect(() => html`<h1>x</h1>`).toThrow(/unknown tag <h1>/)
+  })
+
+  it('html.with snapshot does not see later html.define', () => {
+    const isolated = html.with({})
+
+    html.define({ h1: () => new Formatted('global', []) })
+
+    expect((html`<h1>x</h1>`).text).toBe('global')
+    expect(() => isolated`<h1>x</h1>`).toThrow()
+  })
+
+  it('with-cloned callable supports .define on itself without affecting the original', () => {
+    const a = html.with({})
+    const b = a.with({})
+
+    a.define({ taga: () => new Formatted('A', []) })
+    b.define({ tagb: () => new Formatted('B', []) })
+
+    expect((a`<taga>x</taga>`).text).toBe('A')
+    expect((b`<tagb>x</tagb>`).text).toBe('B')
+
+    expect(() => a`<tagb>x</tagb>`).toThrow()
+    expect(() => b`<taga>x</taga>`).toThrow()
+  })
+
+  it('html() function-call form still works alongside define', () => {
+    html.define({ h1: c => new Formatted(`H:${c.text}`, []) })
+
+    expect(html('<h1>foo</h1>').text).toBe('H:foo')
+    expect(html('<b>plain</b>').text).toBe('plain')
   })
 })

@@ -3,6 +3,8 @@ import { composeTimeFormat, type TimeFormat } from '../builders/time'
 import { MarkupParseError } from '../error'
 import { type Entity, Formatted } from '../formatted'
 
+import type { TagDefinitions, TagHandler } from './custom-tags'
+import { parseHtmlInternal, preprocessCustomTags, validateAndMerge } from './custom-tags'
 import { TAG_TO_ENTITY, canonicalTag } from './html-tags'
 import { composeWithSentinels, expandSentinels, isTemplateStringsArray, SENTINEL_PREFIX } from './sentinel'
 
@@ -363,28 +365,10 @@ export function parseHtml (source: string) {
   return new Formatted(text, entities)
 }
 
-function htmlTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
-  const { source, slots } = composeWithSentinels(strings, rest)
-  const parsed = parseHtml(source)
-
-  return expandSentinels(parsed, slots)
-}
-
-/** parses telegram html. accepts both function-call form and tagged-template form */
-export function html (source: string): Formatted
-export function html (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
-export function html (first: string | TemplateStringsArray, ...rest: readonly unknown[]) {
-  if (isTemplateStringsArray(first)) {
-    return htmlTagged(first, rest)
-  }
-
-  return parseHtml(first)
-}
-
 // 0x02 (STX) survives the html lexer's whitespace collapse since it is non-whitespace,
 // and it is distinct from the sentinel module's 0x01 marker. we substitute <br> with
 // it pre-parse, then swap back to '\n' post-parse — same char length, no offset shift
-const BR_PLACEHOLDER = '\u0002'
+const BR_PLACEHOLDER = ''
 const BR_RE = /\s*<br\s*\/?\s*>\s*/gi
 
 function preprocessHtmlb (source: string) {
@@ -395,21 +379,100 @@ function postprocessHtmlb (formatted: Formatted) {
   return new Formatted(formatted.text.split(BR_PLACEHOLDER).join('\n'), formatted.entities)
 }
 
-function htmlbTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
+function htmlTagged (
+  strings: TemplateStringsArray,
+  rest: readonly unknown[],
+  registry: ReadonlyMap<string, TagHandler>
+) {
+  const { source, slots } = composeWithSentinels(strings, rest)
+
+  if (registry.size === 0) {
+    const parsed = parseHtml(source)
+
+    return expandSentinels(parsed, slots)
+  }
+
+  const rewritten = preprocessCustomTags(source, registry, slots, [])
+  const parsed = parseHtml(rewritten)
+
+  return expandSentinels(parsed, slots)
+}
+
+function htmlbTagged (
+  strings: TemplateStringsArray,
+  rest: readonly unknown[],
+  registry: ReadonlyMap<string, TagHandler>
+) {
   const { source, slots } = composeWithSentinels(strings, rest, preprocessHtmlb)
-  const parsed = parseHtml(source)
+
+  if (registry.size === 0) {
+    const parsed = parseHtml(source)
+    const expanded = expandSentinels(parsed, slots)
+
+    return postprocessHtmlb(expanded)
+  }
+
+  const rewritten = preprocessCustomTags(source, registry, slots, [])
+  const parsed = parseHtml(rewritten)
   const expanded = expandSentinels(parsed, slots)
 
   return postprocessHtmlb(expanded)
 }
 
-/** parses telegram html with explicit `<br>` for newlines (whitespace otherwise collapses) */
-export function htmlb (source: string): Formatted
-export function htmlb (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
-export function htmlb (first: string | TemplateStringsArray, ...rest: readonly unknown[]) {
-  if (isTemplateStringsArray(first)) {
-    return htmlbTagged(first, rest)
+const sharedHtmlRegistry = new Map<string, TagHandler>()
+
+export interface HtmlCallable {
+  (source: string): Formatted
+  (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
+  /** mutates this callable's registry; returns self for chaining */
+  define: (tags: TagDefinitions) => HtmlCallable
+  /** returns a fresh callable cloned from this one's registry, extended with `tags` */
+  with: (tags: TagDefinitions) => HtmlCallable
+}
+
+function makeHtmlCallable (
+  registry: Map<string, TagHandler>,
+  flavor: 'html' | 'htmlb'
+): HtmlCallable {
+  const fn = ((first: string | TemplateStringsArray, ...rest: readonly unknown[]) => {
+    if (isTemplateStringsArray(first)) {
+      return flavor === 'htmlb'
+        ? htmlbTagged(first, rest, registry)
+        : htmlTagged(first, rest, registry)
+    }
+
+    if (flavor === 'htmlb') {
+      return postprocessHtmlb(parseHtmlInternal(preprocessHtmlb(first), registry))
+    }
+
+    return parseHtmlInternal(first, registry)
+  }) as HtmlCallable
+
+  fn.define = (tags) => {
+    validateAndMerge(registry, tags)
+
+    return fn
   }
 
-  return postprocessHtmlb(parseHtml(preprocessHtmlb(first)))
+  fn.with = (tags) => {
+    const cloned = new Map(registry)
+
+    validateAndMerge(cloned, tags)
+
+    return makeHtmlCallable(cloned, flavor)
+  }
+
+  return fn
+}
+
+/** parses telegram html. accepts both function-call form and tagged-template form */
+export const html: HtmlCallable = makeHtmlCallable(sharedHtmlRegistry, 'html')
+
+/** parses telegram html with explicit `<br>` for newlines (whitespace otherwise collapses) */
+export const htmlb: HtmlCallable = makeHtmlCallable(sharedHtmlRegistry, 'htmlb')
+
+/** test-only: drops every non-built-in tag from the shared html/htmlb registry */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export function __resetHtmlRegistryForTests () {
+  sharedHtmlRegistry.clear()
 }

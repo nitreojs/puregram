@@ -14,13 +14,15 @@ const CHOSEN_INLINE_RESULT_KINDS = ['chosen_inline_result'] as const
  * match against `update.raw.query` for inline-query updates. string form is
  * exact equality; regex form runs the pattern and attaches `update.match`
  */
-export function inlineQuery (value: string): Filter<InlineQueryUpdate>
-export function inlineQuery (pattern: RegExp): Filter<InlineQueryUpdate>
-export function inlineQuery (value: string | RegExp): Filter<InlineQueryUpdate> {
+export function inlineQuery (value: string): Filter<InlineQueryUpdate, { raw: { query: string } }>
+export function inlineQuery (
+  pattern: RegExp
+): Filter<InlineQueryUpdate, { raw: { query: string }, match: RegExpMatchArray }>
+export function inlineQuery (value: string | RegExp) {
   if (typeof value === 'string') {
-    return defineFilter(
+    return defineFilter<InlineQueryUpdate, { raw: { query: string } }>(
       `inlineQuery(${value})`,
-      (u: unknown): u is InlineQueryUpdate =>
+      (u): u is InlineQueryUpdate =>
         (u as { raw?: { query?: unknown } }).raw?.query === value,
       { kinds: INLINE_QUERY_KINDS }
     )
@@ -28,9 +30,9 @@ export function inlineQuery (value: string | RegExp): Filter<InlineQueryUpdate> 
 
   const pattern = value
 
-  return defineFilter(
+  return defineFilter<InlineQueryUpdate, { raw: { query: string }, match: RegExpMatchArray }>(
     `inlineQuery(${pattern.toString()})`,
-    (u: unknown): u is InlineQueryUpdate => {
+    (u): u is InlineQueryUpdate => {
       const query = (u as { raw?: { query?: unknown } }).raw?.query
 
       if (typeof query !== 'string') {
@@ -55,13 +57,17 @@ export function inlineQuery (value: string | RegExp): Filter<InlineQueryUpdate> 
  * match against `update.raw.result_id` for chosen-inline-result updates.
  * string form is exact equality; regex form attaches `update.match`
  */
-export function chosenInlineResult (value: string): Filter<ChosenInlineResultUpdate>
-export function chosenInlineResult (pattern: RegExp): Filter<ChosenInlineResultUpdate>
-export function chosenInlineResult (value: string | RegExp): Filter<ChosenInlineResultUpdate> {
+export function chosenInlineResult (
+  value: string
+): Filter<ChosenInlineResultUpdate, { raw: { result_id: string } }>
+export function chosenInlineResult (
+  pattern: RegExp
+): Filter<ChosenInlineResultUpdate, { raw: { result_id: string }, match: RegExpMatchArray }>
+export function chosenInlineResult (value: string | RegExp) {
   if (typeof value === 'string') {
-    return defineFilter(
+    return defineFilter<ChosenInlineResultUpdate, { raw: { result_id: string } }>(
       `chosenInlineResult(${value})`,
-      (u: unknown): u is ChosenInlineResultUpdate =>
+      (u): u is ChosenInlineResultUpdate =>
         (u as { raw?: { result_id?: unknown } }).raw?.result_id === value,
       { kinds: CHOSEN_INLINE_RESULT_KINDS }
     )
@@ -69,9 +75,9 @@ export function chosenInlineResult (value: string | RegExp): Filter<ChosenInline
 
   const pattern = value
 
-  return defineFilter(
+  return defineFilter<ChosenInlineResultUpdate, { raw: { result_id: string }, match: RegExpMatchArray }>(
     `chosenInlineResult(${pattern.toString()})`,
-    (u: unknown): u is ChosenInlineResultUpdate => {
+    (u): u is ChosenInlineResultUpdate => {
       const id = (u as { raw?: { result_id?: unknown } }).raw?.result_id
 
       if (typeof id !== 'string') {

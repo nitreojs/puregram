@@ -63,10 +63,10 @@ const MESSAGE_PAYLOAD_KINDS = [
 
 type ForwardOriginType = 'user' | 'hidden_user' | 'chat' | 'channel'
 
-function forwardOriginTypeFilter (type: ForwardOriginType) {
-  return defineFilter(
+function forwardOriginTypeFilter<T extends ForwardOriginType> (type: T) {
+  return defineFilter<MessagePayloadUpdate, { raw: { forward_origin: { type: T } } }>(
     `forwardOrigin.${type}`,
-    (u: unknown): u is MessagePayloadUpdate =>
+    (u): u is MessagePayloadUpdate =>
       (u as { raw?: { forward_origin?: { type?: string } } }).raw?.forward_origin?.type === type,
     { kinds: MESSAGE_PAYLOAD_KINDS }
   )

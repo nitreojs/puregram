@@ -13,13 +13,16 @@ const CALLBACK_KINDS = ['callback_query'] as const
  * match against `update.raw.data`. string form is exact equality; regex form
  * runs the pattern against the data string and attaches `update.match`
  */
-export function callbackData (value: string): Filter<CallbackQueryUpdate>
-export function callbackData (pattern: RegExp): Filter<CallbackQueryUpdate>
-export function callbackData (value: string | RegExp): Filter<CallbackQueryUpdate> {
+export function callbackData (value: string): Filter<CallbackQueryUpdate, { raw: { data: string } }>
+export function callbackData (pattern: RegExp): Filter<
+  CallbackQueryUpdate,
+  { raw: { data: string }, match: RegExpMatchArray }
+>
+export function callbackData (value: string | RegExp) {
   if (typeof value === 'string') {
-    return defineFilter(
+    return defineFilter<CallbackQueryUpdate, { raw: { data: string } }>(
       `callbackData(${value})`,
-      (u: unknown): u is CallbackQueryUpdate =>
+      (u): u is CallbackQueryUpdate =>
         (u as { raw?: { data?: unknown } }).raw?.data === value,
       { kinds: CALLBACK_KINDS }
     )
@@ -27,9 +30,9 @@ export function callbackData (value: string | RegExp): Filter<CallbackQueryUpdat
 
   const pattern = value
 
-  return defineFilter(
+  return defineFilter<CallbackQueryUpdate, { raw: { data: string }, match: RegExpMatchArray }>(
     `callbackData(${pattern.toString()})`,
-    (u: unknown): u is CallbackQueryUpdate => {
+    (u): u is CallbackQueryUpdate => {
       const data = (u as { raw?: { data?: unknown } }).raw?.data
 
       if (typeof data !== 'string') {
@@ -55,13 +58,17 @@ export function callbackData (value: string | RegExp): Filter<CallbackQueryUpdat
  * from a game-button press. string form is exact equality; regex form attaches
  * the resulting match as `update.match`
  */
-export function callbackGameShortName (value: string): Filter<CallbackQueryUpdate>
-export function callbackGameShortName (pattern: RegExp): Filter<CallbackQueryUpdate>
-export function callbackGameShortName (value: string | RegExp): Filter<CallbackQueryUpdate> {
+export function callbackGameShortName (
+  value: string
+): Filter<CallbackQueryUpdate, { raw: { game_short_name: string } }>
+export function callbackGameShortName (
+  pattern: RegExp
+): Filter<CallbackQueryUpdate, { raw: { game_short_name: string }, match: RegExpMatchArray }>
+export function callbackGameShortName (value: string | RegExp) {
   if (typeof value === 'string') {
-    return defineFilter(
+    return defineFilter<CallbackQueryUpdate, { raw: { game_short_name: string } }>(
       `callbackGameShortName(${value})`,
-      (u: unknown): u is CallbackQueryUpdate =>
+      (u): u is CallbackQueryUpdate =>
         (u as { raw?: { game_short_name?: unknown } }).raw?.game_short_name === value,
       { kinds: CALLBACK_KINDS }
     )
@@ -69,9 +76,9 @@ export function callbackGameShortName (value: string | RegExp): Filter<CallbackQ
 
   const pattern = value
 
-  return defineFilter(
+  return defineFilter<CallbackQueryUpdate, { raw: { game_short_name: string }, match: RegExpMatchArray }>(
     `callbackGameShortName(${pattern.toString()})`,
-    (u: unknown): u is CallbackQueryUpdate => {
+    (u): u is CallbackQueryUpdate => {
       const name = (u as { raw?: { game_short_name?: unknown } }).raw?.game_short_name
 
       if (typeof name !== 'string') {

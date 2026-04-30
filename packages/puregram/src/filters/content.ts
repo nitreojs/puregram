@@ -83,22 +83,22 @@ function readCaption (u: unknown) {
  * match against `update.text` — string form is exact equality, regex form runs
  * the pattern against the text and attaches the result as `update.match`
  */
-export function text (value: string): Filter<TextBearingUpdate>
-export function text (pattern: RegExp): Filter<TextBearingUpdate>
-export function text (value: string | RegExp): Filter<TextBearingUpdate> {
+export function text (value: string): Filter<TextBearingUpdate, { text: string }>
+export function text (pattern: RegExp): Filter<TextBearingUpdate, { text: string, match: RegExpMatchArray }>
+export function text (value: string | RegExp) {
   if (typeof value === 'string') {
-    return defineFilter(
+    return defineFilter<TextBearingUpdate, { text: string }>(
       `text(${value})`,
-      (u: unknown): u is TextBearingUpdate => readText(u) === value,
+      (u): u is TextBearingUpdate => readText(u) === value,
       { kinds: TEXT_KINDS }
     )
   }
 
   const pattern = value
 
-  return defineFilter(
+  return defineFilter<TextBearingUpdate, { text: string, match: RegExpMatchArray }>(
     `text(${pattern.toString()})`,
-    (u: unknown): u is TextBearingUpdate => {
+    (u): u is TextBearingUpdate => {
       const t = readText(u)
 
       if (typeof t !== 'string') {
@@ -123,22 +123,22 @@ export function text (value: string | RegExp): Filter<TextBearingUpdate> {
  * match against `update.caption` — string form is exact equality, regex form
  * runs the pattern against the caption and attaches the result as `update.match`
  */
-export function caption (value: string): Filter<TextBearingUpdate>
-export function caption (pattern: RegExp): Filter<TextBearingUpdate>
-export function caption (value: string | RegExp): Filter<TextBearingUpdate> {
+export function caption (value: string): Filter<TextBearingUpdate, { caption: string }>
+export function caption (pattern: RegExp): Filter<TextBearingUpdate, { caption: string, match: RegExpMatchArray }>
+export function caption (value: string | RegExp) {
   if (typeof value === 'string') {
-    return defineFilter(
+    return defineFilter<TextBearingUpdate, { caption: string }>(
       `caption(${value})`,
-      (u: unknown): u is TextBearingUpdate => readCaption(u) === value,
+      (u): u is TextBearingUpdate => readCaption(u) === value,
       { kinds: CAPTION_KINDS }
     )
   }
 
   const pattern = value
 
-  return defineFilter(
+  return defineFilter<TextBearingUpdate, { caption: string, match: RegExpMatchArray }>(
     `caption(${pattern.toString()})`,
-    (u: unknown): u is TextBearingUpdate => {
+    (u): u is TextBearingUpdate => {
       const c = readCaption(u)
 
       if (typeof c !== 'string') {
@@ -182,9 +182,9 @@ function escapeRegExp (s: string) {
  * in `tg.command(...)` so module-level composition (`f.command('start')`)
  * remains mention-agnostic
  */
-export function command (name: string): Filter<MessageUpdate>
-export function command (pattern: RegExp): Filter<MessageUpdate>
-export function command (nameOrPattern: string | RegExp): Filter<MessageUpdate> {
+export function command (name: string): Filter<MessageUpdate, { text: string, match: RegExpMatchArray }>
+export function command (pattern: RegExp): Filter<MessageUpdate, { text: string, match: RegExpMatchArray }>
+export function command (nameOrPattern: string | RegExp) {
   const pattern = typeof nameOrPattern === 'string'
     ? buildCommandPattern(nameOrPattern)
     : nameOrPattern
@@ -192,9 +192,9 @@ export function command (nameOrPattern: string | RegExp): Filter<MessageUpdate> 
     ? nameOrPattern
     : nameOrPattern.toString()
 
-  return defineFilter(
+  return defineFilter<MessageUpdate, { text: string, match: RegExpMatchArray }>(
     `command(${label})`,
-    (u: unknown): u is MessageUpdate => {
+    (u): u is MessageUpdate => {
       const text = (u as { raw?: { text?: unknown } }).raw?.text
 
       if (typeof text !== 'string') {
@@ -220,9 +220,9 @@ export function command (nameOrPattern: string | RegExp): Filter<MessageUpdate> 
  * the resulting `RegExpMatchArray` as `update.match`
  */
 export function regex (pattern: RegExp) {
-  return defineFilter(
+  return defineFilter<TextBearingUpdate, { match: RegExpMatchArray }>(
     `regex(${pattern.toString()})`,
-    (u: unknown): u is TextBearingUpdate => {
+    (u): u is TextBearingUpdate => {
       const t = readText(u)
       const target = typeof t === 'string' ? t : readCaption(u)
 

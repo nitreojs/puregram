@@ -112,13 +112,22 @@ export function emitFilters (schema: Schema) {
 }
 
 function emitPresenceFilter (hasName: string, camelName: string, kinds: string[], _classNames: string[]) {
-  // typed as `Filter<AnyUpdate>` rather than `Filter<C1 | C2 | … 37 classes>` — wide
-  // unions explode the type-checker (~125 filters × ~30 classes × 2 occurrences = OOM).
-  // narrowing happens at composition: `and(kind.message, hasText)` resolves to
-  // `Filter<MessageUpdate>` because `kind.message` carries the tight type and
-  // `T & AnyUpdate` simplifies to `T` for any `T extends AnyUpdate`
+  // Base stays `AnyUpdate` rather than `C1 | C2 | … 37 classes` — wide unions across
+  // ~125 presence filters explode the type-checker. narrowing flows through `Mod`:
+  // `Filter<AnyUpdate, { [camelName]: {} }>` collapses `update[camelName]` from
+  // `string | undefined` (or whatever the optional shape is) to its non-nullable
+  // form when the dispatcher intersects `Base & Mod`. composing with `kind.message`
+  // tightens `Base` separately, leaving `MessageUpdate & { text: {} }` at the handler
   const filterType = ts.factory.createTypeReferenceNode('Filter', [
-    ts.factory.createTypeReferenceNode('AnyUpdate')
+    ts.factory.createTypeReferenceNode('AnyUpdate'),
+    ts.factory.createTypeLiteralNode([
+      ts.factory.createPropertySignature(
+        undefined,
+        ts.factory.createIdentifier(camelName),
+        undefined,
+        ts.factory.createTypeLiteralNode([])
+      )
+    ])
   ])
 
   const predicate = ts.factory.createArrowFunction(

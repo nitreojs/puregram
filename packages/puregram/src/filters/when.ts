@@ -18,7 +18,10 @@ import type { AnyUpdate } from '../dispatch/on'
  *   await next()
  * }), { priority: 'high' })
  */
-export function when<T extends AnyUpdate> (filter: Filter<T>, mw: Middleware<T>) {
+export function when<Base extends AnyUpdate, Mod> (
+  filter: Filter<Base, Mod>,
+  mw: Middleware<Base & Mod>
+) {
   const wrapped: Middleware<unknown> = async (update, next) => {
     const kinds = filter.kinds
 
@@ -34,7 +37,7 @@ export function when<T extends AnyUpdate> (filter: Filter<T>, mw: Middleware<T>)
       : result
 
     if (matched) {
-      await mw(update as T, next)
+      await mw(update as Base & Mod, next)
     } else {
       await next()
     }

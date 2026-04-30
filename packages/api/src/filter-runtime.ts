@@ -1,7 +1,18 @@
-// composable type-guarded predicates with attached metadata. lives in `@puregram/api`
-// so codegen'd presence + enum-shorthand filters in `generated/filters.ts` can reach
-// for `defineFilter` without producing a reverse dependency on `puregram`. the
-// `puregram/filters` subpath re-exports everything here under a friendlier surface
+// composable filter primitives. lives in `@puregram/api` so codegen'd presence +
+// kind shorthand filters in `generated/filters.ts` can reach `defineFilter`
+// without producing a reverse dependency on `puregram`. the `puregram/filters`
+// subpath re-exports everything here under a friendlier surface
+//
+// type model (mtcute-style two-parameter):
+// - `Base` is the precondition update type — narrowed by kind/structural filters
+// - `Mod` is a structural marker carrying refinements layered onto `Base` —
+//   added by presence filters, parametric filters, value-narrowers
+// composition intersects both: `and(a, b)` is `Filter<aBase & bBase, aMod & bMod>`.
+// the dispatcher reads `Base & Mod` to type the handler argument, so a chain like
+// `kind.message.and(hasText)` lands as `MessageUpdate & { text: string }` at the
+// handler — `text` collapses from `string | undefined` to `string`. this avoids
+// distributing conditional types like `Extract<T & U, AnyUpdate>` across the
+// 50-member `AnyUpdate` union, which historically OOM'd the type-checker
 
 import type { AnyUpdate } from './custom-update'
 
@@ -25,22 +36,35 @@ export interface FilterMeta {
 }
 
 /**
- * the public filter shape — a callable type-guard plus attached metadata and
- * fluent composition methods. accepts an `unknown`-typed update at the call site
- * so it composes uniformly across bot-api updates and `CustomUpdate`s; specific
- * filter authors narrow `T` to the type they intend to match
+ * the public filter shape — a callable type-guard that narrows the input to
+ * `Base`, plus attached metadata, a structural `Mod` refinement marker, and
+ * fluent composition methods. accepts an `AnyUpdate` at the call site so it
+ * composes uniformly across bot-api updates and `CustomUpdate`s
  *
- * the chained-form composition methods (`and`/`or`/`not`) delegate to the
- * corresponding factories — `a.and(b)` and `and(a, b)` produce equivalent results
+ * `Base` and `Mod` are independent: kind/structural filters narrow `Base`,
+ * presence and value filters narrow `Mod`. `and(...)` intersects both; `or(...)`
+ * unions both. handlers wired through `tg.on(filter, handler)` see the arg
+ * typed as `Base & Mod`, so e.g. `hasText` (Mod = `{ text: string }`) collapses
+ * `MessageUpdate.text` from `string | undefined` to `string`
+ *
+ * raw `if (filter(u)) { ... }` checks narrow only `Base` — `Mod` flows through
+ * the dispatcher signature, not through `update is Base`. for full narrowing,
+ * use the dispatcher entry points (`tg.on`, `tg.use`, `when`)
  */
-export interface Filter<T extends AnyUpdate = AnyUpdate> extends FilterMeta {
-  (update: AnyUpdate): update is T
-  /** narrow further — match when `this` AND `other` match. result is typed as the intersection */
-  and: <U extends AnyUpdate>(other: Filter<U>) => Filter<Extract<T & U, AnyUpdate>>
-  /** widen — match when `this` OR `other` match. result is typed as the union */
-  or: <U extends AnyUpdate>(other: Filter<U>) => Filter<T | U>
-  /** negate — match when `this` does not match. result drops type narrowing */
-  not: () => Filter<AnyUpdate>
+export interface Filter<Base extends AnyUpdate = AnyUpdate, Mod = unknown> extends FilterMeta {
+  (update: AnyUpdate): update is Base
+  /**
+   * narrow further — match when `this` AND `other` match. result intersects
+   * both `Base` and `Mod` of the operands
+   */
+  and: <B2 extends AnyUpdate, M2>(other: Filter<B2, M2>) => Filter<Base & B2, Mod & M2>
+  /**
+   * widen — match when `this` OR `other` match. result unions both `Base` and
+   * `Mod` of the operands; the dispatcher arg becomes `(B1 & M1) | (B2 & M2)`
+   */
+  or: <B2 extends AnyUpdate, M2>(other: Filter<B2, M2>) => Filter<Base | B2, Mod | M2>
+  /** negate — match when `this` does not match. drops both narrowings */
+  not: () => Filter<AnyUpdate, unknown>
 }
 
 /**
@@ -49,15 +73,33 @@ export interface Filter<T extends AnyUpdate = AnyUpdate> extends FilterMeta {
  * filter is async if any operand is async (operands are awaited sequentially with
  * short-circuit, see `and` / `or`)
  */
-export interface AsyncFilter<T extends AnyUpdate = AnyUpdate> extends FilterMeta {
+export interface AsyncFilter<Base extends AnyUpdate = AnyUpdate, Mod = unknown> extends FilterMeta {
   (update: AnyUpdate): Promise<boolean>
-  and: <U extends AnyUpdate>(other: Filter<U>) => AsyncFilter<Extract<T & U, AnyUpdate>>
-  or: <U extends AnyUpdate>(other: Filter<U>) => AsyncFilter<T | U>
-  not: () => AsyncFilter<AnyUpdate>
+  and: <B2 extends AnyUpdate, M2>(other: Filter<B2, M2> | AsyncFilter<B2, M2>) => AsyncFilter<Base & B2, Mod & M2>
+  or: <B2 extends AnyUpdate, M2>(other: Filter<B2, M2> | AsyncFilter<B2, M2>) => AsyncFilter<Base | B2, Mod | M2>
+  not: () => AsyncFilter<AnyUpdate, unknown>
 }
 
 /** structural type for the composition method set, exposed for filter shim authors */
-export type FilterMethods<T extends AnyUpdate> = Pick<Filter<T>, 'and' | 'or' | 'not'>
+export type FilterMethods<Base extends AnyUpdate, Mod> = Pick<Filter<Base, Mod>, 'and' | 'or' | 'not'>
+
+/**
+ * extract the `Base` narrowing from a filter type. used by `tg.on(filter, handler)`
+ * and friends to type the handler argument as `ExtractBase<F> & ExtractMod<F>`
+ */
+export type ExtractBase<F> =
+  F extends Filter<infer B, infer _M> ? B :
+    F extends AsyncFilter<infer B, infer _M> ? B :
+      never
+
+/** extract the structural `Mod` refinement from a filter type */
+export type ExtractMod<F> =
+  F extends Filter<infer _B, infer M> ? M :
+    F extends AsyncFilter<infer _B, infer M> ? M :
+      never
+
+/** combine `Base` and `Mod` into the type a handler/middleware sees for the matched update */
+export type FilterMatch<F> = ExtractBase<F> & ExtractMod<F>
 
 /**
  * structural runtime check used by `tg.use(filter, mw)` overload routing — any
@@ -89,13 +131,13 @@ function isAsync (value: unknown) {
   return typeof value === 'function' && (value as AsyncTagged)[ASYNC_TAG] === true
 }
 
-function attachMethods<T extends AnyUpdate = AnyUpdate> (
+function attachMethods<Base extends AnyUpdate = AnyUpdate, Mod = unknown> (
   predicate: (update: AnyUpdate) => unknown,
   name: string,
   kinds: readonly string[] | undefined,
   async: boolean
 ) {
-  const tagged = predicate as Filter<T> & AsyncTagged
+  const tagged = predicate as Filter<Base, Mod> & AsyncTagged
 
   Object.defineProperty(tagged, 'name', { value: name, configurable: true })
 
@@ -107,33 +149,34 @@ function attachMethods<T extends AnyUpdate = AnyUpdate> (
     tagged[ASYNC_TAG] = true
   }
 
-  tagged.and = function and<U extends AnyUpdate> (other: Filter<U>) {
-    return andFilter(this as Filter, other as Filter) as unknown as Filter<Extract<T & U, AnyUpdate>>
+  tagged.and = function and<B2 extends AnyUpdate, M2> (other: Filter<B2, M2>) {
+    return andFilter(this as Filter, other as Filter) as unknown as Filter<Base & B2, Mod & M2>
   }
 
-  tagged.or = function or<U extends AnyUpdate> (other: Filter<U>) {
-    return orFilter(this as Filter, other as Filter) as Filter<T | U>
+  tagged.or = function or<B2 extends AnyUpdate, M2> (other: Filter<B2, M2>) {
+    return orFilter(this as Filter, other as Filter) as unknown as Filter<Base | B2, Mod | M2>
   }
 
   tagged.not = function not () {
     return notFilter(this as Filter)
   }
 
-  return tagged as Filter<T>
+  return tagged as Filter<Base, Mod>
 }
 
 /**
- * build a `Filter<T>` from a synchronous type-guard predicate. attaches the supplied
- * `name`, optional `kinds` metadata, and fluent composition methods. the returned
- * value is callable and behaves as a type-guard at the call site, so `if (filter(u))`
- * narrows `u` to `T`
+ * build a `Filter<Base, Mod>` from a synchronous predicate. attaches the supplied
+ * `name`, optional `kinds` metadata, and fluent composition methods. the predicate
+ * may be a plain `boolean` returner or a type-guard `(u): u is Base` form — when a
+ * type-guard, raw `if (filter(u))` narrows `u` to `Base`. handler narrowing through
+ * `tg.on(filter, h)` always uses `Base & Mod` regardless of predicate shape
  */
-export function defineFilter<T extends AnyUpdate> (
+export function defineFilter<Base extends AnyUpdate = AnyUpdate, Mod = unknown> (
   name: string,
-  predicate: (update: AnyUpdate) => update is T,
+  predicate: (update: AnyUpdate) => boolean,
   meta: DefineMeta = {}
 ) {
-  return attachMethods<T>(predicate, name, meta.kinds, false)
+  return attachMethods<Base, Mod>(predicate, name, meta.kinds, false)
 }
 
 /**
@@ -141,12 +184,12 @@ export function defineFilter<T extends AnyUpdate> (
  * does not narrow at the call site (TypeScript has no async type-guard); callers
  * either branch on the awaited boolean or compose with sync filters via `and`
  */
-export function defineAsyncFilter<T extends AnyUpdate> (
+export function defineAsyncFilter<Base extends AnyUpdate = AnyUpdate, Mod = unknown> (
   name: string,
   predicate: (update: AnyUpdate) => Promise<boolean>,
   meta: DefineMeta = {}
 ) {
-  return attachMethods<T>(predicate, name, meta.kinds, true) as unknown as AsyncFilter<T>
+  return attachMethods<Base, Mod>(predicate, name, meta.kinds, true) as unknown as AsyncFilter<Base, Mod>
 }
 
 type AnyFilter = Filter | AsyncFilter
@@ -215,7 +258,7 @@ function andFilter (...filters: readonly AnyFilter[]) {
       return true
     }
 
-    return attachMethods<AnyUpdate>(pred, name, kinds, true)
+    return attachMethods(pred, name, kinds, true)
   }
 
   const pred = (update: AnyUpdate): update is AnyUpdate => {
@@ -228,7 +271,7 @@ function andFilter (...filters: readonly AnyFilter[]) {
     return true
   }
 
-  return attachMethods<AnyUpdate>(pred, name, kinds, false)
+  return attachMethods(pred, name, kinds, false)
 }
 
 function orFilter (...filters: readonly AnyFilter[]) {
@@ -249,7 +292,7 @@ function orFilter (...filters: readonly AnyFilter[]) {
       return false
     }
 
-    return attachMethods<AnyUpdate>(pred, name, kinds, true)
+    return attachMethods(pred, name, kinds, true)
   }
 
   const pred = (update: AnyUpdate): update is AnyUpdate => {
@@ -262,7 +305,7 @@ function orFilter (...filters: readonly AnyFilter[]) {
     return false
   }
 
-  return attachMethods<AnyUpdate>(pred, name, kinds, false)
+  return attachMethods(pred, name, kinds, false)
 }
 
 function notFilter (filter: AnyFilter) {
@@ -277,46 +320,67 @@ function notFilter (filter: AnyFilter) {
       return !r
     }
 
-    return attachMethods<AnyUpdate>(pred, name, undefined, true)
+    return attachMethods(pred, name, undefined, true)
   }
 
   const pred = (update: AnyUpdate): update is AnyUpdate => !(filter as Filter)(update)
 
-  return attachMethods<AnyUpdate>(pred, name, undefined, false)
+  return attachMethods(pred, name, undefined, false)
 }
 
 // public composition factories — overloaded for narrow return types in the small-arity
-// case, fallback to `Filter<unknown>` for variadic/spread input. callers that need
-// narrower typing past 4 operands should compose pairwise (`a.and(b).and(c).and(d).and(e)`)
+// case, fallback to `Filter<AnyUpdate, unknown>` for variadic/spread input. callers
+// that need narrower typing past 4 operands should compose pairwise
 
 /**
  * intersection — match only when every operand matches. short-circuits on the first
- * operand that returns false. returns a filter typed as the type-guard intersection
- * of all operands
+ * operand that returns false. result intersects both `Base` and `Mod` of the operands
  */
-export function and<A> (a: Filter<A>): Filter<A>
-export function and<A, B> (a: Filter<A>, b: Filter<B>): Filter<A & B>
-export function and<A, B, C> (a: Filter<A>, b: Filter<B>, c: Filter<C>): Filter<A & B & C>
-export function and<A, B, C, D> (a: Filter<A>, b: Filter<B>, c: Filter<C>, d: Filter<D>): Filter<A & B & C & D>
-export function and (...filters: readonly AnyFilter[]): Filter<AnyUpdate>
+export function and<B1 extends AnyUpdate, M1> (a: Filter<B1, M1>): Filter<B1, M1>
+export function and<B1 extends AnyUpdate, M1, B2 extends AnyUpdate, M2> (
+  a: Filter<B1, M1>, b: Filter<B2, M2>
+): Filter<B1 & B2, M1 & M2>
+export function and<B1 extends AnyUpdate, M1, B2 extends AnyUpdate, M2, B3 extends AnyUpdate, M3> (
+  a: Filter<B1, M1>, b: Filter<B2, M2>, c: Filter<B3, M3>
+): Filter<B1 & B2 & B3, M1 & M2 & M3>
+export function and<
+  B1 extends AnyUpdate, M1,
+  B2 extends AnyUpdate, M2,
+  B3 extends AnyUpdate, M3,
+  B4 extends AnyUpdate, M4
+> (
+  a: Filter<B1, M1>, b: Filter<B2, M2>, c: Filter<B3, M3>, d: Filter<B4, M4>
+): Filter<B1 & B2 & B3 & B4, M1 & M2 & M3 & M4>
+export function and (...filters: readonly AnyFilter[]): Filter<AnyUpdate, unknown>
 export function and (...filters: readonly AnyFilter[]) {
   return andFilter(...filters)
 }
 
 /**
  * union — match when any operand matches. short-circuits on the first operand
- * that returns true. returns a filter typed as the type-guard union of all operands
+ * that returns true. result unions both `Base` and `Mod` of the operands
  */
-export function or<A> (a: Filter<A>): Filter<A>
-export function or<A, B> (a: Filter<A>, b: Filter<B>): Filter<A | B>
-export function or<A, B, C> (a: Filter<A>, b: Filter<B>, c: Filter<C>): Filter<A | B | C>
-export function or<A, B, C, D> (a: Filter<A>, b: Filter<B>, c: Filter<C>, d: Filter<D>): Filter<A | B | C | D>
-export function or (...filters: readonly AnyFilter[]): Filter<AnyUpdate>
+export function or<B1 extends AnyUpdate, M1> (a: Filter<B1, M1>): Filter<B1, M1>
+export function or<B1 extends AnyUpdate, M1, B2 extends AnyUpdate, M2> (
+  a: Filter<B1, M1>, b: Filter<B2, M2>
+): Filter<B1 | B2, M1 | M2>
+export function or<B1 extends AnyUpdate, M1, B2 extends AnyUpdate, M2, B3 extends AnyUpdate, M3> (
+  a: Filter<B1, M1>, b: Filter<B2, M2>, c: Filter<B3, M3>
+): Filter<B1 | B2 | B3, M1 | M2 | M3>
+export function or<
+  B1 extends AnyUpdate, M1,
+  B2 extends AnyUpdate, M2,
+  B3 extends AnyUpdate, M3,
+  B4 extends AnyUpdate, M4
+> (
+  a: Filter<B1, M1>, b: Filter<B2, M2>, c: Filter<B3, M3>, d: Filter<B4, M4>
+): Filter<B1 | B2 | B3 | B4, M1 | M2 | M3 | M4>
+export function or (...filters: readonly AnyFilter[]): Filter<AnyUpdate, unknown>
 export function or (...filters: readonly AnyFilter[]) {
   return orFilter(...filters)
 }
 
-/** negation — match when the operand does not match. drops type narrowing */
+/** negation — match when the operand does not match. drops both `Base` and `Mod` narrowing */
 export function not (filter: AnyFilter) {
   return notFilter(filter)
 }

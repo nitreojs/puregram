@@ -135,10 +135,10 @@ const TOPIC_MESSAGE_KINDS = SENDER_CHAT_KINDS
 type ChatType = 'private' | 'group' | 'supergroup' | 'channel'
 type SenderChatType = 'group' | 'supergroup' | 'channel'
 
-function chatTypeFilter (type: ChatType) {
-  return defineFilter(
+function chatTypeFilter<T extends ChatType> (type: T) {
+  return defineFilter<ChatBearingUpdate, { raw: { chat: { type: T } } }>(
     `chat.${type}`,
-    (u: unknown): u is ChatBearingUpdate =>
+    (u): u is ChatBearingUpdate =>
       (u as { raw?: { chat?: { type?: string } } }).raw?.chat?.type === type,
     { kinds: CHAT_KINDS }
   )
@@ -158,10 +158,10 @@ export const chat = Object.assign(
   }
 )
 
-function senderChatTypeFilter (type: SenderChatType) {
-  return defineFilter(
+function senderChatTypeFilter<T extends SenderChatType> (type: T) {
+  return defineFilter<SenderChatBearingUpdate, { raw: { sender_chat: { type: T } } }>(
     `senderChat.${type}`,
-    (u: unknown): u is SenderChatBearingUpdate =>
+    (u): u is SenderChatBearingUpdate =>
       (u as { raw?: { sender_chat?: { type?: string } } }).raw?.sender_chat?.type === type,
     { kinds: SENDER_CHAT_KINDS }
   )
@@ -206,9 +206,9 @@ export function chatId (...args: [readonly number[]] | number[]) {
 /**
  * match when the chat is a forum supergroup (`chat.is_forum === true`)
  */
-export const forum = defineFilter(
+export const forum = defineFilter<ChatBearingUpdate, { raw: { chat: { is_forum: true } } }>(
   'forum',
-  (u: unknown): u is ChatBearingUpdate =>
+  (u): u is ChatBearingUpdate =>
     (u as { raw?: { chat?: { is_forum?: boolean } } }).raw?.chat?.is_forum === true,
   { kinds: CHAT_KINDS }
 )
@@ -216,9 +216,9 @@ export const forum = defineFilter(
 /**
  * match when the message belongs to a forum topic (`is_topic_message === true`)
  */
-export const topicMessage = defineFilter(
+export const topicMessage = defineFilter<SenderChatBearingUpdate, { raw: { is_topic_message: true } }>(
   'topicMessage',
-  (u: unknown): u is SenderChatBearingUpdate =>
+  (u): u is SenderChatBearingUpdate =>
     (u as { raw?: { is_topic_message?: boolean } }).raw?.is_topic_message === true,
   { kinds: TOPIC_MESSAGE_KINDS }
 )

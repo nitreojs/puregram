@@ -93,20 +93,19 @@ function buildHandlerOnlySignature (methodName: string, className: string) {
   )
 }
 
-// `onMessage<Base, Mod>(filter, handler, options?): this`
-// filter is `Filter<Base, Mod>` (Base unconstrained — kind-agnostic filters like
-// `chat.private` have `Base = unknown` and must remain assignable). handler is
-// `UpdateHandler<Modify<MessageUpdate, Mod>>` — the per-kind dispatcher binds
-// the handler arg to its own kind, so the filter's Base is structural noise here.
-// pre-binding Base to MessageUpdate would reject every kind-agnostic filter as
-// not-assignable, defeating the composability story
+// `onMessage<Mod>(filter, handler, options?): this`
+// filter is pinned to `Filter<unknown, Mod>` — only `Mod` is inferred. kind-bound
+// filters like `kind.message` (Base=MessageUpdate) remain assignable here because
+// `Filter<X, M>` is covariant on its Base parameter (the type-guard return narrows
+// strictly, so a stricter guard satisfies a wider parameter slot). dropping the
+// Base generic cuts one type parameter per call × 53 dispatcher methods, which
+// the LSP picks up most when resolving overloads on every keystroke
 function buildFilterAndHandlerSignature (methodName: string, className: string, _filterAlias: string) {
   return ts.factory.createMethodSignature(
     undefined,
     ts.factory.createIdentifier(methodName),
     undefined,
     [
-      ts.factory.createTypeParameterDeclaration(undefined, ts.factory.createIdentifier('Base'), undefined, undefined),
       ts.factory.createTypeParameterDeclaration(undefined, ts.factory.createIdentifier('Mod'), undefined, undefined)
     ],
     [
@@ -115,7 +114,7 @@ function buildFilterAndHandlerSignature (methodName: string, className: string, 
         ts.factory.createIdentifier('filter'),
         undefined,
         ts.factory.createTypeReferenceNode('Filter', [
-          ts.factory.createTypeReferenceNode('Base'),
+          ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword),
           ts.factory.createTypeReferenceNode('Mod')
         ]),
         undefined

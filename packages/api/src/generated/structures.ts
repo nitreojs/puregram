@@ -66,25 +66,33 @@ export class Chat {
     /**
      * True if `title` is set.
      */
-    hasTitle(): this is Has<this, "title"> {
+    hasTitle(): this is this & {
+        title: string;
+    } {
         return this.raw.title != null;
     }
     /**
      * True if `username` is set.
      */
-    hasUsername(): this is Has<this, "username"> {
+    hasUsername(): this is this & {
+        username: string;
+    } {
         return this.raw.username != null;
     }
     /**
      * True if `first_name` is set.
      */
-    hasFirstName(): this is Has<this, "firstName"> {
+    hasFirstName(): this is this & {
+        firstName: string;
+    } {
         return this.raw.first_name != null;
     }
     /**
      * True if `last_name` is set.
      */
-    hasLastName(): this is Has<this, "lastName"> {
+    hasLastName(): this is this & {
+        lastName: string;
+    } {
         return this.raw.last_name != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -288,37 +296,49 @@ export class ChatInviteLink {
     /**
      * True if `name` is set.
      */
-    hasName(): this is Has<this, "name"> {
+    hasName(): this is this & {
+        name: string;
+    } {
         return this.raw.name != null;
     }
     /**
      * True if `expire_date` is set.
      */
-    hasExpireDate(): this is Has<this, "expireDate"> {
+    hasExpireDate(): this is this & {
+        expireDate: number;
+    } {
         return this.raw.expire_date != null;
     }
     /**
      * True if `member_limit` is set.
      */
-    hasMemberLimit(): this is Has<this, "memberLimit"> {
+    hasMemberLimit(): this is this & {
+        memberLimit: number;
+    } {
         return this.raw.member_limit != null;
     }
     /**
      * True if `pending_join_request_count` is set.
      */
-    hasPendingJoinRequestCount(): this is Has<this, "pendingJoinRequestCount"> {
+    hasPendingJoinRequestCount(): this is this & {
+        pendingJoinRequestCount: number;
+    } {
         return this.raw.pending_join_request_count != null;
     }
     /**
      * True if `subscription_period` is set.
      */
-    hasSubscriptionPeriod(): this is Has<this, "subscriptionPeriod"> {
+    hasSubscriptionPeriod(): this is this & {
+        subscriptionPeriod: number;
+    } {
         return this.raw.subscription_period != null;
     }
     /**
      * True if `subscription_price` is set.
      */
-    hasSubscriptionPrice(): this is Has<this, "subscriptionPrice"> {
+    hasSubscriptionPrice(): this is this & {
+        subscriptionPrice: number;
+    } {
         return this.raw.subscription_price != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -379,13 +399,17 @@ export class ChatJoinRequest {
     /**
      * True if `bio` is set.
      */
-    hasBio(): this is Has<this, "bio"> {
+    hasBio(): this is this & {
+        bio: string;
+    } {
         return this.raw.bio != null;
     }
     /**
      * True if `invite_link` is set.
      */
-    hasInviteLink(): this is Has<this, "inviteLink"> {
+    hasInviteLink(): this is this & {
+        inviteLink: ChatInviteLink;
+    } {
         return this.raw.invite_link != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -517,19 +541,25 @@ export class ChatMemberUpdated {
     /**
      * True if `invite_link` is set.
      */
-    hasInviteLink(): this is Has<this, "inviteLink"> {
+    hasInviteLink(): this is this & {
+        inviteLink: ChatInviteLink;
+    } {
         return this.raw.invite_link != null;
     }
     /**
      * True if `via_join_request` is set.
      */
-    hasViaJoinRequest(): this is Has<this, "viaJoinRequest"> {
+    hasViaJoinRequest(): this is this & {
+        viaJoinRequest: boolean;
+    } {
         return this.raw.via_join_request != null;
     }
     /**
      * True if `via_chat_folder_invite_link` is set.
      */
-    hasViaChatFolderInviteLink(): this is Has<this, "viaChatFolderInviteLink"> {
+    hasViaChatFolderInviteLink(): this is this & {
+        viaChatFolderInviteLink: boolean;
+    } {
         return this.raw.via_chat_folder_invite_link != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -638,91 +668,121 @@ export class ChatPermissions {
     /**
      * True if `can_send_messages` is set.
      */
-    hasCanSendMessages(): this is Has<this, "canSendMessages"> {
+    hasCanSendMessages(): this is this & {
+        canSendMessages: boolean;
+    } {
         return this.raw.can_send_messages != null;
     }
     /**
      * True if `can_send_audios` is set.
      */
-    hasCanSendAudios(): this is Has<this, "canSendAudios"> {
+    hasCanSendAudios(): this is this & {
+        canSendAudios: boolean;
+    } {
         return this.raw.can_send_audios != null;
     }
     /**
      * True if `can_send_documents` is set.
      */
-    hasCanSendDocuments(): this is Has<this, "canSendDocuments"> {
+    hasCanSendDocuments(): this is this & {
+        canSendDocuments: boolean;
+    } {
         return this.raw.can_send_documents != null;
     }
     /**
      * True if `can_send_photos` is set.
      */
-    hasCanSendPhotos(): this is Has<this, "canSendPhotos"> {
+    hasCanSendPhotos(): this is this & {
+        canSendPhotos: boolean;
+    } {
         return this.raw.can_send_photos != null;
     }
     /**
      * True if `can_send_videos` is set.
      */
-    hasCanSendVideos(): this is Has<this, "canSendVideos"> {
+    hasCanSendVideos(): this is this & {
+        canSendVideos: boolean;
+    } {
         return this.raw.can_send_videos != null;
     }
     /**
      * True if `can_send_video_notes` is set.
      */
-    hasCanSendVideoNotes(): this is Has<this, "canSendVideoNotes"> {
+    hasCanSendVideoNotes(): this is this & {
+        canSendVideoNotes: boolean;
+    } {
         return this.raw.can_send_video_notes != null;
     }
     /**
      * True if `can_send_voice_notes` is set.
      */
-    hasCanSendVoiceNotes(): this is Has<this, "canSendVoiceNotes"> {
+    hasCanSendVoiceNotes(): this is this & {
+        canSendVoiceNotes: boolean;
+    } {
         return this.raw.can_send_voice_notes != null;
     }
     /**
      * True if `can_send_polls` is set.
      */
-    hasCanSendPolls(): this is Has<this, "canSendPolls"> {
+    hasCanSendPolls(): this is this & {
+        canSendPolls: boolean;
+    } {
         return this.raw.can_send_polls != null;
     }
     /**
      * True if `can_send_other_messages` is set.
      */
-    hasCanSendOtherMessages(): this is Has<this, "canSendOtherMessages"> {
+    hasCanSendOtherMessages(): this is this & {
+        canSendOtherMessages: boolean;
+    } {
         return this.raw.can_send_other_messages != null;
     }
     /**
      * True if `can_add_web_page_previews` is set.
      */
-    hasCanAddWebPagePreviews(): this is Has<this, "canAddWebPagePreviews"> {
+    hasCanAddWebPagePreviews(): this is this & {
+        canAddWebPagePreviews: boolean;
+    } {
         return this.raw.can_add_web_page_previews != null;
     }
     /**
      * True if `can_edit_tag` is set.
      */
-    hasCanEditTag(): this is Has<this, "canEditTag"> {
+    hasCanEditTag(): this is this & {
+        canEditTag: boolean;
+    } {
         return this.raw.can_edit_tag != null;
     }
     /**
      * True if `can_change_info` is set.
      */
-    hasCanChangeInfo(): this is Has<this, "canChangeInfo"> {
+    hasCanChangeInfo(): this is this & {
+        canChangeInfo: boolean;
+    } {
         return this.raw.can_change_info != null;
     }
     /**
      * True if `can_invite_users` is set.
      */
-    hasCanInviteUsers(): this is Has<this, "canInviteUsers"> {
+    hasCanInviteUsers(): this is this & {
+        canInviteUsers: boolean;
+    } {
         return this.raw.can_invite_users != null;
     }
     /**
      * True if `can_pin_messages` is set.
      */
-    hasCanPinMessages(): this is Has<this, "canPinMessages"> {
+    hasCanPinMessages(): this is this & {
+        canPinMessages: boolean;
+    } {
         return this.raw.can_pin_messages != null;
     }
     /**
      * True if `can_manage_topics` is set.
      */
-    hasCanManageTopics(): this is Has<this, "canManageTopics"> {
+    hasCanManageTopics(): this is this & {
+        canManageTopics: boolean;
+    } {
         return this.raw.can_manage_topics != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -809,19 +869,25 @@ export class ChatShared {
     /**
      * True if `title` is set.
      */
-    hasTitle(): this is Has<this, "title"> {
+    hasTitle(): this is this & {
+        title: string;
+    } {
         return this.raw.title != null;
     }
     /**
      * True if `username` is set.
      */
-    hasUsername(): this is Has<this, "username"> {
+    hasUsername(): this is this & {
+        username: string;
+    } {
         return this.raw.username != null;
     }
     /**
      * True if `photo` has at least one item.
      */
-    hasPhoto(): this is Has<this, "photo"> {
+    hasPhoto(): this is this & {
+        photo: PhotoSize[];
+    } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -875,13 +941,17 @@ export class ChosenInlineResult {
     /**
      * True if `location` is set.
      */
-    hasLocation(): this is Has<this, "location"> {
+    hasLocation(): this is this & {
+        location: Location;
+    } {
         return this.raw.location != null;
     }
     /**
      * True if `inline_message_id` is set.
      */
-    hasInlineMessageId(): this is Has<this, "inlineMessageId"> {
+    hasInlineMessageId(): this is this & {
+        inlineMessageId: string;
+    } {
         return this.raw.inline_message_id != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -930,19 +1000,25 @@ export class Contact {
     /**
      * True if `last_name` is set.
      */
-    hasLastName(): this is Has<this, "lastName"> {
+    hasLastName(): this is this & {
+        lastName: string;
+    } {
         return this.raw.last_name != null;
     }
     /**
      * True if `user_id` is set.
      */
-    hasUserId(): this is Has<this, "userId"> {
+    hasUserId(): this is this & {
+        userId: number;
+    } {
         return this.raw.user_id != null;
     }
     /**
      * True if `vcard` is set.
      */
-    hasVcard(): this is Has<this, "vcard"> {
+    hasVcard(): this is this & {
+        vcard: string;
+    } {
         return this.raw.vcard != null;
     }
     /**
@@ -1199,139 +1275,185 @@ export class ExternalReplyInfo {
     /**
      * True if `chat` is set.
      */
-    hasChat(): this is Has<this, "chat"> {
+    hasChat(): this is this & {
+        chat: Chat;
+    } {
         return this.raw.chat != null;
     }
     /**
      * True if `message_id` is set.
      */
-    hasId(): this is Has<this, "id"> {
+    hasId(): this is this & {
+        id: number;
+    } {
         return this.raw.message_id != null;
     }
     /**
      * True if `link_preview_options` is set.
      */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+    hasLinkPreviewOptions(): this is this & {
+        linkPreviewOptions: LinkPreviewOptions;
+    } {
         return this.raw.link_preview_options != null;
     }
     /**
      * True if `animation` is set.
      */
-    hasAnimation(): this is Has<this, "animation"> {
+    hasAnimation(): this is this & {
+        animation: TelegramAnimation;
+    } {
         return this.raw.animation != null;
     }
     /**
      * True if `audio` is set.
      */
-    hasAudio(): this is Has<this, "audio"> {
+    hasAudio(): this is this & {
+        audio: TelegramAudio;
+    } {
         return this.raw.audio != null;
     }
     /**
      * True if `document` is set.
      */
-    hasDocument(): this is Has<this, "document"> {
+    hasDocument(): this is this & {
+        document: TelegramDocument;
+    } {
         return this.raw.document != null;
     }
     /**
      * True if `paid_media` is set.
      */
-    hasPaidMedia(): this is Has<this, "paidMedia"> {
+    hasPaidMedia(): this is this & {
+        paidMedia: TelegramPaidMediaInfo;
+    } {
         return this.raw.paid_media != null;
     }
     /**
      * True if `photo` has at least one item.
      */
-    hasPhoto(): this is Has<this, "photo"> {
+    hasPhoto(): this is this & {
+        photo: PhotoSize[];
+    } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
     /**
      * True if `sticker` is set.
      */
-    hasSticker(): this is Has<this, "sticker"> {
+    hasSticker(): this is this & {
+        sticker: Sticker;
+    } {
         return this.raw.sticker != null;
     }
     /**
      * True if `story` is set.
      */
-    hasStory(): this is Has<this, "story"> {
+    hasStory(): this is this & {
+        story: Story;
+    } {
         return this.raw.story != null;
     }
     /**
      * True if `video` is set.
      */
-    hasVideo(): this is Has<this, "video"> {
+    hasVideo(): this is this & {
+        video: Video;
+    } {
         return this.raw.video != null;
     }
     /**
      * True if `video_note` is set.
      */
-    hasVideoNote(): this is Has<this, "videoNote"> {
+    hasVideoNote(): this is this & {
+        videoNote: TelegramVideoNote;
+    } {
         return this.raw.video_note != null;
     }
     /**
      * True if `voice` is set.
      */
-    hasVoice(): this is Has<this, "voice"> {
+    hasVoice(): this is this & {
+        voice: TelegramVoice;
+    } {
         return this.raw.voice != null;
     }
     /**
      * True if `checklist` is set.
      */
-    hasChecklist(): this is Has<this, "checklist"> {
+    hasChecklist(): this is this & {
+        checklist: TelegramChecklist;
+    } {
         return this.raw.checklist != null;
     }
     /**
      * True if `contact` is set.
      */
-    hasContact(): this is Has<this, "contact"> {
+    hasContact(): this is this & {
+        contact: Contact;
+    } {
         return this.raw.contact != null;
     }
     /**
      * True if `dice` is set.
      */
-    hasDice(): this is Has<this, "dice"> {
+    hasDice(): this is this & {
+        dice: Dice;
+    } {
         return this.raw.dice != null;
     }
     /**
      * True if `game` is set.
      */
-    hasGame(): this is Has<this, "game"> {
+    hasGame(): this is this & {
+        game: Game;
+    } {
         return this.raw.game != null;
     }
     /**
      * True if `giveaway` is set.
      */
-    hasGiveaway(): this is Has<this, "giveaway"> {
+    hasGiveaway(): this is this & {
+        giveaway: Giveaway;
+    } {
         return this.raw.giveaway != null;
     }
     /**
      * True if `giveaway_winners` is set.
      */
-    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+    hasGiveawayWinners(): this is this & {
+        giveawayWinners: GiveawayWinners;
+    } {
         return this.raw.giveaway_winners != null;
     }
     /**
      * True if `invoice` is set.
      */
-    hasInvoice(): this is Has<this, "invoice"> {
+    hasInvoice(): this is this & {
+        invoice: Invoice;
+    } {
         return this.raw.invoice != null;
     }
     /**
      * True if `location` is set.
      */
-    hasLocation(): this is Has<this, "location"> {
+    hasLocation(): this is this & {
+        location: Location;
+    } {
         return this.raw.location != null;
     }
     /**
      * True if `poll` is set.
      */
-    hasPoll(): this is Has<this, "poll"> {
+    hasPoll(): this is this & {
+        poll: Poll;
+    } {
         return this.raw.poll != null;
     }
     /**
      * True if `venue` is set.
      */
-    hasVenue(): this is Has<this, "venue"> {
+    hasVenue(): this is this & {
+        venue: Venue;
+    } {
         return this.raw.venue != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -1374,13 +1496,17 @@ export class File {
     /**
      * True if `file_size` is set.
      */
-    hasFileSize(): this is Has<this, "fileSize"> {
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
         return this.raw.file_size != null;
     }
     /**
      * True if `file_path` is set.
      */
-    hasFilePath(): this is Has<this, "filePath"> {
+    hasFilePath(): this is this & {
+        filePath: string;
+    } {
         return this.raw.file_path != null;
     }
     /**
@@ -1429,7 +1555,9 @@ export class ForumTopicCreated {
     /**
      * True if `icon_custom_emoji_id` is set.
      */
-    hasIconCustomEmojiId(): this is Has<this, "iconCustomEmojiId"> {
+    hasIconCustomEmojiId(): this is this & {
+        iconCustomEmojiId: string;
+    } {
         return this.raw.icon_custom_emoji_id != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -1460,13 +1588,17 @@ export class ForumTopicEdited {
     /**
      * True if `name` is set.
      */
-    hasName(): this is Has<this, "name"> {
+    hasName(): this is this & {
+        name: string;
+    } {
         return this.raw.name != null;
     }
     /**
      * True if `icon_custom_emoji_id` is set.
      */
-    hasIconCustomEmojiId(): this is Has<this, "iconCustomEmojiId"> {
+    hasIconCustomEmojiId(): this is this & {
+        iconCustomEmojiId: string;
+    } {
         return this.raw.icon_custom_emoji_id != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -1523,19 +1655,25 @@ export class Game {
     /**
      * True if `text` is set.
      */
-    hasText(): this is Has<this, "text"> {
+    hasText(): this is this & {
+        text: string;
+    } {
         return this.raw.text != null;
     }
     /**
      * True if `text_entities` has at least one item.
      */
-    hasTextEntities(): this is Has<this, "textEntities"> {
+    hasTextEntities(): this is this & {
+        textEntities: MessageEntity[];
+    } {
         return this.raw.text_entities != null && this.raw.text_entities.length > 0;
     }
     /**
      * True if `animation` is set.
      */
-    hasAnimation(): this is Has<this, "animation"> {
+    hasAnimation(): this is this & {
+        animation: TelegramAnimation;
+    } {
         return this.raw.animation != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -1609,31 +1747,41 @@ export class Giveaway {
     /**
      * True if `only_new_members` is set.
      */
-    hasOnlyNewMembers(): this is Has<this, "onlyNewMembers"> {
+    hasOnlyNewMembers(): this is this & {
+        onlyNewMembers: true;
+    } {
         return this.raw.only_new_members != null;
     }
     /**
      * True if `prize_description` is set.
      */
-    hasPrizeDescription(): this is Has<this, "prizeDescription"> {
+    hasPrizeDescription(): this is this & {
+        prizeDescription: string;
+    } {
         return this.raw.prize_description != null;
     }
     /**
      * True if `country_codes` has at least one item.
      */
-    hasCountryCodes(): this is Has<this, "countryCodes"> {
+    hasCountryCodes(): this is this & {
+        countryCodes: string[];
+    } {
         return this.raw.country_codes != null && this.raw.country_codes.length > 0;
     }
     /**
      * True if `prize_star_count` is set.
      */
-    hasPrizeStarCount(): this is Has<this, "prizeStarCount"> {
+    hasPrizeStarCount(): this is this & {
+        prizeStarCount: number;
+    } {
         return this.raw.prize_star_count != null;
     }
     /**
      * True if `premium_subscription_month_count` is set.
      */
-    hasPremiumSubscriptionMonthCount(): this is Has<this, "premiumSubscriptionMonthCount"> {
+    hasPremiumSubscriptionMonthCount(): this is this & {
+        premiumSubscriptionMonthCount: number;
+    } {
         return this.raw.premium_subscription_month_count != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -1680,13 +1828,17 @@ export class GiveawayCompleted {
     /**
      * True if `unclaimed_prize_count` is set.
      */
-    hasUnclaimedPrizeCount(): this is Has<this, "unclaimedPrizeCount"> {
+    hasUnclaimedPrizeCount(): this is this & {
+        unclaimedPrizeCount: number;
+    } {
         return this.raw.unclaimed_prize_count != null;
     }
     /**
      * True if `giveaway_message` is set.
      */
-    hasGiveawayMessage(): this is Has<this, "giveawayMessage"> {
+    hasGiveawayMessage(): this is this & {
+        giveawayMessage: Message;
+    } {
         return this.raw.giveaway_message != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -1779,43 +1931,57 @@ export class GiveawayWinners {
     /**
      * True if `additional_chat_count` is set.
      */
-    hasAdditionalChatCount(): this is Has<this, "additionalChatCount"> {
+    hasAdditionalChatCount(): this is this & {
+        additionalChatCount: number;
+    } {
         return this.raw.additional_chat_count != null;
     }
     /**
      * True if `prize_star_count` is set.
      */
-    hasPrizeStarCount(): this is Has<this, "prizeStarCount"> {
+    hasPrizeStarCount(): this is this & {
+        prizeStarCount: number;
+    } {
         return this.raw.prize_star_count != null;
     }
     /**
      * True if `premium_subscription_month_count` is set.
      */
-    hasPremiumSubscriptionMonthCount(): this is Has<this, "premiumSubscriptionMonthCount"> {
+    hasPremiumSubscriptionMonthCount(): this is this & {
+        premiumSubscriptionMonthCount: number;
+    } {
         return this.raw.premium_subscription_month_count != null;
     }
     /**
      * True if `unclaimed_prize_count` is set.
      */
-    hasUnclaimedPrizeCount(): this is Has<this, "unclaimedPrizeCount"> {
+    hasUnclaimedPrizeCount(): this is this & {
+        unclaimedPrizeCount: number;
+    } {
         return this.raw.unclaimed_prize_count != null;
     }
     /**
      * True if `only_new_members` is set.
      */
-    hasOnlyNewMembers(): this is Has<this, "onlyNewMembers"> {
+    hasOnlyNewMembers(): this is this & {
+        onlyNewMembers: true;
+    } {
         return this.raw.only_new_members != null;
     }
     /**
      * True if `was_refunded` is set.
      */
-    hasWasRefunded(): this is Has<this, "wasRefunded"> {
+    hasWasRefunded(): this is this & {
+        wasRefunded: true;
+    } {
         return this.raw.was_refunded != null;
     }
     /**
      * True if `prize_description` is set.
      */
-    hasPrizeDescription(): this is Has<this, "prizeDescription"> {
+    hasPrizeDescription(): this is this & {
+        prizeDescription: string;
+    } {
         return this.raw.prize_description != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -1916,73 +2082,97 @@ export class InlineKeyboardButton {
     /**
      * True if `icon_custom_emoji_id` is set.
      */
-    hasIconCustomEmojiId(): this is Has<this, "iconCustomEmojiId"> {
+    hasIconCustomEmojiId(): this is this & {
+        iconCustomEmojiId: string;
+    } {
         return this.raw.icon_custom_emoji_id != null;
     }
     /**
      * True if `style` is set.
      */
-    hasStyle(): this is Has<this, "style"> {
+    hasStyle(): this is this & {
+        style: "danger" | "success" | "primary";
+    } {
         return this.raw.style != null;
     }
     /**
      * True if `url` is set.
      */
-    hasUrl(): this is Has<this, "url"> {
+    hasUrl(): this is this & {
+        url: string;
+    } {
         return this.raw.url != null;
     }
     /**
      * True if `callback_data` is set.
      */
-    hasCallbackData(): this is Has<this, "callbackData"> {
+    hasCallbackData(): this is this & {
+        callbackData: string;
+    } {
         return this.raw.callback_data != null;
     }
     /**
      * True if `web_app` is set.
      */
-    hasWebApp(): this is Has<this, "webApp"> {
+    hasWebApp(): this is this & {
+        webApp: WebAppInfo;
+    } {
         return this.raw.web_app != null;
     }
     /**
      * True if `login_url` is set.
      */
-    hasLoginUrl(): this is Has<this, "loginUrl"> {
+    hasLoginUrl(): this is this & {
+        loginUrl: TelegramLoginUrl;
+    } {
         return this.raw.login_url != null;
     }
     /**
      * True if `switch_inline_query` is set.
      */
-    hasSwitchInlineQuery(): this is Has<this, "switchInlineQuery"> {
+    hasSwitchInlineQuery(): this is this & {
+        switchInlineQuery: string;
+    } {
         return this.raw.switch_inline_query != null;
     }
     /**
      * True if `switch_inline_query_current_chat` is set.
      */
-    hasSwitchInlineQueryCurrentChat(): this is Has<this, "switchInlineQueryCurrentChat"> {
+    hasSwitchInlineQueryCurrentChat(): this is this & {
+        switchInlineQueryCurrentChat: string;
+    } {
         return this.raw.switch_inline_query_current_chat != null;
     }
     /**
      * True if `switch_inline_query_chosen_chat` is set.
      */
-    hasSwitchInlineQueryChosenChat(): this is Has<this, "switchInlineQueryChosenChat"> {
+    hasSwitchInlineQueryChosenChat(): this is this & {
+        switchInlineQueryChosenChat: TelegramSwitchInlineQueryChosenChat;
+    } {
         return this.raw.switch_inline_query_chosen_chat != null;
     }
     /**
      * True if `copy_text` is set.
      */
-    hasCopyText(): this is Has<this, "copyText"> {
+    hasCopyText(): this is this & {
+        copyText: TelegramCopyTextButton;
+    } {
         return this.raw.copy_text != null;
     }
     /**
      * True if `callback_game` is set.
      */
-    hasCallbackGame(): this is Has<this, "callbackGame"> {
+    hasCallbackGame(): this is this & {
+        callbackGame: TelegramCallbackGame;
+    } {
         return this.raw.callback_game != null;
     }
     /**
      * True if `pay` is set.
      */
-    hasPay(): this is Has<this, "pay"> {
+    hasPay(): this is this & {
+        pay: boolean;
+    } {
         return this.raw.pay != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -2073,13 +2263,17 @@ export class InlineQuery {
     /**
      * True if `chat_type` is set.
      */
-    hasChatType(): this is Has<this, "chatType"> {
+    hasChatType(): this is this & {
+        chatType: "sender" | "private" | "group" | "supergroup" | "channel";
+    } {
         return this.raw.chat_type != null;
     }
     /**
      * True if `location` is set.
      */
-    hasLocation(): this is Has<this, "location"> {
+    hasLocation(): this is this & {
+        location: Location;
+    } {
         return this.raw.location != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -2191,25 +2385,33 @@ export class LinkPreviewOptions {
     /**
      * True if `url` is set.
      */
-    hasUrl(): this is Has<this, "url"> {
+    hasUrl(): this is this & {
+        url: string;
+    } {
         return this.raw.url != null;
     }
     /**
      * True if `prefer_small_media` is set.
      */
-    hasPreferSmallMedia(): this is Has<this, "preferSmallMedia"> {
+    hasPreferSmallMedia(): this is this & {
+        preferSmallMedia: boolean;
+    } {
         return this.raw.prefer_small_media != null;
     }
     /**
      * True if `prefer_large_media` is set.
      */
-    hasPreferLargeMedia(): this is Has<this, "preferLargeMedia"> {
+    hasPreferLargeMedia(): this is this & {
+        preferLargeMedia: boolean;
+    } {
         return this.raw.prefer_large_media != null;
     }
     /**
      * True if `show_above_text` is set.
      */
-    hasShowAboveText(): this is Has<this, "showAboveText"> {
+    hasShowAboveText(): this is this & {
+        showAboveText: boolean;
+    } {
         return this.raw.show_above_text != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -2264,25 +2466,33 @@ export class Location {
     /**
      * True if `horizontal_accuracy` is set.
      */
-    hasHorizontalAccuracy(): this is Has<this, "horizontalAccuracy"> {
+    hasHorizontalAccuracy(): this is this & {
+        horizontalAccuracy: number;
+    } {
         return this.raw.horizontal_accuracy != null;
     }
     /**
      * True if `live_period` is set.
      */
-    hasLivePeriod(): this is Has<this, "livePeriod"> {
+    hasLivePeriod(): this is this & {
+        livePeriod: number;
+    } {
         return this.raw.live_period != null;
     }
     /**
      * True if `heading` is set.
      */
-    hasHeading(): this is Has<this, "heading"> {
+    hasHeading(): this is this & {
+        heading: number;
+    } {
         return this.raw.heading != null;
     }
     /**
      * True if `proximity_alert_radius` is set.
      */
-    hasProximityAlertRadius(): this is Has<this, "proximityAlertRadius"> {
+    hasProximityAlertRadius(): this is this & {
+        proximityAlertRadius: number;
+    } {
         return this.raw.proximity_alert_radius != null;
     }
     /**
@@ -3170,607 +3380,809 @@ export class Message {
     /**
      * True if `message_thread_id` is set.
      */
-    hasMessageThreadId(): this is Has<this, "messageThreadId"> {
+    hasMessageThreadId(): this is this & {
+        messageThreadId: number;
+    } {
         return this.raw.message_thread_id != null;
     }
     /**
      * True if `direct_messages_topic` is set.
      */
-    hasDirectMessagesTopic(): this is Has<this, "directMessagesTopic"> {
+    hasDirectMessagesTopic(): this is this & {
+        directMessagesTopic: TelegramDirectMessagesTopic;
+    } {
         return this.raw.direct_messages_topic != null;
     }
     /**
      * True if `from` is set.
      */
-    hasFrom(): this is Has<this, "from"> {
+    hasFrom(): this is this & {
+        from: User;
+    } {
         return this.raw.from != null;
     }
     /**
      * True if `sender_chat` is set.
      */
-    hasSenderChat(): this is Has<this, "senderChat"> {
+    hasSenderChat(): this is this & {
+        senderChat: Chat;
+    } {
         return this.raw.sender_chat != null;
     }
     /**
      * True if `sender_boost_count` is set.
      */
-    hasSenderBoostCount(): this is Has<this, "senderBoostCount"> {
+    hasSenderBoostCount(): this is this & {
+        senderBoostCount: number;
+    } {
         return this.raw.sender_boost_count != null;
     }
     /**
      * True if `sender_business_bot` is set.
      */
-    hasSenderBusinessBot(): this is Has<this, "senderBusinessBot"> {
+    hasSenderBusinessBot(): this is this & {
+        senderBusinessBot: User;
+    } {
         return this.raw.sender_business_bot != null;
     }
     /**
      * True if `sender_tag` is set.
      */
-    hasSenderTag(): this is Has<this, "senderTag"> {
+    hasSenderTag(): this is this & {
+        senderTag: string;
+    } {
         return this.raw.sender_tag != null;
     }
     /**
      * True if `business_connection_id` is set.
      */
-    hasBusinessConnectionId(): this is Has<this, "businessConnectionId"> {
+    hasBusinessConnectionId(): this is this & {
+        businessConnectionId: string;
+    } {
         return this.raw.business_connection_id != null;
     }
     /**
      * True if `forward_origin` is set.
      */
-    hasForwardOrigin(): this is Has<this, "forwardOrigin"> {
+    hasForwardOrigin(): this is this & {
+        forwardOrigin: TelegramMessageOrigin;
+    } {
         return this.raw.forward_origin != null;
     }
     /**
      * True if `reply_to_message` is set.
      */
-    hasReplyToMessage(): this is Has<this, "replyToMessage"> {
+    hasReplyToMessage(): this is this & {
+        replyToMessage: Message;
+    } {
         return this.raw.reply_to_message != null;
     }
     /**
      * True if `external_reply` is set.
      */
-    hasExternalReply(): this is Has<this, "externalReply"> {
+    hasExternalReply(): this is this & {
+        externalReply: ExternalReplyInfo;
+    } {
         return this.raw.external_reply != null;
     }
     /**
      * True if `quote` is set.
      */
-    hasQuote(): this is Has<this, "quote"> {
+    hasQuote(): this is this & {
+        quote: TextQuote;
+    } {
         return this.raw.quote != null;
     }
     /**
      * True if `reply_to_story` is set.
      */
-    hasReplyToStory(): this is Has<this, "replyToStory"> {
+    hasReplyToStory(): this is this & {
+        replyToStory: Story;
+    } {
         return this.raw.reply_to_story != null;
     }
     /**
      * True if `reply_to_checklist_task_id` is set.
      */
-    hasReplyToChecklistTaskId(): this is Has<this, "replyToChecklistTaskId"> {
+    hasReplyToChecklistTaskId(): this is this & {
+        replyToChecklistTaskId: number;
+    } {
         return this.raw.reply_to_checklist_task_id != null;
     }
     /**
      * True if `reply_to_poll_option_id` is set.
      */
-    hasReplyToPollOptionId(): this is Has<this, "replyToPollOptionId"> {
+    hasReplyToPollOptionId(): this is this & {
+        replyToPollOptionId: string;
+    } {
         return this.raw.reply_to_poll_option_id != null;
     }
     /**
      * True if `via_bot` is set.
      */
-    hasViaBot(): this is Has<this, "viaBot"> {
+    hasViaBot(): this is this & {
+        viaBot: User;
+    } {
         return this.raw.via_bot != null;
     }
     /**
      * True if `edit_date` is set.
      */
-    hasEditDate(): this is Has<this, "editDate"> {
+    hasEditDate(): this is this & {
+        editDate: number;
+    } {
         return this.raw.edit_date != null;
     }
     /**
      * True if `media_group_id` is set.
      */
-    hasMediaGroupId(): this is Has<this, "mediaGroupId"> {
+    hasMediaGroupId(): this is this & {
+        mediaGroupId: string;
+    } {
         return this.raw.media_group_id != null;
     }
     /**
      * True if `author_signature` is set.
      */
-    hasAuthorSignature(): this is Has<this, "authorSignature"> {
+    hasAuthorSignature(): this is this & {
+        authorSignature: string;
+    } {
         return this.raw.author_signature != null;
     }
     /**
      * True if `paid_star_count` is set.
      */
-    hasPaidStarCount(): this is Has<this, "paidStarCount"> {
+    hasPaidStarCount(): this is this & {
+        paidStarCount: number;
+    } {
         return this.raw.paid_star_count != null;
     }
     /**
      * True if `text` is set.
      */
-    hasText(): this is Has<this, "text"> {
+    hasText(): this is this & {
+        text: string;
+    } {
         return this.raw.text != null;
     }
     /**
      * True if `entities` has at least one item.
      */
-    hasEntities(): this is Has<this, "entities"> {
+    hasEntities(): this is this & {
+        entities: MessageEntity[];
+    } {
         return this.raw.entities != null && this.raw.entities.length > 0;
     }
     /**
      * True if `link_preview_options` is set.
      */
-    hasLinkPreviewOptions(): this is Has<this, "linkPreviewOptions"> {
+    hasLinkPreviewOptions(): this is this & {
+        linkPreviewOptions: LinkPreviewOptions;
+    } {
         return this.raw.link_preview_options != null;
     }
     /**
      * True if `suggested_post_info` is set.
      */
-    hasSuggestedPostInfo(): this is Has<this, "suggestedPostInfo"> {
+    hasSuggestedPostInfo(): this is this & {
+        suggestedPostInfo: TelegramSuggestedPostInfo;
+    } {
         return this.raw.suggested_post_info != null;
     }
     /**
      * True if `effect_id` is set.
      */
-    hasEffectId(): this is Has<this, "effectId"> {
+    hasEffectId(): this is this & {
+        effectId: string;
+    } {
         return this.raw.effect_id != null;
     }
     /**
      * True if `animation` is set.
      */
-    hasAnimation(): this is Has<this, "animation"> {
+    hasAnimation(): this is this & {
+        animation: TelegramAnimation;
+    } {
         return this.raw.animation != null;
     }
     /**
      * True if `audio` is set.
      */
-    hasAudio(): this is Has<this, "audio"> {
+    hasAudio(): this is this & {
+        audio: TelegramAudio;
+    } {
         return this.raw.audio != null;
     }
     /**
      * True if `document` is set.
      */
-    hasDocument(): this is Has<this, "document"> {
+    hasDocument(): this is this & {
+        document: TelegramDocument;
+    } {
         return this.raw.document != null;
     }
     /**
      * True if `paid_media` is set.
      */
-    hasPaidMedia(): this is Has<this, "paidMedia"> {
+    hasPaidMedia(): this is this & {
+        paidMedia: TelegramPaidMediaInfo;
+    } {
         return this.raw.paid_media != null;
     }
     /**
      * True if `photo` has at least one item.
      */
-    hasPhoto(): this is Has<this, "photo"> {
+    hasPhoto(): this is this & {
+        photo: PhotoSize[];
+    } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
     /**
      * True if `sticker` is set.
      */
-    hasSticker(): this is Has<this, "sticker"> {
+    hasSticker(): this is this & {
+        sticker: Sticker;
+    } {
         return this.raw.sticker != null;
     }
     /**
      * True if `story` is set.
      */
-    hasStory(): this is Has<this, "story"> {
+    hasStory(): this is this & {
+        story: Story;
+    } {
         return this.raw.story != null;
     }
     /**
      * True if `video` is set.
      */
-    hasVideo(): this is Has<this, "video"> {
+    hasVideo(): this is this & {
+        video: Video;
+    } {
         return this.raw.video != null;
     }
     /**
      * True if `video_note` is set.
      */
-    hasVideoNote(): this is Has<this, "videoNote"> {
+    hasVideoNote(): this is this & {
+        videoNote: TelegramVideoNote;
+    } {
         return this.raw.video_note != null;
     }
     /**
      * True if `voice` is set.
      */
-    hasVoice(): this is Has<this, "voice"> {
+    hasVoice(): this is this & {
+        voice: TelegramVoice;
+    } {
         return this.raw.voice != null;
     }
     /**
      * True if `caption` is set.
      */
-    hasCaption(): this is Has<this, "caption"> {
+    hasCaption(): this is this & {
+        caption: string;
+    } {
         return this.raw.caption != null;
     }
     /**
      * True if `caption_entities` has at least one item.
      */
-    hasCaptionEntities(): this is Has<this, "captionEntities"> {
+    hasCaptionEntities(): this is this & {
+        captionEntities: MessageEntity[];
+    } {
         return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
     }
     /**
      * True if `show_caption_above_media` is set.
      */
-    hasShowCaptionAboveMedia(): this is Has<this, "showCaptionAboveMedia"> {
+    hasShowCaptionAboveMedia(): this is this & {
+        showCaptionAboveMedia: true;
+    } {
         return this.raw.show_caption_above_media != null;
     }
     /**
      * True if `checklist` is set.
      */
-    hasChecklist(): this is Has<this, "checklist"> {
+    hasChecklist(): this is this & {
+        checklist: TelegramChecklist;
+    } {
         return this.raw.checklist != null;
     }
     /**
      * True if `contact` is set.
      */
-    hasContact(): this is Has<this, "contact"> {
+    hasContact(): this is this & {
+        contact: Contact;
+    } {
         return this.raw.contact != null;
     }
     /**
      * True if `dice` is set.
      */
-    hasDice(): this is Has<this, "dice"> {
+    hasDice(): this is this & {
+        dice: Dice;
+    } {
         return this.raw.dice != null;
     }
     /**
      * True if `game` is set.
      */
-    hasGame(): this is Has<this, "game"> {
+    hasGame(): this is this & {
+        game: Game;
+    } {
         return this.raw.game != null;
     }
     /**
      * True if `poll` is set.
      */
-    hasPoll(): this is Has<this, "poll"> {
+    hasPoll(): this is this & {
+        poll: Poll;
+    } {
         return this.raw.poll != null;
     }
     /**
      * True if `venue` is set.
      */
-    hasVenue(): this is Has<this, "venue"> {
+    hasVenue(): this is this & {
+        venue: Venue;
+    } {
         return this.raw.venue != null;
     }
     /**
      * True if `location` is set.
      */
-    hasLocation(): this is Has<this, "location"> {
+    hasLocation(): this is this & {
+        location: Location;
+    } {
         return this.raw.location != null;
     }
     /**
      * True if `new_chat_members` has at least one item.
      */
-    hasNewChatMembers(): this is Has<this, "newChatMembers"> {
+    hasNewChatMembers(): this is this & {
+        newChatMembers: User[];
+    } {
         return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
     }
     /**
      * True if `left_chat_member` is set.
      */
-    hasLeftChatMember(): this is Has<this, "leftChatMember"> {
+    hasLeftChatMember(): this is this & {
+        leftChatMember: User;
+    } {
         return this.raw.left_chat_member != null;
     }
     /**
      * True if `chat_owner_left` is set.
      */
-    hasChatOwnerLeft(): this is Has<this, "chatOwnerLeft"> {
+    hasChatOwnerLeft(): this is this & {
+        chatOwnerLeft: TelegramChatOwnerLeft;
+    } {
         return this.raw.chat_owner_left != null;
     }
     /**
      * True if `chat_owner_changed` is set.
      */
-    hasChatOwnerChanged(): this is Has<this, "chatOwnerChanged"> {
+    hasChatOwnerChanged(): this is this & {
+        chatOwnerChanged: TelegramChatOwnerChanged;
+    } {
         return this.raw.chat_owner_changed != null;
     }
     /**
      * True if `new_chat_title` is set.
      */
-    hasNewChatTitle(): this is Has<this, "newChatTitle"> {
+    hasNewChatTitle(): this is this & {
+        newChatTitle: string;
+    } {
         return this.raw.new_chat_title != null;
     }
     /**
      * True if `new_chat_photo` has at least one item.
      */
-    hasNewChatPhoto(): this is Has<this, "newChatPhoto"> {
+    hasNewChatPhoto(): this is this & {
+        newChatPhoto: PhotoSize[];
+    } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
     /**
      * True if `delete_chat_photo` is set.
      */
-    hasDeleteChatPhoto(): this is Has<this, "deleteChatPhoto"> {
+    hasDeleteChatPhoto(): this is this & {
+        deleteChatPhoto: true;
+    } {
         return this.raw.delete_chat_photo != null;
     }
     /**
      * True if `group_chat_created` is set.
      */
-    hasGroupChatCreated(): this is Has<this, "groupChatCreated"> {
+    hasGroupChatCreated(): this is this & {
+        groupChatCreated: true;
+    } {
         return this.raw.group_chat_created != null;
     }
     /**
      * True if `supergroup_chat_created` is set.
      */
-    hasSupergroupChatCreated(): this is Has<this, "supergroupChatCreated"> {
+    hasSupergroupChatCreated(): this is this & {
+        supergroupChatCreated: true;
+    } {
         return this.raw.supergroup_chat_created != null;
     }
     /**
      * True if `channel_chat_created` is set.
      */
-    hasChannelChatCreated(): this is Has<this, "channelChatCreated"> {
+    hasChannelChatCreated(): this is this & {
+        channelChatCreated: true;
+    } {
         return this.raw.channel_chat_created != null;
     }
     /**
      * True if `message_auto_delete_timer_changed` is set.
      */
-    hasMessageAutoDeleteTimerChanged(): this is Has<this, "messageAutoDeleteTimerChanged"> {
+    hasMessageAutoDeleteTimerChanged(): this is this & {
+        messageAutoDeleteTimerChanged: TelegramMessageAutoDeleteTimerChanged;
+    } {
         return this.raw.message_auto_delete_timer_changed != null;
     }
     /**
      * True if `migrate_to_chat_id` is set.
      */
-    hasMigrateToChatId(): this is Has<this, "migrateToChatId"> {
+    hasMigrateToChatId(): this is this & {
+        migrateToChatId: number;
+    } {
         return this.raw.migrate_to_chat_id != null;
     }
     /**
      * True if `migrate_from_chat_id` is set.
      */
-    hasMigrateFromChatId(): this is Has<this, "migrateFromChatId"> {
+    hasMigrateFromChatId(): this is this & {
+        migrateFromChatId: number;
+    } {
         return this.raw.migrate_from_chat_id != null;
     }
     /**
      * True if `pinned_message` is set.
      */
-    hasPinnedMessage(): this is Has<this, "pinnedMessage"> {
+    hasPinnedMessage(): this is this & {
+        pinnedMessage: TelegramMaybeInaccessibleMessage;
+    } {
         return this.raw.pinned_message != null;
     }
     /**
      * True if `invoice` is set.
      */
-    hasInvoice(): this is Has<this, "invoice"> {
+    hasInvoice(): this is this & {
+        invoice: Invoice;
+    } {
         return this.raw.invoice != null;
     }
     /**
      * True if `successful_payment` is set.
      */
-    hasSuccessfulPayment(): this is Has<this, "successfulPayment"> {
+    hasSuccessfulPayment(): this is this & {
+        successfulPayment: SuccessfulPayment;
+    } {
         return this.raw.successful_payment != null;
     }
     /**
      * True if `refunded_payment` is set.
      */
-    hasRefundedPayment(): this is Has<this, "refundedPayment"> {
+    hasRefundedPayment(): this is this & {
+        refundedPayment: TelegramRefundedPayment;
+    } {
         return this.raw.refunded_payment != null;
     }
     /**
      * True if `users_shared` is set.
      */
-    hasUsersShared(): this is Has<this, "usersShared"> {
+    hasUsersShared(): this is this & {
+        usersShared: UsersShared;
+    } {
         return this.raw.users_shared != null;
     }
     /**
      * True if `chat_shared` is set.
      */
-    hasChatShared(): this is Has<this, "chatShared"> {
+    hasChatShared(): this is this & {
+        chatShared: ChatShared;
+    } {
         return this.raw.chat_shared != null;
     }
     /**
      * True if `gift` is set.
      */
-    hasGift(): this is Has<this, "gift"> {
+    hasGift(): this is this & {
+        gift: TelegramGiftInfo;
+    } {
         return this.raw.gift != null;
     }
     /**
      * True if `unique_gift` is set.
      */
-    hasUniqueGift(): this is Has<this, "uniqueGift"> {
+    hasUniqueGift(): this is this & {
+        uniqueGift: TelegramUniqueGiftInfo;
+    } {
         return this.raw.unique_gift != null;
     }
     /**
      * True if `gift_upgrade_sent` is set.
      */
-    hasGiftUpgradeSent(): this is Has<this, "giftUpgradeSent"> {
+    hasGiftUpgradeSent(): this is this & {
+        giftUpgradeSent: TelegramGiftInfo;
+    } {
         return this.raw.gift_upgrade_sent != null;
     }
     /**
      * True if `connected_website` is set.
      */
-    hasConnectedWebsite(): this is Has<this, "connectedWebsite"> {
+    hasConnectedWebsite(): this is this & {
+        connectedWebsite: string;
+    } {
         return this.raw.connected_website != null;
     }
     /**
      * True if `write_access_allowed` is set.
      */
-    hasWriteAccessAllowed(): this is Has<this, "writeAccessAllowed"> {
+    hasWriteAccessAllowed(): this is this & {
+        writeAccessAllowed: WriteAccessAllowed;
+    } {
         return this.raw.write_access_allowed != null;
     }
     /**
      * True if `passport_data` is set.
      */
-    hasPassportData(): this is Has<this, "passportData"> {
+    hasPassportData(): this is this & {
+        passportData: PassportData;
+    } {
         return this.raw.passport_data != null;
     }
     /**
      * True if `proximity_alert_triggered` is set.
      */
-    hasProximityAlertTriggered(): this is Has<this, "proximityAlertTriggered"> {
+    hasProximityAlertTriggered(): this is this & {
+        proximityAlertTriggered: ProximityAlertTriggered;
+    } {
         return this.raw.proximity_alert_triggered != null;
     }
     /**
      * True if `boost_added` is set.
      */
-    hasBoostAdded(): this is Has<this, "boostAdded"> {
+    hasBoostAdded(): this is this & {
+        boostAdded: TelegramChatBoostAdded;
+    } {
         return this.raw.boost_added != null;
     }
     /**
      * True if `chat_background_set` is set.
      */
-    hasChatBackgroundSet(): this is Has<this, "chatBackgroundSet"> {
+    hasChatBackgroundSet(): this is this & {
+        chatBackgroundSet: TelegramChatBackground;
+    } {
         return this.raw.chat_background_set != null;
     }
     /**
      * True if `checklist_tasks_done` is set.
      */
-    hasChecklistTasksDone(): this is Has<this, "checklistTasksDone"> {
+    hasChecklistTasksDone(): this is this & {
+        checklistTasksDone: TelegramChecklistTasksDone;
+    } {
         return this.raw.checklist_tasks_done != null;
     }
     /**
      * True if `checklist_tasks_added` is set.
      */
-    hasChecklistTasksAdded(): this is Has<this, "checklistTasksAdded"> {
+    hasChecklistTasksAdded(): this is this & {
+        checklistTasksAdded: TelegramChecklistTasksAdded;
+    } {
         return this.raw.checklist_tasks_added != null;
     }
     /**
      * True if `direct_message_price_changed` is set.
      */
-    hasDirectMessagePriceChanged(): this is Has<this, "directMessagePriceChanged"> {
+    hasDirectMessagePriceChanged(): this is this & {
+        directMessagePriceChanged: TelegramDirectMessagePriceChanged;
+    } {
         return this.raw.direct_message_price_changed != null;
     }
     /**
      * True if `forum_topic_created` is set.
      */
-    hasForumTopicCreated(): this is Has<this, "forumTopicCreated"> {
+    hasForumTopicCreated(): this is this & {
+        forumTopicCreated: ForumTopicCreated;
+    } {
         return this.raw.forum_topic_created != null;
     }
     /**
      * True if `forum_topic_edited` is set.
      */
-    hasForumTopicEdited(): this is Has<this, "forumTopicEdited"> {
+    hasForumTopicEdited(): this is this & {
+        forumTopicEdited: ForumTopicEdited;
+    } {
         return this.raw.forum_topic_edited != null;
     }
     /**
      * True if `forum_topic_closed` is set.
      */
-    hasForumTopicClosed(): this is Has<this, "forumTopicClosed"> {
+    hasForumTopicClosed(): this is this & {
+        forumTopicClosed: TelegramForumTopicClosed;
+    } {
         return this.raw.forum_topic_closed != null;
     }
     /**
      * True if `forum_topic_reopened` is set.
      */
-    hasForumTopicReopened(): this is Has<this, "forumTopicReopened"> {
+    hasForumTopicReopened(): this is this & {
+        forumTopicReopened: TelegramForumTopicReopened;
+    } {
         return this.raw.forum_topic_reopened != null;
     }
     /**
      * True if `general_forum_topic_hidden` is set.
      */
-    hasGeneralForumTopicHidden(): this is Has<this, "generalForumTopicHidden"> {
+    hasGeneralForumTopicHidden(): this is this & {
+        generalForumTopicHidden: TelegramGeneralForumTopicHidden;
+    } {
         return this.raw.general_forum_topic_hidden != null;
     }
     /**
      * True if `general_forum_topic_unhidden` is set.
      */
-    hasGeneralForumTopicUnhidden(): this is Has<this, "generalForumTopicUnhidden"> {
+    hasGeneralForumTopicUnhidden(): this is this & {
+        generalForumTopicUnhidden: TelegramGeneralForumTopicUnhidden;
+    } {
         return this.raw.general_forum_topic_unhidden != null;
     }
     /**
      * True if `giveaway_created` is set.
      */
-    hasGiveawayCreated(): this is Has<this, "giveawayCreated"> {
+    hasGiveawayCreated(): this is this & {
+        giveawayCreated: TelegramGiveawayCreated;
+    } {
         return this.raw.giveaway_created != null;
     }
     /**
      * True if `giveaway` is set.
      */
-    hasGiveaway(): this is Has<this, "giveaway"> {
+    hasGiveaway(): this is this & {
+        giveaway: Giveaway;
+    } {
         return this.raw.giveaway != null;
     }
     /**
      * True if `giveaway_winners` is set.
      */
-    hasGiveawayWinners(): this is Has<this, "giveawayWinners"> {
+    hasGiveawayWinners(): this is this & {
+        giveawayWinners: GiveawayWinners;
+    } {
         return this.raw.giveaway_winners != null;
     }
     /**
      * True if `giveaway_completed` is set.
      */
-    hasGiveawayCompleted(): this is Has<this, "giveawayCompleted"> {
+    hasGiveawayCompleted(): this is this & {
+        giveawayCompleted: GiveawayCompleted;
+    } {
         return this.raw.giveaway_completed != null;
     }
     /**
      * True if `managed_bot_created` is set.
      */
-    hasManagedBotCreated(): this is Has<this, "managedBotCreated"> {
+    hasManagedBotCreated(): this is this & {
+        managedBotCreated: TelegramManagedBotCreated;
+    } {
         return this.raw.managed_bot_created != null;
     }
     /**
      * True if `paid_message_price_changed` is set.
      */
-    hasPaidMessagePriceChanged(): this is Has<this, "paidMessagePriceChanged"> {
+    hasPaidMessagePriceChanged(): this is this & {
+        paidMessagePriceChanged: TelegramPaidMessagePriceChanged;
+    } {
         return this.raw.paid_message_price_changed != null;
     }
     /**
      * True if `poll_option_added` is set.
      */
-    hasPollOptionAdded(): this is Has<this, "pollOptionAdded"> {
+    hasPollOptionAdded(): this is this & {
+        pollOptionAdded: TelegramPollOptionAdded;
+    } {
         return this.raw.poll_option_added != null;
     }
     /**
      * True if `poll_option_deleted` is set.
      */
-    hasPollOptionDeleted(): this is Has<this, "pollOptionDeleted"> {
+    hasPollOptionDeleted(): this is this & {
+        pollOptionDeleted: TelegramPollOptionDeleted;
+    } {
         return this.raw.poll_option_deleted != null;
     }
     /**
      * True if `suggested_post_approved` is set.
      */
-    hasSuggestedPostApproved(): this is Has<this, "suggestedPostApproved"> {
+    hasSuggestedPostApproved(): this is this & {
+        suggestedPostApproved: TelegramSuggestedPostApproved;
+    } {
         return this.raw.suggested_post_approved != null;
     }
     /**
      * True if `suggested_post_approval_failed` is set.
      */
-    hasSuggestedPostApprovalFailed(): this is Has<this, "suggestedPostApprovalFailed"> {
+    hasSuggestedPostApprovalFailed(): this is this & {
+        suggestedPostApprovalFailed: TelegramSuggestedPostApprovalFailed;
+    } {
         return this.raw.suggested_post_approval_failed != null;
     }
     /**
      * True if `suggested_post_declined` is set.
      */
-    hasSuggestedPostDeclined(): this is Has<this, "suggestedPostDeclined"> {
+    hasSuggestedPostDeclined(): this is this & {
+        suggestedPostDeclined: TelegramSuggestedPostDeclined;
+    } {
         return this.raw.suggested_post_declined != null;
     }
     /**
      * True if `suggested_post_paid` is set.
      */
-    hasSuggestedPostPaid(): this is Has<this, "suggestedPostPaid"> {
+    hasSuggestedPostPaid(): this is this & {
+        suggestedPostPaid: TelegramSuggestedPostPaid;
+    } {
         return this.raw.suggested_post_paid != null;
     }
     /**
      * True if `suggested_post_refunded` is set.
      */
-    hasSuggestedPostRefunded(): this is Has<this, "suggestedPostRefunded"> {
+    hasSuggestedPostRefunded(): this is this & {
+        suggestedPostRefunded: TelegramSuggestedPostRefunded;
+    } {
         return this.raw.suggested_post_refunded != null;
     }
     /**
      * True if `video_chat_scheduled` is set.
      */
-    hasVideoChatScheduled(): this is Has<this, "videoChatScheduled"> {
+    hasVideoChatScheduled(): this is this & {
+        videoChatScheduled: VideoChatScheduled;
+    } {
         return this.raw.video_chat_scheduled != null;
     }
     /**
      * True if `video_chat_started` is set.
      */
-    hasVideoChatStarted(): this is Has<this, "videoChatStarted"> {
+    hasVideoChatStarted(): this is this & {
+        videoChatStarted: TelegramVideoChatStarted;
+    } {
         return this.raw.video_chat_started != null;
     }
     /**
      * True if `video_chat_ended` is set.
      */
-    hasVideoChatEnded(): this is Has<this, "videoChatEnded"> {
+    hasVideoChatEnded(): this is this & {
+        videoChatEnded: VideoChatEnded;
+    } {
         return this.raw.video_chat_ended != null;
     }
     /**
      * True if `video_chat_participants_invited` is set.
      */
-    hasVideoChatParticipantsInvited(): this is Has<this, "videoChatParticipantsInvited"> {
+    hasVideoChatParticipantsInvited(): this is this & {
+        videoChatParticipantsInvited: VideoChatParticipantsInvited;
+    } {
         return this.raw.video_chat_participants_invited != null;
     }
     /**
      * True if `web_app_data` is set.
      */
-    hasWebAppData(): this is Has<this, "webAppData"> {
+    hasWebAppData(): this is this & {
+        webAppData: WebAppData;
+    } {
         return this.raw.web_app_data != null;
     }
     /**
      * True if `reply_markup` is set.
      */
-    hasReplyMarkup(): this is Has<this, "replyMarkup"> {
+    hasReplyMarkup(): this is this & {
+        replyMarkup: InlineKeyboardMarkup;
+    } {
         return this.raw.reply_markup != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -3847,37 +4259,49 @@ export class MessageEntity {
     /**
      * True if `url` is set.
      */
-    hasUrl(): this is Has<this, "url"> {
+    hasUrl(): this is this & {
+        url: string;
+    } {
         return this.raw.url != null;
     }
     /**
      * True if `user` is set.
      */
-    hasUser(): this is Has<this, "user"> {
+    hasUser(): this is this & {
+        user: User;
+    } {
         return this.raw.user != null;
     }
     /**
      * True if `language` is set.
      */
-    hasLanguage(): this is Has<this, "language"> {
+    hasLanguage(): this is this & {
+        language: string;
+    } {
         return this.raw.language != null;
     }
     /**
      * True if `custom_emoji_id` is set.
      */
-    hasCustomEmojiId(): this is Has<this, "customEmojiId"> {
+    hasCustomEmojiId(): this is this & {
+        customEmojiId: string;
+    } {
         return this.raw.custom_emoji_id != null;
     }
     /**
      * True if `unix_time` is set.
      */
-    hasUnixTime(): this is Has<this, "unixTime"> {
+    hasUnixTime(): this is this & {
+        unixTime: number;
+    } {
         return this.raw.unix_time != null;
     }
     /**
      * True if `date_time_format` is set.
      */
-    hasDateTimeFormat(): this is Has<this, "dateTimeFormat"> {
+    hasDateTimeFormat(): this is this & {
+        dateTimeFormat: string;
+    } {
         return this.raw.date_time_format != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4085,13 +4509,17 @@ export class MessageReactionUpdated {
     /**
      * True if `user` is set.
      */
-    hasUser(): this is Has<this, "user"> {
+    hasUser(): this is this & {
+        user: User;
+    } {
         return this.raw.user != null;
     }
     /**
      * True if `actor_chat` is set.
      */
-    hasActorChat(): this is Has<this, "actorChat"> {
+    hasActorChat(): this is this & {
+        actorChat: Chat;
+    } {
         return this.raw.actor_chat != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4138,25 +4566,33 @@ export class OrderInfo {
     /**
      * True if `name` is set.
      */
-    hasName(): this is Has<this, "name"> {
+    hasName(): this is this & {
+        name: string;
+    } {
         return this.raw.name != null;
     }
     /**
      * True if `phone_number` is set.
      */
-    hasPhoneNumber(): this is Has<this, "phoneNumber"> {
+    hasPhoneNumber(): this is this & {
+        phoneNumber: string;
+    } {
         return this.raw.phone_number != null;
     }
     /**
      * True if `email` is set.
      */
-    hasEmail(): this is Has<this, "email"> {
+    hasEmail(): this is this & {
+        email: string;
+    } {
         return this.raw.email != null;
     }
     /**
      * True if `shipping_address` is set.
      */
-    hasShippingAddress(): this is Has<this, "shippingAddress"> {
+    hasShippingAddress(): this is this & {
+        shippingAddress: ShippingAddress;
+    } {
         return this.raw.shipping_address != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4230,7 +4666,9 @@ export class PhotoSize {
     /**
      * True if `file_size` is set.
      */
-    hasFileSize(): this is Has<this, "fileSize"> {
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
         return this.raw.file_size != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4355,49 +4793,65 @@ export class Poll {
     /**
      * True if `question_entities` has at least one item.
      */
-    hasQuestionEntities(): this is Has<this, "questionEntities"> {
+    hasQuestionEntities(): this is this & {
+        questionEntities: MessageEntity[];
+    } {
         return this.raw.question_entities != null && this.raw.question_entities.length > 0;
     }
     /**
      * True if `correct_option_ids` has at least one item.
      */
-    hasCorrectOptionIds(): this is Has<this, "correctOptionIds"> {
+    hasCorrectOptionIds(): this is this & {
+        correctOptionIds: number[];
+    } {
         return this.raw.correct_option_ids != null && this.raw.correct_option_ids.length > 0;
     }
     /**
      * True if `explanation` is set.
      */
-    hasExplanation(): this is Has<this, "explanation"> {
+    hasExplanation(): this is this & {
+        explanation: string;
+    } {
         return this.raw.explanation != null;
     }
     /**
      * True if `explanation_entities` has at least one item.
      */
-    hasExplanationEntities(): this is Has<this, "explanationEntities"> {
+    hasExplanationEntities(): this is this & {
+        explanationEntities: MessageEntity[];
+    } {
         return this.raw.explanation_entities != null && this.raw.explanation_entities.length > 0;
     }
     /**
      * True if `open_period` is set.
      */
-    hasOpenPeriod(): this is Has<this, "openPeriod"> {
+    hasOpenPeriod(): this is this & {
+        openPeriod: number;
+    } {
         return this.raw.open_period != null;
     }
     /**
      * True if `close_date` is set.
      */
-    hasCloseDate(): this is Has<this, "closeDate"> {
+    hasCloseDate(): this is this & {
+        closeDate: number;
+    } {
         return this.raw.close_date != null;
     }
     /**
      * True if `description` is set.
      */
-    hasDescription(): this is Has<this, "description"> {
+    hasDescription(): this is this & {
+        description: string;
+    } {
         return this.raw.description != null;
     }
     /**
      * True if `description_entities` has at least one item.
      */
-    hasDescriptionEntities(): this is Has<this, "descriptionEntities"> {
+    hasDescriptionEntities(): this is this & {
+        descriptionEntities: MessageEntity[];
+    } {
         return this.raw.description_entities != null && this.raw.description_entities.length > 0;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4462,13 +4916,17 @@ export class PollAnswer {
     /**
      * True if `voter_chat` is set.
      */
-    hasVoterChat(): this is Has<this, "voterChat"> {
+    hasVoterChat(): this is this & {
+        voterChat: Chat;
+    } {
         return this.raw.voter_chat != null;
     }
     /**
      * True if `user` is set.
      */
-    hasUser(): this is Has<this, "user"> {
+    hasUser(): this is this & {
+        user: User;
+    } {
         return this.raw.user != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4538,25 +4996,33 @@ export class PollOption {
     /**
      * True if `text_entities` has at least one item.
      */
-    hasTextEntities(): this is Has<this, "textEntities"> {
+    hasTextEntities(): this is this & {
+        textEntities: MessageEntity[];
+    } {
         return this.raw.text_entities != null && this.raw.text_entities.length > 0;
     }
     /**
      * True if `added_by_user` is set.
      */
-    hasAddedByUser(): this is Has<this, "addedByUser"> {
+    hasAddedByUser(): this is this & {
+        addedByUser: User;
+    } {
         return this.raw.added_by_user != null;
     }
     /**
      * True if `added_by_chat` is set.
      */
-    hasAddedByChat(): this is Has<this, "addedByChat"> {
+    hasAddedByChat(): this is this & {
+        addedByChat: Chat;
+    } {
         return this.raw.added_by_chat != null;
     }
     /**
      * True if `addition_date` is set.
      */
-    hasAdditionDate(): this is Has<this, "additionDate"> {
+    hasAdditionDate(): this is this & {
+        additionDate: number;
+    } {
         return this.raw.addition_date != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4622,13 +5088,17 @@ export class PreCheckoutQuery {
     /**
      * True if `shipping_option_id` is set.
      */
-    hasShippingOptionId(): this is Has<this, "shippingOptionId"> {
+    hasShippingOptionId(): this is this & {
+        shippingOptionId: string;
+    } {
         return this.raw.shipping_option_id != null;
     }
     /**
      * True if `order_info` is set.
      */
-    hasOrderInfo(): this is Has<this, "orderInfo"> {
+    hasOrderInfo(): this is this & {
+        orderInfo: OrderInfo;
+    } {
         return this.raw.order_info != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -4895,49 +5365,65 @@ export class Sticker {
     /**
      * True if `thumbnail` is set.
      */
-    hasThumbnail(): this is Has<this, "thumbnail"> {
+    hasThumbnail(): this is this & {
+        thumbnail: PhotoSize;
+    } {
         return this.raw.thumbnail != null;
     }
     /**
      * True if `emoji` is set.
      */
-    hasEmoji(): this is Has<this, "emoji"> {
+    hasEmoji(): this is this & {
+        emoji: string;
+    } {
         return this.raw.emoji != null;
     }
     /**
      * True if `set_name` is set.
      */
-    hasSetName(): this is Has<this, "setName"> {
+    hasSetName(): this is this & {
+        setName: string;
+    } {
         return this.raw.set_name != null;
     }
     /**
      * True if `premium_animation` is set.
      */
-    hasPremiumAnimation(): this is Has<this, "premiumAnimation"> {
+    hasPremiumAnimation(): this is this & {
+        premiumAnimation: File;
+    } {
         return this.raw.premium_animation != null;
     }
     /**
      * True if `mask_position` is set.
      */
-    hasMaskPosition(): this is Has<this, "maskPosition"> {
+    hasMaskPosition(): this is this & {
+        maskPosition: MaskPosition;
+    } {
         return this.raw.mask_position != null;
     }
     /**
      * True if `custom_emoji_id` is set.
      */
-    hasCustomEmojiId(): this is Has<this, "customEmojiId"> {
+    hasCustomEmojiId(): this is this & {
+        customEmojiId: string;
+    } {
         return this.raw.custom_emoji_id != null;
     }
     /**
      * True if `needs_repainting` is set.
      */
-    hasNeedsRepainting(): this is Has<this, "needsRepainting"> {
+    hasNeedsRepainting(): this is this & {
+        needsRepainting: true;
+    } {
         return this.raw.needs_repainting != null;
     }
     /**
      * True if `file_size` is set.
      */
-    hasFileSize(): this is Has<this, "fileSize"> {
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
         return this.raw.file_size != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -5003,7 +5489,9 @@ export class StickerSet {
     /**
      * True if `thumbnail` is set.
      */
-    hasThumbnail(): this is Has<this, "thumbnail"> {
+    hasThumbnail(): this is this & {
+        thumbnail: PhotoSize;
+    } {
         return this.raw.thumbnail != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -5124,19 +5612,25 @@ export class SuccessfulPayment {
     /**
      * True if `subscription_expiration_date` is set.
      */
-    hasSubscriptionExpirationDate(): this is Has<this, "subscriptionExpirationDate"> {
+    hasSubscriptionExpirationDate(): this is this & {
+        subscriptionExpirationDate: number;
+    } {
         return this.raw.subscription_expiration_date != null;
     }
     /**
      * True if `shipping_option_id` is set.
      */
-    hasShippingOptionId(): this is Has<this, "shippingOptionId"> {
+    hasShippingOptionId(): this is this & {
+        shippingOptionId: string;
+    } {
         return this.raw.shipping_option_id != null;
     }
     /**
      * True if `order_info` is set.
      */
-    hasOrderInfo(): this is Has<this, "orderInfo"> {
+    hasOrderInfo(): this is this & {
+        orderInfo: OrderInfo;
+    } {
         return this.raw.order_info != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -5180,7 +5674,9 @@ export class TextQuote {
     /**
      * True if `entities` has at least one item.
      */
-    hasEntities(): this is Has<this, "entities"> {
+    hasEntities(): this is this & {
+        entities: MessageEntity[];
+    } {
         return this.raw.entities != null && this.raw.entities.length > 0;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -5295,61 +5791,81 @@ export class User {
     /**
      * True if `last_name` is set.
      */
-    hasLastName(): this is Has<this, "lastName"> {
+    hasLastName(): this is this & {
+        lastName: string;
+    } {
         return this.raw.last_name != null;
     }
     /**
      * True if `username` is set.
      */
-    hasUsername(): this is Has<this, "username"> {
+    hasUsername(): this is this & {
+        username: string;
+    } {
         return this.raw.username != null;
     }
     /**
      * True if `language_code` is set.
      */
-    hasLanguageCode(): this is Has<this, "languageCode"> {
+    hasLanguageCode(): this is this & {
+        languageCode: string;
+    } {
         return this.raw.language_code != null;
     }
     /**
      * True if `added_to_attachment_menu` is set.
      */
-    hasAddedToAttachmentMenu(): this is Has<this, "addedToAttachmentMenu"> {
+    hasAddedToAttachmentMenu(): this is this & {
+        addedToAttachmentMenu: true;
+    } {
         return this.raw.added_to_attachment_menu != null;
     }
     /**
      * True if `can_join_groups` is set.
      */
-    hasCanJoinGroups(): this is Has<this, "canJoinGroups"> {
+    hasCanJoinGroups(): this is this & {
+        canJoinGroups: boolean;
+    } {
         return this.raw.can_join_groups != null;
     }
     /**
      * True if `can_read_all_group_messages` is set.
      */
-    hasCanReadAllGroupMessages(): this is Has<this, "canReadAllGroupMessages"> {
+    hasCanReadAllGroupMessages(): this is this & {
+        canReadAllGroupMessages: boolean;
+    } {
         return this.raw.can_read_all_group_messages != null;
     }
     /**
      * True if `supports_inline_queries` is set.
      */
-    hasSupportsInlineQueries(): this is Has<this, "supportsInlineQueries"> {
+    hasSupportsInlineQueries(): this is this & {
+        supportsInlineQueries: boolean;
+    } {
         return this.raw.supports_inline_queries != null;
     }
     /**
      * True if `can_connect_to_business` is set.
      */
-    hasCanConnectToBusiness(): this is Has<this, "canConnectToBusiness"> {
+    hasCanConnectToBusiness(): this is this & {
+        canConnectToBusiness: boolean;
+    } {
         return this.raw.can_connect_to_business != null;
     }
     /**
      * True if `allows_users_to_create_topics` is set.
      */
-    hasAllowsUsersToCreateTopics(): this is Has<this, "allowsUsersToCreateTopics"> {
+    hasAllowsUsersToCreateTopics(): this is this & {
+        allowsUsersToCreateTopics: boolean;
+    } {
         return this.raw.allows_users_to_create_topics != null;
     }
     /**
      * True if `can_manage_bots` is set.
      */
-    hasCanManageBots(): this is Has<this, "canManageBots"> {
+    hasCanManageBots(): this is this & {
+        canManageBots: boolean;
+    } {
         return this.raw.can_manage_bots != null;
     }
     /**
@@ -5487,25 +6003,33 @@ export class Venue {
     /**
      * True if `foursquare_id` is set.
      */
-    hasFoursquareId(): this is Has<this, "foursquareId"> {
+    hasFoursquareId(): this is this & {
+        foursquareId: string;
+    } {
         return this.raw.foursquare_id != null;
     }
     /**
      * True if `foursquare_type` is set.
      */
-    hasFoursquareType(): this is Has<this, "foursquareType"> {
+    hasFoursquareType(): this is this & {
+        foursquareType: string;
+    } {
         return this.raw.foursquare_type != null;
     }
     /**
      * True if `google_place_id` is set.
      */
-    hasGooglePlaceId(): this is Has<this, "googlePlaceId"> {
+    hasGooglePlaceId(): this is this & {
+        googlePlaceId: string;
+    } {
         return this.raw.google_place_id != null;
     }
     /**
      * True if `google_place_type` is set.
      */
-    hasGooglePlaceType(): this is Has<this, "googlePlaceType"> {
+    hasGooglePlaceType(): this is this & {
+        googlePlaceType: string;
+    } {
         return this.raw.google_place_type != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -5601,43 +6125,57 @@ export class Video {
     /**
      * True if `thumbnail` is set.
      */
-    hasThumbnail(): this is Has<this, "thumbnail"> {
+    hasThumbnail(): this is this & {
+        thumbnail: PhotoSize;
+    } {
         return this.raw.thumbnail != null;
     }
     /**
      * True if `cover` has at least one item.
      */
-    hasCover(): this is Has<this, "cover"> {
+    hasCover(): this is this & {
+        cover: PhotoSize[];
+    } {
         return this.raw.cover != null && this.raw.cover.length > 0;
     }
     /**
      * True if `start_timestamp` is set.
      */
-    hasStartTimestamp(): this is Has<this, "startTimestamp"> {
+    hasStartTimestamp(): this is this & {
+        startTimestamp: number;
+    } {
         return this.raw.start_timestamp != null;
     }
     /**
      * True if `qualities` has at least one item.
      */
-    hasQualities(): this is Has<this, "qualities"> {
+    hasQualities(): this is this & {
+        qualities: TelegramVideoQuality[];
+    } {
         return this.raw.qualities != null && this.raw.qualities.length > 0;
     }
     /**
      * True if `file_name` is set.
      */
-    hasFileName(): this is Has<this, "fileName"> {
+    hasFileName(): this is this & {
+        fileName: string;
+    } {
         return this.raw.file_name != null;
     }
     /**
      * True if `mime_type` is set.
      */
-    hasMimeType(): this is Has<this, "mimeType"> {
+    hasMimeType(): this is this & {
+        mimeType: string;
+    } {
         return this.raw.mime_type != null;
     }
     /**
      * True if `file_size` is set.
      */
-    hasFileSize(): this is Has<this, "fileSize"> {
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
         return this.raw.file_size != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -5776,19 +6314,25 @@ export class WriteAccessAllowed {
     /**
      * True if `from_request` is set.
      */
-    hasFromRequest(): this is Has<this, "fromRequest"> {
+    hasFromRequest(): this is this & {
+        fromRequest: boolean;
+    } {
         return this.raw.from_request != null;
     }
     /**
      * True if `web_app_name` is set.
      */
-    hasWebAppName(): this is Has<this, "webAppName"> {
+    hasWebAppName(): this is this & {
+        webAppName: string;
+    } {
         return this.raw.web_app_name != null;
     }
     /**
      * True if `from_attachment_menu` is set.
      */
-    hasFromAttachmentMenu(): this is Has<this, "fromAttachmentMenu"> {
+    hasFromAttachmentMenu(): this is this & {
+        fromAttachmentMenu: boolean;
+    } {
         return this.raw.from_attachment_menu != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {

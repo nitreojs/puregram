@@ -181,7 +181,7 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
 
     const hasName = `has${getterName[0].toUpperCase()}${getterName.slice(1)}`
 
-    members.push(emitAutoHasMethod(f, getterName, hasName))
+    members.push(emitAutoHasMethod(f, getterName, hasName, wrappedClassNames))
   }
 
   // [INSPECT]()
@@ -349,7 +349,12 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
   return jsDoc(f.description, getter)
 }
 
-function emitAutoHasMethod (f: SchemaField, camelName: string, hasName: string) {
+function emitAutoHasMethod (
+  f: SchemaField,
+  camelName: string,
+  hasName: string,
+  wrappedClassNames: Set<string>
+) {
   const isArray = f.type.kind === 'array'
 
   const rawAccess = ts.factory.createPropertyAccessExpression(
@@ -375,12 +380,31 @@ function emitAutoHasMethod (f: SchemaField, camelName: string, hasName: string) 
     )
     : notNull
 
+  // inline the type-predicate target — `this is this & { camelName: NonNullType }`
+  // skips the `Has<this, K>` indirection. for chained narrowing
+  // (`u.is('message') && u.hasPhoto() && u.hasCaption()`) TS would otherwise compute
+  // `Has<Has<MessageUpdate, 'photo'>, 'caption'>` step by step, which involves
+  // `keyof T + T[K] lookup + Exclude<…, undefined>` per layer. inlining produces
+  // a flat intersection that TS validates in one pass — measured ~9× speedup
+  // on the predicate-on-demo deferred-check site
+  const wrapperName = wrapperNameFor(f.type, wrappedClassNames)
+  const concreteFieldType = wrapperName
+    ? wrapperReturnType(f.type, wrapperName, false)
+    : typeRefToTs(f.type)
+
   const returnType = ts.factory.createTypePredicateNode(
     undefined,
     ts.factory.createThisTypeNode(),
-    ts.factory.createTypeReferenceNode('Has', [
+    ts.factory.createIntersectionTypeNode([
       ts.factory.createThisTypeNode(),
-      ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(camelName))
+      ts.factory.createTypeLiteralNode([
+        ts.factory.createPropertySignature(
+          undefined,
+          ts.factory.createIdentifier(camelName),
+          undefined,
+          concreteFieldType
+        )
+      ])
     ])
   )
 

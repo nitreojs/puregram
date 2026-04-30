@@ -16,7 +16,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `message` updates. handler arg narrows via `Modify<MessageUpdate, Mod>`
      */
-    onMessage<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<MessageUpdate, Mod>>, options?: OnOptions): this;
+    onMessage<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<MessageUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `edited_message` update
      */
@@ -24,7 +24,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `edited_message` updates. handler arg narrows via `Modify<EditedMessageUpdate, Mod>`
      */
-    onEditedMessage<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<EditedMessageUpdate, Mod>>, options?: OnOptions): this;
+    onEditedMessage<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<EditedMessageUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `channel_post` update
      */
@@ -32,7 +32,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `channel_post` updates. handler arg narrows via `Modify<ChannelPostUpdate, Mod>`
      */
-    onChannelPost<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ChannelPostUpdate, Mod>>, options?: OnOptions): this;
+    onChannelPost<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ChannelPostUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `edited_channel_post` update
      */
@@ -40,7 +40,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `edited_channel_post` updates. handler arg narrows via `Modify<EditedChannelPostUpdate, Mod>`
      */
-    onEditedChannelPost<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<EditedChannelPostUpdate, Mod>>, options?: OnOptions): this;
+    onEditedChannelPost<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<EditedChannelPostUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `business_connection` update
      */
@@ -48,7 +48,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `business_connection` updates. handler arg narrows via `Modify<BusinessConnectionUpdate, Mod>`
      */
-    onBusinessConnection<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<BusinessConnectionUpdate, Mod>>, options?: OnOptions): this;
+    onBusinessConnection<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<BusinessConnectionUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `business_message` update
      */
@@ -56,7 +56,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `business_message` updates. handler arg narrows via `Modify<BusinessMessageUpdate, Mod>`
      */
-    onBusinessMessage<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<BusinessMessageUpdate, Mod>>, options?: OnOptions): this;
+    onBusinessMessage<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<BusinessMessageUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `edited_business_message` update
      */
@@ -64,7 +64,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `edited_business_message` updates. handler arg narrows via `Modify<EditedBusinessMessageUpdate, Mod>`
      */
-    onEditedBusinessMessage<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<EditedBusinessMessageUpdate, Mod>>, options?: OnOptions): this;
+    onEditedBusinessMessage<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<EditedBusinessMessageUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `deleted_business_messages` update
      */
@@ -72,7 +72,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `deleted_business_messages` updates. handler arg narrows via `Modify<DeletedBusinessMessagesUpdate, Mod>`
      */
-    onDeletedBusinessMessages<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<DeletedBusinessMessagesUpdate, Mod>>, options?: OnOptions): this;
+    onDeletedBusinessMessages<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<DeletedBusinessMessagesUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `message_reaction` update
      */
@@ -80,7 +80,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `message_reaction` updates. handler arg narrows via `Modify<MessageReactionUpdate, Mod>`
      */
-    onMessageReaction<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<MessageReactionUpdate, Mod>>, options?: OnOptions): this;
+    onMessageReaction<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<MessageReactionUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `message_reaction_count` update
      */
@@ -88,7 +88,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `message_reaction_count` updates. handler arg narrows via `Modify<MessageReactionCountUpdate, Mod>`
      */
-    onMessageReactionCount<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<MessageReactionCountUpdate, Mod>>, options?: OnOptions): this;
+    onMessageReactionCount<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<MessageReactionCountUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `inline_query` update
      */
@@ -96,7 +96,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `inline_query` updates. handler arg narrows via `Modify<InlineQueryUpdate, Mod>`
      */
-    onInlineQuery<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<InlineQueryUpdate, Mod>>, options?: OnOptions): this;
+    onInlineQuery<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<InlineQueryUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `chosen_inline_result` update
      */
@@ -104,7 +104,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `chosen_inline_result` updates. handler arg narrows via `Modify<ChosenInlineResultUpdate, Mod>`
      */
-    onChosenInlineResult<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ChosenInlineResultUpdate, Mod>>, options?: OnOptions): this;
+    onChosenInlineResult<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ChosenInlineResultUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `callback_query` update
      */
@@ -112,7 +112,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `callback_query` updates. handler arg narrows via `Modify<CallbackQueryUpdate, Mod>`
      */
-    onCallbackQuery<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<CallbackQueryUpdate, Mod>>, options?: OnOptions): this;
+    onCallbackQuery<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<CallbackQueryUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `shipping_query` update
      */
@@ -120,7 +120,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `shipping_query` updates. handler arg narrows via `Modify<ShippingQueryUpdate, Mod>`
      */
-    onShippingQuery<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ShippingQueryUpdate, Mod>>, options?: OnOptions): this;
+    onShippingQuery<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ShippingQueryUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `pre_checkout_query` update
      */
@@ -128,7 +128,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `pre_checkout_query` updates. handler arg narrows via `Modify<PreCheckoutQueryUpdate, Mod>`
      */
-    onPreCheckoutQuery<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<PreCheckoutQueryUpdate, Mod>>, options?: OnOptions): this;
+    onPreCheckoutQuery<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<PreCheckoutQueryUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `poll` update
      */
@@ -136,7 +136,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `poll` updates. handler arg narrows via `Modify<PollUpdate, Mod>`
      */
-    onPoll<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<PollUpdate, Mod>>, options?: OnOptions): this;
+    onPoll<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<PollUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `poll_answer` update
      */
@@ -144,7 +144,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `poll_answer` updates. handler arg narrows via `Modify<PollAnswerUpdate, Mod>`
      */
-    onPollAnswer<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<PollAnswerUpdate, Mod>>, options?: OnOptions): this;
+    onPollAnswer<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<PollAnswerUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `my_chat_member` update
      */
@@ -152,7 +152,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `my_chat_member` updates. handler arg narrows via `Modify<MyChatMemberUpdate, Mod>`
      */
-    onMyChatMember<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<MyChatMemberUpdate, Mod>>, options?: OnOptions): this;
+    onMyChatMember<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<MyChatMemberUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `chat_member` update
      */
@@ -160,7 +160,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `chat_member` updates. handler arg narrows via `Modify<ChatMemberUpdate, Mod>`
      */
-    onChatMember<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ChatMemberUpdate, Mod>>, options?: OnOptions): this;
+    onChatMember<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ChatMemberUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `chat_join_request` update
      */
@@ -168,7 +168,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `chat_join_request` updates. handler arg narrows via `Modify<ChatJoinRequestUpdate, Mod>`
      */
-    onChatJoinRequest<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ChatJoinRequestUpdate, Mod>>, options?: OnOptions): this;
+    onChatJoinRequest<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ChatJoinRequestUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `chat_boost` update
      */
@@ -176,7 +176,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `chat_boost` updates. handler arg narrows via `Modify<ChatBoostUpdate, Mod>`
      */
-    onChatBoost<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ChatBoostUpdate, Mod>>, options?: OnOptions): this;
+    onChatBoost<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ChatBoostUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `removed_chat_boost` update
      */
@@ -184,7 +184,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `removed_chat_boost` updates. handler arg narrows via `Modify<RemovedChatBoostUpdate, Mod>`
      */
-    onRemovedChatBoost<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<RemovedChatBoostUpdate, Mod>>, options?: OnOptions): this;
+    onRemovedChatBoost<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<RemovedChatBoostUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `new_chat_members` update
      */
@@ -192,7 +192,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `new_chat_members` updates. handler arg narrows via `Modify<NewChatMembersUpdate, Mod>`
      */
-    onNewChatMembers<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<NewChatMembersUpdate, Mod>>, options?: OnOptions): this;
+    onNewChatMembers<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<NewChatMembersUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `left_chat_member` update
      */
@@ -200,7 +200,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `left_chat_member` updates. handler arg narrows via `Modify<LeftChatMemberUpdate, Mod>`
      */
-    onLeftChatMember<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<LeftChatMemberUpdate, Mod>>, options?: OnOptions): this;
+    onLeftChatMember<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<LeftChatMemberUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `new_chat_title` update
      */
@@ -208,7 +208,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `new_chat_title` updates. handler arg narrows via `Modify<NewChatTitleUpdate, Mod>`
      */
-    onNewChatTitle<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<NewChatTitleUpdate, Mod>>, options?: OnOptions): this;
+    onNewChatTitle<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<NewChatTitleUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `new_chat_photo` update
      */
@@ -216,7 +216,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `new_chat_photo` updates. handler arg narrows via `Modify<NewChatPhotoUpdate, Mod>`
      */
-    onNewChatPhoto<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<NewChatPhotoUpdate, Mod>>, options?: OnOptions): this;
+    onNewChatPhoto<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<NewChatPhotoUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `delete_chat_photo` update
      */
@@ -224,7 +224,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `delete_chat_photo` updates. handler arg narrows via `Modify<DeleteChatPhotoUpdate, Mod>`
      */
-    onDeleteChatPhoto<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<DeleteChatPhotoUpdate, Mod>>, options?: OnOptions): this;
+    onDeleteChatPhoto<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<DeleteChatPhotoUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `group_chat_created` update
      */
@@ -232,7 +232,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `group_chat_created` updates. handler arg narrows via `Modify<GroupChatCreatedUpdate, Mod>`
      */
-    onGroupChatCreated<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<GroupChatCreatedUpdate, Mod>>, options?: OnOptions): this;
+    onGroupChatCreated<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<GroupChatCreatedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `pinned_message` update
      */
@@ -240,7 +240,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `pinned_message` updates. handler arg narrows via `Modify<PinnedMessageUpdate, Mod>`
      */
-    onPinnedMessage<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<PinnedMessageUpdate, Mod>>, options?: OnOptions): this;
+    onPinnedMessage<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<PinnedMessageUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `invoice` update
      */
@@ -248,7 +248,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `invoice` updates. handler arg narrows via `Modify<InvoiceUpdate, Mod>`
      */
-    onInvoice<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<InvoiceUpdate, Mod>>, options?: OnOptions): this;
+    onInvoice<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<InvoiceUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `successful_payment` update
      */
@@ -256,7 +256,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `successful_payment` updates. handler arg narrows via `Modify<SuccessfulPaymentUpdate, Mod>`
      */
-    onSuccessfulPayment<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<SuccessfulPaymentUpdate, Mod>>, options?: OnOptions): this;
+    onSuccessfulPayment<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<SuccessfulPaymentUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `users_shared` update
      */
@@ -264,7 +264,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `users_shared` updates. handler arg narrows via `Modify<UsersSharedUpdate, Mod>`
      */
-    onUsersShared<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<UsersSharedUpdate, Mod>>, options?: OnOptions): this;
+    onUsersShared<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<UsersSharedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `chat_shared` update
      */
@@ -272,7 +272,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `chat_shared` updates. handler arg narrows via `Modify<ChatSharedUpdate, Mod>`
      */
-    onChatShared<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ChatSharedUpdate, Mod>>, options?: OnOptions): this;
+    onChatShared<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ChatSharedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `web_app_data` update
      */
@@ -280,7 +280,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `web_app_data` updates. handler arg narrows via `Modify<WebAppDataUpdate, Mod>`
      */
-    onWebAppData<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<WebAppDataUpdate, Mod>>, options?: OnOptions): this;
+    onWebAppData<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<WebAppDataUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `video_chat_scheduled` update
      */
@@ -288,7 +288,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `video_chat_scheduled` updates. handler arg narrows via `Modify<VideoChatScheduledUpdate, Mod>`
      */
-    onVideoChatScheduled<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<VideoChatScheduledUpdate, Mod>>, options?: OnOptions): this;
+    onVideoChatScheduled<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<VideoChatScheduledUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `video_chat_started` update
      */
@@ -296,7 +296,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `video_chat_started` updates. handler arg narrows via `Modify<VideoChatStartedUpdate, Mod>`
      */
-    onVideoChatStarted<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<VideoChatStartedUpdate, Mod>>, options?: OnOptions): this;
+    onVideoChatStarted<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<VideoChatStartedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `video_chat_ended` update
      */
@@ -304,7 +304,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `video_chat_ended` updates. handler arg narrows via `Modify<VideoChatEndedUpdate, Mod>`
      */
-    onVideoChatEnded<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<VideoChatEndedUpdate, Mod>>, options?: OnOptions): this;
+    onVideoChatEnded<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<VideoChatEndedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `video_chat_participants_invited` update
      */
@@ -312,7 +312,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `video_chat_participants_invited` updates. handler arg narrows via `Modify<VideoChatParticipantsInvitedUpdate, Mod>`
      */
-    onVideoChatParticipantsInvited<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<VideoChatParticipantsInvitedUpdate, Mod>>, options?: OnOptions): this;
+    onVideoChatParticipantsInvited<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<VideoChatParticipantsInvitedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `forum_topic_created` update
      */
@@ -320,7 +320,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `forum_topic_created` updates. handler arg narrows via `Modify<ForumTopicCreatedUpdate, Mod>`
      */
-    onForumTopicCreated<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ForumTopicCreatedUpdate, Mod>>, options?: OnOptions): this;
+    onForumTopicCreated<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ForumTopicCreatedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `forum_topic_edited` update
      */
@@ -328,7 +328,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `forum_topic_edited` updates. handler arg narrows via `Modify<ForumTopicEditedUpdate, Mod>`
      */
-    onForumTopicEdited<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ForumTopicEditedUpdate, Mod>>, options?: OnOptions): this;
+    onForumTopicEdited<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ForumTopicEditedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `forum_topic_closed` update
      */
@@ -336,7 +336,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `forum_topic_closed` updates. handler arg narrows via `Modify<ForumTopicClosedUpdate, Mod>`
      */
-    onForumTopicClosed<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ForumTopicClosedUpdate, Mod>>, options?: OnOptions): this;
+    onForumTopicClosed<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ForumTopicClosedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `forum_topic_reopened` update
      */
@@ -344,7 +344,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `forum_topic_reopened` updates. handler arg narrows via `Modify<ForumTopicReopenedUpdate, Mod>`
      */
-    onForumTopicReopened<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ForumTopicReopenedUpdate, Mod>>, options?: OnOptions): this;
+    onForumTopicReopened<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ForumTopicReopenedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `general_forum_topic_hidden` update
      */
@@ -352,7 +352,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `general_forum_topic_hidden` updates. handler arg narrows via `Modify<GeneralForumTopicHiddenUpdate, Mod>`
      */
-    onGeneralForumTopicHidden<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<GeneralForumTopicHiddenUpdate, Mod>>, options?: OnOptions): this;
+    onGeneralForumTopicHidden<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<GeneralForumTopicHiddenUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `general_forum_topic_unhidden` update
      */
@@ -360,7 +360,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `general_forum_topic_unhidden` updates. handler arg narrows via `Modify<GeneralForumTopicUnhiddenUpdate, Mod>`
      */
-    onGeneralForumTopicUnhidden<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<GeneralForumTopicUnhiddenUpdate, Mod>>, options?: OnOptions): this;
+    onGeneralForumTopicUnhidden<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<GeneralForumTopicUnhiddenUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `giveaway_created` update
      */
@@ -368,7 +368,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `giveaway_created` updates. handler arg narrows via `Modify<GiveawayCreatedUpdate, Mod>`
      */
-    onGiveawayCreated<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<GiveawayCreatedUpdate, Mod>>, options?: OnOptions): this;
+    onGiveawayCreated<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<GiveawayCreatedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `giveaway_completed` update
      */
@@ -376,7 +376,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `giveaway_completed` updates. handler arg narrows via `Modify<GiveawayCompletedUpdate, Mod>`
      */
-    onGiveawayCompleted<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<GiveawayCompletedUpdate, Mod>>, options?: OnOptions): this;
+    onGiveawayCompleted<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<GiveawayCompletedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `giveaway_winners` update
      */
@@ -384,7 +384,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `giveaway_winners` updates. handler arg narrows via `Modify<GiveawayWinnersUpdate, Mod>`
      */
-    onGiveawayWinners<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<GiveawayWinnersUpdate, Mod>>, options?: OnOptions): this;
+    onGiveawayWinners<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<GiveawayWinnersUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `boost_added` update
      */
@@ -392,7 +392,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `boost_added` updates. handler arg narrows via `Modify<BoostAddedUpdate, Mod>`
      */
-    onBoostAdded<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<BoostAddedUpdate, Mod>>, options?: OnOptions): this;
+    onBoostAdded<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<BoostAddedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `message_auto_delete_timer_changed` update
      */
@@ -400,7 +400,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `message_auto_delete_timer_changed` updates. handler arg narrows via `Modify<MessageAutoDeleteTimerChangedUpdate, Mod>`
      */
-    onMessageAutoDeleteTimerChanged<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<MessageAutoDeleteTimerChangedUpdate, Mod>>, options?: OnOptions): this;
+    onMessageAutoDeleteTimerChanged<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<MessageAutoDeleteTimerChangedUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `migrate_to_chat_id` update
      */
@@ -408,7 +408,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `migrate_to_chat_id` updates. handler arg narrows via `Modify<MigrateToChatIdUpdate, Mod>`
      */
-    onMigrateToChatId<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<MigrateToChatIdUpdate, Mod>>, options?: OnOptions): this;
+    onMigrateToChatId<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<MigrateToChatIdUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `migrate_from_chat_id` update
      */
@@ -416,7 +416,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `migrate_from_chat_id` updates. handler arg narrows via `Modify<MigrateFromChatIdUpdate, Mod>`
      */
-    onMigrateFromChatId<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<MigrateFromChatIdUpdate, Mod>>, options?: OnOptions): this;
+    onMigrateFromChatId<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<MigrateFromChatIdUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `passport_data` update
      */
@@ -424,7 +424,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `passport_data` updates. handler arg narrows via `Modify<PassportDataUpdate, Mod>`
      */
-    onPassportData<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<PassportDataUpdate, Mod>>, options?: OnOptions): this;
+    onPassportData<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<PassportDataUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `proximity_alert_triggered` update
      */
@@ -432,7 +432,7 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `proximity_alert_triggered` updates. handler arg narrows via `Modify<ProximityAlertTriggeredUpdate, Mod>`
      */
-    onProximityAlertTriggered<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<ProximityAlertTriggeredUpdate, Mod>>, options?: OnOptions): this;
+    onProximityAlertTriggered<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ProximityAlertTriggeredUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `write_access_allowed` update
      */
@@ -440,5 +440,5 @@ export interface TelegramDispatchers {
     /**
      * register a filter-gated handler for `write_access_allowed` updates. handler arg narrows via `Modify<WriteAccessAllowedUpdate, Mod>`
      */
-    onWriteAccessAllowed<Base, Mod>(filter: Filter<Base, Mod>, handler: UpdateHandler<Modify<WriteAccessAllowedUpdate, Mod>>, options?: OnOptions): this;
+    onWriteAccessAllowed<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<WriteAccessAllowedUpdate, Mod>>, options?: OnOptions): this;
 }

@@ -20,7 +20,7 @@ describe('emitUpdates', () => {
     expect(out).toContain('export class MessageUpdate')
     expect(out).toContain('readonly kind = "message" as const')
     expect(out).toContain('public raw: TelegramMessage')
-    expect(out).toContain('private tg: TelegramLike')
+    expect(out).toContain('public readonly tg: TelegramLike')
     expect(out).toContain('get chat(): Chat')
     expect(out).toContain('is<K extends UpdateKind>')
 

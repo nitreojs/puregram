@@ -114,10 +114,16 @@ export function emitFilters (schema: Schema) {
 function emitPresenceFilter (hasName: string, camelName: string, kinds: string[], _classNames: string[]) {
   // Base stays `AnyUpdate` rather than `C1 | C2 | … 37 classes` — wide unions across
   // ~125 presence filters explode the type-checker. narrowing flows through `Mod`:
-  // `Filter<AnyUpdate, { [camelName]: {} }>` collapses `update[camelName]` from
-  // `string | undefined` (or whatever the optional shape is) to its non-nullable
-  // form when the dispatcher intersects `Base & Mod`. composing with `kind.message`
-  // tightens `Base` separately, leaving `MessageUpdate & { text: {} }` at the handler
+  // `Filter<AnyUpdate, { [camelName]: NonNullable<unknown> }>` collapses
+  // `update[camelName]` from `string | undefined` (or whatever the optional shape is)
+  // to its non-nullable form when the dispatcher intersects `Base & Mod`. composing
+  // with `kind.message` tightens `Base` separately, leaving the handler arg as
+  // `MessageUpdate & { text: NonNullable<unknown> }`. `NonNullable<unknown>`
+  // resolves to `{}` but reads cleaner and dodges `@typescript-eslint/ban-types`
+  const presentMarker = ts.factory.createTypeReferenceNode('NonNullable', [
+    ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
+  ])
+
   const filterType = ts.factory.createTypeReferenceNode('Filter', [
     ts.factory.createTypeReferenceNode('AnyUpdate'),
     ts.factory.createTypeLiteralNode([
@@ -125,7 +131,7 @@ function emitPresenceFilter (hasName: string, camelName: string, kinds: string[]
         undefined,
         ts.factory.createIdentifier(camelName),
         undefined,
-        ts.factory.createTypeLiteralNode([])
+        presentMarker
       )
     ])
   ])
@@ -234,71 +240,63 @@ function emitKindCallable () {
     ]),
     ts.factory.createBlock([
       ts.factory.createReturnStatement(
-        ts.factory.createAsExpression(
-          ts.factory.createCallExpression(
-            ts.factory.createIdentifier('defineFilter'),
-            undefined,
-            [
-              ts.factory.createTemplateExpression(
-                ts.factory.createTemplateHead('kind.'),
-                [ts.factory.createTemplateSpan(
-                  ts.factory.createIdentifier('k'),
-                  ts.factory.createTemplateTail('')
-                )]
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier('defineFilter'),
+          undefined,
+          [
+            ts.factory.createTemplateExpression(
+              ts.factory.createTemplateHead('kind.'),
+              [ts.factory.createTemplateSpan(
+                ts.factory.createIdentifier('k'),
+                ts.factory.createTemplateTail('')
+              )]
+            ),
+            ts.factory.createArrowFunction(
+              undefined, undefined,
+              [ts.factory.createParameterDeclaration(
+                undefined, undefined, ts.factory.createIdentifier('u'), undefined,
+                ts.factory.createTypeReferenceNode('AnyUpdate'), undefined
+              )],
+              ts.factory.createTypePredicateNode(
+                undefined,
+                ts.factory.createIdentifier('u'),
+                ts.factory.createIndexedAccessTypeNode(
+                  ts.factory.createTypeReferenceNode('UpdateKindMap'),
+                  ts.factory.createTypeReferenceNode('K')
+                )
               ),
-              ts.factory.createArrowFunction(
-                undefined, undefined,
-                [ts.factory.createParameterDeclaration(
-                  undefined, undefined, ts.factory.createIdentifier('u'), undefined,
-                  ts.factory.createTypeReferenceNode('AnyUpdate'), undefined
-                )],
-                ts.factory.createTypePredicateNode(
-                  undefined,
-                  ts.factory.createIdentifier('u'),
-                  ts.factory.createIndexedAccessTypeNode(
-                    ts.factory.createTypeReferenceNode('UpdateKindMap'),
-                    ts.factory.createTypeReferenceNode('K')
-                  )
-                ),
-                ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
-                ts.factory.createBinaryExpression(
-                  ts.factory.createPropertyAccessExpression(
-                    ts.factory.createParenthesizedExpression(
-                      ts.factory.createAsExpression(
-                        ts.factory.createIdentifier('u'),
-                        ts.factory.createTypeLiteralNode([
-                          ts.factory.createPropertySignature(
-                            undefined,
-                            ts.factory.createIdentifier('kind'),
-                            ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-                            ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
-                          )
-                        ])
-                      )
-                    ),
-                    'kind'
+              ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+              ts.factory.createBinaryExpression(
+                ts.factory.createPropertyAccessExpression(
+                  ts.factory.createParenthesizedExpression(
+                    ts.factory.createAsExpression(
+                      ts.factory.createIdentifier('u'),
+                      ts.factory.createTypeLiteralNode([
+                        ts.factory.createPropertySignature(
+                          undefined,
+                          ts.factory.createIdentifier('kind'),
+                          ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+                          ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+                        )
+                      ])
+                    )
                   ),
-                  ts.SyntaxKind.EqualsEqualsEqualsToken,
-                  ts.factory.createIdentifier('k')
+                  'kind'
+                ),
+                ts.SyntaxKind.EqualsEqualsEqualsToken,
+                ts.factory.createIdentifier('k')
+              )
+            ),
+            ts.factory.createObjectLiteralExpression([
+              ts.factory.createPropertyAssignment(
+                ts.factory.createIdentifier('kinds'),
+                ts.factory.createArrayLiteralExpression(
+                  [ts.factory.createIdentifier('k')],
+                  false
                 )
-              ),
-              ts.factory.createObjectLiteralExpression([
-                ts.factory.createPropertyAssignment(
-                  ts.factory.createIdentifier('kinds'),
-                  ts.factory.createArrayLiteralExpression(
-                    [ts.factory.createIdentifier('k')],
-                    false
-                  )
-                )
-              ], false)
-            ]
-          ),
-          ts.factory.createTypeReferenceNode('Filter', [
-            ts.factory.createIndexedAccessTypeNode(
-              ts.factory.createTypeReferenceNode('UpdateKindMap'),
-              ts.factory.createTypeReferenceNode('K')
-            )
-          ])
+              )
+            ], false)
+          ]
         )
       )
     ], true)
@@ -387,18 +385,10 @@ function emitActionCallable () {
     ]),
     ts.factory.createBlock([
       ts.factory.createReturnStatement(
-        ts.factory.createAsExpression(
-          ts.factory.createCallExpression(
-            ts.factory.createIdentifier('_kind'),
-            undefined,
-            [ts.factory.createIdentifier('k')]
-          ),
-          ts.factory.createTypeReferenceNode('Filter', [
-            ts.factory.createIndexedAccessTypeNode(
-              ts.factory.createTypeReferenceNode('UpdateKindMap'),
-              ts.factory.createTypeReferenceNode('K')
-            )
-          ])
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier('_kind'),
+          undefined,
+          [ts.factory.createIdentifier('k')]
         )
       )
     ], true)

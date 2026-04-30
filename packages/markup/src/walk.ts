@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-import { Formatted } from './formatted'
+import { type Entity, Formatted } from './formatted'
 
 export interface FormattableSlot {
   readonly path: readonly string[]
@@ -11,7 +11,7 @@ export type FormattableFields = Readonly<Record<string, readonly FormattableSlot
 
 interface RawFormattable {
   text: string
-  entities?: readonly { type: string, offset: number, length: number }[]
+  entities?: readonly Entity[]
 }
 
 function isFormattableShape (value: unknown) {

@@ -1,5 +1,7 @@
+import type { Entity } from '../formatted'
+
 /** canonical telegram html tag → entity type. alias resolution happens before this lookup */
-export const TAG_TO_ENTITY: Readonly<Record<string, string>> = {
+export const TAG_TO_ENTITY: Readonly<Record<string, Entity['type']>> = {
   b: 'bold',
   i: 'italic',
   u: 'underline',

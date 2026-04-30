@@ -29,7 +29,7 @@ function peek (s: State, offset = 0) {
 
 interface Delim {
   open: string
-  type: string
+  type: Entity['type']
 }
 
 // ordered: longer delimiters first so we match ** before *, __ before _, etc

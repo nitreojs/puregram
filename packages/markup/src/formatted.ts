@@ -1,5 +1,11 @@
+import type { TelegramMessageEntity } from '@puregram/api'
+
+// `type` is the literal-union from `TelegramMessageEntity['type']` so emitted
+// `Formatted` values flow into bot-api method args without a cast. widening
+// to `string` historically worked, but the schema now extracts the literal-union
+// from the bot-api docs and bot-api method args expect the narrow type
 export interface Entity {
-  type: string
+  type: TelegramMessageEntity['type']
   offset: number
   length: number
   url?: string

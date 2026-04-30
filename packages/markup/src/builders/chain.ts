@@ -11,7 +11,7 @@ export const MODIFIER_NAMES: ReadonlySet<ModifierName> = new Set<ModifierName>([
   'spoiler', 'blockquote', 'expandableBlockquote', 'code'
 ])
 
-const TYPE_MAP: Readonly<Record<ModifierName, string>> = {
+const TYPE_MAP: Readonly<Record<ModifierName, Entity['type']>> = {
   bold: 'bold',
   italic: 'italic',
   underline: 'underline',

@@ -261,7 +261,12 @@ function emitUpdateClass (
     }
   }
 
-  // constructor (public raw: TelegramX, private tg: TelegramLike) {}
+  // constructor (public raw: TelegramX, public tg: TelegramLike) {}
+  // tg is `public readonly` rather than `private` so `Omit<KindUpdate, K>` and
+  // structural type checks against the wrapper class don't lose class identity
+  // — TS private/protected fields carry a brand that breaks structural assignability
+  // through `Modify<>`. exposing `tg` is harmless: it's a back-reference to the
+  // user's own client and shortcut methods already use it implicitly
   members.push(ts.factory.createConstructorDeclaration(
     undefined,
     [
@@ -274,7 +279,10 @@ function emitUpdateClass (
         undefined
       ),
       ts.factory.createParameterDeclaration(
-        [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
+        [
+          ts.factory.createModifier(ts.SyntaxKind.PublicKeyword),
+          ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword)
+        ],
         undefined,
         ts.factory.createIdentifier('tg'),
         undefined,

@@ -6,17 +6,19 @@
 export type Has<T, K extends keyof T> = T & { [P in K]-?: Exclude<T[P], undefined> }
 
 /**
- * flat key-replacement structural rebuild. mapped over `keyof Base | keyof Mod`,
- * preferring `Mod[K]` when present. unlike `Omit<Base, keyof Mod> & Mod`, this
- * form replaces class accessor signatures with the Mod's property type instead
- * of intersecting them — chained property access narrows correctly even when
- * `Base` is a wrapper class with `get x()` declarations
+ * key-replacement intersection. `Omit<Base, keyof Mod>` strips the keys Mod
+ * overrides — including class accessor signatures, so chained property access
+ * narrows on the new value type — then intersection adds them back at the Mod's
+ * type. keys NOT in Mod stay on the Base side intact, so class identity carries
+ * through (private fields, methods bound to `this: Base` are preserved)
+ *
+ * for narrowing on a literal-discriminator field (e.g. `chat: PrivateChat`), the
+ * subtype alias must itself be `Omit<Class, 'discriminator'> & { discriminator: 'X' }`
+ * — `Class & { discriminator: 'X' }` does not strip the class accessor either,
+ * so chained access through that intermediate also widens. emit-structures.ts
+ * codegen's subtype aliases follow this pattern
  *
  * used by per-kind dispatchers to type the handler argument as
  * `Modify<KindUpdate, ExtractMod<F>>` after a filter narrows the input
  */
-export type Modify<Base, Mod> = {
-  [K in keyof Base | keyof Mod]: K extends keyof Mod
-    ? Mod[K]
-    : K extends keyof Base ? Base[K] : never
-}
+export type Modify<Base, Mod> = Omit<Base, keyof Mod> & Mod

@@ -39,12 +39,9 @@ export function emitDispatch (schema: Schema) {
   )
 
   const imports = [
+    importTypeNamed(['Filter'], '../filter-runtime'),
     importTypeNamed(['Modify'], '../util-types'),
     importTypeNamed(['OnOptions', 'UpdateHandler'], '../dispatch-runtime'),
-    importTypeNamed(
-      [...new Set(UPDATE_KINDS.map(k => filterAliasName(k.className)))].sort(),
-      './filter-types'
-    ),
     importTypeNamed(UPDATE_KINDS.map(k => k.className).sort(), './updates')
   ]
 
@@ -96,25 +93,29 @@ function buildHandlerOnlySignature (methodName: string, className: string) {
   )
 }
 
-// `onMessage<Mod>(filter, handler, options?): this`
-// where filter is `MessageFilter<Mod>` and handler is `UpdateHandler<Modify<MessageUpdate, Mod>>`
-function buildFilterAndHandlerSignature (methodName: string, className: string, filterAlias: string) {
+// `onMessage<Base, Mod>(filter, handler, options?): this`
+// filter is `Filter<Base, Mod>` (Base unconstrained — kind-agnostic filters like
+// `chat.private` have `Base = unknown` and must remain assignable). handler is
+// `UpdateHandler<Modify<MessageUpdate, Mod>>` — the per-kind dispatcher binds
+// the handler arg to its own kind, so the filter's Base is structural noise here.
+// pre-binding Base to MessageUpdate would reject every kind-agnostic filter as
+// not-assignable, defeating the composability story
+function buildFilterAndHandlerSignature (methodName: string, className: string, _filterAlias: string) {
   return ts.factory.createMethodSignature(
     undefined,
     ts.factory.createIdentifier(methodName),
     undefined,
-    [ts.factory.createTypeParameterDeclaration(
-      undefined,
-      ts.factory.createIdentifier('Mod'),
-      undefined,
-      undefined
-    )],
+    [
+      ts.factory.createTypeParameterDeclaration(undefined, ts.factory.createIdentifier('Base'), undefined, undefined),
+      ts.factory.createTypeParameterDeclaration(undefined, ts.factory.createIdentifier('Mod'), undefined, undefined)
+    ],
     [
       ts.factory.createParameterDeclaration(
         undefined, undefined,
         ts.factory.createIdentifier('filter'),
         undefined,
-        ts.factory.createTypeReferenceNode(filterAlias, [
+        ts.factory.createTypeReferenceNode('Filter', [
+          ts.factory.createTypeReferenceNode('Base'),
           ts.factory.createTypeReferenceNode('Mod')
         ]),
         undefined

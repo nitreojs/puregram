@@ -8,11 +8,13 @@ import { defineFilter } from "../filter-runtime";
 import type { Filter } from "../filter-runtime";
 import type { AnyUpdate } from "../custom-update";
 import type { UpdateKind, UpdateKindMap } from "./updates";
+import type { Chat, ChatInviteLink, ChatShared, Contact, Dice, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, ProximityAlertTriggered, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, WebAppData, WriteAccessAllowed } from "./structures";
+import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramRefundedPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted, TelegramVideoNote, TelegramVoice } from "./types";
 /**
  * Filter — true if the update has `actorChat` set.
  */
 export const hasActorChat: Filter<unknown, {
-    actorChat: NonNullable<unknown>;
+    actorChat: Chat;
 }> = defineFilter("hasActorChat", (u: AnyUpdate): u is AnyUpdate => ((u as {
     actorChat?: unknown;
 }).actorChat != null), { kinds: ["message_reaction"] });
@@ -21,7 +23,7 @@ export const hasActorChat: Filter<unknown, {
  * Filter — true if the update has `animation` set.
  */
 export const hasAnimation: Filter<unknown, {
-    animation: NonNullable<unknown>;
+    animation: TelegramAnimation;
 }> = defineFilter("hasAnimation", (u: AnyUpdate): u is AnyUpdate => ((u as {
     animation?: unknown;
 }).animation != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -30,7 +32,7 @@ export const hasAnimation: Filter<unknown, {
  * Filter — true if the update has `audio` set.
  */
 export const hasAudio: Filter<unknown, {
-    audio: NonNullable<unknown>;
+    audio: TelegramAudio;
 }> = defineFilter("hasAudio", (u: AnyUpdate): u is AnyUpdate => ((u as {
     audio?: unknown;
 }).audio != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -39,7 +41,7 @@ export const hasAudio: Filter<unknown, {
  * Filter — true if the update has `authorSignature` set.
  */
 export const hasAuthorSignature: Filter<unknown, {
-    authorSignature: NonNullable<unknown>;
+    authorSignature: string;
 }> = defineFilter("hasAuthorSignature", (u: AnyUpdate): u is AnyUpdate => ((u as {
     authorSignature?: unknown;
 }).authorSignature != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -48,7 +50,7 @@ export const hasAuthorSignature: Filter<unknown, {
  * Filter — true if the update has `bio` set.
  */
 export const hasBio: Filter<unknown, {
-    bio: NonNullable<unknown>;
+    bio: string;
 }> = defineFilter("hasBio", (u: AnyUpdate): u is AnyUpdate => ((u as {
     bio?: unknown;
 }).bio != null), { kinds: ["chat_join_request"] });
@@ -57,7 +59,7 @@ export const hasBio: Filter<unknown, {
  * Filter — true if the update has `boostAdded` set.
  */
 export const hasBoostAdded: Filter<unknown, {
-    boostAdded: NonNullable<unknown>;
+    boostAdded: TelegramChatBoostAdded;
 }> = defineFilter("hasBoostAdded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     boostAdded?: unknown;
 }).boostAdded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -66,7 +68,7 @@ export const hasBoostAdded: Filter<unknown, {
  * Filter — true if the update has `businessConnectionId` set.
  */
 export const hasBusinessConnectionId: Filter<unknown, {
-    businessConnectionId: NonNullable<unknown>;
+    businessConnectionId: string;
 }> = defineFilter("hasBusinessConnectionId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     businessConnectionId?: unknown;
 }).businessConnectionId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -75,7 +77,7 @@ export const hasBusinessConnectionId: Filter<unknown, {
  * Filter — true if the update has `caption` set.
  */
 export const hasCaption: Filter<unknown, {
-    caption: NonNullable<unknown>;
+    caption: string;
 }> = defineFilter("hasCaption", (u: AnyUpdate): u is AnyUpdate => ((u as {
     caption?: unknown;
 }).caption != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -84,7 +86,7 @@ export const hasCaption: Filter<unknown, {
  * Filter — true if the update has `captionEntities` set.
  */
 export const hasCaptionEntities: Filter<unknown, {
-    captionEntities: NonNullable<unknown>;
+    captionEntities: MessageEntity[];
 }> = defineFilter("hasCaptionEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     captionEntities?: unknown;
 }).captionEntities != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -93,7 +95,7 @@ export const hasCaptionEntities: Filter<unknown, {
  * Filter — true if the update has `channelChatCreated` set.
  */
 export const hasChannelChatCreated: Filter<unknown, {
-    channelChatCreated: NonNullable<unknown>;
+    channelChatCreated: true;
 }> = defineFilter("hasChannelChatCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     channelChatCreated?: unknown;
 }).channelChatCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -102,7 +104,7 @@ export const hasChannelChatCreated: Filter<unknown, {
  * Filter — true if the update has `chatBackgroundSet` set.
  */
 export const hasChatBackgroundSet: Filter<unknown, {
-    chatBackgroundSet: NonNullable<unknown>;
+    chatBackgroundSet: TelegramChatBackground;
 }> = defineFilter("hasChatBackgroundSet", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatBackgroundSet?: unknown;
 }).chatBackgroundSet != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -111,7 +113,7 @@ export const hasChatBackgroundSet: Filter<unknown, {
  * Filter — true if the update has `chatOwnerChanged` set.
  */
 export const hasChatOwnerChanged: Filter<unknown, {
-    chatOwnerChanged: NonNullable<unknown>;
+    chatOwnerChanged: TelegramChatOwnerChanged;
 }> = defineFilter("hasChatOwnerChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatOwnerChanged?: unknown;
 }).chatOwnerChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -120,7 +122,7 @@ export const hasChatOwnerChanged: Filter<unknown, {
  * Filter — true if the update has `chatOwnerLeft` set.
  */
 export const hasChatOwnerLeft: Filter<unknown, {
-    chatOwnerLeft: NonNullable<unknown>;
+    chatOwnerLeft: TelegramChatOwnerLeft;
 }> = defineFilter("hasChatOwnerLeft", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatOwnerLeft?: unknown;
 }).chatOwnerLeft != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -129,7 +131,7 @@ export const hasChatOwnerLeft: Filter<unknown, {
  * Filter — true if the update has `chatShared` set.
  */
 export const hasChatShared: Filter<unknown, {
-    chatShared: NonNullable<unknown>;
+    chatShared: ChatShared;
 }> = defineFilter("hasChatShared", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatShared?: unknown;
 }).chatShared != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -138,7 +140,7 @@ export const hasChatShared: Filter<unknown, {
  * Filter — true if the update has `chatType` set.
  */
 export const hasChatType: Filter<unknown, {
-    chatType: NonNullable<unknown>;
+    chatType: "sender" | "private" | "group" | "supergroup" | "channel";
 }> = defineFilter("hasChatType", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatType?: unknown;
 }).chatType != null), { kinds: ["inline_query"] });
@@ -147,7 +149,7 @@ export const hasChatType: Filter<unknown, {
  * Filter — true if the update has `checklist` set.
  */
 export const hasChecklist: Filter<unknown, {
-    checklist: NonNullable<unknown>;
+    checklist: TelegramChecklist;
 }> = defineFilter("hasChecklist", (u: AnyUpdate): u is AnyUpdate => ((u as {
     checklist?: unknown;
 }).checklist != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -156,7 +158,7 @@ export const hasChecklist: Filter<unknown, {
  * Filter — true if the update has `checklistTasksAdded` set.
  */
 export const hasChecklistTasksAdded: Filter<unknown, {
-    checklistTasksAdded: NonNullable<unknown>;
+    checklistTasksAdded: TelegramChecklistTasksAdded;
 }> = defineFilter("hasChecklistTasksAdded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     checklistTasksAdded?: unknown;
 }).checklistTasksAdded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -165,7 +167,7 @@ export const hasChecklistTasksAdded: Filter<unknown, {
  * Filter — true if the update has `checklistTasksDone` set.
  */
 export const hasChecklistTasksDone: Filter<unknown, {
-    checklistTasksDone: NonNullable<unknown>;
+    checklistTasksDone: TelegramChecklistTasksDone;
 }> = defineFilter("hasChecklistTasksDone", (u: AnyUpdate): u is AnyUpdate => ((u as {
     checklistTasksDone?: unknown;
 }).checklistTasksDone != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -174,7 +176,7 @@ export const hasChecklistTasksDone: Filter<unknown, {
  * Filter — true if the update has `closeDate` set.
  */
 export const hasCloseDate: Filter<unknown, {
-    closeDate: NonNullable<unknown>;
+    closeDate: number;
 }> = defineFilter("hasCloseDate", (u: AnyUpdate): u is AnyUpdate => ((u as {
     closeDate?: unknown;
 }).closeDate != null), { kinds: ["poll"] });
@@ -183,7 +185,7 @@ export const hasCloseDate: Filter<unknown, {
  * Filter — true if the update has `connectedWebsite` set.
  */
 export const hasConnectedWebsite: Filter<unknown, {
-    connectedWebsite: NonNullable<unknown>;
+    connectedWebsite: string;
 }> = defineFilter("hasConnectedWebsite", (u: AnyUpdate): u is AnyUpdate => ((u as {
     connectedWebsite?: unknown;
 }).connectedWebsite != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -192,7 +194,7 @@ export const hasConnectedWebsite: Filter<unknown, {
  * Filter — true if the update has `contact` set.
  */
 export const hasContact: Filter<unknown, {
-    contact: NonNullable<unknown>;
+    contact: Contact;
 }> = defineFilter("hasContact", (u: AnyUpdate): u is AnyUpdate => ((u as {
     contact?: unknown;
 }).contact != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -201,7 +203,7 @@ export const hasContact: Filter<unknown, {
  * Filter — true if the update has `correctOptionIds` set.
  */
 export const hasCorrectOptionIds: Filter<unknown, {
-    correctOptionIds: NonNullable<unknown>;
+    correctOptionIds: number[];
 }> = defineFilter("hasCorrectOptionIds", (u: AnyUpdate): u is AnyUpdate => ((u as {
     correctOptionIds?: unknown;
 }).correctOptionIds != null), { kinds: ["poll"] });
@@ -210,7 +212,7 @@ export const hasCorrectOptionIds: Filter<unknown, {
  * Filter — true if the update has `data` set.
  */
 export const hasData: Filter<unknown, {
-    data: NonNullable<unknown>;
+    data: string;
 }> = defineFilter("hasData", (u: AnyUpdate): u is AnyUpdate => ((u as {
     data?: unknown;
 }).data != null), { kinds: ["callback_query"] });
@@ -219,7 +221,7 @@ export const hasData: Filter<unknown, {
  * Filter — true if the update has `deleteChatPhoto` set.
  */
 export const hasDeleteChatPhoto: Filter<unknown, {
-    deleteChatPhoto: NonNullable<unknown>;
+    deleteChatPhoto: true;
 }> = defineFilter("hasDeleteChatPhoto", (u: AnyUpdate): u is AnyUpdate => ((u as {
     deleteChatPhoto?: unknown;
 }).deleteChatPhoto != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -228,7 +230,7 @@ export const hasDeleteChatPhoto: Filter<unknown, {
  * Filter — true if the update has `description` set.
  */
 export const hasDescription: Filter<unknown, {
-    description: NonNullable<unknown>;
+    description: string;
 }> = defineFilter("hasDescription", (u: AnyUpdate): u is AnyUpdate => ((u as {
     description?: unknown;
 }).description != null), { kinds: ["poll"] });
@@ -237,7 +239,7 @@ export const hasDescription: Filter<unknown, {
  * Filter — true if the update has `descriptionEntities` set.
  */
 export const hasDescriptionEntities: Filter<unknown, {
-    descriptionEntities: NonNullable<unknown>;
+    descriptionEntities: MessageEntity[];
 }> = defineFilter("hasDescriptionEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     descriptionEntities?: unknown;
 }).descriptionEntities != null), { kinds: ["poll"] });
@@ -246,7 +248,7 @@ export const hasDescriptionEntities: Filter<unknown, {
  * Filter — true if the update has `dice` set.
  */
 export const hasDice: Filter<unknown, {
-    dice: NonNullable<unknown>;
+    dice: Dice;
 }> = defineFilter("hasDice", (u: AnyUpdate): u is AnyUpdate => ((u as {
     dice?: unknown;
 }).dice != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -255,7 +257,7 @@ export const hasDice: Filter<unknown, {
  * Filter — true if the update has `directMessagePriceChanged` set.
  */
 export const hasDirectMessagePriceChanged: Filter<unknown, {
-    directMessagePriceChanged: NonNullable<unknown>;
+    directMessagePriceChanged: TelegramDirectMessagePriceChanged;
 }> = defineFilter("hasDirectMessagePriceChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     directMessagePriceChanged?: unknown;
 }).directMessagePriceChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -264,7 +266,7 @@ export const hasDirectMessagePriceChanged: Filter<unknown, {
  * Filter — true if the update has `directMessagesTopic` set.
  */
 export const hasDirectMessagesTopic: Filter<unknown, {
-    directMessagesTopic: NonNullable<unknown>;
+    directMessagesTopic: TelegramDirectMessagesTopic;
 }> = defineFilter("hasDirectMessagesTopic", (u: AnyUpdate): u is AnyUpdate => ((u as {
     directMessagesTopic?: unknown;
 }).directMessagesTopic != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -273,7 +275,7 @@ export const hasDirectMessagesTopic: Filter<unknown, {
  * Filter — true if the update has `document` set.
  */
 export const hasDocument: Filter<unknown, {
-    document: NonNullable<unknown>;
+    document: TelegramDocument;
 }> = defineFilter("hasDocument", (u: AnyUpdate): u is AnyUpdate => ((u as {
     document?: unknown;
 }).document != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -282,7 +284,7 @@ export const hasDocument: Filter<unknown, {
  * Filter — true if the update has `editDate` set.
  */
 export const hasEditDate: Filter<unknown, {
-    editDate: NonNullable<unknown>;
+    editDate: number;
 }> = defineFilter("hasEditDate", (u: AnyUpdate): u is AnyUpdate => ((u as {
     editDate?: unknown;
 }).editDate != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -291,7 +293,7 @@ export const hasEditDate: Filter<unknown, {
  * Filter — true if the update has `effectId` set.
  */
 export const hasEffectId: Filter<unknown, {
-    effectId: NonNullable<unknown>;
+    effectId: string;
 }> = defineFilter("hasEffectId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     effectId?: unknown;
 }).effectId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -300,7 +302,7 @@ export const hasEffectId: Filter<unknown, {
  * Filter — true if the update has `entities` set.
  */
 export const hasEntities: Filter<unknown, {
-    entities: NonNullable<unknown>;
+    entities: MessageEntity[];
 }> = defineFilter("hasEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     entities?: unknown;
 }).entities != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -309,7 +311,7 @@ export const hasEntities: Filter<unknown, {
  * Filter — true if the update has `explanation` set.
  */
 export const hasExplanation: Filter<unknown, {
-    explanation: NonNullable<unknown>;
+    explanation: string;
 }> = defineFilter("hasExplanation", (u: AnyUpdate): u is AnyUpdate => ((u as {
     explanation?: unknown;
 }).explanation != null), { kinds: ["poll"] });
@@ -318,7 +320,7 @@ export const hasExplanation: Filter<unknown, {
  * Filter — true if the update has `explanationEntities` set.
  */
 export const hasExplanationEntities: Filter<unknown, {
-    explanationEntities: NonNullable<unknown>;
+    explanationEntities: MessageEntity[];
 }> = defineFilter("hasExplanationEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     explanationEntities?: unknown;
 }).explanationEntities != null), { kinds: ["poll"] });
@@ -327,7 +329,7 @@ export const hasExplanationEntities: Filter<unknown, {
  * Filter — true if the update has `externalReply` set.
  */
 export const hasExternalReply: Filter<unknown, {
-    externalReply: NonNullable<unknown>;
+    externalReply: ExternalReplyInfo;
 }> = defineFilter("hasExternalReply", (u: AnyUpdate): u is AnyUpdate => ((u as {
     externalReply?: unknown;
 }).externalReply != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -336,7 +338,7 @@ export const hasExternalReply: Filter<unknown, {
  * Filter — true if the update has `forumTopicClosed` set.
  */
 export const hasForumTopicClosed: Filter<unknown, {
-    forumTopicClosed: NonNullable<unknown>;
+    forumTopicClosed: TelegramForumTopicClosed;
 }> = defineFilter("hasForumTopicClosed", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicClosed?: unknown;
 }).forumTopicClosed != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -345,7 +347,7 @@ export const hasForumTopicClosed: Filter<unknown, {
  * Filter — true if the update has `forumTopicCreated` set.
  */
 export const hasForumTopicCreated: Filter<unknown, {
-    forumTopicCreated: NonNullable<unknown>;
+    forumTopicCreated: ForumTopicCreated;
 }> = defineFilter("hasForumTopicCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicCreated?: unknown;
 }).forumTopicCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -354,7 +356,7 @@ export const hasForumTopicCreated: Filter<unknown, {
  * Filter — true if the update has `forumTopicEdited` set.
  */
 export const hasForumTopicEdited: Filter<unknown, {
-    forumTopicEdited: NonNullable<unknown>;
+    forumTopicEdited: ForumTopicEdited;
 }> = defineFilter("hasForumTopicEdited", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicEdited?: unknown;
 }).forumTopicEdited != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -363,7 +365,7 @@ export const hasForumTopicEdited: Filter<unknown, {
  * Filter — true if the update has `forumTopicReopened` set.
  */
 export const hasForumTopicReopened: Filter<unknown, {
-    forumTopicReopened: NonNullable<unknown>;
+    forumTopicReopened: TelegramForumTopicReopened;
 }> = defineFilter("hasForumTopicReopened", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicReopened?: unknown;
 }).forumTopicReopened != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -372,7 +374,7 @@ export const hasForumTopicReopened: Filter<unknown, {
  * Filter — true if the update has `forwardOrigin` set.
  */
 export const hasForwardOrigin: Filter<unknown, {
-    forwardOrigin: NonNullable<unknown>;
+    forwardOrigin: TelegramMessageOrigin;
 }> = defineFilter("hasForwardOrigin", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forwardOrigin?: unknown;
 }).forwardOrigin != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -381,7 +383,7 @@ export const hasForwardOrigin: Filter<unknown, {
  * Filter — true if the update has `from` set.
  */
 export const hasFrom: Filter<unknown, {
-    from: NonNullable<unknown>;
+    from: User;
 }> = defineFilter("hasFrom", (u: AnyUpdate): u is AnyUpdate => ((u as {
     from?: unknown;
 }).from != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -390,7 +392,7 @@ export const hasFrom: Filter<unknown, {
  * Filter — true if the update has `game` set.
  */
 export const hasGame: Filter<unknown, {
-    game: NonNullable<unknown>;
+    game: Game;
 }> = defineFilter("hasGame", (u: AnyUpdate): u is AnyUpdate => ((u as {
     game?: unknown;
 }).game != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -399,7 +401,7 @@ export const hasGame: Filter<unknown, {
  * Filter — true if the update has `gameShortName` set.
  */
 export const hasGameShortName: Filter<unknown, {
-    gameShortName: NonNullable<unknown>;
+    gameShortName: string;
 }> = defineFilter("hasGameShortName", (u: AnyUpdate): u is AnyUpdate => ((u as {
     gameShortName?: unknown;
 }).gameShortName != null), { kinds: ["callback_query"] });
@@ -408,7 +410,7 @@ export const hasGameShortName: Filter<unknown, {
  * Filter — true if the update has `generalForumTopicHidden` set.
  */
 export const hasGeneralForumTopicHidden: Filter<unknown, {
-    generalForumTopicHidden: NonNullable<unknown>;
+    generalForumTopicHidden: TelegramGeneralForumTopicHidden;
 }> = defineFilter("hasGeneralForumTopicHidden", (u: AnyUpdate): u is AnyUpdate => ((u as {
     generalForumTopicHidden?: unknown;
 }).generalForumTopicHidden != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -417,7 +419,7 @@ export const hasGeneralForumTopicHidden: Filter<unknown, {
  * Filter — true if the update has `generalForumTopicUnhidden` set.
  */
 export const hasGeneralForumTopicUnhidden: Filter<unknown, {
-    generalForumTopicUnhidden: NonNullable<unknown>;
+    generalForumTopicUnhidden: TelegramGeneralForumTopicUnhidden;
 }> = defineFilter("hasGeneralForumTopicUnhidden", (u: AnyUpdate): u is AnyUpdate => ((u as {
     generalForumTopicUnhidden?: unknown;
 }).generalForumTopicUnhidden != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -426,7 +428,7 @@ export const hasGeneralForumTopicUnhidden: Filter<unknown, {
  * Filter — true if the update has `gift` set.
  */
 export const hasGift: Filter<unknown, {
-    gift: NonNullable<unknown>;
+    gift: TelegramGiftInfo;
 }> = defineFilter("hasGift", (u: AnyUpdate): u is AnyUpdate => ((u as {
     gift?: unknown;
 }).gift != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -435,7 +437,7 @@ export const hasGift: Filter<unknown, {
  * Filter — true if the update has `giftUpgradeSent` set.
  */
 export const hasGiftUpgradeSent: Filter<unknown, {
-    giftUpgradeSent: NonNullable<unknown>;
+    giftUpgradeSent: TelegramGiftInfo;
 }> = defineFilter("hasGiftUpgradeSent", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giftUpgradeSent?: unknown;
 }).giftUpgradeSent != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -444,7 +446,7 @@ export const hasGiftUpgradeSent: Filter<unknown, {
  * Filter — true if the update has `giveaway` set.
  */
 export const hasGiveaway: Filter<unknown, {
-    giveaway: NonNullable<unknown>;
+    giveaway: Giveaway;
 }> = defineFilter("hasGiveaway", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveaway?: unknown;
 }).giveaway != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -453,7 +455,7 @@ export const hasGiveaway: Filter<unknown, {
  * Filter — true if the update has `giveawayCompleted` set.
  */
 export const hasGiveawayCompleted: Filter<unknown, {
-    giveawayCompleted: NonNullable<unknown>;
+    giveawayCompleted: GiveawayCompleted;
 }> = defineFilter("hasGiveawayCompleted", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveawayCompleted?: unknown;
 }).giveawayCompleted != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -462,7 +464,7 @@ export const hasGiveawayCompleted: Filter<unknown, {
  * Filter — true if the update has `giveawayCreated` set.
  */
 export const hasGiveawayCreated: Filter<unknown, {
-    giveawayCreated: NonNullable<unknown>;
+    giveawayCreated: TelegramGiveawayCreated;
 }> = defineFilter("hasGiveawayCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveawayCreated?: unknown;
 }).giveawayCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -471,7 +473,7 @@ export const hasGiveawayCreated: Filter<unknown, {
  * Filter — true if the update has `giveawayWinners` set.
  */
 export const hasGiveawayWinners: Filter<unknown, {
-    giveawayWinners: NonNullable<unknown>;
+    giveawayWinners: GiveawayWinners;
 }> = defineFilter("hasGiveawayWinners", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveawayWinners?: unknown;
 }).giveawayWinners != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -480,7 +482,7 @@ export const hasGiveawayWinners: Filter<unknown, {
  * Filter — true if the update has `groupChatCreated` set.
  */
 export const hasGroupChatCreated: Filter<unknown, {
-    groupChatCreated: NonNullable<unknown>;
+    groupChatCreated: true;
 }> = defineFilter("hasGroupChatCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     groupChatCreated?: unknown;
 }).groupChatCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -489,7 +491,7 @@ export const hasGroupChatCreated: Filter<unknown, {
  * Filter — true if the update has `inlineMessageId` set.
  */
 export const hasInlineMessageId: Filter<unknown, {
-    inlineMessageId: NonNullable<unknown>;
+    inlineMessageId: string;
 }> = defineFilter("hasInlineMessageId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     inlineMessageId?: unknown;
 }).inlineMessageId != null), { kinds: ["chosen_inline_result", "callback_query"] });
@@ -498,7 +500,7 @@ export const hasInlineMessageId: Filter<unknown, {
  * Filter — true if the update has `inviteLink` set.
  */
 export const hasInviteLink: Filter<unknown, {
-    inviteLink: NonNullable<unknown>;
+    inviteLink: ChatInviteLink;
 }> = defineFilter("hasInviteLink", (u: AnyUpdate): u is AnyUpdate => ((u as {
     inviteLink?: unknown;
 }).inviteLink != null), { kinds: ["my_chat_member", "chat_member", "chat_join_request"] });
@@ -507,7 +509,7 @@ export const hasInviteLink: Filter<unknown, {
  * Filter — true if the update has `invoice` set.
  */
 export const hasInvoice: Filter<unknown, {
-    invoice: NonNullable<unknown>;
+    invoice: Invoice;
 }> = defineFilter("hasInvoice", (u: AnyUpdate): u is AnyUpdate => ((u as {
     invoice?: unknown;
 }).invoice != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -516,7 +518,7 @@ export const hasInvoice: Filter<unknown, {
  * Filter — true if the update has `leftChatMember` set.
  */
 export const hasLeftChatMember: Filter<unknown, {
-    leftChatMember: NonNullable<unknown>;
+    leftChatMember: User;
 }> = defineFilter("hasLeftChatMember", (u: AnyUpdate): u is AnyUpdate => ((u as {
     leftChatMember?: unknown;
 }).leftChatMember != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -525,7 +527,7 @@ export const hasLeftChatMember: Filter<unknown, {
  * Filter — true if the update has `linkPreviewOptions` set.
  */
 export const hasLinkPreviewOptions: Filter<unknown, {
-    linkPreviewOptions: NonNullable<unknown>;
+    linkPreviewOptions: LinkPreviewOptions;
 }> = defineFilter("hasLinkPreviewOptions", (u: AnyUpdate): u is AnyUpdate => ((u as {
     linkPreviewOptions?: unknown;
 }).linkPreviewOptions != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -534,7 +536,7 @@ export const hasLinkPreviewOptions: Filter<unknown, {
  * Filter — true if the update has `location` set.
  */
 export const hasLocation: Filter<unknown, {
-    location: NonNullable<unknown>;
+    location: Location;
 }> = defineFilter("hasLocation", (u: AnyUpdate): u is AnyUpdate => ((u as {
     location?: unknown;
 }).location != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "inline_query", "chosen_inline_result", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -543,7 +545,7 @@ export const hasLocation: Filter<unknown, {
  * Filter — true if the update has `managedBotCreated` set.
  */
 export const hasManagedBotCreated: Filter<unknown, {
-    managedBotCreated: NonNullable<unknown>;
+    managedBotCreated: TelegramManagedBotCreated;
 }> = defineFilter("hasManagedBotCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     managedBotCreated?: unknown;
 }).managedBotCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -552,7 +554,7 @@ export const hasManagedBotCreated: Filter<unknown, {
  * Filter — true if the update has `mediaGroupId` set.
  */
 export const hasMediaGroupId: Filter<unknown, {
-    mediaGroupId: NonNullable<unknown>;
+    mediaGroupId: string;
 }> = defineFilter("hasMediaGroupId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     mediaGroupId?: unknown;
 }).mediaGroupId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -561,7 +563,7 @@ export const hasMediaGroupId: Filter<unknown, {
  * Filter — true if the update has `message` set.
  */
 export const hasMessage: Filter<unknown, {
-    message: NonNullable<unknown>;
+    message: TelegramMaybeInaccessibleMessage;
 }> = defineFilter("hasMessage", (u: AnyUpdate): u is AnyUpdate => ((u as {
     message?: unknown;
 }).message != null), { kinds: ["callback_query"] });
@@ -570,7 +572,7 @@ export const hasMessage: Filter<unknown, {
  * Filter — true if the update has `messageAutoDeleteTimerChanged` set.
  */
 export const hasMessageAutoDeleteTimerChanged: Filter<unknown, {
-    messageAutoDeleteTimerChanged: NonNullable<unknown>;
+    messageAutoDeleteTimerChanged: TelegramMessageAutoDeleteTimerChanged;
 }> = defineFilter("hasMessageAutoDeleteTimerChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     messageAutoDeleteTimerChanged?: unknown;
 }).messageAutoDeleteTimerChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -579,7 +581,7 @@ export const hasMessageAutoDeleteTimerChanged: Filter<unknown, {
  * Filter — true if the update has `messageThreadId` set.
  */
 export const hasMessageThreadId: Filter<unknown, {
-    messageThreadId: NonNullable<unknown>;
+    messageThreadId: number;
 }> = defineFilter("hasMessageThreadId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     messageThreadId?: unknown;
 }).messageThreadId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -588,7 +590,7 @@ export const hasMessageThreadId: Filter<unknown, {
  * Filter — true if the update has `migrateFromChatId` set.
  */
 export const hasMigrateFromChatId: Filter<unknown, {
-    migrateFromChatId: NonNullable<unknown>;
+    migrateFromChatId: number;
 }> = defineFilter("hasMigrateFromChatId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     migrateFromChatId?: unknown;
 }).migrateFromChatId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -597,7 +599,7 @@ export const hasMigrateFromChatId: Filter<unknown, {
  * Filter — true if the update has `migrateToChatId` set.
  */
 export const hasMigrateToChatId: Filter<unknown, {
-    migrateToChatId: NonNullable<unknown>;
+    migrateToChatId: number;
 }> = defineFilter("hasMigrateToChatId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     migrateToChatId?: unknown;
 }).migrateToChatId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -606,7 +608,7 @@ export const hasMigrateToChatId: Filter<unknown, {
  * Filter — true if the update has `newChatMembers` set.
  */
 export const hasNewChatMembers: Filter<unknown, {
-    newChatMembers: NonNullable<unknown>;
+    newChatMembers: User[];
 }> = defineFilter("hasNewChatMembers", (u: AnyUpdate): u is AnyUpdate => ((u as {
     newChatMembers?: unknown;
 }).newChatMembers != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -615,7 +617,7 @@ export const hasNewChatMembers: Filter<unknown, {
  * Filter — true if the update has `newChatPhoto` set.
  */
 export const hasNewChatPhoto: Filter<unknown, {
-    newChatPhoto: NonNullable<unknown>;
+    newChatPhoto: PhotoSize[];
 }> = defineFilter("hasNewChatPhoto", (u: AnyUpdate): u is AnyUpdate => ((u as {
     newChatPhoto?: unknown;
 }).newChatPhoto != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -624,7 +626,7 @@ export const hasNewChatPhoto: Filter<unknown, {
  * Filter — true if the update has `newChatTitle` set.
  */
 export const hasNewChatTitle: Filter<unknown, {
-    newChatTitle: NonNullable<unknown>;
+    newChatTitle: string;
 }> = defineFilter("hasNewChatTitle", (u: AnyUpdate): u is AnyUpdate => ((u as {
     newChatTitle?: unknown;
 }).newChatTitle != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -633,7 +635,7 @@ export const hasNewChatTitle: Filter<unknown, {
  * Filter — true if the update has `openPeriod` set.
  */
 export const hasOpenPeriod: Filter<unknown, {
-    openPeriod: NonNullable<unknown>;
+    openPeriod: number;
 }> = defineFilter("hasOpenPeriod", (u: AnyUpdate): u is AnyUpdate => ((u as {
     openPeriod?: unknown;
 }).openPeriod != null), { kinds: ["poll"] });
@@ -642,7 +644,7 @@ export const hasOpenPeriod: Filter<unknown, {
  * Filter — true if the update has `orderInfo` set.
  */
 export const hasOrderInfo: Filter<unknown, {
-    orderInfo: NonNullable<unknown>;
+    orderInfo: OrderInfo;
 }> = defineFilter("hasOrderInfo", (u: AnyUpdate): u is AnyUpdate => ((u as {
     orderInfo?: unknown;
 }).orderInfo != null), { kinds: ["pre_checkout_query"] });
@@ -651,7 +653,7 @@ export const hasOrderInfo: Filter<unknown, {
  * Filter — true if the update has `paidMedia` set.
  */
 export const hasPaidMedia: Filter<unknown, {
-    paidMedia: NonNullable<unknown>;
+    paidMedia: TelegramPaidMediaInfo;
 }> = defineFilter("hasPaidMedia", (u: AnyUpdate): u is AnyUpdate => ((u as {
     paidMedia?: unknown;
 }).paidMedia != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -660,7 +662,7 @@ export const hasPaidMedia: Filter<unknown, {
  * Filter — true if the update has `paidMessagePriceChanged` set.
  */
 export const hasPaidMessagePriceChanged: Filter<unknown, {
-    paidMessagePriceChanged: NonNullable<unknown>;
+    paidMessagePriceChanged: TelegramPaidMessagePriceChanged;
 }> = defineFilter("hasPaidMessagePriceChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     paidMessagePriceChanged?: unknown;
 }).paidMessagePriceChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -669,7 +671,7 @@ export const hasPaidMessagePriceChanged: Filter<unknown, {
  * Filter — true if the update has `paidStarCount` set.
  */
 export const hasPaidStarCount: Filter<unknown, {
-    paidStarCount: NonNullable<unknown>;
+    paidStarCount: number;
 }> = defineFilter("hasPaidStarCount", (u: AnyUpdate): u is AnyUpdate => ((u as {
     paidStarCount?: unknown;
 }).paidStarCount != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -678,7 +680,7 @@ export const hasPaidStarCount: Filter<unknown, {
  * Filter — true if the update has `passportData` set.
  */
 export const hasPassportData: Filter<unknown, {
-    passportData: NonNullable<unknown>;
+    passportData: PassportData;
 }> = defineFilter("hasPassportData", (u: AnyUpdate): u is AnyUpdate => ((u as {
     passportData?: unknown;
 }).passportData != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -687,7 +689,7 @@ export const hasPassportData: Filter<unknown, {
  * Filter — true if the update has `photo` set.
  */
 export const hasPhoto: Filter<unknown, {
-    photo: NonNullable<unknown>;
+    photo: PhotoSize[];
 }> = defineFilter("hasPhoto", (u: AnyUpdate): u is AnyUpdate => ((u as {
     photo?: unknown;
 }).photo != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -696,7 +698,7 @@ export const hasPhoto: Filter<unknown, {
  * Filter — true if the update has `pinnedMessage` set.
  */
 export const hasPinnedMessage: Filter<unknown, {
-    pinnedMessage: NonNullable<unknown>;
+    pinnedMessage: TelegramMaybeInaccessibleMessage;
 }> = defineFilter("hasPinnedMessage", (u: AnyUpdate): u is AnyUpdate => ((u as {
     pinnedMessage?: unknown;
 }).pinnedMessage != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -705,7 +707,7 @@ export const hasPinnedMessage: Filter<unknown, {
  * Filter — true if the update has `poll` set.
  */
 export const hasPoll: Filter<unknown, {
-    poll: NonNullable<unknown>;
+    poll: Poll;
 }> = defineFilter("hasPoll", (u: AnyUpdate): u is AnyUpdate => ((u as {
     poll?: unknown;
 }).poll != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -714,7 +716,7 @@ export const hasPoll: Filter<unknown, {
  * Filter — true if the update has `pollOptionAdded` set.
  */
 export const hasPollOptionAdded: Filter<unknown, {
-    pollOptionAdded: NonNullable<unknown>;
+    pollOptionAdded: TelegramPollOptionAdded;
 }> = defineFilter("hasPollOptionAdded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     pollOptionAdded?: unknown;
 }).pollOptionAdded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -723,7 +725,7 @@ export const hasPollOptionAdded: Filter<unknown, {
  * Filter — true if the update has `pollOptionDeleted` set.
  */
 export const hasPollOptionDeleted: Filter<unknown, {
-    pollOptionDeleted: NonNullable<unknown>;
+    pollOptionDeleted: TelegramPollOptionDeleted;
 }> = defineFilter("hasPollOptionDeleted", (u: AnyUpdate): u is AnyUpdate => ((u as {
     pollOptionDeleted?: unknown;
 }).pollOptionDeleted != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -732,7 +734,7 @@ export const hasPollOptionDeleted: Filter<unknown, {
  * Filter — true if the update has `proximityAlertTriggered` set.
  */
 export const hasProximityAlertTriggered: Filter<unknown, {
-    proximityAlertTriggered: NonNullable<unknown>;
+    proximityAlertTriggered: ProximityAlertTriggered;
 }> = defineFilter("hasProximityAlertTriggered", (u: AnyUpdate): u is AnyUpdate => ((u as {
     proximityAlertTriggered?: unknown;
 }).proximityAlertTriggered != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -741,7 +743,7 @@ export const hasProximityAlertTriggered: Filter<unknown, {
  * Filter — true if the update has `questionEntities` set.
  */
 export const hasQuestionEntities: Filter<unknown, {
-    questionEntities: NonNullable<unknown>;
+    questionEntities: MessageEntity[];
 }> = defineFilter("hasQuestionEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     questionEntities?: unknown;
 }).questionEntities != null), { kinds: ["poll"] });
@@ -750,7 +752,7 @@ export const hasQuestionEntities: Filter<unknown, {
  * Filter — true if the update has `quote` set.
  */
 export const hasQuote: Filter<unknown, {
-    quote: NonNullable<unknown>;
+    quote: TextQuote;
 }> = defineFilter("hasQuote", (u: AnyUpdate): u is AnyUpdate => ((u as {
     quote?: unknown;
 }).quote != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -759,7 +761,7 @@ export const hasQuote: Filter<unknown, {
  * Filter — true if the update has `refundedPayment` set.
  */
 export const hasRefundedPayment: Filter<unknown, {
-    refundedPayment: NonNullable<unknown>;
+    refundedPayment: TelegramRefundedPayment;
 }> = defineFilter("hasRefundedPayment", (u: AnyUpdate): u is AnyUpdate => ((u as {
     refundedPayment?: unknown;
 }).refundedPayment != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -768,7 +770,7 @@ export const hasRefundedPayment: Filter<unknown, {
  * Filter — true if the update has `replyMarkup` set.
  */
 export const hasReplyMarkup: Filter<unknown, {
-    replyMarkup: NonNullable<unknown>;
+    replyMarkup: InlineKeyboardMarkup;
 }> = defineFilter("hasReplyMarkup", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyMarkup?: unknown;
 }).replyMarkup != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -777,7 +779,7 @@ export const hasReplyMarkup: Filter<unknown, {
  * Filter — true if the update has `replyToChecklistTaskId` set.
  */
 export const hasReplyToChecklistTaskId: Filter<unknown, {
-    replyToChecklistTaskId: NonNullable<unknown>;
+    replyToChecklistTaskId: number;
 }> = defineFilter("hasReplyToChecklistTaskId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyToChecklistTaskId?: unknown;
 }).replyToChecklistTaskId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -786,7 +788,7 @@ export const hasReplyToChecklistTaskId: Filter<unknown, {
  * Filter — true if the update has `replyToPollOptionId` set.
  */
 export const hasReplyToPollOptionId: Filter<unknown, {
-    replyToPollOptionId: NonNullable<unknown>;
+    replyToPollOptionId: string;
 }> = defineFilter("hasReplyToPollOptionId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyToPollOptionId?: unknown;
 }).replyToPollOptionId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -795,7 +797,7 @@ export const hasReplyToPollOptionId: Filter<unknown, {
  * Filter — true if the update has `replyToStory` set.
  */
 export const hasReplyToStory: Filter<unknown, {
-    replyToStory: NonNullable<unknown>;
+    replyToStory: Story;
 }> = defineFilter("hasReplyToStory", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyToStory?: unknown;
 }).replyToStory != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -804,7 +806,7 @@ export const hasReplyToStory: Filter<unknown, {
  * Filter — true if the update has `rights` set.
  */
 export const hasRights: Filter<unknown, {
-    rights: NonNullable<unknown>;
+    rights: TelegramBusinessBotRights;
 }> = defineFilter("hasRights", (u: AnyUpdate): u is AnyUpdate => ((u as {
     rights?: unknown;
 }).rights != null), { kinds: ["business_connection"] });
@@ -813,7 +815,7 @@ export const hasRights: Filter<unknown, {
  * Filter — true if the update has `senderBoostCount` set.
  */
 export const hasSenderBoostCount: Filter<unknown, {
-    senderBoostCount: NonNullable<unknown>;
+    senderBoostCount: number;
 }> = defineFilter("hasSenderBoostCount", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderBoostCount?: unknown;
 }).senderBoostCount != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -822,7 +824,7 @@ export const hasSenderBoostCount: Filter<unknown, {
  * Filter — true if the update has `senderBusinessBot` set.
  */
 export const hasSenderBusinessBot: Filter<unknown, {
-    senderBusinessBot: NonNullable<unknown>;
+    senderBusinessBot: User;
 }> = defineFilter("hasSenderBusinessBot", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderBusinessBot?: unknown;
 }).senderBusinessBot != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -831,7 +833,7 @@ export const hasSenderBusinessBot: Filter<unknown, {
  * Filter — true if the update has `senderChat` set.
  */
 export const hasSenderChat: Filter<unknown, {
-    senderChat: NonNullable<unknown>;
+    senderChat: Chat;
 }> = defineFilter("hasSenderChat", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderChat?: unknown;
 }).senderChat != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -840,7 +842,7 @@ export const hasSenderChat: Filter<unknown, {
  * Filter — true if the update has `senderTag` set.
  */
 export const hasSenderTag: Filter<unknown, {
-    senderTag: NonNullable<unknown>;
+    senderTag: string;
 }> = defineFilter("hasSenderTag", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderTag?: unknown;
 }).senderTag != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -849,7 +851,7 @@ export const hasSenderTag: Filter<unknown, {
  * Filter — true if the update has `shippingOptionId` set.
  */
 export const hasShippingOptionId: Filter<unknown, {
-    shippingOptionId: NonNullable<unknown>;
+    shippingOptionId: string;
 }> = defineFilter("hasShippingOptionId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     shippingOptionId?: unknown;
 }).shippingOptionId != null), { kinds: ["pre_checkout_query"] });
@@ -858,7 +860,7 @@ export const hasShippingOptionId: Filter<unknown, {
  * Filter — true if the update has `showCaptionAboveMedia` set.
  */
 export const hasShowCaptionAboveMedia: Filter<unknown, {
-    showCaptionAboveMedia: NonNullable<unknown>;
+    showCaptionAboveMedia: true;
 }> = defineFilter("hasShowCaptionAboveMedia", (u: AnyUpdate): u is AnyUpdate => ((u as {
     showCaptionAboveMedia?: unknown;
 }).showCaptionAboveMedia != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -867,7 +869,7 @@ export const hasShowCaptionAboveMedia: Filter<unknown, {
  * Filter — true if the update has `sticker` set.
  */
 export const hasSticker: Filter<unknown, {
-    sticker: NonNullable<unknown>;
+    sticker: Sticker;
 }> = defineFilter("hasSticker", (u: AnyUpdate): u is AnyUpdate => ((u as {
     sticker?: unknown;
 }).sticker != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -876,7 +878,7 @@ export const hasSticker: Filter<unknown, {
  * Filter — true if the update has `story` set.
  */
 export const hasStory: Filter<unknown, {
-    story: NonNullable<unknown>;
+    story: Story;
 }> = defineFilter("hasStory", (u: AnyUpdate): u is AnyUpdate => ((u as {
     story?: unknown;
 }).story != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -885,7 +887,7 @@ export const hasStory: Filter<unknown, {
  * Filter — true if the update has `successfulPayment` set.
  */
 export const hasSuccessfulPayment: Filter<unknown, {
-    successfulPayment: NonNullable<unknown>;
+    successfulPayment: SuccessfulPayment;
 }> = defineFilter("hasSuccessfulPayment", (u: AnyUpdate): u is AnyUpdate => ((u as {
     successfulPayment?: unknown;
 }).successfulPayment != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -894,7 +896,7 @@ export const hasSuccessfulPayment: Filter<unknown, {
  * Filter — true if the update has `suggestedPostApprovalFailed` set.
  */
 export const hasSuggestedPostApprovalFailed: Filter<unknown, {
-    suggestedPostApprovalFailed: NonNullable<unknown>;
+    suggestedPostApprovalFailed: TelegramSuggestedPostApprovalFailed;
 }> = defineFilter("hasSuggestedPostApprovalFailed", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostApprovalFailed?: unknown;
 }).suggestedPostApprovalFailed != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -903,7 +905,7 @@ export const hasSuggestedPostApprovalFailed: Filter<unknown, {
  * Filter — true if the update has `suggestedPostApproved` set.
  */
 export const hasSuggestedPostApproved: Filter<unknown, {
-    suggestedPostApproved: NonNullable<unknown>;
+    suggestedPostApproved: TelegramSuggestedPostApproved;
 }> = defineFilter("hasSuggestedPostApproved", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostApproved?: unknown;
 }).suggestedPostApproved != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -912,7 +914,7 @@ export const hasSuggestedPostApproved: Filter<unknown, {
  * Filter — true if the update has `suggestedPostDeclined` set.
  */
 export const hasSuggestedPostDeclined: Filter<unknown, {
-    suggestedPostDeclined: NonNullable<unknown>;
+    suggestedPostDeclined: TelegramSuggestedPostDeclined;
 }> = defineFilter("hasSuggestedPostDeclined", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostDeclined?: unknown;
 }).suggestedPostDeclined != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -921,7 +923,7 @@ export const hasSuggestedPostDeclined: Filter<unknown, {
  * Filter — true if the update has `suggestedPostInfo` set.
  */
 export const hasSuggestedPostInfo: Filter<unknown, {
-    suggestedPostInfo: NonNullable<unknown>;
+    suggestedPostInfo: TelegramSuggestedPostInfo;
 }> = defineFilter("hasSuggestedPostInfo", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostInfo?: unknown;
 }).suggestedPostInfo != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -930,7 +932,7 @@ export const hasSuggestedPostInfo: Filter<unknown, {
  * Filter — true if the update has `suggestedPostPaid` set.
  */
 export const hasSuggestedPostPaid: Filter<unknown, {
-    suggestedPostPaid: NonNullable<unknown>;
+    suggestedPostPaid: TelegramSuggestedPostPaid;
 }> = defineFilter("hasSuggestedPostPaid", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostPaid?: unknown;
 }).suggestedPostPaid != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -939,7 +941,7 @@ export const hasSuggestedPostPaid: Filter<unknown, {
  * Filter — true if the update has `suggestedPostRefunded` set.
  */
 export const hasSuggestedPostRefunded: Filter<unknown, {
-    suggestedPostRefunded: NonNullable<unknown>;
+    suggestedPostRefunded: TelegramSuggestedPostRefunded;
 }> = defineFilter("hasSuggestedPostRefunded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostRefunded?: unknown;
 }).suggestedPostRefunded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -948,7 +950,7 @@ export const hasSuggestedPostRefunded: Filter<unknown, {
  * Filter — true if the update has `supergroupChatCreated` set.
  */
 export const hasSupergroupChatCreated: Filter<unknown, {
-    supergroupChatCreated: NonNullable<unknown>;
+    supergroupChatCreated: true;
 }> = defineFilter("hasSupergroupChatCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     supergroupChatCreated?: unknown;
 }).supergroupChatCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -957,7 +959,7 @@ export const hasSupergroupChatCreated: Filter<unknown, {
  * Filter — true if the update has `text` set.
  */
 export const hasText: Filter<unknown, {
-    text: NonNullable<unknown>;
+    text: string;
 }> = defineFilter("hasText", (u: AnyUpdate): u is AnyUpdate => ((u as {
     text?: unknown;
 }).text != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -966,7 +968,7 @@ export const hasText: Filter<unknown, {
  * Filter — true if the update has `uniqueGift` set.
  */
 export const hasUniqueGift: Filter<unknown, {
-    uniqueGift: NonNullable<unknown>;
+    uniqueGift: TelegramUniqueGiftInfo;
 }> = defineFilter("hasUniqueGift", (u: AnyUpdate): u is AnyUpdate => ((u as {
     uniqueGift?: unknown;
 }).uniqueGift != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -975,7 +977,7 @@ export const hasUniqueGift: Filter<unknown, {
  * Filter — true if the update has `user` set.
  */
 export const hasUser: Filter<unknown, {
-    user: NonNullable<unknown>;
+    user: User;
 }> = defineFilter("hasUser", (u: AnyUpdate): u is AnyUpdate => ((u as {
     user?: unknown;
 }).user != null), { kinds: ["message_reaction", "poll_answer"] });
@@ -984,7 +986,7 @@ export const hasUser: Filter<unknown, {
  * Filter — true if the update has `usersShared` set.
  */
 export const hasUsersShared: Filter<unknown, {
-    usersShared: NonNullable<unknown>;
+    usersShared: UsersShared;
 }> = defineFilter("hasUsersShared", (u: AnyUpdate): u is AnyUpdate => ((u as {
     usersShared?: unknown;
 }).usersShared != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -993,7 +995,7 @@ export const hasUsersShared: Filter<unknown, {
  * Filter — true if the update has `venue` set.
  */
 export const hasVenue: Filter<unknown, {
-    venue: NonNullable<unknown>;
+    venue: Venue;
 }> = defineFilter("hasVenue", (u: AnyUpdate): u is AnyUpdate => ((u as {
     venue?: unknown;
 }).venue != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1002,7 +1004,7 @@ export const hasVenue: Filter<unknown, {
  * Filter — true if the update has `viaBot` set.
  */
 export const hasViaBot: Filter<unknown, {
-    viaBot: NonNullable<unknown>;
+    viaBot: User;
 }> = defineFilter("hasViaBot", (u: AnyUpdate): u is AnyUpdate => ((u as {
     viaBot?: unknown;
 }).viaBot != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1011,7 +1013,7 @@ export const hasViaBot: Filter<unknown, {
  * Filter — true if the update has `viaChatFolderInviteLink` set.
  */
 export const hasViaChatFolderInviteLink: Filter<unknown, {
-    viaChatFolderInviteLink: NonNullable<unknown>;
+    viaChatFolderInviteLink: boolean;
 }> = defineFilter("hasViaChatFolderInviteLink", (u: AnyUpdate): u is AnyUpdate => ((u as {
     viaChatFolderInviteLink?: unknown;
 }).viaChatFolderInviteLink != null), { kinds: ["my_chat_member", "chat_member"] });
@@ -1020,7 +1022,7 @@ export const hasViaChatFolderInviteLink: Filter<unknown, {
  * Filter — true if the update has `viaJoinRequest` set.
  */
 export const hasViaJoinRequest: Filter<unknown, {
-    viaJoinRequest: NonNullable<unknown>;
+    viaJoinRequest: boolean;
 }> = defineFilter("hasViaJoinRequest", (u: AnyUpdate): u is AnyUpdate => ((u as {
     viaJoinRequest?: unknown;
 }).viaJoinRequest != null), { kinds: ["my_chat_member", "chat_member"] });
@@ -1029,7 +1031,7 @@ export const hasViaJoinRequest: Filter<unknown, {
  * Filter — true if the update has `video` set.
  */
 export const hasVideo: Filter<unknown, {
-    video: NonNullable<unknown>;
+    video: Video;
 }> = defineFilter("hasVideo", (u: AnyUpdate): u is AnyUpdate => ((u as {
     video?: unknown;
 }).video != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1038,7 +1040,7 @@ export const hasVideo: Filter<unknown, {
  * Filter — true if the update has `videoChatEnded` set.
  */
 export const hasVideoChatEnded: Filter<unknown, {
-    videoChatEnded: NonNullable<unknown>;
+    videoChatEnded: VideoChatEnded;
 }> = defineFilter("hasVideoChatEnded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatEnded?: unknown;
 }).videoChatEnded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1047,7 +1049,7 @@ export const hasVideoChatEnded: Filter<unknown, {
  * Filter — true if the update has `videoChatParticipantsInvited` set.
  */
 export const hasVideoChatParticipantsInvited: Filter<unknown, {
-    videoChatParticipantsInvited: NonNullable<unknown>;
+    videoChatParticipantsInvited: VideoChatParticipantsInvited;
 }> = defineFilter("hasVideoChatParticipantsInvited", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatParticipantsInvited?: unknown;
 }).videoChatParticipantsInvited != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1056,7 +1058,7 @@ export const hasVideoChatParticipantsInvited: Filter<unknown, {
  * Filter — true if the update has `videoChatScheduled` set.
  */
 export const hasVideoChatScheduled: Filter<unknown, {
-    videoChatScheduled: NonNullable<unknown>;
+    videoChatScheduled: VideoChatScheduled;
 }> = defineFilter("hasVideoChatScheduled", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatScheduled?: unknown;
 }).videoChatScheduled != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1065,7 +1067,7 @@ export const hasVideoChatScheduled: Filter<unknown, {
  * Filter — true if the update has `videoChatStarted` set.
  */
 export const hasVideoChatStarted: Filter<unknown, {
-    videoChatStarted: NonNullable<unknown>;
+    videoChatStarted: TelegramVideoChatStarted;
 }> = defineFilter("hasVideoChatStarted", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatStarted?: unknown;
 }).videoChatStarted != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1074,7 +1076,7 @@ export const hasVideoChatStarted: Filter<unknown, {
  * Filter — true if the update has `videoNote` set.
  */
 export const hasVideoNote: Filter<unknown, {
-    videoNote: NonNullable<unknown>;
+    videoNote: TelegramVideoNote;
 }> = defineFilter("hasVideoNote", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoNote?: unknown;
 }).videoNote != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1083,7 +1085,7 @@ export const hasVideoNote: Filter<unknown, {
  * Filter — true if the update has `voice` set.
  */
 export const hasVoice: Filter<unknown, {
-    voice: NonNullable<unknown>;
+    voice: TelegramVoice;
 }> = defineFilter("hasVoice", (u: AnyUpdate): u is AnyUpdate => ((u as {
     voice?: unknown;
 }).voice != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1092,7 +1094,7 @@ export const hasVoice: Filter<unknown, {
  * Filter — true if the update has `voterChat` set.
  */
 export const hasVoterChat: Filter<unknown, {
-    voterChat: NonNullable<unknown>;
+    voterChat: Chat;
 }> = defineFilter("hasVoterChat", (u: AnyUpdate): u is AnyUpdate => ((u as {
     voterChat?: unknown;
 }).voterChat != null), { kinds: ["poll_answer"] });
@@ -1101,7 +1103,7 @@ export const hasVoterChat: Filter<unknown, {
  * Filter — true if the update has `webAppData` set.
  */
 export const hasWebAppData: Filter<unknown, {
-    webAppData: NonNullable<unknown>;
+    webAppData: WebAppData;
 }> = defineFilter("hasWebAppData", (u: AnyUpdate): u is AnyUpdate => ((u as {
     webAppData?: unknown;
 }).webAppData != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1110,7 +1112,7 @@ export const hasWebAppData: Filter<unknown, {
  * Filter — true if the update has `writeAccessAllowed` set.
  */
 export const hasWriteAccessAllowed: Filter<unknown, {
-    writeAccessAllowed: NonNullable<unknown>;
+    writeAccessAllowed: WriteAccessAllowed;
 }> = defineFilter("hasWriteAccessAllowed", (u: AnyUpdate): u is AnyUpdate => ((u as {
     writeAccessAllowed?: unknown;
 }).writeAccessAllowed != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });

@@ -1,11 +1,12 @@
 import ts from 'typescript'
 
-import type { Schema, SchemaObject } from '../schema-types'
+import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema-types'
 
 import { getterNameFor } from './field-names'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
-import { importNamed, importTypeNamed, jsDoc } from './ts-factory'
+import { isWrappedStructure } from './structures-config'
+import { importNamed, importTypeNamed, jsDoc, typeRefToTs } from './ts-factory'
 import { UPDATE_KINDS } from './updates-config'
 
 // codegen layer for the public filter set in `puregram/filters`. emits two families:
@@ -28,7 +29,7 @@ export function emitFilters (schema: Schema) {
   // exclude required fields (no `hasX` makes sense), exclude getters that already
   // start with `has`/`is` (they self-describe), exclude `extras`-defined names that
   // would collide with curated helpers
-  const presence = new Map<string, { kinds: string[], cls: string[] }>()
+  const presence = new Map<string, { kinds: string[], cls: string[], field: SchemaField }>()
 
   for (const k of UPDATE_KINDS) {
     const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
@@ -59,7 +60,7 @@ export function emitFilters (schema: Schema) {
       let entry = presence.get(camelName)
 
       if (!entry) {
-        entry = { kinds: [], cls: [] }
+        entry = { kinds: [], cls: [], field: f }
         presence.set(camelName, entry)
       }
 
@@ -81,7 +82,7 @@ export function emitFilters (schema: Schema) {
 
     const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
 
-    nodes.push(emitPresenceFilter(hasName, camelName, entry.kinds, entry.cls))
+    nodes.push(emitPresenceFilter(hasName, camelName, entry.kinds, entry.field, objectsByName))
   }
 
   nodes.push(emitKindCallable())
@@ -93,13 +94,23 @@ export function emitFilters (schema: Schema) {
 
   nodes.push(emitActionShorthand())
 
-  // presence filters and kind/action shorthands type via `UpdateKindMap[K]` and
-  // `Filter<AnyUpdate>` — no direct update-class refs needed at the .ts level
+  // wrapper-class references needed by presence-filter Mods. e.g. `hasPhoto`'s
+  // Mod is `{ photo: PhotoSize[] }`, which requires `PhotoSize` imported from
+  // `./structures`. raw `Telegram*` references go through `./types` instead
+  const wrapperRefs = new Set<string>()
+  const rawRefs = new Set<string>()
+
+  for (const entry of presence.values()) {
+    collectRefs(entry.field.type, objectsByName, wrapperRefs, rawRefs)
+  }
+
   const imports = [
     importNamed(['defineFilter'], '../filter-runtime'),
     importTypeNamed(['Filter'], '../filter-runtime'),
     importTypeNamed(['AnyUpdate'], '../custom-update'),
-    importTypeNamed(['UpdateKind', 'UpdateKindMap'], './updates')
+    importTypeNamed(['UpdateKind', 'UpdateKindMap'], './updates'),
+    ...(wrapperRefs.size > 0 ? [importTypeNamed([...wrapperRefs].sort(), './structures')] : []),
+    ...(rawRefs.size > 0 ? [importTypeNamed([...rawRefs].sort(), './types')] : [])
   ]
 
   return formatModule({
@@ -111,16 +122,64 @@ export function emitFilters (schema: Schema) {
   })
 }
 
-function emitPresenceFilter (hasName: string, camelName: string, kinds: string[], _classNames: string[]) {
+// translates a SchemaField's type ref to the wrapper-getter return type, in
+// non-nullable form. mirrors emit-structures.ts: `User`-typed reference fields
+// wrap to the `User` class, primitive fields stay as the schema's primitive,
+// arrays of references wrap their element class. union-kind references like
+// `MessageOrigin` have no wrapper class — fall through to the raw `Telegram*` type.
+// always emits the non-nullable form since presence filters narrow via `field != null`
+function wrapperType (ref: SchemaTypeRef, objectsByName: Map<string, SchemaObject>): ts.TypeNode {
+  if (ref.kind === 'reference' && isObjectWrapper(ref.name, objectsByName)) {
+    return ts.factory.createTypeReferenceNode(ref.name)
+  }
+
+  if (ref.kind === 'array') {
+    return ts.factory.createArrayTypeNode(wrapperType(ref.of, objectsByName))
+  }
+
+  return typeRefToTs(ref)
+}
+
+function isObjectWrapper (name: string, objectsByName: Map<string, SchemaObject>) {
+  return isWrappedStructure(name) && objectsByName.get(name)?.kind === 'object'
+}
+
+function collectRefs (
+  ref: SchemaTypeRef,
+  objectsByName: Map<string, SchemaObject>,
+  wrapperRefs: Set<string>,
+  rawRefs: Set<string>
+): void {
+  if (ref.kind === 'reference') {
+    if (isObjectWrapper(ref.name, objectsByName)) {
+      wrapperRefs.add(ref.name)
+    } else {
+      rawRefs.add(`Telegram${ref.name}`)
+    }
+
+    return
+  }
+
+  if (ref.kind === 'array') {
+    collectRefs(ref.of, objectsByName, wrapperRefs, rawRefs)
+  } else if (ref.kind === 'union') {
+    ref.of.forEach(t => collectRefs(t, objectsByName, wrapperRefs, rawRefs))
+  }
+}
+
+function emitPresenceFilter (
+  hasName: string,
+  camelName: string,
+  kinds: string[],
+  field: SchemaField,
+  objectsByName: Map<string, SchemaObject>
+) {
   // Base is `unknown` (not `AnyUpdate`) so chaining `kind.X.and(hasField)` resolves
   // to `kind.X`'s narrow Base via `MessageUpdate & unknown = MessageUpdate` —
-  // clean simplification with no union distribution. Mod stamps the field as
-  // present so handler intersection flips `string | undefined` to `string`.
-  // `NonNullable<unknown>` resolves to `{}` but reads cleaner and dodges
-  // `@typescript-eslint/ban-types`
-  const presentMarker = ts.factory.createTypeReferenceNode('NonNullable', [
-    ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
-  ])
+  // clean simplification with no union distribution. Mod stamps the field with
+  // its concrete wrapper-getter return type — so `Modify<MessageUpdate, { text: string }>`
+  // hands the handler a `text: string` (not `string | undefined`)
+  const presentMarker = wrapperType(field.type, objectsByName)
 
   const filterType = ts.factory.createTypeReferenceNode('Filter', [
     ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword),

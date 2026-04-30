@@ -215,6 +215,74 @@ export function command (nameOrPattern: string | RegExp) {
   )
 }
 
+// `/start [payload]` parses into the `payload` named group. trailing space-or-end
+// after `/start` is required so `/started` and similar prefixes don't match
+const START_PATTERN = /^\/start(?:@(?<mention>\S+))?(?:\s+(?<payload>.+))?$/i
+
+/**
+ * match a `/start` command, optionally constrained on the deeplink payload that
+ * telegram passes via `t.me/<bot>?start=<payload>`
+ *
+ * - no-arg form — matches any `/start`, attaches `update.match` with a
+ *   `payload` named group (undefined when no deeplink payload was sent)
+ * - string form — matches when the payload is exactly the supplied value
+ * - regex form — matches when the payload matches the pattern; the result is
+ *   attached as `update.match` and the named groups from the pattern come
+ *   through unchanged
+ */
+export function start (): Filter<MessageUpdate, { text: string, match: RegExpMatchArray }>
+export function start (payload: string): Filter<MessageUpdate, { text: string, match: RegExpMatchArray }>
+export function start (pattern: RegExp): Filter<MessageUpdate, { text: string, match: RegExpMatchArray }>
+export function start (payload?: string | RegExp) {
+  const label = payload === undefined
+    ? ''
+    : typeof payload === 'string' ? payload : payload.toString()
+
+  return defineFilter<MessageUpdate, { text: string, match: RegExpMatchArray }>(
+    `start(${label})`,
+    (u): u is MessageUpdate => {
+      const text = (u as { raw?: { text?: unknown } }).raw?.text
+
+      if (typeof text !== 'string') {
+        return false
+      }
+
+      const result = START_PATTERN.exec(text)
+
+      if (result === null) {
+        return false
+      }
+
+      const captured = result.groups?.payload
+
+      if (typeof payload === 'string') {
+        if (captured !== payload) {
+          return false
+        }
+      } else if (payload instanceof RegExp) {
+        if (typeof captured !== 'string') {
+          return false
+        }
+
+        const inner = payload.exec(captured)
+
+        if (inner === null) {
+          return false
+        }
+
+        attach(u as object, 'match', inner)
+
+        return true
+      }
+
+      attach(u as object, 'match', result)
+
+      return true
+    },
+    { kinds: ['message'] }
+  )
+}
+
 /**
  * match a regex against `update.text` falling back to `update.caption`. attaches
  * the resulting `RegExpMatchArray` as `update.match`

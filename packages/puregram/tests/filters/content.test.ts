@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { caption, command, contains, endsWith, regex, startsWith, text } from '../../src/filters/content'
+import { caption, command, contains, endsWith, regex, start, startsWith, text } from '../../src/filters/content'
 
 // fixtures expose both top-level (camelCase wrapper getter) and `raw` fields,
 // matching how update classes look at dispatch time. handcrafted text/caption
@@ -138,5 +138,53 @@ describe('startsWith / endsWith / contains', () => {
 
   it('contains with auto falls back to caption when text is absent', () => {
     expect(contains('hello')(messageWithCaption('hello world'))).toBe(true)
+  })
+})
+
+describe('start', () => {
+  it('no-arg form matches plain /start', () => {
+    expect(start()(messageWithText('/start'))).toBe(true)
+  })
+
+  it('no-arg form matches /start with payload', () => {
+    expect(start()(messageWithText('/start abc'))).toBe(true)
+  })
+
+  it('no-arg form rejects non-/start text', () => {
+    expect(start()(messageWithText('/started'))).toBe(false)
+    expect(start()(messageWithText('hello'))).toBe(false)
+  })
+
+  it('string form matches exact payload', () => {
+    expect(start('promo')(messageWithText('/start promo'))).toBe(true)
+    expect(start('promo')(messageWithText('/start other'))).toBe(false)
+    expect(start('promo')(messageWithText('/start'))).toBe(false)
+  })
+
+  it('regex form attaches inner match groups', () => {
+    const update = messageWithText('/start utm-source:42') as Record<string, unknown>
+
+    expect(start(/^(?<source>[^:]+):(?<id>\d+)$/)(update)).toBe(true)
+
+    const m = (update as { match?: RegExpMatchArray }).match
+
+    expect(m?.groups?.source).toBe('utm-source')
+    expect(m?.groups?.id).toBe('42')
+  })
+
+  it('regex form rejects when payload absent', () => {
+    expect(start(/x/)(messageWithText('/start'))).toBe(false)
+  })
+
+  it('attaches the full match for the no-arg form', () => {
+    const update = messageWithText('/start hello') as Record<string, unknown>
+
+    expect(start()(update)).toBe(true)
+    expect((update as { match?: RegExpMatchArray }).match?.groups?.payload).toBe('hello')
+  })
+
+  it('matches /start@bot variants', () => {
+    expect(start()(messageWithText('/start@SomeBot'))).toBe(true)
+    expect(start()(messageWithText('/start@SomeBot payload'))).toBe(true)
   })
 })

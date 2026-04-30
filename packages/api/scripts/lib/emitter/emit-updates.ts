@@ -56,6 +56,7 @@ export function emitUpdates (schema: Schema) {
   nodes.push(emitUpdateKindUnion())
   nodes.push(emitUpdateKindMap())
   nodes.push(emitUpdateUnion())
+  nodes.push(emitUpdateKindsConst())
 
   const referencedTypes = new Set<string>()
 
@@ -819,6 +820,29 @@ function emitUpdateKindMap () {
         ts.factory.createTypeReferenceNode(k.className)
       )
     )
+  )
+}
+
+// runtime mirror of UpdateKind — array of every kindName string. consumed at runtime
+// by `installDispatchers(tg)` to install one `tg.on<Kind>` method per kind.
+// typed as `readonly UpdateKind[]` so the dispatcher injector stays type-safe
+function emitUpdateKindsConst () {
+  return ts.factory.createVariableStatement(
+    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    ts.factory.createVariableDeclarationList([
+      ts.factory.createVariableDeclaration(
+        ts.factory.createIdentifier('UPDATE_KINDS'),
+        undefined,
+        ts.factory.createTypeOperatorNode(
+          ts.SyntaxKind.ReadonlyKeyword,
+          ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode('UpdateKind'))
+        ),
+        ts.factory.createArrayLiteralExpression(
+          UPDATE_KINDS.map(k => ts.factory.createStringLiteral(k.kindName)),
+          true
+        )
+      )
+    ], ts.NodeFlags.Const)
   )
 }
 

@@ -20,7 +20,12 @@ export function emitStructures (schema: Schema) {
   // so getters referencing them must fall back to raw types instead of a missing wrapper
   const wrappedClassNames = new Set(wrappedObjects.map(o => o.name))
 
-  const nodes: ts.Node[] = wrappedObjects.map(o => emitClass(o, wrappedClassNames))
+  const nodes: ts.Node[] = []
+
+  for (const obj of wrappedObjects) {
+    nodes.push(emitClass(obj, wrappedClassNames))
+    nodes.push(...emitSubtypeAliases(obj))
+  }
 
   const referencedTypes = new Set<string>()
 
@@ -424,6 +429,64 @@ function buildArrayMap (rawField: string, wrapperName: string) {
       )
     )]
   )
+}
+
+// emit one type alias per literal-discriminator value:
+//   `PrivateChat = Omit<Chat, 'type'> & { type: 'private' }`
+// only multi-value enumerations qualify — single-value `enumeration: ['photo']`
+// already produces a fully-narrowed wrapper class, no alias needed.
+//
+// `Omit<Chat, 'type'>` is required (rather than plain `Chat & { type: 'X' }`) so the
+// class accessor signature gets stripped before the narrowed mod is layered on —
+// otherwise chained access (`chat.type`) re-resolves through `Chat.get type()` and
+// returns the wide literal union
+function emitSubtypeAliases (obj: Extract<SchemaObject, { kind: 'object' }>) {
+  const aliases: ts.Node[] = []
+
+  for (const f of obj.fields) {
+    if (f.type.kind !== 'string' || !f.type.enumeration || f.type.enumeration.length < 2) {
+      continue
+    }
+
+    const camelName = camelCase(f.name)
+
+    for (const value of f.type.enumeration) {
+      const aliasName = `${literalToPascal(value)}${obj.name}`
+
+      const omitNode = ts.factory.createTypeReferenceNode('Omit', [
+        ts.factory.createTypeReferenceNode(obj.name),
+        ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(camelName))
+      ])
+
+      const modNode = ts.factory.createTypeLiteralNode([
+        ts.factory.createPropertySignature(
+          undefined,
+          ts.factory.createIdentifier(camelName),
+          undefined,
+          ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(value))
+        )
+      ])
+
+      const aliasType = ts.factory.createIntersectionTypeNode([omitNode, modNode])
+
+      aliases.push(ts.factory.createTypeAliasDeclaration(
+        [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+        ts.factory.createIdentifier(aliasName),
+        undefined,
+        aliasType
+      ))
+    }
+  }
+
+  return aliases
+}
+
+// 'private' → 'Private', 'bot_command' → 'BotCommand', 'text_link' → 'TextLink'
+function literalToPascal (value: string) {
+  return value
+    .split(/[_-]/)
+    .map(s => s[0].toUpperCase() + s.slice(1))
+    .join('')
 }
 
 function emitInspectMethod (obj: Extract<SchemaObject, { kind: 'object' }>) {

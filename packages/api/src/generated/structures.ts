@@ -92,6 +92,22 @@ export class Chat {
     }
 }
 
+export type PrivateChat = Omit<Chat, "type"> & {
+    type: "private";
+};
+
+export type GroupChat = Omit<Chat, "type"> & {
+    type: "group";
+};
+
+export type SupergroupChat = Omit<Chat, "type"> & {
+    type: "supergroup";
+};
+
+export type ChannelChat = Omit<Chat, "type"> & {
+    type: "channel";
+};
+
 /**
  * This object contains information about a chat boost.
  */
@@ -1974,6 +1990,18 @@ export class InlineKeyboardButton {
     }
 }
 
+export type DangerInlineKeyboardButton = Omit<InlineKeyboardButton, "style"> & {
+    style: "danger";
+};
+
+export type SuccessInlineKeyboardButton = Omit<InlineKeyboardButton, "style"> & {
+    style: "success";
+};
+
+export type PrimaryInlineKeyboardButton = Omit<InlineKeyboardButton, "style"> & {
+    style: "primary";
+};
+
 /**
  * This object represents an inline keyboard that appears right next to the message it belongs to.
  */
@@ -2058,6 +2086,26 @@ export class InlineQuery {
         return makeInspect("InlineQuery", this, depth, options, inspect);
     }
 }
+
+export type SenderInlineQuery = Omit<InlineQuery, "chatType"> & {
+    chatType: "sender";
+};
+
+export type PrivateInlineQuery = Omit<InlineQuery, "chatType"> & {
+    chatType: "private";
+};
+
+export type GroupInlineQuery = Omit<InlineQuery, "chatType"> & {
+    chatType: "group";
+};
+
+export type SupergroupInlineQuery = Omit<InlineQuery, "chatType"> & {
+    chatType: "supergroup";
+};
+
+export type ChannelInlineQuery = Omit<InlineQuery, "chatType"> & {
+    chatType: "channel";
+};
 
 /**
  * This object contains basic information about an invoice.
@@ -2284,6 +2332,22 @@ export class MaskPosition {
         return makeInspect("MaskPosition", this, depth, options, inspect);
     }
 }
+
+export type ForeheadMaskPosition = Omit<MaskPosition, "point"> & {
+    point: "forehead";
+};
+
+export type EyesMaskPosition = Omit<MaskPosition, "point"> & {
+    point: "eyes";
+};
+
+export type MouthMaskPosition = Omit<MaskPosition, "point"> & {
+    point: "mouth";
+};
+
+export type ChinMaskPosition = Omit<MaskPosition, "point"> & {
+    point: "chin";
+};
 
 /**
  * This object represents a message.
@@ -3821,6 +3885,86 @@ export class MessageEntity {
     }
 }
 
+export type MentionMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "mention";
+};
+
+export type HashtagMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "hashtag";
+};
+
+export type CashtagMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "cashtag";
+};
+
+export type BotCommandMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "bot_command";
+};
+
+export type UrlMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "url";
+};
+
+export type EmailMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "email";
+};
+
+export type PhoneNumberMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "phone_number";
+};
+
+export type BoldMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "bold";
+};
+
+export type ItalicMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "italic";
+};
+
+export type UnderlineMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "underline";
+};
+
+export type StrikethroughMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "strikethrough";
+};
+
+export type SpoilerMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "spoiler";
+};
+
+export type BlockquoteMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "blockquote";
+};
+
+export type ExpandableBlockquoteMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "expandable_blockquote";
+};
+
+export type CodeMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "code";
+};
+
+export type PreMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "pre";
+};
+
+export type TextLinkMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "text_link";
+};
+
+export type TextMentionMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "text_mention";
+};
+
+export type CustomEmojiMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "custom_emoji";
+};
+
+export type DateTimeMessageEntity = Omit<MessageEntity, "type"> & {
+    type: "date_time";
+};
+
 /**
  * This object represents a unique message identifier.
  */
@@ -4260,6 +4404,14 @@ export class Poll {
         return makeInspect("Poll", this, depth, options, inspect);
     }
 }
+
+export type RegularPoll = Omit<Poll, "type"> & {
+    type: "regular";
+};
+
+export type QuizPoll = Omit<Poll, "type"> & {
+    type: "quiz";
+};
 
 /**
  * This object represents an answer of a user in a non-anonymous poll.
@@ -4793,6 +4945,18 @@ export class Sticker {
     }
 }
 
+export type RegularSticker = Omit<Sticker, "type"> & {
+    type: "regular";
+};
+
+export type MaskSticker = Omit<Sticker, "type"> & {
+    type: "mask";
+};
+
+export type CustomEmojiSticker = Omit<Sticker, "type"> & {
+    type: "custom_emoji";
+};
+
 /**
  * This object represents a sticker set.
  */
@@ -4846,6 +5010,18 @@ export class StickerSet {
         return makeInspect("StickerSet", this, depth, options, inspect);
     }
 }
+
+export type RegularStickerSet = Omit<StickerSet, "stickerType"> & {
+    stickerType: "regular";
+};
+
+export type MaskStickerSet = Omit<StickerSet, "stickerType"> & {
+    stickerType: "mask";
+};
+
+export type CustomEmojiStickerSet = Omit<StickerSet, "stickerType"> & {
+    stickerType: "custom_emoji";
+};
 
 /**
  * This object represents a story.

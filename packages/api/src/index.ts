@@ -10,9 +10,10 @@ export * from './generated/shortcuts'
 export * from './generated/service-events'
 export * from './generated/factories'
 export * from './generated/filters'
+export * from './generated/filter-types'
 
 export type { TelegramLike } from './telegram-like'
-export type { Has } from './util-types'
+export type { Has, Modify } from './util-types'
 export type { Formattable } from './formattable'
 export { FORMATTABLE_FIELDS } from './generated/formattable-fields'
 export {

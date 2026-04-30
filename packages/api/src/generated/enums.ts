@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 9.6.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-26T09:30:18.745Z
+/// generated at: 2026-04-30T14:12:46.898Z
 /// see scripts/emit.ts in @puregram/api
 
 export enum AttachmentType {
@@ -18,6 +18,47 @@ export enum AttachmentType {
     VideoNote = "video_note",
     Video = "video",
     Voice = "voice"
+}
+
+export enum ChatType {
+    Private = "private",
+    Group = "group",
+    Supergroup = "supergroup",
+    Channel = "channel"
+}
+
+export enum MessageEntityType {
+    Mention = "mention",
+    Hashtag = "hashtag",
+    Cashtag = "cashtag",
+    BotCommand = "bot_command",
+    Url = "url",
+    Email = "email",
+    PhoneNumber = "phone_number",
+    Bold = "bold",
+    Italic = "italic",
+    Underline = "underline",
+    Strikethrough = "strikethrough",
+    Spoiler = "spoiler",
+    Blockquote = "blockquote",
+    ExpandableBlockquote = "expandable_blockquote",
+    Code = "code",
+    Pre = "pre",
+    TextLink = "text_link",
+    TextMention = "text_mention",
+    CustomEmoji = "custom_emoji",
+    DateTime = "date_time"
+}
+
+export enum PollType {
+    Regular = "regular",
+    Quiz = "quiz"
+}
+
+export enum StickerType {
+    Regular = "regular",
+    Mask = "mask",
+    CustomEmoji = "custom_emoji"
 }
 
 export enum ParseMode {

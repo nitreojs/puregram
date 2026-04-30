@@ -214,12 +214,21 @@ function extractMethod (
     const typeText = $(cols[1]).text().trim()
     const requiredText = $(cols[2]).text().trim()
     const desc = $(cols[3]).text().trim()
+    let type = parseTypeRef(typeText)
+
+    if (type.kind === 'string' && !type.enumeration) {
+      const literals = extractEnumeration(desc, fieldName)
+
+      if (literals.length > 0) {
+        type = { kind: 'string', enumeration: literals }
+      }
+    }
 
     return {
       name: fieldName,
       description: desc,
       required: /yes/i.test(requiredText),
-      type: parseTypeRef(typeText)
+      type
     }
   })
 
@@ -271,14 +280,16 @@ function extractObject (
     const desc = $(cols[2]).text().trim()
     let type = parseTypeRef(typeText)
 
-    // single-value discriminators ("must be photo", "always 'sender'") — bot-api uses prose,
-    // not explicit enums. detect and narrow string types to a literal union of one value
-    // so factory codegen and discriminated-union typing both work
-    if (type.kind === 'string' && !type.enumeration && fieldName === 'type') {
-      const single = desc.match(/(?:must be|always)\s+["']?([a-z][a-z0-9_]*)["']?/i)
+    // bot-api docs phrase string-discriminator constraints in prose ("can be either
+    // 'private', 'group', 'supergroup' or 'channel'", "always 'sender'") rather than as a
+    // machine-parseable enum. detect both single- and multi-value cases and lift the values
+    // into the type ref's `enumeration`, so getter return types, factory dispatch, and
+    // discriminated-union typing all narrow on literal-union ground truth instead of `string`
+    if (type.kind === 'string' && !type.enumeration) {
+      const literals = extractEnumeration(desc, fieldName)
 
-      if (single) {
-        type = { kind: 'string', enumeration: [single[1]] }
+      if (literals.length > 0) {
+        type = { kind: 'string', enumeration: literals }
       }
     }
 
@@ -330,6 +341,81 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
 
   // most no-return-value methods document themselves as returning `True`
   return { kind: 'true' as const }
+}
+
+// trigger phrases the bot-api docs use to introduce a string-field's allowed values.
+// scoped to a sentence span so unrelated phrases like "Can be decrypted…" elsewhere in
+// the description don't pull in adjacent quoted tokens
+const ENUMERATION_TRIGGER = /\b(?:must be|can be|currently|always|one of|either)\b/i
+
+// matches a quoted lowercase token. accepts smart quotes (“”), ASCII double, and
+// ASCII single quotes. token shape covers identifiers, MIME types, and file formats —
+// everything bot-api uses as a discriminator value
+const QUOTED_TOKEN = /[“"']([a-z][a-z0-9_/.-]*?[a-z0-9])[”"']/g
+
+// sentence break: full stop followed by a whitespace + capital letter, the bot-api
+// docs' conventional sentence boundary. caps the span at the start of the next sentence
+const SENTENCE_BREAK = /\.\s+[A-Z]/
+
+// disqualifies the trigger when followed by context-reference prepositions —
+// "Can be available only for "X" transactions" should not enumerate `data` over `X`.
+// the trigger is genuinely enumerative when followed by enum-list connectives like
+// "either", "one of", direct values; not when followed by "for", "in", "with", etc
+const CONTEXT_REFERENCE = /\b(?:for|in|when|where|with|during|to|from|as|by|on|only|provided)\b/i
+
+// fieldNames that are reliable single-value discriminators when the description follows
+// "must be X"/"always X" without quotes — bot-api occasionally drops the quotes for
+// these specific roles. used only as a fallback when the quoted-multi-value extractor
+// finds nothing
+const UNQUOTED_DISCRIMINATOR_FIELDS = new Set(['type', 'status', 'source'])
+const UNQUOTED_SINGLE_VALUE = /(?:must be|always)\s+["“']?([a-z][a-z0-9_]*)["”']?/i
+
+function extractEnumeration (desc: string, fieldName: string) {
+  const triggerMatch = ENUMERATION_TRIGGER.exec(desc)
+
+  if (!triggerMatch) {
+    return []
+  }
+
+  const tail = desc.slice(triggerMatch.index + triggerMatch[0].length)
+  const breakMatch = SENTENCE_BREAK.exec(tail)
+  const span = breakMatch ? tail.slice(0, breakMatch.index + 1) : tail
+
+  const firstQuote = /[“"']/.exec(span)
+
+  if (firstQuote) {
+    const intermediate = span.slice(0, firstQuote.index)
+
+    if (CONTEXT_REFERENCE.test(intermediate)) {
+      return []
+    }
+
+    const seen: string[] = []
+
+    for (const match of span.matchAll(QUOTED_TOKEN)) {
+      const value = match[1]
+
+      if (!seen.includes(value)) {
+        seen.push(value)
+      }
+    }
+
+    if (seen.length > 0) {
+      return seen
+    }
+  }
+
+  // unquoted single-value fallback: "Type of the result, must be photo" — bot-api
+  // occasionally writes these without quotes. only trusted on known discriminator fields
+  if (UNQUOTED_DISCRIMINATOR_FIELDS.has(fieldName)) {
+    const single = UNQUOTED_SINGLE_VALUE.exec(desc)
+
+    if (single) {
+      return [single[1]]
+    }
+  }
+
+  return []
 }
 
 function extractUnionMembersFromDescription (description: string) {

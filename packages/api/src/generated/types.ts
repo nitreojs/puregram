@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 9.6.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-26T09:30:18.745Z
+/// generated at: 2026-04-30T14:12:46.898Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -153,7 +153,7 @@ export interface TelegramBackgroundFillFreeformGradient {
     /**
      * Type of the background fill, always “freeform_gradient”
      */
-    type: string;
+    type: "freeform_gradient";
     /**
      * A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format
      */
@@ -167,7 +167,7 @@ export interface TelegramBackgroundFillGradient {
     /**
      * Type of the background fill, always “gradient”
      */
-    type: string;
+    type: "gradient";
     /**
      * Top color of the gradient in the RGB24 format
      */
@@ -189,7 +189,7 @@ export interface TelegramBackgroundFillSolid {
     /**
      * Type of the background fill, always “solid”
      */
-    type: string;
+    type: "solid";
     /**
      * The color of the background fill in the RGB24 format
      */
@@ -208,7 +208,7 @@ export interface TelegramBackgroundTypeChatTheme {
     /**
      * Type of the background, always “chat_theme”
      */
-    type: string;
+    type: "chat_theme";
     /**
      * Name of the chat theme, which is usually an emoji
      */
@@ -222,7 +222,7 @@ export interface TelegramBackgroundTypeFill {
     /**
      * Type of the background, always “fill”
      */
-    type: string;
+    type: "fill";
     /**
      * The background fill
      */
@@ -240,7 +240,7 @@ export interface TelegramBackgroundTypePattern {
     /**
      * Type of the background, always “pattern”
      */
-    type: string;
+    type: "pattern";
     /**
      * Document with the pattern
      */
@@ -270,7 +270,7 @@ export interface TelegramBackgroundTypeWallpaper {
     /**
      * Type of the background, always “wallpaper”
      */
-    type: string;
+    type: "wallpaper";
     /**
      * Document with the wallpaper
      */
@@ -664,7 +664,7 @@ export interface TelegramChat {
     /**
      * Type of the chat, can be either “private”, “group”, “supergroup” or “channel”
      */
-    type: string;
+    type: "private" | "group" | "supergroup" | "channel";
     /**
      * Optional. Title, for supergroups, channels and group chats
      */
@@ -841,7 +841,7 @@ export interface TelegramChatBoostSourceGiftCode {
     /**
      * Source of the boost, always “gift_code”
      */
-    source: string;
+    source: "gift_code";
     /**
      * User for which the gift code was created
      */
@@ -855,7 +855,7 @@ export interface TelegramChatBoostSourceGiveaway {
     /**
      * Source of the boost, always “giveaway”
      */
-    source: string;
+    source: "giveaway";
     /**
      * Identifier of a message in the chat with the giveaway; the message could have been deleted already. May be 0 if the message isn't sent yet.
      */
@@ -881,7 +881,7 @@ export interface TelegramChatBoostSourcePremium {
     /**
      * Source of the boost, always “premium”
      */
-    source: string;
+    source: "premium";
     /**
      * User that boosted the chat
      */
@@ -913,7 +913,7 @@ export interface TelegramChatFullInfo {
     /**
      * Type of the chat, can be either “private”, “group”, “supergroup” or “channel”
      */
-    type: string;
+    type: "private" | "group" | "supergroup" | "channel";
     /**
      * Optional. Title, for supergroups, channels and group chats
      */
@@ -1219,7 +1219,7 @@ export interface TelegramChatMemberAdministrator {
     /**
      * The member's status in the chat, always “administrator”
      */
-    status: string;
+    status: "administrator";
     /**
      * Information about the user
      */
@@ -1309,7 +1309,7 @@ export interface TelegramChatMemberBanned {
     /**
      * The member's status in the chat, always “kicked”
      */
-    status: string;
+    status: "kicked";
     /**
      * Information about the user
      */
@@ -1327,7 +1327,7 @@ export interface TelegramChatMemberLeft {
     /**
      * The member's status in the chat, always “left”
      */
-    status: string;
+    status: "left";
     /**
      * Information about the user
      */
@@ -1341,7 +1341,7 @@ export interface TelegramChatMemberMember {
     /**
      * The member's status in the chat, always “member”
      */
-    status: string;
+    status: "member";
     /**
      * Optional. Tag of the member
      */
@@ -1363,7 +1363,7 @@ export interface TelegramChatMemberOwner {
     /**
      * The member's status in the chat, always “creator”
      */
-    status: string;
+    status: "creator";
     /**
      * Information about the user
      */
@@ -1385,7 +1385,7 @@ export interface TelegramChatMemberRestricted {
     /**
      * The member's status in the chat, always “restricted”
      */
-    status: string;
+    status: "restricted";
     /**
      * Optional. Tag of the member
      */
@@ -1883,7 +1883,7 @@ export interface TelegramEncryptedPassportElement {
     /**
      * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
      */
-    type: string;
+    type: "personal_details" | "passport" | "driver_license" | "identity_card" | "internal_passport" | "address" | "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration" | "phone_number" | "email";
     /**
      * Optional. Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying EncryptedCredentials.
      */
@@ -2495,7 +2495,7 @@ export interface TelegramInlineKeyboardButton {
     /**
      * Optional. Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
      */
-    style?: string;
+    style?: "danger" | "success" | "primary";
     /**
      * Optional. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
      */
@@ -2571,7 +2571,7 @@ export interface TelegramInlineQuery {
     /**
      * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
      */
-    chat_type?: string;
+    chat_type?: "sender" | "private" | "group" | "supergroup" | "channel";
     /**
      * Optional. Sender location, only for bots that request user location
      */
@@ -3110,7 +3110,7 @@ export interface TelegramInlineQueryResultDocument {
     /**
      * MIME type of the content of the file, either “application/pdf” or “application/zip”
      */
-    mime_type: string;
+    mime_type: "application/pdf" | "application/zip";
     /**
      * Optional. Short description of the result
      */
@@ -3194,7 +3194,7 @@ export interface TelegramInlineQueryResultGif {
     /**
      * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
      */
-    thumbnail_mime_type?: string;
+    thumbnail_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
     /**
      * Optional. Title for the result
      */
@@ -3322,7 +3322,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
     /**
      * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
      */
-    thumbnail_mime_type?: string;
+    thumbnail_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
     /**
      * Optional. Title for the result
      */
@@ -4171,7 +4171,7 @@ export interface TelegramInputSticker {
     /**
      * Format of the added sticker, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, “video” for a .WEBM video
      */
-    format: string;
+    format: "static" | "animated" | "video";
     /**
      * List of 1-20 emoji associated with the sticker
      */
@@ -4332,7 +4332,7 @@ export interface TelegramKeyboardButton {
     /**
      * Optional. Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
      */
-    style?: string;
+    style?: "danger" | "success" | "primary";
     /**
      * Optional. If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only.
      */
@@ -4621,7 +4621,7 @@ export interface TelegramMaskPosition {
     /**
      * The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
      */
-    point: string;
+    point: "forehead" | "eyes" | "mouth" | "chin";
     /**
      * Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.
      */
@@ -5148,7 +5148,7 @@ export interface TelegramMessageEntity {
     /**
      * Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time)
      */
-    type: string;
+    type: "mention" | "hashtag" | "cashtag" | "bot_command" | "url" | "email" | "phone_number" | "bold" | "italic" | "underline" | "strikethrough" | "spoiler" | "blockquote" | "expandable_blockquote" | "code" | "pre" | "text_link" | "text_mention" | "custom_emoji" | "date_time";
     /**
      * Offset in UTF-16 code units to the start of the entity
      */
@@ -5205,7 +5205,7 @@ export interface TelegramMessageOriginChannel {
     /**
      * Type of the message origin, always “channel”
      */
-    type: string;
+    type: "channel";
     /**
      * Date the message was sent originally in Unix time
      */
@@ -5231,7 +5231,7 @@ export interface TelegramMessageOriginChat {
     /**
      * Type of the message origin, always “chat”
      */
-    type: string;
+    type: "chat";
     /**
      * Date the message was sent originally in Unix time
      */
@@ -5253,7 +5253,7 @@ export interface TelegramMessageOriginHiddenUser {
     /**
      * Type of the message origin, always “hidden_user”
      */
-    type: string;
+    type: "hidden_user";
     /**
      * Date the message was sent originally in Unix time
      */
@@ -5271,7 +5271,7 @@ export interface TelegramMessageOriginUser {
     /**
      * Type of the message origin, always “user”
      */
-    type: string;
+    type: "user";
     /**
      * Date the message was sent originally in Unix time
      */
@@ -5372,7 +5372,7 @@ export interface TelegramOwnedGiftRegular {
     /**
      * Type of the gift, always “regular”
      */
-    type: string;
+    type: "regular";
     /**
      * Information about the regular gift
      */
@@ -5456,7 +5456,7 @@ export interface TelegramOwnedGiftUnique {
     /**
      * Type of the gift, always “unique”
      */
-    type: string;
+    type: "unique";
     /**
      * Information about the unique gift
      */
@@ -5517,7 +5517,7 @@ export interface TelegramPaidMediaPhoto {
     /**
      * Type of the paid media, always “photo”
      */
-    type: string;
+    type: "photo";
     /**
      * The photo
      */
@@ -5531,7 +5531,7 @@ export interface TelegramPaidMediaPreview {
     /**
      * Type of the paid media, always “preview”
      */
-    type: string;
+    type: "preview";
     /**
      * Optional. Media width as defined by the sender
      */
@@ -5567,7 +5567,7 @@ export interface TelegramPaidMediaVideo {
     /**
      * Type of the paid media, always “video”
      */
-    type: string;
+    type: "video";
     /**
      * The video
      */
@@ -5610,11 +5610,11 @@ export interface TelegramPassportElementErrorDataField {
     /**
      * Error source, must be data
      */
-    source: string;
+    source: "data";
     /**
      * The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
      */
-    type: string;
+    type: "personal_details" | "passport" | "driver_license" | "identity_card" | "internal_passport" | "address";
     /**
      * Name of the data field which has the error
      */
@@ -5636,11 +5636,11 @@ export interface TelegramPassportElementErrorFile {
     /**
      * Error source, must be file
      */
-    source: string;
+    source: "file";
     /**
      * The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
      */
-    type: string;
+    type: "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     /**
      * Base64-encoded file hash
      */
@@ -5658,11 +5658,11 @@ export interface TelegramPassportElementErrorFiles {
     /**
      * Error source, must be files
      */
-    source: string;
+    source: "files";
     /**
      * The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
      */
-    type: string;
+    type: "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     /**
      * List of base64-encoded file hashes
      */
@@ -5680,11 +5680,11 @@ export interface TelegramPassportElementErrorFrontSide {
     /**
      * Error source, must be front_side
      */
-    source: string;
+    source: "front_side";
     /**
      * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
      */
-    type: string;
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport";
     /**
      * Base64-encoded hash of the file with the front side of the document
      */
@@ -5702,11 +5702,11 @@ export interface TelegramPassportElementErrorReverseSide {
     /**
      * Error source, must be reverse_side
      */
-    source: string;
+    source: "reverse_side";
     /**
      * The section of the user's Telegram Passport which has the issue, one of “driver_license”, “identity_card”
      */
-    type: string;
+    type: "driver_license" | "identity_card";
     /**
      * Base64-encoded hash of the file with the reverse side of the document
      */
@@ -5724,11 +5724,11 @@ export interface TelegramPassportElementErrorSelfie {
     /**
      * Error source, must be selfie
      */
-    source: string;
+    source: "selfie";
     /**
      * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
      */
-    type: string;
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport";
     /**
      * Base64-encoded hash of the file with the selfie
      */
@@ -5746,11 +5746,11 @@ export interface TelegramPassportElementErrorTranslationFile {
     /**
      * Error source, must be translation_file
      */
-    source: string;
+    source: "translation_file";
     /**
      * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
      */
-    type: string;
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport" | "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     /**
      * Base64-encoded file hash
      */
@@ -5768,11 +5768,11 @@ export interface TelegramPassportElementErrorTranslationFiles {
     /**
      * Error source, must be translation_files
      */
-    source: string;
+    source: "translation_files";
     /**
      * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
      */
-    type: string;
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport" | "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     /**
      * List of base64-encoded file hashes
      */
@@ -5790,7 +5790,7 @@ export interface TelegramPassportElementErrorUnspecified {
     /**
      * Error source, must be unspecified
      */
-    source: string;
+    source: "unspecified";
     /**
      * Type of element of the user's Telegram Passport which has the issue
      */
@@ -5888,7 +5888,7 @@ export interface TelegramPoll {
     /**
      * Poll type, currently can be “regular” or “quiz”
      */
-    type: string;
+    type: "regular" | "quiz";
     /**
      * True, if the poll allows multiple answers
      */
@@ -6133,7 +6133,7 @@ export interface TelegramReactionTypeCustomEmoji {
     /**
      * Type of the reaction, always “custom_emoji”
      */
-    type: string;
+    type: "custom_emoji";
     /**
      * Custom emoji identifier
      */
@@ -6147,7 +6147,7 @@ export interface TelegramReactionTypeEmoji {
     /**
      * Type of the reaction, always “emoji”
      */
-    type: string;
+    type: "emoji";
     /**
      * Reaction emoji. Currently, it can be one of "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
      */
@@ -6161,7 +6161,7 @@ export interface TelegramReactionTypePaid {
     /**
      * Type of the reaction, always “paid”
      */
-    type: string;
+    type: "paid";
 }
 
 /**
@@ -6302,7 +6302,7 @@ export interface TelegramRevenueWithdrawalStateFailed {
     /**
      * Type of the state, always “failed”
      */
-    type: string;
+    type: "failed";
 }
 
 /**
@@ -6312,7 +6312,7 @@ export interface TelegramRevenueWithdrawalStatePending {
     /**
      * Type of the state, always “pending”
      */
-    type: string;
+    type: "pending";
 }
 
 /**
@@ -6322,7 +6322,7 @@ export interface TelegramRevenueWithdrawalStateSucceeded {
     /**
      * Type of the state, always “succeeded”
      */
-    type: string;
+    type: "succeeded";
     /**
      * Date the withdrawal was completed in Unix time
      */
@@ -6508,7 +6508,7 @@ export interface TelegramSticker {
     /**
      * Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video.
      */
-    type: string;
+    type: "regular" | "mask" | "custom_emoji";
     /**
      * Sticker width
      */
@@ -6574,7 +6574,7 @@ export interface TelegramStickerSet {
     /**
      * Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji”
      */
-    sticker_type: string;
+    sticker_type: "regular" | "mask" | "custom_emoji";
     /**
      * List of all set stickers
      */
@@ -6655,7 +6655,7 @@ export interface TelegramStoryAreaTypeLink {
     /**
      * Type of the area, always “link”
      */
-    type: string;
+    type: "link";
     /**
      * HTTP or tg:// URL to be opened when the area is clicked
      */
@@ -6669,7 +6669,7 @@ export interface TelegramStoryAreaTypeLocation {
     /**
      * Type of the area, always “location”
      */
-    type: string;
+    type: "location";
     /**
      * Location latitude in degrees
      */
@@ -6691,7 +6691,7 @@ export interface TelegramStoryAreaTypeSuggestedReaction {
     /**
      * Type of the area, always “suggested_reaction”
      */
-    type: string;
+    type: "suggested_reaction";
     /**
      * Type of the reaction
      */
@@ -6713,7 +6713,7 @@ export interface TelegramStoryAreaTypeUniqueGift {
     /**
      * Type of the area, always “unique_gift”
      */
-    type: string;
+    type: "unique_gift";
     /**
      * Unique name of the gift
      */
@@ -6727,7 +6727,7 @@ export interface TelegramStoryAreaTypeWeather {
     /**
      * Type of the area, always “weather”
      */
-    type: string;
+    type: "weather";
     /**
      * Temperature, in degree Celsius
      */
@@ -6841,7 +6841,7 @@ export interface TelegramSuggestedPostInfo {
     /**
      * State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”.
      */
-    state: string;
+    state: "pending" | "approved" | "declined";
     /**
      * Optional. Proposed price of the post. If the field is omitted, then the post is unpaid.
      */
@@ -6913,7 +6913,7 @@ export interface TelegramSuggestedPostRefunded {
     /**
      * Reason for the refund. Currently, one of “post_deleted” if the post was deleted within 24 hours of being posted or removed from scheduled messages without being posted, or “payment_refunded” if the payer refunded their payment.
      */
-    reason: string;
+    reason: "post_deleted" | "payment_refunded";
 }
 
 /**
@@ -6976,7 +6976,7 @@ export interface TelegramTransactionPartnerAffiliateProgram {
     /**
      * Type of the transaction partner, always “affiliate_program”
      */
-    type: string;
+    type: "affiliate_program";
     /**
      * Optional. Information about the bot that sponsored the affiliate program
      */
@@ -6994,7 +6994,7 @@ export interface TelegramTransactionPartnerChat {
     /**
      * Type of the transaction partner, always “chat”
      */
-    type: string;
+    type: "chat";
     /**
      * Information about the chat
      */
@@ -7012,7 +7012,7 @@ export interface TelegramTransactionPartnerFragment {
     /**
      * Type of the transaction partner, always “fragment”
      */
-    type: string;
+    type: "fragment";
     /**
      * Optional. State of the transaction if the transaction is outgoing
      */
@@ -7026,7 +7026,7 @@ export interface TelegramTransactionPartnerOther {
     /**
      * Type of the transaction partner, always “other”
      */
-    type: string;
+    type: "other";
 }
 
 /**
@@ -7036,7 +7036,7 @@ export interface TelegramTransactionPartnerTelegramAds {
     /**
      * Type of the transaction partner, always “telegram_ads”
      */
-    type: string;
+    type: "telegram_ads";
 }
 
 /**
@@ -7046,7 +7046,7 @@ export interface TelegramTransactionPartnerTelegramApi {
     /**
      * Type of the transaction partner, always “telegram_api”
      */
-    type: string;
+    type: "telegram_api";
     /**
      * The number of successful requests that exceeded regular limits and were therefore billed
      */
@@ -7060,11 +7060,11 @@ export interface TelegramTransactionPartnerUser {
     /**
      * Type of the transaction partner, always “user”
      */
-    type: string;
+    type: "user";
     /**
      * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
      */
-    transaction_type: string;
+    transaction_type: "invoice_payment" | "paid_media_payment" | "gift_purchase" | "premium_purchase" | "business_account_transfer";
     /**
      * Information about the user
      */
@@ -7234,7 +7234,7 @@ export interface TelegramUniqueGiftInfo {
     /**
      * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers
      */
-    origin: string;
+    origin: "upgrade" | "transfer" | "resale" | "gifted_upgrade" | "offer";
     /**
      * Optional. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.
      */
@@ -7276,7 +7276,7 @@ export interface TelegramUniqueGiftModel {
     /**
      * Optional. Rarity of the model if it is a crafted model. Currently, can be “uncommon”, “rare”, “epic”, or “legendary”.
      */
-    rarity?: string;
+    rarity?: "uncommon" | "rare" | "epic" | "legendary";
 }
 
 /**

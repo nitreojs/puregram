@@ -14,10 +14,12 @@ const SUCCESSFUL_PAYMENT_KINDS = ['successful_payment'] as const
  * match `shipping_query` updates whose `invoice_payload` exactly equals the
  * supplied value
  */
-export function shippingPayload (value: string): Filter<ShippingQueryUpdate> {
-  return defineFilter(
+export function shippingPayload (
+  value: string
+): Filter<ShippingQueryUpdate, { raw: { invoice_payload: string } }> {
+  return defineFilter<ShippingQueryUpdate, { raw: { invoice_payload: string } }>(
     `shippingPayload(${value})`,
-    (u: unknown): u is ShippingQueryUpdate =>
+    (u): u is ShippingQueryUpdate =>
       (u as { raw?: { invoice_payload?: unknown } }).raw?.invoice_payload === value,
     { kinds: SHIPPING_KINDS }
   )
@@ -27,10 +29,12 @@ export function shippingPayload (value: string): Filter<ShippingQueryUpdate> {
  * match `pre_checkout_query` updates whose `invoice_payload` exactly equals
  * the supplied value
  */
-export function preCheckoutPayload (value: string): Filter<PreCheckoutQueryUpdate> {
-  return defineFilter(
+export function preCheckoutPayload (
+  value: string
+): Filter<PreCheckoutQueryUpdate, { raw: { invoice_payload: string } }> {
+  return defineFilter<PreCheckoutQueryUpdate, { raw: { invoice_payload: string } }>(
     `preCheckoutPayload(${value})`,
-    (u: unknown): u is PreCheckoutQueryUpdate =>
+    (u): u is PreCheckoutQueryUpdate =>
       (u as { raw?: { invoice_payload?: unknown } }).raw?.invoice_payload === value,
     { kinds: PRE_CHECKOUT_KINDS }
   )
@@ -40,10 +44,12 @@ export function preCheckoutPayload (value: string): Filter<PreCheckoutQueryUpdat
  * match `successful_payment` service-event updates whose
  * `successful_payment.invoice_payload` exactly equals the supplied value
  */
-export function successfulPaymentPayload (value: string): Filter<SuccessfulPaymentUpdate> {
-  return defineFilter(
+export function successfulPaymentPayload (
+  value: string
+): Filter<SuccessfulPaymentUpdate, { raw: { successful_payment: { invoice_payload: string } } }> {
+  return defineFilter<SuccessfulPaymentUpdate, { raw: { successful_payment: { invoice_payload: string } } }>(
     `successfulPaymentPayload(${value})`,
-    (u: unknown): u is SuccessfulPaymentUpdate =>
+    (u): u is SuccessfulPaymentUpdate =>
       (u as { raw?: { successful_payment?: { invoice_payload?: unknown } } })
         .raw?.successful_payment?.invoice_payload === value,
     { kinds: SUCCESSFUL_PAYMENT_KINDS }

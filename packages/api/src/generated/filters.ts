@@ -11,7 +11,7 @@ import type { UpdateKind, UpdateKindMap } from "./updates";
 /**
  * Filter — true if the update has `actorChat` set.
  */
-export const hasActorChat: Filter<AnyUpdate, {
+export const hasActorChat: Filter<unknown, {
     actorChat: NonNullable<unknown>;
 }> = defineFilter("hasActorChat", (u: AnyUpdate): u is AnyUpdate => ((u as {
     actorChat?: unknown;
@@ -20,7 +20,7 @@ export const hasActorChat: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `animation` set.
  */
-export const hasAnimation: Filter<AnyUpdate, {
+export const hasAnimation: Filter<unknown, {
     animation: NonNullable<unknown>;
 }> = defineFilter("hasAnimation", (u: AnyUpdate): u is AnyUpdate => ((u as {
     animation?: unknown;
@@ -29,7 +29,7 @@ export const hasAnimation: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `audio` set.
  */
-export const hasAudio: Filter<AnyUpdate, {
+export const hasAudio: Filter<unknown, {
     audio: NonNullable<unknown>;
 }> = defineFilter("hasAudio", (u: AnyUpdate): u is AnyUpdate => ((u as {
     audio?: unknown;
@@ -38,7 +38,7 @@ export const hasAudio: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `authorSignature` set.
  */
-export const hasAuthorSignature: Filter<AnyUpdate, {
+export const hasAuthorSignature: Filter<unknown, {
     authorSignature: NonNullable<unknown>;
 }> = defineFilter("hasAuthorSignature", (u: AnyUpdate): u is AnyUpdate => ((u as {
     authorSignature?: unknown;
@@ -47,7 +47,7 @@ export const hasAuthorSignature: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `bio` set.
  */
-export const hasBio: Filter<AnyUpdate, {
+export const hasBio: Filter<unknown, {
     bio: NonNullable<unknown>;
 }> = defineFilter("hasBio", (u: AnyUpdate): u is AnyUpdate => ((u as {
     bio?: unknown;
@@ -56,7 +56,7 @@ export const hasBio: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `boostAdded` set.
  */
-export const hasBoostAdded: Filter<AnyUpdate, {
+export const hasBoostAdded: Filter<unknown, {
     boostAdded: NonNullable<unknown>;
 }> = defineFilter("hasBoostAdded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     boostAdded?: unknown;
@@ -65,7 +65,7 @@ export const hasBoostAdded: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `businessConnectionId` set.
  */
-export const hasBusinessConnectionId: Filter<AnyUpdate, {
+export const hasBusinessConnectionId: Filter<unknown, {
     businessConnectionId: NonNullable<unknown>;
 }> = defineFilter("hasBusinessConnectionId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     businessConnectionId?: unknown;
@@ -74,7 +74,7 @@ export const hasBusinessConnectionId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `caption` set.
  */
-export const hasCaption: Filter<AnyUpdate, {
+export const hasCaption: Filter<unknown, {
     caption: NonNullable<unknown>;
 }> = defineFilter("hasCaption", (u: AnyUpdate): u is AnyUpdate => ((u as {
     caption?: unknown;
@@ -83,7 +83,7 @@ export const hasCaption: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `captionEntities` set.
  */
-export const hasCaptionEntities: Filter<AnyUpdate, {
+export const hasCaptionEntities: Filter<unknown, {
     captionEntities: NonNullable<unknown>;
 }> = defineFilter("hasCaptionEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     captionEntities?: unknown;
@@ -92,7 +92,7 @@ export const hasCaptionEntities: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `channelChatCreated` set.
  */
-export const hasChannelChatCreated: Filter<AnyUpdate, {
+export const hasChannelChatCreated: Filter<unknown, {
     channelChatCreated: NonNullable<unknown>;
 }> = defineFilter("hasChannelChatCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     channelChatCreated?: unknown;
@@ -101,7 +101,7 @@ export const hasChannelChatCreated: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `chatBackgroundSet` set.
  */
-export const hasChatBackgroundSet: Filter<AnyUpdate, {
+export const hasChatBackgroundSet: Filter<unknown, {
     chatBackgroundSet: NonNullable<unknown>;
 }> = defineFilter("hasChatBackgroundSet", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatBackgroundSet?: unknown;
@@ -110,7 +110,7 @@ export const hasChatBackgroundSet: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `chatOwnerChanged` set.
  */
-export const hasChatOwnerChanged: Filter<AnyUpdate, {
+export const hasChatOwnerChanged: Filter<unknown, {
     chatOwnerChanged: NonNullable<unknown>;
 }> = defineFilter("hasChatOwnerChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatOwnerChanged?: unknown;
@@ -119,7 +119,7 @@ export const hasChatOwnerChanged: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `chatOwnerLeft` set.
  */
-export const hasChatOwnerLeft: Filter<AnyUpdate, {
+export const hasChatOwnerLeft: Filter<unknown, {
     chatOwnerLeft: NonNullable<unknown>;
 }> = defineFilter("hasChatOwnerLeft", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatOwnerLeft?: unknown;
@@ -128,7 +128,7 @@ export const hasChatOwnerLeft: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `chatShared` set.
  */
-export const hasChatShared: Filter<AnyUpdate, {
+export const hasChatShared: Filter<unknown, {
     chatShared: NonNullable<unknown>;
 }> = defineFilter("hasChatShared", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatShared?: unknown;
@@ -137,7 +137,7 @@ export const hasChatShared: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `chatType` set.
  */
-export const hasChatType: Filter<AnyUpdate, {
+export const hasChatType: Filter<unknown, {
     chatType: NonNullable<unknown>;
 }> = defineFilter("hasChatType", (u: AnyUpdate): u is AnyUpdate => ((u as {
     chatType?: unknown;
@@ -146,7 +146,7 @@ export const hasChatType: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `checklist` set.
  */
-export const hasChecklist: Filter<AnyUpdate, {
+export const hasChecklist: Filter<unknown, {
     checklist: NonNullable<unknown>;
 }> = defineFilter("hasChecklist", (u: AnyUpdate): u is AnyUpdate => ((u as {
     checklist?: unknown;
@@ -155,7 +155,7 @@ export const hasChecklist: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `checklistTasksAdded` set.
  */
-export const hasChecklistTasksAdded: Filter<AnyUpdate, {
+export const hasChecklistTasksAdded: Filter<unknown, {
     checklistTasksAdded: NonNullable<unknown>;
 }> = defineFilter("hasChecklistTasksAdded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     checklistTasksAdded?: unknown;
@@ -164,7 +164,7 @@ export const hasChecklistTasksAdded: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `checklistTasksDone` set.
  */
-export const hasChecklistTasksDone: Filter<AnyUpdate, {
+export const hasChecklistTasksDone: Filter<unknown, {
     checklistTasksDone: NonNullable<unknown>;
 }> = defineFilter("hasChecklistTasksDone", (u: AnyUpdate): u is AnyUpdate => ((u as {
     checklistTasksDone?: unknown;
@@ -173,7 +173,7 @@ export const hasChecklistTasksDone: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `closeDate` set.
  */
-export const hasCloseDate: Filter<AnyUpdate, {
+export const hasCloseDate: Filter<unknown, {
     closeDate: NonNullable<unknown>;
 }> = defineFilter("hasCloseDate", (u: AnyUpdate): u is AnyUpdate => ((u as {
     closeDate?: unknown;
@@ -182,7 +182,7 @@ export const hasCloseDate: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `connectedWebsite` set.
  */
-export const hasConnectedWebsite: Filter<AnyUpdate, {
+export const hasConnectedWebsite: Filter<unknown, {
     connectedWebsite: NonNullable<unknown>;
 }> = defineFilter("hasConnectedWebsite", (u: AnyUpdate): u is AnyUpdate => ((u as {
     connectedWebsite?: unknown;
@@ -191,7 +191,7 @@ export const hasConnectedWebsite: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `contact` set.
  */
-export const hasContact: Filter<AnyUpdate, {
+export const hasContact: Filter<unknown, {
     contact: NonNullable<unknown>;
 }> = defineFilter("hasContact", (u: AnyUpdate): u is AnyUpdate => ((u as {
     contact?: unknown;
@@ -200,7 +200,7 @@ export const hasContact: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `correctOptionIds` set.
  */
-export const hasCorrectOptionIds: Filter<AnyUpdate, {
+export const hasCorrectOptionIds: Filter<unknown, {
     correctOptionIds: NonNullable<unknown>;
 }> = defineFilter("hasCorrectOptionIds", (u: AnyUpdate): u is AnyUpdate => ((u as {
     correctOptionIds?: unknown;
@@ -209,7 +209,7 @@ export const hasCorrectOptionIds: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `data` set.
  */
-export const hasData: Filter<AnyUpdate, {
+export const hasData: Filter<unknown, {
     data: NonNullable<unknown>;
 }> = defineFilter("hasData", (u: AnyUpdate): u is AnyUpdate => ((u as {
     data?: unknown;
@@ -218,7 +218,7 @@ export const hasData: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `deleteChatPhoto` set.
  */
-export const hasDeleteChatPhoto: Filter<AnyUpdate, {
+export const hasDeleteChatPhoto: Filter<unknown, {
     deleteChatPhoto: NonNullable<unknown>;
 }> = defineFilter("hasDeleteChatPhoto", (u: AnyUpdate): u is AnyUpdate => ((u as {
     deleteChatPhoto?: unknown;
@@ -227,7 +227,7 @@ export const hasDeleteChatPhoto: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `description` set.
  */
-export const hasDescription: Filter<AnyUpdate, {
+export const hasDescription: Filter<unknown, {
     description: NonNullable<unknown>;
 }> = defineFilter("hasDescription", (u: AnyUpdate): u is AnyUpdate => ((u as {
     description?: unknown;
@@ -236,7 +236,7 @@ export const hasDescription: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `descriptionEntities` set.
  */
-export const hasDescriptionEntities: Filter<AnyUpdate, {
+export const hasDescriptionEntities: Filter<unknown, {
     descriptionEntities: NonNullable<unknown>;
 }> = defineFilter("hasDescriptionEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     descriptionEntities?: unknown;
@@ -245,7 +245,7 @@ export const hasDescriptionEntities: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `dice` set.
  */
-export const hasDice: Filter<AnyUpdate, {
+export const hasDice: Filter<unknown, {
     dice: NonNullable<unknown>;
 }> = defineFilter("hasDice", (u: AnyUpdate): u is AnyUpdate => ((u as {
     dice?: unknown;
@@ -254,7 +254,7 @@ export const hasDice: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `directMessagePriceChanged` set.
  */
-export const hasDirectMessagePriceChanged: Filter<AnyUpdate, {
+export const hasDirectMessagePriceChanged: Filter<unknown, {
     directMessagePriceChanged: NonNullable<unknown>;
 }> = defineFilter("hasDirectMessagePriceChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     directMessagePriceChanged?: unknown;
@@ -263,7 +263,7 @@ export const hasDirectMessagePriceChanged: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `directMessagesTopic` set.
  */
-export const hasDirectMessagesTopic: Filter<AnyUpdate, {
+export const hasDirectMessagesTopic: Filter<unknown, {
     directMessagesTopic: NonNullable<unknown>;
 }> = defineFilter("hasDirectMessagesTopic", (u: AnyUpdate): u is AnyUpdate => ((u as {
     directMessagesTopic?: unknown;
@@ -272,7 +272,7 @@ export const hasDirectMessagesTopic: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `document` set.
  */
-export const hasDocument: Filter<AnyUpdate, {
+export const hasDocument: Filter<unknown, {
     document: NonNullable<unknown>;
 }> = defineFilter("hasDocument", (u: AnyUpdate): u is AnyUpdate => ((u as {
     document?: unknown;
@@ -281,7 +281,7 @@ export const hasDocument: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `editDate` set.
  */
-export const hasEditDate: Filter<AnyUpdate, {
+export const hasEditDate: Filter<unknown, {
     editDate: NonNullable<unknown>;
 }> = defineFilter("hasEditDate", (u: AnyUpdate): u is AnyUpdate => ((u as {
     editDate?: unknown;
@@ -290,7 +290,7 @@ export const hasEditDate: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `effectId` set.
  */
-export const hasEffectId: Filter<AnyUpdate, {
+export const hasEffectId: Filter<unknown, {
     effectId: NonNullable<unknown>;
 }> = defineFilter("hasEffectId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     effectId?: unknown;
@@ -299,7 +299,7 @@ export const hasEffectId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `entities` set.
  */
-export const hasEntities: Filter<AnyUpdate, {
+export const hasEntities: Filter<unknown, {
     entities: NonNullable<unknown>;
 }> = defineFilter("hasEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     entities?: unknown;
@@ -308,7 +308,7 @@ export const hasEntities: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `explanation` set.
  */
-export const hasExplanation: Filter<AnyUpdate, {
+export const hasExplanation: Filter<unknown, {
     explanation: NonNullable<unknown>;
 }> = defineFilter("hasExplanation", (u: AnyUpdate): u is AnyUpdate => ((u as {
     explanation?: unknown;
@@ -317,7 +317,7 @@ export const hasExplanation: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `explanationEntities` set.
  */
-export const hasExplanationEntities: Filter<AnyUpdate, {
+export const hasExplanationEntities: Filter<unknown, {
     explanationEntities: NonNullable<unknown>;
 }> = defineFilter("hasExplanationEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     explanationEntities?: unknown;
@@ -326,7 +326,7 @@ export const hasExplanationEntities: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `externalReply` set.
  */
-export const hasExternalReply: Filter<AnyUpdate, {
+export const hasExternalReply: Filter<unknown, {
     externalReply: NonNullable<unknown>;
 }> = defineFilter("hasExternalReply", (u: AnyUpdate): u is AnyUpdate => ((u as {
     externalReply?: unknown;
@@ -335,7 +335,7 @@ export const hasExternalReply: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `forumTopicClosed` set.
  */
-export const hasForumTopicClosed: Filter<AnyUpdate, {
+export const hasForumTopicClosed: Filter<unknown, {
     forumTopicClosed: NonNullable<unknown>;
 }> = defineFilter("hasForumTopicClosed", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicClosed?: unknown;
@@ -344,7 +344,7 @@ export const hasForumTopicClosed: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `forumTopicCreated` set.
  */
-export const hasForumTopicCreated: Filter<AnyUpdate, {
+export const hasForumTopicCreated: Filter<unknown, {
     forumTopicCreated: NonNullable<unknown>;
 }> = defineFilter("hasForumTopicCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicCreated?: unknown;
@@ -353,7 +353,7 @@ export const hasForumTopicCreated: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `forumTopicEdited` set.
  */
-export const hasForumTopicEdited: Filter<AnyUpdate, {
+export const hasForumTopicEdited: Filter<unknown, {
     forumTopicEdited: NonNullable<unknown>;
 }> = defineFilter("hasForumTopicEdited", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicEdited?: unknown;
@@ -362,7 +362,7 @@ export const hasForumTopicEdited: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `forumTopicReopened` set.
  */
-export const hasForumTopicReopened: Filter<AnyUpdate, {
+export const hasForumTopicReopened: Filter<unknown, {
     forumTopicReopened: NonNullable<unknown>;
 }> = defineFilter("hasForumTopicReopened", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forumTopicReopened?: unknown;
@@ -371,7 +371,7 @@ export const hasForumTopicReopened: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `forwardOrigin` set.
  */
-export const hasForwardOrigin: Filter<AnyUpdate, {
+export const hasForwardOrigin: Filter<unknown, {
     forwardOrigin: NonNullable<unknown>;
 }> = defineFilter("hasForwardOrigin", (u: AnyUpdate): u is AnyUpdate => ((u as {
     forwardOrigin?: unknown;
@@ -380,7 +380,7 @@ export const hasForwardOrigin: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `from` set.
  */
-export const hasFrom: Filter<AnyUpdate, {
+export const hasFrom: Filter<unknown, {
     from: NonNullable<unknown>;
 }> = defineFilter("hasFrom", (u: AnyUpdate): u is AnyUpdate => ((u as {
     from?: unknown;
@@ -389,7 +389,7 @@ export const hasFrom: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `game` set.
  */
-export const hasGame: Filter<AnyUpdate, {
+export const hasGame: Filter<unknown, {
     game: NonNullable<unknown>;
 }> = defineFilter("hasGame", (u: AnyUpdate): u is AnyUpdate => ((u as {
     game?: unknown;
@@ -398,7 +398,7 @@ export const hasGame: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `gameShortName` set.
  */
-export const hasGameShortName: Filter<AnyUpdate, {
+export const hasGameShortName: Filter<unknown, {
     gameShortName: NonNullable<unknown>;
 }> = defineFilter("hasGameShortName", (u: AnyUpdate): u is AnyUpdate => ((u as {
     gameShortName?: unknown;
@@ -407,7 +407,7 @@ export const hasGameShortName: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `generalForumTopicHidden` set.
  */
-export const hasGeneralForumTopicHidden: Filter<AnyUpdate, {
+export const hasGeneralForumTopicHidden: Filter<unknown, {
     generalForumTopicHidden: NonNullable<unknown>;
 }> = defineFilter("hasGeneralForumTopicHidden", (u: AnyUpdate): u is AnyUpdate => ((u as {
     generalForumTopicHidden?: unknown;
@@ -416,7 +416,7 @@ export const hasGeneralForumTopicHidden: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `generalForumTopicUnhidden` set.
  */
-export const hasGeneralForumTopicUnhidden: Filter<AnyUpdate, {
+export const hasGeneralForumTopicUnhidden: Filter<unknown, {
     generalForumTopicUnhidden: NonNullable<unknown>;
 }> = defineFilter("hasGeneralForumTopicUnhidden", (u: AnyUpdate): u is AnyUpdate => ((u as {
     generalForumTopicUnhidden?: unknown;
@@ -425,7 +425,7 @@ export const hasGeneralForumTopicUnhidden: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `gift` set.
  */
-export const hasGift: Filter<AnyUpdate, {
+export const hasGift: Filter<unknown, {
     gift: NonNullable<unknown>;
 }> = defineFilter("hasGift", (u: AnyUpdate): u is AnyUpdate => ((u as {
     gift?: unknown;
@@ -434,7 +434,7 @@ export const hasGift: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `giftUpgradeSent` set.
  */
-export const hasGiftUpgradeSent: Filter<AnyUpdate, {
+export const hasGiftUpgradeSent: Filter<unknown, {
     giftUpgradeSent: NonNullable<unknown>;
 }> = defineFilter("hasGiftUpgradeSent", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giftUpgradeSent?: unknown;
@@ -443,7 +443,7 @@ export const hasGiftUpgradeSent: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `giveaway` set.
  */
-export const hasGiveaway: Filter<AnyUpdate, {
+export const hasGiveaway: Filter<unknown, {
     giveaway: NonNullable<unknown>;
 }> = defineFilter("hasGiveaway", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveaway?: unknown;
@@ -452,7 +452,7 @@ export const hasGiveaway: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `giveawayCompleted` set.
  */
-export const hasGiveawayCompleted: Filter<AnyUpdate, {
+export const hasGiveawayCompleted: Filter<unknown, {
     giveawayCompleted: NonNullable<unknown>;
 }> = defineFilter("hasGiveawayCompleted", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveawayCompleted?: unknown;
@@ -461,7 +461,7 @@ export const hasGiveawayCompleted: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `giveawayCreated` set.
  */
-export const hasGiveawayCreated: Filter<AnyUpdate, {
+export const hasGiveawayCreated: Filter<unknown, {
     giveawayCreated: NonNullable<unknown>;
 }> = defineFilter("hasGiveawayCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveawayCreated?: unknown;
@@ -470,7 +470,7 @@ export const hasGiveawayCreated: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `giveawayWinners` set.
  */
-export const hasGiveawayWinners: Filter<AnyUpdate, {
+export const hasGiveawayWinners: Filter<unknown, {
     giveawayWinners: NonNullable<unknown>;
 }> = defineFilter("hasGiveawayWinners", (u: AnyUpdate): u is AnyUpdate => ((u as {
     giveawayWinners?: unknown;
@@ -479,7 +479,7 @@ export const hasGiveawayWinners: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `groupChatCreated` set.
  */
-export const hasGroupChatCreated: Filter<AnyUpdate, {
+export const hasGroupChatCreated: Filter<unknown, {
     groupChatCreated: NonNullable<unknown>;
 }> = defineFilter("hasGroupChatCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     groupChatCreated?: unknown;
@@ -488,7 +488,7 @@ export const hasGroupChatCreated: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `inlineMessageId` set.
  */
-export const hasInlineMessageId: Filter<AnyUpdate, {
+export const hasInlineMessageId: Filter<unknown, {
     inlineMessageId: NonNullable<unknown>;
 }> = defineFilter("hasInlineMessageId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     inlineMessageId?: unknown;
@@ -497,7 +497,7 @@ export const hasInlineMessageId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `inviteLink` set.
  */
-export const hasInviteLink: Filter<AnyUpdate, {
+export const hasInviteLink: Filter<unknown, {
     inviteLink: NonNullable<unknown>;
 }> = defineFilter("hasInviteLink", (u: AnyUpdate): u is AnyUpdate => ((u as {
     inviteLink?: unknown;
@@ -506,7 +506,7 @@ export const hasInviteLink: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `invoice` set.
  */
-export const hasInvoice: Filter<AnyUpdate, {
+export const hasInvoice: Filter<unknown, {
     invoice: NonNullable<unknown>;
 }> = defineFilter("hasInvoice", (u: AnyUpdate): u is AnyUpdate => ((u as {
     invoice?: unknown;
@@ -515,7 +515,7 @@ export const hasInvoice: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `leftChatMember` set.
  */
-export const hasLeftChatMember: Filter<AnyUpdate, {
+export const hasLeftChatMember: Filter<unknown, {
     leftChatMember: NonNullable<unknown>;
 }> = defineFilter("hasLeftChatMember", (u: AnyUpdate): u is AnyUpdate => ((u as {
     leftChatMember?: unknown;
@@ -524,7 +524,7 @@ export const hasLeftChatMember: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `linkPreviewOptions` set.
  */
-export const hasLinkPreviewOptions: Filter<AnyUpdate, {
+export const hasLinkPreviewOptions: Filter<unknown, {
     linkPreviewOptions: NonNullable<unknown>;
 }> = defineFilter("hasLinkPreviewOptions", (u: AnyUpdate): u is AnyUpdate => ((u as {
     linkPreviewOptions?: unknown;
@@ -533,7 +533,7 @@ export const hasLinkPreviewOptions: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `location` set.
  */
-export const hasLocation: Filter<AnyUpdate, {
+export const hasLocation: Filter<unknown, {
     location: NonNullable<unknown>;
 }> = defineFilter("hasLocation", (u: AnyUpdate): u is AnyUpdate => ((u as {
     location?: unknown;
@@ -542,7 +542,7 @@ export const hasLocation: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `managedBotCreated` set.
  */
-export const hasManagedBotCreated: Filter<AnyUpdate, {
+export const hasManagedBotCreated: Filter<unknown, {
     managedBotCreated: NonNullable<unknown>;
 }> = defineFilter("hasManagedBotCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     managedBotCreated?: unknown;
@@ -551,7 +551,7 @@ export const hasManagedBotCreated: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `mediaGroupId` set.
  */
-export const hasMediaGroupId: Filter<AnyUpdate, {
+export const hasMediaGroupId: Filter<unknown, {
     mediaGroupId: NonNullable<unknown>;
 }> = defineFilter("hasMediaGroupId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     mediaGroupId?: unknown;
@@ -560,7 +560,7 @@ export const hasMediaGroupId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `message` set.
  */
-export const hasMessage: Filter<AnyUpdate, {
+export const hasMessage: Filter<unknown, {
     message: NonNullable<unknown>;
 }> = defineFilter("hasMessage", (u: AnyUpdate): u is AnyUpdate => ((u as {
     message?: unknown;
@@ -569,7 +569,7 @@ export const hasMessage: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `messageAutoDeleteTimerChanged` set.
  */
-export const hasMessageAutoDeleteTimerChanged: Filter<AnyUpdate, {
+export const hasMessageAutoDeleteTimerChanged: Filter<unknown, {
     messageAutoDeleteTimerChanged: NonNullable<unknown>;
 }> = defineFilter("hasMessageAutoDeleteTimerChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     messageAutoDeleteTimerChanged?: unknown;
@@ -578,7 +578,7 @@ export const hasMessageAutoDeleteTimerChanged: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `messageThreadId` set.
  */
-export const hasMessageThreadId: Filter<AnyUpdate, {
+export const hasMessageThreadId: Filter<unknown, {
     messageThreadId: NonNullable<unknown>;
 }> = defineFilter("hasMessageThreadId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     messageThreadId?: unknown;
@@ -587,7 +587,7 @@ export const hasMessageThreadId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `migrateFromChatId` set.
  */
-export const hasMigrateFromChatId: Filter<AnyUpdate, {
+export const hasMigrateFromChatId: Filter<unknown, {
     migrateFromChatId: NonNullable<unknown>;
 }> = defineFilter("hasMigrateFromChatId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     migrateFromChatId?: unknown;
@@ -596,7 +596,7 @@ export const hasMigrateFromChatId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `migrateToChatId` set.
  */
-export const hasMigrateToChatId: Filter<AnyUpdate, {
+export const hasMigrateToChatId: Filter<unknown, {
     migrateToChatId: NonNullable<unknown>;
 }> = defineFilter("hasMigrateToChatId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     migrateToChatId?: unknown;
@@ -605,7 +605,7 @@ export const hasMigrateToChatId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `newChatMembers` set.
  */
-export const hasNewChatMembers: Filter<AnyUpdate, {
+export const hasNewChatMembers: Filter<unknown, {
     newChatMembers: NonNullable<unknown>;
 }> = defineFilter("hasNewChatMembers", (u: AnyUpdate): u is AnyUpdate => ((u as {
     newChatMembers?: unknown;
@@ -614,7 +614,7 @@ export const hasNewChatMembers: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `newChatPhoto` set.
  */
-export const hasNewChatPhoto: Filter<AnyUpdate, {
+export const hasNewChatPhoto: Filter<unknown, {
     newChatPhoto: NonNullable<unknown>;
 }> = defineFilter("hasNewChatPhoto", (u: AnyUpdate): u is AnyUpdate => ((u as {
     newChatPhoto?: unknown;
@@ -623,7 +623,7 @@ export const hasNewChatPhoto: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `newChatTitle` set.
  */
-export const hasNewChatTitle: Filter<AnyUpdate, {
+export const hasNewChatTitle: Filter<unknown, {
     newChatTitle: NonNullable<unknown>;
 }> = defineFilter("hasNewChatTitle", (u: AnyUpdate): u is AnyUpdate => ((u as {
     newChatTitle?: unknown;
@@ -632,7 +632,7 @@ export const hasNewChatTitle: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `openPeriod` set.
  */
-export const hasOpenPeriod: Filter<AnyUpdate, {
+export const hasOpenPeriod: Filter<unknown, {
     openPeriod: NonNullable<unknown>;
 }> = defineFilter("hasOpenPeriod", (u: AnyUpdate): u is AnyUpdate => ((u as {
     openPeriod?: unknown;
@@ -641,7 +641,7 @@ export const hasOpenPeriod: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `orderInfo` set.
  */
-export const hasOrderInfo: Filter<AnyUpdate, {
+export const hasOrderInfo: Filter<unknown, {
     orderInfo: NonNullable<unknown>;
 }> = defineFilter("hasOrderInfo", (u: AnyUpdate): u is AnyUpdate => ((u as {
     orderInfo?: unknown;
@@ -650,7 +650,7 @@ export const hasOrderInfo: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `paidMedia` set.
  */
-export const hasPaidMedia: Filter<AnyUpdate, {
+export const hasPaidMedia: Filter<unknown, {
     paidMedia: NonNullable<unknown>;
 }> = defineFilter("hasPaidMedia", (u: AnyUpdate): u is AnyUpdate => ((u as {
     paidMedia?: unknown;
@@ -659,7 +659,7 @@ export const hasPaidMedia: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `paidMessagePriceChanged` set.
  */
-export const hasPaidMessagePriceChanged: Filter<AnyUpdate, {
+export const hasPaidMessagePriceChanged: Filter<unknown, {
     paidMessagePriceChanged: NonNullable<unknown>;
 }> = defineFilter("hasPaidMessagePriceChanged", (u: AnyUpdate): u is AnyUpdate => ((u as {
     paidMessagePriceChanged?: unknown;
@@ -668,7 +668,7 @@ export const hasPaidMessagePriceChanged: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `paidStarCount` set.
  */
-export const hasPaidStarCount: Filter<AnyUpdate, {
+export const hasPaidStarCount: Filter<unknown, {
     paidStarCount: NonNullable<unknown>;
 }> = defineFilter("hasPaidStarCount", (u: AnyUpdate): u is AnyUpdate => ((u as {
     paidStarCount?: unknown;
@@ -677,7 +677,7 @@ export const hasPaidStarCount: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `passportData` set.
  */
-export const hasPassportData: Filter<AnyUpdate, {
+export const hasPassportData: Filter<unknown, {
     passportData: NonNullable<unknown>;
 }> = defineFilter("hasPassportData", (u: AnyUpdate): u is AnyUpdate => ((u as {
     passportData?: unknown;
@@ -686,7 +686,7 @@ export const hasPassportData: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `photo` set.
  */
-export const hasPhoto: Filter<AnyUpdate, {
+export const hasPhoto: Filter<unknown, {
     photo: NonNullable<unknown>;
 }> = defineFilter("hasPhoto", (u: AnyUpdate): u is AnyUpdate => ((u as {
     photo?: unknown;
@@ -695,7 +695,7 @@ export const hasPhoto: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `pinnedMessage` set.
  */
-export const hasPinnedMessage: Filter<AnyUpdate, {
+export const hasPinnedMessage: Filter<unknown, {
     pinnedMessage: NonNullable<unknown>;
 }> = defineFilter("hasPinnedMessage", (u: AnyUpdate): u is AnyUpdate => ((u as {
     pinnedMessage?: unknown;
@@ -704,7 +704,7 @@ export const hasPinnedMessage: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `poll` set.
  */
-export const hasPoll: Filter<AnyUpdate, {
+export const hasPoll: Filter<unknown, {
     poll: NonNullable<unknown>;
 }> = defineFilter("hasPoll", (u: AnyUpdate): u is AnyUpdate => ((u as {
     poll?: unknown;
@@ -713,7 +713,7 @@ export const hasPoll: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `pollOptionAdded` set.
  */
-export const hasPollOptionAdded: Filter<AnyUpdate, {
+export const hasPollOptionAdded: Filter<unknown, {
     pollOptionAdded: NonNullable<unknown>;
 }> = defineFilter("hasPollOptionAdded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     pollOptionAdded?: unknown;
@@ -722,7 +722,7 @@ export const hasPollOptionAdded: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `pollOptionDeleted` set.
  */
-export const hasPollOptionDeleted: Filter<AnyUpdate, {
+export const hasPollOptionDeleted: Filter<unknown, {
     pollOptionDeleted: NonNullable<unknown>;
 }> = defineFilter("hasPollOptionDeleted", (u: AnyUpdate): u is AnyUpdate => ((u as {
     pollOptionDeleted?: unknown;
@@ -731,7 +731,7 @@ export const hasPollOptionDeleted: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `proximityAlertTriggered` set.
  */
-export const hasProximityAlertTriggered: Filter<AnyUpdate, {
+export const hasProximityAlertTriggered: Filter<unknown, {
     proximityAlertTriggered: NonNullable<unknown>;
 }> = defineFilter("hasProximityAlertTriggered", (u: AnyUpdate): u is AnyUpdate => ((u as {
     proximityAlertTriggered?: unknown;
@@ -740,7 +740,7 @@ export const hasProximityAlertTriggered: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `questionEntities` set.
  */
-export const hasQuestionEntities: Filter<AnyUpdate, {
+export const hasQuestionEntities: Filter<unknown, {
     questionEntities: NonNullable<unknown>;
 }> = defineFilter("hasQuestionEntities", (u: AnyUpdate): u is AnyUpdate => ((u as {
     questionEntities?: unknown;
@@ -749,7 +749,7 @@ export const hasQuestionEntities: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `quote` set.
  */
-export const hasQuote: Filter<AnyUpdate, {
+export const hasQuote: Filter<unknown, {
     quote: NonNullable<unknown>;
 }> = defineFilter("hasQuote", (u: AnyUpdate): u is AnyUpdate => ((u as {
     quote?: unknown;
@@ -758,7 +758,7 @@ export const hasQuote: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `refundedPayment` set.
  */
-export const hasRefundedPayment: Filter<AnyUpdate, {
+export const hasRefundedPayment: Filter<unknown, {
     refundedPayment: NonNullable<unknown>;
 }> = defineFilter("hasRefundedPayment", (u: AnyUpdate): u is AnyUpdate => ((u as {
     refundedPayment?: unknown;
@@ -767,7 +767,7 @@ export const hasRefundedPayment: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `replyMarkup` set.
  */
-export const hasReplyMarkup: Filter<AnyUpdate, {
+export const hasReplyMarkup: Filter<unknown, {
     replyMarkup: NonNullable<unknown>;
 }> = defineFilter("hasReplyMarkup", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyMarkup?: unknown;
@@ -776,7 +776,7 @@ export const hasReplyMarkup: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `replyToChecklistTaskId` set.
  */
-export const hasReplyToChecklistTaskId: Filter<AnyUpdate, {
+export const hasReplyToChecklistTaskId: Filter<unknown, {
     replyToChecklistTaskId: NonNullable<unknown>;
 }> = defineFilter("hasReplyToChecklistTaskId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyToChecklistTaskId?: unknown;
@@ -785,7 +785,7 @@ export const hasReplyToChecklistTaskId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `replyToPollOptionId` set.
  */
-export const hasReplyToPollOptionId: Filter<AnyUpdate, {
+export const hasReplyToPollOptionId: Filter<unknown, {
     replyToPollOptionId: NonNullable<unknown>;
 }> = defineFilter("hasReplyToPollOptionId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyToPollOptionId?: unknown;
@@ -794,7 +794,7 @@ export const hasReplyToPollOptionId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `replyToStory` set.
  */
-export const hasReplyToStory: Filter<AnyUpdate, {
+export const hasReplyToStory: Filter<unknown, {
     replyToStory: NonNullable<unknown>;
 }> = defineFilter("hasReplyToStory", (u: AnyUpdate): u is AnyUpdate => ((u as {
     replyToStory?: unknown;
@@ -803,7 +803,7 @@ export const hasReplyToStory: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `rights` set.
  */
-export const hasRights: Filter<AnyUpdate, {
+export const hasRights: Filter<unknown, {
     rights: NonNullable<unknown>;
 }> = defineFilter("hasRights", (u: AnyUpdate): u is AnyUpdate => ((u as {
     rights?: unknown;
@@ -812,7 +812,7 @@ export const hasRights: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `senderBoostCount` set.
  */
-export const hasSenderBoostCount: Filter<AnyUpdate, {
+export const hasSenderBoostCount: Filter<unknown, {
     senderBoostCount: NonNullable<unknown>;
 }> = defineFilter("hasSenderBoostCount", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderBoostCount?: unknown;
@@ -821,7 +821,7 @@ export const hasSenderBoostCount: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `senderBusinessBot` set.
  */
-export const hasSenderBusinessBot: Filter<AnyUpdate, {
+export const hasSenderBusinessBot: Filter<unknown, {
     senderBusinessBot: NonNullable<unknown>;
 }> = defineFilter("hasSenderBusinessBot", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderBusinessBot?: unknown;
@@ -830,7 +830,7 @@ export const hasSenderBusinessBot: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `senderChat` set.
  */
-export const hasSenderChat: Filter<AnyUpdate, {
+export const hasSenderChat: Filter<unknown, {
     senderChat: NonNullable<unknown>;
 }> = defineFilter("hasSenderChat", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderChat?: unknown;
@@ -839,7 +839,7 @@ export const hasSenderChat: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `senderTag` set.
  */
-export const hasSenderTag: Filter<AnyUpdate, {
+export const hasSenderTag: Filter<unknown, {
     senderTag: NonNullable<unknown>;
 }> = defineFilter("hasSenderTag", (u: AnyUpdate): u is AnyUpdate => ((u as {
     senderTag?: unknown;
@@ -848,7 +848,7 @@ export const hasSenderTag: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `shippingOptionId` set.
  */
-export const hasShippingOptionId: Filter<AnyUpdate, {
+export const hasShippingOptionId: Filter<unknown, {
     shippingOptionId: NonNullable<unknown>;
 }> = defineFilter("hasShippingOptionId", (u: AnyUpdate): u is AnyUpdate => ((u as {
     shippingOptionId?: unknown;
@@ -857,7 +857,7 @@ export const hasShippingOptionId: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `showCaptionAboveMedia` set.
  */
-export const hasShowCaptionAboveMedia: Filter<AnyUpdate, {
+export const hasShowCaptionAboveMedia: Filter<unknown, {
     showCaptionAboveMedia: NonNullable<unknown>;
 }> = defineFilter("hasShowCaptionAboveMedia", (u: AnyUpdate): u is AnyUpdate => ((u as {
     showCaptionAboveMedia?: unknown;
@@ -866,7 +866,7 @@ export const hasShowCaptionAboveMedia: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `sticker` set.
  */
-export const hasSticker: Filter<AnyUpdate, {
+export const hasSticker: Filter<unknown, {
     sticker: NonNullable<unknown>;
 }> = defineFilter("hasSticker", (u: AnyUpdate): u is AnyUpdate => ((u as {
     sticker?: unknown;
@@ -875,7 +875,7 @@ export const hasSticker: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `story` set.
  */
-export const hasStory: Filter<AnyUpdate, {
+export const hasStory: Filter<unknown, {
     story: NonNullable<unknown>;
 }> = defineFilter("hasStory", (u: AnyUpdate): u is AnyUpdate => ((u as {
     story?: unknown;
@@ -884,7 +884,7 @@ export const hasStory: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `successfulPayment` set.
  */
-export const hasSuccessfulPayment: Filter<AnyUpdate, {
+export const hasSuccessfulPayment: Filter<unknown, {
     successfulPayment: NonNullable<unknown>;
 }> = defineFilter("hasSuccessfulPayment", (u: AnyUpdate): u is AnyUpdate => ((u as {
     successfulPayment?: unknown;
@@ -893,7 +893,7 @@ export const hasSuccessfulPayment: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `suggestedPostApprovalFailed` set.
  */
-export const hasSuggestedPostApprovalFailed: Filter<AnyUpdate, {
+export const hasSuggestedPostApprovalFailed: Filter<unknown, {
     suggestedPostApprovalFailed: NonNullable<unknown>;
 }> = defineFilter("hasSuggestedPostApprovalFailed", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostApprovalFailed?: unknown;
@@ -902,7 +902,7 @@ export const hasSuggestedPostApprovalFailed: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `suggestedPostApproved` set.
  */
-export const hasSuggestedPostApproved: Filter<AnyUpdate, {
+export const hasSuggestedPostApproved: Filter<unknown, {
     suggestedPostApproved: NonNullable<unknown>;
 }> = defineFilter("hasSuggestedPostApproved", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostApproved?: unknown;
@@ -911,7 +911,7 @@ export const hasSuggestedPostApproved: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `suggestedPostDeclined` set.
  */
-export const hasSuggestedPostDeclined: Filter<AnyUpdate, {
+export const hasSuggestedPostDeclined: Filter<unknown, {
     suggestedPostDeclined: NonNullable<unknown>;
 }> = defineFilter("hasSuggestedPostDeclined", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostDeclined?: unknown;
@@ -920,7 +920,7 @@ export const hasSuggestedPostDeclined: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `suggestedPostInfo` set.
  */
-export const hasSuggestedPostInfo: Filter<AnyUpdate, {
+export const hasSuggestedPostInfo: Filter<unknown, {
     suggestedPostInfo: NonNullable<unknown>;
 }> = defineFilter("hasSuggestedPostInfo", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostInfo?: unknown;
@@ -929,7 +929,7 @@ export const hasSuggestedPostInfo: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `suggestedPostPaid` set.
  */
-export const hasSuggestedPostPaid: Filter<AnyUpdate, {
+export const hasSuggestedPostPaid: Filter<unknown, {
     suggestedPostPaid: NonNullable<unknown>;
 }> = defineFilter("hasSuggestedPostPaid", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostPaid?: unknown;
@@ -938,7 +938,7 @@ export const hasSuggestedPostPaid: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `suggestedPostRefunded` set.
  */
-export const hasSuggestedPostRefunded: Filter<AnyUpdate, {
+export const hasSuggestedPostRefunded: Filter<unknown, {
     suggestedPostRefunded: NonNullable<unknown>;
 }> = defineFilter("hasSuggestedPostRefunded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     suggestedPostRefunded?: unknown;
@@ -947,7 +947,7 @@ export const hasSuggestedPostRefunded: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `supergroupChatCreated` set.
  */
-export const hasSupergroupChatCreated: Filter<AnyUpdate, {
+export const hasSupergroupChatCreated: Filter<unknown, {
     supergroupChatCreated: NonNullable<unknown>;
 }> = defineFilter("hasSupergroupChatCreated", (u: AnyUpdate): u is AnyUpdate => ((u as {
     supergroupChatCreated?: unknown;
@@ -956,7 +956,7 @@ export const hasSupergroupChatCreated: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `text` set.
  */
-export const hasText: Filter<AnyUpdate, {
+export const hasText: Filter<unknown, {
     text: NonNullable<unknown>;
 }> = defineFilter("hasText", (u: AnyUpdate): u is AnyUpdate => ((u as {
     text?: unknown;
@@ -965,7 +965,7 @@ export const hasText: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `uniqueGift` set.
  */
-export const hasUniqueGift: Filter<AnyUpdate, {
+export const hasUniqueGift: Filter<unknown, {
     uniqueGift: NonNullable<unknown>;
 }> = defineFilter("hasUniqueGift", (u: AnyUpdate): u is AnyUpdate => ((u as {
     uniqueGift?: unknown;
@@ -974,7 +974,7 @@ export const hasUniqueGift: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `user` set.
  */
-export const hasUser: Filter<AnyUpdate, {
+export const hasUser: Filter<unknown, {
     user: NonNullable<unknown>;
 }> = defineFilter("hasUser", (u: AnyUpdate): u is AnyUpdate => ((u as {
     user?: unknown;
@@ -983,7 +983,7 @@ export const hasUser: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `usersShared` set.
  */
-export const hasUsersShared: Filter<AnyUpdate, {
+export const hasUsersShared: Filter<unknown, {
     usersShared: NonNullable<unknown>;
 }> = defineFilter("hasUsersShared", (u: AnyUpdate): u is AnyUpdate => ((u as {
     usersShared?: unknown;
@@ -992,7 +992,7 @@ export const hasUsersShared: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `venue` set.
  */
-export const hasVenue: Filter<AnyUpdate, {
+export const hasVenue: Filter<unknown, {
     venue: NonNullable<unknown>;
 }> = defineFilter("hasVenue", (u: AnyUpdate): u is AnyUpdate => ((u as {
     venue?: unknown;
@@ -1001,7 +1001,7 @@ export const hasVenue: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `viaBot` set.
  */
-export const hasViaBot: Filter<AnyUpdate, {
+export const hasViaBot: Filter<unknown, {
     viaBot: NonNullable<unknown>;
 }> = defineFilter("hasViaBot", (u: AnyUpdate): u is AnyUpdate => ((u as {
     viaBot?: unknown;
@@ -1010,7 +1010,7 @@ export const hasViaBot: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `viaChatFolderInviteLink` set.
  */
-export const hasViaChatFolderInviteLink: Filter<AnyUpdate, {
+export const hasViaChatFolderInviteLink: Filter<unknown, {
     viaChatFolderInviteLink: NonNullable<unknown>;
 }> = defineFilter("hasViaChatFolderInviteLink", (u: AnyUpdate): u is AnyUpdate => ((u as {
     viaChatFolderInviteLink?: unknown;
@@ -1019,7 +1019,7 @@ export const hasViaChatFolderInviteLink: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `viaJoinRequest` set.
  */
-export const hasViaJoinRequest: Filter<AnyUpdate, {
+export const hasViaJoinRequest: Filter<unknown, {
     viaJoinRequest: NonNullable<unknown>;
 }> = defineFilter("hasViaJoinRequest", (u: AnyUpdate): u is AnyUpdate => ((u as {
     viaJoinRequest?: unknown;
@@ -1028,7 +1028,7 @@ export const hasViaJoinRequest: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `video` set.
  */
-export const hasVideo: Filter<AnyUpdate, {
+export const hasVideo: Filter<unknown, {
     video: NonNullable<unknown>;
 }> = defineFilter("hasVideo", (u: AnyUpdate): u is AnyUpdate => ((u as {
     video?: unknown;
@@ -1037,7 +1037,7 @@ export const hasVideo: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `videoChatEnded` set.
  */
-export const hasVideoChatEnded: Filter<AnyUpdate, {
+export const hasVideoChatEnded: Filter<unknown, {
     videoChatEnded: NonNullable<unknown>;
 }> = defineFilter("hasVideoChatEnded", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatEnded?: unknown;
@@ -1046,7 +1046,7 @@ export const hasVideoChatEnded: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `videoChatParticipantsInvited` set.
  */
-export const hasVideoChatParticipantsInvited: Filter<AnyUpdate, {
+export const hasVideoChatParticipantsInvited: Filter<unknown, {
     videoChatParticipantsInvited: NonNullable<unknown>;
 }> = defineFilter("hasVideoChatParticipantsInvited", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatParticipantsInvited?: unknown;
@@ -1055,7 +1055,7 @@ export const hasVideoChatParticipantsInvited: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `videoChatScheduled` set.
  */
-export const hasVideoChatScheduled: Filter<AnyUpdate, {
+export const hasVideoChatScheduled: Filter<unknown, {
     videoChatScheduled: NonNullable<unknown>;
 }> = defineFilter("hasVideoChatScheduled", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatScheduled?: unknown;
@@ -1064,7 +1064,7 @@ export const hasVideoChatScheduled: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `videoChatStarted` set.
  */
-export const hasVideoChatStarted: Filter<AnyUpdate, {
+export const hasVideoChatStarted: Filter<unknown, {
     videoChatStarted: NonNullable<unknown>;
 }> = defineFilter("hasVideoChatStarted", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoChatStarted?: unknown;
@@ -1073,7 +1073,7 @@ export const hasVideoChatStarted: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `videoNote` set.
  */
-export const hasVideoNote: Filter<AnyUpdate, {
+export const hasVideoNote: Filter<unknown, {
     videoNote: NonNullable<unknown>;
 }> = defineFilter("hasVideoNote", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoNote?: unknown;
@@ -1082,7 +1082,7 @@ export const hasVideoNote: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `voice` set.
  */
-export const hasVoice: Filter<AnyUpdate, {
+export const hasVoice: Filter<unknown, {
     voice: NonNullable<unknown>;
 }> = defineFilter("hasVoice", (u: AnyUpdate): u is AnyUpdate => ((u as {
     voice?: unknown;
@@ -1091,7 +1091,7 @@ export const hasVoice: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `voterChat` set.
  */
-export const hasVoterChat: Filter<AnyUpdate, {
+export const hasVoterChat: Filter<unknown, {
     voterChat: NonNullable<unknown>;
 }> = defineFilter("hasVoterChat", (u: AnyUpdate): u is AnyUpdate => ((u as {
     voterChat?: unknown;
@@ -1100,7 +1100,7 @@ export const hasVoterChat: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `webAppData` set.
  */
-export const hasWebAppData: Filter<AnyUpdate, {
+export const hasWebAppData: Filter<unknown, {
     webAppData: NonNullable<unknown>;
 }> = defineFilter("hasWebAppData", (u: AnyUpdate): u is AnyUpdate => ((u as {
     webAppData?: unknown;
@@ -1109,7 +1109,7 @@ export const hasWebAppData: Filter<AnyUpdate, {
 /**
  * Filter — true if the update has `writeAccessAllowed` set.
  */
-export const hasWriteAccessAllowed: Filter<AnyUpdate, {
+export const hasWriteAccessAllowed: Filter<unknown, {
     writeAccessAllowed: NonNullable<unknown>;
 }> = defineFilter("hasWriteAccessAllowed", (u: AnyUpdate): u is AnyUpdate => ((u as {
     writeAccessAllowed?: unknown;

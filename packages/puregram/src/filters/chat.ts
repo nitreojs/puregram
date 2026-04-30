@@ -5,95 +5,7 @@
 // and `topicMessage` are boolean flags exposed by recent bot-api versions
 
 import { defineFilter } from '@puregram/api'
-import type { BoostAddedUpdate, BusinessMessageUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, Filter, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, InvoiceUpdate, LeftChatMemberUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, ProximityAlertTriggeredUpdate, RemovedChatBoostUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from '@puregram/api'
-
-type ChatBearingUpdate =
-  | MessageUpdate
-  | EditedMessageUpdate
-  | ChannelPostUpdate
-  | EditedChannelPostUpdate
-  | BusinessMessageUpdate
-  | EditedBusinessMessageUpdate
-  | DeletedBusinessMessagesUpdate
-  | MessageReactionUpdate
-  | MessageReactionCountUpdate
-  | MyChatMemberUpdate
-  | ChatMemberUpdate
-  | ChatJoinRequestUpdate
-  | ChatBoostUpdate
-  | RemovedChatBoostUpdate
-  | NewChatMembersUpdate
-  | LeftChatMemberUpdate
-  | NewChatTitleUpdate
-  | NewChatPhotoUpdate
-  | DeleteChatPhotoUpdate
-  | GroupChatCreatedUpdate
-  | PinnedMessageUpdate
-  | InvoiceUpdate
-  | SuccessfulPaymentUpdate
-  | UsersSharedUpdate
-  | ChatSharedUpdate
-  | WebAppDataUpdate
-  | VideoChatScheduledUpdate
-  | VideoChatStartedUpdate
-  | VideoChatEndedUpdate
-  | VideoChatParticipantsInvitedUpdate
-  | ForumTopicCreatedUpdate
-  | ForumTopicEditedUpdate
-  | ForumTopicClosedUpdate
-  | ForumTopicReopenedUpdate
-  | GeneralForumTopicHiddenUpdate
-  | GeneralForumTopicUnhiddenUpdate
-  | GiveawayCreatedUpdate
-  | GiveawayCompletedUpdate
-  | GiveawayWinnersUpdate
-  | BoostAddedUpdate
-  | MessageAutoDeleteTimerChangedUpdate
-  | MigrateToChatIdUpdate
-  | MigrateFromChatIdUpdate
-  | PassportDataUpdate
-  | ProximityAlertTriggeredUpdate
-  | WriteAccessAllowedUpdate
-
-type SenderChatBearingUpdate =
-  | MessageUpdate
-  | EditedMessageUpdate
-  | ChannelPostUpdate
-  | EditedChannelPostUpdate
-  | BusinessMessageUpdate
-  | EditedBusinessMessageUpdate
-  | NewChatMembersUpdate
-  | LeftChatMemberUpdate
-  | NewChatTitleUpdate
-  | NewChatPhotoUpdate
-  | DeleteChatPhotoUpdate
-  | GroupChatCreatedUpdate
-  | PinnedMessageUpdate
-  | InvoiceUpdate
-  | SuccessfulPaymentUpdate
-  | UsersSharedUpdate
-  | ChatSharedUpdate
-  | WebAppDataUpdate
-  | VideoChatScheduledUpdate
-  | VideoChatStartedUpdate
-  | VideoChatEndedUpdate
-  | VideoChatParticipantsInvitedUpdate
-  | ForumTopicCreatedUpdate
-  | ForumTopicEditedUpdate
-  | ForumTopicClosedUpdate
-  | ForumTopicReopenedUpdate
-  | GeneralForumTopicHiddenUpdate
-  | GeneralForumTopicUnhiddenUpdate
-  | GiveawayCreatedUpdate
-  | GiveawayCompletedUpdate
-  | GiveawayWinnersUpdate
-  | BoostAddedUpdate
-  | MessageAutoDeleteTimerChangedUpdate
-  | MigrateToChatIdUpdate
-  | MigrateFromChatIdUpdate
-  | PassportDataUpdate
-  | ProximityAlertTriggeredUpdate
-  | WriteAccessAllowedUpdate
+import type { Filter } from '@puregram/api'
 
 const CHAT_KINDS = [
   'message', 'edited_message', 'channel_post', 'edited_channel_post',
@@ -136,10 +48,9 @@ type ChatType = 'private' | 'group' | 'supergroup' | 'channel'
 type SenderChatType = 'group' | 'supergroup' | 'channel'
 
 function chatTypeFilter<T extends ChatType> (type: T) {
-  return defineFilter<ChatBearingUpdate, { raw: { chat: { type: T } } }>(
+  return defineFilter<unknown, { raw: { chat: { type: T } } }>(
     `chat.${type}`,
-    (u): u is ChatBearingUpdate =>
-      (u as { raw?: { chat?: { type?: string } } }).raw?.chat?.type === type,
+    u => (u as { raw?: { chat?: { type?: string } } }).raw?.chat?.type === type,
     { kinds: CHAT_KINDS }
   )
 }
@@ -159,10 +70,9 @@ export const chat = Object.assign(
 )
 
 function senderChatTypeFilter<T extends SenderChatType> (type: T) {
-  return defineFilter<SenderChatBearingUpdate, { raw: { sender_chat: { type: T } } }>(
+  return defineFilter<unknown, { raw: { sender_chat: { type: T } } }>(
     `senderChat.${type}`,
-    (u): u is SenderChatBearingUpdate =>
-      (u as { raw?: { sender_chat?: { type?: string } } }).raw?.sender_chat?.type === type,
+    u => (u as { raw?: { sender_chat?: { type?: string } } }).raw?.sender_chat?.type === type,
     { kinds: SENDER_CHAT_KINDS }
   )
 }
@@ -186,15 +96,17 @@ export const senderChat = Object.assign(
  * readonly array; metadata covers every chat-bearing update kind so the
  * dispatcher fast-path skips unrelated updates
  */
-export function chatId (ids: readonly number[]): Filter<ChatBearingUpdate>
-export function chatId (...ids: number[]): Filter<ChatBearingUpdate>
+// chatId only narrows presence (the runtime literal id doesn't help at the
+// type level); skip Mod and use the wrapper getter for access
+export function chatId (ids: readonly number[]): Filter<unknown>
+export function chatId (...ids: number[]): Filter<unknown>
 export function chatId (...args: [readonly number[]] | number[]) {
   const list = (args.length === 1 && Array.isArray(args[0]) ? args[0] : args) as readonly number[]
   const set = new Set<number>(list)
 
   return defineFilter(
     `chatId(${list.join(', ')})`,
-    (u: unknown): u is ChatBearingUpdate => {
+    (u) => {
       const id = (u as { raw?: { chat?: { id?: number } } }).raw?.chat?.id
 
       return id !== undefined && set.has(id)
@@ -206,19 +118,17 @@ export function chatId (...args: [readonly number[]] | number[]) {
 /**
  * match when the chat is a forum supergroup (`chat.is_forum === true`)
  */
-export const forum = defineFilter<ChatBearingUpdate, { raw: { chat: { is_forum: true } } }>(
+export const forum = defineFilter<unknown, { raw: { chat: { is_forum: true } } }>(
   'forum',
-  (u): u is ChatBearingUpdate =>
-    (u as { raw?: { chat?: { is_forum?: boolean } } }).raw?.chat?.is_forum === true,
+  u => (u as { raw?: { chat?: { is_forum?: boolean } } }).raw?.chat?.is_forum === true,
   { kinds: CHAT_KINDS }
 )
 
 /**
  * match when the message belongs to a forum topic (`is_topic_message === true`)
  */
-export const topicMessage = defineFilter<SenderChatBearingUpdate, { raw: { is_topic_message: true } }>(
+export const topicMessage = defineFilter<unknown, { raw: { is_topic_message: true } }>(
   'topicMessage',
-  (u): u is SenderChatBearingUpdate =>
-    (u as { raw?: { is_topic_message?: boolean } }).raw?.is_topic_message === true,
+  u => (u as { raw?: { is_topic_message?: boolean } }).raw?.is_topic_message === true,
   { kinds: TOPIC_MESSAGE_KINDS }
 )

@@ -4,47 +4,6 @@
 // maps to camelCase `hiddenUser` for the shorthand surface
 
 import { defineFilter } from '@puregram/api'
-import type { BoostAddedUpdate, BusinessMessageUpdate, ChannelPostUpdate, ChatSharedUpdate, DeleteChatPhotoUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, InvoiceUpdate, LeftChatMemberUpdate, MessageAutoDeleteTimerChangedUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, ProximityAlertTriggeredUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from '@puregram/api'
-
-type MessagePayloadUpdate =
-  | MessageUpdate
-  | EditedMessageUpdate
-  | ChannelPostUpdate
-  | EditedChannelPostUpdate
-  | BusinessMessageUpdate
-  | EditedBusinessMessageUpdate
-  | NewChatMembersUpdate
-  | LeftChatMemberUpdate
-  | NewChatTitleUpdate
-  | NewChatPhotoUpdate
-  | DeleteChatPhotoUpdate
-  | GroupChatCreatedUpdate
-  | PinnedMessageUpdate
-  | InvoiceUpdate
-  | SuccessfulPaymentUpdate
-  | UsersSharedUpdate
-  | ChatSharedUpdate
-  | WebAppDataUpdate
-  | VideoChatScheduledUpdate
-  | VideoChatStartedUpdate
-  | VideoChatEndedUpdate
-  | VideoChatParticipantsInvitedUpdate
-  | ForumTopicCreatedUpdate
-  | ForumTopicEditedUpdate
-  | ForumTopicClosedUpdate
-  | ForumTopicReopenedUpdate
-  | GeneralForumTopicHiddenUpdate
-  | GeneralForumTopicUnhiddenUpdate
-  | GiveawayCreatedUpdate
-  | GiveawayCompletedUpdate
-  | GiveawayWinnersUpdate
-  | BoostAddedUpdate
-  | MessageAutoDeleteTimerChangedUpdate
-  | MigrateToChatIdUpdate
-  | MigrateFromChatIdUpdate
-  | PassportDataUpdate
-  | ProximityAlertTriggeredUpdate
-  | WriteAccessAllowedUpdate
 
 const MESSAGE_PAYLOAD_KINDS = [
   'message', 'edited_message', 'channel_post', 'edited_channel_post',
@@ -64,10 +23,9 @@ const MESSAGE_PAYLOAD_KINDS = [
 type ForwardOriginType = 'user' | 'hidden_user' | 'chat' | 'channel'
 
 function forwardOriginTypeFilter<T extends ForwardOriginType> (type: T) {
-  return defineFilter<MessagePayloadUpdate, { raw: { forward_origin: { type: T } } }>(
+  return defineFilter<unknown, { raw: { forward_origin: { type: T } } }>(
     `forwardOrigin.${type}`,
-    (u): u is MessagePayloadUpdate =>
-      (u as { raw?: { forward_origin?: { type?: string } } }).raw?.forward_origin?.type === type,
+    u => (u as { raw?: { forward_origin?: { type?: string } } }).raw?.forward_origin?.type === type,
     { kinds: MESSAGE_PAYLOAD_KINDS }
   )
 }

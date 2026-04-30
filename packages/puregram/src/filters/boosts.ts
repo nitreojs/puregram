@@ -17,10 +17,10 @@ const BOOST_KINDS = ['chat_boost'] as const
  * field on `TelegramChatBoost`, so any non-undefined `min` is accepted but
  * does not narrow the match further
  */
-export function boostCount (min?: number): Filter<ChatBoostUpdate> {
-  return defineFilter(
+export function boostCount (min?: number): Filter<ChatBoostUpdate, { raw: { boost: NonNullable<unknown> } }> {
+  return defineFilter<ChatBoostUpdate, { raw: { boost: NonNullable<unknown> } }>(
     min === undefined ? 'boostCount()' : `boostCount(${min})`,
-    (u: unknown): u is ChatBoostUpdate =>
+    (u): u is ChatBoostUpdate =>
       (u as { raw?: { boost?: unknown } }).raw?.boost !== undefined,
     { kinds: BOOST_KINDS }
   )

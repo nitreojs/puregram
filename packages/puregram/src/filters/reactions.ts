@@ -42,7 +42,7 @@ export function reaction (...args: [readonly string[]] | string[]) {
   if (list.length === 0) {
     return defineFilter(
       'reaction()',
-      (u: unknown): u is MessageReactionUpdate => {
+      (u): u is MessageReactionUpdate => {
         const { oldReactions, newReactions } = readReactions(u)
 
         return oldReactions.length > 0 || newReactions.length > 0
@@ -55,7 +55,7 @@ export function reaction (...args: [readonly string[]] | string[]) {
 
   return defineFilter(
     `reaction(${list.join(', ')})`,
-    (u: unknown): u is MessageReactionUpdate => {
+    (u): u is MessageReactionUpdate => {
       const { oldReactions, newReactions } = readReactions(u)
 
       for (const r of oldReactions) {

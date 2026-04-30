@@ -18,7 +18,7 @@ import type { AnyUpdate } from '../dispatch/on'
  *   await next()
  * }), { priority: 'high' })
  */
-export function when<Base extends AnyUpdate, Mod> (
+export function when<Base, Mod> (
   filter: Filter<Base, Mod>,
   mw: Middleware<Base & Mod>
 ) {

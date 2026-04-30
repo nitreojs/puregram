@@ -25,9 +25,9 @@ const BUSINESS_KINDS = [
  * are excluded since they expose the connection identifier on `id`, not
  * `business_connection_id`
  */
-export const business = defineFilter(
+export const business = defineFilter<BusinessBearingUpdate, { raw: { business_connection_id: string } }>(
   'business',
-  (u: unknown): u is BusinessBearingUpdate =>
+  (u): u is BusinessBearingUpdate =>
     (u as { raw?: { business_connection_id?: unknown } }).raw?.business_connection_id != null,
   { kinds: BUSINESS_KINDS }
 )

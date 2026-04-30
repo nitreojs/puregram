@@ -3,97 +3,7 @@
 // flags; `viaBot` and `anonymous` express common authorship patterns
 
 import { defineFilter } from '@puregram/api'
-import type { BoostAddedUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, DeleteChatPhotoUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, Filter, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, MessageAutoDeleteTimerChangedUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, ShippingQueryUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from '@puregram/api'
-
-type FromBearingUpdate =
-  | MessageUpdate
-  | EditedMessageUpdate
-  | ChannelPostUpdate
-  | EditedChannelPostUpdate
-  | BusinessMessageUpdate
-  | EditedBusinessMessageUpdate
-  | InlineQueryUpdate
-  | ChosenInlineResultUpdate
-  | CallbackQueryUpdate
-  | ShippingQueryUpdate
-  | PreCheckoutQueryUpdate
-  | MyChatMemberUpdate
-  | ChatMemberUpdate
-  | ChatJoinRequestUpdate
-  | NewChatMembersUpdate
-  | LeftChatMemberUpdate
-  | NewChatTitleUpdate
-  | NewChatPhotoUpdate
-  | DeleteChatPhotoUpdate
-  | GroupChatCreatedUpdate
-  | PinnedMessageUpdate
-  | InvoiceUpdate
-  | SuccessfulPaymentUpdate
-  | UsersSharedUpdate
-  | ChatSharedUpdate
-  | WebAppDataUpdate
-  | VideoChatScheduledUpdate
-  | VideoChatStartedUpdate
-  | VideoChatEndedUpdate
-  | VideoChatParticipantsInvitedUpdate
-  | ForumTopicCreatedUpdate
-  | ForumTopicEditedUpdate
-  | ForumTopicClosedUpdate
-  | ForumTopicReopenedUpdate
-  | GeneralForumTopicHiddenUpdate
-  | GeneralForumTopicUnhiddenUpdate
-  | GiveawayCreatedUpdate
-  | GiveawayCompletedUpdate
-  | GiveawayWinnersUpdate
-  | BoostAddedUpdate
-  | MessageAutoDeleteTimerChangedUpdate
-  | MigrateToChatIdUpdate
-  | MigrateFromChatIdUpdate
-  | PassportDataUpdate
-  | ProximityAlertTriggeredUpdate
-  | WriteAccessAllowedUpdate
-
-// `via_bot` and the `from`/`chat`-id equality check live on Message-payload kinds
-// (bot-api never sets `via_bot` on inline / callback / chat-member updates)
-type MessagePayloadUpdate =
-  | MessageUpdate
-  | EditedMessageUpdate
-  | ChannelPostUpdate
-  | EditedChannelPostUpdate
-  | BusinessMessageUpdate
-  | EditedBusinessMessageUpdate
-  | NewChatMembersUpdate
-  | LeftChatMemberUpdate
-  | NewChatTitleUpdate
-  | NewChatPhotoUpdate
-  | DeleteChatPhotoUpdate
-  | GroupChatCreatedUpdate
-  | PinnedMessageUpdate
-  | InvoiceUpdate
-  | SuccessfulPaymentUpdate
-  | UsersSharedUpdate
-  | ChatSharedUpdate
-  | WebAppDataUpdate
-  | VideoChatScheduledUpdate
-  | VideoChatStartedUpdate
-  | VideoChatEndedUpdate
-  | VideoChatParticipantsInvitedUpdate
-  | ForumTopicCreatedUpdate
-  | ForumTopicEditedUpdate
-  | ForumTopicClosedUpdate
-  | ForumTopicReopenedUpdate
-  | GeneralForumTopicHiddenUpdate
-  | GeneralForumTopicUnhiddenUpdate
-  | GiveawayCreatedUpdate
-  | GiveawayCompletedUpdate
-  | GiveawayWinnersUpdate
-  | BoostAddedUpdate
-  | MessageAutoDeleteTimerChangedUpdate
-  | MigrateToChatIdUpdate
-  | MigrateFromChatIdUpdate
-  | PassportDataUpdate
-  | ProximityAlertTriggeredUpdate
-  | WriteAccessAllowedUpdate
+import type { Filter } from '@puregram/api'
 
 const FROM_KINDS = [
   'message', 'edited_message', 'channel_post', 'edited_channel_post',
@@ -133,15 +43,17 @@ const MESSAGE_PAYLOAD_KINDS = [
  * readonly array. covers every `from`-bearing update kind including queries
  * (inline, callback, shipping, pre-checkout) and chat-member events
  */
-export function from (ids: readonly number[]): Filter<FromBearingUpdate>
-export function from (...ids: number[]): Filter<FromBearingUpdate>
+// `from(...)` only checks an id set; no useful Mod since the runtime ids don't
+// project to literal types
+export function from (ids: readonly number[]): Filter<unknown>
+export function from (...ids: number[]): Filter<unknown>
 export function from (...args: [readonly number[]] | number[]) {
   const list = (args.length === 1 && Array.isArray(args[0]) ? args[0] : args) as readonly number[]
   const set = new Set<number>(list)
 
   return defineFilter(
     `from(${list.join(', ')})`,
-    (u: unknown): u is FromBearingUpdate => {
+    (u) => {
       const id = (u as { raw?: { from?: { id?: number } } }).raw?.from?.id
 
       return id !== undefined && set.has(id)
@@ -153,20 +65,18 @@ export function from (...args: [readonly number[]] | number[]) {
 /**
  * match when the sender is another bot (`from.is_bot === true`)
  */
-export const fromBot = defineFilter(
+export const fromBot = defineFilter<unknown, { raw: { from: { is_bot: true } } }>(
   'fromBot',
-  (u: unknown): u is FromBearingUpdate =>
-    (u as { raw?: { from?: { is_bot?: boolean } } }).raw?.from?.is_bot === true,
+  u => (u as { raw?: { from?: { is_bot?: boolean } } }).raw?.from?.is_bot === true,
   { kinds: FROM_KINDS }
 )
 
 /**
  * match when the sender is a Telegram Premium user (`from.is_premium === true`)
  */
-export const fromPremium = defineFilter(
+export const fromPremium = defineFilter<unknown, { raw: { from: { is_premium: true } } }>(
   'fromPremium',
-  (u: unknown): u is FromBearingUpdate =>
-    (u as { raw?: { from?: { is_premium?: boolean } } }).raw?.from?.is_premium === true,
+  u => (u as { raw?: { from?: { is_premium?: boolean } } }).raw?.from?.is_premium === true,
   { kinds: FROM_KINDS }
 )
 
@@ -174,10 +84,9 @@ export const fromPremium = defineFilter(
  * match when the message was sent through an inline bot (`via_bot` set on the
  * message payload)
  */
-export const viaBot = defineFilter(
+export const viaBot = defineFilter<unknown, { raw: { via_bot: NonNullable<unknown> } }>(
   'viaBot',
-  (u: unknown): u is MessagePayloadUpdate =>
-    (u as { raw?: { via_bot?: unknown } }).raw?.via_bot != null,
+  u => (u as { raw?: { via_bot?: unknown } }).raw?.via_bot != null,
   { kinds: MESSAGE_PAYLOAD_KINDS }
 )
 
@@ -187,7 +96,7 @@ export const viaBot = defineFilter(
  */
 export const anonymous = defineFilter(
   'anonymous',
-  (u: unknown): u is MessagePayloadUpdate => {
+  (u) => {
     const raw = (u as { raw?: { from?: { id?: number }, chat?: { id?: number } } }).raw
     const fromId = raw?.from?.id
     const chatId = raw?.chat?.id

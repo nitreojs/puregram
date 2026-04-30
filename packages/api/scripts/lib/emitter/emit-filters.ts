@@ -112,20 +112,18 @@ export function emitFilters (schema: Schema) {
 }
 
 function emitPresenceFilter (hasName: string, camelName: string, kinds: string[], _classNames: string[]) {
-  // Base stays `AnyUpdate` rather than `C1 | C2 | … 37 classes` — wide unions across
-  // ~125 presence filters explode the type-checker. narrowing flows through `Mod`:
-  // `Filter<AnyUpdate, { [camelName]: NonNullable<unknown> }>` collapses
-  // `update[camelName]` from `string | undefined` (or whatever the optional shape is)
-  // to its non-nullable form when the dispatcher intersects `Base & Mod`. composing
-  // with `kind.message` tightens `Base` separately, leaving the handler arg as
-  // `MessageUpdate & { text: NonNullable<unknown> }`. `NonNullable<unknown>`
-  // resolves to `{}` but reads cleaner and dodges `@typescript-eslint/ban-types`
+  // Base is `unknown` (not `AnyUpdate`) so chaining `kind.X.and(hasField)` resolves
+  // to `kind.X`'s narrow Base via `MessageUpdate & unknown = MessageUpdate` —
+  // clean simplification with no union distribution. Mod stamps the field as
+  // present so handler intersection flips `string | undefined` to `string`.
+  // `NonNullable<unknown>` resolves to `{}` but reads cleaner and dodges
+  // `@typescript-eslint/ban-types`
   const presentMarker = ts.factory.createTypeReferenceNode('NonNullable', [
     ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
   ])
 
   const filterType = ts.factory.createTypeReferenceNode('Filter', [
-    ts.factory.createTypeReferenceNode('AnyUpdate'),
+    ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword),
     ts.factory.createTypeLiteralNode([
       ts.factory.createPropertySignature(
         undefined,

@@ -89,7 +89,10 @@ describe('Telegram', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const trace: string[] = []
 
-    tg.on(['message', 'edited_message'], (u) => {
+    tg.onMessage((u) => {
+      trace.push(u.kind)
+    })
+    tg.onEditedMessage((u) => {
       trace.push(u.kind)
     })
 
@@ -114,7 +117,7 @@ describe('Telegram', () => {
 
       return next()
     })
-    tg.on('message', () => {
+    tg.onMessage(() => {
       trace.push('handler')
     })
 
@@ -134,7 +137,7 @@ describe('Telegram', () => {
     tg.command('hello', (message) => {
       seen.push(message.raw.text!)
     })
-    tg.on('message', (message) => {
+    tg.onMessage((message) => {
       fellThrough.push(message.raw.text!)
     })
 
@@ -163,7 +166,7 @@ describe('Telegram', () => {
     tg.command('ask', (message) => {
       seen.push(message.raw.text!)
     })
-    tg.on('message', (message) => {
+    tg.onMessage((message) => {
       fellThrough.push(message.raw.text!)
     })
 
@@ -204,7 +207,7 @@ describe('Telegram', () => {
     tg.command('hello', () => {
       seen.push('matched')
     })
-    tg.on('message', () => {
+    tg.onMessage(() => {
       fellThrough = true
     })
 
@@ -225,7 +228,7 @@ describe('Telegram', () => {
       seen.push({ msg: err.message, raw: ctx.raw })
     })
 
-    tg.on('message', () => {
+    tg.onMessage(() => {
       throw new Error('handler boom')
     })
 

@@ -38,7 +38,7 @@ describe('integration smoke', () => {
 
       const received: unknown[] = []
 
-      tg.on('message', (u) => {
+      tg.onMessage((u) => {
         received.push(u)
         ;(tg as any).session.greetings++
 

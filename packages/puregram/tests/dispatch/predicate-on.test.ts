@@ -17,7 +17,7 @@ describe('tg.on predicate form', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const trace: string[] = []
 
-    tg.on(
+    tg.onUpdate(
       update => update.kind === 'message',
       (update) => {
         trace.push(update.kind)
@@ -34,7 +34,7 @@ describe('tg.on predicate form', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const handler = vi.fn()
 
-    tg.on(() => false, handler)
+    tg.onUpdate(() => false, handler)
     await (tg as any).dispatch(messageUpdate('hi'))
 
     expect(handler).not.toHaveBeenCalled()
@@ -45,7 +45,7 @@ describe('tg.on predicate form', () => {
     const seen: AnyUpdate[] = []
 
     tg.defineUpdate('jobs')
-    tg.on(
+    tg.onUpdate(
       update => update.kind === 'jobs',
       (update) => {
         seen.push(update)
@@ -68,7 +68,7 @@ describe('tg.on predicate form', () => {
       errors.push(err.message)
     })
 
-    tg.on(() => {
+    tg.onUpdate(() => {
       throw new Error('predicate boom')
     }, vi.fn())
 
@@ -98,8 +98,8 @@ describe('tg.on predicate form', () => {
     const predicateSeen = vi.fn()
     const kindSeen = vi.fn()
 
-    tg.on('callback_query', kindSeen)
-    tg.on(
+    tg.onCallbackQuery(kindSeen)
+    tg.onUpdate(
       update => update.kind === 'message',
       predicateSeen
     )
@@ -113,22 +113,20 @@ describe('tg.on predicate form', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const trace: string[] = []
 
-    tg.on(
-      'message',
+    tg.onMessage(
       async (_u, next) => {
         trace.push('low')
         await next()
       },
       { priority: 'low' }
     )
-    tg.on(
-      'message',
+    tg.onMessage(
       async (_u, next) => {
         trace.push('normal')
         await next()
       }
     )
-    tg.on(
+    tg.onUpdate(
       u => u.kind === 'message',
       async (_u, next) => {
         trace.push('high')
@@ -147,7 +145,7 @@ describe('tg.on predicate types', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const isMessage = (update: AnyUpdate): update is MessageUpdate => update.kind === 'message'
 
-    tg.on(isMessage, (update) => {
+    tg.onUpdate(isMessage, (update) => {
       expectTypeOf(update).toEqualTypeOf<MessageUpdate>()
     })
   })
@@ -155,7 +153,7 @@ describe('tg.on predicate types', () => {
   it('plain-boolean variant keeps handler arg as AnyUpdate', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
 
-    tg.on(
+    tg.onUpdate(
       update => update.kind === 'message',
       (update) => {
         expectTypeOf(update).toEqualTypeOf<AnyUpdate>()
@@ -166,21 +164,29 @@ describe('tg.on predicate types', () => {
   it('OnOptions.priority accepts only the literal union', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
 
-    tg.on('message', () => undefined, { priority: 'high' })
-    tg.on('message', () => undefined, { priority: 'normal' })
-    tg.on('message', () => undefined, { priority: 'low' })
-    tg.on('message', () => undefined, {})
-    tg.on('message', () => undefined)
+    tg.onMessage(() => undefined, { priority: 'high' })
+    tg.onMessage(() => undefined, { priority: 'normal' })
+    tg.onMessage(() => undefined, { priority: 'low' })
+    tg.onMessage(() => undefined, {})
+    tg.onMessage(() => undefined)
 
     // @ts-expect-error — priority must be one of the literals
-    tg.on('message', () => undefined, { priority: 'urgent' })
+    tg.onMessage(() => undefined, { priority: 'urgent' })
   })
 
-  it('non-existent kind is a compile error (no SoftString fallback)', () => {
+  it('non-existent per-kind dispatcher is a compile error', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
 
-    // @ts-expect-error — 'not_a_real_kind' is not a UpdateKind
-    tg.on('not_a_real_kind', () => undefined)
+    // type-only check — never actually invoked, vitest just compiles the body.
+    // pulling the method through a typed alias gates on the property existing
+    function _typeCheck () {
+      // @ts-expect-error — onNotARealKind is not a codegen'd dispatcher method
+      const fn: (h: () => void) => unknown = tg.onNotARealKind.bind(tg)
+
+      void fn
+    }
+
+    void _typeCheck
   })
 
   it('narrowed handler arg supports per-kind shortcuts', () => {
@@ -188,7 +194,7 @@ describe('tg.on predicate types', () => {
     const isCallbackQuery = (update: AnyUpdate): update is CallbackQueryUpdate =>
       update.kind === 'callback_query'
 
-    tg.on(isCallbackQuery, (update) => {
+    tg.onUpdate(isCallbackQuery, (update) => {
       expectTypeOf(update).toEqualTypeOf<CallbackQueryUpdate>()
       // eslint-disable-next-line @typescript-eslint/unbound-method -- type-only check
       expectTypeOf(update.answer).toBeFunction()
@@ -202,6 +208,6 @@ describe('tg.on predicate types', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const isMessage = (update: AnyUpdate): update is MessageUpdate => update.kind === 'message'
 
-    tg.on(isMessage, handler)
+    tg.onUpdate(isMessage, handler)
   })
 })

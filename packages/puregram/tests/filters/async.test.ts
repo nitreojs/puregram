@@ -16,7 +16,7 @@ describe('async predicate dispatch', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const trace: string[] = []
 
-    tg.on(
+    tg.onUpdate(
       async (update) => {
         await Promise.resolve()
         trace.push('predicate')
@@ -36,7 +36,7 @@ describe('async predicate dispatch', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const handler = vi.fn()
 
-    tg.on(
+    tg.onUpdate(
       async () => {
         await Promise.resolve()
 
@@ -118,7 +118,7 @@ describe('defineAsyncFilter composition', () => {
       return (update as { kind: string }).kind === 'message'
     })
 
-    tg.on(asyncMessage, (update) => {
+    tg.onUpdate(asyncMessage, (update) => {
       seen.push(update.kind)
     })
 

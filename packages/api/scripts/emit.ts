@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { emitApiMethods } from './lib/emitter/emit-api-methods'
+import { emitDispatch } from './lib/emitter/emit-dispatch'
 import { emitEnums } from './lib/emitter/emit-enums'
 import { emitFactories } from './lib/emitter/emit-factories'
 import { emitFilterTypes } from './lib/emitter/emit-filter-types'
@@ -40,7 +41,8 @@ async function main () {
     ['factories.ts', emitFactories(schema)],
     ['formattable-fields.ts', emitFormattableFields(schema)],
     ['filters.ts', emitFilters(schema)],
-    ['filter-types.ts', emitFilterTypes(schema)]
+    ['filter-types.ts', emitFilterTypes(schema)],
+    ['dispatch.ts', emitDispatch(schema)]
   ]
 
   for (const [name, content] of writes) {

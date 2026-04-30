@@ -39,7 +39,7 @@ describe('polling', () => {
 
     const received: unknown[] = []
 
-    tg.on('message', (u) => {
+    tg.onMessage((u) => {
       received.push(u)
     })
 

@@ -1,19 +1,9 @@
-import type { AnyUpdate } from '@puregram/api'
+import type { AnyUpdate, Priority, UpdateHandler } from '@puregram/api'
 
-export type { AnyUpdate } from '@puregram/api'
-
-// handlers compose middleware-style. each handler receives the update and a `next`
-// thunk; calling `next()` lets the next registered handler run, returning without
-// calling `next()` halts the chain. that lets command-style handlers terminate
-// after matching, and lets cross-cutting handlers (logging, metrics) explicitly
-// pass through. order of registration is the order of execution
-export type UpdateHandler<U = unknown> = (
-  update: U,
-  next: () => Promise<void>
-) => unknown
+export type { AnyUpdate, OnOptions, Priority, UpdateHandler } from '@puregram/api'
 
 /**
- * predicate signature accepted by the `tg.on(predicate, handler, options?)` form.
+ * predicate signature accepted by the `tg.onUpdate(predicate, handler, options?)` form.
  * the type-guard variant narrows the handler arg automatically; the plain-boolean
  * variant keeps it as `AnyUpdate`. predicates may also return `Promise<boolean>` —
  * the dispatcher awaits the result before deciding whether to invoke the handler
@@ -22,12 +12,6 @@ export type UpdatePredicate<T extends AnyUpdate = AnyUpdate> =
   | ((update: AnyUpdate) => update is T)
   | ((update: AnyUpdate) => boolean)
   | ((update: AnyUpdate) => Promise<boolean>)
-
-export type Priority = 'high' | 'normal' | 'low'
-
-export interface OnOptions {
-  priority?: Priority
-}
 
 const PRIORITY_RANK: Record<Priority, number> = {
   high: 0,

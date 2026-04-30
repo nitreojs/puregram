@@ -1,12 +1,12 @@
 import type {
+  CallbackQueryUpdate,
   Filter,
-  ServiceActionKind,
+  MessageUpdate,
+  TelegramDispatchers,
   TelegramShortcuts,
-  TelegramUser,
-  UpdateKind,
-  UpdateKindMap
+  TelegramUser
 } from '@puregram/api'
-import { and, defineFilter, isFilter, kind as kindFilter } from '@puregram/api'
+import { and, defineFilter, isFilter } from '@puregram/api'
 
 import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
@@ -22,18 +22,13 @@ import type {
   RequestHookName
 } from './dispatch/hooks'
 import { HookRegistry } from './dispatch/hooks'
+import { installDispatchers } from './dispatch/install-dispatchers'
 import type { AnyUpdate, OnOptions, UpdateHandler, UpdatePredicate } from './dispatch/on'
 import { Dispatcher } from './dispatch/on'
 import { buildUpdate } from './dispatch/update-builder'
 import type { ApiResponseError } from './errors'
-import {
-  callbackData as callbackDataFilter
-} from './filters/callback'
+import { callbackData as callbackQueryFilter } from './filters/callback'
 import { command as commandFilter } from './filters/content'
-import {
-  chosenInlineResult as chosenInlineResultFilter,
-  inlineQuery as inlineQueryFilter
-} from './filters/inline'
 import { when } from './filters/when'
 import type { HttpClient } from './http/client'
 import { defaultHttpClient } from './http/client'
@@ -48,7 +43,7 @@ import { createWebhookCallback } from './transport/webhook'
 const dispatchDebug = createDebug('puregram:dispatch')
 
 /* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
-export interface Telegram<Ext = unknown> extends TelegramShortcuts {}
+export interface Telegram<Ext = unknown> extends TelegramShortcuts, TelegramDispatchers {}
 /* eslint-enable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -64,6 +59,7 @@ export class Telegram<Ext = unknown> {
   protected readonly customUpdates = new CustomUpdateRegistry()
   protected readonly plugins = new PluginRegistry()
   protected readonly pendingPlugins: Plugin[] = []
+  protected readonly rawUpdateHandlers: ((raw: Record<string, unknown>) => void | Promise<void>)[] = []
   protected readonly httpClient: HttpClient
   protected polling: PollingTransport | undefined
 
@@ -83,6 +79,7 @@ export class Telegram<Ext = unknown> {
     }
 
     installShortcuts(this as Telegram)
+    installDispatchers(this, this.dispatcher)
   }
 
   static fromToken (token: string, options: Partial<TelegramOptions> = {}) {
@@ -147,91 +144,87 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * register a handler against a kind, a list of kinds, or an arbitrary predicate
+   * register a cross-kind handler — fires for every supported update.
    *
-   * handlers compose middleware-style: each handler receives `(update, next)`. calling
-   * `next()` lets the next registered handler run, returning without calling `next()`
-   * halts the chain. order of registration is order of execution within a priority group;
-   * groups dispatch `'high'` → `'normal'` → `'low'` (default `'normal'`)
-   *
-   * the predicate form runs against every update; type-guard predicates (`(u): u is T`)
-   * narrow the handler argument automatically. predicates may return `boolean` or
-   * `Promise<boolean>` — async results are awaited before the handler runs. predicate
-   * throws are routed through `onDispatchError` and halt the chain
+   * the bare form receives every wrapped update (`AnyUpdate`); the filter form gates
+   * dispatch on a `Filter`, narrowing the handler argument via `Modify<AnyUpdate, Mod>`.
+   * use this when a single handler should span multiple kinds or react to a custom
+   * predicate that doesn't fit a per-kind dispatcher (`tg.onMessage`, `tg.onCallbackQuery`, …)
    *
    * @example
-   * tg.on('message', async (message, next) => {
-   *   console.log('[message]', message.text)
-   *   await next()
+   * tg.onUpdate(async (update) => {
+   *   console.log('[any]', update.kind)
    * })
    *
-   * tg.on('message', async (message) => {
-   *   if (message.text !== '/cmd') return
-   *   await message.send('hi')
-   * })
-   *
-   * tg.on(
+   * tg.onUpdate(
    *   (update): update is MessageUpdate => update.is('message') && update.hasText(),
    *   (message) => message.send(`echo: ${message.text}`)
    * )
-   *
-   * tg.on('message', logRequest, { priority: 'high' })
    */
-  on<Base, Mod> (
+  onUpdate (handler: UpdateHandler<AnyUpdate>, options?: OnOptions): this
+
+  onUpdate<Base, Mod> (
     filter: Filter<Base, Mod>,
     handler: UpdateHandler<Base & Mod>,
     options?: OnOptions
   ): this
 
-  on<K extends UpdateKind> (
-    kind: K,
-    handler: UpdateHandler<UpdateKindMap[K]>,
-    options?: OnOptions
-  ): this
-
-  on<K extends UpdateKind> (
-    kinds: readonly K[],
-    handler: UpdateHandler<UpdateKindMap[K]>,
-    options?: OnOptions
-  ): this
-
-  on<T extends AnyUpdate> (
+  onUpdate<T extends AnyUpdate> (
     predicate: (update: AnyUpdate) => update is T,
     handler: UpdateHandler<T>,
     options?: OnOptions
   ): this
 
-  on (
-    predicate: (update: AnyUpdate) => boolean,
+  onUpdate (
+    predicate: (update: AnyUpdate) => boolean | Promise<boolean>,
     handler: UpdateHandler<AnyUpdate>,
     options?: OnOptions
   ): this
 
-  on (
-    predicate: (update: AnyUpdate) => Promise<boolean>,
-    handler: UpdateHandler<AnyUpdate>,
-    options?: OnOptions
-  ): this
-
-  on (
-    first: string | readonly string[] | UpdatePredicate,
-    handler: UpdateHandler<never>,
-    options: OnOptions = {}
+  onUpdate (
+    first: UpdateHandler<AnyUpdate> | UpdatePredicate,
+    secondOrOptions?: UpdateHandler<AnyUpdate> | OnOptions,
+    maybeOptions?: OnOptions
   ): this {
-    const priority = options.priority ?? 'normal'
-    const fn = handler as UpdateHandler
+    if (typeof secondOrOptions === 'function') {
+      const predicate = first as UpdatePredicate
+      const handler = secondOrOptions
+      const priority = maybeOptions?.priority ?? 'normal'
 
-    if (typeof first === 'function') {
-      this.dispatcher.add({ type: 'predicate', predicate: first, handler: fn, priority })
+      this.dispatcher.add({
+        type: 'predicate',
+        predicate,
+        handler: handler as UpdateHandler,
+        priority
+      })
 
       return this
     }
 
-    const kinds: readonly string[] = Array.isArray(first) ? first : [first as string]
+    const handler = first
+    const priority = secondOrOptions?.priority ?? 'normal'
 
-    for (const kind of kinds) {
-      this.dispatcher.on(kind, fn, priority)
-    }
+    this.dispatcher.add({
+      type: 'predicate',
+      predicate: () => true,
+      handler: handler as UpdateHandler,
+      priority
+    })
+
+    return this
+  }
+
+  /**
+   * register a raw-update handler. fires for every incoming bot-api update payload
+   * before kind discrimination — including kinds that landed in bot-api ahead of our
+   * schema regen and don't yet have a wrapped class. the handler arg is the raw
+   * payload object as received from polling/webhook, untyped beyond the bot-api shape
+   *
+   * useful for forward-compat logging, ingestion pipelines, or routing logic that
+   * needs to see every update before any wrapper allocation
+   */
+  onRawUpdate (handler: (raw: Record<string, unknown>) => void | Promise<void>) {
+    this.rawUpdateHandlers.push(handler)
 
     return this
   }
@@ -252,19 +245,17 @@ export class Telegram<Ext = unknown> {
    *   await message.send(message.match?.groups?.text ?? 'silence')
    * })
    */
-  command (name: string, handler: UpdateHandler<UpdateKindMap['message']>): this
-  command (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['message']>): this
   command (
     nameOrPattern: string | RegExp,
-    handler: UpdateHandler<UpdateKindMap['message']>
-  ): this {
+    handler: UpdateHandler<MessageUpdate & { match?: RegExpMatchArray }>
+  ) {
     // string form layers in a `@botname` mention check that closes over
     // `this.bot.username`; regex form leaves @-validation to the caller's pattern
     const filter = typeof nameOrPattern === 'string'
       ? and(commandFilter(nameOrPattern), botMentionFilter(this))
       : commandFilter(nameOrPattern)
 
-    return this.on(filter, handler)
+    return this.onMessage(filter, handler as never)
   }
 
   /**
@@ -274,95 +265,23 @@ export class Telegram<Ext = unknown> {
    * - regex form — runs against `update.raw.data`, attaching `match: RegExpMatchArray`
    *   on success
    *
-   * shorthand for `tg.on(callbackData(value), handler)`
+   * shorthand for `tg.onCallbackQuery(callbackData(value), handler)`
    *
    * @example
-   * tg.callbackData(/^buy:(?<sku>.+)$/, async (q) => {
+   * tg.callbackQuery(/^buy:(?<sku>.+)$/, async (q) => {
    *   await q.answer({ text: `bought ${q.match?.groups?.sku}` })
    * })
    */
-  callbackData (value: string, handler: UpdateHandler<UpdateKindMap['callback_query']>): this
-  callbackData (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['callback_query']>): this
-  callbackData (
+  callbackQuery (
     value: string | RegExp,
-    handler: UpdateHandler<UpdateKindMap['callback_query']>
-  ): this {
-    return this.on(
-      typeof value === 'string' ? callbackDataFilter(value) : callbackDataFilter(value),
-      handler
-    )
-  }
-
-  /**
-   * register a handler against inline queries with matching query text
-   *
-   * - string form — equality match against `update.raw.query`
-   * - regex form — runs against `update.raw.query`, attaching `match: RegExpMatchArray`
-   *   on success
-   *
-   * shorthand for `tg.on(inlineQuery(value), handler)`
-   *
-   * @example
-   * tg.inlineQuery(/^search\s+(?<term>.+)$/i, async (q) => {
-   *   await q.answer([], { switch_pm_text: q.match?.groups?.term })
-   * })
-   */
-  inlineQuery (value: string, handler: UpdateHandler<UpdateKindMap['inline_query']>): this
-  inlineQuery (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['inline_query']>): this
-  inlineQuery (
-    value: string | RegExp,
-    handler: UpdateHandler<UpdateKindMap['inline_query']>
-  ): this {
-    return this.on(
-      typeof value === 'string' ? inlineQueryFilter(value) : inlineQueryFilter(value),
-      handler
-    )
-  }
-
-  /**
-   * register a handler against chosen-inline-result updates with matching `result_id`
-   *
-   * - string form — equality match against `update.raw.result_id`
-   * - regex form — runs against `update.raw.result_id`, attaching
-   *   `match: RegExpMatchArray` on success
-   *
-   * shorthand for `tg.on(chosenInlineResult(value), handler)`
-   *
-   * @example
-   * tg.chosenInlineResult(/^article:(?<id>\d+)$/, (r) => {
-   *   console.log('chose article', r.match?.groups?.id)
-   * })
-   */
-  chosenInlineResult (value: string, handler: UpdateHandler<UpdateKindMap['chosen_inline_result']>): this
-  chosenInlineResult (pattern: RegExp, handler: UpdateHandler<UpdateKindMap['chosen_inline_result']>): this
-  chosenInlineResult (
-    value: string | RegExp,
-    handler: UpdateHandler<UpdateKindMap['chosen_inline_result']>
-  ): this {
-    return this.on(
-      typeof value === 'string'
-        ? chosenInlineResultFilter(value)
-        : chosenInlineResultFilter(value),
-      handler
-    )
-  }
-
-  /**
-   * register a handler against a service-event update kind (derived
-   * `Message`-payload events like `new_chat_members`, `pinned_message`, etc)
-   *
-   * shorthand for `tg.on(kind(type), handler)` constrained to `ServiceActionKind`
-   *
-   * @example
-   * tg.action('new_chat_members', async (update) => {
-   *   await update.send(`welcome ${update.newChatMembers.length} new members`)
-   * })
-   */
-  action<T extends ServiceActionKind> (
-    type: T,
-    handler: UpdateHandler<UpdateKindMap[T]>
+    handler: UpdateHandler<CallbackQueryUpdate & { match?: RegExpMatchArray }>
   ) {
-    return this.on(kindFilter(type), handler)
+    // branch keeps the typed return narrow per overload; the runtime call body is identical
+    const filter = typeof value === 'string'
+      ? callbackQueryFilter(value)
+      : callbackQueryFilter(value)
+
+    return this.onCallbackQuery(filter, handler as never)
   }
 
   off (kind: string, handler: UpdateHandler): this {
@@ -447,6 +366,8 @@ export class Telegram<Ext = unknown> {
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
       buildAndDispatch: async (rawUpdate) => {
+        await this.runRawUpdateHandlers(rawUpdate)
+
         const update = buildUpdate(rawUpdate, this) as AnyUpdate
 
         await this.dispatch(update)
@@ -466,6 +387,8 @@ export class Telegram<Ext = unknown> {
   getWebhookCallback (secret?: string) {
     return createWebhookCallback({
       buildAndDispatch: async (rawUpdate) => {
+        await this.runRawUpdateHandlers(rawUpdate)
+
         const update = buildUpdate(rawUpdate, this) as AnyUpdate
 
         await this.dispatch(update)
@@ -493,6 +416,23 @@ export class Telegram<Ext = unknown> {
       await this.dispatcher.runUserHandlers(update)
       await next()
     })
+  }
+
+  // raw handlers fire before kind discrimination so they see updates whose
+  // kind is unknown to our schema yet (forward-compat path). errors are routed
+  // through the same dispatch-error funnel as wrapped-handler errors
+  private async runRawUpdateHandlers (raw: Record<string, unknown>) {
+    if (this.rawUpdateHandlers.length === 0) {
+      return
+    }
+
+    for (const handler of this.rawUpdateHandlers) {
+      try {
+        await handler(raw)
+      } catch (error) {
+        this.reportDispatchError(error as Error, raw)
+      }
+    }
   }
 
   // funnel for dispatch errors. runs registered onDispatchError handlers; when
@@ -525,9 +465,9 @@ function rethrowAsync (error: Error) {
 // require the mention to match `tg.bot.username` case-insensitively. unbound
 // composition (`f.command('start')`) skips this layer and stays mention-agnostic
 function botMentionFilter (tg: Telegram) {
-  return defineFilter<UpdateKindMap['message']>(
+  return defineFilter<MessageUpdate>(
     'botMention',
-    (update: unknown): update is UpdateKindMap['message'] => {
+    (update: unknown): update is MessageUpdate => {
       const mentioned = (update as { match?: RegExpMatchArray }).match?.groups?.mention
 
       if (mentioned === undefined) {

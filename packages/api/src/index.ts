@@ -11,9 +11,11 @@ export * from './generated/service-events'
 export * from './generated/factories'
 export * from './generated/filters'
 export * from './generated/filter-types'
+export * from './generated/dispatch'
 
 export type { TelegramLike } from './telegram-like'
 export type { Has, Modify } from './util-types'
+export type { UpdateHandler, OnOptions, Priority } from './dispatch-runtime'
 export type { Formattable } from './formattable'
 export { FORMATTABLE_FIELDS } from './generated/formattable-fields'
 export {

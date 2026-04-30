@@ -1,4 +1,4 @@
-import type { CallbackQueryUpdate, ChosenInlineResultUpdate, InlineQueryUpdate, MessageUpdate, NewChatMembersUpdate } from '@puregram/api'
+import type { CallbackQueryUpdate, MessageUpdate } from '@puregram/api'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 
 import type { UpdateHandler } from '../../src/dispatch/on'
@@ -21,35 +21,6 @@ const callbackUpdate = (data: string) => ({
   }
 })
 
-const inlineQueryUpdate = (query: string) => ({
-  kind: 'inline_query',
-  raw: {
-    id: 'iq1',
-    from: { id: 1, is_bot: false, first_name: 'x' },
-    query,
-    offset: ''
-  }
-})
-
-const chosenInlineResultUpdate = (result_id: string) => ({
-  kind: 'chosen_inline_result',
-  raw: {
-    result_id,
-    from: { id: 1, is_bot: false, first_name: 'x' },
-    query: ''
-  }
-})
-
-const newChatMembersUpdate = () => ({
-  kind: 'new_chat_members',
-  raw: {
-    message_id: 1,
-    date: 0,
-    chat: { id: 100, type: 'group' },
-    new_chat_members: [{ id: 2, is_bot: false, first_name: 'joiner' }]
-  }
-})
-
 describe('tg.command regression after K.8 refactor', () => {
   it('matches /name and skips other text', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
@@ -59,7 +30,7 @@ describe('tg.command regression after K.8 refactor', () => {
     tg.command('hello', (message) => {
       seen.push(message.raw.text!)
     })
-    tg.on('message', (message) => {
+    tg.onMessage((message) => {
       fellThrough.push(message.raw.text!)
     })
 
@@ -80,12 +51,12 @@ describe('tg.command regression after K.8 refactor', () => {
   })
 })
 
-describe('tg.callbackData', () => {
+describe('tg.callbackQuery', () => {
   it('registers a handler that fires on matching callback_query', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const handler = vi.fn()
 
-    tg.callbackData('buy', handler)
+    tg.callbackQuery('buy', handler)
 
     await (tg as any).dispatch(callbackUpdate('buy'))
     await (tg as any).dispatch(callbackUpdate('sell'))
@@ -98,67 +69,5 @@ describe('tg.callbackData', () => {
     const handler: UpdateHandler<CallbackQueryUpdate> = () => undefined
 
     expectTypeOf<Parameters<typeof handler>[0]>().toMatchTypeOf<CallbackQueryUpdate>()
-  })
-})
-
-describe('tg.inlineQuery', () => {
-  it('registers a handler that fires on matching inline_query', async () => {
-    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-    const handler = vi.fn()
-
-    tg.inlineQuery('search', handler)
-
-    await (tg as any).dispatch(inlineQueryUpdate('search'))
-    await (tg as any).dispatch(inlineQueryUpdate('other'))
-    await (tg as any).dispatch(callbackUpdate('buy'))
-
-    expect(handler).toHaveBeenCalledTimes(1)
-  })
-
-  it('handler infers as UpdateHandler<InlineQueryUpdate>', () => {
-    const handler: UpdateHandler<InlineQueryUpdate> = () => undefined
-
-    expectTypeOf<Parameters<typeof handler>[0]>().toMatchTypeOf<InlineQueryUpdate>()
-  })
-})
-
-describe('tg.chosenInlineResult', () => {
-  it('registers a handler that fires on matching chosen_inline_result', async () => {
-    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-    const handler = vi.fn()
-
-    tg.chosenInlineResult('a', handler)
-
-    await (tg as any).dispatch(chosenInlineResultUpdate('a'))
-    await (tg as any).dispatch(chosenInlineResultUpdate('b'))
-    await (tg as any).dispatch(messageUpdate('hi'))
-
-    expect(handler).toHaveBeenCalledTimes(1)
-  })
-
-  it('handler infers as UpdateHandler<ChosenInlineResultUpdate>', () => {
-    const handler: UpdateHandler<ChosenInlineResultUpdate> = () => undefined
-
-    expectTypeOf<Parameters<typeof handler>[0]>().toMatchTypeOf<ChosenInlineResultUpdate>()
-  })
-})
-
-describe('tg.action', () => {
-  it('registers a handler scoped to the supplied service-event kind', async () => {
-    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-    const handler = vi.fn()
-
-    tg.action('new_chat_members', handler)
-
-    await (tg as any).dispatch(newChatMembersUpdate())
-    await (tg as any).dispatch(messageUpdate('hi'))
-
-    expect(handler).toHaveBeenCalledTimes(1)
-  })
-
-  it('handler infers as the matching service-event update type', () => {
-    const handler: UpdateHandler<NewChatMembersUpdate> = () => undefined
-
-    expectTypeOf<Parameters<typeof handler>[0]>().toMatchTypeOf<NewChatMembersUpdate>()
   })
 })

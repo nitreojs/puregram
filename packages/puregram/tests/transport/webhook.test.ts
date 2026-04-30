@@ -43,7 +43,7 @@ describe('webhook callback', () => {
 
     const received: unknown[] = []
 
-    tg.on('message', (u) => {
+    tg.onMessage((u) => {
       received.push(u)
     })
 
@@ -67,7 +67,7 @@ describe('webhook callback', () => {
 
     const received: unknown[] = []
 
-    tg.on('message', (u) => {
+    tg.onMessage((u) => {
       received.push(u)
     })
 

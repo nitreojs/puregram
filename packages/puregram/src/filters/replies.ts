@@ -4,7 +4,7 @@
 // without an optional-chain. only message-payload kinds carry the field
 
 import { defineFilter } from '@puregram/api'
-import type { BusinessMessageUpdate, ChannelPostUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, Filter, MessageUpdate } from '@puregram/api'
+import type { BusinessMessageUpdate, ChannelPostUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, Filter, Message, MessageUpdate } from '@puregram/api'
 
 type ReplyBearingUpdate =
   | MessageUpdate
@@ -24,7 +24,7 @@ const REPLY_KINDS = [
  * a kind filter (e.g. `kind.message.and(hasReply)`) leaves `raw.reply_to_message`
  * narrowed to non-undefined for the handler
  */
-export const hasReply = defineFilter<ReplyBearingUpdate, { raw: { reply_to_message: NonNullable<unknown> } }>(
+export const hasReply = defineFilter<ReplyBearingUpdate, { replyToMessage: Message }>(
   'hasReply',
   (u): u is ReplyBearingUpdate =>
     (u as { raw?: { reply_to_message?: unknown } }).raw?.reply_to_message != null,
@@ -39,8 +39,8 @@ export const hasReply = defineFilter<ReplyBearingUpdate, { raw: { reply_to_messa
  */
 export function replyTo (
   messageId: number
-): Filter<ReplyBearingUpdate, { raw: { reply_to_message: { message_id: number } } }> {
-  return defineFilter<ReplyBearingUpdate, { raw: { reply_to_message: { message_id: number } } }>(
+): Filter<ReplyBearingUpdate, { replyToMessage: Message }> {
+  return defineFilter<ReplyBearingUpdate, { replyToMessage: Message }>(
     `replyTo(${messageId})`,
     (u): u is ReplyBearingUpdate =>
       (u as { raw?: { reply_to_message?: { message_id?: number } } }).raw?.reply_to_message?.message_id === messageId,

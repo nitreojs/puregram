@@ -4,6 +4,12 @@
 // maps to camelCase `hiddenUser` for the shorthand surface
 
 import { defineFilter } from '@puregram/api'
+import type {
+  TelegramMessageOriginChannel,
+  TelegramMessageOriginChat,
+  TelegramMessageOriginHiddenUser,
+  TelegramMessageOriginUser
+} from '@puregram/api'
 
 const MESSAGE_PAYLOAD_KINDS = [
   'message', 'edited_message', 'channel_post', 'edited_channel_post',
@@ -22,8 +28,18 @@ const MESSAGE_PAYLOAD_KINDS = [
 
 type ForwardOriginType = 'user' | 'hidden_user' | 'chat' | 'channel'
 
+type ForwardOriginVariant<T extends ForwardOriginType> =
+  T extends 'user' ? TelegramMessageOriginUser
+    : T extends 'hidden_user' ? TelegramMessageOriginHiddenUser
+      : T extends 'chat' ? TelegramMessageOriginChat
+        : T extends 'channel' ? TelegramMessageOriginChannel
+          : never
+
 function forwardOriginTypeFilter<T extends ForwardOriginType> (type: T) {
-  return defineFilter<unknown, { raw: { forward_origin: { type: T } } }>(
+  // wrapper getter `forwardOrigin` returns `TelegramMessageOrigin | undefined` —
+  // a discriminated union of plain interfaces, so narrowing happens via the raw
+  // `type` literal already; no Omit gymnastics needed
+  return defineFilter<unknown, { forwardOrigin: ForwardOriginVariant<T> }>(
     `forwardOrigin.${type}`,
     u => (u as { raw?: { forward_origin?: { type?: string } } }).raw?.forward_origin?.type === type,
     { kinds: MESSAGE_PAYLOAD_KINDS }
@@ -37,7 +53,7 @@ function forwardOriginTypeFilter<T extends ForwardOriginType> (type: T) {
  * shorthand object
  */
 export const forwardOrigin = Object.assign(
-  (type: ForwardOriginType) => forwardOriginTypeFilter(type),
+  <T extends ForwardOriginType> (type: T) => forwardOriginTypeFilter(type),
   {
     user: forwardOriginTypeFilter('user'),
     hiddenUser: forwardOriginTypeFilter('hidden_user'),

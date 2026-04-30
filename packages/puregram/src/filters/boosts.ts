@@ -7,7 +7,7 @@
 // surfaces the field
 
 import { defineFilter } from '@puregram/api'
-import type { ChatBoostUpdate, Filter } from '@puregram/api'
+import type { ChatBoost, ChatBoostUpdate, Filter } from '@puregram/api'
 
 const BOOST_KINDS = ['chat_boost'] as const
 
@@ -17,8 +17,8 @@ const BOOST_KINDS = ['chat_boost'] as const
  * field on `TelegramChatBoost`, so any non-undefined `min` is accepted but
  * does not narrow the match further
  */
-export function boostCount (min?: number): Filter<ChatBoostUpdate, { raw: { boost: NonNullable<unknown> } }> {
-  return defineFilter<ChatBoostUpdate, { raw: { boost: NonNullable<unknown> } }>(
+export function boostCount (min?: number): Filter<ChatBoostUpdate, { boost: ChatBoost }> {
+  return defineFilter<ChatBoostUpdate, { boost: ChatBoost }>(
     min === undefined ? 'boostCount()' : `boostCount(${min})`,
     (u): u is ChatBoostUpdate =>
       (u as { raw?: { boost?: unknown } }).raw?.boost !== undefined,

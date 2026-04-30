@@ -4,7 +4,7 @@
 // `successful_payment.invoice_payload` on the service-event message
 
 import { defineFilter } from '@puregram/api'
-import type { Filter, PreCheckoutQueryUpdate, ShippingQueryUpdate, SuccessfulPaymentUpdate } from '@puregram/api'
+import type { Filter, PreCheckoutQueryUpdate, ShippingQueryUpdate, SuccessfulPayment, SuccessfulPaymentUpdate } from '@puregram/api'
 
 const SHIPPING_KINDS = ['shipping_query'] as const
 const PRE_CHECKOUT_KINDS = ['pre_checkout_query'] as const
@@ -16,8 +16,8 @@ const SUCCESSFUL_PAYMENT_KINDS = ['successful_payment'] as const
  */
 export function shippingPayload (
   value: string
-): Filter<ShippingQueryUpdate, { raw: { invoice_payload: string } }> {
-  return defineFilter<ShippingQueryUpdate, { raw: { invoice_payload: string } }>(
+): Filter<ShippingQueryUpdate, { invoicePayload: string }> {
+  return defineFilter<ShippingQueryUpdate, { invoicePayload: string }>(
     `shippingPayload(${value})`,
     (u): u is ShippingQueryUpdate =>
       (u as { raw?: { invoice_payload?: unknown } }).raw?.invoice_payload === value,
@@ -31,8 +31,8 @@ export function shippingPayload (
  */
 export function preCheckoutPayload (
   value: string
-): Filter<PreCheckoutQueryUpdate, { raw: { invoice_payload: string } }> {
-  return defineFilter<PreCheckoutQueryUpdate, { raw: { invoice_payload: string } }>(
+): Filter<PreCheckoutQueryUpdate, { invoicePayload: string }> {
+  return defineFilter<PreCheckoutQueryUpdate, { invoicePayload: string }>(
     `preCheckoutPayload(${value})`,
     (u): u is PreCheckoutQueryUpdate =>
       (u as { raw?: { invoice_payload?: unknown } }).raw?.invoice_payload === value,
@@ -46,8 +46,8 @@ export function preCheckoutPayload (
  */
 export function successfulPaymentPayload (
   value: string
-): Filter<SuccessfulPaymentUpdate, { raw: { successful_payment: { invoice_payload: string } } }> {
-  return defineFilter<SuccessfulPaymentUpdate, { raw: { successful_payment: { invoice_payload: string } } }>(
+): Filter<SuccessfulPaymentUpdate, { successfulPayment: SuccessfulPayment }> {
+  return defineFilter<SuccessfulPaymentUpdate, { successfulPayment: SuccessfulPayment }>(
     `successfulPaymentPayload(${value})`,
     (u): u is SuccessfulPaymentUpdate =>
       (u as { raw?: { successful_payment?: { invoice_payload?: unknown } } })

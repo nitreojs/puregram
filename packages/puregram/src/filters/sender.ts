@@ -3,7 +3,7 @@
 // flags; `viaBot` and `anonymous` express common authorship patterns
 
 import { defineFilter } from '@puregram/api'
-import type { Filter } from '@puregram/api'
+import type { Filter, User } from '@puregram/api'
 
 const FROM_KINDS = [
   'message', 'edited_message', 'channel_post', 'edited_channel_post',
@@ -65,7 +65,7 @@ export function from (...args: [readonly number[]] | number[]) {
 /**
  * match when the sender is another bot (`from.is_bot === true`)
  */
-export const fromBot = defineFilter<unknown, { raw: { from: { is_bot: true } } }>(
+export const fromBot = defineFilter<unknown, { from: Omit<User, 'isBot'> & { isBot: true } }>(
   'fromBot',
   u => (u as { raw?: { from?: { is_bot?: boolean } } }).raw?.from?.is_bot === true,
   { kinds: FROM_KINDS }
@@ -74,7 +74,7 @@ export const fromBot = defineFilter<unknown, { raw: { from: { is_bot: true } } }
 /**
  * match when the sender is a Telegram Premium user (`from.is_premium === true`)
  */
-export const fromPremium = defineFilter<unknown, { raw: { from: { is_premium: true } } }>(
+export const fromPremium = defineFilter<unknown, { from: Omit<User, 'isPremium'> & { isPremium: true } }>(
   'fromPremium',
   u => (u as { raw?: { from?: { is_premium?: boolean } } }).raw?.from?.is_premium === true,
   { kinds: FROM_KINDS }
@@ -84,7 +84,7 @@ export const fromPremium = defineFilter<unknown, { raw: { from: { is_premium: tr
  * match when the message was sent through an inline bot (`via_bot` set on the
  * message payload)
  */
-export const viaBot = defineFilter<unknown, { raw: { via_bot: NonNullable<unknown> } }>(
+export const viaBot = defineFilter<unknown, { viaBot: User }>(
   'viaBot',
   u => (u as { raw?: { via_bot?: unknown } }).raw?.via_bot != null,
   { kinds: MESSAGE_PAYLOAD_KINDS }

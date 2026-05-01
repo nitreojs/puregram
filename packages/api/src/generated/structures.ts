@@ -7,6 +7,7 @@
 import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLinkPreviewOptions, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
 import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
+import { Photo, VideoQualities } from "../structures-handcrafted";
 /**
  * This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
  */
@@ -1053,7 +1054,7 @@ export class ChatPhoto {
  * This object contains information about a chat that was shared with the bot using a KeyboardButtonRequestChat button.
  */
 export class ChatShared {
-    private _photo?: PhotoSize[] | undefined;
+    private _photo?: Photo | undefined;
     constructor(public raw: TelegramChatShared) { }
     static fromPayload(raw: TelegramChatShared): ChatShared {
         return new ChatShared(raw);
@@ -1085,8 +1086,11 @@ export class ChatShared {
     /**
      * Optional. Available sizes of the chat photo, if the photo was requested by the bot
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        if (this._photo === undefined) {
+            this._photo = this.raw.photo ? new Photo(this.raw.photo) : undefined;
+        }
+        return this._photo;
     }
     /**
      * True if `title` is set.
@@ -1108,7 +1112,7 @@ export class ChatShared {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -1373,7 +1377,7 @@ export class ExternalReplyInfo {
     private _animation?: Animation | undefined;
     private _audio?: Audio | undefined;
     private _document?: Document | undefined;
-    private _photo?: PhotoSize[] | undefined;
+    private _photo?: Photo | undefined;
     private _sticker?: Sticker | undefined;
     private _story?: Story | undefined;
     private _video?: Video | undefined;
@@ -1458,8 +1462,11 @@ export class ExternalReplyInfo {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        if (this._photo === undefined) {
+            this._photo = this.raw.photo ? new Photo(this.raw.photo) : undefined;
+        }
+        return this._photo;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -1659,7 +1666,7 @@ export class ExternalReplyInfo {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -1937,7 +1944,7 @@ export class ForumTopicEdited {
  * This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.
  */
 export class Game {
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _textEntities?: MessageEntity[] | undefined;
     private _animation?: Animation | undefined;
     constructor(public raw: TelegramGame) { }
@@ -1959,8 +1966,8 @@ export class Game {
     /**
      * Photo that will be displayed in the game message in chats.
      */
-    get photo(): PhotoSize[] {
-        return this._photo ??= this.raw.photo.map(x => new PhotoSize(x));
+    get photo(): Photo {
+        return this._photo ??= new Photo(this.raw.photo);
     }
     /**
      * Optional. Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls setGameScore, or manually edited using editMessageText. 0-4096 characters.
@@ -2908,7 +2915,7 @@ export class Message {
     private _animation?: Animation | undefined;
     private _audio?: Audio | undefined;
     private _document?: Document | undefined;
-    private _photo?: PhotoSize[] | undefined;
+    private _photo?: Photo | undefined;
     private _sticker?: Sticker | undefined;
     private _story?: Story | undefined;
     private _video?: Video | undefined;
@@ -2923,7 +2930,7 @@ export class Message {
     private _location?: Location | undefined;
     private _newChatMembers?: User[] | undefined;
     private _leftChatMember?: User | undefined;
-    private _newChatPhoto?: PhotoSize[] | undefined;
+    private _newChatPhoto?: Photo | undefined;
     private _invoice?: Invoice | undefined;
     private _successfulPayment?: SuccessfulPayment | undefined;
     private _usersShared?: UsersShared | undefined;
@@ -3206,8 +3213,11 @@ export class Message {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        if (this._photo === undefined) {
+            this._photo = this.raw.photo ? new Photo(this.raw.photo) : undefined;
+        }
+        return this._photo;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -3374,8 +3384,11 @@ export class Message {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        if (this._newChatPhoto === undefined) {
+            this._newChatPhoto = this.raw.new_chat_photo ? new Photo(this.raw.new_chat_photo) : undefined;
+        }
+        return this._newChatPhoto;
     }
     /**
      * Optional. Service message: the chat photo was deleted
@@ -3964,7 +3977,7 @@ export class Message {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -4132,7 +4145,7 @@ export class Message {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -6254,6 +6267,7 @@ export class User {
  * This object represent a user's profile pictures.
  */
 export class UserProfilePhotos {
+    private _photos?: Photo[];
     constructor(public raw: TelegramUserProfilePhotos) { }
     static fromPayload(raw: TelegramUserProfilePhotos): UserProfilePhotos {
         return new UserProfilePhotos(raw);
@@ -6267,8 +6281,8 @@ export class UserProfilePhotos {
     /**
      * Requested profile pictures (in up to 4 sizes each)
      */
-    get photos(): TelegramPhotoSize[][] {
-        return this.raw.photos;
+    get photos(): Photo[] {
+        return this._photos ??= this.raw.photos.map(x => new Photo(x));
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("UserProfilePhotos", this, depth, options, inspect);
@@ -6393,7 +6407,8 @@ export class Venue {
  */
 export class Video {
     private _thumbnail?: PhotoSize | undefined;
-    private _cover?: PhotoSize[] | undefined;
+    private _cover?: Photo | undefined;
+    private _qualities?: VideoQualities | undefined;
     constructor(public raw: TelegramVideo) { }
     static fromPayload(raw: TelegramVideo): Video {
         return new Video(raw);
@@ -6440,8 +6455,11 @@ export class Video {
     /**
      * Optional. Available sizes of the cover of the video in the message
      */
-    get cover(): PhotoSize[] | undefined {
-        return this.raw.cover ? (this._cover ??= this.raw.cover.map(x => new PhotoSize(x))) : undefined;
+    get cover(): Photo | undefined {
+        if (this._cover === undefined) {
+            this._cover = this.raw.cover ? new Photo(this.raw.cover) : undefined;
+        }
+        return this._cover;
     }
     /**
      * Optional. Timestamp in seconds from which the video will play in the message
@@ -6452,8 +6470,11 @@ export class Video {
     /**
      * Optional. List of available qualities of the video
      */
-    get qualities(): TelegramVideoQuality[] | undefined {
-        return this.raw.qualities;
+    get qualities(): VideoQualities | undefined {
+        if (this._qualities === undefined) {
+            this._qualities = this.raw.qualities ? new VideoQualities(this.raw.qualities) : undefined;
+        }
+        return this._qualities;
     }
     /**
      * Optional. Original filename as defined by the sender
@@ -6485,7 +6506,7 @@ export class Video {
      * True if `cover` has at least one item.
      */
     hasCover(): this is this & {
-        cover: PhotoSize[];
+        cover: Photo;
     } {
         return this.raw.cover != null && this.raw.cover.length > 0;
     }
@@ -6501,7 +6522,7 @@ export class Video {
      * True if `qualities` has at least one item.
      */
     hasQualities(): this is this & {
-        qualities: TelegramVideoQuality[];
+        qualities: VideoQualities;
     } {
         return this.raw.qualities != null && this.raw.qualities.length > 0;
     }
@@ -6658,6 +6679,63 @@ export class VideoNote {
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("VideoNote", this, depth, options, inspect);
+    }
+}
+
+/**
+ * This object represents a video file of a specific quality.
+ */
+export class VideoQuality {
+    constructor(public raw: TelegramVideoQuality) { }
+    static fromPayload(raw: TelegramVideoQuality): VideoQuality {
+        return new VideoQuality(raw);
+    }
+    /**
+     * Identifier for this file, which can be used to download or reuse the file
+     */
+    get fileId(): string {
+        return this.raw.file_id;
+    }
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     */
+    get fileUniqueId(): string {
+        return this.raw.file_unique_id;
+    }
+    /**
+     * Video width
+     */
+    get width(): number {
+        return this.raw.width;
+    }
+    /**
+     * Video height
+     */
+    get height(): number {
+        return this.raw.height;
+    }
+    /**
+     * Codec that was used to encode the video, for example, “h264”, “h265”, or “av01”
+     */
+    get codec(): string {
+        return this.raw.codec;
+    }
+    /**
+     * Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     */
+    get fileSize(): number | undefined {
+        return this.raw.file_size;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
+        return this.raw.file_size != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoQuality", this, depth, options, inspect);
     }
 }
 

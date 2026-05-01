@@ -3,14 +3,19 @@ import ts from 'typescript'
 import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema-types'
 
 import { camelCase, getterNameFor } from './field-names'
-import { detectWidenedMethodArgs } from './formattable-detect'
 import { formatModule } from './format'
+import { detectWidenedMethodArgs } from './formattable-detect'
 import { versionString } from './load-schema'
 import { analyzeShortcuts, type BoundShortcut } from './shortcut-analyzer'
 import { METHOD_POSITIONALS } from './shortcuts-config'
-import { isWrappedStructure } from './structures-config'
+import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, isWrappedStructure } from './structures-config'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
 import { UPDATE_KINDS, type UpdateExtra, type UpdateKindSpec } from './updates-config'
+
+interface WrapperInfo {
+  name: string
+  isArray: boolean
+}
 
 // per-update verb renames — keep separate from telegram-level SHORTCUTS so that
 // a method can be a per-update shortcut (e.g. `answer` on CallbackQueryUpdate)
@@ -151,6 +156,8 @@ export function emitUpdates (schema: Schema) {
     return widenedArgs.has(methodName)
   })
 
+  const usedArrayWrappers = collectUsedArrayWrappers(objectsByName)
+
   const imports = [
     importTypeNamed([...referencedTypes].sort(), './types'),
     ...(paramsImports.size > 0 ? [importTypeNamed([...paramsImports].sort(), './methods')] : []),
@@ -158,6 +165,9 @@ export function emitUpdates (schema: Schema) {
     ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
     ...(usesFormattable ? [importTypeNamed(['Formattable'], '../formattable')] : []),
     ...(wrappedNames.size > 0 ? [importNamed([...wrappedNames].sort(), './structures')] : []),
+    ...(usedArrayWrappers.length > 0
+      ? [importNamed(usedArrayWrappers, '../structures-handcrafted')]
+      : []),
     importNamed(['INSPECT', 'makeInspect'], './inspect')
   ]
 
@@ -216,6 +226,70 @@ function refToObjectClassName (ref: SchemaTypeRef, objectsByName: Map<string, Sc
   return undefined
 }
 
+// resolves a field type to its wrapper-class output shape, accounting for synthetic
+// collection wrappers (PhotoSize[] -> Photo, PhotoSize[][] -> Photo[]). returns
+// undefined for primitives and refs that aren't wrapped
+function wrapperInfoFor (
+  ref: SchemaTypeRef,
+  objectsByName: Map<string, SchemaObject>
+) {
+  const directSynth = arrayWrapperFor(ref)
+
+  if (directSynth) {
+    return { name: directSynth, isArray: false }
+  }
+
+  if (ref.kind === 'array') {
+    const innerSynth = arrayWrapperFor(ref.of)
+
+    if (innerSynth) {
+      return { name: innerSynth, isArray: true }
+    }
+  }
+
+  if (ref.kind === 'reference' && isWrappedObjectClass(objectsByName, ref.name)) {
+    return { name: ref.name, isArray: false }
+  }
+
+  if (ref.kind === 'array' && ref.of.kind === 'reference' && isWrappedObjectClass(objectsByName, ref.of.name)) {
+    return { name: ref.of.name, isArray: true }
+  }
+
+  return undefined
+}
+
+function collectUsedArrayWrappers (
+  objectsByName: Map<string, SchemaObject>
+) {
+  const used = new Set<string>()
+
+  for (const k of UPDATE_KINDS) {
+    const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
+
+    if (obj?.kind !== 'object') {
+      continue
+    }
+
+    for (const f of obj.fields) {
+      const direct = arrayWrapperFor(f.type)
+
+      if (direct) {
+        used.add(direct)
+      }
+
+      if (f.type.kind === 'array') {
+        const inner = arrayWrapperFor(f.type.of)
+
+        if (inner) {
+          used.add(inner)
+        }
+      }
+    }
+  }
+
+  return ARRAY_WRAPPER_NAMES.filter(n => used.has(n))
+}
+
 function emitUpdateClass (
   kind: UpdateKindSpec,
   objectsByName: Map<string, SchemaObject>,
@@ -242,13 +316,12 @@ function emitUpdateClass (
   // private _x?: Wrapper | Wrapper[]
   if (payloadObject?.kind === 'object') {
     for (const f of payloadObject.fields) {
-      const wrapperName = refToObjectClassName(f.type, objectsByName)
+      const info = wrapperInfoFor(f.type, objectsByName)
 
-      if (wrapperName) {
-        const isArray = f.type.kind === 'array'
-        const memoType: ts.TypeNode = isArray
-          ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(wrapperName))
-          : ts.factory.createTypeReferenceNode(wrapperName)
+      if (info) {
+        const memoType: ts.TypeNode = info.isArray
+          ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(info.name))
+          : ts.factory.createTypeReferenceNode(info.name)
 
         members.push(ts.factory.createPropertyDeclaration(
           [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
@@ -316,10 +389,10 @@ function emitUpdateClass (
 
       reservedNames.add(camelName)
 
-      const wrapperName = refToObjectClassName(f.type, objectsByName)
+      const info = wrapperInfoFor(f.type, objectsByName)
 
-      if (wrapperName) {
-        members.push(emitWrapperGetter(f, camelName, wrapperName))
+      if (info) {
+        members.push(emitWrapperGetter(f, camelName, info))
       } else {
         members.push(emitPrimitiveGetter(f, camelName))
       }
@@ -532,12 +605,10 @@ function parseParams (src: string) {
 
 // inlined wrapper-type builder used by the type-predicate emit. mirrors the
 // non-optional branch of `emitWrapperGetter`'s return-type construction
-function buildWrapperReturnType (ref: SchemaTypeRef, wrapperName: string, optional: boolean): ts.TypeNode {
-  const isArrayRef = ref.kind === 'array'
-
-  const baseReturn: ts.TypeNode = isArrayRef
-    ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(wrapperName))
-    : ts.factory.createTypeReferenceNode(wrapperName)
+function buildWrapperReturnType (info: WrapperInfo, optional: boolean) {
+  const baseReturn: ts.TypeNode = info.isArray
+    ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(info.name))
+    : ts.factory.createTypeReferenceNode(info.name)
 
   return optional
     ? ts.factory.createUnionTypeNode([
@@ -583,9 +654,9 @@ function emitAutoHasMethod (
   // `Has<Has<…, 'photo'>, 'caption'>` per layer, which TS unfolds via keyof + lookup +
   // Exclude on every step. inlining produces a flat intersection that resolves in
   // one pass — measured ~9× speedup on chained predicate sites
-  const wrapperName = refToObjectClassName(f.type, objectsByName)
-  const concreteFieldType = wrapperName
-    ? buildWrapperReturnType(f.type, wrapperName, false)
+  const info = wrapperInfoFor(f.type, objectsByName)
+  const concreteFieldType = info
+    ? buildWrapperReturnType(info, false)
     : typeRefToTs(f.type)
 
   const returnType = ts.factory.createTypePredicateNode(
@@ -619,12 +690,10 @@ function emitAutoHasMethod (
   return jsDoc(doc, method)
 }
 
-function emitWrapperGetter (f: SchemaField, camelName: string, wrapperName: string) {
-  const isArray = f.type.kind === 'array'
-
-  const baseReturn: ts.TypeNode = isArray
-    ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(wrapperName))
-    : ts.factory.createTypeReferenceNode(wrapperName)
+function emitWrapperGetter (f: SchemaField, camelName: string, info: WrapperInfo) {
+  const baseReturn: ts.TypeNode = info.isArray
+    ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(info.name))
+    : ts.factory.createTypeReferenceNode(info.name)
 
   const returnType: ts.TypeNode = f.required
     ? baseReturn
@@ -638,7 +707,7 @@ function emitWrapperGetter (f: SchemaField, camelName: string, wrapperName: stri
     f.name
   )
 
-  const wrapExpr: ts.Expression = isArray
+  const wrapExpr: ts.Expression = info.isArray
     ? ts.factory.createCallExpression(
       ts.factory.createPropertyAccessExpression(rawAccess, 'map'),
       undefined,
@@ -652,14 +721,14 @@ function emitWrapperGetter (f: SchemaField, camelName: string, wrapperName: stri
         undefined,
         ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
         ts.factory.createNewExpression(
-          ts.factory.createIdentifier(wrapperName),
+          ts.factory.createIdentifier(info.name),
           undefined,
           [ts.factory.createIdentifier('x')]
         )
       )]
     )
     : ts.factory.createNewExpression(
-      ts.factory.createIdentifier(wrapperName),
+      ts.factory.createIdentifier(info.name),
       undefined,
       [rawAccess]
     )

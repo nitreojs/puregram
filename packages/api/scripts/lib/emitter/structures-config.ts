@@ -1,3 +1,5 @@
+import type { SchemaTypeRef } from '../schema-types'
+
 // objects that get wrapper classes — those that appear inside update payloads or as
 // method return values where ergonomic access matters. keep alphabetical for clean diffs
 export const WRAPPED_STRUCTURES = [
@@ -67,6 +69,7 @@ export const WRAPPED_STRUCTURES = [
   'VideoChatParticipantsInvited',
   'VideoChatScheduled',
   'VideoNote',
+  'VideoQuality',
   'Voice',
   'WebAppData',
   'WebAppInfo',
@@ -77,4 +80,28 @@ export type WrappedStructureName = typeof WRAPPED_STRUCTURES[number]
 
 export function isWrappedStructure (name: string) {
   return (WRAPPED_STRUCTURES as readonly string[]).includes(name)
+}
+
+// synthetic collection wrappers — fields shaped as `T[]` get emitted as a hand-written
+// collection class (e.g. `Photo` for `PhotoSize[]`) instead of `T[]`. wrapper sources
+// live in `packages/api/src/structures-handcrafted/`. used by emit-structures and
+// emit-updates to substitute the wrapper at every applicable getter site
+export const ARRAY_WRAPPER_FOR: Record<string, string> = {
+  PhotoSize: 'Photo',
+  VideoQuality: 'VideoQualities'
+}
+
+export const ARRAY_WRAPPER_NAMES = Object.values(ARRAY_WRAPPER_FOR)
+
+/** if `ref` is `T[]` where `T` has a synthetic collection wrapper, return its name */
+export function arrayWrapperFor (ref: SchemaTypeRef) {
+  if (ref.kind !== 'array') {
+    return undefined
+  }
+
+  if (ref.of.kind !== 'reference') {
+    return undefined
+  }
+
+  return ARRAY_WRAPPER_FOR[ref.of.name]
 }

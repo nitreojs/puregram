@@ -10,6 +10,7 @@ import type { TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
 import { Animation, Audio, Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
+import { Photo } from "../structures-handcrafted";
 import { INSPECT, makeInspect } from "./inspect";
 /**
  * Update for the `message` event.
@@ -30,7 +31,7 @@ export class MessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -45,7 +46,7 @@ export class MessageUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -289,8 +290,8 @@ export class MessageUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -421,8 +422,8 @@ export class MessageUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -946,7 +947,7 @@ export class MessageUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -1114,7 +1115,7 @@ export class MessageUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -2501,7 +2502,7 @@ export class EditedMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -2516,7 +2517,7 @@ export class EditedMessageUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -2760,8 +2761,8 @@ export class EditedMessageUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -2892,8 +2893,8 @@ export class EditedMessageUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -3417,7 +3418,7 @@ export class EditedMessageUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -3585,7 +3586,7 @@ export class EditedMessageUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -4972,7 +4973,7 @@ export class ChannelPostUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -4987,7 +4988,7 @@ export class ChannelPostUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -5231,8 +5232,8 @@ export class ChannelPostUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -5363,8 +5364,8 @@ export class ChannelPostUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -5888,7 +5889,7 @@ export class ChannelPostUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -6056,7 +6057,7 @@ export class ChannelPostUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -7443,7 +7444,7 @@ export class EditedChannelPostUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -7458,7 +7459,7 @@ export class EditedChannelPostUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -7702,8 +7703,8 @@ export class EditedChannelPostUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -7834,8 +7835,8 @@ export class EditedChannelPostUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -8359,7 +8360,7 @@ export class EditedChannelPostUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -8527,7 +8528,7 @@ export class EditedChannelPostUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -9973,7 +9974,7 @@ export class BusinessMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -9988,7 +9989,7 @@ export class BusinessMessageUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -10232,8 +10233,8 @@ export class BusinessMessageUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -10364,8 +10365,8 @@ export class BusinessMessageUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -10889,7 +10890,7 @@ export class BusinessMessageUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -11057,7 +11058,7 @@ export class BusinessMessageUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -12444,7 +12445,7 @@ export class EditedBusinessMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -12459,7 +12460,7 @@ export class EditedBusinessMessageUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -12703,8 +12704,8 @@ export class EditedBusinessMessageUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -12835,8 +12836,8 @@ export class EditedBusinessMessageUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -13360,7 +13361,7 @@ export class EditedBusinessMessageUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -13528,7 +13529,7 @@ export class EditedBusinessMessageUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -18969,7 +18970,7 @@ export class NewChatMembersUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -18984,7 +18985,7 @@ export class NewChatMembersUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -19228,8 +19229,8 @@ export class NewChatMembersUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -19360,8 +19361,8 @@ export class NewChatMembersUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -19885,7 +19886,7 @@ export class NewChatMembersUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -20053,7 +20054,7 @@ export class NewChatMembersUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -21440,7 +21441,7 @@ export class LeftChatMemberUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -21455,7 +21456,7 @@ export class LeftChatMemberUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -21699,8 +21700,8 @@ export class LeftChatMemberUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -21831,8 +21832,8 @@ export class LeftChatMemberUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -22356,7 +22357,7 @@ export class LeftChatMemberUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -22524,7 +22525,7 @@ export class LeftChatMemberUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -23911,7 +23912,7 @@ export class NewChatTitleUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -23926,7 +23927,7 @@ export class NewChatTitleUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -24170,8 +24171,8 @@ export class NewChatTitleUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -24302,8 +24303,8 @@ export class NewChatTitleUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -24827,7 +24828,7 @@ export class NewChatTitleUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -24995,7 +24996,7 @@ export class NewChatTitleUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -26382,7 +26383,7 @@ export class NewChatPhotoUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -26397,7 +26398,7 @@ export class NewChatPhotoUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -26641,8 +26642,8 @@ export class NewChatPhotoUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -26773,8 +26774,8 @@ export class NewChatPhotoUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -27298,7 +27299,7 @@ export class NewChatPhotoUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -27466,7 +27467,7 @@ export class NewChatPhotoUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -28853,7 +28854,7 @@ export class DeleteChatPhotoUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -28868,7 +28869,7 @@ export class DeleteChatPhotoUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -29112,8 +29113,8 @@ export class DeleteChatPhotoUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -29244,8 +29245,8 @@ export class DeleteChatPhotoUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -29769,7 +29770,7 @@ export class DeleteChatPhotoUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -29937,7 +29938,7 @@ export class DeleteChatPhotoUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -31324,7 +31325,7 @@ export class GroupChatCreatedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -31339,7 +31340,7 @@ export class GroupChatCreatedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -31583,8 +31584,8 @@ export class GroupChatCreatedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -31715,8 +31716,8 @@ export class GroupChatCreatedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -32240,7 +32241,7 @@ export class GroupChatCreatedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -32408,7 +32409,7 @@ export class GroupChatCreatedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -33795,7 +33796,7 @@ export class PinnedMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -33810,7 +33811,7 @@ export class PinnedMessageUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -34054,8 +34055,8 @@ export class PinnedMessageUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -34186,8 +34187,8 @@ export class PinnedMessageUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -34711,7 +34712,7 @@ export class PinnedMessageUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -34879,7 +34880,7 @@ export class PinnedMessageUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -36266,7 +36267,7 @@ export class InvoiceUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -36281,7 +36282,7 @@ export class InvoiceUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -36525,8 +36526,8 @@ export class InvoiceUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -36657,8 +36658,8 @@ export class InvoiceUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -37182,7 +37183,7 @@ export class InvoiceUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -37350,7 +37351,7 @@ export class InvoiceUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -38737,7 +38738,7 @@ export class SuccessfulPaymentUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -38752,7 +38753,7 @@ export class SuccessfulPaymentUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -38996,8 +38997,8 @@ export class SuccessfulPaymentUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -39128,8 +39129,8 @@ export class SuccessfulPaymentUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -39653,7 +39654,7 @@ export class SuccessfulPaymentUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -39821,7 +39822,7 @@ export class SuccessfulPaymentUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -41208,7 +41209,7 @@ export class UsersSharedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -41223,7 +41224,7 @@ export class UsersSharedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -41467,8 +41468,8 @@ export class UsersSharedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -41599,8 +41600,8 @@ export class UsersSharedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -42124,7 +42125,7 @@ export class UsersSharedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -42292,7 +42293,7 @@ export class UsersSharedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -43679,7 +43680,7 @@ export class ChatSharedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -43694,7 +43695,7 @@ export class ChatSharedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -43938,8 +43939,8 @@ export class ChatSharedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -44070,8 +44071,8 @@ export class ChatSharedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -44595,7 +44596,7 @@ export class ChatSharedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -44763,7 +44764,7 @@ export class ChatSharedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -46150,7 +46151,7 @@ export class WebAppDataUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -46165,7 +46166,7 @@ export class WebAppDataUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -46409,8 +46410,8 @@ export class WebAppDataUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -46541,8 +46542,8 @@ export class WebAppDataUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -47066,7 +47067,7 @@ export class WebAppDataUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -47234,7 +47235,7 @@ export class WebAppDataUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -48621,7 +48622,7 @@ export class VideoChatScheduledUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -48636,7 +48637,7 @@ export class VideoChatScheduledUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -48880,8 +48881,8 @@ export class VideoChatScheduledUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -49012,8 +49013,8 @@ export class VideoChatScheduledUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -49537,7 +49538,7 @@ export class VideoChatScheduledUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -49705,7 +49706,7 @@ export class VideoChatScheduledUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -51092,7 +51093,7 @@ export class VideoChatStartedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -51107,7 +51108,7 @@ export class VideoChatStartedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -51351,8 +51352,8 @@ export class VideoChatStartedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -51483,8 +51484,8 @@ export class VideoChatStartedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -52008,7 +52009,7 @@ export class VideoChatStartedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -52176,7 +52177,7 @@ export class VideoChatStartedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -53563,7 +53564,7 @@ export class VideoChatEndedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -53578,7 +53579,7 @@ export class VideoChatEndedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -53822,8 +53823,8 @@ export class VideoChatEndedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -53954,8 +53955,8 @@ export class VideoChatEndedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -54479,7 +54480,7 @@ export class VideoChatEndedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -54647,7 +54648,7 @@ export class VideoChatEndedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -56034,7 +56035,7 @@ export class VideoChatParticipantsInvitedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -56049,7 +56050,7 @@ export class VideoChatParticipantsInvitedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -56293,8 +56294,8 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -56425,8 +56426,8 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -56950,7 +56951,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -57118,7 +57119,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -58505,7 +58506,7 @@ export class ForumTopicCreatedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -58520,7 +58521,7 @@ export class ForumTopicCreatedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -58764,8 +58765,8 @@ export class ForumTopicCreatedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -58896,8 +58897,8 @@ export class ForumTopicCreatedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -59421,7 +59422,7 @@ export class ForumTopicCreatedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -59589,7 +59590,7 @@ export class ForumTopicCreatedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -60976,7 +60977,7 @@ export class ForumTopicEditedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -60991,7 +60992,7 @@ export class ForumTopicEditedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -61235,8 +61236,8 @@ export class ForumTopicEditedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -61367,8 +61368,8 @@ export class ForumTopicEditedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -61892,7 +61893,7 @@ export class ForumTopicEditedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -62060,7 +62061,7 @@ export class ForumTopicEditedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -63447,7 +63448,7 @@ export class ForumTopicClosedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -63462,7 +63463,7 @@ export class ForumTopicClosedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -63706,8 +63707,8 @@ export class ForumTopicClosedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -63838,8 +63839,8 @@ export class ForumTopicClosedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -64363,7 +64364,7 @@ export class ForumTopicClosedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -64531,7 +64532,7 @@ export class ForumTopicClosedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -65918,7 +65919,7 @@ export class ForumTopicReopenedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -65933,7 +65934,7 @@ export class ForumTopicReopenedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -66177,8 +66178,8 @@ export class ForumTopicReopenedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -66309,8 +66310,8 @@ export class ForumTopicReopenedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -66834,7 +66835,7 @@ export class ForumTopicReopenedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -67002,7 +67003,7 @@ export class ForumTopicReopenedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -68389,7 +68390,7 @@ export class GeneralForumTopicHiddenUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -68404,7 +68405,7 @@ export class GeneralForumTopicHiddenUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -68648,8 +68649,8 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -68780,8 +68781,8 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -69305,7 +69306,7 @@ export class GeneralForumTopicHiddenUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -69473,7 +69474,7 @@ export class GeneralForumTopicHiddenUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -70860,7 +70861,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -70875,7 +70876,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -71119,8 +71120,8 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -71251,8 +71252,8 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -71776,7 +71777,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -71944,7 +71945,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -73331,7 +73332,7 @@ export class GiveawayCreatedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -73346,7 +73347,7 @@ export class GiveawayCreatedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -73590,8 +73591,8 @@ export class GiveawayCreatedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -73722,8 +73723,8 @@ export class GiveawayCreatedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -74247,7 +74248,7 @@ export class GiveawayCreatedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -74415,7 +74416,7 @@ export class GiveawayCreatedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -75802,7 +75803,7 @@ export class GiveawayCompletedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -75817,7 +75818,7 @@ export class GiveawayCompletedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -76061,8 +76062,8 @@ export class GiveawayCompletedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -76193,8 +76194,8 @@ export class GiveawayCompletedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -76718,7 +76719,7 @@ export class GiveawayCompletedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -76886,7 +76887,7 @@ export class GiveawayCompletedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -78273,7 +78274,7 @@ export class GiveawayWinnersUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -78288,7 +78289,7 @@ export class GiveawayWinnersUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -78532,8 +78533,8 @@ export class GiveawayWinnersUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -78664,8 +78665,8 @@ export class GiveawayWinnersUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -79189,7 +79190,7 @@ export class GiveawayWinnersUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -79357,7 +79358,7 @@ export class GiveawayWinnersUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -80744,7 +80745,7 @@ export class BoostAddedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -80759,7 +80760,7 @@ export class BoostAddedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -81003,8 +81004,8 @@ export class BoostAddedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -81135,8 +81136,8 @@ export class BoostAddedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -81660,7 +81661,7 @@ export class BoostAddedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -81828,7 +81829,7 @@ export class BoostAddedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -83215,7 +83216,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -83230,7 +83231,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -83474,8 +83475,8 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -83606,8 +83607,8 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -84131,7 +84132,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -84299,7 +84300,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -85686,7 +85687,7 @@ export class MigrateToChatIdUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -85701,7 +85702,7 @@ export class MigrateToChatIdUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -85945,8 +85946,8 @@ export class MigrateToChatIdUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -86077,8 +86078,8 @@ export class MigrateToChatIdUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -86602,7 +86603,7 @@ export class MigrateToChatIdUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -86770,7 +86771,7 @@ export class MigrateToChatIdUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -88157,7 +88158,7 @@ export class MigrateFromChatIdUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -88172,7 +88173,7 @@ export class MigrateFromChatIdUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -88416,8 +88417,8 @@ export class MigrateFromChatIdUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -88548,8 +88549,8 @@ export class MigrateFromChatIdUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -89073,7 +89074,7 @@ export class MigrateFromChatIdUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -89241,7 +89242,7 @@ export class MigrateFromChatIdUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -90628,7 +90629,7 @@ export class PassportDataUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -90643,7 +90644,7 @@ export class PassportDataUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -90887,8 +90888,8 @@ export class PassportDataUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -91019,8 +91020,8 @@ export class PassportDataUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -91544,7 +91545,7 @@ export class PassportDataUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -91712,7 +91713,7 @@ export class PassportDataUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -93099,7 +93100,7 @@ export class ProximityAlertTriggeredUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -93114,7 +93115,7 @@ export class ProximityAlertTriggeredUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -93358,8 +93359,8 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -93490,8 +93491,8 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -94015,7 +94016,7 @@ export class ProximityAlertTriggeredUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -94183,7 +94184,7 @@ export class ProximityAlertTriggeredUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
@@ -95570,7 +95571,7 @@ export class WriteAccessAllowedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
-    private _photo?: PhotoSize[];
+    private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
@@ -95585,7 +95586,7 @@ export class WriteAccessAllowedUpdate {
     private _location?: Location;
     private _newChatMembers?: User[];
     private _leftChatMember?: User;
-    private _newChatPhoto?: PhotoSize[];
+    private _newChatPhoto?: Photo;
     private _invoice?: Invoice;
     private _successfulPayment?: SuccessfulPayment;
     private _usersShared?: UsersShared;
@@ -95829,8 +95830,8 @@ export class WriteAccessAllowedUpdate {
     /**
      * Optional. Message is a photo, available sizes of the photo
      */
-    get photo(): PhotoSize[] | undefined {
-        return this.raw.photo ? (this._photo ??= this.raw.photo.map(x => new PhotoSize(x))) : undefined;
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
     }
     /**
      * Optional. Message is a sticker, information about the sticker
@@ -95961,8 +95962,8 @@ export class WriteAccessAllowedUpdate {
     /**
      * Optional. A chat photo was change to this value
      */
-    get newChatPhoto(): PhotoSize[] | undefined {
-        return this.raw.new_chat_photo ? (this._newChatPhoto ??= this.raw.new_chat_photo.map(x => new PhotoSize(x))) : undefined;
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
     }
     /**
      * Optional. Service message: the group has been created
@@ -96486,7 +96487,7 @@ export class WriteAccessAllowedUpdate {
      * True if `photo` has at least one item.
      */
     hasPhoto(): this is this & {
-        photo: PhotoSize[];
+        photo: Photo;
     } {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
@@ -96654,7 +96655,7 @@ export class WriteAccessAllowedUpdate {
      * True if `new_chat_photo` has at least one item.
      */
     hasNewChatPhoto(): this is this & {
-        newChatPhoto: PhotoSize[];
+        newChatPhoto: Photo;
     } {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }

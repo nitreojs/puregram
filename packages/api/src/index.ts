@@ -13,6 +13,8 @@ export * from './generated/filters'
 export * from './generated/filter-types'
 export * from './generated/dispatch'
 
+export * from './structures-handcrafted'
+
 export type { TelegramLike } from './telegram-like'
 export type { Has, Modify } from './util-types'
 export type { UpdateHandler, OnOptions, Priority } from './dispatch-runtime'

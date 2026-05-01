@@ -5,9 +5,14 @@ import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema
 import { camelCase, getterNameFor } from './field-names'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
-import { isWrappedStructure } from './structures-config'
+import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, isWrappedStructure } from './structures-config'
 import { renderStructureExtras } from './structures-extras'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
+
+interface WrapperInfo {
+  name: string
+  isArray: boolean
+}
 
 export function emitStructures (schema: Schema) {
   const wrappedObjects = schema.objects.filter(
@@ -41,10 +46,15 @@ export function emitStructures (schema: Schema) {
     o.fields.some(f => !f.required && !/^(has|is)[A-Z]/.test(getterNameFor(f.name)))
   )
 
+  const usedArrayWrappers = collectUsedArrayWrappers(wrappedObjects)
+
   const imports = [
     importTypeNamed([...referencedTypes].sort(), './types'),
     ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
-    importNamed(['INSPECT', 'makeInspect'], './inspect')
+    importNamed(['INSPECT', 'makeInspect'], './inspect'),
+    ...(usedArrayWrappers.length > 0
+      ? [importNamed(usedArrayWrappers, '../structures-handcrafted')]
+      : [])
   ]
 
   const printed = formatModule({
@@ -109,14 +119,14 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
 
   // private _x?: Wrapper
   for (const f of obj.fields) {
-    const wrapperName = wrapperNameFor(f.type, wrappedClassNames)
+    const info = wrapperInfoFor(f.type, wrappedClassNames)
 
-    if (wrapperName) {
+    if (info) {
       members.push(ts.factory.createPropertyDeclaration(
         [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
         ts.factory.createIdentifier(`_${camelCase(f.name)}`),
         ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        wrapperReturnType(f.type, wrapperName, !f.required),
+        wrapperReturnType(info, !f.required),
         undefined
       ))
     }
@@ -199,22 +209,41 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
   )
 }
 
-function wrapperNameFor (ref: SchemaTypeRef, wrappedClassNames: Set<string>) {
+// resolves a field type to its wrapper-class output shape, accounting for synthetic
+// collection wrappers (e.g. PhotoSize[] -> Photo, PhotoSize[][] -> Photo[]). returns
+// undefined for primitives and refs that aren't wrapped
+function wrapperInfoFor (ref: SchemaTypeRef, wrappedClassNames: Set<string>) {
+  // T[] where T has a synthetic collection wrapper -> the wrapper IS the collection (singleton)
+  const directSynth = arrayWrapperFor(ref)
+
+  if (directSynth) {
+    return { name: directSynth, isArray: false }
+  }
+
+  // T[][] where inner T[] has a synthetic wrapper -> array of synth wrappers
+  if (ref.kind === 'array') {
+    const innerSynth = arrayWrapperFor(ref.of)
+
+    if (innerSynth) {
+      return { name: innerSynth, isArray: true }
+    }
+  }
+
   if (ref.kind === 'reference' && wrappedClassNames.has(ref.name)) {
-    return ref.name
+    return { name: ref.name, isArray: false }
   }
 
   if (ref.kind === 'array' && ref.of.kind === 'reference' && wrappedClassNames.has(ref.of.name)) {
-    return ref.of.name
+    return { name: ref.of.name, isArray: true }
   }
 
   return undefined
 }
 
-function wrapperReturnType (ref: SchemaTypeRef, wrapperName: string, optional: boolean) {
-  let inner: ts.TypeNode = ts.factory.createTypeReferenceNode(wrapperName)
+function wrapperReturnType (info: WrapperInfo, optional: boolean) {
+  let inner: ts.TypeNode = ts.factory.createTypeReferenceNode(info.name)
 
-  if (ref.kind === 'array') {
+  if (info.isArray) {
     inner = ts.factory.createArrayTypeNode(inner)
   }
 
@@ -228,12 +257,38 @@ function wrapperReturnType (ref: SchemaTypeRef, wrapperName: string, optional: b
   return inner
 }
 
+function collectUsedArrayWrappers (
+  objs: Extract<SchemaObject, { kind: 'object' }>[]
+) {
+  const used = new Set<string>()
+
+  for (const obj of objs) {
+    for (const f of obj.fields) {
+      const direct = arrayWrapperFor(f.type)
+
+      if (direct) {
+        used.add(direct)
+      }
+
+      if (f.type.kind === 'array') {
+        const inner = arrayWrapperFor(f.type.of)
+
+        if (inner) {
+          used.add(inner)
+        }
+      }
+    }
+  }
+
+  return ARRAY_WRAPPER_NAMES.filter(n => used.has(n))
+}
+
 function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
   const camelName = getterNameFor(f.name)
-  const wrapperName = wrapperNameFor(f.type, wrappedClassNames)
+  const info = wrapperInfoFor(f.type, wrappedClassNames)
 
-  const returnType = wrapperName
-    ? wrapperReturnType(f.type, wrapperName, !f.required)
+  const returnType = info
+    ? wrapperReturnType(info, !f.required)
     : (() => {
         const t = typeRefToTs(f.type)
 
@@ -244,13 +299,13 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
 
   let body: ts.Statement[]
 
-  if (wrapperName) {
-    if (f.type.kind === 'array') {
+  if (info) {
+    if (info.isArray) {
       // arrays: lazy map raw → wrapped. optional arrays guard the map() call against undefined
       const memoAssign = ts.factory.createBinaryExpression(
         ts.factory.createPropertyAccessExpression(ts.factory.createThis(), `_${camelName}`),
         ts.SyntaxKind.QuestionQuestionEqualsToken,
-        buildArrayMap(f.name, wrapperName)
+        buildArrayMap(f.name, info.name)
       )
       const rawAccess = ts.factory.createPropertyAccessExpression(
         ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
@@ -289,7 +344,7 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
                   ),
                   undefined,
                   ts.factory.createNewExpression(
-                    ts.factory.createIdentifier(wrapperName),
+                    ts.factory.createIdentifier(info.name),
                     undefined,
                     [ts.factory.createPropertyAccessExpression(
                       ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
@@ -315,7 +370,7 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
             ts.factory.createPropertyAccessExpression(ts.factory.createThis(), `_${camelName}`),
             ts.SyntaxKind.QuestionQuestionEqualsToken,
             ts.factory.createNewExpression(
-              ts.factory.createIdentifier(wrapperName),
+              ts.factory.createIdentifier(info.name),
               undefined,
               [ts.factory.createPropertyAccessExpression(
                 ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
@@ -387,9 +442,9 @@ function emitAutoHasMethod (
   // `keyof T + T[K] lookup + Exclude<…, undefined>` per layer. inlining produces
   // a flat intersection that TS validates in one pass — measured ~9× speedup
   // on the predicate-on-demo deferred-check site
-  const wrapperName = wrapperNameFor(f.type, wrappedClassNames)
-  const concreteFieldType = wrapperName
-    ? wrapperReturnType(f.type, wrapperName, false)
+  const info = wrapperInfoFor(f.type, wrappedClassNames)
+  const concreteFieldType = info
+    ? wrapperReturnType(info, false)
     : typeRefToTs(f.type)
 
   const returnType = ts.factory.createTypePredicateNode(

@@ -58,7 +58,7 @@ export function parseFileId (input: string): ParsedFileId {
   const accessHash = reader.readI64()
 
   if (fileType === FileType.Thumbnail || fileType === FileType.ProfilePhoto || fileType === FileType.Photo) {
-    const photoSize = parsePhotoSizeSource(reader, version)
+    const photoSize = parsePhotoSizeSource(reader, version, subVersion)
 
     return {
       kind: 'photo',

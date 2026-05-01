@@ -44,7 +44,7 @@ export function serializeFileId (file: ParsedFileId) {
 
     if (file.kind === 'photo') {
       assertPhotoFileType(file.fileType)
-      serializePhotoSizeSource(writer, file.photoSize, file.version)
+      serializePhotoSizeSource(writer, file.photoSize, file.version, file.subVersion)
     }
   }
 

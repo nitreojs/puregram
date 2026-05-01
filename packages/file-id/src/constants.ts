@@ -43,21 +43,32 @@ export enum FileUniqueType {
   Temp = 5
 }
 
-// PhotoSizeSource variant tags
+// PhotoSizeSource variant tags — mirror TDLib PhotoSizeSource::Type
 export enum PhotoSizeSourceType {
   Legacy = 0,
   Thumbnail = 1,
   DialogPhotoSmall = 2,
   DialogPhotoBig = 3,
-  StickerSetThumbnail = 4
+  StickerSetThumbnail = 4,
+  FullLegacy = 5,
+  DialogPhotoSmallLegacy = 6,
+  DialogPhotoBigLegacy = 7,
+  StickerSetThumbnailLegacy = 8,
+  StickerSetThumbnailVersion = 9
 }
+
+// TDLib Version cutoffs that affect the photo file_id binary layout
+// see td/td/telegram/Version.h enum class Version
+export const VERSION_ADD_PHOTO_SIZE_SOURCE = 22
+export const VERSION_REMOVE_PHOTO_VOLUME_AND_LOCAL_ID = 32
 
 // known-good (version, sub_version) pairs round-tripped by this package
 export const SUPPORTED_VERSIONS: readonly (readonly [number, number])[] = [
   [2, 0],
   [4, 22],
   [4, 27],
-  [4, 30]
+  [4, 30],
+  [4, 32]
 ]
 
 // mapping from full FileType to FileUniqueType — used by fileUniqueIdFromFileId

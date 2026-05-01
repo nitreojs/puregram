@@ -197,6 +197,59 @@ describe('webhook reply', () => {
     expect(payload.text).toBe('hi')
   })
 
+  it('does not hijack get* methods — they go via http and return their result', async () => {
+    const calls: { url: string }[] = []
+    const tg = new Telegram({
+      token: 'X',
+      bot: STUB_BOT,
+      httpClient: {
+        async request (input) {
+          calls.push({ url: input.url })
+
+          if (input.url.includes('/getWebhookInfo')) {
+            return {
+              status: 200,
+              json: () => Promise.resolve({ ok: true, result: { url: 'https://example.com/wh', pending_update_count: 0 } })
+            }
+          }
+
+          return { status: 200, json: () => Promise.resolve({ ok: true, result: true }) }
+        }
+      }
+    })
+
+    const cb = tg.getWebhookCallback({ webhookReply: 'auto' })
+
+    let infoSeen: unknown
+    let infoUrlSeen: string | undefined
+
+    tg.onMessage(async (update) => {
+      const info = await tg.getWebhookInfo()
+      infoSeen = info
+      infoUrlSeen = info.url
+      await tg.api.sendMessage({ chat_id: update.raw.chat.id, text: 'after info' })
+    })
+
+    const body = JSON.stringify({
+      update_id: 1,
+      message: { message_id: 1, date: 0, chat: { id: 1, type: 'private' }, text: 'x' }
+    })
+    const res = fakeRes()
+
+    await cb(fakeReq(body), res)
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(infoSeen).toBeDefined()
+    expect(infoUrlSeen).toBe('https://example.com/wh')
+    expect(calls.some(c => c.url.includes('/getWebhookInfo'))).toBe(true)
+    expect(calls.some(c => c.url.includes('/sendMessage'))).toBe(false)
+
+    const payload = JSON.parse(res.body)
+
+    expect(payload.method).toBe('sendMessage')
+    expect(payload.text).toBe('after info')
+  })
+
   it('respects timeout — sends empty 200 when slot stays unclaimed', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const cb = tg.getWebhookCallback({ webhookReply: 'auto', timeoutMilliseconds: 20 })

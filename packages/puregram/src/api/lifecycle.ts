@@ -36,11 +36,13 @@ export async function runRequest (
 
   // webhook reply hijacks the first reply-friendly call per dispatch:
   // the response is sent back as the webhook 200 body, no http call happens,
-  // the caller gets `undefined`. multipart bodies + suppress can't ride along
+  // the caller gets `undefined`. read-style `get*` methods are excluded — they're
+  // only useful for their return value, which webhook reply throws away.
+  // multipart bodies + suppress can't ride along either
   const slot = replyAls.getStore()
 
   if (slot !== undefined && !slot.consumed && !suppress &&
-      !('media' in params) && !needsMultipart(params)) {
+      !method.startsWith('get') && !('media' in params) && !needsMultipart(params)) {
     if (slot.tryClaim(method, params)) {
       return undefined
     }

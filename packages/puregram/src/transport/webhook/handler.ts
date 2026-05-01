@@ -53,7 +53,7 @@ export function createHandler (
 
     await deps.ensureStarted()
 
-    if (options.webhookReply === false) {
+    if (!options.webhookReply) {
       const promise = deps.dispatch(raw).catch((error: unknown) => {
         deps.reportError(error as Error, raw)
       })

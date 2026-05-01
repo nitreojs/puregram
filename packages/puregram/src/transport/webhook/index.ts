@@ -34,6 +34,6 @@ export {
   type StartWebhookOptions,
   type StartWebhookResult
 } from './listener'
-export type { ResolvedWebhookOptions, WebhookOptions, WebhookReplyMode } from './options'
+export type { ResolvedWebhookOptions, WebhookOptions } from './options'
 export { resolveWebhookOptions } from './options'
 export { ReplySlot, replyAls } from './reply'

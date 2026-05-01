@@ -27,7 +27,6 @@ export type {
   ParsedRequest,
   WebhookHandler,
   WebhookOptions,
-  WebhookReplyMode,
   WebhookResponse
 } from './transport/webhook'
 export type { DeleteWebhookOptions, SetWebhookOptions } from './transport/webhook/helpers'

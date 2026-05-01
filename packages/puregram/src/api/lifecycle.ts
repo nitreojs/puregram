@@ -6,7 +6,6 @@ import { ApiError } from '../errors'
 import type { HttpClient } from '../http/client'
 import { needsMultipart, buildSimpleMultipart, buildMediaGroupMultipart } from '../http/multipart'
 import type { ResolvedTelegramOptions } from '../options'
-import { replyAls } from '../transport/webhook/reply'
 
 const debug = createDebug('puregram:api')
 
@@ -33,20 +32,6 @@ export async function runRequest (
   const suppress = params.suppress === true
 
   delete params.suppress
-
-  // webhook reply hijacks the first reply-friendly call per dispatch:
-  // the response is sent back as the webhook 200 body, no http call happens,
-  // the caller gets `undefined`. read-style `get*` methods are excluded — they're
-  // only useful for their return value, which webhook reply throws away.
-  // multipart bodies + suppress can't ride along either
-  const slot = replyAls.getStore()
-
-  if (slot !== undefined && !slot.consumed && !suppress &&
-      !method.startsWith('get') && !('media' in params) && !needsMultipart(params)) {
-    if (slot.tryClaim(method, params)) {
-      return undefined
-    }
-  }
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), deps.options.apiTimeout)

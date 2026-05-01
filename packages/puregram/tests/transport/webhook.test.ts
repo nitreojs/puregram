@@ -170,89 +170,138 @@ describe('webhook callback', () => {
 })
 
 describe('webhook reply', () => {
-  it('returns response 200 with method body when handler claims slot', async () => {
-    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-    const cb = tg.getWebhookCallback({ webhookReply: 'auto' })
+  it('plain tg.api calls always round-trip even when webhookReply is enabled', async () => {
+    const calls: string[] = []
+    const tg = new Telegram({
+      token: 'X',
+      bot: STUB_BOT,
+      httpClient: {
+        async request (input) {
+          calls.push(input.url)
+
+          return { status: 200, json: () => Promise.resolve({ ok: true, result: { message_id: 42 } }) }
+        }
+      }
+    })
+
+    const cb = tg.getWebhookCallback({ webhookReply: true })
+
+    let returnedMessageId: number | undefined
 
     tg.onMessage(async (update) => {
-      await tg.api.sendMessage({ chat_id: update.raw.chat.id, text: 'hi' })
+      const msg = await tg.api.sendMessage({ chat_id: update.raw.chat.id, text: 'hi' })
+      returnedMessageId = (msg as { message_id?: number } | undefined)?.message_id
     })
 
     const body = JSON.stringify({
       update_id: 1,
       message: { message_id: 1, date: 0, chat: { id: 99, type: 'private' }, text: 'x' }
     })
-    const res = fakeRes()
 
-    await cb(fakeReq(body), res)
-    await new Promise(resolve => setImmediate(resolve))
+    await cb(fakeReq(body), fakeRes())
+    await tg.shutdown()
 
-    expect(res.statusCode).toBe(200)
-    expect(res.contentType).toBe('application/json')
-
-    const payload = JSON.parse(res.body)
-
-    expect(payload.method).toBe('sendMessage')
-    expect(payload.chat_id).toBe(99)
-    expect(payload.text).toBe('hi')
+    expect(returnedMessageId).toBe(42)
+    expect(calls.some(u => u.includes('/sendMessage'))).toBe(true)
   })
 
-  it('does not hijack get* methods — they go via http and return their result', async () => {
-    const calls: { url: string }[] = []
+  it('replyViaWebhook claims the slot — response carries the method body', async () => {
+    const calls: string[] = []
     const tg = new Telegram({
       token: 'X',
       bot: STUB_BOT,
       httpClient: {
         async request (input) {
-          calls.push({ url: input.url })
-
-          if (input.url.includes('/getWebhookInfo')) {
-            return {
-              status: 200,
-              json: () => Promise.resolve({ ok: true, result: { url: 'https://example.com/wh', pending_update_count: 0 } })
-            }
-          }
+          calls.push(input.url)
 
           return { status: 200, json: () => Promise.resolve({ ok: true, result: true }) }
         }
       }
     })
+    const cb = tg.getWebhookCallback({ webhookReply: true })
 
-    const cb = tg.getWebhookCallback({ webhookReply: 'auto' })
+    let claimResult = false
 
-    let infoSeen: unknown
-    let infoUrlSeen: string | undefined
-
-    tg.onMessage(async (update) => {
-      const info = await tg.getWebhookInfo()
-      infoSeen = info
-      infoUrlSeen = info.url
-      await tg.api.sendMessage({ chat_id: update.raw.chat.id, text: 'after info' })
+    tg.onMessage((update) => {
+      claimResult = tg.replyViaWebhook('sendMessage', {
+        chat_id: update.raw.chat.id,
+        text: 'pong'
+      })
     })
 
     const body = JSON.stringify({
       update_id: 1,
-      message: { message_id: 1, date: 0, chat: { id: 1, type: 'private' }, text: 'x' }
+      message: { message_id: 1, date: 0, chat: { id: 99, type: 'private' }, text: '/ping' }
     })
     const res = fakeRes()
 
     await cb(fakeReq(body), res)
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(infoSeen).toBeDefined()
-    expect(infoUrlSeen).toBe('https://example.com/wh')
-    expect(calls.some(c => c.url.includes('/getWebhookInfo'))).toBe(true)
-    expect(calls.some(c => c.url.includes('/sendMessage'))).toBe(false)
+    expect(claimResult).toBe(true)
+    expect(res.statusCode).toBe(200)
+    expect(res.contentType).toBe('application/json')
+    expect(calls.some(u => u.includes('/sendMessage'))).toBe(false)
 
     const payload = JSON.parse(res.body)
 
     expect(payload.method).toBe('sendMessage')
-    expect(payload.text).toBe('after info')
+    expect(payload.chat_id).toBe(99)
+    expect(payload.text).toBe('pong')
+  })
+
+  it('replyViaWebhook returns false outside a webhook dispatch (e.g. polling)', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+
+    expect(tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'x' })).toBe(false)
+  })
+
+  it('replyViaWebhook returns false when webhookReply is disabled', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const cb = tg.getWebhookCallback()
+
+    let claimResult: boolean | undefined
+
+    tg.onMessage(() => {
+      claimResult = tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'x' })
+    })
+
+    const body = JSON.stringify({
+      update_id: 1,
+      message: { message_id: 1, date: 0, chat: { id: 1, type: 'private' } }
+    })
+
+    await cb(fakeReq(body), fakeRes())
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(claimResult).toBe(false)
+  })
+
+  it('second replyViaWebhook returns false — only first call wins', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const cb = tg.getWebhookCallback({ webhookReply: true })
+
+    const results: boolean[] = []
+
+    tg.onMessage(() => {
+      results.push(tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'first' }))
+      results.push(tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'second' }))
+    })
+
+    const body = JSON.stringify({
+      update_id: 1,
+      message: { message_id: 1, date: 0, chat: { id: 1, type: 'private' } }
+    })
+
+    await cb(fakeReq(body), fakeRes())
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(results).toEqual([true, false])
   })
 
   it('respects timeout — sends empty 200 when slot stays unclaimed', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-    const cb = tg.getWebhookCallback({ webhookReply: 'auto', timeoutMilliseconds: 20 })
+    const cb = tg.getWebhookCallback({ webhookReply: true, timeoutMilliseconds: 20 })
 
     tg.onMessage(async () => {
       await new Promise(resolve => setTimeout(resolve, 200))

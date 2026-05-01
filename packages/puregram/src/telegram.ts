@@ -38,7 +38,16 @@ import { resolveInstallOrder } from './plugins/installer'
 import type { Plugin } from './plugins/plugin'
 import { PluginRegistry } from './plugins/registry'
 import { PollingTransport, type StartPollingOptions } from './transport/polling'
-import { createWebhookCallback } from './transport/webhook'
+import type { WebhookOptions } from './transport/webhook'
+import { createHandler as createWebhookHandler, nodeAdapter, resolveWebhookOptions } from './transport/webhook'
+import {
+  deleteWebhook as deleteWebhookHelper,
+  type DeleteWebhookOptions,
+  getWebhookInfo as getWebhookInfoHelper,
+  setWebhook as setWebhookHelper,
+  type SetWebhookOptions
+} from './transport/webhook/helpers'
+import { startWebhookListener, type StartWebhookOptions } from './transport/webhook/listener'
 
 const dispatchDebug = createDebug('puregram:dispatch')
 
@@ -61,9 +70,11 @@ export class Telegram<Ext = unknown> {
   protected readonly pendingPlugins: Plugin[] = []
   protected readonly rawUpdateHandlers: ((raw: Record<string, unknown>) => void | Promise<void>)[] = []
   protected readonly httpClient: HttpClient
+  protected readonly inFlight = new Set<Promise<void>>()
   protected polling: PollingTransport | undefined
 
   protected started = false
+  protected startPromise: Promise<void> | undefined
 
   constructor (input: TelegramOptions) {
     this.options = resolveOptions(input)
@@ -115,23 +126,9 @@ export class Telegram<Ext = unknown> {
       return
     }
 
-    const order = resolveInstallOrder(this.pendingPlugins)
-
-    for (const plugin of order) {
-      const ext = await plugin.install(this)
-
-      this.plugins.set(plugin.name, ext)
-      Object.defineProperty(this, plugin.name, {
-        value: ext, enumerable: true, configurable: false
-      })
-    }
-
-    if (!this.bot) {
-      this.bot = await this.api.getMe()
-    }
-
-    await this.hooks.run('onInit', { tg: this })
-    this.started = true
+    // coalesce concurrent boots — webhook adapters fire start() per request
+    this.startPromise ??= this.bootstrap()
+    await this.startPromise
   }
 
   async shutdown () {
@@ -139,8 +136,12 @@ export class Telegram<Ext = unknown> {
       return
     }
 
+    this.polling?.stop()
+
     await this.hooks.run('onShutdown', { tg: this })
+    await this.drainInFlight()
     this.started = false
+    this.startPromise = undefined
   }
 
   /**
@@ -365,12 +366,9 @@ export class Telegram<Ext = unknown> {
 
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
-      buildAndDispatch: async (rawUpdate) => {
-        await this.runRawUpdateHandlers(rawUpdate)
-
-        const update = buildUpdate(rawUpdate, this) as AnyUpdate
-
-        await this.dispatch(update)
+      buildAndDispatch: rawUpdate => this.handleIncoming(rawUpdate),
+      trackInFlight: (p) => {
+        this.trackInFlight(p)
       },
       onError: (error, raw) => {
         this.reportDispatchError(error, raw)
@@ -384,25 +382,59 @@ export class Telegram<Ext = unknown> {
     this.polling?.stop()
   }
 
-  getWebhookCallback (secret?: string) {
-    return createWebhookCallback({
-      buildAndDispatch: async (rawUpdate) => {
-        await this.runRawUpdateHandlers(rawUpdate)
-
-        const update = buildUpdate(rawUpdate, this) as AnyUpdate
-
-        await this.dispatch(update)
+  /**
+   * builds a framework-agnostic webhook handler. consumed by adapters under
+   * `puregram/webhook/<framework>`; for raw `node:http` use `getWebhookCallback`
+   */
+  webhookHandler (options: WebhookOptions = {}) {
+    return createWebhookHandler(resolveWebhookOptions(options), {
+      dispatch: raw => this.handleIncoming(raw),
+      trackInFlight: (p) => {
+        this.trackInFlight(p)
       },
-      onError: (error, raw) => {
+      ensureStarted: () => this.start(),
+      reportError: (error, raw) => {
         this.reportDispatchError(error, raw)
       }
-    }, secret)
+    })
+  }
+
+  /**
+   * node `http`/`https` callback. for express/koa/fastify/hono/h3/elysia
+   * import the matching adapter from `puregram/webhook/<framework>` instead
+   */
+  getWebhookCallback (options: WebhookOptions = {}) {
+    return nodeAdapter(this.webhookHandler(options))
+  }
+
+  /**
+   * one-shot: starts the bot, calls `setWebhook`, and (when `port` is given)
+   * spins up a built-in node `http` listener. the same `secretToken` is used
+   * to register the webhook and to validate incoming requests
+   */
+  async startWebhook (options: StartWebhookOptions) {
+    await this.start()
+
+    return startWebhookListener(this as Telegram, options)
+  }
+
+  async setWebhook (options: SetWebhookOptions) {
+    return setWebhookHelper(this as Telegram, options)
+  }
+
+  async deleteWebhook (options: DeleteWebhookOptions = {}) {
+    return deleteWebhookHelper(this as Telegram, options)
+  }
+
+  async getWebhookInfo () {
+    return getWebhookInfoHelper(this as Telegram)
   }
 
   async dropPendingUpdates (value?: boolean | string[]) {
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
       buildAndDispatch: async () => {},
+      trackInFlight: () => {},
       onError: (error, raw) => {
         this.reportDispatchError(error, raw)
       }
@@ -416,6 +448,49 @@ export class Telegram<Ext = unknown> {
       await this.dispatcher.runUserHandlers(update)
       await next()
     })
+  }
+
+  protected async handleIncoming (raw: Record<string, unknown>) {
+    await this.runRawUpdateHandlers(raw)
+
+    const update = buildUpdate(raw, this) as AnyUpdate
+
+    await this.dispatch(update)
+  }
+
+  private async bootstrap () {
+    const order = resolveInstallOrder(this.pendingPlugins)
+
+    for (const plugin of order) {
+      const ext = await plugin.install(this)
+
+      this.plugins.set(plugin.name, ext)
+      Object.defineProperty(this, plugin.name, {
+        value: ext, enumerable: true, configurable: false
+      })
+    }
+
+    if (!this.bot) {
+      this.bot = await this.api.getMe()
+    }
+
+    await this.hooks.run('onInit', { tg: this })
+    this.started = true
+  }
+
+  private trackInFlight (p: Promise<void>) {
+    this.inFlight.add(p)
+    // dispatchers wrap rejections themselves before reaching here, so this is purely cleanup
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises -- see above
+    p.finally(() => this.inFlight.delete(p))
+  }
+
+  private async drainInFlight () {
+    if (this.inFlight.size === 0) {
+      return
+    }
+
+    await Promise.allSettled(this.inFlight)
   }
 
   // raw handlers fire before kind discrimination so they see updates whose

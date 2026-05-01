@@ -25,6 +25,10 @@
     "./plugin": {
       "types": "./lib/plugins/plugin.d.ts",
       "import": "./lib/plugins/plugin.js"
+    },
+    "./webhook": {
+      "types": "./lib/transport/webhook/index.d.ts",
+      "import": "./lib/transport/webhook/index.js"
     }
   },
   "files": ["lib"],

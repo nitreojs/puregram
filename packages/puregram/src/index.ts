@@ -22,7 +22,16 @@ export type {
 } from './dispatch/hooks'
 export type { AnyUpdate, OnOptions, Priority, UpdateHandler, UpdatePredicate } from './dispatch/on'
 export type { StartPollingOptions } from './transport/polling'
-export type { WebhookCallback } from './transport/webhook'
+export type {
+  NodeWebhookCallback,
+  ParsedRequest,
+  WebhookHandler,
+  WebhookOptions,
+  WebhookReplyMode,
+  WebhookResponse
+} from './transport/webhook'
+export type { DeleteWebhookOptions, SetWebhookOptions } from './transport/webhook/helpers'
+export type { StartWebhookOptions, StartWebhookResult } from './transport/webhook/listener'
 
 export { UnsupportedUpdate } from './dispatch/update-builder'
 export { attach } from './dispatch/attach'

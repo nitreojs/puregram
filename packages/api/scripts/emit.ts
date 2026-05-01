@@ -16,6 +16,7 @@ import { emitShortcuts } from './lib/emitter/emit-shortcuts'
 import { emitStructures } from './lib/emitter/emit-structures'
 import { emitTypes } from './lib/emitter/emit-types'
 import { emitUpdates } from './lib/emitter/emit-updates'
+import { emitWebhookReplySafe } from './lib/emitter/emit-webhook-reply-safe'
 import { loadLatestSchema, versionString } from './lib/emitter/load-schema'
 
 async function main () {
@@ -42,7 +43,8 @@ async function main () {
     ['formattable-fields.ts', emitFormattableFields(schema)],
     ['filters.ts', emitFilters(schema)],
     ['filter-types.ts', emitFilterTypes(schema)],
-    ['dispatch.ts', emitDispatch(schema)]
+    ['dispatch.ts', emitDispatch(schema)],
+    ['webhook-reply-safe.ts', emitWebhookReplySafe(schema)]
   ]
 
   for (const [name, content] of writes) {

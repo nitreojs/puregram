@@ -1,4 +1,7 @@
+import { createDebug } from '../../../debug'
 import type { ParsedRequest, WebhookHandler } from '../handler'
+
+const debug = createDebug('puregram:webhook')
 
 interface FastifyRequestLike {
   method: string
@@ -19,6 +22,10 @@ export type FastifyHandler = (req: FastifyRequestLike, reply: FastifyReplyLike) 
  */
 export function fastifyAdapter (handler: WebhookHandler) {
   const fn: FastifyHandler = async (req, reply) => {
+    if (req.method === 'POST' && req.body === undefined) {
+      debug('fastify: req.body is undefined — fastify normally auto-parses application/json; check your content-parser setup')
+    }
+
     const parsed: ParsedRequest = {
       method: req.method,
       headers: pickFirst(req.headers),

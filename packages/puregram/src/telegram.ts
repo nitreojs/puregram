@@ -71,6 +71,7 @@ export class Telegram<Ext = unknown> {
   protected readonly rawUpdateHandlers: ((raw: Record<string, unknown>) => void | Promise<void>)[] = []
   protected readonly httpClient: HttpClient
   protected readonly inFlight = new Set<Promise<void>>()
+  protected readonly cleanups: (() => Promise<void>)[] = []
   protected polling: PollingTransport | undefined
 
   protected started = false
@@ -126,22 +127,48 @@ export class Telegram<Ext = unknown> {
       return
     }
 
-    // coalesce concurrent boots — webhook adapters fire start() per request
-    this.startPromise ??= this.bootstrap()
+    // coalesce concurrent boots — webhook adapters fire start() per request.
+    // on failure, clear the slot so a later call can retry without restarting
+    // the process (one bad getMe shouldn't permanently brick the bot)
+    if (this.startPromise === undefined) {
+      this.startPromise = this.bootstrap().catch((error: unknown) => {
+        this.startPromise = undefined
+
+        throw error
+      })
+    }
+
     await this.startPromise
   }
 
   async shutdown () {
-    if (!this.started) {
+    if (!this.started && this.cleanups.length === 0) {
       return
     }
 
     this.polling?.stop()
 
+    for (const cleanup of this.cleanups.splice(0)) {
+      try {
+        await cleanup()
+      } catch (error) {
+        dispatchDebug('cleanup threw during shutdown: %O', error)
+      }
+    }
+
     await this.hooks.run('onShutdown', { tg: this })
     await this.drainInFlight()
     this.started = false
     this.startPromise = undefined
+  }
+
+  /**
+   * registers a cleanup callback to run on `shutdown()`. used internally by
+   * `startWebhook` to stop the http server it owns; userland can also register
+   * any teardown that should ride the bot's lifecycle
+   */
+  registerCleanup (fn: () => Promise<void>) {
+    this.cleanups.push(fn)
   }
 
   /**
@@ -404,7 +431,9 @@ export class Telegram<Ext = unknown> {
    * import the matching adapter from `puregram/webhook/<framework>` instead
    */
   getWebhookCallback (options: WebhookOptions = {}) {
-    return nodeAdapter(this.webhookHandler(options))
+    return nodeAdapter(this.webhookHandler(options), {
+      ...(options.maxBodyBytes !== undefined && { maxBodyBytes: options.maxBodyBytes })
+    })
   }
 
   /**
@@ -415,7 +444,13 @@ export class Telegram<Ext = unknown> {
   async startWebhook (options: StartWebhookOptions) {
     await this.start()
 
-    return startWebhookListener(this as Telegram, options)
+    const startup = await startWebhookListener(this as Telegram, options)
+
+    if (startup.server !== undefined) {
+      this.registerCleanup(startup.stop)
+    }
+
+    return startup
   }
 
   async setWebhook (options: SetWebhookOptions) {

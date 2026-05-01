@@ -1,4 +1,7 @@
+import { createDebug } from '../../../debug'
 import type { ParsedRequest, WebhookHandler } from '../handler'
+
+const debug = createDebug('puregram:webhook')
 
 interface ExpressLike {
   method?: string
@@ -20,6 +23,10 @@ export type ExpressMiddleware = (req: ExpressLike, res: ExpressResLike) => Promi
  */
 export function expressAdapter (handler: WebhookHandler) {
   const middleware: ExpressMiddleware = async (req, res) => {
+    if (req.method === 'POST' && req.body === undefined) {
+      debug('express: req.body is undefined — register `app.use(express.json())` before this route')
+    }
+
     const parsed: ParsedRequest = {
       method: req.method ?? 'GET',
       headers: pickFirst(req.headers),

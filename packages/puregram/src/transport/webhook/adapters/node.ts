@@ -1,10 +1,20 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
 
 import type { ParsedRequest, WebhookHandler } from '../handler'
+import { DEFAULT_MAX_BODY_BYTES } from '../options'
 
 export type NodeWebhookCallback = (req: IncomingMessage, res: ServerResponse) => Promise<void>
 
-export function nodeAdapter (handler: WebhookHandler) {
+export interface NodeAdapterOptions {
+  /** body-size cap in bytes; default 1MB */
+  maxBodyBytes?: number
+}
+
+class BodyTooLargeError extends Error {}
+
+export function nodeAdapter (handler: WebhookHandler, options: NodeAdapterOptions = {}) {
+  const maxBodyBytes = options.maxBodyBytes ?? DEFAULT_MAX_BODY_BYTES
+
   const callback: NodeWebhookCallback = async (req, res) => {
     const parsed: ParsedRequest = {
       method: req.method ?? 'GET',
@@ -13,10 +23,25 @@ export function nodeAdapter (handler: WebhookHandler) {
     }
 
     if (parsed.method === 'POST') {
+      // pre-check via Content-Length so we never start buffering an oversized body
+      const declared = Number(parsed.headers['content-length'] ?? 0)
+
+      if (Number.isFinite(declared) && declared > maxBodyBytes) {
+        res.writeHead(413)
+        res.end()
+
+        return
+      }
+
       try {
-        parsed.body = await readJson(req)
-      } catch {
-        res.writeHead(400)
+        parsed.body = await readJson(req, maxBodyBytes)
+      } catch (error) {
+        if (error instanceof BodyTooLargeError) {
+          res.writeHead(413)
+        } else {
+          res.writeHead(400)
+        }
+
         res.end()
 
         return
@@ -32,11 +57,20 @@ export function nodeAdapter (handler: WebhookHandler) {
   return callback
 }
 
-async function readJson (req: IncomingMessage) {
+async function readJson (req: IncomingMessage, maxBytes: number) {
   const chunks: Uint8Array[] = []
+  let total = 0
 
   for await (const chunk of req) {
-    chunks.push(chunk as Uint8Array)
+    const buf = chunk as Uint8Array
+
+    total += buf.length
+
+    if (total > maxBytes) {
+      throw new BodyTooLargeError()
+    }
+
+    chunks.push(buf)
   }
 
   const text = Buffer.concat(chunks).toString('utf8')

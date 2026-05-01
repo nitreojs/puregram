@@ -1,4 +1,7 @@
+import { createDebug } from '../../../debug'
 import type { ParsedRequest, WebhookHandler } from '../handler'
+
+const debug = createDebug('puregram:webhook')
 
 interface KoaContextLike {
   method: string
@@ -16,6 +19,10 @@ export type KoaMiddleware = (ctx: KoaContextLike) => Promise<void>
  */
 export function koaAdapter (handler: WebhookHandler) {
   const middleware: KoaMiddleware = async (ctx) => {
+    if (ctx.method === 'POST' && ctx.request.body === undefined) {
+      debug('koa: ctx.request.body is undefined — install koa-bodyparser (or @koa/bodyparser) before this route')
+    }
+
     const parsed: ParsedRequest = {
       method: ctx.method,
       headers: pickFirst(ctx.headers),

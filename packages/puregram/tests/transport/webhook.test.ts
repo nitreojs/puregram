@@ -33,6 +33,88 @@ const fakeRes = () => {
   return res as any
 }
 
+describe('hardening', () => {
+  it('rejects oversized POST bodies with 413', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const cb = tg.getWebhookCallback({ maxBodyBytes: 100 })
+
+    const big = JSON.stringify({ update_id: 1, blob: 'x'.repeat(200) })
+    const res = fakeRes()
+
+    await cb(fakeReq(big), res)
+
+    expect(res.statusCode).toBe(413)
+  })
+
+  it('honours Content-Length pre-check before reading body', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const cb = tg.getWebhookCallback({ maxBodyBytes: 100 })
+
+    const res = fakeRes()
+
+    await cb(fakeReq('{}', { 'content-length': '999999' }), res)
+
+    expect(res.statusCode).toBe(413)
+  })
+
+  it('start() retries cleanly after a failed bootstrap', async () => {
+    let attempts = 0
+    const tg = new Telegram({
+      token: 'X',
+      bot: STUB_BOT,
+      httpClient: {
+        async request () {
+          attempts += 1
+
+          if (attempts === 1) {
+            throw new Error('network down')
+          }
+
+          return { status: 200, json: () => Promise.resolve({ ok: true, result: true }) }
+        }
+      }
+    })
+
+    tg.useHook('onInit', async () => {
+      await tg.api.getMyName()
+    })
+
+    await expect(tg.start()).rejects.toThrow('network down')
+
+    // first attempt poisoned nothing — second start succeeds
+    await tg.start()
+    expect(attempts).toBe(2)
+  })
+
+  it('shutdown runs registered cleanups exactly once', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    let cleaned = 0
+
+    tg.registerCleanup(async () => {
+      cleaned += 1
+    })
+    await tg.start()
+    await tg.shutdown()
+    await tg.shutdown()
+
+    expect(cleaned).toBe(1)
+  })
+
+  it('shutdown swallows cleanup errors so subsequent cleanups still run', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    let secondRan = false
+
+    tg.registerCleanup(() => Promise.reject(new Error('boom')))
+    tg.registerCleanup(async () => {
+      secondRan = true
+    })
+    await tg.start()
+    await tg.shutdown()
+
+    expect(secondRan).toBe(true)
+  })
+})
+
 describe('webhook callback', () => {
   it('responds 405 to non-POST', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })

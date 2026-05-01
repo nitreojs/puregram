@@ -6,19 +6,23 @@ export interface WebhookOptions {
   secretToken?: string
 
   /**
-   * enables the webhook-reply slot. handlers can call `tg.replyViaWebhook(method, params)`
-   * to pipe a single api call into the webhook 200 body, skipping the round-trip
+   * automatic webhook-reply optimization. when on (default), api calls that
+   * return `true` (chat actions, message reactions, deletions, pins, …) are
+   * piped into the webhook 200 body, saving an http round-trip. methods that
+   * return data (sendMessage, getChat, …) always round-trip — the optimization
+   * is invisible to userland: `await tg.api.X(...)` resolves to the same value
+   * either way, so handlers written for polling work unchanged
    *
-   * default `false`. plain `tg.api.X(...)` always round-trips regardless of this flag —
-   * webhook reply is opt-in *per call*, never automatic
+   * set `false` only if your infrastructure has a reason to never piggyback on
+   * the webhook response (e.g. firewalls / proxies that strip non-empty 200 bodies)
    */
   webhookReply?: boolean
 
   /**
    * cap the wait between request arrival and our 200. only meaningful when
-   * `webhookReply` is enabled — the handler waits until either the slot is
-   * claimed, dispatch finishes, or this timer fires. dispatch keeps running
-   * after the response and is awaited by `tg.shutdown()`
+   * `webhookReply` is on — the handler waits until either the slot is claimed,
+   * dispatch finishes, or this timer fires. dispatch keeps running after the
+   * response and is awaited by `tg.shutdown()`
    *
    * `0` (default) means no cap
    */
@@ -34,7 +38,7 @@ export interface ResolvedWebhookOptions {
 export function resolveWebhookOptions (input?: WebhookOptions) {
   return {
     secretToken: input?.secretToken,
-    webhookReply: input?.webhookReply ?? false,
+    webhookReply: input?.webhookReply ?? true,
     timeoutMilliseconds: input?.timeoutMilliseconds ?? 0
   }
 }

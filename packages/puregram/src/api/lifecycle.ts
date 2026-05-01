@@ -1,4 +1,5 @@
 import type { TelegramResponseParameters } from '@puregram/api'
+import { WEBHOOK_REPLY_SAFE_METHODS } from '@puregram/api'
 
 import { createDebug } from '../debug'
 import type { HookRegistry, RequestContext } from '../dispatch/hooks'
@@ -6,6 +7,7 @@ import { ApiError } from '../errors'
 import type { HttpClient } from '../http/client'
 import { needsMultipart, buildSimpleMultipart, buildMediaGroupMultipart } from '../http/multipart'
 import type { ResolvedTelegramOptions } from '../options'
+import { replyAls } from '../transport/webhook/reply'
 
 const debug = createDebug('puregram:api')
 
@@ -32,6 +34,20 @@ export async function runRequest (
   const suppress = params.suppress === true
 
   delete params.suppress
+
+  // safe webhook-reply optimization: methods whose return is `true` can ride
+  // the webhook 200 body — caller awaits `true` either way, so the round-trip
+  // is invisible. suppress + multipart skip this path because they need the
+  // real http response (suppress for the error shape, multipart can't serialize as json)
+  const slot = replyAls.getStore()
+
+  if (slot !== undefined && !slot.consumed && !suppress &&
+      WEBHOOK_REPLY_SAFE_METHODS.has(method) &&
+      !('media' in params) && !needsMultipart(params)) {
+    if (slot.tryClaim(method, params)) {
+      return true
+    }
+  }
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), deps.options.apiTimeout)

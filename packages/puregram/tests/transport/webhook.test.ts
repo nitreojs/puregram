@@ -169,101 +169,122 @@ describe('webhook callback', () => {
   })
 })
 
-describe('webhook reply', () => {
-  it('plain tg.api calls always round-trip even when webhookReply is enabled', async () => {
+describe('webhook reply (transparent)', () => {
+  const okJson = (result: unknown) => ({
+    status: 200,
+    json: () => Promise.resolve({ ok: true, result })
+  })
+
+  const recordingClient = (override?: (method: string) => unknown) => {
     const calls: string[] = []
-    const tg = new Telegram({
-      token: 'X',
-      bot: STUB_BOT,
-      httpClient: {
-        async request (input) {
-          calls.push(input.url)
+    const client = {
+      async request (input: { url: string }) {
+        const method = input.url.split('?')[0]?.split('/').pop() ?? ''
+        calls.push(method)
 
-          return { status: 200, json: () => Promise.resolve({ ok: true, result: { message_id: 42 } }) }
+        if (override) {
+          const out = override(method)
+
+          if (out !== undefined) {
+            return okJson(out)
+          }
         }
+
+        return okJson(true)
       }
-    })
+    }
 
-    const cb = tg.getWebhookCallback({ webhookReply: true })
+    return { client, calls }
+  }
 
-    let returnedMessageId: number | undefined
+  it('safe methods (returns true) ride the webhook 200 body', async () => {
+    const { client, calls } = recordingClient()
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT, httpClient: client })
+    const cb = tg.getWebhookCallback()
+
+    let observedReturn: unknown
 
     tg.onMessage(async (update) => {
-      const msg = await tg.api.sendMessage({ chat_id: update.raw.chat.id, text: 'hi' })
-      returnedMessageId = (msg as { message_id?: number } | undefined)?.message_id
+      observedReturn = await tg.api.sendChatAction({ chat_id: update.raw.chat.id, action: 'typing' })
     })
 
     const body = JSON.stringify({
       update_id: 1,
       message: { message_id: 1, date: 0, chat: { id: 99, type: 'private' }, text: 'x' }
     })
+    const res = fakeRes()
 
-    await cb(fakeReq(body), fakeRes())
-    await tg.shutdown()
+    await cb(fakeReq(body), res)
+    await new Promise(resolve => setImmediate(resolve))
 
-    expect(returnedMessageId).toBe(42)
-    expect(calls.some(u => u.includes('/sendMessage'))).toBe(true)
+    // observable behavior — handler still got `true`, no http request happened
+    expect(observedReturn).toBe(true)
+    expect(calls).not.toContain('sendChatAction')
+    expect(res.statusCode).toBe(200)
+    expect(res.contentType).toBe('application/json')
+
+    const payload = JSON.parse(res.body)
+
+    expect(payload.method).toBe('sendChatAction')
+    expect(payload.chat_id).toBe(99)
+    expect(payload.action).toBe('typing')
   })
 
-  it('replyViaWebhook claims the slot — response carries the method body', async () => {
-    const calls: string[] = []
-    const tg = new Telegram({
-      token: 'X',
-      bot: STUB_BOT,
-      httpClient: {
-        async request (input) {
-          calls.push(input.url)
+  it('data-returning methods (sendMessage) always round-trip — return value preserved', async () => {
+    const { client, calls } = recordingClient(method => method === 'sendMessage' ? { message_id: 42 } : undefined)
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT, httpClient: client })
+    const cb = tg.getWebhookCallback()
 
-          return { status: 200, json: () => Promise.resolve({ ok: true, result: true }) }
-        }
-      }
-    })
-    const cb = tg.getWebhookCallback({ webhookReply: true })
+    let observed: unknown
 
-    let claimResult = false
-
-    tg.onMessage((update) => {
-      claimResult = tg.replyViaWebhook('sendMessage', {
-        chat_id: update.raw.chat.id,
-        text: 'pong'
-      })
+    tg.onMessage(async (update) => {
+      observed = await tg.api.sendMessage({ chat_id: update.raw.chat.id, text: 'hi' })
     })
 
     const body = JSON.stringify({
       update_id: 1,
-      message: { message_id: 1, date: 0, chat: { id: 99, type: 'private' }, text: '/ping' }
+      message: { message_id: 1, date: 0, chat: { id: 1, type: 'private' }, text: 'x' }
+    })
+
+    await cb(fakeReq(body), fakeRes())
+    await tg.shutdown()
+
+    expect(observed).toEqual({ message_id: 42 })
+    expect(calls).toContain('sendMessage')
+  })
+
+  it('first safe call wins; subsequent safe calls round-trip', async () => {
+    const { client, calls } = recordingClient()
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT, httpClient: client })
+    const cb = tg.getWebhookCallback()
+
+    tg.onMessage(async (update) => {
+      await tg.api.sendChatAction({ chat_id: update.raw.chat.id, action: 'typing' })
+      // already claimed — this one round-trips
+      await tg.api.setMessageReaction({ chat_id: update.raw.chat.id, message_id: 1, reaction: [] })
+    })
+
+    const body = JSON.stringify({
+      update_id: 1,
+      message: { message_id: 1, date: 0, chat: { id: 1, type: 'private' } }
     })
     const res = fakeRes()
 
     await cb(fakeReq(body), res)
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(claimResult).toBe(true)
-    expect(res.statusCode).toBe(200)
-    expect(res.contentType).toBe('application/json')
-    expect(calls.some(u => u.includes('/sendMessage'))).toBe(false)
-
-    const payload = JSON.parse(res.body)
-
-    expect(payload.method).toBe('sendMessage')
-    expect(payload.chat_id).toBe(99)
-    expect(payload.text).toBe('pong')
+    expect(calls).not.toContain('sendChatAction')
+    expect(calls).toContain('setMessageReaction')
+    expect(JSON.parse(res.body).method).toBe('sendChatAction')
   })
 
-  it('replyViaWebhook returns false outside a webhook dispatch (e.g. polling)', async () => {
-    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-
-    expect(tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'x' })).toBe(false)
-  })
-
-  it('replyViaWebhook returns false when webhookReply is disabled', async () => {
-    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+  it('suppress: true forces round-trip even for safe methods', async () => {
+    const { client, calls } = recordingClient()
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT, httpClient: client })
     const cb = tg.getWebhookCallback()
 
-    let claimResult: boolean | undefined
-
-    tg.onMessage(() => {
-      claimResult = tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'x' })
+    tg.onMessage(async (update) => {
+      await tg.api.sendChatAction({ chat_id: update.raw.chat.id, action: 'typing', suppress: true })
     })
 
     const body = JSON.stringify({
@@ -272,36 +293,36 @@ describe('webhook reply', () => {
     })
 
     await cb(fakeReq(body), fakeRes())
-    await new Promise(resolve => setImmediate(resolve))
+    await tg.shutdown()
 
-    expect(claimResult).toBe(false)
+    expect(calls).toContain('sendChatAction')
   })
 
-  it('second replyViaWebhook returns false — only first call wins', async () => {
-    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-    const cb = tg.getWebhookCallback({ webhookReply: true })
+  it('webhookReply: false disables the optimization — all calls round-trip', async () => {
+    const { client, calls } = recordingClient()
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT, httpClient: client })
+    const cb = tg.getWebhookCallback({ webhookReply: false })
 
-    const results: boolean[] = []
-
-    tg.onMessage(() => {
-      results.push(tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'first' }))
-      results.push(tg.replyViaWebhook('sendMessage', { chat_id: 1, text: 'second' }))
+    tg.onMessage(async (update) => {
+      await tg.api.sendChatAction({ chat_id: update.raw.chat.id, action: 'typing' })
     })
 
     const body = JSON.stringify({
       update_id: 1,
       message: { message_id: 1, date: 0, chat: { id: 1, type: 'private' } }
     })
+    const res = fakeRes()
 
-    await cb(fakeReq(body), fakeRes())
-    await new Promise(resolve => setImmediate(resolve))
+    await cb(fakeReq(body), res)
+    await tg.shutdown()
 
-    expect(results).toEqual([true, false])
+    expect(calls).toContain('sendChatAction')
+    expect(res.body).toBe('')
   })
 
-  it('respects timeout — sends empty 200 when slot stays unclaimed', async () => {
+  it('respects timeout — empty 200 if no claim happens in time', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
-    const cb = tg.getWebhookCallback({ webhookReply: true, timeoutMilliseconds: 20 })
+    const cb = tg.getWebhookCallback({ timeoutMilliseconds: 20 })
 
     tg.onMessage(async () => {
       await new Promise(resolve => setTimeout(resolve, 200))

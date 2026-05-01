@@ -39,7 +39,7 @@ import type { Plugin } from './plugins/plugin'
 import { PluginRegistry } from './plugins/registry'
 import { PollingTransport, type StartPollingOptions } from './transport/polling'
 import type { WebhookOptions } from './transport/webhook'
-import { createHandler as createWebhookHandler, nodeAdapter, replyAls, resolveWebhookOptions } from './transport/webhook'
+import { createHandler as createWebhookHandler, nodeAdapter, resolveWebhookOptions } from './transport/webhook'
 import {
   deleteWebhook as deleteWebhookHelper,
   type DeleteWebhookOptions,
@@ -428,36 +428,6 @@ export class Telegram<Ext = unknown> {
 
   async getWebhookInfo () {
     return getWebhookInfoHelper(this as Telegram)
-  }
-
-  /**
-   * pipes a single bot-api call into the current webhook 200 body, skipping
-   * the http round-trip. only effective inside a webhook dispatch with
-   * `webhookReply: true`; outside that scope (or after another call already
-   * claimed the slot) returns `false` and the caller should fall back to
-   * `tg.api.X(...)` for the same effect
-   *
-   * the call returns no value to the handler — telegram processes it but the
-   * http result is never read. use this only for fire-and-forget calls
-   *
-   * @example
-   * tg.onMessage((update) => {
-   *   const claimed = tg.replyViaWebhook('sendMessage', {
-   *     chat_id: update.raw.chat.id, text: 'pong'
-   *   })
-   *   if (!claimed) {
-   *     return tg.api.sendMessage({ chat_id: update.raw.chat.id, text: 'pong' })
-   *   }
-   * })
-   */
-  replyViaWebhook (method: string, params: Record<string, unknown> = {}) {
-    const slot = replyAls.getStore()
-
-    if (slot === undefined) {
-      return false
-    }
-
-    return slot.tryClaim(method, params)
   }
 
   async dropPendingUpdates (value?: boolean | string[]) {

@@ -1,6 +1,8 @@
 // objects that get wrapper classes — those that appear inside update payloads or as
 // method return values where ergonomic access matters. keep alphabetical for clean diffs
 export const WRAPPED_STRUCTURES = [
+  'Animation',
+  'Audio',
   'Chat',
   'ChatBoost',
   'ChatBoostRemoved',
@@ -17,6 +19,7 @@ export const WRAPPED_STRUCTURES = [
   'ChosenInlineResult',
   'Contact',
   'Dice',
+  'Document',
   'ExternalReplyInfo',
   'File',
   'ForumTopicCreated',
@@ -63,6 +66,8 @@ export const WRAPPED_STRUCTURES = [
   'VideoChatEnded',
   'VideoChatParticipantsInvited',
   'VideoChatScheduled',
+  'VideoNote',
+  'Voice',
   'WebAppData',
   'WebAppInfo',
   'WriteAccessAllowed'

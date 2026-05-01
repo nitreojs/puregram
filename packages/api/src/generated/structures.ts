@@ -8,6 +8,228 @@ import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramCh
 import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
 /**
+ * This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
+ */
+export class Animation {
+    private _thumbnail?: PhotoSize | undefined;
+    constructor(public raw: TelegramAnimation) { }
+    static fromPayload(raw: TelegramAnimation): Animation {
+        return new Animation(raw);
+    }
+    /**
+     * Identifier for this file, which can be used to download or reuse the file
+     */
+    get fileId(): string {
+        return this.raw.file_id;
+    }
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     */
+    get fileUniqueId(): string {
+        return this.raw.file_unique_id;
+    }
+    /**
+     * Video width as defined by the sender
+     */
+    get width(): number {
+        return this.raw.width;
+    }
+    /**
+     * Video height as defined by the sender
+     */
+    get height(): number {
+        return this.raw.height;
+    }
+    /**
+     * Duration of the video in seconds as defined by the sender
+     */
+    get duration(): number {
+        return this.raw.duration;
+    }
+    /**
+     * Optional. Animation thumbnail as defined by the sender
+     */
+    get thumbnail(): PhotoSize | undefined {
+        if (this._thumbnail === undefined) {
+            this._thumbnail = this.raw.thumbnail ? new PhotoSize(this.raw.thumbnail) : undefined;
+        }
+        return this._thumbnail;
+    }
+    /**
+     * Optional. Original animation filename as defined by the sender
+     */
+    get fileName(): string | undefined {
+        return this.raw.file_name;
+    }
+    /**
+     * Optional. MIME type of the file as defined by the sender
+     */
+    get mimeType(): string | undefined {
+        return this.raw.mime_type;
+    }
+    /**
+     * Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     */
+    get fileSize(): number | undefined {
+        return this.raw.file_size;
+    }
+    /**
+     * True if `thumbnail` is set.
+     */
+    hasThumbnail(): this is this & {
+        thumbnail: PhotoSize;
+    } {
+        return this.raw.thumbnail != null;
+    }
+    /**
+     * True if `file_name` is set.
+     */
+    hasFileName(): this is this & {
+        fileName: string;
+    } {
+        return this.raw.file_name != null;
+    }
+    /**
+     * True if `mime_type` is set.
+     */
+    hasMimeType(): this is this & {
+        mimeType: string;
+    } {
+        return this.raw.mime_type != null;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
+        return this.raw.file_size != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Animation", this, depth, options, inspect);
+    }
+}
+
+/**
+ * This object represents an audio file to be treated as music by the Telegram clients.
+ */
+export class Audio {
+    private _thumbnail?: PhotoSize | undefined;
+    constructor(public raw: TelegramAudio) { }
+    static fromPayload(raw: TelegramAudio): Audio {
+        return new Audio(raw);
+    }
+    /**
+     * Identifier for this file, which can be used to download or reuse the file
+     */
+    get fileId(): string {
+        return this.raw.file_id;
+    }
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     */
+    get fileUniqueId(): string {
+        return this.raw.file_unique_id;
+    }
+    /**
+     * Duration of the audio in seconds as defined by the sender
+     */
+    get duration(): number {
+        return this.raw.duration;
+    }
+    /**
+     * Optional. Performer of the audio as defined by the sender or by audio tags
+     */
+    get performer(): string | undefined {
+        return this.raw.performer;
+    }
+    /**
+     * Optional. Title of the audio as defined by the sender or by audio tags
+     */
+    get title(): string | undefined {
+        return this.raw.title;
+    }
+    /**
+     * Optional. Original filename as defined by the sender
+     */
+    get fileName(): string | undefined {
+        return this.raw.file_name;
+    }
+    /**
+     * Optional. MIME type of the file as defined by the sender
+     */
+    get mimeType(): string | undefined {
+        return this.raw.mime_type;
+    }
+    /**
+     * Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     */
+    get fileSize(): number | undefined {
+        return this.raw.file_size;
+    }
+    /**
+     * Optional. Thumbnail of the album cover to which the music file belongs
+     */
+    get thumbnail(): PhotoSize | undefined {
+        if (this._thumbnail === undefined) {
+            this._thumbnail = this.raw.thumbnail ? new PhotoSize(this.raw.thumbnail) : undefined;
+        }
+        return this._thumbnail;
+    }
+    /**
+     * True if `performer` is set.
+     */
+    hasPerformer(): this is this & {
+        performer: string;
+    } {
+        return this.raw.performer != null;
+    }
+    /**
+     * True if `title` is set.
+     */
+    hasTitle(): this is this & {
+        title: string;
+    } {
+        return this.raw.title != null;
+    }
+    /**
+     * True if `file_name` is set.
+     */
+    hasFileName(): this is this & {
+        fileName: string;
+    } {
+        return this.raw.file_name != null;
+    }
+    /**
+     * True if `mime_type` is set.
+     */
+    hasMimeType(): this is this & {
+        mimeType: string;
+    } {
+        return this.raw.mime_type != null;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
+        return this.raw.file_size != null;
+    }
+    /**
+     * True if `thumbnail` is set.
+     */
+    hasThumbnail(): this is this & {
+        thumbnail: PhotoSize;
+    } {
+        return this.raw.thumbnail != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Audio", this, depth, options, inspect);
+    }
+}
+
+/**
  * This object represents a chat.
  */
 export class Chat {
@@ -1058,15 +1280,105 @@ export class Dice {
 }
 
 /**
+ * This object represents a general file (as opposed to photos, voice messages and audio files).
+ */
+export class Document {
+    private _thumbnail?: PhotoSize | undefined;
+    constructor(public raw: TelegramDocument) { }
+    static fromPayload(raw: TelegramDocument): Document {
+        return new Document(raw);
+    }
+    /**
+     * Identifier for this file, which can be used to download or reuse the file
+     */
+    get fileId(): string {
+        return this.raw.file_id;
+    }
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     */
+    get fileUniqueId(): string {
+        return this.raw.file_unique_id;
+    }
+    /**
+     * Optional. Document thumbnail as defined by the sender
+     */
+    get thumbnail(): PhotoSize | undefined {
+        if (this._thumbnail === undefined) {
+            this._thumbnail = this.raw.thumbnail ? new PhotoSize(this.raw.thumbnail) : undefined;
+        }
+        return this._thumbnail;
+    }
+    /**
+     * Optional. Original filename as defined by the sender
+     */
+    get fileName(): string | undefined {
+        return this.raw.file_name;
+    }
+    /**
+     * Optional. MIME type of the file as defined by the sender
+     */
+    get mimeType(): string | undefined {
+        return this.raw.mime_type;
+    }
+    /**
+     * Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     */
+    get fileSize(): number | undefined {
+        return this.raw.file_size;
+    }
+    /**
+     * True if `thumbnail` is set.
+     */
+    hasThumbnail(): this is this & {
+        thumbnail: PhotoSize;
+    } {
+        return this.raw.thumbnail != null;
+    }
+    /**
+     * True if `file_name` is set.
+     */
+    hasFileName(): this is this & {
+        fileName: string;
+    } {
+        return this.raw.file_name != null;
+    }
+    /**
+     * True if `mime_type` is set.
+     */
+    hasMimeType(): this is this & {
+        mimeType: string;
+    } {
+        return this.raw.mime_type != null;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
+        return this.raw.file_size != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Document", this, depth, options, inspect);
+    }
+}
+
+/**
  * This object contains information about a message that is being replied to, which may come from another chat or forum topic.
  */
 export class ExternalReplyInfo {
     private _chat?: Chat | undefined;
     private _linkPreviewOptions?: LinkPreviewOptions | undefined;
+    private _animation?: Animation | undefined;
+    private _audio?: Audio | undefined;
+    private _document?: Document | undefined;
     private _photo?: PhotoSize[] | undefined;
     private _sticker?: Sticker | undefined;
     private _story?: Story | undefined;
     private _video?: Video | undefined;
+    private _videoNote?: VideoNote | undefined;
+    private _voice?: Voice | undefined;
     private _contact?: Contact | undefined;
     private _dice?: Dice | undefined;
     private _game?: Game | undefined;
@@ -1113,20 +1425,29 @@ export class ExternalReplyInfo {
     /**
      * Optional. Message is an animation, information about the animation
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        if (this._animation === undefined) {
+            this._animation = this.raw.animation ? new Animation(this.raw.animation) : undefined;
+        }
+        return this._animation;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        if (this._audio === undefined) {
+            this._audio = this.raw.audio ? new Audio(this.raw.audio) : undefined;
+        }
+        return this._audio;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        if (this._document === undefined) {
+            this._document = this.raw.document ? new Document(this.raw.document) : undefined;
+        }
+        return this._document;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -1170,14 +1491,20 @@ export class ExternalReplyInfo {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        if (this._videoNote === undefined) {
+            this._videoNote = this.raw.video_note ? new VideoNote(this.raw.video_note) : undefined;
+        }
+        return this._videoNote;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        if (this._voice === undefined) {
+            this._voice = this.raw.voice ? new Voice(this.raw.voice) : undefined;
+        }
+        return this._voice;
     }
     /**
      * Optional. True, if the message media is covered by a spoiler animation
@@ -1300,7 +1627,7 @@ export class ExternalReplyInfo {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -1308,7 +1635,7 @@ export class ExternalReplyInfo {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -1316,7 +1643,7 @@ export class ExternalReplyInfo {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -1364,7 +1691,7 @@ export class ExternalReplyInfo {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -1372,7 +1699,7 @@ export class ExternalReplyInfo {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -1612,6 +1939,7 @@ export class ForumTopicEdited {
 export class Game {
     private _photo?: PhotoSize[];
     private _textEntities?: MessageEntity[] | undefined;
+    private _animation?: Animation | undefined;
     constructor(public raw: TelegramGame) { }
     static fromPayload(raw: TelegramGame): Game {
         return new Game(raw);
@@ -1649,8 +1977,11 @@ export class Game {
     /**
      * Optional. Animation that will be displayed in the game message in chats. Upload via BotFather
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        if (this._animation === undefined) {
+            this._animation = this.raw.animation ? new Animation(this.raw.animation) : undefined;
+        }
+        return this._animation;
     }
     /**
      * True if `text` is set.
@@ -1672,7 +2003,7 @@ export class Game {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -2574,10 +2905,15 @@ export class Message {
     private _viaBot?: User | undefined;
     private _entities?: MessageEntity[] | undefined;
     private _linkPreviewOptions?: LinkPreviewOptions | undefined;
+    private _animation?: Animation | undefined;
+    private _audio?: Audio | undefined;
+    private _document?: Document | undefined;
     private _photo?: PhotoSize[] | undefined;
     private _sticker?: Sticker | undefined;
     private _story?: Story | undefined;
     private _video?: Video | undefined;
+    private _videoNote?: VideoNote | undefined;
+    private _voice?: Voice | undefined;
     private _captionEntities?: MessageEntity[] | undefined;
     private _contact?: Contact | undefined;
     private _dice?: Dice | undefined;
@@ -2837,20 +3173,29 @@ export class Message {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        if (this._animation === undefined) {
+            this._animation = this.raw.animation ? new Animation(this.raw.animation) : undefined;
+        }
+        return this._animation;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        if (this._audio === undefined) {
+            this._audio = this.raw.audio ? new Audio(this.raw.audio) : undefined;
+        }
+        return this._audio;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        if (this._document === undefined) {
+            this._document = this.raw.document ? new Document(this.raw.document) : undefined;
+        }
+        return this._document;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -2894,14 +3239,20 @@ export class Message {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        if (this._videoNote === undefined) {
+            this._videoNote = this.raw.video_note ? new VideoNote(this.raw.video_note) : undefined;
+        }
+        return this._videoNote;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        if (this._voice === undefined) {
+            this._voice = this.raw.voice ? new Voice(this.raw.voice) : undefined;
+        }
+        return this._voice;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -3581,7 +3932,7 @@ export class Message {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -3589,7 +3940,7 @@ export class Message {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -3597,7 +3948,7 @@ export class Message {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -3645,7 +3996,7 @@ export class Message {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -3653,7 +4004,7 @@ export class Message {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -6238,6 +6589,134 @@ export class VideoChatScheduled {
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("VideoChatScheduled", this, depth, options, inspect);
+    }
+}
+
+/**
+ * This object represents a video message (available in Telegram apps as of v.4.0).
+ */
+export class VideoNote {
+    private _thumbnail?: PhotoSize | undefined;
+    constructor(public raw: TelegramVideoNote) { }
+    static fromPayload(raw: TelegramVideoNote): VideoNote {
+        return new VideoNote(raw);
+    }
+    /**
+     * Identifier for this file, which can be used to download or reuse the file
+     */
+    get fileId(): string {
+        return this.raw.file_id;
+    }
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     */
+    get fileUniqueId(): string {
+        return this.raw.file_unique_id;
+    }
+    /**
+     * Video width and height (diameter of the video message) as defined by the sender
+     */
+    get length(): number {
+        return this.raw.length;
+    }
+    /**
+     * Duration of the video in seconds as defined by the sender
+     */
+    get duration(): number {
+        return this.raw.duration;
+    }
+    /**
+     * Optional. Video thumbnail
+     */
+    get thumbnail(): PhotoSize | undefined {
+        if (this._thumbnail === undefined) {
+            this._thumbnail = this.raw.thumbnail ? new PhotoSize(this.raw.thumbnail) : undefined;
+        }
+        return this._thumbnail;
+    }
+    /**
+     * Optional. File size in bytes
+     */
+    get fileSize(): number | undefined {
+        return this.raw.file_size;
+    }
+    /**
+     * True if `thumbnail` is set.
+     */
+    hasThumbnail(): this is this & {
+        thumbnail: PhotoSize;
+    } {
+        return this.raw.thumbnail != null;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
+        return this.raw.file_size != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("VideoNote", this, depth, options, inspect);
+    }
+}
+
+/**
+ * This object represents a voice note.
+ */
+export class Voice {
+    constructor(public raw: TelegramVoice) { }
+    static fromPayload(raw: TelegramVoice): Voice {
+        return new Voice(raw);
+    }
+    /**
+     * Identifier for this file, which can be used to download or reuse the file
+     */
+    get fileId(): string {
+        return this.raw.file_id;
+    }
+    /**
+     * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     */
+    get fileUniqueId(): string {
+        return this.raw.file_unique_id;
+    }
+    /**
+     * Duration of the audio in seconds as defined by the sender
+     */
+    get duration(): number {
+        return this.raw.duration;
+    }
+    /**
+     * Optional. MIME type of the file as defined by the sender
+     */
+    get mimeType(): string | undefined {
+        return this.raw.mime_type;
+    }
+    /**
+     * Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     */
+    get fileSize(): number | undefined {
+        return this.raw.file_size;
+    }
+    /**
+     * True if `mime_type` is set.
+     */
+    hasMimeType(): this is this & {
+        mimeType: string;
+    } {
+        return this.raw.mime_type != null;
+    }
+    /**
+     * True if `file_size` is set.
+     */
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
+        return this.raw.file_size != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("Voice", this, depth, options, inspect);
     }
 }
 

@@ -4,12 +4,12 @@
 /// generated at: 2026-04-30T14:12:46.898Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted, TelegramVideoNote, TelegramVoice } from "./types";
+import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
 import type { AnswerCallbackQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
 import type { TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
-import { Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, WebAppData, WriteAccessAllowed } from "./structures";
+import { Animation, Audio, Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
 import { INSPECT, makeInspect } from "./inspect";
 /**
  * Update for the `message` event.
@@ -27,10 +27,15 @@ export class MessageUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -260,20 +265,20 @@ export class MessageUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -308,14 +313,14 @@ export class MessageUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -909,7 +914,7 @@ export class MessageUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -917,7 +922,7 @@ export class MessageUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -925,7 +930,7 @@ export class MessageUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -973,7 +978,7 @@ export class MessageUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -981,7 +986,7 @@ export class MessageUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -2493,10 +2498,15 @@ export class EditedMessageUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -2726,20 +2736,20 @@ export class EditedMessageUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -2774,14 +2784,14 @@ export class EditedMessageUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -3375,7 +3385,7 @@ export class EditedMessageUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -3383,7 +3393,7 @@ export class EditedMessageUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -3391,7 +3401,7 @@ export class EditedMessageUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -3439,7 +3449,7 @@ export class EditedMessageUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -3447,7 +3457,7 @@ export class EditedMessageUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -4959,10 +4969,15 @@ export class ChannelPostUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -5192,20 +5207,20 @@ export class ChannelPostUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -5240,14 +5255,14 @@ export class ChannelPostUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -5841,7 +5856,7 @@ export class ChannelPostUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -5849,7 +5864,7 @@ export class ChannelPostUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -5857,7 +5872,7 @@ export class ChannelPostUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -5905,7 +5920,7 @@ export class ChannelPostUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -5913,7 +5928,7 @@ export class ChannelPostUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -7425,10 +7440,15 @@ export class EditedChannelPostUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -7658,20 +7678,20 @@ export class EditedChannelPostUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -7706,14 +7726,14 @@ export class EditedChannelPostUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -8307,7 +8327,7 @@ export class EditedChannelPostUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -8315,7 +8335,7 @@ export class EditedChannelPostUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -8323,7 +8343,7 @@ export class EditedChannelPostUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -8371,7 +8391,7 @@ export class EditedChannelPostUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -8379,7 +8399,7 @@ export class EditedChannelPostUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -9950,10 +9970,15 @@ export class BusinessMessageUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -10183,20 +10208,20 @@ export class BusinessMessageUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -10231,14 +10256,14 @@ export class BusinessMessageUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -10832,7 +10857,7 @@ export class BusinessMessageUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -10840,7 +10865,7 @@ export class BusinessMessageUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -10848,7 +10873,7 @@ export class BusinessMessageUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -10896,7 +10921,7 @@ export class BusinessMessageUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -10904,7 +10929,7 @@ export class BusinessMessageUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -12416,10 +12441,15 @@ export class EditedBusinessMessageUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -12649,20 +12679,20 @@ export class EditedBusinessMessageUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -12697,14 +12727,14 @@ export class EditedBusinessMessageUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -13298,7 +13328,7 @@ export class EditedBusinessMessageUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -13306,7 +13336,7 @@ export class EditedBusinessMessageUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -13314,7 +13344,7 @@ export class EditedBusinessMessageUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -13362,7 +13392,7 @@ export class EditedBusinessMessageUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -13370,7 +13400,7 @@ export class EditedBusinessMessageUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -18936,10 +18966,15 @@ export class NewChatMembersUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -19169,20 +19204,20 @@ export class NewChatMembersUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -19217,14 +19252,14 @@ export class NewChatMembersUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -19818,7 +19853,7 @@ export class NewChatMembersUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -19826,7 +19861,7 @@ export class NewChatMembersUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -19834,7 +19869,7 @@ export class NewChatMembersUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -19882,7 +19917,7 @@ export class NewChatMembersUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -19890,7 +19925,7 @@ export class NewChatMembersUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -21402,10 +21437,15 @@ export class LeftChatMemberUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -21635,20 +21675,20 @@ export class LeftChatMemberUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -21683,14 +21723,14 @@ export class LeftChatMemberUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -22284,7 +22324,7 @@ export class LeftChatMemberUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -22292,7 +22332,7 @@ export class LeftChatMemberUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -22300,7 +22340,7 @@ export class LeftChatMemberUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -22348,7 +22388,7 @@ export class LeftChatMemberUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -22356,7 +22396,7 @@ export class LeftChatMemberUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -23868,10 +23908,15 @@ export class NewChatTitleUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -24101,20 +24146,20 @@ export class NewChatTitleUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -24149,14 +24194,14 @@ export class NewChatTitleUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -24750,7 +24795,7 @@ export class NewChatTitleUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -24758,7 +24803,7 @@ export class NewChatTitleUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -24766,7 +24811,7 @@ export class NewChatTitleUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -24814,7 +24859,7 @@ export class NewChatTitleUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -24822,7 +24867,7 @@ export class NewChatTitleUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -26334,10 +26379,15 @@ export class NewChatPhotoUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -26567,20 +26617,20 @@ export class NewChatPhotoUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -26615,14 +26665,14 @@ export class NewChatPhotoUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -27216,7 +27266,7 @@ export class NewChatPhotoUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -27224,7 +27274,7 @@ export class NewChatPhotoUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -27232,7 +27282,7 @@ export class NewChatPhotoUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -27280,7 +27330,7 @@ export class NewChatPhotoUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -27288,7 +27338,7 @@ export class NewChatPhotoUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -28800,10 +28850,15 @@ export class DeleteChatPhotoUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -29033,20 +29088,20 @@ export class DeleteChatPhotoUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -29081,14 +29136,14 @@ export class DeleteChatPhotoUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -29682,7 +29737,7 @@ export class DeleteChatPhotoUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -29690,7 +29745,7 @@ export class DeleteChatPhotoUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -29698,7 +29753,7 @@ export class DeleteChatPhotoUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -29746,7 +29801,7 @@ export class DeleteChatPhotoUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -29754,7 +29809,7 @@ export class DeleteChatPhotoUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -31266,10 +31321,15 @@ export class GroupChatCreatedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -31499,20 +31559,20 @@ export class GroupChatCreatedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -31547,14 +31607,14 @@ export class GroupChatCreatedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -32148,7 +32208,7 @@ export class GroupChatCreatedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -32156,7 +32216,7 @@ export class GroupChatCreatedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -32164,7 +32224,7 @@ export class GroupChatCreatedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -32212,7 +32272,7 @@ export class GroupChatCreatedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -32220,7 +32280,7 @@ export class GroupChatCreatedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -33732,10 +33792,15 @@ export class PinnedMessageUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -33965,20 +34030,20 @@ export class PinnedMessageUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -34013,14 +34078,14 @@ export class PinnedMessageUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -34614,7 +34679,7 @@ export class PinnedMessageUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -34622,7 +34687,7 @@ export class PinnedMessageUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -34630,7 +34695,7 @@ export class PinnedMessageUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -34678,7 +34743,7 @@ export class PinnedMessageUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -34686,7 +34751,7 @@ export class PinnedMessageUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -36198,10 +36263,15 @@ export class InvoiceUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -36431,20 +36501,20 @@ export class InvoiceUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -36479,14 +36549,14 @@ export class InvoiceUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -37080,7 +37150,7 @@ export class InvoiceUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -37088,7 +37158,7 @@ export class InvoiceUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -37096,7 +37166,7 @@ export class InvoiceUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -37144,7 +37214,7 @@ export class InvoiceUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -37152,7 +37222,7 @@ export class InvoiceUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -38664,10 +38734,15 @@ export class SuccessfulPaymentUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -38897,20 +38972,20 @@ export class SuccessfulPaymentUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -38945,14 +39020,14 @@ export class SuccessfulPaymentUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -39546,7 +39621,7 @@ export class SuccessfulPaymentUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -39554,7 +39629,7 @@ export class SuccessfulPaymentUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -39562,7 +39637,7 @@ export class SuccessfulPaymentUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -39610,7 +39685,7 @@ export class SuccessfulPaymentUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -39618,7 +39693,7 @@ export class SuccessfulPaymentUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -41130,10 +41205,15 @@ export class UsersSharedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -41363,20 +41443,20 @@ export class UsersSharedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -41411,14 +41491,14 @@ export class UsersSharedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -42012,7 +42092,7 @@ export class UsersSharedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -42020,7 +42100,7 @@ export class UsersSharedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -42028,7 +42108,7 @@ export class UsersSharedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -42076,7 +42156,7 @@ export class UsersSharedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -42084,7 +42164,7 @@ export class UsersSharedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -43596,10 +43676,15 @@ export class ChatSharedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -43829,20 +43914,20 @@ export class ChatSharedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -43877,14 +43962,14 @@ export class ChatSharedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -44478,7 +44563,7 @@ export class ChatSharedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -44486,7 +44571,7 @@ export class ChatSharedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -44494,7 +44579,7 @@ export class ChatSharedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -44542,7 +44627,7 @@ export class ChatSharedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -44550,7 +44635,7 @@ export class ChatSharedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -46062,10 +46147,15 @@ export class WebAppDataUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -46295,20 +46385,20 @@ export class WebAppDataUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -46343,14 +46433,14 @@ export class WebAppDataUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -46944,7 +47034,7 @@ export class WebAppDataUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -46952,7 +47042,7 @@ export class WebAppDataUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -46960,7 +47050,7 @@ export class WebAppDataUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -47008,7 +47098,7 @@ export class WebAppDataUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -47016,7 +47106,7 @@ export class WebAppDataUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -48528,10 +48618,15 @@ export class VideoChatScheduledUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -48761,20 +48856,20 @@ export class VideoChatScheduledUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -48809,14 +48904,14 @@ export class VideoChatScheduledUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -49410,7 +49505,7 @@ export class VideoChatScheduledUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -49418,7 +49513,7 @@ export class VideoChatScheduledUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -49426,7 +49521,7 @@ export class VideoChatScheduledUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -49474,7 +49569,7 @@ export class VideoChatScheduledUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -49482,7 +49577,7 @@ export class VideoChatScheduledUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -50994,10 +51089,15 @@ export class VideoChatStartedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -51227,20 +51327,20 @@ export class VideoChatStartedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -51275,14 +51375,14 @@ export class VideoChatStartedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -51876,7 +51976,7 @@ export class VideoChatStartedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -51884,7 +51984,7 @@ export class VideoChatStartedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -51892,7 +51992,7 @@ export class VideoChatStartedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -51940,7 +52040,7 @@ export class VideoChatStartedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -51948,7 +52048,7 @@ export class VideoChatStartedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -53460,10 +53560,15 @@ export class VideoChatEndedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -53693,20 +53798,20 @@ export class VideoChatEndedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -53741,14 +53846,14 @@ export class VideoChatEndedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -54342,7 +54447,7 @@ export class VideoChatEndedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -54350,7 +54455,7 @@ export class VideoChatEndedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -54358,7 +54463,7 @@ export class VideoChatEndedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -54406,7 +54511,7 @@ export class VideoChatEndedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -54414,7 +54519,7 @@ export class VideoChatEndedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -55926,10 +56031,15 @@ export class VideoChatParticipantsInvitedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -56159,20 +56269,20 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -56207,14 +56317,14 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -56808,7 +56918,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -56816,7 +56926,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -56824,7 +56934,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -56872,7 +56982,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -56880,7 +56990,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -58392,10 +58502,15 @@ export class ForumTopicCreatedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -58625,20 +58740,20 @@ export class ForumTopicCreatedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -58673,14 +58788,14 @@ export class ForumTopicCreatedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -59274,7 +59389,7 @@ export class ForumTopicCreatedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -59282,7 +59397,7 @@ export class ForumTopicCreatedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -59290,7 +59405,7 @@ export class ForumTopicCreatedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -59338,7 +59453,7 @@ export class ForumTopicCreatedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -59346,7 +59461,7 @@ export class ForumTopicCreatedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -60858,10 +60973,15 @@ export class ForumTopicEditedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -61091,20 +61211,20 @@ export class ForumTopicEditedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -61139,14 +61259,14 @@ export class ForumTopicEditedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -61740,7 +61860,7 @@ export class ForumTopicEditedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -61748,7 +61868,7 @@ export class ForumTopicEditedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -61756,7 +61876,7 @@ export class ForumTopicEditedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -61804,7 +61924,7 @@ export class ForumTopicEditedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -61812,7 +61932,7 @@ export class ForumTopicEditedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -63324,10 +63444,15 @@ export class ForumTopicClosedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -63557,20 +63682,20 @@ export class ForumTopicClosedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -63605,14 +63730,14 @@ export class ForumTopicClosedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -64206,7 +64331,7 @@ export class ForumTopicClosedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -64214,7 +64339,7 @@ export class ForumTopicClosedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -64222,7 +64347,7 @@ export class ForumTopicClosedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -64270,7 +64395,7 @@ export class ForumTopicClosedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -64278,7 +64403,7 @@ export class ForumTopicClosedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -65790,10 +65915,15 @@ export class ForumTopicReopenedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -66023,20 +66153,20 @@ export class ForumTopicReopenedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -66071,14 +66201,14 @@ export class ForumTopicReopenedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -66672,7 +66802,7 @@ export class ForumTopicReopenedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -66680,7 +66810,7 @@ export class ForumTopicReopenedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -66688,7 +66818,7 @@ export class ForumTopicReopenedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -66736,7 +66866,7 @@ export class ForumTopicReopenedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -66744,7 +66874,7 @@ export class ForumTopicReopenedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -68256,10 +68386,15 @@ export class GeneralForumTopicHiddenUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -68489,20 +68624,20 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -68537,14 +68672,14 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -69138,7 +69273,7 @@ export class GeneralForumTopicHiddenUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -69146,7 +69281,7 @@ export class GeneralForumTopicHiddenUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -69154,7 +69289,7 @@ export class GeneralForumTopicHiddenUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -69202,7 +69337,7 @@ export class GeneralForumTopicHiddenUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -69210,7 +69345,7 @@ export class GeneralForumTopicHiddenUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -70722,10 +70857,15 @@ export class GeneralForumTopicUnhiddenUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -70955,20 +71095,20 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -71003,14 +71143,14 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -71604,7 +71744,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -71612,7 +71752,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -71620,7 +71760,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -71668,7 +71808,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -71676,7 +71816,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -73188,10 +73328,15 @@ export class GiveawayCreatedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -73421,20 +73566,20 @@ export class GiveawayCreatedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -73469,14 +73614,14 @@ export class GiveawayCreatedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -74070,7 +74215,7 @@ export class GiveawayCreatedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -74078,7 +74223,7 @@ export class GiveawayCreatedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -74086,7 +74231,7 @@ export class GiveawayCreatedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -74134,7 +74279,7 @@ export class GiveawayCreatedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -74142,7 +74287,7 @@ export class GiveawayCreatedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -75654,10 +75799,15 @@ export class GiveawayCompletedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -75887,20 +76037,20 @@ export class GiveawayCompletedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -75935,14 +76085,14 @@ export class GiveawayCompletedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -76536,7 +76686,7 @@ export class GiveawayCompletedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -76544,7 +76694,7 @@ export class GiveawayCompletedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -76552,7 +76702,7 @@ export class GiveawayCompletedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -76600,7 +76750,7 @@ export class GiveawayCompletedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -76608,7 +76758,7 @@ export class GiveawayCompletedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -78120,10 +78270,15 @@ export class GiveawayWinnersUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -78353,20 +78508,20 @@ export class GiveawayWinnersUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -78401,14 +78556,14 @@ export class GiveawayWinnersUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -79002,7 +79157,7 @@ export class GiveawayWinnersUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -79010,7 +79165,7 @@ export class GiveawayWinnersUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -79018,7 +79173,7 @@ export class GiveawayWinnersUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -79066,7 +79221,7 @@ export class GiveawayWinnersUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -79074,7 +79229,7 @@ export class GiveawayWinnersUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -80586,10 +80741,15 @@ export class BoostAddedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -80819,20 +80979,20 @@ export class BoostAddedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -80867,14 +81027,14 @@ export class BoostAddedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -81468,7 +81628,7 @@ export class BoostAddedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -81476,7 +81636,7 @@ export class BoostAddedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -81484,7 +81644,7 @@ export class BoostAddedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -81532,7 +81692,7 @@ export class BoostAddedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -81540,7 +81700,7 @@ export class BoostAddedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -83052,10 +83212,15 @@ export class MessageAutoDeleteTimerChangedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -83285,20 +83450,20 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -83333,14 +83498,14 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -83934,7 +84099,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -83942,7 +84107,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -83950,7 +84115,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -83998,7 +84163,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -84006,7 +84171,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -85518,10 +85683,15 @@ export class MigrateToChatIdUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -85751,20 +85921,20 @@ export class MigrateToChatIdUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -85799,14 +85969,14 @@ export class MigrateToChatIdUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -86400,7 +86570,7 @@ export class MigrateToChatIdUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -86408,7 +86578,7 @@ export class MigrateToChatIdUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -86416,7 +86586,7 @@ export class MigrateToChatIdUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -86464,7 +86634,7 @@ export class MigrateToChatIdUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -86472,7 +86642,7 @@ export class MigrateToChatIdUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -87984,10 +88154,15 @@ export class MigrateFromChatIdUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -88217,20 +88392,20 @@ export class MigrateFromChatIdUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -88265,14 +88440,14 @@ export class MigrateFromChatIdUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -88866,7 +89041,7 @@ export class MigrateFromChatIdUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -88874,7 +89049,7 @@ export class MigrateFromChatIdUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -88882,7 +89057,7 @@ export class MigrateFromChatIdUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -88930,7 +89105,7 @@ export class MigrateFromChatIdUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -88938,7 +89113,7 @@ export class MigrateFromChatIdUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -90450,10 +90625,15 @@ export class PassportDataUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -90683,20 +90863,20 @@ export class PassportDataUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -90731,14 +90911,14 @@ export class PassportDataUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -91332,7 +91512,7 @@ export class PassportDataUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -91340,7 +91520,7 @@ export class PassportDataUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -91348,7 +91528,7 @@ export class PassportDataUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -91396,7 +91576,7 @@ export class PassportDataUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -91404,7 +91584,7 @@ export class PassportDataUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -92916,10 +93096,15 @@ export class ProximityAlertTriggeredUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -93149,20 +93334,20 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -93197,14 +93382,14 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -93798,7 +93983,7 @@ export class ProximityAlertTriggeredUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -93806,7 +93991,7 @@ export class ProximityAlertTriggeredUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -93814,7 +93999,7 @@ export class ProximityAlertTriggeredUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -93862,7 +94047,7 @@ export class ProximityAlertTriggeredUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -93870,7 +94055,7 @@ export class ProximityAlertTriggeredUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }
@@ -95382,10 +95567,15 @@ export class WriteAccessAllowedUpdate {
     private _viaBot?: User;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
     private _photo?: PhotoSize[];
     private _sticker?: Sticker;
     private _story?: Story;
     private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
     private _captionEntities?: MessageEntity[];
     private _contact?: Contact;
     private _dice?: Dice;
@@ -95615,20 +95805,20 @@ export class WriteAccessAllowedUpdate {
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
      */
-    get animation(): TelegramAnimation | undefined {
-        return this.raw.animation;
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
     }
     /**
      * Optional. Message is an audio file, information about the file
      */
-    get audio(): TelegramAudio | undefined {
-        return this.raw.audio;
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
     }
     /**
      * Optional. Message is a general file, information about the file
      */
-    get document(): TelegramDocument | undefined {
-        return this.raw.document;
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -95663,14 +95853,14 @@ export class WriteAccessAllowedUpdate {
     /**
      * Optional. Message is a video note, information about the video message
      */
-    get videoNote(): TelegramVideoNote | undefined {
-        return this.raw.video_note;
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
     }
     /**
      * Optional. Message is a voice message, information about the file
      */
-    get voice(): TelegramVoice | undefined {
-        return this.raw.voice;
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
     }
     /**
      * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
@@ -96264,7 +96454,7 @@ export class WriteAccessAllowedUpdate {
      * True if `animation` is set.
      */
     hasAnimation(): this is this & {
-        animation: TelegramAnimation;
+        animation: Animation;
     } {
         return this.raw.animation != null;
     }
@@ -96272,7 +96462,7 @@ export class WriteAccessAllowedUpdate {
      * True if `audio` is set.
      */
     hasAudio(): this is this & {
-        audio: TelegramAudio;
+        audio: Audio;
     } {
         return this.raw.audio != null;
     }
@@ -96280,7 +96470,7 @@ export class WriteAccessAllowedUpdate {
      * True if `document` is set.
      */
     hasDocument(): this is this & {
-        document: TelegramDocument;
+        document: Document;
     } {
         return this.raw.document != null;
     }
@@ -96328,7 +96518,7 @@ export class WriteAccessAllowedUpdate {
      * True if `video_note` is set.
      */
     hasVideoNote(): this is this & {
-        videoNote: TelegramVideoNote;
+        videoNote: VideoNote;
     } {
         return this.raw.video_note != null;
     }
@@ -96336,7 +96526,7 @@ export class WriteAccessAllowedUpdate {
      * True if `voice` is set.
      */
     hasVoice(): this is this & {
-        voice: TelegramVoice;
+        voice: Voice;
     } {
         return this.raw.voice != null;
     }

@@ -8,8 +8,8 @@ import { defineFilter } from "../filter-runtime";
 import type { Filter } from "../filter-runtime";
 import type { AnyUpdate } from "../custom-update";
 import type { UpdateKind, UpdateKindMap } from "./updates";
-import type { Chat, ChatInviteLink, ChatShared, Contact, Dice, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, ProximityAlertTriggered, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, WebAppData, WriteAccessAllowed } from "./structures";
-import type { TelegramAnimation, TelegramAudio, TelegramBusinessBotRights, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramRefundedPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted, TelegramVideoNote, TelegramVoice } from "./types";
+import type { Animation, Audio, Chat, ChatInviteLink, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, ProximityAlertTriggered, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
+import type { TelegramBusinessBotRights, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramRefundedPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
 /**
  * Filter — true if the update has `actorChat` set.
  */
@@ -23,7 +23,7 @@ export const hasActorChat: Filter<unknown, {
  * Filter — true if the update has `animation` set.
  */
 export const hasAnimation: Filter<unknown, {
-    animation: TelegramAnimation;
+    animation: Animation;
 }> = defineFilter("hasAnimation", (u: AnyUpdate): u is AnyUpdate => ((u as {
     animation?: unknown;
 }).animation != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -32,7 +32,7 @@ export const hasAnimation: Filter<unknown, {
  * Filter — true if the update has `audio` set.
  */
 export const hasAudio: Filter<unknown, {
-    audio: TelegramAudio;
+    audio: Audio;
 }> = defineFilter("hasAudio", (u: AnyUpdate): u is AnyUpdate => ((u as {
     audio?: unknown;
 }).audio != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -275,7 +275,7 @@ export const hasDirectMessagesTopic: Filter<unknown, {
  * Filter — true if the update has `document` set.
  */
 export const hasDocument: Filter<unknown, {
-    document: TelegramDocument;
+    document: Document;
 }> = defineFilter("hasDocument", (u: AnyUpdate): u is AnyUpdate => ((u as {
     document?: unknown;
 }).document != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1076,7 +1076,7 @@ export const hasVideoChatStarted: Filter<unknown, {
  * Filter — true if the update has `videoNote` set.
  */
 export const hasVideoNote: Filter<unknown, {
-    videoNote: TelegramVideoNote;
+    videoNote: VideoNote;
 }> = defineFilter("hasVideoNote", (u: AnyUpdate): u is AnyUpdate => ((u as {
     videoNote?: unknown;
 }).videoNote != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -1085,7 +1085,7 @@ export const hasVideoNote: Filter<unknown, {
  * Filter — true if the update has `voice` set.
  */
 export const hasVoice: Filter<unknown, {
-    voice: TelegramVoice;
+    voice: Voice;
 }> = defineFilter("hasVoice", (u: AnyUpdate): u is AnyUpdate => ((u as {
     voice?: unknown;
 }).voice != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });

@@ -48,15 +48,15 @@ export interface ManualShortcuts {
   ) => Promise<TelegramMessage>
 }
 
-const MEDIA_DISPATCH: Record<string, string> = {
-  photo: 'sendPhoto',
-  video: 'sendVideo',
-  document: 'sendDocument',
-  animation: 'sendAnimation',
-  audio: 'sendAudio',
-  sticker: 'sendSticker',
-  video_note: 'sendVideoNote',
-  voice: 'sendVoice'
+/** copy `obj` excluding the named keys; preserves the typed `Omit` projection */
+function omit<T extends object, K extends keyof T> (obj: T, keys: readonly K[]): Omit<T, K> {
+  const result = { ...obj }
+
+  for (const key of keys) {
+    delete result[key]
+  }
+
+  return result
 }
 
 export function installShortcuts (tg: Telegram) {
@@ -65,22 +65,31 @@ export function installShortcuts (tg: Telegram) {
   })
 
   define(tg, 'sendMedia', function (this: Telegram, chat: number | string, media: SendMediaQuery, params: Record<string, unknown> = {}) {
-    const method = MEDIA_DISPATCH[media.type]
-
-    if (method === undefined) {
-      throw new TypeError(`tg.sendMedia: unsupported media type '${(media as { type: string }).type}'`)
+    // each branch narrows `media` to a single variant, so the per-`api.sendX`
+    // call typechecks without dynamic dispatch — the surrogate `media` field
+    // and the discriminating `type` are stripped per branch
+    switch (media.type) {
+      case 'photo':
+        return this.api.sendPhoto({ chat_id: chat, photo: media.media, ...omit(media, ['type', 'media']), ...params })
+      case 'video':
+        return this.api.sendVideo({ chat_id: chat, video: media.media, ...omit(media, ['type', 'media']), ...params })
+      case 'document':
+        return this.api.sendDocument({ chat_id: chat, document: media.media, ...omit(media, ['type', 'media']), ...params })
+      case 'animation':
+        return this.api.sendAnimation({ chat_id: chat, animation: media.media, ...omit(media, ['type', 'media']), ...params })
+      case 'audio':
+        return this.api.sendAudio({ chat_id: chat, audio: media.media, ...omit(media, ['type', 'media']), ...params })
+      case 'sticker':
+        return this.api.sendSticker({ chat_id: chat, sticker: media.media, ...omit(media, ['type', 'media']), ...params })
+      case 'video_note':
+        return this.api.sendVideoNote({ chat_id: chat, video_note: media.media, ...omit(media, ['type', 'media']), ...params })
+      case 'voice':
+        return this.api.sendVoice({ chat_id: chat, voice: media.media, ...omit(media, ['type', 'media']), ...params })
+      default: {
+        const exhaustive: never = media
+        throw new TypeError(`tg.sendMedia: unsupported media type '${(exhaustive as { type: string }).type}'`)
+      }
     }
-
-    // swap the `media` surrogate field for the real per-type field name (sticker,
-    // video_note, voice, photo, …) and drop `type` from the wire payload
-    const { type, media: payload, ...rest } = media
-
-    return (this.api as any)[method]({
-      chat_id: chat,
-      [type]: payload,
-      ...rest,
-      ...params
-    })
   })
 
   define(tg, 'forward', function (this: Telegram, from: number | string, to: number | string, messageId: number, params: Record<string, unknown> = {}) {

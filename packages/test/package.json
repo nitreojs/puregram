@@ -1,0 +1,80 @@
+{
+  "name": "@puregram/test",
+  "version": "3.0.0-alpha.0",
+  "description": "actor-driven test framework for puregram v3 bots",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./builders": {
+      "types": "./lib/builders/index.d.ts",
+      "import": "./lib/builders/index.js"
+    },
+    "./session": {
+      "types": "./lib/plugins/session.d.ts",
+      "import": "./lib/plugins/session.js"
+    },
+    "./scenes": {
+      "types": "./lib/plugins/scenes.d.ts",
+      "import": "./lib/plugins/scenes.js"
+    },
+    "./flow": {
+      "types": "./lib/plugins/flow.d.ts",
+      "import": "./lib/plugins/flow.js"
+    },
+    "./rate-limit": {
+      "types": "./lib/plugins/rate-limit.d.ts",
+      "import": "./lib/plugins/rate-limit.js"
+    },
+    "./media-cacher": {
+      "types": "./lib/plugins/media-cacher.d.ts",
+      "import": "./lib/plugins/media-cacher.js"
+    },
+    "./payments": {
+      "types": "./lib/advanced/payments.d.ts",
+      "import": "./lib/advanced/payments.js"
+    },
+    "./business": {
+      "types": "./lib/advanced/business.d.ts",
+      "import": "./lib/advanced/business.js"
+    },
+    "./forum": {
+      "types": "./lib/advanced/forum.d.ts",
+      "import": "./lib/advanced/forum.js"
+    },
+    "./polls": {
+      "types": "./lib/advanced/polls.d.ts",
+      "import": "./lib/advanced/polls.js"
+    }
+  },
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "puregram": "3.0.0-alpha.0",
+    "@puregram/api": "*",
+    "@puregram/storage": "3.0.0-alpha.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/test"
+  },
+  "keywords": ["telegram", "bot", "puregram", "test", "testing", "vitest"]
+}

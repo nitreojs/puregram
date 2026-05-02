@@ -1,15 +1,12 @@
-// minimal structural type @puregram/api depends on, so we don't pull in `puregram` core
-// (which depends back on us). puregram's Telegram class satisfies this shape
-
 import type { Readable } from 'node:stream'
 
 import type { ApiMethods } from './generated/api-methods'
 import type { TelegramPhotoSize } from './generated/types'
 
 /**
- * structural target for `tg.download(...)` and friends — matches what update-class
- * extras produce when picking an attachment from `raw`. the public `DownloadTarget`
- * in `puregram` is a wider union (adds `MediaSourceFileId` and the `Photo` wrapper)
+ * structural target for `tg.download(...)` — matches what update-class extras
+ * produce. the public `DownloadTarget` in `puregram` is wider (adds
+ * `MediaSourceFileId` and `Photo`)
  */
 export type DownloadableLike =
   | string

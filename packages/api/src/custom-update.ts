@@ -1,9 +1,10 @@
 import type { Update, UpdateKind, UpdateKindMap } from './generated/updates'
 
 /**
- * runtime container for plugin-emitted custom update kinds. constructed by `tg.emit(name, payload)`
- * and routed through the same dispatch chain as bot-api updates. payload fields are spread onto
- * `this` so handlers can read them directly (`update.jobId`) without going through `update.raw`
+ * runtime container for plugin-emitted custom update kinds — constructed by
+ * `tg.emit(name, payload)` and routed through the same dispatch chain as bot-api
+ * updates. payload fields are spread onto `this` so handlers can read `update.jobId`
+ * directly without `update.raw`
  */
 export class CustomUpdate<N extends string = string, P extends Record<string, unknown> = Record<string, unknown>> {
   readonly kind: N
@@ -20,7 +21,7 @@ export class CustomUpdate<N extends string = string, P extends Record<string, un
   }
 }
 
-/** plugin/runtime registry of declared custom-update kinds. throws on `build()` for undeclared names */
+/** registry of declared custom-update kinds — throws on `build()` if the name wasn't declared first */
 export class CustomUpdateRegistry {
   private readonly defined = new Set<string>()
 
@@ -41,10 +42,5 @@ export class CustomUpdateRegistry {
   }
 }
 
-/**
- * dispatch-side union of every update an incoming `tg.on(...)` handler can see —
- * bot-api wrapped updates from the codegen'd `Update` union plus any user-defined `CustomUpdate`.
- * `Filter<T>`'s call signature uses this type for its parameter so type-guarded narrowing
- * propagates correctly when filters compose
- */
+/** every update a `tg.on(...)` handler can see — bot-api wrapped updates plus any user-defined `CustomUpdate` */
 export type AnyUpdate = Update | CustomUpdate

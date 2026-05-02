@@ -42,4 +42,14 @@ export * from './parse-mode'
 
 export { filters }
 
+// the wildcard re-export below intentionally exposes generated InputMedia and
+// InlineQueryResult so the named export beneath it can shadow them with
+// hand-crafted versions (extra statics for sticker/videoNote/voice +
+// .button/.cached). ts resolves the shadow correctly; import/export plugin
+// doesn't model named-over-wildcard, hence the disables
+/* eslint-disable import/export */
 export * from '@puregram/api'
+
+export { InputMedia, InlineQueryResult, InputMessageContent } from './factories'
+export type { InputMediaSticker, InputMediaVideoNote, InputMediaVoice } from './factories'
+/* eslint-enable import/export */

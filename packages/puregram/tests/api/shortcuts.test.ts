@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 
+import { InputMedia, MediaSource } from '../../src'
 import { Telegram } from '../../src/telegram'
 
 const stubApi = (tg: Telegram, method: string, returns: unknown = undefined) => {
@@ -44,5 +45,30 @@ describe('tg.<verb> shortcuts', () => {
 
     await tg.delete(123, 456)
     expect(fn).toHaveBeenCalledWith({ chat_id: 123, message_id: 456 })
+  })
+
+  it('tg.sendMedia routes a photo to api.sendPhoto and swaps media→photo', async () => {
+    const tg = new Telegram({ token: 'X' })
+    const fn = stubApi(tg, 'sendPhoto', { id: 9 })
+
+    await tg.sendMedia(123, InputMedia.photo({ media: 'attach://x', caption: 'c' }))
+    expect(fn).toHaveBeenCalledWith({ chat_id: 123, photo: 'attach://x', caption: 'c' })
+  })
+
+  it('tg.sendMedia routes a synthetic sticker to api.sendSticker', async () => {
+    const tg = new Telegram({ token: 'X' })
+    const fn = stubApi(tg, 'sendSticker', { id: 10 })
+    const m = MediaSource.fileId('cat')
+
+    await tg.sendMedia(456, InputMedia.sticker({ media: m }))
+    expect(fn).toHaveBeenCalledWith({ chat_id: 456, sticker: m })
+  })
+
+  it('tg.sendMedia throws on unknown media type', () => {
+    const tg = new Telegram({ token: 'X' })
+
+    expect(
+      () => tg.sendMedia(1, { type: 'bogus' as 'photo', media: 'x' })
+    ).toThrow(/unsupported media type/)
   })
 })

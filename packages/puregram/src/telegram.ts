@@ -19,7 +19,7 @@ import {
 import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
-import { installShortcuts } from './api/shortcuts'
+import { installShortcuts, type ManualShortcuts } from './api/shortcuts'
 import { createDebug } from './debug'
 import { CustomUpdateRegistry } from './dispatch/custom-updates'
 import type {
@@ -60,7 +60,7 @@ import { startWebhookListener, type StartWebhookOptions } from './transport/webh
 const dispatchDebug = createDebug('puregram:dispatch')
 
 /* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
-export interface Telegram<Ext = unknown> extends TelegramShortcuts, TelegramDispatchers {}
+export interface Telegram<Ext = unknown> extends TelegramShortcuts, TelegramDispatchers, ManualShortcuts {}
 /* eslint-enable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging

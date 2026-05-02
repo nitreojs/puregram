@@ -2,6 +2,7 @@
 
 export { rateLimit, type RateLimitExtension } from './plugin'
 export { rateLimitFilter } from './filter'
+export { rateLimitMiddleware } from './middleware'
 export type {
   AnyUpdate,
   RateLimitCallback,

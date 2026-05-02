@@ -1,15 +1,21 @@
 import { describe, it, expect } from 'vitest'
 
 import {
+  BotCommands,
   ChatAdministratorRights,
   ChatPermissions,
   InlineQueryResult,
   InputMedia,
   InputMessageContent,
+  InputPollOption,
+  InputSticker,
+  LabeledPrice,
   LinkPreview,
   MediaSource,
+  MenuButton,
   Reaction,
-  ReplyParameters
+  ReplyParameters,
+  ShippingOption
 } from '../src'
 
 describe('InputMedia', () => {
@@ -154,5 +160,77 @@ describe('ChatAdministratorRights', () => {
     expect(r.can_manage_chat).toBe(false)
     expect(r.is_anonymous).toBe(false)
     expect(r.can_pin_messages).toBeUndefined()
+  })
+})
+
+describe('InputPollOption', () => {
+  it('text wraps the option text', () => {
+    expect(InputPollOption.text('first')).toEqual({ text: 'first' })
+    expect(InputPollOption.text('first', { text_parse_mode: 'HTML' }))
+      .toEqual({ text: 'first', text_parse_mode: 'HTML' })
+  })
+})
+
+describe('InputSticker', () => {
+  it('static fills format=static', () => {
+    expect(InputSticker.static('attach://cat.webp', ['🐱']))
+      .toEqual({ sticker: 'attach://cat.webp', format: 'static', emoji_list: ['🐱'] })
+  })
+
+  it('animated fills format=animated and accepts keywords', () => {
+    expect(InputSticker.animated('attach://x', ['x'], { keywords: ['k'] }))
+      .toEqual({ sticker: 'attach://x', format: 'animated', emoji_list: ['x'], keywords: ['k'] })
+  })
+
+  it('video fills format=video', () => {
+    expect(InputSticker.video('attach://x', ['x']).format).toBe('video')
+  })
+})
+
+describe('LabeledPrice', () => {
+  it('of wraps label and amount', () => {
+    expect(LabeledPrice.of('apple', 145)).toEqual({ label: 'apple', amount: 145 })
+  })
+})
+
+describe('ShippingOption', () => {
+  it('of assembles id/title/prices', () => {
+    expect(ShippingOption.of('s', 'Standard', [LabeledPrice.of('ship', 500)]))
+      .toEqual({ id: 's', title: 'Standard', prices: [{ label: 'ship', amount: 500 }] })
+  })
+})
+
+describe('BotCommands', () => {
+  it('command builds a single entry', () => {
+    expect(BotCommands.command('start', 'start the bot'))
+      .toEqual({ command: 'start', description: 'start the bot' })
+  })
+
+  it('scope.default returns default type', () => {
+    expect(BotCommands.scope.default()).toEqual({ type: 'default' })
+  })
+
+  it('scope.chat targets a chat id', () => {
+    expect(BotCommands.scope.chat(123)).toEqual({ type: 'chat', chat_id: 123 })
+  })
+
+  it('scope.chatMember targets a user in a chat', () => {
+    expect(BotCommands.scope.chatMember(1, 2))
+      .toEqual({ type: 'chat_member', chat_id: 1, user_id: 2 })
+  })
+})
+
+describe('MenuButton', () => {
+  it('default returns default type', () => {
+    expect(MenuButton.default()).toEqual({ type: 'default' })
+  })
+
+  it('commands returns commands type', () => {
+    expect(MenuButton.commands()).toEqual({ type: 'commands' })
+  })
+
+  it('webApp wraps text + url', () => {
+    expect(MenuButton.webApp('open', 'https://example.com'))
+      .toEqual({ type: 'web_app', text: 'open', web_app: { url: 'https://example.com' } })
   })
 })

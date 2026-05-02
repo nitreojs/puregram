@@ -35,9 +35,16 @@ type FriendlyContent<T> = 'input_message_content' extends keyof T
     : { content?: NonNullable<T['input_message_content' & keyof T]> }
   : object
 
-// reply_markup is always optional in bot api inline query results
+// reply_markup is always optional in bot api inline query results.
+// widened to also accept a `{ toJSON: () => Markup }` builder, mirroring the
+// codegen widening in methods.ts so callers can pass `InlineKeyboard.keyboard(...)`
+// directly without a manual .toJSON() / cast
 type FriendlyReplyMarkup<T> = 'reply_markup' extends keyof T
-  ? { replyMarkup?: NonNullable<T['reply_markup' & keyof T]> }
+  ? {
+      replyMarkup?:
+        | NonNullable<T['reply_markup' & keyof T]>
+        | { toJSON: () => NonNullable<T['reply_markup' & keyof T]> }
+    }
   : object
 
 type ThumbnailMime = 'image/jpeg' | 'image/gif' | 'video/mp4'

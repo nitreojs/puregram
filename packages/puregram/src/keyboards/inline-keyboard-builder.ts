@@ -67,17 +67,17 @@ export class InlineKeyboardBuilder {
   private rows: Interfaces.TelegramInlineKeyboardButton[][] = []
   private currentRow: Interfaces.TelegramInlineKeyboardButton[] = []
 
-  /** Whether the builder has no buttons (committed rows + current row) */
+  /** whether the builder has no buttons (committed rows + current row) */
   get isEmpty () {
     return this.rows.length === 0 && this.currentRow.length === 0
   }
 
-  /** Number of rows that will be emitted (committed rows + current row if non-empty) */
+  /** number of rows that will be emitted (committed rows + current row if non-empty) */
   get rowCount () {
     return this.rows.length + (this.currentRow.length === 0 ? 0 : 1)
   }
 
-  /** Total number of buttons across all rows including the in-progress row */
+  /** total number of buttons across all rows including the in-progress row */
   get length () {
     let count = this.currentRow.length
 
@@ -88,7 +88,7 @@ export class InlineKeyboardBuilder {
     return count
   }
 
-  /** Construct an `InlineKeyboardBuilder` from an existing `InlineKeyboardMarkup` JSON */
+  /** construct an `InlineKeyboardBuilder` from an existing `InlineKeyboardMarkup` JSON */
   static from (markup: Interfaces.TelegramInlineKeyboardMarkup) {
     const builder = new InlineKeyboardBuilder()
 
@@ -97,7 +97,7 @@ export class InlineKeyboardBuilder {
     return builder
   }
 
-  /** Generate text button */
+  /** generate text button */
   textButton (params: TextButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
@@ -115,7 +115,7 @@ export class InlineKeyboardBuilder {
     return this.addButton(button)
   }
 
-  /** Generate URL button */
+  /** generate URL button */
   urlButton (params: UrlButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
@@ -137,7 +137,7 @@ export class InlineKeyboardBuilder {
     return this.addButton(button)
   }
 
-  /** Generate Web App button */
+  /** generate Web App button */
   webAppButton (params: WebAppButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
@@ -155,7 +155,7 @@ export class InlineKeyboardBuilder {
     return this.addButton(button)
   }
 
-  /** Generate button that will switch to current chat and type the query */
+  /** generate button that will switch to current chat and type the query */
   switchToCurrentChatButton (params: SwitchToCurrentChatButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
@@ -173,7 +173,7 @@ export class InlineKeyboardBuilder {
     return this.addButton(button)
   }
 
-  /** Generate button that will prompt user to select one of their chats */
+  /** generate button that will prompt user to select one of their chats */
   switchToChatButton (params: SwitchToChatButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
@@ -192,7 +192,7 @@ export class InlineKeyboardBuilder {
   }
 
   /**
-   * Generate button that will prompt user to select one of their chats of the
+   * generate button that will prompt user to select one of their chats of the
    * specified type, open that chat and insert the bot's username and the
    * specified inline query in the input field
    */
@@ -235,7 +235,7 @@ export class InlineKeyboardBuilder {
     return this.addButton(button)
   }
 
-  /** Generate game button */
+  /** generate game button */
   gameButton (params: GameButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
@@ -253,7 +253,7 @@ export class InlineKeyboardBuilder {
     return this.addWideButton(button)
   }
 
-  /** Generate pay button */
+  /** generate pay button */
   payButton (params: PayButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       pay: true,
@@ -271,7 +271,7 @@ export class InlineKeyboardBuilder {
     return this.addWideButton(button)
   }
 
-  /** Generate login button */
+  /** generate login button */
   loginButton (params: LoginButtonParamsWithStyle) {
     const button: Interfaces.TelegramInlineKeyboardButton = {
       login_url: params.loginUrl,
@@ -289,7 +289,7 @@ export class InlineKeyboardBuilder {
     return this.addButton(button)
   }
 
-  /** Save current row of buttons in the general rows */
+  /** save current row of buttons in the general rows */
   row () {
     if (this.currentRow.length === 0) {
       return this
@@ -301,7 +301,7 @@ export class InlineKeyboardBuilder {
     return this
   }
 
-  /** Conditionally apply a chain of mutations to the builder */
+  /** conditionally apply a chain of mutations to the builder */
   if (condition: boolean, then: (builder: this) => void, otherwise?: (builder: this) => void) {
     if (condition) {
       then(this)
@@ -312,7 +312,7 @@ export class InlineKeyboardBuilder {
     return this
   }
 
-  /** Clone current builder to new instance */
+  /** clone current builder to new instance */
   clone () {
     const builder = new InlineKeyboardBuilder()
 
@@ -322,7 +322,7 @@ export class InlineKeyboardBuilder {
     return builder
   }
 
-  /** Returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
+  /** returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
   toJSON () {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]

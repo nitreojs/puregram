@@ -1,7 +1,3 @@
-// callback-query filters — match against the `data` and `game_short_name`
-// fields of `callback_query` updates. value form is exact equality, regex form
-// runs the pattern and attaches `match` for named-capture access in handlers
-
 import { defineFilter } from '@puregram/api'
 import type { CallbackQueryUpdate, Filter } from '@puregram/api'
 

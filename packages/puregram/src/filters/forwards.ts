@@ -1,8 +1,3 @@
-// forward-origin filter — match against `forward_origin.type` on any
-// message-payload update. callable form `forwardOrigin('user')` plus shorthand
-// properties `.user` / `.hiddenUser` / `.chat` / `.channel`. `hidden_user`
-// maps to camelCase `hiddenUser` for the shorthand surface
-
 import { defineFilter } from '@puregram/api'
 import type {
   TelegramMessageOriginChannel,
@@ -36,9 +31,8 @@ type ForwardOriginVariant<T extends ForwardOriginType> =
           : never
 
 function forwardOriginTypeFilter<T extends ForwardOriginType> (type: T) {
-  // wrapper getter `forwardOrigin` returns `TelegramMessageOrigin | undefined` —
-  // a discriminated union of plain interfaces, so narrowing happens via the raw
-  // `type` literal already; no Omit gymnastics needed
+  // `forwardOrigin` returns a discriminated union of plain interfaces — narrowing
+  // already works through the `type` literal; no Omit gymnastics needed
   return defineFilter<unknown, { forwardOrigin: ForwardOriginVariant<T> }>(
     `forwardOrigin.${type}`,
     u => (u as { raw?: { forward_origin?: { type?: string } } }).raw?.forward_origin?.type === type,

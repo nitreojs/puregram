@@ -1,9 +1,3 @@
-// chat-shape filters — match against the `chat` payload that bot-api attaches to
-// every message-bearing kind plus the dedicated chat-member / chat-boost / reaction
-// kinds. `chat(type)` and its `.private` / `.group` / `.supergroup` / `.channel`
-// shorthands narrow on `chat.type`; `chatId(...)` narrows on `chat.id`; `forum`
-// and `topicMessage` are boolean flags exposed by recent bot-api versions
-
 import { defineFilter } from '@puregram/api'
 import type {
   ChannelChat,
@@ -47,14 +41,9 @@ const SENDER_CHAT_KINDS = [
   'proximity_alert_triggered', 'write_access_allowed'
 ] as const
 
-// is_topic_message lives only on Message-payload kinds — same domain as the
-// sender_chat field
+// `is_topic_message` lives only on Message-payload kinds — same domain as `sender_chat`
 const TOPIC_MESSAGE_KINDS = SENDER_CHAT_KINDS
 
-// Mod-side type per chat type. uses the codegen'd `PrivateChat`/`GroupChat`/etc
-// subtype aliases (which themselves Omit the wider `type` accessor before adding
-// the literal). chained access through `m.chat.type` narrows because the alias
-// has already stripped the wide getter at the inner level
 type ChatTypeKey = 'private' | 'group' | 'supergroup' | 'channel'
 type SenderChatTypeKey = Exclude<ChatTypeKey, 'private'>
 
@@ -109,13 +98,11 @@ export const senderChat = Object.assign(
   }
 )
 
+// chatId only narrows presence — runtime literal ids don't project to types, so no Mod
 /**
- * match when `chat.id` is one of the supplied ids. accepts varargs or a
- * readonly array; metadata covers every chat-bearing update kind so the
- * dispatcher fast-path skips unrelated updates
+ * match when `chat.id` is one of the supplied ids. varargs or readonly array.
+ * `kinds` metadata covers every chat-bearing kind for the dispatcher fast-path
  */
-// chatId only narrows presence (the runtime literal id doesn't help at the
-// type level); skip Mod and use the wrapper getter for access
 export function chatId (ids: readonly number[]): Filter<unknown>
 export function chatId (...ids: number[]): Filter<unknown>
 export function chatId (...args: [readonly number[]] | number[]) {
@@ -133,18 +120,14 @@ export function chatId (...args: [readonly number[]] | number[]) {
   )
 }
 
-/**
- * match when the chat is a forum supergroup (`chat.is_forum === true`)
- */
+/** match when the chat is a forum supergroup (`chat.is_forum === true`) */
 export const forum = defineFilter<unknown, { chat: Omit<Chat, 'isForum'> & { isForum: true } }>(
   'forum',
   u => (u as { raw?: { chat?: { is_forum?: boolean } } }).raw?.chat?.is_forum === true,
   { kinds: CHAT_KINDS }
 )
 
-/**
- * match when the message belongs to a forum topic (`is_topic_message === true`)
- */
+/** match when the message belongs to a forum topic (`is_topic_message === true`) */
 export const topicMessage = defineFilter<unknown, { isTopicMessage: true }>(
   'topicMessage',
   u => (u as { raw?: { is_topic_message?: boolean } }).raw?.is_topic_message === true,

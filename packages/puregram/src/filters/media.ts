@@ -1,8 +1,3 @@
-// media presence filters — semantic re-exports of the codegen'd `hasX`
-// presence checks under shorter, content-oriented names. keeps `puregram/filters`
-// ergonomic without duplicating the schema-derived `kinds` metadata that lives
-// on the codegen'd filters
-
 export {
   hasAnimation as animation,
   hasAudio as audio,

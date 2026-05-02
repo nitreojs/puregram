@@ -3,10 +3,9 @@ import type { AnyUpdate, Priority, UpdateHandler } from '@puregram/api'
 export type { AnyUpdate, OnOptions, Priority, UpdateHandler } from '@puregram/api'
 
 /**
- * predicate signature accepted by the `tg.onUpdate(predicate, handler, options?)` form.
- * the type-guard variant narrows the handler arg automatically; the plain-boolean
- * variant keeps it as `AnyUpdate`. predicates may also return `Promise<boolean>` —
- * the dispatcher awaits the result before deciding whether to invoke the handler
+ * predicate signature for `tg.onUpdate(predicate, handler, options?)`. type-guard
+ * variant narrows the handler arg; plain-boolean keeps it as `AnyUpdate`.
+ * `Promise<boolean>` works too — dispatcher awaits before invoking
  */
 export type UpdatePredicate<T extends AnyUpdate = AnyUpdate> =
   | ((update: AnyUpdate) => update is T)
@@ -83,19 +82,15 @@ export class Dispatcher {
         continue
       }
 
-      // kinds-metadata fast-path — filters built via `defineFilter` carry an optional
-      // `kinds` hint listing the update kinds they can possibly match. when present,
-      // skip predicate eval entirely for incompatible kinds. bare predicates without
-      // metadata fall through and are always evaluated
+      // kinds-metadata fast-path — `defineFilter` filters carry an optional `kinds` hint.
+      // skip predicate eval for kinds outside that list; bare predicates fall through
       const hint = (entry.predicate as { kinds?: readonly string[] }).kinds
 
       if (hint !== undefined && !hint.includes(update.kind)) {
         continue
       }
 
-      // sync predicates stay on the hot path; only filters that return a thenable
-      // pay the await cost. lets `tg.on((u) => boolean, …)` keep zero-overhead
-      // dispatch while still supporting `defineAsyncFilter` and userland async predicates
+      // sync predicates stay on the hot path; only thenable returners pay the await cost
       const result = entry.predicate(update)
 
       if (typeof result === 'object' && result !== null && 'then' in result) {

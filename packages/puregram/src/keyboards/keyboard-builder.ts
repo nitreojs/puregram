@@ -2,7 +2,7 @@ import type * as Interfaces from '@puregram/api'
 
 import type { ButtonStyleParams } from './types'
 
-/** Keyboard builder */
+/** keyboard builder */
 export class KeyboardBuilder {
   private rows: Interfaces.TelegramKeyboardButton[][] = []
   private currentRow: Interfaces.TelegramKeyboardButton[] = []
@@ -12,17 +12,17 @@ export class KeyboardBuilder {
   private isPersistent = false
   private placeholder?: string
 
-  /** Whether the builder has no buttons (committed rows + current row) */
+  /** whether the builder has no buttons (committed rows + current row) */
   get isEmpty () {
     return this.rows.length === 0 && this.currentRow.length === 0
   }
 
-  /** Number of rows that will be emitted (committed rows + current row if non-empty) */
+  /** number of rows that will be emitted (committed rows + current row if non-empty) */
   get rowCount () {
     return this.rows.length + (this.currentRow.length === 0 ? 0 : 1)
   }
 
-  /** Total number of buttons across all rows including the in-progress row */
+  /** total number of buttons across all rows including the in-progress row */
   get length () {
     let count = this.currentRow.length
 
@@ -33,7 +33,7 @@ export class KeyboardBuilder {
     return count
   }
 
-  /** Construct a `KeyboardBuilder` from an existing `ReplyKeyboardMarkup` JSON */
+  /** construct a `KeyboardBuilder` from an existing `ReplyKeyboardMarkup` JSON */
   static from (markup: Interfaces.TelegramReplyKeyboardMarkup) {
     const builder = new KeyboardBuilder()
 
@@ -51,8 +51,8 @@ export class KeyboardBuilder {
   }
 
   /**
-   * Generate text button
-   * If none of the optional fields are used,
+   * generate text button
+   * if none of the optional fields are used,
    * it will be sent as a message when the button is pressed
    */
   textButton (text: string, params?: ButtonStyleParams) {
@@ -70,8 +70,8 @@ export class KeyboardBuilder {
   }
 
   /**
-   * If specified, pressing the button will open a list of suitable users
-   * Tapping on any user will send their identifier to the bot in a "user_shared"
+   * if specified, pressing the button will open a list of suitable users
+   * tapping on any user will send their identifier to the bot in a "user_shared"
    * service message. Available in private chats only
    */
   requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers & ButtonStyleParams) {
@@ -92,8 +92,8 @@ export class KeyboardBuilder {
   }
 
   /**
-   * If specified, pressing the button will open a list of suitable chats
-   * Tapping on a chat will send its identifier to the bot in a "chat_shared"
+   * if specified, pressing the button will open a list of suitable chats
+   * tapping on a chat will send its identifier to the bot in a "chat_shared"
    * service message. Available in private chats only
    */
   requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat & ButtonStyleParams) {
@@ -114,9 +114,9 @@ export class KeyboardBuilder {
   }
 
   /**
-   * The user's current location will be sent when the button is pressed
+   * the user's current location will be sent when the button is pressed
    *
-   * Available in private chats only
+   * available in private chats only
    */
   requestLocationButton (text: string, params?: ButtonStyleParams) {
     const button: Interfaces.TelegramKeyboardButton = {
@@ -136,10 +136,10 @@ export class KeyboardBuilder {
   }
 
   /**
-   * The user will be asked to create a poll and send it to the bot
+   * the user will be asked to create a poll and send it to the bot
    * when the button is pressed
    *
-   * Available in private chats only
+   * available in private chats only
    */
   requestPollButton (text: string, params?: (Interfaces.TelegramPoll['type'] | { type?: Interfaces.TelegramPoll['type'] } & ButtonStyleParams)) {
     let type: Interfaces.TelegramPoll['type'] | undefined
@@ -169,10 +169,10 @@ export class KeyboardBuilder {
   }
 
   /**
-   * The user's phone number will be sent as a contact when
+   * the user's phone number will be sent as a contact when
    * the button is pressed
    *
-   * Available in private chats only
+   * available in private chats only
    */
   requestContactButton (text: string, params?: ButtonStyleParams) {
     const button: Interfaces.TelegramKeyboardButton = {
@@ -192,10 +192,10 @@ export class KeyboardBuilder {
   }
 
   /**
-   * The described Web App will be launched when the button is pressed
-   * The Web App will be able to send a `web_app_data` service message
+   * the described Web App will be launched when the button is pressed
+   * the Web App will be able to send a `web_app_data` service message
    *
-   * Available in private chats only
+   * available in private chats only
    */
   webAppButton (text: string, url: string, params?: ButtonStyleParams) {
     const button: Interfaces.TelegramKeyboardButton = {
@@ -214,7 +214,7 @@ export class KeyboardBuilder {
     return this.addWideButton(button)
   }
 
-  /** Save current row of buttons in the general rows */
+  /** save current row of buttons in the general rows */
   row () {
     if (this.currentRow.length === 0) {
       return this
@@ -227,7 +227,7 @@ export class KeyboardBuilder {
   }
 
   /**
-   * Requests clients to hide the keyboard as soon as it's been used. The
+   * requests clients to hide the keyboard as soon as it's been used. The
    * keyboard will still be available, but clients will automatically display
    * the usual letter-keyboard in the chat — the user can press a special
    * button in the input field to see the custom keyboard again. Defaults to
@@ -240,7 +240,7 @@ export class KeyboardBuilder {
   }
 
   /**
-   * Requests clients to resize the keyboard vertically for optimal fit (e.g.,
+   * requests clients to resize the keyboard vertically for optimal fit (e.g.,
    * make the keyboard smaller if there are just two rows of buttons). Defaults
    * to `false`, in which case the custom keyboard is always of the same height
    * as the app's standard keyboard
@@ -251,7 +251,7 @@ export class KeyboardBuilder {
     return this
   }
 
-  /** Use this parameter if you want to show the keyboard to specific users only */
+  /** use this parameter if you want to show the keyboard to specific users only */
   selective (selective = true) {
     this.isSelective = selective
 
@@ -259,7 +259,7 @@ export class KeyboardBuilder {
   }
 
   /**
-   * Requests clients to always show the keyboard when the regular keyboard is
+   * requests clients to always show the keyboard when the regular keyboard is
    * hidden. Defaults to `false`, in which case the custom keyboard can be
    * hidden and opened with a keyboard icon
    */
@@ -269,14 +269,14 @@ export class KeyboardBuilder {
     return this
   }
 
-  /** The placeholder to be shown in the input field when the keyboard is active */
+  /** the placeholder to be shown in the input field when the keyboard is active */
   setPlaceholder (placeholder: string) {
     this.placeholder = placeholder
 
     return this
   }
 
-  /** Conditionally apply a chain of mutations to the builder */
+  /** conditionally apply a chain of mutations to the builder */
   if (condition: boolean, then: (builder: this) => void, otherwise?: (builder: this) => void) {
     if (condition) {
       then(this)
@@ -287,7 +287,7 @@ export class KeyboardBuilder {
     return this
   }
 
-  /** Clone current builder to new instance */
+  /** clone current builder to new instance */
   clone () {
     const builder = new KeyboardBuilder()
 
@@ -305,7 +305,7 @@ export class KeyboardBuilder {
     return builder
   }
 
-  /** Returns JSON which is compatible with Telegram's `ReplyKeyboardMarkup` interface */
+  /** returns JSON which is compatible with Telegram's `ReplyKeyboardMarkup` interface */
   toJSON () {
     const buttons = this.currentRow.length !== 0
       ? [...this.rows, this.currentRow]

@@ -4,19 +4,17 @@ import type { Middleware } from '../dispatch/hooks'
 import type { AnyUpdate } from '../dispatch/on'
 
 /**
- * gate a middleware on a filter. when the filter matches, runs the middleware;
- * otherwise calls `next()` to pass through. uses the filter's `kinds` metadata
- * to skip evaluation entirely when the update kind doesn't match — same fast-path
- * the dispatcher applies for `tg.on(filter, …)` predicates
- *
- * the wrapped middleware sees the narrowed update type from the filter's
- * type-guard, so handlers can rely on `update.text`, `update.chat.type`, etc
+ * gate a middleware on a filter — runs it on match, calls `next()` otherwise.
+ * uses the filter's `kinds` metadata for the same fast-path as `tg.on(filter, …)`.
+ * the middleware sees the narrowed update type
  *
  * @example
+ * ```ts
  * tg.useHook('onUpdate', when(f.chat.private, async (u, next) => {
  *   console.log('[private]', u.kind)
  *   await next()
  * }), { priority: 'high' })
+ * ```
  */
 export function when<Base, Mod> (
   filter: Filter<Base, Mod>,

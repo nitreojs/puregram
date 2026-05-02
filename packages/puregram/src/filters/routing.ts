@@ -1,22 +1,11 @@
-// kind-routing filters — re-exports the codegen'd `kind` callable + shorthands and
-// adds the handcrafted `kindIn` / `customKind` variants. `kind(k)` matches a single
-// update kind; `kindIn(...ks)` matches any of a list; `customKind(name)` is the
-// custom-update analogue, scoped to `CustomUpdate` payloads emitted via `tg.emit`
-
 import { defineFilter } from '@puregram/api'
 import type { Filter, UpdateKind, UpdateKindMap } from '@puregram/api'
 
 import type { CustomUpdate } from '../dispatch/custom-updates'
 
-// `kind(k)` callable + `kind.message` / `kind.editedMessage` / … shorthands
-// already ship from `@puregram/api`'s codegen'd filters and reach the public
-// surface via the barrel `export * from '@puregram/api'` in `./index.ts`
-
 /**
- * match when `update.kind` is one of the supplied kinds. accepts varargs or a
- * single readonly array; result narrows to the union of `UpdateKindMap[K]` for
- * the listed kinds. `kinds` metadata is the supplied list, so the dispatcher
- * fast-path skips evaluation for unrelated updates
+ * match when `update.kind` is one of the supplied kinds. varargs or readonly
+ * array. `kinds` metadata is the supplied list — dispatcher skips unrelated updates
  */
 export function kindIn<K extends UpdateKind> (kinds: readonly K[]): Filter<UpdateKindMap[K]>
 export function kindIn<K extends UpdateKind> (...kinds: K[]): Filter<UpdateKindMap[K]>

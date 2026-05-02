@@ -1,7 +1,3 @@
-// sender-shape filters — match against `from` and the bot-api flags surfaced on
-// it. `from(...)` narrows on `from.id`; `fromBot` / `fromPremium` are boolean
-// flags; `viaBot` and `anonymous` express common authorship patterns
-
 import { defineFilter } from '@puregram/api'
 import type { Filter, User } from '@puregram/api'
 
@@ -38,13 +34,11 @@ const MESSAGE_PAYLOAD_KINDS = [
   'proximity_alert_triggered', 'write_access_allowed'
 ] as const
 
+// no Mod — runtime ids don't project to literal types
 /**
- * match when `from.id` is one of the supplied ids. accepts varargs or a single
- * readonly array. covers every `from`-bearing update kind including queries
- * (inline, callback, shipping, pre-checkout) and chat-member events
+ * match when `from.id` is one of the supplied ids. varargs or readonly array.
+ * covers every `from`-bearing update including queries and chat-member events
  */
-// `from(...)` only checks an id set; no useful Mod since the runtime ids don't
-// project to literal types
 export function from (ids: readonly number[]): Filter<unknown>
 export function from (...ids: number[]): Filter<unknown>
 export function from (...args: [readonly number[]] | number[]) {

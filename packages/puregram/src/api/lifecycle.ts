@@ -35,10 +35,8 @@ export async function runRequest (
 
   delete params.suppress
 
-  // safe webhook-reply optimization: methods whose return is `true` can ride
-  // the webhook 200 body — caller awaits `true` either way, so the round-trip
-  // is invisible. suppress + multipart skip this path because they need the
-  // real http response (suppress for the error shape, multipart can't serialize as json)
+  // webhook-reply optimization — methods returning `true` ride the 200 body, invisible to callers.
+  // skip when `suppress` (needs real error shape) or multipart (can't serialize as json)
   const slot = replyAls.getStore()
 
   if (slot !== undefined && !slot.consumed && !suppress &&

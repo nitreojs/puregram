@@ -1,9 +1,3 @@
-// chat-member transition filters — derive a change type from the
-// `old_chat_member.status` -> `new_chat_member.status` transition table on
-// `ChatMemberUpdate` and `MyChatMemberUpdate`. mirrors the rules already
-// codified by the codegen'd `didJoinChat`/`wasPromoted`/etc helpers on the
-// update classes themselves; see `CHAT_MEMBER_EXTRAS` in the api emitter
-
 import { defineFilter } from '@puregram/api'
 import type { ChatMemberUpdate, Filter, MyChatMemberUpdate } from '@puregram/api'
 
@@ -46,10 +40,8 @@ function changeMatches (change: ChatMemberChange, oldStatus: string, newStatus: 
     case 'restricted':
       return newStatus === 'restricted'
     case 'subscribed':
-      // bot-api doesn't surface a dedicated "subscription started" status; the
-      // closest signal is a transition into the regular `member` status from any
-      // non-member origin, which mirrors what didJoinChat would catch for a
-      // public subscription-gated chat
+      // bot-api has no dedicated "subscription started" status — closest signal is
+      // any non-member → `member` transition, mirroring `didJoinChat` for public subscription-gated chats
       return oldStatus !== 'member' && newStatus === 'member'
   }
 }

@@ -1,7 +1,3 @@
-// inline-query filters — match against `inline_query.query` and the
-// `result_id` field of `chosen_inline_result` updates. value form is exact
-// equality, regex form attaches the match as `update.match`
-
 import { defineFilter } from '@puregram/api'
 import type { ChosenInlineResultUpdate, Filter, InlineQueryUpdate } from '@puregram/api'
 

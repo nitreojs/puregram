@@ -1,11 +1,3 @@
-// content filters — `text` / `caption` value-or-regex matchers, the canonical
-// `command(name | pattern)` parser, generic `regex` against text-or-caption, and
-// the `startsWith` / `endsWith` / `contains` shorthands. value/regex variants
-// attach a `match: RegExpMatchArray` onto the update so handlers can read named
-// captures via `update.match?.groups?.foo`. when several match-attaching filters
-// chain through `and(...)` the rightmost one wins (Object.defineProperty is
-// configurable in `attach`)
-
 import { defineFilter, hasCaption, hasText } from '@puregram/api'
 import type { BoostAddedUpdate, BusinessMessageUpdate, ChannelPostUpdate, ChatSharedUpdate, DeleteChatPhotoUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, Filter, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, InvoiceUpdate, LeftChatMemberUpdate, MessageAutoDeleteTimerChangedUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, ProximityAlertTriggeredUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from '@puregram/api'
 
@@ -51,16 +43,12 @@ type TextBearingUpdate =
   | ProximityAlertTriggeredUpdate
   | WriteAccessAllowedUpdate
 
-// `caption` shares the same set of bearing kinds as `text` in the bot-api schema
-// (every message-shaped update can carry either field). reuse the codegen'd
-// `kinds` lists rather than re-typing the hand-curated set, so additions to the
-// schema flow through automatically. the codegen always emits `kinds`, so the
-// `?? []` fallback is purely a typing concession to the optional property type
+// reuse codegen'd `kinds` lists so schema additions flow through automatically.
+// `?? []` is a typing concession — codegen always emits `kinds` at runtime
 const TEXT_KINDS: readonly string[] = hasText.kinds ?? []
 const CAPTION_KINDS: readonly string[] = hasCaption.kinds ?? []
 
-// union of text-bearing and caption-bearing kinds — practically the same set,
-// dedupe via Set in case the schema diverges in the future
+// dedupe via Set in case `text` and `caption` domains ever diverge
 const TEXT_OR_CAPTION_KINDS: readonly string[] =
   [...new Set([...TEXT_KINDS, ...CAPTION_KINDS])]
 

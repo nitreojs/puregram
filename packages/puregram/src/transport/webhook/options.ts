@@ -1,41 +1,27 @@
 export interface WebhookOptions {
-  /**
-   * shared secret echoed by telegram via the `x-telegram-bot-api-secret-token`
-   * header. mismatched requests get a 401, missing headers also 401 when set
-   */
+  /** shared secret echoed in `x-telegram-bot-api-secret-token`. mismatched/missing requests get 401 when set */
   secretToken?: string
 
   /**
-   * automatic webhook-reply optimization. when on (default), api calls that
-   * return `true` (chat actions, message reactions, deletions, pins, …) are
-   * piped into the webhook 200 body, saving an http round-trip. methods that
-   * return data (sendMessage, getChat, …) always round-trip — the optimization
-   * is invisible to userland: `await tg.api.X(...)` resolves to the same value
-   * either way, so handlers written for polling work unchanged
-   *
-   * set `false` only if your infrastructure has a reason to never piggyback on
-   * the webhook response (e.g. firewalls / proxies that strip non-empty 200 bodies)
+   * webhook-reply optimization (default on) — api calls returning `true` (chat
+   * actions, reactions, deletions, …) ride the 200 body, saving a round-trip.
+   * data-returning methods (sendMessage, getChat, …) still round-trip. invisible
+   * to userland: `await tg.api.X(...)` resolves the same either way.
+   * disable only when proxies/firewalls strip non-empty 200 bodies
    */
   webhookReply?: boolean
 
   /**
-   * cap the wait between request arrival and our 200. the handler waits until
-   * either the slot is claimed, dispatch finishes, or this timer fires; dispatch
-   * keeps running after the response and is awaited by `tg.shutdown()`
-   *
-   * default 25_000ms — sits under telegram's ~60s retry threshold so a slow
-   * handler doesn't trigger duplicate deliveries. only active when
-   * `webhookReply` is on (otherwise we respond immediately)
+   * max wait between request arrival and the 200 response. dispatch keeps
+   * running after — awaited by `tg.shutdown()`. default 25_000ms sits under
+   * telegram's ~60s retry threshold. only active with `webhookReply`
    */
   timeoutMilliseconds?: number
 
   /**
-   * cap the request body size accepted by `nodeAdapter`. requests over the
-   * limit are rejected with 413 before json parsing. default 1MB — telegram
-   * updates are typically <100KB; the cap exists to bound memory under abuse
-   *
-   * other adapters (express, koa, fastify, hono, h3, elysia) defer to their
-   * framework's own body-size limits
+   * `nodeAdapter` body-size cap; requests over the limit return 413. default
+   * 1MB (telegram updates are typically <100KB). other adapters use their
+   * framework's own limits
    */
   maxBodyBytes?: number
 }

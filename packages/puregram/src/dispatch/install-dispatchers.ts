@@ -13,15 +13,6 @@ import type { Dispatcher } from './on'
 
 const dispatchDebug = createDebug('puregram:dispatch')
 
-// installs one `on<Kind>` method per `UPDATE_KINDS` entry. each method routes to
-// the underlying `dispatcher.on(kind, handler, priority)` for the bare-handler case
-// and `dispatcher.add({ type: 'predicate', … })` when a filter is supplied — the
-// dispatcher's existing kinds-metadata fast-path then skips predicate eval for
-// updates whose kind is outside the filter's declared scope
-//
-// the typed merge happens via codegen'd `interface TelegramDispatchers` in
-// `@puregram/api`'s `dispatch.ts`, which `Telegram` extends. this file only wires
-// runtime — every method shares the same routing body, just bound to a different kind
 export function installDispatchers (target: object, dispatcher: Dispatcher) {
   for (const kind of UPDATE_KINDS) {
     const methodName = dispatcherMethodName(kind)
@@ -33,8 +24,7 @@ export function installDispatchers (target: object, dispatcher: Dispatcher) {
         second?: UpdateHandler<unknown>,
         third?: OnOptions
       ) {
-        // overload routing: filter form → predicate dispatch with handler;
-        // handler form → bare-kind dispatch. options can sit on either form
+        // overload routing — filter form → predicate dispatch + handler; handler form → bare-kind dispatch
         if (typeof second === 'function') {
           const filter = first as Filter<unknown, unknown>
           const handler = second
@@ -66,10 +56,7 @@ export function installDispatchers (target: object, dispatcher: Dispatcher) {
   }
 }
 
-// `message` → `onMessage`, `chat_member` → `onChatMember`,
-// `proximity_alert_triggered` → `onProximityAlertTriggered`. mirrors the codegen
-// in `@puregram/api`'s `emit-dispatch.ts` — both forms must agree, otherwise
-// the codegen'd interface would type a method that runtime never installs
+// `message` → `onMessage`, `chat_member` → `onChatMember`. must mirror `emit-dispatch.ts` codegen exactly
 export function dispatcherMethodName (kindName: typeof UPDATE_KINDS_TYPE[number]) {
   const camel = kindName
     .split('_')
@@ -79,9 +66,8 @@ export function dispatcherMethodName (kindName: typeof UPDATE_KINDS_TYPE[number]
   return `on${camel}`
 }
 
-// non-fatal sanity check: a filter declaring `kinds: ['message_reaction']`
-// installed under `tg.onMessage(...)` can never match. log via the namespaced
-// debug logger so users opting into `PUREGRAM_DEBUG=puregram:dispatch` see it
+// non-fatal sanity check — filter with `kinds: ['message_reaction']` installed via `tg.onMessage(...)` can never match.
+// surfaced via debug logger (`PUREGRAM_DEBUG=puregram:dispatch`)
 function warnOnKindMismatch (filter: Filter<unknown, unknown>, kind: string, methodName: string) {
   const filterKinds = filter.kinds
 

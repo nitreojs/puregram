@@ -1,25 +1,25 @@
 import type * as Interfaces from '@puregram/api'
 
-/** Force reply keyboard */
+/** force reply keyboard */
 export class ForceReply {
   private isSelective = false
   private placeholder?: string
 
-  /** Use this parameter if you want to show the keyboard to specific users only */
+  /** use this parameter if you want to show the keyboard to specific users only */
   selective (selective = true) {
     this.isSelective = selective
 
     return this
   }
 
-  /** The placeholder to be shown in the input field when the keyboard is active */
+  /** the placeholder to be shown in the input field when the keyboard is active */
   setPlaceholder (placeholder: string) {
     this.placeholder = placeholder
 
     return this
   }
 
-  /** Returns JSON which is compatible with Telegram's `ForceReply` interface */
+  /** returns JSON which is compatible with Telegram's `ForceReply` interface */
   toJSON () {
     const json: Interfaces.TelegramForceReply = {
       force_reply: true,

@@ -5,7 +5,7 @@ const escapeHtml = (source: string) => (
     .replace(/"/g, '&quot;')
 )
 
-/** HTML parse mode */
+/** hTML parse mode */
 export class HTML {
   static parseMode = 'HTML' as const
 
@@ -13,7 +13,7 @@ export class HTML {
     return this.constructor.name
   }
 
-  /** Escape all the danger characters */
+  /** escape all the danger characters */
   static escape (source: string) {
     return escapeHtml(source)
   }
@@ -23,47 +23,47 @@ export class HTML {
     return HTML.escape(source)
   }
 
-  /** Bold text */
+  /** bold text */
   static bold (source: string, escape = true) {
     return `<b>${escape ? HTML.escape(source) : source}</b>`
   }
 
-  /** Italic text */
+  /** italic text */
   static italic (source: string, escape = true) {
     return `<i>${escape ? HTML.escape(source) : source}</i>`
   }
 
-  /** Underlined text */
+  /** underlined text */
   static underline (source: string, escape = true) {
     return `<u>${escape ? HTML.escape(source) : source}</u>`
   }
 
-  /** Strikethrough text */
+  /** strikethrough text */
   static strikethrough (source: string, escape = true) {
     return `<s>${escape ? HTML.escape(source) : source}</s>`
   }
 
-  /** Spoilered text */
+  /** spoilered text */
   static spoiler (source: string, escape = true) {
     return `<span class="tg-spoiler">${escape ? HTML.escape(source) : source}</span>`
   }
 
-  /** URL with text */
+  /** uRL with text */
   static url (source: string, link: string, escape = true) {
     return `<a href="${link}">${escape ? HTML.escape(source) : source}</a>`
   }
 
-  /** Mention the user */
+  /** mention the user */
   static mention (source: string, id: number | string, escape = true) {
     return `<a href="tg://user?id=${id}">${escape ? HTML.escape(source) : source}</a>`
   }
 
-  /** Preformatted code */
+  /** preformatted code */
   static code (source: string, escape = true) {
     return `<code>${escape ? HTML.escape(source) : source}</code>`
   }
 
-  /** Preformatted code */
+  /** preformatted code */
   static pre (source: string, language?: string, escape = true) {
     const string = escape ? HTML.escape(source) : source
 
@@ -74,12 +74,12 @@ export class HTML {
     return `<pre>${string}</pre>`
   }
 
-  /** Quotation */
+  /** quotation */
   static blockquote (source: string, escape = true) {
     return `<blockquote>${escape ? HTML.escape(source) : source}</blockquote>`
   }
 
-  /** Custom emoji */
+  /** custom emoji */
   static emoji (emoji: string, id: string) {
     return `<tg-emoji emoji-id="${id}">${emoji}</tg-emoji>`
   }

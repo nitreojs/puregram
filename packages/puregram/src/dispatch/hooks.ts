@@ -147,10 +147,7 @@ export class HookRegistry {
   }
   /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
 
-  /**
-   * runs onUpdate chain but inserts a fixed slot for user `tg.on(...)` handlers
-   * between the 'normal' and 'low' priority middleware
-   */
+  /** runs onUpdate chain with a fixed slot for `tg.on(...)` handlers between `normal` and `low` */
   async runUpdate (ctx: unknown, userHandlers: Middleware<unknown>) {
     await runChain(
       [...this.update.high, ...this.update.normal, userHandlers, ...this.update.low],
@@ -172,11 +169,7 @@ export class HookRegistry {
     return current
   }
 
-  /**
-   * runs registered onDispatchError handlers; returns true if any handler was
-   * registered (caller should treat the error as observed) and false if no
-   * handler was registered (caller should fall back to its default loud behavior)
-   */
+  /** returns true if any onDispatchError handler ran — caller treats the error as observed */
   async runDispatchError (err: Error, ctx: DispatchErrorContext) {
     if (this.dispatchError.length === 0) {
       return false

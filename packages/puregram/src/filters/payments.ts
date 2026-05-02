@@ -1,8 +1,3 @@
-// payment-payload filters — equality match against the `invoice_payload` set
-// at invoice creation time. shipping/pre-checkout queries expose it directly
-// on the query payload; for completed payments the field lives nested under
-// `successful_payment.invoice_payload` on the service-event message
-
 import { defineFilter } from '@puregram/api'
 import type { Filter, PreCheckoutQueryUpdate, ShippingQueryUpdate, SuccessfulPayment, SuccessfulPaymentUpdate } from '@puregram/api'
 

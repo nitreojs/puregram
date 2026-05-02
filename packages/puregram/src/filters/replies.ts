@@ -1,8 +1,3 @@
-// reply-target filters — `hasReply` matches any message that is a reply, and
-// `replyTo(id)` matches replies pointing at a specific source message. both
-// narrow `raw.reply_to_message` to non-undefined so handler code can read it
-// without an optional-chain. only message-payload kinds carry the field
-
 import { defineFilter } from '@puregram/api'
 import type { BusinessMessageUpdate, ChannelPostUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, Filter, Message, MessageUpdate } from '@puregram/api'
 

@@ -2,10 +2,7 @@ import type { SendStickerParams, SendVideoNoteParams, SendVoiceParams } from '@p
 
 import type { MediaInput } from '../media-source'
 
-/**
- * fields shared across `sendX` methods that aren't part of the media payload
- * itself — they belong to the request envelope, not to the `InputMedia*` shape
- */
+// envelope fields shared across `sendX` — they live on the request, not on `InputMedia*`
 type NonMediaParams =
   | 'business_connection_id'
   | 'chat_id'
@@ -22,9 +19,8 @@ type NonMediaParams =
 type MediaExtras<T, FieldKey extends keyof T> = Omit<T, FieldKey | NonMediaParams>
 
 /**
- * synthetic InputMedia variant for `sendSticker` — used by `tg.sendMedia(...)`
- * polymorphic dispatch. the `media` field swaps in for the real `sticker` field
- * at call time
+ * synthetic InputMedia variant for `sendSticker` — used by `tg.sendMedia(...)`.
+ * `media` swaps in for `sticker` at call time
  */
 export type InputMediaSticker = MediaExtras<SendStickerParams, 'sticker'> & {
   type: 'sticker'

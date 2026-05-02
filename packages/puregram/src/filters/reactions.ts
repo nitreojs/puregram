@@ -1,8 +1,3 @@
-// reaction filters — match against `MessageReactionUpdate`'s `old_reaction` /
-// `new_reaction` arrays. emoji form filters by `TelegramReactionTypeEmoji.emoji`;
-// `paidReaction` flags any `TelegramReactionTypePaid` entry; the added/removed
-// boolean filters compare list lengths between the two snapshots
-
 import { defineFilter } from '@puregram/api'
 import type { Filter, MessageReactionUpdate } from '@puregram/api'
 

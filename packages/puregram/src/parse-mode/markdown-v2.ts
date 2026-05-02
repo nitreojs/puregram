@@ -14,7 +14,7 @@ const join = (template: TemplateStringsArray, ...args: unknown[]) => {
   return result
 }
 
-/** Markdown V2 parse mode */
+/** markdown V2 parse mode */
 export class MarkdownV2 {
   static parseMode = 'MarkdownV2' as const
 
@@ -23,7 +23,7 @@ export class MarkdownV2 {
   }
 
   /**
-   * Since MarkdownV2 requires escaping a lot of chars you can use this static
+   * since MarkdownV2 requires escaping a lot of chars you can use this static
    * method for easier usage of MarkdownV2 via template strings
    *
    * @example
@@ -63,37 +63,37 @@ export class MarkdownV2 {
     return MarkdownV2.escape(source)
   }
 
-  /** Escape all the danger characters */
+  /** escape all the danger characters */
   static escape (source: string) {
     return replaceChars(source, ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'])
   }
 
-  /** Bold text */
+  /** bold text */
   static bold (source: string, escape = true) {
     return `*${escape ? MarkdownV2.escape(source) : source}*`
   }
 
-  /** Italic text */
+  /** italic text */
   static italic (source: string, escape = true) {
     return `_${escape ? MarkdownV2.escape(source) : source}_`
   }
 
-  /** Underlined text */
+  /** underlined text */
   static underline (source: string, escape = true) {
     return `__${escape ? MarkdownV2.escape(source) : source}__`
   }
 
-  /** Strikethrough text */
+  /** strikethrough text */
   static strikethrough (source: string, escape = true) {
     return `~${escape ? MarkdownV2.escape(source) : source}~`
   }
 
-  /** Spoilered text */
+  /** spoilered text */
   static spoiler (source: string, escape = true) {
     return `||${escape ? MarkdownV2.escape(source) : source}||`
   }
 
-  /** URL with text */
+  /** uRL with text */
   static url (source: string, link: string, escape = true) {
     const text = escape ? MarkdownV2.escape(source) : source
     const url = escape ? MarkdownV2.escape(link) : link
@@ -101,29 +101,29 @@ export class MarkdownV2 {
     return `[${text}](${url})`
   }
 
-  /** Mention the user */
+  /** mention the user */
   static mention (source: string, id: number | string, escape = true) {
     return `[${escape ? MarkdownV2.escape(source) : source}](tg://user?id=${id})`
   }
 
-  /** Preformatted code */
+  /** preformatted code */
   static code (source: string, escape = true) {
     return `\`${escape ? MarkdownV2.escape(source) : source}\``
   }
 
-  /** Preformatted code */
+  /** preformatted code */
   static pre (source: string, language?: string, escape = true) {
     const quotes = '```'
 
     return `${quotes}${language ?? ''}\n${escape ? MarkdownV2.escape(source) : source}\n${quotes}`
   }
 
-  /** Quotation */
+  /** quotation */
   static blockquote (source: string, escape = true) {
     return `>${escape ? MarkdownV2.escape(source) : source}`
   }
 
-  /** Custom emoji */
+  /** custom emoji */
   static emoji (emoji: string, id: string) {
     return `![${emoji}](tg://emoji?id=${id})`
   }

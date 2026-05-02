@@ -12,13 +12,9 @@ import { MediaSourceType } from '../media-source'
 import type { ResolvedTelegramOptions } from '../options'
 
 /**
- * any value that can be turned into a Telegram file URL: a raw `file_id` string,
- * the `MediaSource.fileId(...)` envelope, any wrapper instance with `fileId`
- * (Document/Video/Audio/Voice/VideoNote/Animation/Sticker/PhotoSize/File),
- * any raw payload with `file_id` (TelegramDocument/TelegramFile/…), a `Photo`
- * wrapper or its raw `TelegramPhotoSize[]` payload (largest size auto-picked).
- *
- * other `MediaSource.X(...)` upload variants throw a descriptive `TypeError`
+ * any value resolvable to a telegram file URL — raw `file_id`, `MediaSource.fileId(...)`,
+ * any wrapper with `fileId`, any payload with `file_id`, or `Photo` / `TelegramPhotoSize[]`
+ * (largest auto-picked). other `MediaSource.X(...)` upload variants throw `TypeError`
  */
 export type DownloadTarget =
   | string
@@ -74,7 +70,7 @@ export function resolveDownloadTarget (target: DownloadTarget): ResolvedTarget {
     return resolveDownloadTarget(target.biggest.raw)
   }
 
-  // MediaSource.X(...) envelope: only the file_id variant is downloadable
+  // only the fileId variant is downloadable; upload-only variants throw
   const envelope = readEnvelope(target)
 
   if (envelope !== undefined) {
@@ -118,10 +114,7 @@ function readEnvelope (value: unknown) {
   return { type, value: (value as { value?: unknown }).value }
 }
 
-/**
- * build the public download URL for a target. resolves `file_path` via `getFile`
- * if the target didn't carry one already
- */
+/** build the public download URL — resolves `file_path` via `getFile` when the target didn't carry one */
 export async function getFileURL (deps: DownloadDeps, target: DownloadTarget) {
   const resolved = resolveDownloadTarget(target)
   const filePath = resolved.filePath ?? (await deps.getFile(resolved.fileId)).file_path
@@ -131,11 +124,11 @@ export async function getFileURL (deps: DownloadDeps, target: DownloadTarget) {
   }
 
   if (deps.options.useLocal) {
-    // local bot api server returns absolute on-disk paths in `file_path`
+    // local bot-api server returns absolute on-disk paths in `file_path`
     return filePath
   }
 
-  // strip the trailing `/bot` from `apiBaseUrl` and rebuild as the file endpoint
+  // strip trailing `/bot` from `apiBaseUrl` and rebuild as the file endpoint
   const base = deps.options.apiBaseUrl.replace(/\/bot$/, '')
 
   return `${base}/file/bot${deps.options.token}/${filePath}`

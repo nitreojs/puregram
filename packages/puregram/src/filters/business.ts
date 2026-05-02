@@ -1,10 +1,3 @@
-// business-account filter — gates on the `business_connection_id` field that
-// bot-api attaches to messages received over a connected business account.
-// the field lives on `TelegramMessage` (so any message-payload kind may carry
-// it) and on `TelegramBusinessMessagesDeleted`; `TelegramBusinessConnection`
-// uses a plain `id` field instead, so the `business_connection` update kind
-// is intentionally excluded from the kind list
-
 import { defineFilter } from '@puregram/api'
 import type { BusinessMessageUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate } from '@puregram/api'
 
@@ -20,10 +13,9 @@ const BUSINESS_KINDS = [
 ] as const
 
 /**
- * match updates that carry a `business_connection_id` payload field — messages
- * received over a connected business account. `business_connection` updates
- * are excluded since they expose the connection identifier on `id`, not
- * `business_connection_id`
+ * match updates carrying `business_connection_id` (messages over a connected
+ * business account). `business_connection` updates are excluded — they expose
+ * the connection id on `id`, not `business_connection_id`
  */
 export const business = defineFilter<BusinessBearingUpdate, { businessConnectionId: string }>(
   'business',

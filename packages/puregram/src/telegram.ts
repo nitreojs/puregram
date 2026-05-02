@@ -135,9 +135,8 @@ export class Telegram<Ext = unknown> {
       return
     }
 
-    // coalesce concurrent boots — webhook adapters fire start() per request.
-    // on failure, clear the slot so a later call can retry without restarting
-    // the process (one bad getMe shouldn't permanently brick the bot)
+    // coalesce concurrent boots (webhook adapters fire start() per request);
+    // clear the slot on failure so a later call can retry — one bad getMe shouldn't brick the bot
     if (this.startPromise === undefined) {
       this.startPromise = this.bootstrap().catch((error: unknown) => {
         this.startPromise = undefined
@@ -170,32 +169,25 @@ export class Telegram<Ext = unknown> {
     this.startPromise = undefined
   }
 
-  /**
-   * registers a cleanup callback to run on `shutdown()`. used internally by
-   * `startWebhook` to stop the http server it owns; userland can also register
-   * any teardown that should ride the bot's lifecycle
-   */
+  /** register a cleanup callback to run on `shutdown()`. userland can hook teardown onto the bot's lifecycle */
   registerCleanup (fn: () => Promise<void>) {
     this.cleanups.push(fn)
   }
 
   /**
-   * register a cross-kind handler — fires for every supported update.
-   *
-   * the bare form receives every wrapped update (`AnyUpdate`); the filter form gates
-   * dispatch on a `Filter`, narrowing the handler argument via `Modify<AnyUpdate, Mod>`.
-   * use this when a single handler should span multiple kinds or react to a custom
-   * predicate that doesn't fit a per-kind dispatcher (`tg.onMessage`, `tg.onCallbackQuery`, …)
+   * register a cross-kind handler — fires for every supported update. the bare form
+   * receives `AnyUpdate`; the filter form narrows via `Modify<AnyUpdate, Mod>`. use
+   * this for multi-kind handlers or custom predicates that don't fit per-kind dispatchers
    *
    * @example
-   * tg.onUpdate(async (update) => {
-   *   console.log('[any]', update.kind)
-   * })
+   * ```ts
+   * tg.onUpdate((update) => console.log('[any]', update.kind))
    *
    * tg.onUpdate(
-   *   (update): update is MessageUpdate => update.is('message') && update.hasText(),
-   *   (message) => message.send(`echo: ${message.text}`)
+   *   (u): u is MessageUpdate => u.is('message') && u.hasText(),
+   *   (m) => m.send(`echo: ${m.text}`)
    * )
+   * ```
    */
   onUpdate (handler: UpdateHandler<AnyUpdate>, options?: OnOptions): this
 
@@ -251,13 +243,10 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * register a raw-update handler. fires for every incoming bot-api update payload
-   * before kind discrimination — including kinds that landed in bot-api ahead of our
-   * schema regen and don't yet have a wrapped class. the handler arg is the raw
-   * payload object as received from polling/webhook, untyped beyond the bot-api shape
-   *
-   * useful for forward-compat logging, ingestion pipelines, or routing logic that
-   * needs to see every update before any wrapper allocation
+   * register a raw-update handler — fires before kind discrimination, so it sees
+   * even unknown kinds that landed in bot-api ahead of our schema regen. handler
+   * arg is the raw payload from polling/webhook. handy for forward-compat logging
+   * or ingestion pipelines that want every update before wrapper allocation
    */
   onRawUpdate (handler: (raw: Record<string, unknown>) => void | Promise<void>) {
     this.rawUpdateHandlers.push(handler)
@@ -266,27 +255,23 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * register a regex-matched message handler
-   *
-   * - string form — `tg.command('hello', …)` matches `/hello`, `/hello arg`,
-   *   `/hello@bot`, or a `/hello`-prefixed line break (Telegram command conventions)
-   * - regex form — `tg.command(/^\/h(?:e|i)/, …)` runs against `message.text` directly
-   *
-   * non-matching messages call `next()` so the chain continues. matching messages get
-   * a `match: RegExpMatchArray` attached to the update before the handler runs, so
-   * `message.match.groups?.foo` works for named-capture regexes
+   * register a command handler. string form matches `/hello`, `/hello arg`,
+   * `/hello@bot`, or `/hello`-prefixed line break (Telegram conventions); regex form
+   * runs against `message.text` directly. non-matching messages call `next()`.
+   * matching messages get `match: RegExpMatchArray` attached for named captures
    *
    * @example
-   * tg.command(/^\/say(?:\s+(?<text>.+))?$/i, async (message) => {
-   *   await message.send(message.match?.groups?.text ?? 'silence')
+   * ```ts
+   * tg.command(/^\/say(?:\s+(?<text>.+))?$/i, async (m) => {
+   *   await m.send(m.match?.groups?.text ?? 'silence')
    * })
+   * ```
    */
   command (
     nameOrPattern: string | RegExp,
     handler: UpdateHandler<MessageUpdate & { match?: RegExpMatchArray }>
   ) {
-    // string form layers in a `@botname` mention check that closes over
-    // `this.bot.username`; regex form leaves @-validation to the caller's pattern
+    // string form layers in a `@botname` mention check; regex form leaves @-validation to the caller
     const filter = typeof nameOrPattern === 'string'
       ? and(commandFilter(nameOrPattern), botMentionFilter(this))
       : commandFilter(nameOrPattern)
@@ -295,24 +280,21 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * register a handler against callback queries with matching data
-   *
-   * - string form — equality match against `update.raw.data`
-   * - regex form — runs against `update.raw.data`, attaching `match: RegExpMatchArray`
-   *   on success
-   *
+   * register a handler against callback queries with matching data. string form is
+   * equality on `update.raw.data`; regex form attaches `match: RegExpMatchArray` on success.
    * shorthand for `tg.onCallbackQuery(callbackData(value), handler)`
    *
    * @example
+   * ```ts
    * tg.callbackQuery(/^buy:(?<sku>.+)$/, async (q) => {
    *   await q.answer({ text: `bought ${q.match?.groups?.sku}` })
    * })
+   * ```
    */
   callbackQuery (
     value: string | RegExp,
     handler: UpdateHandler<CallbackQueryUpdate & { match?: RegExpMatchArray }>
   ) {
-    // branch keeps the typed return narrow per overload; the runtime call body is identical
     const filter = typeof value === 'string'
       ? callbackQueryFilter(value)
       : callbackQueryFilter(value)
@@ -339,27 +321,24 @@ export class Telegram<Ext = unknown> {
   /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
 
   /**
-   * register a dispatch middleware
-   *
-   * shorthand for `useHook('onUpdate', fn, options)`. defaults to `'normal'` priority,
-   * which runs before `tg.on(...)` handlers and after `'high'` middleware like waitFor/session
-   *
-   * the 2-arg form gates the middleware on a `Filter` — when the filter matches, the
-   * middleware runs; otherwise the chain passes through. equivalent to wrapping the
-   * middleware in `when(filter, mw)` by hand. uses the filter's `kinds` metadata for
-   * the same dispatcher fast-path that `tg.on(filter, …)` benefits from
+   * register a dispatch middleware — shorthand for `useHook('onUpdate', fn, options)`.
+   * default priority `'normal'` runs before `tg.on(...)` handlers and after `'high'` middleware
+   * (waitFor/session). the 2-arg form gates on a `Filter` (equivalent to `when(filter, mw)`)
+   * and benefits from the same `kinds` fast-path as `tg.on(filter, …)`
    *
    * @example
+   * ```ts
    * tg.use(async (update, next) => {
    *   const start = Date.now()
    *   await next()
    *   console.log(`update took ${Date.now() - start}ms`)
    * })
    *
-   * tg.use(f.chat.private, async (update, next) => {
-   *   console.log('[private]', update.kind)
+   * tg.use(f.chat.private, async (u, next) => {
+   *   console.log('[private]', u.kind)
    *   await next()
    * }, { priority: 'high' })
+   * ```
    */
   use (fn: Middleware<unknown>, options?: HookOptions): this
   use<Base, Mod> (
@@ -418,8 +397,8 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * builds a framework-agnostic webhook handler. consumed by adapters under
-   * `puregram/webhook/<framework>`; for raw `node:http` use `getWebhookCallback`
+   * framework-agnostic webhook handler consumed by `puregram/webhook/<framework>`
+   * adapters. for raw `node:http` use `getWebhookCallback`
    */
   webhookHandler (options: WebhookOptions = {}) {
     return createWebhookHandler(resolveWebhookOptions(options), {
@@ -435,8 +414,8 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * node `http`/`https` callback. for express/koa/fastify/hono/h3/elysia
-   * import the matching adapter from `puregram/webhook/<framework>` instead
+   * node `http`/`https` callback. for express/koa/fastify/hono/h3/elysia,
+   * import the matching adapter from `puregram/webhook/<framework>`
    */
   getWebhookCallback (options: WebhookOptions = {}) {
     return nodeAdapter(this.webhookHandler(options), {
@@ -445,9 +424,9 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * one-shot: starts the bot, calls `setWebhook`, and (when `port` is given)
-   * spins up a built-in node `http` listener. the same `secretToken` is used
-   * to register the webhook and to validate incoming requests
+   * one-shot — starts the bot, calls `setWebhook`, and (when `port` is given)
+   * spins up a built-in node `http` listener. `secretToken` is used both to
+   * register the webhook and to validate incoming requests
    */
   async startWebhook (options: StartWebhookOptions) {
     await this.start()
@@ -474,14 +453,14 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * download a Telegram file into a `Buffer`. accepts a raw `file_id` string,
-   * `MediaSource.fileId(...)`, any wrapper instance (Document, Video, Audio, …)
-   * or its raw payload, plus `Photo` / `TelegramPhotoSize[]` (largest size auto-picked).
-   *
-   * other `MediaSource.X(...)` upload variants throw `TypeError`
+   * download a telegram file into a `Buffer`. accepts a raw `file_id`, any
+   * `MediaSource.fileId(...)`, any wrapper or raw payload, plus `Photo` /
+   * `TelegramPhotoSize[]` (largest auto-picked). other upload variants throw `TypeError`
    *
    * @example
+   * ```ts
    * const bytes = await tg.download(update.document)
+   * ```
    */
   async download (target: DownloadTarget) {
     return downloadHelper(this.downloadDeps(), target)
@@ -502,11 +481,7 @@ export class Telegram<Ext = unknown> {
     return downloadToFileHelper(this.downloadDeps(), path, target)
   }
 
-  /**
-   * resolve the public download URL for a file. calls `getFile` if needed —
-   * pass an already-resolved `File` (or any payload carrying `file_path`) to
-   * skip the round-trip
-   */
+  /** resolve the public download URL. calls `getFile` if needed — pass a resolved `File` to skip the round-trip */
   async getFileURL (target: DownloadTarget) {
     return getFileURLHelper(this.downloadDeps(), target)
   }
@@ -539,8 +514,7 @@ export class Telegram<Ext = unknown> {
     await this.dispatch(update)
   }
 
-  // packs the long-lived deps the download helpers need without holding a ref to
-  // the whole Telegram instance — keeps the helpers test-friendly with a tiny mock
+  // packs deps for download helpers without leaking a `this` ref — helpers stay test-friendly
   private downloadDeps () {
     return {
       options: this.options,
@@ -584,9 +558,8 @@ export class Telegram<Ext = unknown> {
     await Promise.allSettled(this.inFlight)
   }
 
-  // raw handlers fire before kind discrimination so they see updates whose
-  // kind is unknown to our schema yet (forward-compat path). errors are routed
-  // through the same dispatch-error funnel as wrapped-handler errors
+  // raw handlers fire before kind discrimination — forward-compat for unknown kinds.
+  // errors funnel through `reportDispatchError` like wrapped handlers
   private async runRawUpdateHandlers (raw: Record<string, unknown>) {
     if (this.rawUpdateHandlers.length === 0) {
       return
@@ -601,9 +574,8 @@ export class Telegram<Ext = unknown> {
     }
   }
 
-  // funnel for dispatch errors. runs registered onDispatchError handlers; when
-  // none are registered, logs via debug and rethrows on a microtask so node's
-  // default uncaughtException semantics kick in (matches v2 loud-by-default)
+  // dispatch-error funnel. with no onDispatchError handler: log via debug and rethrow on a
+  // microtask, so node's default uncaughtException kicks in (matches v2 loud-by-default)
   private reportDispatchError (error: Error, raw: Record<string, unknown>) {
     this.hooks.runDispatchError(error, { raw })
       .then((handled) => {
@@ -624,12 +596,9 @@ function rethrowAsync (error: Error) {
   })
 }
 
-// `Telegram`-bound mention filter — closes over `tg.bot.username` so the string
-// form of `tg.command(...)` can validate the `@bot` suffix attached by the
-// preceding `command` filter. when no suffix was used (mention is undefined) the
-// command is implicitly for any bot in the chat and we accept; otherwise we
-// require the mention to match `tg.bot.username` case-insensitively. unbound
-// composition (`f.command('start')`) skips this layer and stays mention-agnostic
+// `Telegram`-bound mention filter — closes over `tg.bot.username` so `tg.command('foo')`
+// validates `@bot` suffixes. no-suffix commands accept any bot; unbound `f.command('foo')`
+// skips this layer entirely
 function botMentionFilter (tg: Telegram) {
   return defineFilter<MessageUpdate>(
     'botMention',

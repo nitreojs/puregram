@@ -11,11 +11,9 @@ import type { InputMediaSticker, InputMediaVideoNote, InputMediaVoice } from '..
 import type { Telegram } from '../telegram'
 
 /**
- * polymorphic media query accepted by `tg.sendMedia(chat, media)` — dispatches
- * to the corresponding `tg.api.sendX` based on the `type` discriminator. real
- * bot api `InputMedia*` variants (used by `sendMediaGroup`) carry a `media`
- * field; the synthetic sticker/video_note/voice variants reuse the same field
- * name, swapped at call time
+ * polymorphic media query for `tg.sendMedia(chat, media)` — dispatches to
+ * `tg.api.sendX` based on `type`. real bot-api `InputMedia*` variants carry
+ * `media`; synthetic sticker/video_note/voice variants reuse the same field name
  */
 export type SendMediaQuery =
   | TelegramInputMediaPhoto
@@ -30,10 +28,9 @@ export type SendMediaQuery =
 /** declarations for the handcrafted shortcuts that aren't in the codegen'd `TelegramShortcuts` */
 export interface ManualShortcuts {
   /**
-   * polymorphic shortcut: dispatches to `sendPhoto`/`sendVideo`/`sendSticker`/…
-   * based on the `type` discriminator on the input. accepts both real bot api
-   * `InputMedia*` shapes and synthetic sticker/video_note/voice shapes built by
-   * `InputMedia.{sticker,videoNote,voice}(...)`
+   * polymorphic shortcut — dispatches to `sendPhoto`/`sendVideo`/`sendSticker`/…
+   * based on `type`. accepts both real `InputMedia*` shapes and synthetic
+   * sticker/video_note/voice shapes from `InputMedia.{sticker,videoNote,voice}(...)`
    *
    * @example
    * ```ts
@@ -65,9 +62,8 @@ export function installShortcuts (tg: Telegram) {
   })
 
   define(tg, 'sendMedia', function (this: Telegram, chat: number | string, media: SendMediaQuery, params: Record<string, unknown> = {}) {
-    // each branch narrows `media` to a single variant, so the per-`api.sendX`
-    // call typechecks without dynamic dispatch — the surrogate `media` field
-    // and the discriminating `type` are stripped per branch
+    // each branch narrows `media` to a single variant — surrogate `media` field
+    // and discriminating `type` are stripped per branch
     switch (media.type) {
       case 'photo':
         return this.api.sendPhoto({ chat_id: chat, photo: media.media, ...omit(media, ['type', 'media']), ...params })

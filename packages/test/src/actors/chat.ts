@@ -2,6 +2,8 @@ import type { TestMessage } from './message'
 
 export type ChatType = 'private' | 'group' | 'supergroup' | 'channel'
 
+export type PostFn = (text: string) => Promise<TestMessage>
+
 export class TestChat {
   readonly id: number
   readonly type: ChatType
@@ -10,6 +12,7 @@ export class TestChat {
 
   private readonly _messages: TestMessage[] = []
   private messageIdCounter = 0
+  private _postFn: PostFn | undefined
 
   constructor (init: { id: number, type: ChatType, title?: string, username?: string }) {
     this.id = init.id
@@ -32,6 +35,22 @@ export class TestChat {
     return this.messageIdCounter
   }
 
+  setPostFn (fn: PostFn) {
+    this._postFn = fn
+  }
+
+  async post (text: string): Promise<TestMessage> {
+    if (this.type !== 'channel') {
+      throw new Error('TestChat.post is only valid for channel chats')
+    }
+
+    if (this._postFn === undefined) {
+      throw new Error('TestChat: post handler not wired (use env.createChat)')
+    }
+
+    return this._postFn(text)
+  }
+
   toRaw () {
     return {
       id: this.id,
@@ -41,3 +60,4 @@ export class TestChat {
     }
   }
 }
+

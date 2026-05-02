@@ -1,6 +1,8 @@
 import type { RequestContext, Telegram } from 'puregram'
 
-import type { TestChat } from './actors/chat'
+import { TestChat } from './actors/chat'
+import { allocateChatId } from './actors/identity'
+import { TestMessage } from './actors/message'
 import type { CreateUserOptions } from './actors/user'
 import { TestUser } from './actors/user'
 import { inject as injectRaw } from './dispatch/inject'
@@ -114,6 +116,39 @@ export class TestEnv<TG extends Telegram = Telegram> {
     this.world.chats.push(user.pmChat)
 
     return user
+  }
+
+  createChat (options:
+    | { type: 'group' | 'supergroup', title: string, id?: number }
+    | { type: 'channel', title: string, id?: number }
+  ) {
+    const id = options.id ?? allocateChatId(options.type)
+    const chat = new TestChat({ id, type: options.type, title: options.title })
+
+    if (chat.type === 'channel') {
+      chat.setPostFn(async (text) => {
+        const msg = new TestMessage({
+          chat,
+          from: undefined,
+          message_id: chat.nextMessageId(),
+          date: Math.floor(Date.now() / 1000)
+        })
+
+        msg.text = text
+        chat.appendMessage(msg)
+
+        await injectRaw(this.tg, {
+          update_id: this.world.nextUpdateId(),
+          channel_post: msg.toRaw()
+        })
+
+        return msg
+      })
+    }
+
+    this.world.chats.push(chat)
+
+    return chat
   }
 
   async inject (raw: Record<string, unknown>) {

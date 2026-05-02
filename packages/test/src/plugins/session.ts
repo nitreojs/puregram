@@ -32,8 +32,7 @@ interface KeyResolvable {
   chat?: { id?: number | string }
 }
 
-// session's default getStorageKey: from.id → senderChat.id → chat.id
-// for a private user the inject path uses message.from = user, so from.id wins
+// matches session's default getStorageKey — `from.id` wins on private-user injects
 const keyOf = (user: TestUser) => String(user.id)
 
 const isObject = (value: unknown): value is SessionData => (
@@ -72,8 +71,8 @@ registerPack({
       return
     }
 
-    // local snapshot mirrored to storage on dispatch settle and on seed/proxy writes.
-    // gives the test surface synchronous reads even though kv is async-only
+    // local snapshot mirrored to storage on dispatch settle / seed / proxy writes —
+    // gives tests sync reads even though kv is async-only
     const cache = new Map<string, SessionData>()
 
     const refresh = async (key: string) => {
@@ -87,9 +86,8 @@ registerPack({
     }
 
     env.onPostInject(async (raw) => {
-      // session writes happen as the dispatch chain unwinds; by the time the
-      // post-inject hook fires, the storage is settled — refresh whichever
-      // key the inbound update would have hit
+      // session writes happen as dispatch unwinds — storage is settled by the time
+      // post-inject fires; refresh whichever key the inbound update would have hit
       const payload = (() => {
         for (const k of Object.keys(raw)) {
           const v = raw[k]

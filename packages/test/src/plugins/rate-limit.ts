@@ -50,9 +50,8 @@ interface RateLimitRuntime {
 
 const EMPTY_USAGE: RateLimitUsage = { hits: 0, resetAt: 0 }
 
-// the plugin's storage is a KVStorage<RateLimitEntry>. usage reads sync via
-// the cache mirror that we update on every wrapped hit; reset(key?) hits the
-// runtime for one key or drains the storage's iterator for the all-buckets form
+// usage reads sync from a cache mirror updated on every wrapped hit;
+// `reset(key?)` hits runtime for one key or drains the storage iterator
 registerPack({
   pluginName: 'rateLimit',
   apply (env: TestEnv, tg: Telegram) {
@@ -114,8 +113,7 @@ registerPack({
           return
         }
 
-        // all-buckets form. prefer iterating storage so we also nuke entries the
-        // cache hasn't seen (e.g. seeded directly via tg.rateLimit.storage)
+        // all-buckets — iterate storage so we nuke entries the cache hasn't seen (e.g. directly seeded)
         const seen = new Set<string>()
 
         if (typeof runtime.storage.keys === 'function') {

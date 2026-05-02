@@ -37,9 +37,8 @@ interface MediaCacherRuntime {
   storage: KvStorageLike
 }
 
-// the underlying mediaCacher uses an async KVStorage<string>, but tests want
-// a sync surface. mirror every storage write into a local Map and wrap `get`
-// to count hit/miss against the cache key. seed/clear write through to both
+// mediaCacher's KVStorage<string> is async; tests want a sync surface. mirror writes
+// into a local Map and wrap `get` to count hit/miss. seed/clear write through to both
 registerPack({
   pluginName: 'mediaCacher',
   apply (env: TestEnv, tg: Telegram) {

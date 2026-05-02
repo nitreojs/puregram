@@ -29,10 +29,9 @@ interface FlowRuntime {
   cancelAll: () => void
 }
 
-// the underlying flow ext keeps its WaiterRegistry inside a closure — there's no
-// public hook to enumerate it, so we wrap waitFor/prompt to mirror arm/settle into
-// a local list. consume(predicate, value) is intentionally omitted: ext exposes
-// no per-waiter resolve, and pushing a synthetic update belongs to the actor api
+// flow's WaiterRegistry is closed over — wrap waitFor/prompt to mirror arm/settle into
+// a local list. `consume(...)` intentionally omitted: ext has no per-waiter resolve,
+// and pushing synthetic updates belongs to the actor api
 registerPack({
   pluginName: 'flow',
   apply (env: TestEnv, tg: Telegram) {
@@ -67,8 +66,7 @@ registerPack({
       track(kind, originalWaitFor(kind, options))
     )
 
-    // prompt is a waitFor under the hood — its inbound side becomes a 'message' (or
-    // explicit kind) waiter. mirror it the same way so cancelAll/waiters reflect it
+    // prompt is a waitFor under the hood — mirror it so cancelAll/waiters reflect the inbound waiter
     runtime.prompt = (chat: number | string, text: string, options?: unknown) => {
       const kind = (options as { kind?: string } | undefined)?.kind ?? 'message'
 

@@ -133,7 +133,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
 
     this.restoreHttp = swapHttpClient(tg, intercept)
 
-    // ensure tg.shutdown() runs its lifecycle hooks even if .start() was never called
+    // ensure `tg.shutdown()` runs lifecycle hooks even when `.start()` never ran
     tg.registerCleanup(async () => {})
 
     this.installPendingPluginsEagerly()
@@ -208,8 +208,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
     await this.injectInternal(enriched)
   }
 
-  // packs subscribe to observe the raw update after dispatch settles,
-  // e.g. to mirror session storage into a sync-readable cache
+  // packs observe the raw update after dispatch settles — e.g. to mirror session into a sync cache
   onPostInject (fn: (raw: Record<string, unknown>) => Promise<void> | void) {
     this.postInjectHooks.push(fn)
   }
@@ -300,9 +299,8 @@ export class TestEnv<TG extends Telegram = Telegram> {
     }
   }
 
-  // installs queued plugins synchronously so packs can detect them via tg.has()
-  // before tg.start() runs. async-install plugins are skipped (a later .start()
-  // will install them; the corresponding pack just won't activate in this env)
+  // install queued plugins synchronously so packs can `tg.has()` them before `.start()`.
+  // async-install plugins skip (a later `.start()` runs them; pack just won't activate here)
   private installPendingPluginsEagerly () {
     interface InternalTelegram {
       pendingPlugins: { name: string, install: (tg: Telegram) => unknown }[]

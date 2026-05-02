@@ -4,7 +4,7 @@ export { Telegram } from './telegram'
 export type { TelegramOptions } from './options'
 export { TelegramError, ApiError } from './errors'
 export type { ApiResponseError } from './errors'
-export { MediaSource, MediaSourceTo, MediaSourceType, type MediaInput, type MediaInputTo } from './media-source'
+export { MediaSource, MediaSourceType, type MediaInput } from './media-source'
 
 export { createPlugin } from './plugins/plugin'
 export type { Plugin } from './plugins/plugin'

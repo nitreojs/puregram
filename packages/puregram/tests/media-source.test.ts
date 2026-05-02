@@ -1,8 +1,6 @@
-import { Writable } from 'node:stream'
-
 import { describe, it, expect } from 'vitest'
 
-import { MediaSource, MediaSourceTo, MediaSourceType } from '../src/media-source'
+import { MediaSource, MediaSourceType } from '../src/media-source'
 
 describe('MediaSource', () => {
   it('path returns tagged source', () => {
@@ -28,25 +26,5 @@ describe('MediaSource', () => {
 
     expect(r.type).toBe(MediaSourceType.Buffer)
     expect(r.value.toString()).toBe('hi')
-  })
-})
-
-describe('MediaSourceTo', () => {
-  it('buffer to-source has no value field', () => {
-    const r = MediaSourceTo.buffer()
-
-    expect(r.type).toBe(MediaSourceType.Buffer)
-  })
-
-  it('stream to-source carries the writable', () => {
-    const noop = new Writable({
-      write (_chunk, _enc, cb) {
-        cb()
-      }
-    })
-    const r = MediaSourceTo.stream(noop)
-
-    expect(r.type).toBe(MediaSourceType.Stream)
-    expect(r.value).toBe(noop)
   })
 })

@@ -1,58 +1,264 @@
-# @puregram/session
+<div align='center'>
+  <img src='https://i.imgur.com/ZzjmE8i.png' />
+</div>
 
-> v3 alpha — work in progress.
+<br />
 
-transparent persistent session plugin for puregram v3:
+<div align='center'>
+  <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='#typescript-usage'><b>typescript usage</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='#options'><b>options</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='https://t.me/pureforum'><b>telegram forum</b></a>
+</div>
 
-- `session()` plugin — `tg.extend(session())` attaches `update.session` (a transparent proxy of stored data) and `tg.session.{get, set, delete}` (direct storage access).
-- `ttl(value, ms)` — wrap a value to make it expire on read after `ms` milliseconds. lazy, no background timer.
-- `MemoryStorage` — default in-memory backend. ships out of the box. plug your own `SessionStorage` for redis/sql/etc.
+## @puregram/session
 
-> **future:** non-memory backends (`RedisStorage`, `PostgresStorage`, `SqliteStorage`, `RedisJsonStorage`, ...) will land in a separate `@puregram/storage` package once there are 2+ confirmed backends. for now `SessionStorage` is the public interface — implement it against your store and pass it via `session({ storage: yourStorage })`.
+_simple implementation of sessions for `puregram` package_. shortly, `puregram` sessions available to everyone!
 
-## typing
+### introduction
 
-`update.session` is typed via declaration-merging: importing `@puregram/session` augments every supported update class (`MessageUpdate`, `CallbackQueryUpdate`, ...) with a required `session: SessionContext` field. **importing the package implies usage** — there is no per-file opt-out. if you don't want session typing on every handler, don't import `@puregram/session`.
+with `@puregram/session` you can keep a tiny bag of state for each active user and read/write to it from any handler — counters, half-filled forms, last-seen timestamps, whatever the bot needs. by default it lives in memory and disappears on restart, but you can swap in any redis / sqlite / file-on-disk / cloudflare-kv backend that implements the [`KVStorage<V>`](../storage) interface
 
-users widen the typed surface by augmenting the empty `SessionData` interface:
+every update gets `update.session` attached as a transparent proxy — assignments persist when the handler returns, no `save()` calls, no manual flushing
+
+### example
 
 ```ts
-declare module '@puregram/session' {
-  interface SessionData {
-    counter: number
-    user: { name: string }
-  }
-}
+import { Telegram } from 'puregram'
+import { session } from '@puregram/session'
 
-tg.on('message', async msg => {
-  msg.session.counter = (msg.session.counter ?? 0) + 1
+const telegram = Telegram.fromToken(process.env.TOKEN!)
+  .extend(session()) // plug the plugin in
+
+telegram.onMessage(async (message) => {
+  const counter = (message.session.counter as number ?? 0) + 1
+
+  message.session.counter = counter
+
+  await message.send(`you sent ${counter} messages!`)
+})
+
+await telegram.startPolling()
+```
+
+`.extend(session())` does three things at install time:
+- registers a high-priority `onUpdate` middleware that loads the user's data from storage, wraps it in a proxy, and attaches it as `update.session`;
+- flushes any changes back to storage when the handler chain returns;
+- exposes the configured backing store directly as `telegram.session` so you can read or evict keys outside an update context
+
+### installation
+
+```sh
+$ yarn add @puregram/session
+$ npm i -S @puregram/session
+```
+
+`@puregram/session` re-exports `MemoryStorage`, `LruMemoryStorage`, `isTtlStorage`, `KVStorage`, `TtlStorage`, and `LruMemoryStorageOptions` from [`@puregram/storage`](../storage) — you don't need to install `@puregram/storage` separately unless you want to share one storage instance across multiple plugins
+
+---
+
+## `ttl`
+
+mark a session value as expiring after `t` ms — telegram will see it as gone once the timeout elapses, regardless of whether your storage backend supports ttl natively (the proxy checks per access):
+
+```ts
+import { ttl } from '@puregram/session'
+
+message.session.user = ttl(user, 300_000)
+// `message.session.user` will be deleted in 5 minutes if it isn't updated
+```
+
+once a key is marked ttl, you can mutate it like any normal value — every assignment **resets** the timer:
+
+```ts
+message.session.user = newUser
+// key updated, ttl reset to the original 5 minutes
+```
+
+clear ttl by re-wrapping with `0`:
+
+```ts
+message.session.user = ttl(user, 0)
+// becomes a regular non-expiring value
+```
+
+practical demo:
+
+```ts
+message.session.counter = ttl(0, 5_000)                    // counter = 0, expires in 5s
+message.session.counter += 1                               // counter = 1, ttl reset to 5s
+setTimeout(() => (message.session.counter += 1), 3_000)    // counter = 2, ttl reset to 5s
+setTimeout(() => (message.session.counter += 1), 10_000)   // counter = NaN — value expired before the +1, undefined + 1 = NaN
+```
+
+```ts
+message.session.counter = ttl(0, 5_000)                          // counter = 0
+message.session.counter += 1                                     // counter = 1
+message.session.counter = ttl(2, 0)                              // counter = 2 (ttl cleared)
+message.session.counter += 1                                     // counter = 3
+setTimeout(() => console.log(message.session.counter), 50_000)   // logs: 3
+```
+
+if your backend already supports sliding-window expiry (redis, sqlite with `last_seen`, …) it'll be detected automatically via `isTtlStorage(storage)` and `touch()`'d on every read, so the timer rolls forward without you having to re-wrap
+
+---
+
+## `$forceUpdate`
+
+`update.session` writes are flushed automatically when your handler returns. occasionally you'll want to persist mid-handler — long-running jobs, branches that may not return cleanly, sub-tasks dispatched to other workers. `update.session.$forceUpdate()` writes the current state to storage immediately:
+
+```ts
+telegram.onMessage(async (message) => {
+  message.session.startedAt = Date.now()
+
+  // persist now in case the long task below crashes or never returns
+  await message.session.$forceUpdate()
+
+  await runLongTask(message)
 })
 ```
 
-`SessionData` is a **single global shape** — every augmented update kind sees the same fields. for per-kind shapes, add your own private declaration-merge directly on the relevant update interface.
+idempotent — you can call it as many times as you want
 
-## what gets change-tracked
+---
 
-`update.session` is a transparent proxy. mutations on:
-- **plain objects** (`session.user = {}; session.user.name = 'a'`) — tracked, flushed on dispatch end.
-- **arrays** (`session.tags = []; session.tags.push('x')`, index assignment, splice, pop, ...) — tracked.
+## direct storage access (`telegram.session`)
 
-mutations on:
-- **class instances** (`session.user = new User(); session.user.name = 'a'`) — **not tracked**. user-defined classes don't survive `JSON.stringify` round-trips through your storage backend, and `#private` fields throw through `Proxy`. work around by storing plain objects, or re-assign the whole field (`session.user = newUser`) to trigger flush.
-- **builtins** (`Date`, `Map`, `Set`, `RegExp`, `Promise`, `ArrayBuffer`, ...) — **not tracked**, and proxying them would silently break internal-slot accesses like `Date.getTime()` or `Map.size`. store as primitives (`session.created_at = Date.now()`) or re-assign the whole field.
+inside an update handler you've got `update.session` (proxied + auto-flushed). outside one — a cron job, a webhook from another service, a scheduled cleanup — you want raw access to the backing store, and that's what `telegram.session` is. it forwards to whatever `KVStorage<unknown>` you passed in:
 
-if you need to force a flush regardless, call `session.$forceUpdate()` mid-handler.
+```ts
+await telegram.session.set('promo:flag', { active: true, until: Date.now() + 86_400_000 })
 
-## behavior changes from v2
+const flag = await telegram.session.get('promo:flag')
 
-if you're moving from v2 with a serializing backend (redis, sql, anything that re-serializes session data on `get`/`set`), one important difference: **v3 mutates the underlying object directly through the proxy.** writes to `update.session.foo = 1` flow through to the same data object that `storage.set(key, data)` saves at end-of-dispatch.
+await telegram.session.delete('promo:flag')
 
-v2 used a defensive entry-copy inside the proxy wrapper that made the proxy operate on a fresh internal target — separate from the object handed back to storage. with `MemoryStorage` this happened to work because `Map` preserves the proxy reference itself across `get`/`set`, but with any backend that JSON-roundtrips your session, **v2 silently dropped writes**. v3 makes writes observable everywhere, including outside the dispatch path: storing a session reference and reading it elsewhere observes live mutations.
+const exists = await telegram.session.has('promo:flag')
+```
 
-if you depended on v2's accidental isolation (you shouldn't have), wrap session reads in a snapshot before passing them around: `const snap = JSON.parse(JSON.stringify(update.session))`.
+bypasses the proxy and the ttl-marker layer — what you write is what you get when you read
 
-## concurrency
+---
 
-session is per-update: each dispatched update gets its own `update.session` proxy backed by a fresh `storage.get` → wrap → `storage.set` cycle. v3's polling layer dispatches updates in a batch concurrently (per `polling.ts`), so two updates from the same key delivered in the same batch will race on `storage.get`/`set` — both load the same baseline, both write, last-writer-wins. this matches v2's behavior. for strict serialization use a custom `SessionStorage` with locking, or run polling with `batchSize: 1`.
+<a name='typescript-usage'></a>
+## typescript usage
 
-documentation, examples, and a v2-to-v3 migration note will land alongside the v3 stable release. for now see `.claude/V3_DESIGN.md` (§7.7) in the repo for the architecture spec.
+`@puregram/session` extends every update kind with a `session: SessionContext` property by default, so you don't need to do anything special if you're fine with `Record<string, unknown>`:
+
+```ts
+import { session } from '@puregram/session'
+
+const telegram = Telegram.fromToken(TOKEN).extend(session())
+
+telegram.onMessage((message) => {
+  // `message.session` is available — magic, isnt it?
+  message.session.meaningOfLife = 42 // shower thoughts
+})
+```
+
+want type precision? use **declaration merging** to widen the global `SessionData` interface:
+
+```ts
+import { session } from '@puregram/session'
+import type { Telegram } from 'puregram'
+
+declare module '@puregram/session' {
+  interface SessionData {
+    counter: number
+    user?: { name: string }
+  }
+}
+
+const telegram = Telegram.fromToken(TOKEN).extend(session({
+  initial: () => ({ counter: 0 })
+}))
+
+telegram.onMessage((message) => {
+  // message.session is now typed as SessionData & { $forceUpdate, [key: string]: unknown }
+  message.session.counter++
+  message.session.user = { name: 'alex' }
+})
+```
+
+every plugin that augments `SessionData` (e.g. `@puregram/scenes` adds `__scene`) merges into the same global interface — your declaration sits next to theirs, no conflicts
+
+---
+
+<a name='options'></a>
+## options
+
+`session(options?)` accepts:
+
+| option | type | description |
+|---|---|---|
+| `storage` | `KVStorage<unknown>` | backing store. default: a fresh `MemoryStorage<unknown>` (in-process, lost on restart). pass any [`KVStorage`](../storage) — including [`LruMemoryStorage`](../storage), redis adapter, sqlite, custom. `TtlStorage` (slide-window expiry) is auto-detected via `isTtlStorage` |
+| `getStorageKey` | `(update) => string \| undefined` | how to derive the per-update storage key. default: `from.id ?? senderChat.id ?? chat.id`. return `undefined` to skip session attachment for that update — unkeyable updates pass through with no `update.session` set |
+| `initial` | `(update) => SessionData` | initial value when the storage entry is missing. default: `() => ({})` |
+
+### scoping by chat instead of by user
+
+```ts
+session({
+  getStorageKey: (update) => {
+    if ('chat' in update && update.chat !== undefined) {
+      return `chat:${update.chat.id}`
+    }
+
+    return undefined
+  }
+})
+```
+
+### bounded in-memory cache
+
+cap how many sessions live in memory at once — once the cap is hit, the least-recently-used user gets evicted:
+
+```ts
+import { LruMemoryStorage } from '@puregram/session'
+
+session({
+  storage: new LruMemoryStorage<unknown>({ max: 10_000 })
+})
+```
+
+### persistent backend
+
+```ts
+import { session, type KVStorage } from '@puregram/session'
+
+class JsonFileStorage<V> implements KVStorage<V> {
+  // get/set/delete/has — read or write a json file
+  // …
+  async get (key: string): Promise<V | undefined> { /* … */ return undefined }
+  async set (key: string, value: V) { /* … */ void value }
+  async delete (key: string) { /* … */ void key }
+  async has (key: string) { return false }
+}
+
+const telegram = Telegram.fromToken(TOKEN).extend(session({
+  storage: new JsonFileStorage<unknown>('./sessions.json')
+}))
+```
+
+> see [`@puregram/storage`](../storage) for the full `KVStorage<V>` / `TtlStorage<V>` contract and a redis-flavored example
+
+---
+
+## exported types
+
+```ts
+import type {
+  AnyUpdate,         // discriminated union of every wrapped update kind (bot-api + custom)
+  KVStorage,         // re-exported from @puregram/storage
+  SessionContext,    // shape of `update.session` — `SessionData & { $forceUpdate, [key: string]: unknown }`
+  SessionData,       // user-augmentable interface (declare-merge to widen)
+  SessionExtension,  // shape of `telegram.session`
+  SessionOptions,    // options object accepted by `session({ … })`
+  TtlData,           // internal ttl envelope (mostly for advanced use)
+  TtlStorage,        // re-exported from @puregram/storage
+  TtlWrapped         // return type of ttl(value)
+} from '@puregram/session'
+```

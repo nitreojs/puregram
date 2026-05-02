@@ -17,17 +17,17 @@ import type {
  */
 export class Reaction {
   /** standard emoji reaction */
-  static emoji (emoji: TelegramReactionTypeEmoji['emoji']): TelegramReactionTypeEmoji {
-    return { type: 'emoji', emoji }
+  static emoji (emoji: TelegramReactionTypeEmoji['emoji']) {
+    return { type: 'emoji', emoji } as TelegramReactionTypeEmoji
   }
 
   /** custom-emoji reaction (premium) */
-  static customEmoji (id: string): TelegramReactionTypeCustomEmoji {
-    return { type: 'custom_emoji', custom_emoji_id: id }
+  static customEmoji (id: string) {
+    return { type: 'custom_emoji', custom_emoji_id: id } as TelegramReactionTypeCustomEmoji
   }
 
   /** paid star reaction */
-  static paid (): TelegramReactionTypePaid {
-    return { type: 'paid' }
+  static paid () {
+    return { type: 'paid' } as TelegramReactionTypePaid
   }
 }

@@ -1597,6 +1597,34 @@ export class MessageUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -4067,6 +4095,34 @@ export class EditedMessageUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -6539,6 +6595,34 @@ export class ChannelPostUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -9009,6 +9093,34 @@ export class EditedChannelPostUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -11540,6 +11652,34 @@ export class BusinessMessageUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -14010,6 +14150,34 @@ export class EditedBusinessMessageUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -20536,6 +20704,34 @@ export class NewChatMembersUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -23006,6 +23202,34 @@ export class LeftChatMemberUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -25478,6 +25702,34 @@ export class NewChatTitleUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -27948,6 +28200,34 @@ export class NewChatPhotoUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -30420,6 +30700,34 @@ export class DeleteChatPhotoUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -32890,6 +33198,34 @@ export class GroupChatCreatedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -35362,6 +35698,34 @@ export class PinnedMessageUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -37832,6 +38196,34 @@ export class InvoiceUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -40304,6 +40696,34 @@ export class SuccessfulPaymentUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -42774,6 +43194,34 @@ export class UsersSharedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -45246,6 +45694,34 @@ export class ChatSharedUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -47716,6 +48192,34 @@ export class WebAppDataUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -50188,6 +50692,34 @@ export class VideoChatScheduledUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -52658,6 +53190,34 @@ export class VideoChatStartedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -55130,6 +55690,34 @@ export class VideoChatEndedUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -57600,6 +58188,34 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -60072,6 +60688,34 @@ export class ForumTopicCreatedUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -62542,6 +63186,34 @@ export class ForumTopicEditedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -65014,6 +65686,34 @@ export class ForumTopicClosedUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -67484,6 +68184,34 @@ export class ForumTopicReopenedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -69956,6 +70684,34 @@ export class GeneralForumTopicHiddenUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -72426,6 +73182,34 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -74898,6 +75682,34 @@ export class GiveawayCreatedUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -77368,6 +78180,34 @@ export class GiveawayCompletedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -79840,6 +80680,34 @@ export class GiveawayWinnersUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -82310,6 +83178,34 @@ export class BoostAddedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -84782,6 +85678,34 @@ export class MessageAutoDeleteTimerChangedUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -87252,6 +88176,34 @@ export class MigrateToChatIdUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -89724,6 +90676,34 @@ export class MigrateFromChatIdUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -92194,6 +93174,34 @@ export class PassportDataUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -94666,6 +95674,34 @@ export class ProximityAlertTriggeredUpdate {
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
     }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -97136,6 +98172,34 @@ export class WriteAccessAllowedUpdate {
      */
     isChannel(): boolean {
         return this.raw.chat.type === "channel";
+    }
+    /**
+     * Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * Download the message attachment as a node `Readable`. Returns `null` if the message has no media.
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;

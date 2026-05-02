@@ -25,6 +25,10 @@ const MESSAGE_ANCHORS: ShortcutAnchor[] = [
   { schemaArg: 'message_id', accessPath: ['raw', 'message_id'] }
 ]
 
+// shared inline picker reused by every download* extra. kept as a single statement so
+// `parseStatements` produces consistent output across the four method bodies
+const PICK_DOWNLOAD = 'const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;'
+
 const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'chatId', expression: 'this.raw.chat.id', returnType: 'number', jsdoc: 'Shortcut for `chat.id`.' },
   { kind: 'getter', name: 'senderId', expression: 'this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id', returnType: 'number', jsdoc: 'Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.' },
@@ -43,7 +47,15 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'method', name: 'isPrivate', body: "return this.raw.chat.type === 'private'", returnType: 'boolean', jsdoc: 'True if `chat.type === "private"`.' },
   { kind: 'method', name: 'isGroup', body: "return this.raw.chat.type === 'group'", returnType: 'boolean', jsdoc: 'True if `chat.type === "group"` (strict — supergroups excluded).' },
   { kind: 'method', name: 'isSupergroup', body: "return this.raw.chat.type === 'supergroup'", returnType: 'boolean', jsdoc: 'True if `chat.type === "supergroup"`.' },
-  { kind: 'method', name: 'isChannel', body: "return this.raw.chat.type === 'channel'", returnType: 'boolean', jsdoc: 'True if `chat.type === "channel"`.' }
+  { kind: 'method', name: 'isChannel', body: "return this.raw.chat.type === 'channel'", returnType: 'boolean', jsdoc: 'True if `chat.type === "channel"`.' },
+
+  // download shortcuts. each picks the message's single attachment with priority
+  // document > video > audio > voice > video_note > animation > photo[largest] > sticker
+  // and delegates to `tg.<verb>`. returns `null` when the message has no attachment
+  { kind: 'method', name: 'download', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.download(t)', returnType: 'Promise<Buffer | null>', jsdoc: 'Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.' },
+  { kind: 'method', name: 'downloadStream', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadStream(t)', returnType: 'Promise<import("node:stream").Readable | null>', jsdoc: 'Download the message attachment as a node `Readable`. Returns `null` if the message has no media.' },
+  { kind: 'method', name: 'downloadIterable', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t)', returnType: 'Promise<AsyncIterable<Uint8Array> | null>', jsdoc: 'Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.' },
+  { kind: 'method', name: 'downloadToFile', params: 'path: string', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null)', returnType: 'Promise<void | null>', jsdoc: 'Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.' }
 ]
 
 const CALLBACK_QUERY_EXTRAS: UpdateExtra[] = [

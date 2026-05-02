@@ -3,11 +3,14 @@ import type { BotIdentity } from '../actors/identity'
 import { defaultBotIdentity } from '../actors/identity'
 import type { TestUser } from '../actors/user'
 
+import { FileStore } from './files'
+
 export class World {
   bot: BotIdentity = defaultBotIdentity()
   updateIdCounter = 0
   readonly users: TestUser[] = []
   readonly chats: TestChat[] = []
+  readonly files = new FileStore()
 
   nextUpdateId () {
     this.updateIdCounter += 1

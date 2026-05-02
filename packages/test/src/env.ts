@@ -12,7 +12,7 @@ import { applyPacks } from './plugins/registry'
 import type { StorageViewWithRegister } from './plugins/storage-view'
 import { createNamespacedStorageView } from './plugins/storage-view'
 import { isApiErrorSentinel } from './stubs/api-error'
-import { runAutoStub } from './stubs/auto-stub'
+import { runAutoStub, STRICT_FALLBACK } from './stubs/auto-stub'
 import { OverrideRegistry } from './stubs/overrides'
 import { World } from './world/world'
 
@@ -85,6 +85,27 @@ export class TestEnv<TG extends Telegram = Telegram> {
       }
 
       const stubResult: unknown = runAutoStub(this.world, method, captured)
+
+      if (stubResult === STRICT_FALLBACK) {
+        if (this.options.strictApi === true) {
+          const description = `strictApi: no auto-stub or override for "${method}"`
+          const envelope = {
+            ok: false as const,
+            error_code: 500,
+            description
+          }
+
+          record.error = { error_code: 500, description }
+          this.apiCalls.push(record)
+
+          return envelope
+        }
+
+        record.result = true
+        this.apiCalls.push(record)
+
+        return { ok: true as const, result: true }
+      }
 
       if (isApiErrorSentinel(stubResult)) {
         const envelope = {
@@ -243,10 +264,39 @@ export class TestEnv<TG extends Telegram = Telegram> {
   }
 
   private async injectInternal (raw: Record<string, unknown>) {
+    if (this.options.strictDispatch === true) {
+      this.assertHandlerExistsFor(raw)
+    }
+
     await injectRaw(this.tg, raw)
 
     for (const fn of this.postInjectHooks) {
       await fn(raw)
+    }
+  }
+
+  private assertHandlerExistsFor (raw: Record<string, unknown>) {
+    const kind = Object.keys(raw).find(k => k !== 'update_id')
+
+    if (kind === undefined) {
+      throw new Error('strictDispatch: empty update — no kind to dispatch')
+    }
+
+    interface DispatcherInternal {
+      has: (kind: string) => boolean
+      entries: { type: 'kind' | 'predicate' }[]
+    }
+
+    interface InternalTelegram {
+      dispatcher: DispatcherInternal
+    }
+
+    const dispatcher = (this.tg as unknown as InternalTelegram).dispatcher
+    const hasKindHandler = dispatcher.has(kind)
+    const hasPredicateHandler = dispatcher.entries.some(e => e.type === 'predicate')
+
+    if (!hasKindHandler && !hasPredicateHandler) {
+      throw new Error(`strictDispatch: no handler registered for update kind "${kind}"`)
     }
   }
 

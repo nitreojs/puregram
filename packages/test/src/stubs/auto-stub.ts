@@ -1,7 +1,6 @@
 import type { World } from '../world/world'
 
 import { answerTrue } from './auto/answers'
-import { fallback } from './auto/fallback'
 import { getChat, getMe } from './auto/identity'
 import {
   banChatMember,
@@ -105,8 +104,14 @@ const TABLE: Record<string, AutoStubFn> = {
   answerPreCheckoutQuery: answerTrue
 }
 
+export const STRICT_FALLBACK = Symbol.for('puregram.test.strictFallback')
+
 export function runAutoStub (world: World, method: string, params: Record<string, unknown>) {
-  const fn = TABLE[method] ?? fallback
+  const fn = TABLE[method]
+
+  if (fn === undefined) {
+    return STRICT_FALLBACK
+  }
 
   return fn(world, params)
 }

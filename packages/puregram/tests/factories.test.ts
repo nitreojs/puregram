@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest'
 
-import { InlineQueryResult, InputMedia, InputMessageContent, MediaSource } from '../src'
+import {
+  InlineQueryResult,
+  InputMedia,
+  InputMessageContent,
+  LinkPreview,
+  MediaSource,
+  Reaction,
+  ReplyParameters
+} from '../src'
 
 describe('InputMedia', () => {
   it('inherits generated photo factory', () => {
@@ -57,5 +65,50 @@ describe('InputMessageContent', () => {
   it('location wraps lat/lng', () => {
     expect(InputMessageContent.location(55, 37, { horizontal_accuracy: 5 }))
       .toEqual({ latitude: 55, longitude: 37, horizontal_accuracy: 5 })
+  })
+})
+
+describe('ReplyParameters', () => {
+  it('to references a same-chat message', () => {
+    expect(ReplyParameters.to(42)).toEqual({ message_id: 42 })
+  })
+
+  it('cross targets a different chat', () => {
+    expect(ReplyParameters.cross(-100, 42, { allow_sending_without_reply: true }))
+      .toEqual({ message_id: 42, chat_id: -100, allow_sending_without_reply: true })
+  })
+
+  it('quote attaches a quote excerpt', () => {
+    expect(ReplyParameters.quote(7, 'why?')).toEqual({ message_id: 7, quote: 'why?' })
+  })
+})
+
+describe('LinkPreview', () => {
+  it('disabled produces is_disabled', () => {
+    expect(LinkPreview.disabled()).toEqual({ is_disabled: true })
+  })
+
+  it('large prefers large media', () => {
+    expect(LinkPreview.large('https://x'))
+      .toEqual({ url: 'https://x', prefer_large_media: true })
+  })
+
+  it('small prefers small media', () => {
+    expect(LinkPreview.small('https://x', { show_above_text: true }))
+      .toEqual({ url: 'https://x', prefer_small_media: true, show_above_text: true })
+  })
+})
+
+describe('Reaction', () => {
+  it('emoji wraps an emoji', () => {
+    expect(Reaction.emoji('👍')).toEqual({ type: 'emoji', emoji: '👍' })
+  })
+
+  it('customEmoji wraps an id', () => {
+    expect(Reaction.customEmoji('abc')).toEqual({ type: 'custom_emoji', custom_emoji_id: 'abc' })
+  })
+
+  it('paid emits paid type', () => {
+    expect(Reaction.paid()).toEqual({ type: 'paid' })
   })
 })

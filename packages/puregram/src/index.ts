@@ -51,5 +51,6 @@ export { filters }
 export * from '@puregram/api'
 
 export { InputMedia, InlineQueryResult, InputMessageContent } from './factories'
+export { ReplyParameters, LinkPreview, Reaction } from './factories'
 export type { InputMediaSticker, InputMediaVideoNote, InputMediaVoice } from './factories'
 /* eslint-enable import/export */

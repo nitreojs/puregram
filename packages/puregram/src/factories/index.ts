@@ -1,4 +1,7 @@
 export { InputMedia } from './input-media'
 export { InlineQueryResult } from './inline-query-result'
 export { InputMessageContent } from './input-message-content'
+export { ReplyParameters } from './reply-parameters'
+export { LinkPreview } from './link-preview'
+export { Reaction } from './reaction'
 export type { InputMediaSticker, InputMediaVideoNote, InputMediaVoice } from './types'

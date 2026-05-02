@@ -51,7 +51,7 @@ describe('tg.<verb> shortcuts', () => {
     const tg = new Telegram({ token: 'X' })
     const fn = stubApi(tg, 'sendPhoto', { id: 9 })
 
-    await tg.sendMedia(123, InputMedia.photo({ media: 'attach://x', caption: 'c' }))
+    await tg.sendMedia(123, InputMedia.photo('attach://x', { caption: 'c' }))
     expect(fn).toHaveBeenCalledWith({ chat_id: 123, photo: 'attach://x', caption: 'c' })
   })
 
@@ -60,7 +60,7 @@ describe('tg.<verb> shortcuts', () => {
     const fn = stubApi(tg, 'sendSticker', { id: 10 })
     const m = MediaSource.fileId('cat')
 
-    await tg.sendMedia(456, InputMedia.sticker({ media: m }))
+    await tg.sendMedia(456, InputMedia.sticker(m))
     expect(fn).toHaveBeenCalledWith({ chat_id: 456, sticker: m })
   })
 

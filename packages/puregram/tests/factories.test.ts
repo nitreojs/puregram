@@ -19,23 +19,37 @@ import {
 } from '../src'
 
 describe('InputMedia', () => {
-  it('inherits generated photo factory', () => {
-    const r = InputMedia.photo({ media: 'attach://x' })
+  it('photo factory takes positional media', () => {
+    const r = InputMedia.photo('attach://x')
 
     expect(r).toEqual({ type: 'photo', media: 'attach://x' })
   })
 
-  it('adds sticker synthetic variant', () => {
+  it('photo factory accepts caption in params', () => {
+    const r = InputMedia.photo('attach://x', { caption: 'hi' })
+
+    expect(r).toEqual({ type: 'photo', media: 'attach://x', caption: 'hi' })
+  })
+
+  it('photo factory accepts a MediaInput envelope', () => {
     const m = MediaSource.fileId('cat')
-    const r = InputMedia.sticker({ media: m })
+    const r = InputMedia.photo(m)
+
+    expect(r.type).toBe('photo')
+    expect(r.media).toBe(m as unknown as string)
+  })
+
+  it('sticker synthetic variant', () => {
+    const m = MediaSource.fileId('cat')
+    const r = InputMedia.sticker(m)
 
     expect(r.type).toBe('sticker')
     expect(r.media).toBe(m)
   })
 
-  it('adds videoNote and voice synthetic variants', () => {
-    expect(InputMedia.videoNote({ media: 'attach://vn' }).type).toBe('video_note')
-    expect(InputMedia.voice({ media: 'attach://v' }).type).toBe('voice')
+  it('videoNote and voice synthetic variants', () => {
+    expect(InputMedia.videoNote('attach://vn').type).toBe('video_note')
+    expect(InputMedia.voice('attach://v').type).toBe('voice')
   })
 })
 

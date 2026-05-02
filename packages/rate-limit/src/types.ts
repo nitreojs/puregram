@@ -1,9 +1,8 @@
-import type { UpdateKindMap } from '@puregram/api'
+import type { AnyUpdate } from '@puregram/api'
 import type { KVStorage } from '@puregram/storage'
-import type { CustomUpdate } from 'puregram'
 
 /** any wrapped update that flows through the dispatcher (bot-api kinds + custom) */
-export type AnyUpdate = UpdateKindMap[keyof UpdateKindMap] | CustomUpdate
+export type { AnyUpdate }
 
 /**
  * fixed-window counter entry. `resetAt` is an absolute epoch ms; once `now >= resetAt`

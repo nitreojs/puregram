@@ -1,6 +1,7 @@
 // @puregram/rate-limit — per-user fixed-window rate limiting plugin
 
 export { rateLimit, type RateLimitExtension } from './plugin'
+export { rateLimitFilter } from './filter'
 export type {
   AnyUpdate,
   RateLimitCallback,

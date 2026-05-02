@@ -4,7 +4,7 @@
 /// generated at: 2026-04-30T14:12:46.898Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramInlineQueryResultArticle, TelegramInlineQueryResultAudio, TelegramInlineQueryResultCachedAudio, TelegramInlineQueryResultCachedDocument, TelegramInlineQueryResultCachedGif, TelegramInlineQueryResultCachedMpeg4Gif, TelegramInlineQueryResultCachedPhoto, TelegramInlineQueryResultCachedSticker, TelegramInlineQueryResultCachedVideo, TelegramInlineQueryResultCachedVoice, TelegramInlineQueryResultContact, TelegramInlineQueryResultDocument, TelegramInlineQueryResultGame, TelegramInlineQueryResultGif, TelegramInlineQueryResultLocation, TelegramInlineQueryResultMpeg4Gif, TelegramInlineQueryResultPhoto, TelegramInlineQueryResultVenue, TelegramInlineQueryResultVideo, TelegramInlineQueryResultVoice, TelegramInputMediaAnimation, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo } from "./types";
+import type { TelegramInlineQueryResultArticle, TelegramInlineQueryResultAudio, TelegramInlineQueryResultCachedAudio, TelegramInlineQueryResultCachedDocument, TelegramInlineQueryResultCachedGif, TelegramInlineQueryResultCachedMpeg4Gif, TelegramInlineQueryResultCachedPhoto, TelegramInlineQueryResultCachedSticker, TelegramInlineQueryResultCachedVideo, TelegramInlineQueryResultCachedVoice, TelegramInlineQueryResultContact, TelegramInlineQueryResultDocument, TelegramInlineQueryResultGame, TelegramInlineQueryResultGif, TelegramInlineQueryResultLocation, TelegramInlineQueryResultMpeg4Gif, TelegramInlineQueryResultPhoto, TelegramInlineQueryResultVenue, TelegramInlineQueryResultVideo, TelegramInlineQueryResultVoice, TelegramInputMediaAnimation, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMediaPhoto, TelegramInputPaidMediaVideo, TelegramInputProfilePhotoAnimated, TelegramInputProfilePhotoStatic, TelegramInputStoryContentPhoto, TelegramInputStoryContentVideo } from "./types";
 export class InputMedia {
     /**
      * Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
@@ -46,6 +46,69 @@ export class InputMedia {
      * Represents a video to be sent.
      */
     static video(params: Omit<TelegramInputMediaVideo, "type">): TelegramInputMediaVideo {
+        return {
+            type: "video",
+            ...params
+        };
+    }
+}
+
+export class InputPaidMedia {
+    /**
+     * The paid media to send is a photo.
+     */
+    static photo(params: Omit<TelegramInputPaidMediaPhoto, "type">): TelegramInputPaidMediaPhoto {
+        return {
+            type: "photo",
+            ...params
+        };
+    }
+    /**
+     * The paid media to send is a video.
+     */
+    static video(params: Omit<TelegramInputPaidMediaVideo, "type">): TelegramInputPaidMediaVideo {
+        return {
+            type: "video",
+            ...params
+        };
+    }
+}
+
+export class InputProfilePhoto {
+    /**
+     * An animated profile photo in the MPEG4 format.
+     */
+    static animated(params: Omit<TelegramInputProfilePhotoAnimated, "type">): TelegramInputProfilePhotoAnimated {
+        return {
+            type: "animated",
+            ...params
+        };
+    }
+    /**
+     * A static profile photo in the .JPG format.
+     */
+    static static(params: Omit<TelegramInputProfilePhotoStatic, "type">): TelegramInputProfilePhotoStatic {
+        return {
+            type: "static",
+            ...params
+        };
+    }
+}
+
+export class InputStoryContent {
+    /**
+     * Describes a photo to post as a story.
+     */
+    static photo(params: Omit<TelegramInputStoryContentPhoto, "type">): TelegramInputStoryContentPhoto {
+        return {
+            type: "photo",
+            ...params
+        };
+    }
+    /**
+     * Describes a video to post as a story.
+     */
+    static video(params: Omit<TelegramInputStoryContentVideo, "type">): TelegramInputStoryContentVideo {
         return {
             type: "video",
             ...params

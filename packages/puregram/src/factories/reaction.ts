@@ -12,7 +12,6 @@ import type {
  * ```ts
  * tg.react(chat, messageId, [Reaction.emoji('👍')])
  * tg.react(chat, messageId, [Reaction.customEmoji(stickerSetId)])
- * tg.react(chat, messageId, [Reaction.paid()])
  * ```
  */
 export class Reaction {
@@ -26,7 +25,7 @@ export class Reaction {
     return { type: 'custom_emoji', custom_emoji_id: id } as TelegramReactionTypeCustomEmoji
   }
 
-  /** paid star reaction */
+  /** paid star reaction. can't be used by bots */
   static paid () {
     return { type: 'paid' } as TelegramReactionTypePaid
   }

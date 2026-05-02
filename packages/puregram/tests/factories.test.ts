@@ -89,6 +89,18 @@ describe('InputMessageContent', () => {
     expect(InputMessageContent.location(55, 37, { horizontal_accuracy: 5 }))
       .toEqual({ latitude: 55, longitude: 37, horizontal_accuracy: 5 })
   })
+
+  it('venue takes positional lat/lng/title/address', () => {
+    expect(InputMessageContent.venue(55.75, 37.61, 'Red Square', 'Moscow', { foursquare_id: 'x' }))
+      .toEqual({
+        latitude: 55.75, longitude: 37.61, title: 'Red Square', address: 'Moscow', foursquare_id: 'x'
+      })
+  })
+
+  it('contact takes positional phoneNumber/firstName', () => {
+    expect(InputMessageContent.contact('+10000000000', 'Demo', { last_name: 'User' }))
+      .toEqual({ phone_number: '+10000000000', first_name: 'Demo', last_name: 'User' })
+  })
 })
 
 describe('ReplyParameters', () => {

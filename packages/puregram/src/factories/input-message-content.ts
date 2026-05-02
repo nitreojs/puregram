@@ -45,16 +45,26 @@ export class InputMessageContent {
   }
 
   /** venue message body */
-  static venue (params: TelegramInputVenueMessageContent) {
-    return params
+  static venue (
+    latitude: number,
+    longitude: number,
+    title: string,
+    address: string,
+    params: Omit<TelegramInputVenueMessageContent, 'latitude' | 'longitude' | 'title' | 'address'> = {}
+  ) {
+    return { latitude, longitude, title, address, ...params }
   }
 
   /** contact message body */
-  static contact (params: TelegramInputContactMessageContent) {
-    return params
+  static contact (
+    phoneNumber: string,
+    firstName: string,
+    params: Omit<TelegramInputContactMessageContent, 'phone_number' | 'first_name'> = {}
+  ) {
+    return { phone_number: phoneNumber, first_name: firstName, ...params }
   }
 
-  /** invoice message body */
+  /** invoice message body — too many required fields for a positional form, takes the full param object */
   static invoice (params: TelegramInputInvoiceMessageContent) {
     return params
   }

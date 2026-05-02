@@ -10,7 +10,9 @@ export { createPlugin } from './plugins/plugin'
 export type { Plugin } from './plugins/plugin'
 export { PluginConflict, PluginCycle, PluginMissingDep } from './plugins/installer'
 
-export type { HttpClient, HttpRequestInput, HttpResponse } from './http/client'
+export type { HttpClient, HttpDownloadResponse, HttpRequestInput, HttpResponse } from './http/client'
+export type { DownloadTarget } from './api/download'
+export { resolveDownloadTarget } from './api/download'
 export type {
   DispatchErrorContext,
   DispatchErrorHandler,

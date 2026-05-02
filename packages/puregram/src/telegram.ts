@@ -8,6 +8,14 @@ import type {
 } from '@puregram/api'
 import { and, defineFilter, isFilter } from '@puregram/api'
 
+import type { DownloadTarget } from './api/download'
+import {
+  download as downloadHelper,
+  downloadIterable as downloadIterableHelper,
+  downloadStream as downloadStreamHelper,
+  downloadToFile as downloadToFileHelper,
+  getFileURL as getFileURLHelper
+} from './api/download'
 import { runRequest } from './api/lifecycle'
 import type { TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
@@ -465,6 +473,44 @@ export class Telegram<Ext = unknown> {
     return getWebhookInfoHelper(this as Telegram)
   }
 
+  /**
+   * download a Telegram file into a `Buffer`. accepts a raw `file_id` string,
+   * `MediaSource.fileId(...)`, any wrapper instance (Document, Video, Audio, …)
+   * or its raw payload, plus `Photo` / `TelegramPhotoSize[]` (largest size auto-picked).
+   *
+   * other `MediaSource.X(...)` upload variants throw `TypeError`
+   *
+   * @example
+   * const bytes = await tg.download(update.document)
+   */
+  async download (target: DownloadTarget) {
+    return downloadHelper(this.downloadDeps(), target)
+  }
+
+  /** download a Telegram file as a node `Readable` */
+  async downloadStream (target: DownloadTarget) {
+    return downloadStreamHelper(this.downloadDeps(), target)
+  }
+
+  /** download a Telegram file as an async-iterable byte stream */
+  async downloadIterable (target: DownloadTarget) {
+    return downloadIterableHelper(this.downloadDeps(), target)
+  }
+
+  /** download a Telegram file straight to disk */
+  async downloadToFile (path: string, target: DownloadTarget) {
+    return downloadToFileHelper(this.downloadDeps(), path, target)
+  }
+
+  /**
+   * resolve the public download URL for a file. calls `getFile` if needed —
+   * pass an already-resolved `File` (or any payload carrying `file_path`) to
+   * skip the round-trip
+   */
+  async getFileURL (target: DownloadTarget) {
+    return getFileURLHelper(this.downloadDeps(), target)
+  }
+
   async dropPendingUpdates (value?: boolean | string[]) {
     this.polling ??= new PollingTransport({
       tg: this as Telegram,
@@ -491,6 +537,16 @@ export class Telegram<Ext = unknown> {
     const update = buildUpdate(raw, this) as AnyUpdate
 
     await this.dispatch(update)
+  }
+
+  // packs the long-lived deps the download helpers need without holding a ref to
+  // the whole Telegram instance — keeps the helpers test-friendly with a tiny mock
+  private downloadDeps () {
+    return {
+      options: this.options,
+      httpClient: this.httpClient,
+      getFile: async (fileId: string) => this.api.getFile({ file_id: fileId })
+    }
   }
 
   private async bootstrap () {

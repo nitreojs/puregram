@@ -11,6 +11,7 @@ export class TestChat {
   readonly username: string | undefined
 
   private readonly _messages: TestMessage[] = []
+  private readonly _pinned: TestMessage[] = []
   private messageIdCounter = 0
   private _postFn: PostFn | undefined
 
@@ -61,12 +62,32 @@ export class TestChat {
     return undefined
   }
 
+  get pinnedMessages () {
+    return this._pinned as readonly TestMessage[]
+  }
+
   appendMessage (msg: TestMessage) {
     this._messages.push(msg)
   }
 
   removeAt (idx: number) {
     this._messages.splice(idx, 1)
+  }
+
+  pinTop (msg: TestMessage) {
+    this._pinned.unshift(msg)
+  }
+
+  unpin (messageId: number) {
+    const idx = this._pinned.findIndex(m => m.message_id === messageId)
+
+    if (idx >= 0) {
+      this._pinned.splice(idx, 1)
+    }
+  }
+
+  unpinAll () {
+    this._pinned.length = 0
   }
 
   nextMessageId () {

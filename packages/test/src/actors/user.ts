@@ -91,4 +91,24 @@ export class TestUser {
 
     return msg
   }
+
+  async pinMessage (msg: TestMessage) {
+    msg.chat.pinTop(msg)
+
+    const carrier = new TestMessage({
+      chat: msg.chat,
+      from: this,
+      message_id: msg.chat.nextMessageId(),
+      date: Math.floor(Date.now() / 1000)
+    })
+
+    const carrierRaw = carrier.toRaw()
+
+    carrierRaw.pinned_message = msg.toRaw()
+
+    await this.inject({
+      update_id: this.world.nextUpdateId(),
+      message: carrierRaw
+    })
+  }
 }

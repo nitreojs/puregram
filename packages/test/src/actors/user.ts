@@ -66,7 +66,7 @@ export class TestUser {
   readonly first_name: string
   readonly last_name: string | undefined
   readonly username: string | undefined
-  readonly language_code: string | undefined
+  language_code: string | undefined
   readonly pmChat: TestChat
 
   private readonly world: World
@@ -123,6 +123,24 @@ export class TestUser {
 
   on (msg: TestMessage) {
     return new TestUserOnMessage(this, msg)
+  }
+
+  block () {
+    this.world.blockedUsers.add(this.id)
+  }
+
+  unblock () {
+    this.world.blockedUsers.delete(this.id)
+  }
+
+  setLanguage (code: string) {
+    this.language_code = code
+  }
+
+  async startBot (payload?: string) {
+    const text = payload === undefined ? '/start' : `/start ${payload}`
+
+    return this.sendMessage(text)
   }
 
   async sendMessage (text: string): Promise<TestMessage>

@@ -11,6 +11,7 @@ export class World {
   readonly users: TestUser[] = []
   readonly chats: TestChat[] = []
   readonly files = new FileStore()
+  readonly blockedUsers = new Set<number>()
 
   nextUpdateId () {
     this.updateIdCounter += 1

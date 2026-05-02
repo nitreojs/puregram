@@ -8,6 +8,7 @@ import { TestUser } from './actors/user'
 import { inject as injectRaw } from './dispatch/inject'
 import { InterceptingHttpClient, swapHttpClient } from './http/intercept'
 import type { TestEnvOptions } from './options'
+import { isApiErrorSentinel } from './stubs/api-error'
 import { runAutoStub } from './stubs/auto-stub'
 import { OverrideRegistry } from './stubs/overrides'
 import { World } from './world/world'
@@ -79,6 +80,24 @@ export class TestEnv<TG extends Telegram = Telegram> {
       }
 
       const stubResult: unknown = runAutoStub(this.world, method, captured)
+
+      if (isApiErrorSentinel(stubResult)) {
+        const envelope = {
+          ok: false as const,
+          error_code: stubResult.error_code,
+          description: stubResult.description,
+          ...(stubResult.parameters !== undefined ? { parameters: stubResult.parameters } : {})
+        }
+
+        record.error = {
+          error_code: stubResult.error_code,
+          description: stubResult.description,
+          ...(stubResult.parameters !== undefined ? { parameters: stubResult.parameters } : {})
+        }
+        this.apiCalls.push(record)
+
+        return envelope
+      }
 
       record.result = stubResult
       this.apiCalls.push(record)

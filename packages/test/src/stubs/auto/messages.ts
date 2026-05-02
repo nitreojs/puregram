@@ -1,6 +1,17 @@
 import { TestMessage } from '../../actors/message'
 import type { FileHandle } from '../../world/files'
 import type { World } from '../../world/world'
+import { apiError } from '../api-error'
+
+function checkBlocked (world: World, params: Record<string, unknown>) {
+  const chatId = params.chat_id
+
+  if (typeof chatId === 'number' && world.blockedUsers.has(chatId)) {
+    return apiError(403, 'Forbidden: bot was blocked by the user')
+  }
+
+  return undefined
+}
 
 function buildAndAppend (world: World, chatId: number | string, mutate?: (msg: TestMessage) => void) {
   const numericId = typeof chatId === 'string' ? Number(chatId) : chatId
@@ -96,6 +107,12 @@ function makeMediaVerb (field: string) {
 }
 
 export function sendMessage (world: World, params: Record<string, unknown>) {
+  const blocked = checkBlocked(world, params)
+
+  if (blocked !== undefined) {
+    return blocked
+  }
+
   const msg = buildAndAppend(world, params.chat_id as number | string, (m) => {
     m.text = (params.text as string) ?? ''
 

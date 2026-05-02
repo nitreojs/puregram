@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 
 import {
+  ChatAdministratorRights,
+  ChatPermissions,
   InlineQueryResult,
   InputMedia,
   InputMessageContent,
@@ -110,5 +112,47 @@ describe('Reaction', () => {
 
   it('paid emits paid type', () => {
     expect(Reaction.paid()).toEqual({ type: 'paid' })
+  })
+})
+
+describe('ChatPermissions', () => {
+  it('allowAll fills every permission with true', () => {
+    const r = ChatPermissions.allowAll()
+
+    expect(r.can_send_messages).toBe(true)
+    expect(r.can_pin_messages).toBe(true)
+    expect(r.can_manage_topics).toBe(true)
+  })
+
+  it('denyAll fills every permission with false', () => {
+    const r = ChatPermissions.denyAll()
+
+    expect(r.can_send_messages).toBe(false)
+    expect(r.can_pin_messages).toBe(false)
+  })
+
+  it('overrides are applied last', () => {
+    const r = ChatPermissions.denyAll({ can_send_messages: true })
+
+    expect(r.can_send_messages).toBe(true)
+    expect(r.can_pin_messages).toBe(false)
+  })
+})
+
+describe('ChatAdministratorRights', () => {
+  it('allowAll includes optional channel/group fields', () => {
+    const r = ChatAdministratorRights.allowAll()
+
+    expect(r.can_manage_chat).toBe(true)
+    expect(r.is_anonymous).toBe(true)
+    expect(r.can_pin_messages).toBe(true)
+  })
+
+  it('denyAll omits optional fields', () => {
+    const r = ChatAdministratorRights.denyAll()
+
+    expect(r.can_manage_chat).toBe(false)
+    expect(r.is_anonymous).toBe(false)
+    expect(r.can_pin_messages).toBeUndefined()
   })
 })

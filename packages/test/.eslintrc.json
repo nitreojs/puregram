@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "files": ["src/actors/**", "src/world/**"],
+      "rules": {
+        "@typescript-eslint/naming-convention": ["error",
+          { "selector": "default", "format": ["camelCase"] },
+          { "selector": "variable", "modifiers": ["const", "global"], "format": ["UPPER_CASE", "camelCase", "PascalCase"] },
+          { "selector": "variable", "format": ["camelCase"] },
+          { "selector": "parameter", "format": ["camelCase"], "leadingUnderscore": "allow" },
+          { "selector": "function", "format": ["camelCase"] },
+          { "selector": "classProperty", "format": ["camelCase", "snake_case"], "leadingUnderscore": "allow" },
+          { "selector": "objectLiteralProperty", "format": null },
+          { "selector": "typeProperty", "format": null },
+          { "selector": "typeLike", "format": ["PascalCase"] },
+          { "selector": "enumMember", "format": ["PascalCase"] },
+          { "selector": "import", "format": ["camelCase", "PascalCase"] }
+        ]
+      }
+    }
+  ]
+}

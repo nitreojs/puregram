@@ -1,5 +1,9 @@
 import type { RequestContext, Telegram } from 'puregram'
 
+import type { TestChat } from './actors/chat'
+import type { CreateUserOptions } from './actors/user'
+import { TestUser } from './actors/user'
+import { inject as injectRaw } from './dispatch/inject'
 import { InterceptingHttpClient, swapHttpClient } from './http/intercept'
 import type { TestEnvOptions } from './options'
 import { runAutoStub } from './stubs/auto-stub'
@@ -88,6 +92,32 @@ export class TestEnv<TG extends Telegram = Telegram> {
 
   get bot () {
     return this.world.bot
+  }
+
+  get users () {
+    return this.world.users as readonly TestUser[]
+  }
+
+  get chats () {
+    return this.world.chats as readonly TestChat[]
+  }
+
+  createUser (options: CreateUserOptions = {}) {
+    const user = new TestUser({
+      tg: this.tg,
+      world: this.world,
+      inject: raw => injectRaw(this.tg, raw),
+      options
+    })
+
+    this.world.users.push(user)
+    this.world.chats.push(user.pmChat)
+
+    return user
+  }
+
+  async inject (raw: Record<string, unknown>) {
+    await injectRaw(this.tg, raw)
   }
 
   lastApiCall (method?: string) {

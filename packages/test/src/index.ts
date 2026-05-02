@@ -7,6 +7,11 @@ export function createTestEnv<TG extends Telegram> (tg: TG, options?: TestEnvOpt
   return new TestEnv(tg, options)
 }
 
+export { TestChat } from './actors/chat'
+export type { ChatType } from './actors/chat'
+export { TestMessage } from './actors/message'
+export { TestUser } from './actors/user'
+export type { CreateUserOptions } from './actors/user'
 export { TestEnv } from './env'
 export type { ApiCallRecord } from './env'
 export type { TestEnvOptions } from './options'

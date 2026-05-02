@@ -1,6 +1,6 @@
 export { InputMedia } from './input-media'
 export { MediaGroup } from './media-group'
-export { InlineQueryResult } from './inline-query-result'
+export { InlineQueryResult, InlineQueryResultCached } from './inline-query-result'
 export { InputMessageContent } from './input-message-content'
 export { ReplyParameters } from './reply-parameters'
 export { LinkPreview } from './link-preview'

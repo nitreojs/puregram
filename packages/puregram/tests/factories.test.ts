@@ -55,21 +55,67 @@ describe('InputMedia', () => {
 })
 
 describe('InlineQueryResult', () => {
-  it('inherits generated article factory', () => {
+  it('article translates content → input_message_content on the wire', () => {
     const r = InlineQueryResult.article({
       id: '1',
       title: 't',
-      input_message_content: InputMessageContent.text('hi')
+      content: InputMessageContent.text('hi')
     })
 
     expect(r.type).toBe('article')
     expect(r.input_message_content).toEqual({ message_text: 'hi' })
   })
 
-  it('exposes cached factories under .cached', () => {
-    const r = InlineQueryResult.cached.audio({ id: '1', audio_file_id: 'fid' })
+  it('article translates replyMarkup → reply_markup on the wire', () => {
+    const r = InlineQueryResult.article({
+      id: '1',
+      title: 't',
+      content: InputMessageContent.text('hi'),
+      replyMarkup: { inline_keyboard: [[{ text: 'go', callback_data: 'g' }]] }
+    })
 
-    expect(r).toEqual({ type: 'audio', id: '1', audio_file_id: 'fid' })
+    expect(r.reply_markup).toEqual({ inline_keyboard: [[{ text: 'go', callback_data: 'g' }]] })
+  })
+
+  it('article translates thumbnail.url/width/height → flat thumbnail_* fields', () => {
+    const r = InlineQueryResult.article({
+      id: '1',
+      title: 't',
+      content: InputMessageContent.text('hi'),
+      thumbnail: { url: 'https://x/i.png', width: 100, height: 100 }
+    })
+
+    expect(r.thumbnail_url).toBe('https://x/i.png')
+    expect(r.thumbnail_width).toBe(100)
+    expect(r.thumbnail_height).toBe(100)
+  })
+
+  it('gif translates thumbnail.mimeType → thumbnail_mime_type', () => {
+    const r = InlineQueryResult.gif({
+      id: '1',
+      gif_url: 'https://x/g.gif',
+      thumbnail: { url: 'https://x/t.jpg', mimeType: 'video/mp4' }
+    })
+
+    expect(r.thumbnail_url).toBe('https://x/t.jpg')
+    expect(r.thumbnail_mime_type).toBe('video/mp4')
+  })
+
+  it('cached variants translate content/replyMarkup the same way', () => {
+    const r = InlineQueryResult.cached.audio({
+      id: '1',
+      audio_file_id: 'fid',
+      content: InputMessageContent.text('caption'),
+      replyMarkup: { inline_keyboard: [] }
+    })
+
+    expect(r).toEqual({
+      type: 'audio',
+      id: '1',
+      audio_file_id: 'fid',
+      input_message_content: { message_text: 'caption' },
+      reply_markup: { inline_keyboard: [] }
+    })
   })
 
   it('builds a results button', () => {

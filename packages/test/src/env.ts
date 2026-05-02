@@ -33,6 +33,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
   private readonly overrides = new OverrideRegistry()
   private readonly restoreHttp: () => void
   private readonly world = new World()
+  private readonly postInjectHooks: ((raw: Record<string, unknown>) => Promise<void> | void)[] = []
   private snapshot: Record<string, unknown> | undefined
 
   constructor (tg: TG, options: TestEnvOptions = {}) {
@@ -114,6 +115,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
     // ensure tg.shutdown() runs its lifecycle hooks even if .start() was never called
     tg.registerCleanup(async () => {})
 
+    this.installPendingPluginsEagerly()
     applyPacks(this as TestEnv, this.tg)
   }
 
@@ -133,7 +135,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
     const user = new TestUser({
       tg: this.tg,
       world: this.world,
-      inject: raw => injectRaw(this.tg, raw),
+      inject: raw => this.injectInternal(raw),
       options,
       strictMembership: this.options.strictMembership ?? false
     })
@@ -163,7 +165,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
         msg.text = text
         chat.appendMessage(msg)
 
-        await injectRaw(this.tg, {
+        await this.injectInternal({
           update_id: this.world.nextUpdateId(),
           channel_post: msg.toRaw()
         })
@@ -182,7 +184,13 @@ export class TestEnv<TG extends Telegram = Telegram> {
       ? raw
       : { update_id: this.world.nextUpdateId(), ...raw }
 
-    await injectRaw(this.tg, enriched)
+    await this.injectInternal(enriched)
+  }
+
+  // packs subscribe to observe the raw update after dispatch settles,
+  // e.g. to mirror session storage into a sync-readable cache
+  onPostInject (fn: (raw: Record<string, unknown>) => Promise<void> | void) {
+    this.postInjectHooks.push(fn)
   }
 
   lastApiCall (method?: string) {
@@ -232,5 +240,56 @@ export class TestEnv<TG extends Telegram = Telegram> {
     }
 
     return this.storage
+  }
+
+  private async injectInternal (raw: Record<string, unknown>) {
+    await injectRaw(this.tg, raw)
+
+    for (const fn of this.postInjectHooks) {
+      await fn(raw)
+    }
+  }
+
+  // installs queued plugins synchronously so packs can detect them via tg.has()
+  // before tg.start() runs. async-install plugins are skipped (a later .start()
+  // will install them; the corresponding pack just won't activate in this env)
+  private installPendingPluginsEagerly () {
+    interface InternalTelegram {
+      pendingPlugins: { name: string, install: (tg: Telegram) => unknown }[]
+      plugins: { set: (name: string, ext: unknown) => void, has: (name: string) => boolean }
+    }
+
+    const internal = this.tg as unknown as InternalTelegram
+    const pending = internal.pendingPlugins
+
+    if (pending === undefined || pending.length === 0) {
+      return
+    }
+
+    const remaining: typeof pending = []
+
+    for (const plugin of pending) {
+      if (internal.plugins.has(plugin.name)) {
+        continue
+      }
+
+      const ext = plugin.install(this.tg)
+
+      if (ext instanceof Promise) {
+        remaining.push(plugin)
+
+        continue
+      }
+
+      internal.plugins.set(plugin.name, ext)
+      Object.defineProperty(this.tg, plugin.name, {
+        value: ext,
+        enumerable: true,
+        configurable: false
+      })
+    }
+
+    pending.length = 0
+    pending.push(...remaining)
   }
 }

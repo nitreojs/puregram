@@ -1,7 +1,7 @@
 {
   "overrides": [
     {
-      "files": ["src/actors/**", "src/world/**"],
+      "files": ["src/actors/**", "src/world/**", "src/builders/**"],
       "rules": {
         "@typescript-eslint/naming-convention": ["error",
           { "selector": "default", "format": ["camelCase"] },

@@ -172,7 +172,11 @@ export class TestEnv<TG extends Telegram = Telegram> {
   }
 
   async inject (raw: Record<string, unknown>) {
-    await injectRaw(this.tg, raw)
+    const enriched = raw.update_id !== undefined
+      ? raw
+      : { update_id: this.world.nextUpdateId(), ...raw }
+
+    await injectRaw(this.tg, enriched)
   }
 
   lastApiCall (method?: string) {

@@ -6,6 +6,7 @@ export class TestMessage {
   readonly from: TestUser | undefined
   readonly message_id: number
   readonly date: number
+  readonly reactions = new Map<number, Set<string>>()
 
   text = ''
   caption: string | undefined
@@ -43,5 +44,18 @@ export class TestMessage {
     }
 
     return base
+  }
+
+  applyReaction (userId: number, emojis: readonly string[]) {
+    const existing = this.reactions.get(userId)
+    const before = existing !== undefined ? Array.from(existing) : []
+
+    if (emojis.length === 0) {
+      this.reactions.delete(userId)
+    } else {
+      this.reactions.set(userId, new Set(emojis))
+    }
+
+    return { old: before, new: [...emojis] }
   }
 }

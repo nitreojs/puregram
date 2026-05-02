@@ -20,6 +20,7 @@ import {
   stopMessageLiveLocation
 } from './auto/messages'
 import { pinChatMessage, unpinAllChatMessages, unpinChatMessage } from './auto/pins'
+import { setMessageReaction } from './auto/reactions'
 
 type AutoStubFn = (world: World, params: Record<string, unknown>) => unknown
 
@@ -47,6 +48,8 @@ const TABLE: Record<string, AutoStubFn> = {
   pinChatMessage,
   unpinChatMessage,
   unpinAllChatMessages,
+
+  setMessageReaction,
 
   answerCallbackQuery: answerTrue,
   answerInlineQuery: answerTrue,

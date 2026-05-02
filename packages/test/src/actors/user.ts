@@ -111,4 +111,21 @@ export class TestUser {
       message: carrierRaw
     })
   }
+
+  async react (emojis: string | readonly string[], msg: TestMessage) {
+    const list = typeof emojis === 'string' ? [emojis] : emojis
+    const change = msg.applyReaction(this.id, list)
+
+    await this.inject({
+      update_id: this.world.nextUpdateId(),
+      message_reaction: {
+        chat: msg.chat.toRaw(),
+        message_id: msg.message_id,
+        user: this.toRaw(),
+        date: Math.floor(Date.now() / 1000),
+        old_reaction: change.old.map(e => ({ type: 'emoji', emoji: e })),
+        new_reaction: change.new.map(e => ({ type: 'emoji', emoji: e }))
+      }
+    })
+  }
 }

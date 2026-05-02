@@ -5,9 +5,8 @@ import type { Schema, SchemaTypeRef } from '../schema-types'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 
-// methods whose return type is the literal `true` are safe to pipe into the
-// webhook 200 body — `await tg.api.X(...)` resolves to `true` with or without
-// the slot, so the optimization is transparent to userland code
+// methods whose return type is literal `true` are safe to pipe into the webhook 200 body —
+// `await tg.api.X(...)` resolves to `true` either way, so the optimization is transparent
 export function emitWebhookReplySafe (schema: Schema) {
   const safe = schema.methods
     .filter(m => returnsTrue(m.returnType))

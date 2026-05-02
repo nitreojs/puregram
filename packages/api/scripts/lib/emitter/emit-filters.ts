@@ -9,26 +9,11 @@ import { isWrappedStructure } from './structures-config'
 import { importNamed, importTypeNamed, jsDoc, typeRefToTs } from './ts-factory'
 import { UPDATE_KINDS } from './updates-config'
 
-// codegen layer for the public filter set in `puregram/filters`. emits two families:
-//
-// 1. presence filters — one per camelCased optional payload field, with `kinds` metadata
-//    listing the update kinds where that field exists. mirrors the per-class `hasX()`
-//    type-guards already emitted on update classes by emit-updates.ts; the standalone
-//    filter form lets users compose them via `and(hasText, chat.private)`
-//
-// 2. update-kind shorthand — `kind(k)` callable plus per-kind property shortcuts
-//    (`kind.message`, `kind.editedMessage`). property names follow the snake → camel
-//    convention so `kind.callback_query` reads as `kind.callbackQuery`. `action(t)` is
-//    the service-event subset of `kind`, scoped to `derived` UPDATE_KINDS
-
 export function emitFilters (schema: Schema) {
   const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
 
-  // walk every update kind, accumulate (camelGetter -> set of update kinds) for
-  // optional payload fields. mirrors the predicate emission rule in emit-updates.ts:
-  // exclude required fields (no `hasX` makes sense), exclude getters that already
-  // start with `has`/`is` (they self-describe), exclude `extras`-defined names that
-  // would collide with curated helpers
+  // accumulate (camelGetter -> kinds where the optional field exists). skip required fields,
+  // skip already-`has`/`is` named getters, skip names that would collide with `extras`
   const presence = new Map<string, { kinds: string[], cls: string[], field: SchemaField }>()
 
   for (const k of UPDATE_KINDS) {
@@ -94,9 +79,7 @@ export function emitFilters (schema: Schema) {
 
   nodes.push(emitActionShorthand())
 
-  // wrapper-class references needed by presence-filter Mods. e.g. `hasPhoto`'s
-  // Mod is `{ photo: PhotoSize[] }`, which requires `PhotoSize` imported from
-  // `./structures`. raw `Telegram*` references go through `./types` instead
+  // wrapper-class refs go through `./structures`, raw `Telegram*` refs through `./types`
   const wrapperRefs = new Set<string>()
   const rawRefs = new Set<string>()
 
@@ -122,12 +105,7 @@ export function emitFilters (schema: Schema) {
   })
 }
 
-// translates a SchemaField's type ref to the wrapper-getter return type, in
-// non-nullable form. mirrors emit-structures.ts: `User`-typed reference fields
-// wrap to the `User` class, primitive fields stay as the schema's primitive,
-// arrays of references wrap their element class. union-kind references like
-// `MessageOrigin` have no wrapper class — fall through to the raw `Telegram*` type.
-// always emits the non-nullable form since presence filters narrow via `field != null`
+// type ref → wrapper-getter return type, non-nullable (presence filters narrow via `field != null`)
 function wrapperType (ref: SchemaTypeRef, objectsByName: Map<string, SchemaObject>): ts.TypeNode {
   if (ref.kind === 'reference' && isObjectWrapper(ref.name, objectsByName)) {
     return ts.factory.createTypeReferenceNode(ref.name)
@@ -174,11 +152,9 @@ function emitPresenceFilter (
   field: SchemaField,
   objectsByName: Map<string, SchemaObject>
 ) {
-  // Base is `unknown` (not `AnyUpdate`) so chaining `kind.X.and(hasField)` resolves
-  // to `kind.X`'s narrow Base via `MessageUpdate & unknown = MessageUpdate` —
-  // clean simplification with no union distribution. Mod stamps the field with
-  // its concrete wrapper-getter return type — so `Modify<MessageUpdate, { text: string }>`
-  // hands the handler a `text: string` (not `string | undefined`)
+  // Base = `unknown` so `kind.X.and(hasField)` resolves to `kind.X`'s narrow Base
+  // (`MessageUpdate & unknown` = `MessageUpdate`) without union distribution. Mod stamps
+  // the field with its wrapper-getter type, so `Modify` collapses `text: string | undefined` to `string`
   const presentMarker = wrapperType(field.type, objectsByName)
 
   const filterType = ts.factory.createTypeReferenceNode('Filter', [
@@ -264,7 +240,7 @@ function emitPresenceFilter (
     )
   )
 
-  return jsDoc(`Filter — true if the update has \`${camelName}\` set.`, decl)
+  return jsDoc(`filter — true if the update has \`${camelName}\` set`, decl)
 }
 
 function camelizeKind (snake: string) {
@@ -272,7 +248,6 @@ function camelizeKind (snake: string) {
 }
 
 function emitKindCallable () {
-  // function _kind<K extends UpdateKind>(k: K): Filter<UpdateKindMap[K]>
   const decl = ts.factory.createFunctionDeclaration(
     undefined,
     undefined,
@@ -363,7 +338,6 @@ function emitKindCallable () {
 }
 
 function emitKindShorthand () {
-  // export const kind = Object.assign(_kind, { message: _kind('message'), ... })
   const props = UPDATE_KINDS.map((k) => {
     const propName = camelizeKind(k.kindName)
 
@@ -400,15 +374,13 @@ function emitKindShorthand () {
     )
   )
 
-  return jsDoc('Filter — match a specific update kind. callable form `kind(k)` plus shorthand properties (`kind.message`, `kind.editedMessage`).', decl)
+  return jsDoc('filter — match a specific update kind. callable form `kind(k)` plus shorthand properties (`kind.message`, `kind.editedMessage`)', decl)
 }
 
 function emitActionCallable () {
-  // function _action<K extends ServiceActionKind>(k: K): Filter<UpdateKindMap[K]>
-  // ServiceActionKind = the subset of UpdateKind whose source is 'derived' (service events)
+  // ServiceActionKind = `source: 'derived'` subset of UpdateKind (service events)
   const derived = UPDATE_KINDS.filter(k => k.source.kind === 'derived')
 
-  // type ServiceActionKind = 'new_chat_members' | ... — emitted separately
   const typeAlias = ts.factory.createTypeAliasDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier('ServiceActionKind'),
@@ -455,7 +427,6 @@ function emitActionCallable () {
 }
 
 function emitActionShorthand () {
-  // export const action = Object.assign(_action, { newChatMembers: _action('new_chat_members'), ... })
   const derived = UPDATE_KINDS.filter(k => k.source.kind === 'derived')
 
   const props = derived.map((k) => {
@@ -494,5 +465,5 @@ function emitActionShorthand () {
     )
   )
 
-  return jsDoc('Filter — match a service-event update kind. shorthand for `kind` restricted to derived (Message-payload) events.', decl)
+  return jsDoc('filter — match a service-event update kind. shorthand for `kind` restricted to derived (Message-payload) events', decl)
 }

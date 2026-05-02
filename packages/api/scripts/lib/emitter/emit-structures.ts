@@ -21,8 +21,7 @@ export function emitStructures (schema: Schema) {
       o.kind === 'object' && isWrappedStructure(o.name)
   )
 
-  // restrict to object-kind entries — union-kind names (MessageOrigin, ChatBoostSource) get no class,
-  // so getters referencing them must fall back to raw types instead of a missing wrapper
+  // object-kind only — union-kind names (MessageOrigin, ChatBoostSource) get no class
   const wrappedClassNames = new Set(wrappedObjects.map(o => o.name))
 
   const nodes: ts.Node[] = []
@@ -68,8 +67,8 @@ export function emitStructures (schema: Schema) {
   return spliceExtrasIntoPrinted(printed, wrappedObjects.map(o => o.name))
 }
 
-// extras are kept as raw ts text rather than ast nodes because the typescript printer drops
-// literal text from cross-source-file ast nodes; splicing post-print sidesteps that entirely
+// extras stay as raw text — TS printer drops literal text from cross-source-file ast nodes,
+// so splice post-print instead
 function spliceExtrasIntoPrinted (printed: string, classNames: string[]) {
   let out = printed
 
@@ -80,7 +79,7 @@ function spliceExtrasIntoPrinted (printed: string, classNames: string[]) {
       continue
     }
 
-    // anchor on the inspect tail of this specific class (4-space body indent + computed name)
+    // anchor on this class's inspect tail (4-space body indent + computed name)
     const classOpen = new RegExp(`^export class ${className} \\{`, 'm')
     const openMatch = classOpen.exec(out)
 
@@ -117,7 +116,6 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
 
   const members: ts.ClassElement[] = []
 
-  // private _x?: Wrapper
   for (const f of obj.fields) {
     const info = wrapperInfoFor(f.type, wrappedClassNames)
 
@@ -132,7 +130,6 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
     }
   }
 
-  // constructor (public raw: TelegramX) {}
   members.push(ts.factory.createConstructorDeclaration(
     undefined,
     [ts.factory.createParameterDeclaration(
@@ -146,7 +143,6 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
     ts.factory.createBlock([], false)
   ))
 
-  // static fromPayload (raw): T { return new T(raw) }
   members.push(ts.factory.createMethodDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.StaticKeyword)],
     undefined,
@@ -173,7 +169,6 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
     ], true)
   ))
 
-  // get x() / get y() / and so on
   for (const f of obj.fields) {
     members.push(emitGetter(f, wrappedClassNames))
   }
@@ -194,7 +189,6 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
     members.push(emitAutoHasMethod(f, getterName, hasName, wrappedClassNames))
   }
 
-  // [INSPECT]()
   members.push(emitInspectMethod(obj))
 
   return jsDoc(
@@ -209,18 +203,17 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
   )
 }
 
-// resolves a field type to its wrapper-class output shape, accounting for synthetic
-// collection wrappers (e.g. PhotoSize[] -> Photo, PhotoSize[][] -> Photo[]). returns
-// undefined for primitives and refs that aren't wrapped
+// field type → wrapper-class output shape. handles synthetic collection wrappers
+// (PhotoSize[] → Photo, PhotoSize[][] → Photo[]); undefined for primitives and unwrapped refs
 function wrapperInfoFor (ref: SchemaTypeRef, wrappedClassNames: Set<string>) {
-  // T[] where T has a synthetic collection wrapper -> the wrapper IS the collection (singleton)
+  // T[] with a synthetic collection wrapper — wrapper IS the collection (singleton)
   const directSynth = arrayWrapperFor(ref)
 
   if (directSynth) {
     return { name: directSynth, isArray: false }
   }
 
-  // T[][] where inner T[] has a synthetic wrapper -> array of synth wrappers
+  // T[][] with synthetic inner — array of synth wrappers
   if (ref.kind === 'array') {
     const innerSynth = arrayWrapperFor(ref.of)
 
@@ -301,7 +294,7 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
 
   if (info) {
     if (info.isArray) {
-      // arrays: lazy map raw → wrapped. optional arrays guard the map() call against undefined
+      // lazy map raw → wrapped; optional arrays guard map() against undefined
       const memoAssign = ts.factory.createBinaryExpression(
         ts.factory.createPropertyAccessExpression(ts.factory.createThis(), `_${camelName}`),
         ts.SyntaxKind.QuestionQuestionEqualsToken,
@@ -326,7 +319,6 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
             )
           ]
     } else if (!f.required) {
-      // optional reference: raw.foo ? new Wrapper(raw.foo) : undefined
       body = [
         ts.factory.createIfStatement(
           ts.factory.createStrictEquality(
@@ -363,7 +355,6 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
         )
       ]
     } else {
-      // required reference: this._x ??= new Wrapper(this.raw.x)
       body = [
         ts.factory.createReturnStatement(
           ts.factory.createBinaryExpression(
@@ -382,7 +373,6 @@ function emitGetter (f: SchemaField, wrappedClassNames: Set<string>) {
       ]
     }
   } else {
-    // primitive passthrough: return this.raw.foo
     body = [
       ts.factory.createReturnStatement(
         ts.factory.createPropertyAccessExpression(
@@ -435,13 +425,9 @@ function emitAutoHasMethod (
     )
     : notNull
 
-  // inline the type-predicate target — `this is this & { camelName: NonNullType }`
-  // skips the `Has<this, K>` indirection. for chained narrowing
-  // (`u.is('message') && u.hasPhoto() && u.hasCaption()`) TS would otherwise compute
-  // `Has<Has<MessageUpdate, 'photo'>, 'caption'>` step by step, which involves
-  // `keyof T + T[K] lookup + Exclude<…, undefined>` per layer. inlining produces
-  // a flat intersection that TS validates in one pass — measured ~9× speedup
-  // on the predicate-on-demo deferred-check site
+  // inline `this is this & { camelName: NonNullType }` instead of `Has<this, K>` —
+  // chained `hasX() && hasY()` would otherwise nest `Has<Has<…, 'x'>, 'y'>` and re-do
+  // `keyof T + T[K] + Exclude<…, undefined>` per layer. flat intersection = ~9× speedup
   const info = wrapperInfoFor(f.type, wrappedClassNames)
   const concreteFieldType = info
     ? wrapperReturnType(info, false)
@@ -472,8 +458,8 @@ function emitAutoHasMethod (
   )
 
   const doc = isArray
-    ? `True if \`${f.name}\` has at least one item.`
-    : `True if \`${f.name}\` is set.`
+    ? `true if \`${f.name}\` has at least one item`
+    : `true if \`${f.name}\` is set`
 
   return jsDoc(doc, method)
 }
@@ -510,15 +496,9 @@ function buildArrayMap (rawField: string, wrapperName: string) {
   )
 }
 
-// emit one type alias per literal-discriminator value:
-//   `PrivateChat = Omit<Chat, 'type'> & { type: 'private' }`
-// only multi-value enumerations qualify — single-value `enumeration: ['photo']`
-// already produces a fully-narrowed wrapper class, no alias needed.
-//
-// `Omit<Chat, 'type'>` is required (rather than plain `Chat & { type: 'X' }`) so the
-// class accessor signature gets stripped before the narrowed mod is layered on —
-// otherwise chained access (`chat.type`) re-resolves through `Chat.get type()` and
-// returns the wide literal union
+// one type alias per literal-discriminator value: `PrivateChat = Omit<Chat, 'type'> & { type: 'private' }`.
+// only multi-value enumerations qualify. `Omit` is required (not plain `Chat & { type: 'X' }`) —
+// otherwise the class accessor signature stays and chained `chat.type` widens back to the literal union
 function emitSubtypeAliases (obj: Extract<SchemaObject, { kind: 'object' }>) {
   const aliases: ts.Node[] = []
 

@@ -3,10 +3,9 @@ export interface ShortcutAnchor {
   accessPath: string[]
 }
 
-// hand-curated helpers attached to update classes alongside the schema-driven getters.
-// `kind: 'getter'` emits a `get <name>(): <returnType> { return <expression> }`.
-// `kind: 'method'` emits a `<name>(): <returnType> { <body> }`.
-// extend MESSAGE_EXTRAS / CALLBACK_QUERY_EXTRAS / etc. to add more — emitter handles the rest
+// handcrafted helpers attached to update classes alongside the schema-driven getters.
+// `getter` emits `get <name>(): <returnType> { return <expression> }`,
+// `method` emits `<name>(): <returnType> { <body> }`. extend MESSAGE_EXTRAS / etc. to add more
 export type UpdateExtra =
   | { kind: 'getter', name: string, expression: string, returnType: string, jsdoc?: string }
   | { kind: 'method', name: string, params?: string, body: string, returnType: string, jsdoc?: string }
@@ -25,72 +24,68 @@ const MESSAGE_ANCHORS: ShortcutAnchor[] = [
   { schemaArg: 'message_id', accessPath: ['raw', 'message_id'] }
 ]
 
-// shared inline picker reused by every download* extra. kept as a single statement so
-// `parseStatements` produces consistent output across the four method bodies
+// single-statement shape so `parseStatements` produces consistent output across all four download bodies
 const PICK_DOWNLOAD = 'const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;'
 
 const MESSAGE_EXTRAS: UpdateExtra[] = [
-  { kind: 'getter', name: 'chatId', expression: 'this.raw.chat.id', returnType: 'number', jsdoc: 'Shortcut for `chat.id`.' },
-  { kind: 'getter', name: 'senderId', expression: 'this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id', returnType: 'number', jsdoc: 'Best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`.' },
-  { kind: 'getter', name: 'replyToMessageId', expression: 'this.raw.reply_to_message?.message_id', returnType: 'number | undefined', jsdoc: 'Shortcut for `reply_to_message?.message_id`.' },
+  { kind: 'getter', name: 'chatId', expression: 'this.raw.chat.id', returnType: 'number', jsdoc: 'shortcut for `chat.id`' },
+  { kind: 'getter', name: 'senderId', expression: 'this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id', returnType: 'number', jsdoc: 'best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`' },
+  { kind: 'getter', name: 'replyToMessageId', expression: 'this.raw.reply_to_message?.message_id', returnType: 'number | undefined', jsdoc: 'shortcut for `reply_to_message?.message_id`' },
 
-  // hasReplyToMessage narrows the derived replyToMessageId getter alongside replyToMessage,
-  // which the auto-emitted predicate can't do (it only knows about literal payload fields)
-  { kind: 'method', name: 'hasReplyToMessage', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'True if this message has `reply_to_message`.' },
+  // narrows replyToMessageId alongside replyToMessage — auto-emitted predicate can't (only sees literal payload fields)
+  { kind: 'method', name: 'hasReplyToMessage', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'true if this message has `reply_to_message`' },
 
-  { kind: 'method', name: 'hasEntitiesOf', params: 'type: string', body: 'return this.raw.entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'True if any `entities` item has the given `type`.' },
-  { kind: 'method', name: 'hasCaptionEntitiesOf', params: 'type: string', body: 'return this.raw.caption_entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'True if any `caption_entities` item has the given `type`.' },
+  { kind: 'method', name: 'hasEntitiesOf', params: 'type: string', body: 'return this.raw.entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'true if any `entities` item has the given `type`' },
+  { kind: 'method', name: 'hasCaptionEntitiesOf', params: 'type: string', body: 'return this.raw.caption_entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'true if any `caption_entities` item has the given `type`' },
 
-  { kind: 'method', name: 'isForwarded', body: 'return this.raw.forward_origin != null', returnType: "this is Has<this, 'forwardOrigin'>", jsdoc: 'Alias for `hasForwardOrigin()`.' },
-  { kind: 'method', name: 'isReply', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'True if this message is a reply.' },
-  { kind: 'method', name: 'isMediaGroup', body: 'return this.raw.media_group_id != null', returnType: 'boolean', jsdoc: 'True if this message is part of a media group (album). Use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album.' },
-  { kind: 'method', name: 'isPrivate', body: "return this.raw.chat.type === 'private'", returnType: 'boolean', jsdoc: 'True if `chat.type === "private"`.' },
-  { kind: 'method', name: 'isGroup', body: "return this.raw.chat.type === 'group'", returnType: 'boolean', jsdoc: 'True if `chat.type === "group"` (strict — supergroups excluded).' },
-  { kind: 'method', name: 'isSupergroup', body: "return this.raw.chat.type === 'supergroup'", returnType: 'boolean', jsdoc: 'True if `chat.type === "supergroup"`.' },
-  { kind: 'method', name: 'isChannel', body: "return this.raw.chat.type === 'channel'", returnType: 'boolean', jsdoc: 'True if `chat.type === "channel"`.' },
+  { kind: 'method', name: 'isForwarded', body: 'return this.raw.forward_origin != null', returnType: "this is Has<this, 'forwardOrigin'>", jsdoc: 'alias for `hasForwardOrigin()`' },
+  { kind: 'method', name: 'isReply', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'true if this message is a reply' },
+  { kind: 'method', name: 'isMediaGroup', body: 'return this.raw.media_group_id != null', returnType: 'boolean', jsdoc: 'true if this message is part of a media group (album). use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album' },
+  { kind: 'method', name: 'isPrivate', body: "return this.raw.chat.type === 'private'", returnType: 'boolean', jsdoc: 'true if `chat.type === "private"`' },
+  { kind: 'method', name: 'isGroup', body: "return this.raw.chat.type === 'group'", returnType: 'boolean', jsdoc: 'true if `chat.type === "group"` (strict — supergroups excluded)' },
+  { kind: 'method', name: 'isSupergroup', body: "return this.raw.chat.type === 'supergroup'", returnType: 'boolean', jsdoc: 'true if `chat.type === "supergroup"`' },
+  { kind: 'method', name: 'isChannel', body: "return this.raw.chat.type === 'channel'", returnType: 'boolean', jsdoc: 'true if `chat.type === "channel"`' },
 
-  // download shortcuts. each picks the message's single attachment with priority
-  // document > video > audio > voice > video_note > animation > photo[largest] > sticker
-  // and delegates to `tg.<verb>`. returns `null` when the message has no attachment
-  { kind: 'method', name: 'download', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.download(t)', returnType: 'Promise<Buffer | null>', jsdoc: 'Download the message attachment as a `Buffer`. Returns `null` if the message has no media. Auto-picks the single attachment with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`.' },
-  { kind: 'method', name: 'downloadStream', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadStream(t)', returnType: 'Promise<import("node:stream").Readable | null>', jsdoc: 'Download the message attachment as a node `Readable`. Returns `null` if the message has no media.' },
-  { kind: 'method', name: 'downloadIterable', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t)', returnType: 'Promise<AsyncIterable<Uint8Array> | null>', jsdoc: 'Download the message attachment as an async-iterable byte stream. Returns `null` if the message has no media.' },
-  { kind: 'method', name: 'downloadToFile', params: 'path: string', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null)', returnType: 'Promise<void | null>', jsdoc: 'Download the message attachment to disk. Returns `null` if the message has no media; otherwise resolves once the file is fully written.' }
+  // download shortcuts: pick attachment with priority `document > video > audio > voice > video_note >
+  // animation > photo[largest] > sticker`, delegate to `tg.<verb>`, return `null` when no attachment
+  { kind: 'method', name: 'download', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.download(t)', returnType: 'Promise<Buffer | null>', jsdoc: 'download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`' },
+  { kind: 'method', name: 'downloadStream', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadStream(t)', returnType: 'Promise<import("node:stream").Readable | null>', jsdoc: 'download the message attachment as a node `Readable`. returns `null` if no media' },
+  { kind: 'method', name: 'downloadIterable', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t)', returnType: 'Promise<AsyncIterable<Uint8Array> | null>', jsdoc: 'download the message attachment as an async-iterable byte stream. returns `null` if no media' },
+  { kind: 'method', name: 'downloadToFile', params: 'path: string', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null)', returnType: 'Promise<void | null>', jsdoc: 'download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written' }
 ]
 
 const CALLBACK_QUERY_EXTRAS: UpdateExtra[] = [
-  { kind: 'getter', name: 'chatId', expression: 'this.raw.message?.chat.id', returnType: 'number | undefined', jsdoc: 'Shortcut for `message?.chat.id`.' },
-  { kind: 'getter', name: 'messageId', expression: 'this.raw.message?.message_id', returnType: 'number | undefined', jsdoc: 'Shortcut for `message?.message_id`.' },
-  { kind: 'getter', name: 'userId', expression: 'this.raw.from.id', returnType: 'number', jsdoc: 'Shortcut for `from.id`.' }
+  { kind: 'getter', name: 'chatId', expression: 'this.raw.message?.chat.id', returnType: 'number | undefined', jsdoc: 'shortcut for `message?.chat.id`' },
+  { kind: 'getter', name: 'messageId', expression: 'this.raw.message?.message_id', returnType: 'number | undefined', jsdoc: 'shortcut for `message?.message_id`' },
+  { kind: 'getter', name: 'userId', expression: 'this.raw.from.id', returnType: 'number', jsdoc: 'shortcut for `from.id`' }
 ]
 
 const CHAT_MEMBER_EXTRAS: UpdateExtra[] = [
-  { kind: 'getter', name: 'oldStatus', expression: '(this.raw.old_chat_member as { status: string }).status', returnType: 'string', jsdoc: 'Shortcut for `old_chat_member.status`' },
-  { kind: 'getter', name: 'newStatus', expression: '(this.raw.new_chat_member as { status: string }).status', returnType: 'string', jsdoc: 'Shortcut for `new_chat_member.status`' },
+  { kind: 'getter', name: 'oldStatus', expression: '(this.raw.old_chat_member as { status: string }).status', returnType: 'string', jsdoc: 'shortcut for `old_chat_member.status`' },
+  { kind: 'getter', name: 'newStatus', expression: '(this.raw.new_chat_member as { status: string }).status', returnType: 'string', jsdoc: 'shortcut for `new_chat_member.status`' },
 
-  { kind: 'method', name: 'wasCreator', body: "return (this.raw.old_chat_member as { status: string }).status === 'creator'", returnType: 'boolean', jsdoc: 'True if old status is `creator`' },
-  { kind: 'method', name: 'isNowCreator', body: "return (this.raw.new_chat_member as { status: string }).status === 'creator'", returnType: 'boolean', jsdoc: 'True if new status is `creator`' },
-  { kind: 'method', name: 'wasAdmin', body: "return (this.raw.old_chat_member as { status: string }).status === 'administrator'", returnType: 'boolean', jsdoc: 'True if old status is `administrator`' },
-  { kind: 'method', name: 'isNowAdmin', body: "return (this.raw.new_chat_member as { status: string }).status === 'administrator'", returnType: 'boolean', jsdoc: 'True if new status is `administrator`' },
-  { kind: 'method', name: 'wasMember', body: "return (this.raw.old_chat_member as { status: string }).status === 'member'", returnType: 'boolean', jsdoc: 'True if old status is `member`' },
-  { kind: 'method', name: 'isNowMember', body: "return (this.raw.new_chat_member as { status: string }).status === 'member'", returnType: 'boolean', jsdoc: 'True if new status is `member`' },
-  { kind: 'method', name: 'wasRestricted', body: "return (this.raw.old_chat_member as { status: string }).status === 'restricted'", returnType: 'boolean', jsdoc: 'True if old status is `restricted`' },
-  { kind: 'method', name: 'isNowRestricted', body: "return (this.raw.new_chat_member as { status: string }).status === 'restricted'", returnType: 'boolean', jsdoc: 'True if new status is `restricted`' },
-  { kind: 'method', name: 'wasLeft', body: "return (this.raw.old_chat_member as { status: string }).status === 'left'", returnType: 'boolean', jsdoc: 'True if old status is `left`' },
-  { kind: 'method', name: 'isNowLeft', body: "return (this.raw.new_chat_member as { status: string }).status === 'left'", returnType: 'boolean', jsdoc: 'True if new status is `left`' },
-  { kind: 'method', name: 'wasKicked', body: "return (this.raw.old_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'True if old status is `kicked` (banned)' },
-  { kind: 'method', name: 'isNowKicked', body: "return (this.raw.new_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'True if new status is `kicked` (banned)' },
+  { kind: 'method', name: 'wasCreator', body: "return (this.raw.old_chat_member as { status: string }).status === 'creator'", returnType: 'boolean', jsdoc: 'true if old status is `creator`' },
+  { kind: 'method', name: 'isNowCreator', body: "return (this.raw.new_chat_member as { status: string }).status === 'creator'", returnType: 'boolean', jsdoc: 'true if new status is `creator`' },
+  { kind: 'method', name: 'wasAdmin', body: "return (this.raw.old_chat_member as { status: string }).status === 'administrator'", returnType: 'boolean', jsdoc: 'true if old status is `administrator`' },
+  { kind: 'method', name: 'isNowAdmin', body: "return (this.raw.new_chat_member as { status: string }).status === 'administrator'", returnType: 'boolean', jsdoc: 'true if new status is `administrator`' },
+  { kind: 'method', name: 'wasMember', body: "return (this.raw.old_chat_member as { status: string }).status === 'member'", returnType: 'boolean', jsdoc: 'true if old status is `member`' },
+  { kind: 'method', name: 'isNowMember', body: "return (this.raw.new_chat_member as { status: string }).status === 'member'", returnType: 'boolean', jsdoc: 'true if new status is `member`' },
+  { kind: 'method', name: 'wasRestricted', body: "return (this.raw.old_chat_member as { status: string }).status === 'restricted'", returnType: 'boolean', jsdoc: 'true if old status is `restricted`' },
+  { kind: 'method', name: 'isNowRestricted', body: "return (this.raw.new_chat_member as { status: string }).status === 'restricted'", returnType: 'boolean', jsdoc: 'true if new status is `restricted`' },
+  { kind: 'method', name: 'wasLeft', body: "return (this.raw.old_chat_member as { status: string }).status === 'left'", returnType: 'boolean', jsdoc: 'true if old status is `left`' },
+  { kind: 'method', name: 'isNowLeft', body: "return (this.raw.new_chat_member as { status: string }).status === 'left'", returnType: 'boolean', jsdoc: 'true if new status is `left`' },
+  { kind: 'method', name: 'wasKicked', body: "return (this.raw.old_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'true if old status is `kicked` (banned)' },
+  { kind: 'method', name: 'isNowKicked', body: "return (this.raw.new_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'true if new status is `kicked` (banned)' },
 
-  { kind: 'method', name: 'didJoinChat', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return (o === 'left' || o === 'kicked') && n !== 'left' && n !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was outside the chat (`left`/`kicked`) and is now in it' },
-  { kind: 'method', name: 'didLeaveChat', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return o !== 'left' && o !== 'kicked' && (n === 'left' || n === 'kicked')", returnType: 'boolean', jsdoc: 'True if the user was in the chat and is now outside it (`left`/`kicked`)' },
-  { kind: 'method', name: 'wasPromoted', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return o !== 'creator' && o !== 'administrator' && (n === 'creator' || n === 'administrator')", returnType: 'boolean', jsdoc: 'True if the user gained `creator` or `administrator` status' },
-  { kind: 'method', name: 'wasDemoted', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return (o === 'creator' || o === 'administrator') && n !== 'creator' && n !== 'administrator'", returnType: 'boolean', jsdoc: 'True if the user lost `creator` or `administrator` status' },
-  { kind: 'method', name: 'wasBanned', body: "return (this.raw.old_chat_member as { status: string }).status !== 'kicked' && (this.raw.new_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was just kicked (banned)' },
-  { kind: 'method', name: 'wasUnbanned', body: "return (this.raw.old_chat_member as { status: string }).status === 'kicked' && (this.raw.new_chat_member as { status: string }).status !== 'kicked'", returnType: 'boolean', jsdoc: 'True if the user was kicked and no longer is' }
+  { kind: 'method', name: 'didJoinChat', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return (o === 'left' || o === 'kicked') && n !== 'left' && n !== 'kicked'", returnType: 'boolean', jsdoc: 'true if the user was outside the chat (`left`/`kicked`) and is now in it' },
+  { kind: 'method', name: 'didLeaveChat', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return o !== 'left' && o !== 'kicked' && (n === 'left' || n === 'kicked')", returnType: 'boolean', jsdoc: 'true if the user was in the chat and is now outside it (`left`/`kicked`)' },
+  { kind: 'method', name: 'wasPromoted', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return o !== 'creator' && o !== 'administrator' && (n === 'creator' || n === 'administrator')", returnType: 'boolean', jsdoc: 'true if the user gained `creator` or `administrator` status' },
+  { kind: 'method', name: 'wasDemoted', body: "const o = (this.raw.old_chat_member as { status: string }).status; const n = (this.raw.new_chat_member as { status: string }).status; return (o === 'creator' || o === 'administrator') && n !== 'creator' && n !== 'administrator'", returnType: 'boolean', jsdoc: 'true if the user lost `creator` or `administrator` status' },
+  { kind: 'method', name: 'wasBanned', body: "return (this.raw.old_chat_member as { status: string }).status !== 'kicked' && (this.raw.new_chat_member as { status: string }).status === 'kicked'", returnType: 'boolean', jsdoc: 'true if the user was just kicked (banned)' },
+  { kind: 'method', name: 'wasUnbanned', body: "return (this.raw.old_chat_member as { status: string }).status === 'kicked' && (this.raw.new_chat_member as { status: string }).status !== 'kicked'", returnType: 'boolean', jsdoc: 'true if the user was kicked and no longer is' }
 ]
 
 export const UPDATE_KINDS: UpdateKindSpec[] = [
-  // primary update fields
   { kindName: 'message', className: 'MessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'message' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'edited_message', className: 'EditedMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'edited_message' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'channel_post', className: 'ChannelPostUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'channel_post' }, anchors: MESSAGE_ANCHORS },
@@ -114,7 +109,7 @@ export const UPDATE_KINDS: UpdateKindSpec[] = [
   { kindName: 'chat_boost', className: 'ChatBoostUpdate', payloadType: 'TelegramChatBoostUpdated', source: { kind: 'update-field', field: 'chat_boost' }, anchors: [] },
   { kindName: 'removed_chat_boost', className: 'RemovedChatBoostUpdate', payloadType: 'TelegramChatBoostRemoved', source: { kind: 'update-field', field: 'removed_chat_boost' }, anchors: [] },
 
-  // service-event derivations (all from a TelegramMessage payload)
+  // service-event derivations from a TelegramMessage payload
   { kindName: 'new_chat_members', className: 'NewChatMembersUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'new_chat_members' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'left_chat_member', className: 'LeftChatMemberUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'left_chat_member' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'new_chat_title', className: 'NewChatTitleUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'new_chat_title' }, anchors: MESSAGE_ANCHORS },
@@ -149,9 +144,7 @@ export const UPDATE_KINDS: UpdateKindSpec[] = [
   { kindName: 'write_access_allowed', className: 'WriteAccessAllowedUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'write_access_allowed' }, anchors: MESSAGE_ANCHORS }
 ]
 
-// bind extras post-hoc rather than copy-pasting the same list onto every entry —
-// keeps the table above readable and centralises the rule (every TelegramMessage
-// payload gets MESSAGE_EXTRAS). per-kind overrides go inline if needed
+// bind extras post-hoc — every TelegramMessage payload gets MESSAGE_EXTRAS by default
 const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   callback_query: CALLBACK_QUERY_EXTRAS,
   chat_member: CHAT_MEMBER_EXTRAS,

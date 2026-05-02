@@ -8,10 +8,6 @@ import { versionString } from './load-schema'
 import { importTypeNamed, jsDoc } from './ts-factory'
 import { UPDATE_KINDS } from './updates-config'
 
-// emits the `TelegramDispatchers` interface — one `on<KindCamel>` method per
-// `UpdateKind`, with two overloads each: bare `(handler)` and `(filter, handler)`.
-// merged into the `Telegram` class via `interface Telegram extends TelegramDispatchers`,
-// installed at runtime by `installDispatchers(tg)` walking `UPDATE_KINDS`
 export function emitDispatch (schema: Schema) {
   const members: ts.TypeElement[] = []
 
@@ -54,17 +50,13 @@ export function emitDispatch (schema: Schema) {
   })
 }
 
-// `message` → `onMessage`, `chat_member` → `onChatMember`,
-// `proximity_alert_triggered` → `onProximityAlertTriggered`. service-event kinds
-// follow the same pattern — no special-cased aliases are emitted; the optional
-// dispatcher-alias map (post-emit, in puregram core) layers shorter names on top
+// `message` → `onMessage`, `chat_member` → `onChatMember`, `proximity_alert_triggered` → `onProximityAlertTriggered`
 function dispatcherMethodName (kindName: string) {
   const camel = kindName.split('_').map(s => s[0].toUpperCase() + s.slice(1)).join('')
 
   return `on${camel}`
 }
 
-// `onMessage(handler, options?): this`
 function buildHandlerOnlySignature (methodName: string, className: string) {
   return ts.factory.createMethodSignature(
     undefined,
@@ -93,13 +85,8 @@ function buildHandlerOnlySignature (methodName: string, className: string) {
   )
 }
 
-// `onMessage<Mod>(filter, handler, options?): this`
-// filter is pinned to `Filter<unknown, Mod>` — only `Mod` is inferred. kind-bound
-// filters like `kind.message` (Base=MessageUpdate) remain assignable here because
-// `Filter<X, M>` is covariant on its Base parameter (the type-guard return narrows
-// strictly, so a stricter guard satisfies a wider parameter slot). dropping the
-// Base generic cuts one type parameter per call × 53 dispatcher methods, which
-// the LSP picks up most when resolving overloads on every keystroke
+// filter pinned to `Filter<unknown, Mod>` — only `Mod` is inferred. dropping the
+// Base generic cuts one type param × 53 dispatcher methods, big LSP win on overload resolution
 function buildFilterAndHandlerSignature (methodName: string, className: string, _filterAlias: string) {
   return ts.factory.createMethodSignature(
     undefined,

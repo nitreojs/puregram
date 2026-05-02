@@ -17,9 +17,8 @@ interface WrapperInfo {
   isArray: boolean
 }
 
-// per-update verb renames — keep separate from telegram-level SHORTCUTS so that
-// a method can be a per-update shortcut (e.g. `answer` on CallbackQueryUpdate)
-// without also being on the curated telegram-level list
+// per-update verb renames — separate from telegram-level SHORTCUTS so a method can be
+// a per-update shortcut (`answer` on CallbackQueryUpdate) without joining the telegram-level list
 const SHORTCUT_RENAMES: Record<string, string> = {
   sendMessage: 'send',
   forwardMessage: 'forward',
@@ -69,10 +68,8 @@ export function emitUpdates (schema: Schema) {
     referencedTypes.add(k.payloadType)
   }
 
-  // primitive-field getters pass-through `this.raw.<field>` and emit `typeRefToTs(field.type)`
-  // as the return — sweep only the non-wrapped fields so any referenced Telegram* type lands
-  // in the import set. wrapped fields use the structures import instead, so adding them here
-  // would just produce unused imports
+  // sweep only non-wrapped fields into the import set — wrapped fields go through `./structures`,
+  // adding them here would just produce unused imports
   for (const k of UPDATE_KINDS) {
     const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
 
@@ -87,8 +84,7 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
-  // positional shortcut args inline `typeRefToTs(arg.type)` as the parameter type,
-  // so any referenced Telegram* type needs to be imported alongside the payload types
+  // positional shortcut args inline their TS type, so any referenced Telegram* needs an import too
   for (const list of Object.values(analysis.byKind)) {
     for (const sc of list) {
       const anchorArgs = new Set(sc.filledArgs.map(a => a.schemaArg))
@@ -107,8 +103,7 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
-  // emit-structures only produces classes for object-kind schema entries; drop union-kind names
-  // (MessageOrigin, ChatBoostSource) so wrapper getters fall back to raw types
+  // emit-structures only emits classes for object-kind schema entries — drop union-kind names
   const wrappedNames = new Set<string>()
 
   for (const k of UPDATE_KINDS) {
@@ -226,9 +221,8 @@ function refToObjectClassName (ref: SchemaTypeRef, objectsByName: Map<string, Sc
   return undefined
 }
 
-// resolves a field type to its wrapper-class output shape, accounting for synthetic
-// collection wrappers (PhotoSize[] -> Photo, PhotoSize[][] -> Photo[]). returns
-// undefined for primitives and refs that aren't wrapped
+// field type → wrapper-class output shape. handles synthetic collection wrappers
+// (PhotoSize[] → Photo, PhotoSize[][] → Photo[]); undefined for primitives and unwrapped refs
 function wrapperInfoFor (
   ref: SchemaTypeRef,
   objectsByName: Map<string, SchemaObject>
@@ -298,7 +292,6 @@ function emitUpdateClass (
 ) {
   const members: ts.ClassElement[] = []
 
-  // readonly kind = '<kindName>' as const
   members.push(ts.factory.createPropertyDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword)],
     ts.factory.createIdentifier('kind'),
@@ -313,7 +306,6 @@ function emitUpdateClass (
   const payloadObjectName = kind.payloadType.replace(/^Telegram/, '')
   const payloadObject = objectsByName.get(payloadObjectName)
 
-  // private _x?: Wrapper | Wrapper[]
   if (payloadObject?.kind === 'object') {
     for (const f of payloadObject.fields) {
       const info = wrapperInfoFor(f.type, objectsByName)
@@ -334,14 +326,11 @@ function emitUpdateClass (
     }
   }
 
-  // constructor (public raw: TelegramX, private tg: TelegramLike) {}
-  // tg stays `private` so each update class carries a TS class brand. without the
-  // brand, `AnyUpdate & MessageUpdate` structurally distributes across all 50 union
-  // members and computes per-member assignability, blowing up LSP narrowing on
-  // `update.is('message')` chains (measured at ~9s on a single deferred check).
-  // tradeoff: `Modify<KindUpdate, M>` drops the brand (Omit can't see private fields),
-  // so callers passing a modded handler arg into a function expecting the raw class
-  // need an `AnyUpdate` cast — an acceptable wart for the LSP win
+  // `tg` stays `private` so each update class carries a TS class brand. without it,
+  // `AnyUpdate & MessageUpdate` structurally distributes across all 50 union members
+  // and `update.is('message')` blows up LSP (measured ~9s on one deferred check).
+  // tradeoff: `Modify<…>` drops the brand (Omit can't see private fields), so a modded
+  // handler arg passed into a function wanting the raw class needs an `AnyUpdate` cast
   members.push(ts.factory.createConstructorDeclaration(
     undefined,
     [
@@ -365,8 +354,7 @@ function emitUpdateClass (
     ts.factory.createBlock([], false)
   ))
 
-  // names already taken by class members emitted above and below — used to suppress
-  // schema-driven getters that would otherwise collide
+  // names already taken — suppresses schema-driven getters that would collide
   const reservedNames = new Set<string>(['kind', 'raw', 'tg', 'is'])
 
   for (const sc of shortcuts) {
@@ -376,9 +364,6 @@ function emitUpdateClass (
   // extras win over auto-emitted has*() — pre-compute names for the skip check below
   const extrasNames = new Set((kind.extras ?? []).map(e => e.name))
 
-  // emit one getter per payload field — wrapper-class fields get a memoized lazy
-  // wrap, primitive (and other non-wrapped) fields get a plain pass-through so
-  // user code never has to dig through .raw for scalar values
   if (payloadObject?.kind === 'object') {
     for (const f of payloadObject.fields) {
       const camelName = getterNameFor(f.name)
@@ -399,8 +384,7 @@ function emitUpdateClass (
     }
   }
 
-  // hasField() predicates for every optional payload field; has_*/is_* skipped
-  // since flag-style true|undefined fields narrow on their own
+  // hasField() for every optional payload field; skip has_*/is_* — flag-style true|undefined narrows on its own
   if (payloadObject?.kind === 'object') {
     for (const f of payloadObject.fields) {
       if (f.required) {
@@ -424,8 +408,8 @@ function emitUpdateClass (
     }
   }
 
-  // hand-curated helpers from updates-config — `chatId`, `senderId`, `isReply()`,
-  // and so on. extras are emitted last so codegen-driven names always win on collision
+  // hand-curated helpers from updates-config (`chatId`, `senderId`, `isReply()`).
+  // emitted last so codegen-driven names win on collision
   for (const extra of kind.extras ?? []) {
     if (reservedNames.has(extra.name)) {
       throw new Error(`extras collision: ${kind.className}.${extra.name} clashes with a generated member`)
@@ -435,7 +419,6 @@ function emitUpdateClass (
     members.push(emitExtra(extra))
   }
 
-  // is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K]
   members.push(ts.factory.createMethodDeclaration(
     undefined,
     undefined,
@@ -475,12 +458,10 @@ function emitUpdateClass (
     ], true)
   ))
 
-  // codegen'd shortcut methods — send(), forward(), answer(), and so on
   for (const sc of shortcuts) {
     members.push(emitShortcutMethod(sc, widenedArgs))
   }
 
-  // [INSPECT](depth, options, inspect) — forwards node's stylize options for color + js-style output
   const anyType = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
   const inspectParam = (name: string) => ts.factory.createParameterDeclaration(
     undefined, undefined, ts.factory.createIdentifier(name), undefined, anyType, undefined
@@ -510,7 +491,7 @@ function emitUpdateClass (
   ))
 
   return jsDoc(
-    `Update for the \`${kind.kindName}\` event.`,
+    `update for the \`${kind.kindName}\` event`,
     ts.factory.createClassDeclaration(
       [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
       ts.factory.createIdentifier(kind.className),
@@ -603,8 +584,6 @@ function parseParams (src: string) {
   ))
 }
 
-// inlined wrapper-type builder used by the type-predicate emit. mirrors the
-// non-optional branch of `emitWrapperGetter`'s return-type construction
 function buildWrapperReturnType (info: WrapperInfo, optional: boolean) {
   const baseReturn: ts.TypeNode = info.isArray
     ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(info.name))
@@ -649,11 +628,9 @@ function emitAutoHasMethod (
     )
     : notNull
 
-  // inline `this is this & { camelName: NonNullType }` instead of `this is Has<this, K>`.
-  // chained narrowing (`u.is('message') && u.hasPhoto() && u.hasCaption()`) compounds
-  // `Has<Has<…, 'photo'>, 'caption'>` per layer, which TS unfolds via keyof + lookup +
-  // Exclude on every step. inlining produces a flat intersection that resolves in
-  // one pass — measured ~9× speedup on chained predicate sites
+  // inline `this is this & { camelName: NonNullType }` instead of `Has<this, K>` —
+  // chained `hasX() && hasY()` would otherwise nest `Has<Has<…, 'x'>, 'y'>` and re-do
+  // `keyof T + T[K] + Exclude<…, undefined>` per layer. flat intersection = ~9× speedup
   const info = wrapperInfoFor(f.type, objectsByName)
   const concreteFieldType = info
     ? buildWrapperReturnType(info, false)
@@ -684,8 +661,8 @@ function emitAutoHasMethod (
   )
 
   const doc = isArray
-    ? `True if \`${f.name}\` has at least one item.`
-    : `True if \`${f.name}\` is set.`
+    ? `true if \`${f.name}\` has at least one item`
+    : `true if \`${f.name}\` is set`
 
   return jsDoc(doc, method)
 }
@@ -739,8 +716,6 @@ function emitWrapperGetter (f: SchemaField, camelName: string, info: WrapperInfo
     wrapExpr
   )
 
-  // required: return memoAssign
-  // optional: return rawAccess ? memoAssign : undefined
   const body: ts.Statement[] = f.required
     ? [ts.factory.createReturnStatement(memoAssign)]
     : [
@@ -798,9 +773,8 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     return ts.factory.createPropertyAssignment(anchor.schemaArg, access)
   })
 
-  // primary positional args (e.g. `text` for sendMessage, `latitude`/`longitude` for sendLocation)
-  // — drop entries already covered by the update's anchor map; the remaining ones become
-  // positional method params and are also forwarded into the api call as named properties
+  // primary positional args (e.g. `text` for sendMessage). drop ones already covered by
+  // the update's anchor map; remaining become positional params + forwarded as named props
   const anchorArgs = new Set(sc.filledArgs.map(a => a.schemaArg))
   const positionals = (METHOD_POSITIONALS[sc.method] ?? [])
     .filter(p => !anchorArgs.has(p.schemaArg))
@@ -810,11 +784,9 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
       return arg ? [{ ...p, arg }] : []
     })
 
-  // positional args are always required at the call site even if the schema
-  // marks them optional — `exactOptionalPropertyTypes` rejects an explicit
-  // `undefined` for an optional property, and a primary positional like
-  // `setMessageReaction.reaction` is conventionally always supplied (pass `[]`
-  // to clear). callers who want to omit it can drop down to `tg.api.<method>`
+  // positionals are required at the call site even when the schema marks them optional —
+  // `exactOptionalPropertyTypes` rejects explicit `undefined`, and primaries like
+  // `setMessageReaction.reaction` are conventionally always supplied (pass `[]` to clear)
   const widened = widenedArgs.get(sc.method) ?? new Set<string>()
   const positionalParams = positionals.map((p) => {
     let type = typeRefToTs(p.arg.type)
@@ -874,21 +846,16 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     )
   ])
 
-  // remaining user args = everything not anchored and not positional
   const positionalArgs = new Set(positionals.map(p => p.schemaArg))
   const restArgs = sc.userArgs.filter(a => !positionalArgs.has(a.name))
 
-  // only default `params` to `{}` when no remaining user args are required —
-  // otherwise calling `update.send(text)` should error at the call site if a
-  // required user arg is missing rather than blow up at runtime
+  // default `params` to `{}` only when all remaining user args are optional —
+  // otherwise `update.send(text)` should error at the call site, not at runtime
   const allRestOptional = restArgs.every(a => !a.required)
   const defaultInit = allRestOptional
     ? ts.factory.createObjectLiteralExpression([], false)
     : undefined
 
-  // `params?: ... = {}` is a syntax error — pick exactly one optionality marker.
-  // default-init when all rest args are optional so callers can omit `params` entirely
-  // and still get a typed empty object inside the api call
   const paramsParam = ts.factory.createParameterDeclaration(
     undefined, undefined,
     ts.factory.createIdentifier('params'),
@@ -906,7 +873,7 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     body
   )
 
-  return jsDoc(`Shortcut for \`tg.api.${sc.method}\`.`, method)
+  return jsDoc(`shortcut for \`tg.api.${sc.method}\``, method)
 }
 
 function emitUpdateKindUnion () {
@@ -938,9 +905,7 @@ function emitUpdateKindMap () {
   )
 }
 
-// runtime mirror of UpdateKind — array of every kindName string. consumed at runtime
-// by `installDispatchers(tg)` to install one `tg.on<Kind>` method per kind.
-// typed as `readonly UpdateKind[]` so the dispatcher injector stays type-safe
+// runtime mirror of UpdateKind — consumed by `installDispatchers(tg)` at boot
 function emitUpdateKindsConst () {
   return ts.factory.createVariableStatement(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
@@ -961,9 +926,8 @@ function emitUpdateKindsConst () {
   )
 }
 
-// explicit union of every wrapped Update class. `UpdateKindMap[keyof UpdateKindMap]`
-// is equivalent at the tsc level but resolves to `any` under ts-eslint's
-// type-checked rules, so we emit the union by listing the classes directly
+// explicit union of every wrapped Update class. `UpdateKindMap[keyof …]` is equivalent
+// at the tsc level but ts-eslint's type-checked rules resolve it to `any` — so list classes directly
 function emitUpdateUnion () {
   return ts.factory.createTypeAliasDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],

@@ -1,7 +1,5 @@
-// hand-rolled getters/methods grafted onto generated wrapper classes by `emit-structures`
-// keyed by class name; only applied when the class actually exists in the schema. each entry
-// is raw ts source for one class member (jsdoc + getter/method) — the emitter splices it
-// verbatim into the printed class right before the inspect tail
+// handcrafted members spliced onto generated wrapper classes (jsdoc + getter/method as raw ts).
+// keyed by class name; only applied when the class exists in the schema
 export const STRUCTURE_EXTRAS: Record<string, string[]> = {
   User: [
     `/**
@@ -81,8 +79,6 @@ get coordinates(): [number, number] {
   ]
 }
 
-// formats extras for splicing into a printed class body; indents every line with the body
-// indent string (defaults to 4 spaces, matching the structures printer output)
 export function renderStructureExtras (className: string, indent = '    ') {
   const extras = STRUCTURE_EXTRAS[className]
 

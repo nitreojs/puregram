@@ -1,7 +1,5 @@
-// names a wrapper-class getter (or update-class getter) gets when emitted from a schema
-// field. snake-case schema field names default to camelCase; the override map below picks
-// a friendlier name for ergonomic outliers (e.g. `message_id` → `id` so `update.id`
-// matches what users intuitively reach for)
+// snake → camel by default; this map renames ergonomic outliers (e.g. `message_id` → `id`
+// so `update.id` matches what users reach for)
 const FIELD_NAME_OVERRIDES: Record<string, string> = {
   message_id: 'id'
 }

@@ -7,9 +7,6 @@ import { versionString } from './load-schema'
 import { importTypeNamed, jsDoc } from './ts-factory'
 import { UPDATE_KINDS } from './updates-config'
 
-// pre-binds the `Filter` Base parameter to one update class per kind. used as the
-// filter type for per-kind dispatchers so TS resolves chains against a monomorphic
-// Base instead of distributing intersections across the 50-member `AnyUpdate` union
 export function emitFilterTypes (schema: Schema) {
   const nodes: ts.Node[] = UPDATE_KINDS.map((k) =>
     jsDoc(
@@ -31,7 +28,6 @@ export function emitFilterTypes (schema: Schema) {
     )
   )
 
-  // any-update filter — used by tg.onUpdate(filter, h) for cross-kind composition
   nodes.push(jsDoc(
     'cross-kind filter. used by `tg.onUpdate(filter, h)` for predicates that span update kinds',
     ts.factory.createTypeAliasDeclaration(
@@ -64,9 +60,7 @@ export function emitFilterTypes (schema: Schema) {
   })
 }
 
-// `MessageUpdate` → `MessageFilter`, `CallbackQueryUpdate` → `CallbackQueryFilter`,
-// `MyChatMemberUpdate` → `MyChatMemberFilter`. drop the trailing `Update` suffix and
-// append `Filter` — matches mtcute's naming and reads naturally at use sites
+// `MessageUpdate` → `MessageFilter`, `CallbackQueryUpdate` → `CallbackQueryFilter`
 export function filterAliasName (className: string) {
   const stem = className.endsWith('Update') ? className.slice(0, -'Update'.length) : className
 

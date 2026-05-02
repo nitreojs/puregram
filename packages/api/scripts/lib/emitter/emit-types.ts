@@ -13,8 +13,7 @@ export function emitTypes (schema: Schema) {
   const widenedByObject = detectWidenedFieldsByObject(schema)
   const outgoing = detectOutgoingObjectNames(schema)
 
-  // only widen objects that flow outbound (referenced by method args).
-  // incoming-only objects like TelegramMessage keep `text: string`
+  // only widen outbound objects (referenced by method args); incoming-only like TelegramMessage stay narrow
   let needsFormattableImport = false
 
   for (const [name, fields] of widenedByObject) {

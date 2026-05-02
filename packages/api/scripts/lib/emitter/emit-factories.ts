@@ -60,8 +60,7 @@ function collectVariants (schema: Schema, prefix: string) {
       continue
     }
 
-    // for `InlineQueryResult` family, exclude the `InlineQueryResultCached*` variants —
-    // they belong to the separate cached family
+    // `InlineQueryResultCached*` belongs to the separate cached family
     if (prefix === 'InlineQueryResult' && obj.name.startsWith('InlineQueryResultCached')) {
       continue
     }

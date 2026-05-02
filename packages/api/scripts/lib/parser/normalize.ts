@@ -17,7 +17,7 @@ const PRIMITIVE_MAP: Record<string, SchemaTypeRef> = {
 export function parseTypeRef (text: string): SchemaTypeRef {
   const trimmed = text.trim()
 
-  // array first: commas inside the inner type stay scoped to a single splitUnion call
+  // array first — commas inside the inner type stay scoped to one splitUnion call
   if (trimmed.startsWith('Array of ')) {
     const inner = trimmed.slice('Array of '.length)
 
@@ -45,7 +45,7 @@ export function parseTypeRef (text: string): SchemaTypeRef {
 }
 
 function splitUnion (text: string) {
-  // bot-api docs use simple comma + or/and at the top level — no nested unions inside an "Array of X"
+  // bot-api uses comma + or/and at top level — no nested unions inside an "Array of X"
   return text.split(/\s*,\s*|\s+or\s+|\s+and\s+/g).map(s => s.trim()).filter(Boolean)
 }
 
@@ -92,8 +92,7 @@ function isObjectName (name: string) {
   return /^[A-Z][a-zA-Z0-9]*$/.test(name)
 }
 
-// `AnyNode` is a discriminated union — only `Element` carries a tagName, so narrow
-// before reading it. plain elements yield UPPER tag names; text/comment nodes yield undefined
+// `AnyNode` is a discriminated union — only `Element` carries `tagName`. text/comment nodes return undefined
 function tagOf (node: AnyNode | undefined) {
   if (node && 'tagName' in node) {
     return node.tagName.toUpperCase()
@@ -253,13 +252,13 @@ function extractObject (
 ) {
   const fieldRows = $table.find('tbody > tr').toArray()
 
-  // some objects are unions (e.g. ChatMember, BackgroundFill) — they don't have field tables;
-  // members live either inline ("must be one of: A, B, C") or in an adjacent <ul> list of links
+  // some objects are unions (ChatMember, BackgroundFill) — no field table; members live
+  // inline ("must be one of: A, B, C") or in an adjacent <ul> of links
   if (fieldRows.length === 0 && /one of/i.test(description)) {
     let members = extractUnionMembersFromDescription(description)
 
     if (members.length === 0 && sectionLinks.length > 0) {
-      // exclude self-reference (the union name itself often appears in description anchors)
+      // exclude self-reference — union name often appears in description anchors
       members = sectionLinks.filter(l => l !== name).map(n => parseTypeRef(n))
     }
 
@@ -280,11 +279,8 @@ function extractObject (
     const desc = $(cols[2]).text().trim()
     let type = parseTypeRef(typeText)
 
-    // bot-api docs phrase string-discriminator constraints in prose ("can be either
-    // 'private', 'group', 'supergroup' or 'channel'", "always 'sender'") rather than as a
-    // machine-parseable enum. detect both single- and multi-value cases and lift the values
-    // into the type ref's `enumeration`, so getter return types, factory dispatch, and
-    // discriminated-union typing all narrow on literal-union ground truth instead of `string`
+    // bot-api phrases string discriminators in prose ("can be either 'private', …", "always 'sender'")
+    // instead of a machine-parseable enum — lift the values into `enumeration` for narrow typing
     if (type.kind === 'string' && !type.enumeration) {
       const literals = extractEnumeration(desc, fieldName)
 
@@ -311,10 +307,6 @@ function extractObject (
 }
 
 function parseReturnTypeFromDescription (description: string, links: string[]) {
-  // common phrasings:
-  //   "Returns X" / "Returns an X" / "Returns the X"
-  //   "On success, the X is returned" / "On success, returns X"
-  //   "Returns True on success" / "Returns Array of X"
   const patterns: RegExp[] = [
     /Returns\s+(?:an?\s+|the\s+)?(Array of [A-Za-z]+)/,
     /Returns\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)\s+on success/,
@@ -333,8 +325,8 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
     }
   }
 
-  // fallback for phrasings like "returns the bot's information in form of a User object" —
-  // no identifier near "Returns", but the description anchors the actual return type. last link wins
+  // fallback for "returns the bot's information in form of a User object" — no identifier
+  // near "Returns", description anchors carry the return type. last link wins
   if (links.length > 0) {
     return parseTypeRef(links[links.length - 1])
   }
@@ -343,30 +335,22 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
   return { kind: 'true' as const }
 }
 
-// trigger phrases the bot-api docs use to introduce a string-field's allowed values.
-// scoped to a sentence span so unrelated phrases like "Can be decrypted…" elsewhere in
-// the description don't pull in adjacent quoted tokens
+// trigger phrases for string-field allowed values; scoped to a sentence span so unrelated
+// phrases ("Can be decrypted…") don't pull in adjacent quoted tokens
 const ENUMERATION_TRIGGER = /\b(?:must be|can be|currently|always|one of|either)\b/i
 
-// matches a quoted lowercase token. accepts smart quotes (“”), ASCII double, and
-// ASCII single quotes. token shape covers identifiers, MIME types, and file formats —
-// everything bot-api uses as a discriminator value
+// quoted lowercase token (smart quotes + ASCII double/single). covers identifiers, MIME types, file formats
 const QUOTED_TOKEN = /[“"']([a-z][a-z0-9_/.-]*?[a-z0-9])[”"']/g
 
-// sentence break: full stop followed by a whitespace + capital letter, the bot-api
-// docs' conventional sentence boundary. caps the span at the start of the next sentence
+// bot-api sentence boundary — `.` + whitespace + capital. caps the trigger span
 const SENTENCE_BREAK = /\.\s+[A-Z]/
 
-// disqualifies the trigger when followed by context-reference prepositions —
-// "Can be available only for "X" transactions" should not enumerate `data` over `X`.
-// the trigger is genuinely enumerative when followed by enum-list connectives like
-// "either", "one of", direct values; not when followed by "for", "in", "with", etc
+// disqualifies the trigger when followed by context prepositions (`for`/`in`/`with`/…) —
+// "Can be available only for 'X' transactions" should not enumerate `data` over `X`
 const CONTEXT_REFERENCE = /\b(?:for|in|when|where|with|during|to|from|as|by|on|only|provided)\b/i
 
-// fieldNames that are reliable single-value discriminators when the description follows
-// "must be X"/"always X" without quotes — bot-api occasionally drops the quotes for
-// these specific roles. used only as a fallback when the quoted-multi-value extractor
-// finds nothing
+// reliable single-value discriminators when bot-api drops the quotes ("must be X"/"always X").
+// fallback when the quoted-multi-value extractor finds nothing
 const UNQUOTED_DISCRIMINATOR_FIELDS = new Set(['type', 'status', 'source'])
 const UNQUOTED_SINGLE_VALUE = /(?:must be|always)\s+["“']?([a-z][a-z0-9_]*)["”']?/i
 
@@ -405,8 +389,7 @@ function extractEnumeration (desc: string, fieldName: string) {
     }
   }
 
-  // unquoted single-value fallback: "Type of the result, must be photo" — bot-api
-  // occasionally writes these without quotes. only trusted on known discriminator fields
+  // unquoted single-value fallback ("Type of the result, must be photo") — only on known discriminator fields
   if (UNQUOTED_DISCRIMINATOR_FIELDS.has(fieldName)) {
     const single = UNQUOTED_SINGLE_VALUE.exec(desc)
 
@@ -419,7 +402,7 @@ function extractEnumeration (desc: string, fieldName: string) {
 }
 
 function extractUnionMembersFromDescription (description: string) {
-  // require strict PascalCase identifiers — anything looser (e.g. "the menu button opens") false-matches
+  // strict PascalCase only — anything looser ("the menu button opens") false-matches
   const match = description.match(/one of[\s\S]*?:\s*([A-Z][A-Za-z0-9]+(?:\s*,\s*[A-Z][A-Za-z0-9]+)*(?:\s*(?:,|\sand)\s*[A-Z][A-Za-z0-9]+)?)/)
 
   if (!match) {

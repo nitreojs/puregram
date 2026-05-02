@@ -24,14 +24,13 @@ export function makeInspect (
     return stylizedName
   }
   const fields = collectFields(instance)
-  // forward node's options so the user's color/depth choices propagate to nested values;
-  // manually decrement depth per the documented custom-inspect pattern
+  // forward node's color/depth options to nested values; manual depth decrement per the custom-inspect pattern
   const childOptions: InspectOptionsStylized = {
     ...options,
     depth: options.depth === null ? null : (options.depth ?? 2) - 1
   }
-  // wrapper classes with no schema fields (e.g. ChatMember — empty union root) would render
-  // as just \`ClassName {}\`; fall back to the raw payload so the user still sees the data
+  // empty-fields wrapper classes (e.g. ChatMember union root) would render as \`ClassName {}\`;
+  // fall back to raw payload so the data is still visible
   if (Object.keys(fields).length === 0 && hasRawObject(instance)) {
     return \`\${stylizedName} \${inspect((instance as { raw: unknown }).raw, childOptions)}\`
   }

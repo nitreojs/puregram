@@ -1,7 +1,7 @@
 import type { SchemaTypeRef } from '../schema-types'
 
-// objects that get wrapper classes — those that appear inside update payloads or as
-// method return values where ergonomic access matters. keep alphabetical for clean diffs
+// objects that get wrapper classes — those reached through update payloads or method
+// return values. keep alphabetical for clean diffs
 export const WRAPPED_STRUCTURES = [
   'Animation',
   'Audio',
@@ -82,10 +82,8 @@ export function isWrappedStructure (name: string) {
   return (WRAPPED_STRUCTURES as readonly string[]).includes(name)
 }
 
-// synthetic collection wrappers — fields shaped as `T[]` get emitted as a hand-written
-// collection class (e.g. `Photo` for `PhotoSize[]`) instead of `T[]`. wrapper sources
-// live in `packages/api/src/structures-handcrafted/`. used by emit-structures and
-// emit-updates to substitute the wrapper at every applicable getter site
+// synthetic collection wrappers — `T[]` fields emit as a handcrafted wrapper class
+// (e.g. `Photo` for `PhotoSize[]`). sources live in `packages/api/src/structures-handcrafted/`
 export const ARRAY_WRAPPER_FOR: Record<string, string> = {
   PhotoSize: 'Photo',
   VideoQuality: 'VideoQualities'

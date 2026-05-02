@@ -1,13 +1,12 @@
-// e.g. { emit: 'InputMedia', prefix: 'InputMedia' } picks up every schema object whose name
-// starts with 'InputMedia' and has a discriminating `type` field
+// `{ emit: 'InputMedia', prefix: 'InputMedia' }` picks up every schema object starting
+// with 'InputMedia' that has a discriminating `type` field
 export interface FactoryFamily {
   emit: string
   prefix: string
 }
 
-// note: InputMessageContent is intentionally absent — its variants
-// (InputTextMessageContent, InputLocationMessageContent, …) have no `type`
-// discriminator and use mismatched naming, so puregram core hand-crafts that one
+// InputMessageContent is intentionally absent — its variants have no `type` discriminator
+// and use mismatched naming, so puregram core hand-crafts that one
 export const FACTORY_FAMILIES: FactoryFamily[] = [
   { emit: 'InputMedia', prefix: 'InputMedia' },
   { emit: 'InputPaidMedia', prefix: 'InputPaidMedia' },

@@ -1,19 +1,9 @@
-// canonical positional layout per Bot API method.
-//
-// consumed by both:
-//   - emit-shortcuts.ts → telegram-level shortcuts (`tg.send(chat, text, params?)`)
-//   - emit-updates.ts → per-update shortcuts (`message.send(text, params?)`,
-//                       where anchor-matched entries are dropped because the
-//                       update's anchor map already auto-fills them)
-//
-// to add a new positional later: add (or extend) the entry here and run `yarn emit`.
 export interface MethodPositional {
   name: string
   schemaArg: string
 }
 
 export const METHOD_POSITIONALS: Record<string, MethodPositional[]> = {
-  // outgoing content — `chat` first, then the primary payload
   sendMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'text', schemaArg: 'text' }],
   sendMessageDraft: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'text', schemaArg: 'text' }],
   sendPhoto: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'photo', schemaArg: 'photo' }],
@@ -35,32 +25,27 @@ export const METHOD_POSITIONALS: Record<string, MethodPositional[]> = {
   sendPaidMedia: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'starCount', schemaArg: 'star_count' }, { name: 'media', schemaArg: 'media' }],
   sendGame: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'gameShortName', schemaArg: 'game_short_name' }],
 
-  // forward / copy: `from` (source chat) → `to` (destination chat) → message id(s)
   forwardMessage: [{ name: 'from', schemaArg: 'from_chat_id' }, { name: 'to', schemaArg: 'chat_id' }, { name: 'messageId', schemaArg: 'message_id' }],
   forwardMessages: [{ name: 'from', schemaArg: 'from_chat_id' }, { name: 'to', schemaArg: 'chat_id' }, { name: 'messageIds', schemaArg: 'message_ids' }],
   copyMessage: [{ name: 'from', schemaArg: 'from_chat_id' }, { name: 'to', schemaArg: 'chat_id' }, { name: 'messageId', schemaArg: 'message_id' }],
   copyMessages: [{ name: 'from', schemaArg: 'from_chat_id' }, { name: 'to', schemaArg: 'chat_id' }, { name: 'messageIds', schemaArg: 'message_ids' }],
 
-  // chat-message ops
   deleteMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'messageId', schemaArg: 'message_id' }],
   deleteMessages: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'messageIds', schemaArg: 'message_ids' }],
   pinChatMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'messageId', schemaArg: 'message_id' }],
   unpinChatMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'messageId', schemaArg: 'message_id' }],
   setMessageReaction: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'messageId', schemaArg: 'message_id' }, { name: 'reactions', schemaArg: 'reaction' }],
 
-  // member ops
   banChatMember: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'user', schemaArg: 'user_id' }],
   unbanChatMember: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'user', schemaArg: 'user_id' }],
 
-  // edits — `chat`/`messageId` only positional at telegram level; per-update auto-fills both
-  // via anchors so user code only sees the primary payload arg
+  // edits — only `text`/`media`/coords positional at telegram level; per-update fills `chat`/`messageId` via anchors
   editMessageText: [{ name: 'text', schemaArg: 'text' }],
   editMessageMedia: [{ name: 'media', schemaArg: 'media' }],
   editMessageLiveLocation: [{ name: 'latitude', schemaArg: 'latitude' }, { name: 'longitude', schemaArg: 'longitude' }]
 }
 
-// telegram-level shortcuts — curated subset emitted onto `Telegram` itself.
-// `verb` is the public name (rename allowed). positional layout comes from METHOD_POSITIONALS.
+// curated subset emitted onto `Telegram` itself; `verb` is the public name (rename allowed)
 export interface ShortcutSpec {
   verb: string
   method: string

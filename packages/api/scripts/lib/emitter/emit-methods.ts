@@ -73,9 +73,8 @@ function emitParamsInterface (method: SchemaMethod, widened: ReadonlySet<string>
       let type = typeRefToTs(a.type)
 
       if (a.name === 'reply_markup') {
-        // reply_markup accepts either the bot-api shape directly or anything with a matching
-        // toJSON() — covers Keyboard / InlineKeyboard / ForceReply / RemoveKeyboard class instances
-        // without forcing the user to call .toJSON() at every call site
+        // accept either the bot-api shape or any class with matching toJSON() —
+        // covers Keyboard / InlineKeyboard / ForceReply / RemoveKeyboard at the call site
         type = wrapWithToJSON(type)
       } else if (widened.has(a.name)) {
         type = ts.factory.createUnionTypeNode([

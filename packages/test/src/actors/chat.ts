@@ -25,8 +25,48 @@ export class TestChat {
     return this._messages as readonly TestMessage[]
   }
 
+  get lastMessage () {
+    return this._messages[this._messages.length - 1]
+  }
+
+  get lastBotMessage () {
+    for (let i = this._messages.length - 1; i >= 0; i -= 1) {
+      const candidate = this._messages[i]
+
+      if (candidate === undefined) {
+        continue
+      }
+
+      if (candidate.from === undefined || candidate.from.is_bot) {
+        return candidate
+      }
+    }
+
+    return undefined
+  }
+
+  get lastUserMessage () {
+    for (let i = this._messages.length - 1; i >= 0; i -= 1) {
+      const candidate = this._messages[i]
+
+      if (candidate === undefined) {
+        continue
+      }
+
+      if (candidate.from !== undefined && !candidate.from.is_bot) {
+        return candidate
+      }
+    }
+
+    return undefined
+  }
+
   appendMessage (msg: TestMessage) {
     this._messages.push(msg)
+  }
+
+  removeAt (idx: number) {
+    this._messages.splice(idx, 1)
   }
 
   nextMessageId () {
@@ -60,4 +100,3 @@ export class TestChat {
     }
   }
 }
-

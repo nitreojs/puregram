@@ -10,6 +10,7 @@ export class TestMessage {
   text = ''
   caption: string | undefined
   isDeleted = false
+  replyMarkup: unknown
 
   constructor (init: { chat: TestChat, from: TestUser | undefined, message_id: number, date: number }) {
     this.chat = init.chat
@@ -35,6 +36,10 @@ export class TestMessage {
 
     if (this.caption !== undefined) {
       base.caption = this.caption
+    }
+
+    if (this.replyMarkup !== undefined) {
+      base.reply_markup = this.replyMarkup
     }
 
     return base

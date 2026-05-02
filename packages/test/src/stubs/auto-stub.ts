@@ -3,7 +3,22 @@ import type { World } from '../world/world'
 import { answerTrue } from './auto/answers'
 import { fallback } from './auto/fallback'
 import { getChat, getMe } from './auto/identity'
-import { sendMessage, sendPhoto } from './auto/messages'
+import {
+  copyMessage,
+  copyMessages,
+  deleteMessage,
+  deleteMessages,
+  editMessageCaption,
+  editMessageLiveLocation,
+  editMessageMedia,
+  editMessageReplyMarkup,
+  editMessageText,
+  forwardMessage,
+  forwardMessages,
+  sendMessage,
+  sendPhoto,
+  stopMessageLiveLocation
+} from './auto/messages'
 
 type AutoStubFn = (world: World, params: Record<string, unknown>) => unknown
 
@@ -13,6 +28,20 @@ const TABLE: Record<string, AutoStubFn> = {
 
   sendMessage,
   sendPhoto,
+  forwardMessage,
+  forwardMessages,
+  copyMessage,
+  copyMessages,
+
+  editMessageText,
+  editMessageCaption,
+  editMessageReplyMarkup,
+  editMessageMedia,
+  editMessageLiveLocation,
+  stopMessageLiveLocation,
+
+  deleteMessage,
+  deleteMessages,
 
   answerCallbackQuery: answerTrue,
   answerInlineQuery: answerTrue,

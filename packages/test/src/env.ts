@@ -2,7 +2,9 @@ import type { RequestContext, Telegram } from 'puregram'
 
 import { InterceptingHttpClient, swapHttpClient } from './http/intercept'
 import type { TestEnvOptions } from './options'
+import { runAutoStub } from './stubs/auto-stub'
 import { OverrideRegistry } from './stubs/overrides'
+import { World } from './world/world'
 
 export interface ApiCallRecord {
   method: string
@@ -19,6 +21,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
 
   private readonly overrides = new OverrideRegistry()
   private readonly restoreHttp: () => void
+  private readonly world = new World()
   private snapshot: Record<string, unknown> | undefined
 
   constructor (tg: TG, options: TestEnvOptions = {}) {
@@ -69,7 +72,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
         return { ok: true as const, result: resolved.value }
       }
 
-      const stubResult: unknown = true
+      const stubResult: unknown = runAutoStub(this.world, method, captured)
 
       record.result = stubResult
       this.apiCalls.push(record)
@@ -81,6 +84,10 @@ export class TestEnv<TG extends Telegram = Telegram> {
 
     // ensure tg.shutdown() runs its lifecycle hooks even if .start() was never called
     tg.registerCleanup(async () => {})
+  }
+
+  get bot () {
+    return this.world.bot
   }
 
   lastApiCall (method?: string) {

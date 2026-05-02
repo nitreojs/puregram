@@ -98,6 +98,10 @@ function makeMediaVerb (field: string) {
 export function sendMessage (world: World, params: Record<string, unknown>) {
   const msg = buildAndAppend(world, params.chat_id as number | string, (m) => {
     m.text = (params.text as string) ?? ''
+
+    if (params.reply_markup !== undefined) {
+      m.replyMarkup = params.reply_markup
+    }
   })
 
   return msg.toRaw()

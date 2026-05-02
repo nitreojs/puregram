@@ -427,6 +427,75 @@ export class TestUser {
     })
   }
 
+  async click (callbackData: string, msg: TestMessage) {
+    await this.inject({
+      update_id: this.world.nextUpdateId(),
+      callback_query: {
+        id: 'cbq_' + this.world.nextUpdateId(),
+        from: this.toRaw(),
+        message: msg.toRaw(),
+        chat_instance: 'inst_' + msg.chat.id,
+        data: callbackData
+      }
+    })
+  }
+
+  async clickByText (buttonText: string, msg: TestMessage) {
+    const markup = msg.replyMarkup as
+      | { inline_keyboard?: { text?: string, callback_data?: string }[][] }
+      | undefined
+    const rows = markup?.inline_keyboard ?? []
+
+    for (const row of rows) {
+      for (const button of row) {
+        if (button.text === buttonText && typeof button.callback_data === 'string') {
+          await this.click(button.callback_data, msg)
+
+          return
+        }
+      }
+    }
+
+    throw new Error(`clickByText: no button with text "${buttonText}" on message ${msg.message_id}`)
+  }
+
+  async sendInlineQuery (query: string, opts?: { offset?: string }): Promise<void>
+  async sendInlineQuery (query: string, chat: TestChat, opts?: { offset?: string }): Promise<void>
+  async sendInlineQuery (
+    query: string,
+    b?: TestChat | { offset?: string },
+    c?: { offset?: string }
+  ): Promise<void> {
+    const opts = (b instanceof TestChat ? c : b) ?? {}
+
+    await this.inject({
+      update_id: this.world.nextUpdateId(),
+      inline_query: {
+        id: 'iq_' + this.world.nextUpdateId(),
+        from: this.toRaw(),
+        query,
+        offset: opts.offset ?? ''
+      }
+    })
+  }
+
+  async chooseInlineResult (resultId: string, query: string, opts?: { inline_message_id?: string }) {
+    const inner: Record<string, unknown> = {
+      result_id: resultId,
+      from: this.toRaw(),
+      query
+    }
+
+    if (opts?.inline_message_id !== undefined) {
+      inner.inline_message_id = opts.inline_message_id
+    }
+
+    await this.inject({
+      update_id: this.world.nextUpdateId(),
+      chosen_inline_result: inner
+    })
+  }
+
   private ensureCanPost (chat: TestChat) {
     if (chat.type === 'private') {
       return

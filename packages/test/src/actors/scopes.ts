@@ -130,4 +130,12 @@ export class TestUserOnMessage {
   reply (text: string) {
     return this.user.replyTo(this.message, text)
   }
+
+  click (callbackData: string) {
+    return this.user.click(callbackData, this.message)
+  }
+
+  clickByText (buttonText: string) {
+    return this.user.clickByText(buttonText, this.message)
+  }
 }

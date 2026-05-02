@@ -23,8 +23,8 @@ import type { ResolvedTelegramOptions } from '../options'
 export type DownloadTarget =
   | string
   | MediaSourceFileId
-  | { file_id: string, file_path?: string }
-  | { fileId: string, filePath?: string }
+  | { file_id: string, file_path?: string | undefined }
+  | { fileId: string, filePath?: string | undefined }
   | Photo
   | TelegramPhotoSize[]
 

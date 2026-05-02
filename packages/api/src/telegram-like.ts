@@ -13,8 +13,8 @@ import type { TelegramPhotoSize } from './generated/types'
  */
 export type DownloadableLike =
   | string
-  | { file_id: string, file_path?: string }
-  | { fileId: string, filePath?: string }
+  | { file_id: string, file_path?: string | undefined }
+  | { fileId: string, filePath?: string | undefined }
   | TelegramPhotoSize[]
 
 export interface TelegramLike {

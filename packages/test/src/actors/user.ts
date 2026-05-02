@@ -9,6 +9,7 @@ import { allocateUserId } from './identity'
 import type { ActorMediaInput } from './media-input'
 import { resolveMedia } from './media-input'
 import { TestMessage } from './message'
+import { TestUserInChat, TestUserOnMessage } from './scopes'
 
 export interface CreateUserOptions {
   id?: number
@@ -116,6 +117,14 @@ export class TestUser {
     return base
   }
 
+  in (chat: TestChat) {
+    return new TestUserInChat(this, chat)
+  }
+
+  on (msg: TestMessage) {
+    return new TestUserOnMessage(this, msg)
+  }
+
   async sendMessage (text: string): Promise<TestMessage>
   async sendMessage (chat: TestChat, text: string): Promise<TestMessage>
   async sendMessage (a: string | TestChat, b?: string): Promise<TestMessage> {
@@ -138,6 +147,33 @@ export class TestUser {
     await this.inject({
       update_id: this.world.nextUpdateId(),
       message: msg.toRaw()
+    })
+
+    return msg
+  }
+
+  async replyTo (target: TestMessage, text: string) {
+    const chat = target.chat
+
+    this.ensureCanPost(chat)
+
+    const msg = new TestMessage({
+      chat,
+      from: this,
+      message_id: chat.nextMessageId(),
+      date: Math.floor(Date.now() / 1000)
+    })
+
+    msg.text = text
+    chat.appendMessage(msg)
+
+    const raw = msg.toRaw()
+
+    raw.reply_to_message = target.toRaw()
+
+    await this.inject({
+      update_id: this.world.nextUpdateId(),
+      message: raw
     })
 
     return msg

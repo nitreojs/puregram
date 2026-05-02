@@ -1,10 +1,11 @@
 import type * as Interfaces from '@puregram/api'
 
-import type { ButtonStyleParams, PuregramInlineKeyboardButton } from './types'
+import type { ButtonStyleParams, CallbackData } from './types'
+import { normalizeCallbackData } from './types'
 
 interface TextButtonParams {
   text: string
-  payload: Record<string, unknown> | string
+  payload: CallbackData
 }
 
 interface UrlButtonParams {
@@ -71,30 +72,56 @@ export class InlineKeyboard {
   /** Empty inline keyboard. That's literally it */
   static empty = new InlineKeyboard()
 
-  private buttons: PuregramInlineKeyboardButton[][] = []
+  private buttons: Interfaces.TelegramInlineKeyboardButton[][] = []
 
-  constructor (rows: (PuregramInlineKeyboardButton | PuregramInlineKeyboardButton[])[] = []) {
+  constructor (rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[] = []) {
     for (const row of rows) {
       this.addRow(row)
     }
   }
 
+  /** Whether the keyboard has no buttons */
+  get isEmpty () {
+    return this.buttons.length === 0
+  }
+
+  /** Number of rows in the keyboard */
+  get rowCount () {
+    return this.buttons.length
+  }
+
+  /** Total number of buttons across all rows */
+  get length () {
+    let count = 0
+
+    for (const row of this.buttons) {
+      count += row.length
+    }
+
+    return count
+  }
+
   /** Assemble a builder of buttons */
   static keyboard (
-    rows: (PuregramInlineKeyboardButton | PuregramInlineKeyboardButton[])[]
+    rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[]
   ) {
     return new InlineKeyboard(rows)
   }
 
+  /** Construct an `InlineKeyboard` from an existing `InlineKeyboardMarkup` JSON */
+  static from (markup: Interfaces.TelegramInlineKeyboardMarkup) {
+    const keyboard = new InlineKeyboard()
+
+    keyboard.buttons = structuredClone(markup.inline_keyboard)
+
+    return keyboard
+  }
+
   /** Generate text button */
   static textButton (params: TextButtonParamsWithStyle) {
-    if (typeof params.payload === 'object') {
-      params.payload = JSON.stringify(params.payload)
-    }
-
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
-      callback_data: params.payload
+      callback_data: normalizeCallbackData(params.payload)
     }
 
     if (params.style) {
@@ -115,7 +142,7 @@ export class InlineKeyboard {
 
   /** Generate URL button */
   static urlButton (params: UrlButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       url: params.url
     }
@@ -138,7 +165,7 @@ export class InlineKeyboard {
 
   /** Generate Web App button */
   static webAppButton (params: WebAppButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       web_app: { url: params.url }
     }
@@ -163,7 +190,7 @@ export class InlineKeyboard {
   static switchToCurrentChatButton (
     params: SwitchToCurrentChatButtonParamsWithStyle
   ) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_current_chat: params.query
     }
@@ -188,7 +215,7 @@ export class InlineKeyboard {
   static switchToChatButton (
     params: SwitchToChatButtonParamsWithStyle
   ) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query: params.query
     }
@@ -239,7 +266,7 @@ export class InlineKeyboard {
       chosenChat.allow_user_chats = params.allowUserChats
     }
 
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_chosen_chat: chosenChat
     }
@@ -262,7 +289,7 @@ export class InlineKeyboard {
 
   /** Description of the button that copies the specified text to the clipboard */
   static copyButton (params: CopyButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       copy_text: {
         text: params.copy
@@ -287,7 +314,7 @@ export class InlineKeyboard {
 
   /** Generate game button */
   static gameButton (params: GameButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       callback_game: params.game
     }
@@ -310,7 +337,7 @@ export class InlineKeyboard {
 
   /** Generate pay button */
   static payButton (params: PayButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       pay: true,
       text: params.text
     }
@@ -333,7 +360,7 @@ export class InlineKeyboard {
 
   /** Generate login button */
   static loginButton (params: LoginButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       login_url: params.loginUrl,
       text: params.text
     }
@@ -354,6 +381,17 @@ export class InlineKeyboard {
     return InlineKeyboard.loginButton(params)
   }
 
+  /** Conditionally apply a chain of mutations to the keyboard */
+  if (condition: boolean, then: (keyboard: this) => void, otherwise?: (keyboard: this) => void) {
+    if (condition) {
+      then(this)
+    } else if (otherwise) {
+      otherwise(this)
+    }
+
+    return this
+  }
+
   /** Returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
   toJSON () {
     return {
@@ -363,7 +401,11 @@ export class InlineKeyboard {
 
   /** Clones the keyboard (creates a new one with the same set of buttons) */
   clone () {
-    return InlineKeyboard.keyboard(this.buttons)
+    const cloned = new InlineKeyboard()
+
+    cloned.buttons = structuredClone(this.buttons)
+
+    return cloned
   }
 
   /** Deletes a button with the specified payload */
@@ -395,7 +437,7 @@ export class InlineKeyboard {
     return JSON.stringify(this)
   }
 
-  private addRow (row: PuregramInlineKeyboardButton[] | PuregramInlineKeyboardButton) {
+  private addRow (row: Interfaces.TelegramInlineKeyboardButton[] | Interfaces.TelegramInlineKeyboardButton) {
     if (!Array.isArray(row)) {
       row = [row]
     }

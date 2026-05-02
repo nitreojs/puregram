@@ -1,22 +1,23 @@
-import type { TelegramInlineKeyboardButton, TelegramKeyboardButton } from '@puregram/api'
+import type { TelegramKeyboardButton } from '@puregram/api'
 
 export type MaybeArray<T> = T | T[]
 
-export type ButtonStyle = 'primary' | 'danger' | 'success'
+export type ButtonStyle = NonNullable<TelegramKeyboardButton['style']>
 
 export interface ButtonStyleParams {
   style?: ButtonStyle
   iconCustomEmojiId?: string
 }
 
-/** keyboard button + puregram-internal UX fields (style, icon_custom_emoji_id) */
-export interface PuregramKeyboardButton extends TelegramKeyboardButton {
-  style?: ButtonStyle
-  icon_custom_emoji_id?: string
-}
+export type CallbackData = string | number
 
-/** inline keyboard button + puregram-internal UX fields */
-export interface PuregramInlineKeyboardButton extends TelegramInlineKeyboardButton {
-  style?: ButtonStyle
-  icon_custom_emoji_id?: string
+export function normalizeCallbackData (data: CallbackData) {
+  const str = typeof data === 'number' ? String(data) : data
+  const bytes = new TextEncoder().encode(str).length
+
+  if (bytes < 1 || bytes > 64) {
+    throw new RangeError(`callback_data must be 1-64 bytes (got ${bytes})`)
+  }
+
+  return str
 }

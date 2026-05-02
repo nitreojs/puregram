@@ -1,16 +1,54 @@
 import type * as Interfaces from '@puregram/api'
 
-import type { ButtonStyleParams, PuregramKeyboardButton } from './types'
+import type { ButtonStyleParams } from './types'
 
 /** Keyboard builder */
 export class KeyboardBuilder {
-  private rows: PuregramKeyboardButton[][] = []
-  private currentRow: PuregramKeyboardButton[] = []
+  private rows: Interfaces.TelegramKeyboardButton[][] = []
+  private currentRow: Interfaces.TelegramKeyboardButton[] = []
   private isOneTime = false
   private isResized = false
   private isSelective = false
   private isPersistent = false
   private placeholder?: string
+
+  /** Whether the builder has no buttons (committed rows + current row) */
+  get isEmpty () {
+    return this.rows.length === 0 && this.currentRow.length === 0
+  }
+
+  /** Number of rows that will be emitted (committed rows + current row if non-empty) */
+  get rowCount () {
+    return this.rows.length + (this.currentRow.length === 0 ? 0 : 1)
+  }
+
+  /** Total number of buttons across all rows including the in-progress row */
+  get length () {
+    let count = this.currentRow.length
+
+    for (const row of this.rows) {
+      count += row.length
+    }
+
+    return count
+  }
+
+  /** Construct a `KeyboardBuilder` from an existing `ReplyKeyboardMarkup` JSON */
+  static from (markup: Interfaces.TelegramReplyKeyboardMarkup) {
+    const builder = new KeyboardBuilder()
+
+    builder.rows = structuredClone(markup.keyboard)
+    builder.isResized = markup.resize_keyboard ?? false
+    builder.isOneTime = markup.one_time_keyboard ?? false
+    builder.isSelective = markup.selective ?? false
+    builder.isPersistent = markup.is_persistent ?? false
+
+    if (markup.input_field_placeholder !== undefined) {
+      builder.placeholder = markup.input_field_placeholder
+    }
+
+    return builder
+  }
 
   /**
    * Generate text button
@@ -18,7 +56,7 @@ export class KeyboardBuilder {
    * it will be sent as a message when the button is pressed
    */
   textButton (text: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = { text }
+    const button: Interfaces.TelegramKeyboardButton = { text }
 
     if (params?.style) {
       button.style = params.style
@@ -37,7 +75,7 @@ export class KeyboardBuilder {
    * service message. Available in private chats only
    */
   requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers & ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_users: params
     }
@@ -59,7 +97,7 @@ export class KeyboardBuilder {
    * service message. Available in private chats only
    */
   requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat & ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_chat: params
     }
@@ -81,7 +119,7 @@ export class KeyboardBuilder {
    * Available in private chats only
    */
   requestLocationButton (text: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_location: true
     }
@@ -114,7 +152,7 @@ export class KeyboardBuilder {
       styleParams = params
     }
 
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_poll: type === undefined ? {} : { type }
     }
@@ -137,7 +175,7 @@ export class KeyboardBuilder {
    * Available in private chats only
    */
   requestContactButton (text: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_contact: true
     }
@@ -160,7 +198,7 @@ export class KeyboardBuilder {
    * Available in private chats only
    */
   webAppButton (text: string, url: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       web_app: { url }
     }
@@ -238,20 +276,31 @@ export class KeyboardBuilder {
     return this
   }
 
+  /** Conditionally apply a chain of mutations to the builder */
+  if (condition: boolean, then: (builder: this) => void, otherwise?: (builder: this) => void) {
+    if (condition) {
+      then(this)
+    } else if (otherwise) {
+      otherwise(this)
+    }
+
+    return this
+  }
+
   /** Clone current builder to new instance */
   clone () {
     const builder = new KeyboardBuilder()
 
-    builder.oneTime(this.isOneTime)
-    builder.resize(this.isResized)
-    builder.selective(this.isSelective)
+    builder.rows = structuredClone(this.rows)
+    builder.currentRow = structuredClone(this.currentRow)
+    builder.isOneTime = this.isOneTime
+    builder.isResized = this.isResized
+    builder.isSelective = this.isSelective
+    builder.isPersistent = this.isPersistent
 
-    if (this.placeholder) {
-      builder.setPlaceholder(this.placeholder)
+    if (this.placeholder !== undefined) {
+      builder.placeholder = this.placeholder
     }
-
-    builder.rows = [...this.rows]
-    builder.currentRow = [...this.currentRow]
 
     return builder
   }
@@ -281,13 +330,13 @@ export class KeyboardBuilder {
     return JSON.stringify(this)
   }
 
-  private addButton (button: PuregramKeyboardButton) {
+  private addButton (button: Interfaces.TelegramKeyboardButton) {
     this.currentRow.push(button)
 
     return this
   }
 
-  private addWideButton (button: PuregramKeyboardButton) {
+  private addWideButton (button: Interfaces.TelegramKeyboardButton) {
     if (this.currentRow.length !== 0) {
       this.row()
     }

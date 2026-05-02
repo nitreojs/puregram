@@ -1,17 +1,18 @@
 import type * as Interfaces from '@puregram/api'
 
-import type { ButtonStyleParams, PuregramInlineKeyboardButton } from './types'
+import type { ButtonStyleParams, CallbackData } from './types'
+import { normalizeCallbackData } from './types'
 
 interface TextButtonParams {
   text: string
-  payload: Record<string, unknown> | string
+  payload: CallbackData
 }
 
 interface UrlButtonParams {
   text: string
   url: string
 
-  payload?: Record<string, unknown> | string
+  payload?: CallbackData
 }
 
 interface WebAppButtonParams {
@@ -63,18 +64,44 @@ type PayButtonParamsWithStyle = PayButtonParams & ButtonStyleParams
 type LoginButtonParamsWithStyle = LoginButtonParams & ButtonStyleParams
 
 export class InlineKeyboardBuilder {
-  private rows: PuregramInlineKeyboardButton[][] = []
-  private currentRow: PuregramInlineKeyboardButton[] = []
+  private rows: Interfaces.TelegramInlineKeyboardButton[][] = []
+  private currentRow: Interfaces.TelegramInlineKeyboardButton[] = []
+
+  /** Whether the builder has no buttons (committed rows + current row) */
+  get isEmpty () {
+    return this.rows.length === 0 && this.currentRow.length === 0
+  }
+
+  /** Number of rows that will be emitted (committed rows + current row if non-empty) */
+  get rowCount () {
+    return this.rows.length + (this.currentRow.length === 0 ? 0 : 1)
+  }
+
+  /** Total number of buttons across all rows including the in-progress row */
+  get length () {
+    let count = this.currentRow.length
+
+    for (const row of this.rows) {
+      count += row.length
+    }
+
+    return count
+  }
+
+  /** Construct an `InlineKeyboardBuilder` from an existing `InlineKeyboardMarkup` JSON */
+  static from (markup: Interfaces.TelegramInlineKeyboardMarkup) {
+    const builder = new InlineKeyboardBuilder()
+
+    builder.rows = structuredClone(markup.inline_keyboard)
+
+    return builder
+  }
 
   /** Generate text button */
   textButton (params: TextButtonParamsWithStyle) {
-    if (typeof params.payload === 'object') {
-      params.payload = JSON.stringify(params.payload)
-    }
-
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
-      callback_data: params.payload
+      callback_data: normalizeCallbackData(params.payload)
     }
 
     if (params.style) {
@@ -90,14 +117,13 @@ export class InlineKeyboardBuilder {
 
   /** Generate URL button */
   urlButton (params: UrlButtonParamsWithStyle) {
-    if (typeof params.payload === 'object') {
-      params.payload = JSON.stringify(params.payload)
+    const button: Interfaces.TelegramInlineKeyboardButton = {
+      text: params.text,
+      url: params.url
     }
 
-    const button: PuregramInlineKeyboardButton = {
-      text: params.text,
-      url: params.url,
-      callback_data: params.payload ?? ''
+    if (params.payload !== undefined) {
+      button.callback_data = normalizeCallbackData(params.payload)
     }
 
     if (params.style) {
@@ -113,7 +139,7 @@ export class InlineKeyboardBuilder {
 
   /** Generate Web App button */
   webAppButton (params: WebAppButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       web_app: { url: params.url }
     }
@@ -131,7 +157,7 @@ export class InlineKeyboardBuilder {
 
   /** Generate button that will switch to current chat and type the query */
   switchToCurrentChatButton (params: SwitchToCurrentChatButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_current_chat: params.query
     }
@@ -149,7 +175,7 @@ export class InlineKeyboardBuilder {
 
   /** Generate button that will prompt user to select one of their chats */
   switchToChatButton (params: SwitchToChatButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query: params.query
     }
@@ -193,7 +219,7 @@ export class InlineKeyboardBuilder {
       chosenChat.allow_user_chats = params.allowUserChats
     }
 
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       switch_inline_query_chosen_chat: chosenChat
     }
@@ -211,7 +237,7 @@ export class InlineKeyboardBuilder {
 
   /** Generate game button */
   gameButton (params: GameButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       text: params.text,
       callback_game: params.game
     }
@@ -229,7 +255,7 @@ export class InlineKeyboardBuilder {
 
   /** Generate pay button */
   payButton (params: PayButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       pay: true,
       text: params.text
     }
@@ -247,7 +273,7 @@ export class InlineKeyboardBuilder {
 
   /** Generate login button */
   loginButton (params: LoginButtonParamsWithStyle) {
-    const button: PuregramInlineKeyboardButton = {
+    const button: Interfaces.TelegramInlineKeyboardButton = {
       login_url: params.loginUrl,
       text: params.text
     }
@@ -275,12 +301,23 @@ export class InlineKeyboardBuilder {
     return this
   }
 
+  /** Conditionally apply a chain of mutations to the builder */
+  if (condition: boolean, then: (builder: this) => void, otherwise?: (builder: this) => void) {
+    if (condition) {
+      then(this)
+    } else if (otherwise) {
+      otherwise(this)
+    }
+
+    return this
+  }
+
   /** Clone current builder to new instance */
   clone () {
     const builder = new InlineKeyboardBuilder()
 
-    builder.rows = [...this.rows]
-    builder.currentRow = [...this.currentRow]
+    builder.rows = structuredClone(this.rows)
+    builder.currentRow = structuredClone(this.currentRow)
 
     return builder
   }
@@ -300,13 +337,13 @@ export class InlineKeyboardBuilder {
     return JSON.stringify(this)
   }
 
-  private addButton (button: PuregramInlineKeyboardButton) {
+  private addButton (button: Interfaces.TelegramInlineKeyboardButton) {
     this.currentRow.push(button)
 
     return this
   }
 
-  private addWideButton (button: PuregramInlineKeyboardButton) {
+  private addWideButton (button: Interfaces.TelegramInlineKeyboardButton) {
     if (this.currentRow.length !== 0) {
       this.row()
     }

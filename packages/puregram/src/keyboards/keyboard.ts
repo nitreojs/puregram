@@ -1,21 +1,21 @@
 import type * as Interfaces from '@puregram/api'
 
 import { RemoveKeyboard } from './remove'
-import type { MaybeArray, ButtonStyleParams, PuregramKeyboardButton } from './types'
+import type { ButtonStyleParams, MaybeArray } from './types'
 
 /** Keyboard */
 export class Keyboard {
   /** Returns an "empty" keyboard (literally a `RemoveKeyboard` alias) */
   static empty = new RemoveKeyboard()
 
-  private buttons: PuregramKeyboardButton[][] = []
+  private buttons: Interfaces.TelegramKeyboardButton[][] = []
   private isResized = false
   private isOneTime = false
   private isSelective = false
   private isPersistent = false
   private placeholder?: string
 
-  constructor (rows: MaybeArray<PuregramKeyboardButton | string>[] = []) {
+  constructor (rows: MaybeArray<Interfaces.TelegramKeyboardButton | string>[] = []) {
     for (const row of rows) {
       this.addRow(row)
     }
@@ -25,14 +25,52 @@ export class Keyboard {
     return this.constructor.name
   }
 
+  /** Whether the keyboard has no buttons */
+  get isEmpty () {
+    return this.buttons.length === 0
+  }
+
+  /** Number of rows in the keyboard */
+  get rowCount () {
+    return this.buttons.length
+  }
+
+  /** Total number of buttons across all rows */
+  get length () {
+    let count = 0
+
+    for (const row of this.buttons) {
+      count += row.length
+    }
+
+    return count
+  }
+
   /** "Removes" a keyboard (literally a `RemoveKeyboard` alias) */
   static remove () {
     return Keyboard.empty
   }
 
   /** Assemble a builder of buttons */
-  static keyboard (rows: MaybeArray<PuregramKeyboardButton | string>[]) {
+  static keyboard (rows: MaybeArray<Interfaces.TelegramKeyboardButton | string>[]) {
     return new Keyboard(rows)
+  }
+
+  /** Construct a `Keyboard` from an existing `ReplyKeyboardMarkup` JSON */
+  static from (markup: Interfaces.TelegramReplyKeyboardMarkup) {
+    const keyboard = new Keyboard()
+
+    keyboard.buttons = structuredClone(markup.keyboard)
+    keyboard.isResized = markup.resize_keyboard ?? false
+    keyboard.isOneTime = markup.one_time_keyboard ?? false
+    keyboard.isSelective = markup.selective ?? false
+    keyboard.isPersistent = markup.is_persistent ?? false
+
+    if (markup.input_field_placeholder !== undefined) {
+      keyboard.placeholder = markup.input_field_placeholder
+    }
+
+    return keyboard
   }
 
   /**
@@ -41,7 +79,7 @@ export class Keyboard {
    * it will be sent as a message when the button is pressed
    */
   static textButton (text: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = { text }
+    const button: Interfaces.TelegramKeyboardButton = { text }
 
     if (params?.style) {
       button.style = params.style
@@ -65,7 +103,7 @@ export class Keyboard {
    * service message. Available in private chats only
    */
   static requestUsersButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestUsers & ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_users: params
     }
@@ -92,7 +130,7 @@ export class Keyboard {
    * service message. Available in private chats only
    */
   static requestChatButton (text: string, params: Interfaces.TelegramKeyboardButtonRequestChat & ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_chat: params
     }
@@ -120,7 +158,7 @@ export class Keyboard {
    * Available in private chats only
    */
   static requestContactButton (text: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_contact: true
     }
@@ -147,7 +185,7 @@ export class Keyboard {
    * Available in private chats only
    */
   static requestLocationButton (text: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_location: true
     }
@@ -185,7 +223,7 @@ export class Keyboard {
       styleParams = params
     }
 
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       request_poll: type === undefined ? {} : { type }
     }
@@ -213,7 +251,7 @@ export class Keyboard {
    * Available in private chats only
    */
   static webAppButton (text: string, url: string, params?: ButtonStyleParams) {
-    const button: PuregramKeyboardButton = {
+    const button: Interfaces.TelegramKeyboardButton = {
       text,
       web_app: { url }
     }
@@ -284,6 +322,17 @@ export class Keyboard {
     return this
   }
 
+  /** Conditionally apply a chain of mutations to the keyboard */
+  if (condition: boolean, then: (keyboard: this) => void, otherwise?: (keyboard: this) => void) {
+    if (condition) {
+      then(this)
+    } else if (otherwise) {
+      otherwise(this)
+    }
+
+    return this
+  }
+
   /** Returns JSON which is compatible with Telegram's `ReplyKeyboardMarkup` interface */
   toJSON () {
     const json: Interfaces.TelegramReplyKeyboardMarkup = {
@@ -328,14 +377,26 @@ export class Keyboard {
 
   /** Clones the keyboard (creates a new one with the same set of buttons) */
   clone () {
-    return Keyboard.keyboard(this.buttons)
+    const cloned = new Keyboard()
+
+    cloned.buttons = structuredClone(this.buttons)
+    cloned.isResized = this.isResized
+    cloned.isOneTime = this.isOneTime
+    cloned.isSelective = this.isSelective
+    cloned.isPersistent = this.isPersistent
+
+    if (this.placeholder !== undefined) {
+      cloned.placeholder = this.placeholder
+    }
+
+    return cloned
   }
 
   toString () {
     return JSON.stringify(this)
   }
 
-  private addRow (row: MaybeArray<PuregramKeyboardButton | string>) {
+  private addRow (row: MaybeArray<Interfaces.TelegramKeyboardButton | string>) {
     if (!Array.isArray(row)) {
       row = [row]
     }

@@ -2,8 +2,8 @@ import type { SceneManager } from '../manager'
 import type { SceneState } from '../types'
 
 /**
- * persisted under `update.session.__scene`. parameterised over the per-scene
- * user state shape (defaults to user-augmented `SceneState`)
+ * persisted under `update.session.__scene`. parameterised over per-scene state
+ * (defaults to user-augmented `SceneState`)
  */
 export interface SceneSessionState<S = SceneState> {
   current?: string
@@ -13,9 +13,8 @@ export interface SceneSessionState<S = SceneState> {
 }
 
 /**
- * the runtime payload a SceneContext is bound to: the wrapped update, augmented with
- * `session` (from @puregram/session). intentionally structural — no `Update` constraint
- * because scenes is generic over update kinds
+ * runtime payload a SceneContext binds to: wrapped update + `session`.
+ * structural by design — scenes is generic over update kinds
  */
 export interface ScenePayload {
   [key: string]: unknown

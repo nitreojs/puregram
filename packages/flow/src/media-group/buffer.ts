@@ -7,12 +7,9 @@ interface Bucket {
   timer: ReturnType<typeof setTimeout>
 }
 
-// promise-based aggregator keyed by `media_group_id`. each `collect(message, window)`
-// call adds the message to its bucket, resets the bucket's sliding timer, and returns
-// the same promise that resolves with the full message list once the window settles.
-//
-// callers that hand the same group_id from multiple handler invocations get the same
-// resolved array, so handlers can converge on the assembled album without external sync.
+// promise-based aggregator keyed by `media_group_id`. each `collect(message, window)` adds
+// to the bucket, resets the sliding timer, and returns the same promise — handlers seeing the
+// same group_id converge on one assembled album without external sync
 export class MediaGroupBuffer {
   private readonly buckets = new Map<string, Bucket>()
 

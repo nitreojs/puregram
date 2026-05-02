@@ -15,21 +15,17 @@ const formatName = (opts: RateLimitCheckOptions) =>
   `rateLimit(${opts.limit}/${opts.window}s${opts.bucket ? `, bucket=${opts.bucket}` : ''})`
 
 /**
- * build an async filter that gates the rest of the chain on a per-user budget.
- * matches when the request is under budget; on block returns false and invokes
- * `onLimitExceeded` (per-call override > plugin-level callback > silent no-op).
+ * async filter gating the chain on a per-user budget. matches when under budget;
+ * on block returns false and invokes `onLimitExceeded` (per-call > plugin-level > no-op).
+ * unkeyable updates pass through — never blocked
  *
- * **side-effecting filter** — most filters are pure predicates; this one writes
- * to storage and may fire a user callback. compose it last in `and(...)` chains
- * so cheaper structural filters (`command`, `kind.message`) short-circuit first
- * and the dispatcher's `kinds` fast-path can skip the filter entirely on
- * unrelated update kinds
+ * **side-effecting filter** — writes to storage and may fire user callbacks.
+ * compose it *last* in `and(...)` chains so cheaper structural filters short-circuit first
  *
- * unkeyable updates (no from/senderChat/chat) are passed through — never blocked
- *
- * @param tg the telegram client extended with `rateLimit()`. the filter reads
- *   `tg.rateLimit.{resolveKey, hit}` at call time, so the plugin must be installed
- *   before any handler using this filter receives an update
+ * @example
+ * ```ts
+ * tg.onMessage(and(command('/buy'), rateLimitFilter(tg, { limit: 5, window: 60 })), handler)
+ * ```
  */
 export function rateLimitFilter (tg: Telegram, opts: RateLimitCheckOptions) {
   const target = tg as unknown as TgWithRateLimit

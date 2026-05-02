@@ -3,13 +3,9 @@ import type { StepSceneContext } from '../contexts/step'
 import type { AnyUpdate, SceneState } from '../types'
 
 /**
- * the payload a step handler receives. parameterised over:
- *   S — the per-scene user state shape (see SceneState)
- *   U — the wrapped update kind(s) the scene handles. defaults to AnyUpdate
- *       since scenes can receive any kind whose storage key resolves; users
- *       narrow with `u.is(kind)` inside step bodies. pass a tighter union
- *       (e.g. `MessageUpdate`, or `MessageUpdate | CallbackQueryUpdate`) to
- *       skip the narrow when a scene only handles specific kinds
+ * payload a step handler receives. `S` = per-scene user state, `U` = wrapped update
+ * kind(s) the scene handles (defaults to `AnyUpdate`). narrow with `u.is(kind)` inside
+ * step bodies, or pass a tighter union (e.g. `MessageUpdate`) to skip the narrow
  */
 export type StepContext<S = SceneState, U = AnyUpdate> = U & {
   scene: SceneContext<S> & {
@@ -26,14 +22,10 @@ export interface StepSceneOptions<S = SceneState, U = AnyUpdate> {
   enterHandler?: StepSceneHandler<S, U>
   leaveHandler?: StepSceneHandler<S, U>
   /**
-   * runs before every step body. if it calls `scene.leave()` or `step.go/.next/
-   * .previous`, the step body is skipped. handy for global checks like /cancel
+   * runs before every step body — calling `scene.leave()` or `step.go/.next/.previous`
+   * skips the body. handy for `/cancel`
    */
   beforeStep?: StepSceneHandler<S, U>
-  /**
-   * runs after every step body, only if the step did not leave or navigate.
-   * runs before `firstTime` is cleared, so the hook still sees firstTime as it
-   * was during the step body
-   */
+  /** runs after every step body, only when the step didn't leave or navigate. runs before `firstTime` is cleared */
   afterStep?: StepSceneHandler<S, U>
 }

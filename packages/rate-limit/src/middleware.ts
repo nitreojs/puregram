@@ -11,17 +11,15 @@ interface TgWithRateLimit {
 }
 
 /**
- * build an `onUpdate` middleware that gates downstream handlers on a per-user
- * budget. on block, the middleware returns without calling `next()` — the
- * update is silently swallowed and downstream middleware/handlers do not run.
- * the per-call (or plugin-level) `onLimitExceeded` callback fires for side-effects
+ * `onUpdate` middleware gating downstream handlers on a per-user budget.
+ * on block, returns without calling `next()` — the update is silently swallowed.
+ * `onLimitExceeded` (per-call > plugin-level) fires for side-effects.
+ * unkeyable updates pass through; pair with `when(filter, …)` to scope the gate
  *
- * pair with `when(filter, …)` from `puregram/filters` to scope the gate to a
- * subset of updates (e.g. `when(kind.message, rateLimitMiddleware(tg, …))`).
- * unkeyable updates are passed through, never blocked
- *
- * @param tg the telegram client extended with `rateLimit()`. the middleware
- *   reads `tg.rateLimit.{resolveKey, hit}` at call time
+ * @example
+ * ```ts
+ * tg.use(when(kind.message, rateLimitMiddleware(tg, { limit: 5, window: 60 })))
+ * ```
  */
 export function rateLimitMiddleware (tg: Telegram, opts: RateLimitCheckOptions) {
   const target = tg as unknown as TgWithRateLimit

@@ -1,5 +1,3 @@
-// @puregram/rate-limit — per-user fixed-window rate limiting plugin
-
 export { rateLimit, type RateLimitExtension } from './plugin'
 export { rateLimitFilter } from './filter'
 export { rateLimitMiddleware } from './middleware'
@@ -12,7 +10,6 @@ export type {
   RateLimitOutcome
 } from './types'
 
-// re-exported from @puregram/storage so users can `import { MemoryStorage } from '@puregram/rate-limit'`
-// without pulling in the storage package directly. canonical import path is still '@puregram/storage'
+// re-export from @puregram/storage so consumers don't have to pull it in directly
 export { MemoryStorage, LruMemoryStorage } from '@puregram/storage'
 export type { KVStorage, LruMemoryStorageOptions } from '@puregram/storage'

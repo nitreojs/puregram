@@ -45,19 +45,16 @@ export interface FlowExtension {
     options?: PromptOptions<K, T> & { id?: string, payload?: unknown, ttl?: number }
   ) => Promise<T | null>
   /**
-   * collect every message that shares a `media_group_id` with the given message into one
-   * array. resolves once a sliding window of inactivity passes (default 1000ms, override
-   * via `flow({ mediaGroupWindow })` or per-call). resolves immediately with `[message]`
-   * when the message has no `media_group_id`.
+   * collect every message that shares a `media_group_id` with `message` into one array.
+   * resolves once a sliding window of inactivity passes (default 1000ms; override via
+   * `flow({ mediaGroupWindow })` or per-call). resolves immediately with `[message]` when
+   * `media_group_id` is absent
    */
   collectMediaGroup: (
     message: MessageUpdate,
     options?: CollectMediaGroupOptions
   ) => Promise<MessageUpdate[]>
-  /**
-   * register a persistent flow handler. matched by `id` against persisted records on
-   * incoming updates; the registered config drives validate/transform/onAnswer/onTimeout
-   */
+  /** register a persistent flow handler — matched by `id` against persisted records on incoming updates */
   handle: <K extends keyof UpdateKindMap = 'message', T = UpdateKindMap[K]> (
     id: string,
     config: FlowHandleConfig<K, T>
@@ -191,12 +188,12 @@ export function flow (options: FlowOptions = {}) {
         }
       }
 
-      // augment must register before wait-for so an `update.flow.waitFor(...)`
-      // call from inside a high-priority handler still operates on a fully-augmented update
+      // augment must register before wait-for so an `update.flow.waitFor(...)` from inside
+      // a high-priority handler still sees a fully-augmented update
       tg.useHook('onUpdate', createAugmentMiddleware(ext), { priority: 'high' })
 
-      // persistent matcher runs before in-memory wait-for so a persisted record always
-      // wins over a freshly-armed in-memory waiter for the same (chat, user, kind) triple
+      // persistent matcher runs before in-memory wait-for — persisted record wins over a
+      // freshly-armed in-memory waiter for the same (chat, user, kind) triple
       if (storage !== undefined) {
         tg.useHook('onUpdate', createPersistentMiddleware({
           storage,

@@ -1,8 +1,4 @@
-// @puregram/flow — conversational primitives plugin
-
-// side-effect import: declaration-merges `flow: UpdateFlowExtension` onto every
-// applicable update class from @puregram/api. without this consumers don't see
-// the augmentations
+// side-effect: codegen'd `flow: UpdateFlowExtension` augmentations on every applicable update class
 import './generated/augmentations'
 
 export {

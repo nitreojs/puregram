@@ -5,10 +5,9 @@ const isPlainObject = (object: unknown): object is Record<string, unknown> => (
   Object.prototype.toString.call(object) === '[object Object]'
 )
 
-// proxiable = something we can transparently track changes on. plain objects + arrays
-// excluded on purpose: class instances (broken by serialization round-trip + #private fields),
-// builtins like Date/Map/Set/RegExp/Promise (internal slot access bypasses Proxy traps)
-// eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate is needed for narrowing
+// proxiable = plain objects + arrays. excluded on purpose: class instances (serialization
+// round-trip + #private fields), builtins like Date/Map/Set/RegExp/Promise (internal slots bypass Proxy traps)
+// eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate needed for narrowing
 const isProxiable = (value: unknown): value is Record<string, unknown> => (
   isPlainObject(value) || Array.isArray(value)
 )
@@ -32,8 +31,6 @@ export type OnChange = () => void
  *   - re-proxies nested objects lazily on first access
  *   - exposes `$forceUpdate` as a magic key returning the supplied closure
  *   - exposes `PROXY_SYM` so re-wrapping is a no-op
- *
- * preserved verbatim from v2 packages/session/src/session.ts:74-179
  */
 export function wrap (
   value: Record<string, unknown>,

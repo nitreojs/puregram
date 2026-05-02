@@ -21,8 +21,8 @@ const chatFromRaw = (raw: unknown) =>
 const fromFromRaw = (raw: unknown) =>
   (raw as FromRaw).from?.id
 
-// shared extractor for any kind whose raw payload is a TelegramMessage shape:
-// `message`, `edited_message`, `business_message`, service-events derived from message/channel_post, etc.
+// shared extractor for kinds whose raw payload is TelegramMessage-shaped
+// (`message`, `edited_message`, `business_message`, message-derived service events)
 const messageShapedExtractor: Extractor = u => ({
   chat: chatFromRaw(u.raw),
   from: fromFromRaw(u.raw)
@@ -39,10 +39,9 @@ const callbackQueryExtractor: Extractor = (u) => {
   return { chat: raw.message?.chat?.id, from: raw.from?.id }
 }
 
-// service-event kinds — mirror SERVICE_FIELD_TO_CLASS in
-// packages/puregram/src/dispatch/update-builder.ts. they all wrap a TelegramMessage
-// payload, so the message-shaped extractor applies uniformly. when a service event
-// derives from a channel_post payload (no `from`), fromFromRaw returns undefined naturally.
+// service-event kinds — mirror `SERVICE_FIELD_TO_CLASS` in
+// `packages/puregram/src/dispatch/update-builder.ts`. all wrap TelegramMessage payloads;
+// channel_post-derived events naturally yield undefined `from` via `fromFromRaw`
 const SERVICE_EVENT_KINDS = [
   'new_chat_members',
   'left_chat_member',

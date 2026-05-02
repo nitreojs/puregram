@@ -7,10 +7,9 @@ interface KeyResolvable {
 }
 
 /**
- * default per-user key derivation. mirrors @puregram/session: prefer the
- * authoring user, fall back to a sender chat (channel posts), then the chat
- * itself (anonymous service updates). returns undefined when nothing matches —
- * callers must pass through unkeyable updates rather than blocking them
+ * default per-user key — prefer the authoring user, fall back to senderChat
+ * (channel posts), then chat (anonymous service updates). undefined when nothing
+ * matches; callers pass through unkeyable updates rather than blocking them
  */
 export const defaultGetKey = (update: AnyUpdate) => {
   const u = update as KeyResolvable

@@ -3,9 +3,8 @@ import type { SceneState } from '../types'
 
 import type { ScenePayload } from './scene'
 
-// internal options passed to StepSceneContext. uses ScenePayload (not the
-// user-facing MessageUpdate default of StepContext) so the internal context
-// works regardless of which update kind a scene is parameterised over
+// internal options for StepSceneContext. uses `ScenePayload` (not StepContext's user-facing
+// MessageUpdate default) so the internal context works for any scene update kind
 export interface StepContextOptions<S = SceneState> {
   payload: StepContext<S, ScenePayload>
   steps: StepSceneHandler<S, ScenePayload>[]

@@ -51,8 +51,7 @@ export class StepSceneContext<S = SceneState> {
     if (this.beforeStep) {
       await this.beforeStep(this.payload)
 
-      // beforeStep may have called scene.leave() or step.go/.next/.previous —
-      // in either case, skip the step body so we don't run a stale handler
+      // skip body if beforeStep navigated or left — running a stale handler would be wrong
       if (this.shouldSkipBody()) {
         return
       }

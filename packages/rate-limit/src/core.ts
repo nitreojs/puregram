@@ -2,15 +2,14 @@ import type { KVStorage } from '@puregram/storage'
 
 import type { RateLimitEntry, RateLimitOutcome } from './types'
 
-/**
- * fixed-window hit. read the entry; if absent or expired, start a new window;
- * otherwise increment if under budget, or report retry-after when at the cap.
- *
- * `now` is injected for deterministic tests. last-write-wins under contention
- * — worst case is a slight over-count, which fails on the safer side for a
- * spam-prevention primitive
- */
+// last-write-wins under contention — worst case is a slight over-count, fails safer for spam prevention.
+// `now` is injected for deterministic tests
 const ALLOWED: RateLimitOutcome = { allowed: true }
+
+/**
+ * fixed-window hit — start a new window if absent/expired, increment if under budget,
+ * return retry-after at the cap
+ */
 
 export async function hit (
   storage: KVStorage<RateLimitEntry>,

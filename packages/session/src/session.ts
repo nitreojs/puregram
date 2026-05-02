@@ -34,11 +34,7 @@ const defaultGetStorageKey = (update: AnyUpdate) => {
   return undefined
 }
 
-/**
- * direct storage handle exposed as `tg.session`. methods proxy through to the
- * configured `KVStorage<unknown>` (matching its async-void contract — failure
- * throws, absence-on-delete is silent)
- */
+/** direct storage handle exposed as `tg.session` — methods proxy to the configured `KVStorage<unknown>` */
 export interface SessionExtension {
   get: (key: string) => Promise<unknown>
   set: (key: string, value: unknown) => Promise<void>

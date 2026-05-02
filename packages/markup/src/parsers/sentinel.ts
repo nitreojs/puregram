@@ -40,9 +40,9 @@ interface SentinelHit {
 }
 
 /**
- * resolves sentinels embedded in parsed `Formatted` back into their original
- * interpolated values. each entity's offset/length is shifted to account for
- * the size delta between its sentinel placeholder and the actual emitted text.
+ * resolves sentinels embedded in parsed `Formatted` back into their interpolated
+ * values. each entity's offset/length is shifted to account for the size delta
+ * between sentinel placeholder and emitted text
  */
 export function expandSentinels (parsed: Formatted, slots: readonly Piece[]) {
   const text = parsed.text

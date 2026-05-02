@@ -4,19 +4,13 @@ import type { KVStorage } from '@puregram/storage'
 /** any wrapped update that flows through the dispatcher (bot-api kinds + custom) */
 export type { AnyUpdate }
 
-/**
- * fixed-window counter entry. `resetAt` is an absolute epoch ms; once `now >= resetAt`
- * the entry is considered expired and the next hit starts a fresh window
- */
+/** fixed-window counter entry. `resetAt` is absolute epoch ms — `now >= resetAt` expires the entry */
 export interface RateLimitEntry {
   hits: number
   resetAt: number
 }
 
-/**
- * outcome of a rate-limit check. `allowed: true` means the request is under budget;
- * `allowed: false` carries the seconds the caller should wait before retrying
- */
+/** outcome of a rate-limit check. `allowed: false` carries seconds-to-wait before retry */
 export type RateLimitOutcome =
   | { allowed: true }
   | { allowed: false, retryAfter: number }
@@ -40,10 +34,10 @@ export interface RateLimitCheckOptions {
   /** window length in seconds */
   window: number
   /**
-   * sub-key appended to the resolved user key, lets one user have N independent
-   * counters (e.g. one per command). default: `'default'`
+   * sub-key appended to the user key — gives one user N independent counters
+   * (e.g. one per command). default: `'default'`
    */
   bucket?: string
-  /** override the plugin-level callback for this gate. default: plugin-level callback */
+  /** override the plugin-level callback for this gate */
   onLimitExceeded?: RateLimitCallback
 }

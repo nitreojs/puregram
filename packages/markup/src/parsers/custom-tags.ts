@@ -65,10 +65,9 @@ export interface CustomTagSpan {
 let handlerDepth = 0
 
 /**
- * runs `handler` under the depth-tracking + error-wrapping discipline — all custom-tag
- * handler calls go through here. when `handlerDepth >= MAX_DEPTH` we throw before
- * invoking the handler, which catches both direct (`<h1>` → `<h1>`) and indirect
- * (`<a>` → `<b>` → `<a>`) cycles
+ * runs `handler` with depth tracking + error wrapping — throws before invoking
+ * when `handlerDepth >= MAX_DEPTH`, catching direct and indirect cycles
+ * (`<h1>` → `<h1>` or `<a>` → `<b>` → `<a>`)
  */
 export function invokeHandler (handler: TagHandler, content: Formatted, info: TagInfo) {
   if (handlerDepth >= MAX_DEPTH) {
@@ -102,11 +101,9 @@ export function invokeHandler (handler: TagHandler, content: Formatted, info: Ta
 }
 
 /**
- * scans `source` for top-level custom-tag spans (those whose name is in `registry`).
- * spans nested inside other custom-tag spans are NOT returned at this level — they
- * are discovered when their parent's inner content is recursively scanned
- *
- * built-in tags and sentinel sequences are skipped without inspection
+ * scans `source` for top-level custom-tag spans (registry-named). nested spans
+ * are discovered when their parent's inner content is recursively scanned;
+ * built-in tags and sentinels are skipped
  */
 export function scanCustomTags (
   source: string,

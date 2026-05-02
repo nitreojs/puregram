@@ -1,9 +1,7 @@
 import type { TelegramMessageEntity } from '@puregram/api'
 
-// `type` is the literal-union from `TelegramMessageEntity['type']` so emitted
-// `Formatted` values flow into bot-api method args without a cast. widening
-// to `string` historically worked, but the schema now extracts the literal-union
-// from the bot-api docs and bot-api method args expect the narrow type
+// `type` mirrors `TelegramMessageEntity['type']` (literal union) so `Formatted`
+// values flow into bot-api method args without a cast
 export interface Entity {
   type: TelegramMessageEntity['type']
   offset: number

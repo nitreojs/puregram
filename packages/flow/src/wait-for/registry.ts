@@ -54,9 +54,8 @@ export class WaiterRegistry {
     return undefined
   }
 
-  // peeks at the head of the queue; if the head's filter+validate accepts, matches and removes
-  // it. otherwise surfaces any validate-string feedback so the caller can echo it to the chat
-  // and leave the waiter armed for the next inbound update
+  // peek + match the head waiter. on filter/validate reject, surfaces validate-string feedback
+  // so the caller can echo to chat and leaves the waiter armed for the next inbound update
   // eslint-disable-next-line local-rules/no-redundant-return-type -- discriminated outcome documents the contract
   matchOrPeek<K extends keyof UpdateKindMap> (kind: K, update: UpdateKindMap[K]): MatchOutcome<K> {
     const queue = this.queues.get(kind as string)
@@ -102,8 +101,7 @@ export class WaiterRegistry {
     this.queues.clear()
   }
 
-  // strip already-settled waiters (timed out, externally cancelled) from a kind's queue
-  // uses the public Waiter.settled accessor — no structural casts
+  // strip settled waiters (timed out / cancelled) from the kind's queue
   private evictSettled (kind: string) {
     const queue = this.queues.get(kind)
 

@@ -34,10 +34,7 @@ const defaultGetStorageKey = (update: AnyUpdate) => {
   return undefined
 }
 
-/**
- * runtime scene registry exposed as `tg.scenes`. mirrors the manager surface but
- * keeps SceneManager itself package-private
- */
+/** runtime scene registry exposed as `tg.scenes`. mirrors the manager surface; SceneManager stays package-private */
 export interface ScenesExtension {
   add: (scene: SceneInterface) => void
   has: (slug: string) => boolean
@@ -63,8 +60,7 @@ export function scenes (options: SceneOptions = {}) {
           return
         }
 
-        // session middleware (priority high, registered first via dependsOn) has
-        // already attached update.session, so reading it here is safe
+        // session middleware ran first via `dependsOn` — `update.session` is already attached
         const payload = update as ScenePayload
         const ctx = new SceneContext({ payload, manager })
 
@@ -74,8 +70,7 @@ export function scenes (options: SceneOptions = {}) {
           configurable: false
         })
 
-        // active scene owns this update unless the passthrough predicate exempts
-        // it (e.g. for global commands like /whoami)
+        // active scene owns the update unless `passthrough` exempts it (e.g. global /whoami commands)
         if (ctx.current !== undefined && !passthrough(update as AnyUpdate)) {
           await ctx.reenter()
 

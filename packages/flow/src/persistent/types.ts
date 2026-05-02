@@ -16,9 +16,10 @@ export interface PersistedFlow {
 }
 
 /**
- * user-augmentable strict registry. a layer-3 declaration merge unifies the typing
- * of `flow.handle(id, …)` and `flow.prompt({ id, payload })`:
+ * user-augmentable handler registry — declaration-merge unifies typing of
+ * `flow.handle(id, …)` and `flow.prompt({ id, payload })`:
  *
+ * @example
  * ```ts
  * declare module '@puregram/flow' {
  *   interface FlowHandlers {
@@ -27,16 +28,15 @@ export interface PersistedFlow {
  * }
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface -- consumers augment via declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- user-augmentable
 export interface FlowHandlers {}
 
 /** validate() return contract; mirrors v2 prompt validation semantics */
 export type ValidateResult = boolean | string
 
 /**
- * options accepted by `ctx.open`. a strict subset of `PromptOptions` that drops the
- * ephemeral-only knobs (consume, nullOnTimeout) since the persistent path always
- * consumes and never timeouts the caller — only `onTimeout` fires
+ * options for `ctx.open` — strict subset of `PromptOptions` minus ephemeral-only
+ * knobs (`consume`, `nullOnTimeout`). persistent path always consumes; only `onTimeout` fires
  */
 export interface PersistentOpenOptions<K extends keyof UpdateKindMap = 'message'>
   extends Pick<WaitForOptions<K>, 'filter' | 'timeout'> {
@@ -69,10 +69,7 @@ export interface FlowHandleContext<K extends keyof UpdateKindMap = keyof UpdateK
   send: Telegram['send']
 }
 
-/**
- * registered with `tg.flow.handle(id, config)`. defines what runs when a persisted
- * record matching `id` resolves
- */
+/** registered with `tg.flow.handle(id, config)` — defines what runs when a persisted record matching `id` resolves */
 export interface FlowHandleConfig<
   K extends keyof UpdateKindMap = 'message',
   T = UpdateKindMap[K]

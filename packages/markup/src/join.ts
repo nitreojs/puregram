@@ -29,7 +29,7 @@ function pieceFromJoinable (value: Joinable): Piece {
 
 /**
  * merge an array of strings/numbers/Formatted into one Formatted, separated by `separator`.
- * `null` / `undefined` / `false` parts are dropped silently.
+ * `null` / `undefined` / `false` parts are dropped silently
  */
 export function join (parts: readonly Joinable[], separator: Joinable = '') {
   const filtered = parts.filter(

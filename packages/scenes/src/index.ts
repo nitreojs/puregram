@@ -1,7 +1,4 @@
-// @puregram/scenes — multi-step scenes plugin
-
-// side-effect: loads codegenerated `declare module '@puregram/api'` augmentations
-// + the `__scene` field declaration-merged onto `@puregram/session`'s SessionData
+// side-effect: codegen'd update-kind augmentations + `__scene` merged onto session's SessionData
 import './generated/augmentations'
 import './session-augmentation'
 

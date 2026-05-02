@@ -22,14 +22,9 @@ interface FlowApi {
   collectMediaGroup: (message: MessageUpdate, options?: CollectMediaGroupOptions) => Promise<MessageUpdate[]>
 }
 
-// attaches a context-bound `flow` to every incoming update whose kind has an
-// EXTRACTORS entry. the bound view auto-fills chat (and a default sender filter)
-// derived from the source update, so handlers don't have to thread chat/user ids
-// through every prompt/waitFor call.
-//
-// must register before createWaitForMiddleware so an `update.flow.waitFor(...)`
-// invoked synchronously inside a high-priority handler still sees its own
-// augmentation on the source update if the same update is replayed
+// attaches a context-bound `flow` to every update whose kind has an EXTRACTORS entry.
+// auto-fills chat (and default sender filter) from the source so handlers don't have
+// to thread chat/user ids through prompt/waitFor calls
 export function createAugmentMiddleware (flow: FlowApi) {
   const middleware: Middleware<unknown> = async (update, next) => {
     if (typeof update !== 'object' || update === null) {
@@ -75,11 +70,9 @@ function createUpdateFlowExtension (flow: FlowApi, scope: ExtractedScope, source
         throw new Error('update.flow.prompt: no chat available on this update')
       }
 
-      // from semantics: explicit `from` (including `undefined`) wins; absent key
-      // falls back to `scope.from` so the prompt is sender-pinned by default
-      // and "anyone in the chat" requires `{ from: undefined }`.
-      // pass-through has to drop the key entirely when undefined —
-      // `exactOptionalPropertyTypes` disallows `from: undefined` on PromptOptions
+      // explicit `from` (including `undefined`) wins; absent key falls back to `scope.from`
+      // — so the prompt is sender-pinned by default, "anyone in chat" needs `{ from: undefined }`.
+      // pass-through must drop the key entirely when undefined (`exactOptionalPropertyTypes`)
       const resolvedFrom = 'from' in options ? from : scope.from
 
       return resolvedFrom === undefined

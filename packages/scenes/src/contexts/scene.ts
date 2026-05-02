@@ -13,9 +13,8 @@ import {
 export type { ScenePayload, SceneSessionState }
 
 /**
- * per-update scene controller. attached at runtime to update.scene by the scenes()
- * plugin's onUpdate middleware. methods mutate update.session.__scene (and thereby
- * the session proxy, which flushes on dispatch end)
+ * per-update scene controller — attached as `update.scene` by the scenes plugin.
+ * methods mutate `update.session.__scene`, which the session proxy flushes on dispatch end
  */
 export class SceneContext<S = SceneState> {
   /** lazy proxy bound to payload.session.__scene */
@@ -120,9 +119,8 @@ export class SceneContext<S = SceneState> {
   }
 
   private toHandlerPayload () {
-    // structural unwrapping: the runtime payload is the wrapped update, with
-    // session attached by @puregram/session and scene attached by us. handlers
-    // see a SceneHandlerPayload-shaped view, the underlying object is the same
+    // structural unwrapping — runtime payload is the wrapped update with session + scene attached;
+    // handler sees a SceneHandlerPayload view of the same object
     return this.payload as unknown as Parameters<SceneInterface['enterHandler']>[0]
   }
 

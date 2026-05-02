@@ -5,10 +5,7 @@ export interface SceneManagerOptions {
   scenes?: SceneInterface[]
 }
 
-/**
- * internal registry. exposed via `tg.scenes.{add, has, remove, all}` only —
- * the class itself is package-private (not in src/index.ts exports)
- */
+/** internal registry — package-private, exposed only via `tg.scenes.{add, has, remove, all}` */
 export class SceneManager {
   private readonly repository = new CacheRepository<string, SceneInterface>()
 

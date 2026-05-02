@@ -15,8 +15,8 @@ export interface AugmentedPromptOptions extends Omit<PromptOptions, 'from'> {
 
 export interface AugmentedWaitForOptions<K extends keyof UpdateKindMap> extends WaitForOptions<K> {
   /**
-   * how strictly the next update is matched against the source update.
-   * default: `'chat+from'` when both extracted, `'chat'` when only chat extracted, `'none'` otherwise
+   * how strictly the next update is matched against the source — default
+   * `'chat+from'` when both extracted, `'chat'` when only chat extracted, `'none'` otherwise
    */
   match?: AugmentedWaitForMatch
 }
@@ -28,14 +28,9 @@ export interface UpdateFlowExtension {
     options?: AugmentedWaitForOptions<K>
   ) => Promise<UpdateKindMap[K] | null>
   /**
-   * collect every message that shares a `media_group_id` with this update into one array.
-   * meaningful only on message-payload updates (message/edited_message/channel_post/etc.) —
-   * a non-message update with no `media_group_id` resolves immediately with a single-item
-   * array containing the source update cast as a MessageUpdate
+   * collect every message sharing a `media_group_id` with this update into one array.
+   * meaningful on message-payload updates; non-message updates resolve immediately with
+   * `[source]` cast as MessageUpdate
    */
   collectMediaGroup: (options?: CollectMediaGroupOptions) => Promise<MessageUpdate[]>
 }
-
-// declaration-merge augmentations live in src/generated/augmentations.ts
-// regenerate via `yarn generate:augmentations` after a @puregram/api version bump
-// or after adding/removing an EXTRACTORS entry

@@ -9,6 +9,7 @@ export function createTestEnv<TG extends Telegram> (tg: TG, options?: TestEnvOpt
 
 export { TestChat } from './actors/chat'
 export type { ChatMembership, ChatType } from './actors/chat'
+export type { ActorMediaInput, ResolvedMedia } from './actors/media-input'
 export { TestMessage } from './actors/message'
 export { TestUser } from './actors/user'
 export type { CreateUserOptions } from './actors/user'

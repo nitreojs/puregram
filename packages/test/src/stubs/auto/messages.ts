@@ -1,4 +1,5 @@
 import { TestMessage } from '../../actors/message'
+import type { FileHandle } from '../../world/files'
 import type { World } from '../../world/world'
 
 function buildAndAppend (world: World, chatId: number | string, mutate?: (msg: TestMessage) => void) {
@@ -29,6 +30,71 @@ function findMessage (world: World, chatId: number | string, messageId: number) 
   return msg !== undefined ? { chat, msg } : undefined
 }
 
+function resolveMediaParam (world: World, value: unknown) {
+  if (typeof value === 'string') {
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      return world.files.registerUrl(value)
+    }
+
+    return world.files.registerFileId(value)
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const media = value as { type?: string, value?: unknown }
+
+    if (media.type === 'buffer' && (Buffer.isBuffer(media.value) || media.value instanceof Uint8Array)) {
+      return world.files.registerBuffer(media.value)
+    }
+
+    if (media.type === 'url' && typeof media.value === 'string') {
+      return world.files.registerUrl(media.value)
+    }
+
+    if (media.type === 'file_id' && typeof media.value === 'string') {
+      return world.files.registerFileId(media.value)
+    }
+
+    if (typeof media.type === 'string') {
+      const filename = (media as { filename?: string }).filename ?? ''
+
+      return world.files.registerFileId('source-' + media.type + '-' + filename)
+    }
+  }
+
+  return world.files.registerFileId('unknown-' + String(value))
+}
+
+function attachMedia (raw: Record<string, unknown>, field: string, handle: FileHandle) {
+  if (field === 'photo') {
+    raw.photo = [{
+      file_id: handle.file_id,
+      file_unique_id: handle.file_unique_id,
+      width: 100,
+      height: 100
+    }]
+
+    return
+  }
+
+  raw[field] = { file_id: handle.file_id, file_unique_id: handle.file_unique_id }
+}
+
+function makeMediaVerb (field: string) {
+  return (world: World, params: Record<string, unknown>) => {
+    const handle = resolveMediaParam(world, params[field])
+    const msg = buildAndAppend(world, params.chat_id as number | string, (m) => {
+      if (params.caption !== undefined) {
+        m.caption = params.caption as string
+      }
+    })
+    const raw = msg.toRaw()
+
+    attachMedia(raw, field, handle)
+
+    return raw
+  }
+}
+
 export function sendMessage (world: World, params: Record<string, unknown>) {
   const msg = buildAndAppend(world, params.chat_id as number | string, (m) => {
     m.text = (params.text as string) ?? ''
@@ -37,18 +103,113 @@ export function sendMessage (world: World, params: Record<string, unknown>) {
   return msg.toRaw()
 }
 
-export function sendPhoto (world: World, params: Record<string, unknown>) {
-  const msg = buildAndAppend(world, params.chat_id as number | string, (m) => {
-    if (params.caption !== undefined) {
-      m.caption = params.caption as string
-    }
-  })
+export const sendPhoto = makeMediaVerb('photo')
+export const sendDocument = makeMediaVerb('document')
+export const sendVideo = makeMediaVerb('video')
+export const sendAudio = makeMediaVerb('audio')
+export const sendVoice = makeMediaVerb('voice')
+export const sendAnimation = makeMediaVerb('animation')
+export const sendVideoNote = makeMediaVerb('video_note')
+export const sendSticker = makeMediaVerb('sticker')
 
+export function sendLocation (world: World, params: Record<string, unknown>) {
+  const msg = buildAndAppend(world, params.chat_id as number | string)
   const raw = msg.toRaw()
 
-  raw.photo = [{ file_id: 'stub', file_unique_id: 'stub', width: 100, height: 100, file_size: 1 }]
+  raw.location = {
+    latitude: params.latitude as number,
+    longitude: params.longitude as number
+  }
 
   return raw
+}
+
+export function sendVenue (world: World, params: Record<string, unknown>) {
+  const msg = buildAndAppend(world, params.chat_id as number | string)
+  const raw = msg.toRaw()
+  const lat = params.latitude as number
+  const lon = params.longitude as number
+
+  raw.location = { latitude: lat, longitude: lon }
+  raw.venue = {
+    location: { latitude: lat, longitude: lon },
+    title: params.title as string,
+    address: params.address as string
+  }
+
+  return raw
+}
+
+export function sendContact (world: World, params: Record<string, unknown>) {
+  const msg = buildAndAppend(world, params.chat_id as number | string)
+  const raw = msg.toRaw()
+  const payload: Record<string, unknown> = {
+    phone_number: params.phone_number as string,
+    first_name: params.first_name as string
+  }
+
+  if (params.last_name !== undefined) {
+    payload.last_name = params.last_name as string
+  }
+
+  raw.contact = payload
+
+  return raw
+}
+
+export function sendPoll (world: World, params: Record<string, unknown>) {
+  const msg = buildAndAppend(world, params.chat_id as number | string)
+  const raw = msg.toRaw()
+  const options = ((params.options as unknown[]) ?? []).map((opt) => {
+    const text = typeof opt === 'string' ? opt : (opt as { text: string }).text
+
+    return { text, voter_count: 0 }
+  })
+
+  raw.poll = {
+    id: 'poll_' + world.nextUpdateId(),
+    question: (params.question as string) ?? '',
+    options,
+    total_voter_count: 0,
+    is_closed: false,
+    is_anonymous: params.is_anonymous !== false,
+    type: (params.type as string) ?? 'regular',
+    allows_multiple_answers: params.allows_multiple_answers === true
+  }
+
+  return raw
+}
+
+export function sendDice (world: World, params: Record<string, unknown>) {
+  const msg = buildAndAppend(world, params.chat_id as number | string)
+  const raw = msg.toRaw()
+
+  raw.dice = {
+    emoji: (params.emoji as string) ?? '🎲',
+    value: 1
+  }
+
+  return raw
+}
+
+export function sendMediaGroup (world: World, params: Record<string, unknown>) {
+  const media = (params.media as { type: string, media: unknown, caption?: string }[]) ?? []
+  const out: Record<string, unknown>[] = []
+
+  for (const item of media) {
+    const handle = resolveMediaParam(world, item.media)
+    const msg = buildAndAppend(world, params.chat_id as number | string, (m) => {
+      if (item.caption !== undefined) {
+        m.caption = item.caption
+      }
+    })
+    const raw = msg.toRaw()
+
+    attachMedia(raw, item.type, handle)
+    out.push(raw)
+  }
+
+  return out
 }
 
 export function editMessageText (world: World, params: Record<string, unknown>) {

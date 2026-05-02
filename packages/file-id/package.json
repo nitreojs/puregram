@@ -1,6 +1,6 @@
 {
   "name": "@puregram/file-id",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.0",
   "description": "parse and serialize telegram file_id and file_unique_id strings",
   "type": "module",
   "main": "./lib/index.js",

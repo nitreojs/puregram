@@ -1,7 +1,7 @@
 {
   "name": "@puregram/test",
-  "version": "3.0.0-alpha.0",
-  "description": "actor-driven test framework for puregram v3 bots",
+  "version": "3.0.0",
+  "description": "actor-driven test framework for puregram bots",
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

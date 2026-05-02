@@ -1,100 +1,237 @@
-# @puregram/storage
+<div align='center'>
+  <img src='https://i.imgur.com/ZzjmE8i.png' />
+</div>
 
-shared key-value storage interfaces and in-process implementations for puregram v3.
+<br />
 
-consumed by `@puregram/session`, `@puregram/media-cacher`, and any other satellite that needs persistent state. ships two interfaces (`KVStorage<V>`, `TtlStorage<V>`) plus two memory-backed classes.
+<div align='center'>
+  <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='#writing-your-own-storage'><b>writing your own</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='https://t.me/pureforum'><b>telegram forum</b></a>
+</div>
 
-backend adapters for redis/sqlite/cloudflare/etc. are intentionally **not** in this package — userland implements `KVStorage<V>` directly, or future `@puregram/storage-<backend>` packages cover them post-v3.0 (matching `@gramio/storage-*` and `@grammyjs/storage-*` conventions).
+## @puregram/storage
 
-## install
+_shared key-value storage interfaces for `puregram` package — plus two batteries-included in-process implementations_
+
+### introduction
+
+every plugin in the `puregram` ecosystem that needs to keep state between updates — `@puregram/session`, `@puregram/scenes`, `@puregram/media-cacher`, `@puregram/rate-limit`, `@puregram/flow` — talks to its backing store through the same tiny interface defined here. that's the whole point: write your storage adapter once, plug it into every plugin
+
+if you don't care about persistence, the bundled `MemoryStorage` is what every satellite uses by default. if you do — redis, sqlite, cloudflare kv, a json file on disk, a dynamodb table, whatever — you implement `KVStorage<V>` and pass it in
+
+### example
+
+```ts
+import { Telegram } from 'puregram'
+import { session } from '@puregram/session'
+import { MemoryStorage } from '@puregram/storage'
+
+const telegram = Telegram.fromToken(process.env.TOKEN!)
+  .extend(session({ storage: new MemoryStorage() }))
+
+telegram.onMessage(async (message) => {
+  message.session.counter = (message.session.counter ?? 0) + 1
+  await message.send(`hit ${message.session.counter}`)
+})
+
+await telegram.startPolling()
+```
+
+### installation
 
 ```sh
-yarn add @puregram/storage
+$ yarn add @puregram/storage
+$ npm i -S @puregram/storage
 ```
 
-zero runtime dependencies.
+most of the time you don't install this directly — it comes in transitively through whichever satellite you're using. install it explicitly when you want to **share one storage instance across multiple plugins**, or when you're **writing your own adapter** and need the type imports
 
-## interfaces
+---
 
-```ts
-import type { KVStorage, TtlStorage } from '@puregram/storage'
-
-interface KVStorage<V = unknown> {
-  get    (key: string): Promise<V | undefined>
-  set    (key: string, value: V): Promise<void>
-  delete (key: string): Promise<void>
-  has    (key: string): Promise<boolean>
-
-  // optional iteration; call defensively
-  keys?    (): AsyncIterable<string>
-  values?  (): AsyncIterable<V>
-  entries? (): AsyncIterable<readonly [string, V]>
-}
-
-interface TtlStorage<V = unknown> extends KVStorage<V> {
-  touch (key: string): Promise<void>
-}
-```
-
-`TtlStorage` is the opt-in interface for backends with sliding-window expiry. consumers that may receive either accept `KVStorage<V>` and narrow at runtime via `isTtlStorage`.
-
-```ts
-import { isTtlStorage } from '@puregram/storage'
-
-if (isTtlStorage(storage)) {
-  await storage.touch(key)
-}
-```
-
-## in-process backends
+## what's exported
 
 ### `MemoryStorage<V>`
 
-unbounded `Map`-backed store. no expiry, no eviction.
+unbounded in-process kv backed by `Map`. fast, simple, ephemeral — the moment your bot restarts, it's empty. perfect for development and stateless bots, fine for production when state really doesn't need to survive a deploy
 
 ```ts
 import { MemoryStorage } from '@puregram/storage'
 
-const s = new MemoryStorage<number>()
-await s.set('hits', 1)
-const hits = await s.get('hits') // 1
+const storage = new MemoryStorage<number>()
 
-// optional seed
-const seeded = new MemoryStorage<number>([['a', 1], ['b', 2]])
+await storage.set('counter', 1)
+await storage.set('counter', (await storage.get('counter') ?? 0) + 1)
+
+console.log(await storage.get('counter')) // 2
+```
+
+an optional `entries` argument seeds the map at construction:
+
+```ts
+const storage = new MemoryStorage<string>([['a', '1'], ['b', '2']])
+
+console.log(storage.size) // 2
 ```
 
 ### `LruMemoryStorage<V>`
 
-bounded with least-recently-used eviction. constructor takes `{ max: number }`.
-
-`get` and `set` on an existing key bump recency. `has` and `delete` do not.
+bounded in-process kv with LRU eviction. same shape as `MemoryStorage`, but keeps at most `max` entries — when you set the `max + 1`th key, the least-recently-used one gets evicted. great for media-cacher (cap how many `file_id`s you remember), rate-limit (cap how many users you track), or any unbounded-by-default cache that you'd rather have a hard ceiling on
 
 ```ts
 import { LruMemoryStorage } from '@puregram/storage'
 
-const cache = new LruMemoryStorage<string>({ max: 1000 })
-await cache.set('key', 'value')
+const storage = new LruMemoryStorage<string>({ max: 1000 })
+
+await storage.set('a', 'b')
+
+console.log(storage.size) // 1
 ```
 
-## userland adapter sketch
+`get(key)` and `set(key, value)` bump the entry to the back of the iteration order (most recent). `has` and `delete` don't bump — they're observation, not access. iteration order is oldest → newest, so when you walk it you see eviction candidates first
 
-a 15-line redis adapter (illustrative — not shipped):
+### `KVStorage<V>` interface
+
+the contract every storage adapter has to satisfy. four required methods, three optional iterators:
 
 ```ts
-import type { TtlStorage } from '@puregram/storage'
-import type { Redis } from 'ioredis'
+interface KVStorage<V> {
+  get (key: string): Promise<V | undefined>
+  set (key: string, value: V): Promise<void>
+  delete (key: string): Promise<void>
+  has (key: string): Promise<boolean>
 
-export class RedisStorage<V = unknown> implements TtlStorage<V> {
-  constructor (private readonly redis: Redis, private readonly ttlMs = 86_400_000) {}
-
-  async get    (key: string)            { const v = await this.redis.get(key); return v === null ? undefined : JSON.parse(v) as V }
-  async set    (key: string, value: V)  { await this.redis.set(key, JSON.stringify(value), 'PX', this.ttlMs) }
-  async delete (key: string)            { await this.redis.del(key) }
-  async has    (key: string)            { return (await this.redis.exists(key)) === 1 }
-  async touch  (key: string)            { await this.redis.pexpire(key, this.ttlMs) }
+  // optional — adapters skip these when iteration is expensive (cloudflare kv, dynamodb, …)
+  keys?: () => AsyncIterable<string>
+  values?: () => AsyncIterable<V>
+  entries?: () => AsyncIterable<readonly [string, V]>
 }
 ```
 
-## license
+a few intentional choices:
 
-WTFPL
+- **all methods return Promises**, even on sync backings. consumers never have to write `await maybeAsync(...)` ceremony — they just `await`. `MemoryStorage` is implemented with `async` methods that don't actually await anything, and that's fine
+- **`V` is generic at the storage level**, not per-call. once you've typed it as `KVStorage<{ counter: number }>`, you can't accidentally `set('k', 'a string')` somewhere else. consumers can't silently bypass the declared shape
+- **iterators are optional.** if your backend can't list keys cheaply, just leave them off. callers do `for await (const k of storage.keys?.() ?? []) ...` defensively
+
+### `TtlStorage<V>` interface
+
+extends `KVStorage<V>` with one extra method — `touch(key)` — for backends that support sliding-window expiry (redis `EXPIRE`, sqlite `last_seen` columns, …). consumers like `@puregram/session` runtime-check via `isTtlStorage(storage)` and call `touch` after each access to roll the timer without rewriting the value:
+
+```ts
+interface TtlStorage<V> extends KVStorage<V> {
+  touch (key: string): Promise<void>
+}
+```
+
+### `isTtlStorage(storage)` typeguard
+
+```ts
+import { isTtlStorage, type KVStorage } from '@puregram/storage'
+
+function maybeTouch (storage: KVStorage<unknown>, key: string) {
+  if (isTtlStorage(storage)) {
+    // narrowed to TtlStorage<unknown>
+    return storage.touch(key)
+  }
+}
+```
+
+returns `true` when `typeof storage.touch === 'function'`. if you're writing a plugin that wants to take advantage of ttl when present and silently degrade when not, this is the check
+
+---
+
+<a name='writing-your-own-storage'></a>
+## writing your own storage
+
+every official adapter (redis, sqlite, file-based, cloudflare kv) is just a class implementing `KVStorage<V>`. there's no magic, no base class to extend, no registration step
+
+### the minimal four
+
+write `get` / `set` / `delete` / `has`. that's it — the satellites only need these four to function
+
+```ts
+import type { KVStorage } from '@puregram/storage'
+
+interface RedisClient {
+  get: (key: string) => Promise<string | null>
+  set: (key: string, value: string) => Promise<void>
+  del: (key: string) => Promise<number>
+  exists: (key: string) => Promise<number>
+}
+
+export class RedisStorage<V> implements KVStorage<V> {
+  constructor (private readonly redis: RedisClient, private readonly prefix = 'pg:') {}
+
+  async get (key: string): Promise<V | undefined> {
+    const raw = await this.redis.get(this.prefix + key)
+
+    return raw === null ? undefined : JSON.parse(raw) as V
+  }
+
+  async set (key: string, value: V) {
+    await this.redis.set(this.prefix + key, JSON.stringify(value))
+  }
+
+  async delete (key: string) {
+    await this.redis.del(this.prefix + key)
+  }
+
+  async has (key: string) {
+    return (await this.redis.exists(this.prefix + key)) === 1
+  }
+}
+```
+
+then plug it in:
+
+```ts
+const telegram = Telegram.fromToken(TOKEN)
+  .extend(session({ storage: new RedisStorage(redis) }))
+```
+
+### opting into ttl
+
+if your backend supports expiring keys, implement `TtlStorage<V>` instead — it's the same four methods plus `touch`:
+
+```ts
+import type { TtlStorage } from '@puregram/storage'
+
+export class RedisTtlStorage<V> implements TtlStorage<V> {
+  // ...the four required methods...
+
+  /** roll the ttl forward without rewriting the value */
+  async touch (key: string) {
+    await this.redis.expire(this.prefix + key, this.ttlSeconds)
+  }
+}
+```
+
+session middleware (and anything else built on top) auto-detects `touch` via `isTtlStorage` and calls it after every read. you don't have to wire it up — implement the method, it works
+
+### typing the `V`
+
+the generic is on the **class**, not on each method, so you'd typically expose your adapter generically and let the satellite parameterise it:
+
+```ts
+const sessionStore = new RedisStorage<{ counter: number }>(redis)
+const cacheStore = new RedisStorage<string>(redis, 'cache:')
+
+telegram
+  .extend(session({ storage: sessionStore }))
+  .extend(mediaCacher({ storage: cacheStore }))
+```
+
+each satellite documents what `V` it expects: `@puregram/session` uses `unknown` (it's user-shaped), `@puregram/media-cacher` uses `string` (file_ids), `@puregram/rate-limit` uses `RateLimitEntry`, etc
+
+### iteration
+
+the three iterator methods (`keys`, `values`, `entries`) are optional. implement them when your backend can iterate cheaply (in-process maps, sqlite, postgres). leave them off when iteration is `O(everything)` (cloudflare kv, dynamodb without an index). consumers that want to enumerate do it defensively:
+
+```ts
+for await (const key of storage.keys?.() ?? []) {
+  console.log(key)
+}
+```

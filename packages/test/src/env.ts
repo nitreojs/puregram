@@ -109,7 +109,8 @@ export class TestEnv<TG extends Telegram = Telegram> {
       tg: this.tg,
       world: this.world,
       inject: raw => injectRaw(this.tg, raw),
-      options
+      options,
+      strictMembership: this.options.strictMembership ?? false
     })
 
     this.world.users.push(user)

@@ -1,7 +1,9 @@
 import type { Telegram } from 'puregram'
 
+import { MembershipRequired } from '../errors'
 import type { World } from '../world/world'
 
+import type { ChatMembership } from './chat'
 import { TestChat } from './chat'
 import { allocateUserId } from './identity'
 import { TestMessage } from './message'
@@ -25,15 +27,18 @@ export class TestUser {
 
   private readonly world: World
   private readonly inject: (raw: Record<string, unknown>) => Promise<void>
+  private readonly strictMembership: boolean
 
   constructor (init: {
     tg: Telegram
     world: World
     inject: (raw: Record<string, unknown>) => Promise<void>
     options: CreateUserOptions
+    strictMembership?: boolean
   }) {
     this.world = init.world
     this.inject = init.inject
+    this.strictMembership = init.strictMembership ?? false
     this.id = init.options.id ?? allocateUserId()
     this.first_name = init.options.first_name ?? `User${this.id}`
     this.last_name = init.options.last_name
@@ -73,6 +78,21 @@ export class TestUser {
   async sendMessage (a: string | TestChat, b?: string): Promise<TestMessage> {
     const chat = typeof a === 'string' ? this.pmChat : a
     const text = typeof a === 'string' ? a : (b as string)
+
+    if (chat.type !== 'private') {
+      const membership = chat.membershipOf(this)
+
+      if (membership.status === 'left') {
+        if (this.strictMembership) {
+          throw new MembershipRequired(
+            `user ${this.id} cannot send to chat ${chat.id} without joining (strict mode)`
+          )
+        }
+
+        chat.setMembership(this.id, { status: 'member', since: Math.floor(Date.now() / 1000) })
+      }
+    }
+
     const messageId = chat.nextMessageId()
     const msg = new TestMessage({
       chat,
@@ -90,6 +110,14 @@ export class TestUser {
     })
 
     return msg
+  }
+
+  async join (chat: TestChat) {
+    await this.changeMembership(chat, 'member')
+  }
+
+  async leave (chat: TestChat) {
+    await this.changeMembership(chat, 'left')
   }
 
   async pinMessage (msg: TestMessage) {
@@ -125,6 +153,24 @@ export class TestUser {
         date: Math.floor(Date.now() / 1000),
         old_reaction: change.old.map(e => ({ type: 'emoji', emoji: e })),
         new_reaction: change.new.map(e => ({ type: 'emoji', emoji: e }))
+      }
+    })
+  }
+
+  private async changeMembership (chat: TestChat, newStatus: ChatMembership['status']) {
+    const old = chat.membershipOf(this)
+    const updated: ChatMembership = { status: newStatus, since: Math.floor(Date.now() / 1000) }
+
+    chat.setMembership(this.id, updated)
+
+    await this.inject({
+      update_id: this.world.nextUpdateId(),
+      chat_member: {
+        chat: chat.toRaw(),
+        from: this.toRaw(),
+        date: Math.floor(Date.now() / 1000),
+        old_chat_member: { user: this.toRaw(), status: old.status },
+        new_chat_member: { user: this.toRaw(), status: newStatus }
       }
     })
   }

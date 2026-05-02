@@ -1,8 +1,15 @@
 import type { TestMessage } from './message'
+import type { TestUser } from './user'
 
 export type ChatType = 'private' | 'group' | 'supergroup' | 'channel'
 
 export type PostFn = (text: string) => Promise<TestMessage>
+
+export interface ChatMembership {
+  status: 'creator' | 'administrator' | 'member' | 'restricted' | 'left' | 'kicked'
+  since: number
+  customTitle?: string
+}
 
 export class TestChat {
   readonly id: number
@@ -12,6 +19,7 @@ export class TestChat {
 
   private readonly _messages: TestMessage[] = []
   private readonly _pinned: TestMessage[] = []
+  private readonly _members = new Map<number, ChatMembership>()
   private messageIdCounter = 0
   private _postFn: PostFn | undefined
 
@@ -64,6 +72,36 @@ export class TestChat {
 
   get pinnedMessages () {
     return this._pinned as readonly TestMessage[]
+  }
+
+  get members () {
+    return this._members as ReadonlyMap<number, ChatMembership>
+  }
+
+  membershipOf (user: TestUser) {
+    const explicit = this._members.get(user.id)
+
+    if (explicit !== undefined) {
+      return explicit
+    }
+
+    const fallback: ChatMembership = this.type === 'private'
+      ? { status: 'member', since: 0 }
+      : { status: 'left', since: 0 }
+
+    return fallback
+  }
+
+  botMembership () {
+    const fallback: ChatMembership = this.type === 'private'
+      ? { status: 'member', since: 0 }
+      : { status: 'administrator', since: 0 }
+
+    return fallback
+  }
+
+  setMembership (userId: number, membership: ChatMembership) {
+    this._members.set(userId, membership)
   }
 
   appendMessage (msg: TestMessage) {

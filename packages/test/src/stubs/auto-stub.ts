@@ -4,6 +4,17 @@ import { answerTrue } from './auto/answers'
 import { fallback } from './auto/fallback'
 import { getChat, getMe } from './auto/identity'
 import {
+  banChatMember,
+  getChatAdministrators,
+  getChatMember,
+  getChatMemberCount,
+  promoteChatMember,
+  restrictChatMember,
+  setChatAdministratorCustomTitle,
+  setChatPermissions,
+  unbanChatMember
+} from './auto/membership'
+import {
   copyMessage,
   copyMessages,
   deleteMessage,
@@ -50,6 +61,16 @@ const TABLE: Record<string, AutoStubFn> = {
   unpinAllChatMessages,
 
   setMessageReaction,
+
+  banChatMember,
+  unbanChatMember,
+  restrictChatMember,
+  promoteChatMember,
+  setChatAdministratorCustomTitle,
+  setChatPermissions,
+  getChatMember,
+  getChatMemberCount,
+  getChatAdministrators,
 
   answerCallbackQuery: answerTrue,
   answerInlineQuery: answerTrue,

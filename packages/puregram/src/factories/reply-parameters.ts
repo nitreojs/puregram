@@ -34,7 +34,7 @@ export class ReplyParameters {
   /** reply with a quoted excerpt from the original message */
   static quote (
     messageId: number,
-    quote: TelegramReplyParameters['quote'],
+    quote: NonNullable<TelegramReplyParameters['quote']>,
     params: Omit<TelegramReplyParameters, 'message_id' | 'chat_id' | 'quote'> = {}
   ) {
     return { message_id: messageId, quote, ...params }

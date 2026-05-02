@@ -50,7 +50,7 @@ export { filters }
 /* eslint-disable import/export */
 export * from '@puregram/api'
 
-export { InputMedia, InlineQueryResult, InputMessageContent } from './factories'
+export { InputMedia, MediaGroup, InlineQueryResult, InputMessageContent } from './factories'
 export { ReplyParameters, LinkPreview, Reaction } from './factories'
 export { ChatPermissions, ChatAdministratorRights } from './factories'
 export {

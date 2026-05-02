@@ -11,6 +11,7 @@ import {
   InputSticker,
   LabeledPrice,
   LinkPreview,
+  MediaGroup,
   MediaSource,
   MenuButton,
   Reaction,
@@ -231,6 +232,50 @@ describe('BotCommands', () => {
   it('scope.chatMember targets a user in a chat', () => {
     expect(BotCommands.scope.chatMember(1, 2))
       .toEqual({ type: 'chat_member', chat_id: 1, user_id: 2 })
+  })
+})
+
+describe('MediaGroup', () => {
+  it('photos applies caption to first item by default', () => {
+    const r = MediaGroup.photos(['a', 'b', 'c'], { caption: 'hello' })
+
+    expect(r).toEqual([
+      { type: 'photo', media: 'a', caption: 'hello' },
+      { type: 'photo', media: 'b' },
+      { type: 'photo', media: 'c' }
+    ])
+  })
+
+  it('photos respects captionIndex', () => {
+    const r = MediaGroup.photos(['a', 'b', 'c'], { caption: 'mid', captionIndex: 1 })
+
+    expect(r[0]).toEqual({ type: 'photo', media: 'a' })
+    expect(r[1]).toEqual({ type: 'photo', media: 'b', caption: 'mid' })
+    expect(r[2]).toEqual({ type: 'photo', media: 'c' })
+  })
+
+  it('photos with no caption attaches none', () => {
+    const r = MediaGroup.photos(['a', 'b'])
+
+    expect(r).toEqual([
+      { type: 'photo', media: 'a' },
+      { type: 'photo', media: 'b' }
+    ])
+  })
+
+  it('videos/documents/audios pick the right type', () => {
+    expect(MediaGroup.videos(['x']).every(i => i.type === 'video')).toBe(true)
+    expect(MediaGroup.documents(['x']).every(i => i.type === 'document')).toBe(true)
+    expect(MediaGroup.audios(['x']).every(i => i.type === 'audio')).toBe(true)
+  })
+
+  it('accepts MediaInput envelopes alongside strings', () => {
+    const m = MediaSource.fileId('cat')
+    const r = MediaGroup.photos([m, 'attach://x'], { caption: 'mixed' })
+
+    expect(r[0]?.media).toBe(m as unknown as string)
+    expect(r[0]?.caption).toBe('mixed')
+    expect(r[1]?.media).toBe('attach://x')
   })
 })
 

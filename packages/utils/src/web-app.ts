@@ -12,8 +12,8 @@ export interface WebAppValidateParams {
 }
 
 /**
- * telegram web app initData validation helpers.
- * see https://core.telegram.org/bots/webapps#validating-data-received-via-the-web-app
+ * telegram web app initData validation helpers
+ * — see https://core.telegram.org/bots/webapps#validating-data-received-via-the-web-app
  *
  * @example
  * ```ts

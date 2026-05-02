@@ -1,9 +1,7 @@
 import type { FileType } from '../constants'
 
-// volumeId/localId are present on photo file_ids written before TDLib's
-// `RemovePhotoVolumeAndLocalId` (sub_version 32). modern file_ids omit them
-// from the outer location entirely, so they're optional on every variant
-// that doesn't carry its own volume_id/local_id inside the variant
+// pre-`RemovePhotoVolumeAndLocalId` (sub_version 32) photos carried volume_id/local_id outside
+// the variant. modern file_ids drop them, so they're optional on variants that don't carry their own
 export interface LegacyPhotoSizeSource {
   type: 'legacy'
   volumeId?: bigint
@@ -43,8 +41,7 @@ export interface StickerSetThumbnailPhotoSizeSource {
   localId?: number
 }
 
-// new variants introduced once TDLib moved volume_id / local_id inside the
-// source variants instead of carrying them outside the source
+// variants TDLib added once volume_id/local_id moved inside the source instead of outside
 
 export interface FullLegacyPhotoSizeSource {
   type: 'full_legacy'

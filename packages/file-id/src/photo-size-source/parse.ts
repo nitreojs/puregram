@@ -19,10 +19,8 @@ function readThumbnailType (reader: BinaryReader) {
   return new TextDecoder('utf-8').decode(charBytes.slice(0, sliceEnd))
 }
 
-// parse the variant body — `sourceType` has already been consumed by the caller.
-// `outerVolumeId` and `outerLocalId` are populated only on the pre-32 layout
-// where they live outside the variant; era-32+ passes undefined and the variant
-// carries everything itself
+// parse the variant body. `sourceType` is consumed by the caller; `outerVolumeId` /
+// `outerLocalId` are only set on the pre-32 layout (era-32+ passes undefined, variant carries all)
 function parseVariant (
   reader: BinaryReader,
   sourceType: PhotoSizeSourceType,
@@ -165,8 +163,7 @@ export function parsePhotoSizeSource (
     }
   }
 
-  // RemovePhotoVolumeAndLocalId era: variant carries everything, no outer fields.
-  // this is the modern layout used by Telegram Desktop and recent clients
+  // RemovePhotoVolumeAndLocalId era — variant carries everything (modern layout used by Telegram Desktop)
   if (subVersion >= VERSION_REMOVE_PHOTO_VOLUME_AND_LOCAL_ID) {
     const sourceType = reader.readU32() as PhotoSizeSourceType
 

@@ -1,15 +1,9 @@
-// KVStorage's contract is async; sync backings still satisfy it via Promise-returning methods
-/* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable @typescript-eslint/require-await -- KVStorage contract is async; sync backing still satisfies it */
 import type { KVStorage } from './kv-storage'
 
 const inspectSymbol = Symbol.for('nodejs.util.inspect.custom')
 
-/**
- * unbounded in-process key-value storage backed by a `Map`. sync underneath
- * but presents the async {@link KVStorage} contract
- *
- * no expiry, no eviction. for bounded behavior use {@link LruMemoryStorage}
- */
+/** unbounded in-process KV backed by `Map`. no expiry, no eviction — use {@link LruMemoryStorage} when bounded */
 export class MemoryStorage<V = unknown> implements KVStorage<V> {
   private readonly store: Map<string, V>
 

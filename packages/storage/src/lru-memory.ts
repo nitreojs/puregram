@@ -1,5 +1,4 @@
-// KVStorage's contract is async; sync backings still satisfy it via Promise-returning methods
-/* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable @typescript-eslint/require-await -- KVStorage contract is async; sync backing still satisfies it */
 import type { KVStorage } from './kv-storage'
 
 const inspectSymbol = Symbol.for('nodejs.util.inspect.custom')
@@ -10,14 +9,9 @@ export interface LruMemoryStorageOptions {
 }
 
 /**
- * bounded in-process key-value storage with least-recently-used eviction.
- * uses `Map`'s insertion-order iteration to track recency: `get` and `set`
- * on an existing key delete + reinsert to bump the entry to "most recent"
- *
- * note: {@link has} does **not** bump recency — checking for a key's
- * existence does not count as "use". {@link delete} does not bump either
- *
- * iteration order is oldest → newest, matching `Map` semantics
+ * bounded in-process KV with LRU eviction. tracks recency via `Map` insertion
+ * order — `get`/`set` delete + reinsert to bump to "most recent". {@link has}
+ * and {@link delete} do not bump. iteration order is oldest → newest
  */
 export class LruMemoryStorage<V = unknown> implements KVStorage<V> {
   private readonly store = new Map<string, V>()
@@ -43,7 +37,7 @@ export class LruMemoryStorage<V = unknown> implements KVStorage<V> {
 
     const value = this.store.get(key) as V
 
-    // bump recency: re-insert at the back of the iteration order
+    // bump recency — re-insert at the back of iteration order
     this.store.delete(key)
     this.store.set(key, value)
 
@@ -51,8 +45,7 @@ export class LruMemoryStorage<V = unknown> implements KVStorage<V> {
   }
 
   async set (key: string, value: V) {
-    // delete-then-insert ensures the key lands at the back regardless of
-    // whether it existed already
+    // delete-then-insert lands the key at the back even when it already existed
     this.store.delete(key)
     this.store.set(key, value)
 

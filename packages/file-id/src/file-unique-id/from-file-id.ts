@@ -23,10 +23,9 @@ export function fileUniqueIdFromFileId (file: ParsedFileId): ParsedFileUniqueId 
       }
 
       const ps = file.photoSize
-      // pre-RemovePhotoVolumeAndLocalId photos exposed volume_id/local_id outside the
-      // source variant. modern photos drop them — derive a synthetic key from the
-      // outer file id so file_unique_id is still deterministic and unique per file.
-      // not byte-equal to TDLib's modern unique_id but stable round-trip on our side
+      // pre-`RemovePhotoVolumeAndLocalId` photos carried volume_id/local_id outside the variant.
+      // modern photos drop them — derive a synthetic key from the outer file id (not byte-equal
+      // to TDLib's modern unique_id, but stable round-trip on our side)
       const volumeId = 'volumeId' in ps && ps.volumeId !== undefined ? ps.volumeId : file.id
       const localId = 'localId' in ps && ps.localId !== undefined ? ps.localId : 0
 

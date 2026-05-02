@@ -8,6 +8,9 @@ import { TestUser } from './actors/user'
 import { inject as injectRaw } from './dispatch/inject'
 import { InterceptingHttpClient, swapHttpClient } from './http/intercept'
 import type { TestEnvOptions } from './options'
+import { applyPacks } from './plugins/registry'
+import type { StorageViewWithRegister } from './plugins/storage-view'
+import { createNamespacedStorageView } from './plugins/storage-view'
 import { isApiErrorSentinel } from './stubs/api-error'
 import { runAutoStub } from './stubs/auto-stub'
 import { OverrideRegistry } from './stubs/overrides'
@@ -25,6 +28,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
   readonly tg: TG
   readonly options: TestEnvOptions
   readonly apiCalls: ApiCallRecord[] = []
+  storage: StorageViewWithRegister | undefined
 
   private readonly overrides = new OverrideRegistry()
   private readonly restoreHttp: () => void
@@ -109,6 +113,8 @@ export class TestEnv<TG extends Telegram = Telegram> {
 
     // ensure tg.shutdown() runs its lifecycle hooks even if .start() was never called
     tg.registerCleanup(async () => {})
+
+    applyPacks(this as TestEnv, this.tg)
   }
 
   get bot () {
@@ -218,5 +224,13 @@ export class TestEnv<TG extends Telegram = Telegram> {
   async shutdown () {
     await this.tg.shutdown()
     this.restoreHttp()
+  }
+
+  ensureStorage () {
+    if (this.storage === undefined) {
+      this.storage = createNamespacedStorageView()
+    }
+
+    return this.storage
   }
 }

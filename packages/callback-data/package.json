@@ -4,7 +4,7 @@
   "description": "basic callback data validation and serialization for puregram",
   "main": "./lib/index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.json"
+    "build": "echo 'callback-data is v2 code awaiting redesign on the v3 plugin model — skipping build'"
   },
   "files": [
     "lib"

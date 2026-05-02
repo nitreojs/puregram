@@ -30,1158 +30,1004 @@
 
 ## introduction
 
-**first, what are telegram bots?** [telegram][telegram] has their own [bot accounts][telegram/bots]. **bots** are special telegram accounts that can be only accessed via code and were designed to handle messages, inline queries and callback queries automatically. _users can interact with bots by sending them messages, commands and inline requests._
+**first, what are telegram bots?**
+[telegram][telegram] has their own [bot accounts][telegram/bots].
+**bots** are special telegram accounts that can be only accessed via code
+and were designed to handle messages, inline queries and callback queries automatically.
+_users can interact with bots by sending them messages, commands and inline requests._
 
 [telegram]: https://t.me
 [telegram/bots]: https://core.telegram.org/bots
 
 ### example
 
-```js
-const { Telegram } = require('puregram')
+```ts
+import { Telegram } from 'puregram'
 
-const telegram = Telegram.fromToken(process.env.TOKEN)
+const telegram = Telegram.fromToken(process.env.TOKEN!)
 
-telegram.updates.on('message', context => context.reply('hey!'))
+telegram.onMessage(message => message.send('hey!'))
 
-telegram.updates.startPolling()
+await telegram.startPolling()
 ```
 
-> **note**
-> you can find more examples [here][examples]
+it's that easy!
+
+**note**: you can find more examples [here][examples]. _this directory still hosts the v2 examples — fresh v3 examples are being written_
 
 [examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples
-
-> **MEMORANDUM**
-> Should the reader of this document experience difficulty in comprehending the informal style of presentation, said individual is directed to refer to the [LEGAL.md](LEGAL.md) file for further information.
 
 ---
 
 ## table of contents
 
-- [why `puregram`?](#why-puregram) _(very important!)_
+- [why `puregram`?](#why-puregram) _(very important!!)_
 - [**getting started**](#getting-started)
-  - [getting token](#getting-token)
+  - [getting a token](#getting-token)
   - [installation](#installation)
   - [usage](#usage)
-  - [what is `UpdatesFilter`?](#what-is-updatesfilter)
   - [calling api methods](#calling-api-methods)
     - [`suppress`ing api errors](#suppressing-errors)
-  - media
-    - [sending media (`MediaSource`)](#sending-media)
-    - [downloading media (`MediaSourceTo`)](#downloading-media)
-    - [sending input media (`InputMedia`)](#sending-input-media)
+  - [sending media (`MediaSource`)](#sending-media)
+  - [`InputMedia` and friends](#input-media)
   - [using markdown (`parse_mode`)](#using-markdown)
   - [keyboards (`reply_markup`)](#keyboards)
-- [bot information](#bot-information)
-- [what are contexts?](#what-are-contexts)
-- [action controller](#action-controller)
-- [`Context` and its varieties](#context-and-its-varieties)
+- [updates](#updates)
+- [filters](#filters)
 - [middlewares](#middlewares)
 - [hooks](#hooks)
+- [extending puregram with plugins](#extending-puregram-with-plugins)
+- [custom updates](#custom-updates)
+- [webhook](#webhook)
+- [debug logs](#debug-logs)
 - [**typescript usage**](#typescript-usage)
 - [**faq**](#faq)
 - [ecosystem](#ecosystem)
 
 ---
 
+<a name='why-puregram'></a>
 ## why `puregram`?
 
 - written **by [starków](https://github.com/nitreojs)** ⚠
 - powered **by [j++team](https://github.com/jppteam)** ⚠
-- very **cool** package name
-- package itself is **cool** _(at least i think so)_
-- **works** _(i guess)_
-- i **understand** only about **30%** of my **code**
+- very **cool** package name ⚠
+- package itself is **cool**
+- **works** _(at least it should)_
+- i **understand** only about **30%** of this **code**
 - because **why not**?
 
 ---
 
+<a name='getting-started'></a>
 ## getting started
 
+<a name='getting-token'></a>
 ### getting token
 
-if you want to develop a bot, firstly you need to [create it][telegram/bots/botfather] via [@botfather][botfather] and get token from it via `/newbot` command.
+before you do anything, you'll need a bot token.
+talk to [@BotFather][botfather], send `/newbot`, follow the prompts
+and copy the token he gives you. that's it — **you're a bot owner now**
 
-[telegram/bots/botfather]: https://core.telegram.org/bots#6-botfather
-[botfather]: https://t.me/botfather
+[botfather]: https://t.me/BotFather
 
-token looks like this: `123456:abc-def1234ghikl-zyx57w2v1u123ew11`
+**note**: never paste your token straight into source.
+either read it from `process.env`, or load it from a file you've gitignored.
+**anyone with the token controls the bot**
 
+<a name='installation'></a>
 ### installation
-
-#### requirements
-
-> node.js version must be greater or equal than **LTS** (`16.15.0` atm)
 
 ```sh
 $ yarn add puregram
 $ npm i -S puregram
 ```
 
+requires node `>=22.0.0`
+
+<a name='usage'></a>
 ### usage
 
-#### initializing `Telegram` instance
+`Telegram.fromToken(token, options?)` is the shortest path to a bot. it pulls sensible defaults and gets out of your way:
 
-let's start with creating a `Telegram` instance:
+```ts
+import { Telegram } from 'puregram'
 
-```js
-const { Telegram } = require('puregram')
+const telegram = Telegram.fromToken(process.env.TOKEN!)
 
-const bot = new Telegram({
-  token: '123456:abc-def1234ghikl-zyx57w2v1u123ew11'
-})
+telegram.onMessage(message => message.send('hi!'))
+
+await telegram.startPolling()
 ```
 
-You can also initialize it via `Telegram.fromToken`:
+if you need full control over options (a custom `apiBaseUrl`, a pluggable `httpClient`, headers, retry budget, etc) the explicit constructor is right there:
 
-```js
-const bot = Telegram.fromToken('123456:abc-def1234ghikl-zyx57w2v1u123ew11')
-```
-
-now, we want to [get updates][getting-updates] from the bot. **how can we do it?**
-
-#### getting updates
-
-there are only **two ways** of getting updates right now:
-
-1. polling via [`getUpdates` method][getUpdates]... or just using `puregram`'s built-in polling logic:
-
-```js
-telegram.updates.startPolling()
-```
-
-2. setting up a Webhook via [`setWebhook` method][setWebhook]:
-
-```js
-const { createServer } = require('http')
-
-// you need to send this request only once
-telegram.api.setWebhook({
-  url: 'https://www.example.com/'
-})
-
-const server = createServer(telegram.updates.getWebhookMiddleware())
-
-server.listen(8443, () => console.log('started'))
-```
-
-remember that there are only four accepted ports for now: `443`, `80`, `88` and `8443`. they are listed [here][setWebhook] under the **notes** section.
-
-> **note**
-> more webhook examples are available [here][webhook-examples]
-
-[getting-updates]: https://core.telegram.org/bots/api#getting-updates
-[getUpdates]: https://core.telegram.org/bots/api#getupdates
-[setWebhook]: https://core.telegram.org/bots/api#setwebhook
-[webhook-examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/webhook
-
-#### handling updates
-
-now with this setup we can catch updates like this:
-
-```js
-telegram.updates.on('message', context => context.reply('yoo!'))
-```
-
-supported events are listed [here](https://github.com/nitreojs/puregram/tree/lord/docs/supported-events.md)
-
-#### the `mergeMediaEvents`
-
-if you've had to handle multiple attachments at once you'd know that in telegram every single attachment is a separate message. that makes it pretty hard for us to handle multiple attachs at once. here it comes - the `mergeMediaEvents` option in `Telegram`'s constructor
-
-```js
+```ts
 const telegram = new Telegram({
-  token: process.env.TOKEN,
-  mergeMediaEvents: true
+  token: process.env.TOKEN!,
+  apiBaseUrl: 'https://api.telegram.org/bot',
+  apiTimeout: 30_000,
+  apiRetryLimit: -1
 })
 ```
 
-**what's changed?** if you'd set up a handler like this:
-
-```js
-telegram.updates.on('message', (context) => {
-  console.log(context)
-})
-```
-
-and then sent an album, you'd see that there will be some `mediaGroup` field in the `MessageContext`. that `mediaGroup` (instance of a `MediaGroup` class) contains some getters:
-
-| getter        | type               | description                                                           |
-| ------------- | ------------------ | --------------------------------------------------------------------- |
-| `id`          | `string`           | media group's id                                                      |
-| `contexts`    | `MessageContext[]` | list of received (and processed) contexts which contain an attachment |
-| `attachments` | `Attachment[]`     | list of attachments mapped through `contexts` (described earlier)     |
-
-```js
-telegram.updates.on('message', (context) => {
-  if (context.isMediaGroup()) {
-    // INFO: all is* getters are methods in puregram@^2.9.0
-    // INFO: if you are using puregram < 2.9.0, consider using `isMediaGroup` as a getter
-    return context.reply(`this album contains ${context.mediaGroup.attachments.length} attachments!`)
-  }
-})
-```
-
-#### manual updates handling
-
-if you want to handle updates by yourself, you can use `Updates.handleUpdate` method, which takes one argument and this argument is raw Telegram update:
-
-```js
-/** let's pretend i'm polling updates manually... */
-
-const update = await getUpdate(...)
-
-let context
-
-try {
-  context = telegram.updates.handleUpdate(update)
-} catch (error) {
-  console.log('update is not supported', update)
-}
-
-// voila! now you have the right context
-// (or you don't if the event is not supported 😢)
-```
-
-### what is `UpdatesFilter`?
-
-as mentioned in [`getUpdates`](https://core.telegram.org/bots/api#getupdates) documentation, 
-
-> Specify an empty list to receive all update types **except `chat_member`** (default).
-> If not specified, the previous setting will be used.
-
-as you can see, you **have** to specify `chat_member` in order to receive `chat_member` updates...
-but you also will have to specify **every single update type** that you're going to handle like this:
-
-```js
-{
-  allowedUpdates: ['chat_member', 'message', 'callback_query', 'channel_post', 'edited_message', 'edited_channel_post', ...]
-}
-```
-
-**not very convenient, is it?** that's why we've createed `UpdatesFilter`: a class containing a few static methods
-that will allow you to **specify all update types** or even **exclude** some!
-
-```js
-const { Telegram, UpdatesFilter } = require('puregram')
-
-const telegram = Telegram.fromToken(process.env.TOKEN, {
-  allowedUpdates: UpdatesFilter.all()
-})
-
-// puregram will now handle every single update including `chat_member` and others (if they're listed under the `UpdateType` enum)
-```
-
-```js
-const { Telegram, UpdatesFilter } = require('puregram')
-
-const telegram = Telegram.fromToken(process.env.TOKEN)
-
-telegram.updates.startPolling({
-  allowedUpdates: UpdatesFilter.except('callback_query')
-})
-
-telegram.updates.on('callback_query', (context) => {
-  // this will never be called.
-
-  return cry()
-})
-```
-
+<a name='calling-api-methods'></a>
 ### calling api methods
 
-there are **three ways** of calling telegram bot api methods:
+`puregram` gives you a few different ways to talk to the bot api. they're equivalent in capability — pick whichever reads best at the call site
 
-1. using the `telegram.api.call(method, params?)` _(useful when new bot api update is released and the package is not updated yet)_:
+```ts
+// 1. raw bot api — every method, schema-typed params, fully autogenerated
+await telegram.api.sendMessage({ chat_id: 100, text: 'hi' })
 
-```js
-const me = await telegram.api.call('getMe')
+// 2. curated shortcut — positional args (chat first, text second)
+await telegram.send(100, 'hi')
+
+// 3. per-kind shortcut on the update — chat_id auto-filled from update.chat.id
+telegram.onMessage(message => message.send('hi'))
+
+// 4. escape hatch for methods we haven't generated yet (e.g. corefork-only beta methods)
+await telegram.api.call('someBetaMethod', { foo: 'bar' })
 ```
 
-2. using `telegram.api.method(params?)`:
+every wrapped accessor keeps `.raw` available — when you want the bare bot-api payload, just reach in:
 
-```js
-const me = await telegram.api.getMe()
-```
+```ts
+telegram.onMessage((message) => {
+  const text = message.text          // wrapped accessor
+  const rawDate = message.raw.date   // raw payload, always available
 
-3. using context methods:
-
-```js
-telegram.updates.on('message', context => context.send('13² = 169! well, i mean "169", not "169!"... fuck.'))
-```
-
-#### suppressing errors
-
-sometimes you dont want to deal with the errors sent by the api,
-sometimes you just dont want to create an empty `try/catch` statement for that.
-this is where `suppress` parameter in the api call params comes in!
-you can pass `suppress: true` to **any** api method and in case the error happens
-`puregram` will not throw an error, but will return json object with `ok: false` and `error_code` and `description` properties.
-
-##### `telegram.api` usage
-
-```js
-const result = await telegram.api.sendChatAction({
-  chat_id: getRandomInt(1, 999_999_999),
-  action: 'typing',
-  suppress: true // <- the
+  return message.send(`text=${text} date=${rawDate}`)
 })
-
-// if the method was successfully executed, `result` will be `true`
-// otherwise, a `{ ok: false, error_code: ..., description: ... }` object will be returned
-// of course, there is a static method for that:
-if (Telegram.isErrorResponse(result)) {
-  // result is ApiResponseError
-  // TODO: handle error
-}
-
-// result is true
 ```
 
-##### `context` methods
+<a name='suppressing-errors'></a>
+#### `suppress`ing api errors
 
-```js
-const result = await context.sendChatAction('typing', { suppress: true })
+by default, api errors throw an `ApiError`:
 
-if (Telegram.isErrorResponse(result)) {
-  return
+```ts
+import { ApiError } from 'puregram'
+
+try {
+  await telegram.api.sendMessage({ chat_id: 1, text: 'hi' })
+} catch (error) {
+  if (error instanceof ApiError) {
+    console.error(error.code, error.message)
+  }
 }
 ```
 
-### sending media
+if you don't want to write `try/catch` every time, pass `suppress: true`. the return type becomes `T | ApiResponseError` — a typed conditional return — and `Telegram.isErrorResponse(value)` narrows it for you:
 
-`puregram` allows you to send your local media by using `MediaSource` class.
-you can put URLs, `Buffer`s, streams and paths in it.
+```ts
+const result = await telegram.api.sendMessage({ chat_id: 1, text: 'hi', suppress: true })
 
-```js
-/** let's imagine we have an image called puppy.jpg in this directory... */
-
-const { createReadStream } = require('fs')
-
-const path = './puppy.jpg'
-const stream = createReadStream(path)
-const buffer = getBuffer(path)
-const url = 'https://puppies.com/random-puppy'
-const fileId = 'this-is-probably-a-real-file-id-for-sure'
-
-telegram.updates.on('message', (context) => {
-  await Promise.all([
-    context.sendPhoto(MediaSource.path(path), { caption: 'puppy via path!' }),
-    context.sendDocument(MediaSource.stream(stream, { filename: 'puppy.jpg' }), { caption: 'more puppies via stream!' }),
-    context.sendPhoto(MediaSource.buffer(buffer), { caption: 'one more puppy via buffer!' }),
-    context.sendPhoto(MediaSource.url(url), { caption: 'some random puppy sent using an url!!!' }),
-    context.sendVideo(MediaSource.fileId(fileId), { caption: 'a video sent via file ID' })
-  ])
-})
+if (Telegram.isErrorResponse(result)) {
+  console.error(result.description)
+} else {
+  console.log(result.message_id) // typed as Message
+}
 ```
 
-this works for every method that can send media.
+**note**: `telegram.api.call('method', params)` always throws — there's no `suppress` on the string escape hatch
 
-### downloading media
+<a name='sending-media'></a>
+### sending media (`MediaSource`)
 
-telegram bot api allows you to download any media you want by simply calling `getFile({ file_id })`,
-extracting `file_path` from it and constructing a certain URL that you can then fetch and receive
-the result, the final media.
+every method that accepts an upload (photo, video, document, …) takes a `MediaSource`. it's a tiny tagged union so the multipart pipeline knows where the bytes live:
 
-that's a little **too much work** just for one file, isn't it? because of this, `puregram` has a mixin that allows just that.
+```ts
+import { MediaSource } from 'puregram'
 
-```js
-telegram.updates.on('message', async (context) => {
-  if (!context.hasAttachmentType('photo')) {
-    return
-  }
+await telegram.api.sendPhoto({ chat_id: 1, photo: MediaSource.path('./cat.png') })
 
-  const buffer = await context.download()
+await telegram.api.sendDocument({ chat_id: 1, document: MediaSource.url('https://...') })
 
-  // just for sake of testing...
-  return context.sendDocument(MediaSource.buffer(buffer, { filename: 'photo.png' }))
-})
+await telegram.api.sendVideo({ chat_id: 1, video: MediaSource.fileId('AgACAgI...') })
 ```
 
-of course, you can download an attachment not only via `Buffer`s, but via `path` and a `stream`. we use `MediaSourceTo` (not `MediaSource`) for that.
+the full menu:
 
-##### `MediaSourceTo.path`, via path
+| factory | when to use |
+|---|---|
+| `MediaSource.path(path)` | local file path |
+| `MediaSource.url(url, { forceUpload? })` | remote url; telegram fetches it (or you do, with `forceUpload`) |
+| `MediaSource.fileId(id)` | reuse an already-uploaded file |
+| `MediaSource.buffer(buffer)` | a `Buffer` you already have in memory |
+| `MediaSource.stream(readable)` | a node `Readable` stream |
+| `MediaSource.file(file)` | an `undici.File` instance |
+| `MediaSource.arrayBuffer(ab)` | a raw `ArrayBuffer` |
+| `MediaSource.bytes(view)` | any `ArrayBufferView` (`Uint8Array`, typed arrays, `DataView`) |
+| `MediaSource.base64(b64)` | a base64-encoded string |
+| `MediaSource.text(text)` | a utf-8 string sent as a file (pair with `filename`) |
+| `MediaSource.json(value, { space? })` | a value serialized through `JSON.stringify` |
 
-```js
-telegram.updates.on('message', async (context) => {
-  if (!context.hasAttachmentType('photo')) {
-    return
-  }
+<a name='input-media'></a>
+### `InputMedia` and friends
 
-  const PATH = resolve(__dirname, 'photo.png')
+for methods that take an array of media inputs (`sendMediaGroup`, `editMessageMedia`, `answerInlineQuery`, …) the schema-derived factories are autogenerated:
 
-  // save a photo to {__dirname}/photo.png
-  await context.download(MediaSourceTo.path(PATH))
+```ts
+import { InputMedia, InlineQueryResult, InputMessageContent } from 'puregram'
 
-  return context.sendDocument(MediaSource.path(PATH, { filename: 'photo.png' }))
-})
-```
-
-##### `MediaSourceTo.stream`, via stream
-
-```js
-telegram.updates.on('message', async (context) => {
-  if (!context.hasAttachmentType('photo')) {
-    return
-  }
-
-  // process the photo via stream
-  const stream = new PassThrough() // bidirectional stream
-
-  await context.download(MediaSourceTo.stream(stream))
-
-  return context.sendDocument(MediaSource.stream(stream, { filename: 'photo.png' }))
-})
-```
-
-##### `MediaSourceTo.buffer`, via buffer
-
-```js
-telegram.updates.on('message', async (context) => {
-  if (!context.hasAttachmentType('photo')) {
-    return
-  }
-
-  const buffer = await context.download(MediaSourceTo.buffer())
-
-  return context.sendDocument(MediaSource.buffer(buffer, { filename: 'photo.png' }))
-})
-```
-
-#### more internal api
-
-under the hood `context.download(...)` uses `telegram.downloadFile(...)` method. it can be called with either `file_id` or an attachment
-
-##### `file_id` & `Buffer`
-
-```js
-const fileId = getFileIdSomehow()
-
-const result = await telegram.downloadFile(fileId, MediaSourceTo.buffer())
-```
-
-##### `Attachment` & `path`
-
-```js
-const attachment = context.attachment
-
-const PATH = resolve(__dirname, 'test.png')
-
-const result = await telegram.downloadFile(attachment, MediaSourceTo.path(PATH))
-```
-
-### sending input media
-
-some of the methods (like `editMessageMedia` or `sendMediaGroup`) require such objects
-like `TelegramInputMediaPhoto`, `TelegramInputMediaVideo` and so on
-
-`puregram` provides `InputMedia` class which allows you to easily map your `MediaSource` value to a piece of input media!
-
-```js
-const { InputMedia, MediaSource } = require('puregram')
-
-telegram.api.editMessageMedia({
-  chat_id: 398859857,
-  message_id: 12345,
-  media: InputMedia.document(MediaSource.path('./README.md'), {
-    caption: 'Epic shit'
-  })
+await telegram.api.sendMediaGroup({
+  chat_id: 1,
+  media: [
+    InputMedia.photo(MediaSource.path('./a.jpg'), { caption: 'first' }),
+    InputMedia.photo(MediaSource.path('./b.jpg'))
+  ]
 })
 
-context.sendMediaGroup([
-  InputMedia.photo(MediaSource.path('./image.png')),
-  InputMedia.video(MediaSource.url('https://example.com/path/to/video.mp4'), {
-    caption: 'here goes caption'
-  })
-])
-```
-
-you can even use `InputMedia` on `context.sendMedia`!
-
-```js
-context.sendMedia(
-  InputMedia.photo(MediaSource.path('./image.png'), {
-    caption: 'EPIC!!❕❕❕❕❕❗️❗️'
-  })
-)
-```
-
----
-
-### using markdown
-
-if you want to use _markdown_ or _html_, there are **two ways** of doing that:
-
-1. using built-in `HTML`, `Markdown` and `MarkdownV2` classes:
-
-```js
-const message = HTML.bold('very bold, such html')
-```
-
-3. writing tags manually as it is told [here][formatting-options]:
-
-```js
-const message = '*very bold, such markdown*'
-```
-
-[formatting-options]: https://core.telegram.org/bots/api#formatting-options
-
-anyways, after writing the text you **need** to add `parse_mode` field. there are ~~also **two ways**~~ actually, there are three ways of of doing that!
-
-3. writing actual parse mode code _like a boss_:
-
-```js
-{ parse_mode: 'markdown' }
-```
-
-7. passing parse mode class _like a cheems_:
-
-```js
-{ parse_mode: HTML }
-```
-
-- passing a value from `ParseMode` enum _like a chad would do_:
-
-```js
-{ parse_mode: ParseMode.Markdown }
-```
-
-> **note**
-> yeah also `ParseMode` can be imported from `puregram` natively:
-> ```js
-> const { ParseMode } = require('puregram')
-> ```
-
-final api request will look like this:
-
-```js
-const message = `some ${HTML.bold('bold')} and ${HTML.italic('italic')} here`
-
-context.send(message, { parse_mode: HTML })
-```
-
-```js
-context.send(`imagine using _classes_ for parse mode, *lol*!`, { parse_mode: 'markdown' })
-```
-
-<details>
-  <summary><i>the truth...</i></summary>
-  <br />
-  <img src="https://i.imgur.com/x6EFfCH.png" />
-  <br />
-  <s>fuck this meme is obsolete now that i added <code>ParseMode</code> enum</s>
-</details>
-
-since markdown-v2 requires a lot of chars to be escaped, i've came up with a beautiful idea...
-
-```js
-const message = MarkdownV2.build`
-  damn that's a cool usage of ${MarkdownV2.bold('template strings')}!
-  ${MarkdownV2.italic('foo')} bar ${MarkdownV2.underline('baz')}
-  starkow v3 when
-`
-```
-
-> **note**
-> more markdown examples are available [here][markdown]
-
-[markdown]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/markdown
-
----
-
-### keyboards
-
-`puregram` has built-in classes for creating basic, inline, force-reply etc. keyboards. they are pretty much easy to use and are definitely more comfortable than building a json.
-
-#### `InlineKeyboard`, `Keyboard` and so on
-
-to create a keyboard, you need to call `keyboard` method from the keyboard class you chose. this method accepts an array of button rows.
-
-```js
-const { InlineKeyboard, Keyboard } = require('puregram')
-
-const keyboard = InlineKeyboard.keyboard([
-  [ // first row
-    InlineKeyboard.textButton({ // first row, first button
-      text: 'some text here',
-      payload: 'such payload'
-    }),
-
-    InlineKeyboard.textButton({ // first row, second button
-      text: 'some more text here',
-      payload: { json: true }
-    })
-  ],
-
-  [ // second row
-    InlineKeyboard.urlButton({ // second row, first button
-      text: 'some url button',
-      url: 'https://example.com'
+await telegram.api.answerInlineQuery({
+  inline_query_id: 'q',
+  results: [
+    InlineQueryResult.article({
+      id: '1',
+      title: 'hello',
+      content: InputMessageContent.text('hi there'),
+      thumbnail: { url: 'https://example.com/icon.png', width: 100, height: 100 }
     })
   ]
-])
-```
-
-```js
-// one-row keyboard with two buttons, no brackets for rows needed
-const keyboard = Keyboard.keyboard([
-  Keyboard.textButton('some one-row keyboard'),
-  Keyboard.textButton('with some buttons')
-]).resize()
-```
-
-> **note**
-> starting from `puregram@2.14.0`, you can even use simple strings instead of `Keyboard.textButton`s!
->
-> ```js
-> // two-row keyboard with one button on each row via strings!
-> const keyboard = Keyboard.keyboard([
->   [
->     'first row, one button'
->   ],
->   [
->     'second row, still one button!'
->   ]
-> ]).resize()
-> ```
-
-#### keyboard builders
-
-there are also keyboard **builders** which are designed to be building a keyboard step by step:
-
-```js
-const { KeyboardBuilder } = require('puregram')
-
-const keyboard = new KeyboardBuilder()
-  .textButton('first row, first button')
-  .row()
-  .textButton('second row, first button')
-  .textButton('second row, second button')
-  .resize() // keyboard will be much smaller
-```
-
-#### sending keyboards
-
-to send keyboard, you simply need to pass the generated value in `reply_markup` field:
-
-```js
-context.send('look, here\'s a keyboard!', { reply_markup: keyboard })
-```
-
-> **Note**
-> more keyboard examples are available [here][keyboards]
-
-[keyboards]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/keyboards
-
----
-
-## bot information
-
-if you are using `puregram`'s built-in polling logic, after `Updates.startPolling()` is called you have access to `Telegram.bot` property:
-
-```js
-telegram.updates.startPolling().then(
-  () => console.log(`@${telegram.bot.username} started polling`)
-)
-```
-
----
-
-## what are contexts?
-
-`Context` is a class, containing current `update` object and it's payload _(via `update[updateType]`)_. it is loaded with a ton of useful _(maybe?)_ getters and methods that were made to shorten your code while being same efficient and executing the same code.
-
-```js
-telegram.updates.on('message', (context) => {
-  const id = context.senderId
-  // is the same as
-  const id = context.from?.id
 })
 ```
 
-```js
-telegram.updates.on('message', (context) => {
-  context.send('hey!')
-  // equals to
-  telegram.api.sendMessage({
-    chat_id: context.chat?.id,
-    text: 'hey!'
-  })
-})
-```
+`InlineQueryResult.X(...)` factories rename three bot-api fields for ergonomics — these are the **only** factories that diverge from snake_case bot-api naming:
 
-every context has `telegram` property, so you can call api methods almost everywhere if you have a context nearby.
+| bot api | puregram |
+|---|---|
+| `input_message_content` | `content` |
+| `reply_markup` | `replyMarkup` |
+| `thumbnail_url` / `thumbnail_width` / `thumbnail_height` / `thumbnail_mime_type` | `thumbnail: { url, width?, height?, mimeType? }` |
 
-```js
-telegram.updates.on('message', async (context) => {
-  const me = await context.telegram.api.getMe()
-})
-```
+`replyMarkup` accepts both the raw `{ inline_keyboard: [...] }` shape and any `InlineKeyboard.keyboard(...)` builder — pass whichever's prettier at the call site
 
----
+`InputMedia` covers every variant the bot api accepts:
 
-## action controller
+| factory | wire `type` |
+|---|---|
+| `InputMedia.photo(media, params?)` | `'photo'` |
+| `InputMedia.video(media, params?)` | `'video'` |
+| `InputMedia.document(media, params?)` | `'document'` |
+| `InputMedia.animation(media, params?)` | `'animation'` |
+| `InputMedia.audio(media, params?)` | `'audio'` |
+| `InputMedia.sticker(media, params?)` | `'sticker'` |
+| `InputMedia.videoNote(media, params?)` | `'video_note'` |
+| `InputMedia.voice(media, params?)` | `'voice'` |
 
-`sendChatAction` is a method that requires to be called every **5** seconds
-before the action is complete. but how do you actually implement that?
+the first arg is anything `MediaSource` can produce (or a raw `attach://name` reference); each call returns the correctly-discriminated `TelegramInputMedia*` shape, so the array passed to `sendMediaGroup` typechecks per-element. the same shape holds for `InlineQueryResult.{article, photo, video, audio, voice, document, gif, mpeg4Gif, location, venue, contact, game}` (with `InlineQueryResult.cached.X` for the cached variants) and `InputMessageContent.{text, location, venue, contact, invoice}`
 
-even the simplest solutions require some _hacky_ workarounds. that's why
-`puregram` encapsulates these _hacks_ and you can use them right away,
-even with a **controller**!
+<a name='media-group'></a>
+### `MediaGroup` — full albums for `sendMediaGroup`
 
-```js
-telegram.updates.on('message', (context) => {
-  // this thing will be sending `context.sendChatAction('typing')`
-  // every 5 seconds until `controller.abort()` is called
-  const controller = context.createActionController('typing')
-
-  controller.start()
-
-  await sleep(14_000) // just to make sure everything works
-
-  controller.stop() // make sure to call that!!!
-
-  return context.send('yeah so we are unable to deliver your message rn sorry')
-})
-```
-
-of course, you are able to change `controller.action` and all the options mentioned below while the controller is running
-
-#### `createActionController` options
-
-| key        | type     | required? | default | description                                                                    |
-| ---------- | -------- | --------- | ------- | ------------------------------------------------------------------------------ |
-| `interval` | `number` | no        | `5000`  | Interval between `sendChatAction` calls, in milliseconds                       |
-| `wait`     | `number` | no        | `0`     | Initial wait before the first cycle of `sendChatAction` calls, in milliseconds |
-| `timeout`  | `number` | no        | `30000` | Timeout for `sendChatAction` calls, in milliseconds                            |
-
----
-
-## `Context` and its varieties
-
-every update in `puregram` is handled by a special context, which is detected via the update key.
-
-every context _(except for manually created ones and some that were created after methods like `sendMessage`)_ will have `updateId` and `update` properties.
-
-| property   | required | description                                                                   |
-| ---------- | -------- | ----------------------------------------------------------------------------- |
-| `updateId` | _no_     | unique update id. used as an offset when getting new updates                  |
-| `update`   | _no_     | update object. current context was created via `this.update[this.updateType]` |
-
-for example, if we have the `message` update, we will get `MessageContext` on this update, `CallbackQueryContext` for `callback_query` update and so on.
-
-every context requires **one argument**:
+`InputMedia.X(...)` builds **one item**. `MediaGroup.X(items, opts?)` builds the **whole array** for `sendMediaGroup`, with `caption` automatically attached to one item (the first by default — telegram displays the first item's caption as the album-level caption)
 
 ```ts
-interface ContextOptions {
-  // main Telegram instance
-  telegram: Telegram
+import { MediaGroup, MediaSource } from 'puregram'
 
-  // update type, e.g. 'message', 'callback_query'
-  updateType: UpdateName
-  
-  // whole update object
-  // optional, allows user to do the `context.update` to get the whole update object
-  update?: TelegramUpdate
+await telegram.api.sendMediaGroup({
+  chat_id: 100,
+  media: MediaGroup.photos([
+    MediaSource.path('./a.jpg'),
+    MediaSource.path('./b.jpg'),
+    MediaSource.path('./c.jpg')
+  ], { caption: 'three photos' })
+})
 
-  // update id, located at TelegramUpdate
-  // optional, allows user to get this update's id
-  updateId?: number
-}
-```
-
-> **note**
-> some contexts may be combined by a single structure because of how telegram bot api is built. **what does this mean?**
->
-> simplest examples are [extra contexts](extra-events):
-> their payload lies inside of `Message` structure itself, so they are naturally also `Message`s, meaning that they are also `MessageContext`s.
->
-> ```js
-> telegram.updates.on('forum_topic_created', (context) => {
->   // technically speaking, context is `ForumTopicCreatedContext`, but internally it was almost constructed
->   // into MessageContext because of the `forum_topic_created` property lying inside of `Message` so yeah
-> })
-> ```
-
-you can also create any context manually:
-
-```js
-const { MessageContext } = require('puregram')
-
-const update = await getUpdate()
-
-const context = new MessageContext({
-  telegram,
-  update,
-  updateType: 'message',
-  updateId: update.update_id
+// pin the caption to a different item
+await telegram.api.sendMediaGroup({
+  chat_id: 100,
+  media: MediaGroup.videos([
+    MediaSource.path('./a.mp4'),
+    MediaSource.path('./b.mp4')
+  ], { caption: 'second video', captionIndex: 1 })
 })
 ```
 
-> **note**
-> every context is listed [here][contexts]
+| factory | wire `type` |
+|---|---|
+| `MediaGroup.photos(items, opts?)` | `'photo'` |
+| `MediaGroup.videos(items, opts?)` | `'video'` |
+| `MediaGroup.documents(items, opts?)` | `'document'` |
+| `MediaGroup.audios(items, opts?)` | `'audio'` |
 
-[contexts]: https://github.com/nitreojs/puregram/tree/lord/packages/puregram/src/contexts
-[extra-events]: https://github.com/nitreojs/puregram/blob/lord/docs/supported-events.md#extra-events
+`opts: { caption?: string | Formattable, captionIndex?: number }`. items accept anything `MediaSource` can produce, plus raw `attach://name` references. document and audio groups must be uniform; photos and videos can mix freely
+
+<a name='reply-parameters'></a>
+### `ReplyParameters` — `reply_parameters`
+
+three intents, three factories:
+
+```ts
+import { ReplyParameters } from 'puregram'
+
+// reply to a message in the same chat
+await telegram.send(chat, 'reply!', {
+  reply_parameters: ReplyParameters.to(42)
+})
+
+// cross-chat reply (forwarding-aware reply pointing at another chat's message)
+await telegram.send(chat, 'cross-chat reply', {
+  reply_parameters: ReplyParameters.cross(-100123, 7)
+})
+
+// quote a specific excerpt from the original message
+await telegram.send(chat, 'with quote', {
+  reply_parameters: ReplyParameters.quote(42, 'the part i am replying to')
+})
+```
+
+<a name='link-preview'></a>
+### `LinkPreview` — `link_preview_options`
+
+four factories covering every common case. `disabled` shuts off the preview entirely; the others pin a specific url and choose its size hint:
+
+```ts
+import { LinkPreview } from 'puregram'
+
+await telegram.send(chat, 'no preview', { link_preview_options: LinkPreview.disabled() })
+
+await telegram.send(chat, 'big preview', {
+  link_preview_options: LinkPreview.large('https://example.com')
+})
+
+await telegram.send(chat, 'small preview', {
+  link_preview_options: LinkPreview.small('https://example.com')
+})
+
+await telegram.send(chat, 'just the url', {
+  link_preview_options: LinkPreview.url('https://example.com')
+})
+```
+
+<a name='reaction'></a>
+### `Reaction` — `setMessageReaction`
+
+three reaction types: standard emoji, premium custom emoji, paid star reaction (can't be used by bots).
+compose them in an array because `setMessageReaction` accepts a list:
+
+```ts
+import { Reaction } from 'puregram'
+
+await telegram.api.setMessageReaction({
+  chat_id: chat,
+  message_id: 1,
+  reaction: [Reaction.emoji('👍')]
+})
+
+await telegram.api.setMessageReaction({
+  chat_id: chat,
+  message_id: 1,
+  reaction: [Reaction.customEmoji('5448765217123141')]
+})
+```
+
+<a name='chat-permissions'></a>
+### `ChatPermissions` / `ChatAdministratorRights`
+
+both come with two factories: `allowAll(overrides?)` and `denyAll(overrides?)`.
+if you want all-but-one, start from the opposite default and pass overrides — this is much shorter
+than spelling every flag out by hand
+
+```ts
+import { ChatPermissions, ChatAdministratorRights } from 'puregram'
+
+// muted everywhere except text messages
+await telegram.api.restrictChatMember({
+  chat_id: chat,
+  user_id: user,
+  permissions: ChatPermissions.denyAll({ can_send_messages: true })
+})
+
+// promote with full admin rights
+await telegram.api.promoteChatMember({
+  chat_id: chat,
+  user_id: user,
+  ...ChatAdministratorRights.allowAll()
+})
+```
+
+<a name='input-poll-option'></a>
+### `InputPollOption` — `sendPoll(options)`
+
+just `text(...)` for now — bot api will accept richer option shapes (entities, parse_mode) once they roll out
+
+```ts
+import { InputPollOption } from 'puregram'
+
+await telegram.api.sendPoll({
+  chat_id: chat,
+  question: 'pick one',
+  options: [
+    InputPollOption.text('a'),
+    InputPollOption.text('b')
+  ]
+})
+```
+
+<a name='input-sticker'></a>
+### `InputSticker` — `addStickerToSet`, `createNewStickerSet`
+
+three factories matching the three sticker file formats. emoji list is the second positional arg since you basically always need it:
+
+```ts
+import { InputSticker } from 'puregram'
+
+const stickers = [
+  InputSticker.static('attach://a.png', ['😀']),
+  InputSticker.animated('attach://b.tgs', ['🎉'], { keywords: ['party'] }),
+  InputSticker.video('attach://c.webm', ['🐱'])
+]
+```
+
+<a name='labeled-price'></a>
+### `LabeledPrice` + `ShippingOption` — invoices
+
+`LabeledPrice.of(label, amount)` builds one line item (amount in the currency's smallest units — cents, kopecks, etc). `ShippingOption.of(id, title, prices)` bundles a few line items into one named option:
+
+```ts
+import { LabeledPrice, ShippingOption } from 'puregram'
+
+const prices = [
+  LabeledPrice.of('item', 1500),       // $15.00
+  LabeledPrice.of('shipping', 500)     // $5.00
+]
+
+const shipping = [
+  ShippingOption.of('std', 'standard', prices),
+  ShippingOption.of('fast', 'express', [...prices, LabeledPrice.of('rush', 1000)])
+]
+```
+
+<a name='bot-commands'></a>
+### `BotCommands` (+ `.scope`) — `setMyCommands`
+
+`BotCommands.command(name, description)` for one entry. `BotCommands.scope.X(...)` for the discriminated `BotCommandScope` family (default / private chats / groups / chat / chat admin / specific user):
+
+```ts
+import { BotCommands } from 'puregram'
+
+await telegram.api.setMyCommands({
+  commands: [
+    BotCommands.command('start', 'start the bot'),
+    BotCommands.command('help', 'show help')
+  ],
+  scope: BotCommands.scope.allPrivateChats()
+})
+
+// admin-only command in one specific chat
+await telegram.api.setMyCommands({
+  commands: [BotCommands.command('admin', 'admin panel')],
+  scope: BotCommands.scope.chatAdministrators(-100123)
+})
+```
+
+scope factories: `default()`, `allPrivateChats()`, `allGroupChats()`, `allChatAdministrators()`, `chat(chatId)`, `chatAdministrators(chatId)`, `chatMember(chatId, userId)`
+
+<a name='menu-button'></a>
+### `MenuButton` — `setChatMenuButton`
+
+three menu modes — fall back to bot-wide default, show the bot's command list, or launch a web app:
+
+```ts
+import { MenuButton } from 'puregram'
+
+// open a web app from the menu button
+await telegram.api.setChatMenuButton({
+  chat_id: chat,
+  menu_button: MenuButton.webApp('open dashboard', 'https://example.com/dash')
+})
+
+// show the standard command list
+await telegram.api.setChatMenuButton({
+  chat_id: chat,
+  menu_button: MenuButton.commands()
+})
+
+// fall back to the bot-wide default
+await telegram.api.setChatMenuButton({
+  chat_id: chat,
+  menu_button: MenuButton.default()
+})
+```
+
+<a name='input-message-content'></a>
+### `InputMessageContent` — message bodies inside inline query results
+
+passed as the `content` field on `InlineQueryResult.X(...)` (see [inline-media-and-friends](#input-media)).
+five variants matching the bot api's `InputXMessageContent` family — text, location, venue, contact, invoice.
+positional args for the required fields, params object for the rest:
+
+```ts
+import { InputMessageContent } from 'puregram'
+
+InputMessageContent.text('hi there', { parse_mode: 'HTML' })
+InputMessageContent.location(55.75, 37.61, { live_period: 3600 })
+InputMessageContent.venue(55.75, 37.61, 'Red Square', 'Moscow, Russia')
+InputMessageContent.contact('+1234567890', 'first name', { last_name: 'last' })
+
+// invoice has too many required fields for a positional form — pass the full param object
+InputMessageContent.invoice({
+  title: 'thing',
+  description: 'a thing',
+  payload: 'payload-1',
+  currency: 'USD',
+  prices: [LabeledPrice.of('thing', 1500)]
+})
+```
+
+<a name='using-markdown'></a>
+### using markdown (`parse_mode`)
+
+three static helper classes — `HTML`, `Markdown`, `MarkdownV2` — wrap each formatting style. they escape user input for you, which matters more than it sounds:
+
+```ts
+import { HTML, MarkdownV2 } from 'puregram'
+
+await telegram.send(100, `${HTML.bold('hello!')} ${HTML.italic('world')}`, {
+  parse_mode: 'HTML'
+})
+
+await telegram.send(100, MarkdownV2.bold('hi'), { parse_mode: 'MarkdownV2' })
+```
+
+if you want a tagged-template api with chained styles instead of stringly-typed concat — and
+you don't want to think about `parse_mode` at all — look at [`@puregram/markup`](../markup).
+it composes message entities directly, so the same `bold(italic\`hi\`)` works regardless of the formatting flavor
+
+<a name='keyboards'></a>
+### keyboards (`reply_markup`)
+
+four kinds of keyboards live in core: `Keyboard` (reply), `InlineKeyboard`, `RemoveKeyboard`, `ForceReply`. each one has a static-method builder for the common case, plus a `*Builder` class for fluent chains
+
+```ts
+import { InlineKeyboard, Keyboard, RemoveKeyboard, ForceReply } from 'puregram'
+
+// inline keyboard, attached to a message
+await telegram.send(100, 'pick one', {
+  reply_markup: InlineKeyboard.keyboard([
+    [InlineKeyboard.urlButton({ text: 'docs', url: 'https://core.telegram.org/bots/api' })],
+    [InlineKeyboard.textButton({ text: 'press me', payload: 'press' })]
+  ])
+})
+
+// reply keyboard
+const replyKeyboard = Keyboard.keyboard([
+  [Keyboard.textButton('yes'), Keyboard.textButton('no')]
+])
+
+// remove the reply keyboard
+const remove = new RemoveKeyboard()
+
+// force the user into a reply, optionally with a placeholder
+const force = new ForceReply().setPlaceholder('your answer here')
+```
 
 ---
 
+<a name='updates'></a>
+## updates
+
+an **update** is anything telegram pushes at your bot — a new message, an edited message, a callback-query press, an inline query, a poll-vote, a chat-member change, etc. there are about 30 different kinds, each one a discriminated subclass of the `Update` union
+
+every update class is **codegen'd** from the bot api schema, so:
+- primitive fields are direct getters: `message.text`, `message.messageId`, `callbackQuery.data`
+- nested-object fields are lazy + memoized wrappers: `message.from` (a `User`), `message.chat` (a `Chat`)
+- per-kind shortcuts are attached as methods: `message.send(...)`, `message.edit(...)`, `message.delete()`, `callbackQuery.answer(...)`
+- `update.kind` is a literal-typed discriminant, `update.is('message')` narrows the type, `update.raw` is always the bot-api payload as-is
+
+```ts
+telegram.onMessage(message => message.send('got it'))
+telegram.onCallbackQuery(callbackQuery => callbackQuery.answer({ text: 'thanks' }))
+telegram.onInlineQuery(inlineQuery => inlineQuery.answer({ results: [] }))
+
+// or hook anything via onUpdate
+telegram.onUpdate((update) => {
+  if (update.is('message') && update.hasText()) {
+    return update.send(`echo: ${update.text}`)
+  }
+})
+```
+
+every kind has a matching `telegram.on<Kind>(handler)` — `onMessage`, `onEditedMessage`, `onChannelPost`, `onCallbackQuery`, `onInlineQuery`, `onChatMember`, `onPoll`, … — picking a kind that doesn't exist is a compile error. for cross-kind handlers or custom predicates, `telegram.onUpdate(...)` is the catch-all
+
+---
+
+<a name='filters'></a>
+## filters
+
+a **filter** is a named, composable, type-guarded predicate over an update. you compose them, pass them as the first arg of `telegram.on<Kind>(filter, handler)`, and the handler's argument gets narrowed to whatever the filter promises. they replace v2's `UpdatesFilter` / `hasText` / `command` mixins with a single, generic mechanism
+
+most common cases have a one-line shortcut on `Telegram` itself:
+
+```ts
+// matches /start, /start@yourbot, /start payload, etc
+telegram.command('start', message => message.send('welcome!'))
+```
+
+for anything more interesting, compose. `puregram` re-exports a `filters` namespace with the codegen'd presence/kind filters and a few handcrafted ones (`command`, `text`, `regex`, `chat`, `senderChat`, `from`, `callbackData`, `inlineQuery`, …):
+
+```ts
+import { filters, and } from 'puregram'
+
+const { kind, hasText } = filters
+
+// pass a filter as the first arg of telegram.onMessage to gate the handler
+telegram.onMessage(hasText, message => message.send(`heard: ${message.text}`))
+
+// or compose with `and`/`or`/`not` (and use telegram.onUpdate when the filter spans kinds)
+telegram.onUpdate(and(kind.message, hasText), update => update.send('!'))
+```
+
+three composition forms are interoperable — pick whichever is prettier at the call site:
+
+```ts
+import { kind, hasText, and } from 'puregram'
+
+telegram.onUpdate(and(kind.message, hasText), handler)        // factory form
+telegram.onUpdate(kind.message.and(hasText), handler)         // chained method
+telegram.onUpdate(update => kind.message(update) && hasText(update), handler) // raw boolean
+```
+
+writing your own:
+
+```ts
+import { defineFilter, and, kind } from 'puregram'
+
+const isWeekend = defineFilter('isWeekend', _update => {
+  const day = new Date().getDay()
+
+  return day === 0 || day === 6
+})
+
+telegram.onMessage(isWeekend, message => message.send('chill, it is the weekend'))
+```
+
+declaring `kinds: ['message', 'edited_message']` on a custom filter gives the dispatcher a free fast-path — it skips evaluating the predicate when `update.kind` isn't in the set. the codegen'd `hasX` filters already do this
+
+---
+
+<a name='middlewares'></a>
 ## middlewares
 
-`puregram` implements middlewares logic, so you can use them to expand your `context` variables or measure other middlewares.
-`next()` is used to call the next middleware on the chain and wait until it's done
+a **middleware** is a function that runs on every incoming update before user handlers fire. it gets `(update, next)` — call `next()` to let the chain continue, *don't* call `next()` to swallow the update. classic pattern for cross-cutting concerns: timing, logging, auth, rate-limit short-circuits, anything that has to wrap *every* handler
 
-- measuring the time it takes to process the update:
-
-```js
-telegram.updates.use(async (context, next) => {
+```ts
+telegram.use(async (update, next) => {
   const start = Date.now()
 
-  await next() // next() is async, so we need to await it
+  await next()
 
-  const end = Date.now()
+  const u = update as { kind: string }
 
-  console.log(`${context.updateId ?? '[unknown]'} processed in ${end - start}ms`)
+  console.log(`${u.kind} took ${Date.now() - start}ms`)
+})
+
+telegram.onMessage(message => message.send('ok'))
+```
+
+the 2-arg form gates on a filter and gives you a properly-typed update inside (no cast):
+
+```ts
+import { filters } from 'puregram'
+
+telegram.use(filters.kind.message, async (message, next) => {
+  console.log(message.kind, message.text)
+  await next()
 })
 ```
 
-- extending the context:
+middlewares are prioritised — `'high'` runs first, then `'normal'` (the default), then user `telegram.on<Kind>(...)` handlers, then `'low'`. plugins like `@puregram/flow`'s `waitFor` claim `'high'` to intercept updates before any user handler sees them
 
-```js
-telegram.updates.use(async (context, next) => {
-  context.user = await getUser(context.senderId)
-
-  return next()
-})
-
-telegram.updates.on('message', (context) => {
-  // here we can access property we made in the middleware
-  return context.send(`hey, ${context.user.name}!`)
-})
+```ts
+telegram.use(myMiddleware, { priority: 'high' })
 ```
 
 ---
 
+<a name='hooks'></a>
 ## hooks
 
-since `v2.19.0`, `puregram` has **hooks** - a way to intercept the outgoing *(and ingoing soon)* requests
-and manipulate data in them. this means that you can create such an interceptor that will, for example,
-always add `parse_mode: 'html'` to your `sendMessage` calls, or even abort (cancel) the requests!
+if middlewares wrap **incoming updates**, hooks wrap **outgoing api requests**. `puregram` runs every `telegram.api.X(...)` call through a five-stage pipeline, and each stage is a hook you can register middleware on. classic use case: always inject `parse_mode: 'HTML'`, log every api call, transparently retry rate-limited requests, swap a `MediaSource.path` for a cached `file_id`
 
-```js
-telegram.onBeforeRequest((context) => {
-  if (context.path === 'sendMessage') {
-    context.params.parse_mode = 'html'
+```ts
+import type { RequestContext } from 'puregram'
+
+telegram.useHook('onBeforeRequest', (raw, next) => {
+  const context = raw as RequestContext
+
+  if (context.method === 'sendMessage' && context.params !== undefined) {
+    context.params.parse_mode ??= 'HTML'
   }
-
-  return context
-})
-
-telegram.updates.on('message', (context) => {
-  return context.reply('this <b>will be</b> <i>parsed</i> correctly!')
-})
-```
-
-### deeper into the ~~woods~~ hooks!
-
-there are currently **five** hooks that you can use. each of them has their own set
-of variables called *context*. **you need to return the same structure of an object that was given to you when you caught it**
-
-each and every *context* has keys that the previous interceptor had. for example,
-take this `BaseContext` that every other context extends off of:
-
-| key          | type                 | description                                              |
-| ------------ | -------------------- | -------------------------------------------------------- |
-| `controller` | `AbortController`    | basic `AbortController`, allows to `abort()` the request |
-| `init`       | `undici.RequestInit` | `fetch()`'s params object                                |
-
-every context listed below will have those `controller` and `init` keys PLUS their own keys
-
-hooks are listed below in order of their execution from top to bottom:
-
-1. `onBeforeRequest`: this hook is processed when the API request has been just caught and is starting to set everything up
-
-| key      | type                  | description                                |
-| -------- | --------------------- | ------------------------------------------ |
-| `path`   | `string`              | API method path, `sendMessage` for example |
-| `params` | `Record<string, any>` | API method params                          |
-
-2. `onRequestIntercept`: hook that is executed right before the API call happens to be processed
-
-| key     | type     | description                              |
-| ------- | -------- | ---------------------------------------- |
-| `query` | `string` | URL query that was built by the `params` |
-| `url`   | `string` | full API request URL                     |
-
-3. API call. no hook for this, sorry!
-
-4. `onResponseIntercept`: API call has succeeded (probably), `response` and `json` are yours to experiment with
-
-| key        | type               | description                            |
-| ---------- | ------------------ | -------------------------------------- |
-| `response` | `undici.Response`  | HTTP response that came from API       |
-| `json`     | `ApiResponseUnion` | HTTP response that morphed into JSON 👻 |
-
-5. `onAfterRequest`: everything that has to be done had been done, literally cleaning time
-
-*no additional keys are provided for `onAfterRequest`*
-
-and one more, `onError`, which is covering the area between `onRequestIntercept` and `onAfterRequest` hooks
-
-| key     | type    | description                   |
-| ------- | ------- | ----------------------------- |
-| `error` | `Error` | simply an error that happened |
-
-### exporting hooks into packages
-
-*... or, to put simply, "how do i export more than one hook and use it easily?"*
-
-`puregram` provides `telegram.useHooks(hooks)` method that allows you to pass multiple hooks of different types
-easily and instantly. this gradually helps importing several hooks at once if you're, for example, importing them
-from another package:
-
-```js
-// lets pretend `hooks` is a function that returns `puregram.Hooks` object (will be discussed below)
-import { hooks as imagination } from 'imaginary-package'
-
-telegram.useHooks(imagination())
-
-// ... that's literally it!
-```
-
-under the *imaginary* hood, `hooks` (a.k.a. `imagination` in this case) is a function (does not need to be a function though)
-that returns `puregram.Hooks` interface - an object that you can import from `puregram/hooks`:
-
-```ts
-import { Hooks } from 'puregram/hooks'
-
-export function hooks(): Hooks {
-  return () => ({
-    onBeforeRequest: [(context) => { ... }],
-    onAfterRequest: [(context) => { ... }]
-  })
-}
-```
-
-*that's it!*
-
----
-
-## typescript usage
-
-### extending contexts
-
-surely enough, you can extend contexts with extra fields and properties you need by intersectioning base context with new properties.
-
-```ts
-interface ExtraData {
-  name: string
-  id?: number
-}
-
-/** ... */
-
-telegram.updates.use(async (context, next) => {
-  const user = await getUser(context.senderId)
-
-  context.name = user.name
-  context.id = user.id
 
   return next()
 })
 
-/**
- * there are 2 ways of updating context's type:
- * 1. external type override:
- * `(context: MessageContext & ExtraData) => ...`
- * 2. using generics:
- * `telegram.updates.on<ExtraData>(...)`
- * 
- * below I will be using the second way.
- */
-
-telegram.updates.on<ExtraData>('message', (context) => {
-  assert(context.name !== undefined)
+telegram.useHook('onError', (error, _context) => {
+  console.error('api call failed:', error.message)
 })
 ```
 
+the five request-stage hooks, in order:
+
+1. **`onBeforeRequest`** — request just caught, params not yet serialised. mutate `params`, abort early
+2. **`onRequestIntercept`** — just before fetch fires. `url`, `init` are populated; this is where you'd swap the http client or rewrite the url
+3. ...the actual api call happens here. no hook, sorry!
+4. **`onResponseIntercept`** — response back, parsed as `json`. inspect or rewrite the response before puregram processes it
+5. **`onAfterRequest`** — pipeline done. cleanup time
+
+plus:
+- **`onError`** — between intercept and after-request; catches request errors. return a new `Error` to replace it, or nothing to keep it as-is
+- **`onUpdate`** — dispatch middleware (priority-aware). `telegram.use(...)` is just a shorthand for `useHook('onUpdate', fn, options)`
+- **`onInit`** — after all plugin installs resolve, before dispatch starts
+- **`onShutdown`** — graceful teardown, drains in-flight
+
+plugins lean on hooks all the time — `@puregram/markup` uses `onBeforeRequest` to unwrap its tagged-template formatted text into `entities`, `@puregram/media-cacher` uses it to swap upload sources for cached `file_id`s, etc
+
 ---
 
-### importing Telegram interfaces
+<a name='extending-puregram-with-plugins'></a>
+## extending puregram with plugins
 
-all Telegram interfaces and method types are auto-generated and put in different files: `telegram-interfaces.ts` for interfaces and `methods.ts` + `api-methods.ts` for api methods. they all exist at the paths `puregram/telegram-interfaces`, `puregram/methods` and `puregram/api-methods` respectively.
-also there's a `puregram/generated` export which exports everything from `lib/generated` folder (all of those listed before).
+a **plugin** is a self-contained piece of behavior that attaches itself to `telegram` under its own namespace. `@puregram/session`, `@puregram/scenes`, `@puregram/markup`, `@puregram/flow`, `@puregram/media-cacher`, `@puregram/rate-limit` — every official satellite is a plugin. the api is `telegram.extend(plugin)`, it's chainable, and every link narrows the type of `telegram` so you don't need `declare module 'puregram'` augmentations
+
+at the simplest level:
 
 ```ts
-import { TelegramUpdate, TelegramMessage } from 'puregram/generated'
+import { Telegram } from 'puregram'
+import { session } from '@puregram/session'
+
+const telegram = Telegram.fromToken(process.env.TOKEN!)
+  .extend(session())
+
+// session() is now installed; telegram.session is typed and ready
+telegram.onMessage(async (message) => {
+  message.session.counter = (message.session.counter ?? 0) + 1
+
+  await message.send(`you sent ${message.session.counter} messages`)
+})
 ```
 
+plugins compose freely:
+
 ```ts
-import { SendDocumentParams } from 'puregram/generated'
+import { session } from '@puregram/session'
+import { scenes } from '@puregram/scenes'
+import { flow } from '@puregram/flow'
+
+const telegram = Telegram.fromToken(TOKEN)
+  .extend(session())
+  .extend(scenes())
+  .extend(flow())
+
+// telegram.session, telegram.scenes, telegram.flow — all typed
 ```
 
+writing your own takes ~5 lines. `createPlugin` returns a typed plugin spec; the install function's return value gets keyed under `plugin.name` and merged onto `telegram`
+
 ```ts
-import { CopyMessageParams } from 'puregram/methods'
-import { InputFile, TelegramUpdate } from 'puregram/telegram-interfaces'
+import { createPlugin, Telegram } from 'puregram'
+
+const greeter = createPlugin({
+  name: 'greeter',
+  install: telegram => ({
+    hello: (chatId: number) => telegram.send(chatId, 'hi!')
+  })
+})
+
+const telegram = Telegram.fromToken(process.env.TOKEN!).extend(greeter)
+
+await telegram.greeter.hello(100) // typed!
 ```
 
-### type predicates
+a few things to know once you've written a couple:
 
-`puregram` implements [type predicates](typescript-type-predicates) (so-called *type guards*)
-on some context methods (mostly on those that have `is`/`has`/`can` at the start of the field name) in order to
-keep connection between types and actual values
+- **dependencies.** `dependsOn: ['session']` declares a hard dependency. the installer resolves install order topologically, throws `PluginCycle` on a cycle, throws `PluginMissingDep` if the dep isn't installed. for soft deps (adapt-if-present), use the `telegram.has('session')` runtime check — it doesn't widen the type
+- **namespace collisions.** two plugins with the same `name` throw `PluginConflict` at start time. plugins can't pollute the root `telegram` namespace; everything they expose lives under `telegram.<plugin name>.X`
+- **install timing.** `.extend(plugin)` queues the plugin synchronously. installs are awaited on `telegram.start()` (or implicitly on the first `startPolling()`/`getWebhookCallback()`), in dependency-resolved order. async installs are fine
+- **lifecycle hooks.** `useHook('onInit', …)` runs once installs settle; `useHook('onShutdown', …)` runs on `telegram.shutdown()`. that's the canonical place to spin background tasks up or tear them down
+
+---
+
+<a name='custom-updates'></a>
+## custom updates
+
+sometimes your bot's logic produces events that don't come from telegram — a webhook from a payment provider, a cron tick, an internal job-completion signal. instead of inventing a parallel event bus, you can teach `telegram` about a custom update kind and emit through the same dispatch pipeline that bot-api updates use:
 
 ```ts
-telegram.updates.on('message', (context) => {
-  const originalText = context.text
-  // if we look at the `originalText`'s type we will see `string | undefined`
+type JobDone = { jobId: string, result: unknown }
 
-  // but luckily for us there is such type predicate as `hasText()` which tells typescript that `context.text` is definitely a `string`!
-  if (context.hasText()) {
-    const text = context.text
-    // `text`'s type is now `string`. `undefined` is gone! hurray!!
+const telegram = Telegram.fromToken(TOKEN)
+
+telegram.defineUpdate<'job_done', JobDone>('job_done')
+
+setInterval(() => {
+  telegram.emit('job_done', { jobId: 'abc', result: { ok: true } })
+}, 1000)
+
+telegram.onUpdate((update) => {
+  if (update.kind === 'job_done') {
+    update.jobId   // string — typed!
+    update.result  // unknown
   }
 })
 ```
 
-also, `Context.is` is also a type guard! this means that you can do this and get a proper context typing whenever you want:
+`telegram.on<custom kind>(...)` is typechecked just like the bot-api ones — `telegram.onUpdate('not_a_real_kind', …)` is a compile error. custom updates flow through the exact same `onUpdate` middleware chain as everything else
+
+---
+
+<a name='webhook'></a>
+## webhook
+
+polling is fine for development and small bots. for anything serious you want webhooks. `getWebhookCallback` returns a node-compatible request handler you can drop into any http server:
 
 ```ts
-if (context.is('callback_query')) {
-  // context is now CallbackQueryContext
+import { createServer } from 'node:http'
+import { Telegram } from 'puregram'
+
+const telegram = Telegram.fromToken(process.env.TOKEN!)
+
+telegram.onMessage(message => message.send('got it via webhook'))
+
+const callback = telegram.getWebhookCallback({ secretToken: 'my-secret' })
+
+createServer(callback).listen(8080)
+
+// then tell telegram where to push updates
+await telegram.api.setWebhook({
+  url: 'https://example.com/webhook',
+  secret_token: 'my-secret'
+})
+```
+
+works just as well behind express / fastify / koa / whatever — the callback signature is `(req, res) => void`. v2 had per-framework helper exports; in v3 the single `getWebhookCallback()` covers all of them, since every modern framework can adapt a node-style handler
+
+---
+
+<a name='debug-logs'></a>
+## debug logs
+
+`puregram` has its own namespaced logger — no `debug` package dependency, just an env var. enable it by setting `PUREGRAM_DEBUG`:
+
+```sh
+# everything
+$ PUREGRAM_DEBUG='puregram:*' node index.js
+
+# just the api proxy + dispatch
+$ PUREGRAM_DEBUG='puregram:api,puregram:dispatch' node index.js
+```
+
+the env var is comma-separated; each entry is either an exact namespace (`puregram:api`) or a wildcard prefix (`puregram:*`). namespaces include `puregram:api`, `puregram:dispatch`, `puregram:hooks`, `puregram:plugin`, `puregram:transport:polling`, `puregram:transport:webhook`, etc
+
+logs go to `stderr` — pipe to `2>` if you want to keep them out of stdout
+
+---
+
+<a name='typescript-usage'></a>
+## typescript usage
+
+`puregram` is written in typescript and ships its own `.d.ts` files — there's nothing to install on top, no `@types/puregram`
+
+a few ts-specific things to know:
+
+### `Telegram<Ext>` is generic over its plugins
+
+every `.extend(plugin)` call narrows the type:
+
+```ts
+import { Telegram } from 'puregram'
+import { session } from '@puregram/session'
+
+const telegram = Telegram.fromToken(TOKEN)
+//    ^? Telegram<{}>
+
+const withSession = telegram.extend(session())
+//    ^? Telegram<{ session: SessionExtension }>
+```
+
+handlers see the right type automatically — `message.session` is typed inside `withSession.onMessage(...)` without you doing anything
+
+### `update.is(kind)` is a type predicate
+
+```ts
+telegram.onUpdate((update) => {
+  if (update.is('message')) {
+    // update is narrowed to MessageUpdate
+    update.send('hi')
+  }
+})
+```
+
+same for the codegen'd `hasX` predicates: `if (message.hasText()) { message.text /* string */ }`
+
+### importing bot-api types
+
+raw bot-api types (`TelegramMessage`, `TelegramUser`, `TelegramChat`, …) come from `@puregram/api`. `puregram` re-exports them too, so for most consumers `import type { TelegramMessage } from 'puregram'` is enough
+
+```ts
+import type { TelegramMessage } from 'puregram'
+
+function describe(raw: TelegramMessage) {
+  return `${raw.chat.id}: ${raw.text ?? '<no text>'}`
 }
 ```
 
-this is pretty useful when you have `context: Context` and especially convenient because you don't have to import
-the right contexts just to do this boring thing:
+---
 
-```ts
-if (context instanceof CallbackQueryContext) {
-  // this sucks! context.is('callback_query') is better   👍😎👍
-}
-```
-
-> **note**
-> because of type guards, it was decided to transition all getters starting with `is`/`has`/`can` into methods in all structures.
-> this means that if you see a field starting with aforementioned parts **you can be sure** that this is definitely a method
-> and not a getter or a property!
-
-[typescript-type-predicates]: https://www.typescriptlang.org/docs/handbook/advanced-types.html#using-type-predicates
-
+<a name='faq'></a>
 ## faq
-
-### `TypeError: Cannot read property '__scene' of undefined`
-
-you are trying to use [`@puregram/scenes`][@scenes] or [`@puregram/hear`][@hear] with [`@puregram/session`][@session], but you're confusing the middlewares order
-
-you should firstly initialize `@puregram/session`'s middleware and only then initialize other middlewares, depending on it:
-
-```js
-const hearManager = new HearManager()
-
-// 1. session middleware first
-telegram.updates.use(session())
-
-// 2. hear middleware second
-telegram.updates.on('message', hearManager.middleware)
-```
 
 ### how do i enable debugging?
 
-if you want to inspect out- and ingoing requests made by `puregram`, you will need to enable `DEBUG` environment variable so the package understands you are ready for logs.
+see the [debug logs](#debug-logs) section. tldr: `PUREGRAM_DEBUG='puregram:*' node index.js`
 
-#### how to enable `DEBUG`
+### how do i migrate from v2?
 
-| namespace   | example (unix)             | description                                                                       |
-| ----------- | -------------------------- | --------------------------------------------------------------------------------- |
-| `api/getMe` | `DEBUG=puregram:api/getMe` | enables debugging `getMe` update (you can set whichever method you want to debug) |
-| `updates`   | `DEBUG=puregram:updates`   | enables debugging ingoing updates                                                 |
-| `all`       | `DEBUG=puregram:*`         | enables debugging all of the listed types above                                   |
+honestly? by hand. the api shape changed a lot — `Context` is gone, mixins are gone, `telegram.updates.on` became `telegram.onMessage` / `telegram.onCallbackQuery` / etc, plugins are first-class via `.extend()`, sessions/scenes/hear/prompt all live in their own packages with their own redesigned apis. there is no codemod and there will not be one. write the migration by hand, look at the new examples once they land, file an issue if something is genuinely unclear
 
-##### cmd
+### what happens to v2?
 
-```cmd
-> set "DEBUG=puregram:all" & node index
-```
-
-##### powershell
-
-```ps
-> $env:DEBUG = "puregram:all"; node index
-```
-
-##### linux
-
-```sh
-$ DEBUG=puregram:all node index
-```
+v2 is frozen. once v3 is ready, the `lord` branch (currently v2) gets overwritten with v3, and packages that were dropped in v3 (`@puregram/hear`, `@puregram/prompt`) will have their source code removed from the tree. the npm tarballs for v2 stay published forever — your existing `puregram@2.x` install isn't going anywhere — but the repo will be a v3 repo
 
 ### are there any telegram chats or channels?
 
-totally! recently `puregram` has created its own forum! it has every topic needed and
-will be expanding if it needs to!
-
-if you ¯\\\_(ツ)_/¯ what to do and want to ask a question, **[@pureforum][pureforum] is definitely the way!**
-
-[pureforum]: https://forum.puregram.cool
+yep. [`t.me/pureforum`](https://t.me/pureforum) is the chat. open issues here, but for off-the-cuff "is this the right way to..." questions, the chat is faster
 
 ### why is your readme lowercased?
 
-because i dont like doing anything that looks official so i do my own styling 😎
+because i felt like it — see the issues:
 
-**btw did you see these issues?**
 - https://github.com/nitreojs/puregram/issues/63
 - https://github.com/nitreojs/puregram/issues/62
 
-they confirm im against anything that looks kinda too official 😉
-
 ---
 
+<a name='ecosystem'></a>
 ## ecosystem
 
-these packages are created by the `puregram` community _(and not only)_ and are expanding packages functionality _(i guess)_.
+### official packages
 
-### some official packages
+- [`@puregram/api`][@api]: autogenerated bot api types, structures, updates, factories
+- [`@puregram/storage`][@storage]: shared `KVStorage` / `TtlStorage` interfaces + in-process implementations
+- [`@puregram/session`][@session]: transparent persistent session plugin
+- [`@puregram/scenes`][@scenes]: multi-step scene/wizard plugin
+- [`@puregram/flow`][@flow]: conversational primitives — `waitFor`, `prompt`, `collectMediaGroup`, persistent flows
+- [`@puregram/markup`][@markup]: tagged-template entity-aware text formatting
+- [`@puregram/media-cacher`][@media-cacher]: transparent `file_id` caching, skips re-uploading repeated media
+- [`@puregram/rate-limit`][@rate-limit]: per-user fixed-window rate limiting
+- [`@puregram/file-id`][@file-id]: parse, inspect and serialize telegram `file_id` and `file_unique_id` strings
+- [`@puregram/utils`][@utils]: small standalone utilities — slot-machine value decoder + telegram web app initData validation
+- [`@puregram/test`][@test]: actor-driven test framework for puregram bots
 
-- [`@puregram/hear`][@hear]: simple implementation of hear system
-- [`@puregram/scenes`][@scenes]: simple implementation of middleware-based scene management
-- [`@puregram/session`][@session]: simple implementation of sessions
-- [`@puregram/utils`][@utils]: useful utilities
-- [`@puregram/prompt`][@prompt]: basic prompt system implementation
-- [`@puregram/callback-data`][@callback-data]: basic callback data validation and serialization
-- [`@puregram/markup`][@markup]: simple yet powerful markup system
-- [`@puregram/media-cacher`][@media-cacher]: cache sent media `file_id`s with ease!
+### dropped
 
-[@hear]: https://github.puregram.cool/hear
-[@scenes]: https://github.puregram.cool/scenes
-[@session]: https://github.puregram.cool/session
-[@utils]: https://github.puregram.cool/utils
-[@prompt]: https://github.puregram.cool/prompt
-[@callback-data]: https://github.puregram.cool/callback-data
-[@markup]: https://github.puregram.cool/markup
-[@media-cacher]: https://github.puregram.cool/media-cacher
+- `@puregram/hear`: gone — userland in v3 (just `if (message.text === '/foo') ...` or compose a `command` / `regex` filter)
+- `@puregram/prompt`: gone — folded into [`@puregram/flow`][@flow] as `flow.prompt(...)`
 
-### non-official ones
+### not yet ported
 
-- [`nestjs-puregram`][nestjs-puregram]: `puregram` sdk for [nestjs](https://nestjs.com/)
+- `@puregram/callback-data`: redesign in progress on top of the v3 plugin model
 
-[nestjs-puregram]: https://github.com/ItzNeviKat/nestjs-puregram
+[@api]: ../api
+[@storage]: ../storage
+[@session]: ../session
+[@scenes]: ../scenes
+[@flow]: ../flow
+[@markup]: ../markup
+[@media-cacher]: ../media-cacher
+[@rate-limit]: ../rate-limit
+[@file-id]: ../file-id
+[@utils]: ../utils
+[@test]: ../test
 
 ---
 
 ## thanks to
 
 - [negezor][negezor] ([negezor/vk-io][negezor/vk-io]) — for inspiration, package idea (!) and some code and implementation ideas
+- everyone who's filed issues, sent PRs, hung out in the chat, asked dumb questions, and otherwise kept this project alive long enough to reach v3 ❤️
 
 [negezor]: https://github.com/negezor
 [negezor/vk-io]: https://github.com/negezor/vk-io
 
-<div align='center'>
-  <a title='j++' href='https://github.com/jppteam'>
-    <picture>
-      <source media='(prefers-color-scheme: dark)' srcset='https://i.imgur.com/B301hMm.png' alt='jpp logo' width='200px'/>
-      <img src='https://i.imgur.com/Npj32k1.png' alt='jpp logo' width='200px'/>
-    </picture>
-  </a>
-</div>

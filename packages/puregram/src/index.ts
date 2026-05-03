@@ -5,6 +5,7 @@ export type { TelegramOptions } from './options'
 export { TelegramError, ApiError } from './errors'
 export type { ApiResponseError } from './errors'
 export { MediaSource, MediaSourceType, type MediaInput } from './media-source'
+export { UpdatesFilter } from './updates-filter'
 
 export { createPlugin } from './plugins/plugin'
 export type { Plugin } from './plugins/plugin'

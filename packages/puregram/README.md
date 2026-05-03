@@ -857,6 +857,77 @@ telegram.onUpdate((update) => {
 
 ---
 
+<a name='polling'></a>
+## polling
+
+`telegram.startPolling(options?)` is the simplest transport — long-poll `getUpdates`, dispatch each batch, repeat. great for development and small bots; switch to a webhook for anything production-grade
+
+```ts
+await telegram.startPolling({
+  allowedUpdates: ['message', 'callback_query', 'chat_member'],
+  dropPendingUpdates: true
+})
+```
+
+### `StartPollingOptions`
+
+| field | type | default | description |
+|---|---|---|---|
+| `offset` | `number` | none | starting `update_id` offset for the next `getUpdates`. rarely needed — useful for resume-from-checkpoint flows |
+| `timeout` | `number` (sec) | telegram default | long-poll timeout |
+| `allowedUpdates` | `string[]` | `telegram.options.allowedUpdates` (constructor default) | restrict the kinds of updates telegram delivers. omit (or `[]`) for "everything except opt-in kinds" |
+| `dropPendingUpdates` | `boolean \| string[]` | `false` | drain the queued backlog before subscribing. `true` drops everything; pass an array to drop only the listed kinds (`['message', 'callback_query']`) |
+
+`allowedUpdates` can also be set at construction time — convenient default for every `startPolling` / webhook in the same bot:
+
+```ts
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  allowedUpdates: ['message', 'callback_query']
+})
+```
+
+per-call `allowedUpdates` overrides the constructor default
+
+### `UpdatesFilter` — opt into every update kind
+
+telegram's default `allowed_updates` excludes opt-in kinds like `chat_member`, `business_message`, `chat_join_request`. to receive them, you have to list every desired kind explicitly. `UpdatesFilter` is a tiny helper that returns the full list (or every kind except the ones you don't want):
+
+```ts
+import { Telegram, UpdatesFilter } from 'puregram'
+
+// subscribe to every update kind, including chat_member and friends
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  allowedUpdates: UpdatesFilter.all()
+})
+
+// every kind except a few — handy when you want admin events but not business updates
+await telegram.startPolling({
+  allowedUpdates: UpdatesFilter.except(['business_connection', 'business_message', 'edited_business_message'])
+})
+
+// pass a single kind without wrapping it in an array
+UpdatesFilter.except('chat_member')
+```
+
+| method | returns |
+|---|---|
+| `UpdatesFilter.all()` | `UpdateKind[]` — every kind in `UPDATE_KINDS` |
+| `UpdatesFilter.except(kind)` | `UpdateKind[]` — every kind except the named one |
+| `UpdatesFilter.except([kind1, kind2])` | `UpdateKind[]` — every kind except the listed ones |
+
+want the raw constant? `import { UPDATE_KINDS } from 'puregram'` — readonly tuple of every update kind in dispatch order
+
+### stopping
+
+```ts
+telegram.stopPolling()      // halts the loop; in-flight handlers keep running
+await telegram.shutdown()   // also fires onShutdown plugin hooks + drains in-flight
+```
+
+---
+
 <a name='webhook'></a>
 ## webhook
 

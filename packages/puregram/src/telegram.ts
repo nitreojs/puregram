@@ -27,6 +27,7 @@ import type {
   ErrorHandler,
   HookOptions,
   Middleware,
+  RequestContext,
   RequestHookName
 } from './dispatch/hooks'
 import { HookRegistry } from './dispatch/hooks'
@@ -308,7 +309,8 @@ export class Telegram<Ext = unknown> {
     return this
   }
 
-  useHook (name: RequestHookName | 'onUpdate', fn: Middleware<unknown>, options?: HookOptions): this
+  useHook (name: RequestHookName, fn: Middleware<RequestContext>, options?: HookOptions): this
+  useHook (name: 'onUpdate', fn: Middleware<unknown>, options?: HookOptions): this
   useHook (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): this
   useHook (name: 'onError', fn: ErrorHandler): this
   useHook (name: 'onDispatchError', fn: DispatchErrorHandler): this

@@ -1,31 +1,48 @@
 {
   "name": "@puregram/callback-data",
-  "version": "1.2.3",
-  "description": "basic callback data validation and serialization for puregram",
+  "version": "3.0.0",
+  "description": "typed callback-data builder for puregram",
+  "type": "module",
   "main": "./lib/index.js",
-  "scripts": {
-    "build": "echo 'callback-data is v2 code awaiting redesign on the v3 plugin model — skipping build'"
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
   },
   "files": [
     "lib"
   ],
-  "keywords": [
-    "puregram",
-    "callback-data",
-    "serialization",
-    "validation"
-  ],
-  "author": "starkow",
-  "license": "WTFPL",
-  "types": "./lib/index.d.ts",
-  "directories": {
-    "lib": "lib"
+  "engines": {
+    "node": ">=22.0.0"
   },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "puregram": "*",
+    "@puregram/api": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nitreojs/puregram/tree/lord/packages/callback-data"
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/callback-data"
   },
-  "peerDependencies": {
-    "puregram": "^2.20.0"
-  }
+  "keywords": [
+    "telegram",
+    "telegram-bot-api",
+    "puregram",
+    "plugin",
+    "callback-data",
+    "serialization"
+  ]
 }

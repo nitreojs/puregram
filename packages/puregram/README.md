@@ -860,7 +860,71 @@ telegram.onUpdate((update) => {
 <a name='webhook'></a>
 ## webhook
 
-polling is fine for development and small bots. for anything serious you want webhooks. `getWebhookCallback` returns a node-compatible request handler you can drop into any http server:
+polling is fine for development and small bots. for anything serious you want webhooks. there are three ways to wire them up depending on what you've already got running
+
+### the easiest path — `telegram.startWebhook(...)`
+
+one call: registers the webhook with telegram **and** spins up a built-in node `http` listener. perfect for "bot in a single process" deployments
+
+```ts
+import { Telegram } from 'puregram'
+
+const telegram = Telegram.fromToken(process.env.TOKEN!)
+
+telegram.onMessage(message => message.send('got it via webhook'))
+
+const { stop } = await telegram.startWebhook({
+  url: 'https://example.com/webhook',  // your public https url
+  port: 8080,                          // local port to listen on
+  secretToken: 'my-secret',            // shared secret — telegram echoes it on every delivery
+  dropPendingUpdates: true             // drop the queued backlog before subscribing
+})
+
+// graceful shutdown
+process.on('SIGTERM', async () => {
+  await stop()
+  await telegram.shutdown()
+})
+```
+
+### bring your own http framework
+
+if you already have an express / fastify / koa / hono / h3 / elysia app, mount the webhook on a route in your existing server. one adapter per framework — all live at `puregram/webhook`:
+
+```ts
+import express from 'express'
+import { Telegram } from 'puregram'
+import { expressAdapter } from 'puregram/webhook'
+
+const telegram = Telegram.fromToken(process.env.TOKEN!)
+const app = express()
+
+app.use(express.json())
+app.post('/webhook', expressAdapter(telegram.webhookHandler({ secretToken: 'my-secret' })))
+
+app.listen(8080)
+
+await telegram.setWebhook({ url: 'https://example.com/webhook', secretToken: 'my-secret' })
+```
+
+every adapter is a one-liner. import the matching one and pass it `telegram.webhookHandler(options?)`:
+
+| framework | import | usage |
+|---|---|---|
+| express | `expressAdapter` | `app.post('/webhook', expressAdapter(telegram.webhookHandler()))` |
+| fastify | `fastifyAdapter` | `fastify.post('/webhook', fastifyAdapter(telegram.webhookHandler()))` |
+| koa | `koaAdapter` | `router.post('/webhook', koaAdapter(telegram.webhookHandler()))` |
+| hono | `honoAdapter` | `app.post('/webhook', honoAdapter(telegram.webhookHandler()))` |
+| h3 | `h3Adapter` | `app.use('/webhook', h3Adapter(telegram.webhookHandler()))` |
+| elysia | `elysiaAdapter` | `app.post('/webhook', elysiaAdapter(telegram.webhookHandler()))` |
+| web fetch (workers/deno/bun/edge) | `webAdapter` | `(req) => webAdapter(telegram.webhookHandler(), req)` |
+| raw `node:http` | `nodeAdapter` (or use `getWebhookCallback`) | `createServer(nodeAdapter(telegram.webhookHandler()))` |
+
+express/koa adapters expect `req.body` to already be parsed json — register `express.json()` / `koa-bodyparser` before the route. fastify, hono, h3, elysia, and web all auto-parse
+
+### bare `node:http`
+
+if you're not using a framework at all, `getWebhookCallback` is `nodeAdapter(webhookHandler())` rolled into one and ready to drop into `createServer`:
 
 ```ts
 import { createServer } from 'node:http'
@@ -874,14 +938,46 @@ const callback = telegram.getWebhookCallback({ secretToken: 'my-secret' })
 
 createServer(callback).listen(8080)
 
-// then tell telegram where to push updates
-await telegram.api.setWebhook({
+await telegram.setWebhook({
   url: 'https://example.com/webhook',
-  secret_token: 'my-secret'
+  secretToken: 'my-secret'
 })
 ```
 
-works just as well behind express / fastify / koa / whatever — the callback signature is `(req, res) => void`. v2 had per-framework helper exports; in v3 the single `getWebhookCallback()` covers all of them, since every modern framework can adapt a node-style handler
+### `telegram.setWebhook(...)` / `telegram.deleteWebhook(...)`
+
+typed wrappers around the bot api methods. easier to read than `tg.api.setWebhook({ secret_token: '...' })` and use camelCase consistently:
+
+```ts
+await telegram.setWebhook({
+  url: 'https://example.com/webhook',
+  secretToken: 'my-secret',
+  allowedUpdates: ['message', 'callback_query'],
+  maxConnections: 100,
+  dropPendingUpdates: true
+})
+
+await telegram.deleteWebhook({ dropPendingUpdates: true })
+```
+
+### options — `WebhookOptions`
+
+passed to `getWebhookCallback`, `webhookHandler`, and `startWebhook`:
+
+| option | type | default | description |
+|---|---|---|---|
+| `secretToken` | `string` | none | shared secret echoed in `x-telegram-bot-api-secret-token`. mismatched/missing requests get 401 |
+| `webhookReply` | `boolean` | `true` | webhook-reply optimization. methods returning `true` (chat actions, reactions, deletions, …) ride the 200 body, saving a round-trip. data-returning methods (sendMessage, getChat, …) still round-trip. invisible to userland — disable only if a proxy/firewall strips non-empty 200 bodies |
+| `timeoutMilliseconds` | `number` | `25_000` | max wait between request arrival and the 200 response. dispatch keeps running after — awaited by `tg.shutdown()`. only active with `webhookReply` |
+| `maxBodyBytes` | `number` | `1_048_576` (1 MB) | `nodeAdapter` body-size cap; oversized requests get 413. other adapters honour their framework's own limits |
+
+`startWebhook` takes the union of `WebhookOptions` and `SetWebhookOptions` (`url`, `certificate`, `ipAddress`, `maxConnections`, `allowedUpdates`, `dropPendingUpdates`, `secretToken`) plus three listener-specific knobs:
+
+| option | type | default | description |
+|---|---|---|---|
+| `port` | `number` | none | local port for the built-in `http` listener. omit for "set the webhook + return the callback, but don't start a server" |
+| `host` | `string` | `'0.0.0.0'` | host to bind the listener to |
+| `path` | `string` | `'/'` | path the listener responds to. all other paths return 404 |
 
 ---
 

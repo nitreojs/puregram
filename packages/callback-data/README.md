@@ -7,74 +7,50 @@
 <div align='center'>
   <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
-  <a href='#typescript-usage'><b>typescript usage</b></a>
+  <a href='#wire-format'><b>wire format</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='#filtering-with-with'><b>filtering</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='https://t.me/pureforum'><b>telegram forum</b></a>
 </div>
 
 ## @puregram/callback-data
 
-_basic callback data validation and serialization for `puregram` package_
+_typed callback-data builder for `puregram` package_
 
 ### introduction
 
-i'm **tired** of people using json objects as their callback data payload.
-this is **NOT** okay, you should **NOT** do that. at least because it's
-not safe when it comes to amount of bytes _(`JSON.stringify` your ass)_,
-at most because at the end you have zero types, zero validation, zero anything
+stop stuffing JSON into `callback_data`. you only get **64 bytes**, JSON eats them like a starving raccoon, and on the other end you have zero types and zero validation.
 
-`@puregram/callback-data` provides those mentioned things. yeah, you can
-write callback data payload that will be validated and will have correct types!
-**incredible.**
+`@puregram/callback-data` gives you a typed schema, a tiny binary-ish encoder that beats decimal/JSON on every common case, and a callable filter that drops straight into `tg.on(...)`. no manual `JSON.parse`, no string-prefix routing, no `as`-casting back into shape
 
 ### example
 
-let's create a keyboard that will automatically ban the user!
+```ts
+import { Telegram } from 'puregram'
+import { defineCallbackData } from '@puregram/callback-data'
 
-```js
-const { Telegram, InlineKeyboard } = require('puregram')
+const Ban = defineCallbackData('ban').number('user_id')
 
-const { CallbackDataBuilder } = require('@puregram/callback-data')
+const telegram = Telegram.fromToken(process.env.TOKEN!)
 
-const telegram = Telegram.fromToken(process.env.TOKEN)
-
-// we create a 'ban' callback data...
-const BanPayload = CallbackDataBuilder.create('ban')
-  // ... with a number field 'user_id'
-  .number('user_id')
-
-const createBanKeyboard = (userId: number) => (
-  InlineKeyboard.keyboard([
-    InlineKeyboard.textButton({
-      text: 'Ban',
-      // here we pack our callback data into a small parseable string
-      // with all our needed payload
-      payload: BanPayload.pack({ user_id: userId })
-    })
-  ])
-)
-
-// let's create our handler
-telegram.updates.on('message', (context) => {
-  return context.send('User sent a message!', {
-    chat_id: process.env.ADMIN_ID,
-    reply_markup: createBanKeyboard(context.senderId)
+telegram.onMessage((m) => {
+  return m.send('this user is sus', {
+    reply_markup: {
+      inline_keyboard: [[Ban.button({ text: 'ban', user_id: m.senderId! })]]
+    }
   })
 })
 
-// let's handle our 'ban' callback queries!
-telegram.updates.use(
-  BanPayload.handle((context) => {
-    // for convenience
-    const payload = context.unpackedPayload
-    //    payload: { user_id: number }
+telegram.onCallbackQuery(Ban.filter, (q) => {
+  // q.payload: { user_id: number } — fully typed, validated, narrowed
+  return q.answer({ text: `banned ${q.payload.user_id}` })
+})
 
-    // you can now do whatever you want with `payload.user_id`!
-  })
-)
-
-telegram.updates.startPolling()
+await telegram.startPolling()
 ```
+
+`Ban.filter` is the dispatch-ready filter; pass it to `telegram.onCallbackQuery(...)` and the handler's update gets the unpacked `payload` attached. no separate `.handle()` middleware, no string-prefix routing
 
 ### installation
 
@@ -83,174 +59,210 @@ $ yarn add @puregram/callback-data
 $ npm i -S @puregram/callback-data
 ```
 
-### `optional` or `default`ed values
+---
 
-it's possible that you will need a value that may not be present at all times (basically
-an `optional` value, right?)
+## defining a schema
 
-`@puregram/callback-data` has tools for handling `optional` values and values that have
-a `default` value
+```ts
+import { defineCallbackData } from '@puregram/callback-data'
 
-##### `optional`
-
-```js
-const BanPayload = CallbackDataBuilder.create('...')
-  .number('user_id')
-  .string('reason', { optional: true })
-
-telegram.updates.use(
-  BanPayload.handle((context) => {
-    const payload = context.unpackedPayload
-    //    payload: { user_id: number, reason?: string | undefined }
-  })
-)
+const Action = defineCallbackData('action')
+  .number('user_id')                                // signed safe integer
+  .literal('kind', ['ban', 'kick', 'mute'] as const) // packs as ceil(log2(N)) bits
+  .boolean('confirm')                                // packs as 1 bit
+  .string('reason', { optional: true })              // utf-16, max 127 code units
 ```
 
-you can also use [filtering][filtering] and [literally filters][literally-filters] to handle
-specific cases like when you have the reason for ban and when you dont
+each method returns a fresh `CallbackData` (immutable / chainable), so storing intermediate variables is safe
 
-```js
-telegram.updates.use(
-  BanPayload.filter({ reason: filters.exists() }).handle((context) => {
-    const payload = context.unpackedPayload
-    //    payload: { user_id: number, reason: string }
-    // reason will always be present in this case!
-  })
-)
+### field types
 
-telegram.updates.use(
-  BanPayload.filter({ reason: filters.exists(false) }).handle((context) => {
-    const payload = context.unpackedPayload
-    //    payload: { user_id: number, reason: undefined }
-    // reason will always be undefined here no matter what
-  })
-)
+| method | wire cost | TS type |
+|---|---|---|
+| `.string(key, opts?)` | 1 length byte + N code units | `string` |
+| `.number(key, opts?)` | 1-9 zigzag-varint bytes | `number` (signed safe integer only) |
+| `.boolean(key, opts?)` | 1 bit (in header) | `boolean` |
+| `.literal(key, [...] as const, opts?)` | `ceil(log2(N))` bits (in header) | union of literals |
+
+### options
+
+```ts
+.number('count', { default: 0 })            // omitted at pack-time → uses default
+.string('reason', { optional: true })       // omitted → field absent at unpack
 ```
 
-[filtering]: #filtering
+`optional` and `default` are mutually exclusive — pick one
 
-##### `default`
+### slug + collision
 
-yeah so
+the schema's slug becomes the wire prefix on every packed payload. by default it's the first 6 chars of `base64url(md5(slug))` — short, url-safe, deterministic, collision-resistant for ~hundreds of schemas. customize with `slugLength`:
 
-```js
-const CounterPayload = CallbackDataBuilder.create('counter')
-  .number('clicks', { default: 0 })
-
-const counterKeyboard = InlineKeyboard.keyboard([
-  InlineKeyboard.textButton({
-    text: 'click!',
-    payload: CounterPayload.pack({}) // no need to provide `clicks` value!
-  })
-])
+```ts
+defineCallbackData('ban', { slugLength: 4 })  // shorter prefix, slightly higher collision risk
+defineCallbackData('ban', { slugLength: 22 }) // full md5, zero collision risk
 ```
 
-ez stuff $$$
+want collision detection across all your schemas? install the optional plugin:
 
-### filtering
+```ts
+import { callbackData } from '@puregram/callback-data'
 
-sometimes you will need to process updates in more detail. that's why `CallbackDataBuilder` 
-has its own `filter` function (that is also type-safe! _as far as i know_).
-it can accept those values:
-- raw values (`string`, `boolean`, `number`);
-- a function that takes the value and returns non-`false` value;
-- an array of those above;
-- or a [filter][literally-filters].
-
-##### raw value
-
-```js
-telegram.updates.use(
-  BanPayload.filter({ user_id: 1337 }).handle((context) => {
-    // will be called only if `user_id` is exactly `1337`
-  })
-)
+const tg = Telegram.fromToken(TOKEN).extend(callbackData([Ban, Kick, Promote]))
+// throws on install if any two schemas hash to the same slug
 ```
-
-##### function
-
-```js
-const ADMIN_IDS = [1, 2, 3]
-
-telegram.updates.use(
-  BanPayload.filter({ user_id: (userId) => !ADMIN_IDS.includes(userId) }).handle((context) => {
-    // this will not be called if `user_id` is either `1`, `2` or `3`
-    // will be called otherwise though
-  })
-)
-```
-
-##### an array
-
-```js
-telegram.updates.use(
-  BanPayload.filter({ user_id: [42, (userId) => userId % 2 !== 0 ] }).handle((context) => {
-    // will be called EITHER if `user_id` is `42` OR if `user_id` is even
-    // because who wants people with odd user IDs be banned? ¯\_(ツ)_/¯
-  })
-)
-```
-
-[literally-filters]: #literally-filters
-
-### literally `filters`
-
-`@puregram/callback-data` also has _filters_ for **filters**. they're called... _**filters**_.
-
-currently there aren't much of those: only `filters.exists(exists?: boolean)` and that's it.
-it will probably be expanded in the future...
-
-```js
-const { filters } = require('@puregram/callback-data')
-
-const FooPayload = CallbackDataBuilder.create('foo')
-  .string('bar')
-  .boolean('baz', { optional: true })
-  .number('quix', { default: 42 })
-
-telegram.updates.use(
-  FooPayload.filter({ baz: filters.exists() }).handle((context) => {
-    // this will be called only if `baz` iz provided (not `undefined`)
-  })
-)
-```
-
-not sure what to describe here, filters act like filters: they filter out values
 
 ---
 
-## typescript usage
-
-`@puregram/callback-data`'s updates are based on `puregram`'s `CallbackQueryContext`
-so `CallbackQueryContext` will have a new `unpackedPayload: Record<never, never>`
-property by default, but you definitely won't use that in your ordinary `'callback_query'`
-updates, so don't worry about that. everything you need is already packed into
-`handle`s logic under the hood
+## packing + unpacking
 
 ```ts
-import { CallbackDataBuilder } from '@puregram/callback-data'
+const data = Action.pack({ user_id: 1337, kind: 'ban', confirm: true })
+// data: 'PreFix...' — 9-ish bytes total
 
-const BanPayload = CallbackDataBuilder.create('ban')
+Action.unpack(data)
+// { user_id: 1337, kind: 'ban', confirm: true }
+
+Action.unpack('garbage')
+// null
+
+Action.validate(data)
+// true
+```
+
+`unpack` returns `null` on any malformed input — wrong slug, truncated body, invalid literal index. it never throws
+
+`pack` throws on:
+- missing required field with no default → `CallbackDataInvalid`
+- wrong type (e.g. `'true'` for a boolean) → `CallbackDataInvalid`
+- non-integer / non-safe number → `CallbackDataInvalid`
+- string > 127 code units → `CallbackDataInvalid`
+- final payload > 64 bytes → `CallbackDataTooLong`
+
+### `.button({ text, ...state })`
+
+shortcut for inline buttons:
+
+```ts
+import { Telegram } from 'puregram'
+import { defineCallbackData } from '@puregram/callback-data'
+
+const Ban = defineCallbackData('ban').number('user_id')
+
+// before:
+const button = { text: 'Ban', callback_data: Ban.pack({ user_id: 1337 }) }
+
+// after:
+const button = Ban.button({ text: 'Ban', user_id: 1337 })
+```
+
+returns a plain `TelegramInlineKeyboardButton`; works anywhere a button is expected
+
+### `.repack(data, partial)`
+
+for counter / pagination / step-through buttons:
+
+```ts
+const Pager = defineCallbackData('pager').number('page')
+
+const next = Pager.repack(currentData, { page: currentPage + 1 })
+// unpacks → merges → re-packs in one shot
+```
+
+throws if `data` doesn't match this schema's slug
+
+---
+
+## filtering with `.with(...)`
+
+`.with(...)` narrows the filter further. matchers can be values, predicates, arrays of either, or the `present`/`missing` markers:
+
+```ts
+import { defineCallbackData, present, missing } from '@puregram/callback-data'
+
+const Action = defineCallbackData('a')
   .number('user_id')
+  .literal('kind', ['ban', 'kick', 'mute'] as const)
+  .string('reason', { optional: true })
 
-// ...
+const ADMIN_IDS = new Set([1, 2, 3])
 
-telegram.updates.use(
-  BanPayload.handle((context) => {
-    const payload = context.unpackedPayload
-    //    payload: { user_id: number }
-  })
-)
+// exact value
+telegram.onCallbackQuery(Action.with({ kind: 'ban' }).filter, q => /* q.payload.kind: 'ban' */)
+
+// array — match any
+telegram.onCallbackQuery(Action.with({ kind: ['ban', 'kick'] }).filter, q => /* q.payload.kind: 'ban' | 'kick' */)
+
+// predicate
+telegram.onCallbackQuery(Action.with({ user_id: id => !ADMIN_IDS.has(id) }).filter, q => /* ... */)
+
+// presence
+telegram.onCallbackQuery(Action.with({ reason: present }).filter, q => /* q.payload.reason: string */)
+telegram.onCallbackQuery(Action.with({ reason: missing }).filter, q => /* q.payload.reason: undefined */)
 ```
 
-but in case you really need to extend your own contexts with that juicy
-types you can always import `CallbackLayer`:
+`.with(...)` chains — multiple calls AND together. each call returns a new `CallbackData` (and its `.filter`) without mutating the original schema
+
+### filter chain ops
+
+`.filter` is a regular v3 `Filter`, so `.and` / `.or` / `.not` work like any other:
 
 ```ts
-import type { Context } from 'puregram'
-import type { CallbackLayer } from '@puregram/callback-data'
-
-type MyContext<C extends Context> = C & CallbackLayer<typeof BanPayload>
+telegram.onCallbackQuery(Ban.filter.or(Kick.filter), handler)
 ```
 
-that's it!
+---
+
+## wire format
+
+after the slug prefix:
+
+- **header**: bit-packed presence + boolean values + literal indices, packed 7 bits per ASCII byte. exact size = `ceil(headerBits / 7)`, deterministic from the schema alone
+- **body**: variable-length strings (`[length-byte][N code units]`) and varint numbers (zigzag, base-64 over the high-bit-zero charset, continuation bit at 0x40), in field-declaration order, only present fields contribute bytes
+
+booleans cost 1 **bit**, not 1 byte. enums (literals) cost `ceil(log2(N))` bits. optional fields cost 1 presence bit + their normal cost when present. small numbers fit in 1-2 bytes; even 13-digit telegram chat IDs fit in 8 bytes vs 14 for decimal toString
+
+### example sizes
+
+| schema | sample state | bytes |
+|---|---|---|
+| `{ id: number }` | `{ id: 1337 }` | 8 |
+| `{ id: number }` | `{ id: 1234567890 }` | 11 |
+| 7-boolean schema | all `true` | 7 |
+| `{ id: number, ban: bool, reason?: enum<8> }` | `{ id: 99, ban: true, reason: 'spam' }` | 9 |
+
+---
+
+## v2 → v3 migration
+
+if you used `@puregram/callback-data@1.x`, the new API is mostly the same shape with these changes:
+
+- `CallbackDataBuilder.create('ban')` still works (re-exported alias for `defineCallbackData`)
+- `.handle(fn)` is **gone** — use `telegram.onCallbackQuery(BanPayload.filter, handler)` directly
+- `.filter({...})` (the conditional method) is now `.with({...})` and returns a fresh schema (immutable). the new `.filter` property is the dispatch-ready `Filter` value
+- `filters.exists()` is now `present` / `missing`
+- handler receives `q.payload` (was `context.unpackedPayload`)
+- wire format changed; old packed strings won't round-trip on the new schema (and slugs use `base64url` now, not `base64`)
+- packed payload exceeding 64 bytes now throws `CallbackDataTooLong` at pack time instead of failing silently at telegram
+
+---
+
+## typescript
+
+`telegram.onCallbackQuery(BanPayload.filter, handler)` types `handler`'s argument as `CallbackQueryUpdate & { payload: State }`. `.with(...)` further narrows `payload` based on the conditions:
+
+```ts
+const Ban = defineCallbackData('ban').literal('kind', ['ban', 'kick'] as const).number('user_id')
+
+telegram.onCallbackQuery(Ban.with({ kind: 'ban' }).filter, (q) => {
+  q.payload.kind     // 'ban' (not 'ban' | 'kick')
+  q.payload.user_id  // number
+})
+
+telegram.onCallbackQuery(Ban.with({ kind: ['ban', 'kick'] }).filter, (q) => {
+  q.payload.kind     // 'ban' | 'kick'
+})
+```
+
+predicate-based conditions don't narrow (TS can't infer from a runtime function), but value/array conditions do
+
+that's it. epic!!!

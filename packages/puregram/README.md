@@ -19,7 +19,7 @@
 </p>
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram/tree/lord/docs/examples'><b>examples</b></a>
+  <a href='https://github.com/nitreojs/puregram/tree/v3/examples'><b>examples</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>typescript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
@@ -53,9 +53,9 @@ await telegram.startPolling()
 
 it's that easy!
 
-**note**: you can find more examples [here][examples]. _this directory still hosts the v2 examples — fresh v3 examples are being written_
+**note**: you can find more examples [here][examples]
 
-[examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples
+[examples]: https://github.com/nitreojs/puregram/tree/v3/examples
 
 ---
 

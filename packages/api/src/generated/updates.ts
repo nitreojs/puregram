@@ -1520,6 +1520,12 @@ export class MessageUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -4017,6 +4023,12 @@ export class EditedMessageUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -6518,6 +6530,12 @@ export class ChannelPostUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -9017,6 +9035,12 @@ export class EditedChannelPostUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -10058,6 +10082,12 @@ export class BusinessConnectionUpdate {
         rights: TelegramBusinessBotRights;
     } {
         return this.raw.rights != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -11573,6 +11603,12 @@ export class BusinessMessageUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -14074,6 +14110,12 @@ export class EditedBusinessMessageUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -15090,6 +15132,12 @@ export class DeletedBusinessMessagesUpdate {
     get messageIds(): number[] {
         return this.raw.message_ids;
     }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -15166,6 +15214,12 @@ export class MessageReactionUpdate {
         return this.raw.actor_chat != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * reactions present in `newReaction` but not in `oldReaction`
      */
     get added(): TelegramReactionType[] {
@@ -15232,6 +15286,12 @@ export class MessageReactionCountUpdate {
      */
     get reactions(): ReactionCount[] {
         return this._reactions ??= this.raw.reactions.map(x => new ReactionCount(x));
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15300,6 +15360,12 @@ export class InlineQueryUpdate {
         location: Location;
     } {
         return this.raw.location != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15371,6 +15437,12 @@ export class ChosenInlineResultUpdate {
         inlineMessageId: string;
     } {
         return this.raw.inline_message_id != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15462,6 +15534,12 @@ export class CallbackQueryUpdate {
         return this.raw.game_short_name != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `message?.chat.id`
      */
     get chatId(): number | undefined {
@@ -15527,6 +15605,12 @@ export class ShippingQueryUpdate {
      */
     get shippingAddress(): ShippingAddress {
         return this._shippingAddress ??= new ShippingAddress(this.raw.shipping_address);
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15610,6 +15694,12 @@ export class PreCheckoutQueryUpdate {
         orderInfo: OrderInfo;
     } {
         return this.raw.order_info != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15804,6 +15894,12 @@ export class PollUpdate {
     } {
         return this.raw.description_entities != null && this.raw.description_entities.length > 0;
     }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -15865,6 +15961,12 @@ export class PollAnswerUpdate {
         user: User;
     } {
         return this.raw.user != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -15956,6 +16058,12 @@ export class MyChatMemberUpdate {
         viaChatFolderInviteLink: boolean;
     } {
         return this.raw.via_chat_folder_invite_link != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `old_chat_member.status`
@@ -17094,6 +17202,12 @@ export class ChatMemberUpdate {
         return this.raw.via_chat_folder_invite_link != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `old_chat_member.status`
      */
     get oldStatus(): string {
@@ -18207,6 +18321,12 @@ export class ChatJoinRequestUpdate {
     } {
         return this.raw.invite_link != null;
     }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -19100,6 +19220,12 @@ export class ChatBoostUpdate {
     get boost(): ChatBoost {
         return this._boost ??= new ChatBoost(this.raw.boost);
     }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -19138,6 +19264,12 @@ export class RemovedChatBoostUpdate {
      */
     get source(): TelegramChatBoostSource {
         return this.raw.source;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -20653,6 +20785,12 @@ export class NewChatMembersUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -23154,6 +23292,12 @@ export class LeftChatMemberUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -25651,6 +25795,12 @@ export class NewChatTitleUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -28152,6 +28302,12 @@ export class NewChatPhotoUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -30649,6 +30805,12 @@ export class DeleteChatPhotoUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -33150,6 +33312,12 @@ export class GroupChatCreatedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -35647,6 +35815,12 @@ export class PinnedMessageUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -38148,6 +38322,12 @@ export class InvoiceUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -40645,6 +40825,12 @@ export class SuccessfulPaymentUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -43146,6 +43332,12 @@ export class UsersSharedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -45643,6 +45835,12 @@ export class ChatSharedUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -48144,6 +48342,12 @@ export class WebAppDataUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -50641,6 +50845,12 @@ export class VideoChatScheduledUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -53142,6 +53352,12 @@ export class VideoChatStartedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -55639,6 +55855,12 @@ export class VideoChatEndedUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -58140,6 +58362,12 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -60637,6 +60865,12 @@ export class ForumTopicCreatedUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -63138,6 +63372,12 @@ export class ForumTopicEditedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -65635,6 +65875,12 @@ export class ForumTopicClosedUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -68136,6 +68382,12 @@ export class ForumTopicReopenedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -70633,6 +70885,12 @@ export class GeneralForumTopicHiddenUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -73134,6 +73392,12 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -75631,6 +75895,12 @@ export class GiveawayCreatedUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -78132,6 +78402,12 @@ export class GiveawayCompletedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -80629,6 +80905,12 @@ export class GiveawayWinnersUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -83130,6 +83412,12 @@ export class BoostAddedUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -85627,6 +85915,12 @@ export class MessageAutoDeleteTimerChangedUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -88128,6 +88422,12 @@ export class MigrateToChatIdUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -90625,6 +90925,12 @@ export class MigrateFromChatIdUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`
@@ -93126,6 +93432,12 @@ export class PassportDataUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -95625,6 +95937,12 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.reply_markup != null;
     }
     /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
      * shortcut for `chat.id`
      */
     get chatId(): number {
@@ -98122,6 +98440,12 @@ export class WriteAccessAllowedUpdate {
         replyMarkup: InlineKeyboardMarkup;
     } {
         return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
     }
     /**
      * shortcut for `chat.id`

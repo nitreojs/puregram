@@ -149,6 +149,11 @@ export const UPDATE_KINDS: UpdateKindSpec[] = [
   { kindName: 'write_access_allowed', className: 'WriteAccessAllowedUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'write_access_allowed' }, anchors: MESSAGE_ANCHORS }
 ]
 
+// universal extras — applied to every update kind
+const UNIVERSAL_EXTRAS: UpdateExtra[] = [
+  { kind: 'getter', name: 'api', expression: 'this.tg.api', returnType: "TelegramLike['api']", jsdoc: 'shortcut for `tg.api` — call any bot api method directly from the wrapped update' }
+]
+
 // bind extras post-hoc — every TelegramMessage payload gets MESSAGE_EXTRAS by default
 const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   callback_query: CALLBACK_QUERY_EXTRAS,
@@ -158,13 +163,15 @@ const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
 }
 
 for (const k of UPDATE_KINDS) {
+  let kindSpecific: UpdateExtra[] = []
+
   if (k.extras) {
-    continue
+    kindSpecific = k.extras
+  } else if (k.payloadType === 'TelegramMessage') {
+    kindSpecific = MESSAGE_EXTRAS
+  } else if (KIND_EXTRAS[k.kindName]) {
+    kindSpecific = KIND_EXTRAS[k.kindName]
   }
 
-  if (k.payloadType === 'TelegramMessage') {
-    k.extras = MESSAGE_EXTRAS
-  } else if (KIND_EXTRAS[k.kindName]) {
-    k.extras = KIND_EXTRAS[k.kindName]
-  }
+  k.extras = [...UNIVERSAL_EXTRAS, ...kindSpecific]
 }

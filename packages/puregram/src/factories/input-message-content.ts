@@ -1,4 +1,5 @@
 import type {
+  Formattable,
   TelegramInputContactMessageContent,
   TelegramInputInvoiceMessageContent,
   TelegramInputLocationMessageContent,
@@ -36,7 +37,7 @@ type InvoiceParams = Camelize<TelegramInputInvoiceMessageContent>
  */
 export class InputMessageContent {
   /** text message body */
-  static text (text: string, params: TextExtras = {} as TextExtras) {
+  static text (text: string | Formattable, params: TextExtras = {} as TextExtras) {
     return { message_text: text, ...unCamelize(params) }
   }
 

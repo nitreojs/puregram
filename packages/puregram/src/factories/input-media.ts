@@ -1,4 +1,5 @@
 import type {
+  Formattable,
   TelegramInputMediaAnimation,
   TelegramInputMediaAudio,
   TelegramInputMediaDocument,
@@ -13,14 +14,18 @@ import type { InputMediaSticker, InputMediaVideoNote, InputMediaVoice } from './
 
 type Media = MediaInput | string
 
-type PhotoExtras = Camelize<Omit<TelegramInputMediaPhoto, 'type' | 'media'>>
-type VideoExtras = Camelize<Omit<TelegramInputMediaVideo, 'type' | 'media'>>
-type DocumentExtras = Camelize<Omit<TelegramInputMediaDocument, 'type' | 'media'>>
-type AnimationExtras = Camelize<Omit<TelegramInputMediaAnimation, 'type' | 'media'>>
-type AudioExtras = Camelize<Omit<TelegramInputMediaAudio, 'type' | 'media'>>
-type StickerExtras = Camelize<Omit<InputMediaSticker, 'type' | 'media'>>
-type VideoNoteExtras = Camelize<Omit<InputMediaVideoNote, 'type' | 'media'>>
-type VoiceExtras = Camelize<Omit<InputMediaVoice, 'type' | 'media'>>
+type WithFormattableCaption<T> = 'caption' extends keyof T
+  ? Omit<T, 'caption'> & { caption?: string | Formattable }
+  : T
+
+type PhotoExtras = WithFormattableCaption<Camelize<Omit<TelegramInputMediaPhoto, 'type' | 'media'>>>
+type VideoExtras = WithFormattableCaption<Camelize<Omit<TelegramInputMediaVideo, 'type' | 'media'>>>
+type DocumentExtras = WithFormattableCaption<Camelize<Omit<TelegramInputMediaDocument, 'type' | 'media'>>>
+type AnimationExtras = WithFormattableCaption<Camelize<Omit<TelegramInputMediaAnimation, 'type' | 'media'>>>
+type AudioExtras = WithFormattableCaption<Camelize<Omit<TelegramInputMediaAudio, 'type' | 'media'>>>
+type StickerExtras = WithFormattableCaption<Camelize<Omit<InputMediaSticker, 'type' | 'media'>>>
+type VideoNoteExtras = WithFormattableCaption<Camelize<Omit<InputMediaVideoNote, 'type' | 'media'>>>
+type VoiceExtras = WithFormattableCaption<Camelize<Omit<InputMediaVoice, 'type' | 'media'>>>
 
 /**
  * static factories for `InputMedia*` payloads with v2-style positional `media`

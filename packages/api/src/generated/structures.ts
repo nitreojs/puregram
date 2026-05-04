@@ -75,7 +75,7 @@ export class Animation {
         return this.raw.file_size;
     }
     /**
-     * True if `thumbnail` is set.
+     * true if `thumbnail` is set
      */
     hasThumbnail(): this is this & {
         thumbnail: PhotoSize;
@@ -83,7 +83,7 @@ export class Animation {
         return this.raw.thumbnail != null;
     }
     /**
-     * True if `file_name` is set.
+     * true if `file_name` is set
      */
     hasFileName(): this is this & {
         fileName: string;
@@ -91,7 +91,7 @@ export class Animation {
         return this.raw.file_name != null;
     }
     /**
-     * True if `mime_type` is set.
+     * true if `mime_type` is set
      */
     hasMimeType(): this is this & {
         mimeType: string;
@@ -99,7 +99,7 @@ export class Animation {
         return this.raw.mime_type != null;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -178,7 +178,7 @@ export class Audio {
         return this._thumbnail;
     }
     /**
-     * True if `performer` is set.
+     * true if `performer` is set
      */
     hasPerformer(): this is this & {
         performer: string;
@@ -186,7 +186,7 @@ export class Audio {
         return this.raw.performer != null;
     }
     /**
-     * True if `title` is set.
+     * true if `title` is set
      */
     hasTitle(): this is this & {
         title: string;
@@ -194,7 +194,7 @@ export class Audio {
         return this.raw.title != null;
     }
     /**
-     * True if `file_name` is set.
+     * true if `file_name` is set
      */
     hasFileName(): this is this & {
         fileName: string;
@@ -202,7 +202,7 @@ export class Audio {
         return this.raw.file_name != null;
     }
     /**
-     * True if `mime_type` is set.
+     * true if `mime_type` is set
      */
     hasMimeType(): this is this & {
         mimeType: string;
@@ -210,7 +210,7 @@ export class Audio {
         return this.raw.mime_type != null;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -218,7 +218,7 @@ export class Audio {
         return this.raw.file_size != null;
     }
     /**
-     * True if `thumbnail` is set.
+     * true if `thumbnail` is set
      */
     hasThumbnail(): this is this & {
         thumbnail: PhotoSize;
@@ -287,7 +287,7 @@ export class Chat {
         return this.raw.is_direct_messages;
     }
     /**
-     * True if `title` is set.
+     * true if `title` is set
      */
     hasTitle(): this is this & {
         title: string;
@@ -295,7 +295,7 @@ export class Chat {
         return this.raw.title != null;
     }
     /**
-     * True if `username` is set.
+     * true if `username` is set
      */
     hasUsername(): this is this & {
         username: string;
@@ -303,7 +303,7 @@ export class Chat {
         return this.raw.username != null;
     }
     /**
-     * True if `first_name` is set.
+     * true if `first_name` is set
      */
     hasFirstName(): this is this & {
         firstName: string;
@@ -311,7 +311,7 @@ export class Chat {
         return this.raw.first_name != null;
     }
     /**
-     * True if `last_name` is set.
+     * true if `last_name` is set
      */
     hasLastName(): this is this & {
         lastName: string;
@@ -517,7 +517,7 @@ export class ChatInviteLink {
         return this.raw.subscription_price;
     }
     /**
-     * True if `name` is set.
+     * true if `name` is set
      */
     hasName(): this is this & {
         name: string;
@@ -525,7 +525,7 @@ export class ChatInviteLink {
         return this.raw.name != null;
     }
     /**
-     * True if `expire_date` is set.
+     * true if `expire_date` is set
      */
     hasExpireDate(): this is this & {
         expireDate: number;
@@ -533,7 +533,7 @@ export class ChatInviteLink {
         return this.raw.expire_date != null;
     }
     /**
-     * True if `member_limit` is set.
+     * true if `member_limit` is set
      */
     hasMemberLimit(): this is this & {
         memberLimit: number;
@@ -541,7 +541,7 @@ export class ChatInviteLink {
         return this.raw.member_limit != null;
     }
     /**
-     * True if `pending_join_request_count` is set.
+     * true if `pending_join_request_count` is set
      */
     hasPendingJoinRequestCount(): this is this & {
         pendingJoinRequestCount: number;
@@ -549,7 +549,7 @@ export class ChatInviteLink {
         return this.raw.pending_join_request_count != null;
     }
     /**
-     * True if `subscription_period` is set.
+     * true if `subscription_period` is set
      */
     hasSubscriptionPeriod(): this is this & {
         subscriptionPeriod: number;
@@ -557,7 +557,7 @@ export class ChatInviteLink {
         return this.raw.subscription_period != null;
     }
     /**
-     * True if `subscription_price` is set.
+     * true if `subscription_price` is set
      */
     hasSubscriptionPrice(): this is this & {
         subscriptionPrice: number;
@@ -620,7 +620,7 @@ export class ChatJoinRequest {
         return this._inviteLink;
     }
     /**
-     * True if `bio` is set.
+     * true if `bio` is set
      */
     hasBio(): this is this & {
         bio: string;
@@ -628,7 +628,7 @@ export class ChatJoinRequest {
         return this.raw.bio != null;
     }
     /**
-     * True if `invite_link` is set.
+     * true if `invite_link` is set
      */
     hasInviteLink(): this is this & {
         inviteLink: ChatInviteLink;
@@ -762,7 +762,7 @@ export class ChatMemberUpdated {
         return this.raw.via_chat_folder_invite_link;
     }
     /**
-     * True if `invite_link` is set.
+     * true if `invite_link` is set
      */
     hasInviteLink(): this is this & {
         inviteLink: ChatInviteLink;
@@ -770,7 +770,7 @@ export class ChatMemberUpdated {
         return this.raw.invite_link != null;
     }
     /**
-     * True if `via_join_request` is set.
+     * true if `via_join_request` is set
      */
     hasViaJoinRequest(): this is this & {
         viaJoinRequest: boolean;
@@ -778,7 +778,7 @@ export class ChatMemberUpdated {
         return this.raw.via_join_request != null;
     }
     /**
-     * True if `via_chat_folder_invite_link` is set.
+     * true if `via_chat_folder_invite_link` is set
      */
     hasViaChatFolderInviteLink(): this is this & {
         viaChatFolderInviteLink: boolean;
@@ -889,7 +889,7 @@ export class ChatPermissions {
         return this.raw.can_manage_topics;
     }
     /**
-     * True if `can_send_messages` is set.
+     * true if `can_send_messages` is set
      */
     hasCanSendMessages(): this is this & {
         canSendMessages: boolean;
@@ -897,7 +897,7 @@ export class ChatPermissions {
         return this.raw.can_send_messages != null;
     }
     /**
-     * True if `can_send_audios` is set.
+     * true if `can_send_audios` is set
      */
     hasCanSendAudios(): this is this & {
         canSendAudios: boolean;
@@ -905,7 +905,7 @@ export class ChatPermissions {
         return this.raw.can_send_audios != null;
     }
     /**
-     * True if `can_send_documents` is set.
+     * true if `can_send_documents` is set
      */
     hasCanSendDocuments(): this is this & {
         canSendDocuments: boolean;
@@ -913,7 +913,7 @@ export class ChatPermissions {
         return this.raw.can_send_documents != null;
     }
     /**
-     * True if `can_send_photos` is set.
+     * true if `can_send_photos` is set
      */
     hasCanSendPhotos(): this is this & {
         canSendPhotos: boolean;
@@ -921,7 +921,7 @@ export class ChatPermissions {
         return this.raw.can_send_photos != null;
     }
     /**
-     * True if `can_send_videos` is set.
+     * true if `can_send_videos` is set
      */
     hasCanSendVideos(): this is this & {
         canSendVideos: boolean;
@@ -929,7 +929,7 @@ export class ChatPermissions {
         return this.raw.can_send_videos != null;
     }
     /**
-     * True if `can_send_video_notes` is set.
+     * true if `can_send_video_notes` is set
      */
     hasCanSendVideoNotes(): this is this & {
         canSendVideoNotes: boolean;
@@ -937,7 +937,7 @@ export class ChatPermissions {
         return this.raw.can_send_video_notes != null;
     }
     /**
-     * True if `can_send_voice_notes` is set.
+     * true if `can_send_voice_notes` is set
      */
     hasCanSendVoiceNotes(): this is this & {
         canSendVoiceNotes: boolean;
@@ -945,7 +945,7 @@ export class ChatPermissions {
         return this.raw.can_send_voice_notes != null;
     }
     /**
-     * True if `can_send_polls` is set.
+     * true if `can_send_polls` is set
      */
     hasCanSendPolls(): this is this & {
         canSendPolls: boolean;
@@ -953,7 +953,7 @@ export class ChatPermissions {
         return this.raw.can_send_polls != null;
     }
     /**
-     * True if `can_send_other_messages` is set.
+     * true if `can_send_other_messages` is set
      */
     hasCanSendOtherMessages(): this is this & {
         canSendOtherMessages: boolean;
@@ -961,7 +961,7 @@ export class ChatPermissions {
         return this.raw.can_send_other_messages != null;
     }
     /**
-     * True if `can_add_web_page_previews` is set.
+     * true if `can_add_web_page_previews` is set
      */
     hasCanAddWebPagePreviews(): this is this & {
         canAddWebPagePreviews: boolean;
@@ -969,7 +969,7 @@ export class ChatPermissions {
         return this.raw.can_add_web_page_previews != null;
     }
     /**
-     * True if `can_edit_tag` is set.
+     * true if `can_edit_tag` is set
      */
     hasCanEditTag(): this is this & {
         canEditTag: boolean;
@@ -977,7 +977,7 @@ export class ChatPermissions {
         return this.raw.can_edit_tag != null;
     }
     /**
-     * True if `can_change_info` is set.
+     * true if `can_change_info` is set
      */
     hasCanChangeInfo(): this is this & {
         canChangeInfo: boolean;
@@ -985,7 +985,7 @@ export class ChatPermissions {
         return this.raw.can_change_info != null;
     }
     /**
-     * True if `can_invite_users` is set.
+     * true if `can_invite_users` is set
      */
     hasCanInviteUsers(): this is this & {
         canInviteUsers: boolean;
@@ -993,7 +993,7 @@ export class ChatPermissions {
         return this.raw.can_invite_users != null;
     }
     /**
-     * True if `can_pin_messages` is set.
+     * true if `can_pin_messages` is set
      */
     hasCanPinMessages(): this is this & {
         canPinMessages: boolean;
@@ -1001,7 +1001,7 @@ export class ChatPermissions {
         return this.raw.can_pin_messages != null;
     }
     /**
-     * True if `can_manage_topics` is set.
+     * true if `can_manage_topics` is set
      */
     hasCanManageTopics(): this is this & {
         canManageTopics: boolean;
@@ -1093,7 +1093,7 @@ export class ChatShared {
         return this._photo;
     }
     /**
-     * True if `title` is set.
+     * true if `title` is set
      */
     hasTitle(): this is this & {
         title: string;
@@ -1101,7 +1101,7 @@ export class ChatShared {
         return this.raw.title != null;
     }
     /**
-     * True if `username` is set.
+     * true if `username` is set
      */
     hasUsername(): this is this & {
         username: string;
@@ -1109,7 +1109,7 @@ export class ChatShared {
         return this.raw.username != null;
     }
     /**
-     * True if `photo` has at least one item.
+     * true if `photo` has at least one item
      */
     hasPhoto(): this is this & {
         photo: Photo;
@@ -1165,7 +1165,7 @@ export class ChosenInlineResult {
         return this.raw.query;
     }
     /**
-     * True if `location` is set.
+     * true if `location` is set
      */
     hasLocation(): this is this & {
         location: Location;
@@ -1173,7 +1173,7 @@ export class ChosenInlineResult {
         return this.raw.location != null;
     }
     /**
-     * True if `inline_message_id` is set.
+     * true if `inline_message_id` is set
      */
     hasInlineMessageId(): this is this & {
         inlineMessageId: string;
@@ -1224,7 +1224,7 @@ export class Contact {
         return this.raw.vcard;
     }
     /**
-     * True if `last_name` is set.
+     * true if `last_name` is set
      */
     hasLastName(): this is this & {
         lastName: string;
@@ -1232,7 +1232,7 @@ export class Contact {
         return this.raw.last_name != null;
     }
     /**
-     * True if `user_id` is set.
+     * true if `user_id` is set
      */
     hasUserId(): this is this & {
         userId: number;
@@ -1240,7 +1240,7 @@ export class Contact {
         return this.raw.user_id != null;
     }
     /**
-     * True if `vcard` is set.
+     * true if `vcard` is set
      */
     hasVcard(): this is this & {
         vcard: string;
@@ -1332,7 +1332,7 @@ export class Document {
         return this.raw.file_size;
     }
     /**
-     * True if `thumbnail` is set.
+     * true if `thumbnail` is set
      */
     hasThumbnail(): this is this & {
         thumbnail: PhotoSize;
@@ -1340,7 +1340,7 @@ export class Document {
         return this.raw.thumbnail != null;
     }
     /**
-     * True if `file_name` is set.
+     * true if `file_name` is set
      */
     hasFileName(): this is this & {
         fileName: string;
@@ -1348,7 +1348,7 @@ export class Document {
         return this.raw.file_name != null;
     }
     /**
-     * True if `mime_type` is set.
+     * true if `mime_type` is set
      */
     hasMimeType(): this is this & {
         mimeType: string;
@@ -1356,7 +1356,7 @@ export class Document {
         return this.raw.mime_type != null;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -1607,7 +1607,7 @@ export class ExternalReplyInfo {
         return this._venue;
     }
     /**
-     * True if `chat` is set.
+     * true if `chat` is set
      */
     hasChat(): this is this & {
         chat: Chat;
@@ -1615,7 +1615,7 @@ export class ExternalReplyInfo {
         return this.raw.chat != null;
     }
     /**
-     * True if `message_id` is set.
+     * true if `message_id` is set
      */
     hasId(): this is this & {
         id: number;
@@ -1623,7 +1623,7 @@ export class ExternalReplyInfo {
         return this.raw.message_id != null;
     }
     /**
-     * True if `link_preview_options` is set.
+     * true if `link_preview_options` is set
      */
     hasLinkPreviewOptions(): this is this & {
         linkPreviewOptions: LinkPreviewOptions;
@@ -1631,7 +1631,7 @@ export class ExternalReplyInfo {
         return this.raw.link_preview_options != null;
     }
     /**
-     * True if `animation` is set.
+     * true if `animation` is set
      */
     hasAnimation(): this is this & {
         animation: Animation;
@@ -1639,7 +1639,7 @@ export class ExternalReplyInfo {
         return this.raw.animation != null;
     }
     /**
-     * True if `audio` is set.
+     * true if `audio` is set
      */
     hasAudio(): this is this & {
         audio: Audio;
@@ -1647,7 +1647,7 @@ export class ExternalReplyInfo {
         return this.raw.audio != null;
     }
     /**
-     * True if `document` is set.
+     * true if `document` is set
      */
     hasDocument(): this is this & {
         document: Document;
@@ -1655,7 +1655,7 @@ export class ExternalReplyInfo {
         return this.raw.document != null;
     }
     /**
-     * True if `paid_media` is set.
+     * true if `paid_media` is set
      */
     hasPaidMedia(): this is this & {
         paidMedia: TelegramPaidMediaInfo;
@@ -1663,7 +1663,7 @@ export class ExternalReplyInfo {
         return this.raw.paid_media != null;
     }
     /**
-     * True if `photo` has at least one item.
+     * true if `photo` has at least one item
      */
     hasPhoto(): this is this & {
         photo: Photo;
@@ -1671,7 +1671,7 @@ export class ExternalReplyInfo {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
     /**
-     * True if `sticker` is set.
+     * true if `sticker` is set
      */
     hasSticker(): this is this & {
         sticker: Sticker;
@@ -1679,7 +1679,7 @@ export class ExternalReplyInfo {
         return this.raw.sticker != null;
     }
     /**
-     * True if `story` is set.
+     * true if `story` is set
      */
     hasStory(): this is this & {
         story: Story;
@@ -1687,7 +1687,7 @@ export class ExternalReplyInfo {
         return this.raw.story != null;
     }
     /**
-     * True if `video` is set.
+     * true if `video` is set
      */
     hasVideo(): this is this & {
         video: Video;
@@ -1695,7 +1695,7 @@ export class ExternalReplyInfo {
         return this.raw.video != null;
     }
     /**
-     * True if `video_note` is set.
+     * true if `video_note` is set
      */
     hasVideoNote(): this is this & {
         videoNote: VideoNote;
@@ -1703,7 +1703,7 @@ export class ExternalReplyInfo {
         return this.raw.video_note != null;
     }
     /**
-     * True if `voice` is set.
+     * true if `voice` is set
      */
     hasVoice(): this is this & {
         voice: Voice;
@@ -1711,7 +1711,7 @@ export class ExternalReplyInfo {
         return this.raw.voice != null;
     }
     /**
-     * True if `checklist` is set.
+     * true if `checklist` is set
      */
     hasChecklist(): this is this & {
         checklist: TelegramChecklist;
@@ -1719,7 +1719,7 @@ export class ExternalReplyInfo {
         return this.raw.checklist != null;
     }
     /**
-     * True if `contact` is set.
+     * true if `contact` is set
      */
     hasContact(): this is this & {
         contact: Contact;
@@ -1727,7 +1727,7 @@ export class ExternalReplyInfo {
         return this.raw.contact != null;
     }
     /**
-     * True if `dice` is set.
+     * true if `dice` is set
      */
     hasDice(): this is this & {
         dice: Dice;
@@ -1735,7 +1735,7 @@ export class ExternalReplyInfo {
         return this.raw.dice != null;
     }
     /**
-     * True if `game` is set.
+     * true if `game` is set
      */
     hasGame(): this is this & {
         game: Game;
@@ -1743,7 +1743,7 @@ export class ExternalReplyInfo {
         return this.raw.game != null;
     }
     /**
-     * True if `giveaway` is set.
+     * true if `giveaway` is set
      */
     hasGiveaway(): this is this & {
         giveaway: Giveaway;
@@ -1751,7 +1751,7 @@ export class ExternalReplyInfo {
         return this.raw.giveaway != null;
     }
     /**
-     * True if `giveaway_winners` is set.
+     * true if `giveaway_winners` is set
      */
     hasGiveawayWinners(): this is this & {
         giveawayWinners: GiveawayWinners;
@@ -1759,7 +1759,7 @@ export class ExternalReplyInfo {
         return this.raw.giveaway_winners != null;
     }
     /**
-     * True if `invoice` is set.
+     * true if `invoice` is set
      */
     hasInvoice(): this is this & {
         invoice: Invoice;
@@ -1767,7 +1767,7 @@ export class ExternalReplyInfo {
         return this.raw.invoice != null;
     }
     /**
-     * True if `location` is set.
+     * true if `location` is set
      */
     hasLocation(): this is this & {
         location: Location;
@@ -1775,7 +1775,7 @@ export class ExternalReplyInfo {
         return this.raw.location != null;
     }
     /**
-     * True if `poll` is set.
+     * true if `poll` is set
      */
     hasPoll(): this is this & {
         poll: Poll;
@@ -1783,7 +1783,7 @@ export class ExternalReplyInfo {
         return this.raw.poll != null;
     }
     /**
-     * True if `venue` is set.
+     * true if `venue` is set
      */
     hasVenue(): this is this & {
         venue: Venue;
@@ -1828,7 +1828,7 @@ export class File {
         return this.raw.file_path;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -1836,7 +1836,7 @@ export class File {
         return this.raw.file_size != null;
     }
     /**
-     * True if `file_path` is set.
+     * true if `file_path` is set
      */
     hasFilePath(): this is this & {
         filePath: string;
@@ -1887,7 +1887,7 @@ export class ForumTopicCreated {
         return this.raw.is_name_implicit;
     }
     /**
-     * True if `icon_custom_emoji_id` is set.
+     * true if `icon_custom_emoji_id` is set
      */
     hasIconCustomEmojiId(): this is this & {
         iconCustomEmojiId: string;
@@ -1920,7 +1920,7 @@ export class ForumTopicEdited {
         return this.raw.icon_custom_emoji_id;
     }
     /**
-     * True if `name` is set.
+     * true if `name` is set
      */
     hasName(): this is this & {
         name: string;
@@ -1928,7 +1928,7 @@ export class ForumTopicEdited {
         return this.raw.name != null;
     }
     /**
-     * True if `icon_custom_emoji_id` is set.
+     * true if `icon_custom_emoji_id` is set
      */
     hasIconCustomEmojiId(): this is this & {
         iconCustomEmojiId: string;
@@ -1991,7 +1991,7 @@ export class Game {
         return this._animation;
     }
     /**
-     * True if `text` is set.
+     * true if `text` is set
      */
     hasText(): this is this & {
         text: string;
@@ -1999,7 +1999,7 @@ export class Game {
         return this.raw.text != null;
     }
     /**
-     * True if `text_entities` has at least one item.
+     * true if `text_entities` has at least one item
      */
     hasTextEntities(): this is this & {
         textEntities: MessageEntity[];
@@ -2007,7 +2007,7 @@ export class Game {
         return this.raw.text_entities != null && this.raw.text_entities.length > 0;
     }
     /**
-     * True if `animation` is set.
+     * true if `animation` is set
      */
     hasAnimation(): this is this & {
         animation: Animation;
@@ -2083,7 +2083,7 @@ export class Giveaway {
         return this.raw.premium_subscription_month_count;
     }
     /**
-     * True if `only_new_members` is set.
+     * true if `only_new_members` is set
      */
     hasOnlyNewMembers(): this is this & {
         onlyNewMembers: true;
@@ -2091,7 +2091,7 @@ export class Giveaway {
         return this.raw.only_new_members != null;
     }
     /**
-     * True if `prize_description` is set.
+     * true if `prize_description` is set
      */
     hasPrizeDescription(): this is this & {
         prizeDescription: string;
@@ -2099,7 +2099,7 @@ export class Giveaway {
         return this.raw.prize_description != null;
     }
     /**
-     * True if `country_codes` has at least one item.
+     * true if `country_codes` has at least one item
      */
     hasCountryCodes(): this is this & {
         countryCodes: string[];
@@ -2107,7 +2107,7 @@ export class Giveaway {
         return this.raw.country_codes != null && this.raw.country_codes.length > 0;
     }
     /**
-     * True if `prize_star_count` is set.
+     * true if `prize_star_count` is set
      */
     hasPrizeStarCount(): this is this & {
         prizeStarCount: number;
@@ -2115,7 +2115,7 @@ export class Giveaway {
         return this.raw.prize_star_count != null;
     }
     /**
-     * True if `premium_subscription_month_count` is set.
+     * true if `premium_subscription_month_count` is set
      */
     hasPremiumSubscriptionMonthCount(): this is this & {
         premiumSubscriptionMonthCount: number;
@@ -2164,7 +2164,7 @@ export class GiveawayCompleted {
         return this.raw.is_star_giveaway;
     }
     /**
-     * True if `unclaimed_prize_count` is set.
+     * true if `unclaimed_prize_count` is set
      */
     hasUnclaimedPrizeCount(): this is this & {
         unclaimedPrizeCount: number;
@@ -2172,7 +2172,7 @@ export class GiveawayCompleted {
         return this.raw.unclaimed_prize_count != null;
     }
     /**
-     * True if `giveaway_message` is set.
+     * true if `giveaway_message` is set
      */
     hasGiveawayMessage(): this is this & {
         giveawayMessage: Message;
@@ -2267,7 +2267,7 @@ export class GiveawayWinners {
         return this.raw.prize_description;
     }
     /**
-     * True if `additional_chat_count` is set.
+     * true if `additional_chat_count` is set
      */
     hasAdditionalChatCount(): this is this & {
         additionalChatCount: number;
@@ -2275,7 +2275,7 @@ export class GiveawayWinners {
         return this.raw.additional_chat_count != null;
     }
     /**
-     * True if `prize_star_count` is set.
+     * true if `prize_star_count` is set
      */
     hasPrizeStarCount(): this is this & {
         prizeStarCount: number;
@@ -2283,7 +2283,7 @@ export class GiveawayWinners {
         return this.raw.prize_star_count != null;
     }
     /**
-     * True if `premium_subscription_month_count` is set.
+     * true if `premium_subscription_month_count` is set
      */
     hasPremiumSubscriptionMonthCount(): this is this & {
         premiumSubscriptionMonthCount: number;
@@ -2291,7 +2291,7 @@ export class GiveawayWinners {
         return this.raw.premium_subscription_month_count != null;
     }
     /**
-     * True if `unclaimed_prize_count` is set.
+     * true if `unclaimed_prize_count` is set
      */
     hasUnclaimedPrizeCount(): this is this & {
         unclaimedPrizeCount: number;
@@ -2299,7 +2299,7 @@ export class GiveawayWinners {
         return this.raw.unclaimed_prize_count != null;
     }
     /**
-     * True if `only_new_members` is set.
+     * true if `only_new_members` is set
      */
     hasOnlyNewMembers(): this is this & {
         onlyNewMembers: true;
@@ -2307,7 +2307,7 @@ export class GiveawayWinners {
         return this.raw.only_new_members != null;
     }
     /**
-     * True if `was_refunded` is set.
+     * true if `was_refunded` is set
      */
     hasWasRefunded(): this is this & {
         wasRefunded: true;
@@ -2315,7 +2315,7 @@ export class GiveawayWinners {
         return this.raw.was_refunded != null;
     }
     /**
-     * True if `prize_description` is set.
+     * true if `prize_description` is set
      */
     hasPrizeDescription(): this is this & {
         prizeDescription: string;
@@ -2418,7 +2418,7 @@ export class InlineKeyboardButton {
         return this.raw.pay;
     }
     /**
-     * True if `icon_custom_emoji_id` is set.
+     * true if `icon_custom_emoji_id` is set
      */
     hasIconCustomEmojiId(): this is this & {
         iconCustomEmojiId: string;
@@ -2426,7 +2426,7 @@ export class InlineKeyboardButton {
         return this.raw.icon_custom_emoji_id != null;
     }
     /**
-     * True if `style` is set.
+     * true if `style` is set
      */
     hasStyle(): this is this & {
         style: "danger" | "success" | "primary";
@@ -2434,7 +2434,7 @@ export class InlineKeyboardButton {
         return this.raw.style != null;
     }
     /**
-     * True if `url` is set.
+     * true if `url` is set
      */
     hasUrl(): this is this & {
         url: string;
@@ -2442,7 +2442,7 @@ export class InlineKeyboardButton {
         return this.raw.url != null;
     }
     /**
-     * True if `callback_data` is set.
+     * true if `callback_data` is set
      */
     hasCallbackData(): this is this & {
         callbackData: string;
@@ -2450,7 +2450,7 @@ export class InlineKeyboardButton {
         return this.raw.callback_data != null;
     }
     /**
-     * True if `web_app` is set.
+     * true if `web_app` is set
      */
     hasWebApp(): this is this & {
         webApp: WebAppInfo;
@@ -2458,7 +2458,7 @@ export class InlineKeyboardButton {
         return this.raw.web_app != null;
     }
     /**
-     * True if `login_url` is set.
+     * true if `login_url` is set
      */
     hasLoginUrl(): this is this & {
         loginUrl: TelegramLoginUrl;
@@ -2466,7 +2466,7 @@ export class InlineKeyboardButton {
         return this.raw.login_url != null;
     }
     /**
-     * True if `switch_inline_query` is set.
+     * true if `switch_inline_query` is set
      */
     hasSwitchInlineQuery(): this is this & {
         switchInlineQuery: string;
@@ -2474,7 +2474,7 @@ export class InlineKeyboardButton {
         return this.raw.switch_inline_query != null;
     }
     /**
-     * True if `switch_inline_query_current_chat` is set.
+     * true if `switch_inline_query_current_chat` is set
      */
     hasSwitchInlineQueryCurrentChat(): this is this & {
         switchInlineQueryCurrentChat: string;
@@ -2482,7 +2482,7 @@ export class InlineKeyboardButton {
         return this.raw.switch_inline_query_current_chat != null;
     }
     /**
-     * True if `switch_inline_query_chosen_chat` is set.
+     * true if `switch_inline_query_chosen_chat` is set
      */
     hasSwitchInlineQueryChosenChat(): this is this & {
         switchInlineQueryChosenChat: TelegramSwitchInlineQueryChosenChat;
@@ -2490,7 +2490,7 @@ export class InlineKeyboardButton {
         return this.raw.switch_inline_query_chosen_chat != null;
     }
     /**
-     * True if `copy_text` is set.
+     * true if `copy_text` is set
      */
     hasCopyText(): this is this & {
         copyText: TelegramCopyTextButton;
@@ -2498,7 +2498,7 @@ export class InlineKeyboardButton {
         return this.raw.copy_text != null;
     }
     /**
-     * True if `callback_game` is set.
+     * true if `callback_game` is set
      */
     hasCallbackGame(): this is this & {
         callbackGame: TelegramCallbackGame;
@@ -2506,7 +2506,7 @@ export class InlineKeyboardButton {
         return this.raw.callback_game != null;
     }
     /**
-     * True if `pay` is set.
+     * true if `pay` is set
      */
     hasPay(): this is this & {
         pay: boolean;
@@ -2599,7 +2599,7 @@ export class InlineQuery {
         return this._location;
     }
     /**
-     * True if `chat_type` is set.
+     * true if `chat_type` is set
      */
     hasChatType(): this is this & {
         chatType: "sender" | "private" | "group" | "supergroup" | "channel";
@@ -2607,7 +2607,7 @@ export class InlineQuery {
         return this.raw.chat_type != null;
     }
     /**
-     * True if `location` is set.
+     * true if `location` is set
      */
     hasLocation(): this is this & {
         location: Location;
@@ -2721,7 +2721,7 @@ export class LinkPreviewOptions {
         return this.raw.show_above_text;
     }
     /**
-     * True if `url` is set.
+     * true if `url` is set
      */
     hasUrl(): this is this & {
         url: string;
@@ -2729,7 +2729,7 @@ export class LinkPreviewOptions {
         return this.raw.url != null;
     }
     /**
-     * True if `prefer_small_media` is set.
+     * true if `prefer_small_media` is set
      */
     hasPreferSmallMedia(): this is this & {
         preferSmallMedia: boolean;
@@ -2737,7 +2737,7 @@ export class LinkPreviewOptions {
         return this.raw.prefer_small_media != null;
     }
     /**
-     * True if `prefer_large_media` is set.
+     * true if `prefer_large_media` is set
      */
     hasPreferLargeMedia(): this is this & {
         preferLargeMedia: boolean;
@@ -2745,7 +2745,7 @@ export class LinkPreviewOptions {
         return this.raw.prefer_large_media != null;
     }
     /**
-     * True if `show_above_text` is set.
+     * true if `show_above_text` is set
      */
     hasShowAboveText(): this is this & {
         showAboveText: boolean;
@@ -2802,7 +2802,7 @@ export class Location {
         return this.raw.proximity_alert_radius;
     }
     /**
-     * True if `horizontal_accuracy` is set.
+     * true if `horizontal_accuracy` is set
      */
     hasHorizontalAccuracy(): this is this & {
         horizontalAccuracy: number;
@@ -2810,7 +2810,7 @@ export class Location {
         return this.raw.horizontal_accuracy != null;
     }
     /**
-     * True if `live_period` is set.
+     * true if `live_period` is set
      */
     hasLivePeriod(): this is this & {
         livePeriod: number;
@@ -2818,7 +2818,7 @@ export class Location {
         return this.raw.live_period != null;
     }
     /**
-     * True if `heading` is set.
+     * true if `heading` is set
      */
     hasHeading(): this is this & {
         heading: number;
@@ -2826,7 +2826,7 @@ export class Location {
         return this.raw.heading != null;
     }
     /**
-     * True if `proximity_alert_radius` is set.
+     * true if `proximity_alert_radius` is set
      */
     hasProximityAlertRadius(): this is this & {
         proximityAlertRadius: number;
@@ -3742,7 +3742,7 @@ export class Message {
         return this._replyMarkup;
     }
     /**
-     * True if `message_thread_id` is set.
+     * true if `message_thread_id` is set
      */
     hasMessageThreadId(): this is this & {
         messageThreadId: number;
@@ -3750,7 +3750,7 @@ export class Message {
         return this.raw.message_thread_id != null;
     }
     /**
-     * True if `direct_messages_topic` is set.
+     * true if `direct_messages_topic` is set
      */
     hasDirectMessagesTopic(): this is this & {
         directMessagesTopic: TelegramDirectMessagesTopic;
@@ -3758,7 +3758,7 @@ export class Message {
         return this.raw.direct_messages_topic != null;
     }
     /**
-     * True if `from` is set.
+     * true if `from` is set
      */
     hasFrom(): this is this & {
         from: User;
@@ -3766,7 +3766,7 @@ export class Message {
         return this.raw.from != null;
     }
     /**
-     * True if `sender_chat` is set.
+     * true if `sender_chat` is set
      */
     hasSenderChat(): this is this & {
         senderChat: Chat;
@@ -3774,7 +3774,7 @@ export class Message {
         return this.raw.sender_chat != null;
     }
     /**
-     * True if `sender_boost_count` is set.
+     * true if `sender_boost_count` is set
      */
     hasSenderBoostCount(): this is this & {
         senderBoostCount: number;
@@ -3782,7 +3782,7 @@ export class Message {
         return this.raw.sender_boost_count != null;
     }
     /**
-     * True if `sender_business_bot` is set.
+     * true if `sender_business_bot` is set
      */
     hasSenderBusinessBot(): this is this & {
         senderBusinessBot: User;
@@ -3790,7 +3790,7 @@ export class Message {
         return this.raw.sender_business_bot != null;
     }
     /**
-     * True if `sender_tag` is set.
+     * true if `sender_tag` is set
      */
     hasSenderTag(): this is this & {
         senderTag: string;
@@ -3798,7 +3798,7 @@ export class Message {
         return this.raw.sender_tag != null;
     }
     /**
-     * True if `business_connection_id` is set.
+     * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
         businessConnectionId: string;
@@ -3806,7 +3806,7 @@ export class Message {
         return this.raw.business_connection_id != null;
     }
     /**
-     * True if `forward_origin` is set.
+     * true if `forward_origin` is set
      */
     hasForwardOrigin(): this is this & {
         forwardOrigin: TelegramMessageOrigin;
@@ -3814,7 +3814,7 @@ export class Message {
         return this.raw.forward_origin != null;
     }
     /**
-     * True if `reply_to_message` is set.
+     * true if `reply_to_message` is set
      */
     hasReplyToMessage(): this is this & {
         replyToMessage: Message;
@@ -3822,7 +3822,7 @@ export class Message {
         return this.raw.reply_to_message != null;
     }
     /**
-     * True if `external_reply` is set.
+     * true if `external_reply` is set
      */
     hasExternalReply(): this is this & {
         externalReply: ExternalReplyInfo;
@@ -3830,7 +3830,7 @@ export class Message {
         return this.raw.external_reply != null;
     }
     /**
-     * True if `quote` is set.
+     * true if `quote` is set
      */
     hasQuote(): this is this & {
         quote: TextQuote;
@@ -3838,7 +3838,7 @@ export class Message {
         return this.raw.quote != null;
     }
     /**
-     * True if `reply_to_story` is set.
+     * true if `reply_to_story` is set
      */
     hasReplyToStory(): this is this & {
         replyToStory: Story;
@@ -3846,7 +3846,7 @@ export class Message {
         return this.raw.reply_to_story != null;
     }
     /**
-     * True if `reply_to_checklist_task_id` is set.
+     * true if `reply_to_checklist_task_id` is set
      */
     hasReplyToChecklistTaskId(): this is this & {
         replyToChecklistTaskId: number;
@@ -3854,7 +3854,7 @@ export class Message {
         return this.raw.reply_to_checklist_task_id != null;
     }
     /**
-     * True if `reply_to_poll_option_id` is set.
+     * true if `reply_to_poll_option_id` is set
      */
     hasReplyToPollOptionId(): this is this & {
         replyToPollOptionId: string;
@@ -3862,7 +3862,7 @@ export class Message {
         return this.raw.reply_to_poll_option_id != null;
     }
     /**
-     * True if `via_bot` is set.
+     * true if `via_bot` is set
      */
     hasViaBot(): this is this & {
         viaBot: User;
@@ -3870,7 +3870,7 @@ export class Message {
         return this.raw.via_bot != null;
     }
     /**
-     * True if `edit_date` is set.
+     * true if `edit_date` is set
      */
     hasEditDate(): this is this & {
         editDate: number;
@@ -3878,7 +3878,7 @@ export class Message {
         return this.raw.edit_date != null;
     }
     /**
-     * True if `media_group_id` is set.
+     * true if `media_group_id` is set
      */
     hasMediaGroupId(): this is this & {
         mediaGroupId: string;
@@ -3886,7 +3886,7 @@ export class Message {
         return this.raw.media_group_id != null;
     }
     /**
-     * True if `author_signature` is set.
+     * true if `author_signature` is set
      */
     hasAuthorSignature(): this is this & {
         authorSignature: string;
@@ -3894,7 +3894,7 @@ export class Message {
         return this.raw.author_signature != null;
     }
     /**
-     * True if `paid_star_count` is set.
+     * true if `paid_star_count` is set
      */
     hasPaidStarCount(): this is this & {
         paidStarCount: number;
@@ -3902,7 +3902,7 @@ export class Message {
         return this.raw.paid_star_count != null;
     }
     /**
-     * True if `text` is set.
+     * true if `text` is set
      */
     hasText(): this is this & {
         text: string;
@@ -3910,7 +3910,7 @@ export class Message {
         return this.raw.text != null;
     }
     /**
-     * True if `entities` has at least one item.
+     * true if `entities` has at least one item
      */
     hasEntities(): this is this & {
         entities: MessageEntity[];
@@ -3918,7 +3918,7 @@ export class Message {
         return this.raw.entities != null && this.raw.entities.length > 0;
     }
     /**
-     * True if `link_preview_options` is set.
+     * true if `link_preview_options` is set
      */
     hasLinkPreviewOptions(): this is this & {
         linkPreviewOptions: LinkPreviewOptions;
@@ -3926,7 +3926,7 @@ export class Message {
         return this.raw.link_preview_options != null;
     }
     /**
-     * True if `suggested_post_info` is set.
+     * true if `suggested_post_info` is set
      */
     hasSuggestedPostInfo(): this is this & {
         suggestedPostInfo: TelegramSuggestedPostInfo;
@@ -3934,7 +3934,7 @@ export class Message {
         return this.raw.suggested_post_info != null;
     }
     /**
-     * True if `effect_id` is set.
+     * true if `effect_id` is set
      */
     hasEffectId(): this is this & {
         effectId: string;
@@ -3942,7 +3942,7 @@ export class Message {
         return this.raw.effect_id != null;
     }
     /**
-     * True if `animation` is set.
+     * true if `animation` is set
      */
     hasAnimation(): this is this & {
         animation: Animation;
@@ -3950,7 +3950,7 @@ export class Message {
         return this.raw.animation != null;
     }
     /**
-     * True if `audio` is set.
+     * true if `audio` is set
      */
     hasAudio(): this is this & {
         audio: Audio;
@@ -3958,7 +3958,7 @@ export class Message {
         return this.raw.audio != null;
     }
     /**
-     * True if `document` is set.
+     * true if `document` is set
      */
     hasDocument(): this is this & {
         document: Document;
@@ -3966,7 +3966,7 @@ export class Message {
         return this.raw.document != null;
     }
     /**
-     * True if `paid_media` is set.
+     * true if `paid_media` is set
      */
     hasPaidMedia(): this is this & {
         paidMedia: TelegramPaidMediaInfo;
@@ -3974,7 +3974,7 @@ export class Message {
         return this.raw.paid_media != null;
     }
     /**
-     * True if `photo` has at least one item.
+     * true if `photo` has at least one item
      */
     hasPhoto(): this is this & {
         photo: Photo;
@@ -3982,7 +3982,7 @@ export class Message {
         return this.raw.photo != null && this.raw.photo.length > 0;
     }
     /**
-     * True if `sticker` is set.
+     * true if `sticker` is set
      */
     hasSticker(): this is this & {
         sticker: Sticker;
@@ -3990,7 +3990,7 @@ export class Message {
         return this.raw.sticker != null;
     }
     /**
-     * True if `story` is set.
+     * true if `story` is set
      */
     hasStory(): this is this & {
         story: Story;
@@ -3998,7 +3998,7 @@ export class Message {
         return this.raw.story != null;
     }
     /**
-     * True if `video` is set.
+     * true if `video` is set
      */
     hasVideo(): this is this & {
         video: Video;
@@ -4006,7 +4006,7 @@ export class Message {
         return this.raw.video != null;
     }
     /**
-     * True if `video_note` is set.
+     * true if `video_note` is set
      */
     hasVideoNote(): this is this & {
         videoNote: VideoNote;
@@ -4014,7 +4014,7 @@ export class Message {
         return this.raw.video_note != null;
     }
     /**
-     * True if `voice` is set.
+     * true if `voice` is set
      */
     hasVoice(): this is this & {
         voice: Voice;
@@ -4022,7 +4022,7 @@ export class Message {
         return this.raw.voice != null;
     }
     /**
-     * True if `caption` is set.
+     * true if `caption` is set
      */
     hasCaption(): this is this & {
         caption: string;
@@ -4030,7 +4030,7 @@ export class Message {
         return this.raw.caption != null;
     }
     /**
-     * True if `caption_entities` has at least one item.
+     * true if `caption_entities` has at least one item
      */
     hasCaptionEntities(): this is this & {
         captionEntities: MessageEntity[];
@@ -4038,7 +4038,7 @@ export class Message {
         return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
     }
     /**
-     * True if `show_caption_above_media` is set.
+     * true if `show_caption_above_media` is set
      */
     hasShowCaptionAboveMedia(): this is this & {
         showCaptionAboveMedia: true;
@@ -4046,7 +4046,7 @@ export class Message {
         return this.raw.show_caption_above_media != null;
     }
     /**
-     * True if `checklist` is set.
+     * true if `checklist` is set
      */
     hasChecklist(): this is this & {
         checklist: TelegramChecklist;
@@ -4054,7 +4054,7 @@ export class Message {
         return this.raw.checklist != null;
     }
     /**
-     * True if `contact` is set.
+     * true if `contact` is set
      */
     hasContact(): this is this & {
         contact: Contact;
@@ -4062,7 +4062,7 @@ export class Message {
         return this.raw.contact != null;
     }
     /**
-     * True if `dice` is set.
+     * true if `dice` is set
      */
     hasDice(): this is this & {
         dice: Dice;
@@ -4070,7 +4070,7 @@ export class Message {
         return this.raw.dice != null;
     }
     /**
-     * True if `game` is set.
+     * true if `game` is set
      */
     hasGame(): this is this & {
         game: Game;
@@ -4078,7 +4078,7 @@ export class Message {
         return this.raw.game != null;
     }
     /**
-     * True if `poll` is set.
+     * true if `poll` is set
      */
     hasPoll(): this is this & {
         poll: Poll;
@@ -4086,7 +4086,7 @@ export class Message {
         return this.raw.poll != null;
     }
     /**
-     * True if `venue` is set.
+     * true if `venue` is set
      */
     hasVenue(): this is this & {
         venue: Venue;
@@ -4094,7 +4094,7 @@ export class Message {
         return this.raw.venue != null;
     }
     /**
-     * True if `location` is set.
+     * true if `location` is set
      */
     hasLocation(): this is this & {
         location: Location;
@@ -4102,7 +4102,7 @@ export class Message {
         return this.raw.location != null;
     }
     /**
-     * True if `new_chat_members` has at least one item.
+     * true if `new_chat_members` has at least one item
      */
     hasNewChatMembers(): this is this & {
         newChatMembers: User[];
@@ -4110,7 +4110,7 @@ export class Message {
         return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
     }
     /**
-     * True if `left_chat_member` is set.
+     * true if `left_chat_member` is set
      */
     hasLeftChatMember(): this is this & {
         leftChatMember: User;
@@ -4118,7 +4118,7 @@ export class Message {
         return this.raw.left_chat_member != null;
     }
     /**
-     * True if `chat_owner_left` is set.
+     * true if `chat_owner_left` is set
      */
     hasChatOwnerLeft(): this is this & {
         chatOwnerLeft: TelegramChatOwnerLeft;
@@ -4126,7 +4126,7 @@ export class Message {
         return this.raw.chat_owner_left != null;
     }
     /**
-     * True if `chat_owner_changed` is set.
+     * true if `chat_owner_changed` is set
      */
     hasChatOwnerChanged(): this is this & {
         chatOwnerChanged: TelegramChatOwnerChanged;
@@ -4134,7 +4134,7 @@ export class Message {
         return this.raw.chat_owner_changed != null;
     }
     /**
-     * True if `new_chat_title` is set.
+     * true if `new_chat_title` is set
      */
     hasNewChatTitle(): this is this & {
         newChatTitle: string;
@@ -4142,7 +4142,7 @@ export class Message {
         return this.raw.new_chat_title != null;
     }
     /**
-     * True if `new_chat_photo` has at least one item.
+     * true if `new_chat_photo` has at least one item
      */
     hasNewChatPhoto(): this is this & {
         newChatPhoto: Photo;
@@ -4150,7 +4150,7 @@ export class Message {
         return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
     }
     /**
-     * True if `delete_chat_photo` is set.
+     * true if `delete_chat_photo` is set
      */
     hasDeleteChatPhoto(): this is this & {
         deleteChatPhoto: true;
@@ -4158,7 +4158,7 @@ export class Message {
         return this.raw.delete_chat_photo != null;
     }
     /**
-     * True if `group_chat_created` is set.
+     * true if `group_chat_created` is set
      */
     hasGroupChatCreated(): this is this & {
         groupChatCreated: true;
@@ -4166,7 +4166,7 @@ export class Message {
         return this.raw.group_chat_created != null;
     }
     /**
-     * True if `supergroup_chat_created` is set.
+     * true if `supergroup_chat_created` is set
      */
     hasSupergroupChatCreated(): this is this & {
         supergroupChatCreated: true;
@@ -4174,7 +4174,7 @@ export class Message {
         return this.raw.supergroup_chat_created != null;
     }
     /**
-     * True if `channel_chat_created` is set.
+     * true if `channel_chat_created` is set
      */
     hasChannelChatCreated(): this is this & {
         channelChatCreated: true;
@@ -4182,7 +4182,7 @@ export class Message {
         return this.raw.channel_chat_created != null;
     }
     /**
-     * True if `message_auto_delete_timer_changed` is set.
+     * true if `message_auto_delete_timer_changed` is set
      */
     hasMessageAutoDeleteTimerChanged(): this is this & {
         messageAutoDeleteTimerChanged: TelegramMessageAutoDeleteTimerChanged;
@@ -4190,7 +4190,7 @@ export class Message {
         return this.raw.message_auto_delete_timer_changed != null;
     }
     /**
-     * True if `migrate_to_chat_id` is set.
+     * true if `migrate_to_chat_id` is set
      */
     hasMigrateToChatId(): this is this & {
         migrateToChatId: number;
@@ -4198,7 +4198,7 @@ export class Message {
         return this.raw.migrate_to_chat_id != null;
     }
     /**
-     * True if `migrate_from_chat_id` is set.
+     * true if `migrate_from_chat_id` is set
      */
     hasMigrateFromChatId(): this is this & {
         migrateFromChatId: number;
@@ -4206,7 +4206,7 @@ export class Message {
         return this.raw.migrate_from_chat_id != null;
     }
     /**
-     * True if `pinned_message` is set.
+     * true if `pinned_message` is set
      */
     hasPinnedMessage(): this is this & {
         pinnedMessage: TelegramMaybeInaccessibleMessage;
@@ -4214,7 +4214,7 @@ export class Message {
         return this.raw.pinned_message != null;
     }
     /**
-     * True if `invoice` is set.
+     * true if `invoice` is set
      */
     hasInvoice(): this is this & {
         invoice: Invoice;
@@ -4222,7 +4222,7 @@ export class Message {
         return this.raw.invoice != null;
     }
     /**
-     * True if `successful_payment` is set.
+     * true if `successful_payment` is set
      */
     hasSuccessfulPayment(): this is this & {
         successfulPayment: SuccessfulPayment;
@@ -4230,7 +4230,7 @@ export class Message {
         return this.raw.successful_payment != null;
     }
     /**
-     * True if `refunded_payment` is set.
+     * true if `refunded_payment` is set
      */
     hasRefundedPayment(): this is this & {
         refundedPayment: TelegramRefundedPayment;
@@ -4238,7 +4238,7 @@ export class Message {
         return this.raw.refunded_payment != null;
     }
     /**
-     * True if `users_shared` is set.
+     * true if `users_shared` is set
      */
     hasUsersShared(): this is this & {
         usersShared: UsersShared;
@@ -4246,7 +4246,7 @@ export class Message {
         return this.raw.users_shared != null;
     }
     /**
-     * True if `chat_shared` is set.
+     * true if `chat_shared` is set
      */
     hasChatShared(): this is this & {
         chatShared: ChatShared;
@@ -4254,7 +4254,7 @@ export class Message {
         return this.raw.chat_shared != null;
     }
     /**
-     * True if `gift` is set.
+     * true if `gift` is set
      */
     hasGift(): this is this & {
         gift: TelegramGiftInfo;
@@ -4262,7 +4262,7 @@ export class Message {
         return this.raw.gift != null;
     }
     /**
-     * True if `unique_gift` is set.
+     * true if `unique_gift` is set
      */
     hasUniqueGift(): this is this & {
         uniqueGift: TelegramUniqueGiftInfo;
@@ -4270,7 +4270,7 @@ export class Message {
         return this.raw.unique_gift != null;
     }
     /**
-     * True if `gift_upgrade_sent` is set.
+     * true if `gift_upgrade_sent` is set
      */
     hasGiftUpgradeSent(): this is this & {
         giftUpgradeSent: TelegramGiftInfo;
@@ -4278,7 +4278,7 @@ export class Message {
         return this.raw.gift_upgrade_sent != null;
     }
     /**
-     * True if `connected_website` is set.
+     * true if `connected_website` is set
      */
     hasConnectedWebsite(): this is this & {
         connectedWebsite: string;
@@ -4286,7 +4286,7 @@ export class Message {
         return this.raw.connected_website != null;
     }
     /**
-     * True if `write_access_allowed` is set.
+     * true if `write_access_allowed` is set
      */
     hasWriteAccessAllowed(): this is this & {
         writeAccessAllowed: WriteAccessAllowed;
@@ -4294,7 +4294,7 @@ export class Message {
         return this.raw.write_access_allowed != null;
     }
     /**
-     * True if `passport_data` is set.
+     * true if `passport_data` is set
      */
     hasPassportData(): this is this & {
         passportData: PassportData;
@@ -4302,7 +4302,7 @@ export class Message {
         return this.raw.passport_data != null;
     }
     /**
-     * True if `proximity_alert_triggered` is set.
+     * true if `proximity_alert_triggered` is set
      */
     hasProximityAlertTriggered(): this is this & {
         proximityAlertTriggered: ProximityAlertTriggered;
@@ -4310,7 +4310,7 @@ export class Message {
         return this.raw.proximity_alert_triggered != null;
     }
     /**
-     * True if `boost_added` is set.
+     * true if `boost_added` is set
      */
     hasBoostAdded(): this is this & {
         boostAdded: TelegramChatBoostAdded;
@@ -4318,7 +4318,7 @@ export class Message {
         return this.raw.boost_added != null;
     }
     /**
-     * True if `chat_background_set` is set.
+     * true if `chat_background_set` is set
      */
     hasChatBackgroundSet(): this is this & {
         chatBackgroundSet: TelegramChatBackground;
@@ -4326,7 +4326,7 @@ export class Message {
         return this.raw.chat_background_set != null;
     }
     /**
-     * True if `checklist_tasks_done` is set.
+     * true if `checklist_tasks_done` is set
      */
     hasChecklistTasksDone(): this is this & {
         checklistTasksDone: TelegramChecklistTasksDone;
@@ -4334,7 +4334,7 @@ export class Message {
         return this.raw.checklist_tasks_done != null;
     }
     /**
-     * True if `checklist_tasks_added` is set.
+     * true if `checklist_tasks_added` is set
      */
     hasChecklistTasksAdded(): this is this & {
         checklistTasksAdded: TelegramChecklistTasksAdded;
@@ -4342,7 +4342,7 @@ export class Message {
         return this.raw.checklist_tasks_added != null;
     }
     /**
-     * True if `direct_message_price_changed` is set.
+     * true if `direct_message_price_changed` is set
      */
     hasDirectMessagePriceChanged(): this is this & {
         directMessagePriceChanged: TelegramDirectMessagePriceChanged;
@@ -4350,7 +4350,7 @@ export class Message {
         return this.raw.direct_message_price_changed != null;
     }
     /**
-     * True if `forum_topic_created` is set.
+     * true if `forum_topic_created` is set
      */
     hasForumTopicCreated(): this is this & {
         forumTopicCreated: ForumTopicCreated;
@@ -4358,7 +4358,7 @@ export class Message {
         return this.raw.forum_topic_created != null;
     }
     /**
-     * True if `forum_topic_edited` is set.
+     * true if `forum_topic_edited` is set
      */
     hasForumTopicEdited(): this is this & {
         forumTopicEdited: ForumTopicEdited;
@@ -4366,7 +4366,7 @@ export class Message {
         return this.raw.forum_topic_edited != null;
     }
     /**
-     * True if `forum_topic_closed` is set.
+     * true if `forum_topic_closed` is set
      */
     hasForumTopicClosed(): this is this & {
         forumTopicClosed: TelegramForumTopicClosed;
@@ -4374,7 +4374,7 @@ export class Message {
         return this.raw.forum_topic_closed != null;
     }
     /**
-     * True if `forum_topic_reopened` is set.
+     * true if `forum_topic_reopened` is set
      */
     hasForumTopicReopened(): this is this & {
         forumTopicReopened: TelegramForumTopicReopened;
@@ -4382,7 +4382,7 @@ export class Message {
         return this.raw.forum_topic_reopened != null;
     }
     /**
-     * True if `general_forum_topic_hidden` is set.
+     * true if `general_forum_topic_hidden` is set
      */
     hasGeneralForumTopicHidden(): this is this & {
         generalForumTopicHidden: TelegramGeneralForumTopicHidden;
@@ -4390,7 +4390,7 @@ export class Message {
         return this.raw.general_forum_topic_hidden != null;
     }
     /**
-     * True if `general_forum_topic_unhidden` is set.
+     * true if `general_forum_topic_unhidden` is set
      */
     hasGeneralForumTopicUnhidden(): this is this & {
         generalForumTopicUnhidden: TelegramGeneralForumTopicUnhidden;
@@ -4398,7 +4398,7 @@ export class Message {
         return this.raw.general_forum_topic_unhidden != null;
     }
     /**
-     * True if `giveaway_created` is set.
+     * true if `giveaway_created` is set
      */
     hasGiveawayCreated(): this is this & {
         giveawayCreated: TelegramGiveawayCreated;
@@ -4406,7 +4406,7 @@ export class Message {
         return this.raw.giveaway_created != null;
     }
     /**
-     * True if `giveaway` is set.
+     * true if `giveaway` is set
      */
     hasGiveaway(): this is this & {
         giveaway: Giveaway;
@@ -4414,7 +4414,7 @@ export class Message {
         return this.raw.giveaway != null;
     }
     /**
-     * True if `giveaway_winners` is set.
+     * true if `giveaway_winners` is set
      */
     hasGiveawayWinners(): this is this & {
         giveawayWinners: GiveawayWinners;
@@ -4422,7 +4422,7 @@ export class Message {
         return this.raw.giveaway_winners != null;
     }
     /**
-     * True if `giveaway_completed` is set.
+     * true if `giveaway_completed` is set
      */
     hasGiveawayCompleted(): this is this & {
         giveawayCompleted: GiveawayCompleted;
@@ -4430,7 +4430,7 @@ export class Message {
         return this.raw.giveaway_completed != null;
     }
     /**
-     * True if `managed_bot_created` is set.
+     * true if `managed_bot_created` is set
      */
     hasManagedBotCreated(): this is this & {
         managedBotCreated: TelegramManagedBotCreated;
@@ -4438,7 +4438,7 @@ export class Message {
         return this.raw.managed_bot_created != null;
     }
     /**
-     * True if `paid_message_price_changed` is set.
+     * true if `paid_message_price_changed` is set
      */
     hasPaidMessagePriceChanged(): this is this & {
         paidMessagePriceChanged: TelegramPaidMessagePriceChanged;
@@ -4446,7 +4446,7 @@ export class Message {
         return this.raw.paid_message_price_changed != null;
     }
     /**
-     * True if `poll_option_added` is set.
+     * true if `poll_option_added` is set
      */
     hasPollOptionAdded(): this is this & {
         pollOptionAdded: TelegramPollOptionAdded;
@@ -4454,7 +4454,7 @@ export class Message {
         return this.raw.poll_option_added != null;
     }
     /**
-     * True if `poll_option_deleted` is set.
+     * true if `poll_option_deleted` is set
      */
     hasPollOptionDeleted(): this is this & {
         pollOptionDeleted: TelegramPollOptionDeleted;
@@ -4462,7 +4462,7 @@ export class Message {
         return this.raw.poll_option_deleted != null;
     }
     /**
-     * True if `suggested_post_approved` is set.
+     * true if `suggested_post_approved` is set
      */
     hasSuggestedPostApproved(): this is this & {
         suggestedPostApproved: TelegramSuggestedPostApproved;
@@ -4470,7 +4470,7 @@ export class Message {
         return this.raw.suggested_post_approved != null;
     }
     /**
-     * True if `suggested_post_approval_failed` is set.
+     * true if `suggested_post_approval_failed` is set
      */
     hasSuggestedPostApprovalFailed(): this is this & {
         suggestedPostApprovalFailed: TelegramSuggestedPostApprovalFailed;
@@ -4478,7 +4478,7 @@ export class Message {
         return this.raw.suggested_post_approval_failed != null;
     }
     /**
-     * True if `suggested_post_declined` is set.
+     * true if `suggested_post_declined` is set
      */
     hasSuggestedPostDeclined(): this is this & {
         suggestedPostDeclined: TelegramSuggestedPostDeclined;
@@ -4486,7 +4486,7 @@ export class Message {
         return this.raw.suggested_post_declined != null;
     }
     /**
-     * True if `suggested_post_paid` is set.
+     * true if `suggested_post_paid` is set
      */
     hasSuggestedPostPaid(): this is this & {
         suggestedPostPaid: TelegramSuggestedPostPaid;
@@ -4494,7 +4494,7 @@ export class Message {
         return this.raw.suggested_post_paid != null;
     }
     /**
-     * True if `suggested_post_refunded` is set.
+     * true if `suggested_post_refunded` is set
      */
     hasSuggestedPostRefunded(): this is this & {
         suggestedPostRefunded: TelegramSuggestedPostRefunded;
@@ -4502,7 +4502,7 @@ export class Message {
         return this.raw.suggested_post_refunded != null;
     }
     /**
-     * True if `video_chat_scheduled` is set.
+     * true if `video_chat_scheduled` is set
      */
     hasVideoChatScheduled(): this is this & {
         videoChatScheduled: VideoChatScheduled;
@@ -4510,7 +4510,7 @@ export class Message {
         return this.raw.video_chat_scheduled != null;
     }
     /**
-     * True if `video_chat_started` is set.
+     * true if `video_chat_started` is set
      */
     hasVideoChatStarted(): this is this & {
         videoChatStarted: TelegramVideoChatStarted;
@@ -4518,7 +4518,7 @@ export class Message {
         return this.raw.video_chat_started != null;
     }
     /**
-     * True if `video_chat_ended` is set.
+     * true if `video_chat_ended` is set
      */
     hasVideoChatEnded(): this is this & {
         videoChatEnded: VideoChatEnded;
@@ -4526,7 +4526,7 @@ export class Message {
         return this.raw.video_chat_ended != null;
     }
     /**
-     * True if `video_chat_participants_invited` is set.
+     * true if `video_chat_participants_invited` is set
      */
     hasVideoChatParticipantsInvited(): this is this & {
         videoChatParticipantsInvited: VideoChatParticipantsInvited;
@@ -4534,7 +4534,7 @@ export class Message {
         return this.raw.video_chat_participants_invited != null;
     }
     /**
-     * True if `web_app_data` is set.
+     * true if `web_app_data` is set
      */
     hasWebAppData(): this is this & {
         webAppData: WebAppData;
@@ -4542,7 +4542,7 @@ export class Message {
         return this.raw.web_app_data != null;
     }
     /**
-     * True if `reply_markup` is set.
+     * true if `reply_markup` is set
      */
     hasReplyMarkup(): this is this & {
         replyMarkup: InlineKeyboardMarkup;
@@ -4621,7 +4621,7 @@ export class MessageEntity {
         return this.raw.date_time_format;
     }
     /**
-     * True if `url` is set.
+     * true if `url` is set
      */
     hasUrl(): this is this & {
         url: string;
@@ -4629,7 +4629,7 @@ export class MessageEntity {
         return this.raw.url != null;
     }
     /**
-     * True if `user` is set.
+     * true if `user` is set
      */
     hasUser(): this is this & {
         user: User;
@@ -4637,7 +4637,7 @@ export class MessageEntity {
         return this.raw.user != null;
     }
     /**
-     * True if `language` is set.
+     * true if `language` is set
      */
     hasLanguage(): this is this & {
         language: string;
@@ -4645,7 +4645,7 @@ export class MessageEntity {
         return this.raw.language != null;
     }
     /**
-     * True if `custom_emoji_id` is set.
+     * true if `custom_emoji_id` is set
      */
     hasCustomEmojiId(): this is this & {
         customEmojiId: string;
@@ -4653,7 +4653,7 @@ export class MessageEntity {
         return this.raw.custom_emoji_id != null;
     }
     /**
-     * True if `unix_time` is set.
+     * true if `unix_time` is set
      */
     hasUnixTime(): this is this & {
         unixTime: number;
@@ -4661,7 +4661,7 @@ export class MessageEntity {
         return this.raw.unix_time != null;
     }
     /**
-     * True if `date_time_format` is set.
+     * true if `date_time_format` is set
      */
     hasDateTimeFormat(): this is this & {
         dateTimeFormat: string;
@@ -4871,7 +4871,7 @@ export class MessageReactionUpdated {
         return this.raw.new_reaction;
     }
     /**
-     * True if `user` is set.
+     * true if `user` is set
      */
     hasUser(): this is this & {
         user: User;
@@ -4879,7 +4879,7 @@ export class MessageReactionUpdated {
         return this.raw.user != null;
     }
     /**
-     * True if `actor_chat` is set.
+     * true if `actor_chat` is set
      */
     hasActorChat(): this is this & {
         actorChat: Chat;
@@ -4928,7 +4928,7 @@ export class OrderInfo {
         return this._shippingAddress;
     }
     /**
-     * True if `name` is set.
+     * true if `name` is set
      */
     hasName(): this is this & {
         name: string;
@@ -4936,7 +4936,7 @@ export class OrderInfo {
         return this.raw.name != null;
     }
     /**
-     * True if `phone_number` is set.
+     * true if `phone_number` is set
      */
     hasPhoneNumber(): this is this & {
         phoneNumber: string;
@@ -4944,7 +4944,7 @@ export class OrderInfo {
         return this.raw.phone_number != null;
     }
     /**
-     * True if `email` is set.
+     * true if `email` is set
      */
     hasEmail(): this is this & {
         email: string;
@@ -4952,7 +4952,7 @@ export class OrderInfo {
         return this.raw.email != null;
     }
     /**
-     * True if `shipping_address` is set.
+     * true if `shipping_address` is set
      */
     hasShippingAddress(): this is this & {
         shippingAddress: ShippingAddress;
@@ -5028,7 +5028,7 @@ export class PhotoSize {
         return this.raw.file_size;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -5155,7 +5155,7 @@ export class Poll {
         return this.raw.description_entities ? (this._descriptionEntities ??= this.raw.description_entities.map(x => new MessageEntity(x))) : undefined;
     }
     /**
-     * True if `question_entities` has at least one item.
+     * true if `question_entities` has at least one item
      */
     hasQuestionEntities(): this is this & {
         questionEntities: MessageEntity[];
@@ -5163,7 +5163,7 @@ export class Poll {
         return this.raw.question_entities != null && this.raw.question_entities.length > 0;
     }
     /**
-     * True if `correct_option_ids` has at least one item.
+     * true if `correct_option_ids` has at least one item
      */
     hasCorrectOptionIds(): this is this & {
         correctOptionIds: number[];
@@ -5171,7 +5171,7 @@ export class Poll {
         return this.raw.correct_option_ids != null && this.raw.correct_option_ids.length > 0;
     }
     /**
-     * True if `explanation` is set.
+     * true if `explanation` is set
      */
     hasExplanation(): this is this & {
         explanation: string;
@@ -5179,7 +5179,7 @@ export class Poll {
         return this.raw.explanation != null;
     }
     /**
-     * True if `explanation_entities` has at least one item.
+     * true if `explanation_entities` has at least one item
      */
     hasExplanationEntities(): this is this & {
         explanationEntities: MessageEntity[];
@@ -5187,7 +5187,7 @@ export class Poll {
         return this.raw.explanation_entities != null && this.raw.explanation_entities.length > 0;
     }
     /**
-     * True if `open_period` is set.
+     * true if `open_period` is set
      */
     hasOpenPeriod(): this is this & {
         openPeriod: number;
@@ -5195,7 +5195,7 @@ export class Poll {
         return this.raw.open_period != null;
     }
     /**
-     * True if `close_date` is set.
+     * true if `close_date` is set
      */
     hasCloseDate(): this is this & {
         closeDate: number;
@@ -5203,7 +5203,7 @@ export class Poll {
         return this.raw.close_date != null;
     }
     /**
-     * True if `description` is set.
+     * true if `description` is set
      */
     hasDescription(): this is this & {
         description: string;
@@ -5211,7 +5211,7 @@ export class Poll {
         return this.raw.description != null;
     }
     /**
-     * True if `description_entities` has at least one item.
+     * true if `description_entities` has at least one item
      */
     hasDescriptionEntities(): this is this & {
         descriptionEntities: MessageEntity[];
@@ -5278,7 +5278,7 @@ export class PollAnswer {
         return this.raw.option_persistent_ids;
     }
     /**
-     * True if `voter_chat` is set.
+     * true if `voter_chat` is set
      */
     hasVoterChat(): this is this & {
         voterChat: Chat;
@@ -5286,7 +5286,7 @@ export class PollAnswer {
         return this.raw.voter_chat != null;
     }
     /**
-     * True if `user` is set.
+     * true if `user` is set
      */
     hasUser(): this is this & {
         user: User;
@@ -5358,7 +5358,7 @@ export class PollOption {
         return this.raw.addition_date;
     }
     /**
-     * True if `text_entities` has at least one item.
+     * true if `text_entities` has at least one item
      */
     hasTextEntities(): this is this & {
         textEntities: MessageEntity[];
@@ -5366,7 +5366,7 @@ export class PollOption {
         return this.raw.text_entities != null && this.raw.text_entities.length > 0;
     }
     /**
-     * True if `added_by_user` is set.
+     * true if `added_by_user` is set
      */
     hasAddedByUser(): this is this & {
         addedByUser: User;
@@ -5374,7 +5374,7 @@ export class PollOption {
         return this.raw.added_by_user != null;
     }
     /**
-     * True if `added_by_chat` is set.
+     * true if `added_by_chat` is set
      */
     hasAddedByChat(): this is this & {
         addedByChat: Chat;
@@ -5382,7 +5382,7 @@ export class PollOption {
         return this.raw.added_by_chat != null;
     }
     /**
-     * True if `addition_date` is set.
+     * true if `addition_date` is set
      */
     hasAdditionDate(): this is this & {
         additionDate: number;
@@ -5450,7 +5450,7 @@ export class PreCheckoutQuery {
         return this._orderInfo;
     }
     /**
-     * True if `shipping_option_id` is set.
+     * true if `shipping_option_id` is set
      */
     hasShippingOptionId(): this is this & {
         shippingOptionId: string;
@@ -5458,7 +5458,7 @@ export class PreCheckoutQuery {
         return this.raw.shipping_option_id != null;
     }
     /**
-     * True if `order_info` is set.
+     * true if `order_info` is set
      */
     hasOrderInfo(): this is this & {
         orderInfo: OrderInfo;
@@ -5727,7 +5727,7 @@ export class Sticker {
         return this.raw.file_size;
     }
     /**
-     * True if `thumbnail` is set.
+     * true if `thumbnail` is set
      */
     hasThumbnail(): this is this & {
         thumbnail: PhotoSize;
@@ -5735,7 +5735,7 @@ export class Sticker {
         return this.raw.thumbnail != null;
     }
     /**
-     * True if `emoji` is set.
+     * true if `emoji` is set
      */
     hasEmoji(): this is this & {
         emoji: string;
@@ -5743,7 +5743,7 @@ export class Sticker {
         return this.raw.emoji != null;
     }
     /**
-     * True if `set_name` is set.
+     * true if `set_name` is set
      */
     hasSetName(): this is this & {
         setName: string;
@@ -5751,7 +5751,7 @@ export class Sticker {
         return this.raw.set_name != null;
     }
     /**
-     * True if `premium_animation` is set.
+     * true if `premium_animation` is set
      */
     hasPremiumAnimation(): this is this & {
         premiumAnimation: File;
@@ -5759,7 +5759,7 @@ export class Sticker {
         return this.raw.premium_animation != null;
     }
     /**
-     * True if `mask_position` is set.
+     * true if `mask_position` is set
      */
     hasMaskPosition(): this is this & {
         maskPosition: MaskPosition;
@@ -5767,7 +5767,7 @@ export class Sticker {
         return this.raw.mask_position != null;
     }
     /**
-     * True if `custom_emoji_id` is set.
+     * true if `custom_emoji_id` is set
      */
     hasCustomEmojiId(): this is this & {
         customEmojiId: string;
@@ -5775,7 +5775,7 @@ export class Sticker {
         return this.raw.custom_emoji_id != null;
     }
     /**
-     * True if `needs_repainting` is set.
+     * true if `needs_repainting` is set
      */
     hasNeedsRepainting(): this is this & {
         needsRepainting: true;
@@ -5783,7 +5783,7 @@ export class Sticker {
         return this.raw.needs_repainting != null;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -5851,7 +5851,7 @@ export class StickerSet {
         return this._thumbnail;
     }
     /**
-     * True if `thumbnail` is set.
+     * true if `thumbnail` is set
      */
     hasThumbnail(): this is this & {
         thumbnail: PhotoSize;
@@ -5974,7 +5974,7 @@ export class SuccessfulPayment {
         return this.raw.provider_payment_charge_id;
     }
     /**
-     * True if `subscription_expiration_date` is set.
+     * true if `subscription_expiration_date` is set
      */
     hasSubscriptionExpirationDate(): this is this & {
         subscriptionExpirationDate: number;
@@ -5982,7 +5982,7 @@ export class SuccessfulPayment {
         return this.raw.subscription_expiration_date != null;
     }
     /**
-     * True if `shipping_option_id` is set.
+     * true if `shipping_option_id` is set
      */
     hasShippingOptionId(): this is this & {
         shippingOptionId: string;
@@ -5990,7 +5990,7 @@ export class SuccessfulPayment {
         return this.raw.shipping_option_id != null;
     }
     /**
-     * True if `order_info` is set.
+     * true if `order_info` is set
      */
     hasOrderInfo(): this is this & {
         orderInfo: OrderInfo;
@@ -6036,7 +6036,7 @@ export class TextQuote {
         return this.raw.is_manual;
     }
     /**
-     * True if `entities` has at least one item.
+     * true if `entities` has at least one item
      */
     hasEntities(): this is this & {
         entities: MessageEntity[];
@@ -6153,7 +6153,7 @@ export class User {
         return this.raw.can_manage_bots;
     }
     /**
-     * True if `last_name` is set.
+     * true if `last_name` is set
      */
     hasLastName(): this is this & {
         lastName: string;
@@ -6161,7 +6161,7 @@ export class User {
         return this.raw.last_name != null;
     }
     /**
-     * True if `username` is set.
+     * true if `username` is set
      */
     hasUsername(): this is this & {
         username: string;
@@ -6169,7 +6169,7 @@ export class User {
         return this.raw.username != null;
     }
     /**
-     * True if `language_code` is set.
+     * true if `language_code` is set
      */
     hasLanguageCode(): this is this & {
         languageCode: string;
@@ -6177,7 +6177,7 @@ export class User {
         return this.raw.language_code != null;
     }
     /**
-     * True if `added_to_attachment_menu` is set.
+     * true if `added_to_attachment_menu` is set
      */
     hasAddedToAttachmentMenu(): this is this & {
         addedToAttachmentMenu: true;
@@ -6185,7 +6185,7 @@ export class User {
         return this.raw.added_to_attachment_menu != null;
     }
     /**
-     * True if `can_join_groups` is set.
+     * true if `can_join_groups` is set
      */
     hasCanJoinGroups(): this is this & {
         canJoinGroups: boolean;
@@ -6193,7 +6193,7 @@ export class User {
         return this.raw.can_join_groups != null;
     }
     /**
-     * True if `can_read_all_group_messages` is set.
+     * true if `can_read_all_group_messages` is set
      */
     hasCanReadAllGroupMessages(): this is this & {
         canReadAllGroupMessages: boolean;
@@ -6201,7 +6201,7 @@ export class User {
         return this.raw.can_read_all_group_messages != null;
     }
     /**
-     * True if `supports_inline_queries` is set.
+     * true if `supports_inline_queries` is set
      */
     hasSupportsInlineQueries(): this is this & {
         supportsInlineQueries: boolean;
@@ -6209,7 +6209,7 @@ export class User {
         return this.raw.supports_inline_queries != null;
     }
     /**
-     * True if `can_connect_to_business` is set.
+     * true if `can_connect_to_business` is set
      */
     hasCanConnectToBusiness(): this is this & {
         canConnectToBusiness: boolean;
@@ -6217,7 +6217,7 @@ export class User {
         return this.raw.can_connect_to_business != null;
     }
     /**
-     * True if `allows_users_to_create_topics` is set.
+     * true if `allows_users_to_create_topics` is set
      */
     hasAllowsUsersToCreateTopics(): this is this & {
         allowsUsersToCreateTopics: boolean;
@@ -6225,7 +6225,7 @@ export class User {
         return this.raw.allows_users_to_create_topics != null;
     }
     /**
-     * True if `can_manage_bots` is set.
+     * true if `can_manage_bots` is set
      */
     hasCanManageBots(): this is this & {
         canManageBots: boolean;
@@ -6366,7 +6366,7 @@ export class Venue {
         return this.raw.google_place_type;
     }
     /**
-     * True if `foursquare_id` is set.
+     * true if `foursquare_id` is set
      */
     hasFoursquareId(): this is this & {
         foursquareId: string;
@@ -6374,7 +6374,7 @@ export class Venue {
         return this.raw.foursquare_id != null;
     }
     /**
-     * True if `foursquare_type` is set.
+     * true if `foursquare_type` is set
      */
     hasFoursquareType(): this is this & {
         foursquareType: string;
@@ -6382,7 +6382,7 @@ export class Venue {
         return this.raw.foursquare_type != null;
     }
     /**
-     * True if `google_place_id` is set.
+     * true if `google_place_id` is set
      */
     hasGooglePlaceId(): this is this & {
         googlePlaceId: string;
@@ -6390,7 +6390,7 @@ export class Venue {
         return this.raw.google_place_id != null;
     }
     /**
-     * True if `google_place_type` is set.
+     * true if `google_place_type` is set
      */
     hasGooglePlaceType(): this is this & {
         googlePlaceType: string;
@@ -6495,7 +6495,7 @@ export class Video {
         return this.raw.file_size;
     }
     /**
-     * True if `thumbnail` is set.
+     * true if `thumbnail` is set
      */
     hasThumbnail(): this is this & {
         thumbnail: PhotoSize;
@@ -6503,7 +6503,7 @@ export class Video {
         return this.raw.thumbnail != null;
     }
     /**
-     * True if `cover` has at least one item.
+     * true if `cover` has at least one item
      */
     hasCover(): this is this & {
         cover: Photo;
@@ -6511,7 +6511,7 @@ export class Video {
         return this.raw.cover != null && this.raw.cover.length > 0;
     }
     /**
-     * True if `start_timestamp` is set.
+     * true if `start_timestamp` is set
      */
     hasStartTimestamp(): this is this & {
         startTimestamp: number;
@@ -6519,7 +6519,7 @@ export class Video {
         return this.raw.start_timestamp != null;
     }
     /**
-     * True if `qualities` has at least one item.
+     * true if `qualities` has at least one item
      */
     hasQualities(): this is this & {
         qualities: VideoQualities;
@@ -6527,7 +6527,7 @@ export class Video {
         return this.raw.qualities != null && this.raw.qualities.length > 0;
     }
     /**
-     * True if `file_name` is set.
+     * true if `file_name` is set
      */
     hasFileName(): this is this & {
         fileName: string;
@@ -6535,7 +6535,7 @@ export class Video {
         return this.raw.file_name != null;
     }
     /**
-     * True if `mime_type` is set.
+     * true if `mime_type` is set
      */
     hasMimeType(): this is this & {
         mimeType: string;
@@ -6543,7 +6543,7 @@ export class Video {
         return this.raw.mime_type != null;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -6662,7 +6662,7 @@ export class VideoNote {
         return this.raw.file_size;
     }
     /**
-     * True if `thumbnail` is set.
+     * true if `thumbnail` is set
      */
     hasThumbnail(): this is this & {
         thumbnail: PhotoSize;
@@ -6670,7 +6670,7 @@ export class VideoNote {
         return this.raw.thumbnail != null;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -6727,7 +6727,7 @@ export class VideoQuality {
         return this.raw.file_size;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -6778,7 +6778,7 @@ export class Voice {
         return this.raw.file_size;
     }
     /**
-     * True if `mime_type` is set.
+     * true if `mime_type` is set
      */
     hasMimeType(): this is this & {
         mimeType: string;
@@ -6786,7 +6786,7 @@ export class Voice {
         return this.raw.mime_type != null;
     }
     /**
-     * True if `file_size` is set.
+     * true if `file_size` is set
      */
     hasFileSize(): this is this & {
         fileSize: number;
@@ -6869,7 +6869,7 @@ export class WriteAccessAllowed {
         return this.raw.from_attachment_menu;
     }
     /**
-     * True if `from_request` is set.
+     * true if `from_request` is set
      */
     hasFromRequest(): this is this & {
         fromRequest: boolean;
@@ -6877,7 +6877,7 @@ export class WriteAccessAllowed {
         return this.raw.from_request != null;
     }
     /**
-     * True if `web_app_name` is set.
+     * true if `web_app_name` is set
      */
     hasWebAppName(): this is this & {
         webAppName: string;
@@ -6885,7 +6885,7 @@ export class WriteAccessAllowed {
         return this.raw.web_app_name != null;
     }
     /**
-     * True if `from_attachment_menu` is set.
+     * true if `from_attachment_menu` is set
      */
     hasFromAttachmentMenu(): this is this & {
         fromAttachmentMenu: boolean;

@@ -54,6 +54,11 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'method', name: 'downloadToFile', params: 'path: string', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null)', returnType: 'Promise<void | null>', jsdoc: 'download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written' }
 ]
 
+const MESSAGE_REACTION_EXTRAS: UpdateExtra[] = [
+  { kind: 'getter', name: 'added', expression: 'this.raw.new_reaction.filter(r => !this.raw.old_reaction.some(o => o.type === r.type && (o as { emoji?: string }).emoji === (r as { emoji?: string }).emoji && (o as { custom_emoji_id?: string }).custom_emoji_id === (r as { custom_emoji_id?: string }).custom_emoji_id))', returnType: 'TelegramReactionType[]', jsdoc: 'reactions present in `newReaction` but not in `oldReaction`' },
+  { kind: 'getter', name: 'removed', expression: 'this.raw.old_reaction.filter(o => !this.raw.new_reaction.some(r => r.type === o.type && (r as { emoji?: string }).emoji === (o as { emoji?: string }).emoji && (r as { custom_emoji_id?: string }).custom_emoji_id === (o as { custom_emoji_id?: string }).custom_emoji_id))', returnType: 'TelegramReactionType[]', jsdoc: 'reactions present in `oldReaction` but not in `newReaction`' }
+]
+
 const CALLBACK_QUERY_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'chatId', expression: 'this.raw.message?.chat.id', returnType: 'number | undefined', jsdoc: 'shortcut for `message?.chat.id`' },
   { kind: 'getter', name: 'messageId', expression: 'this.raw.message?.message_id', returnType: 'number | undefined', jsdoc: 'shortcut for `message?.message_id`' },
@@ -148,7 +153,8 @@ export const UPDATE_KINDS: UpdateKindSpec[] = [
 const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   callback_query: CALLBACK_QUERY_EXTRAS,
   chat_member: CHAT_MEMBER_EXTRAS,
-  my_chat_member: CHAT_MEMBER_EXTRAS
+  my_chat_member: CHAT_MEMBER_EXTRAS,
+  message_reaction: MESSAGE_REACTION_EXTRAS
 }
 
 for (const k of UPDATE_KINDS) {

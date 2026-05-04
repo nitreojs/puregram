@@ -11,7 +11,7 @@ import type { UpdateKind, UpdateKindMap } from "./updates";
 import type { Animation, Audio, Chat, ChatInviteLink, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, ProximityAlertTriggered, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
 import type { TelegramBusinessBotRights, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramRefundedPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
 /**
- * Filter — true if the update has `actorChat` set.
+ * filter — true if the update has `actorChat` set
  */
 export const hasActorChat: Filter<unknown, {
     actorChat: Chat;
@@ -20,7 +20,7 @@ export const hasActorChat: Filter<unknown, {
 }).actorChat != null), { kinds: ["message_reaction"] });
 
 /**
- * Filter — true if the update has `animation` set.
+ * filter — true if the update has `animation` set
  */
 export const hasAnimation: Filter<unknown, {
     animation: Animation;
@@ -29,7 +29,7 @@ export const hasAnimation: Filter<unknown, {
 }).animation != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `audio` set.
+ * filter — true if the update has `audio` set
  */
 export const hasAudio: Filter<unknown, {
     audio: Audio;
@@ -38,7 +38,7 @@ export const hasAudio: Filter<unknown, {
 }).audio != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `authorSignature` set.
+ * filter — true if the update has `authorSignature` set
  */
 export const hasAuthorSignature: Filter<unknown, {
     authorSignature: string;
@@ -47,7 +47,7 @@ export const hasAuthorSignature: Filter<unknown, {
 }).authorSignature != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `bio` set.
+ * filter — true if the update has `bio` set
  */
 export const hasBio: Filter<unknown, {
     bio: string;
@@ -56,7 +56,7 @@ export const hasBio: Filter<unknown, {
 }).bio != null), { kinds: ["chat_join_request"] });
 
 /**
- * Filter — true if the update has `boostAdded` set.
+ * filter — true if the update has `boostAdded` set
  */
 export const hasBoostAdded: Filter<unknown, {
     boostAdded: TelegramChatBoostAdded;
@@ -65,7 +65,7 @@ export const hasBoostAdded: Filter<unknown, {
 }).boostAdded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `businessConnectionId` set.
+ * filter — true if the update has `businessConnectionId` set
  */
 export const hasBusinessConnectionId: Filter<unknown, {
     businessConnectionId: string;
@@ -74,7 +74,7 @@ export const hasBusinessConnectionId: Filter<unknown, {
 }).businessConnectionId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `caption` set.
+ * filter — true if the update has `caption` set
  */
 export const hasCaption: Filter<unknown, {
     caption: string;
@@ -83,7 +83,7 @@ export const hasCaption: Filter<unknown, {
 }).caption != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `captionEntities` set.
+ * filter — true if the update has `captionEntities` set
  */
 export const hasCaptionEntities: Filter<unknown, {
     captionEntities: MessageEntity[];
@@ -92,7 +92,7 @@ export const hasCaptionEntities: Filter<unknown, {
 }).captionEntities != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `channelChatCreated` set.
+ * filter — true if the update has `channelChatCreated` set
  */
 export const hasChannelChatCreated: Filter<unknown, {
     channelChatCreated: true;
@@ -101,7 +101,7 @@ export const hasChannelChatCreated: Filter<unknown, {
 }).channelChatCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `chatBackgroundSet` set.
+ * filter — true if the update has `chatBackgroundSet` set
  */
 export const hasChatBackgroundSet: Filter<unknown, {
     chatBackgroundSet: TelegramChatBackground;
@@ -110,7 +110,7 @@ export const hasChatBackgroundSet: Filter<unknown, {
 }).chatBackgroundSet != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `chatOwnerChanged` set.
+ * filter — true if the update has `chatOwnerChanged` set
  */
 export const hasChatOwnerChanged: Filter<unknown, {
     chatOwnerChanged: TelegramChatOwnerChanged;
@@ -119,7 +119,7 @@ export const hasChatOwnerChanged: Filter<unknown, {
 }).chatOwnerChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `chatOwnerLeft` set.
+ * filter — true if the update has `chatOwnerLeft` set
  */
 export const hasChatOwnerLeft: Filter<unknown, {
     chatOwnerLeft: TelegramChatOwnerLeft;
@@ -128,7 +128,7 @@ export const hasChatOwnerLeft: Filter<unknown, {
 }).chatOwnerLeft != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `chatShared` set.
+ * filter — true if the update has `chatShared` set
  */
 export const hasChatShared: Filter<unknown, {
     chatShared: ChatShared;
@@ -137,7 +137,7 @@ export const hasChatShared: Filter<unknown, {
 }).chatShared != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `chatType` set.
+ * filter — true if the update has `chatType` set
  */
 export const hasChatType: Filter<unknown, {
     chatType: "sender" | "private" | "group" | "supergroup" | "channel";
@@ -146,7 +146,7 @@ export const hasChatType: Filter<unknown, {
 }).chatType != null), { kinds: ["inline_query"] });
 
 /**
- * Filter — true if the update has `checklist` set.
+ * filter — true if the update has `checklist` set
  */
 export const hasChecklist: Filter<unknown, {
     checklist: TelegramChecklist;
@@ -155,7 +155,7 @@ export const hasChecklist: Filter<unknown, {
 }).checklist != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `checklistTasksAdded` set.
+ * filter — true if the update has `checklistTasksAdded` set
  */
 export const hasChecklistTasksAdded: Filter<unknown, {
     checklistTasksAdded: TelegramChecklistTasksAdded;
@@ -164,7 +164,7 @@ export const hasChecklistTasksAdded: Filter<unknown, {
 }).checklistTasksAdded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `checklistTasksDone` set.
+ * filter — true if the update has `checklistTasksDone` set
  */
 export const hasChecklistTasksDone: Filter<unknown, {
     checklistTasksDone: TelegramChecklistTasksDone;
@@ -173,7 +173,7 @@ export const hasChecklistTasksDone: Filter<unknown, {
 }).checklistTasksDone != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `closeDate` set.
+ * filter — true if the update has `closeDate` set
  */
 export const hasCloseDate: Filter<unknown, {
     closeDate: number;
@@ -182,7 +182,7 @@ export const hasCloseDate: Filter<unknown, {
 }).closeDate != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `connectedWebsite` set.
+ * filter — true if the update has `connectedWebsite` set
  */
 export const hasConnectedWebsite: Filter<unknown, {
     connectedWebsite: string;
@@ -191,7 +191,7 @@ export const hasConnectedWebsite: Filter<unknown, {
 }).connectedWebsite != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `contact` set.
+ * filter — true if the update has `contact` set
  */
 export const hasContact: Filter<unknown, {
     contact: Contact;
@@ -200,7 +200,7 @@ export const hasContact: Filter<unknown, {
 }).contact != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `correctOptionIds` set.
+ * filter — true if the update has `correctOptionIds` set
  */
 export const hasCorrectOptionIds: Filter<unknown, {
     correctOptionIds: number[];
@@ -209,7 +209,7 @@ export const hasCorrectOptionIds: Filter<unknown, {
 }).correctOptionIds != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `data` set.
+ * filter — true if the update has `data` set
  */
 export const hasData: Filter<unknown, {
     data: string;
@@ -218,7 +218,7 @@ export const hasData: Filter<unknown, {
 }).data != null), { kinds: ["callback_query"] });
 
 /**
- * Filter — true if the update has `deleteChatPhoto` set.
+ * filter — true if the update has `deleteChatPhoto` set
  */
 export const hasDeleteChatPhoto: Filter<unknown, {
     deleteChatPhoto: true;
@@ -227,7 +227,7 @@ export const hasDeleteChatPhoto: Filter<unknown, {
 }).deleteChatPhoto != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `description` set.
+ * filter — true if the update has `description` set
  */
 export const hasDescription: Filter<unknown, {
     description: string;
@@ -236,7 +236,7 @@ export const hasDescription: Filter<unknown, {
 }).description != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `descriptionEntities` set.
+ * filter — true if the update has `descriptionEntities` set
  */
 export const hasDescriptionEntities: Filter<unknown, {
     descriptionEntities: MessageEntity[];
@@ -245,7 +245,7 @@ export const hasDescriptionEntities: Filter<unknown, {
 }).descriptionEntities != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `dice` set.
+ * filter — true if the update has `dice` set
  */
 export const hasDice: Filter<unknown, {
     dice: Dice;
@@ -254,7 +254,7 @@ export const hasDice: Filter<unknown, {
 }).dice != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `directMessagePriceChanged` set.
+ * filter — true if the update has `directMessagePriceChanged` set
  */
 export const hasDirectMessagePriceChanged: Filter<unknown, {
     directMessagePriceChanged: TelegramDirectMessagePriceChanged;
@@ -263,7 +263,7 @@ export const hasDirectMessagePriceChanged: Filter<unknown, {
 }).directMessagePriceChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `directMessagesTopic` set.
+ * filter — true if the update has `directMessagesTopic` set
  */
 export const hasDirectMessagesTopic: Filter<unknown, {
     directMessagesTopic: TelegramDirectMessagesTopic;
@@ -272,7 +272,7 @@ export const hasDirectMessagesTopic: Filter<unknown, {
 }).directMessagesTopic != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `document` set.
+ * filter — true if the update has `document` set
  */
 export const hasDocument: Filter<unknown, {
     document: Document;
@@ -281,7 +281,7 @@ export const hasDocument: Filter<unknown, {
 }).document != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `editDate` set.
+ * filter — true if the update has `editDate` set
  */
 export const hasEditDate: Filter<unknown, {
     editDate: number;
@@ -290,7 +290,7 @@ export const hasEditDate: Filter<unknown, {
 }).editDate != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `effectId` set.
+ * filter — true if the update has `effectId` set
  */
 export const hasEffectId: Filter<unknown, {
     effectId: string;
@@ -299,7 +299,7 @@ export const hasEffectId: Filter<unknown, {
 }).effectId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `entities` set.
+ * filter — true if the update has `entities` set
  */
 export const hasEntities: Filter<unknown, {
     entities: MessageEntity[];
@@ -308,7 +308,7 @@ export const hasEntities: Filter<unknown, {
 }).entities != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `explanation` set.
+ * filter — true if the update has `explanation` set
  */
 export const hasExplanation: Filter<unknown, {
     explanation: string;
@@ -317,7 +317,7 @@ export const hasExplanation: Filter<unknown, {
 }).explanation != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `explanationEntities` set.
+ * filter — true if the update has `explanationEntities` set
  */
 export const hasExplanationEntities: Filter<unknown, {
     explanationEntities: MessageEntity[];
@@ -326,7 +326,7 @@ export const hasExplanationEntities: Filter<unknown, {
 }).explanationEntities != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `externalReply` set.
+ * filter — true if the update has `externalReply` set
  */
 export const hasExternalReply: Filter<unknown, {
     externalReply: ExternalReplyInfo;
@@ -335,7 +335,7 @@ export const hasExternalReply: Filter<unknown, {
 }).externalReply != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `forumTopicClosed` set.
+ * filter — true if the update has `forumTopicClosed` set
  */
 export const hasForumTopicClosed: Filter<unknown, {
     forumTopicClosed: TelegramForumTopicClosed;
@@ -344,7 +344,7 @@ export const hasForumTopicClosed: Filter<unknown, {
 }).forumTopicClosed != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `forumTopicCreated` set.
+ * filter — true if the update has `forumTopicCreated` set
  */
 export const hasForumTopicCreated: Filter<unknown, {
     forumTopicCreated: ForumTopicCreated;
@@ -353,7 +353,7 @@ export const hasForumTopicCreated: Filter<unknown, {
 }).forumTopicCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `forumTopicEdited` set.
+ * filter — true if the update has `forumTopicEdited` set
  */
 export const hasForumTopicEdited: Filter<unknown, {
     forumTopicEdited: ForumTopicEdited;
@@ -362,7 +362,7 @@ export const hasForumTopicEdited: Filter<unknown, {
 }).forumTopicEdited != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `forumTopicReopened` set.
+ * filter — true if the update has `forumTopicReopened` set
  */
 export const hasForumTopicReopened: Filter<unknown, {
     forumTopicReopened: TelegramForumTopicReopened;
@@ -371,7 +371,7 @@ export const hasForumTopicReopened: Filter<unknown, {
 }).forumTopicReopened != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `forwardOrigin` set.
+ * filter — true if the update has `forwardOrigin` set
  */
 export const hasForwardOrigin: Filter<unknown, {
     forwardOrigin: TelegramMessageOrigin;
@@ -380,7 +380,7 @@ export const hasForwardOrigin: Filter<unknown, {
 }).forwardOrigin != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `from` set.
+ * filter — true if the update has `from` set
  */
 export const hasFrom: Filter<unknown, {
     from: User;
@@ -389,7 +389,7 @@ export const hasFrom: Filter<unknown, {
 }).from != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `game` set.
+ * filter — true if the update has `game` set
  */
 export const hasGame: Filter<unknown, {
     game: Game;
@@ -398,7 +398,7 @@ export const hasGame: Filter<unknown, {
 }).game != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `gameShortName` set.
+ * filter — true if the update has `gameShortName` set
  */
 export const hasGameShortName: Filter<unknown, {
     gameShortName: string;
@@ -407,7 +407,7 @@ export const hasGameShortName: Filter<unknown, {
 }).gameShortName != null), { kinds: ["callback_query"] });
 
 /**
- * Filter — true if the update has `generalForumTopicHidden` set.
+ * filter — true if the update has `generalForumTopicHidden` set
  */
 export const hasGeneralForumTopicHidden: Filter<unknown, {
     generalForumTopicHidden: TelegramGeneralForumTopicHidden;
@@ -416,7 +416,7 @@ export const hasGeneralForumTopicHidden: Filter<unknown, {
 }).generalForumTopicHidden != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `generalForumTopicUnhidden` set.
+ * filter — true if the update has `generalForumTopicUnhidden` set
  */
 export const hasGeneralForumTopicUnhidden: Filter<unknown, {
     generalForumTopicUnhidden: TelegramGeneralForumTopicUnhidden;
@@ -425,7 +425,7 @@ export const hasGeneralForumTopicUnhidden: Filter<unknown, {
 }).generalForumTopicUnhidden != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `gift` set.
+ * filter — true if the update has `gift` set
  */
 export const hasGift: Filter<unknown, {
     gift: TelegramGiftInfo;
@@ -434,7 +434,7 @@ export const hasGift: Filter<unknown, {
 }).gift != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `giftUpgradeSent` set.
+ * filter — true if the update has `giftUpgradeSent` set
  */
 export const hasGiftUpgradeSent: Filter<unknown, {
     giftUpgradeSent: TelegramGiftInfo;
@@ -443,7 +443,7 @@ export const hasGiftUpgradeSent: Filter<unknown, {
 }).giftUpgradeSent != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `giveaway` set.
+ * filter — true if the update has `giveaway` set
  */
 export const hasGiveaway: Filter<unknown, {
     giveaway: Giveaway;
@@ -452,7 +452,7 @@ export const hasGiveaway: Filter<unknown, {
 }).giveaway != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `giveawayCompleted` set.
+ * filter — true if the update has `giveawayCompleted` set
  */
 export const hasGiveawayCompleted: Filter<unknown, {
     giveawayCompleted: GiveawayCompleted;
@@ -461,7 +461,7 @@ export const hasGiveawayCompleted: Filter<unknown, {
 }).giveawayCompleted != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `giveawayCreated` set.
+ * filter — true if the update has `giveawayCreated` set
  */
 export const hasGiveawayCreated: Filter<unknown, {
     giveawayCreated: TelegramGiveawayCreated;
@@ -470,7 +470,7 @@ export const hasGiveawayCreated: Filter<unknown, {
 }).giveawayCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `giveawayWinners` set.
+ * filter — true if the update has `giveawayWinners` set
  */
 export const hasGiveawayWinners: Filter<unknown, {
     giveawayWinners: GiveawayWinners;
@@ -479,7 +479,7 @@ export const hasGiveawayWinners: Filter<unknown, {
 }).giveawayWinners != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `groupChatCreated` set.
+ * filter — true if the update has `groupChatCreated` set
  */
 export const hasGroupChatCreated: Filter<unknown, {
     groupChatCreated: true;
@@ -488,7 +488,7 @@ export const hasGroupChatCreated: Filter<unknown, {
 }).groupChatCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `inlineMessageId` set.
+ * filter — true if the update has `inlineMessageId` set
  */
 export const hasInlineMessageId: Filter<unknown, {
     inlineMessageId: string;
@@ -497,7 +497,7 @@ export const hasInlineMessageId: Filter<unknown, {
 }).inlineMessageId != null), { kinds: ["chosen_inline_result", "callback_query"] });
 
 /**
- * Filter — true if the update has `inviteLink` set.
+ * filter — true if the update has `inviteLink` set
  */
 export const hasInviteLink: Filter<unknown, {
     inviteLink: ChatInviteLink;
@@ -506,7 +506,7 @@ export const hasInviteLink: Filter<unknown, {
 }).inviteLink != null), { kinds: ["my_chat_member", "chat_member", "chat_join_request"] });
 
 /**
- * Filter — true if the update has `invoice` set.
+ * filter — true if the update has `invoice` set
  */
 export const hasInvoice: Filter<unknown, {
     invoice: Invoice;
@@ -515,7 +515,7 @@ export const hasInvoice: Filter<unknown, {
 }).invoice != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `leftChatMember` set.
+ * filter — true if the update has `leftChatMember` set
  */
 export const hasLeftChatMember: Filter<unknown, {
     leftChatMember: User;
@@ -524,7 +524,7 @@ export const hasLeftChatMember: Filter<unknown, {
 }).leftChatMember != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `linkPreviewOptions` set.
+ * filter — true if the update has `linkPreviewOptions` set
  */
 export const hasLinkPreviewOptions: Filter<unknown, {
     linkPreviewOptions: LinkPreviewOptions;
@@ -533,7 +533,7 @@ export const hasLinkPreviewOptions: Filter<unknown, {
 }).linkPreviewOptions != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `location` set.
+ * filter — true if the update has `location` set
  */
 export const hasLocation: Filter<unknown, {
     location: Location;
@@ -542,7 +542,7 @@ export const hasLocation: Filter<unknown, {
 }).location != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "inline_query", "chosen_inline_result", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `managedBotCreated` set.
+ * filter — true if the update has `managedBotCreated` set
  */
 export const hasManagedBotCreated: Filter<unknown, {
     managedBotCreated: TelegramManagedBotCreated;
@@ -551,7 +551,7 @@ export const hasManagedBotCreated: Filter<unknown, {
 }).managedBotCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `mediaGroupId` set.
+ * filter — true if the update has `mediaGroupId` set
  */
 export const hasMediaGroupId: Filter<unknown, {
     mediaGroupId: string;
@@ -560,7 +560,7 @@ export const hasMediaGroupId: Filter<unknown, {
 }).mediaGroupId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `message` set.
+ * filter — true if the update has `message` set
  */
 export const hasMessage: Filter<unknown, {
     message: TelegramMaybeInaccessibleMessage;
@@ -569,7 +569,7 @@ export const hasMessage: Filter<unknown, {
 }).message != null), { kinds: ["callback_query"] });
 
 /**
- * Filter — true if the update has `messageAutoDeleteTimerChanged` set.
+ * filter — true if the update has `messageAutoDeleteTimerChanged` set
  */
 export const hasMessageAutoDeleteTimerChanged: Filter<unknown, {
     messageAutoDeleteTimerChanged: TelegramMessageAutoDeleteTimerChanged;
@@ -578,7 +578,7 @@ export const hasMessageAutoDeleteTimerChanged: Filter<unknown, {
 }).messageAutoDeleteTimerChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `messageThreadId` set.
+ * filter — true if the update has `messageThreadId` set
  */
 export const hasMessageThreadId: Filter<unknown, {
     messageThreadId: number;
@@ -587,7 +587,7 @@ export const hasMessageThreadId: Filter<unknown, {
 }).messageThreadId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `migrateFromChatId` set.
+ * filter — true if the update has `migrateFromChatId` set
  */
 export const hasMigrateFromChatId: Filter<unknown, {
     migrateFromChatId: number;
@@ -596,7 +596,7 @@ export const hasMigrateFromChatId: Filter<unknown, {
 }).migrateFromChatId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `migrateToChatId` set.
+ * filter — true if the update has `migrateToChatId` set
  */
 export const hasMigrateToChatId: Filter<unknown, {
     migrateToChatId: number;
@@ -605,7 +605,7 @@ export const hasMigrateToChatId: Filter<unknown, {
 }).migrateToChatId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `newChatMembers` set.
+ * filter — true if the update has `newChatMembers` set
  */
 export const hasNewChatMembers: Filter<unknown, {
     newChatMembers: User[];
@@ -614,7 +614,7 @@ export const hasNewChatMembers: Filter<unknown, {
 }).newChatMembers != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `newChatPhoto` set.
+ * filter — true if the update has `newChatPhoto` set
  */
 export const hasNewChatPhoto: Filter<unknown, {
     newChatPhoto: PhotoSize[];
@@ -623,7 +623,7 @@ export const hasNewChatPhoto: Filter<unknown, {
 }).newChatPhoto != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `newChatTitle` set.
+ * filter — true if the update has `newChatTitle` set
  */
 export const hasNewChatTitle: Filter<unknown, {
     newChatTitle: string;
@@ -632,7 +632,7 @@ export const hasNewChatTitle: Filter<unknown, {
 }).newChatTitle != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `openPeriod` set.
+ * filter — true if the update has `openPeriod` set
  */
 export const hasOpenPeriod: Filter<unknown, {
     openPeriod: number;
@@ -641,7 +641,7 @@ export const hasOpenPeriod: Filter<unknown, {
 }).openPeriod != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `orderInfo` set.
+ * filter — true if the update has `orderInfo` set
  */
 export const hasOrderInfo: Filter<unknown, {
     orderInfo: OrderInfo;
@@ -650,7 +650,7 @@ export const hasOrderInfo: Filter<unknown, {
 }).orderInfo != null), { kinds: ["pre_checkout_query"] });
 
 /**
- * Filter — true if the update has `paidMedia` set.
+ * filter — true if the update has `paidMedia` set
  */
 export const hasPaidMedia: Filter<unknown, {
     paidMedia: TelegramPaidMediaInfo;
@@ -659,7 +659,7 @@ export const hasPaidMedia: Filter<unknown, {
 }).paidMedia != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `paidMessagePriceChanged` set.
+ * filter — true if the update has `paidMessagePriceChanged` set
  */
 export const hasPaidMessagePriceChanged: Filter<unknown, {
     paidMessagePriceChanged: TelegramPaidMessagePriceChanged;
@@ -668,7 +668,7 @@ export const hasPaidMessagePriceChanged: Filter<unknown, {
 }).paidMessagePriceChanged != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `paidStarCount` set.
+ * filter — true if the update has `paidStarCount` set
  */
 export const hasPaidStarCount: Filter<unknown, {
     paidStarCount: number;
@@ -677,7 +677,7 @@ export const hasPaidStarCount: Filter<unknown, {
 }).paidStarCount != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `passportData` set.
+ * filter — true if the update has `passportData` set
  */
 export const hasPassportData: Filter<unknown, {
     passportData: PassportData;
@@ -686,7 +686,7 @@ export const hasPassportData: Filter<unknown, {
 }).passportData != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `photo` set.
+ * filter — true if the update has `photo` set
  */
 export const hasPhoto: Filter<unknown, {
     photo: PhotoSize[];
@@ -695,7 +695,7 @@ export const hasPhoto: Filter<unknown, {
 }).photo != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `pinnedMessage` set.
+ * filter — true if the update has `pinnedMessage` set
  */
 export const hasPinnedMessage: Filter<unknown, {
     pinnedMessage: TelegramMaybeInaccessibleMessage;
@@ -704,7 +704,7 @@ export const hasPinnedMessage: Filter<unknown, {
 }).pinnedMessage != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `poll` set.
+ * filter — true if the update has `poll` set
  */
 export const hasPoll: Filter<unknown, {
     poll: Poll;
@@ -713,7 +713,7 @@ export const hasPoll: Filter<unknown, {
 }).poll != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `pollOptionAdded` set.
+ * filter — true if the update has `pollOptionAdded` set
  */
 export const hasPollOptionAdded: Filter<unknown, {
     pollOptionAdded: TelegramPollOptionAdded;
@@ -722,7 +722,7 @@ export const hasPollOptionAdded: Filter<unknown, {
 }).pollOptionAdded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `pollOptionDeleted` set.
+ * filter — true if the update has `pollOptionDeleted` set
  */
 export const hasPollOptionDeleted: Filter<unknown, {
     pollOptionDeleted: TelegramPollOptionDeleted;
@@ -731,7 +731,7 @@ export const hasPollOptionDeleted: Filter<unknown, {
 }).pollOptionDeleted != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `proximityAlertTriggered` set.
+ * filter — true if the update has `proximityAlertTriggered` set
  */
 export const hasProximityAlertTriggered: Filter<unknown, {
     proximityAlertTriggered: ProximityAlertTriggered;
@@ -740,7 +740,7 @@ export const hasProximityAlertTriggered: Filter<unknown, {
 }).proximityAlertTriggered != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `questionEntities` set.
+ * filter — true if the update has `questionEntities` set
  */
 export const hasQuestionEntities: Filter<unknown, {
     questionEntities: MessageEntity[];
@@ -749,7 +749,7 @@ export const hasQuestionEntities: Filter<unknown, {
 }).questionEntities != null), { kinds: ["poll"] });
 
 /**
- * Filter — true if the update has `quote` set.
+ * filter — true if the update has `quote` set
  */
 export const hasQuote: Filter<unknown, {
     quote: TextQuote;
@@ -758,7 +758,7 @@ export const hasQuote: Filter<unknown, {
 }).quote != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `refundedPayment` set.
+ * filter — true if the update has `refundedPayment` set
  */
 export const hasRefundedPayment: Filter<unknown, {
     refundedPayment: TelegramRefundedPayment;
@@ -767,7 +767,7 @@ export const hasRefundedPayment: Filter<unknown, {
 }).refundedPayment != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `replyMarkup` set.
+ * filter — true if the update has `replyMarkup` set
  */
 export const hasReplyMarkup: Filter<unknown, {
     replyMarkup: InlineKeyboardMarkup;
@@ -776,7 +776,7 @@ export const hasReplyMarkup: Filter<unknown, {
 }).replyMarkup != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `replyToChecklistTaskId` set.
+ * filter — true if the update has `replyToChecklistTaskId` set
  */
 export const hasReplyToChecklistTaskId: Filter<unknown, {
     replyToChecklistTaskId: number;
@@ -785,7 +785,7 @@ export const hasReplyToChecklistTaskId: Filter<unknown, {
 }).replyToChecklistTaskId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `replyToPollOptionId` set.
+ * filter — true if the update has `replyToPollOptionId` set
  */
 export const hasReplyToPollOptionId: Filter<unknown, {
     replyToPollOptionId: string;
@@ -794,7 +794,7 @@ export const hasReplyToPollOptionId: Filter<unknown, {
 }).replyToPollOptionId != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `replyToStory` set.
+ * filter — true if the update has `replyToStory` set
  */
 export const hasReplyToStory: Filter<unknown, {
     replyToStory: Story;
@@ -803,7 +803,7 @@ export const hasReplyToStory: Filter<unknown, {
 }).replyToStory != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `rights` set.
+ * filter — true if the update has `rights` set
  */
 export const hasRights: Filter<unknown, {
     rights: TelegramBusinessBotRights;
@@ -812,7 +812,7 @@ export const hasRights: Filter<unknown, {
 }).rights != null), { kinds: ["business_connection"] });
 
 /**
- * Filter — true if the update has `senderBoostCount` set.
+ * filter — true if the update has `senderBoostCount` set
  */
 export const hasSenderBoostCount: Filter<unknown, {
     senderBoostCount: number;
@@ -821,7 +821,7 @@ export const hasSenderBoostCount: Filter<unknown, {
 }).senderBoostCount != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `senderBusinessBot` set.
+ * filter — true if the update has `senderBusinessBot` set
  */
 export const hasSenderBusinessBot: Filter<unknown, {
     senderBusinessBot: User;
@@ -830,7 +830,7 @@ export const hasSenderBusinessBot: Filter<unknown, {
 }).senderBusinessBot != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `senderChat` set.
+ * filter — true if the update has `senderChat` set
  */
 export const hasSenderChat: Filter<unknown, {
     senderChat: Chat;
@@ -839,7 +839,7 @@ export const hasSenderChat: Filter<unknown, {
 }).senderChat != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `senderTag` set.
+ * filter — true if the update has `senderTag` set
  */
 export const hasSenderTag: Filter<unknown, {
     senderTag: string;
@@ -848,7 +848,7 @@ export const hasSenderTag: Filter<unknown, {
 }).senderTag != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `shippingOptionId` set.
+ * filter — true if the update has `shippingOptionId` set
  */
 export const hasShippingOptionId: Filter<unknown, {
     shippingOptionId: string;
@@ -857,7 +857,7 @@ export const hasShippingOptionId: Filter<unknown, {
 }).shippingOptionId != null), { kinds: ["pre_checkout_query"] });
 
 /**
- * Filter — true if the update has `showCaptionAboveMedia` set.
+ * filter — true if the update has `showCaptionAboveMedia` set
  */
 export const hasShowCaptionAboveMedia: Filter<unknown, {
     showCaptionAboveMedia: true;
@@ -866,7 +866,7 @@ export const hasShowCaptionAboveMedia: Filter<unknown, {
 }).showCaptionAboveMedia != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `sticker` set.
+ * filter — true if the update has `sticker` set
  */
 export const hasSticker: Filter<unknown, {
     sticker: Sticker;
@@ -875,7 +875,7 @@ export const hasSticker: Filter<unknown, {
 }).sticker != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `story` set.
+ * filter — true if the update has `story` set
  */
 export const hasStory: Filter<unknown, {
     story: Story;
@@ -884,7 +884,7 @@ export const hasStory: Filter<unknown, {
 }).story != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `successfulPayment` set.
+ * filter — true if the update has `successfulPayment` set
  */
 export const hasSuccessfulPayment: Filter<unknown, {
     successfulPayment: SuccessfulPayment;
@@ -893,7 +893,7 @@ export const hasSuccessfulPayment: Filter<unknown, {
 }).successfulPayment != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `suggestedPostApprovalFailed` set.
+ * filter — true if the update has `suggestedPostApprovalFailed` set
  */
 export const hasSuggestedPostApprovalFailed: Filter<unknown, {
     suggestedPostApprovalFailed: TelegramSuggestedPostApprovalFailed;
@@ -902,7 +902,7 @@ export const hasSuggestedPostApprovalFailed: Filter<unknown, {
 }).suggestedPostApprovalFailed != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `suggestedPostApproved` set.
+ * filter — true if the update has `suggestedPostApproved` set
  */
 export const hasSuggestedPostApproved: Filter<unknown, {
     suggestedPostApproved: TelegramSuggestedPostApproved;
@@ -911,7 +911,7 @@ export const hasSuggestedPostApproved: Filter<unknown, {
 }).suggestedPostApproved != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `suggestedPostDeclined` set.
+ * filter — true if the update has `suggestedPostDeclined` set
  */
 export const hasSuggestedPostDeclined: Filter<unknown, {
     suggestedPostDeclined: TelegramSuggestedPostDeclined;
@@ -920,7 +920,7 @@ export const hasSuggestedPostDeclined: Filter<unknown, {
 }).suggestedPostDeclined != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `suggestedPostInfo` set.
+ * filter — true if the update has `suggestedPostInfo` set
  */
 export const hasSuggestedPostInfo: Filter<unknown, {
     suggestedPostInfo: TelegramSuggestedPostInfo;
@@ -929,7 +929,7 @@ export const hasSuggestedPostInfo: Filter<unknown, {
 }).suggestedPostInfo != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `suggestedPostPaid` set.
+ * filter — true if the update has `suggestedPostPaid` set
  */
 export const hasSuggestedPostPaid: Filter<unknown, {
     suggestedPostPaid: TelegramSuggestedPostPaid;
@@ -938,7 +938,7 @@ export const hasSuggestedPostPaid: Filter<unknown, {
 }).suggestedPostPaid != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `suggestedPostRefunded` set.
+ * filter — true if the update has `suggestedPostRefunded` set
  */
 export const hasSuggestedPostRefunded: Filter<unknown, {
     suggestedPostRefunded: TelegramSuggestedPostRefunded;
@@ -947,7 +947,7 @@ export const hasSuggestedPostRefunded: Filter<unknown, {
 }).suggestedPostRefunded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `supergroupChatCreated` set.
+ * filter — true if the update has `supergroupChatCreated` set
  */
 export const hasSupergroupChatCreated: Filter<unknown, {
     supergroupChatCreated: true;
@@ -956,7 +956,7 @@ export const hasSupergroupChatCreated: Filter<unknown, {
 }).supergroupChatCreated != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `text` set.
+ * filter — true if the update has `text` set
  */
 export const hasText: Filter<unknown, {
     text: string;
@@ -965,7 +965,7 @@ export const hasText: Filter<unknown, {
 }).text != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `uniqueGift` set.
+ * filter — true if the update has `uniqueGift` set
  */
 export const hasUniqueGift: Filter<unknown, {
     uniqueGift: TelegramUniqueGiftInfo;
@@ -974,7 +974,7 @@ export const hasUniqueGift: Filter<unknown, {
 }).uniqueGift != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `user` set.
+ * filter — true if the update has `user` set
  */
 export const hasUser: Filter<unknown, {
     user: User;
@@ -983,7 +983,7 @@ export const hasUser: Filter<unknown, {
 }).user != null), { kinds: ["message_reaction", "poll_answer"] });
 
 /**
- * Filter — true if the update has `usersShared` set.
+ * filter — true if the update has `usersShared` set
  */
 export const hasUsersShared: Filter<unknown, {
     usersShared: UsersShared;
@@ -992,7 +992,7 @@ export const hasUsersShared: Filter<unknown, {
 }).usersShared != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `venue` set.
+ * filter — true if the update has `venue` set
  */
 export const hasVenue: Filter<unknown, {
     venue: Venue;
@@ -1001,7 +1001,7 @@ export const hasVenue: Filter<unknown, {
 }).venue != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `viaBot` set.
+ * filter — true if the update has `viaBot` set
  */
 export const hasViaBot: Filter<unknown, {
     viaBot: User;
@@ -1010,7 +1010,7 @@ export const hasViaBot: Filter<unknown, {
 }).viaBot != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `viaChatFolderInviteLink` set.
+ * filter — true if the update has `viaChatFolderInviteLink` set
  */
 export const hasViaChatFolderInviteLink: Filter<unknown, {
     viaChatFolderInviteLink: boolean;
@@ -1019,7 +1019,7 @@ export const hasViaChatFolderInviteLink: Filter<unknown, {
 }).viaChatFolderInviteLink != null), { kinds: ["my_chat_member", "chat_member"] });
 
 /**
- * Filter — true if the update has `viaJoinRequest` set.
+ * filter — true if the update has `viaJoinRequest` set
  */
 export const hasViaJoinRequest: Filter<unknown, {
     viaJoinRequest: boolean;
@@ -1028,7 +1028,7 @@ export const hasViaJoinRequest: Filter<unknown, {
 }).viaJoinRequest != null), { kinds: ["my_chat_member", "chat_member"] });
 
 /**
- * Filter — true if the update has `video` set.
+ * filter — true if the update has `video` set
  */
 export const hasVideo: Filter<unknown, {
     video: Video;
@@ -1037,7 +1037,7 @@ export const hasVideo: Filter<unknown, {
 }).video != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `videoChatEnded` set.
+ * filter — true if the update has `videoChatEnded` set
  */
 export const hasVideoChatEnded: Filter<unknown, {
     videoChatEnded: VideoChatEnded;
@@ -1046,7 +1046,7 @@ export const hasVideoChatEnded: Filter<unknown, {
 }).videoChatEnded != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `videoChatParticipantsInvited` set.
+ * filter — true if the update has `videoChatParticipantsInvited` set
  */
 export const hasVideoChatParticipantsInvited: Filter<unknown, {
     videoChatParticipantsInvited: VideoChatParticipantsInvited;
@@ -1055,7 +1055,7 @@ export const hasVideoChatParticipantsInvited: Filter<unknown, {
 }).videoChatParticipantsInvited != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `videoChatScheduled` set.
+ * filter — true if the update has `videoChatScheduled` set
  */
 export const hasVideoChatScheduled: Filter<unknown, {
     videoChatScheduled: VideoChatScheduled;
@@ -1064,7 +1064,7 @@ export const hasVideoChatScheduled: Filter<unknown, {
 }).videoChatScheduled != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `videoChatStarted` set.
+ * filter — true if the update has `videoChatStarted` set
  */
 export const hasVideoChatStarted: Filter<unknown, {
     videoChatStarted: TelegramVideoChatStarted;
@@ -1073,7 +1073,7 @@ export const hasVideoChatStarted: Filter<unknown, {
 }).videoChatStarted != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `videoNote` set.
+ * filter — true if the update has `videoNote` set
  */
 export const hasVideoNote: Filter<unknown, {
     videoNote: VideoNote;
@@ -1082,7 +1082,7 @@ export const hasVideoNote: Filter<unknown, {
 }).videoNote != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `voice` set.
+ * filter — true if the update has `voice` set
  */
 export const hasVoice: Filter<unknown, {
     voice: Voice;
@@ -1091,7 +1091,7 @@ export const hasVoice: Filter<unknown, {
 }).voice != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `voterChat` set.
+ * filter — true if the update has `voterChat` set
  */
 export const hasVoterChat: Filter<unknown, {
     voterChat: Chat;
@@ -1100,7 +1100,7 @@ export const hasVoterChat: Filter<unknown, {
 }).voterChat != null), { kinds: ["poll_answer"] });
 
 /**
- * Filter — true if the update has `webAppData` set.
+ * filter — true if the update has `webAppData` set
  */
 export const hasWebAppData: Filter<unknown, {
     webAppData: WebAppData;
@@ -1109,7 +1109,7 @@ export const hasWebAppData: Filter<unknown, {
 }).webAppData != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
 
 /**
- * Filter — true if the update has `writeAccessAllowed` set.
+ * filter — true if the update has `writeAccessAllowed` set
  */
 export const hasWriteAccessAllowed: Filter<unknown, {
     writeAccessAllowed: WriteAccessAllowed;
@@ -1124,7 +1124,7 @@ function _kind<K extends UpdateKind>(k: K): Filter<UpdateKindMap[K]> {
 }
 
 /**
- * Filter — match a specific update kind. callable form `kind(k)` plus shorthand properties (`kind.message`, `kind.editedMessage`).
+ * filter — match a specific update kind. callable form `kind(k)` plus shorthand properties (`kind.message`, `kind.editedMessage`)
  */
 export const kind = Object.assign(_kind, {
     message: _kind("message"),
@@ -1190,7 +1190,7 @@ function _action<K extends ServiceActionKind>(k: K): Filter<UpdateKindMap[K]> {
 }
 
 /**
- * Filter — match a service-event update kind. shorthand for `kind` restricted to derived (Message-payload) events.
+ * filter — match a service-event update kind. shorthand for `kind` restricted to derived (Message-payload) events
  */
 export const action = Object.assign(_action, {
     newChatMembers: _action("new_chat_members"),

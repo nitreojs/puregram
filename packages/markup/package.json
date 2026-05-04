@@ -21,7 +21,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "puregram": "3.0.0-alpha.0",
+    "puregram": "3.0.0",
     "@puregram/api": "*"
   },
   "devDependencies": {

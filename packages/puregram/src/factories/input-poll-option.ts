@@ -1,5 +1,9 @@
 import type { TelegramInputPollOption } from '@puregram/api'
 
+import { type Camelize, unCamelize } from './camelize'
+
+type PollOptionExtras = Camelize<Omit<TelegramInputPollOption, 'text'>>
+
 /**
  * static factories for `InputPollOption` — passed in `sendPoll(options)`
  *
@@ -13,10 +17,7 @@ import type { TelegramInputPollOption } from '@puregram/api'
  */
 export class InputPollOption {
   /** plain-text option */
-  static text (
-    text: TelegramInputPollOption['text'],
-    params: Omit<TelegramInputPollOption, 'text'> = {}
-  ): TelegramInputPollOption {
-    return { text, ...params }
+  static text (text: TelegramInputPollOption['text'], params: PollOptionExtras = {} as PollOptionExtras) {
+    return { text, ...unCamelize(params) } as TelegramInputPollOption
   }
 }

@@ -1,5 +1,9 @@
 import type { TelegramChatAdministratorRights } from '@puregram/api'
 
+import { type Camelize, unCamelize } from './camelize'
+
+type ChatAdministratorRightsCamel = Camelize<TelegramChatAdministratorRights>
+
 const REQUIRED_KEYS: readonly (keyof TelegramChatAdministratorRights)[] = [
   'is_anonymous',
   'can_manage_chat',
@@ -52,18 +56,18 @@ function fill (value: boolean, includeOptional: boolean) {
  * // promote with all rights except anonymity
  * tg.api.promoteChatMember({
  *   chat_id, user_id,
- *   ...ChatAdministratorRights.allowAll({ is_anonymous: false })
+ *   ...ChatAdministratorRights.allowAll({ isAnonymous: false })
  * })
  * ```
  */
 export class ChatAdministratorRights {
   /** every right set to true; optional channel/group/supergroup fields included */
-  static allowAll (overrides: Partial<TelegramChatAdministratorRights> = {}): TelegramChatAdministratorRights {
-    return { ...fill(true, true), ...overrides }
+  static allowAll (overrides: Partial<ChatAdministratorRightsCamel> = {}): TelegramChatAdministratorRights {
+    return { ...fill(true, true), ...unCamelize(overrides) }
   }
 
   /** every right set to false; optional fields are omitted entirely */
-  static denyAll (overrides: Partial<TelegramChatAdministratorRights> = {}): TelegramChatAdministratorRights {
-    return { ...fill(false, false), ...overrides }
+  static denyAll (overrides: Partial<ChatAdministratorRightsCamel> = {}): TelegramChatAdministratorRights {
+    return { ...fill(false, false), ...unCamelize(overrides) }
   }
 }

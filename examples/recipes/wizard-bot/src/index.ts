@@ -77,7 +77,8 @@ const signup = new StepScene<SignupState, WizardUpdate>('signup', [
     if (update.is('message')) {
       await update.send(text)
     } else if (update.is('callback_query') && update.chatId !== undefined) {
-      await telegram.api.sendMessage({ chat_id: update.chatId, text })
+      // `update.api` is the same proxy as `tg.api` — handy when the update has no per-kind shortcut
+      await update.api.sendMessage({ chat_id: update.chatId, text })
     }
 
     return update.scene.step.next()

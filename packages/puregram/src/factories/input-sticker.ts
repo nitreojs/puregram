@@ -1,6 +1,8 @@
 import type { TelegramInputSticker } from '@puregram/api'
 
-type StickerExtras = Omit<TelegramInputSticker, 'sticker' | 'format' | 'emoji_list'>
+import { type Camelize, unCamelize } from './camelize'
+
+type StickerExtras = Camelize<Omit<TelegramInputSticker, 'sticker' | 'format' | 'emoji_list'>>
 
 /**
  * static factories for `InputSticker` — used by `createNewStickerSet` and
@@ -19,26 +21,26 @@ export class InputSticker {
   static static (
     sticker: TelegramInputSticker['sticker'],
     emojiList: TelegramInputSticker['emoji_list'],
-    params: StickerExtras = {}
+    params: StickerExtras = {} as StickerExtras
   ): TelegramInputSticker {
-    return { sticker, format: 'static', emoji_list: emojiList, ...params }
+    return { sticker, format: 'static', emoji_list: emojiList, ...unCamelize(params) }
   }
 
   /** .TGS animated sticker */
   static animated (
     sticker: TelegramInputSticker['sticker'],
     emojiList: TelegramInputSticker['emoji_list'],
-    params: StickerExtras = {}
+    params: StickerExtras = {} as StickerExtras
   ): TelegramInputSticker {
-    return { sticker, format: 'animated', emoji_list: emojiList, ...params }
+    return { sticker, format: 'animated', emoji_list: emojiList, ...unCamelize(params) }
   }
 
   /** .WEBM video sticker */
   static video (
     sticker: TelegramInputSticker['sticker'],
     emojiList: TelegramInputSticker['emoji_list'],
-    params: StickerExtras = {}
+    params: StickerExtras = {} as StickerExtras
   ): TelegramInputSticker {
-    return { sticker, format: 'video', emoji_list: emojiList, ...params }
+    return { sticker, format: 'video', emoji_list: emojiList, ...unCamelize(params) }
   }
 }

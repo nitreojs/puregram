@@ -1,5 +1,9 @@
 import type { TelegramChatPermissions } from '@puregram/api'
 
+import { type Camelize, unCamelize } from './camelize'
+
+type ChatPermissionsCamel = Camelize<TelegramChatPermissions>
+
 const ALL_KEYS: readonly (keyof TelegramChatPermissions)[] = [
   'can_send_messages',
   'can_send_audios',
@@ -41,18 +45,18 @@ function fill (value: boolean) {
  * // start from a deny-all baseline, allow only text
  * tg.api.restrictChatMember({
  *   chat_id, user_id,
- *   permissions: ChatPermissions.denyAll({ can_send_messages: true })
+ *   permissions: ChatPermissions.denyAll({ canSendMessages: true })
  * })
  * ```
  */
 export class ChatPermissions {
   /** every permission set to true; pass overrides for fields to flip off */
-  static allowAll (overrides: Partial<TelegramChatPermissions> = {}): TelegramChatPermissions {
-    return { ...fill(true), ...overrides }
+  static allowAll (overrides: Partial<ChatPermissionsCamel> = {}): TelegramChatPermissions {
+    return { ...fill(true), ...unCamelize(overrides) }
   }
 
   /** every permission set to false; pass overrides for fields to flip on */
-  static denyAll (overrides: Partial<TelegramChatPermissions> = {}): TelegramChatPermissions {
-    return { ...fill(false), ...overrides }
+  static denyAll (overrides: Partial<ChatPermissionsCamel> = {}): TelegramChatPermissions {
+    return { ...fill(false), ...unCamelize(overrides) }
   }
 }

@@ -60,11 +60,13 @@ type FriendlyThumbnail<T> = 'thumbnail_url' extends keyof T
     : { thumbnail?: ThumbnailShape<T> }
   : object
 
-/** strip bot-api snake_case fields and re-add them in friendlier form */
-type Friendly<T> = Omit<
+import { type Camelize, unCamelize } from './camelize'
+
+/** strip bot-api snake_case fields, camelize the rest, then re-add the renamed-shape ones */
+type Friendly<T> = Camelize<Omit<
   T,
   'input_message_content' | 'reply_markup' | 'thumbnail_url' | 'thumbnail_width' | 'thumbnail_height' | 'thumbnail_mime_type'
-> & FriendlyContent<T> & FriendlyReplyMarkup<T> & FriendlyThumbnail<T>
+>> & FriendlyContent<T> & FriendlyReplyMarkup<T> & FriendlyThumbnail<T>
 
 interface FriendlyShared {
   content?: unknown
@@ -72,10 +74,9 @@ interface FriendlyShared {
   thumbnail?: { url?: string, width?: number, height?: number, mimeType?: ThumbnailMime }
 }
 
-/** translate the friendly param shape into the wire bot-api shape */
 function translate (params: Record<string, unknown>) {
   const { content, replyMarkup, thumbnail, ...rest } = params as Record<string, unknown> & FriendlyShared
-  const out: Record<string, unknown> = { ...rest }
+  const out: Record<string, unknown> = unCamelize(rest)
 
   if (content !== undefined) {
     out.input_message_content = content
@@ -190,9 +191,9 @@ export class InlineQueryResult {
   /** build an `InlineQueryResultsButton` shown above results */
   static button (
     text: string,
-    params: Omit<TelegramInlineQueryResultsButton, 'text'> = {}
+    params: Camelize<Omit<TelegramInlineQueryResultsButton, 'text'>> = {} as Camelize<Omit<TelegramInlineQueryResultsButton, 'text'>>
   ) {
-    return { text, ...params }
+    return { text, ...unCamelize(params) }
   }
 
   /** article — link to a web page or arbitrary content body */

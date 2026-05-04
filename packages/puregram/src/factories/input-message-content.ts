@@ -6,6 +6,14 @@ import type {
   TelegramInputVenueMessageContent
 } from '@puregram/api'
 
+import { type Camelize, unCamelize } from './camelize'
+
+type TextExtras = Camelize<Omit<TelegramInputTextMessageContent, 'message_text'>>
+type LocationExtras = Camelize<Omit<TelegramInputLocationMessageContent, 'latitude' | 'longitude'>>
+type VenueExtras = Camelize<Omit<TelegramInputVenueMessageContent, 'latitude' | 'longitude' | 'title' | 'address'>>
+type ContactExtras = Camelize<Omit<TelegramInputContactMessageContent, 'phone_number' | 'first_name'>>
+type InvoiceParams = Camelize<TelegramInputInvoiceMessageContent>
+
 /**
  * static factories for `InputMessageContent` payloads used by `InlineQueryResult*`
  *
@@ -18,30 +26,23 @@ import type {
  * ```ts
  * InlineQueryResult.article({
  *   id: '1', title: 't',
- *   input_message_content: InputMessageContent.text('hi', { parse_mode: 'HTML' })
+ *   content: InputMessageContent.text('hi', { parseMode: 'HTML' })
  * })
  * InlineQueryResult.article({
  *   id: '2', title: 'pin',
- *   input_message_content: InputMessageContent.location(55.75, 37.61)
+ *   content: InputMessageContent.location(55.75, 37.61)
  * })
  * ```
  */
 export class InputMessageContent {
   /** text message body */
-  static text (
-    text: string,
-    params: Omit<TelegramInputTextMessageContent, 'message_text'> = {}
-  ) {
-    return { message_text: text, ...params }
+  static text (text: string, params: TextExtras = {} as TextExtras) {
+    return { message_text: text, ...unCamelize(params) }
   }
 
   /** location message body */
-  static location (
-    latitude: number,
-    longitude: number,
-    params: Omit<TelegramInputLocationMessageContent, 'latitude' | 'longitude'> = {}
-  ) {
-    return { latitude, longitude, ...params }
+  static location (latitude: number, longitude: number, params: LocationExtras = {} as LocationExtras) {
+    return { latitude, longitude, ...unCamelize(params) }
   }
 
   /** venue message body */
@@ -50,22 +51,18 @@ export class InputMessageContent {
     longitude: number,
     title: string,
     address: string,
-    params: Omit<TelegramInputVenueMessageContent, 'latitude' | 'longitude' | 'title' | 'address'> = {}
+    params: VenueExtras = {} as VenueExtras
   ) {
-    return { latitude, longitude, title, address, ...params }
+    return { latitude, longitude, title, address, ...unCamelize(params) }
   }
 
   /** contact message body */
-  static contact (
-    phoneNumber: string,
-    firstName: string,
-    params: Omit<TelegramInputContactMessageContent, 'phone_number' | 'first_name'> = {}
-  ) {
-    return { phone_number: phoneNumber, first_name: firstName, ...params }
+  static contact (phoneNumber: string, firstName: string, params: ContactExtras = {} as ContactExtras) {
+    return { phone_number: phoneNumber, first_name: firstName, ...unCamelize(params) }
   }
 
   /** invoice message body — too many required fields for a positional form, takes the full param object */
-  static invoice (params: TelegramInputInvoiceMessageContent) {
-    return params
+  static invoice (params: InvoiceParams) {
+    return unCamelize(params) as unknown as TelegramInputInvoiceMessageContent
   }
 }

@@ -1,0 +1,96 @@
+# puregram examples
+
+> standalone runnable examples for puregram v3. each is copy-paste-ready
+
+## how to run
+
+```sh
+cp .env.example .env
+# fill in TOKEN= with a token from @BotFather
+yarn install                              # from repo root
+yarn workspace examples dev <path>        # e.g. core/getting-started/hello-world
+```
+
+bundled examples (`examples/src/...`) run via `tsx watch --env-file=.env`. node 22.6+ users can also run them with `node --experimental-strip-types --env-file=.env` directly
+
+standalone folders under `webhooks/`, `deployment/`, `integrations/`, `recipes/` are their own workspaces — each ships its own `README.md` with run instructions
+
+## getting started
+
+- [hello world](src/core/getting-started/hello-world.ts) — token, one handler, polling
+- [polling vs webhook](src/core/getting-started/polling-vs-webhook.ts)
+- [error handling basics](src/core/getting-started/error-handling-basics.ts)
+
+## update kinds
+
+- [message](src/core/updates/message-basics.ts)
+- [callback query](src/core/updates/callback-query-basics.ts)
+- [inline query](src/core/updates/inline-query-basics.ts)
+- [message reaction](src/core/updates/message-reaction-basics.ts)
+
+## keyboards
+
+- [inline basics](src/core/keyboards/inline-basics.ts)
+- [inline — all button types](src/core/keyboards/inline-all-button-types.ts)
+- [reply basics](src/core/keyboards/reply-basics.ts)
+- [builder vs class](src/core/keyboards/builder-vs-class.ts)
+
+## parse mode
+
+- [html](src/core/parse-mode/html.ts)
+- [markdown v2](src/core/parse-mode/markdown-v2.ts)
+
+## media
+
+- [photo basics](src/core/media/photo-basics.ts)
+- [all media sources](src/core/media/media-source-all-sources.ts)
+- [media group with mixed sources](src/core/media/media-group-mixed.ts)
+
+## plugins
+
+- [single plugin](src/core/plugins/single-plugin.ts)
+- [plugin with deps](src/core/plugins/plugin-with-deps.ts)
+- [custom update](src/core/plugins/custom-update.ts)
+- [all hooks](src/core/plugins/all-hooks.ts)
+
+## @puregram/markup
+
+- [markup basics](src/markup/basics.ts)
+
+## @puregram/flow
+
+- [waitFor basics](src/flow/wait-for-basics.ts)
+
+## @puregram/scenes
+
+- [linear wizard](src/scenes/linear-wizard.ts)
+
+## @puregram/session
+
+- [in-memory basics](src/session/in-memory-basics.ts)
+- [with lru storage](src/session/with-lru-storage.ts)
+- [shared storage across plugins](src/session/with-shared-storage.ts)
+
+## @puregram/storage
+
+- [in-memory standalone](src/storage/in-memory.ts)
+- [custom adapter (file-on-disk)](src/storage/custom-adapter.ts)
+
+## @puregram/callback-data
+
+- [basics](src/callback-data/basics.ts)
+- [nested + optional + defaults](src/callback-data/nested.ts)
+- [with keyboard](src/callback-data/with-keyboard.ts)
+
+## @puregram/rate-limit
+
+- [global basics](src/rate-limit/global-basics.ts)
+
+## webhook adapters (standalone)
+
+- [fastify](webhooks/fastify/)
+- [raw http](webhooks/raw-http/)
+
+## recipes (standalone)
+
+- [wizard bot — scenes + session + inline keyboards + callback-data](recipes/wizard-bot/)

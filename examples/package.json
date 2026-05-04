@@ -1,0 +1,31 @@
+{
+  "name": "examples",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=.env",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "puregram": "*",
+    "@puregram/api": "*",
+    "@puregram/callback-data": "*",
+    "@puregram/file-id": "*",
+    "@puregram/flow": "*",
+    "@puregram/markup": "*",
+    "@puregram/media-cacher": "*",
+    "@puregram/prompt": "*",
+    "@puregram/rate-limit": "*",
+    "@puregram/scenes": "*",
+    "@puregram/session": "*",
+    "@puregram/storage": "*",
+    "@puregram/test": "*",
+    "@puregram/utils": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.4.0"
+  }
+}

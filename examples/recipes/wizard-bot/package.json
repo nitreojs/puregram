@@ -1,0 +1,21 @@
+{
+  "name": "puregram-example-wizard-bot",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "puregram": "*",
+    "@puregram/scenes": "*",
+    "@puregram/session": "*",
+    "@puregram/callback-data": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.4.0"
+  }
+}

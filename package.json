@@ -2,7 +2,12 @@
   "name": "puregram-monorepo",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples",
+    "examples/webhooks/*",
+    "examples/deployment/*",
+    "examples/integrations/*",
+    "examples/recipes/*"
   ],
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

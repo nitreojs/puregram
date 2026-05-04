@@ -416,7 +416,7 @@ import { ChatPermissions, ChatAdministratorRights } from 'puregram'
 await telegram.api.restrictChatMember({
   chat_id: chat,
   user_id: user,
-  permissions: ChatPermissions.denyAll({ can_send_messages: true })
+  permissions: ChatPermissions.denyAll({ canSendMessages: true })
 })
 
 // promote with full admin rights
@@ -541,10 +541,10 @@ positional args for the required fields, params object for the rest:
 ```ts
 import { InputMessageContent } from 'puregram'
 
-InputMessageContent.text('hi there', { parse_mode: 'HTML' })
-InputMessageContent.location(55.75, 37.61, { live_period: 3600 })
+InputMessageContent.text('hi there', { parseMode: 'HTML' })
+InputMessageContent.location(55.75, 37.61, { livePeriod: 3600 })
 InputMessageContent.venue(55.75, 37.61, 'Red Square', 'Moscow, Russia')
-InputMessageContent.contact('+1234567890', 'first name', { last_name: 'last' })
+InputMessageContent.contact('+1234567890', 'first name', { lastName: 'last' })
 
 // invoice has too many required fields for a positional form — pass the full param object
 InputMessageContent.invoice({

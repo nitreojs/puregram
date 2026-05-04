@@ -4,6 +4,13 @@ export type MaybeArray<T> = T | T[]
 
 export type ButtonStyle = NonNullable<TelegramKeyboardButton['style']>
 
+/** named constants for `ButtonStyle` — `ButtonStyle.Primary` and `'primary'` are interchangeable */
+export const ButtonStyle = {
+  Primary: 'primary',
+  Danger: 'danger',
+  Success: 'success'
+} as const satisfies Record<string, ButtonStyle>
+
 export interface ButtonStyleParams {
   style?: ButtonStyle
   iconCustomEmojiId?: string

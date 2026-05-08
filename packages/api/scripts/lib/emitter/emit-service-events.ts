@@ -4,10 +4,10 @@ import type { Schema } from '../schema-types'
 
 import { formatModule } from './format'
 import { versionString } from './load-schema'
-import { UPDATE_KINDS } from './updates-config'
+import { buildUpdateKinds } from './updates-config'
 
 export function emitServiceEvents (schema: Schema) {
-  const derived = UPDATE_KINDS.filter(k => k.source.kind === 'derived')
+  const derived = buildUpdateKinds(schema).filter(k => k.source.kind === 'derived')
 
   const mapEntries = derived.map((k) => {
     const messageField = (k.source as { kind: 'derived', messageField: string }).messageField

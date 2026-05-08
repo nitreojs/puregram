@@ -1,6 +1,6 @@
 import type { Schema, SchemaField, SchemaMethod } from '../schema-types'
 
-import { UPDATE_KINDS, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
+import { buildUpdateKinds, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
 
 export interface BoundShortcut {
   method: string
@@ -12,10 +12,10 @@ export interface ShortcutAnalysis {
   byKind: Record<string, BoundShortcut[]>
 }
 
-export function analyzeShortcuts (schema: Schema) {
+export function analyzeShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buildUpdateKinds(schema)) {
   const result: ShortcutAnalysis = { byKind: {} }
 
-  for (const kind of UPDATE_KINDS) {
+  for (const kind of kinds) {
     result.byKind[kind.kindName] = []
 
     if (kind.anchors.length === 0) {

@@ -6,12 +6,13 @@ import { filterAliasName } from './emit-filter-types'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { importTypeNamed, jsDoc } from './ts-factory'
-import { UPDATE_KINDS } from './updates-config'
+import { buildUpdateKinds } from './updates-config'
 
 export function emitDispatch (schema: Schema) {
+  const kinds = buildUpdateKinds(schema)
   const members: ts.TypeElement[] = []
 
-  for (const k of UPDATE_KINDS) {
+  for (const k of kinds) {
     const dispatcherName = dispatcherMethodName(k.kindName)
     const filterAlias = filterAliasName(k.className)
 
@@ -38,7 +39,7 @@ export function emitDispatch (schema: Schema) {
     importTypeNamed(['Filter'], '../filter-runtime'),
     importTypeNamed(['Modify'], '../util-types'),
     importTypeNamed(['OnOptions', 'UpdateHandler'], '../dispatch-runtime'),
-    importTypeNamed(UPDATE_KINDS.map(k => k.className).sort(), './updates')
+    importTypeNamed(kinds.map(k => k.className).sort(), './updates')
   ]
 
   return formatModule({

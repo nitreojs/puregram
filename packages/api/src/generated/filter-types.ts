@@ -5,7 +5,7 @@
 /// see scripts/emit.ts in @puregram/api
 
 import type { Filter } from "../filter-runtime";
-import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
+import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, ManagedBotUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, PurchasedPaidMediaUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
 /**
  * pre-bound `Filter` for `MessageUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
  */
@@ -87,6 +87,11 @@ export type ShippingQueryFilter<Mod = unknown> = Filter<ShippingQueryUpdate, Mod
 export type PreCheckoutQueryFilter<Mod = unknown> = Filter<PreCheckoutQueryUpdate, Mod>;
 
 /**
+ * pre-bound `Filter` for `PurchasedPaidMediaUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
+ */
+export type PurchasedPaidMediaFilter<Mod = unknown> = Filter<PurchasedPaidMediaUpdate, Mod>;
+
+/**
  * pre-bound `Filter` for `PollUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
  */
 export type PollFilter<Mod = unknown> = Filter<PollUpdate, Mod>;
@@ -120,6 +125,11 @@ export type ChatBoostFilter<Mod = unknown> = Filter<ChatBoostUpdate, Mod>;
  * pre-bound `Filter` for `RemovedChatBoostUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
  */
 export type RemovedChatBoostFilter<Mod = unknown> = Filter<RemovedChatBoostUpdate, Mod>;
+
+/**
+ * pre-bound `Filter` for `ManagedBotUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
+ */
+export type ManagedBotFilter<Mod = unknown> = Filter<ManagedBotUpdate, Mod>;
 
 /**
  * pre-bound `Filter` for `NewChatMembersUpdate`. compose via `.and()` / `.or()` to layer Mod refinements

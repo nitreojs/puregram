@@ -1,12 +1,11 @@
+import type { Schema, SchemaObject } from '../schema-types'
+
 export interface ShortcutAnchor {
   schemaArg: string
   accessPath: string[]
   nonNull?: boolean
 }
 
-// handcrafted helpers attached to update classes alongside the schema-driven getters.
-// `getter` emits `get <name>(): <returnType> { return <expression> }`,
-// `method` emits `<name>(): <returnType> { <body> }`. extend MESSAGE_EXTRAS / etc. to add more
 export type UpdateExtra =
   | { kind: 'getter', name: string, expression: string, returnType: string, jsdoc?: string }
   | { kind: 'method', name: string, params?: string, body: string, returnType: string, jsdoc?: string }
@@ -25,7 +24,6 @@ const MESSAGE_ANCHORS: ShortcutAnchor[] = [
   { schemaArg: 'message_id', accessPath: ['raw', 'message_id'] }
 ]
 
-// single-statement shape so `parseStatements` produces consistent output across all four download bodies
 const PICK_DOWNLOAD = 'const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;'
 
 const MESSAGE_EXTRAS: UpdateExtra[] = [
@@ -33,7 +31,6 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'senderId', expression: 'this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id', returnType: 'number', jsdoc: 'best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`' },
   { kind: 'getter', name: 'replyToMessageId', expression: 'this.raw.reply_to_message?.message_id', returnType: 'number | undefined', jsdoc: 'shortcut for `reply_to_message?.message_id`' },
 
-  // narrows replyToMessageId alongside replyToMessage — auto-emitted predicate can't (only sees literal payload fields)
   { kind: 'method', name: 'hasReplyToMessage', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'true if this message has `reply_to_message`' },
 
   { kind: 'method', name: 'hasEntitiesOf', params: 'type: string', body: 'return this.raw.entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'true if any `entities` item has the given `type`' },
@@ -47,8 +44,6 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'method', name: 'isSupergroup', body: "return this.raw.chat.type === 'supergroup'", returnType: 'boolean', jsdoc: 'true if `chat.type === "supergroup"`' },
   { kind: 'method', name: 'isChannel', body: "return this.raw.chat.type === 'channel'", returnType: 'boolean', jsdoc: 'true if `chat.type === "channel"`' },
 
-  // download shortcuts: pick attachment with priority `document > video > audio > voice > video_note >
-  // animation > photo[largest] > sticker`, delegate to `tg.<verb>`, return `null` when no attachment
   { kind: 'method', name: 'download', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.download(t)', returnType: 'Promise<Buffer | null>', jsdoc: 'download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`' },
   { kind: 'method', name: 'downloadStream', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadStream(t)', returnType: 'Promise<import("node:stream").Readable | null>', jsdoc: 'download the message attachment as a node `Readable`. returns `null` if no media' },
   { kind: 'method', name: 'downloadIterable', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t)', returnType: 'Promise<AsyncIterable<Uint8Array> | null>', jsdoc: 'download the message attachment as an async-iterable byte stream. returns `null` if no media' },
@@ -91,32 +86,20 @@ const CHAT_MEMBER_EXTRAS: UpdateExtra[] = [
   { kind: 'method', name: 'wasUnbanned', body: "return (this.raw.old_chat_member as { status: string }).status === 'kicked' && (this.raw.new_chat_member as { status: string }).status !== 'kicked'", returnType: 'boolean', jsdoc: 'true if the user was kicked and no longer is' }
 ]
 
-export const UPDATE_KINDS: UpdateKindSpec[] = [
-  { kindName: 'message', className: 'MessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'message' }, anchors: MESSAGE_ANCHORS },
-  { kindName: 'edited_message', className: 'EditedMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'edited_message' }, anchors: MESSAGE_ANCHORS },
-  { kindName: 'channel_post', className: 'ChannelPostUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'channel_post' }, anchors: MESSAGE_ANCHORS },
-  { kindName: 'edited_channel_post', className: 'EditedChannelPostUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'edited_channel_post' }, anchors: MESSAGE_ANCHORS },
-  { kindName: 'business_connection', className: 'BusinessConnectionUpdate', payloadType: 'TelegramBusinessConnection', source: { kind: 'update-field', field: 'business_connection' }, anchors: [] },
-  { kindName: 'business_message', className: 'BusinessMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'business_message' }, anchors: MESSAGE_ANCHORS },
-  { kindName: 'edited_business_message', className: 'EditedBusinessMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'edited_business_message' }, anchors: MESSAGE_ANCHORS },
-  { kindName: 'deleted_business_messages', className: 'DeletedBusinessMessagesUpdate', payloadType: 'TelegramBusinessMessagesDeleted', source: { kind: 'update-field', field: 'deleted_business_messages' }, anchors: [] },
-  { kindName: 'guest_message', className: 'GuestMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'guest_message' }, anchors: [{ schemaArg: 'guest_query_id', accessPath: ['raw', 'guest_query_id'], nonNull: true }] },
-  { kindName: 'message_reaction', className: 'MessageReactionUpdate', payloadType: 'TelegramMessageReactionUpdated', source: { kind: 'update-field', field: 'message_reaction' }, anchors: [] },
-  { kindName: 'message_reaction_count', className: 'MessageReactionCountUpdate', payloadType: 'TelegramMessageReactionCountUpdated', source: { kind: 'update-field', field: 'message_reaction_count' }, anchors: [] },
-  { kindName: 'inline_query', className: 'InlineQueryUpdate', payloadType: 'TelegramInlineQuery', source: { kind: 'update-field', field: 'inline_query' }, anchors: [{ schemaArg: 'inline_query_id', accessPath: ['raw', 'id'] }] },
-  { kindName: 'chosen_inline_result', className: 'ChosenInlineResultUpdate', payloadType: 'TelegramChosenInlineResult', source: { kind: 'update-field', field: 'chosen_inline_result' }, anchors: [] },
-  { kindName: 'callback_query', className: 'CallbackQueryUpdate', payloadType: 'TelegramCallbackQuery', source: { kind: 'update-field', field: 'callback_query' }, anchors: [{ schemaArg: 'callback_query_id', accessPath: ['raw', 'id'] }] },
-  { kindName: 'shipping_query', className: 'ShippingQueryUpdate', payloadType: 'TelegramShippingQuery', source: { kind: 'update-field', field: 'shipping_query' }, anchors: [{ schemaArg: 'shipping_query_id', accessPath: ['raw', 'id'] }] },
-  { kindName: 'pre_checkout_query', className: 'PreCheckoutQueryUpdate', payloadType: 'TelegramPreCheckoutQuery', source: { kind: 'update-field', field: 'pre_checkout_query' }, anchors: [{ schemaArg: 'pre_checkout_query_id', accessPath: ['raw', 'id'] }] },
-  { kindName: 'poll', className: 'PollUpdate', payloadType: 'TelegramPoll', source: { kind: 'update-field', field: 'poll' }, anchors: [] },
-  { kindName: 'poll_answer', className: 'PollAnswerUpdate', payloadType: 'TelegramPollAnswer', source: { kind: 'update-field', field: 'poll_answer' }, anchors: [] },
-  { kindName: 'my_chat_member', className: 'MyChatMemberUpdate', payloadType: 'TelegramChatMemberUpdated', source: { kind: 'update-field', field: 'my_chat_member' }, anchors: [{ schemaArg: 'chat_id', accessPath: ['raw', 'chat', 'id'] }] },
-  { kindName: 'chat_member', className: 'ChatMemberUpdate', payloadType: 'TelegramChatMemberUpdated', source: { kind: 'update-field', field: 'chat_member' }, anchors: [{ schemaArg: 'chat_id', accessPath: ['raw', 'chat', 'id'] }] },
-  { kindName: 'chat_join_request', className: 'ChatJoinRequestUpdate', payloadType: 'TelegramChatJoinRequest', source: { kind: 'update-field', field: 'chat_join_request' }, anchors: [{ schemaArg: 'chat_id', accessPath: ['raw', 'chat', 'id'] }] },
-  { kindName: 'chat_boost', className: 'ChatBoostUpdate', payloadType: 'TelegramChatBoostUpdated', source: { kind: 'update-field', field: 'chat_boost' }, anchors: [] },
-  { kindName: 'removed_chat_boost', className: 'RemovedChatBoostUpdate', payloadType: 'TelegramChatBoostRemoved', source: { kind: 'update-field', field: 'removed_chat_boost' }, anchors: [] },
+// only kinds whose auto-detected anchors disagree with the v3 design; everything else
+// flows from `autoAnchorsFor` and stays in lockstep with the schema
+const TOP_LEVEL_ANCHOR_OVERRIDES: Record<string, ShortcutAnchor[]> = {
+  deleted_business_messages: [],
+  guest_message: [{ schemaArg: 'guest_query_id', accessPath: ['raw', 'guest_query_id'], nonNull: true }],
+  message_reaction: [],
+  message_reaction_count: [],
+  chat_boost: [],
+  removed_chat_boost: []
+}
 
-  // service-event derivations from a TelegramMessage payload
+// service-event derivations from a TelegramMessage payload — schema descriptions
+// for these are inconsistent so we keep the list hand-curated
+const DERIVED_KINDS: readonly UpdateKindSpec[] = [
   { kindName: 'new_chat_members', className: 'NewChatMembersUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'new_chat_members' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'left_chat_member', className: 'LeftChatMemberUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'left_chat_member' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'new_chat_title', className: 'NewChatTitleUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'new_chat_title' }, anchors: MESSAGE_ANCHORS },
@@ -151,12 +134,10 @@ export const UPDATE_KINDS: UpdateKindSpec[] = [
   { kindName: 'write_access_allowed', className: 'WriteAccessAllowedUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'write_access_allowed' }, anchors: MESSAGE_ANCHORS }
 ]
 
-// universal extras — applied to every update kind
 const UNIVERSAL_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'api', expression: 'this.tg.api', returnType: "TelegramLike['api']", jsdoc: 'shortcut for `tg.api` — call any bot api method directly from the wrapped update' }
 ]
 
-// bind extras post-hoc — every TelegramMessage payload gets MESSAGE_EXTRAS by default
 const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   callback_query: CALLBACK_QUERY_EXTRAS,
   chat_member: CHAT_MEMBER_EXTRAS,
@@ -164,16 +145,91 @@ const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   message_reaction: MESSAGE_REACTION_EXTRAS
 }
 
-for (const k of UPDATE_KINDS) {
-  let kindSpecific: UpdateExtra[] = []
+export function buildUpdateKinds (schema: Schema) {
+  const updateObj = schema.objects.find(o => o.name === 'Update')
 
-  if (k.extras) {
-    kindSpecific = k.extras
-  } else if (k.payloadType === 'TelegramMessage') {
-    kindSpecific = MESSAGE_EXTRAS
-  } else if (KIND_EXTRAS[k.kindName]) {
-    kindSpecific = KIND_EXTRAS[k.kindName]
+  if (!updateObj || updateObj.kind !== 'object') {
+    throw new Error('schema is missing the Update object')
   }
 
-  k.extras = [...UNIVERSAL_EXTRAS, ...kindSpecific]
+  const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
+  const topLevel: UpdateKindSpec[] = []
+
+  for (const f of updateObj.fields) {
+    if (f.name === 'update_id') {
+      continue
+    }
+
+    if (f.type.kind !== 'reference') {
+      continue
+    }
+
+    const refName = f.type.name
+    const kindName = f.name
+    const className = pascalCase(kindName) + 'Update'
+    const payloadType = `Telegram${refName}`
+    const anchors = TOP_LEVEL_ANCHOR_OVERRIDES[kindName] ?? autoAnchorsFor(refName, objectsByName)
+
+    topLevel.push({
+      kindName,
+      className,
+      payloadType,
+      source: { kind: 'update-field', field: kindName },
+      anchors
+    })
+  }
+
+  const all: UpdateKindSpec[] = [...topLevel, ...DERIVED_KINDS.map(d => ({ ...d }))]
+
+  for (const k of all) {
+    let kindSpecific: UpdateExtra[] = []
+
+    if (k.extras) {
+      kindSpecific = k.extras
+    } else if (k.payloadType === 'TelegramMessage') {
+      kindSpecific = MESSAGE_EXTRAS
+    } else if (KIND_EXTRAS[k.kindName]) {
+      kindSpecific = KIND_EXTRAS[k.kindName]
+    }
+
+    k.extras = [...UNIVERSAL_EXTRAS, ...kindSpecific]
+  }
+
+  return all
+}
+
+function autoAnchorsFor (payloadName: string, objectsByName: Map<string, SchemaObject>) {
+  if (payloadName === 'Message') {
+    return MESSAGE_ANCHORS
+  }
+
+  const obj = objectsByName.get(payloadName)
+
+  if (!obj || obj.kind !== 'object') {
+    return []
+  }
+
+  if (/Query$/.test(payloadName)) {
+    const idField = obj.fields.find(f => f.name === 'id' && f.type.kind === 'string')
+
+    if (idField) {
+      return [{ schemaArg: pascalToSnake(payloadName) + '_id', accessPath: ['raw', 'id'] }]
+    }
+  }
+
+  const chatField = obj.fields.find(f => f.name === 'chat' && f.type.kind === 'reference' && f.type.name === 'Chat')
+
+  if (chatField) {
+    return [{ schemaArg: 'chat_id', accessPath: ['raw', 'chat', 'id'] }]
+  }
+
+  return []
+}
+
+function pascalCase (snake: string) {
+  return snake.split('_').map(s => s ? s[0].toUpperCase() + s.slice(1) : '').join('')
+}
+
+function pascalToSnake (pascal: string) {
+  return pascal.replace(/[A-Z]/g, (m, i: number) => (i === 0 ? '' : '_') + m.toLowerCase())
 }

@@ -7,16 +7,17 @@ import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { isWrappedStructure } from './structures-config'
 import { importNamed, importTypeNamed, jsDoc, typeRefToTs } from './ts-factory'
-import { UPDATE_KINDS } from './updates-config'
+import { buildUpdateKinds, type UpdateKindSpec } from './updates-config'
 
 export function emitFilters (schema: Schema) {
+  const kinds = buildUpdateKinds(schema)
   const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
 
   // accumulate (camelGetter -> kinds where the optional field exists). skip required fields,
   // skip already-`has`/`is` named getters, skip names that would collide with `extras`
   const presence = new Map<string, { kinds: string[], cls: string[], field: SchemaField }>()
 
-  for (const k of UPDATE_KINDS) {
+  for (const k of kinds) {
     const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
 
     if (obj?.kind !== 'object') {
@@ -71,13 +72,13 @@ export function emitFilters (schema: Schema) {
   }
 
   nodes.push(emitKindCallable())
-  nodes.push(emitKindShorthand())
+  nodes.push(emitKindShorthand(kinds))
 
-  for (const node of emitActionCallable()) {
+  for (const node of emitActionCallable(kinds)) {
     nodes.push(node)
   }
 
-  nodes.push(emitActionShorthand())
+  nodes.push(emitActionShorthand(kinds))
 
   // wrapper-class refs go through `./structures`, raw `Telegram*` refs through `./types`
   const wrapperRefs = new Set<string>()
@@ -337,8 +338,8 @@ function emitKindCallable () {
   return decl
 }
 
-function emitKindShorthand () {
-  const props = UPDATE_KINDS.map((k) => {
+function emitKindShorthand (kinds: UpdateKindSpec[]) {
+  const props = kinds.map((k) => {
     const propName = camelizeKind(k.kindName)
 
     return ts.factory.createPropertyAssignment(
@@ -377,9 +378,9 @@ function emitKindShorthand () {
   return jsDoc('filter — match a specific update kind. callable form `kind(k)` plus shorthand properties (`kind.message`, `kind.editedMessage`)', decl)
 }
 
-function emitActionCallable () {
+function emitActionCallable (kinds: UpdateKindSpec[]) {
   // ServiceActionKind = `source: 'derived'` subset of UpdateKind (service events)
-  const derived = UPDATE_KINDS.filter(k => k.source.kind === 'derived')
+  const derived = kinds.filter(k => k.source.kind === 'derived')
 
   const typeAlias = ts.factory.createTypeAliasDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
@@ -426,8 +427,8 @@ function emitActionCallable () {
   return [typeAlias, fnDecl]
 }
 
-function emitActionShorthand () {
-  const derived = UPDATE_KINDS.filter(k => k.source.kind === 'derived')
+function emitActionShorthand (kinds: UpdateKindSpec[]) {
+  const derived = kinds.filter(k => k.source.kind === 'derived')
 
   const props = derived.map((k) => {
     const propName = camelizeKind(k.kindName)

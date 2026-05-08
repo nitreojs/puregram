@@ -10,7 +10,7 @@ import { analyzeShortcuts, type BoundShortcut } from './shortcut-analyzer'
 import { METHOD_POSITIONALS } from './shortcuts-config'
 import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, isWrappedStructure } from './structures-config'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
-import { UPDATE_KINDS, type UpdateExtra, type UpdateKindSpec } from './updates-config'
+import { buildUpdateKinds, type UpdateExtra, type UpdateKindSpec } from './updates-config'
 
 interface WrapperInfo {
   name: string
@@ -48,30 +48,31 @@ function shortcutNameFor (method: string) {
 }
 
 export function emitUpdates (schema: Schema) {
-  const analysis = analyzeShortcuts(schema)
+  const kinds = buildUpdateKinds(schema)
+  const analysis = analyzeShortcuts(schema, kinds)
   const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
   const widenedArgs = detectWidenedMethodArgs(schema)
 
   const nodes: ts.Node[] = []
 
-  for (const kind of UPDATE_KINDS) {
+  for (const kind of kinds) {
     nodes.push(emitUpdateClass(kind, objectsByName, analysis.byKind[kind.kindName] ?? [], widenedArgs))
   }
 
   nodes.push(emitUpdateKindUnion())
-  nodes.push(emitUpdateKindMap())
-  nodes.push(emitUpdateUnion())
-  nodes.push(emitUpdateKindsConst())
+  nodes.push(emitUpdateKindMap(kinds))
+  nodes.push(emitUpdateUnion(kinds))
+  nodes.push(emitUpdateKindsConst(kinds))
 
   const referencedTypes = new Set<string>()
 
-  for (const k of UPDATE_KINDS) {
+  for (const k of kinds) {
     referencedTypes.add(k.payloadType)
   }
 
   // sweep only non-wrapped fields into the import set — wrapped fields go through `./structures`,
   // adding them here would just produce unused imports
-  for (const k of UPDATE_KINDS) {
+  for (const k of kinds) {
     const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
 
     if (obj?.kind === 'object') {
@@ -107,7 +108,7 @@ export function emitUpdates (schema: Schema) {
   // emit-structures only emits classes for object-kind schema entries — drop union-kind names
   const wrappedNames = new Set<string>()
 
-  for (const k of UPDATE_KINDS) {
+  for (const k of kinds) {
     const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
 
     if (obj?.kind === 'object') {
@@ -133,7 +134,7 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
-  const usesHas = UPDATE_KINDS.some((k) => {
+  const usesHas = kinds.some((k) => {
     if (k.extras?.some(e => e.returnType.includes('Has<'))) {
       return true
     }
@@ -152,7 +153,7 @@ export function emitUpdates (schema: Schema) {
     return widenedArgs.has(methodName)
   })
 
-  const usedArrayWrappers = collectUsedArrayWrappers(objectsByName)
+  const usedArrayWrappers = collectUsedArrayWrappers(kinds, objectsByName)
 
   const imports = [
     importTypeNamed([...referencedTypes].sort(), './types'),
@@ -254,11 +255,12 @@ function wrapperInfoFor (
 }
 
 function collectUsedArrayWrappers (
+  kinds: UpdateKindSpec[],
   objectsByName: Map<string, SchemaObject>
 ) {
   const used = new Set<string>()
 
-  for (const k of UPDATE_KINDS) {
+  for (const k of kinds) {
     const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
 
     if (obj?.kind !== 'object') {
@@ -906,13 +908,13 @@ function emitUpdateKindUnion () {
   )
 }
 
-function emitUpdateKindMap () {
+function emitUpdateKindMap (kinds: UpdateKindSpec[]) {
   return ts.factory.createInterfaceDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier('UpdateKindMap'),
     undefined,
     undefined,
-    UPDATE_KINDS.map(k =>
+    kinds.map(k =>
       ts.factory.createPropertySignature(
         undefined,
         ts.factory.createStringLiteral(k.kindName),
@@ -924,7 +926,7 @@ function emitUpdateKindMap () {
 }
 
 // runtime mirror of UpdateKind — consumed by `installDispatchers(tg)` at boot
-function emitUpdateKindsConst () {
+function emitUpdateKindsConst (kinds: UpdateKindSpec[]) {
   return ts.factory.createVariableStatement(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createVariableDeclarationList([
@@ -936,7 +938,7 @@ function emitUpdateKindsConst () {
           ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode('UpdateKind'))
         ),
         ts.factory.createArrayLiteralExpression(
-          UPDATE_KINDS.map(k => ts.factory.createStringLiteral(k.kindName)),
+          kinds.map(k => ts.factory.createStringLiteral(k.kindName)),
           true
         )
       )
@@ -946,13 +948,13 @@ function emitUpdateKindsConst () {
 
 // explicit union of every wrapped Update class. `UpdateKindMap[keyof …]` is equivalent
 // at the tsc level but ts-eslint's type-checked rules resolve it to `any` — so list classes directly
-function emitUpdateUnion () {
+function emitUpdateUnion (kinds: UpdateKindSpec[]) {
   return ts.factory.createTypeAliasDeclaration(
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier('Update'),
     undefined,
     ts.factory.createUnionTypeNode(
-      UPDATE_KINDS.map(k => ts.factory.createTypeReferenceNode(k.className))
+      kinds.map(k => ts.factory.createTypeReferenceNode(k.className))
     )
   )
 }

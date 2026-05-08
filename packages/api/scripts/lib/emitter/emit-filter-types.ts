@@ -5,10 +5,11 @@ import type { Schema } from '../schema-types'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
 import { importTypeNamed, jsDoc } from './ts-factory'
-import { UPDATE_KINDS } from './updates-config'
+import { buildUpdateKinds } from './updates-config'
 
 export function emitFilterTypes (schema: Schema) {
-  const nodes: ts.Node[] = UPDATE_KINDS.map((k) =>
+  const kinds = buildUpdateKinds(schema)
+  const nodes: ts.Node[] = kinds.map((k) =>
     jsDoc(
       `pre-bound \`Filter\` for \`${k.className}\`. compose via \`.and()\` / \`.or()\` to layer Mod refinements`,
       ts.factory.createTypeAliasDeclaration(
@@ -48,7 +49,7 @@ export function emitFilterTypes (schema: Schema) {
 
   const imports = [
     importTypeNamed(['Filter'], '../filter-runtime'),
-    importTypeNamed(UPDATE_KINDS.map(k => k.className).sort(), './updates')
+    importTypeNamed(kinds.map(k => k.className).sort(), './updates')
   ]
 
   return formatModule({

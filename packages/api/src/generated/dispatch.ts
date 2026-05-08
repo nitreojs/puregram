@@ -7,7 +7,7 @@
 import type { Filter } from "../filter-runtime";
 import type { Modify } from "../util-types";
 import type { OnOptions, UpdateHandler } from "../dispatch-runtime";
-import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
+import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, ManagedBotUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, PurchasedPaidMediaUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
 export interface TelegramDispatchers {
     /**
      * register a handler for every `message` update
@@ -138,6 +138,14 @@ export interface TelegramDispatchers {
      */
     onPreCheckoutQuery<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<PreCheckoutQueryUpdate, Mod>>, options?: OnOptions): this;
     /**
+     * register a handler for every `purchased_paid_media` update
+     */
+    onPurchasedPaidMedia(handler: UpdateHandler<PurchasedPaidMediaUpdate>, options?: OnOptions): this;
+    /**
+     * register a filter-gated handler for `purchased_paid_media` updates. handler arg narrows via `Modify<PurchasedPaidMediaUpdate, Mod>`
+     */
+    onPurchasedPaidMedia<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<PurchasedPaidMediaUpdate, Mod>>, options?: OnOptions): this;
+    /**
      * register a handler for every `poll` update
      */
     onPoll(handler: UpdateHandler<PollUpdate>, options?: OnOptions): this;
@@ -193,6 +201,14 @@ export interface TelegramDispatchers {
      * register a filter-gated handler for `removed_chat_boost` updates. handler arg narrows via `Modify<RemovedChatBoostUpdate, Mod>`
      */
     onRemovedChatBoost<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<RemovedChatBoostUpdate, Mod>>, options?: OnOptions): this;
+    /**
+     * register a handler for every `managed_bot` update
+     */
+    onManagedBot(handler: UpdateHandler<ManagedBotUpdate>, options?: OnOptions): this;
+    /**
+     * register a filter-gated handler for `managed_bot` updates. handler arg narrows via `Modify<ManagedBotUpdate, Mod>`
+     */
+    onManagedBot<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<ManagedBotUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `new_chat_members` update
      */

@@ -1,11 +1,11 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 9.6.0
+/// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-30T14:12:46.898Z
+/// generated at: 2026-05-08T19:29:05.086Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
-import type { AnswerCallbackQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
+import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramLivePhoto, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
+import type { AnswerCallbackQueryParams, AnswerGuestQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteAllMessageReactionsParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessageReactionParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLivePhotoParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
 import type { TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
@@ -26,6 +26,8 @@ export class MessageUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -120,6 +122,12 @@ export class MessageUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -190,6 +198,18 @@ export class MessageUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -280,6 +300,12 @@ export class MessageUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -776,6 +802,14 @@ export class MessageUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -838,6 +872,22 @@ export class MessageUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -934,6 +984,14 @@ export class MessageUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -1759,6 +1817,15 @@ export class MessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -1790,6 +1857,16 @@ export class MessageUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -2200,6 +2277,15 @@ export class MessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -2213,7 +2299,7 @@ export class MessageUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -2531,6 +2617,8 @@ export class EditedMessageUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -2625,6 +2713,12 @@ export class EditedMessageUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -2695,6 +2789,18 @@ export class EditedMessageUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -2785,6 +2891,12 @@ export class EditedMessageUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -3281,6 +3393,14 @@ export class EditedMessageUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -3343,6 +3463,22 @@ export class EditedMessageUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -3439,6 +3575,14 @@ export class EditedMessageUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -4264,6 +4408,15 @@ export class EditedMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -4295,6 +4448,16 @@ export class EditedMessageUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -4705,6 +4868,15 @@ export class EditedMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -4718,7 +4890,7 @@ export class EditedMessageUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -5036,6 +5208,8 @@ export class ChannelPostUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -5130,6 +5304,12 @@ export class ChannelPostUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -5200,6 +5380,18 @@ export class ChannelPostUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -5290,6 +5482,12 @@ export class ChannelPostUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -5786,6 +5984,14 @@ export class ChannelPostUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -5848,6 +6054,22 @@ export class ChannelPostUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -5944,6 +6166,14 @@ export class ChannelPostUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -6769,6 +6999,15 @@ export class ChannelPostUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -6800,6 +7039,16 @@ export class ChannelPostUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -7210,6 +7459,15 @@ export class ChannelPostUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -7223,7 +7481,7 @@ export class ChannelPostUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -7541,6 +7799,8 @@ export class EditedChannelPostUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -7635,6 +7895,12 @@ export class EditedChannelPostUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -7705,6 +7971,18 @@ export class EditedChannelPostUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -7795,6 +8073,12 @@ export class EditedChannelPostUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -8291,6 +8575,14 @@ export class EditedChannelPostUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -8353,6 +8645,22 @@ export class EditedChannelPostUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -8449,6 +8757,14 @@ export class EditedChannelPostUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -9274,6 +9590,15 @@ export class EditedChannelPostUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -9305,6 +9630,16 @@ export class EditedChannelPostUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -9715,6 +10050,15 @@ export class EditedChannelPostUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -9728,7 +10072,7 @@ export class EditedChannelPostUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -10111,6 +10455,8 @@ export class BusinessMessageUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -10205,6 +10551,12 @@ export class BusinessMessageUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -10275,6 +10627,18 @@ export class BusinessMessageUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -10365,6 +10729,12 @@ export class BusinessMessageUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -10861,6 +11231,14 @@ export class BusinessMessageUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -10923,6 +11301,22 @@ export class BusinessMessageUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -11019,6 +11413,14 @@ export class BusinessMessageUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -11844,6 +12246,15 @@ export class BusinessMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -11875,6 +12286,16 @@ export class BusinessMessageUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -12285,6 +12706,15 @@ export class BusinessMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -12298,7 +12728,7 @@ export class BusinessMessageUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -12616,6 +13046,8 @@ export class EditedBusinessMessageUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -12710,6 +13142,12 @@ export class EditedBusinessMessageUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -12780,6 +13218,18 @@ export class EditedBusinessMessageUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -12870,6 +13320,12 @@ export class EditedBusinessMessageUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -13366,6 +13822,14 @@ export class EditedBusinessMessageUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -13428,6 +13892,22 @@ export class EditedBusinessMessageUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -13524,6 +14004,14 @@ export class EditedBusinessMessageUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -14349,6 +14837,15 @@ export class EditedBusinessMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -14380,6 +14877,16 @@ export class EditedBusinessMessageUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -14790,6 +15297,15 @@ export class EditedBusinessMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -14803,7 +15319,7 @@ export class EditedBusinessMessageUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -15143,6 +15659,1706 @@ export class DeletedBusinessMessagesUpdate {
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("DeletedBusinessMessagesUpdate", this, depth, options, inspect);
+    }
+}
+
+/**
+ * update for the `guest_message` event
+ */
+export class GuestMessageUpdate {
+    readonly kind = "guest_message" as const;
+    private _from?: User;
+    private _senderChat?: Chat;
+    private _senderBusinessBot?: User;
+    private _chat?: Chat;
+    private _replyToMessage?: Message;
+    private _externalReply?: ExternalReplyInfo;
+    private _quote?: TextQuote;
+    private _replyToStory?: Story;
+    private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
+    private _entities?: MessageEntity[];
+    private _linkPreviewOptions?: LinkPreviewOptions;
+    private _animation?: Animation;
+    private _audio?: Audio;
+    private _document?: Document;
+    private _photo?: Photo;
+    private _sticker?: Sticker;
+    private _story?: Story;
+    private _video?: Video;
+    private _videoNote?: VideoNote;
+    private _voice?: Voice;
+    private _captionEntities?: MessageEntity[];
+    private _contact?: Contact;
+    private _dice?: Dice;
+    private _game?: Game;
+    private _poll?: Poll;
+    private _venue?: Venue;
+    private _location?: Location;
+    private _newChatMembers?: User[];
+    private _leftChatMember?: User;
+    private _newChatPhoto?: Photo;
+    private _invoice?: Invoice;
+    private _successfulPayment?: SuccessfulPayment;
+    private _usersShared?: UsersShared;
+    private _chatShared?: ChatShared;
+    private _writeAccessAllowed?: WriteAccessAllowed;
+    private _passportData?: PassportData;
+    private _proximityAlertTriggered?: ProximityAlertTriggered;
+    private _forumTopicCreated?: ForumTopicCreated;
+    private _forumTopicEdited?: ForumTopicEdited;
+    private _giveaway?: Giveaway;
+    private _giveawayWinners?: GiveawayWinners;
+    private _giveawayCompleted?: GiveawayCompleted;
+    private _videoChatScheduled?: VideoChatScheduled;
+    private _videoChatEnded?: VideoChatEnded;
+    private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
+    private _webAppData?: WebAppData;
+    private _replyMarkup?: InlineKeyboardMarkup;
+    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    /**
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     */
+    get id(): number {
+        return this.raw.message_id;
+    }
+    /**
+     * Optional. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
+     */
+    get messageThreadId(): number | undefined {
+        return this.raw.message_thread_id;
+    }
+    /**
+     * Optional. Information about the direct messages chat topic that contains the message
+     */
+    get directMessagesTopic(): TelegramDirectMessagesTopic | undefined {
+        return this.raw.direct_messages_topic;
+    }
+    /**
+     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+     */
+    get from(): User | undefined {
+        return this.raw.from ? (this._from ??= new User(this.raw.from)) : undefined;
+    }
+    /**
+     * Optional. Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field from contains a fake sender user in non-channel chats.
+     */
+    get senderChat(): Chat | undefined {
+        return this.raw.sender_chat ? (this._senderChat ??= new Chat(this.raw.sender_chat)) : undefined;
+    }
+    /**
+     * Optional. If the sender of the message boosted the chat, the number of boosts added by the user
+     */
+    get senderBoostCount(): number | undefined {
+        return this.raw.sender_boost_count;
+    }
+    /**
+     * Optional. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
+     */
+    get senderBusinessBot(): User | undefined {
+        return this.raw.sender_business_bot ? (this._senderBusinessBot ??= new User(this.raw.sender_business_bot)) : undefined;
+    }
+    /**
+     * Optional. Tag or custom title of the sender of the message; for supergroups only
+     */
+    get senderTag(): string | undefined {
+        return this.raw.sender_tag;
+    }
+    /**
+     * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
+     */
+    get date(): number {
+        return this.raw.date;
+    }
+    /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
+     * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
+     */
+    get businessConnectionId(): string | undefined {
+        return this.raw.business_connection_id;
+    }
+    /**
+     * Chat the message belongs to
+     */
+    get chat(): Chat {
+        return this._chat ??= new Chat(this.raw.chat);
+    }
+    /**
+     * Optional. Information about the original message for forwarded messages
+     */
+    get forwardOrigin(): TelegramMessageOrigin | undefined {
+        return this.raw.forward_origin;
+    }
+    /**
+     * Optional. True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
+     */
+    get isTopicMessage(): true | undefined {
+        return this.raw.is_topic_message;
+    }
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    get isAutomaticForward(): true | undefined {
+        return this.raw.is_automatic_forward;
+    }
+    /**
+     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get replyToMessage(): Message | undefined {
+        return this.raw.reply_to_message ? (this._replyToMessage ??= new Message(this.raw.reply_to_message)) : undefined;
+    }
+    /**
+     * Optional. Information about the message that is being replied to, which may come from another chat or forum topic
+     */
+    get externalReply(): ExternalReplyInfo | undefined {
+        return this.raw.external_reply ? (this._externalReply ??= new ExternalReplyInfo(this.raw.external_reply)) : undefined;
+    }
+    /**
+     * Optional. For replies that quote part of the original message, the quoted part of the message
+     */
+    get quote(): TextQuote | undefined {
+        return this.raw.quote ? (this._quote ??= new TextQuote(this.raw.quote)) : undefined;
+    }
+    /**
+     * Optional. For replies to a story, the original story
+     */
+    get replyToStory(): Story | undefined {
+        return this.raw.reply_to_story ? (this._replyToStory ??= new Story(this.raw.reply_to_story)) : undefined;
+    }
+    /**
+     * Optional. Identifier of the specific checklist task that is being replied to
+     */
+    get replyToChecklistTaskId(): number | undefined {
+        return this.raw.reply_to_checklist_task_id;
+    }
+    /**
+     * Optional. Persistent identifier of the specific poll option that is being replied to
+     */
+    get replyToPollOptionId(): string | undefined {
+        return this.raw.reply_to_poll_option_id;
+    }
+    /**
+     * Optional. Bot through which the message was sent
+     */
+    get viaBot(): User | undefined {
+        return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
+    }
+    /**
+     * Optional. Date the message was last edited in Unix time
+     */
+    get editDate(): number | undefined {
+        return this.raw.edit_date;
+    }
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    get hasProtectedContent(): true | undefined {
+        return this.raw.has_protected_content;
+    }
+    /**
+     * Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+     */
+    get isFromOffline(): true | undefined {
+        return this.raw.is_from_offline;
+    }
+    /**
+     * Optional. True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+     */
+    get isPaidPost(): true | undefined {
+        return this.raw.is_paid_post;
+    }
+    /**
+     * Optional. The unique identifier inside this chat of a media message group this message belongs to
+     */
+    get mediaGroupId(): string | undefined {
+        return this.raw.media_group_id;
+    }
+    /**
+     * Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+     */
+    get authorSignature(): string | undefined {
+        return this.raw.author_signature;
+    }
+    /**
+     * Optional. The number of Telegram Stars that were paid by the sender of the message to send it
+     */
+    get paidStarCount(): number | undefined {
+        return this.raw.paid_star_count;
+    }
+    /**
+     * Optional. For text messages, the actual UTF-8 text of the message
+     */
+    get text(): string | undefined {
+        return this.raw.text;
+    }
+    /**
+     * Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+     */
+    get entities(): MessageEntity[] | undefined {
+        return this.raw.entities ? (this._entities ??= this.raw.entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. Options used for link preview generation for the message, if it is a text message and link preview options were changed
+     */
+    get linkPreviewOptions(): LinkPreviewOptions | undefined {
+        return this.raw.link_preview_options ? (this._linkPreviewOptions ??= new LinkPreviewOptions(this.raw.link_preview_options)) : undefined;
+    }
+    /**
+     * Optional. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+     */
+    get suggestedPostInfo(): TelegramSuggestedPostInfo | undefined {
+        return this.raw.suggested_post_info;
+    }
+    /**
+     * Optional. Unique identifier of the message effect added to the message
+     */
+    get effectId(): string | undefined {
+        return this.raw.effect_id;
+    }
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    get animation(): Animation | undefined {
+        return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
+    }
+    /**
+     * Optional. Message is an audio file, information about the file
+     */
+    get audio(): Audio | undefined {
+        return this.raw.audio ? (this._audio ??= new Audio(this.raw.audio)) : undefined;
+    }
+    /**
+     * Optional. Message is a general file, information about the file
+     */
+    get document(): Document | undefined {
+        return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
+    }
+    /**
+     * Optional. Message contains paid media; information about the paid media
+     */
+    get paidMedia(): TelegramPaidMediaInfo | undefined {
+        return this.raw.paid_media;
+    }
+    /**
+     * Optional. Message is a photo, available sizes of the photo
+     */
+    get photo(): Photo | undefined {
+        return this.raw.photo ? (this._photo ??= new Photo(this.raw.photo)) : undefined;
+    }
+    /**
+     * Optional. Message is a sticker, information about the sticker
+     */
+    get sticker(): Sticker | undefined {
+        return this.raw.sticker ? (this._sticker ??= new Sticker(this.raw.sticker)) : undefined;
+    }
+    /**
+     * Optional. Message is a forwarded story
+     */
+    get story(): Story | undefined {
+        return this.raw.story ? (this._story ??= new Story(this.raw.story)) : undefined;
+    }
+    /**
+     * Optional. Message is a video, information about the video
+     */
+    get video(): Video | undefined {
+        return this.raw.video ? (this._video ??= new Video(this.raw.video)) : undefined;
+    }
+    /**
+     * Optional. Message is a video note, information about the video message
+     */
+    get videoNote(): VideoNote | undefined {
+        return this.raw.video_note ? (this._videoNote ??= new VideoNote(this.raw.video_note)) : undefined;
+    }
+    /**
+     * Optional. Message is a voice message, information about the file
+     */
+    get voice(): Voice | undefined {
+        return this.raw.voice ? (this._voice ??= new Voice(this.raw.voice)) : undefined;
+    }
+    /**
+     * Optional. Caption for the animation, audio, document, paid media, photo, video or voice
+     */
+    get caption(): string | undefined {
+        return this.raw.caption;
+    }
+    /**
+     * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+     */
+    get captionEntities(): MessageEntity[] | undefined {
+        return this.raw.caption_entities ? (this._captionEntities ??= this.raw.caption_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. True, if the caption must be shown above the message media
+     */
+    get showCaptionAboveMedia(): true | undefined {
+        return this.raw.show_caption_above_media;
+    }
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    get hasMediaSpoiler(): true | undefined {
+        return this.raw.has_media_spoiler;
+    }
+    /**
+     * Optional. Message is a checklist
+     */
+    get checklist(): TelegramChecklist | undefined {
+        return this.raw.checklist;
+    }
+    /**
+     * Optional. Message is a shared contact, information about the contact
+     */
+    get contact(): Contact | undefined {
+        return this.raw.contact ? (this._contact ??= new Contact(this.raw.contact)) : undefined;
+    }
+    /**
+     * Optional. Message is a dice with random value
+     */
+    get dice(): Dice | undefined {
+        return this.raw.dice ? (this._dice ??= new Dice(this.raw.dice)) : undefined;
+    }
+    /**
+     * Optional. Message is a game, information about the game. More about games »
+     */
+    get game(): Game | undefined {
+        return this.raw.game ? (this._game ??= new Game(this.raw.game)) : undefined;
+    }
+    /**
+     * Optional. Message is a native poll, information about the poll
+     */
+    get poll(): Poll | undefined {
+        return this.raw.poll ? (this._poll ??= new Poll(this.raw.poll)) : undefined;
+    }
+    /**
+     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+     */
+    get venue(): Venue | undefined {
+        return this.raw.venue ? (this._venue ??= new Venue(this.raw.venue)) : undefined;
+    }
+    /**
+     * Optional. Message is a shared location, information about the location
+     */
+    get location(): Location | undefined {
+        return this.raw.location ? (this._location ??= new Location(this.raw.location)) : undefined;
+    }
+    /**
+     * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
+     */
+    get newChatMembers(): User[] | undefined {
+        return this.raw.new_chat_members ? (this._newChatMembers ??= this.raw.new_chat_members.map(x => new User(x))) : undefined;
+    }
+    /**
+     * Optional. A member was removed from the group, information about them (this member may be the bot itself)
+     */
+    get leftChatMember(): User | undefined {
+        return this.raw.left_chat_member ? (this._leftChatMember ??= new User(this.raw.left_chat_member)) : undefined;
+    }
+    /**
+     * Optional. Service message: chat owner has left
+     */
+    get chatOwnerLeft(): TelegramChatOwnerLeft | undefined {
+        return this.raw.chat_owner_left;
+    }
+    /**
+     * Optional. Service message: chat owner has changed
+     */
+    get chatOwnerChanged(): TelegramChatOwnerChanged | undefined {
+        return this.raw.chat_owner_changed;
+    }
+    /**
+     * Optional. A chat title was changed to this value
+     */
+    get newChatTitle(): string | undefined {
+        return this.raw.new_chat_title;
+    }
+    /**
+     * Optional. A chat photo was change to this value
+     */
+    get newChatPhoto(): Photo | undefined {
+        return this.raw.new_chat_photo ? (this._newChatPhoto ??= new Photo(this.raw.new_chat_photo)) : undefined;
+    }
+    /**
+     * Optional. Service message: the chat photo was deleted
+     */
+    get deleteChatPhoto(): true | undefined {
+        return this.raw.delete_chat_photo;
+    }
+    /**
+     * Optional. Service message: the group has been created
+     */
+    get groupChatCreated(): true | undefined {
+        return this.raw.group_chat_created;
+    }
+    /**
+     * Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+     */
+    get supergroupChatCreated(): true | undefined {
+        return this.raw.supergroup_chat_created;
+    }
+    /**
+     * Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+     */
+    get channelChatCreated(): true | undefined {
+        return this.raw.channel_chat_created;
+    }
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    get messageAutoDeleteTimerChanged(): TelegramMessageAutoDeleteTimerChanged | undefined {
+        return this.raw.message_auto_delete_timer_changed;
+    }
+    /**
+     * Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateToChatId(): number | undefined {
+        return this.raw.migrate_to_chat_id;
+    }
+    /**
+     * Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+     */
+    get migrateFromChatId(): number | undefined {
+        return this.raw.migrate_from_chat_id;
+    }
+    /**
+     * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     */
+    get pinnedMessage(): TelegramMaybeInaccessibleMessage | undefined {
+        return this.raw.pinned_message;
+    }
+    /**
+     * Optional. Message is an invoice for a payment, information about the invoice. More about payments »
+     */
+    get invoice(): Invoice | undefined {
+        return this.raw.invoice ? (this._invoice ??= new Invoice(this.raw.invoice)) : undefined;
+    }
+    /**
+     * Optional. Message is a service message about a successful payment, information about the payment. More about payments »
+     */
+    get successfulPayment(): SuccessfulPayment | undefined {
+        return this.raw.successful_payment ? (this._successfulPayment ??= new SuccessfulPayment(this.raw.successful_payment)) : undefined;
+    }
+    /**
+     * Optional. Message is a service message about a refunded payment, information about the payment. More about payments »
+     */
+    get refundedPayment(): TelegramRefundedPayment | undefined {
+        return this.raw.refunded_payment;
+    }
+    /**
+     * Optional. Service message: users were shared with the bot
+     */
+    get usersShared(): UsersShared | undefined {
+        return this.raw.users_shared ? (this._usersShared ??= new UsersShared(this.raw.users_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a chat was shared with the bot
+     */
+    get chatShared(): ChatShared | undefined {
+        return this.raw.chat_shared ? (this._chatShared ??= new ChatShared(this.raw.chat_shared)) : undefined;
+    }
+    /**
+     * Optional. Service message: a regular gift was sent or received
+     */
+    get gift(): TelegramGiftInfo | undefined {
+        return this.raw.gift;
+    }
+    /**
+     * Optional. Service message: a unique gift was sent or received
+     */
+    get uniqueGift(): TelegramUniqueGiftInfo | undefined {
+        return this.raw.unique_gift;
+    }
+    /**
+     * Optional. Service message: upgrade of a gift was purchased after the gift was sent
+     */
+    get giftUpgradeSent(): TelegramGiftInfo | undefined {
+        return this.raw.gift_upgrade_sent;
+    }
+    /**
+     * Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+     */
+    get connectedWebsite(): string | undefined {
+        return this.raw.connected_website;
+    }
+    /**
+     * Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
+     */
+    get writeAccessAllowed(): WriteAccessAllowed | undefined {
+        return this.raw.write_access_allowed ? (this._writeAccessAllowed ??= new WriteAccessAllowed(this.raw.write_access_allowed)) : undefined;
+    }
+    /**
+     * Optional. Telegram Passport data
+     */
+    get passportData(): PassportData | undefined {
+        return this.raw.passport_data ? (this._passportData ??= new PassportData(this.raw.passport_data)) : undefined;
+    }
+    /**
+     * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     */
+    get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
+        return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
+    }
+    /**
+     * Optional. Service message: user boosted the chat
+     */
+    get boostAdded(): TelegramChatBoostAdded | undefined {
+        return this.raw.boost_added;
+    }
+    /**
+     * Optional. Service message: chat background set
+     */
+    get chatBackgroundSet(): TelegramChatBackground | undefined {
+        return this.raw.chat_background_set;
+    }
+    /**
+     * Optional. Service message: some tasks in a checklist were marked as done or not done
+     */
+    get checklistTasksDone(): TelegramChecklistTasksDone | undefined {
+        return this.raw.checklist_tasks_done;
+    }
+    /**
+     * Optional. Service message: tasks were added to a checklist
+     */
+    get checklistTasksAdded(): TelegramChecklistTasksAdded | undefined {
+        return this.raw.checklist_tasks_added;
+    }
+    /**
+     * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
+     */
+    get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
+        return this.raw.direct_message_price_changed;
+    }
+    /**
+     * Optional. Service message: forum topic created
+     */
+    get forumTopicCreated(): ForumTopicCreated | undefined {
+        return this.raw.forum_topic_created ? (this._forumTopicCreated ??= new ForumTopicCreated(this.raw.forum_topic_created)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic edited
+     */
+    get forumTopicEdited(): ForumTopicEdited | undefined {
+        return this.raw.forum_topic_edited ? (this._forumTopicEdited ??= new ForumTopicEdited(this.raw.forum_topic_edited)) : undefined;
+    }
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    get forumTopicClosed(): TelegramForumTopicClosed | undefined {
+        return this.raw.forum_topic_closed;
+    }
+    /**
+     * Optional. Service message: forum topic reopened
+     */
+    get forumTopicReopened(): TelegramForumTopicReopened | undefined {
+        return this.raw.forum_topic_reopened;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    get generalForumTopicHidden(): TelegramGeneralForumTopicHidden | undefined {
+        return this.raw.general_forum_topic_hidden;
+    }
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    get generalForumTopicUnhidden(): TelegramGeneralForumTopicUnhidden | undefined {
+        return this.raw.general_forum_topic_unhidden;
+    }
+    /**
+     * Optional. Service message: a scheduled giveaway was created
+     */
+    get giveawayCreated(): TelegramGiveawayCreated | undefined {
+        return this.raw.giveaway_created;
+    }
+    /**
+     * Optional. The message is a scheduled giveaway message
+     */
+    get giveaway(): Giveaway | undefined {
+        return this.raw.giveaway ? (this._giveaway ??= new Giveaway(this.raw.giveaway)) : undefined;
+    }
+    /**
+     * Optional. A giveaway with public winners was completed
+     */
+    get giveawayWinners(): GiveawayWinners | undefined {
+        return this.raw.giveaway_winners ? (this._giveawayWinners ??= new GiveawayWinners(this.raw.giveaway_winners)) : undefined;
+    }
+    /**
+     * Optional. Service message: a giveaway without public winners was completed
+     */
+    get giveawayCompleted(): GiveawayCompleted | undefined {
+        return this.raw.giveaway_completed ? (this._giveawayCompleted ??= new GiveawayCompleted(this.raw.giveaway_completed)) : undefined;
+    }
+    /**
+     * Optional. Service message: user created a bot that will be managed by the current bot
+     */
+    get managedBotCreated(): TelegramManagedBotCreated | undefined {
+        return this.raw.managed_bot_created;
+    }
+    /**
+     * Optional. Service message: the price for paid messages has changed in the chat
+     */
+    get paidMessagePriceChanged(): TelegramPaidMessagePriceChanged | undefined {
+        return this.raw.paid_message_price_changed;
+    }
+    /**
+     * Optional. Service message: answer option was added to a poll
+     */
+    get pollOptionAdded(): TelegramPollOptionAdded | undefined {
+        return this.raw.poll_option_added;
+    }
+    /**
+     * Optional. Service message: answer option was deleted from a poll
+     */
+    get pollOptionDeleted(): TelegramPollOptionDeleted | undefined {
+        return this.raw.poll_option_deleted;
+    }
+    /**
+     * Optional. Service message: a suggested post was approved
+     */
+    get suggestedPostApproved(): TelegramSuggestedPostApproved | undefined {
+        return this.raw.suggested_post_approved;
+    }
+    /**
+     * Optional. Service message: approval of a suggested post has failed
+     */
+    get suggestedPostApprovalFailed(): TelegramSuggestedPostApprovalFailed | undefined {
+        return this.raw.suggested_post_approval_failed;
+    }
+    /**
+     * Optional. Service message: a suggested post was declined
+     */
+    get suggestedPostDeclined(): TelegramSuggestedPostDeclined | undefined {
+        return this.raw.suggested_post_declined;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was received
+     */
+    get suggestedPostPaid(): TelegramSuggestedPostPaid | undefined {
+        return this.raw.suggested_post_paid;
+    }
+    /**
+     * Optional. Service message: payment for a suggested post was refunded
+     */
+    get suggestedPostRefunded(): TelegramSuggestedPostRefunded | undefined {
+        return this.raw.suggested_post_refunded;
+    }
+    /**
+     * Optional. Service message: video chat scheduled
+     */
+    get videoChatScheduled(): VideoChatScheduled | undefined {
+        return this.raw.video_chat_scheduled ? (this._videoChatScheduled ??= new VideoChatScheduled(this.raw.video_chat_scheduled)) : undefined;
+    }
+    /**
+     * Optional. Service message: video chat started
+     */
+    get videoChatStarted(): TelegramVideoChatStarted | undefined {
+        return this.raw.video_chat_started;
+    }
+    /**
+     * Optional. Service message: video chat ended
+     */
+    get videoChatEnded(): VideoChatEnded | undefined {
+        return this.raw.video_chat_ended ? (this._videoChatEnded ??= new VideoChatEnded(this.raw.video_chat_ended)) : undefined;
+    }
+    /**
+     * Optional. Service message: new participants invited to a video chat
+     */
+    get videoChatParticipantsInvited(): VideoChatParticipantsInvited | undefined {
+        return this.raw.video_chat_participants_invited ? (this._videoChatParticipantsInvited ??= new VideoChatParticipantsInvited(this.raw.video_chat_participants_invited)) : undefined;
+    }
+    /**
+     * Optional. Service message: data sent by a Web App
+     */
+    get webAppData(): WebAppData | undefined {
+        return this.raw.web_app_data ? (this._webAppData ??= new WebAppData(this.raw.web_app_data)) : undefined;
+    }
+    /**
+     * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+     */
+    get replyMarkup(): InlineKeyboardMarkup | undefined {
+        return this.raw.reply_markup ? (this._replyMarkup ??= new InlineKeyboardMarkup(this.raw.reply_markup)) : undefined;
+    }
+    /**
+     * true if `message_thread_id` is set
+     */
+    hasMessageThreadId(): this is this & {
+        messageThreadId: number;
+    } {
+        return this.raw.message_thread_id != null;
+    }
+    /**
+     * true if `direct_messages_topic` is set
+     */
+    hasDirectMessagesTopic(): this is this & {
+        directMessagesTopic: TelegramDirectMessagesTopic;
+    } {
+        return this.raw.direct_messages_topic != null;
+    }
+    /**
+     * true if `from` is set
+     */
+    hasFrom(): this is this & {
+        from: User;
+    } {
+        return this.raw.from != null;
+    }
+    /**
+     * true if `sender_chat` is set
+     */
+    hasSenderChat(): this is this & {
+        senderChat: Chat;
+    } {
+        return this.raw.sender_chat != null;
+    }
+    /**
+     * true if `sender_boost_count` is set
+     */
+    hasSenderBoostCount(): this is this & {
+        senderBoostCount: number;
+    } {
+        return this.raw.sender_boost_count != null;
+    }
+    /**
+     * true if `sender_business_bot` is set
+     */
+    hasSenderBusinessBot(): this is this & {
+        senderBusinessBot: User;
+    } {
+        return this.raw.sender_business_bot != null;
+    }
+    /**
+     * true if `sender_tag` is set
+     */
+    hasSenderTag(): this is this & {
+        senderTag: string;
+    } {
+        return this.raw.sender_tag != null;
+    }
+    /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
+     * true if `business_connection_id` is set
+     */
+    hasBusinessConnectionId(): this is this & {
+        businessConnectionId: string;
+    } {
+        return this.raw.business_connection_id != null;
+    }
+    /**
+     * true if `forward_origin` is set
+     */
+    hasForwardOrigin(): this is this & {
+        forwardOrigin: TelegramMessageOrigin;
+    } {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * true if `external_reply` is set
+     */
+    hasExternalReply(): this is this & {
+        externalReply: ExternalReplyInfo;
+    } {
+        return this.raw.external_reply != null;
+    }
+    /**
+     * true if `quote` is set
+     */
+    hasQuote(): this is this & {
+        quote: TextQuote;
+    } {
+        return this.raw.quote != null;
+    }
+    /**
+     * true if `reply_to_story` is set
+     */
+    hasReplyToStory(): this is this & {
+        replyToStory: Story;
+    } {
+        return this.raw.reply_to_story != null;
+    }
+    /**
+     * true if `reply_to_checklist_task_id` is set
+     */
+    hasReplyToChecklistTaskId(): this is this & {
+        replyToChecklistTaskId: number;
+    } {
+        return this.raw.reply_to_checklist_task_id != null;
+    }
+    /**
+     * true if `reply_to_poll_option_id` is set
+     */
+    hasReplyToPollOptionId(): this is this & {
+        replyToPollOptionId: string;
+    } {
+        return this.raw.reply_to_poll_option_id != null;
+    }
+    /**
+     * true if `via_bot` is set
+     */
+    hasViaBot(): this is this & {
+        viaBot: User;
+    } {
+        return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
+    }
+    /**
+     * true if `edit_date` is set
+     */
+    hasEditDate(): this is this & {
+        editDate: number;
+    } {
+        return this.raw.edit_date != null;
+    }
+    /**
+     * true if `media_group_id` is set
+     */
+    hasMediaGroupId(): this is this & {
+        mediaGroupId: string;
+    } {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * true if `author_signature` is set
+     */
+    hasAuthorSignature(): this is this & {
+        authorSignature: string;
+    } {
+        return this.raw.author_signature != null;
+    }
+    /**
+     * true if `paid_star_count` is set
+     */
+    hasPaidStarCount(): this is this & {
+        paidStarCount: number;
+    } {
+        return this.raw.paid_star_count != null;
+    }
+    /**
+     * true if `text` is set
+     */
+    hasText(): this is this & {
+        text: string;
+    } {
+        return this.raw.text != null;
+    }
+    /**
+     * true if `entities` has at least one item
+     */
+    hasEntities(): this is this & {
+        entities: MessageEntity[];
+    } {
+        return this.raw.entities != null && this.raw.entities.length > 0;
+    }
+    /**
+     * true if `link_preview_options` is set
+     */
+    hasLinkPreviewOptions(): this is this & {
+        linkPreviewOptions: LinkPreviewOptions;
+    } {
+        return this.raw.link_preview_options != null;
+    }
+    /**
+     * true if `suggested_post_info` is set
+     */
+    hasSuggestedPostInfo(): this is this & {
+        suggestedPostInfo: TelegramSuggestedPostInfo;
+    } {
+        return this.raw.suggested_post_info != null;
+    }
+    /**
+     * true if `effect_id` is set
+     */
+    hasEffectId(): this is this & {
+        effectId: string;
+    } {
+        return this.raw.effect_id != null;
+    }
+    /**
+     * true if `animation` is set
+     */
+    hasAnimation(): this is this & {
+        animation: Animation;
+    } {
+        return this.raw.animation != null;
+    }
+    /**
+     * true if `audio` is set
+     */
+    hasAudio(): this is this & {
+        audio: Audio;
+    } {
+        return this.raw.audio != null;
+    }
+    /**
+     * true if `document` is set
+     */
+    hasDocument(): this is this & {
+        document: Document;
+    } {
+        return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
+    }
+    /**
+     * true if `paid_media` is set
+     */
+    hasPaidMedia(): this is this & {
+        paidMedia: TelegramPaidMediaInfo;
+    } {
+        return this.raw.paid_media != null;
+    }
+    /**
+     * true if `photo` has at least one item
+     */
+    hasPhoto(): this is this & {
+        photo: Photo;
+    } {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * true if `sticker` is set
+     */
+    hasSticker(): this is this & {
+        sticker: Sticker;
+    } {
+        return this.raw.sticker != null;
+    }
+    /**
+     * true if `story` is set
+     */
+    hasStory(): this is this & {
+        story: Story;
+    } {
+        return this.raw.story != null;
+    }
+    /**
+     * true if `video` is set
+     */
+    hasVideo(): this is this & {
+        video: Video;
+    } {
+        return this.raw.video != null;
+    }
+    /**
+     * true if `video_note` is set
+     */
+    hasVideoNote(): this is this & {
+        videoNote: VideoNote;
+    } {
+        return this.raw.video_note != null;
+    }
+    /**
+     * true if `voice` is set
+     */
+    hasVoice(): this is this & {
+        voice: Voice;
+    } {
+        return this.raw.voice != null;
+    }
+    /**
+     * true if `caption` is set
+     */
+    hasCaption(): this is this & {
+        caption: string;
+    } {
+        return this.raw.caption != null;
+    }
+    /**
+     * true if `caption_entities` has at least one item
+     */
+    hasCaptionEntities(): this is this & {
+        captionEntities: MessageEntity[];
+    } {
+        return this.raw.caption_entities != null && this.raw.caption_entities.length > 0;
+    }
+    /**
+     * true if `show_caption_above_media` is set
+     */
+    hasShowCaptionAboveMedia(): this is this & {
+        showCaptionAboveMedia: true;
+    } {
+        return this.raw.show_caption_above_media != null;
+    }
+    /**
+     * true if `checklist` is set
+     */
+    hasChecklist(): this is this & {
+        checklist: TelegramChecklist;
+    } {
+        return this.raw.checklist != null;
+    }
+    /**
+     * true if `contact` is set
+     */
+    hasContact(): this is this & {
+        contact: Contact;
+    } {
+        return this.raw.contact != null;
+    }
+    /**
+     * true if `dice` is set
+     */
+    hasDice(): this is this & {
+        dice: Dice;
+    } {
+        return this.raw.dice != null;
+    }
+    /**
+     * true if `game` is set
+     */
+    hasGame(): this is this & {
+        game: Game;
+    } {
+        return this.raw.game != null;
+    }
+    /**
+     * true if `poll` is set
+     */
+    hasPoll(): this is this & {
+        poll: Poll;
+    } {
+        return this.raw.poll != null;
+    }
+    /**
+     * true if `venue` is set
+     */
+    hasVenue(): this is this & {
+        venue: Venue;
+    } {
+        return this.raw.venue != null;
+    }
+    /**
+     * true if `location` is set
+     */
+    hasLocation(): this is this & {
+        location: Location;
+    } {
+        return this.raw.location != null;
+    }
+    /**
+     * true if `new_chat_members` has at least one item
+     */
+    hasNewChatMembers(): this is this & {
+        newChatMembers: User[];
+    } {
+        return this.raw.new_chat_members != null && this.raw.new_chat_members.length > 0;
+    }
+    /**
+     * true if `left_chat_member` is set
+     */
+    hasLeftChatMember(): this is this & {
+        leftChatMember: User;
+    } {
+        return this.raw.left_chat_member != null;
+    }
+    /**
+     * true if `chat_owner_left` is set
+     */
+    hasChatOwnerLeft(): this is this & {
+        chatOwnerLeft: TelegramChatOwnerLeft;
+    } {
+        return this.raw.chat_owner_left != null;
+    }
+    /**
+     * true if `chat_owner_changed` is set
+     */
+    hasChatOwnerChanged(): this is this & {
+        chatOwnerChanged: TelegramChatOwnerChanged;
+    } {
+        return this.raw.chat_owner_changed != null;
+    }
+    /**
+     * true if `new_chat_title` is set
+     */
+    hasNewChatTitle(): this is this & {
+        newChatTitle: string;
+    } {
+        return this.raw.new_chat_title != null;
+    }
+    /**
+     * true if `new_chat_photo` has at least one item
+     */
+    hasNewChatPhoto(): this is this & {
+        newChatPhoto: Photo;
+    } {
+        return this.raw.new_chat_photo != null && this.raw.new_chat_photo.length > 0;
+    }
+    /**
+     * true if `delete_chat_photo` is set
+     */
+    hasDeleteChatPhoto(): this is this & {
+        deleteChatPhoto: true;
+    } {
+        return this.raw.delete_chat_photo != null;
+    }
+    /**
+     * true if `group_chat_created` is set
+     */
+    hasGroupChatCreated(): this is this & {
+        groupChatCreated: true;
+    } {
+        return this.raw.group_chat_created != null;
+    }
+    /**
+     * true if `supergroup_chat_created` is set
+     */
+    hasSupergroupChatCreated(): this is this & {
+        supergroupChatCreated: true;
+    } {
+        return this.raw.supergroup_chat_created != null;
+    }
+    /**
+     * true if `channel_chat_created` is set
+     */
+    hasChannelChatCreated(): this is this & {
+        channelChatCreated: true;
+    } {
+        return this.raw.channel_chat_created != null;
+    }
+    /**
+     * true if `message_auto_delete_timer_changed` is set
+     */
+    hasMessageAutoDeleteTimerChanged(): this is this & {
+        messageAutoDeleteTimerChanged: TelegramMessageAutoDeleteTimerChanged;
+    } {
+        return this.raw.message_auto_delete_timer_changed != null;
+    }
+    /**
+     * true if `migrate_to_chat_id` is set
+     */
+    hasMigrateToChatId(): this is this & {
+        migrateToChatId: number;
+    } {
+        return this.raw.migrate_to_chat_id != null;
+    }
+    /**
+     * true if `migrate_from_chat_id` is set
+     */
+    hasMigrateFromChatId(): this is this & {
+        migrateFromChatId: number;
+    } {
+        return this.raw.migrate_from_chat_id != null;
+    }
+    /**
+     * true if `pinned_message` is set
+     */
+    hasPinnedMessage(): this is this & {
+        pinnedMessage: TelegramMaybeInaccessibleMessage;
+    } {
+        return this.raw.pinned_message != null;
+    }
+    /**
+     * true if `invoice` is set
+     */
+    hasInvoice(): this is this & {
+        invoice: Invoice;
+    } {
+        return this.raw.invoice != null;
+    }
+    /**
+     * true if `successful_payment` is set
+     */
+    hasSuccessfulPayment(): this is this & {
+        successfulPayment: SuccessfulPayment;
+    } {
+        return this.raw.successful_payment != null;
+    }
+    /**
+     * true if `refunded_payment` is set
+     */
+    hasRefundedPayment(): this is this & {
+        refundedPayment: TelegramRefundedPayment;
+    } {
+        return this.raw.refunded_payment != null;
+    }
+    /**
+     * true if `users_shared` is set
+     */
+    hasUsersShared(): this is this & {
+        usersShared: UsersShared;
+    } {
+        return this.raw.users_shared != null;
+    }
+    /**
+     * true if `chat_shared` is set
+     */
+    hasChatShared(): this is this & {
+        chatShared: ChatShared;
+    } {
+        return this.raw.chat_shared != null;
+    }
+    /**
+     * true if `gift` is set
+     */
+    hasGift(): this is this & {
+        gift: TelegramGiftInfo;
+    } {
+        return this.raw.gift != null;
+    }
+    /**
+     * true if `unique_gift` is set
+     */
+    hasUniqueGift(): this is this & {
+        uniqueGift: TelegramUniqueGiftInfo;
+    } {
+        return this.raw.unique_gift != null;
+    }
+    /**
+     * true if `gift_upgrade_sent` is set
+     */
+    hasGiftUpgradeSent(): this is this & {
+        giftUpgradeSent: TelegramGiftInfo;
+    } {
+        return this.raw.gift_upgrade_sent != null;
+    }
+    /**
+     * true if `connected_website` is set
+     */
+    hasConnectedWebsite(): this is this & {
+        connectedWebsite: string;
+    } {
+        return this.raw.connected_website != null;
+    }
+    /**
+     * true if `write_access_allowed` is set
+     */
+    hasWriteAccessAllowed(): this is this & {
+        writeAccessAllowed: WriteAccessAllowed;
+    } {
+        return this.raw.write_access_allowed != null;
+    }
+    /**
+     * true if `passport_data` is set
+     */
+    hasPassportData(): this is this & {
+        passportData: PassportData;
+    } {
+        return this.raw.passport_data != null;
+    }
+    /**
+     * true if `proximity_alert_triggered` is set
+     */
+    hasProximityAlertTriggered(): this is this & {
+        proximityAlertTriggered: ProximityAlertTriggered;
+    } {
+        return this.raw.proximity_alert_triggered != null;
+    }
+    /**
+     * true if `boost_added` is set
+     */
+    hasBoostAdded(): this is this & {
+        boostAdded: TelegramChatBoostAdded;
+    } {
+        return this.raw.boost_added != null;
+    }
+    /**
+     * true if `chat_background_set` is set
+     */
+    hasChatBackgroundSet(): this is this & {
+        chatBackgroundSet: TelegramChatBackground;
+    } {
+        return this.raw.chat_background_set != null;
+    }
+    /**
+     * true if `checklist_tasks_done` is set
+     */
+    hasChecklistTasksDone(): this is this & {
+        checklistTasksDone: TelegramChecklistTasksDone;
+    } {
+        return this.raw.checklist_tasks_done != null;
+    }
+    /**
+     * true if `checklist_tasks_added` is set
+     */
+    hasChecklistTasksAdded(): this is this & {
+        checklistTasksAdded: TelegramChecklistTasksAdded;
+    } {
+        return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * true if `direct_message_price_changed` is set
+     */
+    hasDirectMessagePriceChanged(): this is this & {
+        directMessagePriceChanged: TelegramDirectMessagePriceChanged;
+    } {
+        return this.raw.direct_message_price_changed != null;
+    }
+    /**
+     * true if `forum_topic_created` is set
+     */
+    hasForumTopicCreated(): this is this & {
+        forumTopicCreated: ForumTopicCreated;
+    } {
+        return this.raw.forum_topic_created != null;
+    }
+    /**
+     * true if `forum_topic_edited` is set
+     */
+    hasForumTopicEdited(): this is this & {
+        forumTopicEdited: ForumTopicEdited;
+    } {
+        return this.raw.forum_topic_edited != null;
+    }
+    /**
+     * true if `forum_topic_closed` is set
+     */
+    hasForumTopicClosed(): this is this & {
+        forumTopicClosed: TelegramForumTopicClosed;
+    } {
+        return this.raw.forum_topic_closed != null;
+    }
+    /**
+     * true if `forum_topic_reopened` is set
+     */
+    hasForumTopicReopened(): this is this & {
+        forumTopicReopened: TelegramForumTopicReopened;
+    } {
+        return this.raw.forum_topic_reopened != null;
+    }
+    /**
+     * true if `general_forum_topic_hidden` is set
+     */
+    hasGeneralForumTopicHidden(): this is this & {
+        generalForumTopicHidden: TelegramGeneralForumTopicHidden;
+    } {
+        return this.raw.general_forum_topic_hidden != null;
+    }
+    /**
+     * true if `general_forum_topic_unhidden` is set
+     */
+    hasGeneralForumTopicUnhidden(): this is this & {
+        generalForumTopicUnhidden: TelegramGeneralForumTopicUnhidden;
+    } {
+        return this.raw.general_forum_topic_unhidden != null;
+    }
+    /**
+     * true if `giveaway_created` is set
+     */
+    hasGiveawayCreated(): this is this & {
+        giveawayCreated: TelegramGiveawayCreated;
+    } {
+        return this.raw.giveaway_created != null;
+    }
+    /**
+     * true if `giveaway` is set
+     */
+    hasGiveaway(): this is this & {
+        giveaway: Giveaway;
+    } {
+        return this.raw.giveaway != null;
+    }
+    /**
+     * true if `giveaway_winners` is set
+     */
+    hasGiveawayWinners(): this is this & {
+        giveawayWinners: GiveawayWinners;
+    } {
+        return this.raw.giveaway_winners != null;
+    }
+    /**
+     * true if `giveaway_completed` is set
+     */
+    hasGiveawayCompleted(): this is this & {
+        giveawayCompleted: GiveawayCompleted;
+    } {
+        return this.raw.giveaway_completed != null;
+    }
+    /**
+     * true if `managed_bot_created` is set
+     */
+    hasManagedBotCreated(): this is this & {
+        managedBotCreated: TelegramManagedBotCreated;
+    } {
+        return this.raw.managed_bot_created != null;
+    }
+    /**
+     * true if `paid_message_price_changed` is set
+     */
+    hasPaidMessagePriceChanged(): this is this & {
+        paidMessagePriceChanged: TelegramPaidMessagePriceChanged;
+    } {
+        return this.raw.paid_message_price_changed != null;
+    }
+    /**
+     * true if `poll_option_added` is set
+     */
+    hasPollOptionAdded(): this is this & {
+        pollOptionAdded: TelegramPollOptionAdded;
+    } {
+        return this.raw.poll_option_added != null;
+    }
+    /**
+     * true if `poll_option_deleted` is set
+     */
+    hasPollOptionDeleted(): this is this & {
+        pollOptionDeleted: TelegramPollOptionDeleted;
+    } {
+        return this.raw.poll_option_deleted != null;
+    }
+    /**
+     * true if `suggested_post_approved` is set
+     */
+    hasSuggestedPostApproved(): this is this & {
+        suggestedPostApproved: TelegramSuggestedPostApproved;
+    } {
+        return this.raw.suggested_post_approved != null;
+    }
+    /**
+     * true if `suggested_post_approval_failed` is set
+     */
+    hasSuggestedPostApprovalFailed(): this is this & {
+        suggestedPostApprovalFailed: TelegramSuggestedPostApprovalFailed;
+    } {
+        return this.raw.suggested_post_approval_failed != null;
+    }
+    /**
+     * true if `suggested_post_declined` is set
+     */
+    hasSuggestedPostDeclined(): this is this & {
+        suggestedPostDeclined: TelegramSuggestedPostDeclined;
+    } {
+        return this.raw.suggested_post_declined != null;
+    }
+    /**
+     * true if `suggested_post_paid` is set
+     */
+    hasSuggestedPostPaid(): this is this & {
+        suggestedPostPaid: TelegramSuggestedPostPaid;
+    } {
+        return this.raw.suggested_post_paid != null;
+    }
+    /**
+     * true if `suggested_post_refunded` is set
+     */
+    hasSuggestedPostRefunded(): this is this & {
+        suggestedPostRefunded: TelegramSuggestedPostRefunded;
+    } {
+        return this.raw.suggested_post_refunded != null;
+    }
+    /**
+     * true if `video_chat_scheduled` is set
+     */
+    hasVideoChatScheduled(): this is this & {
+        videoChatScheduled: VideoChatScheduled;
+    } {
+        return this.raw.video_chat_scheduled != null;
+    }
+    /**
+     * true if `video_chat_started` is set
+     */
+    hasVideoChatStarted(): this is this & {
+        videoChatStarted: TelegramVideoChatStarted;
+    } {
+        return this.raw.video_chat_started != null;
+    }
+    /**
+     * true if `video_chat_ended` is set
+     */
+    hasVideoChatEnded(): this is this & {
+        videoChatEnded: VideoChatEnded;
+    } {
+        return this.raw.video_chat_ended != null;
+    }
+    /**
+     * true if `video_chat_participants_invited` is set
+     */
+    hasVideoChatParticipantsInvited(): this is this & {
+        videoChatParticipantsInvited: VideoChatParticipantsInvited;
+    } {
+        return this.raw.video_chat_participants_invited != null;
+    }
+    /**
+     * true if `web_app_data` is set
+     */
+    hasWebAppData(): this is this & {
+        webAppData: WebAppData;
+    } {
+        return this.raw.web_app_data != null;
+    }
+    /**
+     * true if `reply_markup` is set
+     */
+    hasReplyMarkup(): this is this & {
+        replyMarkup: InlineKeyboardMarkup;
+    } {
+        return this.raw.reply_markup != null;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    /**
+     * shortcut for `chat.id`
+     */
+    get chatId(): number {
+        return this.raw.chat.id;
+    }
+    /**
+     * best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`
+     */
+    get senderId(): number {
+        return this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id;
+    }
+    /**
+     * shortcut for `reply_to_message?.message_id`
+     */
+    get replyToMessageId(): number | undefined {
+        return this.raw.reply_to_message?.message_id;
+    }
+    /**
+     * true if this message has `reply_to_message`
+     */
+    hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * true if any `entities` item has the given `type`
+     */
+    hasEntitiesOf(type: string): boolean {
+        return this.raw.entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * true if any `caption_entities` item has the given `type`
+     */
+    hasCaptionEntitiesOf(type: string): boolean {
+        return this.raw.caption_entities?.some(e => e.type === type) ?? false;
+    }
+    /**
+     * alias for `hasForwardOrigin()`
+     */
+    isForwarded(): this is Has<this, "forwardOrigin"> {
+        return this.raw.forward_origin != null;
+    }
+    /**
+     * true if this message is a reply
+     */
+    isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
+        return this.raw.reply_to_message != null;
+    }
+    /**
+     * true if this message is part of a media group (album). use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album
+     */
+    isMediaGroup(): boolean {
+        return this.raw.media_group_id != null;
+    }
+    /**
+     * true if `chat.type === "private"`
+     */
+    isPrivate(): boolean {
+        return this.raw.chat.type === "private";
+    }
+    /**
+     * true if `chat.type === "group"` (strict — supergroups excluded)
+     */
+    isGroup(): boolean {
+        return this.raw.chat.type === "group";
+    }
+    /**
+     * true if `chat.type === "supergroup"`
+     */
+    isSupergroup(): boolean {
+        return this.raw.chat.type === "supergroup";
+    }
+    /**
+     * true if `chat.type === "channel"`
+     */
+    isChannel(): boolean {
+        return this.raw.chat.type === "channel";
+    }
+    /**
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     */
+    download(): Promise<Buffer | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.download(t);
+    }
+    /**
+     * download the message attachment as a node `Readable`. returns `null` if no media
+     */
+    downloadStream(): Promise<import("node:stream").Readable | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
+    }
+    /**
+     * download the message attachment as an async-iterable byte stream. returns `null` if no media
+     */
+    downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
+    }
+    /**
+     * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
+     */
+    downloadToFile(path: string): Promise<void | null> {
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
+    is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
+        return this.kind === kind as unknown;
+    }
+    /**
+     * shortcut for `tg.api.answerGuestQuery`
+     */
+    answer(params: Omit<AnswerGuestQueryParams, "guest_query_id">) {
+        return this.tg.api.answerGuestQuery({
+            guest_query_id: this.raw.guest_query_id as NonNullable<typeof this.raw.guest_query_id>,
+            ...params
+        });
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("GuestMessageUpdate", this, depth, options, inspect);
     }
 }
 
@@ -15789,6 +18005,18 @@ export class PollUpdate {
         return this.raw.allows_revoting;
     }
     /**
+     * True if voting is limited to users who have been members of the chat where the poll was originally sent for more than 24 hours
+     */
+    get membersOnly(): boolean {
+        return this.raw.members_only;
+    }
+    /**
+     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. If omitted, then users from any country can participate in the poll.
+     */
+    get countryCodes(): string[] | undefined {
+        return this.raw.country_codes;
+    }
+    /**
      * Optional. Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
      */
     get correctOptionIds(): number[] | undefined {
@@ -15805,6 +18033,12 @@ export class PollUpdate {
      */
     get explanationEntities(): MessageEntity[] | undefined {
         return this.raw.explanation_entities ? (this._explanationEntities ??= this.raw.explanation_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. Media added to the quiz explanation
+     */
+    get explanationMedia(): TelegramPollMedia | undefined {
+        return this.raw.explanation_media;
     }
     /**
      * Optional. Amount of time in seconds the poll will be active after creation
@@ -15831,12 +18065,26 @@ export class PollUpdate {
         return this.raw.description_entities ? (this._descriptionEntities ??= this.raw.description_entities.map(x => new MessageEntity(x))) : undefined;
     }
     /**
+     * Optional. Media added to the poll description; for polls inside the Message object only
+     */
+    get media(): TelegramPollMedia | undefined {
+        return this.raw.media;
+    }
+    /**
      * true if `question_entities` has at least one item
      */
     hasQuestionEntities(): this is this & {
         questionEntities: MessageEntity[];
     } {
         return this.raw.question_entities != null && this.raw.question_entities.length > 0;
+    }
+    /**
+     * true if `country_codes` has at least one item
+     */
+    hasCountryCodes(): this is this & {
+        countryCodes: string[];
+    } {
+        return this.raw.country_codes != null && this.raw.country_codes.length > 0;
     }
     /**
      * true if `correct_option_ids` has at least one item
@@ -15861,6 +18109,14 @@ export class PollUpdate {
         explanationEntities: MessageEntity[];
     } {
         return this.raw.explanation_entities != null && this.raw.explanation_entities.length > 0;
+    }
+    /**
+     * true if `explanation_media` is set
+     */
+    hasExplanationMedia(): this is this & {
+        explanationMedia: TelegramPollMedia;
+    } {
+        return this.raw.explanation_media != null;
     }
     /**
      * true if `open_period` is set
@@ -15893,6 +18149,14 @@ export class PollUpdate {
         descriptionEntities: MessageEntity[];
     } {
         return this.raw.description_entities != null && this.raw.description_entities.length > 0;
+    }
+    /**
+     * true if `media` is set
+     */
+    hasMedia(): this is this & {
+        media: TelegramPollMedia;
+    } {
+        return this.raw.media != null;
     }
     /**
      * shortcut for `tg.api` — call any bot api method directly from the wrapped update
@@ -16371,6 +18635,15 @@ export class MyChatMemberUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -16404,6 +18677,15 @@ export class MyChatMemberUpdate {
         return this.tg.api.deleteMessage({
             chat_id: this.raw.chat.id,
             message_id: messageId,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id">) {
+        return this.tg.api.deleteMessageReaction({
+            chat_id: this.raw.chat.id,
             ...params
         });
     }
@@ -16804,6 +19086,15 @@ export class MyChatMemberUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -16817,7 +19108,7 @@ export class MyChatMemberUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -17513,6 +19804,15 @@ export class ChatMemberUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -17546,6 +19846,15 @@ export class ChatMemberUpdate {
         return this.tg.api.deleteMessage({
             chat_id: this.raw.chat.id,
             message_id: messageId,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id">) {
+        return this.tg.api.deleteMessageReaction({
+            chat_id: this.raw.chat.id,
             ...params
         });
     }
@@ -17946,6 +20255,15 @@ export class ChatMemberUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -17959,7 +20277,7 @@ export class ChatMemberUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -18453,6 +20771,15 @@ export class ChatJoinRequestUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -18486,6 +20813,15 @@ export class ChatJoinRequestUpdate {
         return this.tg.api.deleteMessage({
             chat_id: this.raw.chat.id,
             message_id: messageId,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id">) {
+        return this.tg.api.deleteMessageReaction({
+            chat_id: this.raw.chat.id,
             ...params
         });
     }
@@ -18886,6 +21222,15 @@ export class ChatJoinRequestUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -18899,7 +21244,7 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -19293,6 +21638,8 @@ export class NewChatMembersUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -19387,6 +21734,12 @@ export class NewChatMembersUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -19457,6 +21810,18 @@ export class NewChatMembersUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -19547,6 +21912,12 @@ export class NewChatMembersUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -20043,6 +22414,14 @@ export class NewChatMembersUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -20105,6 +22484,22 @@ export class NewChatMembersUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -20201,6 +22596,14 @@ export class NewChatMembersUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -21026,6 +23429,15 @@ export class NewChatMembersUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -21057,6 +23469,16 @@ export class NewChatMembersUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -21467,6 +23889,15 @@ export class NewChatMembersUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -21480,7 +23911,7 @@ export class NewChatMembersUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -21798,6 +24229,8 @@ export class LeftChatMemberUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -21892,6 +24325,12 @@ export class LeftChatMemberUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -21962,6 +24401,18 @@ export class LeftChatMemberUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -22052,6 +24503,12 @@ export class LeftChatMemberUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -22548,6 +25005,14 @@ export class LeftChatMemberUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -22610,6 +25075,22 @@ export class LeftChatMemberUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -22706,6 +25187,14 @@ export class LeftChatMemberUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -23531,6 +26020,15 @@ export class LeftChatMemberUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -23562,6 +26060,16 @@ export class LeftChatMemberUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -23972,6 +26480,15 @@ export class LeftChatMemberUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -23985,7 +26502,7 @@ export class LeftChatMemberUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -24303,6 +26820,8 @@ export class NewChatTitleUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -24397,6 +26916,12 @@ export class NewChatTitleUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -24467,6 +26992,18 @@ export class NewChatTitleUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -24557,6 +27094,12 @@ export class NewChatTitleUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -25053,6 +27596,14 @@ export class NewChatTitleUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -25115,6 +27666,22 @@ export class NewChatTitleUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -25211,6 +27778,14 @@ export class NewChatTitleUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -26036,6 +28611,15 @@ export class NewChatTitleUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -26067,6 +28651,16 @@ export class NewChatTitleUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -26477,6 +29071,15 @@ export class NewChatTitleUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -26490,7 +29093,7 @@ export class NewChatTitleUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -26808,6 +29411,8 @@ export class NewChatPhotoUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -26902,6 +29507,12 @@ export class NewChatPhotoUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -26972,6 +29583,18 @@ export class NewChatPhotoUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -27062,6 +29685,12 @@ export class NewChatPhotoUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -27558,6 +30187,14 @@ export class NewChatPhotoUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -27620,6 +30257,22 @@ export class NewChatPhotoUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -27716,6 +30369,14 @@ export class NewChatPhotoUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -28541,6 +31202,15 @@ export class NewChatPhotoUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -28572,6 +31242,16 @@ export class NewChatPhotoUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -28982,6 +31662,15 @@ export class NewChatPhotoUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -28995,7 +31684,7 @@ export class NewChatPhotoUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -29313,6 +32002,8 @@ export class DeleteChatPhotoUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -29407,6 +32098,12 @@ export class DeleteChatPhotoUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -29477,6 +32174,18 @@ export class DeleteChatPhotoUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -29567,6 +32276,12 @@ export class DeleteChatPhotoUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -30063,6 +32778,14 @@ export class DeleteChatPhotoUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -30125,6 +32848,22 @@ export class DeleteChatPhotoUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -30221,6 +32960,14 @@ export class DeleteChatPhotoUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -31046,6 +33793,15 @@ export class DeleteChatPhotoUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -31077,6 +33833,16 @@ export class DeleteChatPhotoUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -31487,6 +34253,15 @@ export class DeleteChatPhotoUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -31500,7 +34275,7 @@ export class DeleteChatPhotoUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -31818,6 +34593,8 @@ export class GroupChatCreatedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -31912,6 +34689,12 @@ export class GroupChatCreatedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -31982,6 +34765,18 @@ export class GroupChatCreatedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -32072,6 +34867,12 @@ export class GroupChatCreatedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -32568,6 +35369,14 @@ export class GroupChatCreatedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -32630,6 +35439,22 @@ export class GroupChatCreatedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -32726,6 +35551,14 @@ export class GroupChatCreatedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -33551,6 +36384,15 @@ export class GroupChatCreatedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -33582,6 +36424,16 @@ export class GroupChatCreatedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -33992,6 +36844,15 @@ export class GroupChatCreatedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -34005,7 +36866,7 @@ export class GroupChatCreatedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -34323,6 +37184,8 @@ export class PinnedMessageUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -34417,6 +37280,12 @@ export class PinnedMessageUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -34487,6 +37356,18 @@ export class PinnedMessageUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -34577,6 +37458,12 @@ export class PinnedMessageUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -35073,6 +37960,14 @@ export class PinnedMessageUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -35135,6 +38030,22 @@ export class PinnedMessageUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -35231,6 +38142,14 @@ export class PinnedMessageUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -36056,6 +38975,15 @@ export class PinnedMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -36087,6 +39015,16 @@ export class PinnedMessageUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -36497,6 +39435,15 @@ export class PinnedMessageUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -36510,7 +39457,7 @@ export class PinnedMessageUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -36828,6 +39775,8 @@ export class InvoiceUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -36922,6 +39871,12 @@ export class InvoiceUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -36992,6 +39947,18 @@ export class InvoiceUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -37082,6 +40049,12 @@ export class InvoiceUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -37578,6 +40551,14 @@ export class InvoiceUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -37640,6 +40621,22 @@ export class InvoiceUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -37736,6 +40733,14 @@ export class InvoiceUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -38561,6 +41566,15 @@ export class InvoiceUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -38592,6 +41606,16 @@ export class InvoiceUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -39002,6 +42026,15 @@ export class InvoiceUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -39015,7 +42048,7 @@ export class InvoiceUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -39333,6 +42366,8 @@ export class SuccessfulPaymentUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -39427,6 +42462,12 @@ export class SuccessfulPaymentUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -39497,6 +42538,18 @@ export class SuccessfulPaymentUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -39587,6 +42640,12 @@ export class SuccessfulPaymentUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -40083,6 +43142,14 @@ export class SuccessfulPaymentUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -40145,6 +43212,22 @@ export class SuccessfulPaymentUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -40241,6 +43324,14 @@ export class SuccessfulPaymentUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -41066,6 +44157,15 @@ export class SuccessfulPaymentUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -41097,6 +44197,16 @@ export class SuccessfulPaymentUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -41507,6 +44617,15 @@ export class SuccessfulPaymentUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -41520,7 +44639,7 @@ export class SuccessfulPaymentUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -41838,6 +44957,8 @@ export class UsersSharedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -41932,6 +45053,12 @@ export class UsersSharedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -42002,6 +45129,18 @@ export class UsersSharedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -42092,6 +45231,12 @@ export class UsersSharedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -42588,6 +45733,14 @@ export class UsersSharedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -42650,6 +45803,22 @@ export class UsersSharedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -42746,6 +45915,14 @@ export class UsersSharedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -43571,6 +46748,15 @@ export class UsersSharedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -43602,6 +46788,16 @@ export class UsersSharedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -44012,6 +47208,15 @@ export class UsersSharedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -44025,7 +47230,7 @@ export class UsersSharedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -44343,6 +47548,8 @@ export class ChatSharedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -44437,6 +47644,12 @@ export class ChatSharedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -44507,6 +47720,18 @@ export class ChatSharedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -44597,6 +47822,12 @@ export class ChatSharedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -45093,6 +48324,14 @@ export class ChatSharedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -45155,6 +48394,22 @@ export class ChatSharedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -45251,6 +48506,14 @@ export class ChatSharedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -46076,6 +49339,15 @@ export class ChatSharedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -46107,6 +49379,16 @@ export class ChatSharedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -46517,6 +49799,15 @@ export class ChatSharedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -46530,7 +49821,7 @@ export class ChatSharedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -46848,6 +50139,8 @@ export class WebAppDataUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -46942,6 +50235,12 @@ export class WebAppDataUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -47012,6 +50311,18 @@ export class WebAppDataUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -47102,6 +50413,12 @@ export class WebAppDataUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -47598,6 +50915,14 @@ export class WebAppDataUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -47660,6 +50985,22 @@ export class WebAppDataUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -47756,6 +51097,14 @@ export class WebAppDataUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -48581,6 +51930,15 @@ export class WebAppDataUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -48612,6 +51970,16 @@ export class WebAppDataUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -49022,6 +52390,15 @@ export class WebAppDataUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -49035,7 +52412,7 @@ export class WebAppDataUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -49353,6 +52730,8 @@ export class VideoChatScheduledUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -49447,6 +52826,12 @@ export class VideoChatScheduledUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -49517,6 +52902,18 @@ export class VideoChatScheduledUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -49607,6 +53004,12 @@ export class VideoChatScheduledUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -50103,6 +53506,14 @@ export class VideoChatScheduledUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -50165,6 +53576,22 @@ export class VideoChatScheduledUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -50261,6 +53688,14 @@ export class VideoChatScheduledUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -51086,6 +54521,15 @@ export class VideoChatScheduledUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -51117,6 +54561,16 @@ export class VideoChatScheduledUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -51527,6 +54981,15 @@ export class VideoChatScheduledUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -51540,7 +55003,7 @@ export class VideoChatScheduledUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -51858,6 +55321,8 @@ export class VideoChatStartedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -51952,6 +55417,12 @@ export class VideoChatStartedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -52022,6 +55493,18 @@ export class VideoChatStartedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -52112,6 +55595,12 @@ export class VideoChatStartedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -52608,6 +56097,14 @@ export class VideoChatStartedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -52670,6 +56167,22 @@ export class VideoChatStartedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -52766,6 +56279,14 @@ export class VideoChatStartedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -53591,6 +57112,15 @@ export class VideoChatStartedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -53622,6 +57152,16 @@ export class VideoChatStartedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -54032,6 +57572,15 @@ export class VideoChatStartedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -54045,7 +57594,7 @@ export class VideoChatStartedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -54363,6 +57912,8 @@ export class VideoChatEndedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -54457,6 +58008,12 @@ export class VideoChatEndedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -54527,6 +58084,18 @@ export class VideoChatEndedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -54617,6 +58186,12 @@ export class VideoChatEndedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -55113,6 +58688,14 @@ export class VideoChatEndedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -55175,6 +58758,22 @@ export class VideoChatEndedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -55271,6 +58870,14 @@ export class VideoChatEndedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -56096,6 +59703,15 @@ export class VideoChatEndedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -56127,6 +59743,16 @@ export class VideoChatEndedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -56537,6 +60163,15 @@ export class VideoChatEndedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -56550,7 +60185,7 @@ export class VideoChatEndedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -56868,6 +60503,8 @@ export class VideoChatParticipantsInvitedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -56962,6 +60599,12 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -57032,6 +60675,18 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -57122,6 +60777,12 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -57618,6 +61279,14 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -57680,6 +61349,22 @@ export class VideoChatParticipantsInvitedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -57776,6 +61461,14 @@ export class VideoChatParticipantsInvitedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -58601,6 +62294,15 @@ export class VideoChatParticipantsInvitedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -58632,6 +62334,16 @@ export class VideoChatParticipantsInvitedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -59042,6 +62754,15 @@ export class VideoChatParticipantsInvitedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -59055,7 +62776,7 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -59373,6 +63094,8 @@ export class ForumTopicCreatedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -59467,6 +63190,12 @@ export class ForumTopicCreatedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -59537,6 +63266,18 @@ export class ForumTopicCreatedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -59627,6 +63368,12 @@ export class ForumTopicCreatedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -60123,6 +63870,14 @@ export class ForumTopicCreatedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -60185,6 +63940,22 @@ export class ForumTopicCreatedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -60281,6 +64052,14 @@ export class ForumTopicCreatedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -61106,6 +64885,15 @@ export class ForumTopicCreatedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -61137,6 +64925,16 @@ export class ForumTopicCreatedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -61547,6 +65345,15 @@ export class ForumTopicCreatedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -61560,7 +65367,7 @@ export class ForumTopicCreatedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -61878,6 +65685,8 @@ export class ForumTopicEditedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -61972,6 +65781,12 @@ export class ForumTopicEditedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -62042,6 +65857,18 @@ export class ForumTopicEditedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -62132,6 +65959,12 @@ export class ForumTopicEditedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -62628,6 +66461,14 @@ export class ForumTopicEditedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -62690,6 +66531,22 @@ export class ForumTopicEditedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -62786,6 +66643,14 @@ export class ForumTopicEditedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -63611,6 +67476,15 @@ export class ForumTopicEditedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -63642,6 +67516,16 @@ export class ForumTopicEditedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -64052,6 +67936,15 @@ export class ForumTopicEditedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -64065,7 +67958,7 @@ export class ForumTopicEditedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -64383,6 +68276,8 @@ export class ForumTopicClosedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -64477,6 +68372,12 @@ export class ForumTopicClosedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -64547,6 +68448,18 @@ export class ForumTopicClosedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -64637,6 +68550,12 @@ export class ForumTopicClosedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -65133,6 +69052,14 @@ export class ForumTopicClosedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -65195,6 +69122,22 @@ export class ForumTopicClosedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -65291,6 +69234,14 @@ export class ForumTopicClosedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -66116,6 +70067,15 @@ export class ForumTopicClosedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -66147,6 +70107,16 @@ export class ForumTopicClosedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -66557,6 +70527,15 @@ export class ForumTopicClosedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -66570,7 +70549,7 @@ export class ForumTopicClosedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -66888,6 +70867,8 @@ export class ForumTopicReopenedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -66982,6 +70963,12 @@ export class ForumTopicReopenedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -67052,6 +71039,18 @@ export class ForumTopicReopenedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -67142,6 +71141,12 @@ export class ForumTopicReopenedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -67638,6 +71643,14 @@ export class ForumTopicReopenedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -67700,6 +71713,22 @@ export class ForumTopicReopenedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -67796,6 +71825,14 @@ export class ForumTopicReopenedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -68621,6 +72658,15 @@ export class ForumTopicReopenedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -68652,6 +72698,16 @@ export class ForumTopicReopenedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -69062,6 +73118,15 @@ export class ForumTopicReopenedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -69075,7 +73140,7 @@ export class ForumTopicReopenedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -69393,6 +73458,8 @@ export class GeneralForumTopicHiddenUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -69487,6 +73554,12 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -69557,6 +73630,18 @@ export class GeneralForumTopicHiddenUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -69647,6 +73732,12 @@ export class GeneralForumTopicHiddenUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -70143,6 +74234,14 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -70205,6 +74304,22 @@ export class GeneralForumTopicHiddenUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -70301,6 +74416,14 @@ export class GeneralForumTopicHiddenUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -71126,6 +75249,15 @@ export class GeneralForumTopicHiddenUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -71157,6 +75289,16 @@ export class GeneralForumTopicHiddenUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -71567,6 +75709,15 @@ export class GeneralForumTopicHiddenUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -71580,7 +75731,7 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -71898,6 +76049,8 @@ export class GeneralForumTopicUnhiddenUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -71992,6 +76145,12 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -72062,6 +76221,18 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -72152,6 +76323,12 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -72648,6 +76825,14 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -72710,6 +76895,22 @@ export class GeneralForumTopicUnhiddenUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -72806,6 +77007,14 @@ export class GeneralForumTopicUnhiddenUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -73631,6 +77840,15 @@ export class GeneralForumTopicUnhiddenUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -73662,6 +77880,16 @@ export class GeneralForumTopicUnhiddenUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -74072,6 +78300,15 @@ export class GeneralForumTopicUnhiddenUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -74085,7 +78322,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -74403,6 +78640,8 @@ export class GiveawayCreatedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -74497,6 +78736,12 @@ export class GiveawayCreatedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -74567,6 +78812,18 @@ export class GiveawayCreatedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -74657,6 +78914,12 @@ export class GiveawayCreatedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -75153,6 +79416,14 @@ export class GiveawayCreatedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -75215,6 +79486,22 @@ export class GiveawayCreatedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -75311,6 +79598,14 @@ export class GiveawayCreatedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -76136,6 +80431,15 @@ export class GiveawayCreatedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -76167,6 +80471,16 @@ export class GiveawayCreatedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -76577,6 +80891,15 @@ export class GiveawayCreatedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -76590,7 +80913,7 @@ export class GiveawayCreatedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -76908,6 +81231,8 @@ export class GiveawayCompletedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -77002,6 +81327,12 @@ export class GiveawayCompletedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -77072,6 +81403,18 @@ export class GiveawayCompletedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -77162,6 +81505,12 @@ export class GiveawayCompletedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -77658,6 +82007,14 @@ export class GiveawayCompletedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -77720,6 +82077,22 @@ export class GiveawayCompletedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -77816,6 +82189,14 @@ export class GiveawayCompletedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -78641,6 +83022,15 @@ export class GiveawayCompletedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -78672,6 +83062,16 @@ export class GiveawayCompletedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -79082,6 +83482,15 @@ export class GiveawayCompletedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -79095,7 +83504,7 @@ export class GiveawayCompletedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -79413,6 +83822,8 @@ export class GiveawayWinnersUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -79507,6 +83918,12 @@ export class GiveawayWinnersUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -79577,6 +83994,18 @@ export class GiveawayWinnersUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -79667,6 +84096,12 @@ export class GiveawayWinnersUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -80163,6 +84598,14 @@ export class GiveawayWinnersUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -80225,6 +84668,22 @@ export class GiveawayWinnersUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -80321,6 +84780,14 @@ export class GiveawayWinnersUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -81146,6 +85613,15 @@ export class GiveawayWinnersUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -81177,6 +85653,16 @@ export class GiveawayWinnersUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -81587,6 +86073,15 @@ export class GiveawayWinnersUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -81600,7 +86095,7 @@ export class GiveawayWinnersUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -81918,6 +86413,8 @@ export class BoostAddedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -82012,6 +86509,12 @@ export class BoostAddedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -82082,6 +86585,18 @@ export class BoostAddedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -82172,6 +86687,12 @@ export class BoostAddedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -82668,6 +87189,14 @@ export class BoostAddedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -82730,6 +87259,22 @@ export class BoostAddedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -82826,6 +87371,14 @@ export class BoostAddedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -83651,6 +88204,15 @@ export class BoostAddedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -83682,6 +88244,16 @@ export class BoostAddedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -84092,6 +88664,15 @@ export class BoostAddedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -84105,7 +88686,7 @@ export class BoostAddedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -84423,6 +89004,8 @@ export class MessageAutoDeleteTimerChangedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -84517,6 +89100,12 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -84587,6 +89176,18 @@ export class MessageAutoDeleteTimerChangedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -84677,6 +89278,12 @@ export class MessageAutoDeleteTimerChangedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -85173,6 +89780,14 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -85235,6 +89850,22 @@ export class MessageAutoDeleteTimerChangedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -85331,6 +89962,14 @@ export class MessageAutoDeleteTimerChangedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -86156,6 +90795,15 @@ export class MessageAutoDeleteTimerChangedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -86187,6 +90835,16 @@ export class MessageAutoDeleteTimerChangedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -86597,6 +91255,15 @@ export class MessageAutoDeleteTimerChangedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -86610,7 +91277,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -86928,6 +91595,8 @@ export class MigrateToChatIdUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -87022,6 +91691,12 @@ export class MigrateToChatIdUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -87092,6 +91767,18 @@ export class MigrateToChatIdUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -87182,6 +91869,12 @@ export class MigrateToChatIdUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -87678,6 +92371,14 @@ export class MigrateToChatIdUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -87740,6 +92441,22 @@ export class MigrateToChatIdUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -87836,6 +92553,14 @@ export class MigrateToChatIdUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -88661,6 +93386,15 @@ export class MigrateToChatIdUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -88692,6 +93426,16 @@ export class MigrateToChatIdUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -89102,6 +93846,15 @@ export class MigrateToChatIdUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -89115,7 +93868,7 @@ export class MigrateToChatIdUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -89433,6 +94186,8 @@ export class MigrateFromChatIdUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -89527,6 +94282,12 @@ export class MigrateFromChatIdUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -89597,6 +94358,18 @@ export class MigrateFromChatIdUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -89687,6 +94460,12 @@ export class MigrateFromChatIdUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -90183,6 +94962,14 @@ export class MigrateFromChatIdUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -90245,6 +95032,22 @@ export class MigrateFromChatIdUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -90341,6 +95144,14 @@ export class MigrateFromChatIdUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -91166,6 +95977,15 @@ export class MigrateFromChatIdUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -91197,6 +96017,16 @@ export class MigrateFromChatIdUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -91607,6 +96437,15 @@ export class MigrateFromChatIdUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -91620,7 +96459,7 @@ export class MigrateFromChatIdUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -91938,6 +96777,8 @@ export class PassportDataUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -92032,6 +96873,12 @@ export class PassportDataUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -92102,6 +96949,18 @@ export class PassportDataUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -92192,6 +97051,12 @@ export class PassportDataUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -92688,6 +97553,14 @@ export class PassportDataUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -92750,6 +97623,22 @@ export class PassportDataUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -92846,6 +97735,14 @@ export class PassportDataUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -93671,6 +98568,15 @@ export class PassportDataUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -93702,6 +98608,16 @@ export class PassportDataUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -94112,6 +99028,15 @@ export class PassportDataUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -94125,7 +99050,7 @@ export class PassportDataUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -94443,6 +99368,8 @@ export class ProximityAlertTriggeredUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -94537,6 +99464,12 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -94607,6 +99540,18 @@ export class ProximityAlertTriggeredUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -94697,6 +99642,12 @@ export class ProximityAlertTriggeredUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -95193,6 +100144,14 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -95255,6 +100214,22 @@ export class ProximityAlertTriggeredUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -95351,6 +100326,14 @@ export class ProximityAlertTriggeredUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -96176,6 +101159,15 @@ export class ProximityAlertTriggeredUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -96207,6 +101199,16 @@ export class ProximityAlertTriggeredUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -96617,6 +101619,15 @@ export class ProximityAlertTriggeredUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -96630,7 +101641,7 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -96948,6 +101959,8 @@ export class WriteAccessAllowedUpdate {
     private _quote?: TextQuote;
     private _replyToStory?: Story;
     private _viaBot?: User;
+    private _guestBotCallerUser?: User;
+    private _guestBotCallerChat?: Chat;
     private _entities?: MessageEntity[];
     private _linkPreviewOptions?: LinkPreviewOptions;
     private _animation?: Animation;
@@ -97042,6 +102055,12 @@ export class WriteAccessAllowedUpdate {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -97112,6 +102131,18 @@ export class WriteAccessAllowedUpdate {
      */
     get viaBot(): User | undefined {
         return this.raw.via_bot ? (this._viaBot ??= new User(this.raw.via_bot)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        return this.raw.guest_bot_caller_user ? (this._guestBotCallerUser ??= new User(this.raw.guest_bot_caller_user)) : undefined;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        return this.raw.guest_bot_caller_chat ? (this._guestBotCallerChat ??= new Chat(this.raw.guest_bot_caller_chat)) : undefined;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -97202,6 +102233,12 @@ export class WriteAccessAllowedUpdate {
      */
     get document(): Document | undefined {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -97698,6 +102735,14 @@ export class WriteAccessAllowedUpdate {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -97760,6 +102805,22 @@ export class WriteAccessAllowedUpdate {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -97856,6 +102917,14 @@ export class WriteAccessAllowedUpdate {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -98681,6 +103750,15 @@ export class WriteAccessAllowedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteAllMessageReactions`
+     */
+    deleteAllMessageReactions(params: Omit<DeleteAllMessageReactionsParams, "chat_id"> = {}) {
+        return this.tg.api.deleteAllMessageReactions({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteChatPhoto`
      */
     deleteChatPhoto(params: Omit<DeleteChatPhotoParams, "chat_id"> = {}) {
@@ -98712,6 +103790,16 @@ export class WriteAccessAllowedUpdate {
      */
     delete(params: Omit<DeleteMessageParams, "chat_id" | "message_id"> = {}) {
         return this.tg.api.deleteMessage({
+            chat_id: this.raw.chat.id,
+            message_id: this.raw.message_id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessageReaction`
+     */
+    deleteMessageReaction(params: Omit<DeleteMessageReactionParams, "chat_id" | "message_id"> = {}) {
+        return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             ...params
@@ -99122,6 +104210,15 @@ export class WriteAccessAllowedUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: Omit<SendLocationParams, "chat_id" | "latitude" | "longitude"> = {}) {
@@ -99135,7 +104232,7 @@ export class WriteAccessAllowedUpdate {
     /**
      * shortcut for `tg.api.sendMediaGroup`
      */
-    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
+    sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: Omit<SendMediaGroupParams, "chat_id" | "media"> = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             media: media,
@@ -99450,6 +104547,7 @@ export interface UpdateKindMap {
     "business_message": BusinessMessageUpdate;
     "edited_business_message": EditedBusinessMessageUpdate;
     "deleted_business_messages": DeletedBusinessMessagesUpdate;
+    "guest_message": GuestMessageUpdate;
     "message_reaction": MessageReactionUpdate;
     "message_reaction_count": MessageReactionCountUpdate;
     "inline_query": InlineQueryUpdate;
@@ -99498,7 +104596,7 @@ export interface UpdateKindMap {
     "write_access_allowed": WriteAccessAllowedUpdate;
 }
 
-export type Update = MessageUpdate | EditedMessageUpdate | ChannelPostUpdate | EditedChannelPostUpdate | BusinessConnectionUpdate | BusinessMessageUpdate | EditedBusinessMessageUpdate | DeletedBusinessMessagesUpdate | MessageReactionUpdate | MessageReactionCountUpdate | InlineQueryUpdate | ChosenInlineResultUpdate | CallbackQueryUpdate | ShippingQueryUpdate | PreCheckoutQueryUpdate | PollUpdate | PollAnswerUpdate | MyChatMemberUpdate | ChatMemberUpdate | ChatJoinRequestUpdate | ChatBoostUpdate | RemovedChatBoostUpdate | NewChatMembersUpdate | LeftChatMemberUpdate | NewChatTitleUpdate | NewChatPhotoUpdate | DeleteChatPhotoUpdate | GroupChatCreatedUpdate | PinnedMessageUpdate | InvoiceUpdate | SuccessfulPaymentUpdate | UsersSharedUpdate | ChatSharedUpdate | WebAppDataUpdate | VideoChatScheduledUpdate | VideoChatStartedUpdate | VideoChatEndedUpdate | VideoChatParticipantsInvitedUpdate | ForumTopicCreatedUpdate | ForumTopicEditedUpdate | ForumTopicClosedUpdate | ForumTopicReopenedUpdate | GeneralForumTopicHiddenUpdate | GeneralForumTopicUnhiddenUpdate | GiveawayCreatedUpdate | GiveawayCompletedUpdate | GiveawayWinnersUpdate | BoostAddedUpdate | MessageAutoDeleteTimerChangedUpdate | MigrateToChatIdUpdate | MigrateFromChatIdUpdate | PassportDataUpdate | ProximityAlertTriggeredUpdate | WriteAccessAllowedUpdate;
+export type Update = MessageUpdate | EditedMessageUpdate | ChannelPostUpdate | EditedChannelPostUpdate | BusinessConnectionUpdate | BusinessMessageUpdate | EditedBusinessMessageUpdate | DeletedBusinessMessagesUpdate | GuestMessageUpdate | MessageReactionUpdate | MessageReactionCountUpdate | InlineQueryUpdate | ChosenInlineResultUpdate | CallbackQueryUpdate | ShippingQueryUpdate | PreCheckoutQueryUpdate | PollUpdate | PollAnswerUpdate | MyChatMemberUpdate | ChatMemberUpdate | ChatJoinRequestUpdate | ChatBoostUpdate | RemovedChatBoostUpdate | NewChatMembersUpdate | LeftChatMemberUpdate | NewChatTitleUpdate | NewChatPhotoUpdate | DeleteChatPhotoUpdate | GroupChatCreatedUpdate | PinnedMessageUpdate | InvoiceUpdate | SuccessfulPaymentUpdate | UsersSharedUpdate | ChatSharedUpdate | WebAppDataUpdate | VideoChatScheduledUpdate | VideoChatStartedUpdate | VideoChatEndedUpdate | VideoChatParticipantsInvitedUpdate | ForumTopicCreatedUpdate | ForumTopicEditedUpdate | ForumTopicClosedUpdate | ForumTopicReopenedUpdate | GeneralForumTopicHiddenUpdate | GeneralForumTopicUnhiddenUpdate | GiveawayCreatedUpdate | GiveawayCompletedUpdate | GiveawayWinnersUpdate | BoostAddedUpdate | MessageAutoDeleteTimerChangedUpdate | MigrateToChatIdUpdate | MigrateFromChatIdUpdate | PassportDataUpdate | ProximityAlertTriggeredUpdate | WriteAccessAllowedUpdate;
 
 export const UPDATE_KINDS: readonly UpdateKind[] = [
     "message",
@@ -99509,6 +104607,7 @@ export const UPDATE_KINDS: readonly UpdateKind[] = [
     "business_message",
     "edited_business_message",
     "deleted_business_messages",
+    "guest_message",
     "message_reaction",
     "message_reaction_count",
     "inline_query",

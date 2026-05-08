@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 9.6.0
+/// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-30T14:12:46.898Z
+/// generated at: 2026-05-08T19:29:05.086Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramInlineQueryResultArticle, TelegramInlineQueryResultAudio, TelegramInlineQueryResultCachedAudio, TelegramInlineQueryResultCachedDocument, TelegramInlineQueryResultCachedGif, TelegramInlineQueryResultCachedMpeg4Gif, TelegramInlineQueryResultCachedPhoto, TelegramInlineQueryResultCachedSticker, TelegramInlineQueryResultCachedVideo, TelegramInlineQueryResultCachedVoice, TelegramInlineQueryResultContact, TelegramInlineQueryResultDocument, TelegramInlineQueryResultGame, TelegramInlineQueryResultGif, TelegramInlineQueryResultLocation, TelegramInlineQueryResultMpeg4Gif, TelegramInlineQueryResultPhoto, TelegramInlineQueryResultVenue, TelegramInlineQueryResultVideo, TelegramInlineQueryResultVoice, TelegramInputMediaAnimation, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMediaPhoto, TelegramInputPaidMediaVideo, TelegramInputProfilePhotoAnimated, TelegramInputProfilePhotoStatic, TelegramInputStoryContentPhoto, TelegramInputStoryContentVideo } from "./types";
+import type { TelegramInlineQueryResultArticle, TelegramInlineQueryResultAudio, TelegramInlineQueryResultCachedAudio, TelegramInlineQueryResultCachedDocument, TelegramInlineQueryResultCachedGif, TelegramInlineQueryResultCachedMpeg4Gif, TelegramInlineQueryResultCachedPhoto, TelegramInlineQueryResultCachedSticker, TelegramInlineQueryResultCachedVideo, TelegramInlineQueryResultCachedVoice, TelegramInlineQueryResultContact, TelegramInlineQueryResultDocument, TelegramInlineQueryResultGame, TelegramInlineQueryResultGif, TelegramInlineQueryResultLocation, TelegramInlineQueryResultMpeg4Gif, TelegramInlineQueryResultPhoto, TelegramInlineQueryResultVenue, TelegramInlineQueryResultVideo, TelegramInlineQueryResultVoice, TelegramInputMediaAnimation, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaLocation, TelegramInputMediaPhoto, TelegramInputMediaSticker, TelegramInputMediaVenue, TelegramInputMediaVideo, TelegramInputPaidMediaLivePhoto, TelegramInputPaidMediaPhoto, TelegramInputPaidMediaVideo, TelegramInputProfilePhotoAnimated, TelegramInputProfilePhotoStatic, TelegramInputStoryContentPhoto, TelegramInputStoryContentVideo } from "./types";
 export class InputMedia {
     /**
      * Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
@@ -34,11 +34,47 @@ export class InputMedia {
         };
     }
     /**
+     * Represents a live photo to be sent.
+     */
+    static livePhoto(params: Omit<TelegramInputMediaLivePhoto, "type">): TelegramInputMediaLivePhoto {
+        return {
+            type: "live_photo",
+            ...params
+        };
+    }
+    /**
+     * Represents a location to be sent.
+     */
+    static location(params: Omit<TelegramInputMediaLocation, "type">): TelegramInputMediaLocation {
+        return {
+            type: "location",
+            ...params
+        };
+    }
+    /**
      * Represents a photo to be sent.
      */
     static photo(params: Omit<TelegramInputMediaPhoto, "type">): TelegramInputMediaPhoto {
         return {
             type: "photo",
+            ...params
+        };
+    }
+    /**
+     * Represents a sticker file to be sent.
+     */
+    static sticker(params: Omit<TelegramInputMediaSticker, "type">): TelegramInputMediaSticker {
+        return {
+            type: "sticker",
+            ...params
+        };
+    }
+    /**
+     * Represents a venue to be sent.
+     */
+    static venue(params: Omit<TelegramInputMediaVenue, "type">): TelegramInputMediaVenue {
+        return {
+            type: "venue",
             ...params
         };
     }
@@ -54,6 +90,15 @@ export class InputMedia {
 }
 
 export class InputPaidMedia {
+    /**
+     * The paid media to send is a live photo.
+     */
+    static livePhoto(params: Omit<TelegramInputPaidMediaLivePhoto, "type">): TelegramInputPaidMediaLivePhoto {
+        return {
+            type: "live_photo",
+            ...params
+        };
+    }
     /**
      * The paid media to send is a photo.
      */

@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 9.6.0
+/// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-30T14:12:46.898Z
+/// generated at: 2026-05-08T19:29:05.086Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLinkPreviewOptions, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
+import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
 import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
 import { Photo, VideoQualities } from "../structures-handcrafted";
@@ -859,7 +859,13 @@ export class ChatPermissions {
         return this.raw.can_add_web_page_previews;
     }
     /**
-     * Optional. True, if the user is allowed to edit their own tag
+     * Optional. True, if the user is allowed to react to messages. If omitted, defaults to the value of can_send_messages.
+     */
+    get canReactToMessages(): boolean | undefined {
+        return this.raw.can_react_to_messages;
+    }
+    /**
+     * Optional. True, if the user is allowed to edit their own tag. If omitted, defaults to the value of can_pin_messages.
      */
     get canEditTag(): boolean | undefined {
         return this.raw.can_edit_tag;
@@ -967,6 +973,14 @@ export class ChatPermissions {
         canAddWebPagePreviews: boolean;
     } {
         return this.raw.can_add_web_page_previews != null;
+    }
+    /**
+     * true if `can_react_to_messages` is set
+     */
+    hasCanReactToMessages(): this is this & {
+        canReactToMessages: boolean;
+    } {
+        return this.raw.can_react_to_messages != null;
     }
     /**
      * true if `can_edit_tag` is set
@@ -1454,6 +1468,12 @@ export class ExternalReplyInfo {
         return this._document;
     }
     /**
+     * Optional. Message is a live photo, information about the live photo
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
+    }
+    /**
      * Optional. Message contains paid media; information about the paid media
      */
     get paidMedia(): TelegramPaidMediaInfo | undefined {
@@ -1653,6 +1673,14 @@ export class ExternalReplyInfo {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -2367,7 +2395,7 @@ export class InlineKeyboardButton {
         return this.raw.callback_data;
     }
     /**
-     * Optional. Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a Telegram Business account.
+     * Optional. Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
      */
     get webApp(): WebAppInfo | undefined {
         if (this._webApp === undefined) {
@@ -2382,19 +2410,19 @@ export class InlineKeyboardButton {
         return this.raw.login_url;
     }
     /**
-     * Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+     * Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
      */
     get switchInlineQuery(): string | undefined {
         return this.raw.switch_inline_query;
     }
     /**
-     * Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+     * Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
      */
     get switchInlineQueryCurrentChat(): string | undefined {
         return this.raw.switch_inline_query_current_chat;
     }
     /**
-     * Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+     * Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
      */
     get switchInlineQueryChosenChat(): TelegramSwitchInlineQueryChosenChat | undefined {
         return this.raw.switch_inline_query_chosen_chat;
@@ -2910,6 +2938,8 @@ export class Message {
     private _quote?: TextQuote | undefined;
     private _replyToStory?: Story | undefined;
     private _viaBot?: User | undefined;
+    private _guestBotCallerUser?: User | undefined;
+    private _guestBotCallerChat?: Chat | undefined;
     private _entities?: MessageEntity[] | undefined;
     private _linkPreviewOptions?: LinkPreviewOptions | undefined;
     private _animation?: Animation | undefined;
@@ -3016,6 +3046,12 @@ export class Message {
         return this.raw.date;
     }
     /**
+     * Optional. The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+     */
+    get guestQueryId(): string | undefined {
+        return this.raw.guest_query_id;
+    }
+    /**
      * Optional. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
      */
     get businessConnectionId(): string | undefined {
@@ -3101,6 +3137,24 @@ export class Message {
             this._viaBot = this.raw.via_bot ? new User(this.raw.via_bot) : undefined;
         }
         return this._viaBot;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+     */
+    get guestBotCallerUser(): User | undefined {
+        if (this._guestBotCallerUser === undefined) {
+            this._guestBotCallerUser = this.raw.guest_bot_caller_user ? new User(this.raw.guest_bot_caller_user) : undefined;
+        }
+        return this._guestBotCallerUser;
+    }
+    /**
+     * Optional. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+     */
+    get guestBotCallerChat(): Chat | undefined {
+        if (this._guestBotCallerChat === undefined) {
+            this._guestBotCallerChat = this.raw.guest_bot_caller_chat ? new Chat(this.raw.guest_bot_caller_chat) : undefined;
+        }
+        return this._guestBotCallerChat;
     }
     /**
      * Optional. Date the message was last edited in Unix time
@@ -3203,6 +3257,12 @@ export class Message {
             this._document = this.raw.document ? new Document(this.raw.document) : undefined;
         }
         return this._document;
+    }
+    /**
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     */
+    get livePhoto(): TelegramLivePhoto | undefined {
+        return this.raw.live_photo;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -3798,6 +3858,14 @@ export class Message {
         return this.raw.sender_tag != null;
     }
     /**
+     * true if `guest_query_id` is set
+     */
+    hasGuestQueryId(): this is this & {
+        guestQueryId: string;
+    } {
+        return this.raw.guest_query_id != null;
+    }
+    /**
      * true if `business_connection_id` is set
      */
     hasBusinessConnectionId(): this is this & {
@@ -3868,6 +3936,22 @@ export class Message {
         viaBot: User;
     } {
         return this.raw.via_bot != null;
+    }
+    /**
+     * true if `guest_bot_caller_user` is set
+     */
+    hasGuestBotCallerUser(): this is this & {
+        guestBotCallerUser: User;
+    } {
+        return this.raw.guest_bot_caller_user != null;
+    }
+    /**
+     * true if `guest_bot_caller_chat` is set
+     */
+    hasGuestBotCallerChat(): this is this & {
+        guestBotCallerChat: Chat;
+    } {
+        return this.raw.guest_bot_caller_chat != null;
     }
     /**
      * true if `edit_date` is set
@@ -3964,6 +4048,14 @@ export class Message {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: TelegramLivePhoto;
+    } {
+        return this.raw.live_photo != null;
     }
     /**
      * true if `paid_media` is set
@@ -5113,6 +5205,18 @@ export class Poll {
         return this.raw.allows_revoting;
     }
     /**
+     * True if voting is limited to users who have been members of the chat where the poll was originally sent for more than 24 hours
+     */
+    get membersOnly(): boolean {
+        return this.raw.members_only;
+    }
+    /**
+     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. If omitted, then users from any country can participate in the poll.
+     */
+    get countryCodes(): string[] | undefined {
+        return this.raw.country_codes;
+    }
+    /**
      * Optional. Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
      */
     get correctOptionIds(): number[] | undefined {
@@ -5129,6 +5233,12 @@ export class Poll {
      */
     get explanationEntities(): MessageEntity[] | undefined {
         return this.raw.explanation_entities ? (this._explanationEntities ??= this.raw.explanation_entities.map(x => new MessageEntity(x))) : undefined;
+    }
+    /**
+     * Optional. Media added to the quiz explanation
+     */
+    get explanationMedia(): TelegramPollMedia | undefined {
+        return this.raw.explanation_media;
     }
     /**
      * Optional. Amount of time in seconds the poll will be active after creation
@@ -5155,12 +5265,26 @@ export class Poll {
         return this.raw.description_entities ? (this._descriptionEntities ??= this.raw.description_entities.map(x => new MessageEntity(x))) : undefined;
     }
     /**
+     * Optional. Media added to the poll description; for polls inside the Message object only
+     */
+    get media(): TelegramPollMedia | undefined {
+        return this.raw.media;
+    }
+    /**
      * true if `question_entities` has at least one item
      */
     hasQuestionEntities(): this is this & {
         questionEntities: MessageEntity[];
     } {
         return this.raw.question_entities != null && this.raw.question_entities.length > 0;
+    }
+    /**
+     * true if `country_codes` has at least one item
+     */
+    hasCountryCodes(): this is this & {
+        countryCodes: string[];
+    } {
+        return this.raw.country_codes != null && this.raw.country_codes.length > 0;
     }
     /**
      * true if `correct_option_ids` has at least one item
@@ -5185,6 +5309,14 @@ export class Poll {
         explanationEntities: MessageEntity[];
     } {
         return this.raw.explanation_entities != null && this.raw.explanation_entities.length > 0;
+    }
+    /**
+     * true if `explanation_media` is set
+     */
+    hasExplanationMedia(): this is this & {
+        explanationMedia: TelegramPollMedia;
+    } {
+        return this.raw.explanation_media != null;
     }
     /**
      * true if `open_period` is set
@@ -5217,6 +5349,14 @@ export class Poll {
         descriptionEntities: MessageEntity[];
     } {
         return this.raw.description_entities != null && this.raw.description_entities.length > 0;
+    }
+    /**
+     * true if `media` is set
+     */
+    hasMedia(): this is this & {
+        media: TelegramPollMedia;
+    } {
+        return this.raw.media != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("Poll", this, depth, options, inspect);
@@ -5328,6 +5468,12 @@ export class PollOption {
         return this.raw.text_entities ? (this._textEntities ??= this.raw.text_entities.map(x => new MessageEntity(x))) : undefined;
     }
     /**
+     * Optional. Media added to the poll option
+     */
+    get media(): TelegramPollMedia | undefined {
+        return this.raw.media;
+    }
+    /**
      * Number of users who voted for this option; may be 0 if unknown
      */
     get voterCount(): number {
@@ -5364,6 +5510,14 @@ export class PollOption {
         textEntities: MessageEntity[];
     } {
         return this.raw.text_entities != null && this.raw.text_entities.length > 0;
+    }
+    /**
+     * true if `media` is set
+     */
+    hasMedia(): this is this & {
+        media: TelegramPollMedia;
+    } {
+        return this.raw.media != null;
     }
     /**
      * true if `added_by_user` is set
@@ -6117,13 +6271,19 @@ export class User {
         return this.raw.can_read_all_group_messages;
     }
     /**
+     * Optional. True, if the bot supports guest queries from chats it is not a member of. Returned only in getMe.
+     */
+    get supportsGuestQueries(): boolean | undefined {
+        return this.raw.supports_guest_queries;
+    }
+    /**
      * Optional. True, if the bot supports inline queries. Returned only in getMe.
      */
     get supportsInlineQueries(): boolean | undefined {
         return this.raw.supports_inline_queries;
     }
     /**
-     * Optional. True, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in getMe.
+     * Optional. True, if the bot can be connected to a user account to manage it. Returned only in getMe.
      */
     get canConnectToBusiness(): boolean | undefined {
         return this.raw.can_connect_to_business;
@@ -6199,6 +6359,14 @@ export class User {
         canReadAllGroupMessages: boolean;
     } {
         return this.raw.can_read_all_group_messages != null;
+    }
+    /**
+     * true if `supports_guest_queries` is set
+     */
+    hasSupportsGuestQueries(): this is this & {
+        supportsGuestQueries: boolean;
+    } {
+        return this.raw.supports_guest_queries != null;
     }
     /**
      * true if `supports_inline_queries` is set

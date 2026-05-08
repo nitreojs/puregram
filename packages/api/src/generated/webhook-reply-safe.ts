@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 9.6.0
+/// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-30T14:12:46.898Z
+/// generated at: 2026-05-08T19:29:05.086Z
 /// see scripts/emit.ts in @puregram/api
 
 export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
@@ -22,11 +22,13 @@ export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
     "createNewStickerSet",
     "declineChatJoinRequest",
     "declineSuggestedPost",
+    "deleteAllMessageReactions",
     "deleteBusinessMessages",
     "deleteChatPhoto",
     "deleteChatStickerSet",
     "deleteForumTopic",
     "deleteMessage",
+    "deleteMessageReaction",
     "deleteMessages",
     "deleteMyCommands",
     "deleteStickerFromSet",
@@ -72,6 +74,7 @@ export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
     "setChatStickerSet",
     "setChatTitle",
     "setCustomEmojiStickerSetThumbnail",
+    "setManagedBotAccessSettings",
     "setMessageReaction",
     "setMyCommands",
     "setMyDefaultAdministratorRights",

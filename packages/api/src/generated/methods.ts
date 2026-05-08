@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 9.6.0
+/// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-30T14:12:46.898Z
+/// generated at: 2026-05-08T19:29:05.086Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAcceptedGiftTypes, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
+import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
 import type { Formattable } from "../formattable";
 /**
  * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
@@ -59,6 +59,25 @@ export interface AnswerCallbackQueryParams {
  * Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
  */
 export type answerCallbackQuery = (params: AnswerCallbackQueryParams) => Promise<true>;
+
+/**
+ * Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
+ */
+export interface AnswerGuestQueryParams {
+    /**
+     * Unique identifier for the query to be answered
+     */
+    guest_query_id: string;
+    /**
+     * A JSON-serialized object describing the message to be sent
+     */
+    result: TelegramInlineQueryResult;
+}
+
+/**
+ * Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
+ */
+export type answerGuestQuery = (params: AnswerGuestQueryParams) => Promise<TelegramSentGuestMessage>;
 
 /**
  * Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
@@ -169,7 +188,7 @@ export type answerWebAppQuery = (params: AnswerWebAppQueryParams) => Promise<Tel
  */
 export interface ApproveChatJoinRequestParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -211,7 +230,7 @@ export type approveSuggestedPost = (params: ApproveSuggestedPostParams) => Promi
  */
 export interface BanChatMemberParams {
     /**
-     * Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
+     * Unique identifier for the target group or username of the target supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -238,7 +257,7 @@ export type banChatMember = (params: BanChatMemberParams) => Promise<true>;
  */
 export interface BanChatSenderChatParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -262,7 +281,7 @@ export type close = () => Promise<true>;
  */
 export interface CloseForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -281,7 +300,7 @@ export type closeForumTopic = (params: CloseForumTopicParams) => Promise<true>;
  */
 export interface CloseGeneralForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
 }
@@ -315,7 +334,7 @@ export type convertGiftToStars = (params: ConvertGiftToStarsParams) => Promise<t
  */
 export interface CopyMessageParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -327,7 +346,7 @@ export interface CopyMessageParams {
      */
     direct_messages_topic_id?: number;
     /**
-     * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+     * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format @username)
      */
     from_chat_id: number | string;
     /**
@@ -363,7 +382,7 @@ export interface CopyMessageParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -396,7 +415,7 @@ export type copyMessage = (params: CopyMessageParams) => Promise<TelegramMessage
  */
 export interface CopyMessagesParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -408,7 +427,7 @@ export interface CopyMessagesParams {
      */
     direct_messages_topic_id?: number;
     /**
-     * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+     * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format @username)
      */
     from_chat_id: number | string;
     /**
@@ -439,7 +458,7 @@ export type copyMessages = (params: CopyMessagesParams) => Promise<TelegramMessa
  */
 export interface CreateChatInviteLinkParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -470,7 +489,7 @@ export type createChatInviteLink = (params: CreateChatInviteLinkParams) => Promi
  */
 export interface CreateChatSubscriptionInviteLinkParams {
     /**
-     * Unique identifier for the target channel chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target channel chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -497,7 +516,7 @@ export type createChatSubscriptionInviteLink = (params: CreateChatSubscriptionIn
  */
 export interface CreateForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -658,7 +677,7 @@ export type createNewStickerSet = (params: CreateNewStickerSetParams) => Promise
  */
 export interface DeclineChatJoinRequestParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -696,6 +715,29 @@ export interface DeclineSuggestedPostParams {
 export type declineSuggestedPost = (params: DeclineSuggestedPostParams) => Promise<true>;
 
 /**
+ * Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+ */
+export interface DeleteAllMessageReactionsParams {
+    /**
+     * Unique identifier for the target chat or username of the target supergroup (in the format @username)
+     */
+    chat_id: number | string;
+    /**
+     * Identifier of the user whose reactions will be removed, if the reactions were added by a user
+     */
+    user_id?: number;
+    /**
+     * Identifier of the chat whose reactions will be removed, if the reactions were added by a chat
+     */
+    actor_chat_id?: number;
+}
+
+/**
+ * Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+ */
+export type deleteAllMessageReactions = (params: DeleteAllMessageReactionsParams) => Promise<true>;
+
+/**
  * Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
  */
 export interface DeleteBusinessMessagesParams {
@@ -719,7 +761,7 @@ export type deleteBusinessMessages = (params: DeleteBusinessMessagesParams) => P
  */
 export interface DeleteChatPhotoParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
 }
@@ -734,7 +776,7 @@ export type deleteChatPhoto = (params: DeleteChatPhotoParams) => Promise<true>;
  */
 export interface DeleteChatStickerSetParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
 }
@@ -749,7 +791,7 @@ export type deleteChatStickerSet = (params: DeleteChatStickerSetParams) => Promi
  */
 export interface DeleteForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -768,7 +810,7 @@ export type deleteForumTopic = (params: DeleteForumTopicParams) => Promise<true>
  */
 export interface DeleteMessageParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -783,11 +825,38 @@ export interface DeleteMessageParams {
 export type deleteMessage = (params: DeleteMessageParams) => Promise<true>;
 
 /**
+ * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+ */
+export interface DeleteMessageReactionParams {
+    /**
+     * Unique identifier for the target chat or username of the target supergroup (in the format @username)
+     */
+    chat_id: number | string;
+    /**
+     * Identifier of the target message
+     */
+    message_id: number;
+    /**
+     * Identifier of the user whose reaction will be removed, if the reaction was added by a user
+     */
+    user_id?: number;
+    /**
+     * Identifier of the chat whose reaction will be removed, if the reaction was added by a chat
+     */
+    actor_chat_id?: number;
+}
+
+/**
+ * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+ */
+export type deleteMessageReaction = (params: DeleteMessageReactionParams) => Promise<true>;
+
+/**
  * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns True on success.
  */
 export interface DeleteMessagesParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -889,7 +958,7 @@ export type deleteWebhook = (params: DeleteWebhookParams) => Promise<true>;
  */
 export interface EditChatInviteLinkParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -924,7 +993,7 @@ export type editChatInviteLink = (params: EditChatInviteLinkParams) => Promise<T
  */
 export interface EditChatSubscriptionInviteLinkParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -947,7 +1016,7 @@ export type editChatSubscriptionInviteLink = (params: EditChatSubscriptionInvite
  */
 export interface EditForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -974,7 +1043,7 @@ export type editForumTopic = (params: EditForumTopicParams) => Promise<true>;
  */
 export interface EditGeneralForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -997,7 +1066,7 @@ export interface EditMessageCaptionParams {
      */
     business_connection_id?: string;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
      */
     chat_id?: number | string;
     /**
@@ -1046,9 +1115,9 @@ export interface EditMessageChecklistParams {
      */
     business_connection_id: string;
     /**
-     * Unique identifier for the target chat
+     * Unique identifier for the target chat or username of the target bot in the format @username
      */
-    chat_id: number;
+    chat_id: number | string;
     /**
      * Unique identifier for the target message
      */
@@ -1079,7 +1148,7 @@ export interface EditMessageLiveLocationParams {
      */
     business_connection_id?: string;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
      */
     chat_id?: number | string;
     /**
@@ -1128,7 +1197,7 @@ export interface EditMessageLiveLocationParams {
 export type editMessageLiveLocation = (params: EditMessageLiveLocationParams) => Promise<TelegramMessage>;
 
 /**
- * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export interface EditMessageMediaParams {
     /**
@@ -1136,7 +1205,7 @@ export interface EditMessageMediaParams {
      */
     business_connection_id?: string;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
      */
     chat_id?: number | string;
     /**
@@ -1160,7 +1229,7 @@ export interface EditMessageMediaParams {
 }
 
 /**
- * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export type editMessageMedia = (params: EditMessageMediaParams) => Promise<TelegramMessage>;
 
@@ -1173,7 +1242,7 @@ export interface EditMessageReplyMarkupParams {
      */
     business_connection_id?: string;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
      */
     chat_id?: number | string;
     /**
@@ -1206,7 +1275,7 @@ export interface EditMessageTextParams {
      */
     business_connection_id?: string;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
      */
     chat_id?: number | string;
     /**
@@ -1313,7 +1382,7 @@ export type editUserStarSubscription = (params: EditUserStarSubscriptionParams) 
  */
 export interface ExportChatInviteLinkParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
 }
@@ -1328,7 +1397,7 @@ export type exportChatInviteLink = (params: ExportChatInviteLinkParams) => Promi
  */
 export interface ForwardMessageParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -1340,7 +1409,7 @@ export interface ForwardMessageParams {
      */
     direct_messages_topic_id?: number;
     /**
-     * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+     * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format @username)
      */
     from_chat_id: number | string;
     /**
@@ -1379,7 +1448,7 @@ export type forwardMessage = (params: ForwardMessageParams) => Promise<TelegramM
  */
 export interface ForwardMessagesParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -1391,7 +1460,7 @@ export interface ForwardMessagesParams {
      */
     direct_messages_topic_id?: number;
     /**
-     * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+     * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format @username)
      */
     from_chat_id: number | string;
     /**
@@ -1508,7 +1577,7 @@ export type getBusinessConnection = (params: GetBusinessConnectionParams) => Pro
  */
 export interface GetChatParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target supergroup or channel in the format @username
      */
     chat_id: number | string;
 }
@@ -1519,17 +1588,21 @@ export interface GetChatParams {
 export type getChat = (params: GetChatParams) => Promise<TelegramChatFullInfo>;
 
 /**
- * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects.
+ * Use this method to get a list of administrators in a chat. Returns an Array of ChatMember objects.
  */
 export interface GetChatAdministratorsParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target supergroup or channel in the format @username
      */
     chat_id: number | string;
+    /**
+     * Pass True to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted.
+     */
+    return_bots?: boolean;
 }
 
 /**
- * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects.
+ * Use this method to get a list of administrators in a chat. Returns an Array of ChatMember objects.
  */
 export type getChatAdministrators = (params: GetChatAdministratorsParams) => Promise<TelegramChatMember[]>;
 
@@ -1538,7 +1611,7 @@ export type getChatAdministrators = (params: GetChatAdministratorsParams) => Pro
  */
 export interface GetChatGiftsParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -1593,7 +1666,7 @@ export type getChatGifts = (params: GetChatGiftsParams) => Promise<TelegramOwned
  */
 export interface GetChatMemberParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -1612,7 +1685,7 @@ export type getChatMember = (params: GetChatMemberParams) => Promise<TelegramCha
  */
 export interface GetChatMemberCountParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target supergroup or channel in the format @username
      */
     chat_id: number | string;
 }
@@ -1698,6 +1771,21 @@ export interface GetGameHighScoresParams {
  * Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. Returns an Array of GameHighScore objects.
  */
 export type getGameHighScores = (params: GetGameHighScoresParams) => Promise<TelegramGameHighScore[]>;
+
+/**
+ * Use this method to get the access settings of a managed bot. Returns a BotAccessSettings object on success.
+ */
+export interface GetManagedBotAccessSettingsParams {
+    /**
+     * User identifier of the managed bot whose access settings will be returned
+     */
+    user_id: number;
+}
+
+/**
+ * Use this method to get the access settings of a managed bot. Returns a BotAccessSettings object on success.
+ */
+export type getManagedBotAccessSettings = (params: GetManagedBotAccessSettingsParams) => Promise<TelegramBotAccessSettings>;
 
 /**
  * Use this method to get the token of a managed bot. Returns the token as String on success.
@@ -1869,7 +1957,7 @@ export type getUpdates = (params: GetUpdatesParams) => Promise<TelegramUpdate[]>
  */
 export interface GetUserChatBoostsParams {
     /**
-     * Unique identifier for the chat or username of the channel (in the format @channelusername)
+     * Unique identifier for the chat or username of the channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -1929,6 +2017,25 @@ export interface GetUserGiftsParams {
  * Returns the gifts owned and hosted by a user. Returns OwnedGifts on success.
  */
 export type getUserGifts = (params: GetUserGiftsParams) => Promise<TelegramOwnedGifts>;
+
+/**
+ * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+ */
+export interface GetUserPersonalChatMessagesParams {
+    /**
+     * Unique identifier for the target user
+     */
+    user_id: number;
+    /**
+     * The maximum number of messages to return; 1-20
+     */
+    limit: number;
+}
+
+/**
+ * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+ */
+export type getUserPersonalChatMessages = (params: GetUserPersonalChatMessagesParams) => Promise<TelegramMessage>;
 
 /**
  * Use this method to get a list of profile audios for a user. Returns a UserProfileAudios object.
@@ -2021,7 +2128,7 @@ export type giftPremiumSubscription = (params: GiftPremiumSubscriptionParams) =>
  */
 export interface HideGeneralForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
 }
@@ -2036,7 +2143,7 @@ export type hideGeneralForumTopic = (params: HideGeneralForumTopicParams) => Pro
  */
 export interface LeaveChatParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername). Channel direct messages chats aren't supported; leave the corresponding channel instead.
+     * Unique identifier for the target chat or username of the target supergroup or channel in the format @username. Channel direct messages chats aren't supported; leave the corresponding channel instead.
      */
     chat_id: number | string;
 }
@@ -2060,7 +2167,7 @@ export interface PinChatMessageParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2130,7 +2237,7 @@ export type postStory = (params: PostStoryParams) => Promise<TelegramStory>;
  */
 export interface PromoteChatMemberParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2278,7 +2385,7 @@ export type removeBusinessAccountProfilePhoto = (params: RemoveBusinessAccountPr
  */
 export interface RemoveChatVerificationParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot or channel in the format @username
      */
     chat_id: number | string;
 }
@@ -2313,7 +2420,7 @@ export type removeUserVerification = (params: RemoveUserVerificationParams) => P
  */
 export interface ReopenForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -2332,7 +2439,7 @@ export type reopenForumTopic = (params: ReopenForumTopicParams) => Promise<true>
  */
 export interface ReopenGeneralForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
 }
@@ -2424,7 +2531,7 @@ export type repostStory = (params: RepostStoryParams) => Promise<TelegramStory>;
  */
 export interface RestrictChatMemberParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -2455,7 +2562,7 @@ export type restrictChatMember = (params: RestrictChatMemberParams) => Promise<t
  */
 export interface RevokeChatInviteLinkParams {
     /**
-     * Unique identifier of the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier of the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2532,7 +2639,7 @@ export interface SendAnimationParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2592,7 +2699,7 @@ export interface SendAnimationParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -2630,7 +2737,7 @@ export interface SendAudioParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2682,7 +2789,7 @@ export interface SendAudioParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -2721,7 +2828,7 @@ export interface SendChatActionParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel chats and channel direct messages chats aren't supported.
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Channel chats and channel direct messages chats aren't supported.
      */
     chat_id: number | string;
     /**
@@ -2749,9 +2856,9 @@ export interface SendChecklistParams {
      */
     business_connection_id: string;
     /**
-     * Unique identifier for the target chat
+     * Unique identifier for the target chat or username of the target bot in the format @username
      */
-    chat_id: number;
+    chat_id: number | string;
     /**
      * A JSON-serialized object for the checklist to send
      */
@@ -2794,7 +2901,7 @@ export interface SendContactParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2830,7 +2937,7 @@ export interface SendContactParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -2867,7 +2974,7 @@ export interface SendDiceParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2891,7 +2998,7 @@ export interface SendDiceParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -2928,7 +3035,7 @@ export interface SendDocumentParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -2972,7 +3079,7 @@ export interface SendDocumentParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3009,9 +3116,9 @@ export interface SendGameParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat. Games can't be sent to channel direct messages chats and channel chats.
+     * Unique identifier for the target chat or username of the target bot in the format @username. Games can't be sent to channel direct messages chats and channel chats.
      */
-    chat_id: number;
+    chat_id: number | string;
     /**
      * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
      */
@@ -3029,7 +3136,7 @@ export interface SendGameParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3062,7 +3169,7 @@ export interface SendGiftParams {
      */
     user_id?: number;
     /**
-     * Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
+     * Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format @username) that will receive the gift.
      */
     chat_id?: number | string;
     /**
@@ -3097,7 +3204,7 @@ export type sendGift = (params: SendGiftParams) => Promise<true>;
  */
 export interface SendInvoiceParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3201,7 +3308,7 @@ export interface SendInvoiceParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3230,6 +3337,91 @@ export interface SendInvoiceParams {
 export type sendInvoice = (params: SendInvoiceParams) => Promise<TelegramMessage>;
 
 /**
+ * Use this method to send live photos. On success, the sent Message is returned.
+ */
+export interface SendLivePhotoParams {
+    /**
+     * Unique identifier of the business connection on behalf of which the message will be sent
+     */
+    business_connection_id?: string;
+    /**
+     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     */
+    chat_id: number | string;
+    /**
+     * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     */
+    message_thread_id?: number;
+    /**
+     * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     */
+    direct_messages_topic_id?: number;
+    /**
+     * Live photo video to send. The video must be no longer than 10 seconds and must not exceed 10 MB in size. Pass a file_id as String to send a video that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+     */
+    live_photo: TelegramInputFile | string;
+    /**
+     * The static photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+     */
+    photo: TelegramInputFile | string;
+    /**
+     * Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
+     */
+    caption?: string | Formattable;
+    /**
+     * Mode for parsing entities in the video caption. See formatting options for more details.
+     */
+    parse_mode?: string;
+    /**
+     * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+     */
+    caption_entities?: TelegramMessageEntity[];
+    /**
+     * Pass True, if the caption must be shown above the message media
+     */
+    show_caption_above_media?: boolean;
+    /**
+     * Pass True if the video needs to be covered with a spoiler animation
+     */
+    has_spoiler?: boolean;
+    /**
+     * Sends the message silently. Users will receive a notification with no sound.
+     */
+    disable_notification?: boolean;
+    /**
+     * Protects the contents of the sent message from forwarding and saving
+     */
+    protect_content?: boolean;
+    /**
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+     */
+    allow_paid_broadcast?: boolean;
+    /**
+     * Unique identifier of the message effect to be added to the message; for private chats only
+     */
+    message_effect_id?: string;
+    /**
+     * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     */
+    suggested_post_parameters?: TelegramSuggestedPostParameters;
+    /**
+     * Description of the message to reply to
+     */
+    reply_parameters?: TelegramReplyParameters;
+    /**
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
+     */
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
+}
+
+/**
+ * Use this method to send live photos. On success, the sent Message is returned.
+ */
+export type sendLivePhoto = (params: SendLivePhotoParams) => Promise<TelegramMessage>;
+
+/**
  * Use this method to send point on the map. On success, the sent Message is returned.
  */
 export interface SendLocationParams {
@@ -3238,7 +3430,7 @@ export interface SendLocationParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3282,7 +3474,7 @@ export interface SendLocationParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3311,7 +3503,7 @@ export interface SendLocationParams {
 export type sendLocation = (params: SendLocationParams) => Promise<TelegramMessage>;
 
 /**
- * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+ * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
  */
 export interface SendMediaGroupParams {
     /**
@@ -3319,7 +3511,7 @@ export interface SendMediaGroupParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3333,7 +3525,7 @@ export interface SendMediaGroupParams {
     /**
      * A JSON-serialized array describing messages to be sent, must include 2-10 items
      */
-    media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo)[];
+    media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[];
     /**
      * Sends messages silently. Users will receive a notification with no sound.
      */
@@ -3343,7 +3535,7 @@ export interface SendMediaGroupParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3357,7 +3549,7 @@ export interface SendMediaGroupParams {
 }
 
 /**
- * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+ * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
  */
 export type sendMediaGroup = (params: SendMediaGroupParams) => Promise<TelegramMessage>;
 
@@ -3370,7 +3562,7 @@ export interface SendMessageParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3406,7 +3598,7 @@ export interface SendMessageParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3435,7 +3627,7 @@ export interface SendMessageParams {
 export type sendMessage = (params: SendMessageParams) => Promise<TelegramMessage>;
 
 /**
- * Use this method to stream a partial message to a user while the message is being generated. Returns True on success.
+ * Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat. Returns True on success.
  */
 export interface SendMessageDraftParams {
     /**
@@ -3447,13 +3639,13 @@ export interface SendMessageDraftParams {
      */
     message_thread_id?: number;
     /**
-     * Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
+     * Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated.
      */
     draft_id: number;
     /**
-     * Text of the message to be sent, 1-4096 characters after entities parsing
+     * Text of the message to be sent, 0-4096 characters after entities parsing. Pass an empty text to show a “Thinking…” placeholder.
      */
-    text: string | Formattable;
+    text?: string | Formattable;
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
@@ -3465,7 +3657,7 @@ export interface SendMessageDraftParams {
 }
 
 /**
- * Use this method to stream a partial message to a user while the message is being generated. Returns True on success.
+ * Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat. Returns True on success.
  */
 export type sendMessageDraft = (params: SendMessageDraftParams) => Promise<true>;
 
@@ -3478,7 +3670,7 @@ export interface SendPaidMediaParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
      */
     chat_id: number | string;
     /**
@@ -3526,7 +3718,7 @@ export interface SendPaidMediaParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3559,7 +3751,7 @@ export interface SendPhotoParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3603,7 +3795,7 @@ export interface SendPhotoParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3640,7 +3832,7 @@ export interface SendPollParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername). Polls can't be sent to channel direct messages chats.
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Polls can't be sent to channel direct messages chats.
      */
     chat_id: number | string;
     /**
@@ -3660,7 +3852,7 @@ export interface SendPollParams {
      */
     question_entities?: TelegramMessageEntity[];
     /**
-     * A JSON-serialized list of 2-12 answer options
+     * A JSON-serialized list of 1-12 answer options
      */
     options: TelegramInputPollOption[];
     /**
@@ -3692,6 +3884,14 @@ export interface SendPollParams {
      */
     hide_results_until_closes?: boolean;
     /**
+     * Pass True, if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours; for channel chats only
+     */
+    members_only?: boolean;
+    /**
+     * A JSON-serialized list of 0-12 two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll; for channel chats only. If omitted or empty, then users from any country can participate in the poll.
+     */
+    country_codes?: string[];
+    /**
      * A JSON-serialized list of monotonically increasing 0-based identifiers of the correct answer options, required for polls in quiz mode
      */
     correct_option_ids?: number[];
@@ -3707,6 +3907,10 @@ export interface SendPollParams {
      * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode
      */
     explanation_entities?: TelegramMessageEntity[];
+    /**
+     * Media added to the quiz explanation
+     */
+    explanation_media?: TelegramInputPollMedia;
     /**
      * Amount of time in seconds the poll will be active after creation, 5-2628000. Can't be used together with close_date.
      */
@@ -3732,6 +3936,10 @@ export interface SendPollParams {
      */
     description_entities?: TelegramMessageEntity[];
     /**
+     * Media added to the poll description
+     */
+    media?: TelegramInputPollMedia;
+    /**
      * Sends the message silently. Users will receive a notification with no sound.
      */
     disable_notification?: boolean;
@@ -3740,7 +3948,7 @@ export interface SendPollParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3773,7 +3981,7 @@ export interface SendStickerParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3801,7 +4009,7 @@ export interface SendStickerParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3838,7 +4046,7 @@ export interface SendVenueParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3890,7 +4098,7 @@ export interface SendVenueParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -3927,7 +4135,7 @@ export interface SendVideoParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -3999,7 +4207,7 @@ export interface SendVideoParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -4036,7 +4244,7 @@ export interface SendVideoNoteParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4072,7 +4280,7 @@ export interface SendVideoNoteParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -4109,7 +4317,7 @@ export interface SendVoiceParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4149,7 +4357,7 @@ export interface SendVoiceParams {
      */
     protect_content?: boolean;
     /**
-     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
      */
     allow_paid_broadcast?: boolean;
     /**
@@ -4289,7 +4497,7 @@ export type setBusinessAccountUsername = (params: SetBusinessAccountUsernamePara
  */
 export interface SetChatAdministratorCustomTitleParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -4312,7 +4520,7 @@ export type setChatAdministratorCustomTitle = (params: SetChatAdministratorCusto
  */
 export interface SetChatDescriptionParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4331,7 +4539,7 @@ export type setChatDescription = (params: SetChatDescriptionParams) => Promise<t
  */
 export interface SetChatMemberTagParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -4373,7 +4581,7 @@ export type setChatMenuButton = (params: SetChatMenuButtonParams) => Promise<tru
  */
 export interface SetChatPermissionsParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -4396,7 +4604,7 @@ export type setChatPermissions = (params: SetChatPermissionsParams) => Promise<t
  */
 export interface SetChatPhotoParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4415,7 +4623,7 @@ export type setChatPhoto = (params: SetChatPhotoParams) => Promise<true>;
  */
 export interface SetChatStickerSetParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -4434,7 +4642,7 @@ export type setChatStickerSet = (params: SetChatStickerSetParams) => Promise<tru
  */
 export interface SetChatTitleParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4507,11 +4715,34 @@ export interface SetGameScoreParams {
 export type setGameScore = (params: SetGameScoreParams) => Promise<TelegramMessage>;
 
 /**
+ * Use this method to change the access settings of a managed bot. Returns True on success.
+ */
+export interface SetManagedBotAccessSettingsParams {
+    /**
+     * User identifier of the managed bot whose access settings will be changed
+     */
+    user_id: number;
+    /**
+     * Pass True, if only selected users can access the bot. The bot's owner can always access it.
+     */
+    is_access_restricted: boolean;
+    /**
+     * A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if is_access_restricted is false.
+     */
+    added_user_ids?: number[];
+}
+
+/**
+ * Use this method to change the access settings of a managed bot. Returns True on success.
+ */
+export type setManagedBotAccessSettings = (params: SetManagedBotAccessSettingsParams) => Promise<true>;
+
+/**
  * Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns True on success.
  */
 export interface SetMessageReactionParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4863,7 +5094,7 @@ export interface StopMessageLiveLocationParams {
      */
     business_connection_id?: string;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
      */
     chat_id?: number | string;
     /**
@@ -4896,7 +5127,7 @@ export interface StopPollParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4967,7 +5198,7 @@ export type transferGift = (params: TransferGiftParams) => Promise<true>;
  */
 export interface UnbanChatMemberParams {
     /**
-     * Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
+     * Unique identifier for the target group or username of the target supergroup or channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -4990,7 +5221,7 @@ export type unbanChatMember = (params: UnbanChatMemberParams) => Promise<true>;
  */
 export interface UnbanChatSenderChatParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -5009,7 +5240,7 @@ export type unbanChatSenderChat = (params: UnbanChatSenderChatParams) => Promise
  */
 export interface UnhideGeneralForumTopicParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
 }
@@ -5024,7 +5255,7 @@ export type unhideGeneralForumTopic = (params: UnhideGeneralForumTopicParams) =>
  */
 export interface UnpinAllChatMessagesParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
 }
@@ -5039,7 +5270,7 @@ export type unpinAllChatMessages = (params: UnpinAllChatMessagesParams) => Promi
  */
 export interface UnpinAllForumTopicMessagesParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -5058,7 +5289,7 @@ export type unpinAllForumTopicMessages = (params: UnpinAllForumTopicMessagesPara
  */
 export interface UnpinAllGeneralForumTopicMessagesParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
 }
@@ -5077,7 +5308,7 @@ export interface UnpinChatMessageParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * Unique identifier for the target chat or username of the target channel in the format @username
      */
     chat_id: number | string;
     /**
@@ -5146,7 +5377,7 @@ export type uploadStickerFile = (params: UploadStickerFileParams) => Promise<Tel
  */
 export interface VerifyChatParams {
     /**
-     * Unique identifier for the target chat or username of the target channel (in the format @channelusername). Channel direct messages chats can't be verified.
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Channel direct messages chats can't be verified.
      */
     chat_id: number | string;
     /**

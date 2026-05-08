@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 9.6.0
+/// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-04-30T14:12:46.898Z
+/// generated at: 2026-05-08T19:29:05.086Z
 /// see scripts/emit.ts in @puregram/api
 
 import * as api from "./methods";
@@ -18,6 +18,12 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#answercallbackquery)
      */
     answerCallbackQuery: api.answerCallbackQuery;
+    /**
+     * Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#answerguestquery)
+     */
+    answerGuestQuery: api.answerGuestQuery;
     /**
      * Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
      *
@@ -145,6 +151,12 @@ export interface ApiMethods {
      */
     declineSuggestedPost: api.declineSuggestedPost;
     /**
+     * Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#deleteallmessagereactions)
+     */
+    deleteAllMessageReactions: api.deleteAllMessageReactions;
+    /**
      * Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
      *
      * [bot api docs](https://core.telegram.org/bots/api#deletebusinessmessages)
@@ -174,6 +186,12 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#deletemessage)
      */
     deleteMessage: api.deleteMessage;
+    /**
+     * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#deletemessagereaction)
+     */
+    deleteMessageReaction: api.deleteMessageReaction;
     /**
      * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns True on success.
      *
@@ -253,7 +271,7 @@ export interface ApiMethods {
      */
     editMessageLiveLocation: api.editMessageLiveLocation;
     /**
-     * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+     * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * [bot api docs](https://core.telegram.org/bots/api#editmessagemedia)
      */
@@ -331,7 +349,7 @@ export interface ApiMethods {
      */
     getChat: api.getChat;
     /**
-     * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects.
+     * Use this method to get a list of administrators in a chat. Returns an Array of ChatMember objects.
      *
      * [bot api docs](https://core.telegram.org/bots/api#getchatadministrators)
      */
@@ -384,6 +402,12 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#getgamehighscores)
      */
     getGameHighScores: api.getGameHighScores;
+    /**
+     * Use this method to get the access settings of a managed bot. Returns a BotAccessSettings object on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#getmanagedbotaccesssettings)
+     */
+    getManagedBotAccessSettings: api.getManagedBotAccessSettings;
     /**
      * Use this method to get the token of a managed bot. Returns the token as String on success.
      *
@@ -462,6 +486,12 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#getusergifts)
      */
     getUserGifts: api.getUserGifts;
+    /**
+     * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#getuserpersonalchatmessages)
+     */
+    getUserPersonalChatMessages: api.getUserPersonalChatMessages;
     /**
      * Use this method to get a list of profile audios for a user. Returns a UserProfileAudios object.
      *
@@ -675,13 +705,19 @@ export interface ApiMethods {
      */
     sendInvoice: api.sendInvoice;
     /**
+     * Use this method to send live photos. On success, the sent Message is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#sendlivephoto)
+     */
+    sendLivePhoto: api.sendLivePhoto;
+    /**
      * Use this method to send point on the map. On success, the sent Message is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#sendlocation)
      */
     sendLocation: api.sendLocation;
     /**
-     * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+     * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#sendmediagroup)
      */
@@ -693,7 +729,7 @@ export interface ApiMethods {
      */
     sendMessage: api.sendMessage;
     /**
-     * Use this method to stream a partial message to a user while the message is being generated. Returns True on success.
+     * Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat. Returns True on success.
      *
      * [bot api docs](https://core.telegram.org/bots/api#sendmessagedraft)
      */
@@ -836,6 +872,12 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#setgamescore)
      */
     setGameScore: api.setGameScore;
+    /**
+     * Use this method to change the access settings of a managed bot. Returns True on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#setmanagedbotaccesssettings)
+     */
+    setManagedBotAccessSettings: api.setManagedBotAccessSettings;
     /**
      * Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns True on success.
      *

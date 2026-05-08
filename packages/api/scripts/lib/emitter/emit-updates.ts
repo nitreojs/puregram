@@ -39,7 +39,8 @@ const SHORTCUT_RENAMES: Record<string, string> = {
   answerCallbackQuery: 'answer',
   answerInlineQuery: 'answer',
   answerShippingQuery: 'answer',
-  answerPreCheckoutQuery: 'answer'
+  answerPreCheckoutQuery: 'answer',
+  answerGuestQuery: 'answer'
 }
 
 function shortcutNameFor (method: string) {
@@ -768,6 +769,23 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
 
     for (const part of anchor.accessPath) {
       access = ts.factory.createPropertyAccessExpression(access, part)
+    }
+
+    if (anchor.nonNull) {
+      access = ts.factory.createAsExpression(
+        access,
+        ts.factory.createTypeReferenceNode('NonNullable', [
+          ts.factory.createTypeQueryNode(
+            ts.factory.createQualifiedName(
+              anchor.accessPath.slice(0, -1).reduce<ts.EntityName>(
+                (acc, part) => ts.factory.createQualifiedName(acc, part),
+                ts.factory.createIdentifier('this')
+              ),
+              anchor.accessPath[anchor.accessPath.length - 1]
+            )
+          )
+        ])
+      )
     }
 
     return ts.factory.createPropertyAssignment(anchor.schemaArg, access)

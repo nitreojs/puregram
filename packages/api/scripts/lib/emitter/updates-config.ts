@@ -1,6 +1,7 @@
 export interface ShortcutAnchor {
   schemaArg: string
   accessPath: string[]
+  nonNull?: boolean
 }
 
 // handcrafted helpers attached to update classes alongside the schema-driven getters.
@@ -99,6 +100,7 @@ export const UPDATE_KINDS: UpdateKindSpec[] = [
   { kindName: 'business_message', className: 'BusinessMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'business_message' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'edited_business_message', className: 'EditedBusinessMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'edited_business_message' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'deleted_business_messages', className: 'DeletedBusinessMessagesUpdate', payloadType: 'TelegramBusinessMessagesDeleted', source: { kind: 'update-field', field: 'deleted_business_messages' }, anchors: [] },
+  { kindName: 'guest_message', className: 'GuestMessageUpdate', payloadType: 'TelegramMessage', source: { kind: 'update-field', field: 'guest_message' }, anchors: [{ schemaArg: 'guest_query_id', accessPath: ['raw', 'guest_query_id'], nonNull: true }] },
   { kindName: 'message_reaction', className: 'MessageReactionUpdate', payloadType: 'TelegramMessageReactionUpdated', source: { kind: 'update-field', field: 'message_reaction' }, anchors: [] },
   { kindName: 'message_reaction_count', className: 'MessageReactionCountUpdate', payloadType: 'TelegramMessageReactionCountUpdated', source: { kind: 'update-field', field: 'message_reaction_count' }, anchors: [] },
   { kindName: 'inline_query', className: 'InlineQueryUpdate', payloadType: 'TelegramInlineQuery', source: { kind: 'update-field', field: 'inline_query' }, anchors: [{ schemaArg: 'inline_query_id', accessPath: ['raw', 'id'] }] },

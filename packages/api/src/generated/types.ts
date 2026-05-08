@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-08T19:29:05.086Z
+/// generated at: 2026-05-08T21:12:07.962Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -2608,8 +2608,7 @@ export interface TelegramInlineQuery {
  * This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
  * Note: All URLs passed in inline query results will be available to end users and therefore must be assumed to be public.
  */
-export interface TelegramInlineQueryResult {
-}
+export type TelegramInlineQueryResult = TelegramInlineQueryResultCachedAudio | TelegramInlineQueryResultCachedDocument | TelegramInlineQueryResultCachedGif | TelegramInlineQueryResultCachedMpeg4Gif | TelegramInlineQueryResultCachedPhoto | TelegramInlineQueryResultCachedSticker | TelegramInlineQueryResultCachedVideo | TelegramInlineQueryResultCachedVoice | TelegramInlineQueryResultArticle | TelegramInlineQueryResultAudio | TelegramInlineQueryResultContact | TelegramInlineQueryResultGame | TelegramInlineQueryResultDocument | TelegramInlineQueryResultGif | TelegramInlineQueryResultLocation | TelegramInlineQueryResultMpeg4Gif | TelegramInlineQueryResultPhoto | TelegramInlineQueryResultVenue | TelegramInlineQueryResultVideo | TelegramInlineQueryResultVoice;
 
 /**
  * Represents a link to an article or web page.
@@ -2680,7 +2679,7 @@ export interface TelegramInlineQueryResultAudio {
     /**
      * Optional. Caption, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
      */
@@ -2726,7 +2725,7 @@ export interface TelegramInlineQueryResultCachedAudio {
     /**
      * Optional. Caption, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
      */
@@ -2772,7 +2771,7 @@ export interface TelegramInlineQueryResultCachedDocument {
     /**
      * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the document caption. See formatting options for more details.
      */
@@ -2814,7 +2813,7 @@ export interface TelegramInlineQueryResultCachedGif {
     /**
      * Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
@@ -2860,7 +2859,7 @@ export interface TelegramInlineQueryResultCachedMpeg4Gif {
     /**
      * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
@@ -2910,7 +2909,7 @@ export interface TelegramInlineQueryResultCachedPhoto {
     /**
      * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
      */
@@ -2986,7 +2985,7 @@ export interface TelegramInlineQueryResultCachedVideo {
     /**
      * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the video caption. See formatting options for more details.
      */
@@ -3032,7 +3031,7 @@ export interface TelegramInlineQueryResultCachedVoice {
     /**
      * Optional. Caption, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
      */
@@ -3120,7 +3119,7 @@ export interface TelegramInlineQueryResultDocument {
     /**
      * Optional. Caption of the document to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the document caption. See formatting options for more details.
      */
@@ -3228,7 +3227,7 @@ export interface TelegramInlineQueryResultGif {
     /**
      * Optional. Caption of the GIF file to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
@@ -3356,7 +3355,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
     /**
      * Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
@@ -3418,7 +3417,7 @@ export interface TelegramInlineQueryResultPhoto {
     /**
      * Optional. Caption of the photo to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
      */
@@ -3556,7 +3555,7 @@ export interface TelegramInlineQueryResultVideo {
     /**
      * Optional. Caption of the video to be sent, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the video caption. See formatting options for more details.
      */
@@ -3618,7 +3617,7 @@ export interface TelegramInlineQueryResultVoice {
     /**
      * Optional. Caption, 0-1024 characters after entities parsing
      */
-    caption?: string;
+    caption?: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
      */
@@ -4187,8 +4186,7 @@ export interface TelegramInputMediaVideo {
 /**
  * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:
  */
-export interface TelegramInputMessageContent {
-}
+export type TelegramInputMessageContent = TelegramInputTextMessageContent | TelegramInputLocationMessageContent | TelegramInputVenueMessageContent | TelegramInputContactMessageContent | TelegramInputInvoiceMessageContent;
 
 /**
  * This object describes the paid media to be sent. Currently, it can be one of
@@ -4416,7 +4414,7 @@ export interface TelegramInputTextMessageContent {
     /**
      * Text of the message to be sent, 1-4096 characters
      */
-    message_text: string;
+    message_text: string | Formattable;
     /**
      * Optional. Mode for parsing entities in the message text. See formatting options for more details.
      */

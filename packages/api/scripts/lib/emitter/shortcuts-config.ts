@@ -42,7 +42,9 @@ export const METHOD_POSITIONALS: Record<string, MethodPositional[]> = {
   // edits — only `text`/`media`/coords positional at telegram level; per-update fills `chat`/`messageId` via anchors
   editMessageText: [{ name: 'text', schemaArg: 'text' }],
   editMessageMedia: [{ name: 'media', schemaArg: 'media' }],
-  editMessageLiveLocation: [{ name: 'latitude', schemaArg: 'latitude' }, { name: 'longitude', schemaArg: 'longitude' }]
+  editMessageLiveLocation: [{ name: 'latitude', schemaArg: 'latitude' }, { name: 'longitude', schemaArg: 'longitude' }],
+
+  answerGuestQuery: [{ name: 'result', schemaArg: 'result' }]
 }
 
 // curated subset emitted onto `Telegram` itself; `verb` is the public name (rename allowed)

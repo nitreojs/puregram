@@ -1,10 +1,46 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-08T19:29:05.086Z
+/// generated at: 2026-05-08T21:12:07.962Z
 /// see scripts/emit.ts in @puregram/api
 
 export const FORMATTABLE_FIELDS = {
+    "answerGuestQuery": [
+        {
+            path: ["result", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "message_text"],
+            textKey: "message_text",
+            entitiesKey: "entities"
+        }
+    ],
+    "answerInlineQuery": [
+        {
+            path: ["results", "*", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["results", "*", "input_message_content", "message_text"],
+            textKey: "message_text",
+            entitiesKey: "entities"
+        }
+    ],
+    "answerWebAppQuery": [
+        {
+            path: ["result", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "message_text"],
+            textKey: "message_text",
+            entitiesKey: "entities"
+        }
+    ],
     "copyMessage": [
         {
             path: ["caption"],
@@ -36,6 +72,13 @@ export const FORMATTABLE_FIELDS = {
             entitiesKey: "text_entities"
         }
     ],
+    "editMessageMedia": [
+        {
+            path: ["media", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        }
+    ],
     "editMessageText": [
         {
             path: ["text"],
@@ -62,6 +105,18 @@ export const FORMATTABLE_FIELDS = {
             path: ["caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
+        }
+    ],
+    "savePreparedInlineMessage": [
+        {
+            path: ["result", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "message_text"],
+            textKey: "message_text",
+            entitiesKey: "entities"
         }
     ],
     "sendAnimation": [
@@ -241,6 +296,21 @@ export const FORMATTABLE_FIELDS = {
             path: ["options", "*", "text"],
             textKey: "text",
             entitiesKey: "text_entities"
+        },
+        {
+            path: ["options", "*", "media", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["explanation_media", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["media", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         },
         {
             path: ["reply_parameters", "quote"],

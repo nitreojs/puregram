@@ -15568,11 +15568,92 @@
       ]
     },
     {
-      "kind": "object",
+      "kind": "union",
       "name": "InlineQueryResult",
       "description": "This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:\nNote: All URLs passed in inline query results will be available to end users and therefore must be assumed to be public.",
       "documentationLink": "https://core.telegram.org/bots/api#inlinequeryresult",
-      "fields": []
+      "members": [
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedAudio"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedDocument"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedGif"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedMpeg4Gif"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedPhoto"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedSticker"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedVideo"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultCachedVoice"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultArticle"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultAudio"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultContact"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultGame"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultDocument"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultGif"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultLocation"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultMpeg4Gif"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultPhoto"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultVenue"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultVideo"
+        },
+        {
+          "kind": "reference",
+          "name": "InlineQueryResultVoice"
+        }
+      ]
     },
     {
       "kind": "object",
@@ -18838,11 +18919,32 @@
       ]
     },
     {
-      "kind": "object",
+      "kind": "union",
       "name": "InputMessageContent",
       "description": "This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:",
       "documentationLink": "https://core.telegram.org/bots/api#inputmessagecontent",
-      "fields": []
+      "members": [
+        {
+          "kind": "reference",
+          "name": "InputTextMessageContent"
+        },
+        {
+          "kind": "reference",
+          "name": "InputLocationMessageContent"
+        },
+        {
+          "kind": "reference",
+          "name": "InputVenueMessageContent"
+        },
+        {
+          "kind": "reference",
+          "name": "InputContactMessageContent"
+        },
+        {
+          "kind": "reference",
+          "name": "InputInvoiceMessageContent"
+        }
+      ]
     },
     {
       "kind": "union",
@@ -27115,6 +27217,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-05-08T19:29:05.086Z"
+    "fetchedAt": "2026-05-08T21:12:07.962Z"
   }
 }

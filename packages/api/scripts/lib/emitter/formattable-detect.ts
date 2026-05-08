@@ -34,8 +34,8 @@ function pairedEntitiesKey (textFieldName: string, entityFieldNames: ReadonlySet
     return suffixed
   }
 
-  // special case for the "text" field: paired with the bare "entities" array
-  if (textFieldName === 'text' && entityFieldNames.has('entities')) {
+  // body-text fields paired with the bare "entities" array (text in Message, message_text in InputTextMessageContent)
+  if ((textFieldName === 'text' || textFieldName === 'message_text') && entityFieldNames.has('entities')) {
     return 'entities'
   }
 
@@ -70,7 +70,9 @@ function findSlots (
     }
   }
 
-  // recurse into nested object/array-of-object fields
+  // recurse into nested object/array-of-object fields. unions fan out across every
+  // member with the same path — the runtime walker no-ops at the leaf when the actual
+  // payload doesn't carry the slot's text/entities pair
   for (const f of fields) {
     const inner = refToObjectName(f.type)
 
@@ -84,17 +86,49 @@ function findSlots (
 
     const obj = objectsByName.get(inner.name)
 
-    if (obj === undefined || obj.kind !== 'object') {
+    if (obj === undefined) {
       continue
     }
 
     const nextPath = inner.isArray ? [...pathSoFar, f.name, '*'] : [...pathSoFar, f.name]
     const nextVisited = new Set([...visited, inner.name])
 
-    slots.push(...findSlots(obj.fields, nextPath, objectsByName, nextVisited))
+    if (obj.kind === 'object') {
+      slots.push(...findSlots(obj.fields, nextPath, objectsByName, nextVisited))
+    } else if (obj.kind === 'union') {
+      for (const m of obj.members) {
+        if (m.kind !== 'reference') {
+          continue
+        }
+
+        const memberObj = objectsByName.get(m.name)
+
+        if (memberObj?.kind === 'object') {
+          slots.push(...findSlots(memberObj.fields, nextPath, objectsByName, new Set([...nextVisited, m.name])))
+        }
+      }
+    }
   }
 
   return slots
+}
+
+function dedupeSlots (slots: FormattableSlot[]) {
+  const seen = new Set<string>()
+  const out: FormattableSlot[] = []
+
+  for (const s of slots) {
+    const key = `${s.path.join('.')}|${s.textKey}|${s.entitiesKey}`
+
+    if (seen.has(key)) {
+      continue
+    }
+
+    seen.add(key)
+    out.push(s)
+  }
+
+  return out
 }
 
 /** scans every method's arguments and returns a method→slots map describing every paired text/*_entities field */
@@ -108,7 +142,7 @@ export function detectFormattableFields (schema: Schema) {
   const out = new Map<string, FormattableSlot[]>()
 
   for (const method of schema.methods) {
-    const slots = findSlots(method.arguments, [], objectsByName, new Set())
+    const slots = dedupeSlots(findSlots(method.arguments, [], objectsByName, new Set()))
 
     if (slots.length > 0) {
       out.set(method.name, slots)

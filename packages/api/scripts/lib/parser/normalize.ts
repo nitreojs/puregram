@@ -3,6 +3,10 @@ import type { AnyNode } from 'domhandler'
 
 import type { SchemaField, SchemaMethod, SchemaObject, SchemaTypeRef } from '../schema-types'
 
+// objects the docs phrase as unions but using "support the following N types" rather than "one of",
+// so the heuristic in `extractObject` misses them. listing here forces union treatment
+const FORCED_UNION_NAMES = new Set(['InlineQueryResult', 'InputMessageContent'])
+
 const PRIMITIVE_MAP: Record<string, SchemaTypeRef> = {
   Integer: { kind: 'integer' },
   Int: { kind: 'integer' },
@@ -253,8 +257,10 @@ function extractObject (
   const fieldRows = $table.find('tbody > tr').toArray()
 
   // some objects are unions (ChatMember, BackgroundFill) — no field table; members live
-  // inline ("must be one of: A, B, C") or in an adjacent <ul> of links
-  if (fieldRows.length === 0 && /one of/i.test(description)) {
+  // inline ("must be one of: A, B, C") or in an adjacent <ul> of links.
+  // also forced for objects that the docs phrase differently ("support the following N types") but
+  // the rest of the codebase wants treated as a union — currently InlineQueryResult and InputMessageContent
+  if (fieldRows.length === 0 && (/one of/i.test(description) || FORCED_UNION_NAMES.has(name))) {
     let members = extractUnionMembersFromDescription(description)
 
     if (members.length === 0 && sectionLinks.length > 0) {

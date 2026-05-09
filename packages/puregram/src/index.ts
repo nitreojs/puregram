@@ -37,6 +37,7 @@ export type { StartWebhookOptions, StartWebhookResult } from './transport/webhoo
 
 export { UnsupportedUpdate } from './dispatch/update-builder'
 export { attach } from './dispatch/attach'
+export { randomId } from './random-id'
 
 export * from './keyboards'
 export * from './parse-mode'

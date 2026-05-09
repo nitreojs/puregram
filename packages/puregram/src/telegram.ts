@@ -176,6 +176,17 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
+   * register a handler for a specific update kind by name. the typed `on*` dispatchers
+   * (`onMessage`, `onCallbackQuery`, …) cover the bot-api's curated kind list with full
+   * type narrowing; this method also routes to custom kinds registered via `defineUpdate`
+   */
+  on (kind: string, handler: UpdateHandler<AnyUpdate>, options?: OnOptions) {
+    this.dispatcher.on(kind, handler as UpdateHandler, options?.priority ?? 'normal')
+
+    return this
+  }
+
+  /**
    * register a cross-kind handler — fires for every supported update. the bare form
    * receives `AnyUpdate`; the filter form narrows via `Modify<AnyUpdate, Mod>`. use
    * this for multi-kind handlers or custom predicates that don't fit per-kind dispatchers

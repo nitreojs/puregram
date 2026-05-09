@@ -67,7 +67,7 @@ export class MessageUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -2661,7 +2661,7 @@ export class EditedMessageUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -5255,7 +5255,7 @@ export class ChannelPostUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -7849,7 +7849,7 @@ export class EditedChannelPostUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -10394,7 +10394,7 @@ export class EditedChannelPostUpdate {
 export class BusinessConnectionUpdate {
     readonly kind = "business_connection" as const;
     private _user?: User;
-    constructor(public raw: TelegramBusinessConnection, private tg: TelegramLike) { }
+    constructor(public raw: TelegramBusinessConnection, public readonly tg: TelegramLike) { }
     /**
      * Unique identifier of the business connection
      */
@@ -10508,7 +10508,7 @@ export class BusinessMessageUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -13102,7 +13102,7 @@ export class EditedBusinessMessageUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -15647,7 +15647,7 @@ export class EditedBusinessMessageUpdate {
 export class DeletedBusinessMessagesUpdate {
     readonly kind = "deleted_business_messages" as const;
     private _chat?: Chat;
-    constructor(public raw: TelegramBusinessMessagesDeleted, private tg: TelegramLike) { }
+    constructor(public raw: TelegramBusinessMessagesDeleted, public readonly tg: TelegramLike) { }
     /**
      * Unique identifier of the business connection
      */
@@ -15735,7 +15735,7 @@ export class GuestMessageUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -17390,7 +17390,7 @@ export class MessageReactionUpdate {
     private _chat?: Chat;
     private _user?: User;
     private _actorChat?: Chat;
-    constructor(public raw: TelegramMessageReactionUpdated, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessageReactionUpdated, public readonly tg: TelegramLike) { }
     /**
      * The chat containing the message the user reacted to
      */
@@ -17498,7 +17498,7 @@ export class MessageReactionCountUpdate {
     readonly kind = "message_reaction_count" as const;
     private _chat?: Chat;
     private _reactions?: ReactionCount[];
-    constructor(public raw: TelegramMessageReactionCountUpdated, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessageReactionCountUpdated, public readonly tg: TelegramLike) { }
     /**
      * The chat containing the message
      */
@@ -17544,7 +17544,7 @@ export class InlineQueryUpdate {
     readonly kind = "inline_query" as const;
     private _from?: User;
     private _location?: Location;
-    constructor(public raw: TelegramInlineQuery, private tg: TelegramLike) { }
+    constructor(public raw: TelegramInlineQuery, public readonly tg: TelegramLike) { }
     /**
      * Unique identifier for this query
      */
@@ -17627,7 +17627,7 @@ export class ChosenInlineResultUpdate {
     readonly kind = "chosen_inline_result" as const;
     private _from?: User;
     private _location?: Location;
-    constructor(public raw: TelegramChosenInlineResult, private tg: TelegramLike) { }
+    constructor(public raw: TelegramChosenInlineResult, public readonly tg: TelegramLike) { }
     /**
      * The unique identifier for the result that was chosen
      */
@@ -17694,7 +17694,7 @@ export class ChosenInlineResultUpdate {
 export class CallbackQueryUpdate {
     readonly kind = "callback_query" as const;
     private _from?: User;
-    constructor(public raw: TelegramCallbackQuery, private tg: TelegramLike) { }
+    constructor(public raw: TelegramCallbackQuery, public readonly tg: TelegramLike) { }
     /**
      * Unique identifier for this query
      */
@@ -17817,7 +17817,7 @@ export class ShippingQueryUpdate {
     readonly kind = "shipping_query" as const;
     private _from?: User;
     private _shippingAddress?: ShippingAddress;
-    constructor(public raw: TelegramShippingQuery, private tg: TelegramLike) { }
+    constructor(public raw: TelegramShippingQuery, public readonly tg: TelegramLike) { }
     /**
      * Unique query identifier
      */
@@ -17872,7 +17872,7 @@ export class PreCheckoutQueryUpdate {
     readonly kind = "pre_checkout_query" as const;
     private _from?: User;
     private _orderInfo?: OrderInfo;
-    constructor(public raw: TelegramPreCheckoutQuery, private tg: TelegramLike) { }
+    constructor(public raw: TelegramPreCheckoutQuery, public readonly tg: TelegramLike) { }
     /**
      * Unique query identifier
      */
@@ -17960,7 +17960,7 @@ export class PreCheckoutQueryUpdate {
 export class PurchasedPaidMediaUpdate {
     readonly kind = "purchased_paid_media" as const;
     private _from?: User;
-    constructor(public raw: TelegramPaidMediaPurchased, private tg: TelegramLike) { }
+    constructor(public raw: TelegramPaidMediaPurchased, public readonly tg: TelegramLike) { }
     /**
      * User who purchased the media
      */
@@ -17998,7 +17998,7 @@ export class PollUpdate {
     private _explanationMedia?: PollMedia;
     private _descriptionEntities?: MessageEntity[];
     private _media?: PollMedia;
-    constructor(public raw: TelegramPoll, private tg: TelegramLike) { }
+    constructor(public raw: TelegramPoll, public readonly tg: TelegramLike) { }
     /**
      * Unique poll identifier
      */
@@ -18234,7 +18234,7 @@ export class PollAnswerUpdate {
     readonly kind = "poll_answer" as const;
     private _voterChat?: Chat;
     private _user?: User;
-    constructor(public raw: TelegramPollAnswer, private tg: TelegramLike) { }
+    constructor(public raw: TelegramPollAnswer, public readonly tg: TelegramLike) { }
     /**
      * Unique poll identifier
      */
@@ -18305,7 +18305,7 @@ export class MyChatMemberUpdate {
     private _oldChatMember?: ChatMember;
     private _newChatMember?: ChatMember;
     private _inviteLink?: ChatInviteLink;
-    constructor(public raw: TelegramChatMemberUpdated, private tg: TelegramLike) { }
+    constructor(public raw: TelegramChatMemberUpdated, public readonly tg: TelegramLike) { }
     /**
      * Chat the user belongs to
      */
@@ -19476,7 +19476,7 @@ export class ChatMemberUpdate {
     private _oldChatMember?: ChatMember;
     private _newChatMember?: ChatMember;
     private _inviteLink?: ChatInviteLink;
-    constructor(public raw: TelegramChatMemberUpdated, private tg: TelegramLike) { }
+    constructor(public raw: TelegramChatMemberUpdated, public readonly tg: TelegramLike) { }
     /**
      * Chat the user belongs to
      */
@@ -20645,7 +20645,7 @@ export class ChatJoinRequestUpdate {
     private _chat?: Chat;
     private _from?: User;
     private _inviteLink?: ChatInviteLink;
-    constructor(public raw: TelegramChatJoinRequest, private tg: TelegramLike) { }
+    constructor(public raw: TelegramChatJoinRequest, public readonly tg: TelegramLike) { }
     /**
      * Chat to which the request was sent
      */
@@ -21613,7 +21613,7 @@ export class ChatBoostUpdate {
     readonly kind = "chat_boost" as const;
     private _chat?: Chat;
     private _boost?: ChatBoost;
-    constructor(public raw: TelegramChatBoostUpdated, private tg: TelegramLike) { }
+    constructor(public raw: TelegramChatBoostUpdated, public readonly tg: TelegramLike) { }
     /**
      * Chat which was boosted
      */
@@ -21646,7 +21646,7 @@ export class ChatBoostUpdate {
 export class RemovedChatBoostUpdate {
     readonly kind = "removed_chat_boost" as const;
     private _chat?: Chat;
-    constructor(public raw: TelegramChatBoostRemoved, private tg: TelegramLike) { }
+    constructor(public raw: TelegramChatBoostRemoved, public readonly tg: TelegramLike) { }
     /**
      * Chat which was boosted
      */
@@ -21692,7 +21692,7 @@ export class ManagedBotUpdate {
     readonly kind = "managed_bot" as const;
     private _user?: User;
     private _bot?: User;
-    constructor(public raw: TelegramManagedBotUpdated, private tg: TelegramLike) { }
+    constructor(public raw: TelegramManagedBotUpdated, public readonly tg: TelegramLike) { }
     /**
      * User that created the bot
      */
@@ -21774,7 +21774,7 @@ export class NewChatMembersUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -24368,7 +24368,7 @@ export class LeftChatMemberUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -26962,7 +26962,7 @@ export class NewChatTitleUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -29556,7 +29556,7 @@ export class NewChatPhotoUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -32150,7 +32150,7 @@ export class DeleteChatPhotoUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -34744,7 +34744,7 @@ export class GroupChatCreatedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -37338,7 +37338,7 @@ export class PinnedMessageUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -39932,7 +39932,7 @@ export class InvoiceUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -42526,7 +42526,7 @@ export class SuccessfulPaymentUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -45120,7 +45120,7 @@ export class UsersSharedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -47714,7 +47714,7 @@ export class ChatSharedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -50308,7 +50308,7 @@ export class WebAppDataUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -52902,7 +52902,7 @@ export class VideoChatScheduledUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -55496,7 +55496,7 @@ export class VideoChatStartedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -58090,7 +58090,7 @@ export class VideoChatEndedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -60684,7 +60684,7 @@ export class VideoChatParticipantsInvitedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -63278,7 +63278,7 @@ export class ForumTopicCreatedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -65872,7 +65872,7 @@ export class ForumTopicEditedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -68466,7 +68466,7 @@ export class ForumTopicClosedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -71060,7 +71060,7 @@ export class ForumTopicReopenedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -73654,7 +73654,7 @@ export class GeneralForumTopicHiddenUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -76248,7 +76248,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -78842,7 +78842,7 @@ export class GiveawayCreatedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -81436,7 +81436,7 @@ export class GiveawayCompletedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -84030,7 +84030,7 @@ export class GiveawayWinnersUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -86624,7 +86624,7 @@ export class BoostAddedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -89218,7 +89218,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -91812,7 +91812,7 @@ export class MigrateToChatIdUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -94406,7 +94406,7 @@ export class MigrateFromChatIdUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -97000,7 +97000,7 @@ export class PassportDataUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -99594,7 +99594,7 @@ export class ProximityAlertTriggeredUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */
@@ -102188,7 +102188,7 @@ export class WriteAccessAllowedUpdate {
     private _videoChatParticipantsInvited?: VideoChatParticipantsInvited;
     private _webAppData?: WebAppData;
     private _replyMarkup?: InlineKeyboardMarkup;
-    constructor(public raw: TelegramMessage, private tg: TelegramLike) { }
+    constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
      * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
      */

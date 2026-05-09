@@ -346,7 +346,10 @@ function emitUpdateClass (
         undefined
       ),
       ts.factory.createParameterDeclaration(
-        [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
+        [
+          ts.factory.createModifier(ts.SyntaxKind.PublicKeyword),
+          ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword)
+        ],
         undefined,
         ts.factory.createIdentifier('tg'),
         undefined,

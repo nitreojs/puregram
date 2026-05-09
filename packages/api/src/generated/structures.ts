@@ -1391,6 +1391,7 @@ export class ExternalReplyInfo {
     private _animation?: Animation | undefined;
     private _audio?: Audio | undefined;
     private _document?: Document | undefined;
+    private _livePhoto?: LivePhoto | undefined;
     private _photo?: Photo | undefined;
     private _sticker?: Sticker | undefined;
     private _story?: Story | undefined;
@@ -1470,8 +1471,11 @@ export class ExternalReplyInfo {
     /**
      * Optional. Message is a live photo, information about the live photo
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        if (this._livePhoto === undefined) {
+            this._livePhoto = this.raw.live_photo ? new LivePhoto(this.raw.live_photo) : undefined;
+        }
+        return this._livePhoto;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -1678,7 +1682,7 @@ export class ExternalReplyInfo {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -2786,6 +2790,95 @@ export class LinkPreviewOptions {
 }
 
 /**
+ * This object represents a live photo.
+ */
+export class LivePhoto {
+    private _photo?: Photo | undefined;
+    constructor(public raw: TelegramLivePhoto) { }
+    static fromPayload(raw: TelegramLivePhoto): LivePhoto {
+        return new LivePhoto(raw);
+    }
+    /**
+     * Optional. Available sizes of the corresponding static photo
+     */
+    get photo(): Photo | undefined {
+        if (this._photo === undefined) {
+            this._photo = this.raw.photo ? new Photo(this.raw.photo) : undefined;
+        }
+        return this._photo;
+    }
+    /**
+     * Identifier for the video file which can be used to download or reuse the file
+     */
+    get fileId(): string {
+        return this.raw.file_id;
+    }
+    /**
+     * Unique identifier for the video file which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+     */
+    get fileUniqueId(): string {
+        return this.raw.file_unique_id;
+    }
+    /**
+     * Video width as defined by the sender
+     */
+    get width(): number {
+        return this.raw.width;
+    }
+    /**
+     * Video height as defined by the sender
+     */
+    get height(): number {
+        return this.raw.height;
+    }
+    /**
+     * Duration of the video in seconds as defined by the sender
+     */
+    get duration(): number {
+        return this.raw.duration;
+    }
+    /**
+     * Optional. MIME type of the file as defined by the sender
+     */
+    get mimeType(): string | undefined {
+        return this.raw.mime_type;
+    }
+    /**
+     * Optional. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+     */
+    get fileSize(): number | undefined {
+        return this.raw.file_size;
+    }
+    /**
+     * true if `photo` has at least one item
+     */
+    hasPhoto(): this is this & {
+        photo: Photo;
+    } {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * true if `mime_type` is set
+     */
+    hasMimeType(): this is this & {
+        mimeType: string;
+    } {
+        return this.raw.mime_type != null;
+    }
+    /**
+     * true if `file_size` is set
+     */
+    hasFileSize(): this is this & {
+        fileSize: number;
+    } {
+        return this.raw.file_size != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("LivePhoto", this, depth, options, inspect);
+    }
+}
+
+/**
  * This object represents a point on the map.
  */
 export class Location {
@@ -2945,6 +3038,7 @@ export class Message {
     private _animation?: Animation | undefined;
     private _audio?: Audio | undefined;
     private _document?: Document | undefined;
+    private _livePhoto?: LivePhoto | undefined;
     private _photo?: Photo | undefined;
     private _sticker?: Sticker | undefined;
     private _story?: Story | undefined;
@@ -3261,8 +3355,11 @@ export class Message {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        if (this._livePhoto === undefined) {
+            this._livePhoto = this.raw.live_photo ? new LivePhoto(this.raw.live_photo) : undefined;
+        }
+        return this._livePhoto;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -4053,7 +4150,7 @@ export class Message {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -5139,7 +5236,9 @@ export class Poll {
     private _questionEntities?: MessageEntity[] | undefined;
     private _options?: PollOption[];
     private _explanationEntities?: MessageEntity[] | undefined;
+    private _explanationMedia?: PollMedia | undefined;
     private _descriptionEntities?: MessageEntity[] | undefined;
+    private _media?: PollMedia | undefined;
     constructor(public raw: TelegramPoll) { }
     static fromPayload(raw: TelegramPoll): Poll {
         return new Poll(raw);
@@ -5237,8 +5336,11 @@ export class Poll {
     /**
      * Optional. Media added to the quiz explanation
      */
-    get explanationMedia(): TelegramPollMedia | undefined {
-        return this.raw.explanation_media;
+    get explanationMedia(): PollMedia | undefined {
+        if (this._explanationMedia === undefined) {
+            this._explanationMedia = this.raw.explanation_media ? new PollMedia(this.raw.explanation_media) : undefined;
+        }
+        return this._explanationMedia;
     }
     /**
      * Optional. Amount of time in seconds the poll will be active after creation
@@ -5267,8 +5369,11 @@ export class Poll {
     /**
      * Optional. Media added to the poll description; for polls inside the Message object only
      */
-    get media(): TelegramPollMedia | undefined {
-        return this.raw.media;
+    get media(): PollMedia | undefined {
+        if (this._media === undefined) {
+            this._media = this.raw.media ? new PollMedia(this.raw.media) : undefined;
+        }
+        return this._media;
     }
     /**
      * true if `question_entities` has at least one item
@@ -5314,7 +5419,7 @@ export class Poll {
      * true if `explanation_media` is set
      */
     hasExplanationMedia(): this is this & {
-        explanationMedia: TelegramPollMedia;
+        explanationMedia: PollMedia;
     } {
         return this.raw.explanation_media != null;
     }
@@ -5354,7 +5459,7 @@ export class Poll {
      * true if `media` is set
      */
     hasMedia(): this is this & {
-        media: TelegramPollMedia;
+        media: PollMedia;
     } {
         return this.raw.media != null;
     }
@@ -5439,10 +5544,186 @@ export class PollAnswer {
 }
 
 /**
+ * At most one of the optional fields can be present in any given object.
+ */
+export class PollMedia {
+    private _animation?: Animation | undefined;
+    private _audio?: Audio | undefined;
+    private _document?: Document | undefined;
+    private _livePhoto?: LivePhoto | undefined;
+    private _location?: Location | undefined;
+    private _photo?: Photo | undefined;
+    private _sticker?: Sticker | undefined;
+    private _venue?: Venue | undefined;
+    private _video?: Video | undefined;
+    constructor(public raw: TelegramPollMedia) { }
+    static fromPayload(raw: TelegramPollMedia): PollMedia {
+        return new PollMedia(raw);
+    }
+    /**
+     * Optional. Media is an animation, information about the animation
+     */
+    get animation(): Animation | undefined {
+        if (this._animation === undefined) {
+            this._animation = this.raw.animation ? new Animation(this.raw.animation) : undefined;
+        }
+        return this._animation;
+    }
+    /**
+     * Optional. Media is an audio file, information about the file; currently, can't be received in a poll option
+     */
+    get audio(): Audio | undefined {
+        if (this._audio === undefined) {
+            this._audio = this.raw.audio ? new Audio(this.raw.audio) : undefined;
+        }
+        return this._audio;
+    }
+    /**
+     * Optional. Media is a general file, information about the file; currently, can't be received in a poll option
+     */
+    get document(): Document | undefined {
+        if (this._document === undefined) {
+            this._document = this.raw.document ? new Document(this.raw.document) : undefined;
+        }
+        return this._document;
+    }
+    /**
+     * Optional. Media is a live photo, information about the live photo
+     */
+    get livePhoto(): LivePhoto | undefined {
+        if (this._livePhoto === undefined) {
+            this._livePhoto = this.raw.live_photo ? new LivePhoto(this.raw.live_photo) : undefined;
+        }
+        return this._livePhoto;
+    }
+    /**
+     * Optional. Media is a shared location, information about the location
+     */
+    get location(): Location | undefined {
+        if (this._location === undefined) {
+            this._location = this.raw.location ? new Location(this.raw.location) : undefined;
+        }
+        return this._location;
+    }
+    /**
+     * Optional. Media is a photo, available sizes of the photo
+     */
+    get photo(): Photo | undefined {
+        if (this._photo === undefined) {
+            this._photo = this.raw.photo ? new Photo(this.raw.photo) : undefined;
+        }
+        return this._photo;
+    }
+    /**
+     * Optional. Media is a sticker, information about the sticker; currently, for poll options only
+     */
+    get sticker(): Sticker | undefined {
+        if (this._sticker === undefined) {
+            this._sticker = this.raw.sticker ? new Sticker(this.raw.sticker) : undefined;
+        }
+        return this._sticker;
+    }
+    /**
+     * Optional. Media is a venue, information about the venue
+     */
+    get venue(): Venue | undefined {
+        if (this._venue === undefined) {
+            this._venue = this.raw.venue ? new Venue(this.raw.venue) : undefined;
+        }
+        return this._venue;
+    }
+    /**
+     * Optional. Media is a video, information about the video
+     */
+    get video(): Video | undefined {
+        if (this._video === undefined) {
+            this._video = this.raw.video ? new Video(this.raw.video) : undefined;
+        }
+        return this._video;
+    }
+    /**
+     * true if `animation` is set
+     */
+    hasAnimation(): this is this & {
+        animation: Animation;
+    } {
+        return this.raw.animation != null;
+    }
+    /**
+     * true if `audio` is set
+     */
+    hasAudio(): this is this & {
+        audio: Audio;
+    } {
+        return this.raw.audio != null;
+    }
+    /**
+     * true if `document` is set
+     */
+    hasDocument(): this is this & {
+        document: Document;
+    } {
+        return this.raw.document != null;
+    }
+    /**
+     * true if `live_photo` is set
+     */
+    hasLivePhoto(): this is this & {
+        livePhoto: LivePhoto;
+    } {
+        return this.raw.live_photo != null;
+    }
+    /**
+     * true if `location` is set
+     */
+    hasLocation(): this is this & {
+        location: Location;
+    } {
+        return this.raw.location != null;
+    }
+    /**
+     * true if `photo` has at least one item
+     */
+    hasPhoto(): this is this & {
+        photo: Photo;
+    } {
+        return this.raw.photo != null && this.raw.photo.length > 0;
+    }
+    /**
+     * true if `sticker` is set
+     */
+    hasSticker(): this is this & {
+        sticker: Sticker;
+    } {
+        return this.raw.sticker != null;
+    }
+    /**
+     * true if `venue` is set
+     */
+    hasVenue(): this is this & {
+        venue: Venue;
+    } {
+        return this.raw.venue != null;
+    }
+    /**
+     * true if `video` is set
+     */
+    hasVideo(): this is this & {
+        video: Video;
+    } {
+        return this.raw.video != null;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("PollMedia", this, depth, options, inspect);
+    }
+}
+
+/**
  * This object contains information about one answer option in a poll.
  */
 export class PollOption {
     private _textEntities?: MessageEntity[] | undefined;
+    private _media?: PollMedia | undefined;
     private _addedByUser?: User | undefined;
     private _addedByChat?: Chat | undefined;
     constructor(public raw: TelegramPollOption) { }
@@ -5470,8 +5751,11 @@ export class PollOption {
     /**
      * Optional. Media added to the poll option
      */
-    get media(): TelegramPollMedia | undefined {
-        return this.raw.media;
+    get media(): PollMedia | undefined {
+        if (this._media === undefined) {
+            this._media = this.raw.media ? new PollMedia(this.raw.media) : undefined;
+        }
+        return this._media;
     }
     /**
      * Number of users who voted for this option; may be 0 if unknown
@@ -5515,7 +5799,7 @@ export class PollOption {
      * true if `media` is set
      */
     hasMedia(): this is this & {
-        media: TelegramPollMedia;
+        media: PollMedia;
     } {
         return this.raw.media != null;
     }

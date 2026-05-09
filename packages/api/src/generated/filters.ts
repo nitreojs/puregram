@@ -8,8 +8,8 @@ import { defineFilter } from "../filter-runtime";
 import type { Filter } from "../filter-runtime";
 import type { AnyUpdate } from "../custom-update";
 import type { UpdateKind, UpdateKindMap } from "./updates";
-import type { Animation, Audio, Chat, ChatInviteLink, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, ProximityAlertTriggered, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
-import type { TelegramBusinessBotRights, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramLivePhoto, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPollMedia, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramRefundedPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
+import type { Animation, Audio, Chat, ChatInviteLink, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, LivePhoto, Location, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollMedia, ProximityAlertTriggered, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
+import type { TelegramBusinessBotRights, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramManagedBotCreated, TelegramMaybeInaccessibleMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramRefundedPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
 /**
  * filter — true if the update has `actorChat` set
  */
@@ -338,7 +338,7 @@ export const hasExplanationEntities: Filter<unknown, {
  * filter — true if the update has `explanationMedia` set
  */
 export const hasExplanationMedia: Filter<unknown, {
-    explanationMedia: TelegramPollMedia;
+    explanationMedia: PollMedia;
 }> = defineFilter("hasExplanationMedia", (u: AnyUpdate): u is AnyUpdate => ((u as {
     explanationMedia?: unknown;
 }).explanationMedia != null), { kinds: ["poll"] });
@@ -581,7 +581,7 @@ export const hasLinkPreviewOptions: Filter<unknown, {
  * filter — true if the update has `livePhoto` set
  */
 export const hasLivePhoto: Filter<unknown, {
-    livePhoto: TelegramLivePhoto;
+    livePhoto: LivePhoto;
 }> = defineFilter("hasLivePhoto", (u: AnyUpdate): u is AnyUpdate => ((u as {
     livePhoto?: unknown;
 }).livePhoto != null), { kinds: ["message", "edited_message", "channel_post", "edited_channel_post", "business_message", "edited_business_message", "guest_message", "new_chat_members", "left_chat_member", "new_chat_title", "new_chat_photo", "delete_chat_photo", "group_chat_created", "pinned_message", "invoice", "successful_payment", "users_shared", "chat_shared", "web_app_data", "video_chat_scheduled", "video_chat_started", "video_chat_ended", "video_chat_participants_invited", "forum_topic_created", "forum_topic_edited", "forum_topic_closed", "forum_topic_reopened", "general_forum_topic_hidden", "general_forum_topic_unhidden", "giveaway_created", "giveaway_completed", "giveaway_winners", "boost_added", "message_auto_delete_timer_changed", "migrate_to_chat_id", "migrate_from_chat_id", "passport_data", "proximity_alert_triggered", "write_access_allowed"] });
@@ -608,7 +608,7 @@ export const hasManagedBotCreated: Filter<unknown, {
  * filter — true if the update has `media` set
  */
 export const hasMedia: Filter<unknown, {
-    media: TelegramPollMedia;
+    media: PollMedia;
 }> = defineFilter("hasMedia", (u: AnyUpdate): u is AnyUpdate => ((u as {
     media?: unknown;
 }).media != null), { kinds: ["poll"] });

@@ -4,12 +4,12 @@
 /// generated at: 2026-05-09T00:16:20.915Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInlineQueryResult, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramLivePhoto, TelegramManagedBotCreated, TelegramManagedBotUpdated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMediaPurchased, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
+import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineQuery, TelegramInlineQueryResult, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollOption, TelegramManagedBotCreated, TelegramManagedBotUpdated, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMediaPurchased, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
 import type { AnswerCallbackQueryParams, AnswerGuestQueryParams, AnswerInlineQueryParams, AnswerPreCheckoutQueryParams, AnswerShippingQueryParams, ApproveChatJoinRequestParams, ApproveSuggestedPostParams, BanChatMemberParams, BanChatSenderChatParams, CloseForumTopicParams, CloseGeneralForumTopicParams, CopyMessageParams, CopyMessagesParams, CreateChatInviteLinkParams, CreateChatSubscriptionInviteLinkParams, CreateForumTopicParams, DeclineChatJoinRequestParams, DeclineSuggestedPostParams, DeleteAllMessageReactionsParams, DeleteChatPhotoParams, DeleteChatStickerSetParams, DeleteForumTopicParams, DeleteMessageParams, DeleteMessageReactionParams, DeleteMessagesParams, EditChatInviteLinkParams, EditChatSubscriptionInviteLinkParams, EditForumTopicParams, EditGeneralForumTopicParams, EditMessageCaptionParams, EditMessageChecklistParams, EditMessageLiveLocationParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, ExportChatInviteLinkParams, ForwardMessageParams, ForwardMessagesParams, GetChatAdministratorsParams, GetChatGiftsParams, GetChatMemberCountParams, GetChatMemberParams, GetChatMenuButtonParams, GetChatParams, GetGameHighScoresParams, GetUserChatBoostsParams, HideGeneralForumTopicParams, LeaveChatParams, PinChatMessageParams, PromoteChatMemberParams, ReadBusinessMessageParams, RemoveChatVerificationParams, ReopenForumTopicParams, ReopenGeneralForumTopicParams, RestrictChatMemberParams, RevokeChatInviteLinkParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendChecklistParams, SendContactParams, SendDiceParams, SendDocumentParams, SendGameParams, SendGiftParams, SendInvoiceParams, SendLivePhotoParams, SendLocationParams, SendMediaGroupParams, SendMessageDraftParams, SendMessageParams, SendPaidMediaParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetChatAdministratorCustomTitleParams, SetChatDescriptionParams, SetChatMemberTagParams, SetChatMenuButtonParams, SetChatPermissionsParams, SetChatPhotoParams, SetChatStickerSetParams, SetChatTitleParams, SetGameScoreParams, SetMessageReactionParams, StopMessageLiveLocationParams, StopPollParams, UnbanChatMemberParams, UnbanChatSenderChatParams, UnhideGeneralForumTopicParams, UnpinAllChatMessagesParams, UnpinAllForumTopicMessagesParams, UnpinAllGeneralForumTopicMessagesParams, UnpinChatMessageParams, VerifyChatParams } from "./methods";
 import type { TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
-import { Animation, Audio, Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
+import { Animation, Audio, Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, LivePhoto, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollMedia, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
 import { Photo } from "../structures-handcrafted";
 import { INSPECT, makeInspect } from "./inspect";
 /**
@@ -33,6 +33,7 @@ export class MessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -304,8 +305,8 @@ export class MessageUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -989,7 +990,7 @@ export class MessageUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -2624,6 +2625,7 @@ export class EditedMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -2895,8 +2897,8 @@ export class EditedMessageUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -3580,7 +3582,7 @@ export class EditedMessageUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -5215,6 +5217,7 @@ export class ChannelPostUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -5486,8 +5489,8 @@ export class ChannelPostUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -6171,7 +6174,7 @@ export class ChannelPostUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -7806,6 +7809,7 @@ export class EditedChannelPostUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -8077,8 +8081,8 @@ export class EditedChannelPostUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -8762,7 +8766,7 @@ export class EditedChannelPostUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -10462,6 +10466,7 @@ export class BusinessMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -10733,8 +10738,8 @@ export class BusinessMessageUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -11418,7 +11423,7 @@ export class BusinessMessageUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -13053,6 +13058,7 @@ export class EditedBusinessMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -13324,8 +13330,8 @@ export class EditedBusinessMessageUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -14009,7 +14015,7 @@ export class EditedBusinessMessageUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -15683,6 +15689,7 @@ export class GuestMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -15954,8 +15961,8 @@ export class GuestMessageUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -16645,7 +16652,7 @@ export class GuestMessageUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -17976,7 +17983,9 @@ export class PollUpdate {
     private _questionEntities?: MessageEntity[];
     private _options?: PollOption[];
     private _explanationEntities?: MessageEntity[];
+    private _explanationMedia?: PollMedia;
     private _descriptionEntities?: MessageEntity[];
+    private _media?: PollMedia;
     constructor(public raw: TelegramPoll, private tg: TelegramLike) { }
     /**
      * Unique poll identifier
@@ -18071,8 +18080,8 @@ export class PollUpdate {
     /**
      * Optional. Media added to the quiz explanation
      */
-    get explanationMedia(): TelegramPollMedia | undefined {
-        return this.raw.explanation_media;
+    get explanationMedia(): PollMedia | undefined {
+        return this.raw.explanation_media ? (this._explanationMedia ??= new PollMedia(this.raw.explanation_media)) : undefined;
     }
     /**
      * Optional. Amount of time in seconds the poll will be active after creation
@@ -18101,8 +18110,8 @@ export class PollUpdate {
     /**
      * Optional. Media added to the poll description; for polls inside the Message object only
      */
-    get media(): TelegramPollMedia | undefined {
-        return this.raw.media;
+    get media(): PollMedia | undefined {
+        return this.raw.media ? (this._media ??= new PollMedia(this.raw.media)) : undefined;
     }
     /**
      * true if `question_entities` has at least one item
@@ -18148,7 +18157,7 @@ export class PollUpdate {
      * true if `explanation_media` is set
      */
     hasExplanationMedia(): this is this & {
-        explanationMedia: TelegramPollMedia;
+        explanationMedia: PollMedia;
     } {
         return this.raw.explanation_media != null;
     }
@@ -18188,7 +18197,7 @@ export class PollUpdate {
      * true if `media` is set
      */
     hasMedia(): this is this & {
-        media: TelegramPollMedia;
+        media: PollMedia;
     } {
         return this.raw.media != null;
     }
@@ -21713,6 +21722,7 @@ export class NewChatMembersUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -21984,8 +21994,8 @@ export class NewChatMembersUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -22669,7 +22679,7 @@ export class NewChatMembersUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -24304,6 +24314,7 @@ export class LeftChatMemberUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -24575,8 +24586,8 @@ export class LeftChatMemberUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -25260,7 +25271,7 @@ export class LeftChatMemberUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -26895,6 +26906,7 @@ export class NewChatTitleUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -27166,8 +27178,8 @@ export class NewChatTitleUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -27851,7 +27863,7 @@ export class NewChatTitleUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -29486,6 +29498,7 @@ export class NewChatPhotoUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -29757,8 +29770,8 @@ export class NewChatPhotoUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -30442,7 +30455,7 @@ export class NewChatPhotoUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -32077,6 +32090,7 @@ export class DeleteChatPhotoUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -32348,8 +32362,8 @@ export class DeleteChatPhotoUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -33033,7 +33047,7 @@ export class DeleteChatPhotoUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -34668,6 +34682,7 @@ export class GroupChatCreatedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -34939,8 +34954,8 @@ export class GroupChatCreatedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -35624,7 +35639,7 @@ export class GroupChatCreatedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -37259,6 +37274,7 @@ export class PinnedMessageUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -37530,8 +37546,8 @@ export class PinnedMessageUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -38215,7 +38231,7 @@ export class PinnedMessageUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -39850,6 +39866,7 @@ export class InvoiceUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -40121,8 +40138,8 @@ export class InvoiceUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -40806,7 +40823,7 @@ export class InvoiceUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -42441,6 +42458,7 @@ export class SuccessfulPaymentUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -42712,8 +42730,8 @@ export class SuccessfulPaymentUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -43397,7 +43415,7 @@ export class SuccessfulPaymentUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -45032,6 +45050,7 @@ export class UsersSharedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -45303,8 +45322,8 @@ export class UsersSharedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -45988,7 +46007,7 @@ export class UsersSharedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -47623,6 +47642,7 @@ export class ChatSharedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -47894,8 +47914,8 @@ export class ChatSharedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -48579,7 +48599,7 @@ export class ChatSharedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -50214,6 +50234,7 @@ export class WebAppDataUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -50485,8 +50506,8 @@ export class WebAppDataUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -51170,7 +51191,7 @@ export class WebAppDataUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -52805,6 +52826,7 @@ export class VideoChatScheduledUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -53076,8 +53098,8 @@ export class VideoChatScheduledUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -53761,7 +53783,7 @@ export class VideoChatScheduledUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -55396,6 +55418,7 @@ export class VideoChatStartedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -55667,8 +55690,8 @@ export class VideoChatStartedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -56352,7 +56375,7 @@ export class VideoChatStartedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -57987,6 +58010,7 @@ export class VideoChatEndedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -58258,8 +58282,8 @@ export class VideoChatEndedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -58943,7 +58967,7 @@ export class VideoChatEndedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -60578,6 +60602,7 @@ export class VideoChatParticipantsInvitedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -60849,8 +60874,8 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -61534,7 +61559,7 @@ export class VideoChatParticipantsInvitedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -63169,6 +63194,7 @@ export class ForumTopicCreatedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -63440,8 +63466,8 @@ export class ForumTopicCreatedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -64125,7 +64151,7 @@ export class ForumTopicCreatedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -65760,6 +65786,7 @@ export class ForumTopicEditedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -66031,8 +66058,8 @@ export class ForumTopicEditedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -66716,7 +66743,7 @@ export class ForumTopicEditedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -68351,6 +68378,7 @@ export class ForumTopicClosedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -68622,8 +68650,8 @@ export class ForumTopicClosedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -69307,7 +69335,7 @@ export class ForumTopicClosedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -70942,6 +70970,7 @@ export class ForumTopicReopenedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -71213,8 +71242,8 @@ export class ForumTopicReopenedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -71898,7 +71927,7 @@ export class ForumTopicReopenedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -73533,6 +73562,7 @@ export class GeneralForumTopicHiddenUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -73804,8 +73834,8 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -74489,7 +74519,7 @@ export class GeneralForumTopicHiddenUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -76124,6 +76154,7 @@ export class GeneralForumTopicUnhiddenUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -76395,8 +76426,8 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -77080,7 +77111,7 @@ export class GeneralForumTopicUnhiddenUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -78715,6 +78746,7 @@ export class GiveawayCreatedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -78986,8 +79018,8 @@ export class GiveawayCreatedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -79671,7 +79703,7 @@ export class GiveawayCreatedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -81306,6 +81338,7 @@ export class GiveawayCompletedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -81577,8 +81610,8 @@ export class GiveawayCompletedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -82262,7 +82295,7 @@ export class GiveawayCompletedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -83897,6 +83930,7 @@ export class GiveawayWinnersUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -84168,8 +84202,8 @@ export class GiveawayWinnersUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -84853,7 +84887,7 @@ export class GiveawayWinnersUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -86488,6 +86522,7 @@ export class BoostAddedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -86759,8 +86794,8 @@ export class BoostAddedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -87444,7 +87479,7 @@ export class BoostAddedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -89079,6 +89114,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -89350,8 +89386,8 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -90035,7 +90071,7 @@ export class MessageAutoDeleteTimerChangedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -91670,6 +91706,7 @@ export class MigrateToChatIdUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -91941,8 +91978,8 @@ export class MigrateToChatIdUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -92626,7 +92663,7 @@ export class MigrateToChatIdUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -94261,6 +94298,7 @@ export class MigrateFromChatIdUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -94532,8 +94570,8 @@ export class MigrateFromChatIdUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -95217,7 +95255,7 @@ export class MigrateFromChatIdUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -96852,6 +96890,7 @@ export class PassportDataUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -97123,8 +97162,8 @@ export class PassportDataUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -97808,7 +97847,7 @@ export class PassportDataUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -99443,6 +99482,7 @@ export class ProximityAlertTriggeredUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -99714,8 +99754,8 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -100399,7 +100439,7 @@ export class ProximityAlertTriggeredUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }
@@ -102034,6 +102074,7 @@ export class WriteAccessAllowedUpdate {
     private _animation?: Animation;
     private _audio?: Audio;
     private _document?: Document;
+    private _livePhoto?: LivePhoto;
     private _photo?: Photo;
     private _sticker?: Sticker;
     private _story?: Story;
@@ -102305,8 +102346,8 @@ export class WriteAccessAllowedUpdate {
     /**
      * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
      */
-    get livePhoto(): TelegramLivePhoto | undefined {
-        return this.raw.live_photo;
+    get livePhoto(): LivePhoto | undefined {
+        return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
     }
     /**
      * Optional. Message contains paid media; information about the paid media
@@ -102990,7 +103031,7 @@ export class WriteAccessAllowedUpdate {
      * true if `live_photo` is set
      */
     hasLivePhoto(): this is this & {
-        livePhoto: TelegramLivePhoto;
+        livePhoto: LivePhoto;
     } {
         return this.raw.live_photo != null;
     }

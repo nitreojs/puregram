@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-08T21:12:07.962Z
+/// generated at: 2026-05-09T00:16:20.915Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramInputFile, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPollOption, TelegramMessage, TelegramMessageId, TelegramReactionType } from "./types";
@@ -73,7 +73,7 @@ export interface TelegramShortcuts {
     /**
      * Shortcut for `tg.api.sendMediaGroup`. Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
      */
-    sendMediaGroup(chat: number | string, media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params?: Omit<SendMediaGroupParams, "chat_id" | "media">): Promise<TelegramMessage>;
+    sendMediaGroup(chat: number | string, media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params?: Omit<SendMediaGroupParams, "chat_id" | "media">): Promise<TelegramMessage[]>;
     /**
      * Shortcut for `tg.api.forwardMessage`. Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent Message is returned.
      */
@@ -81,7 +81,7 @@ export interface TelegramShortcuts {
     /**
      * Shortcut for `tg.api.forwardMessages`. Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
      */
-    forwardMany(from: number | string, to: number | string, messageIds: number[], params?: Omit<ForwardMessagesParams, "from_chat_id" | "chat_id" | "message_ids">): Promise<TelegramMessageId>;
+    forwardMany(from: number | string, to: number | string, messageIds: number[], params?: Omit<ForwardMessagesParams, "from_chat_id" | "chat_id" | "message_ids">): Promise<TelegramMessageId[]>;
     /**
      * Shortcut for `tg.api.copyMessage`. Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
      */
@@ -89,7 +89,7 @@ export interface TelegramShortcuts {
     /**
      * Shortcut for `tg.api.copyMessages`. Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
      */
-    copyMany(from: number | string, to: number | string, messageIds: number[], params?: Omit<CopyMessagesParams, "from_chat_id" | "chat_id" | "message_ids">): Promise<TelegramMessageId>;
+    copyMany(from: number | string, to: number | string, messageIds: number[], params?: Omit<CopyMessagesParams, "from_chat_id" | "chat_id" | "message_ids">): Promise<TelegramMessageId[]>;
     /**
      * Shortcut for `tg.api.deleteMessage`. Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there.- If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat.Returns True on success.
      */

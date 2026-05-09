@@ -313,11 +313,28 @@ function extractObject (
 }
 
 function parseReturnTypeFromDescription (description: string, links: string[]) {
-  const patterns: RegExp[] = [
+  // array-of-X first — telegram often phrases these as "an array of X objects is returned",
+  // which the singular-type patterns below would otherwise miss
+  const arrayPatterns: RegExp[] = [
     /Returns\s+(?:an?\s+|the\s+)?(Array of [A-Za-z]+)/,
+    /On success,\s+returns\s+(?:an?\s+|the\s+)?(Array of [A-Za-z]+)/,
+    /On success,\s+(?:an?\s+|the\s+)?[Aa]rray\s+of\s+([A-Z][A-Za-z]+)/,
+    /[Rr]eturns?\s+(?:an?\s+|the\s+)?[Aa]rray\s+of\s+([A-Z][A-Za-z]+)/
+  ]
+
+  for (const pattern of arrayPatterns) {
+    const match = description.match(pattern)
+
+    if (match) {
+      const captured = match[1].startsWith('Array of ') ? match[1] : `Array of ${match[1]}`
+
+      return parseTypeRef(captured)
+    }
+  }
+
+  const patterns: RegExp[] = [
     /Returns\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)\s+on success/,
     /On success,\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)\s+is returned/,
-    /On success,\s+returns\s+(?:an?\s+|the\s+)?(Array of [A-Za-z]+)/,
     /On success,\s+returns\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)/,
     /Returns\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)/,
     /Returns\s+(True)\b/

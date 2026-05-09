@@ -835,8 +835,11 @@
         }
       ],
       "returnType": {
-        "kind": "reference",
-        "name": "MessageId"
+        "kind": "array",
+        "of": {
+          "kind": "reference",
+          "name": "MessageId"
+        }
       }
     },
     {
@@ -2754,8 +2757,11 @@
         }
       ],
       "returnType": {
-        "kind": "reference",
-        "name": "MessageId"
+        "kind": "array",
+        "of": {
+          "kind": "reference",
+          "name": "MessageId"
+        }
       }
     },
     {
@@ -3689,8 +3695,11 @@
         }
       ],
       "returnType": {
-        "kind": "reference",
-        "name": "Message"
+        "kind": "array",
+        "of": {
+          "kind": "reference",
+          "name": "Message"
+        }
       }
     },
     {
@@ -6773,8 +6782,11 @@
         }
       ],
       "returnType": {
-        "kind": "reference",
-        "name": "Message"
+        "kind": "array",
+        "of": {
+          "kind": "reference",
+          "name": "Message"
+        }
       }
     },
     {
@@ -27217,6 +27229,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-05-08T21:12:07.962Z"
+    "fetchedAt": "2026-05-09T00:16:20.915Z"
   }
 }

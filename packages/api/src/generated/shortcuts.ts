@@ -5,7 +5,7 @@
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramInputFile, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPollOption, TelegramMessage, TelegramMessageId, TelegramReactionType } from "./types";
-import type { BanChatMemberParams, CopyMessageParams, CopyMessagesParams, DeleteMessageParams, DeleteMessagesParams, ForwardMessageParams, ForwardMessagesParams, PinChatMessageParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendContactParams, SendDiceParams, SendDocumentParams, SendLocationParams, SendMediaGroupParams, SendMessageParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetMessageReactionParams, UnbanChatMemberParams, UnpinChatMessageParams } from "./methods";
+import type { BanChatMemberParams, CopyMessageParams, CopyMessagesParams, DeleteMessageParams, DeleteMessagesParams, ForwardMessageParams, ForwardMessagesParams, PinChatMessageParams, SendAnimationParams, SendAudioParams, SendChatActionParams, SendContactParams, SendDiceParams, SendDocumentParams, SendLivePhotoParams, SendLocationParams, SendMediaGroupParams, SendMessageParams, SendPhotoParams, SendPollParams, SendStickerParams, SendVenueParams, SendVideoNoteParams, SendVideoParams, SendVoiceParams, SetMessageReactionParams, UnbanChatMemberParams, UnpinChatMessageParams } from "./methods";
 import type { Formattable } from "../formattable";
 export interface TelegramShortcuts {
     /**
@@ -41,6 +41,10 @@ export interface TelegramShortcuts {
      * Shortcut for `tg.api.sendVideoNote`. As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
      */
     sendVideoNote(chat: number | string, videoNote: TelegramInputFile | string, params?: Omit<SendVideoNoteParams, "chat_id" | "video_note">): Promise<TelegramMessage>;
+    /**
+     * Shortcut for `tg.api.sendLivePhoto`. Use this method to send live photos. On success, the sent Message is returned.
+     */
+    sendLivePhoto(chat: number | string, livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params?: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo">): Promise<TelegramMessage>;
     /**
      * Shortcut for `tg.api.sendSticker`. Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.
      */

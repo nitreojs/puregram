@@ -1663,31 +1663,31 @@ export class MessageUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -2280,9 +2280,11 @@ export class MessageUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -4255,31 +4257,31 @@ export class EditedMessageUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -4872,9 +4874,11 @@ export class EditedMessageUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -6847,31 +6851,31 @@ export class ChannelPostUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -7464,9 +7468,11 @@ export class ChannelPostUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -9439,31 +9445,31 @@ export class EditedChannelPostUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -10056,9 +10062,11 @@ export class EditedChannelPostUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -12096,31 +12104,31 @@ export class BusinessMessageUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -12713,9 +12721,11 @@ export class BusinessMessageUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -14688,31 +14698,31 @@ export class EditedBusinessMessageUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -15305,9 +15315,11 @@ export class EditedBusinessMessageUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -17325,31 +17337,31 @@ export class GuestMessageUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -19131,9 +19143,11 @@ export class MyChatMemberUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -20300,9 +20314,11 @@ export class ChatMemberUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -21267,9 +21283,11 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -23352,31 +23370,31 @@ export class NewChatMembersUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -23969,9 +23987,11 @@ export class NewChatMembersUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -25944,31 +25964,31 @@ export class LeftChatMemberUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -26561,9 +26581,11 @@ export class LeftChatMemberUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -28536,31 +28558,31 @@ export class NewChatTitleUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -29153,9 +29175,11 @@ export class NewChatTitleUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -31128,31 +31152,31 @@ export class NewChatPhotoUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -31745,9 +31769,11 @@ export class NewChatPhotoUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -33720,31 +33746,31 @@ export class DeleteChatPhotoUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -34337,9 +34363,11 @@ export class DeleteChatPhotoUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -36312,31 +36340,31 @@ export class GroupChatCreatedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -36929,9 +36957,11 @@ export class GroupChatCreatedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -38904,31 +38934,31 @@ export class PinnedMessageUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -39521,9 +39551,11 @@ export class PinnedMessageUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -41496,31 +41528,31 @@ export class InvoiceUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -42113,9 +42145,11 @@ export class InvoiceUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -44088,31 +44122,31 @@ export class SuccessfulPaymentUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -44705,9 +44739,11 @@ export class SuccessfulPaymentUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -46680,31 +46716,31 @@ export class UsersSharedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -47297,9 +47333,11 @@ export class UsersSharedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -49272,31 +49310,31 @@ export class ChatSharedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -49889,9 +49927,11 @@ export class ChatSharedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -51864,31 +51904,31 @@ export class WebAppDataUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -52481,9 +52521,11 @@ export class WebAppDataUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -54456,31 +54498,31 @@ export class VideoChatScheduledUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -55073,9 +55115,11 @@ export class VideoChatScheduledUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -57048,31 +57092,31 @@ export class VideoChatStartedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -57665,9 +57709,11 @@ export class VideoChatStartedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -59640,31 +59686,31 @@ export class VideoChatEndedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -60257,9 +60303,11 @@ export class VideoChatEndedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -62232,31 +62280,31 @@ export class VideoChatParticipantsInvitedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -62849,9 +62897,11 @@ export class VideoChatParticipantsInvitedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -64824,31 +64874,31 @@ export class ForumTopicCreatedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -65441,9 +65491,11 @@ export class ForumTopicCreatedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -67416,31 +67468,31 @@ export class ForumTopicEditedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -68033,9 +68085,11 @@ export class ForumTopicEditedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -70008,31 +70062,31 @@ export class ForumTopicClosedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -70625,9 +70679,11 @@ export class ForumTopicClosedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -72600,31 +72656,31 @@ export class ForumTopicReopenedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -73217,9 +73273,11 @@ export class ForumTopicReopenedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -75192,31 +75250,31 @@ export class GeneralForumTopicHiddenUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -75809,9 +75867,11 @@ export class GeneralForumTopicHiddenUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -77784,31 +77844,31 @@ export class GeneralForumTopicUnhiddenUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -78401,9 +78461,11 @@ export class GeneralForumTopicUnhiddenUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -80376,31 +80438,31 @@ export class GiveawayCreatedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -80993,9 +81055,11 @@ export class GiveawayCreatedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -82968,31 +83032,31 @@ export class GiveawayCompletedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -83585,9 +83649,11 @@ export class GiveawayCompletedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -85560,31 +85626,31 @@ export class GiveawayWinnersUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -86177,9 +86243,11 @@ export class GiveawayWinnersUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -88152,31 +88220,31 @@ export class BoostAddedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -88769,9 +88837,11 @@ export class BoostAddedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -90744,31 +90814,31 @@ export class MessageAutoDeleteTimerChangedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -91361,9 +91431,11 @@ export class MessageAutoDeleteTimerChangedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -93336,31 +93408,31 @@ export class MigrateToChatIdUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -93953,9 +94025,11 @@ export class MigrateToChatIdUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -95928,31 +96002,31 @@ export class MigrateFromChatIdUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -96545,9 +96619,11 @@ export class MigrateFromChatIdUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -98520,31 +98596,31 @@ export class PassportDataUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -99137,9 +99213,11 @@ export class PassportDataUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -101112,31 +101190,31 @@ export class ProximityAlertTriggeredUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -101729,9 +101807,11 @@ export class ProximityAlertTriggeredUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }
@@ -103704,31 +103784,31 @@ export class WriteAccessAllowedUpdate {
         return this.raw.chat.type === "channel";
     }
     /**
-     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > photo[largest] > sticker`
+     * download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`
      */
     download(): Promise<Buffer | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.download(t);
     }
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
     downloadStream(): Promise<import("node:stream").Readable | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
     /**
      * download the message attachment as an async-iterable byte stream. returns `null` if no media
      */
     downloadIterable(): Promise<AsyncIterable<Uint8Array> | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t);
     }
     /**
      * download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written
      */
     downloadToFile(path: string): Promise<void | null> {
-        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.photo ?? this.raw.sticker;
+        const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -104321,9 +104401,11 @@ export class WriteAccessAllowedUpdate {
     /**
      * shortcut for `tg.api.sendLivePhoto`
      */
-    sendLivePhoto(params: Omit<SendLivePhotoParams, "chat_id">) {
+    sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: Omit<SendLivePhotoParams, "chat_id" | "live_photo" | "photo"> = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
             ...params
         });
     }

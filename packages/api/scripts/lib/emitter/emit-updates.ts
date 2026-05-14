@@ -53,10 +53,74 @@ export function emitUpdates (schema: Schema) {
   const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
   const widenedArgs = detectWidenedMethodArgs(schema)
 
+  // partition kinds by (payloadType, behavioral fingerprint). kinds in a partition of
+  // size >= 2 share a generated base class (memo fields, getters, hasField(), extras,
+  // shortcuts, is(), INSPECT) and emit as thin subclasses on top. singletons keep the
+  // standalone emission path. this collapses the ~95k-line duplication where 38 message
+  // -shape kinds each re-emit the full TelegramMessage getter set, dropping tsc heap from
+  // ~1.8 GB to ~0.3 GB on cold `import { Telegram } from 'puregram'`
+  const baseKeyByKind = new Map<string, string>()
+  const groupedByBase = new Map<string, UpdateKindSpec[]>()
+
+  {
+    const byPayloadAndFingerprint = new Map<string, Map<string, UpdateKindSpec[]>>()
+
+    for (const k of kinds) {
+      const fingerprint = behaviorFingerprint(k, analysis.byKind[k.kindName] ?? [])
+      let inner = byPayloadAndFingerprint.get(k.payloadType)
+
+      if (!inner) {
+        inner = new Map()
+        byPayloadAndFingerprint.set(k.payloadType, inner)
+      }
+
+      const arr = inner.get(fingerprint) ?? []
+
+      arr.push(k)
+      inner.set(fingerprint, arr)
+    }
+
+    for (const [payloadType, inner] of byPayloadAndFingerprint) {
+      // shared cohorts only (size >= 2); singletons keep standalone emission
+      const sharedFingerprints = [...inner.keys()].filter(fp => (inner.get(fp)?.length ?? 0) >= 2)
+
+      for (const fingerprint of sharedFingerprints) {
+        const group = inner.get(fingerprint) ?? []
+        // suffix only when one payloadType produces multiple shared cohorts (rare)
+        const baseName = sharedFingerprints.length === 1
+          ? sharedBaseName(payloadType)
+          : `${sharedBaseName(payloadType)}${sharedFingerprints.indexOf(fingerprint) + 1}`
+
+        groupedByBase.set(baseName, group)
+
+        for (const k of group) {
+          baseKeyByKind.set(k.kindName, baseName)
+        }
+      }
+    }
+  }
+
   const nodes: ts.Node[] = []
+  const emittedBases = new Set<string>()
 
   for (const kind of kinds) {
-    nodes.push(emitUpdateClass(kind, objectsByName, analysis.byKind[kind.kindName] ?? [], widenedArgs))
+    const baseName = baseKeyByKind.get(kind.kindName)
+
+    if (baseName === undefined) {
+      nodes.push(emitUpdateClass(kind, objectsByName, analysis.byKind[kind.kindName] ?? [], widenedArgs))
+      continue
+    }
+
+    if (!emittedBases.has(baseName)) {
+      emittedBases.add(baseName)
+
+      const group = groupedByBase.get(baseName) ?? []
+      const head = group[0] ?? kind
+
+      nodes.push(emitSharedBase(baseName, head, objectsByName, analysis.byKind[head.kindName] ?? [], widenedArgs))
+    }
+
+    nodes.push(emitVariantSubclass(kind, baseName))
   }
 
   nodes.push(emitUpdateKindUnion())
@@ -86,21 +150,14 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
-  // positional shortcut args inline their TS type, so any referenced Telegram* needs an import too
+  // shortcut signatures inline both positional args AND the params object shape, so every
+  // referenced Telegram* (across all userArgs) needs an import too. previously the params
+  // type was `Omit<XxxParams, …>` which pulled imports transitively via XxxParams; now
+  // that we inline literals we collect them explicitly
   for (const list of Object.values(analysis.byKind)) {
     for (const sc of list) {
-      const anchorArgs = new Set(sc.filledArgs.map(a => a.schemaArg))
-
-      for (const p of METHOD_POSITIONALS[sc.method] ?? []) {
-        if (anchorArgs.has(p.schemaArg)) {
-          continue
-        }
-
-        const arg = sc.userArgs.find(a => a.name === p.schemaArg)
-
-        if (arg) {
-          collectReferencedTypeNames(arg.type, referencedTypes, name => `Telegram${name}`)
-        }
+      for (const arg of sc.userArgs) {
+        collectReferencedTypeNames(arg.type, referencedTypes, name => `Telegram${name}`)
       }
     }
   }
@@ -126,14 +183,6 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
-  const paramsImports = new Set<string>()
-
-  for (const list of Object.values(analysis.byKind)) {
-    for (const sc of list) {
-      paramsImports.add(`${sc.method[0].toUpperCase()}${sc.method.slice(1)}Params`)
-    }
-  }
-
   const usesHas = kinds.some((k) => {
     if (k.extras?.some(e => e.returnType.includes('Has<'))) {
       return true
@@ -147,17 +196,22 @@ export function emitUpdates (schema: Schema) {
 
     return obj.fields.some(f => !f.required && !/^(has|is)[A-Z]/.test(getterNameFor(f.name)))
   })
-  const usesFormattable = [...paramsImports].some((paramsName) => {
-    const methodName = paramsName.charAt(0).toLowerCase() + paramsName.slice(1, -'Params'.length)
+  // shortcuts now inline their params type, so `Formattable` is needed iff any inlined
+  // arg references it (i.e. the method has a widened arg AND that arg is among `userArgs`)
+  const usesFormattable = Object.entries(analysis.byKind).some(([, list]) => list.some((sc) => {
+    const widened = widenedArgs.get(sc.method)
 
-    return widenedArgs.has(methodName)
-  })
+    if (!widened || widened.size === 0) {
+      return false
+    }
+
+    return sc.userArgs.some(a => widened.has(a.name))
+  }))
 
   const usedArrayWrappers = collectUsedArrayWrappers(kinds, objectsByName)
 
   const imports = [
     importTypeNamed([...referencedTypes].sort(), './types'),
-    ...(paramsImports.size > 0 ? [importTypeNamed([...paramsImports].sort(), './methods')] : []),
     importTypeNamed(['TelegramLike'], '../telegram-like'),
     ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
     ...(usesFormattable ? [importTypeNamed(['Formattable'], '../formattable')] : []),
@@ -285,6 +339,344 @@ function collectUsedArrayWrappers (
   }
 
   return ARRAY_WRAPPER_NAMES.filter(n => used.has(n))
+}
+
+function sharedBaseName (payloadType: string) {
+  return `${payloadType.replace(/^Telegram/, '')}Shared`
+}
+
+// kinds that share a (payloadType, fingerprint) pair can share a generated base class
+// without behavior divergence. fingerprint covers anchors (drive shortcut binding),
+// extras (hand-curated members), and bound shortcuts (what tg.api.* shortcuts the kind
+// exposes). guest_message has its own anchor (`guest_query_id`) so it falls out of the
+// 37-kind message cohort automatically and emits standalone
+function behaviorFingerprint (kind: UpdateKindSpec, shortcuts: BoundShortcut[]) {
+  return JSON.stringify([kind.anchors, kind.extras ?? [], shortcuts])
+}
+
+// payload-driven members (memo fields, getters, hasField()) — identical across every
+// kind that shares the same payload type. extracted so emitUpdateClass (standalone) and
+// emitSharedBase (multi-kind base) build them the same way
+function buildPayloadMembers (
+  payloadObject: SchemaObject | undefined,
+  reservedNames: Set<string>,
+  extrasNames: Set<string>,
+  objectsByName: Map<string, SchemaObject>
+) {
+  const members: ts.ClassElement[] = []
+
+  if (payloadObject?.kind === 'object') {
+    for (const f of payloadObject.fields) {
+      const info = wrapperInfoFor(f.type, objectsByName)
+
+      if (info) {
+        const memoType: ts.TypeNode = info.isArray
+          ? ts.factory.createArrayTypeNode(ts.factory.createTypeReferenceNode(info.name))
+          : ts.factory.createTypeReferenceNode(info.name)
+
+        members.push(ts.factory.createPropertyDeclaration(
+          [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
+          ts.factory.createIdentifier(`_${camelCase(f.name)}`),
+          ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+          memoType,
+          undefined
+        ))
+      }
+    }
+  }
+
+  return { memoMembers: members, getterMembers: buildGetterMembers(payloadObject, reservedNames, objectsByName), hasMembers: buildAutoHasMembers(payloadObject, reservedNames, extrasNames, objectsByName) }
+}
+
+function buildGetterMembers (
+  payloadObject: SchemaObject | undefined,
+  reservedNames: Set<string>,
+  objectsByName: Map<string, SchemaObject>
+) {
+  const members: ts.ClassElement[] = []
+
+  if (payloadObject?.kind !== 'object') {
+    return members
+  }
+
+  for (const f of payloadObject.fields) {
+    const camelName = getterNameFor(f.name)
+
+    if (reservedNames.has(camelName)) {
+      continue
+    }
+
+    reservedNames.add(camelName)
+
+    const info = wrapperInfoFor(f.type, objectsByName)
+
+    if (info) {
+      members.push(emitWrapperGetter(f, camelName, info))
+    } else {
+      members.push(emitPrimitiveGetter(f, camelName))
+    }
+  }
+
+  return members
+}
+
+function buildAutoHasMembers (
+  payloadObject: SchemaObject | undefined,
+  reservedNames: Set<string>,
+  extrasNames: Set<string>,
+  objectsByName: Map<string, SchemaObject>
+) {
+  const members: ts.ClassElement[] = []
+
+  if (payloadObject?.kind !== 'object') {
+    return members
+  }
+
+  for (const f of payloadObject.fields) {
+    if (f.required) {
+      continue
+    }
+
+    const camelName = getterNameFor(f.name)
+
+    if (/^(has|is)[A-Z]/.test(camelName)) {
+      continue
+    }
+
+    const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
+
+    if (reservedNames.has(hasName) || extrasNames.has(hasName)) {
+      continue
+    }
+
+    reservedNames.add(hasName)
+    members.push(emitAutoHasMethod(f, camelName, hasName, objectsByName))
+  }
+
+  return members
+}
+
+function emitConstructor (payloadType: string) {
+  // `tg` stays `public readonly` so handler code can call `this.tg.api.*`. nominal class
+  // brand comes from the private memo fields (`_from`, `_chat`, …) declared on the owning
+  // class; when those move to a shared base, each subclass adds its own `private __brand!`
+  // marker to keep `AnyUpdate & X` narrowing fast (see emitVariantSubclass)
+  return ts.factory.createConstructorDeclaration(
+    undefined,
+    [
+      ts.factory.createParameterDeclaration(
+        [ts.factory.createModifier(ts.SyntaxKind.PublicKeyword)],
+        undefined,
+        ts.factory.createIdentifier('raw'),
+        undefined,
+        ts.factory.createTypeReferenceNode(payloadType),
+        undefined
+      ),
+      ts.factory.createParameterDeclaration(
+        [
+          ts.factory.createModifier(ts.SyntaxKind.PublicKeyword),
+          ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword)
+        ],
+        undefined,
+        ts.factory.createIdentifier('tg'),
+        undefined,
+        ts.factory.createTypeReferenceNode('TelegramLike'),
+        undefined
+      )
+    ],
+    ts.factory.createBlock([], false)
+  )
+}
+
+function emitIsMethod () {
+  return ts.factory.createMethodDeclaration(
+    undefined,
+    undefined,
+    ts.factory.createIdentifier('is'),
+    undefined,
+    [ts.factory.createTypeParameterDeclaration(
+      undefined,
+      ts.factory.createIdentifier('K'),
+      ts.factory.createTypeReferenceNode('UpdateKind')
+    )],
+    [ts.factory.createParameterDeclaration(
+      undefined, undefined,
+      ts.factory.createIdentifier('kind'),
+      undefined,
+      ts.factory.createTypeReferenceNode('K'),
+      undefined
+    )],
+    ts.factory.createTypePredicateNode(
+      undefined,
+      ts.factory.createThisTypeNode(),
+      ts.factory.createIndexedAccessTypeNode(
+        ts.factory.createTypeReferenceNode('UpdateKindMap'),
+        ts.factory.createTypeReferenceNode('K')
+      )
+    ),
+    ts.factory.createBlock([
+      ts.factory.createReturnStatement(
+        ts.factory.createBinaryExpression(
+          ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'kind'),
+          ts.SyntaxKind.EqualsEqualsEqualsToken,
+          ts.factory.createAsExpression(
+            ts.factory.createIdentifier('kind'),
+            ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword)
+          )
+        )
+      )
+    ], true)
+  )
+}
+
+function emitInspectMethod (classNameExpr: ts.Expression) {
+  const anyType = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
+  const inspectParam = (name: string) => ts.factory.createParameterDeclaration(
+    undefined, undefined, ts.factory.createIdentifier(name), undefined, anyType, undefined
+  )
+
+  return ts.factory.createMethodDeclaration(
+    undefined, undefined,
+    ts.factory.createComputedPropertyName(ts.factory.createIdentifier('INSPECT')),
+    undefined, undefined,
+    [inspectParam('depth'), inspectParam('options'), inspectParam('inspect')],
+    undefined,
+    ts.factory.createBlock([
+      ts.factory.createReturnStatement(
+        ts.factory.createCallExpression(
+          ts.factory.createIdentifier('makeInspect'),
+          undefined,
+          [
+            classNameExpr,
+            ts.factory.createThis(),
+            ts.factory.createIdentifier('depth'),
+            ts.factory.createIdentifier('options'),
+            ts.factory.createIdentifier('inspect')
+          ]
+        )
+      )
+    ], true)
+  )
+}
+
+function emitSharedBase (
+  baseName: string,
+  kind: UpdateKindSpec,
+  objectsByName: Map<string, SchemaObject>,
+  shortcuts: BoundShortcut[],
+  widenedArgs: Map<string, Set<string>>
+) {
+  const members: ts.ClassElement[] = []
+
+  // `declare readonly kind: string` — type-only stub; concrete literal lives on each subclass.
+  // base never gets instantiated directly so the abstract-ish declaration is safe
+  members.push(ts.factory.createPropertyDeclaration(
+    [
+      ts.factory.createModifier(ts.SyntaxKind.DeclareKeyword),
+      ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword)
+    ],
+    ts.factory.createIdentifier('kind'),
+    undefined,
+    ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+    undefined
+  ))
+
+  const payloadObjectName = kind.payloadType.replace(/^Telegram/, '')
+  const payloadObject = objectsByName.get(payloadObjectName)
+
+  const reservedNames = new Set<string>(['kind', 'raw', 'tg', 'is'])
+
+  for (const sc of shortcuts) {
+    reservedNames.add(shortcutNameFor(sc.method))
+  }
+
+  const extrasNames = new Set((kind.extras ?? []).map(e => e.name))
+
+  const { memoMembers, getterMembers, hasMembers } = buildPayloadMembers(payloadObject, reservedNames, extrasNames, objectsByName)
+
+  members.push(...memoMembers)
+  members.push(emitConstructor(kind.payloadType))
+  members.push(...getterMembers)
+  members.push(...hasMembers)
+
+  for (const extra of kind.extras ?? []) {
+    if (reservedNames.has(extra.name)) {
+      throw new Error(`extras collision: ${baseName}.${extra.name} clashes with a generated member`)
+    }
+
+    reservedNames.add(extra.name)
+    members.push(emitExtra(extra))
+  }
+
+  members.push(emitIsMethod())
+
+  for (const sc of shortcuts) {
+    members.push(emitShortcutMethod(sc, widenedArgs))
+  }
+
+  // base uses `this.constructor.name` so each subclass prints its own name in node's
+  // util.inspect output without needing to override [INSPECT]
+  members.push(emitInspectMethod(
+    ts.factory.createPropertyAccessExpression(
+      ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'constructor'),
+      'name'
+    )
+  ))
+
+  return jsDoc(
+    `shared base for every update built from \`${kind.payloadType}\` — implementation detail, not exported`,
+    ts.factory.createClassDeclaration(
+      undefined,
+      ts.factory.createIdentifier(baseName),
+      undefined,
+      undefined,
+      members
+    )
+  )
+}
+
+function emitVariantSubclass (kind: UpdateKindSpec, baseName: string) {
+  const members: ts.ClassElement[] = []
+
+  members.push(ts.factory.createPropertyDeclaration(
+    [ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword)],
+    ts.factory.createIdentifier('kind'),
+    undefined,
+    undefined,
+    ts.factory.createAsExpression(
+      ts.factory.createStringLiteral(kind.kindName),
+      ts.factory.createTypeReferenceNode('const')
+    )
+  ))
+
+  // per-subclass private brand so `AnyUpdate & PinnedMessageUpdate`-style intersections
+  // short-circuit on incompatibility rather than distributing structurally across the union
+  // (sibling subclasses inherit the same base memo fields, so they'd otherwise be
+  // structurally indistinguishable except by the `kind` literal)
+  members.push(ts.factory.createPropertyDeclaration(
+    [ts.factory.createModifier(ts.SyntaxKind.PrivateKeyword)],
+    ts.factory.createIdentifier('__brand'),
+    ts.factory.createToken(ts.SyntaxKind.ExclamationToken),
+    ts.factory.createKeywordTypeNode(ts.SyntaxKind.NeverKeyword),
+    undefined
+  ))
+
+  return jsDoc(
+    `update for the \`${kind.kindName}\` event`,
+    ts.factory.createClassDeclaration(
+      [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+      ts.factory.createIdentifier(kind.className),
+      undefined,
+      [ts.factory.createHeritageClause(
+        ts.SyntaxKind.ExtendsKeyword,
+        [ts.factory.createExpressionWithTypeArguments(
+          ts.factory.createIdentifier(baseName),
+          undefined
+        )]
+      )],
+      members
+    )
+  )
 }
 
 function emitUpdateClass (
@@ -856,21 +1248,51 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     )
   ], true)
 
-  const paramTypeName = sc.method[0].toUpperCase() + sc.method.slice(1) + 'Params'
-  const omittedNames = [
-    ...sc.filledArgs.map(a => a.schemaArg),
-    ...positionals.map(p => p.schemaArg)
-  ]
-
-  const omitTypeNode = ts.factory.createTypeReferenceNode('Omit', [
-    ts.factory.createTypeReferenceNode(paramTypeName),
-    ts.factory.createUnionTypeNode(
-      omittedNames.map(n => ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(n)))
-    )
-  ])
-
   const positionalArgs = new Set(positionals.map(p => p.schemaArg))
   const restArgs = sc.userArgs.filter(a => !positionalArgs.has(a.name))
+
+  // inline the remaining params as a literal object type instead of `Omit<XxxParams, …>`.
+  // `Omit` desugars to `Pick<T, Exclude<keyof T, K>>` — each shortcut signature was
+  // forcing tsc to materialize a fresh Exclude per kind × per call site, which dominated
+  // the trace (`Exclude` was 13.5k of 145k total instantiated types on a bare Telegram
+  // import). emitting the shape inline lets tsc reuse a flat object type with zero
+  // generic resolution cost
+  const paramsTypeNode = ts.factory.createTypeLiteralNode(
+    restArgs.map((arg) => {
+      let type = typeRefToTs(arg.type)
+
+      if (widenedArgs.get(sc.method)?.has(arg.name)) {
+        type = ts.factory.createUnionTypeNode([
+          type,
+          ts.factory.createTypeReferenceNode('Formattable')
+        ])
+      }
+
+      if (arg.name === 'reply_markup') {
+        // accept either the bot-api shape or any class with matching toJSON() (mirrors
+        // emit-methods' wrapWithToJSON so InlineKeyboard / Keyboard etc. still bind)
+        const inner = type
+        type = ts.factory.createUnionTypeNode([
+          inner,
+          ts.factory.createTypeLiteralNode([
+            ts.factory.createPropertySignature(
+              undefined,
+              ts.factory.createIdentifier('toJSON'),
+              undefined,
+              ts.factory.createFunctionTypeNode(undefined, [], inner)
+            )
+          ])
+        ])
+      }
+
+      return ts.factory.createPropertySignature(
+        undefined,
+        ts.factory.createIdentifier(arg.name),
+        arg.required ? undefined : ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+        type
+      )
+    })
+  )
 
   // default `params` to `{}` only when all remaining user args are optional —
   // otherwise `update.send(text)` should error at the call site, not at runtime
@@ -883,7 +1305,7 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     undefined, undefined,
     ts.factory.createIdentifier('params'),
     undefined,
-    omitTypeNode,
+    paramsTypeNode,
     defaultInit
   )
 

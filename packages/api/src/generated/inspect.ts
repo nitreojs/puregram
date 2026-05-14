@@ -54,9 +54,10 @@ function collectFields (instance: object): Record<string, unknown> {
     if (typeof value === 'function') continue
     if (keep(value)) out[key] = value
   }
-  // prototype getters second (the codegen'd camelCase fields)
-  const proto = Object.getPrototypeOf(instance) as object | null
-  if (proto && proto !== Object.prototype) {
+  // prototype getters second (the codegen'd camelCase fields); walk full chain so getters
+  // defined on a shared base class (e.g. MessageShared) are visible from subclass instances
+  let proto = Object.getPrototypeOf(instance) as object | null
+  while (proto && proto !== Object.prototype) {
     for (const [key, desc] of Object.entries(Object.getOwnPropertyDescriptors(proto))) {
       if (key === 'constructor' || key in out) continue
       if (typeof desc.get !== 'function') continue
@@ -65,6 +66,7 @@ function collectFields (instance: object): Record<string, unknown> {
       if (typeof value === 'function') continue
       if (keep(value)) out[key] = value
     }
+    proto = Object.getPrototypeOf(proto) as object | null
   }
   return out
 }

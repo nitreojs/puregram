@@ -1,0 +1,41 @@
+{
+  "name": "@puregram/inline-message-id",
+  "version": "3.0.0",
+  "description": "parse and serialize telegram inline_message_id strings",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/inline-message-id"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot-api",
+    "puregram",
+    "inline-message-id",
+    "inline-bot"
+  ]
+}

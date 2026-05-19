@@ -1,0 +1,6 @@
+export { InlineMessageId } from './class'
+export { InlineMessageIdParseError } from './errors'
+export { isLegacyInlineMessageId, isModernInlineMessageId } from './guards'
+export { parseInlineMessageId } from './parse'
+export { serializeInlineMessageId } from './serialize'
+export type { LegacyInlineMessageId, ModernInlineMessageId, ParsedInlineMessageId } from './types'

@@ -26,6 +26,27 @@ export class WaitForCancelled extends Error {
   }
 }
 
+/**
+ * thrown when a waiter is aborted via its `AbortSignal`. carries the signal's
+ * `reason` (if any) under `cause` to mirror the standard AbortController contract
+ */
+export class WaiterAbortedError extends Error {
+  readonly kind: string
+
+  constructor (kind: string, reason?: unknown) {
+    super(`waitFor('${kind}') aborted`)
+
+    this.kind = kind
+    this.name = 'WaiterAbortedError'
+
+    if (reason !== undefined) {
+      ;(this as { cause?: unknown }).cause = reason
+    }
+
+    Error.captureStackTrace(this, this.constructor)
+  }
+}
+
 export class FlowPersistenceUnconfigured extends Error {
   constructor () {
     super('flow.prompt({ id }) / flow.waitFor({ id }) requires flow({ storage })')

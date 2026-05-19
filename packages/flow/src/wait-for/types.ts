@@ -14,6 +14,12 @@ export interface WaitForOptions<K extends keyof UpdateKindMap, T = UpdateKindMap
   validate?: (update: UpdateKindMap[K]) => ValidateResult
   /** shapes the matched update before the await resolves; transform output dictates the promise type */
   transform?: (update: UpdateKindMap[K]) => T
+  /**
+   * abort signal — when fired, the waiter rejects with `WaiterAbortedError` and
+   * unregisters its listeners. compose with `AbortSignal.timeout(...)` /
+   * `AbortSignal.any([...])` for shared deadlines across multiple waiters
+   */
+  signal?: AbortSignal
 }
 
 export type WaitForResult<

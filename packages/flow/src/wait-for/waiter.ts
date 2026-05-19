@@ -1,6 +1,6 @@
 import type { UpdateKindMap } from '@puregram/api'
 
-import { WaitForCancelled, WaitForTimeout } from '../errors'
+import { WaiterAbortedError, WaitForCancelled, WaitForTimeout } from '../errors'
 
 import type { Filter, WaitForOptions } from './types'
 
@@ -19,6 +19,8 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
   private rejectFn!: (reason: unknown) => void
   private timer: ReturnType<typeof setTimeout> | undefined
   private settledFlag = false
+  private signal: AbortSignal | undefined
+  private abortHandler: (() => void) | undefined
 
   constructor (kind: K, options: WaitForOptions<K, T>) {
     this.kind = kind
@@ -41,6 +43,7 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
         }
 
         this.settledFlag = true
+        this.detachSignal()
 
         if (options.nullOnTimeout === true) {
           this.resolveFn(null)
@@ -48,6 +51,10 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
           this.rejectFn(new WaitForTimeout(kind, ms))
         }
       }, ms)
+    }
+
+    if (options.signal !== undefined) {
+      this.attachSignal(options.signal)
     }
   }
 
@@ -90,6 +97,8 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
       clearTimeout(this.timer)
     }
 
+    this.detachSignal()
+
     const value = this.transformFn !== undefined
       ? this.transformFn(update)
       : (update as unknown as T)
@@ -108,6 +117,51 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
       clearTimeout(this.timer)
     }
 
+    this.detachSignal()
+
     this.rejectFn(new WaitForCancelled(this.kind))
+  }
+
+  private attachSignal (signal: AbortSignal) {
+    this.signal = signal
+
+    if (signal.aborted) {
+      // settle synchronously so the caller's await sees the rejection immediately
+      this.settledFlag = true
+
+      if (this.timer !== undefined) {
+        clearTimeout(this.timer)
+      }
+
+      this.rejectFn(new WaiterAbortedError(this.kind, signal.reason))
+
+      return
+    }
+
+    this.abortHandler = () => {
+      if (this.settledFlag) {
+        return
+      }
+
+      this.settledFlag = true
+
+      if (this.timer !== undefined) {
+        clearTimeout(this.timer)
+      }
+
+      this.detachSignal()
+
+      this.rejectFn(new WaiterAbortedError(this.kind, signal.reason))
+    }
+
+    signal.addEventListener('abort', this.abortHandler, { once: true })
+  }
+
+  private detachSignal () {
+    if (this.signal !== undefined && this.abortHandler !== undefined) {
+      this.signal.removeEventListener('abort', this.abortHandler)
+      this.signal = undefined
+      this.abortHandler = undefined
+    }
   }
 }

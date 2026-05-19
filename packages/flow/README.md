@@ -9,6 +9,10 @@
   <span>&nbsp;•&nbsp;</span>
   <a href='#waitfor'><b>waitFor</b></a>
   <span>&nbsp;•&nbsp;</span>
+  <a href='#waitfor-sugar'><b>callback/command sugar</b></a>
+  <span>&nbsp;•&nbsp;</span>
+  <a href='#waitforany'><b>waitForAny</b></a>
+  <span>&nbsp;•&nbsp;</span>
   <a href='#prompt'><b>prompt</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#collectmediagroup'><b>media groups</b></a>
@@ -155,6 +159,7 @@ const wait = await telegram.flow.waitFor('message', {
 | `consume` | `boolean` | `true` | when matched, swallow the update so other handlers don't see it. set `false` if you want it to keep flowing |
 | `validate` | `(update) => boolean \| string` | none | post-filter check. return `false` to silently re-wait, return a string to send that as feedback and re-wait |
 | `transform` | `(update) => T` | identity | shape the matched update before resolving. promise type follows what you return |
+| `signal` | `AbortSignal` | none | external cancellation channel. when fired, the waiter rejects with `WaiterAbortedError` and unregisters its listeners. pairs with `AbortSignal.timeout(...)` / `AbortSignal.any([...])` for shared deadlines |
 
 ### multiple waiters on the same update
 
@@ -179,6 +184,138 @@ try {
 ```
 
 `telegram.flow.cancelAll()` rejects every pending waiter with `WaitForCancelled` — useful in shutdown / hot-reload paths
+
+---
+
+<a name='waitfor-sugar'></a>
+## `waitForCallbackQuery` / `waitForCommand` — common-case shortcuts
+
+two thin wrappers over `waitFor` that build the predicate for you. both accept every `WaitForOptions` knob (`timeout`, `nullOnTimeout`, `signal`, `consume`, `validate`, `transform`) via a second argument
+
+### `waitForCallbackQuery(predicate?, options?)`
+
+wait for the next callback query whose data matches `predicate`. omit `predicate` to match any callback query
+
+```ts
+telegram.command('confirm', async (message) => {
+  await message.send('press the button', {
+    reply_markup: {
+      inline_keyboard: [[{ text: 'confirm', callback_data: 'confirm:yes' }]]
+    }
+  })
+
+  const tap = await message.flow.waitForCallbackQuery(
+    (q) => q.data === 'confirm:yes',
+    { timeout: 30_000, nullOnTimeout: true }
+  )
+
+  if (tap === null) {
+    return message.send('timed out')
+  }
+
+  await tap.answer()
+  await message.send('confirmed')
+})
+```
+
+`update.flow.waitForCallbackQuery` applies the same auto-scope (`'chat+from'` by default) as `update.flow.waitFor`. pass `match: 'chat'` for "anyone in this chat can tap"
+
+### `waitForCommand(name, options?)`
+
+wait for the next message whose text matches `/name`, `/name@bot`, or `/name <args>`. pass a RegExp to match arbitrary patterns:
+
+```ts
+telegram.command('start', async (message) => {
+  await message.send('send /done when ready')
+
+  const done = await message.flow.waitForCommand('done', {
+    timeout: 60_000,
+    nullOnTimeout: true
+  })
+
+  if (done === null) {
+    return message.send('gave up on you')
+  }
+
+  await message.send('great!')
+})
+
+// regex form
+const cancel = await message.flow.waitForCommand(/^\/(cancel|stop|abort)$/, {
+  timeout: 30_000,
+  nullOnTimeout: true
+})
+```
+
+falls back to `caption` when `text` is undefined, so commands sent under media attachments still match
+
+---
+
+<a name='waitforany'></a>
+## `waitForAny` — race multiple waiters
+
+run several waiters in parallel and resolve on the **first** one to match. losers are cancelled (their listeners unregister so the registry stays clean — no memory leak):
+
+```ts
+import { spec } from '@puregram/flow'
+
+const winner = await telegram.flow.waitForAny([
+  spec('callback_query', { filter: (q) => q.data === 'confirm' }),
+  spec('message', { filter: (m) => m.text === 'cancel' })
+])
+
+if (winner.index === 0) {
+  // they tapped confirm — winner.value is the callback_query
+  await winner.value.answer({ text: 'confirmed' })
+} else {
+  // they sent /cancel as a message
+  await telegram.send(winner.value.chat.id, 'cancelled')
+}
+```
+
+`{ index, value }` shape — `index` is the position in the input array, `value` is the matched (transform-aware) update for that spec
+
+`spec(kind, options?)` is a small helper that preserves the literal `kind` so each spec's `filter` callback gets the precise `UpdateKindMap[K]` parameter type. plain object literals work too, you just have to type the filter parameters yourself
+
+### combine with `AbortSignal` for a shared deadline
+
+every waiter accepts `signal` so you can give the whole race a single timeout:
+
+```ts
+import { WaiterAbortedError } from '@puregram/flow'
+
+const deadline = AbortSignal.timeout(30_000)
+
+try {
+  const winner = await message.flow.waitForAny(
+    [
+      { kind: 'callback_query', options: { filter: (q) => q.data === 'confirm' } },
+      { kind: 'message' }
+    ],
+    { signal: deadline }
+  )
+
+  // …handle winner
+} catch (error) {
+  if (error instanceof WaiterAbortedError) {
+    await message.send('took too long — try again')
+  } else {
+    throw error
+  }
+}
+```
+
+`waitForAny`'s top-level `signal` cancels every waiter at once. each spec may also carry its own per-waiter `signal` if you want finer control (e.g. one of them cancels itself after a shorter window). use `AbortSignal.any([signalA, signalB])` to combine
+
+### error contract
+
+| error | thrown when |
+|---|---|
+| `WaiterAbortedError` | a waiter's `signal` aborted, or the `waitForAny` signal aborted before any winner was decided |
+| `WaitForCancelled` | losers of a `waitForAny` race; also fired by `telegram.flow.cancelAll()` |
+| `WaitForTimeout` | a per-waiter `timeout` elapsed first (the others get cancelled) |
+
+`WaiterAbortedError` carries the original `AbortController.abort(reason)` value under `error.cause`, mirroring the standard contract
 
 ---
 
@@ -425,6 +562,7 @@ declare module '@puregram/flow' {
 | `FlowKindMismatch` | the `kind` in the call site differs from the kind registered on `flow.handle(...)` |
 | `WaitForTimeout` | ephemeral `waitFor`/`prompt` exceeded `timeout` and `nullOnTimeout` is false |
 | `WaitForCancelled` | `tg.flow.cancelAll()` was called |
+| `WaiterAbortedError` | a waiter's `signal` (or `waitForAny`'s top-level `signal`) aborted before a match |
 
 ---
 
@@ -592,6 +730,24 @@ interface FlowExtension {
     options?: WaitForOptions<K, T> & { id?: string, payload?, ttl?, chatId?, fromId? }
   ) => Promise<T | null>
 
+  /** sugar: wait for the next callback_query matching `predicate` (default: any) */
+  waitForCallbackQuery: (
+    predicate?: (q: CallbackQueryUpdate) => boolean,
+    options?: WaitForCallbackQueryOptions
+  ) => Promise<CallbackQueryUpdate | null>
+
+  /** sugar: wait for the next `/name` message (or a RegExp match against the text) */
+  waitForCommand: (
+    name: string | RegExp,
+    options?: WaitForCommandOptions
+  ) => Promise<MessageUpdate | null>
+
+  /** race a list of waiter specs; first match wins, losers are cancelled */
+  waitForAny: <S extends readonly WaiterSpec[]> (
+    specs: S,
+    options?: { signal?: AbortSignal }
+  ) => Promise<{ index: number, value: /* matched spec result */ }>
+
   /** send a question, wait for the reply. ephemeral or persistent depending on `id` */
   prompt: <K extends keyof UpdateKindMap = 'message', T = UpdateKindMap[K]> (
     chat: number | string,
@@ -636,6 +792,11 @@ import type {
   ValidateResult,              // validate() return contract: boolean | string
   WaitForOptions,              // ephemeral flow.waitFor options
   WaitForResult,               // mapped return type of waitFor based on nullOnTimeout
+  WaitForCallbackQueryOptions, // options for flow.waitForCallbackQuery
+  WaitForCommandOptions,       // options for flow.waitForCommand
+  WaitForAnyOptions,           // options for flow.waitForAny ({ signal? })
+  WaitForAnyResult,            // { index, value } shape returned by waitForAny
+  WaiterSpec,                  // one entry of the waitForAny([...]) array
 
   Filter,                      // (update: U) => boolean — bare predicate (not the puregram Filter shape)
 } from '@puregram/flow'

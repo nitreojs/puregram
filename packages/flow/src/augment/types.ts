@@ -1,7 +1,17 @@
-import type { MessageUpdate, UpdateKindMap } from '@puregram/api'
+import type { CallbackQueryUpdate, MessageUpdate, UpdateKindMap } from '@puregram/api'
 
-import type { CollectMediaGroupOptions } from '../flow'
+import type {
+  CollectMediaGroupOptions,
+  WaitForCallbackQueryOptions,
+  WaitForCommandOptions
+} from '../flow'
 import type { PromptOptions } from '../prompt'
+import type {
+  AnyWaiterSpec,
+  WaitForAnyOptions,
+  WaitForAnyResult,
+  WaitForAnyValueOf
+} from '../wait-for/any'
 import type { WaitForOptions } from '../wait-for/types'
 
 export type AugmentedWaitForMatch = 'none' | 'chat' | 'chat+from'
@@ -21,12 +31,42 @@ export interface AugmentedWaitForOptions<K extends keyof UpdateKindMap> extends 
   match?: AugmentedWaitForMatch
 }
 
+/** sugar version of `WaitForCallbackQueryOptions` with the augment auto-scope knob */
+export interface AugmentedWaitForCallbackQueryOptions extends WaitForCallbackQueryOptions {
+  match?: AugmentedWaitForMatch
+}
+
+/** sugar version of `WaitForCommandOptions` with the augment auto-scope knob */
+export interface AugmentedWaitForCommandOptions extends WaitForCommandOptions {
+  match?: AugmentedWaitForMatch
+}
+
 export interface UpdateFlowExtension {
   prompt: (text: string, options?: AugmentedPromptOptions) => Promise<MessageUpdate | null>
   waitFor: <K extends keyof UpdateKindMap> (
     kind: K,
     options?: AugmentedWaitForOptions<K>
   ) => Promise<UpdateKindMap[K] | null>
+  /** auto-scoped sugar over `flow.waitForCallbackQuery` — defaults to same chat + same sender */
+  waitForCallbackQuery: (
+    predicate?: (q: CallbackQueryUpdate) => boolean,
+    options?: AugmentedWaitForCallbackQueryOptions
+  ) => Promise<CallbackQueryUpdate | null>
+  /** auto-scoped sugar over `flow.waitForCommand` */
+  waitForCommand: (
+    name: string | RegExp,
+    options?: AugmentedWaitForCommandOptions
+  ) => Promise<MessageUpdate | null>
+  /**
+   * race a list of waiter specs; first match wins, losers are cancelled.
+   * specs are passed through verbatim — auto-scope is NOT applied to children,
+   * use `update.flow.waitFor`/`waitForCallbackQuery`/`waitForCommand` to build
+   * scoped waiters separately if you want that
+   */
+  waitForAny: <S extends readonly AnyWaiterSpec[]> (
+    specs: S,
+    options?: WaitForAnyOptions
+  ) => Promise<WaitForAnyResult<WaitForAnyValueOf<S[number]>>>
   /**
    * collect every message sharing a `media_group_id` with this update into one array.
    * meaningful on message-payload updates; non-message updates resolve immediately with

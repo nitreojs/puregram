@@ -1,4 +1,4 @@
-import type { MessageUpdate, UpdateKindMap } from '@puregram/api'
+import type { CallbackQueryUpdate, MessageUpdate, UpdateKindMap } from '@puregram/api'
 import type { KVStorage } from '@puregram/storage'
 import { createPlugin, type Telegram } from 'puregram'
 
@@ -15,8 +15,21 @@ import { HandlerRegistry } from './persistent/handlers'
 import { createPersistentMiddleware } from './persistent/middleware'
 import type { FlowHandleConfig, PersistedFlow } from './persistent/types'
 import { createPrompt, type PromptOptions } from './prompt'
+import {
+  createWaitForAny,
+  type AnyWaiterSpec,
+  type WaitForAnyOptions,
+  type WaitForAnyResult,
+  type WaitForAnyValueOf
+} from './wait-for/any'
 import { createWaitForMiddleware } from './wait-for/middleware'
 import { WaiterRegistry } from './wait-for/registry'
+import {
+  buildCommandFilter,
+  composeCallbackPredicate,
+  composeMessageFilter,
+  withFilter
+} from './wait-for/sugar'
 import type { WaitForOptions } from './wait-for/types'
 import { Waiter } from './wait-for/waiter'
 
@@ -34,11 +47,52 @@ export interface CollectMediaGroupOptions {
   window?: number
 }
 
+/** options for `flow.waitForCallbackQuery` */
+export interface WaitForCallbackQueryOptions
+  extends Omit<WaitForOptions<'callback_query'>, 'filter'> {
+  /** optional secondary predicate; AND-composed with the user-supplied predicate */
+  filter?: (q: CallbackQueryUpdate) => boolean
+}
+
+/** options for `flow.waitForCommand` */
+export interface WaitForCommandOptions
+  extends Omit<WaitForOptions<'message'>, 'filter'> {
+  /** optional secondary predicate; AND-composed with the command match */
+  filter?: (m: MessageUpdate) => boolean
+}
+
 export interface FlowExtension {
   waitFor: <K extends keyof UpdateKindMap, T = UpdateKindMap[K]> (
     kind: K,
     options?: WaitForOptions<K, T> & { id?: string, payload?: unknown, ttl?: number, chatId?: number, fromId?: number }
   ) => Promise<T | null>
+  /**
+   * sugar over `waitFor('callback_query', { filter })`. `predicate` is matched
+   * against the wrapped callback query; defaults to "any callback query".
+   * accepts every `WaitForOptions` field via `opts` including `signal`
+   */
+  waitForCallbackQuery: (
+    predicate?: (q: CallbackQueryUpdate) => boolean,
+    options?: WaitForCallbackQueryOptions
+  ) => Promise<CallbackQueryUpdate | null>
+  /**
+   * sugar over `waitFor('message', { filter })`. `name` is either a string
+   * (matches messages whose text is `/name`, `/name@bot`, or `/name <args>`)
+   * or a RegExp tested against the full message text
+   */
+  waitForCommand: (
+    name: string | RegExp,
+    options?: WaitForCommandOptions
+  ) => Promise<MessageUpdate | null>
+  /**
+   * race a list of waiter specs; the first to match wins, the rest are
+   * cancelled. `options.signal` cancels every waiter at once (use
+   * `AbortSignal.timeout(ms)` for a shared deadline)
+   */
+  waitForAny: <S extends readonly AnyWaiterSpec[]> (
+    specs: S,
+    options?: WaitForAnyOptions
+  ) => Promise<WaitForAnyResult<WaitForAnyValueOf<S[number]>>>
   prompt: <K extends keyof UpdateKindMap = 'message', T = UpdateKindMap[K]> (
     chat: number | string,
     text: string,
@@ -75,6 +129,7 @@ export function flow (options: FlowOptions = {}) {
       const handlerRegistry = new HandlerRegistry()
 
       const inMemoryPrompt = createPrompt(tg, registry)
+      const waitForAnyImpl = createWaitForAny(registry)
 
       const ext: FlowExtension = {
         waitFor: async <K extends keyof UpdateKindMap, T = UpdateKindMap[K]> (
@@ -125,6 +180,29 @@ export function flow (options: FlowOptions = {}) {
 
           return waiter.promise
         },
+        waitForCallbackQuery: (predicate, sugarOpts = {}) => {
+          const filter = composeCallbackPredicate(predicate, sugarOpts.filter)
+          const waiter = new Waiter<'callback_query'>(
+            'callback_query',
+            withFilter<'callback_query'>(sugarOpts, filter)
+          )
+
+          registry.register(waiter)
+
+          return waiter.promise
+        },
+        waitForCommand: (name, sugarOpts = {}) => {
+          const filter = composeMessageFilter(buildCommandFilter(name), sugarOpts.filter)
+          const waiter = new Waiter<'message'>(
+            'message',
+            withFilter<'message'>(sugarOpts, filter)
+          )
+
+          registry.register(waiter)
+
+          return waiter.promise
+        },
+        waitForAny: waitForAnyImpl,
         prompt: async <K extends keyof UpdateKindMap = 'message', T = UpdateKindMap[K]> (
           chat: number | string,
           text: string,

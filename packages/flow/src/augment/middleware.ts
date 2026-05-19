@@ -1,11 +1,23 @@
-import type { MessageUpdate, UpdateKindMap } from '@puregram/api'
+import type { CallbackQueryUpdate, MessageUpdate, UpdateKindMap } from '@puregram/api'
 import { attach, type Middleware } from 'puregram'
 
-import type { CollectMediaGroupOptions } from '../flow'
+import type {
+  CollectMediaGroupOptions,
+  WaitForCallbackQueryOptions,
+  WaitForCommandOptions
+} from '../flow'
+import type {
+  AnyWaiterSpec,
+  WaitForAnyOptions,
+  WaitForAnyResult,
+  WaitForAnyValueOf
+} from '../wait-for/any'
 import type { Filter, WaitForOptions } from '../wait-for/types'
 
 import { EXTRACTORS, type ExtractedScope } from './extractors'
 import type {
+  AugmentedWaitForCallbackQueryOptions,
+  AugmentedWaitForCommandOptions,
   AugmentedWaitForMatch,
   AugmentedWaitForOptions,
   UpdateFlowExtension
@@ -19,10 +31,21 @@ interface KindRaw {
 interface FlowApi {
   prompt: (chat: number | string, text: string, options?: { from?: number, timeout?: number, nullOnTimeout?: boolean }) => Promise<UpdateKindMap['message'] | null>
   waitFor: <K extends keyof UpdateKindMap> (kind: K, options?: WaitForOptions<K>) => Promise<UpdateKindMap[K] | null>
+  waitForCallbackQuery: (
+    predicate?: (q: CallbackQueryUpdate) => boolean,
+    options?: WaitForCallbackQueryOptions
+  ) => Promise<CallbackQueryUpdate | null>
+  waitForCommand: (
+    name: string | RegExp,
+    options?: WaitForCommandOptions
+  ) => Promise<MessageUpdate | null>
+  waitForAny: <S extends readonly AnyWaiterSpec[]> (
+    specs: S,
+    options?: WaitForAnyOptions
+  ) => Promise<WaitForAnyResult<WaitForAnyValueOf<S[number]>>>
   collectMediaGroup: (message: MessageUpdate, options?: CollectMediaGroupOptions) => Promise<MessageUpdate[]>
 }
 
-// attaches a context-bound `flow` to every update whose kind has an EXTRACTORS entry.
 // auto-fills chat (and default sender filter) from the source so handlers don't have
 // to thread chat/user ids through prompt/waitFor calls
 export function createAugmentMiddleware (flow: FlowApi) {
@@ -71,8 +94,7 @@ function createUpdateFlowExtension (flow: FlowApi, scope: ExtractedScope, source
       }
 
       // explicit `from` (including `undefined`) wins; absent key falls back to `scope.from`
-      // — so the prompt is sender-pinned by default, "anyone in chat" needs `{ from: undefined }`.
-      // pass-through must drop the key entirely when undefined (`exactOptionalPropertyTypes`)
+      // — prompt is sender-pinned by default; "anyone in chat" needs `{ from: undefined }`
       const resolvedFrom = 'from' in options ? from : scope.from
 
       return resolvedFrom === undefined
@@ -92,6 +114,30 @@ function createUpdateFlowExtension (flow: FlowApi, scope: ExtractedScope, source
 
       return flow.waitFor(kind, passthrough)
     },
+
+    waitForCallbackQuery: (predicate, options: AugmentedWaitForCallbackQueryOptions = {}) => {
+      const { match: explicit, filter, ...rest } = options
+      const match: AugmentedWaitForMatch = explicit ?? defaultMatch(scope)
+      const scoped = wrapFilter<'callback_query'>(match, scope, filter)
+      const passthrough: WaitForCallbackQueryOptions = scoped !== undefined
+        ? { ...rest, filter: scoped }
+        : rest
+
+      return flow.waitForCallbackQuery(predicate, passthrough)
+    },
+
+    waitForCommand: (name, options: AugmentedWaitForCommandOptions = {}) => {
+      const { match: explicit, filter, ...rest } = options
+      const match: AugmentedWaitForMatch = explicit ?? defaultMatch(scope)
+      const scoped = wrapFilter<'message'>(match, scope, filter)
+      const passthrough: WaitForCommandOptions = scoped !== undefined
+        ? { ...rest, filter: scoped }
+        : rest
+
+      return flow.waitForCommand(name, passthrough)
+    },
+
+    waitForAny: (specs, options) => flow.waitForAny(specs, options),
 
     collectMediaGroup: options => flow.collectMediaGroup(source, options)
   }

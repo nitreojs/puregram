@@ -206,33 +206,65 @@ parseCommand('  /buy')  // → null (telegram commands never have leading whites
 `args` is `rest.split(/\s+/).filter(Boolean)`; `rest` is everything after the command (and optional `@bot`) with leading whitespace trimmed. bot usernames are validated against the telegram rule `[a-zA-Z0-9_]{5,32}`
 
 <a name='deep-link'></a>
-### `deepLink(opts)` — build `https://t.me/<bot>?...` deep-links
+### `deepLink` — build `https://t.me/...` deep-links
 
-generates t.me deep-links with proper `encodeURIComponent` escaping. supports every variant the bot api recognizes
+a namespace of strict, typed builders for every t.me deep-link the bot api recognizes — see [core.telegram.org/api/links](https://core.telegram.org/api/links). each helper validates inputs (username format, payload charset and length, admin-rights enum, etc.) and **throws** on invalid input rather than silently emitting a link the telegram client would reject
 
 ```ts
 import { deepLink } from '@puregram/utils'
 
-deepLink({ bot: 'my_bot' })
+// bot starts
+deepLink.start({ bot: 'my_bot' })
 // → 'https://t.me/my_bot'
 
-deepLink({ bot: 'my_bot', start: 'ref_42' })
+deepLink.start({ bot: 'my_bot', payload: 'ref_42' })
 // → 'https://t.me/my_bot?start=ref_42'
 
-deepLink({ bot: 'my_bot', startgroup: 'invite' })
+// add bot to a group (optionally as admin)
+deepLink.startGroup({ bot: 'my_bot', payload: 'invite' })
 // → 'https://t.me/my_bot?startgroup=invite'
 
-deepLink({ bot: 'my_bot', startchannel: true, admin: ['post_messages', 'edit_messages'] })
+deepLink.startGroup({ bot: 'my_bot', admin: ['post_messages'] })
+// → 'https://t.me/my_bot?startgroup&admin=post_messages'
+
+// channels require admin rights
+deepLink.startChannel({ bot: 'my_bot', admin: ['post_messages', 'edit_messages'] })
 // → 'https://t.me/my_bot?startchannel&admin=post_messages+edit_messages'
 
-deepLink({ bot: 'my_bot', startapp: 'page_42' })
-// → 'https://t.me/my_bot?startapp=page_42'
+// mini-app — main or named, with optional launch mode
+deepLink.startApp({ bot: 'my_bot', payload: 'page_42', mode: 'fullscreen' })
+// → 'https://t.me/my_bot?startapp=page_42&mode=fullscreen'
 
-deepLink({ bot: 'my_bot', start: 'user@id 42' })
-// → 'https://t.me/my_bot?start=user%40id%2042'
+deepLink.startApp({ bot: 'my_bot', app: 'tictactoe', payload: 'room_7' })
+// → 'https://t.me/my_bot/tictactoe?startapp=room_7'
+
+// attachment menu — in the bot's own chat or in a chosen one
+deepLink.startAttach({ bot: 'my_bot', choose: ['users', 'groups'] })
+// → 'https://t.me/my_bot?startattach&choose=users+groups'
+
+deepLink.attachInChat({ chat: { username: 'durov' }, bot: 'my_bot', payload: 'p' })
+// → 'https://t.me/durov?attach=my_bot&startattach=p'
+
+// games, share dialogs, video chats / livestreams
+deepLink.game({ bot: 'my_bot', name: 'tetris' })
+// → 'https://t.me/my_bot?game=tetris'
+
+deepLink.share({ url: 'https://example.com', text: 'check this!' })
+// → 'https://t.me/share?url=https%3A%2F%2Fexample.com&text=check%20this!'
+
+deepLink.videoChat({ username: 'mychannel', hash: 'abc123', live: true })
+// → 'https://t.me/mychannel?livestream=abc123'
 ```
 
-at most one of `start` / `startgroup` / `startchannel` / `startapp` should be supplied. when more than one is provided, the first one in that order wins and the others are silently ignored
+#### validation rules
+
+- **bot username** — `[A-Za-z][A-Za-z0-9_]{4,31}` (telegram's 5-32 char rule)
+- **start / startgroup / startapp / startattach payload** — 1-64 chars of `[A-Za-z0-9_-]` (base64url). these are **not url-encoded** — they must already be in the allowed charset
+- **admin rights** — must be from the closed set: `change_info`, `post_messages`, `edit_messages`, `delete_messages`, `restrict_members`, `invite_users`, `pin_messages`, `manage_topics`, `promote_members`, `manage_video_chats`, `anonymous`, `manage_chat`, `post_stories`, `edit_stories`, `delete_stories`, `manage_direct_messages`
+- **mini-app mode** — `'compact'` or `'fullscreen'`
+- **choose targets** — subset of `'users'`, `'bots'`, `'groups'`, `'channels'`
+- **phone** (for `attachInChat`) — digits only, no `+` prefix
+- **share url / text** — free-form; these *are* `encodeURIComponent`-escaped
 
 ---
 
@@ -242,10 +274,15 @@ at most one of `start` / `startgroup` / `startchannel` / `startapp` should be su
 
 ```ts
 import type {
+  AdminRight,
+  AttachChatTarget,
+  AttachChooseTarget,
   CasinoValue,
-  DeepLinkOpts,
   ParsedCommand,
   SlotMachineValue,
+  StartAppOpts,
+  StartOpts,
+  WebAppMode,
   WebAppValidateParams
 } from '@puregram/utils'
 ```
@@ -254,4 +291,8 @@ import type {
 - **`SlotMachineValue`** — `readonly [CasinoValue, CasinoValue, CasinoValue]`, the return type of `getCasinoValues`
 - **`WebAppValidateParams`** — params object shape for `WebApp.validate`
 - **`ParsedCommand`** — return shape of `parseCommand`
-- **`DeepLinkOpts`** — options shape for `deepLink`
+- **`AdminRight`** — closed enum of telegram admin right identifiers
+- **`WebAppMode`** — `'compact' | 'fullscreen'`, for `deepLink.startApp`
+- **`AttachChooseTarget`** — `'users' | 'bots' | 'groups' | 'channels'`, for `deepLink.startAttach`
+- **`AttachChatTarget`** — discriminated target (`{ username }` or `{ phone }`) for `deepLink.attachInChat`
+- **`StartOpts`**, **`StartGroupOpts`**, **`StartChannelOpts`**, **`StartAppOpts`**, **`StartAttachOpts`**, **`AttachInChatOpts`**, **`GameOpts`**, **`ShareOpts`**, **`VideoChatOpts`** — per-method option shapes for the `deepLink` builders

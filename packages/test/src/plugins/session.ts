@@ -32,8 +32,9 @@ interface KeyResolvable {
   chat?: { id?: number | string }
 }
 
-// matches session's default getStorageKey — `from.id` wins on private-user injects
-const keyOf = (user: TestUser) => String(user.id)
+// mirrors `@puregram/session`'s default composite keyer: `user:<from.id>:chat:<chat.id>`
+// with undefined segments omitted. testuser→pm convention means user.id === pmChat.id
+const keyOf = (user: TestUser) => `user:${user.id}:chat:${user.id}`
 
 const isObject = (value: unknown): value is SessionData => (
   typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -42,24 +43,19 @@ const isObject = (value: unknown): value is SessionData => (
 const updateKey = (update: unknown) => {
   const u = update as KeyResolvable
   const fromId = u.from?.id
+  const chatId = u.chat?.id ?? u.senderChat?.id
+
+  const segments: string[] = []
 
   if (fromId !== undefined) {
-    return String(fromId)
+    segments.push(`user:${fromId}`)
   }
-
-  const senderChatId = u.senderChat?.id
-
-  if (senderChatId !== undefined) {
-    return String(senderChatId)
-  }
-
-  const chatId = u.chat?.id
 
   if (chatId !== undefined) {
-    return String(chatId)
+    segments.push(`chat:${chatId}`)
   }
 
-  return undefined
+  return segments.length > 0 ? segments.join(':') : undefined
 }
 
 registerPack({

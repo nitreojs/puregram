@@ -87,6 +87,7 @@ jspm_packages/
 
 # Other
 packages/*/lib/
+packages/storage/storages/*/lib/
 .vscode/
 .claude/
 /playground/

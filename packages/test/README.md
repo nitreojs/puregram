@@ -199,6 +199,72 @@ shapes its way through the same `update_id` dedup, the same dispatch chain, the 
 
 ---
 
+## fixture builders
+
+when you want to feed a raw payload into `env.inject(...)` without typing out every required field, the fixture builders give you minimal-but-realistic shapes you can override field-by-field. each builder takes an optional `overrides` partial and applies it on top of the defaults — sequential ids, current unix time, `'private'` chats, `'test-user'` username, and so on
+
+```ts
+import {
+  buildCallbackQuery,
+  buildChat,
+  buildInlineQuery,
+  buildMessage,
+  buildUpdate,
+  buildUser
+} from '@puregram/test'
+
+const alice = buildUser({ first_name: 'Alice' })
+const group = buildChat({ type: 'group', title: 'devs', id: -1001 })
+
+// nested overrides are deep-merged with the defaults
+const msg = buildMessage({
+  text: 'hello',
+  from: { id: alice.id, first_name: alice.first_name },
+  chat: group
+})
+
+await env.inject(buildUpdate('message', msg))
+```
+
+`buildUpdate(kind, payload)` is just sugar for `{ update_id, [kind]: payload }` — the `kind` is typed against `TelegramUpdate` so typos surface at compile time
+
+builders are state-light (just module-scoped counters for ids). if you want deterministic ids across tests, call `resetFixtureCounters()` in your suite's `beforeEach`
+
+---
+
+## time-travel — `env.advanceTime(ms)`
+
+testing TTL expirations (session timeouts, flow `waitFor` deadlines, rate-limit windows) shouldn't require real waits. `env.advanceTime(ms)` installs a virtual clock that overrides `Date.now`, `setTimeout`, `setInterval` (and their `clear*` counterparts), then advances by `ms` milliseconds and fires every timer whose deadline falls inside the window
+
+```ts
+const env = createTestEnv(tg)
+
+let fired = false
+
+setTimeout(() => {
+  fired = true
+}, 60 * 60 * 1000)  // 1 hour
+
+await env.advanceTime(3_600_000)
+expect(fired).toBe(true)
+```
+
+interval timers re-arm and may fire multiple times in a single `advance` call. timers scheduled inside callbacks are picked up by the same call. the clock is uninstalled automatically by `env.shutdown()`, so the next test gets real timers back
+
+for finer control there's also the standalone API:
+
+```ts
+import { installTestClock } from '@puregram/test'
+
+const clock = installTestClock(1_700_000_000_000)
+
+setInterval(() => {/* … */}, 1000)
+await clock.advance(3500)        // fires 3 times
+clock.restore()                  // restore real globals
+```
+
+---
+
 <a name='assertions'></a>
 ## assertions
 

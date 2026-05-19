@@ -235,3 +235,46 @@ for await (const key of storage.keys?.() ?? []) {
   console.log(key)
 }
 ```
+
+---
+
+## `enhanceStorage(base, opts)`
+
+wraps any `KVStorage<V>` with **versioned migrations** and optional per-entry expiry. payloads are encoded as `{ __v, __exp?, data }` on the backing store — when you bump the migration version, old entries upgrade lazily on next read, transparently to the consumer
+
+```ts
+import { enhanceStorage, MemoryStorage } from '@puregram/storage'
+
+interface SessionV3 {
+  counter: number
+  role: 'guest' | 'user'
+  kind: 'session'
+}
+
+const storage = enhanceStorage<SessionV3>(new MemoryStorage(), {
+  migrations: {
+    1: (d: any) => ({ ...d, role: 'guest' }),
+    2: (d: any) => ({ ...d, kind: 'session' }),
+    3: (d: any) => ({ ...d, counter: d.counter ?? 0 })
+  }
+})
+```
+
+| option | type | description |
+|---|---|---|
+| `migrations` | `Record<number, (data) => V \| Promise<V>>` | keyed by target version. `migrations[1]` runs to upgrade v0 → v1, `migrations[2]` runs after to upgrade v1 → v2, and so on. the latest key wins as the "current version" stamped on every `set` |
+| `millisecondPrecision` | `boolean` | when `true`, preserves any `__exp` (unix ms) carried on the underlying envelope across re-writes |
+
+semantics:
+
+- legacy unversioned values are treated as **v0** and migrated forward on first read
+- expired entries (`__exp < Date.now()`) return `undefined` and are deleted from the base storage on read
+- migrated envelopes are written back at the current version, so subsequent reads skip the upgrade
+- concurrent reads converge on the same migrated payload (last write wins)
+
+### batteries-included adapters
+
+| package | backend | native ttl |
+|---|---|---|
+| [`@puregram/storage-redis`](../storage-redis) | redis via `ioredis` | `PX` / `PEXPIRE` |
+| [`@puregram/storage-sqlite`](../storage-sqlite) | sqlite via `better-sqlite3` | `expires_at` column + optional sweep |

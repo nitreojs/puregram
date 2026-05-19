@@ -19,7 +19,11 @@
     "@puregram/scenes": "*",
     "@puregram/session": "*",
     "@puregram/storage": "*",
+    "@puregram/storage-redis": "*",
+    "@puregram/storage-sqlite": "*",
+    "@puregram/stream": "*",
     "@puregram/test": "*",
+    "@puregram/throttler": "*",
     "@puregram/utils": "*"
   },
   "devDependencies": {

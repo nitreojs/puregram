@@ -1,0 +1,55 @@
+{
+  "name": "@puregram/stream",
+  "version": "3.0.0",
+  "description": "stream LLM output to telegram via sendMessageDraft + finalize sendMessage",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "puregram": "*"
+  },
+  "peerDependencies": {
+    "@puregram/markup": "*"
+  },
+  "peerDependenciesMeta": {
+    "@puregram/markup": { "optional": true }
+  },
+  "devDependencies": {
+    "@puregram/markup": "*",
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/stream"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot-api",
+    "puregram",
+    "plugin",
+    "stream",
+    "streaming",
+    "llm",
+    "openai",
+    "anthropic"
+  ]
+}

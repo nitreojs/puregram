@@ -175,14 +175,83 @@ returns `true` when the hash matches, `false` otherwise (or throws, with `throwE
 
 ---
 
+<a name='parse-command'></a>
+### `parseCommand(text)` — parse `/command[@bot] [args...]`
+
+returns a structured breakdown of a telegram bot command string, or `null` when the input isn't a valid command
+
+```ts
+import { parseCommand } from '@puregram/utils'
+
+parseCommand('/buy')
+// → { command: 'buy', bot: undefined, args: [], rest: '' }
+
+parseCommand('/buy@my_bot')
+// → { command: 'buy', bot: 'my_bot', args: [], rest: '' }
+
+parseCommand('/buy@my_bot apples 5 fresh')
+// → { command: 'buy', bot: 'my_bot', args: ['apples', '5', 'fresh'], rest: 'apples 5 fresh' }
+
+parseCommand('/buy@my_bot   foo')
+// → { command: 'buy', bot: 'my_bot', args: ['foo'], rest: 'foo' }
+
+parseCommand('/start ref_abc123_with_underscores')
+// → { command: 'start', bot: undefined, args: ['ref_abc123_with_underscores'], rest: 'ref_abc123_with_underscores' }
+
+parseCommand('hello')   // → null
+parseCommand('/')       // → null (no command name)
+parseCommand('  /buy')  // → null (telegram commands never have leading whitespace)
+```
+
+`args` is `rest.split(/\s+/).filter(Boolean)`; `rest` is everything after the command (and optional `@bot`) with leading whitespace trimmed. bot usernames are validated against the telegram rule `[a-zA-Z0-9_]{5,32}`
+
+<a name='deep-link'></a>
+### `deepLink(opts)` — build `https://t.me/<bot>?...` deep-links
+
+generates t.me deep-links with proper `encodeURIComponent` escaping. supports every variant the bot api recognizes
+
+```ts
+import { deepLink } from '@puregram/utils'
+
+deepLink({ bot: 'my_bot' })
+// → 'https://t.me/my_bot'
+
+deepLink({ bot: 'my_bot', start: 'ref_42' })
+// → 'https://t.me/my_bot?start=ref_42'
+
+deepLink({ bot: 'my_bot', startgroup: 'invite' })
+// → 'https://t.me/my_bot?startgroup=invite'
+
+deepLink({ bot: 'my_bot', startchannel: true, admin: ['post_messages', 'edit_messages'] })
+// → 'https://t.me/my_bot?startchannel&admin=post_messages+edit_messages'
+
+deepLink({ bot: 'my_bot', startapp: 'page_42' })
+// → 'https://t.me/my_bot?startapp=page_42'
+
+deepLink({ bot: 'my_bot', start: 'user@id 42' })
+// → 'https://t.me/my_bot?start=user%40id%2042'
+```
+
+at most one of `start` / `startgroup` / `startchannel` / `startapp` should be supplied. when more than one is provided, the first one in that order wins and the others are silently ignored
+
+---
+
 ## typescript usage
 
 `@puregram/utils` ships its own `.d.ts`. the types you'll most likely import:
 
 ```ts
-import type { CasinoValue, SlotMachineValue, WebAppValidateParams } from '@puregram/utils'
+import type {
+  CasinoValue,
+  DeepLinkOpts,
+  ParsedCommand,
+  SlotMachineValue,
+  WebAppValidateParams
+} from '@puregram/utils'
 ```
 
 - **`CasinoValue`** — string-literal union of the four slot-machine symbols
 - **`SlotMachineValue`** — `readonly [CasinoValue, CasinoValue, CasinoValue]`, the return type of `getCasinoValues`
 - **`WebAppValidateParams`** — params object shape for `WebApp.validate`
+- **`ParsedCommand`** — return shape of `parseCommand`
+- **`DeepLinkOpts`** — options shape for `deepLink`

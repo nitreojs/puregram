@@ -126,12 +126,12 @@ describe('session() — onUpdate middleware', () => {
     t.emit('probe', { from: { id: 7 } })
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(await storage.get('7')).toEqual({ counter: 1 })
+    expect(await storage.get('user:7')).toEqual({ counter: 1 })
 
     t.emit('probe', { from: { id: 7 } })
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(await storage.get('7')).toEqual({ counter: 2 })
+    expect(await storage.get('user:7')).toEqual({ counter: 2 })
 
     await t.shutdown()
   })
@@ -164,7 +164,7 @@ describe('session() — onUpdate middleware', () => {
   it('does not flush when nothing changed; calls touch on TtlStorage backends', async () => {
     const storage = new TouchableMemoryStorage()
 
-    await storage.set('7', { existing: true })
+    await storage.set('user:7', { existing: true })
 
     const setSpy = vi.spyOn(storage, 'set')
     const touchSpy = vi.spyOn(storage, 'touch')
@@ -185,7 +185,7 @@ describe('session() — onUpdate middleware', () => {
     await new Promise(resolve => setImmediate(resolve))
 
     expect(setSpy).not.toHaveBeenCalled()
-    expect(touchSpy).toHaveBeenCalledWith('7')
+    expect(touchSpy).toHaveBeenCalledWith('user:7')
 
     await t.shutdown()
   })
@@ -193,7 +193,7 @@ describe('session() — onUpdate middleware', () => {
   it('does not flush or touch when nothing changed on a plain KVStorage backend', async () => {
     const storage = new MemoryStorage()
 
-    await storage.set('7', { existing: true })
+    await storage.set('user:7', { existing: true })
 
     const setSpy = vi.spyOn(storage, 'set')
 
@@ -217,7 +217,7 @@ describe('session() — onUpdate middleware', () => {
     await t.shutdown()
   })
 
-  it('default getStorageKey: from.id wins over senderChat.id wins over chat.id', async () => {
+  it('default getStorageKey: composite user + chat segments', async () => {
     const storage = new MemoryStorage()
     const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({ storage }))
 
@@ -228,22 +228,20 @@ describe('session() — onUpdate middleware', () => {
       u.session.hit = true
     })
 
-    t.emit('priority', { from: { id: 1 }, senderChat: { id: 2 }, chat: { id: 3 } })
+    t.emit('priority', { from: { id: 1 }, chat: { id: 3 } })
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(await storage.get('1')).toEqual({ hit: true })
-    expect(await storage.get('2')).toBeUndefined()
-    expect(await storage.get('3')).toBeUndefined()
-
-    t.emit('priority', { senderChat: { id: 2 }, chat: { id: 3 } })
-    await new Promise(resolve => setImmediate(resolve))
-
-    expect(await storage.get('2')).toEqual({ hit: true })
+    expect(await storage.get('user:1:chat:3')).toEqual({ hit: true })
 
     t.emit('priority', { chat: { id: 3 } })
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(await storage.get('3')).toEqual({ hit: true })
+    expect(await storage.get('chat:3')).toEqual({ hit: true })
+
+    t.emit('priority', { from: { id: 9 } })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(await storage.get('user:9')).toEqual({ hit: true })
 
     await t.shutdown()
   })
@@ -266,7 +264,7 @@ describe('session() — onUpdate middleware', () => {
     await new Promise(resolve => setImmediate(resolve))
 
     expect(await storage.get('global')).toEqual({ shared: true })
-    expect(await storage.get('1')).toBeUndefined()
+    expect(await storage.get('user:1')).toBeUndefined()
 
     await t.shutdown()
   })
@@ -288,7 +286,7 @@ describe('session() — onUpdate middleware', () => {
     t.emit('seed', { from: { id: 9 } })
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(await storage.get('9')).toEqual({ counter: 101 })
+    expect(await storage.get('user:9')).toEqual({ counter: 101 })
 
     await t.shutdown()
   })
@@ -311,6 +309,213 @@ describe('session() — onUpdate middleware', () => {
     await new Promise(resolve => setImmediate(resolve))
 
     expect(typeof (firstSession as any).$forceUpdate).toBe('function')
+
+    await t.shutdown()
+  })
+})
+
+interface LazyNoTouchUpdate {
+  kind: 'lazy-no-touch'
+  from?: { id: number }
+}
+
+interface LazyReadUpdate {
+  kind: 'lazy-read'
+  from?: { id: number }
+}
+
+interface LazyMutateUpdate {
+  kind: 'lazy-mutate'
+  from?: { id: number }
+}
+
+interface ThreadUpdate {
+  kind: 'thread'
+  from?: { id: number }
+  chatId?: number
+  messageThreadId?: number
+}
+
+interface CustomKeyUpdate {
+  kind: 'custom-key'
+  from?: { id: number }
+  chatId?: number
+}
+
+declare module '@puregram/api' {
+  interface UpdateKindMap {
+    'lazy-no-touch': LazyNoTouchUpdate
+    'lazy-read': LazyReadUpdate
+    'lazy-mutate': LazyMutateUpdate
+    thread: ThreadUpdate
+    'custom-key': CustomKeyUpdate
+  }
+}
+
+describe('session() — lazy loading', () => {
+  it('handler that does not touch session fires 0 get and 0 set', async () => {
+    const storage = new MemoryStorage()
+    const getSpy = vi.spyOn(storage, 'get')
+    const setSpy = vi.spyOn(storage, 'set')
+
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({ storage, lazy: true }))
+
+    await t.start()
+
+    t.defineUpdate('lazy-no-touch')
+    t.on('lazy-no-touch', () => {
+      // never accesses update.session
+    })
+
+    getSpy.mockClear()
+    setSpy.mockClear()
+
+    t.emit('lazy-no-touch', { from: { id: 1 } })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(getSpy).not.toHaveBeenCalled()
+    expect(setSpy).not.toHaveBeenCalled()
+
+    await t.shutdown()
+  })
+
+  it('handler that only reads session fires 1 get and 0 set', async () => {
+    const storage = new MemoryStorage()
+
+    await storage.set('user:1', { existing: true })
+
+    const getSpy = vi.spyOn(storage, 'get')
+    const setSpy = vi.spyOn(storage, 'set')
+
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({ storage, lazy: true }))
+
+    await t.start()
+
+    t.defineUpdate('lazy-read')
+    t.on('lazy-read', async (u: any) => {
+      const s = await u.session
+      const _read = s.existing as boolean
+
+      return _read
+    })
+
+    getSpy.mockClear()
+    setSpy.mockClear()
+
+    t.emit('lazy-read', { from: { id: 1 } })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(getSpy).toHaveBeenCalledTimes(1)
+    expect(setSpy).not.toHaveBeenCalled()
+
+    await t.shutdown()
+  })
+
+  it('handler that mutates session fires 1 get and 1 set', async () => {
+    const storage = new MemoryStorage()
+    const getSpy = vi.spyOn(storage, 'get')
+    const setSpy = vi.spyOn(storage, 'set')
+
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({ storage, lazy: true }))
+
+    await t.start()
+
+    t.defineUpdate('lazy-mutate')
+    t.on('lazy-mutate', async (u: any) => {
+      const s = await u.session
+
+      s.counter = 1
+    })
+
+    getSpy.mockClear()
+    setSpy.mockClear()
+
+    t.emit('lazy-mutate', { from: { id: 1 } })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(getSpy).toHaveBeenCalledTimes(1)
+    expect(setSpy).toHaveBeenCalledTimes(1)
+
+    await t.shutdown()
+  })
+})
+
+describe('session() — composite keys', () => {
+  it('thread-aware keying via update.messageThreadId', async () => {
+    const storage = new MemoryStorage()
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({
+      storage,
+      getStorageKey: (u: any) => ({
+        chat: u.chatId as number | undefined,
+        user: u.from?.id as number | undefined,
+        thread: u.messageThreadId as number | undefined
+      })
+    }))
+
+    await t.start()
+
+    t.defineUpdate('thread')
+    t.on('thread', async (u: any) => {
+      const s = await u.session
+
+      s.hit = true
+    })
+
+    t.emit('thread', { from: { id: 5 }, chatId: 100, messageThreadId: 7 })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(await storage.get('user:5:chat:100:thread:7')).toEqual({ hit: true })
+
+    await t.shutdown()
+  })
+
+  it('custom `key` segment lands at the end of the composite key', async () => {
+    const storage = new MemoryStorage()
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({
+      storage,
+      getStorageKey: (u: any) => ({
+        user: u.from?.id as number | undefined,
+        key: 'workflow:a'
+      })
+    }))
+
+    await t.start()
+
+    t.defineUpdate('custom-key')
+    t.on('custom-key', async (u: any) => {
+      const s = await u.session
+
+      s.hit = true
+    })
+
+    t.emit('custom-key', { from: { id: 5 } })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(await storage.get('user:5:key:workflow:a')).toEqual({ hit: true })
+
+    await t.shutdown()
+  })
+
+  it('plain-string getStorageKey return is used verbatim', async () => {
+    const storage = new MemoryStorage()
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(session({
+      storage,
+      getStorageKey: () => 'singleton'
+    }))
+
+    await t.start()
+
+    t.defineUpdate('custom-key')
+    t.on('custom-key', async (u: any) => {
+      const s = await u.session
+
+      s.hit = true
+    })
+
+    t.emit('custom-key', {})
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(await storage.get('singleton')).toEqual({ hit: true })
 
     await t.shutdown()
   })

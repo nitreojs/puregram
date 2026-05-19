@@ -79,7 +79,7 @@ describe('@puregram/test/session', () => {
 
     await alice.sendMessage('hi')
 
-    expect(await env.session!.raw(String(alice.id))).toEqual({ x: 1 })
+    expect(await env.session!.raw(`user:${alice.id}:chat:${alice.id}`)).toEqual({ x: 1 })
     expect(env.session!(alice).x).toBe(1)
   })
 })

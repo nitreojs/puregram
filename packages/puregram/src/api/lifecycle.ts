@@ -30,12 +30,75 @@ export async function runRequest (
   method: string,
   rawParams: Record<string, unknown> | undefined
 ) {
+  const retry = resolveRetry(deps.options.retryOnFloodWait)
+  let attempt = 0
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    try {
+      return await runOnce(deps, method, rawParams)
+    } catch (error) {
+      if (retry === undefined || attempt >= retry.max) {
+        throw error
+      }
+
+      const waitMs = floodWaitMs(error)
+
+      if (waitMs === undefined || waitMs > retry.maxWaitMs) {
+        throw error
+      }
+
+      attempt += 1
+      debug('429 retry %d for %s in %dms', attempt, method, waitMs)
+      await sleep(waitMs)
+    }
+  }
+}
+
+function resolveRetry (input: ResolvedTelegramOptions['retryOnFloodWait']) {
+  if (input === false || input === undefined) {
+    return undefined
+  }
+
+  if (input === true) {
+    return { max: 1, maxWaitMs: Infinity }
+  }
+
+  return {
+    max: input.max ?? 1,
+    maxWaitMs: input.maxWaitMs ?? Infinity
+  }
+}
+
+function floodWaitMs (error: unknown) {
+  if (!(error instanceof ApiError) || error.code !== 429) {
+    return undefined
+  }
+
+  const retryAfter = error.parameters?.retry_after
+
+  if (typeof retryAfter !== 'number') {
+    return undefined
+  }
+
+  return retryAfter * 1000
+}
+
+function sleep (ms: number) {
+  return new Promise<void>(resolve => setTimeout(resolve, ms))
+}
+
+async function runOnce (
+  deps: RunRequestDeps,
+  method: string,
+  rawParams: Record<string, unknown> | undefined
+) {
   const params = { ...(rawParams ?? {}) }
   const suppress = params.suppress === true
 
   delete params.suppress
 
-  // webhook-reply optimization — methods returning `true` ride the 200 body, invisible to callers.
+  // webhook-reply optimization — methods returning `true` ride the 200 body, invisible to callers
   // skip when `suppress` (needs real error shape) or multipart (can't serialize as json)
   const slot = replyAls.getStore()
 

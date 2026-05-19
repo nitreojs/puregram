@@ -14,9 +14,21 @@ export { TestMessage } from './actors/message'
 export { TestUserInChat, TestUserOnMessage } from './actors/scopes'
 export { TestUser } from './actors/user'
 export type { CreateUserOptions } from './actors/user'
+export { installTestClock } from './clock'
+export type { TestClock } from './clock'
 export { TestEnv } from './env'
 export type { ApiCallRecord } from './env'
 export { MembershipRequired } from './errors'
+export {
+  buildCallbackQuery,
+  buildChat,
+  buildInlineQuery,
+  buildMessage,
+  buildUpdate,
+  buildUser,
+  resetFixtureCounters
+} from './fixtures'
+export type { UpdateKind } from './fixtures'
 export type { TestEnvOptions } from './options'
 export { apiError, isApiErrorSentinel } from './stubs/api-error'
 export type { ApiErrorSentinel } from './stubs/api-error'

@@ -74,7 +74,7 @@ describe('@puregram/session — e2e', () => {
     await startPromise
 
     expect(observed).toEqual([1, 2])
-    expect(await storage.get('7')).toEqual({ counter: 2 })
+    expect(await storage.get('user:7:chat:100')).toEqual({ counter: 2 })
 
     await mock.stop()
     await tg.shutdown()
@@ -164,7 +164,7 @@ describe('@puregram/session — e2e', () => {
     tg.stopPolling()
     await startPromise
 
-    expect(await storage.get('11')).toEqual({ profile: { hits: 2 } })
+    expect(await storage.get('user:11:chat:100')).toEqual({ profile: { hits: 2 } })
 
     await mock.stop()
     await tg.shutdown()

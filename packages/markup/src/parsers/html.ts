@@ -10,9 +10,8 @@ import { composeWithSentinels, expandSentinels, isTemplateStringsArray, SENTINEL
 
 const TIME_NAMED_ATTRS = ['weekday', 'date-style', 'time-style', 'relative'] as const
 
-// sentinel-laden attribute values arrive from tagged-template interpolation;
-// in that case we defer the numeric parse to expandSentinels by storing the raw string.
-// the entity.unix_time runtime cast is sound because expandSentinels resolves the string back to a number
+// sentinel-laden attribute values from tagged-template interpolation defer the
+// numeric parse to expandSentinels by storing the raw string
 function parseTimeUnix (raw: string | undefined, sourceOffset: number, source: string) {
   if (raw === undefined) {
     throw new MarkupParseError('<tg-time>/<time> requires a unix attribute', sourceOffset, source)
@@ -233,20 +232,16 @@ export function parseHtml (source: string) {
   const stack: OpenTag[] = []
   let i = 0
 
-  // collapses runs of horizontal whitespace to a single space, but preserves newlines.
-  // skips leading whitespace at the start of the document and after each newline; strips
-  // trailing whitespace before each newline. trailing-end whitespace stripped post-loop
+  // collapses runs of horizontal whitespace to a single space; preserves newlines
   const appendText = (s: string) => {
     for (const ch of s) {
       if (ch === '\n') {
-        // strip trailing space before the newline
         if (text.endsWith(' ')) {
           text = text.slice(0, -1)
         }
 
         text += '\n'
       } else if (/\s/.test(ch)) {
-        // horizontal whitespace: collapse runs, skip after newline or at start
         if (text !== '' && !text.endsWith(' ') && !text.endsWith('\n')) {
           text += ' '
         }
@@ -357,7 +352,6 @@ export function parseHtml (source: string) {
     throw new MarkupParseError(`unclosed tag <${unclosed.canonical}>`, unclosed.sourceOffset, source)
   }
 
-  // strip trailing whitespace (any combo of spaces and newlines)
   text = text.replace(/[\s]+$/, '')
 
   entities.sort((a, b) => a.offset - b.offset)
@@ -365,9 +359,8 @@ export function parseHtml (source: string) {
   return new Formatted(text, entities)
 }
 
-// 0x02 (STX) survives the html lexer's whitespace collapse since it is non-whitespace,
-// and it is distinct from the sentinel module's 0x01 marker. we substitute <br> with
-// it pre-parse, then swap back to '\n' post-parse — same char length, no offset shift
+// 0x02 (STX) survives the html lexer's whitespace collapse and is distinct from the
+// sentinel module's 0x01 marker — sub <br> pre-parse, swap back to '\n' post-parse
 const BR_PLACEHOLDER = '\u0002'
 const BR_RE = /\s*<br\s*\/?\s*>\s*/gi
 
@@ -428,6 +421,8 @@ export interface HtmlCallable {
   define: (tags: TagDefinitions) => HtmlCallable
   /** returns a fresh callable cloned from this one's registry, extended with `tags` */
   with: (tags: TagDefinitions) => HtmlCallable
+  /** permissive parse — returns a plain-text `Formatted` on parse failure instead of throwing */
+  lenient: (source: string) => Formatted
 }
 
 function makeHtmlCallable (
@@ -460,6 +455,22 @@ function makeHtmlCallable (
     validateAndMerge(cloned, tags)
 
     return makeHtmlCallable(cloned, flavor)
+  }
+
+  fn.lenient = (source: string) => {
+    try {
+      if (flavor === 'htmlb') {
+        return postprocessHtmlb(parseHtmlInternal(preprocessHtmlb(source), registry))
+      }
+
+      return parseHtmlInternal(source, registry)
+    } catch (err) {
+      if (err instanceof MarkupParseError) {
+        return new Formatted(source, [])
+      }
+
+      throw err
+    }
   }
 
   return fn

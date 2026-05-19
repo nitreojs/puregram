@@ -53,13 +53,24 @@ standalone folders under `webhooks/`, `deployment/`, `integrations/`, `recipes/`
 - [custom update](src/core/plugins/custom-update.ts)
 - [all hooks](src/core/plugins/all-hooks.ts)
 
+## resilience (core)
+
+- [retry on flood_wait (429)](src/core/resilience/retry-on-flood-wait.ts)
+- [catch dispatch errors + swallowDispatchErrors](src/core/resilience/catch-errors.ts)
+- [polling concurrency + sequentializeBy](src/core/resilience/polling-concurrency.ts)
+
 ## @puregram/markup
 
 - [markup basics](src/markup/basics.ts)
+- [Formatted.fromMessage — quote with original entities](src/markup/from-message.ts)
+- [toHtml / toMarkdown — serialize a Formatted](src/markup/to-html-markdown.ts)
+- [md.lenient / html.lenient — permissive parsing for llm output](src/markup/lenient-parse.ts)
 
 ## @puregram/flow
 
 - [waitFor basics](src/flow/wait-for-basics.ts)
+- [waitForCallbackQuery + waitForCommand sugar](src/flow/wait-for-callback-and-command.ts)
+- [waitForAny — race specs with AbortSignal](src/flow/race-with-abort.ts)
 
 ## @puregram/scenes
 
@@ -70,11 +81,25 @@ standalone folders under `webhooks/`, `deployment/`, `integrations/`, `recipes/`
 - [in-memory basics](src/session/in-memory-basics.ts)
 - [with lru storage](src/session/with-lru-storage.ts)
 - [shared storage across plugins](src/session/with-shared-storage.ts)
+- [lazy loading](src/session/lazy.ts)
+- [composite storage key (user + chat + thread)](src/session/composite-key.ts)
 
 ## @puregram/storage
 
 - [in-memory standalone](src/storage/in-memory.ts)
 - [custom adapter (file-on-disk)](src/storage/custom-adapter.ts)
+- [enhanceStorage — versioned migrations + millisecond precision](src/storage/enhance.ts)
+- [@puregram/storage-redis — redis-backed kv with native ttl](src/storage/redis.ts)
+- [@puregram/storage-sqlite — sqlite-backed kv with ttl + sweep](src/storage/sqlite.ts)
+
+## @puregram/throttler
+
+- [outbound rate-limit + flood_wait retry combo](src/throttler/basics.ts)
+
+## @puregram/media-cacher
+
+- [auto-evict on stale file_id](src/media-cacher/auto-evict.ts)
+- [content-hash keying](src/media-cacher/content-hash.ts)
 
 ## @puregram/callback-data
 
@@ -85,6 +110,25 @@ standalone folders under `webhooks/`, `deployment/`, `integrations/`, `recipes/`
 ## @puregram/rate-limit
 
 - [global basics](src/rate-limit/global-basics.ts)
+
+## @puregram/utils
+
+- [parseCommand](src/utils/parse-command.ts)
+- [deepLink](src/utils/deep-link.ts)
+
+## @puregram/stream
+
+- [basics — plain AsyncIterable<string>](src/stream/basics.ts)
+- [openai auto-detect](src/stream/openai-auto.ts)
+- [openai explicit (fromOpenAI adapter)](src/stream/openai-explicit.ts)
+- [anthropic auto-detect](src/stream/anthropic.ts)
+- [vercel ai sdk auto-detect](src/stream/vercel-ai.ts)
+- [markdown v2 streaming + AbortSignal.timeout](src/stream/markdown-with-abort.ts)
+
+## @puregram/test
+
+- [fixture builders (vitest-style)](src/test/fixtures.ts)
+- [virtual clock — advanceTime (vitest-style)](src/test/time-travel.ts)
 
 ## webhook adapters (standalone)
 

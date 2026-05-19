@@ -21,8 +21,7 @@ function startsWith (s: State, str: string): boolean {
   return s.src.startsWith(str, s.pos)
 }
 
-// charAt always returns string ('' for OOB), avoiding the noUncheckedIndexedAccess
-// non-null-assertion pile-up that bracket access would force on every read
+// charAt always returns string ('' for OOB), avoiding noUncheckedIndexedAccess non-null assertions
 function peek (s: State, offset = 0) {
   return s.src.charAt(s.pos + offset)
 }
@@ -62,7 +61,6 @@ function parseInline (s: State, stopAt: string | null) {
     const ch = peek(s)
 
     if (ch === '\n' && stopAt === null) {
-      // inline parser on a single line — let block-level handle newlines
       return
     }
 
@@ -183,9 +181,8 @@ function parseLink (s: State, bang: boolean) {
 
     const id = parseInt(url.slice('tg://user?id='.length), 10)
 
-    // when an interpolation embeds a sentinel inside the url, parseInt sees the sentinel
-    // and returns NaN. emit a text_link in that case — the post-expansion pass converts
-    // any text_link with a now-valid tg://user?id=N url into a text_mention
+    // sentinel-laden interpolation makes parseInt return NaN — emit text_link
+    // and let post-expansion reclassify any tg://user?id=N url into text_mention
     if (!Number.isNaN(id)) {
       s.entities.push({
         type: 'text_mention',
@@ -211,7 +208,7 @@ function parseLink (s: State, bang: boolean) {
       return
     }
 
-    // unresolved (likely sentinel-laden interpolation) — keep as text_link, post-expand reclassifies
+    // unresolved (sentinel-laden interpolation) — keep as text_link, post-expand reclassifies
     s.entities.push({ type: 'text_link', offset: start, length, url })
 
     return
@@ -238,7 +235,7 @@ function parseLink (s: State, bang: boolean) {
       }
     }
 
-    // unresolved (likely sentinel-laden interpolation) — keep as text_link for post-expansion
+    // unresolved (sentinel-laden interpolation) — keep as text_link for post-expansion
     s.entities.push({ type: 'text_link', offset: start, length, url })
 
     return
@@ -277,7 +274,6 @@ export function parseMarkdown (src: string) {
     s.pos = lineStart
   }
 
-  // precompute line-start offsets
   const lineStarts: number[] = [0]
 
   for (let p = 0; p < src.length; p++) {
@@ -292,7 +288,6 @@ export function parseMarkdown (src: string) {
 
     advanceTo(lineStart)
 
-    // pre-fenced code block
     if (line.startsWith('```')) {
       const lang = line.slice(3).trim()
       const fenceStart = lineStart
@@ -394,7 +389,6 @@ export function parseMarkdown (src: string) {
       continue
     }
 
-    // ordinary line — append to text with line separator if needed
     if (i > 0 && s.text.length > 0 && !s.text.endsWith('\n')) {
       s.text += '\n'
     }
@@ -413,7 +407,6 @@ export function parseMarkdown (src: string) {
   return new Formatted(s.text, s.entities)
 }
 
-// recurses into blockquote bodies — handles inline content with embedded \n
 function parseBlockContent (s: State) {
   while (s.pos < s.src.length) {
     parseInline(s, null)
@@ -477,18 +470,21 @@ function mdTagged (strings: TemplateStringsArray, rest: readonly unknown[]) {
     segments[last] = (segments[last] as string).replace(/\n[ \t]*$/, '')
   }
 
-  // composeWithSentinels expects a TemplateStringsArray-shaped object; it only
-  // reads .length and integer indices, so a plain array is acceptable
+  // composeWithSentinels only reads .length + integer indices, so plain array works
   const { source, slots } = composeWithSentinels(segments as unknown as TemplateStringsArray, rest, transform)
   const parsed = parseMarkdown(source)
 
   return expandSentinels(parsed, slots)
 }
 
-/** parses our MarkdownV2-flavored dialect. accepts both function-call form and tagged-template form */
-export function md (source: string): Formatted
-export function md (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
-export function md (first: string | TemplateStringsArray, ...rest: readonly unknown[]) {
+export interface MdCallable {
+  (source: string): Formatted
+  (strings: TemplateStringsArray, ...rest: readonly unknown[]): Formatted
+  /** permissive parse — returns a plain-text `Formatted` on parse failure instead of throwing */
+  lenient: (source: string) => Formatted
+}
+
+function mdImpl (first: string | TemplateStringsArray, rest: readonly unknown[]) {
   if (isTemplateStringsArray(first)) {
     return mdTagged(first, rest)
   }
@@ -496,5 +492,24 @@ export function md (first: string | TemplateStringsArray, ...rest: readonly unkn
   return parseMarkdown(first)
 }
 
+const mdCallable = ((first: string | TemplateStringsArray, ...rest: readonly unknown[]) => {
+  return mdImpl(first, rest)
+}) as MdCallable
+
+mdCallable.lenient = (source: string) => {
+  try {
+    return parseMarkdown(source)
+  } catch (err) {
+    if (err instanceof MarkupParseError) {
+      return new Formatted(source, [])
+    }
+
+    throw err
+  }
+}
+
+/** parses our MarkdownV2-flavored dialect. accepts both function-call form and tagged-template form */
+export const md: MdCallable = mdCallable
+
 /** alias for {@link md} */
-export const markdown = md
+export const markdown: MdCallable = md

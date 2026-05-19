@@ -136,7 +136,7 @@ export class Telegram<Ext = unknown> {
       return
     }
 
-    // coalesce concurrent boots (webhook adapters fire start() per request);
+    // coalesce concurrent boots (webhook adapters fire start() per request)
     // clear the slot on failure so a later call can retry — one bad getMe shouldn't brick the bot
     if (this.startPromise === undefined) {
       this.startPromise = this.bootstrap().catch((error: unknown) => {
@@ -316,6 +316,25 @@ export class Telegram<Ext = unknown> {
 
   off (kind: string, handler: UpdateHandler): this {
     this.dispatcher.off(kind, handler)
+
+    return this
+  }
+
+  /**
+   * register a handler for errors thrown by dispatched update handlers — alias
+   * for `useHook('onDispatchError', fn)`. when `swallowDispatchErrors` is true
+   * in options, registered catch handlers are the only escape hatch (otherwise
+   * unhandled errors rethrow on a microtask and trip `uncaughtException`)
+   *
+   * @example
+   * ```ts
+   * tg.catch((err, ctx) => {
+   *   console.error('handler threw on update', ctx.raw.update_id, err)
+   * })
+   * ```
+   */
+  catch (handler: DispatchErrorHandler) {
+    this.hooks.add('onDispatchError', handler)
 
     return this
   }
@@ -527,7 +546,6 @@ export class Telegram<Ext = unknown> {
     await this.dispatch(update)
   }
 
-  // packs deps for download helpers without leaking a `this` ref — helpers stay test-friendly
   private downloadDeps () {
     return {
       options: this.options,
@@ -571,8 +589,6 @@ export class Telegram<Ext = unknown> {
     await Promise.allSettled(this.inFlight)
   }
 
-  // raw handlers fire before kind discrimination — forward-compat for unknown kinds.
-  // errors funnel through `reportDispatchError` like wrapped handlers
   private async runRawUpdateHandlers (raw: Record<string, unknown>) {
     if (this.rawUpdateHandlers.length === 0) {
       return
@@ -587,18 +603,23 @@ export class Telegram<Ext = unknown> {
     }
   }
 
-  // dispatch-error funnel. with no onDispatchError handler: log via debug and rethrow on a
-  // microtask, so node's default uncaughtException kicks in (matches v2 loud-by-default)
+  // with no onDispatchError handler: log via debug and rethrow on a microtask so node's
+  // uncaughtException kicks in. `swallowDispatchErrors` suppresses that fallback
   private reportDispatchError (error: Error, raw: Record<string, unknown>) {
     this.hooks.runDispatchError(error, { raw })
       .then((handled) => {
         if (!handled) {
           dispatchDebug('handler threw: %O', error)
-          rethrowAsync(error)
+
+          if (!this.options.swallowDispatchErrors) {
+            rethrowAsync(error)
+          }
         }
       })
       .catch((handlerError: unknown) => {
-        rethrowAsync(handlerError as Error)
+        if (!this.options.swallowDispatchErrors) {
+          rethrowAsync(handlerError as Error)
+        }
       })
   }
 }
@@ -609,9 +630,8 @@ function rethrowAsync (error: Error) {
   })
 }
 
-// `Telegram`-bound mention filter — closes over `tg.bot.username` so `tg.command('foo')`
-// validates `@bot` suffixes. no-suffix commands accept any bot; unbound `f.command('foo')`
-// skips this layer entirely
+// closes over `tg.bot.username` so `tg.command('foo')` validates `@bot` suffixes
+// no-suffix commands accept any bot; unbound `f.command('foo')` skips this layer
 function botMentionFilter (tg: Telegram) {
   return defineFilter<MessageUpdate>(
     'botMention',
@@ -630,9 +650,8 @@ function botMentionFilter (tg: Telegram) {
   )
 }
 
-// `match` is populated by the value/regex variants of the content/callback/inline
-// filter families and by `tg.command(...)`. surfaced via declaration merging so
-// userland handlers can read `update.match?.groups?.foo` without explicit casts
+// `match` is populated by value/regex variants of content/callback/inline filters
+// and by `tg.command(...)` — surfaced so handlers can read `update.match?.groups?.foo`
 declare module '@puregram/api' {
   interface MessageUpdate {
     match?: RegExpMatchArray

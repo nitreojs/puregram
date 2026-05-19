@@ -1,0 +1,47 @@
+{
+  "name": "@puregram/throttler",
+  "version": "3.0.0",
+  "description": "outbound rate-limit (throttler) plugin for puregram — keeps bot api calls within telegram's limits",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "puregram": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/throttler"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot-api",
+    "puregram",
+    "plugin",
+    "throttle",
+    "throttler",
+    "rate-limit",
+    "outbound"
+  ]
+}

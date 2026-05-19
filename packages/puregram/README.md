@@ -78,7 +78,12 @@ it's that easy!
 - [hooks](#hooks)
 - [extending puregram with plugins](#extending-puregram-with-plugins)
 - [custom updates](#custom-updates)
+- [polling](#polling)
 - [webhook](#webhook)
+- [resilience](#resilience)
+  - [`retryOnFloodWait` — auto-retry on 429](#retry-on-flood-wait)
+  - [`tg.catch` + `swallowDispatchErrors`](#tg-catch)
+  - [polling concurrency + per-key sequentialization](#polling-concurrency)
 - [debug logs](#debug-logs)
 - [**typescript usage**](#typescript-usage)
 - [**faq**](#faq)
@@ -1049,6 +1054,85 @@ passed to `getWebhookCallback`, `webhookHandler`, and `startWebhook`:
 | `port` | `number` | none | local port for the built-in `http` listener. omit for "set the webhook + return the callback, but don't start a server" |
 | `host` | `string` | `'0.0.0.0'` | host to bind the listener to |
 | `path` | `string` | `'/'` | path the listener responds to. all other paths return 404 |
+
+---
+
+<a name='resilience'></a>
+## resilience
+
+three opt-in knobs that turn the bot into a slightly less polite citizen of telegram's rate limits
+
+<a name='retry-on-flood-wait'></a>
+### `retryOnFloodWait` — auto-retry on 429
+
+when telegram answers with `429 Too Many Requests` it also tells you how long to wait (`parameters.retry_after`, seconds). `retryOnFloodWait` makes the api proxy honor that automatically — the same call sleeps the suggested time and retries. defaults to `false` to keep the v2 throw-and-let-the-caller-handle behavior
+
+```ts
+// one retry, no wait cap
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  retryOnFloodWait: true
+})
+
+// bounded: up to 3 retries, but bail if telegram asks for more than 10s
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  retryOnFloodWait: { max: 3, maxWaitMs: 10_000 }
+})
+```
+
+| field | type | default | description |
+|---|---|---|---|
+| `max` | `number` | `1` | max retries per call before propagating the `ApiError` |
+| `maxWaitMs` | `number` | `Infinity` | if `retry_after × 1000` exceeds this, give up immediately |
+
+only `429` with a numeric `retry_after` triggers a retry — every other error short-circuits as before. `suppress: true` calls keep their semantics (raw error object, no retry)
+
+<a name='tg-catch'></a>
+### `tg.catch` + `swallowDispatchErrors`
+
+`tg.catch(fn)` registers an error handler for anything thrown inside a dispatched update handler — it's a thin alias over `useHook('onDispatchError', fn)`. without a catch handler, puregram is loud by default: errors get rethrown on a microtask so node's `uncaughtException` fires. set `swallowDispatchErrors: true` and that fallback goes away — registered `tg.catch` handlers are the only escape hatch
+
+```ts
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  swallowDispatchErrors: true
+})
+
+telegram.catch((err, ctx) => {
+  console.error('handler threw on update', ctx.raw.update_id, err)
+})
+
+telegram.onMessage(async (m) => {
+  // throws hit `telegram.catch` above, no uncaughtException
+  await doRiskyThing(m)
+})
+```
+
+inspired by [grammY's `bot.catch`](https://grammy.dev/guide/errors). multiple catch handlers can be registered — they all run, in registration order
+
+<a name='polling-concurrency'></a>
+### polling concurrency + per-key sequentialization
+
+`startPolling` defaults to dispatching every update in parallel (no cap). two extra knobs let you ratchet that down for real-world traffic:
+
+| option | type | default | description |
+|---|---|---|---|
+| `concurrency` | `number` | `Infinity` | maximum number of concurrent dispatches across the bot |
+| `sequentializeBy` | `(raw) => string \| undefined` | `undefined` | return a key — updates sharing that key dispatch in FIFO order; different keys still run in parallel (subject to `concurrency`) |
+
+```ts
+await telegram.startPolling({
+  // never run more than 8 handlers at once
+  concurrency: 8,
+
+  // updates from the same chat run serially — handy when a handler mutates per-chat state
+  sequentializeBy: (raw) =>
+    String(raw.message?.chat.id ?? raw.callback_query?.message?.chat.id ?? '')
+})
+```
+
+`sequentializeBy` returning `undefined` or `''` opts an update out of per-key queuing entirely. inspired by [grammY's runner](https://grammy.dev/plugins/runner)
 
 ---
 

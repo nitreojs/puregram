@@ -247,6 +247,67 @@ const telegram = Telegram.fromToken(TOKEN).extend(session({
 
 ---
 
+## lazy loading
+
+by default the middleware runs `storage.get` for every keyable update — fine for most bots, wasteful when most updates don't touch session. pass `lazy: true` to defer the load until `update.session` is actually accessed inside a handler:
+
+```ts
+session({ lazy: true })
+```
+
+in lazy mode `update.session` resolves to a thenable on first access — `await` it to receive the proxy:
+
+```ts
+telegram.onMessage(async (message) => {
+  // 0 get, 0 set — early-return without touching session
+  if (!message.text?.startsWith('/')) {
+    return
+  }
+
+  const session = await message.session
+
+  // 1 get; 1 set only if you actually mutate
+  session.counter = (session.counter as number ?? 0) + 1
+})
+```
+
+| handler | `storage.get` | `storage.set` |
+|---|---|---|
+| never accesses `update.session` | 0 | 0 |
+| reads `update.session.<x>` only | 1 | 0 |
+| writes `update.session.<x> = ...` | 1 | 1 |
+
+note: lazy mode is opt-in because downstream plugins (e.g. `@puregram/scenes`) rely on synchronous `update.session.<key>` reads. when those plugins are loaded, leave `lazy` at its default (`false`)
+
+---
+
+## composite keys
+
+`getStorageKey` can return a structured descriptor instead of a raw string. segments are normalised into `user:<id>:chat:<id>:thread:<id>:key:<value>`, omitting undefined parts:
+
+```ts
+session({
+  getStorageKey: (update) => ({
+    chat: update.chatId,
+    user: update.from?.id,
+    thread: update.messageThreadId
+  })
+})
+```
+
+| field | format |
+|---|---|
+| `user` | `user:<id>` |
+| `chat` | `chat:<id>` |
+| `thread` | `thread:<id>` — useful for forum-topic-scoped sessions |
+| `key` | `key:<value>` — free-form trailing segment (workflow id, locale, etc) |
+
+returning a raw `string` keeps the legacy behavior — used verbatim. returning `undefined` skips session attachment for that update
+
+the default keyer is now `(u) => ({ chat: u.chatId, user: u.from?.id })`. when both segments are present, the storage key reads `user:<id>:chat:<id>` so the same user gets independent sessions across chats — pass a custom `getStorageKey` if you want the v2-style "session-per-user, regardless of chat" semantics
+
+---
+
 ## exported types
 
 ```ts

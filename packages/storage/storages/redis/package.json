@@ -1,0 +1,49 @@
+{
+  "name": "@puregram/storage-redis",
+  "version": "3.0.0",
+  "description": "redis-backed KVStorage adapter for puregram with native ttl",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@puregram/storage": "3.0.0"
+  },
+  "peerDependencies": {
+    "ioredis": "^5.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "WTFPL",
+  "author": "starkow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitreojs/puregram",
+    "directory": "packages/storage-redis"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot-api",
+    "puregram",
+    "storage",
+    "redis",
+    "ioredis",
+    "kv"
+  ]
+}

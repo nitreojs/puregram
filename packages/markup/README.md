@@ -429,6 +429,66 @@ await message.send(md`
 
 ---
 
+## codec — hydrate, serialize, parse permissively
+
+`Formatted` is a two-way pipe. you can hydrate one from any incoming message, walk it back into html or markdown source, and parse foreign markup permissively when you don't trust the input
+
+### `Formatted.fromMessage(msg)`
+
+hydrates a `Formatted` from a `MessageUpdate` (or any `{text, entities, caption, caption_entities}` shape). picks `text`+`entities` when present, otherwise falls back to `caption`+`caption_entities`:
+
+```ts
+tg.command('quote', async (message) => {
+  const reply = message.replyToMessage
+
+  if (reply == null) {
+    return
+  }
+
+  // preserves the user's original formatting — bold stays bold, links stay clickable
+  const original = Formatted.fromMessage(reply)
+
+  await message.send(format`
+    you said:
+    ${original}
+  `)
+})
+```
+
+round-trip safe — `Formatted.fromMessage(msg).toPayload()` reproduces the original `{text, entities}` pair byte-for-byte. `toPayload()` returns the plain bot-api shape if you'd rather work with that directly than with the `Formatted` instance
+
+### `formatted.toHtml()` / `formatted.toMarkdown()`
+
+serializes a `Formatted` back into html or markdown v2 source. round-trips: `html\`<b>hi</b>\`.toHtml()` returns `<b>hi</b>` (modulo nesting order — both `<i><b>x</b></i>` and `<b><i>x</i></b>` parse to the same entity set). properly escapes specials, emits nested tags for nested entities, handles non-rectangular entities (text_link with url, custom_emoji with id, pre with language, text_mention with user)
+
+```ts
+const f = format`${bold('build:')} ${italic('passing')}`
+
+console.log(f.toHtml())       // "<b>build:</b> <i>passing</i>"
+console.log(f.toMarkdown())   // "**build:** _passing_"
+```
+
+also available as standalone `toHtml(source)` / `toMarkdown(source)` if you'd rather operate on raw `{text, entities}` pairs without wrapping in `Formatted` first
+
+useful for logging messages in a readable form, persisting drafts to a database, or exporting outside telegram
+
+### `md.lenient(input)` / `html.lenient(input)` / `htmlb.lenient(input)`
+
+strict parsing throws `MarkupParseError` on malformed input — great for catching bugs in code you wrote, terrible for llm-generated markdown that breaks every other token. the lenient variants swallow parse errors and return a plain-text `Formatted` instead:
+
+```ts
+const broken = '**unclosed bold and [a link with no url'
+
+md(broken)         // throws MarkupParseError
+md.lenient(broken) // returns Formatted { text: broken, entities: [] } — no throw
+```
+
+well-formed input parses identically to the strict form. `html.lenient` and `htmlb.lenient` mirror the same shape for html parsing
+
+api choice — `md.lenient(input)` was picked over `md(input, { onError: 'plain' })` because the tagged-template form already eats the second-argument slot for interpolations. a separate method keeps the call site obvious at a glance and avoids the "did you mean the strict form?" footgun
+
+---
+
 ## hand-rolling a `Formatted` value
 
 every builder ultimately produces a `Formatted` — text + an array of bot-api entities. you can build one yourself when none of the conveniences fit:

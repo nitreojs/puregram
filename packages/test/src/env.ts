@@ -1,10 +1,13 @@
-import type { RequestContext, Telegram } from 'puregram'
+import type { TelegramUpdate } from '@puregram/api'
+import type { Telegram } from 'puregram'
 
 import { TestChat } from './actors/chat'
 import { allocateChatId } from './actors/identity'
 import { TestMessage } from './actors/message'
 import type { CreateUserOptions } from './actors/user'
 import { TestUser } from './actors/user'
+import type { TestClock } from './clock'
+import { installTestClock } from './clock'
 import { inject as injectRaw } from './dispatch/inject'
 import { InterceptingHttpClient, swapHttpClient } from './http/intercept'
 import type { TestEnvOptions } from './options'
@@ -35,13 +38,14 @@ export class TestEnv<TG extends Telegram = Telegram> {
   private readonly world = new World()
   private readonly postInjectHooks: ((raw: Record<string, unknown>) => Promise<void> | void)[] = []
   private snapshot: Record<string, unknown> | undefined
+  private clock: TestClock | undefined
 
   constructor (tg: TG, options: TestEnvOptions = {}) {
     this.tg = tg
     this.options = options
 
     tg.useHook('onBeforeRequest', (ctx, next) => {
-      const request = ctx as RequestContext
+      const request = ctx
       const params = { ...(request.params ?? {}) }
 
       delete params.suppress
@@ -133,7 +137,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
 
     this.restoreHttp = swapHttpClient(tg, intercept)
 
-    // ensure `tg.shutdown()` runs lifecycle hooks even when `.start()` never ran
+    // ensures `tg.shutdown()` runs lifecycle hooks even when `.start()` never ran
     tg.registerCleanup(async () => {})
 
     this.installPendingPluginsEagerly()
@@ -200,15 +204,15 @@ export class TestEnv<TG extends Telegram = Telegram> {
     return chat
   }
 
-  async inject (raw: Record<string, unknown>) {
-    const enriched = raw.update_id !== undefined
-      ? raw
-      : { update_id: this.world.nextUpdateId(), ...raw }
+  async inject (raw: TelegramUpdate | Record<string, unknown>) {
+    const r = raw as Record<string, unknown>
+    const enriched = r.update_id !== undefined
+      ? r
+      : { update_id: this.world.nextUpdateId(), ...r }
 
     await this.injectInternal(enriched)
   }
 
-  // packs observe the raw update after dispatch settles — e.g. to mirror session into a sync cache
   onPostInject (fn: (raw: Record<string, unknown>) => Promise<void> | void) {
     this.postInjectHooks.push(fn)
   }
@@ -252,6 +256,27 @@ export class TestEnv<TG extends Telegram = Telegram> {
   async shutdown () {
     await this.tg.shutdown()
     this.restoreHttp()
+
+    if (this.clock !== undefined) {
+      this.clock.restore()
+      this.clock = undefined
+    }
+  }
+
+  /**
+   * advance the virtual clock by `ms` milliseconds — `Date.now`, `setTimeout`
+   * and `setInterval` are overridden the first time this is called and any
+   * pending timers whose deadline falls inside the window fire synchronously
+   * (interval timers may fire multiple times)
+   *
+   * the override is reverted automatically by `shutdown()`
+   */
+  async advanceTime (ms: number) {
+    if (this.clock === undefined) {
+      this.clock = installTestClock()
+    }
+
+    await this.clock.advance(ms)
   }
 
   ensureStorage () {
@@ -299,8 +324,8 @@ export class TestEnv<TG extends Telegram = Telegram> {
     }
   }
 
-  // install queued plugins synchronously so packs can `tg.has()` them before `.start()`.
-  // async-install plugins skip (a later `.start()` runs them; pack just won't activate here)
+  // sync-install queued plugins so packs can `tg.has()` them before `.start()`
+  // async-install plugins skip — later `.start()` runs them; pack won't activate here
   private installPendingPluginsEagerly () {
     interface InternalTelegram {
       pendingPlugins: { name: string, install: (tg: Telegram) => unknown }[]

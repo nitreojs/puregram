@@ -635,7 +635,7 @@ export interface CreateInvoiceLinkParams {
 /**
  * Use this method to create a link for an invoice. Returns the created invoice link as String on success.
  */
-export type createInvoiceLink = (params: CreateInvoiceLinkParams) => Promise<true>;
+export type createInvoiceLink = (params: CreateInvoiceLinkParams) => Promise<string>;
 
 /**
  * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns True on success.
@@ -1390,7 +1390,7 @@ export interface ExportChatInviteLinkParams {
 /**
  * Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the new invite link as String on success.
  */
-export type exportChatInviteLink = (params: ExportChatInviteLinkParams) => Promise<true>;
+export type exportChatInviteLink = (params: ExportChatInviteLinkParams) => Promise<string>;
 
 /**
  * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent Message is returned.
@@ -1800,7 +1800,7 @@ export interface GetManagedBotTokenParams {
 /**
  * Use this method to get the token of a managed bot. Returns the token as String on success.
  */
-export type getManagedBotToken = (params: GetManagedBotTokenParams) => Promise<true>;
+export type getManagedBotToken = (params: GetManagedBotTokenParams) => Promise<string>;
 
 /**
  * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a User object.
@@ -2462,7 +2462,7 @@ export interface ReplaceManagedBotTokenParams {
 /**
  * Use this method to revoke the current token of a managed bot and generate a new one. Returns the new token as String on success.
  */
-export type replaceManagedBotToken = (params: ReplaceManagedBotTokenParams) => Promise<true>;
+export type replaceManagedBotToken = (params: ReplaceManagedBotTokenParams) => Promise<string>;
 
 /**
  * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet. Returns True on success.

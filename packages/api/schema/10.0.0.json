@@ -1197,7 +1197,7 @@
         }
       ],
       "returnType": {
-        "kind": "true"
+        "kind": "string"
       }
     },
     {
@@ -2562,7 +2562,7 @@
         }
       ],
       "returnType": {
-        "kind": "true"
+        "kind": "string"
       }
     },
     {
@@ -3316,7 +3316,7 @@
         }
       ],
       "returnType": {
-        "kind": "true"
+        "kind": "string"
       }
     },
     {
@@ -4450,7 +4450,7 @@
         }
       ],
       "returnType": {
-        "kind": "true"
+        "kind": "string"
       }
     },
     {

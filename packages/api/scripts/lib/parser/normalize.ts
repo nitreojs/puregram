@@ -333,6 +333,7 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
   }
 
   const patterns: RegExp[] = [
+    /Returns[^.]*?\bas\s+(?:an?\s+)?(String|Integer|Int|Boolean|Bool|Float)\b/,
     /Returns\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)\s+on success/,
     /On success,\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)\s+is returned/,
     /On success,\s+returns\s+(?:an?\s+|the\s+)?([A-Z][A-Za-z]+)/,

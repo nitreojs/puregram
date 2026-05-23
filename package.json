@@ -13,33 +13,20 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
-    "@types/common-tags": "^1.8.1",
-    "@types/debug": "^4.1.7",
-    "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "cheerio": "^1.0.0-rc.10",
-    "common-tags": "^1.8.0",
     "eslint": "^8.20.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-local-rules": "^3.0.2",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0",
     "husky": "^8.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.3.3",
-    "undici": "^5.26.2"
+    "typescript": "^5.3.3"
   },
   "scripts": {
-    "regenerate-all": "tsx scripts/regenerate-all.ts",
-
-    "generate": "yarn generate-constants && yarn generate-updates && yarn generate-types",
-    "generate-references": "ts-node scripts/generate-references/",
-    "generate-constants": "ts-node scripts/generate-constants/",
-    "generate-interfaces": "ts-node scripts/generate-interfaces/",
-    "generate-updates": "ts-node scripts/generate-updates/",
-    "generate-types": "ts-node scripts/generate-types/",
-    "generate-index": "ts-node scripts/generate-index/"
+    "build": "yarn workspaces foreach -A run build",
+    "lint": "yarn workspaces foreach -A run lint",
+    "test": "yarn workspaces foreach -A run test",
+    "clean": "yarn workspaces foreach -A run clean",
+    "regenerate-all": "tsx scripts/regenerate-all.ts"
   }
 }

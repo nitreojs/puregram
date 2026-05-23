@@ -90,8 +90,9 @@ packages/*/lib/
 packages/storage/storages/*/lib/
 .vscode/
 .claude/
+CLAUDE.md
+AGENTS.md
 /playground/
-scripts/generate-interfaces/*.json
 .DS_Store
 **/yarn.lock
 **/package-lock.json

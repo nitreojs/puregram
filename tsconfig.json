@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "module": "commonjs",
-    "experimentalDecorators": true,
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "declaration": true,
     "pretty": true,
 
@@ -14,10 +14,12 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
 
     "esModuleInterop": true,
-
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   }
 }

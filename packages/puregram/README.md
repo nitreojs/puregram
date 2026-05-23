@@ -1244,11 +1244,15 @@ because i felt like it — see the issues:
 - [`@puregram/session`][@session]: transparent persistent session plugin
 - [`@puregram/scenes`][@scenes]: multi-step scene/wizard plugin
 - [`@puregram/flow`][@flow]: conversational primitives — `waitFor`, `prompt`, `collectMediaGroup`, persistent flows
+- [`@puregram/callback-data`][@callback-data]: typed callback-data builder with binary-packed payloads + dispatch-ready filter
 - [`@puregram/markup`][@markup]: tagged-template entity-aware text formatting
 - [`@puregram/media-cacher`][@media-cacher]: transparent `file_id` caching, skips re-uploading repeated media
 - [`@puregram/rate-limit`][@rate-limit]: per-user fixed-window rate limiting
 - [`@puregram/file-id`][@file-id]: parse, inspect and serialize telegram `file_id` and `file_unique_id` strings
-- [`@puregram/utils`][@utils]: small standalone utilities — slot-machine value decoder + telegram web app initData validation
+- [`@puregram/inline-message-id`][@inline-message-id]: parse and serialize telegram `inline_message_id` strings (TL-encoded dc + chat/owner id + message id + access hash)
+- [`@puregram/utils`][@utils]: small standalone utilities — slot-machine value decoder + telegram web app initData validation + deep-link helpers
+- [`@puregram/stream`][@stream]: stream LLM output to telegram via `sendMessageDraft` + a terminal `sendMessage` — turn any `AsyncIterable<string>` into animated draft previews
+- [`@puregram/throttler`][@throttler]: outbound rate-limit middleware — keeps your bot inside telegram's ~30 rps / per-chat / per-group bot api limits (sliding-window queue)
 - [`@puregram/test`][@test]: actor-driven test framework for puregram bots
 
 ### dropped
@@ -1256,20 +1260,20 @@ because i felt like it — see the issues:
 - `@puregram/hear`: gone — userland in v3 (just `if (message.text === '/foo') ...` or compose a `command` / `regex` filter)
 - `@puregram/prompt`: gone — folded into [`@puregram/flow`][@flow] as `flow.prompt(...)`
 
-### not yet ported
-
-- `@puregram/callback-data`: redesign in progress on top of the v3 plugin model
-
 [@api]: ../api
 [@storage]: ../storage
 [@session]: ../session
 [@scenes]: ../scenes
 [@flow]: ../flow
+[@callback-data]: ../callback-data
 [@markup]: ../markup
 [@media-cacher]: ../media-cacher
 [@rate-limit]: ../rate-limit
 [@file-id]: ../file-id
+[@inline-message-id]: ../inline-message-id
 [@utils]: ../utils
+[@stream]: ../stream
+[@throttler]: ../throttler
 [@test]: ../test
 
 ---

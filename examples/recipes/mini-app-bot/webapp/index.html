@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>settings</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: var(--tg-theme-bg-color, #fff);
+      --fg: var(--tg-theme-text-color, #000);
+      --hint: var(--tg-theme-hint-color, #999);
+      --accent: var(--tg-theme-button-color, #2481cc);
+      --accent-fg: var(--tg-theme-button-text-color, #fff);
+      --border: color-mix(in srgb, var(--fg) 15%, transparent);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 1.25rem;
+      background: var(--bg);
+      color: var(--fg);
+      font: 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    h1 { font-size: 1.1rem; margin: 0 0 1rem; }
+    .row { margin-bottom: 1.2rem; }
+    label { display: block; font-size: 0.85rem; color: var(--hint); margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    input[type="text"], select {
+      width: 100%; padding: 0.7rem; font-size: 1rem;
+      background: var(--bg); color: var(--fg);
+      border: 1px solid var(--border); border-radius: 0.5rem;
+      appearance: none; outline: none;
+    }
+    input[type="text"]:focus, select:focus { border-color: var(--accent); }
+    .toggle { display: flex; align-items: center; gap: 0.6rem; user-select: none; cursor: pointer; }
+    .toggle input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+    button {
+      width: 100%; padding: 0.85rem; font-size: 1rem; font-weight: 500;
+      background: var(--accent); color: var(--accent-fg);
+      border: none; border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); margin-top: 0.6rem; }
+    #status { font-size: 0.85rem; color: var(--hint); margin-top: 0.75rem; min-height: 1.2em; }
+    #status.err { color: #d33; }
+  </style>
+</head>
+<body>
+  <h1>bot settings</h1>
+
+  <div class="row">
+    <label for="displayName">display name</label>
+    <input id="displayName" type="text" maxlength="64" placeholder="leave empty to use telegram name">
+  </div>
+
+  <div class="row">
+    <label for="theme">theme</label>
+    <select id="theme">
+      <option value="auto">auto (follow client)</option>
+      <option value="light">light</option>
+      <option value="dark">dark</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <label class="toggle">
+      <input id="notifications" type="checkbox">
+      <span>send me notifications</span>
+    </label>
+  </div>
+
+  <button id="save">save</button>
+  <button id="share" class="secondary">share my settings to chat</button>
+  <div id="status"></div>
+
+  <script>
+    const tg = window.Telegram.WebApp
+    tg.ready()
+    tg.expand()
+
+    const $name = document.getElementById('displayName')
+    const $theme = document.getElementById('theme')
+    const $notif = document.getElementById('notifications')
+    const $save = document.getElementById('save')
+    const $share = document.getElementById('share')
+    const $status = document.getElementById('status')
+
+    function setStatus (text, isError) {
+      $status.textContent = text
+      $status.classList.toggle('err', !!isError)
+    }
+
+    async function loadCurrent () {
+      try {
+        const params = new URLSearchParams({ initData: tg.initData })
+        const res = await fetch(`/api/initial?${params}`)
+
+        if (!res.ok) {
+          setStatus(`failed to load (${res.status})`, true)
+          return
+        }
+
+        const { settings } = await res.json()
+        $name.value = settings.displayName
+        $theme.value = settings.theme
+        $notif.checked = settings.notifications
+      } catch (err) {
+        setStatus(`load failed: ${err.message}`, true)
+      }
+    }
+
+    async function save () {
+      $save.disabled = true
+      setStatus('saving...')
+
+      try {
+        const res = await fetch('/api/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            initData: tg.initData,
+            settings: {
+              displayName: $name.value,
+              theme: $theme.value,
+              notifications: $notif.checked
+            }
+          })
+        })
+
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}))
+          setStatus(body.error ?? `save failed (${res.status})`, true)
+          $save.disabled = false
+          return
+        }
+
+        setStatus('saved — closing...')
+        setTimeout(() => tg.close(), 400)
+      } catch (err) {
+        setStatus(`save failed: ${err.message}`, true)
+        $save.disabled = false
+      }
+    }
+
+    // calls the /api/share endpoint which uses answerWebAppQuery to post
+    // an inline article into the chat the mini app was launched from
+    async function share () {
+      $share.disabled = true
+      setStatus('sharing...')
+
+      try {
+        const res = await fetch('/api/share', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ initData: tg.initData })
+        })
+
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}))
+          setStatus(body.error ?? `share failed (${res.status})`, true)
+          $share.disabled = false
+          return
+        }
+
+        // answerWebAppQuery closes the mini app for us — telegram inserts the
+        // article into the current chat as the user. nothing else to do client-side
+        setStatus('shared')
+      } catch (err) {
+        setStatus(`share failed: ${err.message}`, true)
+        $share.disabled = false
+      }
+    }
+
+    $save.addEventListener('click', save)
+    $share.addEventListener('click', share)
+    loadCurrent()
+  </script>
+</body>
+</html>

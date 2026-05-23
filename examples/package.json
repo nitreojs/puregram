@@ -8,7 +8,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "puregram": "*",
     "@puregram/api": "*",
     "@puregram/callback-data": "*",
     "@puregram/file-id": "*",
@@ -24,7 +23,8 @@
     "@puregram/stream": "*",
     "@puregram/test": "*",
     "@puregram/throttler": "*",
-    "@puregram/utils": "*"
+    "@puregram/utils": "*",
+    "puregram": "*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

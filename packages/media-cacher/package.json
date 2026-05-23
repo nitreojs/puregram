@@ -11,7 +11,9 @@
       "import": "./lib/index.js"
     }
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "engines": {
     "node": ">=22.0.0"
   },
@@ -21,8 +23,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "puregram": "3.0.0",
-    "@puregram/storage": "3.0.0"
+    "@puregram/storage": "3.0.0",
+    "puregram": "3.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

@@ -31,7 +31,9 @@
       "import": "./lib/transport/webhook/index.js"
     }
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "engines": {
     "node": ">=22.0.0"
   },
@@ -58,6 +60,11 @@
     "directory": "packages/puregram"
   },
   "keywords": [
-    "telegram", "telegram-api", "telegram-bot-api", "bot api", "bot", "typescript"
+    "telegram",
+    "telegram-api",
+    "telegram-bot-api",
+    "bot api",
+    "bot",
+    "typescript"
   ]
 }

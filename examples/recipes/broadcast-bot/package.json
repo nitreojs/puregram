@@ -8,9 +8,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "puregram": "*",
+    "@puregram/storage": "*",
     "@puregram/throttler": "*",
-    "@puregram/storage": "*"
+    "puregram": "*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -51,7 +51,9 @@
       "import": "./lib/advanced/polls.js"
     }
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "engines": {
     "node": ">=22.0.0"
   },
@@ -61,9 +63,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "puregram": "3.0.0",
     "@puregram/api": "*",
-    "@puregram/storage": "3.0.0"
+    "@puregram/storage": "3.0.0",
+    "puregram": "3.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
@@ -76,5 +78,12 @@
     "url": "https://github.com/nitreojs/puregram",
     "directory": "packages/test"
   },
-  "keywords": ["telegram", "bot", "puregram", "test", "testing", "vitest"]
+  "keywords": [
+    "telegram",
+    "bot",
+    "puregram",
+    "test",
+    "testing",
+    "vitest"
+  ]
 }

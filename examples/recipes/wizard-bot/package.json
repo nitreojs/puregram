@@ -8,10 +8,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "puregram": "*",
+    "@puregram/callback-data": "*",
     "@puregram/scenes": "*",
     "@puregram/session": "*",
-    "@puregram/callback-data": "*"
+    "puregram": "*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

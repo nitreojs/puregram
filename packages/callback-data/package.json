@@ -23,8 +23,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "puregram": "*",
-    "@puregram/api": "*"
+    "@puregram/api": "*",
+    "puregram": "*"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

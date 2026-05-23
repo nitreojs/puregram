@@ -11,7 +11,9 @@
       "import": "./lib/index.js"
     }
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "engines": {
     "node": ">=22.0.0"
   },
@@ -22,9 +24,9 @@
     "generate:augmentations": "tsx scripts/emit-augmentations.ts"
   },
   "dependencies": {
-    "puregram": "3.0.0",
     "@puregram/api": "*",
-    "@puregram/storage": "3.0.0"
+    "@puregram/storage": "3.0.0",
+    "puregram": "3.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
@@ -38,6 +40,10 @@
     "directory": "packages/session"
   },
   "keywords": [
-    "telegram", "telegram-bot-api", "puregram", "plugin", "session"
+    "telegram",
+    "telegram-bot-api",
+    "puregram",
+    "plugin",
+    "session"
   ]
 }

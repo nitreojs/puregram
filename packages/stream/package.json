@@ -11,7 +11,9 @@
       "import": "./lib/index.js"
     }
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "engines": {
     "node": ">=22.0.0"
   },
@@ -27,7 +29,9 @@
     "@puregram/markup": "*"
   },
   "peerDependenciesMeta": {
-    "@puregram/markup": { "optional": true }
+    "@puregram/markup": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@puregram/markup": "*",

@@ -2,20 +2,42 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'scope-enum': [2, 'always', [
-      'puregram',
-      'hear',
-      'prompt',
+      // core
+      'core',
+
+      // packages
+      'api',
+      'callback-data',
+      'file-id',
+      'flow',
+      'inline-message-id',
+      'markup',
+      'media-cacher',
+      'rate-limit',
       'scenes',
       'session',
+      'storage',
+      'stream',
+      'test',
+      'throttler',
       'utils',
-      'callback-data',
-      'markup',
 
+      // shared / cross-package
+      'plugins',
+
+      // cross-cutting
+      'repo',
+      'workspace',
+      'examples',
+      'docs',
+      'scripts',
+
+      // tooling
+      'ci',
+      'deps',
       'eslint',
       'commitlint',
-      'husky',
-
-      'scripts'
+      'husky'
     ]],
     'scope-case': [2, 'always', 'kebab-case']
   }

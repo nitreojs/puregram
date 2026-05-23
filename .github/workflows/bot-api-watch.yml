@@ -1,0 +1,121 @@
+name: bot-api-watch
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: bot-api-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup node + yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: install
+        run: yarn install --immutable
+
+      - name: snapshot schema before parse
+        id: before
+        run: |
+          hash=$(find packages/api/schema -type f -name '*.json' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1)
+          echo "hash=$hash" >> "$GITHUB_OUTPUT"
+
+      - name: parse bot api
+        run: yarn workspace @puregram/api parse
+
+      - name: detect change
+        id: detect
+        run: |
+          after=$(find packages/api/schema -type f -name '*.json' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1)
+
+          if [ "$after" = "${{ steps.before.outputs.hash }}" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "no bot api change"
+            exit 0
+          fi
+
+          version=$(ls packages/api/schema/*.json | sort -V | tail -1 | xargs -n1 basename | sed 's/\.json$//')
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "detected bot api $version"
+
+      - name: bump @puregram/api version
+        if: steps.detect.outputs.changed == 'true'
+        run: |
+          version="${{ steps.detect.outputs.version }}"
+          current=$(node -p "require('./packages/api/package.json').version")
+          target_mm=$(echo "$version" | cut -d. -f1-2)
+          current_mm=$(echo "$current" | cut -d. -f1-2)
+
+          if [ "$target_mm" = "$current_mm" ]; then
+            current_patch=$(echo "$current" | cut -d. -f3)
+            new_patch=$((current_patch + 1))
+            next="${target_mm}.${new_patch}"
+          else
+            next="${target_mm}.0"
+          fi
+
+          echo "@puregram/api: $current → $next"
+          node -e "
+            const fs = require('node:fs');
+            const p = './packages/api/package.json';
+            const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
+            pkg.version = '$next';
+            fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
+          "
+          echo "next=$next" >> "$GITHUB_ENV"
+
+      - name: regenerate
+        if: steps.detect.outputs.changed == 'true'
+        run: yarn regenerate-all
+
+      - name: open pull request
+        if: steps.detect.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: bot-api/${{ steps.detect.outputs.version }}
+          base: ${{ github.event.repository.default_branch }}
+          commit-message: 'feat(api): bot api ${{ steps.detect.outputs.version }}'
+          title: 'feat(api): bot api ${{ steps.detect.outputs.version }}'
+          body: |
+            telegram released bot api **${{ steps.detect.outputs.version }}**.
+
+            this PR contains the auto-regenerated:
+
+            - `packages/api/schema/${{ steps.detect.outputs.version }}.json`
+            - `packages/api/src/generated/**`
+            - `packages/flow/src/generated/augmentations/**`
+            - `packages/session/src/generated/augmentations/**`
+            - `@puregram/api` version bump → `${{ env.next }}`
+
+            `ci.yml` will lint + build + test this branch on its own.
+            review the diff before merging — schema bumps occasionally need manual
+            touch-ups in handcrafted code (telegram routinely renames fields in
+            "minor" bumps)
+          labels: |
+            bot-api
+            auto-generated
+          delete-branch: true
+
+      - name: no change
+        if: steps.detect.outputs.changed == 'false'
+        run: echo "bot api unchanged — clean exit"

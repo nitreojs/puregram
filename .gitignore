@@ -97,3 +97,12 @@ AGENTS.md
 **/yarn.lock
 **/package-lock.json
 **/test.ts
+
+# yarn berry
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

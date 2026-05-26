@@ -27,7 +27,8 @@
     "local-rules"
   ],
   "ignorePatterns": [
-    "**/lib/**",
+    "packages/*/lib/**",
+    "packages/storage/storages/*/lib/**",
     "**/dist/**",
     "**/node_modules/**",
     "**/coverage/**",
@@ -199,6 +200,12 @@
         "@typescript-eslint/no-unsafe-call": "off",
         "@typescript-eslint/no-unsafe-member-access": "off",
         "@typescript-eslint/no-unsafe-return": "off"
+      }
+    },
+    {
+      "files": ["**/packages/puregram/src/factories/**"],
+      "rules": {
+        "local-rules/no-redundant-return-type": "off"
       }
     }
   ]

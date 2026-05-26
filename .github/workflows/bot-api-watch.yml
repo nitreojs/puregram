@@ -39,7 +39,8 @@ jobs:
       - name: snapshot schema before parse
         id: before
         run: |
-          hash=$(find packages/api/schema -type f -name '*.json' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1)
+          # strip the volatile fetchedAt timestamp so a plain re-fetch isn't mistaken for a real change
+          hash=$(find packages/api/schema -type f -name '*.json' | sort | xargs -I{} jq -S 'del(.source.fetchedAt)' {} | sha256sum | cut -d' ' -f1)
           echo "hash=$hash" >> "$GITHUB_OUTPUT"
 
       - name: parse bot api
@@ -48,7 +49,7 @@ jobs:
       - name: detect change
         id: detect
         run: |
-          after=$(find packages/api/schema -type f -name '*.json' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1)
+          after=$(find packages/api/schema -type f -name '*.json' | sort | xargs -I{} jq -S 'del(.source.fetchedAt)' {} | sha256sum | cut -d' ' -f1)
 
           if [ "$after" = "${{ steps.before.outputs.hash }}" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"

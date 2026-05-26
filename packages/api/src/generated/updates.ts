@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-09T00:16:20.915Z
+/// generated at: 2026-05-26T22:17:04.458Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForceReply, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramManagedBotCreated, TelegramManagedBotUpdated, TelegramMaybeInaccessibleMessage, TelegramMenuButton, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMediaPurchased, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramShippingOption, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostParameters, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
@@ -68,7 +68,7 @@ class MessageShared {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
-     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     get id(): number {
         return this.raw.message_id;
@@ -86,7 +86,7 @@ class MessageShared {
         return this.raw.direct_messages_topic;
     }
     /**
-     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.
      */
     get from(): User | undefined {
         return this.raw.from ? (this._from ??= new User(this.raw.from)) : undefined;
@@ -284,7 +284,7 @@ class MessageShared {
         return this.raw.effect_id;
     }
     /**
-     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
      */
     get animation(): Animation | undefined {
         return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
@@ -302,7 +302,7 @@ class MessageShared {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
-     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set.
      */
     get livePhoto(): LivePhoto | undefined {
         return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
@@ -404,7 +404,7 @@ class MessageShared {
         return this.raw.poll ? (this._poll ??= new Poll(this.raw.poll)) : undefined;
     }
     /**
-     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set.
      */
     get venue(): Venue | undefined {
         return this.raw.venue ? (this._venue ??= new Venue(this.raw.venue)) : undefined;
@@ -3424,7 +3424,7 @@ export class GuestMessageUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
-     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     get id(): number {
         return this.raw.message_id;
@@ -3442,7 +3442,7 @@ export class GuestMessageUpdate {
         return this.raw.direct_messages_topic;
     }
     /**
-     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.
      */
     get from(): User | undefined {
         return this.raw.from ? (this._from ??= new User(this.raw.from)) : undefined;
@@ -3640,7 +3640,7 @@ export class GuestMessageUpdate {
         return this.raw.effect_id;
     }
     /**
-     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
      */
     get animation(): Animation | undefined {
         return this.raw.animation ? (this._animation ??= new Animation(this.raw.animation)) : undefined;
@@ -3658,7 +3658,7 @@ export class GuestMessageUpdate {
         return this.raw.document ? (this._document ??= new Document(this.raw.document)) : undefined;
     }
     /**
-     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set.
      */
     get livePhoto(): LivePhoto | undefined {
         return this.raw.live_photo ? (this._livePhoto ??= new LivePhoto(this.raw.live_photo)) : undefined;
@@ -3760,7 +3760,7 @@ export class GuestMessageUpdate {
         return this.raw.poll ? (this._poll ??= new Poll(this.raw.poll)) : undefined;
     }
     /**
-     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set.
      */
     get venue(): Venue | undefined {
         return this.raw.venue ? (this._venue ??= new Venue(this.raw.venue)) : undefined;
@@ -5257,7 +5257,7 @@ export class InlineQueryUpdate {
         return this.raw.offset;
     }
     /**
-     * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+     * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
      */
     get chatType(): ("sender" | "private" | "group" | "supergroup" | "channel") | undefined {
         return this.raw.chat_type;
@@ -5407,7 +5407,7 @@ export class CallbackQueryUpdate {
         return this.raw.message;
     }
     /**
-     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query.
+     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query
      */
     get inlineMessageId(): string | undefined {
         return this.raw.inline_message_id;
@@ -5771,7 +5771,7 @@ export class PollUpdate {
         return this.raw.members_only;
     }
     /**
-     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. If omitted, then users from any country can participate in the poll.
+     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. The country code “FT” is used for users with anonymous numbers. If omitted, then users from any country can participate in the poll.
      */
     get countryCodes(): string[] | undefined {
         return this.raw.country_codes;
@@ -6042,7 +6042,7 @@ class ChatMemberUpdatedShared {
         return this._newChatMember ??= new ChatMember(this.raw.new_chat_member);
     }
     /**
-     * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+     * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only
      */
     get inviteLink(): ChatInviteLink | undefined {
         return this.raw.invite_link ? (this._inviteLink ??= new ChatInviteLink(this.raw.invite_link)) : undefined;
@@ -7845,7 +7845,7 @@ export class ChatJoinRequestUpdate {
         return this.raw.date;
     }
     /**
-     * Optional. Bio of the user.
+     * Optional. Bio of the user
      */
     get bio(): string | undefined {
         return this.raw.bio;

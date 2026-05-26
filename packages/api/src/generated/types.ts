@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-09T00:16:20.915Z
+/// generated at: 2026-05-26T22:17:04.458Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -254,7 +254,7 @@ export interface TelegramBackgroundTypePattern {
      */
     intensity: number;
     /**
-     * Optional. True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only
+     * Optional. True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
      */
     is_inverted?: true;
     /**
@@ -330,7 +330,7 @@ export interface TelegramBotCommand {
      */
     command: string;
     /**
-     * Description of the command; 1-256 characters.
+     * Description of the command; 1-256 characters
      */
     description: string;
 }
@@ -650,7 +650,7 @@ export interface TelegramCallbackQuery {
      */
     message?: TelegramMaybeInaccessibleMessage;
     /**
-     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query.
+     * Optional. Identifier of the message sent via the bot in inline mode, that originated the query
      */
     inline_message_id?: string;
     /**
@@ -1121,7 +1121,7 @@ export interface TelegramChatFullInfo {
      */
     unique_gift_colors?: TelegramUniqueGiftColors;
     /**
-     * Optional. The number of Telegram Stars a general user have to pay to send a message to the chat
+     * Optional. The number of Telegram Stars a general user has to pay to send a message to the chat
      */
     paid_message_star_count?: number;
 }
@@ -1197,7 +1197,7 @@ export interface TelegramChatJoinRequest {
      */
     date: number;
     /**
-     * Optional. Bio of the user.
+     * Optional. Bio of the user
      */
     bio?: string;
     /**
@@ -1329,7 +1329,7 @@ export interface TelegramChatMemberBanned {
      */
     user: TelegramUser;
     /**
-     * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever
+     * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever.
      */
     until_date: number;
 }
@@ -1477,7 +1477,7 @@ export interface TelegramChatMemberRestricted {
      */
     can_manage_topics: boolean;
     /**
-     * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
+     * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever.
      */
     until_date: number;
 }
@@ -1507,7 +1507,7 @@ export interface TelegramChatMemberUpdated {
      */
     new_chat_member: TelegramChatMember;
     /**
-     * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+     * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only
      */
     invite_link?: TelegramChatInviteLink;
     /**
@@ -1593,7 +1593,7 @@ export interface TelegramChatPermissions {
      */
     can_edit_tag?: boolean;
     /**
-     * Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
+     * Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.
      */
     can_change_info?: boolean;
     /**
@@ -1601,11 +1601,11 @@ export interface TelegramChatPermissions {
      */
     can_invite_users?: boolean;
     /**
-     * Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
+     * Optional. True, if the user is allowed to pin messages. Ignored in public supergroups.
      */
     can_pin_messages?: boolean;
     /**
-     * Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages
+     * Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages.
      */
     can_manage_topics?: boolean;
 }
@@ -1645,11 +1645,11 @@ export interface TelegramChatShared {
      */
     chat_id: number;
     /**
-     * Optional. Title of the chat, if the title was requested by the bot.
+     * Optional. Title of the chat, if the title was requested by the bot
      */
     title?: string;
     /**
-     * Optional. Username of the chat, if the username was requested by the bot and available.
+     * Optional. Username of the chat, if the username was requested by the bot and available
      */
     username?: string;
     /**
@@ -1845,7 +1845,7 @@ export interface TelegramDirectMessagesTopic {
      */
     topic_id: number;
     /**
-     * Optional. Information about the user that created the topic. Currently, it is always present
+     * Optional. Information about the user that created the topic. Currently, it is always present.
      */
     user?: TelegramUser;
 }
@@ -2181,7 +2181,7 @@ export interface TelegramGame {
      */
     description: string;
     /**
-     * Photo that will be displayed in the game message in chats.
+     * Photo that will be displayed in the game message in chats
      */
     photo: TelegramPhotoSize[];
     /**
@@ -2193,7 +2193,7 @@ export interface TelegramGame {
      */
     text_entities?: TelegramMessageEntity[];
     /**
-     * Optional. Animation that will be displayed in the game message in chats. Upload via BotFather
+     * Optional. Animation that will be displayed in the game message in chats. Upload via BotFather.
      */
     animation?: TelegramAnimation;
 }
@@ -2345,7 +2345,7 @@ export interface TelegramGiftInfo {
      */
     is_private?: true;
     /**
-     * Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+     * Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift.
      */
     unique_gift_number?: number;
 }
@@ -2551,7 +2551,7 @@ export interface TelegramInlineKeyboardButton {
      */
     switch_inline_query_chosen_chat?: TelegramSwitchInlineQueryChosenChat;
     /**
-     * Optional. Description of the button that copies the specified text to the clipboard.
+     * Optional. Description of the button that copies the specified text to the clipboard
      */
     copy_text?: TelegramCopyTextButton;
     /**
@@ -2595,7 +2595,7 @@ export interface TelegramInlineQuery {
      */
     offset: string;
     /**
-     * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+     * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
      */
     chat_type?: "sender" | "private" | "group" | "supergroup" | "channel";
     /**
@@ -3217,7 +3217,7 @@ export interface TelegramInlineQueryResultGif {
      */
     thumbnail_url: string;
     /**
-     * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+     * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.
      */
     thumbnail_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
     /**
@@ -3279,7 +3279,7 @@ export interface TelegramInlineQueryResultLocation {
      */
     horizontal_accuracy?: number;
     /**
-     * Optional. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+     * Optional. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
      */
     live_period?: number;
     /**
@@ -3345,7 +3345,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
      */
     thumbnail_url: string;
     /**
-     * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+     * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.
      */
     thumbnail_mime_type?: "image/jpeg" | "image/gif" | "video/mp4";
     /**
@@ -3391,7 +3391,7 @@ export interface TelegramInlineQueryResultPhoto {
      */
     id: string;
     /**
-     * A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB
+     * A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB.
      */
     photo_url: string;
     /**
@@ -3823,7 +3823,7 @@ export interface TelegramInputLocationMessageContent {
      */
     horizontal_accuracy?: number;
     /**
-     * Optional. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+     * Optional. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
      */
     live_period?: number;
     /**
@@ -4281,11 +4281,11 @@ export interface TelegramInputPollOption {
      */
     text: string | Formattable;
     /**
-     * Optional. Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed
+     * Optional. Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed.
      */
     text_parse_mode?: string;
     /**
-     * Optional. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode
+     * Optional. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode.
      */
     text_entities?: TelegramMessageEntity[];
     /**
@@ -4498,7 +4498,7 @@ export interface TelegramInvoice {
  */
 export interface TelegramKeyboardButton {
     /**
-     * Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed
+     * Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed.
      */
     text: string;
     /**
@@ -4554,11 +4554,11 @@ export interface TelegramKeyboardButtonPollType {
  */
 export interface TelegramKeyboardButtonRequestChat {
     /**
-     * Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message
+     * Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message.
      */
     request_id: number;
     /**
-     * Pass True to request a channel chat, pass False to request a group or a supergroup chat.
+     * Pass True to request a channel chat, pass False to request a group or a supergroup chat
      */
     chat_is_channel: boolean;
     /**
@@ -4604,7 +4604,7 @@ export interface TelegramKeyboardButtonRequestChat {
  */
 export interface TelegramKeyboardButtonRequestManagedBot {
     /**
-     * Signed 32-bit identifier of the request. Must be unique within the message
+     * Signed 32-bit identifier of the request. Must be unique within the message.
      */
     request_id: number;
     /**
@@ -4622,7 +4622,7 @@ export interface TelegramKeyboardButtonRequestManagedBot {
  */
 export interface TelegramKeyboardButtonRequestUsers {
     /**
-     * Signed 32-bit identifier of the request that will be received back in the UsersShared object. Must be unique within the message
+     * Signed 32-bit identifier of the request that will be received back in the UsersShared object. Must be unique within the message.
      */
     request_id: number;
     /**
@@ -4674,7 +4674,7 @@ export interface TelegramLinkPreviewOptions {
      */
     is_disabled?: boolean;
     /**
-     * Optional. URL to use for the link preview. If empty, then the first URL found in the message text will be used
+     * Optional. URL to use for the link preview. If empty, then the first URL found in the message text will be used.
      */
     url?: string;
     /**
@@ -4791,7 +4791,7 @@ export interface TelegramLoginUrl {
      */
     url: string;
     /**
-     * Optional. New text of the button in forwarded messages.
+     * Optional. New text of the button in forwarded messages
      */
     forward_text?: string;
     /**
@@ -4799,7 +4799,7 @@ export interface TelegramLoginUrl {
      */
     bot_username?: string;
     /**
-     * Optional. Pass True to request the permission for your bot to send messages to the user.
+     * Optional. Pass True to request the permission for your bot to send messages to the user
      */
     request_write_access?: boolean;
 }
@@ -4904,7 +4904,7 @@ export interface TelegramMenuButtonWebApp {
  */
 export interface TelegramMessage {
     /**
-     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     message_id: number;
     /**
@@ -4916,7 +4916,7 @@ export interface TelegramMessage {
      */
     direct_messages_topic?: TelegramDirectMessagesTopic;
     /**
-     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.
      */
     from?: TelegramUser;
     /**
@@ -5048,7 +5048,7 @@ export interface TelegramMessage {
      */
     effect_id?: string;
     /**
-     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
      */
     animation?: TelegramAnimation;
     /**
@@ -5060,7 +5060,7 @@ export interface TelegramMessage {
      */
     document?: TelegramDocument;
     /**
-     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set.
      */
     live_photo?: TelegramLivePhoto;
     /**
@@ -5128,7 +5128,7 @@ export interface TelegramMessage {
      */
     poll?: TelegramPoll;
     /**
-     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set.
      */
     venue?: TelegramVenue;
     /**
@@ -5376,7 +5376,7 @@ export interface TelegramMessageAutoDeleteTimerChanged {
  */
 export interface TelegramMessageEntity {
     /**
-     * Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time)
+     * Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
      */
     type: "mention" | "hashtag" | "cashtag" | "bot_command" | "url" | "email" | "phone_number" | "bold" | "italic" | "underline" | "strikethrough" | "spoiler" | "blockquote" | "expandable_blockquote" | "code" | "pre" | "text_link" | "text_mention" | "custom_emoji" | "date_time";
     /**
@@ -5400,7 +5400,7 @@ export interface TelegramMessageEntity {
      */
     language?: string;
     /**
-     * Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker
+     * Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
      */
     custom_emoji_id?: string;
     /**
@@ -5418,7 +5418,7 @@ export interface TelegramMessageEntity {
  */
 export interface TelegramMessageId {
     /**
-     * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     message_id: number;
 }
@@ -5656,7 +5656,7 @@ export interface TelegramOwnedGiftRegular {
      */
     is_upgrade_separate?: true;
     /**
-     * Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+     * Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift.
      */
     unique_gift_number?: number;
 }
@@ -5674,7 +5674,7 @@ export interface TelegramOwnedGifts {
      */
     gifts: TelegramOwnedGift[];
     /**
-     * Optional. Offset for the next request. If empty, then there are no more results
+     * Optional. Offset for the next request. If empty, then there are no more results.
      */
     next_offset?: string;
 }
@@ -5716,7 +5716,7 @@ export interface TelegramOwnedGiftUnique {
      */
     transfer_star_count?: number;
     /**
-     * Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now
+     * Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.
      */
     next_transfer_date?: number;
 }
@@ -6146,7 +6146,7 @@ export interface TelegramPoll {
      */
     members_only: boolean;
     /**
-     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. If omitted, then users from any country can participate in the poll.
+     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. The country code “FT” is used for users with anonymous numbers. If omitted, then users from any country can participate in the poll.
      */
     country_codes?: string[];
     /**
@@ -6380,7 +6380,7 @@ export interface TelegramPreparedInlineMessage {
      */
     id: string;
     /**
-     * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used
+     * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used.
      */
     expiration_date: number;
 }
@@ -6455,7 +6455,7 @@ export interface TelegramReactionTypeEmoji {
      */
     type: "emoji";
     /**
-     * Reaction emoji. Currently, it can be one of "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+     * Reaction emoji. Currently, it can be one of "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "".
      */
     emoji: string;
 }
@@ -6475,7 +6475,7 @@ export interface TelegramReactionTypePaid {
  */
 export interface TelegramRefundedPayment {
     /**
-     * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”
+     * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”.
      */
     currency: string;
     /**
@@ -6790,11 +6790,11 @@ export interface TelegramStarTransaction {
      */
     date: number;
     /**
-     * Optional. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions
+     * Optional. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions.
      */
     source?: TelegramTransactionPartner;
     /**
-     * Optional. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions
+     * Optional. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions.
      */
     receiver?: TelegramTransactionPartner;
 }
@@ -7177,7 +7177,7 @@ export interface TelegramSuggestedPostPaid {
      */
     suggested_post_message?: TelegramMessage;
     /**
-     * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins
+     * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.
      */
     currency: string;
     /**
@@ -7209,7 +7209,7 @@ export interface TelegramSuggestedPostParameters {
  */
 export interface TelegramSuggestedPostPrice {
     /**
-     * Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for toncoins
+     * Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for toncoins.
      */
     currency: string;
     /**
@@ -7237,7 +7237,7 @@ export interface TelegramSuggestedPostRefunded {
  */
 export interface TelegramSwitchInlineQueryChosenChat {
     /**
-     * Optional. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
+     * Optional. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted.
      */
     query?: string;
     /**
@@ -7428,7 +7428,7 @@ export interface TelegramUniqueGift {
      */
     base_name: string;
     /**
-     * Unique name of the gift. This name can be used in https://t.me/nft/... links and story areas
+     * Unique name of the gift. This name can be used in https://t.me/nft/... links and story areas.
      */
     name: string;
     /**
@@ -7548,7 +7548,7 @@ export interface TelegramUniqueGiftInfo {
      */
     gift: TelegramUniqueGift;
     /**
-     * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers
+     * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers.
      */
     origin: "upgrade" | "transfer" | "resale" | "gifted_upgrade" | "offer";
     /**
@@ -7568,7 +7568,7 @@ export interface TelegramUniqueGiftInfo {
      */
     transfer_star_count?: number;
     /**
-     * Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now
+     * Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.
      */
     next_transfer_date?: number;
 }
@@ -7678,11 +7678,11 @@ export interface TelegramUpdate {
      */
     callback_query?: TelegramCallbackQuery;
     /**
-     * Optional. New incoming shipping query. Only for invoices with flexible price
+     * Optional. New incoming shipping query. Only for invoices with flexible price.
      */
     shipping_query?: TelegramShippingQuery;
     /**
-     * Optional. New incoming pre-checkout query. Contains full information about checkout
+     * Optional. New incoming pre-checkout query. Contains full information about checkout.
      */
     pre_checkout_query?: TelegramPreCheckoutQuery;
     /**
@@ -7690,7 +7690,7 @@ export interface TelegramUpdate {
      */
     purchased_paid_media?: TelegramPaidMediaPurchased;
     /**
-     * Optional. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot
+     * Optional. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot.
      */
     poll?: TelegramPoll;
     /**
@@ -7866,7 +7866,7 @@ export interface TelegramUsersShared {
      */
     request_id: number;
     /**
-     * Information about users shared with the bot.
+     * Information about users shared with the bot
      */
     users: TelegramSharedUser[];
 }
@@ -7876,7 +7876,7 @@ export interface TelegramUsersShared {
  */
 export interface TelegramVenue {
     /**
-     * Venue location. Can't be a live location
+     * Venue location. Can't be a live location.
      */
     location: TelegramLocation;
     /**
@@ -8142,7 +8142,7 @@ export interface TelegramWebhookInfo {
      */
     max_connections?: number;
     /**
-     * Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member
+     * Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member, message_reaction, and message_reaction_count.
      */
     allowed_updates?: string[];
 }

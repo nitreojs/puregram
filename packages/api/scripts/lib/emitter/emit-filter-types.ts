@@ -9,7 +9,7 @@ import { buildUpdateKinds } from './updates-config'
 
 export function emitFilterTypes (schema: Schema) {
   const kinds = buildUpdateKinds(schema)
-  const nodes: ts.Node[] = kinds.map((k) =>
+  const nodes: ts.Node[] = kinds.map(k =>
     jsDoc(
       `pre-bound \`Filter\` for \`${k.className}\`. compose via \`.and()\` / \`.or()\` to layer Mod refinements`,
       ts.factory.createTypeAliasDeclaration(

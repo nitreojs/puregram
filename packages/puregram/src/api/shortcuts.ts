@@ -46,7 +46,7 @@ export interface ManualShortcuts {
 }
 
 /** copy `obj` excluding the named keys; preserves the typed `Omit` projection */
-function omit<T extends object, K extends keyof T> (obj: T, keys: readonly K[]): Omit<T, K> {
+function omit<T extends object, K extends keyof T> (obj: T, keys: readonly K[]) {
   const result = { ...obj }
 
   for (const key of keys) {
@@ -83,6 +83,7 @@ export function installShortcuts (tg: Telegram) {
         return this.api.sendVoice({ chat_id: chat, voice: media.media, ...omit(media, ['type', 'media']), ...params })
       default: {
         const exhaustive: never = media
+
         throw new TypeError(`tg.sendMedia: unsupported media type '${(exhaustive as { type: string }).type}'`)
       }
     }

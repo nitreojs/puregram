@@ -385,7 +385,11 @@ function buildPayloadMembers (
     }
   }
 
-  return { memoMembers: members, getterMembers: buildGetterMembers(payloadObject, reservedNames, objectsByName), hasMembers: buildAutoHasMembers(payloadObject, reservedNames, extrasNames, objectsByName) }
+  return {
+    memoMembers: members,
+    getterMembers: buildGetterMembers(payloadObject, reservedNames, objectsByName),
+    hasMembers: buildAutoHasMembers(payloadObject, reservedNames, extrasNames, objectsByName)
+  }
 }
 
 function buildGetterMembers (
@@ -592,7 +596,12 @@ function emitSharedBase (
 
   const extrasNames = new Set((kind.extras ?? []).map(e => e.name))
 
-  const { memoMembers, getterMembers, hasMembers } = buildPayloadMembers(payloadObject, reservedNames, extrasNames, objectsByName)
+  const { memoMembers, getterMembers, hasMembers } = buildPayloadMembers(
+    payloadObject,
+    reservedNames,
+    extrasNames,
+    objectsByName
+  )
 
   members.push(...memoMembers)
   members.push(emitConstructor(kind.payloadType))
@@ -1272,6 +1281,7 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
         // accept either the bot-api shape or any class with matching toJSON() (mirrors
         // emit-methods' wrapWithToJSON so InlineKeyboard / Keyboard etc. still bind)
         const inner = type
+
         type = ts.factory.createUnionTypeNode([
           inner,
           ts.factory.createTypeLiteralNode([

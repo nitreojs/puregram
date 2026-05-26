@@ -2,8 +2,8 @@ import ts from 'typescript'
 
 import type { Schema, SchemaMethod, SchemaTypeRef } from '../schema-types'
 
-import { detectWidenedMethodArgs } from './formattable-detect'
 import { formatModule } from './format'
+import { detectWidenedMethodArgs } from './formattable-detect'
 import { versionString } from './load-schema'
 import { METHOD_POSITIONALS, SHORTCUTS, type ShortcutSpec } from './shortcuts-config'
 import { typeRefToTs, jsDoc, importTypeNamed } from './ts-factory'

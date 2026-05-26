@@ -45,6 +45,6 @@ export function emitWebhookReplySafe (schema: Schema) {
   })
 }
 
-function returnsTrue (ref: SchemaTypeRef): boolean {
+function returnsTrue (ref: SchemaTypeRef) {
   return ref.kind === 'true'
 }

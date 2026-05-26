@@ -1,5 +1,5 @@
 import { FORMATTABLE_FIELDS } from '@puregram/api'
-import { createPlugin, type RequestContext, type Telegram } from 'puregram'
+import { createPlugin, type Telegram } from 'puregram'
 
 import { unwrapFormatted, type FormattableFields } from './walk'
 
@@ -10,7 +10,7 @@ export function markup () {
     name: 'markup',
     install: (tg: Telegram) => {
       tg.useHook('onBeforeRequest', (raw, next) => {
-        const ctx = raw as RequestContext
+        const ctx = raw
 
         unwrapFormatted(ctx.method, ctx.params, FIELDS)
 

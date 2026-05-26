@@ -8,7 +8,7 @@ export type Camelize<T> = T extends object
   : T
 
 function camelToSnake (key: string) {
-  return key.replace(/[A-Z]/g, (c) => '_' + c.toLowerCase())
+  return key.replace(/[A-Z]/g, c => '_' + c.toLowerCase())
 }
 
 /** shallow camelCase → snake_case key translation; values pass through untouched */

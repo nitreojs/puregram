@@ -22,6 +22,8 @@ import type {
   TelegramInlineQueryResultsButton
 } from '@puregram/api'
 
+import { type Camelize, unCamelize } from './camelize'
+
 // detect whether K is a required key in T — the `{}` here is the canonical
 // "is K optional" marker on the LHS of `extends`; replacing it with `object`
 // or `Record<string, never>` breaks the optionality detection
@@ -59,8 +61,6 @@ type FriendlyThumbnail<T> = 'thumbnail_url' extends keyof T
     ? { thumbnail: ThumbnailShape<T> }
     : { thumbnail?: ThumbnailShape<T> }
   : object
-
-import { type Camelize, unCamelize } from './camelize'
 
 /** strip bot-api snake_case fields, camelize the rest, then re-add the renamed-shape ones */
 type Friendly<T> = Camelize<Omit<

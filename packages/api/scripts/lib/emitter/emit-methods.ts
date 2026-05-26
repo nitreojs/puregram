@@ -2,8 +2,8 @@ import ts from 'typescript'
 
 import type { Schema, SchemaMethod, SchemaTypeRef } from '../schema-types'
 
-import { detectWidenedMethodArgs } from './formattable-detect'
 import { formatModule } from './format'
+import { detectWidenedMethodArgs } from './formattable-detect'
 import { versionString } from './load-schema'
 import { typeRefToTs, tsExportInterface, tsExportTypeAlias, importTypeNamed } from './ts-factory'
 

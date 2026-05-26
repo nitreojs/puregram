@@ -2,11 +2,10 @@ import ts from 'typescript'
 
 import type { Schema, SchemaObject } from '../schema-types'
 
-import { detectOutgoingObjectNames, detectWidenedFieldsByObject } from './formattable-detect'
 import { formatModule } from './format'
-import { importTypeNamed } from './ts-factory'
+import { detectOutgoingObjectNames, detectWidenedFieldsByObject } from './formattable-detect'
 import { versionString } from './load-schema'
-import { typeRefToTs, tsExportInterface, tsExportTypeAlias } from './ts-factory'
+import { importTypeNamed, typeRefToTs, tsExportInterface, tsExportTypeAlias } from './ts-factory'
 
 export function emitTypes (schema: Schema) {
   const nodes: ts.Node[] = []

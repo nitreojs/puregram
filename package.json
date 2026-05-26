@@ -27,7 +27,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "yarn workspaces foreach -Apt run build",
-    "lint": "yarn workspaces foreach -A run lint",
+    "lint": "eslint packages/*/src packages/storage/storages/*/src packages/*/scripts",
     "test": "yarn workspaces foreach -A run test",
     "clean": "yarn workspaces foreach -A run clean",
     "regenerate-all": "tsx scripts/regenerate-all.ts"

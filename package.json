@@ -19,6 +19,8 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-local-rules": "^3.0.2",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-promise": "^6.0.0",
     "husky": "^8.0.1",
     "typescript": "^5.3.3"
   },

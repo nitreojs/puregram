@@ -118,7 +118,7 @@ describe('scenes() — onUpdate middleware', () => {
 
     await t.start()
 
-    await t.session.set('7', { __scene: { current: 'wizard' } })
+    await t.session.set('user:7', { __scene: { current: 'wizard' } })
 
     const userHandler = vi.fn()
 
@@ -166,7 +166,7 @@ describe('scenes() — onUpdate middleware', () => {
     t.emit('probe', { from: { id: 7 } })
     await new Promise(resolve => setImmediate(resolve))
 
-    const stored = await t.session.get('7') as { __scene?: { current?: string } } | undefined
+    const stored = await t.session.get('user:7') as { __scene?: { current?: string } } | undefined
 
     expect(stored?.__scene?.current).toBe('wizard')
     await t.shutdown()
@@ -183,7 +183,7 @@ describe('scenes() — onUpdate middleware', () => {
       }))
 
     await t.start()
-    await t.session.set('7', { __scene: { current: 'wizard' } })
+    await t.session.set('user:7', { __scene: { current: 'wizard' } })
 
     const userHandler = vi.fn()
 

@@ -130,7 +130,7 @@ describe('@puregram/scenes — e2e', () => {
 
     expect(userHits).toEqual(['enter', 'after-leave'])
 
-    const stored = await storage.get('7') as { __scene?: unknown } | undefined
+    const stored = await storage.get('user:7:chat:100') as { __scene?: unknown } | undefined
 
     expect(stored?.__scene).toBeUndefined()
 

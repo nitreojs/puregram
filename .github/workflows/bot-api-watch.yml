@@ -63,6 +63,7 @@ jobs:
           echo "detected bot api $version"
 
       - name: bump @puregram/api version
+        id: bump
         if: steps.detect.outputs.changed == 'true'
         run: |
           version="${{ steps.detect.outputs.version }}"
@@ -74,8 +75,12 @@ jobs:
             current_patch=$(echo "$current" | cut -d. -f3)
             new_patch=$((current_patch + 1))
             next="${target_mm}.${new_patch}"
+            title="chore(api): resync @puregram/api ${next}"
+            summary="re-synced bot api **${target_mm}** schema; regenerated \`@puregram/api\` → **${next}**"
           else
             next="${target_mm}.0"
+            title="feat(api): bot api ${target_mm} (@puregram/api ${next})"
+            summary="telegram shipped bot api **${target_mm}**; regenerated \`@puregram/api\` → **${next}**"
           fi
 
           echo "@puregram/api: $current → $next"
@@ -87,6 +92,11 @@ jobs:
             fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
           "
           echo "next=$next" >> "$GITHUB_ENV"
+          {
+            echo "next=$next"
+            echo "title=$title"
+            echo "summary=$summary"
+          } >> "$GITHUB_OUTPUT"
 
       - name: regenerate
         if: steps.detect.outputs.changed == 'true'
@@ -98,10 +108,10 @@ jobs:
         with:
           branch: bot-api/${{ steps.detect.outputs.version }}
           base: ${{ github.event.repository.default_branch }}
-          commit-message: 'feat(api): bot api ${{ steps.detect.outputs.version }}'
-          title: 'feat(api): bot api ${{ steps.detect.outputs.version }}'
+          commit-message: '${{ steps.bump.outputs.title }}'
+          title: '${{ steps.bump.outputs.title }}'
           body: |
-            telegram released bot api **${{ steps.detect.outputs.version }}**.
+            ${{ steps.bump.outputs.summary }}
 
             this PR contains the auto-regenerated:
 
@@ -111,7 +121,6 @@ jobs:
             - `packages/session/src/generated/augmentations/**`
             - `@puregram/api` version bump → `${{ env.next }}`
 
-            `ci.yml` will lint + build + test this branch on its own.
             review the diff before merging — schema bumps occasionally need manual
             touch-ups in handcrafted code (telegram routinely renames fields in
             "minor" bumps)

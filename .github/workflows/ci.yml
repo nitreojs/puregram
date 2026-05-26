@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   ci:
-    name: lint + build + test
+    name: build + lint + test
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -32,11 +32,11 @@ jobs:
       - name: install
         run: yarn install --immutable
 
-      - name: lint
-        run: yarn lint
-
       - name: build
         run: yarn build
+
+      - name: lint
+        run: yarn lint
 
       - name: test
         run: yarn test

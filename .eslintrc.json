@@ -207,6 +207,12 @@
       "rules": {
         "local-rules/no-redundant-return-type": "off"
       }
+    },
+    {
+      "files": ["**/scripts/**"],
+      "rules": {
+        "@typescript-eslint/no-non-null-assertion": "off"
+      }
     }
   ]
 }

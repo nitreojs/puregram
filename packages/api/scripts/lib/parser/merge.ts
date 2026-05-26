@@ -5,7 +5,7 @@ import type { SchemaFragment } from './corefork'
 // pick the newer-version side as primary; tied versions fall back to whichever side
 // reports a more recent `recentChanges` date so we don't randomly favour one source
 export function mergeFragments (corefork: SchemaFragment, core: SchemaFragment) {
-  const [primary, secondary] = pickPrimary(corefork, core)
+  const [primary, secondary] = pickPrimary(corefork, core) as [SchemaFragment, SchemaFragment]
 
   const methodsByName = new Map<string, Schema['methods'][number]>()
 

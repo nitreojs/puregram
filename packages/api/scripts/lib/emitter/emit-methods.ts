@@ -63,7 +63,7 @@ function collectReferencedTypeNames (schema: Schema) {
 }
 
 function pascalCase (name: string) {
-  return name[0].toUpperCase() + name.slice(1)
+  return name[0]!.toUpperCase() + name.slice(1)
 }
 
 function emitParamsInterface (method: SchemaMethod, widened: ReadonlySet<string>) {

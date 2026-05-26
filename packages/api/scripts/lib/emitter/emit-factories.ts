@@ -73,7 +73,7 @@ function collectVariants (schema: Schema, prefix: string) {
 
     variants.push({
       schemaName: obj.name,
-      variant: typeField.type.enumeration[0],
+      variant: typeField.type.enumeration[0]!,
       obj
     })
   }

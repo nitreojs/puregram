@@ -40,7 +40,7 @@ function parseRecentChanges (html: string) {
     return { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() }
   }
 
-  const monthIndex = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].indexOf(match[1])
+  const monthIndex = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].indexOf(match[1]!)
 
   return {
     year: Number(match[3]),

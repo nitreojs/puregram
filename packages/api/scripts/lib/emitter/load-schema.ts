@@ -16,7 +16,7 @@ export async function loadLatestSchema () {
 
       for (let i = 0; i < 3; i++) {
         if (pa[i] !== pb[i]) {
-          return pa[i] - pb[i]
+          return pa[i]! - pb[i]!
         }
       }
 
@@ -27,7 +27,7 @@ export async function loadLatestSchema () {
     throw new Error(`no schema/<version>.json found in ${schemaDir}; run "yarn parse" first`)
   }
 
-  const latest = versionFiles[versionFiles.length - 1]
+  const latest = versionFiles[versionFiles.length - 1]!
   const raw = await readFile(resolve(schemaDir, latest), 'utf8')
 
   return JSON.parse(raw) as Schema

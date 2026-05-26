@@ -60,13 +60,15 @@ function memberName (value: string) {
     '🎳': 'Bowling'
   }
 
-  if (emojiMap[value]) {
-    return emojiMap[value]
+  const mapped = emojiMap[value]
+
+  if (mapped) {
+    return mapped
   }
 
   return value
     .split(/[_-]/)
-    .map(s => s[0].toUpperCase() + s.slice(1))
+    .map(s => s[0]!.toUpperCase() + s.slice(1))
     .join('')
 }
 

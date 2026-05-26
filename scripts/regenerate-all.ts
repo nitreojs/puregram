@@ -21,7 +21,8 @@ const STEPS: Step[] = [
   // 3. build everything so downstream packages pick up the new types
   { label: 'workspace build', command: 'yarn', args: ['build'] },
 
-  // 4. tests + lint as a final gate
+  // 4. typecheck + tests + lint as a final gate
+  { label: 'typecheck', command: 'yarn', args: ['typecheck'] },
   { label: 'tests', command: 'yarn', args: ['test'] },
   { label: 'lint', command: 'yarn', args: ['lint'] }
 ]
@@ -53,9 +54,7 @@ async function run (step: Step) {
 async function main () {
   const startedAt = Date.now()
 
-  for (let i = 0; i < STEPS.length; i++) {
-    const step = STEPS[i]
-
+  for (const [i, step] of STEPS.entries()) {
     console.log(`\n${CYAN}[${i + 1}/${STEPS.length}] ${step.label}${RESET}`)
     console.log(`${DIM}$ ${step.command} ${step.args.join(' ')}${RESET}`)
 

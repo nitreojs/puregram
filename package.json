@@ -29,6 +29,7 @@
     "prepare": "husky install",
     "build": "yarn workspaces foreach -Apt run build",
     "lint": "eslint packages/*/src packages/storage/storages/*/src packages/*/scripts",
+    "typecheck": "tsc -p tsconfig.typecheck.json",
     "test": "yarn workspaces foreach -A run test",
     "clean": "yarn workspaces foreach -A run clean",
     "regenerate-all": "tsx scripts/regenerate-all.ts"

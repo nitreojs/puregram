@@ -37,7 +37,7 @@ export function emitFilters (schema: Schema) {
         continue
       }
 
-      const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
+      const hasName = `has${camelName[0]!.toUpperCase()}${camelName.slice(1)}`
 
       if (extrasNames.has(hasName)) {
         continue
@@ -66,7 +66,7 @@ export function emitFilters (schema: Schema) {
       continue
     }
 
-    const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
+    const hasName = `has${camelName[0]!.toUpperCase()}${camelName.slice(1)}`
 
     nodes.push(emitPresenceFilter(hasName, camelName, entry.kinds, entry.field, objectsByName))
   }

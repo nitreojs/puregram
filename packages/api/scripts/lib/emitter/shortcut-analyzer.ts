@@ -26,7 +26,7 @@ export function analyzeShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buil
       const bound = bindMethod(kind, method)
 
       if (bound) {
-        result.byKind[kind.kindName].push(bound)
+        result.byKind[kind.kindName]!.push(bound)
       }
     }
   }

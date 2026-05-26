@@ -447,7 +447,7 @@ function buildAutoHasMembers (
       continue
     }
 
-    const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
+    const hasName = `has${camelName[0]!.toUpperCase()}${camelName.slice(1)}`
 
     if (reservedNames.has(hasName) || extrasNames.has(hasName)) {
       continue
@@ -804,7 +804,7 @@ function emitUpdateClass (
         continue
       }
 
-      const hasName = `has${camelName[0].toUpperCase()}${camelName.slice(1)}`
+      const hasName = `has${camelName[0]!.toUpperCase()}${camelName.slice(1)}`
 
       if (reservedNames.has(hasName) || extrasNames.has(hasName)) {
         continue
@@ -912,7 +912,7 @@ function emitUpdateClass (
 function parseTypeNode (src: string) {
   const file = ts.createSourceFile('extra.ts', `let _: ${src}`, ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS)
   const stmt = file.statements[0] as ts.VariableStatement
-  const type = stmt.declarationList.declarations[0].type
+  const type = stmt.declarationList.declarations[0]!.type
 
   if (!type) {
     throw new Error(`failed to parse extras returnType: ${src}`)
@@ -1187,7 +1187,7 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
                 (acc, part) => ts.factory.createQualifiedName(acc, part),
                 ts.factory.createIdentifier('this')
               ),
-              anchor.accessPath[anchor.accessPath.length - 1]
+              anchor.accessPath[anchor.accessPath.length - 1]!
             )
           )
         ])

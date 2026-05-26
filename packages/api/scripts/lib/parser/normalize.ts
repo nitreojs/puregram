@@ -37,8 +37,10 @@ export function parseTypeRef (text: string): SchemaTypeRef {
     }
   }
 
-  if (PRIMITIVE_MAP[trimmed]) {
-    return PRIMITIVE_MAP[trimmed]
+  const primitive = PRIMITIVE_MAP[trimmed]
+
+  if (primitive) {
+    return primitive
   }
 
   if (/^[A-Z]/.test(trimmed)) {
@@ -326,7 +328,7 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
     const match = description.match(pattern)
 
     if (match) {
-      const captured = match[1].startsWith('Array of ') ? match[1] : `Array of ${match[1]}`
+      const captured = match[1]!.startsWith('Array of ') ? match[1]! : `Array of ${match[1]}`
 
       return parseTypeRef(captured)
     }
@@ -345,14 +347,14 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
     const match = description.match(pattern)
 
     if (match) {
-      return parseTypeRef(match[1])
+      return parseTypeRef(match[1]!)
     }
   }
 
   // fallback for "returns the bot's information in form of a User object" — no identifier
   // near "Returns", description anchors carry the return type. last link wins
   if (links.length > 0) {
-    return parseTypeRef(links[links.length - 1])
+    return parseTypeRef(links[links.length - 1]!)
   }
 
   // most no-return-value methods document themselves as returning `True`
@@ -401,7 +403,7 @@ function extractEnumeration (desc: string, fieldName: string) {
     const seen: string[] = []
 
     for (const match of span.matchAll(QUOTED_TOKEN)) {
-      const value = match[1]
+      const value = match[1]!
 
       if (!seen.includes(value)) {
         seen.push(value)
@@ -418,7 +420,7 @@ function extractEnumeration (desc: string, fieldName: string) {
     const single = UNQUOTED_SINGLE_VALUE.exec(desc)
 
     if (single) {
-      return [single[1]]
+      return [single[1]!]
     }
   }
 
@@ -433,7 +435,7 @@ function extractUnionMembersFromDescription (description: string) {
     return []
   }
 
-  const candidates = match[1]
+  const candidates = match[1]!
     .split(/\s*,\s*|\s+and\s+|\s+or\s+/g)
     .map(s => s.trim())
     .filter(s => /^[A-Z][A-Za-z0-9]+$/.test(s))

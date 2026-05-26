@@ -127,7 +127,7 @@ function buildShortcutSignature (
 }
 
 function pascal (s: string) {
-  return s[0].toUpperCase() + s.slice(1)
+  return s[0]!.toUpperCase() + s.slice(1)
 }
 
 function collectRefs (ref: SchemaTypeRef, into: Set<string>): void {

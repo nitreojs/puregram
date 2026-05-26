@@ -184,7 +184,7 @@ function emitClass (obj: Extract<SchemaObject, { kind: 'object' }>, wrappedClass
       continue
     }
 
-    const hasName = `has${getterName[0].toUpperCase()}${getterName.slice(1)}`
+    const hasName = `has${getterName[0]!.toUpperCase()}${getterName.slice(1)}`
 
     members.push(emitAutoHasMethod(f, getterName, hasName, wrappedClassNames))
   }
@@ -544,7 +544,7 @@ function emitSubtypeAliases (obj: Extract<SchemaObject, { kind: 'object' }>) {
 function literalToPascal (value: string) {
   return value
     .split(/[_-]/)
-    .map(s => s[0].toUpperCase() + s.slice(1))
+    .map(s => s[0]!.toUpperCase() + s.slice(1))
     .join('')
 }
 

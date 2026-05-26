@@ -53,7 +53,7 @@ export function emitDispatch (schema: Schema) {
 
 // `message` → `onMessage`, `chat_member` → `onChatMember`, `proximity_alert_triggered` → `onProximityAlertTriggered`
 function dispatcherMethodName (kindName: string) {
-  const camel = kindName.split('_').map(s => s[0].toUpperCase() + s.slice(1)).join('')
+  const camel = kindName.split('_').map(s => s[0]!.toUpperCase() + s.slice(1)).join('')
 
   return `on${camel}`
 }

@@ -184,12 +184,14 @@ export function buildUpdateKinds (schema: Schema) {
   for (const k of all) {
     let kindSpecific: UpdateExtra[] = []
 
+    const kindExtras = KIND_EXTRAS[k.kindName]
+
     if (k.extras) {
       kindSpecific = k.extras
     } else if (k.payloadType === 'TelegramMessage') {
       kindSpecific = MESSAGE_EXTRAS
-    } else if (KIND_EXTRAS[k.kindName]) {
-      kindSpecific = KIND_EXTRAS[k.kindName]
+    } else if (kindExtras) {
+      kindSpecific = kindExtras
     }
 
     k.extras = [...UNIVERSAL_EXTRAS, ...kindSpecific]
@@ -227,7 +229,7 @@ function autoAnchorsFor (payloadName: string, objectsByName: Map<string, SchemaO
 }
 
 function pascalCase (snake: string) {
-  return snake.split('_').map(s => s ? s[0].toUpperCase() + s.slice(1) : '').join('')
+  return snake.split('_').map(s => s ? s[0]!.toUpperCase() + s.slice(1) : '').join('')
 }
 
 function pascalToSnake (pascal: string) {

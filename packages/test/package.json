@@ -71,7 +71,7 @@
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
   },
-  "license": "WTFPL",
+  "license": "MPL-2.0",
   "author": "starkow",
   "repository": {
     "type": "git",

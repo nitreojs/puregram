@@ -89,4 +89,4 @@ $ sqlite3 bot.sqlite "SELECT key, value, expires_at FROM sessions LIMIT 5"
 
 ## license
 
-WTFPL
+MPL-2.0

@@ -71,4 +71,4 @@ leaving `ttlMs` unset stores keys without expiry and turns `touch` into a no-op
 
 ## license
 
-WTFPL
+MPL-2.0
